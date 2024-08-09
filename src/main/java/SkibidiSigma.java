@@ -9,7 +9,7 @@ public class SkibidiSigma {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma!\n" + "\nWhat can I do for you?\n" + horizontalLine);
+        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma!" + "\nWhat can I do for you?\n" + horizontalLine);
 
         while (true) {
             String userInput = scanner.nextLine().trim();
@@ -17,7 +17,7 @@ public class SkibidiSigma {
             if ("bye".equalsIgnoreCase(userInput)) {
                 System.out.println(
                         horizontalLine +
-                        "\nCatch ya on the flip side, my dude! \uD83D\uDE80\uD83E\uDD2F See ya soon!\n" +
+                        "\nCatch ya on the flip side, my dude! See ya soon!\n" +
                         horizontalLine);
                 break;
             }
