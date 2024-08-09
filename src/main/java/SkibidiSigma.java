@@ -5,22 +5,11 @@ public class SkibidiSigma {
     private static int taskCount = 0;
 
     public static void main(String[] args) {
-        String logo = """
-                 _____ _    _ _     _     _ _   _____ _                      \s
-                /  ___| |  (_) |   (_)   | (_) /  ___(_)                     \s
-                \\ `--.| | ___| |__  _  __| |_  \\ `--. _  __ _ _ __ ___   __ _\s
-                 `--. \\ |/ / | '_ \\| |/ _` | |  `--. \\ |/ _` | '_ ` _ \\ / _` |
-                /\\__/ /   <| | |_) | | (_| | | /\\__/ / | (_| | | | | | | (_| |
-                \\____/|_|\\_\\_|_.__/|_|\\__,_|_| \\____/|_|\\__, |_| |_| |_|\\__,_|
-                                                         __/ |               \s
-                                                        |___/                \s
-                """;
-
         String horizontalLine = "____________________________________________________________";
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma\n" + logo + "\nWhat can I do for you?\n" + horizontalLine);
+        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma\n" + "\nWhat can I do for you?\n" + horizontalLine);
 
         while (true) {
             String userInput = scanner.nextLine().trim();
