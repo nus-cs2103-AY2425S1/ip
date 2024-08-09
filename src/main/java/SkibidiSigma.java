@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SkibidiSigma {
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     private static final String horizontalLine = "____________________________________________________________";
 
     public static void main(String[] args) {
@@ -25,8 +26,8 @@ public class SkibidiSigma {
                 if ("list".equalsIgnoreCase(userInput)) {
                     System.out.println(horizontalLine);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
                     System.out.println(horizontalLine);
                 } else if (userInput.toLowerCase().startsWith("mark")) {
@@ -39,6 +40,8 @@ public class SkibidiSigma {
                     handleDeadlineCommand(userInput);
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     handleEventCommand(userInput);
+                } else if (userInput.toLowerCase().startsWith("delete")) {
+                    handleDeleteCommand(userInput);
                 } else {
                     throw new SkibidiSigmaException("Unknown command. Please try again.");
                 }
@@ -59,13 +62,13 @@ public class SkibidiSigma {
     private static void handleMarkCommand(String userInput) throws SkibidiSigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber < 1 || taskNumber > taskCount) {
+            if (taskNumber < 1 || taskNumber > tasks.size()) {
                 throw new SkibidiSigmaException("Task number out of range. Please enter a valid task number.");
             }
             System.out.println(horizontalLine);
-            tasks[taskNumber - 1].markAsDone();
+            tasks.get(taskNumber - 1).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks[taskNumber - 1]);
+            System.out.println("  " + tasks.get(taskNumber - 1));
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SkibidiSigmaException("Invalid command syntax. Usage: mark <task_number>");
@@ -77,13 +80,13 @@ public class SkibidiSigma {
     private static void handleUnmarkCommand(String userInput) throws SkibidiSigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber < 1 || taskNumber > taskCount) {
+            if (taskNumber < 1 || taskNumber > tasks.size()) {
                 throw new SkibidiSigmaException("Task number out of range. Please enter a valid task number.");
             }
             System.out.println(horizontalLine);
-            tasks[taskNumber - 1].markAsNotDone();
+            tasks.get(taskNumber - 1).markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks[taskNumber - 1]);
+            System.out.println("  " + tasks.get(taskNumber - 1));
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SkibidiSigmaException("Invalid command syntax. Usage: unmark <task_number>");
@@ -96,10 +99,12 @@ public class SkibidiSigma {
         try {
             String description = userInput.substring(5).trim();
             Task todo = new Todo(description);
-            tasks[taskCount++] = todo;
+            tasks.add(todo);
+            System.out.println(horizontalLine);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + todo);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
             throw new SkibidiSigmaException("The description of a deadline cannot be empty. Usage: todo <description>");
         }
@@ -114,10 +119,12 @@ public class SkibidiSigma {
             String description = parts[0].substring(9).trim();
             String by = parts[1].trim();
             Task deadline = new Deadline(description, by);
-            tasks[taskCount++] = deadline;
+            tasks.add(deadline);
+            System.out.println(horizontalLine);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + deadline);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
             throw new SkibidiSigmaException("The description of a deadline cannot be empty. Usage: deadline <description> /by <date>");
         }
@@ -140,12 +147,33 @@ public class SkibidiSigma {
                 throw new SkibidiSigmaException("The description of an event cannot be empty. Usage: event <description> /from <start> /to <end>\"");
             }
             Task event = new Event(description, from, to);
-            tasks[taskCount++] = event;
+            tasks.add(event);
+            System.out.println(horizontalLine);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + event);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
             throw new SkibidiSigmaException("The description of an event cannot be empty. Usage: event <description> /from <start> /to <end>\"");
+        }
+    }
+
+    private static void handleDeleteCommand(String userInput) throws SkibidiSigmaException {
+        try {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            if (taskNumber < 1 || taskNumber > tasks.size()) {
+                throw new SkibidiSigmaException("Task number out of range. Please enter a valid task number.");
+            }
+            System.out.println(horizontalLine);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + tasks.get(taskNumber - 1));
+            tasks.remove(taskNumber - 1);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(horizontalLine);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SkibidiSigmaException("Invalid command syntax. Usage: delete <task_number>");
+        } catch (NumberFormatException e) {
+            throw new SkibidiSigmaException("Invalid task number. Please enter a numeric value.");
         }
     }
 }
