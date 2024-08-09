@@ -9,7 +9,7 @@ public class SkibidiSigma {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma\n" + "\nWhat can I do for you?\n" + horizontalLine);
+        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma!\n" + "\nWhat can I do for you?\n" + horizontalLine);
 
         while (true) {
             String userInput = scanner.nextLine().trim();
