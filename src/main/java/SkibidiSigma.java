@@ -12,7 +12,9 @@ public class SkibidiSigma {
                 + "                                        |___/                 \n";
 
         String horizontalLine = "_____________________________________________________________________________________";
+
         Scanner scanner = new Scanner(System.in);
+        TaskList taskList = new TaskList();
 
         System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma\n" + logo + "\nWhat can I do for you?\n" + horizontalLine);
 
@@ -27,7 +29,15 @@ public class SkibidiSigma {
                 break;
             }
 
-            System.out.println(horizontalLine + "\n" + userInput + "\n" + horizontalLine);
+            if ("list".equalsIgnoreCase(userInput)) {
+                System.out.println(horizontalLine);
+                taskList.listTasks();
+                System.out.println("\n" + horizontalLine);
+            } else {
+                System.out.println(horizontalLine);
+                taskList.addTask(userInput);
+                System.out.println("\n" + horizontalLine);
+            }
         }
 
         scanner.close();
