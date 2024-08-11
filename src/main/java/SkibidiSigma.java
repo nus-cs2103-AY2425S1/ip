@@ -1,69 +1,25 @@
+import commands.CommandType;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import exception.SkibidiSigmaException;
+import exception.SkibidiSigmaInvalidArgException;
+import exception.SkibidiSigmaInvalidTaskException;
+import exception.SkibidiSigmaMissingArgException;
+import exception.SkibidiSigmaNaNException;
+import exception.SkibidiSigmaUnknownCommandException;
 
 public class SkibidiSigma {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static final String horizontalLine = "____________________________________________________________";
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma!" + "\nWhat can I do for you?\n" + horizontalLine);
-
-        while (true) {
-            String userInput = scanner.nextLine().trim();
-
-            try {
-                if ("bye".equalsIgnoreCase(userInput)) {
-                    System.out.println(
-                            horizontalLine +
-                                    "\nCatch ya on the flip side, my dude! See ya soon!\n" +
-                                    horizontalLine);
-                    break;
-                }
-
-                if ("list".equalsIgnoreCase(userInput)) {
-                    System.out.println(horizontalLine);
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + "." + tasks.get(i));
-                    }
-                    System.out.println(horizontalLine);
-                } else if (userInput.toLowerCase().startsWith("mark")) {
-                    handleMarkCommand(userInput);
-                } else if (userInput.toLowerCase().startsWith("unmark")) {
-                    handleUnmarkCommand(userInput);
-                } else if (userInput.toLowerCase().startsWith("todo")) {
-                    handleTodoCommand(userInput);
-                } else if (userInput.toLowerCase().startsWith("deadline")) {
-                    handleDeadlineCommand(userInput);
-                } else if (userInput.toLowerCase().startsWith("event")) {
-                    handleEventCommand(userInput);
-                } else if (userInput.toLowerCase().startsWith("delete")) {
-                    handleDeleteCommand(userInput);
-                } else {
-                    throw new SkibidiSigmaException("Unknown command. Please try again.");
-                }
-            } catch (SkibidiSigmaException e) {
-                System.out.println(horizontalLine);
-                System.out.println(e.getMessage());
-                System.out.println(horizontalLine);
-            } catch (Exception e) {
-                System.out.println(horizontalLine);
-                System.out.println("An error occurred: " + e.getMessage());
-                System.out.println(horizontalLine);
-            }
-        }
-
-        scanner.close();
-    }
-
     private static void handleMarkCommand(String userInput) throws SkibidiSigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new SkibidiSigmaException("Task number out of range. Please enter a valid task number.");
+                throw new SkibidiSigmaInvalidTaskException(taskNumber);
             }
             System.out.println(horizontalLine);
             tasks.get(taskNumber - 1).markAsDone();
@@ -71,9 +27,9 @@ public class SkibidiSigma {
             System.out.println("  " + tasks.get(taskNumber - 1));
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaException("Invalid command syntax. Usage: mark <task_number>");
+            throw new SkibidiSigmaInvalidArgException(CommandType.MARK);
         } catch (NumberFormatException e) {
-            throw new SkibidiSigmaException("Invalid task number. Please enter a numeric value.");
+            throw new SkibidiSigmaNaNException();
         }
     }
 
@@ -81,7 +37,7 @@ public class SkibidiSigma {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new SkibidiSigmaException("Task number out of range. Please enter a valid task number.");
+                throw new SkibidiSigmaInvalidTaskException(taskNumber);
             }
             System.out.println(horizontalLine);
             tasks.get(taskNumber - 1).markAsNotDone();
@@ -89,9 +45,9 @@ public class SkibidiSigma {
             System.out.println("  " + tasks.get(taskNumber - 1));
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaException("Invalid command syntax. Usage: unmark <task_number>");
+            throw new SkibidiSigmaInvalidArgException(CommandType.UNMARK);
         } catch (NumberFormatException e) {
-            throw new SkibidiSigmaException("Invalid task number. Please enter a numeric value.");
+            throw new SkibidiSigmaNaNException();
         }
     }
 
@@ -106,7 +62,7 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaException("The description of a deadline cannot be empty. Usage: todo <description>");
+            throw new SkibidiSigmaMissingArgException(CommandType.TODO);
         }
     }
 
@@ -114,7 +70,7 @@ public class SkibidiSigma {
         try {
             String[] parts = userInput.split(" /by ");
             if (parts.length < 2) {
-                throw new SkibidiSigmaException("Invalid command syntax for deadline. Usage: deadline <description> /by <date>");
+                throw new SkibidiSigmaMissingArgException(CommandType.DEADLINE);
             }
             String description = parts[0].substring(9).trim();
             String by = parts[1].trim();
@@ -126,7 +82,7 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaException("The description of a deadline cannot be empty. Usage: deadline <description> /by <date>");
+            throw new SkibidiSigmaInvalidArgException(CommandType.DEADLINE);
         }
     }
 
@@ -134,17 +90,17 @@ public class SkibidiSigma {
         try {
             String[] parts = userInput.split(" /from ");
             if (parts.length < 2) {
-                throw new SkibidiSigmaException("Invalid command syntax for event. Usage: event <description> /from <start> /to <end>");
+                throw new SkibidiSigmaMissingArgException(CommandType.EVENT);
             }
             String description = parts[0].substring(6).trim();
             String[] timeParts = parts[1].split(" /to ");
             if (timeParts.length < 2) {
-                throw new SkibidiSigmaException("Invalid command syntax for event. Usage: event <description> /from <start> /to <end>");
+                throw new SkibidiSigmaMissingArgException(CommandType.EVENT);
             }
             String from = timeParts[0].trim();
             String to = timeParts[1].trim();
             if (description.isEmpty()) {
-                throw new SkibidiSigmaException("The description of an event cannot be empty. Usage: event <description> /from <start> /to <end>\"");
+                throw new SkibidiSigmaMissingArgException(CommandType.EVENT);
             }
             Task event = new Event(description, from, to);
             tasks.add(event);
@@ -154,7 +110,7 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaException("The description of an event cannot be empty. Usage: event <description> /from <start> /to <end>\"");
+            throw new SkibidiSigmaInvalidArgException(CommandType.EVENT);
         }
     }
 
@@ -162,7 +118,7 @@ public class SkibidiSigma {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new SkibidiSigmaException("Task number out of range. Please enter a valid task number.");
+                throw new SkibidiSigmaInvalidTaskException(taskNumber);
             }
             System.out.println(horizontalLine);
             System.out.println("Noted. I've removed this task:");
@@ -171,9 +127,73 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaException("Invalid command syntax. Usage: delete <task_number>");
+            throw new SkibidiSigmaInvalidArgException(CommandType.DELETE);
         } catch (NumberFormatException e) {
-            throw new SkibidiSigmaException("Invalid task number. Please enter a numeric value.");
+            throw new SkibidiSigmaNaNException();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma!" + "\nWhat can I do for you?\n" + horizontalLine);
+
+        while (true) {
+            String userInput = scanner.nextLine().trim();
+            String commandWord = userInput.split(" ")[0].toUpperCase();
+
+            try {
+                if (!CommandType.isValidCommand(commandWord)) {
+                    throw new SkibidiSigmaUnknownCommandException(userInput);
+                }
+                CommandType commandType = CommandType.valueOf(commandWord);
+
+                switch (commandType) {
+                    case BYE:
+                        System.out.println(
+                                horizontalLine +
+                                        "\nCatch ya on the flip side, my dude! See ya soon!\n" +
+                                        horizontalLine);
+                        scanner.close();
+                        return;
+                    case LIST:
+                        System.out.println(horizontalLine);
+                        System.out.println("Here are the tasks in your list:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + "." + tasks.get(i));
+                        }
+                        System.out.println(horizontalLine);
+                        break;
+                    case MARK:
+                        handleMarkCommand(userInput);
+                        break;
+                    case UNMARK:
+                        handleUnmarkCommand(userInput);
+                        break;
+                    case TODO:
+                        handleTodoCommand(userInput);
+                        break;
+                    case DEADLINE:
+                        handleDeadlineCommand(userInput);
+                        break;
+                    case EVENT:
+                        handleEventCommand(userInput);
+                        break;
+                    case DELETE:
+                        handleDeleteCommand(userInput);
+                        break;
+                    default:
+                        throw new SkibidiSigmaUnknownCommandException(userInput);
+                }
+            } catch (SkibidiSigmaException e) {
+                System.out.println(horizontalLine);
+                System.out.println(e);
+                System.out.println(horizontalLine);
+            } catch (Exception e) {
+                System.out.println(horizontalLine);
+                System.out.println("An error occurred: " + e.getMessage());
+                System.out.println(horizontalLine);
+            }
         }
     }
 }
