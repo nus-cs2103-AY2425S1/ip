@@ -1,0 +1,3 @@
+T | 0 | Get Dean's List
+D | 1 | finish | 9pm
+E | 0 | cum | 8pm | 9pm

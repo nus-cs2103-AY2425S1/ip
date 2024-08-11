@@ -1,10 +1,8 @@
 package sigma;
 
 import sigma.command.CommandType;
-
-import java.util.ArrayList;
-
 import sigma.exception.SigmaException;
+import sigma.exception.SigmaFileException;
 import sigma.exception.SigmaInvalidArgException;
 import sigma.exception.SigmaInvalidTaskException;
 import sigma.exception.SigmaMissingArgException;
@@ -13,18 +11,26 @@ import sigma.exception.SigmaUnknownCommandException;
 import sigma.task.Deadline;
 import sigma.task.Event;
 import sigma.task.Task;
+import sigma.task.TaskList;
 import sigma.task.Todo;
 
 
 public class Sigma {
+    private static final String FILEPATH = "./data/sigma.txt";
+    private Storage storage;
+    private TaskList taskList;
     private Ui ui;
     private boolean isRunning;
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static final String horizontalLine = "____________________________________________________________";
 
     public Sigma() {
+        this.storage = new Storage(FILEPATH);
         this.ui = new Ui();
         this.isRunning = true;
+        try {
+            this.taskList = new TaskList(this.storage.load());
+        } catch (SigmaException e) {
+            this.ui.showErrorMessage(e);
+        }
     }
 
     private void run() {
@@ -34,9 +40,14 @@ public class Sigma {
         }
     }
 
-    private void exit() {
-        this.ui.closeScanner();
-        this.isRunning = false;
+    private void exit() throws SigmaFileException {
+        try {
+            this.ui.closeScanner();
+            this.storage.save(taskList.getAllTasks());
+            this.isRunning = false;
+        } catch (SigmaFileException e) {
+            this.ui.showErrorMessage(e);
+        }
     }
 
     private void handleCommand(String userInput) {
@@ -47,7 +58,7 @@ public class Sigma {
                     this.ui.showGoodbye();
                     return;
                 case LIST:
-                    this.ui.showList(tasks);
+                    this.ui.showList(taskList.getAllTasks());
                     break;
                 case MARK:
                     handleMarkCommand(Parser.parseArgs(CommandType.MARK, userInput));
@@ -71,20 +82,18 @@ public class Sigma {
                     throw new SigmaUnknownCommandException(userInput);
             }
         } catch (SigmaException e) {
-            System.out.println(horizontalLine);
-            System.out.println(e);
-            System.out.println(horizontalLine);
+            this.ui.showErrorMessage(e);
         }
     }
 
     private void handleMarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
-            if (taskNumber < 1 || taskNumber > tasks.size()) {
+            if (taskNumber < 1 || taskNumber > taskList.getSize()) {
                 throw new SigmaInvalidTaskException(taskNumber);
             }
-            tasks.get(taskNumber - 1).markAsDone();
-            this.ui.showMarkedTask(tasks.get(taskNumber - 1));
+            taskList.getTask(taskNumber).markAsDone();
+            this.ui.showMarkedTask(taskList.getTask(taskNumber));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.MARK);
         } catch (NumberFormatException e) {
@@ -95,11 +104,11 @@ public class Sigma {
     private void handleUnmarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
-            if (taskNumber < 1 || taskNumber > tasks.size()) {
+            if (taskNumber < 1 || taskNumber > taskList.getSize()) {
                 throw new SigmaInvalidTaskException(taskNumber);
             }
-            tasks.get(taskNumber - 1).markAsNotDone();
-            this.ui.showUnmarkedTask(tasks.get(taskNumber - 1));
+            taskList.getTask(taskNumber).markAsNotDone();
+            this.ui.showUnmarkedTask(taskList.getTask(taskNumber));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.UNMARK);
         } catch (NumberFormatException e) {
@@ -110,8 +119,8 @@ public class Sigma {
     private void handleTodoCommand(String userInput) throws SigmaException {
         try {
             Task todo = new Todo(userInput);
-            tasks.add(todo);
-            this.ui.showAddedTask(todo, tasks.size());
+            taskList.addTask(todo);
+            this.ui.showAddedTask(todo, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
             throw new SigmaMissingArgException(CommandType.TODO);
         }
@@ -126,8 +135,8 @@ public class Sigma {
             String description = parts[0].trim();
             String by = parts[1].trim();
             Task deadline = new Deadline(description, by);
-            tasks.add(deadline);
-            this.ui.showAddedTask(deadline, tasks.size());
+            taskList.addTask(deadline);
+            this.ui.showAddedTask(deadline, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.DEADLINE);
         }
@@ -150,8 +159,8 @@ public class Sigma {
                 throw new SigmaMissingArgException(CommandType.EVENT);
             }
             Task event = new Event(description, from, to);
-            tasks.add(event);
-            this.ui.showAddedTask(event, tasks.size());
+            taskList.addTask(event);
+            this.ui.showAddedTask(event, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.EVENT);
         }
@@ -160,11 +169,11 @@ public class Sigma {
     private void handleDeleteCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
-            if (taskNumber < 1 || taskNumber > tasks.size()) {
+            if (taskNumber < 1 || taskNumber > taskList.getSize()) {
                 throw new SigmaInvalidTaskException(taskNumber);
             }
-            this.ui.showDeletedTask(tasks.get(taskNumber - 1), tasks.size() - 1);
-            tasks.remove(taskNumber - 1);
+            this.ui.showDeletedTask(taskList.getTask(taskNumber), taskList.getSize() - 1);
+            taskList.deleteTask(taskNumber);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.DELETE);
         } catch (NumberFormatException e) {

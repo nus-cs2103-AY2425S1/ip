@@ -3,6 +3,7 @@ package sigma;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import sigma.exception.SigmaException;
 import sigma.task.Task;
 
 public class Ui {
@@ -30,7 +31,9 @@ public class Ui {
         System.out.println(horizontalLine);
     }
 
-    public void showLine() {
+    public void showErrorMessage(SigmaException e) {
+        System.out.println(horizontalLine);
+        System.out.println(e);
         System.out.println(horizontalLine);
     }
 
