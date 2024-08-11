@@ -1,25 +1,32 @@
-import commands.CommandType;
+package sigma;
+
+import sigma.commands.CommandType;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import exception.SkibidiSigmaException;
-import exception.SkibidiSigmaInvalidArgException;
-import exception.SkibidiSigmaInvalidTaskException;
-import exception.SkibidiSigmaMissingArgException;
-import exception.SkibidiSigmaNaNException;
-import exception.SkibidiSigmaUnknownCommandException;
+import sigma.exception.SigmaException;
+import sigma.exception.SigmaInvalidArgException;
+import sigma.exception.SigmaInvalidTaskException;
+import sigma.exception.SigmaMissingArgException;
+import sigma.exception.SigmaNaNException;
+import sigma.exception.SigmaUnknownCommandException;
+import sigma.task.Deadline;
+import sigma.task.Event;
+import sigma.task.Task;
+import sigma.task.Todo;
 
-public class SkibidiSigma {
+
+public class Sigma {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static final String horizontalLine = "____________________________________________________________";
 
-    private static void handleMarkCommand(String userInput) throws SkibidiSigmaException {
+    private static void handleMarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new SkibidiSigmaInvalidTaskException(taskNumber);
+                throw new SigmaInvalidTaskException(taskNumber);
             }
             System.out.println(horizontalLine);
             tasks.get(taskNumber - 1).markAsDone();
@@ -27,17 +34,17 @@ public class SkibidiSigma {
             System.out.println("  " + tasks.get(taskNumber - 1));
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaInvalidArgException(CommandType.MARK);
+            throw new SigmaInvalidArgException(CommandType.MARK);
         } catch (NumberFormatException e) {
-            throw new SkibidiSigmaNaNException();
+            throw new SigmaNaNException();
         }
     }
 
-    private static void handleUnmarkCommand(String userInput) throws SkibidiSigmaException {
+    private static void handleUnmarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new SkibidiSigmaInvalidTaskException(taskNumber);
+                throw new SigmaInvalidTaskException(taskNumber);
             }
             System.out.println(horizontalLine);
             tasks.get(taskNumber - 1).markAsNotDone();
@@ -45,13 +52,13 @@ public class SkibidiSigma {
             System.out.println("  " + tasks.get(taskNumber - 1));
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaInvalidArgException(CommandType.UNMARK);
+            throw new SigmaInvalidArgException(CommandType.UNMARK);
         } catch (NumberFormatException e) {
-            throw new SkibidiSigmaNaNException();
+            throw new SigmaNaNException();
         }
     }
 
-    private static void handleTodoCommand(String userInput) throws SkibidiSigmaException {
+    private static void handleTodoCommand(String userInput) throws SigmaException {
         try {
             String description = userInput.substring(5).trim();
             Task todo = new Todo(description);
@@ -62,15 +69,15 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaMissingArgException(CommandType.TODO);
+            throw new SigmaMissingArgException(CommandType.TODO);
         }
     }
 
-    private static void handleDeadlineCommand(String userInput) throws SkibidiSigmaException {
+    private static void handleDeadlineCommand(String userInput) throws SigmaException {
         try {
             String[] parts = userInput.split(" /by ");
             if (parts.length < 2) {
-                throw new SkibidiSigmaMissingArgException(CommandType.DEADLINE);
+                throw new SigmaMissingArgException(CommandType.DEADLINE);
             }
             String description = parts[0].substring(9).trim();
             String by = parts[1].trim();
@@ -82,25 +89,25 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaInvalidArgException(CommandType.DEADLINE);
+            throw new SigmaInvalidArgException(CommandType.DEADLINE);
         }
     }
 
-    private static void handleEventCommand(String userInput) throws SkibidiSigmaException {
+    private static void handleEventCommand(String userInput) throws SigmaException {
         try {
             String[] parts = userInput.split(" /from ");
             if (parts.length < 2) {
-                throw new SkibidiSigmaMissingArgException(CommandType.EVENT);
+                throw new SigmaMissingArgException(CommandType.EVENT);
             }
             String description = parts[0].substring(6).trim();
             String[] timeParts = parts[1].split(" /to ");
             if (timeParts.length < 2) {
-                throw new SkibidiSigmaMissingArgException(CommandType.EVENT);
+                throw new SigmaMissingArgException(CommandType.EVENT);
             }
             String from = timeParts[0].trim();
             String to = timeParts[1].trim();
             if (description.isEmpty()) {
-                throw new SkibidiSigmaMissingArgException(CommandType.EVENT);
+                throw new SigmaMissingArgException(CommandType.EVENT);
             }
             Task event = new Event(description, from, to);
             tasks.add(event);
@@ -110,15 +117,15 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaInvalidArgException(CommandType.EVENT);
+            throw new SigmaInvalidArgException(CommandType.EVENT);
         }
     }
 
-    private static void handleDeleteCommand(String userInput) throws SkibidiSigmaException {
+    private static void handleDeleteCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new SkibidiSigmaInvalidTaskException(taskNumber);
+                throw new SigmaInvalidTaskException(taskNumber);
             }
             System.out.println(horizontalLine);
             System.out.println("Noted. I've removed this task:");
@@ -127,16 +134,16 @@ public class SkibidiSigma {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(horizontalLine);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SkibidiSigmaInvalidArgException(CommandType.DELETE);
+            throw new SigmaInvalidArgException(CommandType.DELETE);
         } catch (NumberFormatException e) {
-            throw new SkibidiSigmaNaNException();
+            throw new SigmaNaNException();
         }
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(horizontalLine + "\nHello! I'm SkibidiSigma!" + "\nWhat can I do for you?\n" + horizontalLine);
+        System.out.println(horizontalLine + "\nHello! I'm Sigma!" + "\nWhat can I do for you?\n" + horizontalLine);
 
         while (true) {
             String userInput = scanner.nextLine().trim();
@@ -144,7 +151,7 @@ public class SkibidiSigma {
 
             try {
                 if (!CommandType.isValidCommand(commandWord)) {
-                    throw new SkibidiSigmaUnknownCommandException(userInput);
+                    throw new SigmaUnknownCommandException(userInput);
                 }
                 CommandType commandType = CommandType.valueOf(commandWord);
 
@@ -183,9 +190,9 @@ public class SkibidiSigma {
                         handleDeleteCommand(userInput);
                         break;
                     default:
-                        throw new SkibidiSigmaUnknownCommandException(userInput);
+                        throw new SigmaUnknownCommandException(userInput);
                 }
-            } catch (SkibidiSigmaException e) {
+            } catch (SigmaException e) {
                 System.out.println(horizontalLine);
                 System.out.println(e);
                 System.out.println(horizontalLine);

@@ -1,9 +1,9 @@
-package exception;
+package sigma.exception;
 
-public class SkibidiSigmaUnknownCommandException extends SkibidiSigmaException {
+public class SigmaUnknownCommandException extends SigmaException {
     private String command;
 
-    public SkibidiSigmaUnknownCommandException(String command) {
+    public SigmaUnknownCommandException(String command) {
         this.command = command;
     }
 

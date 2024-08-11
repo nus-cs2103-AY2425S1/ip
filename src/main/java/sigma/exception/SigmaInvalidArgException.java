@@ -1,17 +1,16 @@
-package exception;
+package sigma.exception;
 
-import commands.CommandType;
-
-public class SkibidiSigmaMissingArgException extends SkibidiSigmaException {
+import sigma.commands.CommandType;
+public class SigmaInvalidArgException extends SigmaException {
     private CommandType command;
 
-    public SkibidiSigmaMissingArgException(CommandType command) {
+    public SigmaInvalidArgException(CommandType command) {
         this.command = command;
     }
 
     @Override
     public String toString() {
-        String message = "%s Missing argument(s). Usage: %s";
+        String message = "%s Invalid argument(s). Usage: %s";
         switch (command) {
             case TODO:
                 return String.format(message, super.toString(), "todo <description>");
@@ -26,7 +25,7 @@ public class SkibidiSigmaMissingArgException extends SkibidiSigmaException {
             case DELETE:
                 return String.format(message, super.toString(), "delete <task_number>");
             default:
-                return super.toString() + " Invalid argument.";
+                return super.toString() + " Invalid argument(s).";
         }
     }
 }

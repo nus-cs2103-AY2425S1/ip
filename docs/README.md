@@ -1,4 +1,4 @@
-# SkibidiSigma User Guide
+# sigma.SkibidiSigma User Guide
 
 // Update the title above to match the actual product name
 
