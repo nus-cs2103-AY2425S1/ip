@@ -1,4 +1,4 @@
-package sigma.commands;
+package sigma.command;
 
 public enum CommandType {
     BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE;

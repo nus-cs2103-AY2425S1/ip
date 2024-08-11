@@ -1,6 +1,6 @@
 package sigma.exception;
 
-import sigma.commands.CommandType;
+import sigma.command.CommandType;
 
 public class SigmaMissingArgException extends SigmaException {
     private CommandType command;
