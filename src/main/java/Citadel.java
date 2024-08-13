@@ -1,9 +1,12 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Citadel {
+
+    public static List<String> items = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
 
         String name = "Citadel";
         String intro = "Hello! I'm " + name + "\n";
@@ -16,9 +19,16 @@ public class Citadel {
 
         while(!input.equalsIgnoreCase("bye")) {
             input = scanner.nextLine();
-            System.out.println(input);
-            System.out.println();
-        }
+            if (input.equalsIgnoreCase("list")) {
+                for(int i = 0; i < items.size(); i++) {
+                    System.out.println((i + 1) + ". " + items.get(i));
+                }
+            } else {
+                items.add(input);
+                System.out.println("added: " + input);
+                System.out.println();
+            }
+            }
 
         String goodbye = "Bye. Hope to see you again soon!\n";
         System.out.println(goodbye);
