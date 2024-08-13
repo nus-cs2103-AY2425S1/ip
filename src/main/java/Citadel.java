@@ -36,10 +36,28 @@ public class Citadel {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(items.get(index - 1));
         } else {
-                Task t = new Task(input);
+                Task t = new Task("-1");
+
+                if (input.startsWith("deadline")) {
+                    String[] words = input.split(" /");
+                    String task = words[0];
+                    String deadline = words[1];
+                    t = new Deadline(task, deadline);
+                } else if (input.startsWith("event")) {
+                    String[] words = input.split(" /");
+                    String task = words[0];
+                    String to = words[1];
+                    String from = words[2];
+                    t = new Event(task, to, from);
+                } else if (input.startsWith("todo")) {
+                    String[] words = input.split(" /");
+                    String todo = words[0];
+                    t =  new ToDo(todo);
+                }
                 items.add(t);
                 System.out.println("added: " + input);
                 System.out.println();
+                System.out.println("Now you have " + items.size() + " tasks in the list");
             }
             }
 
