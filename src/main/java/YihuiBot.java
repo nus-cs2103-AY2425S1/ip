@@ -9,7 +9,7 @@ public class YihuiBot {
     // The maximum number of tasks that can be stored
     private static final int SIZE = 100;
 
-    private static String[] tasks;
+    private static Task[] tasks;
     private static int numTasks;
 
     public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class YihuiBot {
     }
 
     private static void reset() {
-        tasks = new String[SIZE];
+        tasks = new Task[SIZE];
         numTasks = 0;
     }
 
@@ -82,7 +82,7 @@ public class YihuiBot {
             return;
         }
 
-        tasks[numTasks++] = input;
+        tasks[numTasks++] = new Task(input);
         String s = "added: " + input;
         String wrapped = wrapStringWithHorizontalLines(s);
         System.out.println(wrapped);
@@ -92,11 +92,11 @@ public class YihuiBot {
         String s = "";
         for (int i = 0; i < numTasks; i++) {
             int idx = i + 1;
-            String task = tasks[i];
+            Task task = tasks[i];
             if (i == 0) {
-                s = String.format("%d. %s", idx, task);
+                s = String.format("%d. %s", idx, task.toString());
             } else {
-                s += String.format("\n%d. %s", idx, task);
+                s += String.format("\n%d. %s", idx, task.toString());
             }
         }
         String wrapped = wrapStringWithHorizontalLines(s);
