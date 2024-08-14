@@ -1,6 +1,6 @@
 public class YihuiBot {
-    public static final String NAME = "YihuiBot";
-    public static final String HORIZONTAL_LINE = "-----------------------------------------------------";
+    private static final String NAME = "YihuiBot";
+    private static final String HORIZONTAL_LINE = "-----------------------------------------------------";
 
     public static void main(String[] args) {
         printGreetings();
