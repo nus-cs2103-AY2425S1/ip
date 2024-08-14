@@ -1,3 +1,0 @@
-T | 1 | plan
-D | 0 | Yong Zhe's Birthday | 23 Aug 2024 23:59
-E | 0 | Yong Zhe's Birthday | 23 Aug 2024 00:00 | 23 Aug 2024 23:59
