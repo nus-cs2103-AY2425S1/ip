@@ -1,11 +1,13 @@
 import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import exception.CitadelException;
+import exception.CitadelInvalidArgException;
+import exception.CitadelInvalidCommandException;
+import exception.CitadelTaskNoInput;
 
 public class Citadel {
-
-    public static List<Task> items = new ArrayList<>();
-    public static void main(String[] args) {
+    public static ArrayList<Task> items = new ArrayList<>();
+    public static void main(String[] args) throws CitadelException {
         Scanner scanner = new Scanner(System.in);
 
         String name = "Citadel";
@@ -17,25 +19,36 @@ public class Citadel {
         String start = intro + question;
         System.out.println(start);
 
-        while(!input.equalsIgnoreCase("bye")) {
-            input = scanner.nextLine();
-            if (input.equalsIgnoreCase("list")) {
-                for (int i = 0; i < items.size(); i++) {
-                    System.out.println((i + 1) + ". " + items.get(i));
+        while (true) {
+            try {
+                input = scanner.nextLine();
+                if (input.equalsIgnoreCase("bye")) {
+                    break;
                 }
-            } else if (input.startsWith("mark")) {
-                mark(input);
-            } else if (input.startsWith("unmark")) {
-                unmark(input);
-            } else {
-                if (input.startsWith("deadline")) {
-                    handleDeadline(input);
-                } else if (input.startsWith("event")) {
-                    handleEvent(input);
-                } else if (input.startsWith("todo")) {
-                    handleTodo(input);
+                if (input.equalsIgnoreCase("list")) {
+                    for (int i = 0; i < items.size(); i++) {
+                        System.out.println((i + 1) + ". " + items.get(i));
+                    }
+                } else if (input.toLowerCase().startsWith("mark")) {
+                    mark(input);
+                } else if (input.toLowerCase().startsWith("unmark")) {
+                    unmark(input);
+                } else {
+                    if (input.toLowerCase().startsWith("deadline")) {
+                        handleDeadline(input);
+                    } else if (input.toLowerCase().startsWith("event")) {
+                        handleEvent(input);
+                    } else if (input.toLowerCase().startsWith("todo")) {
+                        handleTodo(input);
+                    } else {
+                        throw new CitadelInvalidCommandException();
+                    }
                 }
 
+            } catch (CitadelException e) {
+                System.out.println(e);
+            } catch (Exception e) {
+                System.out.println("Error occurred: " + e.getMessage());
             }
             }
 
@@ -43,7 +56,7 @@ public class Citadel {
         System.out.println(goodbye);
     }
 
-    private static void unmark(String input) {
+    private static void mark(String input) throws CitadelException {
         String[] words = input.split(" ");
         int index = Integer.parseInt(words[1]);
         items.get(index - 1).markAsDone();
@@ -51,47 +64,84 @@ public class Citadel {
         System.out.println(items.get(index - 1));
     }
 
-    private static void mark(String input) {
-        String[] words = input.split(" ");
-        int index = Integer.parseInt(words[1]);
-        items.get(index - 1).unMark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(items.get(index - 1));
+    private static void unmark(String input) throws CitadelException {
+        try {
+            String[] words = input.split(" ");
+            int index = Integer.parseInt(words[1]);
+            items.get(index - 1).unMark();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(items.get(index - 1));
+        } catch (IndexOutOfBoundsException e) {
+                throw new CitadelInvalidArgException();
+        }
     }
 
-    private static void handleDeadline(String input) {
+    private static void handleDeadline(String input) throws CitadelException {
         Task t;
-        String[] words = input.split(" /");
-        String task = words[0];
-        String deadline = words[1];
+        String[] words = input.split(" /by ");
+
+        if (words.length < 2) {
+            throw new CitadelTaskNoInput();
+        }
+        String task = words[0].substring(9).trim();
+        String deadline = words[1].trim();
+
+        if (task.isEmpty() || deadline.isEmpty()) {
+            throw new CitadelTaskNoInput();
+        }
+
         t = new Deadline(task, deadline);
         items.add(t);
-        System.out.println("added: " + input);
+        System.out.println("Got it! I have added: " + t);
         System.out.println();
         System.out.println("Now you have " + items.size() + " tasks in the list");
     }
 
-    private static void handleEvent(String input) {
+    private static void handleEvent(String input) throws CitadelException {
         Task t;
-        String[] words = input.split(" /");
-        String task = words[0];
-        String to = words[1];
-        String from = words[2];
-        t = new Event(task, to, from);
+        String[] words = input.split(" /from ");
+
+        if (words.length < 2) {
+            throw new CitadelTaskNoInput();
+        }
+
+        String task = words[0].substring(5).trim();
+        String[] timeline = words[1].split(" /to ");
+
+        if (timeline.length < 2) {
+            throw new CitadelTaskNoInput();
+        }
+
+        String from = timeline[0].trim();
+        String to = timeline[1].trim();
+
+        if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new CitadelTaskNoInput();
+        }
+
+        t = new Event(task, from, to);
         items.add(t);
-        System.out.println("added: " + input);
+
+        System.out.println("Got it! I have added: " + t);
         System.out.println();
         System.out.println("Now you have " + items.size() + " tasks in the list");
     }
 
-    private static void handleTodo(String input) {
-        Task t;
-        String[] words = input.split(" /");
-        String todo = words[0];
-        t =  new ToDo(todo);
-        items.add(t);
-        System.out.println("added: " + input);
-        System.out.println();
-        System.out.println("Now you have " + items.size() + " tasks in the list");
+    private static void handleTodo(String input) throws CitadelException {
+            Task t;
+            String[] words = input.split(" ");
+            if (words.length < 2) {
+                throw new CitadelTaskNoInput();
+            }
+
+            String todo = words[0];
+            if (todo.isEmpty()) {
+                throw new CitadelTaskNoInput();
+            }
+
+            t = new ToDo(todo);
+            items.add(t);
+            System.out.println("Got it! I have added: " + t);
+            System.out.println("Now you have " + items.size() + " tasks in the list");
     }
 }
