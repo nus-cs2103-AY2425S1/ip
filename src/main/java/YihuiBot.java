@@ -29,7 +29,7 @@ public class YihuiBot {
         case "bye":
             break;
         default:
-            echo(input);
+            addTask(input);
         }
     }
 
@@ -53,8 +53,9 @@ public class YihuiBot {
         System.out.println(wrapped);
     }
 
-    private static void echo(String input) {
-        String wrapped = wrapStringWithHorizontalLines(input);
+    private static void addTask(String input) {
+        String s = "added: " + input;
+        String wrapped = wrapStringWithHorizontalLines(s);
         System.out.println(wrapped);
     }
 }
