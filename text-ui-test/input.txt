@@ -1,0 +1,13 @@
+todo Get Intern at Citadel
+deadline return book /by Sunday
+event Sprint Review /from Mon 2pm /to 6pm
+list
+mark 2
+unmark 2
+mark 1
+todo Grind 600 Leetcode Questions
+event Sprint Review 2 /from Mon 12am /to 11pm
+list
+mark 4
+list
+bye

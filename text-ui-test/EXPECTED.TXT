@@ -1,7 +1,44 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Citadel
+What can I do for you?
+
+added: todo Get Intern at Citadel
+
+Now you have 1 tasks in the list
+added: deadline return book /by Sunday
+
+Now you have 2 tasks in the list
+added: event Sprint Review /from Mon 2pm /to 6pm
+
+Now you have 3 tasks in the list
+1. [T][ ] todo Get Intern at Citadel
+2. [D][ ] deadline return book (by: by Sunday)
+3. [E][ ] event Sprint Review (from: from Mon 2pm to: to 6pm)
+Nice! I've marked this task as done:
+[D][X] deadline return book (by: by Sunday)
+OK, I've marked this task as not done yet:
+[D][ ] deadline return book (by: by Sunday)
+Nice! I've marked this task as done:
+[T][X] todo Get Intern at Citadel
+added: todo Grind 600 Leetcode Questions
+
+Now you have 4 tasks in the list
+added: event Sprint Review 2 /from Mon 12am /to 11pm
+
+Now you have 5 tasks in the list
+1. [T][X] todo Get Intern at Citadel
+2. [D][ ] deadline return book (by: by Sunday)
+3. [E][ ] event Sprint Review (from: from Mon 2pm to: to 6pm)
+4. [T][ ] todo Grind 600 Leetcode Questions
+5. [E][ ] event Sprint Review 2 (from: from Mon 12am to: to 11pm)
+Nice! I've marked this task as done:
+[T][X] todo Grind 600 Leetcode Questions
+1. [T][X] todo Get Intern at Citadel
+2. [D][ ] deadline return book (by: by Sunday)
+3. [E][ ] event Sprint Review (from: from Mon 2pm to: to 6pm)
+4. [T][X] todo Grind 600 Leetcode Questions
+5. [E][ ] event Sprint Review 2 (from: from Mon 12am to: to 11pm)
+added: bye
+
+Now you have 6 tasks in the list
+Bye. Hope to see you again soon!
 
