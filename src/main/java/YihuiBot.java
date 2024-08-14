@@ -1,6 +1,5 @@
 public class YihuiBot {
     private static final String NAME = "YihuiBot";
-    private static final String HORIZONTAL_LINE = "-----------------------------------------------------";
 
     public static void main(String[] args) {
         greetings();
@@ -8,7 +7,8 @@ public class YihuiBot {
     }
 
     private static String wrapStringWithHorizontalLines(String s) {
-        return HORIZONTAL_LINE + "\n" + s + "\n" + HORIZONTAL_LINE;
+        String horizontalLine = "-----------------------------------------------------";
+        return horizontalLine + "\n" + s + "\n" + horizontalLine;
     }
 
     private static void greetings() {
