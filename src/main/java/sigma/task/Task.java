@@ -47,6 +47,11 @@ public abstract class Task {
      */
     public abstract String stringify();
 
+    /**
+     * Returns the string representation of this task.
+     *
+     * @return the string representation of this task in the format "[status] description"
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);

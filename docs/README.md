@@ -1,4 +1,4 @@
-# sigma.SkibidiSigma User Guide
+# Sigma User Guide
 
 // Update the title above to match the actual product name
 

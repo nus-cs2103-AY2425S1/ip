@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -90,19 +92,21 @@ public class Storage {
     public Task parseTask(String line) throws SigmaFileFormatException {
         String[] parts = line.split(" \\| ");
         Task task;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
         switch (parts[0]) {
-            case "T":
-                task = new Todo(parts[2]);
-                break;
-            case "D":
-                task = new Deadline(parts[2], parts[3]);
-                break;
-            case "E":
-                task = new Event(parts[2], parts[3], parts[4]);
-                break;
-            default:
-                throw new SigmaFileFormatException();
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            task = new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter));
+            break;
+        case "E":
+            task = new Event(parts[2],
+                    LocalDateTime.parse(parts[3], formatter), LocalDateTime.parse(parts[4], formatter));
+            break;
+        default:
+            throw new SigmaFileFormatException();
         }
 
         if (parts[1].equals("1")) {
