@@ -33,6 +33,8 @@ public class Citadel {
                     mark(input);
                 } else if (input.toLowerCase().startsWith("unmark")) {
                     unmark(input);
+                } else if (input.toLowerCase().startsWith("delete")) {
+                    delete(input);
                 } else {
                     if (input.toLowerCase().startsWith("deadline")) {
                         handleDeadline(input);
@@ -57,11 +59,15 @@ public class Citadel {
     }
 
     private static void mark(String input) throws CitadelException {
-        String[] words = input.split(" ");
-        int index = Integer.parseInt(words[1]);
-        items.get(index - 1).markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(items.get(index - 1));
+        try {
+            String[] words = input.split(" ");
+            int index = Integer.parseInt(words[1]);
+            items.get(index - 1).markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(items.get(index - 1));
+        } catch (IndexOutOfBoundsException e) {
+            throw new CitadelInvalidArgException();
+        }
     }
 
     private static void unmark(String input) throws CitadelException {
@@ -75,6 +81,20 @@ public class Citadel {
                 throw new CitadelInvalidArgException();
         }
     }
+
+    private static void delete(String input) throws CitadelException {
+        try {
+            //todo finish this
+        String[] words = input.split(" ");
+        int index = Integer.parseInt(words[1]);
+        Task t = items.remove(index - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(t);
+        System.out.println("Now you have " + items.size() + " tasks in the list");
+        } catch (IndexOutOfBoundsException e) {
+            throw new CitadelInvalidArgException();
+        }
+        }
 
     private static void handleDeadline(String input) throws CitadelException {
         Task t;
@@ -129,16 +149,10 @@ public class Citadel {
 
     private static void handleTodo(String input) throws CitadelException {
             Task t;
-            String[] words = input.split(" ");
-            if (words.length < 2) {
-                throw new CitadelTaskNoInput();
-            }
-
-            String todo = words[0];
+            String todo = input.substring(5).trim();
             if (todo.isEmpty()) {
                 throw new CitadelTaskNoInput();
             }
-
             t = new ToDo(todo);
             items.add(t);
             System.out.println("Got it! I have added: " + t);
