@@ -7,14 +7,14 @@ import exception.CitadelTaskNoInput;
 
 public class Citadel {
     public static ArrayList<Task> items = new ArrayList<>();
-    public static void main(String[] args) throws CitadelException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         String name = "Citadel";
         String intro = "Hello! I'm " + name + "\n";
         String question = "What can I do for you?\n";
 
-        String input = "";
+        String input;
 
         String start = intro + question;
         System.out.println(start);
@@ -46,7 +46,7 @@ public class Citadel {
                 }
 
             } catch (CitadelException e) {
-                System.out.println(e);
+                System.out.println(e.toString());
             } catch (Exception e) {
                 System.out.println("Error occurred: " + e.getMessage());
             }
