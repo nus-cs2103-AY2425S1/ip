@@ -42,8 +42,12 @@ public class YihuiBot {
         switch (input) {
         case "bye":
             break;
+        case "list":
+            list();
+            break;
         default:
             addTask(input);
+            break;
         }
     }
 
@@ -80,6 +84,21 @@ public class YihuiBot {
 
         tasks[numTasks++] = input;
         String s = "added: " + input;
+        String wrapped = wrapStringWithHorizontalLines(s);
+        System.out.println(wrapped);
+    }
+
+    private static void list() {
+        String s = "";
+        for (int i = 0; i < numTasks; i++) {
+            int idx = i + 1;
+            String task = tasks[i];
+            if (i == 0) {
+                s = String.format("%d. %s", idx, task);
+            } else {
+                s += String.format("\n%d. %s", idx, task);
+            }
+        }
         String wrapped = wrapStringWithHorizontalLines(s);
         System.out.println(wrapped);
     }
