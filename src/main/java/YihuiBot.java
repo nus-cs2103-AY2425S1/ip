@@ -3,9 +3,18 @@ import java.util.Scanner;
 import java.util.NoSuchElementException;
 
 public class YihuiBot {
+    // The name of this bot
     private static final String NAME = "YihuiBot";
 
+    // The maximum number of tasks that can be stored
+    private static final int SIZE = 100;
+
+    private static String[] tasks;
+    private static int numTasks;
+
     public static void main(String[] args) {
+        reset();
+
         greetings();
 
         Scanner userInput = new Scanner(System.in);
@@ -22,6 +31,11 @@ public class YihuiBot {
         }
 
         exit();
+    }
+
+    private static void reset() {
+        tasks = new String[SIZE];
+        numTasks = 0;
     }
 
     private static void callSuitableFunction(String input) {
@@ -54,6 +68,17 @@ public class YihuiBot {
     }
 
     private static void addTask(String input) {
+        if (numTasks >= SIZE) {
+            String s = String.format(
+                "Maximum number of tasks exceeded.\nCan only store %d tasks.",
+                SIZE
+            );
+            String wrapped = wrapStringWithHorizontalLines(s);
+            System.out.println(wrapped);
+            return;
+        }
+
+        tasks[numTasks++] = input;
         String s = "added: " + input;
         String wrapped = wrapStringWithHorizontalLines(s);
         System.out.println(wrapped);
