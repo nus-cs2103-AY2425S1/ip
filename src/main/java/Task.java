@@ -12,6 +12,11 @@ public class Task {
         this.isCompleted = false;
     }
 
+    /** Returns true if the task has been completed, false otherwise. */
+    public boolean isComplete() {
+        return this.isCompleted;
+    }
+
     /** Mark the current task as completed. */
     public void complete() {
         this.isCompleted = true;

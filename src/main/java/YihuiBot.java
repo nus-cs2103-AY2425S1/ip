@@ -93,10 +93,11 @@ public class YihuiBot {
         for (int i = 0; i < numTasks; i++) {
             int idx = i + 1;
             Task task = tasks[i];
+            String isComplete = task.isComplete() ? "X" : " ";
             if (i == 0) {
-                s = String.format("%d. %s", idx, task.toString());
+                s = String.format("%d. [%s] %s", idx, isComplete, task.toString());
             } else {
-                s += String.format("\n%d. %s", idx, task.toString());
+                s += String.format("\n%d. [%s] %s", idx, isComplete, task.toString());
             }
         }
         String wrapped = wrapStringWithHorizontalLines(s);
