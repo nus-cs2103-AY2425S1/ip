@@ -1,4 +1,6 @@
-public class Duke {
+public class Joe {
+    public static final String horizontalLine = "____________________________________________________________";
+    
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
