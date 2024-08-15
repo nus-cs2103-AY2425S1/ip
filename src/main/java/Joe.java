@@ -1,12 +1,8 @@
 public class Joe {
     public static final String horizontalLine = "____________________________________________________________";
-    
+    public static final String chatbotName = "Joe";
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.printf("%s\nHello! I'm %s \nWhat can I do for you? \n%s\n", horizontalLine, chatbotName, horizontalLine);
+        System.out.printf("Bye. Hope to see you again soon!\n%s", horizontalLine);
     }
 }
