@@ -10,4 +10,7 @@ Noted. I have added this task:
 You have 3 tasks in the list.
 Whoopsie! Please enter a task
 Whoopsie! I am unable to understand your request!
+Noted. I have deleted this task:
+[T] [ ] sleep
+You have 2 tasks in the list.
 Bye! Come back to Hoodini soon!
