@@ -1,18 +1,30 @@
+import java.util.Scanner;
 
 public class Hoodini {
 
     public Hoodini() {
         start();
-        end();
+
     }
 
     public void start() {
         System.out.println("Hello I am Hoodini!, how may I assist you?");
+        handleInput();
 
     }
 
-    public void end() {
-        System.out.println("Bye! Come back to Hoodini soon!");
+    private void handleInput() {
+        Scanner sc = new Scanner(System.in);
+        while(true) {
+            Input input = new Input(sc.nextLine());
+            input.output();
+            if(input.checker()) {
+                break;
+            }
+        }
+
     }
+
+
 
 }
