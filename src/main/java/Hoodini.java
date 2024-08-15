@@ -54,6 +54,8 @@ public class Hoodini {
                 store.mark(str);
             } else if(str.startsWith("unmark")) {
                 store.unmark(str);
+            } else if(str.startsWith("delete")) {
+                store.delete(str);
             } else {
                 System.out.println("Whoopsie! I am unable to understand your request!");
             }
