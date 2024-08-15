@@ -6,7 +6,7 @@ import java.util.List;
 import java.io.IOException;
 
 public class Skibidi {
-    List<String> store = new ArrayList<>();
+    List<Task> store = new ArrayList<>();
 
     static void printSeparator() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -14,7 +14,7 @@ public class Skibidi {
 
     void printList() {
         if (store.size() == 0) {
-            System.out.println("NO ITEMS");
+            System.out.println("\tNO ITEMS");
             return;
         }
         System.out.println("\tLISTING ITEMS:");
@@ -23,12 +23,35 @@ public class Skibidi {
         }
     }
 
+    void markTask(int taskId) {
+        Task task = store.get(taskId);
+        task.mark();
+        System.out.printf("\tMARKING TASK\n");
+        System.out.printf("\t%s\n", task.toString());
+    }
+
+    void unmarkTask(int taskId) {
+        Task task = store.get(taskId);
+        task.unmark();
+        System.out.printf("\tUNMARKING TASK\n");
+        System.out.printf("\t%s\n", task.toString());
+    }
+
     void parseAndExecuteCommand(String line) {
-        if (line.equals("list")) {
-            printList();
-        } else {
-            store.add(line);
-            System.out.printf("ADDED: %s\n", line);
+        String[] args = line.split(" ");
+        switch (args[0]) {
+            case "list":
+                printList();
+                break;
+            case "mark":
+                markTask(Integer.parseInt(args[1]) - 1);
+                break;
+            case "unmark":
+                unmarkTask(Integer.parseInt(args[1]) - 1);
+                break;
+            default:
+                store.add(new Task(line));
+                break;
         }
         Skibidi.printSeparator();
     }
