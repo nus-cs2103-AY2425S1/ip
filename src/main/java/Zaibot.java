@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Zaibot {
 
-    private static final ArrayList<String> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Prints a message, with the horizontal line above and below it
@@ -20,15 +20,32 @@ public class Zaibot {
      */
     public static void processCommand(String command) {
         String goodbyeMessage = "Bye. Hope to see you again soon!\n";
-        switch (command) {
+        String markTaskMessage = "Nice! I've marked this task as done:\n";
+        String unmarkTaskMessage = "OK, I've marked this task as not done yet:\n";
+
+        String[] options = command.split("\\s+");
+
+        Task current;
+
+        switch (options[0]) {
             case "bye":
                 printMessage(goodbyeMessage);
                 break;
             case "list":
                 printMessage(tasksListToString());
                 break;
+            case "mark":
+                current = tasks.get(Integer.parseInt(options[1]) - 1);
+                current.setCompletionStatus(true);
+                printMessage(markTaskMessage + current.toString() + "\n");
+                break;
+            case "unmark":
+                current = tasks.get(Integer.parseInt(options[1]) - 1);
+                current.setCompletionStatus(false);
+                printMessage(unmarkTaskMessage + current.toString() + "\nr");
+                break;
             default:
-                tasks.add(command);
+                tasks.add(new Task(command));
                 printMessage("added: " + command + "\n");
         }
     }
@@ -40,9 +57,9 @@ public class Zaibot {
     public static String tasksListToString() {
         StringBuilder result = new StringBuilder();
         int current = 0;
-        for (String task : tasks) {
+        for (Task task : tasks) {
             current++;
-            result.append(current).append(". ").append(task).append("\n");
+            result.append(current).append(". ").append(task.toString()).append("\n");
         }
         return result.toString();
     }
