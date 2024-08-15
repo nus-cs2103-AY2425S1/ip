@@ -22,11 +22,19 @@ public class Hoodini {
         Storage store = new Storage();
         while(true) {
             Input input = new Input(sc.nextLine());
-            if(input.checker()) {
+            if(input.empty()) {
+                store.empty();
+            } else if(input.exit()) {
                 end();
                 break;
-            } else if(input.checker2()) {
+            } else if(input.list()) {
                 store.output();
+            } else if(input.marking()) {
+                store.mark(input.markint());
+
+            } else if(input.unmarking()) {
+                store.unmark(input.unmarkint());
+
             } else {
                 store.store(input);
             }
