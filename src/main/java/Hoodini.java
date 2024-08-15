@@ -13,14 +13,24 @@ public class Hoodini {
 
     }
 
+    public void end() {
+        System.out.println("Bye! Come back to Hoodini soon!");
+    }
+
     private void handleInput() {
         Scanner sc = new Scanner(System.in);
+        Storage store = new Storage();
         while(true) {
             Input input = new Input(sc.nextLine());
-            input.output();
             if(input.checker()) {
+                end();
                 break;
+            } else if(input.checker2()) {
+                store.output();
+            } else {
+                store.store(input);
             }
+
         }
 
     }
