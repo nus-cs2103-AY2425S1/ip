@@ -1,10 +1,18 @@
 
 public class Hoodini {
-    public static void main(String[] args) {
 
-        System.out.println("Hello I am Hoodini!");
-        System.out.println("What can I do for you?");
-        System.out.println("-----------------------------------------");
-        System.out.println("Bye! Hope to see your again!");
+    public Hoodini() {
+        start();
+        end();
     }
+
+    public void start() {
+        System.out.println("Hello I am Hoodini!, how may I assist you?");
+
+    }
+
+    public void end() {
+        System.out.println("Bye! Come back to Hoodini soon!");
+    }
+
 }
