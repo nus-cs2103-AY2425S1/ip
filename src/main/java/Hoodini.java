@@ -21,21 +21,29 @@ public class Hoodini {
         Scanner sc = new Scanner(System.in);
         Storage store = new Storage();
         while(true) {
-            Input input = new Input(sc.nextLine());
-            if(input.empty()) {
-                store.empty();
-            } else if(input.exit()) {
+            String str = sc.nextLine();
+            if(str.equalsIgnoreCase("bye")) {
                 end();
                 break;
-            } else if(input.list()) {
+            } else if(str.isEmpty()) {
+                store.empty();
+            } else if(str.equalsIgnoreCase("list")) {
                 store.output();
-            } else if(input.marking()) {
-                store.mark(input.markint());
-
-            } else if(input.unmarking()) {
-                store.unmark(input.unmarkint());
-
+            } else if(str.startsWith("todo")) {
+                ToDo toDo = new ToDo(str);
+                store.store(toDo);
+            } else if(str.startsWith("deadline")) {
+                Deadline deadline = new Deadline(str);
+                store.store(deadline);
+            } else if(str.startsWith("event")) {
+                Event event = new Event(str);
+                store.store(event);
+            } else if(str.startsWith("mark")) {
+                store.mark(str);
+            } else if(str.startsWith("unmark")) {
+                store.unmark(str);
             } else {
+                Input input = new Input(str);
                 store.store(input);
             }
 

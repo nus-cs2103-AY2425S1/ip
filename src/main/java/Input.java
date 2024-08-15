@@ -12,33 +12,9 @@ public class Input {
 
 
 
-    public boolean exit() {
-        return input.equalsIgnoreCase("bye");
-    }
 
-    public boolean list() {
-        return input.equalsIgnoreCase("list");
-    }
 
-    public boolean empty() {
-        return input.isEmpty();
-    }
 
-    public boolean marking() {
-        return input.startsWith("mark");
-    }
-
-    public int markint() {
-        return Integer.parseInt(input.substring(5));
-    }
-
-    public int unmarkint() {
-        return Integer.parseInt(input.substring(7));
-    }
-
-    public boolean unmarking() {
-        return input.startsWith("unmark");
-    }
 
     public void done() {
         if(this.done) {
