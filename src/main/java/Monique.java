@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 public class Monique {
     //Create array to store tasks
-    private static String[] taskList = new String[100];
+    private static Task[] taskList = new Task[100];
     //Create counter to store the number of items in taskList;
     private static int numItems =0;
 
@@ -31,9 +31,22 @@ public class Monique {
                             System.out.println((i+1) + "." + taskList[i]);
                         });
                 System.out.println(HORIZONTAL_LINE);
-            } else {
+            } else if (userInput.startsWith("mark")) {
+                //minus one bc 0-based indexing
+                int itemNum = (Integer.parseInt(userInput.split(" ")[1])) - 1;
+                taskList[itemNum] =taskList[itemNum].mark();
+                System.out.println("Nice lah.. Great job on doing work! I've marked it: ");
+                System.out.println((itemNum+1) + "." + taskList[itemNum].toString());
+
+            } else if (userInput.startsWith("unmark")) {
+                int itemNum = (Integer.parseInt(userInput.split(" ")[1])) - 1;
+                taskList[itemNum] =taskList[itemNum].unmark();
+                System.out.println("ok... I've unmarked:");
+                System.out.println((itemNum+1) + "." + taskList[itemNum].toString());
+            }
+            else {
                 //add to taskList
-                taskList[numItems] = userInput;
+                taskList[numItems] = new ToDo(userInput);
                 numItems++;
                 System.out.println("added: " + userInput);
             }
