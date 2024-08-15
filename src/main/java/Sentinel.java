@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Sentinel {
+
+    public static int index = 0;
+    public static String[] items = new String[100];
+
     public static void main(String[] args) {
         String logo = 
         " _____                                                                                      _____ \n" + 
@@ -18,21 +22,28 @@ public class Sentinel {
         " |   |                                                                                      |   | \n" + 
         " |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| \n" + 
         "(_____)                                                                                    (_____)";
-    
+
         System.out.println("Hello from\n" + logo);
-        System.out.println("What can I do for you?\n____________________________________________________________\n");
+        System.out.println("\nWhat can I do for you?\n____________________________________________________________\n");
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         System.out.println("____________________________________________________________\n");
-            while (!input.equals("bye")) {
-            System.out.println("\t"+input);
+        while (true) {
+            if (input.equals("bye"))
+                break;
+            else if (input.equals("list")) {
+                for (int i = 0; i < index; i++) {
+                    System.out.println("\t" + (i + 1) + ". " + items[i]);
+                }
+            } else {
+                items[index++] = input;
+                System.out.println("added: " + input);
+            }
             System.out.println("____________________________________________________________\n");
             input = sc.nextLine();
             System.out.println("____________________________________________________________\n");
-
         }
         System.out.println("Bye. Hope to see you again soon!");
         sc.close();
-
     }
 }
