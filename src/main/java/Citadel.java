@@ -22,25 +22,26 @@ public class Citadel {
         while (true) {
             try {
                 input = scanner.nextLine();
-                if (input.equalsIgnoreCase("bye")) {
+                String command = input.split(" ")[0].toUpperCase();
+                if (Commands.valueOf(command).equals(Commands.BYE)) {
                     break;
                 }
-                if (input.equalsIgnoreCase("list")) {
+                if (Commands.valueOf(command).equals(Commands.LIST)) {
                     for (int i = 0; i < items.size(); i++) {
                         System.out.println((i + 1) + ". " + items.get(i));
                     }
-                } else if (input.toLowerCase().startsWith("mark")) {
+                } else if (Commands.valueOf(command).equals(Commands.MARK)) {
                     mark(input);
-                } else if (input.toLowerCase().startsWith("unmark")) {
+                } else if (Commands.valueOf(command).equals(Commands.UNMARK)) {
                     unmark(input);
-                } else if (input.toLowerCase().startsWith("delete")) {
+                } else if (Commands.valueOf(command).equals(Commands.DELETE)) {
                     delete(input);
                 } else {
-                    if (input.toLowerCase().startsWith("deadline")) {
+                    if (Commands.valueOf(command).equals(Commands.DEADLINE)) {
                         handleDeadline(input);
-                    } else if (input.toLowerCase().startsWith("event")) {
+                    } else if (Commands.valueOf(command).equals(Commands.EVENT)) {
                         handleEvent(input);
-                    } else if (input.toLowerCase().startsWith("todo")) {
+                    } else if (Commands.valueOf(command).equals(Commands.TODO)) {
                         handleTodo(input);
                     } else {
                         throw new CitadelInvalidCommandException();
