@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Sentinel {
     public static void main(String[] args) {
         String logo = 
@@ -19,6 +21,18 @@ public class Sentinel {
     
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?\n____________________________________________________________\n");
-        System.out.println(" Bye. Hope to see you again soon!");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        System.out.println("____________________________________________________________\n");
+            while (!input.equals("bye")) {
+            System.out.println("\t"+input);
+            System.out.println("____________________________________________________________\n");
+            input = sc.nextLine();
+            System.out.println("____________________________________________________________\n");
+
+        }
+        System.out.println("Bye. Hope to see you again soon!");
+        sc.close();
+
     }
 }
