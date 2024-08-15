@@ -19,34 +19,89 @@ public class Hana {
 
         while (true) {
             input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println(line);
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    System.out.println(line);
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    listTasks();
+                } else if (input.startsWith("mark")) {
+                    handleMark(input);
+                } else if (input.startsWith("unmark")) {
+                    handleUnmark(input);
+                } else if (input.startsWith("todo")) {
+                    handleTodo(input);
+                } else if (input.startsWith("deadline")) {
+                    handleDeadline(input);
+                } else if (input.startsWith("event")) {
+                    handleEvent(input);
+                } else {
+                    throw new HanaException("I'm sorry, I don't recognize that command. Here are some examples of what you can do:\n"
+                            + "1. List all tasks: list\n"
+                            + "2. Mark a task as done: mark [task number]\n"
+                            + "3. Unmark a task: unmark [task number]\n"
+                            + "4. Add a todo: todo [description]\n"
+                            + "5. Add a deadline: deadline [description] /by [due date]\n"
+                            + "6. Add an event: event [description] /from [start time] /to [end time]");
+                }
+            } catch (HanaException e) {
                 System.out.println(line);
-                System.out.println(" Bye. Hope to see you again soon!");
+                System.out.println(e.getMessage());
                 System.out.println(line);
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                listTasks();
-            } else if (input.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(input.substring(5).trim());
-                markTask(taskNumber, true);
-            } else if (input.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(input.substring(7).trim());
-                markTask(taskNumber, false);
-            } else if (input.startsWith("todo ")) {
-                addTask(new ToDo(input.substring(5).trim()));
-            } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split(" /by ");
-                addTask(new Deadline(parts[0].trim(), parts[1].trim()));
-            } else if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split(" /from | /to ");
-                addTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
-            } else {
-                System.out.println("Unknown command!");
+            } catch (Exception e) {
+                System.out.println(line);
+                System.out.println("Oops! Something went wrong. Please try again.");
+                System.out.println(line);
             }
         }
+        scanner.close();
     }
 
-    private static void addTask(Task task) {
+    private static void handleMark(String input) throws HanaException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("Task number cannot be empty.");
+        }
+        int taskNumber = Integer.parseInt(parts[1].trim());
+        markTask(taskNumber, true);
+    }
+
+    private static void handleUnmark(String input) throws HanaException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new HanaException("Task number cannot be empty.");
+        }
+        int taskNumber = Integer.parseInt(parts[1].trim());
+        markTask(taskNumber, false);
+    }
+
+    private static void handleTodo(String input) throws HanaException {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
+            throw new HanaException("ToDo task must have a description.");
+        }
+        addTask(new ToDo(description));
+    }
+
+    private static void handleDeadline(String input) throws HanaException {
+        String[] parts = input.substring(8).split(" /by ");
+        if (parts.length < 2) {
+            throw new HanaException("Deadline task must have a description and a due date.");
+        }
+        addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+    }
+
+    private static void handleEvent(String input) throws HanaException {
+        String[] parts = input.substring(5).split(" /from | /to ");
+        if (parts.length < 3) {
+            throw new HanaException("Event task must have a description, start time, and end time.");
+        }
+        addTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+    }
+
+    private static void addTask(Task task) throws HanaException {
         if (taskCount < MAX_TASKS) {
             tasks[taskCount] = task;
             taskCount++;
@@ -56,15 +111,13 @@ public class Hana {
             System.out.println("Now you have " + taskCount + " tasks in the list.");
             System.out.println(line);
         } else {
-            System.out.println("Task list is full!");
+            throw new HanaException("Task list is full!");
         }
     }
 
-    private static void listTasks() {
+    private static void listTasks() throws HanaException {
         if (taskCount == 0) {
-            System.out.println(line);
-            System.out.println("No tasks added yet.");
-            System.out.println(line);
+            throw new HanaException(" No tasks added yet.");
         } else {
             System.out.println(line);
             for (int i = 0; i < taskCount; i++) {
@@ -74,7 +127,7 @@ public class Hana {
         }
     }
 
-    private static void markTask(int taskNumber, boolean isDone) {
+    private static void markTask(int taskNumber, boolean isDone) throws HanaException {
         if (taskNumber > 0 && taskNumber <= taskCount) {
             tasks[taskNumber - 1].setDone(isDone);
             System.out.println(line);
@@ -86,7 +139,7 @@ public class Hana {
             System.out.println("  " + tasks[taskNumber - 1]);
             System.out.println(line);
         } else {
-            System.out.println("Invalid task number!");
+            throw new HanaException("Invalid task number! Task number must be between 1 and " + taskCount + ".");
         }
     }
 }
