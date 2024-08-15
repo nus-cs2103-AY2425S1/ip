@@ -27,7 +27,7 @@ public class Parser {
     /**
      * Extracts and returns the arguments from the user's input after the command.
      *
-     * @param command The {@code CommandType} that has been parsed from the user's input.
+     * @param command   The {@code CommandType} that has been parsed from the user's input.
      * @param userInput The full input provided by the user.
      * @return The arguments following the command in the user's input.
      * @throws SigmaMissingArgException If no arguments are provided after the command.

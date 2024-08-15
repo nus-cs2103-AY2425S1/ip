@@ -39,6 +39,10 @@ public class Sigma {
         }
     }
 
+    public static void main(String[] args) {
+        new Sigma().run();
+    }
+
     private void run() {
         this.ui.showWelcome();
         while (this.isRunning) {
@@ -194,9 +198,5 @@ public class Sigma {
         } catch (NumberFormatException e) {
             throw new SigmaNaNException();
         }
-    }
-
-    public static void main(String[] args) {
-        new Sigma().run();
     }
 }
