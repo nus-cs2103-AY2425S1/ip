@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Hana {
     private static final int MAX_TASKS = 100;
-    private static String[] tasks = new String[MAX_TASKS];
+    private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
     private static String line = "___________________________________________";
     private static String name = "Hana";
@@ -10,7 +10,6 @@ public class Hana {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
-
 
         //greet
         System.out.println(line);
@@ -27,6 +26,12 @@ public class Hana {
                 break;
             } else if (input.equalsIgnoreCase("list")) {
                 listTasks();
+            } else if (input.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(input.substring(5).trim());
+                markTask(taskNumber, true);
+            } else if (input.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(input.substring(7).trim());
+                markTask(taskNumber, false);
             } else {
                 addTask(input);
             }
@@ -35,7 +40,7 @@ public class Hana {
 
     private static void addTask(String task) {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount] = task;
+            tasks[taskCount] = new Task(task);
             taskCount++;
             System.out.println(line);
             System.out.println("added: " + task);
@@ -56,6 +61,22 @@ public class Hana {
                 System.out.println((i + 1) + ". " + tasks[i]);
             }
             System.out.println(line);
+        }
+    }
+
+    private static void markTask(int taskNumber, boolean isDone) {
+        if (taskNumber > 0 && taskNumber <= taskCount) {
+            tasks[taskNumber - 1].setDone(isDone);
+            System.out.println(line);
+            if (isDone) {
+                System.out.println("Nice! I've marked this task as done:");
+            } else {
+                System.out.println("OK, I've marked this task as not done yet:");
+            }
+            System.out.println("  " + tasks[taskNumber - 1]);
+            System.out.println(line);
+        } else {
+            System.out.println("Invalid task number!");
         }
     }
 }
