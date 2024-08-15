@@ -10,6 +10,16 @@ I'm sorry, I don't recognize that command. Here are some examples of what you ca
 4. Add a todo: todo [description]
 5. Add a deadline: deadline [description] /by [due date]
 6. Add an event: event [description] /from [start time] /to [end time]
+7. Delete a task: delete [task number]
+___________________________________________
+___________________________________________
+No tasks added yet. Add a task first!
+___________________________________________
+___________________________________________
+No tasks added yet. Add a task first!
+___________________________________________
+___________________________________________
+No tasks added yet. Add a task first!
 ___________________________________________
 ___________________________________________
 ToDo task must have a description.
@@ -78,6 +88,21 @@ ___________________________________________
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+___________________________________________
+___________________________________________
+Task number cannot be empty.
+___________________________________________
+___________________________________________
+Invalid task number! Task number must be between 1 and 3.
+___________________________________________
+___________________________________________
+Noted. I've removed this task:
+    [D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+___________________________________________
+___________________________________________
+1. [T][ ] borrow book
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ___________________________________________
 ___________________________________________
  Bye. Hope to see you again soon!

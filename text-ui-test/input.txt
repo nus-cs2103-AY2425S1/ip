@@ -1,4 +1,7 @@
 blah
+mark 1
+unmark 1
+delete 1
 todo
 todo borrow book
 deadline
@@ -16,5 +19,9 @@ list
 unmark
 unmark 0
 unmark 2
+list
+delete
+delete 0
+delete 2
 list
 bye
