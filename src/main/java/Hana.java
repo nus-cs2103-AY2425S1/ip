@@ -32,18 +32,28 @@ public class Hana {
             } else if (input.startsWith("unmark ")) {
                 int taskNumber = Integer.parseInt(input.substring(7).trim());
                 markTask(taskNumber, false);
+            } else if (input.startsWith("todo ")) {
+                addTask(new ToDo(input.substring(5).trim()));
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                addTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
             } else {
-                addTask(input);
+                System.out.println("Unknown command!");
             }
         }
     }
 
-    private static void addTask(String task) {
+    private static void addTask(Task task) {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount] = new Task(task);
+            tasks[taskCount] = task;
             taskCount++;
             System.out.println(line);
-            System.out.println("added: " + task);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("    " + task);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
             System.out.println(line);
         } else {
             System.out.println("Task list is full!");
