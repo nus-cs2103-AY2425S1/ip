@@ -10,9 +10,9 @@ public class Input {
 
     }
 
-
-
-
+    public boolean empty() {
+        return this.input.isEmpty();
+    }
 
 
 
@@ -37,9 +37,12 @@ public class Input {
 
 
 
+
+
+
     @Override
     public String toString() {
-        if(done) {
+        if (done) {
             String str = "[X] " + this.input;
             return str;
         } else {

@@ -8,7 +8,7 @@ public class Hoodini {
     }
 
     public void start() {
-        System.out.println("Hello I am Hoodini!, how may I assist you?");
+        System.out.println("Hello I am Hoodini! How may I assist you?");
         handleInput();
 
     }
@@ -30,21 +30,32 @@ public class Hoodini {
             } else if(str.equalsIgnoreCase("list")) {
                 store.output();
             } else if(str.startsWith("todo")) {
-                ToDo toDo = new ToDo(str);
-                store.store(toDo);
+                if(str.endsWith("todo")) {
+                    System.out.println("Whoopsie! Please enter a task");
+                } else {
+                    ToDo toDo = new ToDo(str);
+                    store.store(toDo);
+                }
             } else if(str.startsWith("deadline")) {
-                Deadline deadline = new Deadline(str);
-                store.store(deadline);
+                if(str.endsWith("deadline")) {
+                    System.out.println("Whoopsie! Please enter a task");
+                } else {
+                    Deadline deadline = new Deadline(str);
+                    store.store(deadline);
+                }
             } else if(str.startsWith("event")) {
-                Event event = new Event(str);
-                store.store(event);
+                if(str.endsWith("event")) {
+                    System.out.println("Whoopsie! Please enter a task");
+                } else {
+                    Event event = new Event(str);
+                    store.store(event);
+                }
             } else if(str.startsWith("mark")) {
                 store.mark(str);
             } else if(str.startsWith("unmark")) {
                 store.unmark(str);
             } else {
-                Input input = new Input(str);
-                store.store(input);
+                System.out.println("Whoopsie! I am unable to understand your request!");
             }
 
         }

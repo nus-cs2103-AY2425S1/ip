@@ -7,11 +7,16 @@ public class Storage {
     }
 
     public void store(Input input) {
-        this.input[counter] = input;
-        counter++;
-        System.out.println("Noted. I have added this task: ");
-        System.out.println(input);
-        System.out.println("You have " + counter + " tasks in the list.");
+        if(input.empty()) {
+            System.out.println("Whoopsie! Please enter a task");
+        } else {
+            this.input[counter] = input;
+            counter++;
+            System.out.println("Noted. I have added this task:");
+            System.out.println(input);
+            System.out.println("You have " + counter + " tasks in the list.");
+        }
+
 
     }
 
@@ -35,7 +40,8 @@ public class Storage {
     }
 
     public void empty() {
-        System.out.println("Enter a valid input");
+
+        System.out.println("Whoopsie! Please enter a task");
     }
 
     public void unmark(String str) {
