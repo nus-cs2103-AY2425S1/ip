@@ -26,25 +26,42 @@ public class WheelyBigCheese {
         }
     }
 
+    private static Task mark(ArrayList<Task> tasks, String[] inputTokens, boolean done){
+        int idx = Integer.parseInt(inputTokens[1]) - 1;
+        Task t = tasks.get(idx);
+        t.setDone(done);
+        return t;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in); // Scanner to get user input
         String input = "";
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
         boolean exitChat = false;
 
         WheelyBigCheese.say(greeting);
 
         do {
             input = sc.nextLine();
-            switch (input) {
+            String[] inputTokens = input.split(" ");
+            String command = inputTokens[0];
+            switch (command) {
                 case "bye":
                     exitChat = true;
                     break;
                 case "list":
                     WheelyBigCheese.say(list);
                     break;
+                case "mark":
+                    Task markT = WheelyBigCheese.mark(list, inputTokens, true);
+                    WheelyBigCheese.say("Beep bop. Marked task:\n" + markT);
+                    break;
+                case "unmark":
+                    Task unmarkT = WheelyBigCheese.mark(list, inputTokens, false);
+                    WheelyBigCheese.say("Bop beep. Unmarked task:\n" + unmarkT);
+                    break;
                 default:
-                    list.add(input);
+                    list.add(new Task(input));
                     WheelyBigCheese.say("added: " + input);
             }
         } while (!exitChat);
