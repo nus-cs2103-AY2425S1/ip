@@ -33,6 +33,9 @@ public class Duke {
                     case "unmark":
                         this.unmark(args);
                         break;
+                    case "delete":
+                        this.deleteTask(args);
+                        break;
                     case "todo":
                     case "deadline":
                     case "event":
@@ -77,6 +80,20 @@ public class Duke {
                 throw new DukeException("Invalid Task type.");
         }
         this.taskStore.add(task);
+        System.out.println(task);
+        System.out.printf("Now you have %d tasks in the list.\n", this.taskStore.size());
+    }
+
+    private void deleteTask(String input) throws DukeException {
+        if (this.taskStore.isEmpty()) throw new DukeException("Task list is already empty.");
+        if (input.isEmpty()) throw new DukeException("No Task index provided.");
+        String reg = input.replaceAll("\\D+","");
+        if (reg.isEmpty()) throw new DukeException("No index provided.");
+        int id = Integer.parseInt(reg);
+        if (id > this.taskStore.size() || id < 1) throw new DukeException("Invalid index provided.");
+        Task task = this.taskStore.get(id - 1);
+        this.taskStore.remove(id - 1);
+        System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         System.out.printf("Now you have %d tasks in the list.\n", this.taskStore.size());
     }
