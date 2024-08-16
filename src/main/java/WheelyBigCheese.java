@@ -26,18 +26,31 @@ public class WheelyBigCheese {
         say(String.valueOf(allItems));
     }
     /**
-     * Method to say a newly added task
+     * Method to say a newly added/deleted task
      * @param t Task
      */
-    private static void say(Task t, int i) {
-        String s = "Added new cheese ;)\n" + t.toString() + "\n" + i + " cheese in the shelf";
+    private static void say(Task t, int i, boolean delete) {
+        String del;
+        if (delete) {
+            del = "Removed cheese :(\n";
+        } else {
+            del = "Added new cheese ;)\n";
+        }
+        String s = del + t.toString() + "\n" + i + " cheese in the shelf";
         say(s);
     }
 
-    private static Task mark(ArrayList<Task> tasks, String[] inputTokens, boolean done) throws CheeseException {
-        int idx;
-        if (inputTokens.length < 2) throw new CheeseException("Need location of cheese");
+    /**
+     * Helper function to get idx of item in list
+     * @param tasks ArrayList<Task>
+     * @param inputTokens String[]
+     * @return int
+     * @throws CheeseException custom exception
+     */
+    private static int getIdx(ArrayList<Task> tasks, String[] inputTokens) throws CheeseException {
+        if (inputTokens.length != 2) throw new CheeseException("Need location of cheese");
 
+        int idx;
         try {
             idx = Integer.parseInt(inputTokens[1]) - 1;
         } catch (NumberFormatException e) {
@@ -45,9 +58,19 @@ public class WheelyBigCheese {
         }
 
         if (idx >= tasks.size() || idx < 0) throw new CheeseException("Incorrect location of cheese");
+        return idx;
+    }
+
+    private static Task mark(ArrayList<Task> tasks, String[] inputTokens, boolean done) throws CheeseException {
+        int idx = getIdx(tasks, inputTokens);
         Task t = tasks.get(idx);
         t.setDone(done);
         return t;
+    }
+
+    private static Task delete(ArrayList<Task> tasks, String[] tokens) throws CheeseException {
+        int idx = getIdx(tasks, tokens);
+        return tasks.remove(idx);
     }
 
     public static void main(String[] args) {
@@ -86,17 +109,21 @@ public class WheelyBigCheese {
                     case "todo":
                         ToDo todo = ToDo.of(input);
                         list.add(todo);
-                        say(todo, list.size());
+                        say(todo, list.size(), false);
                         break;
                     case "deadline":
                         Deadline deadline = Deadline.of(input);
                         list.add(deadline);
-                        say(deadline, list.size());
+                        say(deadline, list.size(), false);
                         break;
                     case "event":
                         Event event = Event.of(input);
                         list.add(event);
-                        say(event, list.size());
+                        say(event, list.size(), false);
+                        break;
+                    case "delete":
+                        Task deletedTask = delete(list, inputTokens);
+                        say(deletedTask, list.size(), true);
                         break;
                     default:
                         list.add(new Task(input));
