@@ -48,6 +48,17 @@ public class Duke {
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println(" " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
+                } else if (input.startsWith("delete ")) {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new IndexOutOfBoundsException("Invalid task number.");
+                    }
+                    Task removedTask = tasks.remove(taskNumber);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Noted. I've removed this task:");
+                    System.out.println("   " + removedTask);
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
                 } else if (input.startsWith("todo ")) {
                     String taskDescription = input.substring(5).trim();
                     if (taskDescription.isEmpty()) {
