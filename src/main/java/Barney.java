@@ -20,7 +20,8 @@ public class Barney {
     public static void chat() {
         String input;
         Boolean isChatting = true;
-        ArrayList<String> list = new ArrayList<String>();
+        String[] list = new String[100];
+        int listLength = 0;
 
         while (isChatting) {
             System.out.println(">>>");
@@ -29,17 +30,17 @@ public class Barney {
 
             switch (input) {
                 case "list":
-                    for (int i = 1; i <= list.size(); i++) {
-                        System.out.println(i + ". " + list.get(i - 1));
+                    for (int i = 1; i <= listLength; i++) {
+                        System.out.println(i + ". " + list[i - 1]);
                     }
                     break;
                 case "bye":
                     isChatting = false;
                     break;
                 default:
-                    list.add(input);
+                    list[listLength] = input;
+                    listLength++;
                     System.out.println("added: " + input);
-
                     System.out.println(LONG_LINE);
             }
         }
