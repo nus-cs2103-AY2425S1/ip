@@ -10,6 +10,7 @@ public class MentalHealth {
         System.out.println(greetingMessage);
         System.out.println(separator);
         System.out.println(goodbyeMessage);
-
+        System.out.println(separator);
     }
+
 }
