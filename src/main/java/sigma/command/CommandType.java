@@ -5,7 +5,7 @@ package sigma.command;
  * Each command corresponds to a specific action the application can perform.
  */
 public enum CommandType {
-    BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE;
+    BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND;
 
     /**
      * Checks if a given command word is a valid command.

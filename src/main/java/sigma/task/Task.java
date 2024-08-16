@@ -41,6 +41,17 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the task's description contains the specified keyword.
+     * The comparison is case-insensitive.
+     *
+     * @param keyword The keyword to search for in the task's description.
+     * @return {@code true} if the description contains the keyword, {@code false} otherwise.
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    /**
      * Converts this task to a string representation.
      *
      * @return the string representation of this task

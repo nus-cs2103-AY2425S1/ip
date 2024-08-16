@@ -38,6 +38,5 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaMissingArgException(command);
         }
-
     }
 }

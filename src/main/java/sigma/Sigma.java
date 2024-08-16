@@ -1,6 +1,7 @@
 package sigma;
 
 import sigma.command.CommandType;
+import sigma.exception.SigmaEmptyTaskListException;
 import sigma.exception.SigmaException;
 import sigma.exception.SigmaFileException;
 import sigma.exception.SigmaInvalidArgException;
@@ -37,6 +38,10 @@ public class Sigma {
         } catch (SigmaException e) {
             this.ui.showErrorMessage(e);
         }
+    }
+
+    public static void main(String[] args) {
+        new Sigma().run();
     }
 
     private void run() {
@@ -83,6 +88,9 @@ public class Sigma {
                 break;
             case DELETE:
                 handleDeleteCommand(Parser.parseArgs(CommandType.DELETE, userInput));
+                break;
+            case FIND:
+                handleFindCommand(Parser.parseArgs(CommandType.FIND, userInput));
                 break;
             default:
                 throw new SigmaUnknownCommandException(userInput);
@@ -196,7 +204,15 @@ public class Sigma {
         }
     }
 
-    public static void main(String[] args) {
-        new Sigma().run();
+    public void handleFindCommand(String userInput) throws SigmaException {
+        if (taskList.getSize() == 0) {
+            throw new SigmaEmptyTaskListException();
+        }
+
+        if (userInput.trim().split(" ").length > 1) {
+            throw new SigmaInvalidArgException(CommandType.FIND);
+        }
+
+        this.ui.showSearchedTasks(this.taskList.search(userInput));
     }
 }

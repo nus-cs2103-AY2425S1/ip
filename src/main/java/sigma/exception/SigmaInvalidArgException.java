@@ -39,6 +39,8 @@ public class SigmaInvalidArgException extends SigmaException {
             return String.format(message, super.toString(), "unmark <task_number>");
         case DELETE:
             return String.format(message, super.toString(), "delete <task_number>");
+        case FIND:
+            return String.format(message, super.toString(), "find <keyword>");
         default:
             return super.toString() + " Invalid argument(s).";
         }
