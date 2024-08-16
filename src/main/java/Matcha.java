@@ -17,30 +17,29 @@ public class Matcha {
             System.out.println(divider);
             try {
                 switch (keyword.toLowerCase()) {
-                    case "list":
-                        Matcha.listTasks();
-                        break;
-                    case "mark":
-                        Matcha.markTask(input.split(" "));
-                        break;
-                    case "unmark":
-                        Matcha.unmarkTask(input.split(" "));
-                        break;
-                    case "todo":
-                        Matcha.createTodo(inputWords);
-                        break;
-                    case "deadline":
-                        Matcha.createDeadline(inputWords);
-                        break;
-                    case "event":
-                        Matcha.createEvent(inputWords);
-                        break;
-                    case "delete":
-                        Matcha.deleteTask(input.split(" "));
-                        break;
-                    default:
-                        throw new DukeException("Hmm, I'm sorry but " +
-                                "I am unfamiliar with this command.\nPlease try another command instead :(");
+                case "list":
+                    Matcha.listTasks();
+                    break;
+                case "mark":
+                    Matcha.markTask(input.split(" "));
+                    break;
+                case "unmark":
+                    Matcha.unmarkTask(input.split(" "));
+                    break;
+                case "todo":
+                    Matcha.createTodo(inputWords);
+                    break;
+                case "deadline":
+                    Matcha.createDeadline(inputWords);
+                    break;
+                case "event":
+                    Matcha.createEvent(inputWords);
+                    break;
+                case "delete":
+                    Matcha.deleteTask(input.split(" "));
+                    break;
+                default:
+                    throw new DukeException("Hmm, I'm sorry but I am unfamiliar with this command :(");
                 }
             } catch (DukeException e) {
                 System.out.println(e);
@@ -178,7 +177,7 @@ public class Matcha {
 
     public static void printTask(Task task) {
         System.out.println(task);
-        System.out.println("You have " + tasks.size() + " tasks in the list");
+        System.out.println("You have " + tasks.size() + " tasks in the list.");
     }
 
     public static void listTasks() {
