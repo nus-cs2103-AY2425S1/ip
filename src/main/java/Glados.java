@@ -11,7 +11,7 @@ public class Glados {
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
             + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
             + "\n";
-    private static String[] list = new String[100];    
+    private static Task[] list = new Task[100];    
     private static int listIndex = 0;
     public static void main(String[] args) {
         greet();
@@ -30,6 +30,10 @@ public class Glados {
                     add(input.substring(4, input.length()));
                 } else if (query.equals("list")) {
                     list();
+                } else if (query.equals("mark")) {
+                    mark(Integer.valueOf(input.substring(5, input.length())));
+                } else if (query.equals("unmark")) {
+                    unmark(Integer.valueOf(input.substring(7, input.length())));
                 } else {
                     error();
                 }
@@ -65,7 +69,7 @@ public class Glados {
     }
 
     public static void add(String input) {
-        list[listIndex] = input;
+        list[listIndex] = new Task(input);
         listIndex++;
         System.out.println(
             HORIZONTAL_LINE
@@ -77,9 +81,27 @@ public class Glados {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("GLaDOS: Here is the list\n");
         for (int i = 0; i < listIndex; i++) {
-            System.out.println(i + 1 + ". " + list[i]); 
+            System.out.println(i + 1 + ". " + list[i].getStatusIcon() + " " + list[i].getDescription()); 
         }
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void mark(int index) {
+        list[index - 1].mark();
+        System.out.println(
+            HORIZONTAL_LINE
+            + "\nGLaDOS: I've marked this task as done.\n"
+            + "\n" + list[index - 1].getStatusIcon() + " " + list[index - 1].getDescription() + "\n"
+            + HORIZONTAL_LINE);
+    }
+
+    public static void unmark(int index) {
+        list[index - 1].unmark();
+        System.out.println(
+            HORIZONTAL_LINE
+            + "\nGLaDOS: Oops, looks like this task is no longer done.\n"
+            + "\n" + list[index - 1].getStatusIcon() + " " + list[index - 1].getDescription() + "\n"
+            + HORIZONTAL_LINE);
     }
 
     public static void exit() {
