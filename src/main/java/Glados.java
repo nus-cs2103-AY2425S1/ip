@@ -38,12 +38,17 @@ public class Glados {
     }
 
     public static void echo(String input) {
-        System.out.println(input);
+        System.out.println(
+            HORIZONTAL_LINE
+            + "\nGLaDOS: " + input + "\n"
+            + HORIZONTAL_LINE
+        );
     }
 
     public static void exit() {
         System.out.println(
-            "Goodbye, user.\n"
+            HORIZONTAL_LINE
+            + "\nGLaDOS: Goodbye, user.\n"
             + HORIZONTAL_LINE
         );
     }
