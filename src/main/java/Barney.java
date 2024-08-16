@@ -10,7 +10,9 @@ public class Barney {
         System.out.println(LONG_LINE);
 
         Scanner SCANNER = new Scanner(System.in);
-        String input;
+        String command;
+
+        String taskDescription;
 
         Boolean isChatting = true;
 
@@ -19,21 +21,19 @@ public class Barney {
 
         while (isChatting) {
             System.out.println(">>>");
-            input = SCANNER.nextLine().trim();
+            command = SCANNER.next();
             System.out.println("<<<");
 
-            String[] inputArray = input.split(" ");
-            String keyword = inputArray[0];
-
-            switch (keyword) {
+            switch (command) {
                 case "list":
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < listLength; i++) {
                         System.out.println(String.format("%d. %s", i + 1, taskList[i].toString()));
                     }
+                    System.out.println(LONG_LINE);
                     break;
                 case "mark":
-                    String markStr = inputArray[1];
+                    String markStr = SCANNER.next();
                     if (!markStr.matches("\\d+")) {
                         System.out.println("Invalid task number");
                         break;
@@ -49,15 +49,18 @@ public class Barney {
                     taskList[markIndex].mark();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(taskList[markIndex].toString());
+
+                    SCANNER.nextLine();
                     break;
                 case "unmark":
-                    String unmarkStr = inputArray[1];
+                    String unmarkStr = SCANNER.next();
                     if (!unmarkStr.matches("\\d+")) {
                         System.out.println("Invalid task number");
                         break;
                     }
 
                     int unmarkIndex = Integer.parseInt(unmarkStr) - 1;
+
                     if (unmarkIndex >= listLength || unmarkIndex < 0) {
                         System.out.println("Invalid task number");
                         break;
@@ -66,16 +69,72 @@ public class Barney {
                     taskList[unmarkIndex].unmark();
                     System.out.println("OK, I've unmarked this task as not done yet:");
                     System.out.println(taskList[unmarkIndex].toString());
+
+                    SCANNER.nextLine();
+                    break;
+                case "todo":
+                    taskDescription = SCANNER.nextLine().trim();
+                    taskList[listLength] = new Todo(taskDescription);
+                    listLength++;
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskList[listLength - 1].toString());
+                    System.out.println(String.format("Now you have %d tasks in the list.", listLength));
+                    System.out.println(LONG_LINE);
+                    break;
+                case "deadline":
+                    String deadlineDescription = "";
+                    String deadlineBy = "";
+                    String upcoming = SCANNER.next();
+                    while (!upcoming.equals("/by")) {
+                        deadlineDescription += " " + upcoming;
+                        upcoming = SCANNER.next();
+                    }
+
+                    deadlineDescription = deadlineDescription.trim();
+                    deadlineBy = SCANNER.nextLine().trim();
+
+                    taskList[listLength] = new Deadline(deadlineDescription, deadlineBy);
+                    listLength++;
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskList[listLength - 1].toString());
+                    System.out.println(String.format("Now you have %d tasks in the list.", listLength));
+                    System.out.println(LONG_LINE);
+                    break;
+                case "event":
+                    String eventDescription = "";
+                    String eventAtStr = "";
+                    String n = SCANNER.next();
+                    while (!n.equals("/from")) {
+                        eventDescription += " " + n;
+                        n = SCANNER.next();
+                    }
+                    n = SCANNER.next();
+                    while (!n.equals("/to")) {
+                        eventAtStr += " " + n;
+                        n = SCANNER.next();
+                    }
+                    String eventToStr = SCANNER.nextLine();
+
+                    eventDescription = eventDescription.trim();
+                    eventAtStr = eventAtStr.trim();
+                    eventToStr = eventToStr.trim();
+
+                    taskList[listLength] = new Event(eventDescription, eventAtStr, eventToStr);
+                    listLength++;
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskList[listLength - 1].toString());
+                    System.out.println(String.format("Now you have %d tasks in the list.", listLength));
+                    System.out.println(LONG_LINE);
+
                     break;
                 case "bye":
                     isChatting = false;
                     break;
                 default:
-                    taskList[listLength] = new Task(input);
-                    listLength++;
-                    System.out.println("added: " + input);
-                    System.out.println(LONG_LINE);
-
+                    System.out.println("invalid command");
             }
         }
 
