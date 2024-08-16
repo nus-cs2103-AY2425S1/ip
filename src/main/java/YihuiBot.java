@@ -51,24 +51,17 @@ public class YihuiBot {
         }
     }
 
-    private static String wrapStringWithHorizontalLines(String s) {
-        String horizontalLine = "-----------------------------------------------------";
-        return horizontalLine + "\n" + s + "\n" + horizontalLine;
-    }
-
     private static void greetings() {
         String s = String.format(
             "Hello! I am %s!\nWhat can I do for you?",
             NAME
         );
-        String wrapped = wrapStringWithHorizontalLines(s);
-        System.out.println(wrapped);
+        new Message(s).print();
     }
 
     private static void exit() {
         String s = "Bye. Hope to see you again soon!";
-        String wrapped = wrapStringWithHorizontalLines(s);
-        System.out.println(wrapped);
+        new Message(s).print();
     }
 
     private static void addTask(String input) {
@@ -77,15 +70,13 @@ public class YihuiBot {
                 "Maximum number of tasks exceeded.\nCan only store %d tasks.",
                 SIZE
             );
-            String wrapped = wrapStringWithHorizontalLines(s);
-            System.out.println(wrapped);
+            new Message(s).print();
             return;
         }
 
         tasks[numTasks++] = new Task(input);
         String s = "added: " + input;
-        String wrapped = wrapStringWithHorizontalLines(s);
-        System.out.println(wrapped);
+        new Message(s).print();
     }
 
     private static void list() {
@@ -100,7 +91,6 @@ public class YihuiBot {
                 s += String.format("\n%d. [%s] %s", idx, isComplete, task.toString());
             }
         }
-        String wrapped = wrapStringWithHorizontalLines(s);
-        System.out.println(wrapped);
+        new Message(s).print();
     }
 }
