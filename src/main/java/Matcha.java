@@ -47,12 +47,15 @@ public class Matcha {
                         break;
 
                     case "deadline":
-
                         Matcha.deadline(inputWords);
                         break;
 
                     case "event":
                         Matcha.event(inputWords);
+                        break;
+
+                    case "delete":
+                        Matcha.delete(input.split(" "));
                         break;
 
                     default:
@@ -125,7 +128,7 @@ public class Matcha {
         String from = inputWords[1].split(" /from ")[1].split(" /to ")[0];
         String to = inputWords[1].split(" /to ")[1];
         printLine();
-        System.out.println("Alright, I have added this task:");
+        System.out.println("Alright, I have added this Event:");
         Event event = new Event(eventDesc, from, to);
         tasks.add(event);
         System.out.println(event);
@@ -182,6 +185,31 @@ public class Matcha {
         System.out.println("Alright, I have marked this task as not done yet:");
         System.out.println(tasks.get(taskNum).toString());
         printLine();
+    }
+
+    public static void delete(String[] inputWords) throws DukeException {
+        if (inputWords.length != 2) {
+            throw new DukeException("Please enter the task number of the task you want to delete.");
+        }
+        int taskNum = 0;
+
+        try {
+            taskNum = Integer.parseInt(inputWords[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter the task number of the task you want to delete.");
+        }
+
+        if (taskNum < 0 || taskNum >= tasks.size()) {
+            throw new DukeException("This task does not exist!");
+        }
+
+        printLine();
+        System.out.println("Alright, I have removed this task for you:");
+        System.out.println(tasks.get(taskNum).toString());
+        tasks.remove(taskNum);
+        Matcha.countTasks(tasks.size());
+        printLine();
+
     }
 
     public static void list() {
