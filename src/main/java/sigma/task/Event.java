@@ -15,8 +15,8 @@ public class Event extends Task {
      * Constructs an {@code Event} task with the specified description, start time, and end time.
      *
      * @param description the description of the event
-     * @param from        the start time of the event
-     * @param to          the end time of the event
+     * @param from the start time of the event
+     * @param to the end time of the event
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -39,8 +39,7 @@ public class Event extends Task {
     /**
      * Returns the string representation of this {@code Event} task.
      *
-     * @return the string representation of this task in the format
-     * "[E][status] description (from: start time to: end time)"
+     * @return the string representation of this task in the format "[E][status] description (from: start time to: end time)"
      */
     @Override
     public String toString() {

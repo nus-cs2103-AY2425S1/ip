@@ -54,7 +54,6 @@ public class Storage {
         } catch (IOException e) {
             throw new SigmaFileException();
         }
-
         return tasks;
     }
 
