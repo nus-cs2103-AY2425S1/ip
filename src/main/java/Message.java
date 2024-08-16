@@ -1,3 +1,9 @@
+/**
+ * This class is used to print out messages of YihuiBot in a specific format.
+ * The format in this case is to wrap the message in horizontal lines.
+ *
+ * @author Toh Yi Hui A0259080A
+ */
 public class Message {
     private String description;
 

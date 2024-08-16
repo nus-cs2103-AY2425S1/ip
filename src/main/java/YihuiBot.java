@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Your friendly todolist bot.
+ *
+ * @author Toh Yi Hui A0259080A
+ */
 public class YihuiBot {
     // The name of this bot
     private static final String NAME = "YihuiBot";

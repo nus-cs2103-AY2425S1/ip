@@ -1,3 +1,8 @@
+/**
+ * A class to depict a task which can be completed.
+ *
+ * @author Toh Yi Hui A0259080A
+ */
 public class Task {
     private String description;
     private boolean isCompleted;
