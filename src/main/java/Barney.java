@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Barney {
     private static String LONG_LINE = "_________________________________________________";
@@ -17,18 +18,28 @@ public class Barney {
     }
 
     public static void chat() {
-        String input = "";
+        String input;
         Boolean isChatting = true;
+        ArrayList<String> list = new ArrayList<String>();
+
         while (isChatting) {
+            System.out.println(">>>");
+            input = SCANNER.nextLine();
+            System.out.println("<<<");
+
             switch (input) {
+                case "list":
+                    for (int i = 1; i <= list.size(); i++) {
+                        System.out.println(i + ". " + list.get(i - 1));
+                    }
+                    break;
                 case "bye":
                     isChatting = false;
                     break;
                 default:
-                    System.out.println(">>>");
-                    input = SCANNER.nextLine();
-                    System.out.println("<<<");
-                    System.out.println(input);
+                    list.add(input);
+                    System.out.println("added: " + input);
+
                     System.out.println(LONG_LINE);
             }
         }
