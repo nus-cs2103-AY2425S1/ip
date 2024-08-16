@@ -56,6 +56,7 @@ public class Duke {
         for (int i = 0; i < raw.length; ++i) {
             split[i] = raw[i].trim();
         }
+        split[0] = split[0].toLowerCase();
         return split;
     }
 
