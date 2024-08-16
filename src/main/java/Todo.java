@@ -6,6 +6,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "\t[T]" + super.toString() + "\n";
+        return "\t[T]" + super.toString();
     }
 }

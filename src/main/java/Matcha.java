@@ -35,7 +35,7 @@ public class Matcha {
             switch (keyword) {
                 case "list":
                     printLine();
-                    System.out.println("Here are your tasks:\n");
+                    System.out.println("Here are your tasks:");
                     for (int i = 0; i < tasks.size(); i++) {
                         String task = (i + 1) + ". " + tasks.get(i);
                         System.out.println(task);
@@ -48,7 +48,7 @@ public class Matcha {
                     Task markTask = tasks.get(Integer.parseInt(input.split(" ")[1])- 1);
                     markTask.markDone();
                     printLine();
-                    System.out.println("I have successfully marked this task as done: ");
+                    System.out.println("I have successfully marked this task as done:");
                     System.out.println(markTask.toString());
                     printLine();
                     break;
@@ -58,17 +58,17 @@ public class Matcha {
                     Task unmarkTask = tasks.get(Integer.parseInt(input.split(" ")[1])- 1);
                     unmarkTask.markNotDone();
                     printLine();
-                    System.out.println("Alright, I have marked this task as not done yet: ");
+                    System.out.println("Alright, I have marked this task as not done yet:");
                     System.out.println(unmarkTask.toString());
                     printLine();
                     break;
 
                 case "todo":
                     printLine();
-                    System.out.println("Alright, I have added this task:\n");
+                    System.out.println("Alright, I have added this task:");
                     Todo todo = new Todo(inputWords[1]);
                     tasks.add(todo);
-                    System.out.println(todo + "\n");
+                    System.out.println(todo);
                     Matcha.countTasks(tasks.size());
                     printLine();
                     break;
@@ -80,7 +80,7 @@ public class Matcha {
                     String by = deadlineInfo[1].strip();
 
                     printLine();
-                    System.out.println("Alright, I have added this task:\n");
+                    System.out.println("Alright, I have added this task:");
                     Deadline deadline = new Deadline(deadlineDesc, by);
                     tasks.add(deadline);
                     System.out.println(deadline);
@@ -93,7 +93,7 @@ public class Matcha {
                     String from = inputWords[1].split(" /from ")[1].split(" /to ")[0];
                     String to = inputWords[1].split(" /to ")[1];
                     printLine();
-                    System.out.println("Alright, I have added this task:\n");
+                    System.out.println("Alright, I have added this task:");
                     Event event = new Event(eventDesc, from, to);
                     tasks.add(event);
                     System.out.println(event);
@@ -112,18 +112,18 @@ public class Matcha {
 
     public static void greet() {
         printLine();
-        System.out.println(" Hi there! I am Matcha, your personal chatbot.\n");
-        System.out.println(" How can I help you today?\n");
+        System.out.println(" Hi there! I am Matcha, your personal chatbot.");
+        System.out.println(" How can I help you today?");
         printLine();
     }
 
     public static void countTasks(int numOfTasks) {
         String task = numOfTasks == 1 ? "task" : "tasks";
-        System.out.println("You have " + numOfTasks + " " + task + " in the list.\n");
+        System.out.println("You have " + numOfTasks + " " + task + " in the list.");
     }
 
     public static void printLine() {
-        String line = "____________________________________________________________\n";
+        String line = "____________________________________________________________";
         System.out.println(line);
     }
 }
