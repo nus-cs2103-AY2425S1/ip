@@ -1,13 +1,15 @@
-public class Duke {
+public class MentalHealth {
 
     private final static String separator = "------------------------------";
+    private final static String greetingMessage = "Hello! I'm your friendly ChatBot assistant called MentalHealth :)\n" +
+            "What can I do for you?";
+
+    private final static String goodbyeMessage = "Bye. Hope to see you again soon!";
     public static void main(String[] args) {
         System.out.println(separator);
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println(greetingMessage);
+        System.out.println(separator);
+        System.out.println(goodbyeMessage);
+
     }
 }
