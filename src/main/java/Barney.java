@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Barney {
     private static String LONG_LINE = "____________________________________________________________";
@@ -16,8 +17,7 @@ public class Barney {
 
         Boolean isChatting = true;
 
-        Task[] taskList = new Task[100];
-        int listLength = 0;
+        ArrayList<Task> taskList = new ArrayList<Task>();
 
         while (isChatting) {
             System.out.println(">>>");
@@ -27,48 +27,51 @@ public class Barney {
             switch (command) {
                 case "list":
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < listLength; i++) {
-                        System.out.println(String.format("%d. %s", i + 1, taskList[i].toString()));
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println(String.format("%d. %s", i + 1, taskList.get(i).toString()));
                     }
                     System.out.println(LONG_LINE);
                     break;
                 case "mark":
-                    String markStr = SCANNER.nextLine();
+                    String markStr = SCANNER.nextLine().trim();
                     if (!markStr.matches("\\d+")) {
-                        System.out.println("Invalid task number: Please add in a number from 1 to " + listLength);
+                        System.out.println("Invalid task number: Please add in a number from 1 to " + taskList.size());
+                        System.out.println(markStr);
                         break;
                     }
 
                     int markIndex = Integer.parseInt(markStr) - 1;
 
-                    if (markIndex >= listLength || markIndex < 0) {
-                        System.out.println("Task number out of range. Please choose a number from 1 to " + listLength);
+                    if (markIndex >= taskList.size() || markIndex < 0) {
+                        System.out.println(
+                                "Task number out of range. Please choose a number from 1 to " + taskList.size());
                         break;
                     }
 
-                    taskList[markIndex].mark();
+                    taskList.get(markIndex).mark();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(taskList[markIndex].toString());
+                    System.out.println(taskList.get(markIndex).toString());
 
                     SCANNER.nextLine();
                     break;
                 case "unmark":
-                    String unmarkStr = SCANNER.nextLine();
+                    String unmarkStr = SCANNER.nextLine().trim();
                     if (!unmarkStr.matches("\\d+")) {
-                        System.out.println("Invalid task number: Please add in a number from 1 to " + listLength);
+                        System.out.println("Invalid task number: Please add in a number from 1 to " + taskList.size());
                         break;
                     }
 
                     int unmarkIndex = Integer.parseInt(unmarkStr) - 1;
 
-                    if (unmarkIndex >= listLength || unmarkIndex < 0) {
-                        System.out.println("Task number out of range. Please choose a number from 1 to " + listLength);
+                    if (unmarkIndex >= taskList.size() || unmarkIndex < 0) {
+                        System.out.println(
+                                "Task number out of range. Please choose a number from 1 to " + taskList.size());
                         break;
                     }
 
-                    taskList[unmarkIndex].unmark();
+                    taskList.get(unmarkIndex).unmark();
                     System.out.println("OK, I've unmarked this task as not done yet:");
-                    System.out.println(taskList[unmarkIndex].toString());
+                    System.out.println(taskList.get(unmarkIndex).toString());
                     break;
                 case "todo":
                     taskDescription = SCANNER.nextLine().trim();
@@ -78,12 +81,11 @@ public class Barney {
                         break;
                     }
 
-                    taskList[listLength] = new Todo(taskDescription);
-                    listLength++;
+                    taskList.add(new Todo(taskDescription));
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList[listLength - 1].toString());
-                    System.out.println(String.format("Now you have %d tasks in the list.", listLength));
+                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
                     System.out.println(LONG_LINE);
                     break;
                 case "deadline":
@@ -109,12 +111,11 @@ public class Barney {
                         break;
                     }
 
-                    taskList[listLength] = new Deadline(deadlineDescription, deadlineBy);
-                    listLength++;
+                    taskList.add(new Deadline(deadlineDescription, deadlineBy));
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList[listLength - 1].toString());
-                    System.out.println(String.format("Now you have %d tasks in the list.", listLength));
+                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
                     System.out.println(LONG_LINE);
                     break;
                 case "event":
@@ -153,13 +154,34 @@ public class Barney {
                         break;
                     }
 
-                    taskList[listLength] = new Event(eventDescription, eventAtStr, eventToStr);
-                    listLength++;
+                    taskList.add(new Event(eventDescription, eventAtStr, eventToStr));
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList[listLength - 1].toString());
-                    System.out.println(String.format("Now you have %d tasks in the list.", listLength));
+                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
                     System.out.println(LONG_LINE);
+
+                    break;
+                case "delete":
+                    String deleteStr = SCANNER.nextLine().trim();
+                    if (!deleteStr.matches("\\d+")) {
+                        System.out.println("Invalid task number: Please add in a number from 1 to " + taskList.size());
+                        break;
+                    }
+
+                    int deleteIndex = Integer.parseInt(deleteStr) - 1;
+
+                    if (deleteIndex >= taskList.size() || deleteIndex < 0) {
+                        System.out.println(
+                                "Task number out of range. Please choose a number from 1 to " + taskList.size());
+                        break;
+                    }
+
+                    Task deletedTask = taskList.remove(deleteIndex);
+
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(deletedTask.toString());
+                    System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
 
                     break;
                 case "bye":
