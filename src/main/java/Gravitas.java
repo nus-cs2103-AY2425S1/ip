@@ -8,6 +8,7 @@ public class Gravitas {
         System.out.println("  [" + t.getEventType() + "][" + t.getStatusIcon() + "] " + t.description);
         System.out.println("Now you have " + Gravitas.numOfTask + " tasks in the list.");
     }
+
     public static void printList(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         Task currentTask;
@@ -31,7 +32,9 @@ public class Gravitas {
         String outOfBound = "The task that you wish to mark is invalid! please try again!";
         String emptyTodo = "OOPS!!! The description of a todo cannot be empty.";
         String emptyDeadline = "OOPS!!! The description of a Deadline cannot be empty and must contain /from and /to.";
-        String emptyEvent = "OOPS!!! The description of a Event cannot be empty. and must contain /by ";
+        String emptyEvent = "OOPS!!! The description of a Event cannot be empty and must contain /by ";
+        String deleteMsg = "Noted. I've removed this task:";
+        String emptyDelete = "OOPS!!! The description of a delete cannot be empty.";
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         System.out.println(greet);
@@ -49,27 +52,27 @@ public class Gravitas {
                 } else if (msg.equals("list")) {
                     Gravitas.printList(tasks);
                 } else if (msgFrag[0].equals("mark")) {
-                    int index = Integer.parseInt((msgFrag[1]));
+                    int index = Integer.parseInt((msgFrag[1])) - 1;
 
                     if (index >= Gravitas.numOfTask || index < 0) {
                         throw new DukeException(outOfBound);
                     }
 
-                    Task t = tasks.get(index - 1);
+                    Task t = tasks.get(index);
                     t.markTask();
                     System.out.println(mark);
-                    System.out.println("\t[" + t.getStatusIcon() + "] " + t.description);
+                    Gravitas.printTask(t);
                 } else if (msgFrag[0].equals("unmark")) {
-                    int index = Integer.parseInt((msgFrag[1]));
+                    int index = Integer.parseInt((msgFrag[1])) - 1;
 
                     if (index >= Gravitas.numOfTask || index < 0) {
                         throw new DukeException(outOfBound);
                     }
 
-                    Task t = tasks.get(index - 1);
+                    Task t = tasks.get(index);
                     t.unMarkTask();
                     System.out.println(unMark);
-                    System.out.println("\t[" + t.getStatusIcon() + "] " + t.description);
+                    Gravitas.printTask(t);
                 } else if (msgFrag[0].equals("deadline")) {
                     if (msgFrag.length <= 1 || !msg.contains("/by ")) {
                         throw new DukeException(emptyDeadline);
@@ -112,6 +115,21 @@ public class Gravitas {
 
                     System.out.println(added);
                     Gravitas.printTask(t);
+                } else if (msgFrag[0].equals("delete")) {
+
+                    int index = Integer.parseInt((msgFrag[1])) - 1;
+
+                    if (msgFrag.length <= 1) {
+                        throw new DukeException(emptyDelete);
+                    } else if (index >= Gravitas.numOfTask || index < 0) {
+                        throw new DukeException(outOfBound);
+                    }
+
+                    Task t = tasks.get(index);
+                    Gravitas.numOfTask -= 1;
+                    System.out.println(deleteMsg);
+                    Gravitas.printTask(t);
+                    tasks.remove(index);
                 } else {
                     throw new DukeException(err);
                 }
