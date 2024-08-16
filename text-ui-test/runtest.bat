@@ -17,5 +17,14 @@ REM no error here, errorlevel == 0
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ..\bin Monique < input.txt > ACTUAL.TXT
 
+REM remove trailing spaces from both files
+powershell -command "(Get-Content ACTUAL.TXT) | ForEach-Object { $_.TrimEnd() } | Set-Content ACTUAL.TXT"
+powershell -command "(Get-Content EXPECTED.TXT) | ForEach-Object { $_.TrimEnd() } | Set-Content EXPECTED.TXT"
+
+
+REM convert line endings of both files to UNIX format
+REM dos2unix ACTUAL.TXT
+REM dos2unix EXPECTED.TXT
+
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

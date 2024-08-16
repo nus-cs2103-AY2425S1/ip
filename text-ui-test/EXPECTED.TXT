@@ -1,7 +1,45 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+_____________________________________________
 
+Hello, I am Monique,
+What can I do for you today?
+_____________________________________________
+
+user:
+_____________________________________________
+_____________________________________________
+user:
+added: [T][ ] do work
+user:
+Got it, I've added this event [E][ ] school (from:tomorrow 1pm to: 5pm evening)
+user:
+Got it, I've added this deadline [D][ ] complete SE homework (by: 6pm)
+user:
+_____________________________________________
+1.[T][ ] do work
+2.[E][ ] school (from:tomorrow 1pm to: 5pm evening)
+3.[D][ ] complete SE homework (by: 6pm)
+_____________________________________________
+user:
+Nice lah.. Great job on doing work! I've marked it:
+1.[T][X] do work
+user:
+Nice lah.. Great job on doing work! I've marked it:
+2.[E][X] school (from:tomorrow 1pm to: 5pm evening)
+user:
+Nice lah.. Great job on doing work! I've marked it:
+3.[D][X] complete SE homework (by: 6pm)
+user:
+_____________________________________________
+1.[T][X] do work
+2.[E][X] school (from:tomorrow 1pm to: 5pm evening)
+3.[D][X] complete SE homework (by: 6pm)
+_____________________________________________
+user:
+ok... I've unmarked:
+1.[T][ ] do work
+user:
+ok... I've unmarked:
+2.[E][ ] school (from:tomorrow 1pm to: 5pm evening)
+user:
+Monique: Goodbye! Have a great day!
+Ciao!
