@@ -33,16 +33,16 @@ public class Barney {
                     System.out.println(LONG_LINE);
                     break;
                 case "mark":
-                    String markStr = SCANNER.next();
+                    String markStr = SCANNER.nextLine();
                     if (!markStr.matches("\\d+")) {
-                        System.out.println("Invalid task number");
+                        System.out.println("Invalid task number: Please add in a number from 1 to " + listLength);
                         break;
                     }
 
                     int markIndex = Integer.parseInt(markStr) - 1;
 
                     if (markIndex >= listLength || markIndex < 0) {
-                        System.out.println("Invalid task number");
+                        System.out.println("Task number out of range. Please choose a number from 1 to " + listLength);
                         break;
                     }
 
@@ -53,27 +53,31 @@ public class Barney {
                     SCANNER.nextLine();
                     break;
                 case "unmark":
-                    String unmarkStr = SCANNER.next();
+                    String unmarkStr = SCANNER.nextLine();
                     if (!unmarkStr.matches("\\d+")) {
-                        System.out.println("Invalid task number");
+                        System.out.println("Invalid task number: Please add in a number from 1 to " + listLength);
                         break;
                     }
 
                     int unmarkIndex = Integer.parseInt(unmarkStr) - 1;
 
                     if (unmarkIndex >= listLength || unmarkIndex < 0) {
-                        System.out.println("Invalid task number");
+                        System.out.println("Task number out of range. Please choose a number from 1 to " + listLength);
                         break;
                     }
 
                     taskList[unmarkIndex].unmark();
                     System.out.println("OK, I've unmarked this task as not done yet:");
                     System.out.println(taskList[unmarkIndex].toString());
-
-                    SCANNER.nextLine();
                     break;
                 case "todo":
                     taskDescription = SCANNER.nextLine().trim();
+                    if (taskDescription.equals("")) {
+                        System.out.println("Empty task description: Please add in a task description");
+                        System.out.println(LONG_LINE);
+                        break;
+                    }
+
                     taskList[listLength] = new Todo(taskDescription);
                     listLength++;
 
@@ -92,7 +96,18 @@ public class Barney {
                     }
 
                     deadlineDescription = deadlineDescription.trim();
+                    if (deadlineDescription.equals("")) {
+                        System.out.println("Empty task description: Please add in a description");
+                        System.out.println(LONG_LINE);
+                        break;
+                    }
+
                     deadlineBy = SCANNER.nextLine().trim();
+                    if (deadlineBy.equals("")) {
+                        System.out.println("Empty deadline: Please add in a deadline");
+                        System.out.println(LONG_LINE);
+                        break;
+                    }
 
                     taskList[listLength] = new Deadline(deadlineDescription, deadlineBy);
                     listLength++;
@@ -118,8 +133,25 @@ public class Barney {
                     String eventToStr = SCANNER.nextLine();
 
                     eventDescription = eventDescription.trim();
+                    if (eventDescription.equals("")) {
+                        System.out.println("Empty task description: Please add in a time");
+                        System.out.println(LONG_LINE);
+                        break;
+                    }
+
                     eventAtStr = eventAtStr.trim();
+                    if (eventAtStr.equals("")) {
+                        System.out.println("Empty /from time: Please add in a time");
+                        System.out.println(LONG_LINE);
+                        break;
+                    }
+
                     eventToStr = eventToStr.trim();
+                    if (eventToStr.equals("")) {
+                        System.out.println("Empty /to time: Please add in a time");
+                        System.out.println(LONG_LINE);
+                        break;
+                    }
 
                     taskList[listLength] = new Event(eventDescription, eventAtStr, eventToStr);
                     listLength++;

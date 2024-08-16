@@ -8,8 +8,7 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 >>>
 <<<
-Nice! I've marked this task as done:
-[T][X] read book
+Invalid task number: Please add in a number from 1 to 1
 >>>
 <<<
 Got it. I've added this task:
@@ -30,8 +29,7 @@ Now you have 4 tasks in the list.
 ____________________________________________________________
 >>>
 <<<
-Nice! I've marked this task as done:
-[T][X] join sports club
+Invalid task number: Please add in a number from 1 to 4
 >>>
 <<<
 Got it. I've added this task:
@@ -41,10 +39,10 @@ ____________________________________________________________
 >>>
 <<<
 Here are the tasks in your list:
-1. [T][X] read book
+1. [T][ ] read book
 2. [D][ ] return book (by: June 6th)
 3. [E][ ] project meeting (at: Aug 6th 2pm to: 4pm)
-4. [T][X] join sports club
+4. [T][ ] join sports club
 5. [T][ ] borrow book
 ____________________________________________________________
 >>>
@@ -65,6 +63,13 @@ Got it. I've added this task:
 [D][ ] do homework (by: no idea :-p)
 Now you have 8 tasks in the list.
 ____________________________________________________________
+>>>
+<<<
+Empty task description: Please add in a task description
+____________________________________________________________
+>>>
+<<<
+invalid command
 >>>
 <<<
 Goodbye, I am Barney <RAWR>, see you next time!
