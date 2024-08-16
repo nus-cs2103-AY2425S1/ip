@@ -1,0 +1,11 @@
+list
+todo one
+deadline two /by tomorrow
+list
+event three /from today /by tomorrow
+mark 1
+mark 2
+list
+unmark 1
+list
+bye

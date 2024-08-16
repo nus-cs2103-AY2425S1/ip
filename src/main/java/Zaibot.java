@@ -123,9 +123,9 @@ public class Zaibot {
         printMessage(greetingMessage);
 
         String currentCommand = "";
+        Scanner input = new Scanner(System.in);
 
-        while (!currentCommand.equals("bye")) {
-            Scanner input = new Scanner(System.in);
+        while (!currentCommand.equals("bye") && input.hasNextLine()) {
             currentCommand = input.nextLine();
             processCommand(currentCommand);
         }
