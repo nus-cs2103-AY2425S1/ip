@@ -13,7 +13,6 @@ import sigma.task.TaskList;
  * showing information related to tasks.
  */
 public class Ui {
-    private Scanner scanner;
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String LOGO =
             "   _____ _                       \n"
@@ -24,6 +23,7 @@ public class Ui {
                     + " |_____/|_|\\__, |_| |_| |_|\\__,_|\n"
                     + "            __/ |                \n"
                     + "           |___/                 \n";
+    private Scanner scanner;
 
 
     /**
@@ -121,7 +121,7 @@ public class Ui {
     /**
      * Displays a message indicating that a task has been added to the list.
      *
-     * @param task The task that has been added.
+     * @param task          The task that has been added.
      * @param numberOfTasks The current number of tasks in the list.
      */
     public void showAddedTask(Task task, int numberOfTasks) {
@@ -135,7 +135,7 @@ public class Ui {
     /**
      * Displays a message indicating that a task has been removed from the list.
      *
-     * @param task The task that has been removed.
+     * @param task          The task that has been removed.
      * @param numberOfTasks The current number of tasks in the list.
      */
     public void showDeletedTask(Task task, int numberOfTasks) {

@@ -21,7 +21,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * Represents the main class for the Sigma application.
+ * <p>
+ * Sigma is a task management application that supports different types of tasks such as
+ * to-dos, deadlines, and events. Users can add, delete, mark as done, or list tasks using
+ * a command-line interface.
+ * </p>
+ * <p>
+ * The application uses a {@link Storage} class to save and load tasks from a file, and
+ * a {@link TaskList} to manage the list of tasks in memory. User interactions are handled
+ * by the {@link Ui} class.
+ * </p>
+ */
 public class Sigma {
     private static final String FILEPATH = "./data/sigma.txt";
     private Storage storage;
@@ -29,6 +41,10 @@ public class Sigma {
     private Ui ui;
     private boolean isRunning;
 
+    /**
+     * Constructs a new Sigma application instance.
+     * Initializes storage, loads tasks from the file, and sets up the user interface.
+     */
     public Sigma() {
         this.storage = new Storage(FILEPATH);
         this.ui = new Ui();
@@ -40,10 +56,17 @@ public class Sigma {
         }
     }
 
+<<<<<<< HEAD
     public static void main(String[] args) {
         new Sigma().run();
     }
 
+=======
+    /**
+     * Starts the main loop of the Sigma application.
+     * Continuously reads and processes user commands until the user exits the application.
+     */
+>>>>>>> master
     private void run() {
         this.ui.showWelcome();
         while (this.isRunning) {
@@ -51,6 +74,12 @@ public class Sigma {
         }
     }
 
+    /**
+     * Handles the exit command.
+     * Saves all tasks to the file and closes the application.
+     *
+     * @throws SigmaFileException if there is an error saving the tasks to the file
+     */
     private void exit() throws SigmaFileException {
         try {
             this.ui.closeScanner();
@@ -61,6 +90,15 @@ public class Sigma {
         }
     }
 
+    /**
+     * Processes a user command.
+     * <p>
+     * Parses the command and executes the corresponding action. If the command is not recognized,
+     * a {@link SigmaUnknownCommandException} is thrown.
+     * </p>
+     *
+     * @param userInput the input command from the user
+     */
     private void handleCommand(String userInput) {
         try {
             switch (Parser.parseCommand(userInput)) {
@@ -100,6 +138,12 @@ public class Sigma {
         }
     }
 
+    /**
+     * Handles the mark command, marking a task as done.
+     *
+     * @param userInput the task number to be marked as done
+     * @throws SigmaException if the task number is invalid or if the input is not a valid number
+     */
     private void handleMarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
@@ -115,6 +159,12 @@ public class Sigma {
         }
     }
 
+    /**
+     * Handles the unmark command, marking a task as not done.
+     *
+     * @param userInput the task number to be marked as not done
+     * @throws SigmaException if the task number is invalid or if the input is not a valid number
+     */
     private void handleUnmarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
@@ -130,6 +180,12 @@ public class Sigma {
         }
     }
 
+    /**
+     * Handles the todo command, adding a new todo task to the list.
+     *
+     * @param userInput the description of the todo task
+     * @throws SigmaException if the input is missing or invalid
+     */
     private void handleTodoCommand(String userInput) throws SigmaException {
         try {
             Task todo = new Todo(userInput);
@@ -140,6 +196,12 @@ public class Sigma {
         }
     }
 
+    /**
+     * Handles the deadline command, adding a new deadline task to the list.
+     *
+     * @param userInput the description and due date of the deadline task
+     * @throws SigmaException if the input is missing, has an invalid date format, or is otherwise invalid
+     */
     private void handleDeadlineCommand(String userInput) throws SigmaException {
         try {
             String[] parts = userInput.split(" /by ");
@@ -159,6 +221,13 @@ public class Sigma {
         }
     }
 
+    /**
+     * Handles the event command, adding a new event task to the list.
+     *
+     * @param userInput the description, start, and end dates of the event task
+     * @throws SigmaException if the input is missing, has an invalid date format,
+     * or if the end date is before the start date
+     */
     private void handleEventCommand(String userInput) throws SigmaException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
@@ -189,6 +258,12 @@ public class Sigma {
         }
     }
 
+    /**
+     * Handles the delete command, removing a task from the list.
+     *
+     * @param userInput the task number to be deleted
+     * @throws SigmaException if the task number is invalid or if the input is not a valid number
+     */
     private void handleDeleteCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
@@ -204,6 +279,7 @@ public class Sigma {
         }
     }
 
+<<<<<<< HEAD
     public void handleFindCommand(String userInput) throws SigmaException {
         if (taskList.getSize() == 0) {
             throw new SigmaEmptyTaskListException();
@@ -214,5 +290,14 @@ public class Sigma {
         }
 
         this.ui.showSearchedTasks(this.taskList.search(userInput));
+=======
+    /**
+     * The main entry point of the Sigma application.
+     *
+     * @param args command-line arguments (not used)
+     */
+    public static void main(String[] args) {
+        new Sigma().run();
+>>>>>>> master
     }
 }
