@@ -18,6 +18,7 @@ public class Rex {
         do {
             // Takes in user input
             Scanner scanner = new Scanner(System.in);
+            System.out.print("Tell Rex: ");
             String input = scanner.nextLine();
 
             // Exit loop if input is "bye"
