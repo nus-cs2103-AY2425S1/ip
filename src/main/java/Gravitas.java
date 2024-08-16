@@ -20,7 +20,7 @@ public class Gravitas {
     public static void main(String[] args) {
         int count = 0;
         String name = "Gravitas";
-        String greet = "____________________________________________________________ \nHello! I'm " + name + "\nWhat can I do for you? \n____________________________________________________________\n";
+        String greet = "____________________________________________________________\nHello! I'm " + name + "\nWhat can I do for you?\n____________________________________________________________\n";
         String header = "____________________________________________________________";
         String footer = "____________________________________________________________\n";
         String bye = "Bye. Hope to see you again soon! \n____________________________________________________________";
