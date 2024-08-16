@@ -1,4 +1,4 @@
-//import java.util.*;
+import java.util.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -7,18 +7,17 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-//        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
-        System.out.println("Bye! Hope to see you again soon!");
-//        while (scan.hasNext()) {
-//            String input = scan.nextLine();
-//            if (input.equals("bye")) {
-//                System.out.println("Bye! Hope to see you again soon!");
-//                scan.close();
-//                break;
-//            }
-//            System.out.println(input);
-//        }
+        while (scan.hasNext()) {
+            String input = scan.nextLine();
+            if (input.equals("bye")) {
+                System.out.println("Bye! Hope to see you again soon!");
+                scan.close();
+                break;
+            }
+            System.out.println(input);
+        }
     }
 }
