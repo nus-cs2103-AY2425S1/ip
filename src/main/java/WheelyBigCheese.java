@@ -34,8 +34,17 @@ public class WheelyBigCheese {
         say(s);
     }
 
-    private static Task mark(ArrayList<Task> tasks, String[] inputTokens, boolean done){
-        int idx = Integer.parseInt(inputTokens[1]) - 1;
+    private static Task mark(ArrayList<Task> tasks, String[] inputTokens, boolean done) throws CheeseException {
+        int idx;
+        if (inputTokens.length < 2) throw new CheeseException("Need location of cheese");
+
+        try {
+            idx = Integer.parseInt(inputTokens[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new CheeseException(e.getMessage());
+        }
+
+        if (idx >= tasks.size() || idx < 0) throw new CheeseException("Incorrect location of cheese");
         Task t = tasks.get(idx);
         t.setDone(done);
         return t;
@@ -57,43 +66,44 @@ public class WheelyBigCheese {
             String[] inputTokens = input.split(" ");
             String command = inputTokens[0];
 
-            //Switch statement for different responses to different commands
-            switch (command) {
-                case "bye":
-                    exitChat = true;
-                    break;
-                case "list":
-                    say(list);
-                    break;
-                case "mark":
-                    Task markT = mark(list, inputTokens, true);
-                    say("Beep bop. Cheese melted:\n" + markT);
-                    break;
-                case "unmark":
-                    Task unmarkT = mark(list, inputTokens, false);
-                    say("Bop beep. Unmelted cheese:\n" + unmarkT);
-                    break;
-                case "todo":
-                    ToDo todo = new ToDo(input.replace("todo ", ""));
-                    list.add(todo);
-                    say(todo, list.size());
-                    break;
-                case "deadline":
-                    String[] tokens = input.replace("deadline ", "").split("/by");
-                    Deadline deadline = new Deadline(tokens[0], tokens[1].strip());
-                    list.add(deadline);
-                    say(deadline, list.size());
-                    break;
-                case "event":
-                    String[] words = input.replace("event ", "").split("/from");
-                    String[] dates = words[1].split("/to");
-                    Event event = new Event(words[0], dates[0].strip(), dates[1].strip());
-                    list.add(event);
-                    say(event, list.size());
-                    break;
-                default:
-                    list.add(new Task(input));
-                    say("added: " + input);
+            try {
+                //Switch statement for different responses to different commands
+                switch (command) {
+                    case "bye":
+                        exitChat = true;
+                        break;
+                    case "list":
+                        say(list);
+                        break;
+                    case "mark":
+                        Task markT = mark(list, inputTokens, true);
+                        say("Beep bop. Cheese melted:\n" + markT);
+                        break;
+                    case "unmark":
+                        Task unmarkT = mark(list, inputTokens, false);
+                        say("Bop beep. Unmelted cheese:\n" + unmarkT);
+                        break;
+                    case "todo":
+                        ToDo todo = ToDo.of(input);
+                        list.add(todo);
+                        say(todo, list.size());
+                        break;
+                    case "deadline":
+                        Deadline deadline = Deadline.of(input);
+                        list.add(deadline);
+                        say(deadline, list.size());
+                        break;
+                    case "event":
+                        Event event = Event.of(input);
+                        list.add(event);
+                        say(event, list.size());
+                        break;
+                    default:
+                        list.add(new Task(input));
+                        say("added: " + input);
+                }
+            }catch (CheeseException e) {
+                say(e.getMessage());
             }
         } while (!exitChat);
 

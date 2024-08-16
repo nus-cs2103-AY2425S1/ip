@@ -2,7 +2,8 @@ public class Task {
     private String name;
     private boolean done;
 
-    Task(String name) {
+    Task(String name) throws CheeseException {
+        if (name.isBlank()) throw new CheeseException("Cheese needs to have a name");
         this.name = name;
         done = false;
     }
