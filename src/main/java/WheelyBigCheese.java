@@ -19,9 +19,9 @@ public class WheelyBigCheese {
      * @param ls ArrayList
      */
     private static void say(ArrayList<?> ls) {
-        StringBuilder allItems = new StringBuilder("Got your cheese:\n");
+        StringBuilder allItems = new StringBuilder("Got your cheese:");
         for (int i = 0; i < ls.size(); i++) {
-            allItems.append(i + 1).append(". ").append(ls.get(i).toString());
+            allItems.append("\n").append(i + 1).append(". ").append(ls.get(i).toString());
         }
         say(String.valueOf(allItems));
     }
@@ -30,7 +30,7 @@ public class WheelyBigCheese {
      * @param t Task
      */
     private static void say(Task t, int i) {
-        String s = "Added new cheese!:\n" + t.toString() + "\n" + i + " cheese in the shelf";
+        String s = "Added new cheese ;)\n" + t.toString() + "\n" + i + " cheese in the shelf";
         say(s);
     }
 
@@ -67,7 +67,7 @@ public class WheelyBigCheese {
                     break;
                 case "mark":
                     Task markT = mark(list, inputTokens, true);
-                    say("Beep bop. Melted:\n" + markT);
+                    say("Beep bop. Cheese melted:\n" + markT);
                     break;
                 case "unmark":
                     Task unmarkT = mark(list, inputTokens, false);
