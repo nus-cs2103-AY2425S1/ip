@@ -23,6 +23,10 @@ public class Duke {
                 scan.close();
                 break;
             } else if (input.equals("list")) {
+                if (taskStore.isEmpty()) {
+                    System.out.println("List is currently empty.");
+                    continue;
+                }
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < this.taskStore.size(); ++i) {
                     System.out.printf("%d. %s\n", i+1, taskStore.get(i));
