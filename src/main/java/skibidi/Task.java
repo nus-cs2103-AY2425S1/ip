@@ -1,4 +1,5 @@
-public class Task {
+package skibidi;
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 

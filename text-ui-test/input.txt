@@ -1,0 +1,9 @@
+todo first task
+list
+mark 1
+deadline second task /by tomorrow
+event project meeting /from Mon 2pm /to 4pm
+unmark 1
+mark 2
+list
+bye

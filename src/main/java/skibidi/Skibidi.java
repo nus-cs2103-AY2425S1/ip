@@ -1,9 +1,10 @@
+package skibidi;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Skibidi {
     static class InvalidCommandException extends Exception {
@@ -49,7 +50,7 @@ public class Skibidi {
             Skibidi.printSeparator();
             return;
         }
-        String cmdArgs[];
+        String[] cmdArgs;
         switch (args[0]) {
             case "list":
                 printList();
@@ -88,8 +89,13 @@ public class Skibidi {
     }
 
     public void start() {
-        String filePath = "resources/skibidi-ascii.txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        InputStream inputStream = Skibidi.class.getResourceAsStream("/skibidi-ascii.txt");
+        if (inputStream == null) {
+            System.out.println("Resource file 'skibidi-ascii.txt' not found.");
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
@@ -105,6 +111,7 @@ public class Skibidi {
             try {
                 line = reader.readLine();
                 if (line == null || line.equals("bye")) {
+                    System.out.println();
                     Skibidi.printSeparator();
                     System.out.println("EXITING APPLICATION");
                     Skibidi.printSeparator();
