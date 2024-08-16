@@ -23,7 +23,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+                    System.out.println(" " + (i + 1) + "." + tasks.get(i));
                 }
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("mark ")) {
@@ -40,10 +40,34 @@ public class Duke {
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println(" " + tasks.get(taskNumber));
                 System.out.println("____________________________________________________________");
-            } else {
-                tasks.add(new Task(input));
+            } else if (input.startsWith("todo ")) {
+                String taskDescription = input.substring(5);
+                tasks.add(new ToDo(taskDescription));
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + input);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   [T][ ] " + taskDescription);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                String taskDescription = parts[0];
+                String by = parts[1];
+                tasks.add(new Deadline(taskDescription, by));
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   [D][ ] " + taskDescription + " (by: " + by + ")");
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                String taskDescription = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                tasks.add(new Event(taskDescription, from, to));
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   [E][ ] " + taskDescription + " (from: " + from + " to: " + to + ")");
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             }
         }
