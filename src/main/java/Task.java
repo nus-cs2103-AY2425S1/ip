@@ -7,16 +7,22 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markDone() {
+    public void markDone() throws DukeException {
+        if (this.isDone) {
+            throw new DukeException("Task is already marked as done!");
+        }
         this.isDone = true;
     }
 
-    public void markNotDone() {
+    public void markNotDone() throws DukeException {
+        if (!this.isDone) {
+            throw new DukeException("Task is already marked as not done!");
+        }
         this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] "); // mark done task with X
+        return (isDone ? "[X] " : "[ ] ");
     }
 
     @Override
