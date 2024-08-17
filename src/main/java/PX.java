@@ -39,13 +39,16 @@ public class PX {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            String cmd = sc.next();
+            String input = sc.nextLine();
+            String cmd = input.split(" ")[0];
+
             if (cmd.equals("bye")) {
                 PXSays("Bye. Hope to see you again soon!");
                 sc.close();
                 return;
             }
-            String input = sc.nextLine();
+
+            input = input.substring(cmd.length());
 
             switch (cmd) {
                 case "list":
@@ -65,17 +68,37 @@ public class PX {
                             taskToUnmark.getStatusIcon() + " " + taskToUnmark);
                     break;
                 case "todo":
-                    Task todo = new Todo(input);
-                    addTask(todo, list);
+                    try {
+                        Task todo = new Todo(input);
+                        addTask(todo, list);
+                    } catch (TaskException e) {
+                        PXSays(e.getMessage());
+                    } finally {
+
+                    }
                     break;
                 case "deadline":
-                    Task deadline = new Deadline(input);
-                    addTask(deadline, list);
+                    try {
+                        Task todo = new Deadline(input);
+                        addTask(todo, list);
+                    } catch (TaskException e) {
+                        PXSays(e.getMessage());
+                    } finally {
+
+                    }
                     break;
                 case "event":
-                    Task event = new Event(input);
-                    addTask(event, list);
+                    try {
+                        Task todo = new Event(input);
+                        addTask(todo, list);
+                    } catch (TaskException e) {
+                        PXSays(e.getMessage());
+                    } finally {
+
+                    }
                     break;
+                default:
+                    PXSays("OH NO!!! I don't understand this! Try Again!");
             }
         }
     }

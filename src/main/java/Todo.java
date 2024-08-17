@@ -1,8 +1,15 @@
 public class Todo extends Task {
     private String type = "[T]";
 
-    public Todo(String description) {
-        super(description);
+    private static String modifyDescription(String des) throws TaskException {
+        if (des.length() == 0) {
+            throw new TaskException("OH NO!!! The description of Todo cannot be empty!");
+        }
+        return des;
+    }
+
+    public Todo(String description) throws TaskException {
+        super(modifyDescription(description));
     }
 
     @Override
