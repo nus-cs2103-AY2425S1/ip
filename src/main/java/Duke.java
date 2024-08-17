@@ -1,7 +1,27 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    public static void printTask(String[] tasks) {
+        for (int i = 0; i < tasks.length; i++) {
+            String task = tasks[i];
+            if (task == null) {
+                break;
+            }
+            System.out.println(i + ". "+ task);
+        }
+    }
+
     public static void main(String[] args) {
+
+
+
+
+
+        // Initialisation
+        String[] tasks = new String[100];
+        int tasksIndex = 0;
+
         // Note: those extra spaces before \n is done intentionally
         // so it is easier to see the logo and edit it subsequently
         // I know it is waste of space and unnecessary
@@ -24,6 +44,18 @@ public class Duke {
                         + "------------------------------------\n";
 
 
+
+
+
+
+
+
+
+
+
+
+        //Actual programme
+
         System.out.println("    Hello, I am Sumo-DE \n"
                 + logo
                 + '\n'
@@ -34,10 +66,15 @@ public class Duke {
 
         while (true) {
             String input = sc.nextLine();
-            if (input.equalsIgnoreCase("bye")){
+            String lowercaseInput = input.toLowerCase();
+            if (lowercaseInput.equals("bye")){
                 break;
+            } else if (lowercaseInput.equals("list")) {
+                printTask(tasks);
+            } else {
+                tasks[tasksIndex++] = input;
+                System.out.println(("Added: " +input));
             }
-            System.out.println((input));
         }
 
         System.out.println(goodbye);
