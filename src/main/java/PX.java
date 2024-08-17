@@ -8,66 +8,74 @@ public class PX {
         System.out.println("    ____________________________________________________________");
     }
 
-    private static void PXSays(String arg) {
-        System.out.println("    " + arg);
+    private static void PXSays(String... args) {
+        printLine();
+        for (String arg : args) {
+            System.out.println("    " + arg);
+        }
+        printLine();
+        System.out.println("");
     }
 
     private static void printList(ArrayList<Task> list) {
-        printLine();
-        PXSays("Here are the tasks in your list:");
+        String[] outputs = new String[list.size() + 1];
+        outputs[0] = "Here are the tasks in your list:";
         for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
-            PXSays(index + ". " + list.get(i).getStatusIcon() + " " + list.get(i));
+            outputs[i + 1] = index + ". " + list.get(i).getType() + list.get(i).getStatusIcon() + " " + list.get(i);
         }
-        printLine();
+        PXSays(outputs);
+    }
+
+    private static void addTask(Task t, ArrayList<Task> list) {
+        list.add(t);
+        PXSays("Got it. I've added this task:", t.getType() + t.getStatusIcon() + t,
+                "Now you have " + list.size() + " tasks in the list.");
     }
 
     public static void main(String[] args) {
         ArrayList<Task> list = new ArrayList<>();
-
-        printLine();
-        PXSays("Hello! I'm " + name);
-        PXSays("What can I do for you?");
-        printLine();
+        PXSays("Hello! I'm " + name, "What can I do for you?");
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            PXSays("");
+            String cmd = sc.next();
             String input = sc.nextLine();
-            if (input.equals("bye")) {
-                printLine();
-                PXSays("Bye. Hope to see you again soon!");
-                printLine();
-                break;
-            } else if (input.equals("list")) {
-                printList(list);
-            } else if (input.startsWith("mark")) {
-                printLine();
-                String[] arr = input.split(" ");
-                Task t = list.get(Integer.parseInt(arr[1]) - 1);
-                t.toggleIsDone();
-                PXSays("Nice! I've marked this task as done:");
-                PXSays(t.getStatusIcon() + " " + t);
-                printLine();
-            } else if (input.startsWith("unmark")) {
-                printLine();
-                String[] arr = input.split(" ");
-                Task t = list.get(Integer.parseInt(arr[1]) - 1);
-                list.get(Integer.parseInt(arr[1]) - 1).toggleIsDone();
-                PXSays("OK, I've marked this task as not done yet:");
-                PXSays(t.getStatusIcon() + " " + t);
-                printLine();
-            }
 
-            else {
-                Task t = new Task(input);
-                printLine();
-                list.add(t);
-                PXSays("added: " + input);
-                printLine();
+            switch (cmd) {
+                case "bye":
+                    PXSays("Bye. Hope to see you again soon!");
+                    sc.close();
+                    return;
+                case "list":
+                    printList(list);
+                    break;
+                case "mark":
+                    Task taskToMark = list.get(Integer.parseInt(input));
+                    taskToMark.toggleIsDone();
+                    PXSays(
+                            "Nice! I've marked this task as done:",
+                            taskToMark.getStatusIcon() + " " + taskToMark);
+                    break;
+                case "unmark":
+                    Task taskToUnmark = list.get(Integer.parseInt(input));
+                    taskToUnmark.toggleIsDone();
+                    PXSays("OK, I've marked this task as not done yet:",
+                            taskToUnmark.getStatusIcon() + " " + taskToUnmark);
+                    break;
+                case "todo":
+                    Task todo = new Todo(input);
+                    addTask(todo, list);
+                    break;
+                case "deadline":
+                    Task deadline = new Deadline(input);
+                    addTask(deadline, list);
+                    break;
+                case "event":
+                    Task event = new Event(input);
+                    addTask(event, list);
+                    break;
             }
         }
-
-        sc.close();
     }
 }
