@@ -6,4 +6,10 @@ event project meeting /from Mon 2pm /to 4pm
 unmark 1
 mark 2
 list
+mark 3
+unmark 0
+invalid
+event wrong order /to tomorrow /from now
+deadline /by
+event /from /to
 bye
