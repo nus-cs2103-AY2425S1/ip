@@ -15,7 +15,7 @@ public class David {
 
 
     //constructor for David
-    public David() {hel
+    public David() {
         sc = new Scanner(System.in);
         inputString = "";
     };
