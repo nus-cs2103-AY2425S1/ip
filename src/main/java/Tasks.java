@@ -6,8 +6,22 @@ public class Tasks {
     public Tasks() {
         tasks = new ArrayList<>();
     }
-    public void addTask(String task) {
-        tasks.add(new Task(task));
+    public void addTask(String description, TaskType type, String info) {
+        switch (type) {
+            case TODO:
+                tasks.add(new Todo(description));
+                break;
+            case DEADLINE:
+                String deadline = info.substring(info.indexOf("/") + 4);
+                tasks.add(new Deadline(description, deadline));
+                break;
+            case EVENT:
+                String[] parts = info.split("/to");
+                String start = parts[0].replace("/from", "").trim();
+                String end = parts[1].replace("/to", "").trim();
+                tasks.add(new Event(description, start, end));
+                break;
+        }
     }
     public void printTasks() {
         int count = 1;
@@ -30,15 +44,21 @@ public class Tasks {
         tasks.get(index - 1).uncompleteTask();
     }
 
+    public int getNumTasks() {
+        return tasks.size();
+    }
+
     private class Task {
         private Boolean isComplete = false;
         private String description;
-        private Task(String description) {
+        protected TaskType type;
+        private Task(String description, TaskType type) {
             this.description = description;
+            this.type = type;
         }
 
-        private void printTask() {
-            String msg = "[";
+        public void printTask() {
+            String msg = "[" + this.type.getTypeSymbol() + "] [";
             if (isComplete) {
                 msg += "X] ";
             } else {
@@ -53,6 +73,40 @@ public class Tasks {
         }
         private void uncompleteTask() {
             this.isComplete = false;
+        }
+    }
+    private class Deadline extends Task {
+        String deadline;
+        Deadline(String description, String deadline) {
+            super(description, TaskType.DEADLINE);
+            this.deadline = deadline;
+        }
+
+        @Override
+        public void printTask() {
+            super.printTask();
+            System.out.printf("(by: %s)", this.deadline);
+        }
+    }
+
+    private class Todo extends Task {
+        Todo(String description) {
+            super(description, TaskType.TODO);
+        }
+    }
+
+    private class Event extends Task {
+        private String start;
+        private String end;
+        Event(String description, String start, String end) {
+            super(description, TaskType.EVENT);
+            this.start = start;
+            this.end = end;
+        }
+        @Override
+        public void printTask() {
+            super.printTask();
+            System.out.printf("(from: %s to: %s)", this.start, this.end);
         }
     }
 }
