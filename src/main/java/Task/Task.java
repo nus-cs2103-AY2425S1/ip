@@ -1,7 +1,6 @@
 package Task;
 
-public class Task {
-
+public  abstract class Task {
     private String taskName;
     private boolean completed;
 
@@ -12,6 +11,10 @@ public class Task {
 
     public String getTask() {
         return this.taskName;
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 
     public void markAsDone() {

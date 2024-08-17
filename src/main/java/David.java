@@ -1,4 +1,7 @@
 import Task.Task;
+import Task.TodoTask;
+import Task.DeadlineTask;
+import Task.EventTask;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public class David {
     public David() {
         this.sc = new Scanner(System.in);
         this.inputString = "";
-        this.tasks = new ArrayList<>();
+        this.tasks = new ArrayList<Task>();
     };
 
     //run the chatbot
@@ -45,18 +48,56 @@ public class David {
                 case "UNMARK":
                     markTaskAsUnDone(inputString);
                     break;
-                default:
-                    addToTask(inputString);
+                case "TODO":
+                    addTodoTask(inputString);
+                    break;
+                case "EVENT":
+                    addEventTask(inputString);
+                    break;
+                case "DEADLINE":
+                    addDeadlineTask(inputString);
+                    break;
+
             }
         }
     }
 
-    public void addToTask(String s) {
-        Task t = new Task(s);
-        tasks.add(t);
+    public void addTodoTask(String s) {
+        Task t = new TodoTask(s);
+        this.tasks.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
-                        "added: " + inputString + "\n" +
+                        "Got it. I've added this task:\n" +
+                        t + "\n" +
+                        "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
+                        "____________________________________________________________\n");
+    }
+
+    public void addEventTask(String s) {
+        String event = StringParser.parseStringToArguments(s);
+        String[] eventSplit = event.split(" /from", 2);
+        String eventName = eventSplit[0];
+        String[] eventDetails = eventSplit[1].split(" /to", 2);
+        Task t = new EventTask(eventName, eventDetails[0], eventDetails[1]);
+        this.tasks.add(t);
+        System.out.println(
+                "____________________________________________________________\n" +
+                        "Got it. I've added this task:\n" +
+                        t + "\n" +
+                        "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
+                        "____________________________________________________________\n");
+    }
+
+    public void addDeadlineTask(String s) {
+        String event = StringParser.parseStringToArguments(s);
+        String[] eventSplit = event.split(" /by", 2);
+        Task t = new DeadlineTask(eventSplit[0], eventSplit[1]);
+        this.tasks.add(t);
+        System.out.println(
+                "____________________________________________________________\n" +
+                        "Got it. I've added this task:\n" +
+                        t + "\n" +
+                        "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
                         "____________________________________________________________\n");
     }
 
@@ -68,7 +109,7 @@ public class David {
             System.out.println(
                     "____________________________________________________________\n" +
                             "Nice! I've marked this task as done: \n" +
-                            "[X] " + t.getTask() + "\n" +
+                            t + "\n"
                             "____________________________________________________________\n");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such task! Please enter a valid task.");
@@ -83,7 +124,7 @@ public class David {
             System.out.println(
                     "____________________________________________________________\n" +
                             "Okay, I've marked this task as not done yet: \n" +
-                            "[ ] " + t.getTask() + "\n" +
+                            t + "\n" +
                             "____________________________________________________________\n");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such task! Please enter a valid task.");
