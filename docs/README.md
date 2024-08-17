@@ -1,4 +1,4 @@
-# Duke User Guide
+# Hoshi User Guide
 
 // Update the title above to match the actual product name
 
@@ -28,3 +28,8 @@ expected output
 ## Feature XYZ
 
 // Feature details
+
+
+## Acknowledgements
+
+1. ASCII Art - https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI
