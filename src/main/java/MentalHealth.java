@@ -13,5 +13,4 @@ public class MentalHealth {
         echo.echoMessage();
         System.out.println(goodbye);
     }
-
 }
