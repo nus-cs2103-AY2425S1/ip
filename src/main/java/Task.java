@@ -1,10 +1,12 @@
 public class Task {
+    private static int numberOfTasks = 0;
     private String description;
     private boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        numberOfTasks++;
     }
 
     public void markDone() {
@@ -23,6 +25,10 @@ public class Task {
 
     private String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public int getNumberOfTasks() {
+        return numberOfTasks;
     }
 
     @Override
