@@ -7,11 +7,24 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Skibidi {
-    static class InvalidCommandException extends Exception {
+    static class SkibidiException extends Exception {
+        public SkibidiException(String message) {
+            super(String.format("SKIBIDI ERROR: %s", message));
+        }
+    }
+
+    static class InvalidCommandException extends SkibidiException {
         public InvalidCommandException() {
             super("INVALID COMMAND GIVEN");
         }
     }
+
+    static class InvalidItemException extends SkibidiException {
+        public InvalidItemException() {
+            super("INVALID ITEM NUMBER GIVEN");
+        }
+    }
+
     List<Task> tasks = new ArrayList<>();
 
     static void printSeparator() {
@@ -29,18 +42,34 @@ public class Skibidi {
         }
     }
 
-    void markTask(int taskId) {
+    void markTask(int taskId) throws InvalidItemException {
+        if (taskId < 0 || taskId > tasks.size()) {
+            throw new InvalidItemException();
+        }
         Task task = tasks.get(taskId);
         task.mark();
         System.out.printf("\tMARKING TASK\n");
         System.out.printf("\t%s\n", task.toString());
     }
 
-    void unmarkTask(int taskId) {
+    void unmarkTask(int taskId) throws InvalidItemException {
+        if (taskId < 0 || taskId > tasks.size()) {
+            throw new InvalidItemException();
+        }
         Task task = tasks.get(taskId);
         task.unmark();
         System.out.printf("\tUNMARKING TASK\n");
         System.out.printf("\t%s\n", task.toString());
+    }
+
+    void deleteTask(int taskId) throws InvalidItemException {
+        if (taskId < 0 || taskId > tasks.size()) {
+            throw new InvalidItemException();
+        }
+        Task task = tasks.get(taskId);
+        tasks.remove(taskId);
+        System.out.printf("\tDELETED TASK: %s\n", task.toString());
+        System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
     }
 
     void parseAndExecuteCommand(String line) {
@@ -51,39 +80,57 @@ public class Skibidi {
             return;
         }
         String[] cmdArgs;
-        switch (args[0]) {
-            case "list":
-                printList();
-                break;
-            case "mark":
-                try {
+        try {
+            switch (args[0]) {
+                case "list":
+                    printList();
+                    break;
+                case "mark":
                     markTask(Integer.parseInt(args[1].strip()) - 1);
-                } catch (NumberFormatException e) {
-                    System.out.println("\tINVALID NUMBER GIVEN");
-                }
-                break;
-            case "unmark":
-                try {
+                    break;
+                case "unmark":
                     unmarkTask(Integer.parseInt(args[1].strip()) - 1);
-                } catch (NumberFormatException e) {
-                    System.out.println("\tINVALID NUMBER GIVEN");
-                }
-                break;
-            case "todo":
-                tasks.add(new Todo(args[1].strip()));
-                break;
-            case "deadline":
-                cmdArgs = args[1].split("/by");
-                tasks.add(new Deadline(cmdArgs[0].strip(), cmdArgs[1].strip()));
-                break;
-            case "event":
-                // Assume order of arguments is always /from followed by /to
-                cmdArgs = args[1].split("/from|/to");
-                tasks.add(new Event(cmdArgs[0].strip(), cmdArgs[1].strip(), cmdArgs[2].strip()));
-                break;
-            default:
-                System.out.println("\tINVALID COMMAND");
-                break;
+                    break;
+                case "todo":
+                    if (args.length == 1) {
+                        throw new SkibidiException("COMMAND todo REQUIRES DESCRIPTION ARGUMENT");
+                    }
+                    Todo todo = new Todo(args[1].strip());
+                    tasks.add(todo);
+                    System.out.printf("\tADDED TODO: %s\n", todo.toString());
+                    System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
+                    break;
+                case "deadline":
+                    cmdArgs = args[1].split("/by");
+                    if (cmdArgs.length != 2) {
+                        throw new SkibidiException("COMMAND deadline REQUIRES ARGUMENT /by");
+                    }
+                    Deadline deadline = new Deadline(cmdArgs[0].strip(), cmdArgs[1].strip());
+                    tasks.add(deadline);
+                    System.out.printf("\tADDED DEADLINE: %s\n", deadline.toString());
+                    System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
+                    break;
+                case "event":
+                    // Assume order of arguments is always /from followed by /to
+                    cmdArgs = args[1].split("/from|/to");
+                    if (cmdArgs.length != 3) {
+                        throw new Exception("COMMAND event REQUIRES ARGUMENTS /from AND /to");
+                    }
+                    Event event = new Event(cmdArgs[0].strip(), cmdArgs[1].strip(), cmdArgs[2].strip());
+                    tasks.add(event);
+                    System.out.printf("\tADDED EVENT: %s\n", event.toString());
+                    System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
+                    break;
+                case "delete":
+                    deleteTask(Integer.parseInt(args[1].strip()) - 1);
+                    break;
+                default:
+                    throw new InvalidCommandException();
+            }
+        } catch (NumberFormatException e) {
+            System.out.printf("\tERROR: INVALID NUMBER GIVEN FOR COMMAND: %s\n", args[0]);
+        } catch (Exception e) {
+            System.out.printf("\t%s\n", e.getMessage());
         }
         Skibidi.printSeparator();
     }
@@ -122,7 +169,7 @@ public class Skibidi {
                 e.printStackTrace();
             }
         }
-    } 
+    }
 
     public static void main(String[] args) {
         Skibidi bot = new Skibidi();
