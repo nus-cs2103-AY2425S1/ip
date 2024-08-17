@@ -2,10 +2,12 @@ public class Jar {
     //class fields for parser and UI
     private Parser parser;
     private Ui ui;
+    private TaskList taskList;
 
     public Jar() {
         parser = new Parser();
         ui = new Ui();
+        taskList  = new TaskList();
     }
 
     public void runBot() {
@@ -17,9 +19,13 @@ public class Jar {
             ui.showLine();
             if (parser.isExit(userInput)) {
                 isRunning = false;
-            } else {
-                ui.showResponse(parser.echo(userInput));
+            } else if (parser.isList(userInput)){
+                ui.showResponse(parser.echo(taskList.listTasks()));
                 ui.showLine();
+            } else {
+                ui.showResponse("Added: " + userInput);
+                ui.showLine();
+                taskList.addTask(new Task(userInput));
             }
         }
         ui.showGoodbye();
