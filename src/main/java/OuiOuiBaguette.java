@@ -48,6 +48,8 @@ public class OuiOuiBaguette {
         }
 
         System.out.println(farewell);
+
+        sc.close();
     }
 
 
