@@ -48,6 +48,11 @@ public class Tasks {
         return tasks.size();
     }
 
+    public void deleteAndPrintTask(int index) {
+        printTask(index);
+        tasks.remove(index - 1);
+    }
+
     private class Task {
         private Boolean isComplete = false;
         private String description;

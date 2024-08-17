@@ -12,7 +12,21 @@ public class Echo {
         // Reads user input
         String userInput = s.nextLine();
         if (userInput.toLowerCase().startsWith("mark")) {
-            int index = Integer.valueOf(userInput.substring(5));
+            if (userInput.length() < 6) {
+                System.out.println("Please input 'mark [index]'");
+                return true;
+            }
+            int index;
+            try {
+                index = Integer.valueOf(userInput.substring(5));
+            } catch (NumberFormatException e) {
+                System.out.println("Please input 'mark [index]'");
+                return true;
+            }
+            if (index > tasks.getNumTasks()) {
+                System.out.println("Invalid index.");
+                return true;
+            }
             tasks.markTask(index);
 
             System.out.println(
@@ -23,7 +37,21 @@ public class Echo {
                     "____________________________________________________________\n");
             return true;
         } else if (userInput.toLowerCase().startsWith("unmark")) {
-            int index = Integer.valueOf(userInput.substring(7));
+            if (userInput.length() < 8) {
+                System.out.println("Please input 'unmark [index]'");
+                return true;
+            }
+            int index;
+            try {
+                index = Integer.valueOf(userInput.substring(7));
+            } catch (NumberFormatException e) {
+                System.out.println("Please input 'unmark [index]'");
+                return true;
+            }
+            if (index > tasks.getNumTasks()) {
+                System.out.println("Invalid index.");
+                return true;
+            }
             tasks.unmarkTask(index);
 
             System.out.println(
@@ -91,13 +119,38 @@ public class Echo {
 
             printSuccessMsg();
             return true;
+        } else if (userInput.toLowerCase().startsWith("delete")) {
+            if (userInput.length() < 8) {
+                System.out.println("Please input 'delete [item index]'");
+                return true;
+            }
+            int index;
+            try {
+                index = Integer.valueOf(userInput.substring(7));
+            } catch (NumberFormatException e) {
+                System.out.println("Please input 'delete [item index]'");
+                return true;
+            }
+
+            if (index > tasks.getNumTasks()) {
+                System.out.println("Invalid index.");
+                return true;
+            }
+
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    "Noted. I've removed this task:");
+            tasks.deleteAndPrintTask(index);
+            System.out.print(
+                    "____________________________________________________________\n");
+            return true;
         } else {
             switch (userInput) {
                 case "bye":
                     System.out.println(
                         "____________________________________________________________\n" +
                         "Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________\n");
+                        "____________________________________________________________");
                     return false;
                 case "list":
                     System.out.println("____________________________________________________________");
@@ -106,6 +159,10 @@ public class Echo {
                     System.out.println("____________________________________________________________");
                     return true;
                 default:
+                    System.out.println(
+                        "____________________________________________________________\n" +
+                        "OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
+                        "____________________________________________________________");
                     return true;
             }
         }
