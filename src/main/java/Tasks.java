@@ -12,14 +12,11 @@ public class Tasks {
                 tasks.add(new Todo(description));
                 break;
             case DEADLINE:
-                String deadline = info.substring(info.indexOf("/") + 4);
-                tasks.add(new Deadline(description, deadline));
+                tasks.add(new Deadline(description, info));
                 break;
             case EVENT:
-                String[] parts = info.split("/to");
-                String start = parts[0].replace("/from", "").trim();
-                String end = parts[1].replace("/to", "").trim();
-                tasks.add(new Event(description, start, end));
+                String[] parts = info.split("->");
+                tasks.add(new Event(description, parts[0], parts[1]));
                 break;
         }
     }

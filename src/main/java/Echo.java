@@ -7,165 +7,238 @@ public class Echo {
     public Echo() {
         tasks = new Tasks();
     }
-    // Handles user input
-    public Boolean handleInput(Scanner s) {
-        // Reads user input
-        String userInput = s.nextLine();
-        if (userInput.toLowerCase().startsWith("mark")) {
-            if (userInput.length() < 6) {
-                System.out.println("Please input 'mark [index]'");
-                return true;
-            }
-            int index;
+    private enum Command {
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        LIST,
+        BYE,
+        UNKNOWN;
+        public static Command fromString(String command) {
             try {
-                index = Integer.valueOf(userInput.substring(5));
-            } catch (NumberFormatException e) {
-                System.out.println("Please input 'mark [index]'");
-                return true;
-            }
-            if (index > tasks.getNumTasks()) {
-                System.out.println("Invalid index.");
-                return true;
-            }
-            tasks.markTask(index);
-
-            System.out.println(
-                    "____________________________________________________________\n" +
-                    "Nice! I've marked this task as done:");
-            tasks.printTask(index);
-            System.out.print(
-                    "____________________________________________________________\n");
-            return true;
-        } else if (userInput.toLowerCase().startsWith("unmark")) {
-            if (userInput.length() < 8) {
-                System.out.println("Please input 'unmark [index]'");
-                return true;
-            }
-            int index;
-            try {
-                index = Integer.valueOf(userInput.substring(7));
-            } catch (NumberFormatException e) {
-                System.out.println("Please input 'unmark [index]'");
-                return true;
-            }
-            if (index > tasks.getNumTasks()) {
-                System.out.println("Invalid index.");
-                return true;
-            }
-            tasks.unmarkTask(index);
-
-            System.out.println(
-                    "____________________________________________________________\n" +
-                    "Ok, I've marked this task as not done yet: ");
-            tasks.printTask(index);
-            System.out.print(
-                    "____________________________________________________________\n");
-            return true;
-        } else if (userInput.toLowerCase().startsWith("todo")) {
-            String task;
-            if (userInput.length() < 6) {
-                System.out.println("Enter task description: ");
-                task = s.nextLine();
-            } else {
-                task = userInput.substring(5);
-            }
-            tasks.addTask(task, TaskType.TODO, "");
-            printSuccessMsg();
-            return true;
-        } else if (userInput.toLowerCase().startsWith("deadline")) {
-            if (!userInput.contains("/by")) {
-                System.out.println("Deadline: ");
-                userInput += " /by ";
-                userInput += s.nextLine();
-            }
-            int byIndex = userInput.indexOf('/');
-            String task = userInput.substring(9, byIndex);
-            if (task.isEmpty()) {
-                System.out.println("Enter task description: ");
-                task = s.nextLine() + " ";
-            }
-            String byDate = userInput.substring(byIndex);
-            tasks.addTask(task, TaskType.DEADLINE, byDate);
-
-            printSuccessMsg();
-            return true;
-        }  else if (userInput.toLowerCase().startsWith("event")) {
-            if (!userInput.contains("/from")) {
-                System.out.println("Start: ");
-                if (userInput.contains("/to")) {
-                    userInput = userInput.substring(0, userInput.indexOf('/')) +
-                                " /from " +
-                                s.nextLine() +
-                                userInput.substring(userInput.indexOf('/'));
-                } else {
-                    userInput += " /from ";
-                    userInput += s.nextLine();
-                    System.out.println("End: ");
-                    userInput += " /to ";
-                    userInput += s.nextLine();
-                }
-            } else if (!userInput.contains("/to")) {
-                System.out.println("When does it end?");
-                userInput += " /to ";
-                userInput += s.nextLine();
-            }
-            int fromIndex = userInput.indexOf('/');
-            String task = userInput.substring(6, fromIndex);
-            if (task.isEmpty()) {
-                System.out.println("Enter task description: ");
-                task = s.nextLine() + " ";
-            }
-            tasks.addTask(task, TaskType.EVENT, userInput.substring(fromIndex));
-
-            printSuccessMsg();
-            return true;
-        } else if (userInput.toLowerCase().startsWith("delete")) {
-            if (userInput.length() < 8) {
-                System.out.println("Please input 'delete [item index]'");
-                return true;
-            }
-            int index;
-            try {
-                index = Integer.valueOf(userInput.substring(7));
-            } catch (NumberFormatException e) {
-                System.out.println("Please input 'delete [item index]'");
-                return true;
-            }
-
-            if (index > tasks.getNumTasks()) {
-                System.out.println("Invalid index.");
-                return true;
-            }
-
-            System.out.println(
-                    "____________________________________________________________\n" +
-                    "Noted. I've removed this task:");
-            tasks.deleteAndPrintTask(index);
-            System.out.print(
-                    "____________________________________________________________\n");
-            return true;
-        } else {
-            switch (userInput) {
-                case "bye":
-                    System.out.println(
-                        "____________________________________________________________\n" +
-                        "Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________");
-                    return false;
-                case "list":
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Here are the tasks in your list:");
-                    tasks.printTasks();
-                    System.out.println("____________________________________________________________");
-                    return true;
-                default:
-                    System.out.println(
-                        "____________________________________________________________\n" +
-                        "OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
-                        "____________________________________________________________");
-                    return true;
+                return Command.valueOf(command.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return UNKNOWN;
             }
         }
+    }
+    // Handles user input
+    private Boolean handleInput(Scanner s) {
+        // Reads user input
+        String userInput = s.nextLine();
+        String[] userInputs = userInput.split(" ", 2);
+        Command command = Command.fromString(userInputs[0]);
+        String arg = userInputs.length > 1 ? userInputs[1] : "";
+
+        // Handles command
+        switch (command) {
+            case MARK:
+                return handleMark(arg);
+            case UNMARK:
+                return handleUnmark(arg);
+            case TODO:
+                return handleTodo(arg, s);
+            case DEADLINE:
+                return handleDeadline(arg, s);
+            case EVENT:
+                return handleEvent(arg, s);
+            case DELETE:
+                return handleDelete(arg);
+            case LIST:
+                return handleList();
+            case BYE:
+                return handleBye();
+            case UNKNOWN:
+                return handleUnknown();
+        }
+        return true;
+    }
+
+    private Boolean handleMark(String arg) {
+        // Error handling
+        if (arg.length() != 1) { // Arg of incorrect length
+            System.out.println("Please input 'mark [index]'");
+            return true;
+        }
+
+        int index;
+        try {
+            index = Integer.valueOf(arg);
+        } catch (NumberFormatException e) { // Index is not an integer
+            System.out.println("Please input 'mark [index]'");
+            return true;
+        }
+        if (index > tasks.getNumTasks()) { // Index is not within tasks length
+            System.out.println("Invalid index.");
+            return true;
+        }
+
+        // Mark task
+        tasks.markTask(index);
+
+        // Print success message
+        System.out.println(
+                "____________________________________________________________\n" +
+                "Nice! I've marked this task as done:");
+        tasks.printTask(index);
+        System.out.print(
+                "____________________________________________________________\n");
+        return true;
+    }
+    private Boolean handleUnmark(String arg) {
+        if (arg.length() != 1) { // Incorrect argument length
+            System.out.println("Please input 'unmark [index]'");
+            return true;
+        }
+        int index;
+        try {
+            index = Integer.valueOf(arg);
+        } catch (NumberFormatException e) { // Not a number input
+            System.out.println("Please input 'unmark [index]'");
+            return true;
+        }
+        if (index > tasks.getNumTasks()) { // Index exceeds tasks length
+            System.out.println("Invalid index.");
+            return true;
+        }
+
+        // Unmark task
+        tasks.unmarkTask(index);
+
+        // Print success msg
+        System.out.println(
+                "____________________________________________________________\n" +
+                "Ok, I've marked this task as not done yet: ");
+        tasks.printTask(index);
+        System.out.print(
+                "____________________________________________________________\n");
+        return true;
+    }
+    private Boolean handleTodo(String task, Scanner s) {
+        while (task.isEmpty()) {
+            System.out.println("Enter task description: ");
+            task = s.nextLine();
+        }
+        tasks.addTask(task.trim(), TaskType.TODO, "");
+        printSuccessMsg();
+        return true;
+    }
+    private Boolean handleDeadline(String arg, Scanner s) {
+        String[] args = arg.split("/by ");
+
+        while (args[0].isEmpty()) {
+            System.out.println("Enter task description: ");
+            args[0] = s.nextLine();
+        }
+        args[0] = args[0].trim() + " ";
+
+        String deadline = "";
+        if (args.length < 2) { // Only task desription provided
+            while (deadline.isEmpty()) {
+                System.out.println("Deadline: ");
+                deadline = s.nextLine();
+            }
+        } else {
+            deadline = args[1];
+        }
+
+        tasks.addTask(args[0], TaskType.DEADLINE, deadline);
+        printSuccessMsg();
+        return true;
+    }
+    private Boolean handleEvent(String arg, Scanner s) {
+        String[] args = arg.split("/from ");
+
+        String endDate = "";
+        String startDate = "";
+        if (args[0].contains("/to")) {
+            String[] temp = args[0].split("/to ");
+            endDate = temp[1];
+            args[0] = temp[0];
+        }
+
+        while (args[0].isEmpty()) { // No task description, start date provided
+            System.out.println("Enter task description: ");
+            args[0] = s.nextLine();
+        }
+        args[0] = args[0].trim() + " ";
+
+        if (args.length < 2) { // No start date provided
+            while (startDate.isEmpty()) {
+                System.out.println("Start: ");
+                startDate = s.nextLine();
+            }
+        } else {
+            if (args[1].contains("/to")) {
+                String[] temp = args[1].split("/to ");
+                endDate = temp[1];
+                startDate = temp[0];
+            } else {
+                startDate = args[1];
+            }
+        }
+
+        while (endDate.isEmpty()) {
+            System.out.println("End: ");
+            endDate = s.nextLine();
+        }
+
+        tasks.addTask(args[0], TaskType.EVENT, startDate + "->" + endDate);
+        printSuccessMsg();
+        return true;
+    }
+    private Boolean handleDelete(String arg) {
+        if (arg.isEmpty()) {
+            System.out.println("Please input 'delete [item index]'");
+            return true;
+        }
+        int index;
+
+        try {
+            index = Integer.valueOf(arg);
+        } catch (NumberFormatException e) {
+            System.out.println("Please input 'delete [item index]'");
+            return true;
+        }
+
+        if (index > tasks.getNumTasks()) {
+            System.out.println("Invalid index.");
+            return true;
+        }
+
+        System.out.println(
+                "____________________________________________________________\n" +
+                "Noted. I've removed this task:");
+        tasks.deleteAndPrintTask(index);
+        System.out.print(
+                "____________________________________________________________\n");
+        return true;
+    }
+    private Boolean handleBye() {
+        System.out.println(
+                "____________________________________________________________\n" +
+                "Bye. Hope to see you again soon!\n" +
+                "____________________________________________________________");
+        return false;
+    }
+
+    private Boolean handleList() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the tasks in your list:");
+        tasks.printTasks();
+        System.out.println("____________________________________________________________");
+        return true;
+    }
+
+    private Boolean handleUnknown() {
+        System.out.println(
+            "____________________________________________________________\n" +
+            "OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
+            "____________________________________________________________");
+        return true;
     }
 
     public void printSuccessMsg() {
