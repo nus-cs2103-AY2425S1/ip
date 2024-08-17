@@ -1,3 +1,5 @@
+import Task.Task;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,7 +15,7 @@ public class David {
             "____________________________________________________________\n" +
             "Bye. Hope to see you again soon!\n" +
             "____________________________________________________________\n";
-    public List<String> tasks;
+    public List<Task> tasks;
 
     //constructor for David
     public David() {
@@ -27,23 +29,65 @@ public class David {
         System.out.println(this.intro);
         while(true) {
             inputString = sc.nextLine(); //get next input
+
             if (inputString.equals("bye")) {
                 endChatBot();  //end chatbot
                 break;
-            } else if (inputString.equals("list")) {
-                listTasks();
-            } else {
-                addToTask(inputString);
+            }
+
+            switch (StringParser.parseStringToCommand(inputString)) {
+                case "LIST":
+                    listTasks();
+                    break;
+                case "MARK":
+                    markTaskAsDone(inputString);
+                    break;
+                case "UNMARK":
+                    markTaskAsUnDone(inputString);
+                    break;
+                default:
+                    addToTask(inputString);
             }
         }
     }
 
     public void addToTask(String s) {
-        tasks.add(s);
+        Task t = new Task(s);
+        tasks.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
                         "added: " + inputString + "\n" +
                         "____________________________________________________________\n");
+    }
+
+    public void markTaskAsDone(String s) {
+        try {
+            String index = StringParser.parseStringToArguments(s);
+            Task t = tasks.get(Integer.parseInt(index) -1);
+            t.markAsDone();
+            System.out.println(
+                    "____________________________________________________________\n" +
+                            "Nice! I've marked this task as done: \n" +
+                            "[X] " + t.getTask() + "\n" +
+                            "____________________________________________________________\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No such task! Please enter a valid task.");
+        }
+    }
+
+    public void markTaskAsUnDone(String s) {
+        try {
+            String index = StringParser.parseStringToArguments(s);
+            Task t = tasks.get(Integer.parseInt(index) - 1);
+            t.markAsUnDone();
+            System.out.println(
+                    "____________________________________________________________\n" +
+                            "Okay, I've marked this task as not done yet: \n" +
+                            "[ ] " + t.getTask() + "\n" +
+                            "____________________________________________________________\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No such task! Please enter a valid task.");
+        }
     }
 
     public void listTasks() {
