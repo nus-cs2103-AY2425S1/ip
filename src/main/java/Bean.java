@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Bean {
     private static final String NAME = "Bean";
     private Scanner scanner;
+    private List<String> tasks = new ArrayList<>();
 
     public Bean() {
         this.scanner = new Scanner(System.in);
@@ -15,6 +18,8 @@ public class Bean {
 
             if (isBye(input)) {
                 break;
+            } else if (input.equals("list")) {
+                printList();
             } else {
                 echo(input);
             }
@@ -42,8 +47,16 @@ public class Bean {
     }
 
     private void echo(String s) {
+        tasks.add(s);
         System.out.println("______________________________");
-        System.out.println(s);
+        System.out.println("added: "+ s);
+        System.out.println("______________________________");
+    }
+
+    private void printList() {
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println(i + ". " + tasks.get(i - 1));
+        }
         System.out.println("______________________________");
     }
 
