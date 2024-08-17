@@ -20,6 +20,10 @@ public class TaskList {
         );
     }
 
+    public int getSize() {
+        return tasks.size();
+    }
+
     private Task getTask(int index) {
         return tasks.get(index);
     }

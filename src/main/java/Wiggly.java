@@ -54,35 +54,107 @@ public class Wiggly {
 
                     try {
                         int value = Integer.parseInt(parts[1]);
-                        System.out.println(taskList.markDone(value));
+                        if (value > taskList.getSize() || value <= 0) {
+                            System.out.println(
+                                    """
+                                    ____________________________________
+                                    There's no such task number!
+                                    ____________________________________
+                                    """
+                            );
+                        } else {
+                            System.out.println(taskList.markDone(value));
+                        }
                     } catch (NumberFormatException e) {
-                        System.out.println("Oops, invalid number format detected");
+                        System.out.println(
+                                """
+                                ____________________________________
+                                Oops, invalid number format detected
+                                ____________________________________
+                                """
+                        );
                     }
                 }
                 case "unmark" -> {
 
                     try {
                         int value = Integer.parseInt(parts[1]);
-                        System.out.println(taskList.markUndone(value));
+                        if (value > taskList.getSize() || value <= 0) {
+                            System.out.println(
+                                    """
+                                    ____________________________________
+                                    There's no such task number!
+                                    ____________________________________
+                                    """
+                            );
+                        } else {
+                            System.out.println(taskList.markUndone(value));
+                        }
                     } catch (NumberFormatException e) {
-                        System.out.println("Oops, invalid number format detected");
+                        System.out.println(
+                                """
+                                ____________________________________
+                                Oops, invalid number format detected
+                                ____________________________________
+                                """
+                        );
                     }
                 }
-                case "todo" -> taskList.addTask(new ToDo(parts[1]));
+                case "todo" -> {
+                    try {
+                        String taskDescription = parts[1];
+                        taskList.addTask(new ToDo(taskDescription));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(
+                                """
+                                ____________________________________
+                                Oops, missing todo description
+                                ____________________________________
+                                """
+                        );
+                    }
+
+                }
                 case "deadline" -> {
-                    parts = parts[1].split(" /by ", 2);
-                    String taskDescription = parts[0];
-                    String by = parts[1];
-                    taskList.addTask(new Deadline(taskDescription, by));
+                    try {
+                        parts = parts[1].split(" /by ", 2);
+                        String taskDescription = parts[0];
+                        String by = parts[1];
+                        taskList.addTask(new Deadline(taskDescription, by));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(
+                                """
+                                ____________________________________
+                                Oops, missing deadline description or by
+                                ____________________________________
+                                """
+                        );
+                    }
                 }
                 case "event" -> {
-                    parts = parts[1].split(" /from | /to ", 3);
-                    String taskDescription = parts[0];
-                    String from = parts[1];
-                    String to = parts[2];
-                    taskList.addTask(new Event(taskDescription, from, to));
+                    try {
+                        parts = parts[1].split(" /from | /to ", 3);
+                        String taskDescription = parts[0];
+                        String from = parts[1];
+                        String to = parts[2];
+                        taskList.addTask(new Event(taskDescription, from, to));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(
+                                """
+                                ____________________________________
+                                Oops, missing event description, from or to
+                                ____________________________________
+                                """
+                        );
+                    }
                 }
-                default -> taskList.addTask(new Task(in));
+                default -> System.out.println(
+                        """
+                        ____________________________________
+                        Sorry!! I don't know this command :(
+                        ____________________________________
+                        """
+                );
             }
 
             in = sc.nextLine();
