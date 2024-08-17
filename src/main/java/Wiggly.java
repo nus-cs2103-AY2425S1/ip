@@ -33,7 +33,6 @@ public class Wiggly {
                 ###%@@@@@@@%###%%###@@@@@@@@@@@@@@@@%%@@@%##########@@@%@@@@@@@@@@@%%%%@@%####%###@@@@@@@@@@@@@@@@@@
                 """;
         System.out.println(
-                logo +
                 """
                 ____________________________________
                 Hello! I'm Wiggly
@@ -44,18 +43,37 @@ public class Wiggly {
         Scanner sc = new Scanner(System.in);
         String in = sc.nextLine();
         TaskList taskList = new TaskList();
+        String[] parts = in.split(" ");
+        String command = parts[0];
 
-        while (!in.equals("bye")) {
+        while (!command.equals("bye")) {
 
-            switch (in) {
-                case "list":
-                    System.out.println(taskList);
-                break;
-                default:
-                    taskList.addTask(new Task(in));
-                break;
+            switch (command) {
+                case "list" -> System.out.println(taskList);
+                case "mark" -> {
+
+                    try {
+                        int value = Integer.parseInt(parts[1]);
+                        System.out.println(taskList.markDone(value));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Oops, invalid number format detected");
+                    }
+                }
+                case "unmark" -> {
+
+                    try {
+                        int value = Integer.parseInt(parts[1]);
+                        System.out.println(taskList.markUndone(value));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Oops, invalid number format detected");
+                    }
+                }
+                default -> taskList.addTask(new Task(in));
             }
+
             in = sc.nextLine();
+            parts = in.split(" ");
+            command = parts[0];
         }
 
         System.out.println(

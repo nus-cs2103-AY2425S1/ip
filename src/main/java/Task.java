@@ -1,14 +1,31 @@
 public class Task {
 
-    private String name;
+    private String description;
+    private boolean isDone;
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
+    }
+
+    public void markDone() {
+        isDone = true;
+    }
+
+    public void markUndone() {
+        isDone = false;
+    }
+
+    private String getStatusIcon() {
+        return isDone ? "X" : " ";
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
     public String toString() {
-        return name;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
