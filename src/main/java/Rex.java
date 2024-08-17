@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Rex {
@@ -13,8 +14,8 @@ public class Rex {
         System.out.println("Hello! I'm Rex!" + rawr);
         System.out.println("What can I do for you?" + rawr);
 
-        // Fixed size array to store items
-        ArrayList<String> list = new ArrayList<>();
+        // ArrayList to store added items
+        ArrayList<Task> list = new ArrayList<>();
 
         while (true) {
             System.out.println(separation);
@@ -32,17 +33,22 @@ public class Rex {
                 return;
            // Display items added as a numbered list
             case "list":
-                System.out.println(separation);
-                for (int i = 1; i <= list.size(); i++) {
-                    System.out.println(i + ". " + list.get(i - 1));
-                }
+                displayList(list);
                 break;
             // Echo user input otherwise
             default:
                  echo(input);
-                 list.add(input);
+                 Task newTask = new Task(input);
+                 list.add(newTask);
                  break;
             }
+        }
+    }
+
+    private static void displayList(List<Task> list) {
+        System.out.println(separation);
+        for (int i = 1; i <= list.size(); i++) {
+            System.out.println(i + "." + list.get(i - 1));
         }
     }
 
