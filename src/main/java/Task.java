@@ -8,6 +8,9 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public boolean isComplete() {
+        return this.isCompleted;
+    }
     public void completeTask() {
         this.isCompleted = true;
     }
