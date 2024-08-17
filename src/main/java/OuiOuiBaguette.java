@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class OuiOuiBaguette {
     public static void main(String[] args) {
@@ -12,8 +13,11 @@ public class OuiOuiBaguette {
         // Say greetings
         System.out.println(greetings);
 
-        // Initialise scanner
+        // Initialize scanner
         Scanner sc = new Scanner(System.in); 
+
+        // Initialize ArrayList of tasks
+        ArrayList<String> tasks = new ArrayList<String>();
 
         // Main event loop
         while (true) {
@@ -25,8 +29,22 @@ public class OuiOuiBaguette {
                 break;
             }
 
-            // Simply echo back command
-            System.out.println(formatBotSpeech(cmd));
+            if (cmd.equals("list")) {
+                // List tasks
+                // Convert ArrayList to array of strings
+                String[] tasksArr = new String[tasks.size()];
+                tasks.toArray(tasksArr);
+                for (int i = 0; i < tasks.size(); i++) {
+                    tasksArr[i] = (i + 1) + ". " + tasksArr[i];
+                }
+
+                System.out.println(formatBotSpeech(tasksArr));
+
+            } else {
+                // Add task
+                tasks.add(cmd);
+                System.out.println(formatBotSpeech("added: " + cmd));
+            }
         }
 
         System.out.println(farewell);
