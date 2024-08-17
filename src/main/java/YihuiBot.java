@@ -1,6 +1,6 @@
-import java.util.Scanner;
-
+import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * Your friendly todolist bot.
@@ -26,10 +26,9 @@ public class YihuiBot {
         try {
             while (true) {
                 String input = userInput.nextLine();
-                if (input.equals("bye")) {
+                if (!callSuitableFunction(input)) {
                     break;
                 }
-                callSuitableFunction(input);
             }
         } catch (IllegalStateException | NoSuchElementException e) {
             System.out.println("An error has occured.");
@@ -43,10 +42,27 @@ public class YihuiBot {
         numTasks = 0;
     }
 
-    private static void callSuitableFunction(String input) {
-        switch (input) {
+    /**
+     * Calls a suitable function based on the user input.
+     *
+     * @param input The user's input.
+     * @return false if the program should be terminated (i.e. input == bye).
+     *         Return true otherwise.
+     */
+    private static boolean callSuitableFunction(String input) {
+        if (input == null || input.equals("")) {
+            String s = "Please type something.";
+            new Message(s).print();
+            return true;
+        }
+
+        String[] inputArray = input.split(" ");
+        String command = inputArray[0];
+        String[] arguments = inputArray.length < 2 ? null : Arrays.copyOfRange(inputArray, 1, inputArray.length);
+
+        switch (command) {
         case "bye":
-            break;
+            return false;
         case "list":
             list();
             break;
@@ -54,6 +70,8 @@ public class YihuiBot {
             addTask(input);
             break;
         }
+
+        return true;
     }
 
     private static void greetings() {
