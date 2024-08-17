@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class MentalHealthException {
+public class MentalHealthException extends Exception {
+    public MentalHealthException(String message) {
+        super(message);
+    }
 }
+

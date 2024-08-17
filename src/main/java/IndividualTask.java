@@ -21,4 +21,12 @@ public class IndividualTask {
         return this.taskDescription;
     }
 
+    @Override
+    public String toString() {
+        if (!this.getIcon().isEmpty()) {
+            return  "[" + this.getIcon() + "] " + this.getTaskDescription();
+        }
+        return   "[ ] " + this.getTaskDescription();
+    }
 }
+
