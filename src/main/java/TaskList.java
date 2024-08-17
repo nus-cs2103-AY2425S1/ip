@@ -9,15 +9,14 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
-        System.out.println(
-                "____________________________________\n" +
-                "Got it. I've added this task:\n" +
-                task.toString() + "\n" +
-                "____________________________________\n" +
-                "Now you have " + tasks.size() + " tasks in the list!\n"
-        );
+        StringBuilder sb = new StringBuilder("____________________________________\n");
+        sb.append("Got it. I've added this task:\n").append(task).append("\n");
+        sb.append("____________________________________\n");
+        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!\n");
+        sb.append("____________________________________\n");
+        return sb.toString();
     }
 
     public int getSize() {
@@ -33,7 +32,8 @@ public class TaskList {
         Task task = getTask(taskNumber - 1);
         task.markDone();
         sb.append("Nice! I've marked this task as done:\n");
-        sb.append(task);
+        sb.append(task).append("\n");
+        sb.append("____________________________________\n");
         return sb.toString();
     }
 
@@ -42,15 +42,27 @@ public class TaskList {
         Task task = getTask(taskNumber - 1);
         task.markUndone();
         sb.append("Ok, I've marked this task as not done yet:\n");
-        sb.append(task);
+        sb.append(task).append("\n");
+        sb.append("____________________________________\n");
+        return sb.toString();
+    }
+
+    public String deleteTask(int taskNumber) {
+        StringBuilder sb = new StringBuilder("____________________________________\n");
+        Task task = getTask(taskNumber - 1);
+        this.tasks.remove(task);
+        sb.append("Noted. I've removed this task:\n");
+        sb.append(task).append("\n");
+        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!\n");
+        sb.append("____________________________________\n");
         return sb.toString();
     }
 
     @Override
     public String toString() {
         int count = 1;
-        StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________").append("\n").append("Here are the tasks in your list:\n");
+        StringBuilder sb = new StringBuilder("____________________________________\n");
+        sb.append("Here are the tasks in your list:\n");
 
         for (Task task : tasks) {
             sb.append(count).append(". ").append(task.toString()).append("\n");
