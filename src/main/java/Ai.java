@@ -1,7 +1,7 @@
 import java.util.Scanner;  // Import the Scanner class
 
 public class Ai {
-    String[] tasks = new String[101];
+    Task[] tasks = new Task[101];
     int counter = 0;
     static final String greetings = "Hi, I'm your favourite idol, Ai!!! \n"
             + "What shall we do today? Teehee o(◠u◠)o \n";
@@ -17,9 +17,23 @@ public class Ai {
     }
 
     public void add(String task) {
-        tasks[counter] = task;
+        tasks[counter] = new Task(task);
         counter++;
         System.out.println("added: " + task + "\n" + line);
+    }
+
+    public void mark(int i) {
+        Task temp = tasks[i-1];
+        temp.mark();
+        System.out.println("Marked as done... since you have time, how about a drink ;)");
+        System.out.println(temp + "\n" + line);
+    }
+
+    public void unmark(int i) {
+        Task temp = tasks[i-1];
+        temp.unmark();
+        System.out.println("Donzo, task unmarked! Let me know if you need anything else :3");
+        System.out.println(temp + "\n" + line);
     }
 
     public static void main(String[] args) {
@@ -38,6 +52,10 @@ public class Ai {
 
             if(reply.equals("list")) {
                 ai.list();
+            } else if (reply.contains("unmark")) {
+                ai.unmark(Character.getNumericValue(reply.charAt(reply.length() - 1)));
+            } else if (reply.contains("mark")) {
+                ai.mark(Character.getNumericValue(reply.charAt(reply.length() - 1)));
             } else {
                 ai.add(reply);
             }
