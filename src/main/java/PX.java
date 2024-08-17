@@ -40,25 +40,26 @@ public class PX {
 
         while (true) {
             String cmd = sc.next();
+            if (cmd.equals("bye")) {
+                PXSays("Bye. Hope to see you again soon!");
+                sc.close();
+                return;
+            }
             String input = sc.nextLine();
 
             switch (cmd) {
-                case "bye":
-                    PXSays("Bye. Hope to see you again soon!");
-                    sc.close();
-                    return;
                 case "list":
                     printList(list);
                     break;
                 case "mark":
-                    Task taskToMark = list.get(Integer.parseInt(input));
+                    Task taskToMark = list.get(Integer.parseInt(input.strip()));
                     taskToMark.toggleIsDone();
                     PXSays(
                             "Nice! I've marked this task as done:",
                             taskToMark.getStatusIcon() + " " + taskToMark);
                     break;
                 case "unmark":
-                    Task taskToUnmark = list.get(Integer.parseInt(input));
+                    Task taskToUnmark = list.get(Integer.parseInt(input.strip()));
                     taskToUnmark.toggleIsDone();
                     PXSays("OK, I've marked this task as not done yet:",
                             taskToUnmark.getStatusIcon() + " " + taskToUnmark);
