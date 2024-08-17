@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bruno {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        ArrayList<String> taskList = new ArrayList<>();
         String userResponse;
 
         printGreetingMessage();
@@ -13,8 +15,10 @@ public class Bruno {
             if (userResponse.equals("bye")) {
                 running = false;
                 printByeMessage();
+            } else if (userResponse.equals("list")) {
+                printList(taskList);
             } else {
-                echo(userResponse);
+                addToList(userResponse, taskList);
             }
         }
     }
@@ -31,9 +35,18 @@ public class Bruno {
         System.out.println("____________________________________________________________");
     }
 
-    public static void echo(String msg) {
+    public static void addToList(String task, ArrayList<String> list) {
+        list.add(task);
         System.out.println("____________________________________________________________");
-        System.out.println(msg);
+        System.out.println("added: " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void printList(ArrayList<String> list) {
+        System.out.println("____________________________________________________________");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ". " + list.get(i));
+        }
         System.out.println("____________________________________________________________");
     }
 }
