@@ -6,7 +6,7 @@ public class TaskList {
     private List<Task> tasks;
 
     public TaskList() {
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
     }
 
     public void addTask(Task task) {
