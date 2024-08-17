@@ -1,7 +1,23 @@
 import java.util.Scanner;
 
 public class Wiggly {
+
+    private enum Command {
+        LIST,
+        BYE,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        UNKNOWN
+    }
+
     public static void main(String[] args) {
+
+        // unused logo
+        /*
         String logo = """
                 #%@@@@@@@@@@@#####**********##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%@%#**@@@@@@@@@@@@@@@@@@@@@
                 ##%@@@@@@@@@%**####**********#%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%##**%##@@@@@@@@@@@@@@@@@@@@@
@@ -32,6 +48,7 @@ public class Wiggly {
                 ##@@@@@@@@%##***%%##@%%%%@@%#**#@@@@%%%@@@##########@@%@%@@@@@@@@@@%@@%@@@#####%##%%@@@@@@@@@@@@@@@@
                 ###%@@@@@@@%###%%###@@@@@@@@@@@@@@@@%%@@@%##########@@@%@@@@@@@@@@@%%%%@@%####%###@@@@@@@@@@@@@@@@@@
                 """;
+        */
         System.out.println(
                 """
                 ____________________________________
@@ -41,16 +58,37 @@ public class Wiggly {
                 """);
 
         Scanner sc = new Scanner(System.in);
-        String in = sc.nextLine();
         TaskList taskList = new TaskList();
-        String[] parts = in.split(" ", 2);
-        String command = parts[0];
+        String in;
+        String[] parts;
+        Command command;
 
-        while (!command.equals("bye")) {
+        boolean running = true;
+        while (running) {
+
+            in = sc.nextLine();
+            parts = in.split(" ", 2);
+            try {
+                command = Command.valueOf(parts[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                command = Command.UNKNOWN;
+            }
 
             switch (command) {
-                case "list" -> System.out.println(taskList);
-                case "mark" -> {
+                case LIST -> {
+                    System.out.println(taskList);
+                }
+                case BYE -> {
+                    System.out.println(
+                            """
+                            ____________________________________
+                            Bye. Hope to see you again soon!
+                            ____________________________________
+                            """
+                    );
+                    running = false;
+                }
+                case MARK -> {
 
                     try {
                         int value = Integer.parseInt(parts[1]);
@@ -75,7 +113,7 @@ public class Wiggly {
                         );
                     }
                 }
-                case "unmark" -> {
+                case UNMARK -> {
 
                     try {
                         int value = Integer.parseInt(parts[1]);
@@ -100,7 +138,7 @@ public class Wiggly {
                         );
                     }
                 }
-                case "todo" -> {
+                case TODO -> {
                     try {
                         String taskDescription = parts[1];
                         System.out.println(taskList.addTask(new ToDo(taskDescription)));
@@ -115,7 +153,7 @@ public class Wiggly {
                     }
 
                 }
-                case "deadline" -> {
+                case DEADLINE -> {
                     try {
                         parts = parts[1].split(" /by ", 2);
                         String taskDescription = parts[0];
@@ -131,7 +169,7 @@ public class Wiggly {
                         );
                     }
                 }
-                case "event" -> {
+                case EVENT -> {
                     try {
                         parts = parts[1].split(" /from | /to ", 3);
                         String taskDescription = parts[0];
@@ -148,7 +186,7 @@ public class Wiggly {
                         );
                     }
                 }
-                case "delete" -> {
+                case DELETE -> {
 
                     try {
                         int value = Integer.parseInt(parts[1]);
@@ -173,7 +211,7 @@ public class Wiggly {
                         );
                     }
                 }
-                default -> System.out.println(
+                case UNKNOWN -> System.out.println(
                         """
                         ____________________________________
                         Sorry!! I don't know this command :(
@@ -181,19 +219,8 @@ public class Wiggly {
                         """
                 );
             }
-
-            in = sc.nextLine();
-            parts = in.split(" ", 2);
-            command = parts[0];
         }
 
-        System.out.println(
-                """
-                ____________________________________
-                Bye. Hope to see you again soon!
-                ____________________________________
-                """
-        );
-
     }
+
 }
