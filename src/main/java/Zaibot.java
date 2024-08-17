@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -19,34 +20,69 @@ public class Zaibot {
      * The array returned is a String array of size 3, separating the string
      * If the parameter is not applicable, it is left empty.
      *
-     * @param options A command, split by space into an array
+     * @param command A command
      * @return A string array containing 3 strings, the name, to and by
      */
-    public static String[] processCommand(String[] options){
-        String[] result = new String[]{"", "", ""};
+    public static HashMap<String, String> processAddOptions(String command) throws ZaibotException {
+        HashMap<String, String> arguments = new HashMap<>();
 
-        int current = 0;
+        if (command.indexOf(' ') == -1) {
+            throw new ZaibotException("Name cannot be empty.");
+        }
+
+        String optionString = command.substring(command.indexOf(' '));
+        String[] options = optionString.split("/");
+
+        if (optionString.isEmpty() || options[0].isEmpty()) {
+            throw new ZaibotException("Name cannot be empty.");
+        }
+        arguments.put("name", options[0].trim());
+
 
         for (int i = 1; i < options.length; i++) {
             String option = options[i];
-            if (option.charAt(0) == '/'){
-                current++;
-                continue;
+            String optionName = option.substring(0, option.indexOf(' ')).trim();
+            String optionValue = option.substring(option.indexOf(' ')).trim();
+            if (optionValue.isEmpty()) {
+                throw new ZaibotException(String.format("Option %s cannot be empty.", optionName));
             }
-
-            result[current] += option + " ";
+            arguments.put(optionName, optionValue);
         }
 
-        for (int i = 0; i < result.length; i++) {
-            result[i] = result[i].trim();
-        }
-
-        return result;
+        return arguments;
     }
 
-    public static void addTask(Task task){
+    public static void addTask(String command, String taskName) throws ZaibotException{
         String taskAddMessage = "Got it. I've added this task\n";
         String taskTotalMessage = "Now you have %d tasks in the list.\n";
+
+        HashMap<String, String> allOptions = processAddOptions(command);
+        Task task;
+
+        String name = allOptions.get("name");
+
+        switch (taskName) {
+            case "todo":
+                task = new ToDoTask(name);
+                break;
+            case "deadline":
+                if (!allOptions.containsKey("by")) {
+                    throw new ZaibotException("Deadline must have option /by.");
+                }
+                String by = allOptions.get("by");
+                task = new DeadlineTask(name, by);
+                break;
+            case "event":
+                if (!allOptions.containsKey("from") || !allOptions.containsKey("to")) {
+                    throw new ZaibotException("Event must have option /from and /to.");
+                }
+                String from = allOptions.get("from");
+                String to = allOptions.get("to");
+                task = new EventTask(name, from, to);
+                break;
+            default:
+                throw new ZaibotException("Invalid task");
+        }
         tasks.add(task);
         printMessage(taskAddMessage + task.toString() + "\n" +
                 String.format(taskTotalMessage, tasks.size()));
@@ -56,12 +92,11 @@ public class Zaibot {
      * Processes a command, based on the input.
      * @param command The command input
      */
-    public static void processCommand(String command) {
+    public static void processCommand(String command) throws ZaibotException {
         String goodbyeMessage = "Bye. Hope to see you again soon!\n";
         String markTaskMessage = "Nice! I've marked this task as done:\n";
         String unmarkTaskMessage = "OK, I've marked this task as not done yet:\n";
         String taskListMessage = "Here are the tasks in your list:\n";
-
 
         String[] options = command.split("\\s+");
 
@@ -85,22 +120,12 @@ public class Zaibot {
                 printMessage(unmarkTaskMessage + current.toString() + "\n");
                 break;
             case "todo":
-                options = processCommand(options);
-                current = new ToDoTask(options[0]);
-                addTask(current);
-                break;
             case "deadline":
-                options = processCommand(options);
-                current = new DeadlineTask(options[0], options[1]);
-                addTask(current);
-                break;
             case "event":
-                options = processCommand(options);
-                current = new EventTask(options[0], options[1], options[2]);
-                addTask(current);
+                addTask(command, options[0]);
                 break;
             default:
-                printMessage("Invalid event type\n");
+                throw new ZaibotException("Invalid command.\n");
         }
     }
 
@@ -127,7 +152,12 @@ public class Zaibot {
 
         while (!currentCommand.equals("bye") && input.hasNextLine()) {
             currentCommand = input.nextLine();
-            processCommand(currentCommand);
+            try {
+                processCommand(currentCommand);
+            }
+            catch (ZaibotException exception) {
+                printMessage(exception.getMessage());
+            }
         }
 
     }
