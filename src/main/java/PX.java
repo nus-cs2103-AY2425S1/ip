@@ -12,17 +12,18 @@ public class PX {
         System.out.println("    " + arg);
     }
 
-    private static void printList(ArrayList<String> list) {
+    private static void printList(ArrayList<Task> list) {
         printLine();
+        PXSays("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
-            PXSays(index + ". " + list.get(i));
+            PXSays(index + ". " + list.get(i).getStatusIcon() + " " + list.get(i));
         }
         printLine();
     }
 
     public static void main(String[] args) {
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
 
         printLine();
         PXSays("Hello! I'm " + name);
@@ -38,16 +39,32 @@ public class PX {
                 PXSays("Bye. Hope to see you again soon!");
                 printLine();
                 break;
+            } else if (input.equals("list")) {
+                printList(list);
+            } else if (input.startsWith("mark")) {
+                printLine();
+                String[] arr = input.split(" ");
+                Task t = list.get(Integer.parseInt(arr[1]) - 1);
+                t.toggleIsDone();
+                PXSays("Nice! I've marked this task as done:");
+                PXSays(t.getStatusIcon() + " " + t);
+                printLine();
+            } else if (input.startsWith("unmark")) {
+                printLine();
+                String[] arr = input.split(" ");
+                Task t = list.get(Integer.parseInt(arr[1]) - 1);
+                list.get(Integer.parseInt(arr[1]) - 1).toggleIsDone();
+                PXSays("OK, I've marked this task as not done yet:");
+                PXSays(t.getStatusIcon() + " " + t);
+                printLine();
             }
-            switch (input) {
-                case "list":
-                    printList(list);
-                    break;
-                default:
-                    printLine();
-                    list.add(input);
-                    PXSays("added: " + input);
-                    printLine();
+
+            else {
+                Task t = new Task(input);
+                printLine();
+                list.add(t);
+                PXSays("added: " + input);
+                printLine();
             }
         }
 
