@@ -8,45 +8,36 @@ Got it. I've added this task:
 [T][ ] read book
 ____________________________________
 Now you have 1 tasks in the list!
-____________________________________
 
 ____________________________________
 Got it. I've added this task:
 [D][ ] return book (by: June 6th)
 ____________________________________
 Now you have 2 tasks in the list!
-____________________________________
 
 ____________________________________
 Got it. I've added this task:
 [E][ ] project meeting (from: Aug 6th 2pm to 4pm)
 ____________________________________
 Now you have 3 tasks in the list!
-____________________________________
 
 ____________________________________
 Got it. I've added this task:
 [T][ ] join sports club
 ____________________________________
 Now you have 4 tasks in the list!
-____________________________________
 
 ____________________________________
 Nice! I've marked this task as done:
 [T][X] read book
 ____________________________________
-
-____________________________________
 Nice! I've marked this task as done:
 [T][X] join sports club
-____________________________________
-
 ____________________________________
 Got it. I've added this task:
 [T][ ] borrow book
 ____________________________________
 Now you have 5 tasks in the list!
-____________________________________
 
 ____________________________________
 Here are the tasks in your list:
@@ -56,6 +47,18 @@ Here are the tasks in your list:
 4. [T][X] join sports club
 5. [T][ ] borrow book
 _____________________________________
+
+____________________________________
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
+____________________________________
+Now you have 6 tasks in the list!
+
+____________________________________
+Got it. I've added this task:
+[E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________
+Now you have 7 tasks in the list!
 
 ____________________________________
 Oops, missing todo description
@@ -71,12 +74,6 @@ ____________________________________
 
 ____________________________________
 Sorry!! I don't know this command :(
-____________________________________
-
-____________________________________
-Noted. I've removed this task:
-[E][ ] project meeting (from: Aug 6th 2pm to 4pm)
-Now you have 4 tasks in the list!
 ____________________________________
 
 ____________________________________

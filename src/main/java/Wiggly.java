@@ -103,7 +103,7 @@ public class Wiggly {
                 case "todo" -> {
                     try {
                         String taskDescription = parts[1];
-                        System.out.println(taskList.addTask(new ToDo(taskDescription)));
+                        taskList.addTask(new ToDo(taskDescription));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(
                                 """
@@ -120,7 +120,7 @@ public class Wiggly {
                         parts = parts[1].split(" /by ", 2);
                         String taskDescription = parts[0];
                         String by = parts[1];
-                        System.out.println(taskList.addTask(new Deadline(taskDescription, by)));
+                        taskList.addTask(new Deadline(taskDescription, by));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(
                                 """
@@ -137,37 +137,12 @@ public class Wiggly {
                         String taskDescription = parts[0];
                         String from = parts[1];
                         String to = parts[2];
-                        System.out.println(taskList.addTask(new Event(taskDescription, from, to)));
+                        taskList.addTask(new Event(taskDescription, from, to));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(
                                 """
                                 ____________________________________
                                 Oops, missing event description, from or to
-                                ____________________________________
-                                """
-                        );
-                    }
-                }
-                case "delete" -> {
-
-                    try {
-                        int value = Integer.parseInt(parts[1]);
-                        if (value > taskList.getSize() || value <= 0) {
-                            System.out.println(
-                                    """
-                                    ____________________________________
-                                    There's no such task number!
-                                    ____________________________________
-                                    """
-                            );
-                        } else {
-                            System.out.println(taskList.deleteTask(value));
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println(
-                                """
-                                ____________________________________
-                                Oops, invalid number format detected
                                 ____________________________________
                                 """
                         );
