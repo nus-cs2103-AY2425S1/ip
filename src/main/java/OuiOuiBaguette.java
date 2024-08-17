@@ -64,6 +64,7 @@ public class OuiOuiBaguette {
                 System.out.println(formatBotSpeech(new String[]{
                         "OK, I've marked this task as not done yet: ",
                         "  " + taskUnmarked}));
+
             } else if (cmd.startsWith("todo")) {
                 // Add ToDo
                 String desc = cmd.substring(("todo ").length());
@@ -75,6 +76,41 @@ public class OuiOuiBaguette {
                 System.out.println(formatBotSpeech(new String[]{
                     "Got it. I've added this task:",
                     "  " + todo,
+                    "Now you have " + tasks.size() + " tasks in the list."
+                }));
+            
+            } else if (cmd.startsWith("deadline")) {
+                // Add Deadline
+                String descAndDate = cmd.substring(("deadline ").length());
+                String desc = descAndDate.split(" /by ")[0];
+                String date = descAndDate.split(" /by ")[1];
+
+                Deadline deadline = new Deadline(desc, date);
+
+                tasks.add(deadline);
+
+                System.out.println(formatBotSpeech(new String[]{
+                    "Got it. I've added this task:",
+                    "  " + deadline,
+                    "Now you have " + tasks.size() + " tasks in the list."
+                }));
+
+            } else if (cmd.startsWith("event")) {
+                // Add Event
+                String descAndStartEnd = cmd.substring(("event ").length());
+                String desc = descAndStartEnd.split(" /from ")[0];
+                String start = descAndStartEnd.substring(
+                        descAndStartEnd.indexOf("/from ") + ("/from ").length(),
+                        descAndStartEnd.indexOf(" /to"));
+                String end = descAndStartEnd.split(" /to ")[1];
+
+                Event event = new Event(desc, start, end);
+
+                tasks.add(event);
+
+                System.out.println(formatBotSpeech(new String[]{
+                    "Got it. I've added this task:",
+                    "  " + event,
                     "Now you have " + tasks.size() + " tasks in the list."
                 }));
             }
