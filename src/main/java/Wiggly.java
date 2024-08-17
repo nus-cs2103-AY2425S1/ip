@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Wiggly {
     public static void main(String[] args) {
         String logo = """
@@ -33,13 +35,32 @@ public class Wiggly {
         System.out.println(
                 logo +
                 """
-                        ____________________________________
-                        Hello! I'm Wiggly
-                         \
-                        What can I do for you?
-                         \
-                        ____________________________________
-                        Bye. Hope to see you again soon!
+                ____________________________________
+                Hello! I'm Wiggly
+                What can I do for you?
+                ____________________________________
                 """);
+
+        Scanner sc = new Scanner(System.in);
+        String in = sc.nextLine();
+
+        while (!in.equals("bye")) {
+            System.out.println(
+                    "____________________________________\n" +
+                            in +
+                    "\n____________________________________\n"
+            );
+
+            in = sc.nextLine();
+        }
+
+        System.out.println(
+                """
+                ____________________________________
+                Bye. Hope to see you again soon!
+                ____________________________________
+                """
+        );
+
     }
 }
