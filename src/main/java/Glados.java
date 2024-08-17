@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Glados {
     private static final String HORIZONTAL_LINE = "\n" 
@@ -12,7 +13,7 @@ public class Glados {
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
             + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
             + "\n";
-    private static Task[] list = new Task[100];    
+    private static ArrayList<Task> taskList = new ArrayList<>();  
     private static int listIndex = 0;
     public static void main(String[] args) {
         greet();
@@ -85,16 +86,16 @@ public class Glados {
     public static void add(TaskType taskType, String input) {
         switch (taskType) {
             case TODO:
-                list[listIndex] = new Todo(input.trim());
+                taskList.add(new Todo(input.trim()));
                 break;
             case EVENT:
                 String[] eventInputs = input.split("/from");
                 String[] dateRange = eventInputs[1].split("/to");
-                list[listIndex] = new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim());
+                taskList.add(new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()));
                 break;
             case DEADLINE:
                 String[] deadlineInputs = input.split("/by");
-                list[listIndex] = new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim());
+                taskList.add(new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim()));
                 break;
             default:
                 break;
@@ -103,7 +104,7 @@ public class Glados {
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I have added the following task to the list...\n"
-            + "\n" + list[listIndex - 1].toString() + "\n"
+            + "\n" + taskList.get(listIndex - 1).toString() + "\n"
             + "\nNow you have " + listIndex + (listIndex == 1 ? " task.\n" : " tasks.\n")
             + HORIZONTAL_LINE);
     }
@@ -112,26 +113,28 @@ public class Glados {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("GLaDOS: Here is the list...\n");
         for (int i = 0; i < listIndex; i++) {
-            System.out.println(i + 1 + ". " + list[i].toString()); 
+            System.out.println(i + 1 + ". " + taskList.get(i).toString()); 
         }
         System.out.println(HORIZONTAL_LINE);
     }
 
     public static void mark(int index) {
-        list[index - 1].mark();
+        Task task = taskList.get(index - 1);
+        task.mark();
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I've marked this task as done...\n"
-            + "\n" + list[index - 1].toString() + "\n"
+            + "\n" + task.toString() + "\n"
             + HORIZONTAL_LINE);
     }
 
     public static void unmark(int index) {
-        list[index - 1].unmark();
+        Task task = taskList.get(index - 1);
+        task.unmark();
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: Oops, looks like this task is no longer done...\n"
-            + "\n" + list[index - 1].toString() + "\n"
+            + "\n" + task.toString() + "\n"
             + HORIZONTAL_LINE);
     }
 
