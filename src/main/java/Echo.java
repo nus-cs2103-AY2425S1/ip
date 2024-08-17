@@ -12,11 +12,14 @@ public class Echo {
 
 
     public void echoMessage() {
-        while (!this.message.equalsIgnoreCase("bye")) {
+        while (!this.message.strip().equalsIgnoreCase("bye")) {
             System.out.println("Enter your message: ");
             Scanner scanner = new Scanner(System.in);
             this.message = scanner.nextLine();
-            String outputMessage = this.indent + this.separator + "\n" + this.indent + this.message + "\n" + this.indent + this.separator;
+            if (this.message.strip().equalsIgnoreCase("bye")) {
+                break;
+            }
+            String outputMessage = this.indent + this.separator + "\n" + this.indent + this.message + "\n" + this.indent  + this.separator;
             System.out.println(outputMessage);
         }
     }
