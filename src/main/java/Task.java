@@ -10,7 +10,7 @@ public class Task {
     /**
      * Constructor for a new task.
      *
-     * @param description The description of the task.
+     * @param description the description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -22,9 +22,29 @@ public class Task {
         return this.isCompleted;
     }
 
-    /** Mark the current task as completed. */
-    public void complete() {
+    /**
+     * Mark the current task as completed.
+     *
+     * @return whether the tasks status has been changed.
+     */
+    public boolean markComplete() {
+        if (this.isCompleted) {
+            return false;
+        }
         this.isCompleted = true;
+        return true;
+    }
+    /**
+     * Mark the current task as incomplete.
+     *
+     * @return whether the tasks status has been changed.
+     */
+    public boolean markIncomplete() {
+        if (!this.isCompleted) {
+            return false;
+        }
+        this.isCompleted = false;
+        return true;
     }
 
     /** Returns the String representation of the task. */

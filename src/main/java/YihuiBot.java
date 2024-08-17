@@ -45,26 +45,33 @@ public class YihuiBot {
     /**
      * Calls a suitable function based on the user input.
      *
-     * @param input The user's input.
+     * @param input the user's input.
      * @return false if the program should be terminated (i.e. input == bye).
      *         Return true otherwise.
      */
     private static boolean callSuitableFunction(String input) {
-        if (input == null || input.equals("")) {
-            String s = "Please type something.";
-            new Message(s).print();
-            return true;
+        if (input == null) {
+            return false;
         }
 
         String[] inputArray = input.split(" ");
-        String command = inputArray[0];
+        String command = inputArray.length < 1 ? "" : inputArray[0];
         String[] arguments = inputArray.length < 2 ? null : Arrays.copyOfRange(inputArray, 1, inputArray.length);
 
         switch (command) {
         case "bye":
             return false;
+        case "":
+            noInput();
+            break;
         case "list":
             list();
+            break;
+        case "mark":
+            mark(arguments);
+            break;
+        case "unmark":
+            unmark(arguments);
             break;
         default:
             addTask(input);
@@ -84,6 +91,11 @@ public class YihuiBot {
 
     private static void exit() {
         String s = "Bye. Hope to see you again soon!";
+        new Message(s).print();
+    }
+
+    private static void noInput() {
+        String s = "Please provide an input.";
         new Message(s).print();
     }
 
@@ -115,5 +127,79 @@ public class YihuiBot {
             }
         }
         new Message(s).print();
+    }
+
+    private static void mark(String[] arguments) {
+        if (arguments == null) {
+            String s = "Please call mark with an integer (e.g. mark 2).";
+            new Message(s).print();
+            return;
+        }
+
+        if (arguments.length > 1) {
+            String s = "Too many arguments. Please call mark with only 1 integer.";
+            new Message(s).print();
+            return;
+        }
+
+        try {
+            int idx = Integer.parseInt(arguments[0]);
+
+            if (idx < 1 || idx > numTasks) {
+                String s = "Invalid argument. Please specify a good index.";
+                new Message(s).print();
+                return;
+            }
+
+            Task task = tasks[idx - 1];
+            if (!task.markComplete()) {
+                String s = String.format("Task %d is already completed.", idx);
+                new Message(s).print();
+                return;
+            }
+
+            String s = "Nice! I've marked this task as done:\n[X] " + task.toString();
+            new Message(s).print();
+        } catch (NumberFormatException e) {
+            String s = "Invalid argument. Please call mark with an integer (e.g. mark 2).";
+            new Message(s).print();
+        }
+    }
+
+    private static void unmark(String[] arguments) {
+        if (arguments == null) {
+            String s = "Please call unmark with an integer (e.g. mark 2).";
+            new Message(s).print();
+            return;
+        }
+
+        if (arguments.length > 1) {
+            String s = "Too many arguments. Please call unmark with only 1 integer.";
+            new Message(s).print();
+            return;
+        }
+
+        try {
+            int idx = Integer.parseInt(arguments[0]);
+            
+            if (idx < 1 || idx > numTasks) {
+                String s = "Invalid argument. Please specify a good index.";
+                new Message(s).print();
+                return;
+            }
+
+            Task task = tasks[idx - 1];
+            if (!task.markIncomplete()) {
+                String s = String.format("Task %d is not completed.", idx);
+                new Message(s).print();
+                return;
+            }
+
+            String s = "Ok. I've marked this task as not done yet:\n[ ] " + task.toString();
+            new Message(s).print();
+        } catch (NumberFormatException e) {
+            String s = "Invalid argument. Please call unmark with an integer (e.g. mark 2).";
+            new Message(s).print();
+        }
     }
 }
