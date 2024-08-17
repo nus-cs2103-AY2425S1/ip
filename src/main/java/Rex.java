@@ -21,24 +21,25 @@ public class Rex {
             System.out.println(separation);
             // Takes in user input to add to list
             Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
+            String[] input = scanner.nextLine().split(" ");
+            String command = input[0];
 
             // Process user command
-            switch (input) {
+            switch (command) {
             // Rex's goodbye message, exit program
             case "bye":
                 System.out.println(separation);
                 System.out.println("Bye. Hope to see you again soon!" + rawr);
                 System.out.println(separation);
                 return;
-           // Display items added as a numbered list
+            // Display items added as a numbered list
             case "list":
                 displayList(list);
                 break;
             // Echo user input otherwise
             default:
-                 echo(input);
-                 Task newTask = new Task(input);
+                 String description = echo(input);
+                 Task newTask = new Task(description);
                  list.add(newTask);
                  break;
             }
@@ -52,9 +53,19 @@ public class Rex {
         }
     }
 
-    private static void echo(String input) {
+    private static String echo(String[] input) {
         // Display input text back to user through print statement
         System.out.println(separation);
-        System.out.println("added: " + input);
+        System.out.print("added: ");
+
+        // Loop through each word in input array
+        String output = "";
+        for (String word : input) {
+            output += word + " ";
+        }
+        System.out.println(output);
+
+        // Return item description
+        return output;
     }
 }
