@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class MortalReminder {
 
+    private ToDoList toDoList = new ToDoList();
+
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
         mortalReminder.Welcome();
@@ -39,7 +41,6 @@ public class MortalReminder {
 
     private void ProcessInputs() {
         Scanner inputScanner = new Scanner(System.in);
-        String outputMessage = "";
 
         while (true) {
             String input = inputScanner.nextLine();
@@ -47,7 +48,8 @@ public class MortalReminder {
                 break;
             }
             else {
-                outputMessage = FormatMessages(input);
+                String outputMessage = toDoList.processCommand(input);
+                outputMessage = FormatMessages(outputMessage);
                 System.out.println(outputMessage);
             }
         }
