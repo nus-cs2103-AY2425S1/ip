@@ -16,22 +16,22 @@ public class Echo {
             tasks.markTask(index);
 
             System.out.println(
-                    "_________________________________________\n" +
-                    "Nice! I've marked this task as done: ");
+                    "____________________________________________________________\n" +
+                    "Nice! I've marked this task as done:");
             tasks.printTask(index);
             System.out.print(
-                    "_________________________________________\n");
+                    "____________________________________________________________\n");
             return true;
         } else if (userInput.toLowerCase().startsWith("unmark")) {
             int index = Integer.valueOf(userInput.substring(7));
             tasks.unmarkTask(index);
 
             System.out.println(
-                    "_________________________________________\n" +
+                    "____________________________________________________________\n" +
                     "Ok, I've marked this task as not done yet: ");
             tasks.printTask(index);
             System.out.print(
-                    "_________________________________________\n");
+                    "____________________________________________________________\n");
             return true;
         } else if (userInput.toLowerCase().startsWith("todo")) {
             String task;
@@ -95,15 +95,15 @@ public class Echo {
             switch (userInput) {
                 case "bye":
                     System.out.println(
-                        "_________________________________________\n" +
+                        "____________________________________________________________\n" +
                         "Bye. Hope to see you again soon!\n" +
-                        "_________________________________________\n");
+                        "____________________________________________________________\n");
                     return false;
                 case "list":
-                    System.out.println("_________________________________________");
-                    System.out.println("Here are the tasks in your list: ");
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Here are the tasks in your list:");
                     tasks.printTasks();
-                    System.out.println("_________________________________________");
+                    System.out.println("____________________________________________________________");
                     return true;
                 default:
                     return true;
@@ -112,15 +112,16 @@ public class Echo {
     }
 
     public void printSuccessMsg() {
-        System.out.println(
-            "_________________________________________\n" +
-            "Got it. I've added this task: \n");
+        System.out.print(
+            "____________________________________________________________\n" +
+            "Got it. I've added this task:\n"
+        );
         tasks.printTask(tasks.getNumTasks());
         System.out.printf(
             "Now you have %d task" +
             (tasks.getNumTasks() == 1 ? "" : "s") +
             " in the list.\n" +
-            "_________________________________________\n",
+            "____________________________________________________________\n",
         tasks.getNumTasks());
     }
 
@@ -131,15 +132,19 @@ public class Echo {
 
         // Greets user
         String welcomeMsg =
-                "_________________________________________\n" +
+                "____________________________________________________________\n" +
                 "Hello! I'm Echo!\n" +
                 "What can I do for you?\n" +
-                "_________________________________________\n";
-        System.out.println(welcomeMsg);
+                "____________________________________________________________\n";
+        System.out.print(welcomeMsg);
 
         Boolean isAcceptingInput = true;
         while (isAcceptingInput) { // handles input until user says bye
-            isAcceptingInput = e.handleInput(scanner);
+            if (scanner.hasNextLine()) {
+                isAcceptingInput = e.handleInput(scanner);
+            } else {
+                isAcceptingInput = false;
+            }
         }
     }
 }
