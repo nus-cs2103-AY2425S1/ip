@@ -94,7 +94,7 @@ public class Yapper {
         taskList[totalTasks++] = task;
         System.out.println(divider);
         System.out.println("Got it. I've added this task:");
-        System.out.println(" " + task);
+        System.out.println("  " + task);
         System.out.println("Now you have " + totalTasks + " " + taskPlural(totalTasks) + " in the list.");
         System.out.println(divider);
     }
