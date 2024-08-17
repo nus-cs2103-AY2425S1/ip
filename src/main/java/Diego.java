@@ -38,12 +38,41 @@ public class Diego {
                 Task currTask = tasks[index];
                 currTask.mark();
                 System.out.println(currTask);
-            }else if(input.startsWith("unmark")){
+            }else if(input.startsWith("unmark")) {
                 System.out.println("Ok! I've marked this task as not done:");
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 Task currTask = tasks[index];
                 currTask.unMark();
                 System.out.println(currTask);
+            }else if(input.startsWith("event")){
+                System.out.println("____________________________________________________________");
+                String[] data = input.split(" /from | /to ");
+                tasks[taskCount] = new Event(data[0].substring(6),data[1],data[2]);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" "+tasks[taskCount]);
+                taskCount++;
+                System.out.printf("Now you have %d tasks in the list%n", taskCount);
+                System.out.println("____________________________________________________________");
+
+            }else if(input.startsWith("todo")){
+                System.out.println("____________________________________________________________");
+                tasks[taskCount] = new Todo(input.substring(5));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" "+tasks[taskCount]);
+                taskCount++;
+                System.out.printf("Now you have %d tasks in the list%n", taskCount);
+                System.out.println("____________________________________________________________");
+
+            }else if(input.startsWith("deadline")){
+                System.out.println("____________________________________________________________");
+                String[] data = input.split(" /by");
+                tasks[taskCount] = new Deadline(data[0].substring(9),data[1]);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" "+tasks[taskCount]);
+                taskCount++;
+                System.out.printf("Now you have %d tasks in the list%n", taskCount);
+                System.out.println("____________________________________________________________");
+
             }else{
                 output = "____________________________________________________________\n" +
                         "added: " + input + "\n" +
