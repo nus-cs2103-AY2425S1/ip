@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class Glados {
-    private static final String HORIZONTAL_LINE = "\n" +"-----------------------------------------------------------------------------\n";
+    private static final String HORIZONTAL_LINE = "\n" 
+        + "-----------------------------------------------------------------------------\n";
     private static final String LOGO = "\n"
             + " ░▒▓██████▓▒░░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░ \n"
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n"
@@ -89,7 +90,7 @@ public class Glados {
             case EVENT:
                 String[] eventInputs = input.split("/from");
                 String[] dateRange = eventInputs[1].split("/to");
-                list[listIndex] = new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim());  
+                list[listIndex] = new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim());
                 break;
             case DEADLINE:
                 String[] deadlineInputs = input.split("/by");
