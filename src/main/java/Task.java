@@ -15,12 +15,12 @@ public class Task {
 
     public String markDone() {
         this.isDone = true;
-        return "Nice!  I've marked this task as done: \n" + this.printTask();
+        return "Nice!  I've marked this task as done:\n" + this.printTask();
     }
 
     public String markUndone() {
         this.isDone = false;
-        return "OK, I've marked this task as not done yet: \n" + this.printTask();
+        return "OK, I've marked this task as not done yet:\n" + this.printTask();
     }
 
     public String printTask() {

@@ -27,7 +27,7 @@ public class MortalReminder {
     }
 
     private void Welcome() {
-        String welcomeMessage = "Hello I'm Mortal Reminder! \n"
+        String welcomeMessage = "Hello I'm Mortal Reminder!\n"
                 + "What can I do for you?";
         welcomeMessage = FormatMessages(welcomeMessage);
         System.out.println(welcomeMessage);

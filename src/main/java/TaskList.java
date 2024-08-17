@@ -18,7 +18,7 @@ public class TaskList {
             return this.printList();
         } else if (command.contains("mark") || command.contains("unmark")) {
             String[] commandParts = command.split(" ");
-            int index = Integer.parseInt(commandParts[1]);
+            int index = Integer.parseInt(commandParts[1]) - 1;
             if (commandParts[0].equals("mark")) {
                 return this.taskList.get(index).markDone();
             } else {
