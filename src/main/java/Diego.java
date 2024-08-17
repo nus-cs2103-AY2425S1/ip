@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Diego {
 
@@ -18,7 +19,7 @@ public class Diego {
 
         System.out.println(hiMessage);
 
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
         Scanner scanner = new Scanner(System.in);
 
@@ -32,14 +33,14 @@ public class Diego {
                     System.out.println("____________________________________________________________");
                     System.out.println("Here are the tasks in your list");
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println(i + 1 + ". " + tasks[i]);
+                        System.out.println(i + 1 + ". " + tasks.get(i));
                     }
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("mark")) {
                     System.out.println("____________________________________________________________");
                     System.out.println("Nice! I've marked this task as done:");
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    Task currTask = tasks[index];
+                    Task currTask = tasks.get(index);
                     currTask.mark();
                     System.out.println(currTask);
                     System.out.println("____________________________________________________________");
@@ -47,7 +48,7 @@ public class Diego {
                     System.out.println("____________________________________________________________");
                     System.out.println("Ok! I've marked this task as not done:");
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    Task currTask = tasks[index];
+                    Task currTask = tasks.get(index);
                     currTask.unMark();
                     System.out.println(currTask);
                     System.out.println("____________________________________________________________");
@@ -55,9 +56,9 @@ public class Diego {
                     System.out.println("____________________________________________________________");
                     String[] data = input.split(" /from | /to ");
                     if (data.length < 3) throw new NoDescriptionException();
-                    tasks[taskCount] = new Event(data[0].substring(6), data[1], data[2]);
+                    tasks.add(new Event(data[0].substring(6), data[1], data[2]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCount]);
+                    System.out.println(" " + tasks.get(taskCount));
                     taskCount++;
                     System.out.printf("Now you have %d tasks in the list%n", taskCount);
                     System.out.println("____________________________________________________________");
@@ -65,9 +66,9 @@ public class Diego {
                 } else if (input.startsWith("todo")) {
                     System.out.println("____________________________________________________________");
                     if (input.length() <= 5) throw new NoDescriptionException();
-                    tasks[taskCount] = new Todo(input.substring(5));
+                    tasks.add(new Todo(input.substring(5)));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCount]);
+                    System.out.println(" " + tasks.get(taskCount));
                     taskCount++;
                     System.out.printf("Now you have %d tasks in the list%n", taskCount);
                     System.out.println("____________________________________________________________");
@@ -76,14 +77,24 @@ public class Diego {
                     System.out.println("____________________________________________________________");
                     String[] data = input.split(" /by");
                     if (data.length < 2) throw new NoDescriptionException();
-                    tasks[taskCount] = new Deadline(data[0].substring(9), data[1]);
+                    tasks.add(new Deadline(data[0].substring(9), data[1]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCount]);
+                    System.out.println(" " + tasks.get(taskCount));
                     taskCount++;
                     System.out.printf("Now you have %d tasks in the list%n", taskCount);
                     System.out.println("____________________________________________________________");
 
-                } else {
+                } else if (input.startsWith("delete")) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    Task currTask = tasks.get(index);
+                    System.out.println(" " + currTask);
+                    taskCount--;
+                    System.out.printf("Now you have %d tasks in the list%n", taskCount);
+                    System.out.println("____________________________________________________________");
+
+                }else {
                     throw new UnknownCommandException();
                 }
             } catch (DiegoException e) {
