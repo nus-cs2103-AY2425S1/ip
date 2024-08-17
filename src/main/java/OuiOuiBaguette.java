@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class OuiOuiBaguette {
     public static void main(String[] args) {
         String greetings = """
@@ -15,8 +17,27 @@ public class OuiOuiBaguette {
                 ____________________________________________________________
                 """;
     
-
+        // Say greetings
         System.out.println(greetings);
+
+        // Initialise scanner
+        Scanner sc = new Scanner(System.in); 
+
+        // Main event loop
+        while (true) {
+            String cmd = sc.nextLine();
+
+            if (cmd.equals("bye")) {
+                break;
+            }
+
+            // Simply echo back command
+            System.out.println("____________________________________________________________\n"
+                    + cmd
+                    + "\n____________________________________________________________");
+        }
+
         System.out.println(farewell);
     }
+    
 }
