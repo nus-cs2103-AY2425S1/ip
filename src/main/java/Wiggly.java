@@ -70,13 +70,13 @@ public class Wiggly {
                 }
                 case "todo" -> taskList.addTask(new ToDo(parts[1]));
                 case "deadline" -> {
-                    parts = parts[1].split("/by ", 2);
+                    parts = parts[1].split(" /by ", 2);
                     String taskDescription = parts[0];
                     String by = parts[1];
                     taskList.addTask(new Deadline(taskDescription, by));
                 }
                 case "event" -> {
-                    parts = parts[1].split("/from | /to ", 3);
+                    parts = parts[1].split(" /from | /to ", 3);
                     String taskDescription = parts[0];
                     String from = parts[1];
                     String to = parts[2];
