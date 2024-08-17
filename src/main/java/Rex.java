@@ -19,7 +19,7 @@ public class Rex {
 
         while (true) {
             System.out.println(separation);
-            // Takes in user input to add to list
+            // Takes in user input and extract command
             Scanner scanner = new Scanner(System.in);
             String[] input = scanner.nextLine().split(" ");
             String command = input[0];
@@ -36,7 +36,19 @@ public class Rex {
             case "list":
                 displayList(list);
                 break;
-            // Echo user input otherwise
+            // Mark item in specified index as done
+            case "mark":
+                System.out.println(separation);
+                int index = Integer.parseInt(input[1]);
+                list.get(index - 1).markDone();
+                break;
+            // Unmark item in specified index as undone
+            case "unmark":
+                System.out.println(separation);
+                index = Integer.parseInt(input[1]);
+                list.get(index - 1).unmarkDone();
+                break;
+            // Echo user input otherwise and add to list
             default:
                  String description = echo(input);
                  Task newTask = new Task(description);
