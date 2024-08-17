@@ -64,10 +64,19 @@ public class OuiOuiBaguette {
                 System.out.println(formatBotSpeech(new String[]{
                         "OK, I've marked this task as not done yet: ",
                         "  " + taskUnmarked}));
-            } else {
-                // Add task
-                tasks.add(new Task(cmd));
-                System.out.println(formatBotSpeech("added: " + cmd));
+            } else if (cmd.startsWith("todo")) {
+                // Add ToDo
+                String desc = cmd.substring(("todo ").length());
+
+                ToDo todo = new ToDo(desc);
+
+                tasks.add(todo);
+
+                System.out.println(formatBotSpeech(new String[]{
+                    "Got it. I've added this task:",
+                    "  " + todo,
+                    "Now you have " + tasks.size() + " tasks in the list."
+                }));
             }
         }
 
