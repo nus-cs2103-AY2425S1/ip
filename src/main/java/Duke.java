@@ -75,7 +75,7 @@ public class Duke {
             String item;
 
             if (spaceLocation == -1) {
-                command = input.toLowerCase();
+                command = input.toLowerCase();  // to lower case to allow some flexibility for better experience
                 item = "";
             } else {
                 command = input.substring(0,spaceLocation).toLowerCase();
@@ -104,8 +104,20 @@ public class Duke {
                         tasks[index-1].unmark();
                     }
                     break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    tasks[tasksIndex] = Task.of(command, item);  // used factory method to be more neat and OOP
+                    System.out.println("Sumo has added this task for you. \n"
+                            + tasks[tasksIndex]
+                            + "\n"
+                            + "There are now "
+                            + (tasksIndex + 1)
+                            + " task(s) in total!");
+                    tasksIndex++;
+                    break;
                 default:
-                    tasks[tasksIndex++] = new Task(input);
+                    tasks[tasksIndex++] = new Todo(input);
                     System.out.println(("Added: " +input));
             }
         }
