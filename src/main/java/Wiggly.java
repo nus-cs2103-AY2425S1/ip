@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Wiggly {
@@ -51,7 +49,7 @@ public class Wiggly {
 
             switch (in) {
                 case "list":
-                    System.out.println(taskList.toString());
+                    System.out.println(taskList);
                 break;
                 default:
                     taskList.addTask(new Task(in));
