@@ -55,10 +55,35 @@ public class Alice {
             }
             
             // all other strings are tasks that should be added
-            Task nextTask = new Task(response);
-            tasks.add(nextTask);
+            // determines type of task added
+            String[] taskInfo = response.split(" ", 2);
+            switch (taskInfo[0]) {
+                case "todo":
+                    // taskInfo[1] contains description
+                    Todo todoTask = new Todo(taskInfo[1]);
+                    tasks.add(todoTask);
+                    break;
+                case "deadline":
+                    // taskInfo[1] contains description /by deadline
+                    String[] deadlineInfo = taskInfo[1].split("/by");
+                    // deadlineInfo[0] = description, deadlineInfo[1] = deadline
+                    Deadline deadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                    tasks.add(deadlineTask);
+                    break;
+                case "event":
+                    // taskInfo[1] contains description /from from /to to
+                    String[] eventInfo = taskInfo[1].split("/from");
+                    String[] times = eventInfo[1].split("/to");
+                    Event eventTask = new Event(eventInfo[0], times[0], times[1]);
+                    tasks.add(eventTask);
+                    break;
+                default:
+                    break;
+            }
             System.out.println("------------------------------------------");
-            System.out.println("added: " + response);
+            System.out.println("Got it. I've added this task: ");
+            System.out.println(tasks.get(tasks.size() - 1));
+            System.out.printf("Now you have %d tasks in the list%n", tasks.size());
             System.out.println("------------------------------------------");
         }
 
