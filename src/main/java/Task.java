@@ -1,4 +1,4 @@
-public class Task {
+class Task {
 
     private String description;
     private boolean isDone;
@@ -17,10 +17,6 @@ public class Task {
 
     private String getStatusIcon() {
         return isDone ? "X" : " ";
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     @Override

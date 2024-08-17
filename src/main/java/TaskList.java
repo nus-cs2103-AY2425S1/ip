@@ -13,8 +13,10 @@ public class TaskList {
         tasks.add(task);
         System.out.println(
                 "____________________________________\n" +
-                "added: \"" + task.getDescription() + "\" to your TODO list!\n" +
-                "____________________________________\n"
+                "Got it. I've added this task:\n" +
+                task.toString() + "\n" +
+                "____________________________________\n" +
+                "Now you have " + tasks.size() + " tasks in the list!\n"
         );
     }
 
@@ -44,7 +46,7 @@ public class TaskList {
     public String toString() {
         int count = 1;
         StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________").append("\n").append("This is your TODO list:\n");
+        sb.append("____________________________________").append("\n").append("Here are the tasks in your list:\n");
 
         for (Task task : tasks) {
             sb.append(count).append(". ").append(task.toString()).append("\n");
