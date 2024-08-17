@@ -33,6 +33,27 @@ public class Parser {
         return false; // If the command is shorter than 6 characters, it cannot be "unmark"
     }
 
+    public Task parseTask(String command) {
+        if (command.startsWith("todo")) {
+            String description = command.substring(5).trim();
+            return new ToDo(description);
+        } else if (command.startsWith("deadline")) {
+            String[] parts = command.substring(9).split("/by");
+            String description = parts[0].trim();
+            String by = parts[1].trim();
+            return new Deadline(description, by);
+        } else if (command.startsWith("event")) {
+            String[] parts = command.substring(6).split("/from");
+            String description = parts[0].trim();
+            String[] timeParts = parts[1].split("/to");
+            String from = timeParts[0].trim();
+            String to = timeParts[1].trim();
+            return new Event(description, from, to);
+        } else {
+            return null;
+        }
+    }
+
     public String echo(String command) {
         return command;
     }

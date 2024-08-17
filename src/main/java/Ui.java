@@ -35,4 +35,29 @@ public class Ui {
     public void showResponse(String response) {
         System.out.println(response);
     }
+
+    public void showTaskList(String taskList) {
+        System.out.println("Here are the tasks in your list:\n" + taskList);
+    }
+
+    public void showTaskMarked(Task task) {
+        System.out.println("Nice! I've marked this task as done:\n" + task);
+    }
+
+    public void showTaskUnmarked(Task task) {
+        System.out.println("OK, I've marked this task as not done yet:\n" + task);
+    }
+
+    public void showTaskAdded(String taskContent) {
+        System.out.println("Added: " + taskContent);
+    }
+
+    public void showInvalidTaskNumber() {
+        System.out.println("Invalid task number.");
+    }
+
+    public void showTaskCount(int count) {
+        System.out.println("Now you have " + count + " tasks in the list.");
+    }
+
 }
