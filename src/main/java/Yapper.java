@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class Yapper {
-    public static void main(String[] args) {
 
-        String divider = "____________________________________________________________";
-        String name = "Yapper";
+    private static String divider = "____________________________________________________________";
+    private static String name = "Yapper";
+
+    public static void main(String[] args) {
 
         System.out.println(divider);
         System.out.println("Hello! I'm " + name);
@@ -28,7 +29,7 @@ public class Yapper {
             } else if (command.equals("list")) {
                 System.out.println(divider);
                 for (int i = 1; i <= totalTasks; i++) {
-                    System.out.println(i + ". " + taskList[i - 1]);
+                    System.out.println(i + "." + taskList[i - 1]);
                 }
                 System.out.println(divider);
             } else if (command.equals("mark") | command.equals("unmark")) {
@@ -52,12 +53,68 @@ public class Yapper {
                 System.out.println(message);
                 System.out.println(" " + taskList[taskNumber - 1]);
                 System.out.println(divider);
+            } else if (command.equals("todo")) {
+                Task task = new ToDo(join(split, 1, split.length));
+                addTask(taskList, totalTasks, task);
+                totalTasks++;
+            } else if (command.equals("deadline")) {
+                int byIndex = 0;
+                for (int i = 0; i < split.length; i++) {
+                    if (split[i].equals("/by")) {
+                        byIndex = i;
+                    }
+                }
+                Task task = new Deadline(join(split, 1, byIndex), join(split, byIndex + 1, split.length));
+                addTask(taskList, totalTasks, task);
+                totalTasks++;
+            } else if (command.equals("event")) {
+                int fromIndex = 0;
+                int toIndex = 0;
+                for (int i = 0; i < split.length; i++) {
+                    if (split[i].equals("/from")) {
+                        fromIndex = i;
+                    } else if (split[i].equals("/to")) {
+                        toIndex = i;
+                    }
+                }
+                Task task = new Event(join(split, 1, fromIndex),
+                                      join(split, fromIndex + 1, toIndex),
+                                      join(split, toIndex + 1, split.length));
+                addTask(taskList, totalTasks, task);
+                totalTasks++;
             } else {
-                taskList[totalTasks++] = new Task(input);
                 System.out.println(divider);
-                System.out.println("added: " + input);
+                System.out.println(input);
                 System.out.println(divider);
             }
         }
+    }
+
+    public static void addTask(Task[] taskList, int totalTasks, Task task) {
+        taskList[totalTasks++] = task;
+        System.out.println(divider);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + task);
+        System.out.println("Now you have " + totalTasks + " " + taskPlural(totalTasks) + " in the list.");
+        System.out.println(divider);
+    }
+
+    public static String taskPlural(int taskCount) {
+        String taskMessage = "task";
+        if (taskCount != 1) {
+            taskMessage += "s";
+        }
+        return taskMessage;
+    }
+
+    public static String join(String[] s, int start, int end) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = start; i < end; i++) {
+            sb.append(s[i]);
+            if (i != end - 1) {
+                sb.append(' ');
+            }
+        }
+        return sb.toString();
     }
 }
