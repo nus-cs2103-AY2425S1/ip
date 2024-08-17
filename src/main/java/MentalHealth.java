@@ -6,11 +6,10 @@ public class MentalHealth {
 
     private final static String goodbyeMessage = "Bye. Hope to see you again soon! If you ever need help don't forget to reach out :)";
     public static void main(String[] args) {
-        System.out.println(separator);
-        System.out.println(greetingMessage);
-        System.out.println(separator);
-        System.out.println(goodbyeMessage);
-        System.out.println(separator);
+        Greeting greeting = new Greeting(greetingMessage, separator);
+        Goodbye goodbye = new Goodbye(goodbyeMessage, separator);
+        System.out.println(greeting);
+        System.out.println(goodbye);
     }
 
 }
