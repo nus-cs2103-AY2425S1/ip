@@ -17,7 +17,7 @@ public class OuiOuiBaguette {
         Scanner sc = new Scanner(System.in); 
 
         // Initialize ArrayList of tasks
-        ArrayList<String> tasks = new ArrayList<String>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         // Main event loop
         while (true) {
@@ -33,16 +33,40 @@ public class OuiOuiBaguette {
                 // List tasks
                 // Convert ArrayList to array of strings
                 String[] tasksArr = new String[tasks.size()];
-                tasks.toArray(tasksArr);
+
                 for (int i = 0; i < tasks.size(); i++) {
-                    tasksArr[i] = (i + 1) + ". " + tasksArr[i];
+                    Task currTask = tasks.get(i);
+                    tasksArr[i] = (i + 1) + ". " + currTask.getDisplayMessage();
                 }
 
                 System.out.println(formatBotSpeech(tasksArr));
 
+            } else if (cmd.startsWith("mark")) {
+                // Parse command to get index of task
+                int taskIndex = Integer.parseInt(cmd.split(" ")[1]) - 1;
+                
+                Task taskMarked = tasks.get(taskIndex);
+
+                taskMarked.markAsDone();
+
+                System.out.println(formatBotSpeech(new String[]{
+                        "Nice! I've marked this task as done: ",
+                        "  " + taskMarked.getDisplayMessage()}));
+
+            } else if (cmd.startsWith("unmark")) {
+                // Parse command to get index of task
+                int taskIndex = Integer.parseInt(cmd.split(" ")[1]) - 1;
+                
+                Task taskUnmarked = tasks.get(taskIndex);
+
+                taskUnmarked.unmark();
+
+                System.out.println(formatBotSpeech(new String[]{
+                        "OK, I've marked this task as not done yet: ",
+                        "  " + taskUnmarked.getDisplayMessage()}));
             } else {
                 // Add task
-                tasks.add(cmd);
+                tasks.add(new Task(cmd));
                 System.out.println(formatBotSpeech("added: " + cmd));
             }
         }
