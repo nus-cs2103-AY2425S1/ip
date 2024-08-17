@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Yapper {
     public static void main(String[] args) {
@@ -11,6 +13,8 @@ public class Yapper {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
+        ArrayList<String> list = new ArrayList<>();
+
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
@@ -20,9 +24,16 @@ public class Yapper {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(divider);
                 break;
-            } else {
+            } else if (input.equals("list")) {
                 System.out.println(divider);
-                System.out.println(input);
+                for (int i = 1; i <= list.size(); i++) {
+                    System.out.println(i + ". " + list.get(i - 1));
+                }
+                System.out.println(divider);
+            } else {
+                list.add(input);
+                System.out.println(divider);
+                System.out.println("added: " + input);
                 System.out.println(divider);
             }
         }
