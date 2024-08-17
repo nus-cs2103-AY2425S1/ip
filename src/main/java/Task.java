@@ -16,7 +16,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markAsDone() {
+    public void mark() {
         isDone = true; // mark task done
     }
 
@@ -30,7 +30,8 @@ public class Task {
      *
      * @return display message
      */
-    public String getDisplayMessage() {
+    @Override
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 

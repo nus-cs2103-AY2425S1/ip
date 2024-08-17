@@ -36,7 +36,7 @@ public class OuiOuiBaguette {
 
                 for (int i = 0; i < tasks.size(); i++) {
                     Task currTask = tasks.get(i);
-                    tasksArr[i] = (i + 1) + ". " + currTask.getDisplayMessage();
+                    tasksArr[i] = (i + 1) + ". " + currTask;
                 }
 
                 System.out.println(formatBotSpeech(tasksArr));
@@ -47,11 +47,11 @@ public class OuiOuiBaguette {
                 
                 Task taskMarked = tasks.get(taskIndex);
 
-                taskMarked.markAsDone();
+                taskMarked.mark();
 
                 System.out.println(formatBotSpeech(new String[]{
                         "Nice! I've marked this task as done: ",
-                        "  " + taskMarked.getDisplayMessage()}));
+                        "  " + taskMarked}));
 
             } else if (cmd.startsWith("unmark")) {
                 // Parse command to get index of task
@@ -63,7 +63,7 @@ public class OuiOuiBaguette {
 
                 System.out.println(formatBotSpeech(new String[]{
                         "OK, I've marked this task as not done yet: ",
-                        "  " + taskUnmarked.getDisplayMessage()}));
+                        "  " + taskUnmarked}));
             } else {
                 // Add task
                 tasks.add(new Task(cmd));
