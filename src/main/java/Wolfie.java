@@ -9,7 +9,7 @@ public class Wolfie {
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
         Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100]; // array to store tasks
+        Task[] tasks = new Task[100]; // array to store tasks
         int taskCount = 0; // counter for number of tasks
 
         System.out.println("____________________________________________________________");
@@ -26,12 +26,29 @@ public class Wolfie {
                 break;
             } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println(" " + (i + 1) + ". " + tasks[i]); // add number tag and print task
                 }
                 System.out.println("____________________________________________________________");
+            } else if (input.startsWith("mark ")) {
+                String[] words = input.split(" ");
+                int taskNumber = Integer.parseInt(words[1]) - 1; // get task number
+                tasks[taskNumber].markAsDone(); // mark task as done
+                System.out.println("____________________________________________________________");
+                System.out.println(" Nice! I've marked this task as done:");
+                System.out.println("   " + tasks[taskNumber]); // print marked task
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("unmark ")) {
+                String[] words = input.split(" ");
+                int taskNumber = Integer.parseInt(words[1]) - 1; // get task number
+                tasks[taskNumber].markAsUndone(); // mark task as undone
+                System.out.println("____________________________________________________________");
+                System.out.println(" Nice! I've marked this task as undone:");
+                System.out.println("   " + tasks[taskNumber]); // print marked task
+                System.out.println("____________________________________________________________");
             } else {
-                tasks[taskCount] = input; // add task to array
+                tasks[taskCount] = new Task(input); // add task to array
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println(" added: " + input); // print added task
