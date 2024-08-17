@@ -6,12 +6,8 @@ public class Task {
         this.description = description;
     }
 
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkDone() {
-        this.isDone = false;
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
