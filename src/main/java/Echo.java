@@ -1,7 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Echo {
+    private List<String> tasks;
+    public Echo() {
+        tasks = new ArrayList<>();
+    }
     public static void main(String[] args) {
+        Echo e = new Echo();
         // Creates a scanner object
         Scanner scanner = new Scanner(System.in);
 
@@ -15,11 +22,11 @@ public class Echo {
 
         Boolean isAcceptingInput = true;
         while (isAcceptingInput) { // handles input until user says bye
-            isAcceptingInput = handleInput(scanner);
+            isAcceptingInput = e.handleInput(scanner);
         }
     }
     // Handles user input
-    public static Boolean handleInput(Scanner s) {
+    public Boolean handleInput(Scanner s) {
         // Reads user input
         String userInput = s.nextLine();
         switch (userInput) {
@@ -29,12 +36,26 @@ public class Echo {
                         "Bye. Hope to see you again soon!\n" +
                         "_________________________________________\n");
                 return false;
+            case "list":
+                printTasks();
+                return true;
             default:
+                tasks.add(userInput);
                 System.out.println(
                         "_________________________________________\n" +
-                        userInput + "\n" +
+                        "added: " + userInput + "\n" +
                         "_________________________________________\n");
                 return true;
         }
+    }
+
+    public void printTasks() {
+        int count = 1;
+        System.out.println("_________________________________________");
+        for (String task : tasks) {
+            System.out.println(count + ". " + task);
+            count++;
+        }
+        System.out.println("_________________________________________");
     }
 }
