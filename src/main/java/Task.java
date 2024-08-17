@@ -1,15 +1,27 @@
 public class Task {
     private String taskContent;
+    private boolean isDone;
 
     public Task(String taskContent) {
         this.taskContent = taskContent;
     }
 
-    @Override
-    public String toString() {
-        return this.taskContent;
+    public void setStatus(boolean isDone) {
+        this.isDone = isDone;
     }
 
+    public boolean getStatus() {
+        return this.isDone;
+    }
 
-
+    @Override
+    public String toString() {
+        String header = "";
+        if (isDone) {
+            header = "[X] ";
+        } else {
+            header = "[ ] ";
+        }
+        return header + this.taskContent;
+    }
 }

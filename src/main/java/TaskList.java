@@ -25,4 +25,28 @@ public class TaskList {
         }
         return taskListString.toString();
     }
+
+    public void markTaskAsDone(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).setStatus(true);
+        } else {
+            System.out.println("Invalid task number, must be more than 0.");
+        }
+    }
+
+    public void markTaskAsUndone(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).setStatus(false);
+        } else {
+            System.out.println("Invalid task number, must be more than 0.");
+        }
+    }
+
+    public Task getTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            return tasks.get(index);
+        } else {
+            return null;
+        }
+    }
 }
