@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ToDoList {
+public class Storage {
     private final ArrayList<String> toDoList = new ArrayList<String>();
 
     public String readItem(int index) {
@@ -21,19 +21,19 @@ public class ToDoList {
     }
 
     public String printList() {
-        String currentList = "";
+        StringBuilder currentList = new StringBuilder();
         for (int i = 1; i < toDoList.size() + 1; i++) {
-            currentList += Integer.toString(i) + ". " + this.readItem(i - 1);
+            currentList.append(Integer.toString(i)).append(". ").append(this.readItem(i - 1));
             if (i < toDoList.size()) {
-                currentList += "\n";
+                currentList.append("\n");
             }
         }
-        return currentList;
+        return currentList.toString();
     }
 
     public static void main(String[] args) {
-        ToDoList toDoList = new ToDoList();
-        System.out.println(toDoList.addItem("book"));
-        System.out.println(toDoList.readItem(0));
+        Storage storage = new Storage();
+        System.out.println(storage.addItem("book"));
+        System.out.println(storage.readItem(0));
     }
 }
