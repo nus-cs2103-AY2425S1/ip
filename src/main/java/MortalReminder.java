@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class MortalReminder {
 
-    private Storage storage = new Storage();
+    private TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
@@ -48,7 +48,7 @@ public class MortalReminder {
                 break;
             }
             else {
-                String outputMessage = storage.processCommand(input);
+                String outputMessage = taskList.processCommand(input);
                 outputMessage = FormatMessages(outputMessage);
                 System.out.println(outputMessage);
             }

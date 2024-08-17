@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 
-public class Storage {
-    private final ArrayList<Task> storage = new ArrayList<Task>();
+public class TaskList {
+    private final ArrayList<Task> taskList = new ArrayList<Task>();
 
     public Task readItem(int index) {
-        return this.storage.get(index);
+        return this.taskList.get(index);
     }
 
     public String addItem(String item) {
         Task task = new Task(item);
-        this.storage.add(task);
+        this.taskList.add(task);
         return "added: " + task.printTask();
     }
 
@@ -20,9 +20,9 @@ public class Storage {
             String[] commandParts = command.split(" ");
             int index = Integer.parseInt(commandParts[1]);
             if (commandParts[0].equals("mark")) {
-                return this.storage.get(index).markDone();
+                return this.taskList.get(index).markDone();
             } else {
-                return this.storage.get(index).markUndone();
+                return this.taskList.get(index).markUndone();
             }
         } else {
             return this.addItem(command);
@@ -31,9 +31,9 @@ public class Storage {
 
     public String printList() {
         StringBuilder currentList = new StringBuilder();
-        for (int i = 1; i < storage.size() + 1; i++) {
+        for (int i = 1; i < taskList.size() + 1; i++) {
             currentList.append(Integer.toString(i)).append(".").append(this.readItem(i - 1).printTask());
-            if (i < storage.size()) {
+            if (i < taskList.size()) {
                 currentList.append("\n");
             }
         }
@@ -41,8 +41,8 @@ public class Storage {
     }
 
     public static void main(String[] args) {
-        Storage storage = new Storage();
-        System.out.println(storage.addItem("book"));
-        System.out.println(storage.readItem(0));
+        TaskList taskList = new TaskList();
+        System.out.println(taskList.addItem("book"));
+        System.out.println(taskList.readItem(0));
     }
 }
