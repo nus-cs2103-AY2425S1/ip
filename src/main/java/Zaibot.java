@@ -97,6 +97,7 @@ public class Zaibot {
         String markTaskMessage = "Nice! I've marked this task as done:\n";
         String unmarkTaskMessage = "OK, I've marked this task as not done yet:\n";
         String taskListMessage = "Here are the tasks in your list:\n";
+        String deleteTaskMessage = "Noted. I've removed this task.\n";
 
         String[] options = command.split("\\s+");
 
@@ -118,6 +119,12 @@ public class Zaibot {
                 current = tasks.get(Integer.parseInt(options[1]) - 1);
                 current.setCompletionStatus(false);
                 printMessage(unmarkTaskMessage + current.toString() + "\n");
+                break;
+            case "delete":
+                current = tasks.remove(Integer.parseInt(options[1]) - 1);
+                printMessage(String.format("%s %s\nNow you have %d tasks in the list.\n",
+                        deleteTaskMessage, current.toString(), tasks.size())
+                );
                 break;
             case "todo":
             case "deadline":
