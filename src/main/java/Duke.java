@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         // Note: those extra spaces before \n is done intentionally
@@ -28,6 +30,17 @@ public class Duke {
                 + " How can Sumo help you?"
         );
 
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            String input = sc.nextLine();
+            if (input.toLowerCase().equals("bye")){
+                break;
+            }
+            System.out.println((input));
+        }
+
         System.out.println(goodbye);
+        sc.close();
     }
 }
