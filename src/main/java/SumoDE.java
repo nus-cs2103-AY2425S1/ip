@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class SumoDE{
 
     public static void printTask(Task[] tasks) {
         System.out.println("Below is the list of tasks:");
