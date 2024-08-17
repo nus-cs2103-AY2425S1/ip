@@ -8,7 +8,9 @@ public class MentalHealth {
     public static void main(String[] args) {
         Greeting greeting = new Greeting(greetingMessage, separator);
         Goodbye goodbye = new Goodbye(goodbyeMessage, separator);
+        Echo echo = new Echo(separator);
         System.out.println(greeting);
+        echo.echoMessage();
         System.out.println(goodbye);
     }
 
