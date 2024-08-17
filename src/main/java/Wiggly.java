@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Wiggly {
@@ -43,14 +45,18 @@ public class Wiggly {
 
         Scanner sc = new Scanner(System.in);
         String in = sc.nextLine();
+        TaskList taskList = new TaskList();
 
         while (!in.equals("bye")) {
-            System.out.println(
-                    "____________________________________\n" +
-                            in +
-                    "\n____________________________________\n"
-            );
 
+            switch (in) {
+                case "list":
+                    System.out.println(taskList.toString());
+                break;
+                default:
+                    taskList.addTask(new Task(in));
+                break;
+            }
             in = sc.nextLine();
         }
 
