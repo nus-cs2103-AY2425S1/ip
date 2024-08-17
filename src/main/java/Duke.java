@@ -2,13 +2,13 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void printTask(String[] tasks) {
+    public static void printTask(Task[] tasks) {
         for (int i = 0; i < tasks.length; i++) {
-            String task = tasks[i];
+            Task task = tasks[i];
             if (task == null) {
                 break;
             }
-            System.out.println(i + ". "+ task);
+            System.out.println((i+1) + ". "+ task);
         }
     }
 
@@ -19,7 +19,7 @@ public class Duke {
 
 
         // Initialisation
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int tasksIndex = 0;
 
         // Note: those extra spaces before \n is done intentionally
@@ -72,7 +72,7 @@ public class Duke {
             } else if (lowercaseInput.equals("list")) {
                 printTask(tasks);
             } else {
-                tasks[tasksIndex++] = input;
+                tasks[tasksIndex++] = new Task(input);
                 System.out.println(("Added: " +input));
             }
         }
