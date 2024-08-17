@@ -17,7 +17,7 @@ public class Message {
     }
 
     private String wrapStringWithHorizontalLines(String s) {
-        String horizontalLine = "-----------------------------------------------------";
+        String horizontalLine = "-----------------------------------------------------------------";
         return horizontalLine + "\n" + s + "\n" + horizontalLine;
     }
 

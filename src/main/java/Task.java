@@ -19,7 +19,7 @@ public class Task {
 
     /** Returns true if the task has been completed, false otherwise. */
     public boolean isComplete() {
-        return this.isCompleted;
+        return isCompleted;
     }
 
     /**
@@ -28,10 +28,10 @@ public class Task {
      * @return whether the tasks status has been changed.
      */
     public boolean markComplete() {
-        if (this.isCompleted) {
+        if (isCompleted) {
             return false;
         }
-        this.isCompleted = true;
+        isCompleted = true;
         return true;
     }
     /**
@@ -40,16 +40,17 @@ public class Task {
      * @return whether the tasks status has been changed.
      */
     public boolean markIncomplete() {
-        if (!this.isCompleted) {
+        if (!isCompleted) {
             return false;
         }
-        this.isCompleted = false;
+        isCompleted = false;
         return true;
     }
 
-    /** Returns the String representation of the task. */
+    /** Returns the String representation of this task. */
     @Override
     public String toString() {
-        return this.description;
+        String symbol = isCompleted ? "X" : " ";
+        return String.format("[%s] %s", symbol, description);
     }
 }
