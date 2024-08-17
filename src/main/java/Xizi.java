@@ -1,8 +1,11 @@
+
 import java.util.Scanner;
 public class Xizi {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ActionList actions = new ActionList();
+
 
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Xizi");
@@ -12,16 +15,24 @@ public class Xizi {
 
     while(true) {
         String userInput = scanner.nextLine();
-
-        // Echo the input back to the user
-        System.out.println("____________________________________________________________");
-        System.out.println(" " + userInput);
-        System.out.println("____________________________________________________________");
-
+        if (userInput.equalsIgnoreCase("list")) {
+            System.out.println("____________________________________________________________");
+            actions.printActions();
+            System.out.println("____________________________________________________________");
+            continue;
+        }
         // Exit the loop if the user types "bye"
         if (userInput.equalsIgnoreCase("bye")) {
             break;
         }
+
+        // Echo the input back to the user
+        System.out.println("____________________________________________________________");
+        System.out.println("added: " + userInput);
+        System.out.println("____________________________________________________________");
+
+        actions.addAction(userInput);
+
     }
 
     // Print the goodbye message
