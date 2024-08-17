@@ -13,10 +13,7 @@ public abstract class Task {
 
     public abstract String getTaskTypeIcon();
     public abstract TaskType getTaskType();
-
-    public String getDescription() {
-        return this.description;
-    }
+    public abstract String getDescription();
 
     public void mark() {
         this.isDone = true;
@@ -24,5 +21,10 @@ public abstract class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return this.getTaskTypeIcon() + this.getStatusIcon() + " " + this.getDescription();
     }
 }

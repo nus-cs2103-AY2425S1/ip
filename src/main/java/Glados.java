@@ -84,13 +84,16 @@ public class Glados {
     public static void add(TaskType taskType, String input) {
         switch (taskType) {
             case TODO:
-                list[listIndex] = new Todo(input);
+                list[listIndex] = new Todo(input.trim());
                 break;
             case EVENT:
-                list[listIndex] = new Event(input);  
+                String[] eventInputs = input.split("/from");
+                String[] dateRange = eventInputs[1].split("/to");
+                list[listIndex] = new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim());  
                 break;
             case DEADLINE:
-                list[listIndex] = new Deadline(input);
+                String[] deadlineInputs = input.split("/by");
+                list[listIndex] = new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim());
                 break;
             default:
                 break;
@@ -98,16 +101,17 @@ public class Glados {
         listIndex++;
         System.out.println(
             HORIZONTAL_LINE
-            + "\nGLaDOS: I have added '" + input + "' to the list\n"
-            + "\nNow you have " + listIndex + " tasks.\n"
+            + "\nGLaDOS: I have added the following task to the list...\n"
+            + "\n" + list[listIndex - 1].toString() + "\n"
+            + "\nNow you have " + listIndex + (listIndex == 1 ? " task.\n" : " tasks.\n")
             + HORIZONTAL_LINE);
     }
 
     public static void list() {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("GLaDOS: Here is the list\n");
+        System.out.println("GLaDOS: Here is the list...\n");
         for (int i = 0; i < listIndex; i++) {
-            System.out.println(i + 1 + ". " + list[i].getTaskTypeIcon() + list[i].getStatusIcon() + " " + list[i].getDescription()); 
+            System.out.println(i + 1 + ". " + list[i].toString()); 
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -116,8 +120,8 @@ public class Glados {
         list[index - 1].mark();
         System.out.println(
             HORIZONTAL_LINE
-            + "\nGLaDOS: I've marked this task as done.\n"
-            + "\n" + list[index - 1].getStatusIcon() + " " + list[index - 1].getDescription() + "\n"
+            + "\nGLaDOS: I've marked this task as done...\n"
+            + "\n" + list[index - 1].toString() + "\n"
             + HORIZONTAL_LINE);
     }
 
@@ -125,8 +129,8 @@ public class Glados {
         list[index - 1].unmark();
         System.out.println(
             HORIZONTAL_LINE
-            + "\nGLaDOS: Oops, looks like this task is no longer done.\n"
-            + "\n" + list[index - 1].getStatusIcon() + " " + list[index - 1].getDescription() + "\n"
+            + "\nGLaDOS: Oops, looks like this task is no longer done...\n"
+            + "\n" + list[index - 1].toString() + "\n"
             + HORIZONTAL_LINE);
     }
 
