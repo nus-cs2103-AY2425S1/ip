@@ -1,4 +1,5 @@
-
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class David {
     private Scanner sc;
@@ -12,12 +13,13 @@ public class David {
             "____________________________________________________________\n" +
             "Bye. Hope to see you again soon!\n" +
             "____________________________________________________________\n";
-
+    public List<String> tasks;
 
     //constructor for David
     public David() {
-        sc = new Scanner(System.in);
-        inputString = "";
+        this.sc = new Scanner(System.in);
+        this.inputString = "";
+        this.tasks = new ArrayList<>();
     };
 
     //run the chatbot
@@ -26,14 +28,27 @@ public class David {
         while(true) {
             inputString = sc.nextLine(); //get next input
             if (inputString.equals("bye")) {
-                endChatBot();  //end chat bot
+                endChatBot();  //end chatbot
                 break;
+            } else if (inputString.equals("list")) {
+                listTasks();
             } else {
-                System.out.println(
-                        "____________________________________________________________\n" +
-                        inputString + "\n" +
-                        "____________________________________________________________\n");
+                addToTask(inputString);
             }
+        }
+    }
+
+    public void addToTask(String s) {
+        tasks.add(s);
+        System.out.println(
+                "____________________________________________________________\n" +
+                        "added: " + inputString + "\n" +
+                        "____________________________________________________________\n");
+    }
+
+    public void listTasks() {
+        for (int i = 0; i<tasks.size(); i++) {
+            System.out.println(i+1 + ": " + tasks.get(i));
         }
     }
 
