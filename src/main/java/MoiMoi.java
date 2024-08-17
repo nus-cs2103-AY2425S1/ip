@@ -35,42 +35,73 @@ public class MoiMoi {
 
         System.out.println(MoiMoi.greeting);
         String input = sc.nextLine();
-        String[] commandArgs = input.split(" ", 2);
+        String command = Parser.inputToCommand(input);
 
-        while (!input.equals("bye")) {
+        while (!command.equals("bye")) {
             System.out.print("\n" + MoiMoi.moiMoiHeader);
-            if (input.equals("list")) {
-                this.list();
-            } else if (commandArgs[0].equals("mark")) {
-                this.mark(Integer.parseInt(commandArgs[1]) - 1);
-            } else if (commandArgs[0].equals("unmark")) {
-                this.unmark(Integer.parseInt(commandArgs[1]) - 1);
-            } else {
-                this.addTask(input);
+            switch (command) {
+                case "todo":
+                    this.todo(Parser.inputToArgs(input));
+                    break;
+                case "deadline":
+                    this.deadline(Parser.inputToArgs(input));
+                    break;
+                case "event":
+                    this.event(Parser.inputToArgs(input));
+                    break;
+                case "mark":
+                    this.mark(Parser.inputToArgs(input));
+                    break;
+                case "unmark":
+                    this.unmark(Parser.inputToArgs(input));
+                    break;
+                case "list":
+                    this.list();
+                    break;
+                default:
+                    System.out.println("(MoiMoi exception to be thrown later)");
             }
             System.out.println("\n" + MoiMoi.userHeader);
             input = sc.nextLine();
-            commandArgs = input.split(" ", 2);
+            command = Parser.inputToCommand(input);
         }
 
         System.out.print("\n" + MoiMoi.exitMessage);
 
     }
 
-    public void addTask(String description) {
-        Task task = new Task(description);
+    public void todo(String description) {
+        Todo task = new Todo(description);
         this.tasks.add(task);
-        System.out.println("Aight! Task added: " + task.toString());
+        System.out.println("Aight! Todo task added: " + task.toString()
+                + "\nWe have " + tasks.size() + " tasks in the bag~");
     }
 
-    public void mark(int index) {
-        Task task = tasks.get(index);
+    public void deadline(String description) {
+        String[] descBy = description.split(" /by ", 2);
+        Deadline task = new Deadline(descBy[0], descBy[1]);
+        this.tasks.add(task);
+        System.out.println("Got it! Deadline task added: " + task.toString()
+                + "\nWe have " + tasks.size() + " tasks in the bag~");
+    }
+
+    public void event(String description) {
+        String[] descFromTo = description.split(" /from ", 2);
+        String[] fromTo = descFromTo[1].split(" /to ", 2);
+        Event task = new Event(descFromTo[0], fromTo[0], fromTo[1]);
+        this.tasks.add(task);
+        System.out.println("Here you go! Event task added: " + task.toString()
+                + "\nWe have " + tasks.size() + " tasks in the bag~");
+    }
+
+    public void mark(String index) {
+        Task task = tasks.get(Integer.parseInt(index) - 1);
         task.mark();
         System.out.println("YAY!! One down!!\n" + task.toString());
     }
 
-    public void unmark(int index) {
-        Task task = tasks.get(index);
+    public void unmark(String index) {
+        Task task = tasks.get(Integer.parseInt(index) - 1);
         task.unmark();
         System.out.println("Oof, it's OK! Let's get it done soon ;)\n" + task.toString());
     }
