@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class MoiMoi {
 
     private static final String logo = "        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⣀⣀⡀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
@@ -19,13 +21,27 @@ public class MoiMoi {
             + "        ⠀⠀⠀⠀⠀⠀⣸⣧⡟⠳⠒⡄⠀⠀⠀⡔⠲⠚⣧⣀⣿⠿⠷⣶⡆⠀⠀⠀⠀⠀\n"
             + "        ⠀⠀⠀⠀⠀⠀⠻⣄⢀⠀⠀⡗⠀⠀⠀⡇⠄⢠⠀⣼⠟⠀⢀⣨⠇⠀⠀⠀⠀⠀\n"
             + "        ⠀⠀⠀⠀⠀⠀⠀⠙⢶⠬⠴⢧⣤⣤⣤⣽⣬⡥⠞⠛⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀\n\n";
-    private static final String greeting = "Hello, master! How may I help you today? ><\n\n";
-    private static final String exitMessage = "I'll always be here for you~ See ya, master! ^^\n";
     private static final String moiMoiHeader = "⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆\n";
-    private static final String userHeader = "⋆⭒˚.⋆User⋆⭒˚.⋆\n";
+    private static final String userHeader = "⋆⭒˚.⋆User⋆⭒˚.⋆";
+    private static final String greeting = MoiMoi.logo + MoiMoi.moiMoiHeader
+            + "Hello, master! How may I help you today? ><\n\n" + MoiMoi.userHeader;
+    private static final String exitMessage = MoiMoi.moiMoiHeader
+            + "I'll always be here for you~ See ya, master! ^^\n";
 
     public static void main(String[] args) {
-        System.out.println(MoiMoi.logo + MoiMoi.moiMoiHeader + MoiMoi.greeting + MoiMoi.exitMessage);
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(MoiMoi.greeting);
+        String input = sc.nextLine();
+
+        while (!input.equals("bye")) {
+            System.out.println("\n" + MoiMoi.moiMoiHeader + input + "\n\n" + MoiMoi.userHeader);
+            input = sc.nextLine();
+        }
+
+        System.out.println("\n" + MoiMoi.exitMessage);
+
     }
 
 }
