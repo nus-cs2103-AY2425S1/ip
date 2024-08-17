@@ -26,8 +26,21 @@ public class Glados {
                 String query = input.split(" ")[0];
                 if (query.equals("echo")) {
                     echo(input.substring(5, input.length()));
-                } else if (query.equals("add")) {
-                    add(input.substring(4, input.length()));
+                } else if (query.equals("todo")) {
+                    add(
+                        TaskType.TODO, 
+                        input.substring(5, input.length())
+                    );
+                } else if (query.equals("deadline")) {
+                    add(
+                        TaskType.DEADLINE, 
+                        input.substring(9, input.length())
+                    );
+                } else if (query.equals("event")) {
+                    add(
+                        TaskType.EVENT, 
+                        input.substring(6, input.length())
+                    );
                 } else if (query.equals("list")) {
                     list();
                 } else if (query.equals("mark")) {
@@ -68,12 +81,25 @@ public class Glados {
         );
     }
 
-    public static void add(String input) {
-        list[listIndex] = new Task(input);
+    public static void add(TaskType taskType, String input) {
+        switch (taskType) {
+            case TODO:
+                list[listIndex] = new Todo(input);
+                break;
+            case EVENT:
+                list[listIndex] = new Event(input);  
+                break;
+            case DEADLINE:
+                list[listIndex] = new Deadline(input);
+                break;
+            default:
+                break;
+        }
         listIndex++;
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I have added '" + input + "' to the list\n"
+            + "\nNow you have " + listIndex + " tasks.\n"
             + HORIZONTAL_LINE);
     }
 
@@ -81,7 +107,7 @@ public class Glados {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("GLaDOS: Here is the list\n");
         for (int i = 0; i < listIndex; i++) {
-            System.out.println(i + 1 + ". " + list[i].getStatusIcon() + " " + list[i].getDescription()); 
+            System.out.println(i + 1 + ". " + list[i].getTaskTypeIcon() + list[i].getStatusIcon() + " " + list[i].getDescription()); 
         }
         System.out.println(HORIZONTAL_LINE);
     }

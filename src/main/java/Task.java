@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -10,6 +10,9 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); 
     }
+
+    public abstract String getTaskTypeIcon();
+    public abstract TaskType getTaskType();
 
     public String getDescription() {
         return this.description;
