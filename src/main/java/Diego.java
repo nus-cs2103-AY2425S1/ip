@@ -28,22 +28,28 @@ public class Diego {
                 break;
             }
             else if (input.equals("list")){
+                System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list");
                 for (int i = 0; i < taskCount; i++){
                     System.out.println(i+1 + ". " + tasks[i]);
                 }
+                System.out.println("____________________________________________________________");
             }else if(input.startsWith("mark")){
+                System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done:");
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 Task currTask = tasks[index];
                 currTask.mark();
                 System.out.println(currTask);
+                System.out.println("____________________________________________________________");
             }else if(input.startsWith("unmark")) {
+                System.out.println("____________________________________________________________");
                 System.out.println("Ok! I've marked this task as not done:");
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 Task currTask = tasks[index];
                 currTask.unMark();
                 System.out.println(currTask);
+                System.out.println("____________________________________________________________");
             }else if(input.startsWith("event")){
                 System.out.println("____________________________________________________________");
                 String[] data = input.split(" /from | /to ");
