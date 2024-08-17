@@ -109,7 +109,7 @@ public class David {
             System.out.println(
                     "____________________________________________________________\n" +
                             "Nice! I've marked this task as done: \n" +
-                            t + "\n"
+                            t + "\n" +
                             "____________________________________________________________\n");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such task! Please enter a valid task.");
