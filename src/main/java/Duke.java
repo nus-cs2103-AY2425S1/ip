@@ -34,7 +34,7 @@ public class Duke {
 
         while (true) {
             String input = sc.nextLine();
-            if (input.toLowerCase().equals("bye")){
+            if (input.equalsIgnoreCase("bye")){
                 break;
             }
             System.out.println((input));
