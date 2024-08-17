@@ -3,10 +3,12 @@ public class Task {
     String name;
     boolean done;
 
+
     Task(String command){
         this.name = command;
         this.done = false;
     }
+
 
     public void markDone(){
         this.done = true;
@@ -15,8 +17,8 @@ public class Task {
     public void unmark(){
         this.done = false;
     }
-
-    public String getTask(){
+    @Override
+    public String toString(){
         StringBuilder stringbuilder = new StringBuilder();
         if (this.done){
             stringbuilder.append("[X] ");
