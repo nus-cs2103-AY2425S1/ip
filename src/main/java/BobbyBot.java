@@ -32,8 +32,7 @@ public class BobbyBot {
                             throw new DukeException("Please specify one task number.");
                         }
                         String secondParam = input.split(" ")[1];
-                        validateIndex(secondParam);
-                        int index = Integer.parseInt(secondParam) - 1;
+                        int index = validateIndex(secondParam);
                         tasks.get(index).setIsDone(true);
                         printInput("Nice! I've marked this task as done:",  "\t" + tasks.get(index));
                     } else if (input.startsWith("unmark")) {
@@ -41,8 +40,7 @@ public class BobbyBot {
                             throw new DukeException("Please specify one task number.");
                         }
                         String secondParam = input.split(" ")[1];
-                        validateIndex(secondParam);
-                        int index = Integer.parseInt(secondParam) - 1;
+                        int index = validateIndex(secondParam);
                         tasks.get(index).setIsDone(false);
                         printInput("OK, I've marked this task as not done yet:",  "\t" + tasks.get(index));
                     } else if (input.startsWith("todo")) {
@@ -89,6 +87,13 @@ public class BobbyBot {
                             }
                         };
                         addTask(addEvent);
+                    } else if (input.startsWith("delete")) {
+                        if (input.split(" ").length != 2) {
+                            throw new DukeException("Please specify one task number.");
+                        }
+                        String secondParam = input.split(" ")[1];
+                        int index = validateIndex(secondParam);
+                        removeTask(index);
                     } else {
                         throw new DukeException("I'm sorry, but I don't know what that means :-(");
                     }
@@ -97,7 +102,7 @@ public class BobbyBot {
         }
     }
 
-    private static void validateIndex(String indexParam) throws DukeException {
+    private static int validateIndex(String indexParam) throws DukeException {
         if (!indexParam.matches("\\d+")) {
             throw new DukeException("Please specify a valid number.");
         }
@@ -105,12 +110,22 @@ public class BobbyBot {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Please specify a task number that is in range.");
         }
+        return index;
     }
 
     private static void addTask(TaskCreator task) throws DukeException {
         printInput(
                 "Got it. I've added this task:",
                 "\t" + task.createTask(),
+                "Now you have " + tasks.size() + " task(s) in the list."
+        );
+    }
+
+    private static void removeTask(int index) {
+        Task removedTask = tasks.remove(index);
+        printInput(
+                "Noted. I've removed this task:",
+                "\t" + removedTask,
                 "Now you have " + tasks.size() + " task(s) in the list."
         );
     }
