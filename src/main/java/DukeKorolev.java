@@ -14,15 +14,22 @@ public class DukeKorolev {
         String end = "Bye. Hope to see you again soon!";
         String divider = "--------------------";
 
+        KorolevList repo = new KorolevList();
+
         System.out.println(newLogo);
         while (true) {
             input = scanner.nextLine();
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(divider);
+                repo.displayList();
+                System.out.println(divider);
+            } else {
+                System.out.println(divider);
+                repo.addEvent(input);
+                System.out.println(divider);
             }
-            System.out.println(divider);
-            System.out.println(input);
-            System.out.println(divider);
         }
         System.out.println(end);
     }
