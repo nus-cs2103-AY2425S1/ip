@@ -31,7 +31,7 @@ public class Oliver {
                 System.out.println("\tOk, I've marked this task as not done yet:");
                 System.out.println("\t" + tasks.get(index));
             } else if (command.equals("todo")) {
-                ToDo t = new ToDo(input);
+                ToDo t = new ToDo(input.split(" ", 2)[1]);
                 tasks.add(t);
                 addSuccess(t, tasks);
             } else if (command.equals("deadline")) {
