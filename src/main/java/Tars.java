@@ -67,6 +67,18 @@ public class Tars {
                     yield "Please specify the event in the following format: event task /from time /to time";
                 }
             }
+            case "remove" -> {
+                if (second.isEmpty()) {
+                    throw new TarsException("Please specify the index of the task you want to remove");
+                }
+                try {
+                    int index = Integer.parseInt(second.trim());
+                    yield removeAndRespond(index);
+                } catch (NumberFormatException e) {
+                    throw new TarsException("The specified index is not a valid number.");
+                }
+
+            }
             case "humour" -> ("One hundred percent");
             case "honesty" -> ("Ninety percent");
             case "caution" -> ("Cooper, this is no time for caution!");
@@ -115,6 +127,16 @@ public class Tars {
 
     private String getResponse(Task task) {
         return "Got it. I've added this task: \n" + task.toString() + "\n" + "Now you have "
+                + this.tasks.size() + " tasks in the list\n";
+    }
+
+    private String removeAndRespond(int idx) {
+        if (idx <= 0 || idx > tasks.size()) {
+            throw new IndexOutOfBoundsException("The specified task number is out of bounds.");
+        }
+        String taskDescription = tasks.get(idx - 1).toString();
+        tasks.remove(idx - 1);
+        return "Noted. I've removed this task:\n" + taskDescription + "\n" + "Now you have "
                 + this.tasks.size() + " tasks in the list\n";
     }
 
