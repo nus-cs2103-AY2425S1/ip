@@ -156,13 +156,18 @@ public class Citadel {
 
         LocalDateTime fromFormatted = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         LocalDateTime toFormatted = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        t = new Event(task, fromFormatted, toFormatted);
-        items.add(t);
 
-        System.out.println("Got it! I have added: " + t);
-        System.out.println();
-        System.out.println("Now you have " + items.size() + " tasks in the list");
-    }
+        if (fromFormatted.isAfter(toFormatted)) {
+            System.out.println("The start time must be before the end time!");
+        } else {
+            t = new Event(task, fromFormatted, toFormatted);
+            items.add(t);
+
+            System.out.println("Got it! I have added: " + t);
+            System.out.println();
+            System.out.println("Now you have " + items.size() + " tasks in the list");
+        }
+        }
 
     private static void handleTodo(String input) throws CitadelException {
             Task t;
