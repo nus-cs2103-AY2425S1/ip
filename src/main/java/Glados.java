@@ -50,6 +50,8 @@ public class Glados {
                         mark(Integer.valueOf(input.substring(5, input.length())));
                     } else if (query.equals("unmark")) {
                         unmark(Integer.valueOf(input.substring(7, input.length())));
+                    } else if (query.equals("delete")) {
+                        delete(Integer.valueOf(input.substring(7, input.length())));
                     } else {
                         throw new CommandNotFoundException();
                     }
@@ -127,7 +129,23 @@ public class Glados {
             + "\nGLaDOS: I have added the following task to the list...\n"
             + "\n" + taskList.get(listIndex - 1).toString() + "\n"
             + "\nNow you have " + listIndex + (listIndex == 1 ? " task.\n" : " tasks.\n")
-            + HORIZONTAL_LINE);
+            + HORIZONTAL_LINE
+        );
+    }
+
+    public static void delete(int index) throws TaskNotFoundException{
+        if (index - 1 < 0 || index - 1 >= listIndex) {
+            throw new TaskNotFoundException();
+        }
+        Task task = taskList.remove(index - 1);
+        listIndex--;
+        System.out.println(
+            HORIZONTAL_LINE
+            + "\nGLaDOS: I have removed the following task from the list...\n"
+            + "\n" + task.toString() + "\n"
+            + "\nNow you have " + listIndex + (listIndex == 1 ? " task.\n" : " tasks.\n")
+            + HORIZONTAL_LINE
+        );
     }
 
     private static void checkDescription(String description) throws DescriptionNotFoundException {
