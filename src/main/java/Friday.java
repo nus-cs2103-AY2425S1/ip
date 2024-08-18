@@ -1,18 +1,15 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Friday {
     private String name;
     private boolean isRunning;
-
-    private Task[] tasks;
-
-    private int taskCount;
+    private ArrayList<Task> tasks;
 
     public Friday() {
         this.name = "Friday";
         this.isRunning = true;
-        this.tasks = new Task[100];
-        this.taskCount = 0;
+        this.tasks = new ArrayList<>();
     }
 
     public void greet() {
@@ -41,45 +38,55 @@ public class Friday {
     }
 
     public void addTask(Task task) {
-        if (taskCount < tasks.length) {
-            tasks[taskCount] = task;
-            taskCount++;
-            System.out.println(
-                    "    ____________________________________________________________\n" +
-                            "     Got it. I've added this task:\n" +
-                            "       " + task + "\n" +
-                            "     Now you have " + taskCount + " tasks in the list.\n" +
-                            "    ____________________________________________________________"
-            );
-        } else {
-            System.out.println(
-                    "    ____________________________________________________________\n" +
-                            "     Task list is full! Cannot add more tasks.\n" +
-                            "    ____________________________________________________________"
-            );
-        }
+        tasks.add(task);
+        System.out.println(
+                "    ____________________________________________________________\n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + task + "\n" +
+                        "     Now you have " + tasks.size() + " tasks in the list.\n" +
+                        "    ____________________________________________________________"
+        );
     }
 
     public void listTasks() {
         System.out.println("    ____________________________________________________________");
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("     Your task list is empty.");
         } else {
             System.out.println("     Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println("     " + (i + 1) + "." + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("     " + (i + 1) + "." + tasks.get(i));
             }
         }
         System.out.println("    ____________________________________________________________");
     }
 
+    public void deleteTask(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task removedTask = tasks.remove(taskIndex);
+            System.out.println(
+                    "    ____________________________________________________________\n" +
+                            "     Noted. I've removed this task:\n" +
+                            "       " + removedTask + "\n" +
+                            "     Now you have " + tasks.size() + " tasks in the list.\n" +
+                            "    ____________________________________________________________"
+            );
+        } else {
+            System.out.println(
+                    "    ____________________________________________________________\n" +
+                            "     Invalid task number! Please enter a valid task number.\n" +
+                            "    ____________________________________________________________"
+            );
+        }
+    }
+
     public void markTaskAsDone(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasks[taskIndex].markAsDone();
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.get(taskIndex).markAsDone();
             System.out.println(
                     "    ____________________________________________________________\n" +
                             "     Nice! I've marked this task as done:\n" +
-                            "       " + tasks[taskIndex] + "\n" +
+                            "       " + tasks.get(taskIndex) + "\n" +
                             "    ____________________________________________________________"
             );
         } else {
@@ -92,12 +99,12 @@ public class Friday {
     }
 
     public void unmarkTaskAsDone(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasks[taskIndex].unmarkAsDone();
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.get(taskIndex).unmarkAsDone();
             System.out.println(
                     "    ____________________________________________________________\n" +
                             "     OK, I've marked this task as not done yet:\n" +
-                            "       " + tasks[taskIndex] + "\n" +
+                            "       " + tasks.get(taskIndex) + "\n" +
                             "    ____________________________________________________________"
             );
         } else {
@@ -139,6 +146,17 @@ public class Friday {
                     System.out.println(
                             "    ____________________________________________________________\n" +
                                     "     OOPS!!! Invalid input! Please enter a valid task number after 'unmark'.\n" +
+                                    "    ____________________________________________________________"
+                    );
+                }
+            } else if (userInput.startsWith("delete ")) {
+                try {
+                    int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                    deleteTask(taskIndex);
+                } catch (NumberFormatException e) {
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     OOPS!!! Invalid input! Please enter a valid task number after 'delete'.\n" +
                                     "    ____________________________________________________________"
                     );
                 }
