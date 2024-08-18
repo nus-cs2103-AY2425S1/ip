@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class Bruno {
     static Scanner input = new Scanner(System.in);
     static ArrayList<Task> taskList = new ArrayList<>();
+    enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
     public static void main(String[] args) {
         String userResponse;
 
@@ -35,11 +39,11 @@ public class Bruno {
                 } else if (firstWord.equals("delete")) {
                     deleteTask(restOfString);
                 } else if (firstWord.equals("todo")) {
-                    addTask(restOfString, firstWord);
+                    addTask(restOfString, TaskType.TODO);
                 } else if (firstWord.equals("deadline")) {
-                    addTask(restOfString, firstWord);
+                    addTask(restOfString, TaskType.DEADLINE);
                 } else if (firstWord.equals("event")) {
-                    addTask(restOfString, firstWord);
+                    addTask(restOfString, TaskType.EVENT);
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -63,23 +67,23 @@ public class Bruno {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTask(String str, String type) throws BrunoException {
+    public static void addTask(String str, TaskType type) throws BrunoException {
         if (str.trim().isEmpty()) {
             throw new EmptyTaskException();
         }
 
         Task task = null;
         boolean recognized = true;
-        if (type.equals("todo")) {
+        if (type.equals(TaskType.TODO)) {
             task = new ToDo(str);
-        } else if (type.equals("deadline")) {
+        } else if (type.equals(TaskType.DEADLINE)) {
             if (!str.contains("/by")) {
                 throw new MissingFieldException();
             }
             String description = str.substring(0, str.indexOf("/by")).trim();
             String by = str.substring(str.indexOf("/by") + 4).trim();
             task = new Deadline(description, by);
-        } else if (type.equals("event")) {
+        } else if (type.equals(TaskType.EVENT)) {
             if (!str.contains("/from") || !str.contains("/to")) {
                 throw new MissingFieldException();
             }
