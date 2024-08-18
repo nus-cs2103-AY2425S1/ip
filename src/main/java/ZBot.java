@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class ZBot {
-    private static final String[] cache = new String[100];
-    private static int cacheIndex = 0;
+    private static final Task[] tasks = new Task[100];
+    private static int taskIndex = 0;
 
     public static void main(String[] args) {
         greet();
@@ -11,9 +11,9 @@ public class ZBot {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                listText();
+                listTask();
             } else {
-                storeText(input);
+                storeTask(input);
             }
 
             input = sc.nextLine();
@@ -32,16 +32,17 @@ public class ZBot {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void storeText(String input) {
-        cache[cacheIndex] = input;
-        cacheIndex = (cacheIndex + 1) % 100;
-        System.out.println(String.format("added: %s\n", input));
+    public static void storeTask(String input) {
+        Task task = new Task(input);
+        tasks[taskIndex] = task;
+        taskIndex = (taskIndex + 1) % 100;
+        System.out.println(String.format("added: %s\n", task));
     }
 
-    public static void listText() {
-        for (int i = 0; i < cache.length; i++) {
-            if (cache[i] != null) {
-                System.out.println(String.format("%d. %s", i + 1, cache[i]));
+    public static void listTask() {
+        for (int i = 0; i < tasks.length; i++) {
+            if (tasks[i] != null) {
+                System.out.println(String.format("%d. %s", i + 1, tasks[i]));
             }
         }
         System.out.println();
