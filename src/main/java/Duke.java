@@ -27,7 +27,8 @@ public class Duke {
         System.out.println("4. List all tasks: list");
         System.out.println("5. Mark a task as done: mark <task number>");
         System.out.println("6. Unmark a task: unmark <task number>");
-        System.out.println("7. Exit: bye");
+        System.out.println("7. Delete a task: delete <task number>");
+        System.out.println("8. Exit: bye");
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
@@ -82,7 +83,7 @@ public class Duke {
                     if (description.isEmpty()) {
                         System.out.println("Oops! The description of a todo cannot be empty.");
                     } else {
-                        System.out.println("Got it. I've added this task:");
+                        System.out.println("Gotcha. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list. Jingle bells!");
                     }
@@ -99,7 +100,7 @@ public class Duke {
                             System.out.println("Oops! The description of a deadline cannot be empty.");
                         } else {
                             tasks.add(new Deadline(description, by));
-                            System.out.println("Got it. I've added this task:");
+                            System.out.println("Gotcha. I've added this task:");
                             System.out.println("  " + tasks.get(tasks.size() - 1));
                             System.out.println("Now you have " + tasks.size() + " tasks in the list. Let it snow!");
                         }
@@ -122,7 +123,7 @@ public class Duke {
                                 System.out.println("Oops! The description, start time, or end time of an event cannot be empty.");
                             } else {
                                 tasks.add(new Event(description, from, to));
-                                System.out.println("Got it. I've added this task:");
+                                System.out.println("Gotcha. I've added this task:");
                                 System.out.println("  " + tasks.get(tasks.size() - 1));
                                 System.out.println("Now you have " + tasks.size() + " tasks in the list. Feliz Navidad!");
                             }
@@ -133,6 +134,20 @@ public class Duke {
                     }
                 } else {
                     System.out.println("Sorry, I don't understand. Did you mean: event <description> /from <start date/time> /to <end date/time>");
+                }
+            } else if (input.startsWith("delete")) {
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        Task removedTask = tasks.remove(index);
+                        System.out.println("Aww okay. I've removed this task:");
+                        System.out.println("  " + removedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    } else {
+                        System.out.println("Oops! That task number doesn't exist. Please try again.");
+                    }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Sorry, I don't understand. Did you mean: delete <task number>");
                 }
             } else if (input.equals("bye")) {
                 System.out.println("Bye~ Hope to see you again! \n" + festiveMessage);
