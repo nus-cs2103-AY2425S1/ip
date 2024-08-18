@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Velma {
 
@@ -11,6 +12,8 @@ public class Velma {
 
     public static void main(String[] args) {
 
+        int count = 1;
+        ArrayList<String> list = new ArrayList<>(100);
         boolean end = false;
         printLine();
         System.out.println("Hello! I am Velma!" );
@@ -25,10 +28,18 @@ public class Velma {
                 System.out.println("Bye. Hope to see you again soon!");
                 printLine();
                 break;
+            } else if (request.equals("list")) {
+                for (String s : list) {
+                    System.out.println(count + ". " + s);
+                    count++;
+                }
+                count = 1;
+            } else {
+                list.add(request);
+                printLine();
+                System.out.println("added: " + request);
+                printLine();
             }
-            printLine();
-            System.out.println(request);
-            printLine();
         }
     }
 
