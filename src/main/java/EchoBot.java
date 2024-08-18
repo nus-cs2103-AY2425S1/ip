@@ -54,18 +54,24 @@ public class EchoBot {
             String CMD = cmdParts[0];
             try {
                 switch (CMD) {
+                    case "bye":
+                        break;
                     case "list":
                         EchoBot.listAllTask();
                         break;
                     case "mark":
+                        dashline();
                         int markIdx = Integer.parseInt(cmdParts[1]) - 1;
                         Task markTask = allTasks.get(markIdx);
                         markTask.mark();
+                        dashline();
                         break;
                     case "unmark":
+                        dashline();
                         int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
                         Task unmarkTask = allTasks.get(unmarkIdx);
                         unmarkTask.unmark();
+                        dashline();
                         break;
                     default:
                         dashline();
