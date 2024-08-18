@@ -7,6 +7,7 @@ public class Xizi {
     private static final String DIVIDER = "____________________________________________________________";
     private static final Pattern MARK_PATTERN = Pattern.compile("^mark (\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern UNMARK_PATTERN = Pattern.compile("^unmark (\\d+)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DELETE_PATTERN = Pattern.compile("^delete\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern TODO_PATTERN = Pattern.compile("^todo\\s*(.*)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline\\s*(.*?)\\s*/by\\s*(.*?)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern EVENT_PATTERN = Pattern.compile("^event\\s*(.*?)\\s*/from\\s*(.*?)\\s*/to\\s*(.*?)$", Pattern.CASE_INSENSITIVE);
@@ -27,24 +28,45 @@ public class Xizi {
 
             Matcher markMatcher = MARK_PATTERN.matcher(userInput);
             Matcher unmarkMatcher = UNMARK_PATTERN.matcher(userInput);
+            Matcher deleteMatcher = DELETE_PATTERN.matcher(userInput);
             Matcher todoMatcher = TODO_PATTERN.matcher(userInput);
             Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(userInput);
             Matcher eventMatcher = EVENT_PATTERN.matcher(userInput);
             try{
+                if (deleteMatcher.matches()) {
+                    int taskNumber = Integer.parseInt(deleteMatcher.group(1)) - 1;
+                    if (taskNumber < 0 || taskNumber >= actions.getSize()) {
+                        throw new XiziException("The task number does not exist. You have "+ actions.getSize()+" tasks in total.");
+                    }
+                    Task deleted = actions.deleteTask(taskNumber);
+                    System.out.println(DIVIDER);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + deleted);
+                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+                    System.out.println(DIVIDER);
+                    continue;
+
+                }
             if (markMatcher.matches()) {
-                int taskNumber = Integer.parseInt(markMatcher.group(1));
+                int taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
+                if (taskNumber < 0 || taskNumber >= actions.getSize()) {
+                    throw new XiziException("The task number does not exist.");
+                }
                 System.out.println(DIVIDER);
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(actions.markTask(taskNumber - 1));
+                System.out.println(actions.markTask(taskNumber));
                 System.out.println(DIVIDER);
                 continue;
             }
 
             if (unmarkMatcher.matches()) {
-                int taskNumber = Integer.parseInt(unmarkMatcher.group(1));
+                int taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
+                if (taskNumber < 0 || taskNumber >= actions.getSize()) {
+                    throw new XiziException("The task number does not exist.");
+                }
                 System.out.println(DIVIDER);
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(actions.unmarkTask(taskNumber - 1));
+                System.out.println(actions.unmarkTask(taskNumber));
                 System.out.println(DIVIDER);
                 continue;
             }
@@ -168,5 +190,6 @@ public class Xizi {
         System.out.println("   - Exits the application.");
         System.out.println(DIVIDER);
     }
+
 
 }

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+// ArrayList implementation, auto-adjust the indexing after deletion
 public class TaskList {
 
     private List<Task> items;
@@ -18,6 +18,13 @@ public class TaskList {
 
     public int getSize(){
         return this.size;
+    }
+
+    public Task deleteTask(int index) {
+        Task deleted = this.items.get(index);
+        this.items.remove(index);
+        this.size = this.size - 1;
+        return deleted;
     }
 
 
