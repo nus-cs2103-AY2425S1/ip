@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.lang.IllegalArgumentException;
 
 public class PX {
     private static String name = "PX";
@@ -45,35 +46,43 @@ public class PX {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            String input = sc.nextLine();
-            String cmd = input.split(" ")[0];
+            String fullInput = sc.nextLine();
+            String cmdString = fullInput.split(" ")[0];
 
-            if (cmd.equals("bye")) {
-                PXSays("Bye. Hope to see you again soon!");
-                sc.close();
-                return;
+            try {
+                PXCommand cmd = PXCommand.valueOf(cmdString.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                PXSays("OH NO!!! I don't understand this! Try Again!");
+                continue;
+            } finally {
+
             }
+            PXCommand cmd = PXCommand.valueOf(cmdString.toUpperCase());
 
-            input = input.substring(cmd.length());
+            String input = fullInput.substring(cmdString.length());
 
             switch (cmd) {
-                case "list":
+                case BYE:
+                    PXSays("Bye. Hope to see you again soon!");
+                    sc.close();
+                    return;
+                case LIST:
                     printList(list);
                     break;
-                case "mark":
+                case MARK:
                     Task taskToMark = list.get(Integer.parseInt(input.strip()));
                     taskToMark.toggleIsDone();
                     PXSays(
                             "Nice! I've marked this task as done:",
                             taskToMark.getStatusIcon() + " " + taskToMark);
                     break;
-                case "unmark":
+                case UNMARK:
                     Task taskToUnmark = list.get(Integer.parseInt(input.strip()));
                     taskToUnmark.toggleIsDone();
                     PXSays("OK, I've marked this task as not done yet:",
                             taskToUnmark.getStatusIcon() + " " + taskToUnmark);
                     break;
-                case "todo":
+                case TODO:
                     try {
                         Task todo = new Todo(input);
                         addTask(todo, list);
@@ -83,7 +92,7 @@ public class PX {
 
                     }
                     break;
-                case "deadline":
+                case DEADLINE:
                     try {
                         Task todo = new Deadline(input);
                         addTask(todo, list);
@@ -93,7 +102,7 @@ public class PX {
 
                     }
                     break;
-                case "event":
+                case EVENT:
                     try {
                         Task todo = new Event(input);
                         addTask(todo, list);
@@ -103,7 +112,7 @@ public class PX {
 
                     }
                     break;
-                case "delete":
+                case DELETE:
                     Task taskToDelete = list.get(Integer.parseInt(input.strip()) - 1);
                     removeTask(taskToDelete, list);
                     break;
