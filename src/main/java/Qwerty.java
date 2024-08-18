@@ -102,10 +102,27 @@ public class Qwerty {
      * @param index The index of the task to be marked, starting from 1.
      */
     public void markTaskAsDone(int index) {
-        // TODO: handle index error
-        Task task = tasks.get(index - 1);
-        task.markAsDone();
-        System.out.println("\nNice! I've marked this task as done:\n" + task);
+        try {
+            Task task = tasks.get(index - 1);
+            task.markAsDone();
+            System.out.println("\nNice! I've marked this task as done:\n" + task);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\nThat index is invalid.");
+        }
+
+    }
+
+    /**
+     * Marks a task as done.
+     *
+     * @param index String representing the index of the task to be marked.
+     */
+    public void markTaskAsDone(String index) {
+        try {
+            markTaskAsDone(Integer.parseInt(index));
+        } catch (NumberFormatException e) {
+            System.out.println("\nPlease enter a number as the index.");
+        }
     }
 
     /**
@@ -114,9 +131,26 @@ public class Qwerty {
      * @param index The index of the task to be marked, starting from 1.
      */
     public void markTaskAsNotDone(int index) {
-        Task task = tasks.get(index - 1);
-        task.markAsNotDone();
-        System.out.println("\nOK, I've marked this task as not done yet:\n" + task);
+        try {
+            Task task = tasks.get(index - 1);
+            task.markAsNotDone();
+            System.out.println("\nOK, I've marked this task as not done yet:\n" + task);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\nThat index is invalid.");
+        }
+    }
+
+    /**
+     * Marks a task as not done.
+     *
+     * @param index String representing the index of the task to be marked.
+     */
+    public void markTaskAsNotDone(String index) {
+        try {
+            markTaskAsNotDone(Integer.parseInt(index));
+        } catch (NumberFormatException e) {
+            System.out.println("\nPlease enter a number as the index.");
+        }
     }
 
     /**
@@ -157,7 +191,7 @@ public class Qwerty {
                             throw new QwertyException("""
                                     You forgot to give me a task number.""");
                         }
-                        markTaskAsDone(Integer.parseInt(args));
+                        markTaskAsDone(args);
                         break;
 
                     case "unmark":
@@ -165,7 +199,7 @@ public class Qwerty {
                             throw new QwertyException("""
                                     You forgot to give me a task number.""");
                         }
-                        markTaskAsNotDone(Integer.parseInt(args));
+                        markTaskAsNotDone(args);
                         break;
 
                     case "todo":
