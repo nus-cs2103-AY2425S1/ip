@@ -2,11 +2,8 @@ public class Task {
     private String description;
     private boolean isDone = false;
 
-    public static int taskCount = 0;
-
     public Task(String description) {
         this.description = description;
-        taskCount++;
     }
 
     public String getDescription() {
