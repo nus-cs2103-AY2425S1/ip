@@ -39,6 +39,19 @@ public class Message {
     }
 
     /**
+     * Print the message after deleting a task.
+     * @param task The task that was deleted.
+     * @param todoList The todoList the task was deleted from.
+     */
+    public static void printDeletedTask(Task task, TodoList todoList) {
+        String content = "Noted. I've removed this task:\n"
+                + "  "
+                + task + "\n"
+                + todoList.count();
+        printDialogBox(content);
+    }
+
+    /**
      * Print the content and dialog box.
      * @param content The content to be printed in the dialog box.
      */

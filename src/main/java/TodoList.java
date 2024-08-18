@@ -34,6 +34,15 @@ public class TodoList {
         return "Now you have " + this.todoList.size() + " tasks in the list.";
     }
 
+    /**
+     * Removes the task at the index.
+     * @param i index of task to remove.
+     * @return The removed Task.
+     */
+    public Task delete(int i) {
+        return todoList.remove(i);
+    }
+
     @Override
     public String toString() {
         String string = "Here are the tasks in your list:\n";

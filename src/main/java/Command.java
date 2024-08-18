@@ -5,7 +5,7 @@ import exceptions.*;
 // solution below inspired by https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
 public class Command {
     private enum CommandsEnum {
-        LIST, BYE, TODO, MARK, UNMARK, DEADLINE, EVENT, NULL
+        LIST, BYE, TODO, MARK, UNMARK, DEADLINE, EVENT, DELETE, NULL
     }
     private final CommandsEnum command;
     private String params;
@@ -43,6 +43,9 @@ public class Command {
                 break;
             case "event":
                 this.command = CommandsEnum.EVENT;
+                break;
+            case "delete":
+                this.command = CommandsEnum.DELETE;
                 break;
             default:
                 this.command = CommandsEnum.NULL;
@@ -95,6 +98,14 @@ public class Command {
                 }
                 task.unmarkAsDone();
                 Message.printUnmarked(task);
+                break;
+            case DELETE:
+                try {
+                    task = todoList.delete(Integer.parseInt(params) - 1);
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    throw new InvalidTaskException();
+                }
+                Message.printDeletedTask(task, todoList);
                 break;
             default:
                 throw new UnknownCommandException();
