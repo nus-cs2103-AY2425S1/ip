@@ -1,6 +1,10 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import exception.CitadelException;
 import exception.CitadelInvalidArgException;
 import exception.CitadelInvalidCommandException;
@@ -57,7 +61,9 @@ public class Citadel {
 
             } catch (CitadelException e) {
                 System.out.println(e.toString());
-            } catch (Exception e) {
+            } catch (DateTimeParseException e) {
+                System.out.println("Incorrect Date Format! Please write the date in this format: dd/MM/yyyy HH:mm!");
+            }  catch (Exception e) {
                 System.out.println("Error occurred: " + e.getMessage());
             }
             }
@@ -93,7 +99,6 @@ public class Citadel {
 
     private static void delete(String input) throws CitadelException {
         try {
-            //todo finish this
         String[] words = input.split(" ");
         int index = Integer.parseInt(words[1]);
         Task t = items.remove(index - 1);
@@ -119,7 +124,8 @@ public class Citadel {
             throw new CitadelTaskNoInput();
         }
 
-        t = new Deadline(task, deadline);
+        LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        t = new Deadline(task, deadlineFormatted);
         items.add(t);
         System.out.println("Got it! I have added: " + t);
         System.out.println();
@@ -148,13 +154,20 @@ public class Citadel {
             throw new CitadelTaskNoInput();
         }
 
-        t = new Event(task, from, to);
-        items.add(t);
+        LocalDateTime fromFormatted = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime toFormatted = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
-        System.out.println("Got it! I have added: " + t);
-        System.out.println();
-        System.out.println("Now you have " + items.size() + " tasks in the list");
-    }
+        if (fromFormatted.isAfter(toFormatted)) {
+            System.out.println("The start time must be before the end time!");
+        } else {
+            t = new Event(task, fromFormatted, toFormatted);
+            items.add(t);
+
+            System.out.println("Got it! I have added: " + t);
+            System.out.println();
+            System.out.println("Now you have " + items.size() + " tasks in the list");
+        }
+        }
 
     private static void handleTodo(String input) throws CitadelException {
             Task t;

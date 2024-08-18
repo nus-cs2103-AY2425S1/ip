@@ -1,9 +1,11 @@
-import exception.CitadelException;
-import exception.CitadelTaskNoInput;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import exception.CitadelException;
+import exception.CitadelTaskNoInput;
 
 public class Database {
     private String filePath;
@@ -72,7 +74,8 @@ public class Database {
             throw new CitadelTaskNoInput();
         }
 
-        t = new Deadline(task, deadline);
+        LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        t = new Deadline(task, deadlineFormatted);
         return t;
     }
 
@@ -98,7 +101,9 @@ public class Database {
             throw new CitadelTaskNoInput();
         }
 
-        t = new Event(task, from, to);
+        LocalDateTime fromFormatted = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime toFormatted = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        t = new Event(task, fromFormatted, toFormatted);
         return t;
     }
 
