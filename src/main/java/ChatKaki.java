@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class ChatKaki {
     private static final String CHATBOT_NAME = "ChatKaki";
+    private static final int MAX_TASKS = 100;
+    private static String[] messageHistory = new String[MAX_TASKS];
+    private static int messageCount = 0;
 
     public static void sayGreeting() {
         System.out.println("____________________________________________________________");
@@ -11,8 +14,9 @@ public class ChatKaki {
     }
 
     public static void sayMessage(String message) {
+        messageHistory[messageCount++] = message;
         System.out.println("\n____________________________________________________________");
-        System.out.println(message);
+        System.out.println("added: " + message);
         System.out.println("____________________________________________________________\n");
     }
 
@@ -20,7 +24,14 @@ public class ChatKaki {
         System.out.println("\n____________________________________________________________");
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+    }
 
+    public static void sayList() {
+        System.out.println("\n____________________________________________________________");
+        for (int i=0; i < messageCount; i++) {
+            System.out.println(" " + (i + 1) + ". " + messageHistory[i]);
+        }
+        System.out.println("____________________________________________________________");
     }
 
     public static void chatService() {
@@ -29,11 +40,20 @@ public class ChatKaki {
 
         while (true) {
             userInput = scanner.nextLine();
-            if (userInput.equals("bye")) {
-                sayBye();
-                break;
+
+            switch (userInput) {
+                case "bye":
+                    sayBye();
+                    return;
+
+                case "list":
+                    sayList();
+                    break;
+
+                default:
+                    sayMessage(userInput);
+                    break;
             }
-            sayMessage(userInput);
         }
     }
 
