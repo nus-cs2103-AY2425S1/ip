@@ -78,7 +78,7 @@ public class ChatKaki {
             if (deadlineParts.length == 2) {
                 addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
             } else {
-                System.out.println(" Invalid Deadline format");
+                System.out.println(" Invalid Deadline format, it should contain /by");
             }
         } else {
             System.out.println(" The description of a todo cannot be empty.");
@@ -91,7 +91,7 @@ public class ChatKaki {
              if (eventParts.length == 3) {
                  addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
              } else {
-                 System.out.println(" Invalid Event format");
+                 System.out.println(" Invalid Event format, it should contain /from and /to");
              }
         } else {
             System.out.println(" The description of a todo cannot be empty.");
@@ -130,7 +130,7 @@ public class ChatKaki {
                     sayList();
                     break;
                 default:
-                    System.out.println("Command not found");
+                    System.out.println("Command not found, try another one!");
                     break;
             }
         }
