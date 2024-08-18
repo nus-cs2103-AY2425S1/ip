@@ -1,0 +1,114 @@
+import exception.CitadelException;
+import exception.CitadelTaskNoInput;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Database {
+    private String filePath;
+
+    public Database(String filePath) {
+        this.filePath = filePath;
+        File db = new File(filePath);
+        try {
+            if (db.createNewFile()) {
+                System.out.println("File created: " + db.getName());
+            } else {
+                System.out.println("File already exists. " + db.getAbsolutePath());
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ArrayList<Task> getTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(new File(filePath));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String taskType = line.substring(1, 2);
+                String taskString = line.substring(7);
+                if (taskType.equals("T")) {
+                    tasks.add(createTodo(taskString));
+                } else if (taskType.equals("D")) {
+                    tasks.add(createDeadline(taskString));
+                } else if (taskType.equals("E")) {
+                    tasks.add(createEvent(taskString));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return tasks;
+    }
+
+    public void saveData(ArrayList<Task> tasks) throws IOException {
+            FileWriter fileWriter = new FileWriter(this.filePath, false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            for (int i = 0; i < tasks.size(); i++) {
+                bufferedWriter.write(tasks.get(i).toString());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+            fileWriter.close();
+            }
+
+    private static Task createDeadline(String input) throws CitadelException {
+        Task t;
+        String[] words = input.split(" \\(by: ");
+
+        if (words.length < 2) {
+            throw new CitadelTaskNoInput();
+        }
+        String task = words[0].trim();
+        String deadline = words[1].substring(0, words[1].length() - 1).trim();
+
+        if (task.isEmpty() || deadline.isEmpty()) {
+            throw new CitadelTaskNoInput();
+        }
+
+        t = new Deadline(task, deadline);
+        return t;
+    }
+
+    private static Task createEvent(String input) throws CitadelException {
+        Task t;
+        String[] words = input.split(" \\(from: ");
+
+        if (words.length < 2) {
+            throw new CitadelTaskNoInput();
+        }
+
+        String task = words[0].trim();
+        String[] timeline = words[1].split(" to: ");
+
+        if (timeline.length < 2) {
+            throw new CitadelTaskNoInput();
+        }
+
+        String from = timeline[0].trim();
+        String to = timeline[1].substring(0, timeline[1].length() - 1).trim();
+
+        if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new CitadelTaskNoInput();
+        }
+
+        t = new Event(task, from, to);
+        return t;
+    }
+
+    private static Task createTodo(String input) throws CitadelException {
+        Task t;
+        String todo = input.trim();
+        if (todo.isEmpty()) {
+            throw new CitadelTaskNoInput();
+        }
+        t = new ToDo(todo);
+        return t;
+    }
+}
