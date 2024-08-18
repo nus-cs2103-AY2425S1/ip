@@ -40,18 +40,7 @@ public class MortalReminder {
     }
 
     private void ProcessInputs() {
-        Scanner inputScanner = new Scanner(System.in);
-
-        while (true) {
-            String input = inputScanner.nextLine();
-            if (input.equals("bye")) {
-                break;
-            }
-            else {
-                String outputMessage = taskList.processCommand(input);
-                outputMessage = FormatMessages(outputMessage);
-                System.out.println(outputMessage);
-            }
-        }
+        Parser parser = new Parser();
+        parser.scanInputs();
     }
 }
