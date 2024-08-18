@@ -16,4 +16,16 @@ public class KorolevList {
             System.out.println((i + 1) + ". " + this.events.get(i));
         }
     }
+
+    public void markEvent(int index) {
+        KorolevTask t = this.events.get(index);
+        t.markTask();
+        System.out.println(t);
+    }
+
+    public void unmarkEvent(int index) {
+        KorolevTask t = this.events.get(index);
+        t.unmarkTask();
+        System.out.println(t);
+    }
 }
