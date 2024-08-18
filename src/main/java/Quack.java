@@ -11,15 +11,17 @@ public class Quack {
         "/   \\_/.  \\  |  // __ \\\\  \\___|    < \n" +
         "\\_____\\ \\_/____/(____  /\\___  >__|_ \\ \n" +
         "       \\__>          \\/     \\/     \\/\n";
-
-    private boolean isRunning;
     
     public String spacer = "-".repeat(40);
+
+    private ToDoList toDoList;
+    private boolean isRunning;
     
     // Functions
 
     Quack() {
         this.isRunning = true;
+        this.toDoList = new ToDoList();
     }
 
     private void printLogo() {
@@ -34,8 +36,15 @@ public class Quack {
         System.out.println("Bye. Hope to see you again soon!\n" + spacer);
     }
 
-    private void echo (String text) {
-        System.out.println(text + "\n" + spacer);
+    private void act (String item) {
+
+        if (item.equals("list")) {
+            System.out.println(this.toDoList.toString());
+        } else {
+           this.toDoList.addItem(item);
+        }
+       
+        System.out.println(spacer);
     }
 
     private void run() {
@@ -55,10 +64,11 @@ public class Quack {
             if (command.toLowerCase().equals("bye")) {
                 this.isRunning = false;
             } else {
-                echo(command);
+                act(command);
             }
         }
 
+        sc.close();
         // Chatbot has exited, display the farewell message
         this.farewell();
     }
