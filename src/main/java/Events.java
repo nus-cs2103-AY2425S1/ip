@@ -16,4 +16,9 @@ public class Events extends Task {
     public String getendDate() {
         return this.endDate;
     }
+
+    @Override
+    public String getType() {
+        return "E";
+    }
 }

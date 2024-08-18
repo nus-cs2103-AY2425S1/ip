@@ -17,4 +17,13 @@ public class Task {
     public boolean taskStatus() {
         return this.completed;
     }
+
+    public String getType() {
+        return "T";
+    }
+
+    public String print() {
+        String cross = (this.taskStatus() ? "X" : " ");
+        return "[" + this.getType() + "] " + "[" + cross + "] " + this.taskName();
+    }
 }
