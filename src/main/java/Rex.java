@@ -115,7 +115,6 @@ public class Rex {
 
     private static Task createTask(String command, String argument) throws InvalidTaskException {
         System.out.println(separation);
-        System.out.println("Got it. I've added this task:");
 
         Task newTask;
         try {
@@ -135,6 +134,7 @@ public class Rex {
         }
 
         // Print task created and number of tasks added
+        System.out.println("Got it. I've added this task:");
         System.out.println("  " + newTask);
         System.out.println("Now you have " + newTask.getNumberOfTasks() + " tasks in the list.");
 
@@ -142,7 +142,7 @@ public class Rex {
     }
 
     private static Deadline createDeadline(String argument) throws InvalidInputException {
-        String[] descriptionBy = argument.split("/by", 1);
+        String[] descriptionBy = argument.split("/by", 2);
         if (descriptionBy.length < 2) {
             throw new InvalidInputException(errorPrefix + " /by not found in input!");
         }
@@ -151,12 +151,19 @@ public class Rex {
     }
 
     private static Event createEvent(String argument) throws InvalidInputException {
-        String[] descriptionFromTo = argument.split("/from | /to", 1);
-        if (descriptionFromTo.length < 3) {
-            throw new InvalidInputException(errorPrefix + " /from or /to not found in input!");
+        String[] tokens = argument.split("/from", 2);
+        if (tokens.length < 2) {
+            throw new InvalidInputException(errorPrefix + " /from not found in input!");
         }
 
-        return new Event(descriptionFromTo[0], descriptionFromTo[1], descriptionFromTo[2]);
+        String description = tokens[0];
+        String[] fromTo = tokens[1].split("/to", 2);
+
+        if (fromTo.length < 2) {
+            throw new InvalidInputException(errorPrefix + " /to not found in input!");
+        }
+
+        return new Event(description, fromTo[0], fromTo[1]);
     }
 
     private static void displayList(List<Task> list) {
