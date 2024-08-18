@@ -22,7 +22,7 @@ public class Store<T> {
     @Override
     public String toString() {
         return IntStream.range(0, count)
-                .mapToObj(i -> i + "." + array[i])
+                .mapToObj(i -> i + ". " + array[i])
                 .reduce("", (x, acc) -> x + acc + "\n");
     }
 }

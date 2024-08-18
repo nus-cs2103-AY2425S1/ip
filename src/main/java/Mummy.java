@@ -29,13 +29,7 @@ public class Mummy {
         new Echo(STORE.toString()).execute();
         break;
       default:
-        new Command("added: " + input) {
-          @Override
-          public void execute() {
-            STORE.add(input);
-            System.out.println(this);
-          }
-        }.execute();
+        new Run("added: " + input, () -> STORE.add(input)).execute();
         break;
     }
 
