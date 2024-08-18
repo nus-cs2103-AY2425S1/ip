@@ -10,7 +10,7 @@ public class Xizi {
         TaskList actions = new TaskList();
 
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Xizi");
+        System.out.println(" Hello! I'm Xizi.");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
