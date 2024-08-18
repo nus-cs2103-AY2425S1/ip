@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import exception.CitadelException;
@@ -7,7 +8,8 @@ import exception.CitadelTaskNoInput;
 
 public class Citadel {
     public static ArrayList<Task> items = new ArrayList<>();
-    public static void main(String[] args) {
+    public static Database db =  new Database("citadel");
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         String name = "Citadel";
@@ -19,6 +21,11 @@ public class Citadel {
         String start = intro + question;
         System.out.println(start);
 
+        items = db.getTasks();
+
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println(items.get(i));
+        }
         while (true) {
             try {
                 input = scanner.nextLine();
@@ -57,6 +64,7 @@ public class Citadel {
 
         String goodbye = "Bye. Hope to see you again soon!\n";
         System.out.println(goodbye);
+        db.saveData(items);
     }
 
     private static void mark(String input) throws CitadelException {
