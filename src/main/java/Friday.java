@@ -1,20 +1,58 @@
+import java.util.Scanner;
+
 public class Friday {
+    private String name;
+    private boolean isRunning;
+
+    public Friday() {
+        this.name = "Friday";
+        this.isRunning = true;
+    }
+
+    public void greet() {
+        System.out.println(
+                "    ____________________________________________________________\n" +
+                        "     Hello! I'm " + name + "\n" +
+                        "     What can I do for you?\n" +
+                        "    ____________________________________________________________"
+        );
+    }
+
+    public void echo(String userInput) {
+        System.out.println(
+                "    ____________________________________________________________\n" +
+                        "     " + userInput + "\n" +
+                        "    ____________________________________________________________"
+        );
+    }
+
+    public void sayGoodbye() {
+        System.out.println(
+                "    ____________________________________________________________\n" +
+                        "     Bye. Hope to see you again soon!\n" +
+                        "    ____________________________________________________________"
+        );
+    }
+
+    public void run() {
+        greet();
+        Scanner scanner = new Scanner(System.in);
+
+        while (isRunning) {
+            String userInput = scanner.nextLine().trim();
+            if (userInput.equalsIgnoreCase("bye")) {
+                sayGoodbye();
+                isRunning = false;
+            } else {
+                echo(userInput);
+            }
+        }
+
+        scanner.close();
+    }
+
     public static void main(String[] args) {
-        /*String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);*/
-
-        String chatbotName = "Friday";
-
-        String greeting = "____________________________________________________________\n" +
-                " Hello! I'm " + chatbotName + "\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n";
-        System.out.println(greeting);
+        Friday friday = new Friday();
+        friday.run();
     }
 }
