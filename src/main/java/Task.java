@@ -10,36 +10,37 @@ public class Task {
         return this.description;
     }
 
-    public boolean getTaskStatus() {
+    public boolean isDone() {
         return this.isDone;
     }
 
-    public void MarkAsDone() {
+    public void markAsDone() {
         if (this.isDone) {
             System.out.println("Task was already done!");
             return;
         }
         this.isDone = true;
-        System.out.println(this.getDescription());
-        System.out.println("\n____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + this.toString());
-        System.out.println("____________________________________________________________\n");
+        printTaskStatus("Nice! I've marked this task as done:");
     }
 
-    public void MarkAsUndone() {
+    public void markAsUndone() {
         if (!this.isDone) {
             System.out.println("Task was already undone!");
             return;
         }
         this.isDone = false;
+        printTaskStatus("OK, I've marked this task as not done yet:");
+    }
+
+    private void printTaskStatus(String message) {
         System.out.println("\n____________________________________________________________");
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + this.toString());
+        System.out.println(" " + message);
+        System.out.println(" " + this);
         System.out.println("____________________________________________________________\n");
     }
 
+    @Override
     public String toString() {
-        return ((this.isDone ? "[X] " : "[ ] ") + this.getDescription());
+        return (this.isDone ? "[X] " : "[ ] ") + this.getDescription();
     }
 }
