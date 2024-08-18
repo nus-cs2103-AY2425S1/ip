@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import command.Greet;
+import command.Exit;
+import command.Echo;
 
 public class Mummy {
   private static String LOGO =  " __  __\n"                                 
@@ -9,7 +12,21 @@ public class Mummy {
       + "                                  |___/ \n";
 
   public static void main(String[] args) {
-    new Greet(logo).execute();
-    new Exit().execute();
+    new Greet(LOGO).execute();
+    listen(new Scanner(System.in));
+  }
+
+  public static void listen(Scanner scanner) {
+    String input = scanner.nextLine();
+
+    switch (input) {
+      case "bye":
+        new Exit().execute();
+        break;
+      default:
+        new Echo(input).execute();
+        listen(scanner);
+        break;
+    }
   }
 }

@@ -1,3 +1,5 @@
+package command;
+
 public abstract class Command {
   private String message;
 

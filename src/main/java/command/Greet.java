@@ -1,3 +1,5 @@
+package command;
+
 public class Greet extends Command {
   
   public Greet(String logo) {
