@@ -1,13 +1,13 @@
-public class Task {
+public abstract class Task {
     /**
      * The task description.
      */
-    private String description;
+    protected String description;
 
     /**
      * Whether this task is done.
      */
-    private boolean isDone;
+    protected boolean isDone;
 
     /**
      * The constructor.
