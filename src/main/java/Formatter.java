@@ -7,7 +7,7 @@ public class Formatter {
     }
 
     private static String formatSingleTask(int i, Task task) {
-        return Formatter.SPACING + " " + i + "." + "[" + task.getStatusIcon() + "]" + " " + task.toString() + "\n";
+        return Formatter.SPACING + " " + i + "." + task.toString() + "\n";
     }
 
     public static String formatTaskListings(int numTasks, Task[] tasks) {
@@ -31,11 +31,21 @@ public class Formatter {
         );
     }
 
+    public static String formatAddTask(int taskCount, Task task) {
+        return (
+            Formatter.formattedBorder() +
+            Formatter.SPACING + " " +  "Got it. I've added this task:" + "\n" +
+            Formatter.SPACING + "   " + task.toString() + "\n" +
+            Formatter.SPACING + " " + "Now you have " + taskCount + " tasks in the list." + "\n" +
+            Formatter.formattedBorder()
+        );
+    }
+
     public static String formatMarkTask(Task task) {
         return (
             Formatter.formattedBorder()  +
             Formatter.SPACING + " " + "Nice! I've marked this task as done:" + "\n" +
-            Formatter.SPACING + "   [" + task.getStatusIcon() + "] " +
+            Formatter.SPACING + "   " + "[" + task.getStatusIcon() + "]" + " " +
             task.getDescription() + "\n" +
             Formatter.formattedBorder()
         );
@@ -43,7 +53,7 @@ public class Formatter {
 
     public static String formatUnmarkTask(Task task) {
         return (
-                Formatter.formattedBorder()  +
+            Formatter.formattedBorder()  +
             Formatter.SPACING + " " + "OK, I've marked this task as not done yet:" + "\n" +
             Formatter.SPACING + "   [" + task.getStatusIcon() + "] " +
             task.getDescription() + "\n" +
