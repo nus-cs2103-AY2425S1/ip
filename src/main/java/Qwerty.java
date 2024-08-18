@@ -19,6 +19,8 @@ public class Qwerty {
 
     /**
      * Parses user raw input into a map and returns it.
+     * The map contains parameter-argument pairs, except the
+     * preset keys "command" and "command_args" for the command and its main argument.
      *
      * @param rawInput The raw command line input from the user.
      * @return A hashmap containing parameters and their arguments
@@ -27,17 +29,13 @@ public class Qwerty {
         HashMap<String, String> map = new HashMap<>();
         Scanner scanner = new Scanner(rawInput).useDelimiter(" /");
 
-        // default empty in case of empty input
-        map.put("command", "");
-        map.put("command_args", "");
-
         // extract main command and its argument, if any
         if (scanner.hasNext()) {
             String[] mainCommand = scanner.next().split(" ", 2);
             map.put("command", mainCommand[0]);
-            if (mainCommand.length == 1) {
-                map.put("command_args", "");
-            } else {
+
+            // only create args entry if arguments are given
+            if (mainCommand.length > 1) {
                 map.put("command_args", mainCommand[1]);
             }
         }
@@ -45,9 +43,9 @@ public class Qwerty {
         // extract additional parameters and their arguments
         while (scanner.hasNext()) {
             String[] params = scanner.next().split(" ", 2);
-            if (params.length == 1) {
-                map.put(params[0], "");
-            } else {
+
+            // only create entry for a parameter if its arguments are given
+            if (params.length > 1) {
                 map.put(params[0], params[1]);
             }
         }
@@ -82,7 +80,8 @@ public class Qwerty {
     public void add_task(Task task) {
         this.tasks.add(task);
         System.out.println("\nGot it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+                + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
+                + "in the list.");
     }
 
     /**
@@ -103,6 +102,7 @@ public class Qwerty {
      * @param index The index of the task to be marked, starting from 1.
      */
     public void markTaskAsDone(int index) {
+        // TODO: handle index error
         Task task = tasks.get(index - 1);
         task.markAsDone();
         System.out.println("\nNice! I've marked this task as done:\n" + task);
@@ -131,48 +131,90 @@ public class Qwerty {
             System.out.println(); // blank line before user input
             String rawInput = scanner.nextLine();
             HashMap<String, String> map = parse(rawInput);
+            String command = map.get("command");
+            String args = map.get("command_args");
 
-            switch (map.get("command")) {
-                case "bye":
-                    isChatting = false;
-                    say_goodbye();
-                    break;
-                case "list":
-                    list_tasks();
-                    break;
-                case "mark":
-                    markTaskAsDone(
-                            Integer.parseInt(map.get("command_args"))
-                    );
-                    break;
-                case "unmark":
-                    markTaskAsNotDone(
-                            Integer.parseInt(map.get("command_args"))
-                    );
-                    break;
-                case "todo":
-                    Task todoTask = new Todo(
-                            map.get("command_args")
-                    );
-                    add_task(todoTask);
-                    break;
-                case "deadline":
-                    Task deadlineTask = new Deadline(
-                            map.get("command_args"),
-                            map.get("by")
-                    );
-                    add_task(deadlineTask);
-                    break;
-                case "event":
-                    Task eventTask = new Event(
-                            map.get("command_args"),
-                            map.get("from"),
-                            map.get("to")
-                    );
-                    add_task(eventTask);
-                    break;
-                default:
-                    System.out.println("\nCommand unknown.");
+            try {
+                if (command == null) {
+                    throw new QwertyException("""
+                            Wow. You hit enter without saying anything.
+                            Speak up or I can't help you.""");
+                }
+
+                switch (command) {
+
+                    case "bye":
+                        isChatting = false;
+                        say_goodbye();
+                        break;
+
+                    case "list":
+                        list_tasks();
+                        break;
+
+                    case "mark":
+                        if (args == null) {
+                            throw new QwertyException("""
+                                    You forgot to give me a task number.""");
+                        }
+                        markTaskAsDone(Integer.parseInt(args));
+                        break;
+
+                    case "unmark":
+                        if (args == null) {
+                            throw new QwertyException("""
+                                    You forgot to give me a task number.""");
+                        }
+                        markTaskAsNotDone(Integer.parseInt(args));
+                        break;
+
+                    case "todo":
+                        if (args == null) {
+                            throw new QwertyException("""
+                                    The description of a Todo cannot be empty.""");
+                        }
+                        Task todoTask = new Todo(args);
+                        add_task(todoTask);
+                        break;
+
+                    case "deadline":
+                        String by = map.get("by");
+                        if (args == null) {
+                            throw new QwertyException("""
+                                    The description of a deadline cannot be empty.""");
+                        }
+                        if (by == null) {
+                            throw new QwertyException("""
+                                    When is your deadline? You didn't say.""");
+                        }
+                        Task deadlineTask = new Deadline(args, by);
+                        add_task(deadlineTask);
+                        break;
+
+                    case "event":
+                        String from = map.get("from");
+                        String to = map.get("to");
+                        if (args == null) {
+                            throw new QwertyException("""
+                                    The description of an event cannot be empty.""");
+                        }
+                        if (from == null) {
+                            throw new QwertyException("""
+                                    Your event starts from...? You didn't say.""");
+                        }
+                        if (to == null) {
+                            throw new QwertyException("""
+                                    Your event ends at...? You didn't say.""");
+                        }
+                        Task eventTask = new Event(args, from, to);
+                        add_task(eventTask);
+                        break;
+
+                    default:
+                        System.out.println("\nThat word isn't in my dictionary. Try again.");
+                }
+            } catch (QwertyException e) {
+                System.out.println("\n" + e.getMessage());
             }
         }
     }
