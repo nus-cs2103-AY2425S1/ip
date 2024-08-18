@@ -9,9 +9,9 @@ public class Bocchi {
     static private final String name = "Bocchi";
 
     /**
-     * The list to store all input items.
+     * The list to store all tasks.
      */
-    private final List<String> items = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Constructor.
@@ -47,15 +47,19 @@ public class Bocchi {
      * Ends the conversation.
      */
     private void exit() {
+        printSeparator();
         System.out.println("Oh no you are leaving.. It was a great time talking to you ::>_<::");
+        printSeparator();
     }
 
     /**
      * Greets the user.
      */
     private void greet() {
+        printSeparator();
         System.out.println("Hi! I'm " + name + "! Nice to see you!");
         System.out.println("Wha..what can I do for you today? o(*//▽//*)q");
+        printSeparator();
     }
 
     /**
@@ -64,58 +68,56 @@ public class Bocchi {
      * @param scanner The scanner to use.
      * @return The command.
      */
-    private String readCommand(Scanner scanner) {
+    private Command readCommand(Scanner scanner) {
         System.out.print(">> ");
-        return scanner.nextLine();
+        return new Command(scanner.nextLine());
     }
 
     /**
      * Prints all items in the item list.
      */
-    private void printList() {
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + items.get(i));
+    private void list() {
+        printSeparator();
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
+        printSeparator();
     }
 
     /**
-     * Adds an item to the list.
-     * @param item the item to be added.
+     * Adds a task to the list.
+     * @param task the task to be added.
      */
-    private void addItem(String item) {
-        items.add(item);
-        System.out.println("added: " + item);
+    private void todo(Task task) {
+        printSeparator();
+        tasks.add(task);
+        System.out.println("added: " + task);
+        printSeparator();
     }
 
 
     /**
      * Starts a conversation.
      * Commands available:
-     * - list: list out all items stored;
-     * - bye: end the conversation;
-     * - other inputs: add the input to the item list.
+     * - list: lists out all tasks;
+     * - bye: ends the conversation;
+     * - mark [index]: mark the task in the specified index as done;
+     * - unmark [index]: mark the task in the specified index as not done;
+     * - other inputs: adds a new task with the specified description.
      */
     public void start() {
-        printSeparator();
         greet();
-        printSeparator();
         // try-with-resources code optimisation done by Intellij
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                String command = readCommand(scanner);
-                if (command.equals("bye")) {
-                    printSeparator();
+                Command command = readCommand(scanner);
+                if (command.getName().equals("bye")) {
                     exit();
-                    printSeparator();
                     return;
-                } else if (command.equals("list")) {
-                    printSeparator();
-                    printList();
-                    printSeparator();
+                } else if (command.getName().equals("list")) {
+                    list();
                 } else {
-                    printSeparator();
-                    addItem(command);
-                    printSeparator();
+                    todo(new Task(command.getParamString()));
                 }
             }
         }
