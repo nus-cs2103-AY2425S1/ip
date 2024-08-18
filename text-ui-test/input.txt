@@ -1,0 +1,7 @@
+todo buy groceries
+deadline submit report /by Friday
+event dentist appointment /from Tuesday 3pm /to 4pm
+list
+mark 1
+unmark 1
+bye

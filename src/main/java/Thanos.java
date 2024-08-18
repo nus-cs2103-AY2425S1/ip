@@ -4,12 +4,19 @@ import java.util.Scanner;
 public class Thanos {
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
+    private static void customPrint(String s) {
+        System.out.print(s);
+        System.out.println("-".repeat(50));
+    }
+
     private static void listTasks() {
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("%d.%s\n", i + 1, task);
+            sb.append(String.format("%d.%s\n", i + 1, task));
         }
+        customPrint(sb.toString());
     }
 
     private static void markTask(String[] inputArr) {
@@ -18,7 +25,7 @@ public class Thanos {
             if (index >= 0 && index < tasks.size()) {
                 Task task = tasks.get(index);
                 task.setIsDone(true);
-                System.out.printf("Nice! I've marked this task as done:\n%s\n", task);
+                customPrint(String.format("Nice! I've marked this task as done:\n  %s\n", task));
             }
         }
     }
@@ -29,13 +36,15 @@ public class Thanos {
             if (index >= 0 && index < tasks.size()) {
                 Task task = tasks.get(index);
                 task.setIsDone(false);
-                System.out.printf("OK, I've marked this task as not done yet:\n%s\n", task);
+                customPrint(String.format("OK, I've marked this task as not done yet:\n  %s\n", task));
             }
         }
     }
 
     private static void printTaskAdded(Task task) {
-        System.out.printf("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size());
+        customPrint(String.format(
+            "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size()
+        ));
     }
 
     private static void addTodo(String userInput) {
@@ -70,7 +79,7 @@ public class Thanos {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Thanos!\nWhat can I do for you?");
+        customPrint("Hello! I'm Thanos!\nWhat can I do for you?\n");
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -79,7 +88,7 @@ public class Thanos {
             String command = inputArr[0];
             switch (command) {
                 case "bye":
-                    System.out.println("Bye. Hope to see you again soon!");
+                    customPrint("Bye. Hope to see you again soon!\n");
                     return;
                 case "list":
                     listTasks();
