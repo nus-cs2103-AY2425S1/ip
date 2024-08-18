@@ -13,9 +13,11 @@ public class Bruno {
         while (running) {
             userResponse = input.nextLine();
             String firstWord;
+            String restOfString = "";
 
             if (userResponse.contains(" ")) {
                 firstWord = userResponse.substring(0, userResponse.indexOf(" "));
+                restOfString = userResponse.split(" ", 2)[1];
             } else {
                 firstWord = userResponse;
             }
@@ -26,11 +28,17 @@ public class Bruno {
             } else if (userResponse.equals("list")) {
                 printList();
             } else if (firstWord.equals("mark")) {
-                markTask(userResponse.split(" ")[1]);
+                markTask(restOfString);
             } else if (firstWord.equals("unmark")) {
-                unmarkTask(userResponse.split(" ")[1]);
+                unmarkTask(restOfString);
+            } else if (firstWord.equals("todo")) {
+                addTask(restOfString, firstWord);
+            } else if (firstWord.equals("deadline")) {
+                addTask(restOfString, firstWord);
+            } else if (firstWord.equals("event")) {
+                addTask(restOfString, firstWord);
             } else {
-                addToList(userResponse);
+                System.out.println("Sorry, I could not understand");
             }
         }
     }
@@ -47,12 +55,35 @@ public class Bruno {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addToList(String str) {
-        Task task = new Task(str);
-        taskList.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println("added: " + str);
-        System.out.println("____________________________________________________________");
+    public static void addTask(String str, String type) {
+        Task task = null;
+        boolean recognized = true;
+        if (type.equals("todo")) {
+            task = new ToDo(str);
+        } else if (type.equals("deadline")) {
+            String description = str.substring(0, str.indexOf(" /by"));
+            String by = str.substring(str.indexOf(" /by") + 5);
+            task = new Deadline(description, by);
+        } else if (type.equals("event")) {
+            String description = str.substring(0, str.indexOf(" /from"));
+            String from = str.substring(str.indexOf(" /from") + 7, str.indexOf("/to"));
+            String to = str.substring(str.indexOf(" /to") + 5);
+            task = new Event(description, from, to);
+        } else {
+            recognized = false;
+        }
+
+        if (recognized) {
+            taskList.add(task);
+            System.out.println("____________________________________________________________");
+            System.out.println("Got it. I've added this task:\n" + task);
+            System.out.println("\nNow you have " + taskList.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("____________________________________________________________");
+            System.out.println("Event type not recognized");
+            System.out.println("____________________________________________________________");
+        }
     }
 
     public static void printList() {
