@@ -4,7 +4,6 @@ import java.util.ArrayList; // import the ArrayList class
 public class FutureYou {
         static ArrayList<Task> taskList = new ArrayList<Task>();
 
-        
         public static void bye() {
                 System.out.println("Bye. Hope to see you again soon!\n" +
                                 "____________________________________________________________\n");
@@ -23,6 +22,14 @@ public class FutureYou {
                 taskList.add(newTask);
                 System.out.println("Added this task: ");
                 System.out.println(newTask.print());
+                System.out.println(taskList.size() + " tasks in the list");
+        }
+
+        public static void addDeadline(String taskName, String deadline) {
+                Deadline newDeadline = new Deadline(taskName, deadline);
+                taskList.add(newDeadline);
+                System.out.println("Added this task: ");
+                System.out.println(newDeadline.print());
                 System.out.println(taskList.size() + " tasks in the list");
         }
 
@@ -58,6 +65,14 @@ public class FutureYou {
                         } else if (input.toLowerCase().trim().contains("todo")) {
                                 String taskName = input.substring(5, input.length());
                                 addTask(taskName);
+                        } else if (input.toLowerCase().trim().contains("deadline")) {
+                                String[] inputs = input.split("/");
+                                for (String i : inputs) {
+                                        System.out.println(i);
+                                }
+                                String taskName = inputs[0].substring(8, inputs[0].length());
+                                String date = inputs[1].substring(3, inputs[1].length());
+                                addDeadline(taskName, date);
                         } else if (input.toLowerCase().trim().equals("list")) {
                                 printList();
                         } else if (input.toLowerCase().trim().contains("mark")) {
