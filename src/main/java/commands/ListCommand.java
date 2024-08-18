@@ -17,7 +17,7 @@ public class ListCommand extends Command {
             index++;
         }
 
-        ui.printMessage("\n" + list.toString());
+        ui.printMessage(list.toString());
         return true;
     }
 }

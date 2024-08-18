@@ -1,0 +1,13 @@
+hello
+mewmewmew
+list
+todo Mew
+deadline Assignment /by 19/8/2024
+event Meeting /from 2pm /to 4pm
+list
+mark 2
+mark 1
+list
+unmark 1
+list
+bye
