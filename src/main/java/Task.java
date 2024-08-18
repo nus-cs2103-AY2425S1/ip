@@ -22,4 +22,25 @@ public class Task {
     }
 
     /**
-     * Mark
+     * Marks the task as done.
+     */
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Marks the task as not done.
+     */
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
+}
