@@ -78,6 +78,7 @@ public class Bocchi {
      */
     private void list() {
         printSeparator();
+        System.out.println("No...no problem! This is your task list! (/▽＼)");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
@@ -95,6 +96,47 @@ public class Bocchi {
         printSeparator();
     }
 
+    /**
+     * Mark the i-th task (1-indexed) as done.
+     * @param index The index of the task to be marked as done.
+     */
+    private void mark(int index) {
+        if (index >= tasks.size() || index < 0) {
+            printSeparator();
+            System.out.println("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
+            printSeparator();
+            return;
+        }
+
+        Task task = tasks.get(index);
+        task.markAsDone();
+
+        printSeparator();
+        System.out.println("I have marked the task as done! You are doing such a good job! (*/ω＼*)");
+        System.out.println(task);
+        printSeparator();
+    }
+
+    /**
+     * Mark the i-th task (1-indexed) as not done.
+     * @param index The index of the task to be marked as not done.
+     */
+    private void unmark(int index) {
+        if (index >= tasks.size() || index < 0) {
+            printSeparator();
+            System.out.println("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
+            printSeparator();
+            return;
+        }
+
+        Task task = tasks.get(index);
+        task.markAsUnDone();
+
+        printSeparator();
+        System.out.println("I have marked the task as not done. You will do it better next time! (*/ω＼*)");
+        System.out.println(task);
+        printSeparator();
+    }
 
     /**
      * Starts a conversation.
@@ -107,17 +149,20 @@ public class Bocchi {
      */
     public void start() {
         greet();
-        // try-with-resources code optimisation done by Intellij
+        // try-with-resources code optimisation done by IntelliJ
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 Command command = readCommand(scanner);
-                if (command.getName().equals("bye")) {
-                    exit();
-                    return;
-                } else if (command.getName().equals("list")) {
-                    list();
-                } else {
-                    todo(new Task(command.getParamString()));
+                // optimized from if statements to switch by IntelliJ
+                switch (command.getName()) {
+                    case "bye" -> {
+                        exit();
+                        return;
+                    }
+                    case "list" -> list();
+                    case "mark" -> mark(command.getIntegerParam(0));
+                    case "unmark" -> unmark(command.getIntegerParam(0));
+                    default -> todo(new Task(command.getName()));
                 }
             }
         }
