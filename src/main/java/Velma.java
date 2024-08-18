@@ -20,6 +20,12 @@ public class Velma {
 
         while(!end) {
             String request = req.nextLine();
+            if (request.equals("bye")) {
+                printLine();
+                System.out.println("Bye. Hope to see you again soon!");
+                printLine();
+                break;
+            }
             printLine();
             System.out.println(request);
             printLine();
