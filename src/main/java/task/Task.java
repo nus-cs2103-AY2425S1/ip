@@ -1,5 +1,7 @@
+package task;
+
 /**
- * A class to depict a task which can be completed.
+ * A task which can be completed.
  *
  * @author Toh Yi Hui A0259080A
  */
@@ -17,7 +19,9 @@ public class Task {
         this.isCompleted = false;
     }
 
-    /** Returns true if the task has been completed, false otherwise. */
+    /**
+     * Return whether the task is completed.
+     */
     public boolean isComplete() {
         return isCompleted;
     }
@@ -47,7 +51,9 @@ public class Task {
         return true;
     }
 
-    /** Returns the String representation of this task. */
+    /**
+     * Return the String representation of the task.
+     */
     @Override
     public String toString() {
         String symbol = isCompleted ? "X" : " ";
