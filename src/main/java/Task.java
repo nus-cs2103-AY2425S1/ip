@@ -5,7 +5,7 @@ public abstract class Task {
     protected boolean isDone;
     protected String type;
 
-    public Task() {
+    public Task(String description) {
         this.isDone = false;
     }
 
@@ -20,10 +20,21 @@ public abstract class Task {
     public abstract String getDescription();
 
     public void markDone() {
-        this.isDone = true;
+        if (!this.isDone) {
+            this.isDone = true;
+            FormattedPrinting.printMarked(this);
+        } else {
+            FormattedPrinting.markError();
+        }
     }
 
     public void markUndone() {
-        this.isDone = false;
+        if (this.isDone) {
+            this.isDone = false;
+            FormattedPrinting.printUnmarked(this);
+        }
+        else {
+            FormattedPrinting.unmarkError();
+        }
     }
 }

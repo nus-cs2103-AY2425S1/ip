@@ -1,9 +1,9 @@
 public class ToDo extends Task{
 
-    public ToDo (String Description) {
-        super();
+    public ToDo (String description) {
+        super(description);
         this.type = "T";
-        this.description = Description;
+        this.description = description;
     }
 
     @Override

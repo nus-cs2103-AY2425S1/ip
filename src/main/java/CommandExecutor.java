@@ -5,65 +5,55 @@ public class CommandExecutor {
     public boolean HandleCommand(Command command, TaskList taskList, boolean continueScanning) {
         CommandTypes commandType = command.commandType();
 
-        String commandDetails;
+        String commandDetails = Arrays.stream(command.commandDetails())
+                .reduce((accumulator, element) -> accumulator + " " + element)
+                .orElse("");
+
         Task newTask;
+        int index;
 
         switch (commandType) {
             case LIST:
                 FormattedPrinting.printList(taskList);
                 break;
 
+            // the following code was slightly optimised using ChatGPT
             case MARK:
-                try {
-                    int index = Integer.parseInt(command.commandDetails()[0]) - 1;
-                    Task taskToMark = taskList.getTask(index);
-                    taskToMark.markDone();
-                    FormattedPrinting.printMarked(taskToMark);
-                } catch (Exception e) {
-                    FormattedPrinting.FormatPrint("Invalid task number!");
-                }
-                break;
-
             case UNMARK:
                 try {
-                    int index = Integer.parseInt(command.commandDetails()[0]) - 1;
-                    Task taskToUnmark = taskList.getTask(index);
-                    taskToUnmark.markUndone();
-                    FormattedPrinting.printUnmarked(taskToUnmark);
-                } catch (Exception e) {
-                    FormattedPrinting.FormatPrint("Invalid task number!");
+                    index = Integer.parseInt(commandDetails) - 1;
+                    newTask = taskList.getTask(index);
+                    if (newTask != null) {
+                        if (commandType == CommandTypes.MARK) {
+                            newTask.markDone();
+                        } else {
+                            newTask.markUndone();
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    FormattedPrinting.unknownNumber();
                 }
                 break;
 
             case TODO:
-                commandDetails = Arrays.stream(command.commandDetails())
-                        .reduce((accumulator, element) -> accumulator + " " + element)
-                        .orElse("");
-                newTask = new ToDo(commandDetails);
-                taskList.addTask(newTask);
-                FormattedPrinting.addTask(newTask, taskList);
-                break;
-
             case DEADLINE:
-                commandDetails = Arrays.stream(command.commandDetails())
-                        .reduce((accumulator, element) -> accumulator + " " + element)
-                        .orElse("");
-                newTask = new Deadline(commandDetails);
-                taskList.addTask(newTask);
-                FormattedPrinting.addTask(newTask, taskList);
-                break;
-
             case EVENT:
-                commandDetails = Arrays.stream(command.commandDetails())
-                        .reduce((accumulator, element) -> accumulator + " " + element)
-                        .orElse("");
-                newTask = new Events(commandDetails);
-                taskList.addTask(newTask);
-                FormattedPrinting.addTask(newTask, taskList);
+                try {
+                    if (commandType == CommandTypes.TODO) {
+                        newTask = new ToDo(commandDetails);
+                    } else if (commandType == CommandTypes.DEADLINE) {
+                        newTask = new Deadline(commandDetails);
+                    } else {
+                        newTask = new Events(commandDetails);
+                    }
+                    taskList.addTask(newTask);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    FormattedPrinting.invalidNumberOfDetails();
+                }
                 break;
 
             case UNKNOWN:
-                FormattedPrinting.FormatPrint("I do not recognise this command, please check again!");
+                FormattedPrinting.unknownCommand();
                 break;
 
             case BYE:

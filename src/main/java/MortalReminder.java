@@ -4,21 +4,9 @@ public class MortalReminder {
 
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
-        mortalReminder.Welcome();
+        FormattedPrinting.Welcome();
         mortalReminder.ProcessInputs();
-        mortalReminder.GoodBye();
-    }
-
-    private void Welcome() {
-        String welcomeMessage = "Hello I'm Mortal Reminder!\n"
-                + "What can I do for you?";
-        FormattedPrinting.FormatPrint(welcomeMessage);
-
-    }
-
-    private void GoodBye() {
-        String goodByeMessage = "Bye. Hope to see you again soon!";
-        FormattedPrinting.FormatPrint(goodByeMessage);
+        FormattedPrinting.GoodBye();
     }
 
     private void ProcessInputs() {
