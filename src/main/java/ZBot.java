@@ -36,10 +36,11 @@ public class ZBot {
         Task task = new Task(input);
         tasks[taskIndex] = task;
         taskIndex = (taskIndex + 1) % 100;
-        System.out.println(String.format("added: %s\n", task));
+        System.out.println(String.format("Added Task: %s\n", task));
     }
 
     public static void listTask() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.length; i++) {
             if (tasks[i] != null) {
                 System.out.println(String.format("%d. %s", i + 1, tasks[i]));
