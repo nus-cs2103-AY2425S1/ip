@@ -1,0 +1,4 @@
+deadline food /by 3 jun
+event food /from 3 may /to 3 jun
+list
+bye

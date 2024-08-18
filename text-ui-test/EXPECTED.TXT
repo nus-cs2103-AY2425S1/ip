@@ -2,5 +2,28 @@ ____________________________________
 Hello! I'm TARS
 What can I do for you?
 ____________________________________
+
+____________________________________
+Got it. I've added this task:
+[D][ ] food (by: 3 jun)
+Now you have 1 tasks in the list
+
+____________________________________
+
+____________________________________
+Got it. I've added this task:
+[E] [ ] food (from: 3 may to: 3 jun)
+Now you have 2 tasks in the list
+
+____________________________________
+
+____________________________________
+Here are the tasks in your list:
+1. [D][ ] food (by: 3 jun)
+2. [E] [ ] food (from: 3 may to: 3 jun)
+____________________________________
+
+____________________________________
 Bye. Hope to see you again soon!
+____________________________________
 
