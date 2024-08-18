@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Velma {
 
     public static void printLine() {
@@ -9,14 +11,19 @@ public class Velma {
 
     public static void main(String[] args) {
 
+        boolean end = false;
         printLine();
         System.out.println("Hello! I am Velma!" );
         System.out.println("What can I do for you?");
-
+        Scanner req = new Scanner(System.in);
         printLine();
-        System.out.println("Bye. Hope to see you again soon.");
 
-        printLine();
+        while(!end) {
+            String request = req.nextLine();
+            printLine();
+            System.out.println(request);
+            printLine();
+        }
     }
 
 
