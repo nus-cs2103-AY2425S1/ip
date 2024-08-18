@@ -1,6 +1,7 @@
 import common.Command;
 import common.Parser;
 import common.Ui;
+import common.SkibidiException;
 import storage.TaskStorage;
 
 import java.util.Scanner;
@@ -22,9 +23,13 @@ public class Skibidi {
         boolean isRunning = true;
 
         while (isRunning) {
-            String userInput = scanner.nextLine();
-            Command command = parser.parse(userInput);
-            isRunning = command.execute(ui, storage);
+            try {
+                String userInput = scanner.nextLine();
+                Command command = parser.parse(userInput);
+                isRunning = command.execute(ui, storage);
+            } catch (SkibidiException e) {
+                ui.printMessage(e.getMessage());
+            }
         }
 
         scanner.close();

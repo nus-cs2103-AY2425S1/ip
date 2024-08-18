@@ -1,6 +1,7 @@
 package commands;
 
 import common.Command;
+import common.SkibidiException;
 import common.Ui;
 import storage.Task;
 import storage.TaskStorage;
@@ -13,7 +14,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) {
+    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException {
         try {
             int taskIndex = Integer.parseInt(taskInput) - 1; // Convert to 0-based index
             if (taskIndex < 0 || taskIndex >= storage.getTasks().size()) {
@@ -24,7 +25,7 @@ public class UnmarkCommand extends Command {
                 ui.printMessage("OK, I've marked this task as not done yet:\n  " + task);
             }
         } catch (NumberFormatException e) {
-            ui.printMessage("Please enter a valid task number.");
+            throw new SkibidiException("Please enter a valid task number.");
         }
         return true;
     }

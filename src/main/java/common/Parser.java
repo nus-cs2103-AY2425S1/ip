@@ -11,7 +11,7 @@ import commands.MarkCommand;
 import commands.UnmarkCommand;
 
 public class Parser {
-    public Command parse(String input) {
+    public Command parse(String input) throws SkibidiException {
 
         String normalizedInput = input.trim().toLowerCase();
 
