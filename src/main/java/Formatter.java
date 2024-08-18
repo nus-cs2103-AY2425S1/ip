@@ -6,14 +6,15 @@ public class Formatter {
         return Formatter.SPACING + Formatter.BORDER;
     }
 
-    private static String formatSingleTask(int i, String task) {
-        return Formatter.SPACING + " " + i + ". " + task + "\n";
+    private static String formatSingleTask(int i, Task task) {
+        return Formatter.SPACING + " " + i + "." + "[" + task.getStatusIcon() + "]" + " " + task.toString() + "\n";
     }
 
-    public static String formatTaskListings(int numTasks, String[] tasks) {
+    public static String formatTaskListings(int numTasks, Task[] tasks) {
         StringBuilder str = new StringBuilder();
 
         str.append(formattedBorder());
+        str.append(Formatter.SPACING + " " + "Here are the tasks in your list:" + "\n");
         for (int i = 0; i < numTasks; i++) {
             str.append(Formatter.formatSingleTask(i + 1, tasks[i]));
         }
