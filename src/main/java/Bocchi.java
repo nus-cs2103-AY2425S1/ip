@@ -104,6 +104,7 @@ public class Bocchi {
      * @param index The index of the task to be marked as done.
      */
     private void mark(int index) {
+        index--;
         if (index >= tasks.size() || index < 0) {
             printSeparator();
             System.out.println("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
@@ -126,6 +127,7 @@ public class Bocchi {
      * @param index The index of the task to be marked as not done.
      */
     private void unmark(int index) {
+        index--;
         if (index >= tasks.size() || index < 0) {
             printSeparator();
             System.out.println("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");

@@ -1,0 +1,10 @@
+event project meeting /from now /to 2h later
+todo table tennis with friends
+list
+mark 1
+mark 2
+unmark 1
+list
+ddl cs2103T quiz /by this Friday
+deadline submit essay /by 2024-8-30
+bye
