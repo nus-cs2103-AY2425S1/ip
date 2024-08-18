@@ -114,7 +114,7 @@ public class Skibidi {
                     // Assume order of arguments is always /from followed by /to
                     cmdArgs = args[1].split("/from|/to");
                     if (cmdArgs.length != 3) {
-                        throw new Exception("COMMAND event REQUIRES ARGUMENTS /from AND /to");
+                        throw new SkibidiException("COMMAND event REQUIRES ARGUMENTS /from AND /to");
                     }
                     Event event = new Event(cmdArgs[0].strip(), cmdArgs[1].strip(), cmdArgs[2].strip());
                     tasks.add(event);
