@@ -8,7 +8,7 @@ public class Task {
         this.name = name;
     }
 
-    public static Task of(String command, String item) {
+    public static Task of(String command, String item) throws WrongSyntaxForCommandException {
         switch(command) {
             case "todo":
                 return new Todo(item);
@@ -16,7 +16,7 @@ public class Task {
                 {
                     int spaceLocation = item.indexOf(" /by ");
                     if (spaceLocation  == -1) {
-                        return new Task(""); // will replace with error in future
+                        throw new WrongSyntaxForCommandException(command);
                     }
                     String name = item.substring(0,spaceLocation);
                     String due = item.substring(spaceLocation + 5);
@@ -28,7 +28,7 @@ public class Task {
                     int toLocation = item.indexOf(" /to ");
                     String name, start, end;
                     if (fromLocation == -1 || toLocation == -1) {
-                        return new Task(""); // will replace with error in future
+                        throw new WrongSyntaxForCommandException(command); // will replace with error in future
                     }
                     if (fromLocation < toLocation) {
                         name = item.substring(0,fromLocation);

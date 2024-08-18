@@ -11,4 +11,9 @@ unmark 1
 list
 mark 2
 list
+deadline finish making SUMO
+event watch c-drama /from tonight
+event watch k-drama /to tomorrow
+this is a non-existent command
+list
 bye

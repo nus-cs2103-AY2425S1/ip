@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class SumoDE {
 
-    public static void printTask(Task[] tasks) {
+    private static void printTask(Task[] tasks) {
         System.out.println("Below is the list of tasks:");
         for (int i = 0; i < tasks.length; i++) {
             Task task = tasks[i];
@@ -11,6 +11,10 @@ public class SumoDE {
             }
             System.out.println((i+1) + ". "+ task);
         }
+    }
+
+    private static boolean execute(String command, String item, Task[] tasks) {
+        return true; // will do after level 6
     }
 
     public static void main(String[] args) {
@@ -85,49 +89,56 @@ public class SumoDE {
             }
 
 
-            // performing commands
-            switch(command) {
-                case "bye":
-                case "exit":  // added this to allow flexibility though not required by qn
-                    terminate = true;
-                    break;
-                case "list":
-                    printTask(tasks);
-                    break;
-                case "mark":
+            try {
+                switch(command) {
+                    case "bye":
+                    case "exit":  // added this to allow flexibility though not required by qn
+                        terminate = true;
+                        break;
+                    case "list":
+                        printTask(tasks);
+                        break;
+                    case "mark":
                     {
                         int index = Integer.parseInt(item);
                         tasks[index-1].mark();
                     }
                     break;
-                case "unmark":
+                    case "unmark":
                     {
                         int index = Integer.parseInt(item);
                         tasks[index-1].unmark();
                     }
                     break;
-                case "todo":
-                case "deadline":
-                case "event":
-                    tasks[tasksIndex] = Task.of(command, item);  // used factory method to be more neat and OOP
-                    System.out.println("Sumo has added this task for you.\n"
-                            + tasks[tasksIndex]
-                            + "\n"
-                            + "There are now "
-                            + (tasksIndex + 1)
-                            + " task(s) in total!");
-                    tasksIndex++;
-                    break;
-                default:
-                    tasks[tasksIndex++] = new Todo(input);
-                    System.out.println(("Added: " +input));
+                    case "todo":
+                    case "deadline":
+                    case "event":
+                        tasks[tasksIndex] = Task.of(command, item);  // used factory method to be more neat and OOP
+                        System.out.println("Sumo has added this task for you.\n"
+                                + tasks[tasksIndex]
+                                + "\n"
+                                + "There are now "
+                                + (tasksIndex + 1)
+                                + " task(s) in total!");
+                        tasksIndex++;
+                        break;
+                    default:
+                       throw new UnknownCommandException(command);
+                }
+            } catch (WrongSyntaxForCommandException | UnknownCommandException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                if (!terminate) {
+                    System.out.println("------------------------------------\n"
+                            + "Do you need anything else from SUMO?\n"
+                            + "------------------------------------");
+                }
             }
 
-            if (!terminate) {
-                System.out.println("------------------------------------\n" +
-                        "Do you need anything else from SUMO?\n" +
-                        "------------------------------------");
-            }
+            // performing commands
+
+
+
         }
 
         // loop ended, cleaning up

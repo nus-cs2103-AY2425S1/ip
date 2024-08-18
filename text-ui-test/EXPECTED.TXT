@@ -96,6 +96,29 @@ Below is the list of tasks:
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
+SUMO understood your command but dunno what you want! Please utilise "deadline" the correct way.
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+SUMO understood your command but dunno what you want! Please utilise "event" the correct way.
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+SUMO understood your command but dunno what you want! Please utilise "event" the correct way.
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+SUMO dunno your command "this" ! Check spelling of your first word.
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Below is the list of tasks:
+1. [T][ ]Read Book
+2. [D][X]finish CS2103T IP (by: today)
+3. [E][ ]watch CS2103T lecture (from: now to: tomorrow)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
 ------------------------------------
 Goodbye! Sumo hope to see you again!
 ------------------------------------
