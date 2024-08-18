@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 public class Bob {
     public static void main(String[] args) {
