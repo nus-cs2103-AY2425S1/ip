@@ -62,7 +62,7 @@ public class Task {
     public void unmark() {
         if (!completed) {
             System.out.println("Sumo confused. This task is not completed in the first place!\n"
-                            + "But SUMO will mark it so NOT done again!"
+                            + "But SUMO will mark it as NOT done again!"
                     );
         } else {
             System.out.println("Sumo has marked this task as  NOT done.");
