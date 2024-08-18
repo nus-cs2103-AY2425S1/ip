@@ -33,6 +33,14 @@ public class FutureYou {
                 System.out.println(taskList.size() + " tasks in the list");
         }
 
+        public static void addEvent(String taskName, String startDT, String endDT) {
+                Events newEvent = new Events(taskName, startDT, endDT);
+                taskList.add(newEvent);
+                System.out.println("Added this task: ");
+                System.out.println(newEvent.print());
+                System.out.println(taskList.size() + " tasks in the list");
+        }
+
         public static void markTask(int n) {
                 taskList.get(n).markTask();
                 System.out.println("Marked as Done:");
@@ -67,12 +75,17 @@ public class FutureYou {
                                 addTask(taskName);
                         } else if (input.toLowerCase().trim().contains("deadline")) {
                                 String[] inputs = input.split("/");
-                                for (String i : inputs) {
-                                        System.out.println(i);
-                                }
-                                String taskName = inputs[0].substring(8, inputs[0].length());
+
+                                String taskName = inputs[0].substring(9, inputs[0].length());
                                 String date = inputs[1].substring(3, inputs[1].length());
                                 addDeadline(taskName, date);
+                        } else if (input.toLowerCase().trim().contains("event")) {
+                                String[] inputs = input.split("/");
+
+                                String taskName = inputs[0].substring(6, inputs[0].length());
+                                String startDT = inputs[1].substring(5, inputs[1].length());
+                                String endDT = inputs[2].substring(3, inputs[2].length());
+                                addEvent(taskName, startDT, endDT);
                         } else if (input.toLowerCase().trim().equals("list")) {
                                 printList();
                         } else if (input.toLowerCase().trim().contains("mark")) {

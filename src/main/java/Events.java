@@ -1,24 +1,29 @@
 public class Events extends Task {
 
-    private String startDate;
-    private String endDate;
+    private String startDateTime;
+    private String endDateTime;
 
     public Events(String name, String startDate, String endDate) {
         super(name);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateTime = startDate;
+        this.endDateTime = endDate;
     }
 
     public String getstartDate() {
-        return this.startDate;
+        return this.startDateTime;
     }
 
     public String getendDate() {
-        return this.endDate;
+        return this.endDateTime;
     }
 
     @Override
     public String getType() {
         return "E";
+    }
+
+    @Override
+    public String print() {
+        return super.print() + "(from: " + this.getstartDate() + "to: " + this.getendDate() + ")";
     }
 }
