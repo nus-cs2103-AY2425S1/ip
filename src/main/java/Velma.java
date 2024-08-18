@@ -37,6 +37,13 @@ public class Velma {
                 }
                 printLine();
                 count = 1;
+            } else if (request.contains("mark")) {
+                String[] parts = request.split(" ");
+                int taskNumber = Integer.parseInt(parts[1]) - 1;
+                list.get(taskNumber).markDone();;
+                printLine();
+                System.out.println("Nice! I have marked this task as done:");
+                System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
             } else {
                 list.add(new Task(request));
                 printLine();
