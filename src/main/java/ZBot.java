@@ -30,7 +30,9 @@ public class ZBot {
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter a valid task number!\n");
                 }
-            } else if (input.startsWith("todo") || input.startsWith("deadline")) {
+            } else if (input.startsWith("todo") ||
+                    input.startsWith("deadline") ||
+                    input.startsWith("event")) {
                 storeTask(input);
             } else {
                 System.out.println("Invalid command.\n");
@@ -64,6 +66,15 @@ public class ZBot {
                 task = new Deadline(deadlineParts[0], deadlineParts[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Please enter a valid deadline task format!\n");
+                return;
+            }
+        } else if (inputParts[0].equals("event")) {
+            try {
+                String[] eventParts = inputParts[1].split(" /from ", 2);
+                String[] period = eventParts[1].split(" /to ", 2);
+                task = new Event(eventParts[0], period[0], period[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Please enter a valid event task format!\n");
                 return;
             }
         }
