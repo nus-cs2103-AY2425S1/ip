@@ -2,6 +2,67 @@ public abstract class Task {
     protected String task;
     protected boolean isDone = false;
 
+
+    /**
+     * Check whether the user's input is a valid command. Sequentially task description,
+     * start time(if have) and end time(if have)
+     *
+     * @param taskInfoArray user's input split by " "
+     * @param type task type
+     * @throws DukeException a new Exception class defined to represent exceptions specific to EchoBot.
+     */
+    public static void checkValidCommand(String[] taskInfoArray, String type) throws DukeException{
+
+        if (taskInfoArray.length <= 1 || taskInfoArray[1].isEmpty()) {
+            String msg = "Oops! The description of a " + type + " cannot be empty.";
+            throw new DukeException(msg);
+        }
+
+        String description = taskInfoArray[1];
+
+        if (type.equals("deadline")) {
+            if (!description.contains("/by")) {
+                String msg = "Oops! The description of a deadline should contain a '/by' keywords";
+                throw new DukeException(msg);
+            }
+
+            if (taskInfoArray[1].indexOf("/by") <= 1) {
+                String msg = "Oops! Please give me more information about your task.";
+                throw new DukeException(msg);
+            }
+
+            if (taskInfoArray[1].split("/by ").length <= 1) {
+                String msg = "Oops! The end time of a deadline cannot be empty.";
+                throw new DukeException(msg);
+            }
+        }
+
+        if (type.equals("event")) {
+            if (!taskInfoArray[1].contains("/from") || !taskInfoArray[1].contains("/to")) {
+                String msg = "Oops! The description of an event should"
+                        + " contain a '/from' and '/to' keywords";
+                throw new DukeException(msg);
+            }
+
+            if (taskInfoArray[1].indexOf("/from") <= 1) {
+                String msg = "Please give me more information about your task.";
+                throw new DukeException(msg);
+            }
+
+            String timeInfo = taskInfoArray[1].split("/from")[1];
+
+            if (timeInfo.indexOf("/to") <= 1) {
+                String msg = "Oops! The start time of an event cannot be empty.";
+                throw new DukeException(msg);
+            }
+
+            if (timeInfo.split("/to ").length <= 1) {
+                String msg = "Oops! The end time of an event cannot be empty.";
+                throw new DukeException(msg);
+            }
+        }
+    }
+
     /**
      * Creat a different kinds of task according to the user's input
      *
@@ -9,29 +70,37 @@ public abstract class Task {
      *                 important time information of the task
      * @return task created according to the task information user entered.
      */
-    public static Task creatTask(String taskInfo) {
-        System.out.println("Got it. I've added this task:");
+    public static Task creatTask(String taskInfo) throws DukeException{
         String[] taskInfoArray = taskInfo.split(" ", 2);
         String type = taskInfoArray[0];
+        Task newTask;
         switch (type) {
             case "todo":
+                checkValidCommand(taskInfoArray, type);
                 String todoInfo = taskInfoArray[1];
-                return new ToDo(todoInfo);
+                newTask = new ToDo(todoInfo);
+                break;
             case "deadline":
+                checkValidCommand(taskInfoArray, type);
                 String ddlInfo = taskInfoArray[1].split(" /by ")[0];
                 String deadline = taskInfoArray[1].split(" /by ")[1];
-                return new Deadline(ddlInfo, deadline);
+                newTask = new Deadline(ddlInfo, deadline);
+                break;
             case "event":
+                checkValidCommand(taskInfoArray, type);
                 String eventInfo = taskInfoArray[1].split(" /from ")[0];
                 String[] timeInfo = taskInfoArray[1].split(" /from ")[1].split(" /to ");
                 String startTime = timeInfo[0];
                 String endTime = timeInfo[1];
-                return new Event(eventInfo, startTime, endTime);
+                newTask = new Event(eventInfo, startTime, endTime);
+                break;
             default:
-                System.out.println("Oops! It seems you enter a invalid type.");
-                System.out.println("Please enter a valid task type: todo/deadline/event");
-                return null;
+                String msg = "Oops! It seems you enter a invalid type.";
+                String guide = "Please enter a valid task type: todo/deadline/event";
+                throw new DukeException(msg + "\n" + guide);
         }
+        System.out.println("Got it. I've added this task:");
+        return newTask;
     }
 
     /**

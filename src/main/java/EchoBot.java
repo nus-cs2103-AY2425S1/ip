@@ -74,18 +74,25 @@ public class EchoBot {
                         dashline();
                         break;
                     default:
-                        dashline();
                         Task task = Task.creatTask(userInput);
-                        if (task != null) {
-                            allTasks.add(task);
-                            System.out.println(task);
-                            System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
-                        }
+                        dashline();
+                        allTasks.add(task);
+                        System.out.println(task);
+                        System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
                         dashline();
                 }
             } catch (IndexOutOfBoundsException e) {
-                String msg = "Input Error: " + e.toString();
+                String msg = "Input Error: " + e.getMessage();
                 System.out.println(msg);
+                System.exit(0);
+            } catch (ClassCastException e) {
+                String msg = "Input Error: " + e.getMessage();
+                System.out.println(msg);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                System.exit(0);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
                 System.exit(0);
             }
 
