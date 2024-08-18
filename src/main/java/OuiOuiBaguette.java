@@ -167,6 +167,17 @@ public class OuiOuiBaguette {
                         "Now you have " + tasks.size() + " tasks in the list."
                     }));
 
+                } else if (cmd.startsWith("delete")) {
+                    // Parse command to get index of task
+                    int taskIndex = Integer.parseInt(cmd.split(" ")[1]) - 1;
+
+                    Task taskDeleted = tasks.remove(taskIndex);
+
+                    System.out.println(formatBotSpeech(new String[] {
+                            "Noted. I've removed this task:",
+                            " " + taskDeleted,
+                            "Now you have " + tasks.size() + " tasks in the list."}));
+
                 } else {
                     // Unknown command
                     throw new UnknownCommandException();
