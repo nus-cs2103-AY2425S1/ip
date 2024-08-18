@@ -15,9 +15,12 @@ public class Task {
         this.completed = false;
     }
 
+    public String getStatus() {
+        return this.completed ? "[X]" : "[ ]";
+    }
+
     @Override
     public String toString() {
-        String status = this.completed ? "[X}" : "[ ]";
-        return String.format("%s %s", status, this.taskName);
+        return this.taskName;
     }
 }

@@ -3,48 +3,72 @@ import java.util.ArrayList;
 
 public class Jackson {
 
-    private static int EXPECTED_SIZE = 10;
-    private static ArrayList<String> tasks = new ArrayList<>(EXPECTED_SIZE);
+    public static String name = "Jackson";
+    private static final int EXPECTED_SIZE = 10;
+    private static ArrayList<Task> tasks = new ArrayList<>(EXPECTED_SIZE);
 
-    public static void add_list(String task) {
-        System.out.printf("Adding '%s' to list!\n", task);
-        tasks.add(task);
+    public static void add_list(String taskName) {
+        Task t = new Task(taskName);
+        System.out.printf("Ya la, adding '%s' to list lah!\n", t);
+        tasks.add(t);
     }
 
     public static void show_list() {
         if (tasks.isEmpty()) {
-            System.out.println("Nothing in list!");
+            System.out.println("Nothing in list lah!");
         } else {
-            System.out.println("Here's your list!");
+            System.out.println("Here's your list lor!");
+            Task curr;
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+                curr = tasks.get(i);
+                System.out.printf("%d. %s %s\n", i + 1, curr.getStatus(), curr);
             }
         }
     }
 
+    public static void mark(int index) {
+        Task curr = tasks.get(index);
+        System.out.printf("Solid lah, I mark %s now\n", curr);
+        curr.mark();
+        System.out.printf("\t%s %s\n", curr.getStatus(), curr);
+    }
+
+    public static void unmark(int index) {
+        Task curr = tasks.get(index);
+        System.out.printf("Walao, ok la I unmark %s now\n", curr);
+        curr.unmark();
+        System.out.printf("\t%s %s\n", curr.getStatus(), curr);
+    }
+
     public static void main(String[] args) {
-        String name = "Jackson";
         Scanner sc = new Scanner(System.in);
 
-        System.out.printf("Hello! My name is %s!\nWhat can I do for you today?\n> ", name);
-        String response = sc.nextLine().strip();
+        System.out.printf("Oi! I'm %s!\nWhat you want me do today ah?\n> ", name);
+        String[] responses = sc.nextLine().strip().split(" ", 1);
+        String command = responses[0];
+        int idx;
 
-        while (!response.equals("bye")) {
-            switch (response) {
+        while (!command.equals("bye")) {
+            switch (command) {
                 case "list":
                     show_list();
                     break;
                 case "mark":
+                    idx = Integer.parseInt(responses[1]);
+                    mark(idx - 1);
                     break;
                 case "unmark":
+                    idx = Integer.parseInt(responses[1]);
+                    unmark(idx - 1);
                     break;
                 default:
-                    add_list(response);
+                    add_list(command);
             }
             System.out.print("> ");
-            response = sc.nextLine();
+            responses = sc.nextLine().strip().split(" ", 0);
+            command = responses[0];
         }
 
-        System.out.println("Goodbye! See you soon!");
+        System.out.println("K k, bye lah!");
     }
 }
