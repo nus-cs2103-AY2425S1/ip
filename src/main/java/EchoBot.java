@@ -39,6 +39,16 @@ public class EchoBot {
         dashline();
     }
 
+    public static void deleteTask(int deleteIdx) {
+        dashline();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(allTasks.get(deleteIdx));
+        allTasks.remove(deleteIdx);
+        System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
+        dashline();
+    }
+
+
     public static void bye() {
         dashline();
         System.out.println("Bye. Hope to see you again soon!");
@@ -72,6 +82,10 @@ public class EchoBot {
                         Task unmarkTask = allTasks.get(unmarkIdx);
                         unmarkTask.unmark();
                         dashline();
+                        break;
+                    case "delete":
+                        int deleteIdx = Integer.parseInt(cmdParts[1]) - 1;
+                        EchoBot.deleteTask(deleteIdx);
                         break;
                     default:
                         dashline();
