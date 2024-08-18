@@ -13,6 +13,11 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + this.formatTime(this.dateTime) + ")";
     }
 
+    public String printTask() {
+        return "[D]" + super.toString() + " (by: "
+                + this.dateTime.format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm")) + ")";
+    }
+
     private String formatTime(LocalDateTime time) {
         return time.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }

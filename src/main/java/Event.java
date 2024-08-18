@@ -12,8 +12,14 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                this.formatTime(this.from) + " to: " + this.formatTime(this.to) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + this.formatTime(this.from) + " to: " + this.formatTime(this.to) + ")";
+    }
+
+    @Override
+    public String printTask() {
+        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm")) + ")";
     }
 
     private String formatTime(LocalDateTime time) {
