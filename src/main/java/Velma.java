@@ -36,11 +36,23 @@ public class Velma {
                 list.add(newTodo);
                 System.out.println("  " + newTodo.toString());
                 System.out.println("Now you have " + list.size() + " tasks in the list");
+                printLine();
+            } else if (request.contains("deadline")) {
+                String[] parts = request.replaceFirst("deadline\\s+", "").split(" /by ");
+                String description = parts[0];
+                String deadline = parts[1];
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                Task newDeadline = new Deadline(description, deadline);
+                list.add(newDeadline);
+                System.out.println("  " + newDeadline.toString());
+                System.out.println("Now you have " + list.size() + " tasks in the list");
+                printLine();
             } else if (request.equals("list")) {
                 printLine();
                 System.out.println("Here are the tasks in your list:");
                 for (Task task : list) {
-                    System.out.println(count + ". " + task.toString());
+                    System.out.println(count + "." + task.toString());
                     count++;
                 }
                 printLine();
