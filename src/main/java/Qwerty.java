@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * The chatbot class.
+ * This class encapsulates the chatbot.
  */
 public class Qwerty {
 
@@ -14,6 +15,44 @@ public class Qwerty {
     public Qwerty() {
         this.isChatting = true;
         this.tasks = new ArrayList<Task>();
+    }
+
+    /**
+     * Parses user raw input into a map and returns it.
+     *
+     * @param rawInput The raw command line input from the user.
+     * @return A hashmap containing parameters and their arguments
+     */
+    private HashMap<String, String> parse(String rawInput) {
+        HashMap<String, String> map = new HashMap<>();
+        Scanner scanner = new Scanner(rawInput).useDelimiter(" /");
+
+        // default empty in case of empty input
+        map.put("command", "");
+        map.put("command_args", "");
+
+        // extract main command and its argument, if any
+        if (scanner.hasNext()) {
+            String[] mainCommand = scanner.next().split(" ", 2);
+            map.put("command", mainCommand[0]);
+            if (mainCommand.length == 1) {
+                map.put("command_args", "");
+            } else {
+                map.put("command_args", mainCommand[1]);
+            }
+        }
+
+        // extract additional parameters and their arguments
+        while (scanner.hasNext()) {
+            String[] params = scanner.next().split(" ", 2);
+            if (params.length == 1) {
+                map.put(params[0], "");
+            } else {
+                map.put(params[0], params[1]);
+            }
+        }
+
+        return map;
     }
 
     /**
@@ -36,21 +75,21 @@ public class Qwerty {
     }
 
     /**
-     * Adds a task to the tasklist.
+     * Adds a task to the task list.
      *
-     * @param description String describing the task.
+     * @param task The task to be added.
      */
-    public void add_task(String description) {
-        Task task = new Task(description);
+    public void add_task(Task task) {
         this.tasks.add(task);
-        System.out.println("\nadded: " + description);
+        System.out.println("\nGot it. I've added this task:\n" + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
      * Prints the list of tasks.
      */
     public void list_tasks() {
-        System.out.println();
+        System.out.println("\nHere are the tasks in your list:");
         int taskNumber = 1;
         for (Task task: tasks) {
             System.out.println(taskNumber + "." + task);
@@ -58,12 +97,22 @@ public class Qwerty {
         }
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to be marked, starting from 1.
+     */
     public void markTaskAsDone(int index) {
         Task task = tasks.get(index - 1);
         task.markAsDone();
         System.out.println("\nNice! I've marked this task as done:\n" + task);
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param index The index of the task to be marked, starting from 1.
+     */
     public void markTaskAsNotDone(int index) {
         Task task = tasks.get(index - 1);
         task.markAsNotDone();
@@ -71,7 +120,7 @@ public class Qwerty {
     }
 
     /**
-     * Starts the chatbot.
+     * Starts the chatbot and run the main chat loop.
      */
     public void start() {
         Scanner scanner = new Scanner(System.in);
@@ -81,13 +130,9 @@ public class Qwerty {
         while (isChatting) {
             System.out.println(); // blank line before user input
             String rawInput = scanner.nextLine();
+            HashMap<String, String> map = parse(rawInput);
 
-            // Parse user input into command and arguments
-            String[] inputs = rawInput.split(" ", 2);
-            String command = inputs[0];
-            String args;
-
-            switch (command) {
+            switch (map.get("command")) {
                 case "bye":
                     isChatting = false;
                     say_goodbye();
@@ -96,19 +141,38 @@ public class Qwerty {
                     list_tasks();
                     break;
                 case "mark":
-                    args = inputs[1];
-                    int indexToMark = Integer.parseInt(args);
-                    markTaskAsDone(indexToMark);
+                    markTaskAsDone(
+                            Integer.parseInt(map.get("command_args"))
+                    );
                     break;
                 case "unmark":
-                    args = inputs[1];
-                    int indexToUnmark = Integer.parseInt(args);
-                    markTaskAsNotDone(indexToUnmark);
+                    markTaskAsNotDone(
+                            Integer.parseInt(map.get("command_args"))
+                    );
                     break;
-                case "":
+                case "todo":
+                    Task todoTask = new Todo(
+                            map.get("command_args")
+                    );
+                    add_task(todoTask);
+                    break;
+                case "deadline":
+                    Task deadlineTask = new Deadline(
+                            map.get("command_args"),
+                            map.get("by")
+                    );
+                    add_task(deadlineTask);
+                    break;
+                case "event":
+                    Task eventTask = new Event(
+                            map.get("command_args"),
+                            map.get("from"),
+                            map.get("to")
+                    );
+                    add_task(eventTask);
                     break;
                 default:
-                    add_task(rawInput);
+                    System.out.println("\nCommand unknown.");
             }
         }
     }
