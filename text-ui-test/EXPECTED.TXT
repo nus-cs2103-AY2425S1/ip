@@ -1,7 +1,102 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+------------------------------------
+    Hello, I am Sumo-DE
+           ___
+          |* *|
+          |\_/|
+  ---------------------
+  |                   |
+-----     SUMO      -----
+| | |               | | |
+-----      DE       -----
+  |                   |
+  ---------------------
+  |                   |
+  |      /-----\      |
+  |_____/       \_____|
+
+ How can Sumo help you?
+------------------------------------
+Sumo has added this task for you.
+[T][ ]Read Book
+There are now 1 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo has added this task for you.
+[D][ ]finish CS2103T IP (by: today)
+There are now 2 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo has added this task for you.
+[E][ ]watch CS2103T lecture (from: now to: tomorrow)
+There are now 3 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo has marked this task as done.
+[T][X]Read Book
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Below is the list of tasks:
+1. [T][X]Read Book
+2. [D][ ]finish CS2103T IP (by: today)
+3. [E][ ]watch CS2103T lecture (from: now to: tomorrow)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo confused. This task is marked as done in the first place!
+But SUMO will mark it as done again!
+[T][X]Read Book
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Below is the list of tasks:
+1. [T][X]Read Book
+2. [D][ ]finish CS2103T IP (by: today)
+3. [E][ ]watch CS2103T lecture (from: now to: tomorrow)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo has marked this task as  NOT done.
+[T][ ]Read Book
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Below is the list of tasks:
+1. [T][ ]Read Book
+2. [D][ ]finish CS2103T IP (by: today)
+3. [E][ ]watch CS2103T lecture (from: now to: tomorrow)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo confused. This task is not completed in the first place!
+But SUMO will mark it so NOT done again!
+[T][ ]Read Book
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Below is the list of tasks:
+1. [T][ ]Read Book
+2. [D][ ]finish CS2103T IP (by: today)
+3. [E][ ]watch CS2103T lecture (from: now to: tomorrow)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo has marked this task as done.
+[D][X]finish CS2103T IP (by: today)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Below is the list of tasks:
+1. [T][ ]Read Book
+2. [D][X]finish CS2103T IP (by: today)
+3. [E][ ]watch CS2103T lecture (from: now to: tomorrow)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+------------------------------------
+Goodbye! Sumo hope to see you again!
+------------------------------------
 

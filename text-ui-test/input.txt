@@ -1,0 +1,14 @@
+todo Read Book
+deadline finish CS2103T IP /by today
+event watch CS2103T lecture /from now /to tomorrow
+mark 1
+list
+mark 1
+list
+unmark 1
+list
+unmark 1
+list
+mark 2
+list
+bye

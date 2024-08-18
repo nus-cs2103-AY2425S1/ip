@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class SumoDE{
+public class SumoDE {
 
     public static void printTask(Task[] tasks) {
         System.out.println("Below is the list of tasks:");
@@ -26,19 +26,19 @@ public class SumoDE{
         // Note: those extra spaces before \n is done intentionally
         // so it is easier to see the logo and edit it subsequently
         // I know it is waste of space and unnecessary
-        String logo = "           ___           \n"
-                    + "          |* *|          \n"
-                    + "          |\\_/|          \n"
-                    + "  ---------------------  \n"
-                    + "  |                   |  \n"
+        String logo = "           ___\n"
+                    + "          |* *|\n"
+                    + "          |\\_/|\n"
+                    + "  ---------------------\n"
+                    + "  |                   |\n"
                     + "-----     SUMO      -----\n"
                     + "| | |               | | |\n"
                     + "-----      DE       -----\n"
-                    + "  |                   |  \n"
-                    + "  ---------------------  \n"
-                    + "  |                   |  \n"
-                    + "  |      /-----\\      |  \n"
-                    + "  |_____/       \\_____|  \n";
+                    + "  |                   |\n"
+                    + "  ---------------------\n"
+                    + "  |                   |\n"
+                    + "  |      /-----\\      |\n"
+                    + "  |_____/       \\_____|\n";
 
         String goodbye = "------------------------------------\n"
                         + "Goodbye! Sumo hope to see you again!\n"
@@ -57,10 +57,12 @@ public class SumoDE{
 
         //Actual programme
 
-        System.out.println("    Hello, I am Sumo-DE \n"
+        System.out.println("------------------------------------\n" +
+                "    Hello, I am Sumo-DE\n"
                 + logo
                 + '\n'
-                + " How can Sumo help you?"
+                + " How can Sumo help you?\n"
+                + "------------------------------------"
         );
 
         Scanner sc = new Scanner(System.in);
@@ -108,7 +110,7 @@ public class SumoDE{
                 case "deadline":
                 case "event":
                     tasks[tasksIndex] = Task.of(command, item);  // used factory method to be more neat and OOP
-                    System.out.println("Sumo has added this task for you. \n"
+                    System.out.println("Sumo has added this task for you.\n"
                             + tasks[tasksIndex]
                             + "\n"
                             + "There are now "
@@ -119,6 +121,12 @@ public class SumoDE{
                 default:
                     tasks[tasksIndex++] = new Todo(input);
                     System.out.println(("Added: " +input));
+            }
+
+            if (!terminate) {
+                System.out.println("------------------------------------\n" +
+                        "Do you need anything else from SUMO?\n" +
+                        "------------------------------------");
             }
         }
 

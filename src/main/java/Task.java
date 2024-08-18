@@ -15,6 +15,9 @@ public class Task {
             case "deadline":
                 {
                     int spaceLocation = item.indexOf(" /by ");
+                    if (spaceLocation  == -1) {
+                        return new Task(""); // will replace with error in future
+                    }
                     String name = item.substring(0,spaceLocation);
                     String due = item.substring(spaceLocation + 5);
                     return new Deadline(name, due);
@@ -46,7 +49,9 @@ public class Task {
 
     public void mark() {
         if (completed) {
-            System.out.println("Sumo confused. This task is marked as done in the first place!");
+            System.out.println("Sumo confused. This task is marked as done in the first place!\n"
+                            + "But SUMO will mark it as done again!"
+                    );
         } else {
             System.out.println("Sumo has marked this task as done.");
             this.completed = true;
@@ -56,7 +61,9 @@ public class Task {
 
     public void unmark() {
         if (!completed) {
-            System.out.println("Sumo confused. This task is not completed in the first place!");
+            System.out.println("Sumo confused. This task is not completed in the first place!\n"
+                            + "But SUMO will mark it so NOT done again!"
+                    );
         } else {
             System.out.println("Sumo has marked this task as  NOT done.");
             this.completed = false;
