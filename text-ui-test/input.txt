@@ -21,4 +21,6 @@ list
 mark 4
 unmark 69
 list
+delete 4
+delete 3
 bye

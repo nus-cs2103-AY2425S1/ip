@@ -25,23 +25,40 @@ public class SumoDE {
                 printTask(tasks);
                 break;
             case "mark":
-            {
-                int index = Integer.parseInt(item);
-                if (index > tasks.size() || index <= 0) {
-                    throw new NonExistentTaskException(index);
+                {
+                    int index = Integer.parseInt(item);
+                    if (index > tasks.size() || index <= 0) {
+                        throw new NonExistentTaskException(index);
+                    }
+                    tasks.get(index-1).mark();
                 }
-                tasks.get(index-1).mark();
-            }
-            break;
+                break;
             case "unmark":
-            {
-                int index = Integer.parseInt(item);
-                if (index > tasks.size() || index <= 0) {
-                    throw new NonExistentTaskException(index);
+                {
+                    int index = Integer.parseInt(item);
+                    if (index > tasks.size() || index <= 0) {
+                        throw new NonExistentTaskException(index);
+                    }
+                    tasks.get(index - 1).unmark();
                 }
-                tasks.get(index - 1).unmark();
-            }
-            break;
+                break;
+            case "delete":
+                {
+                    int index = Integer.parseInt(item);
+                    if (index > tasks.size() || index <= 0) {
+                        throw new NonExistentTaskException(index);
+                    }
+                    System.out.println(
+                            "Sumo removed this task for you.\n"
+                            + tasks.get(index - 1)
+                            + "\n"
+                            + "There are now "
+                            + (tasks.size()-1)
+                            + " task(s) in total!"
+                    );
+                    tasks.remove(index - 1);
+                }
+                break;
             case "todo":
             case "deadline":
             case "event":

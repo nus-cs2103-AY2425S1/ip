@@ -148,6 +148,17 @@ Below is the list of tasks:
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
+Sumo cannot find task #4.
+Can you check your index by checking "list" pleaseeeeeeeeee.....
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo removed this task for you.
+[E][X]watch CS2103T lecture (from: now to: tomorrow)
+There are now 2 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
 ------------------------------------
 Goodbye! Sumo hope to see you again!
 ------------------------------------
