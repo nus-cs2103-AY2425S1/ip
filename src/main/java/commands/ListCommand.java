@@ -2,6 +2,7 @@ package commands;
 
 import common.Command;
 import common.Ui;
+import storage.Task;
 import storage.TaskStorage;
 
 public class ListCommand extends Command {
@@ -10,7 +11,7 @@ public class ListCommand extends Command {
         StringBuilder list = new StringBuilder();
         int index = 1;
 
-        for (String task : storage.getTasks()) {
+        for (Task task : storage.getTasks()) {
             list.append(index).append(". ").append(task).append("\n");
             index++;
         }
