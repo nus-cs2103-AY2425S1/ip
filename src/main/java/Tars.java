@@ -33,12 +33,47 @@ public class Tars {
                     yield "Please specify which task to unmark.";
                 }
             }
+            case "todo" -> {
+                if (!second.isEmpty()) {
+                    Todo todo = new Todo(second, false);
+                    addTask(todo);
+                    yield getResponse(todo);
+                } else {
+                    yield "Please specify the task description";
+                }
+            }
+            case "deadline" -> {
+                if (!second.isEmpty()) {
+                    String[] parts = second.split(" /by ", 2);
+                    if (parts.length > 1) {
+                        Deadline deadline = new Deadline(parts[0], false, parts[1]);
+                        addTask(deadline);
+                        yield getResponse(deadline);
+                    } else {
+                        yield "Please specify the deadline in the following format: deadline task /by date";
+                    }
+                } else {
+                    yield "Please specify the task description";
+                }
+            }
+            case "event" -> {
+                if (!second.isEmpty()) {
+                    String[] parts = second.split(" /from | /to ", 3);
+                    if (parts.length > 2) {
+                        Event event = new Event(parts[0], false, parts[1], parts[2]);
+                        addTask(event);
+                        yield getResponse(event);
+                    } else {
+                        yield "Please specify the event in the following format: event task /from time /to time";
+                    }
+                } else {
+                    yield "Please specify the task description.";
+                }
+            }
             case "humour" -> ("One hundred percent");
             case "honesty" -> ("Ninety percent");
-            default -> {
-                addTask(input);
-                yield ("added: " + input);
-            }
+            case "caution" -> ("Cooper, this is no time for caution!");
+            default -> "I'm sorry, I can't quite help you with that";
         };
     }
 
@@ -50,8 +85,8 @@ public class Tars {
         return ("Here are the tasks in your list: \n" + result.toString().trim());
     }
 
-    private void addTask(String input) {
-        this.tasks.add(new Task(input, false));
+    private void addTask(Task task) {
+        this.tasks.add(task);
     }
 
     private String markDone(String input) {
@@ -81,6 +116,10 @@ public class Tars {
         return ("The task you specified cannot be found. Please try again");
     }
 
+    private String getResponse(Task task) {
+        return "Got it. I've added this task: \n" + task.toString() + "\n" + "Now you have "
+                + this.tasks.size() + " tasks in the list\n";
+    }
 
     public static void main(String[] args) {
         System.out.println("____________________________________");
