@@ -12,6 +12,12 @@ public class ZBot {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 listTask();
+            } else if (input.startsWith("mark")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                markTaskAsDone(taskNumber);
+            } else if (input.startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                markTaskAsUndone(taskNumber);
             } else {
                 storeTask(input);
             }
@@ -46,6 +52,20 @@ public class ZBot {
                 System.out.println(String.format("%d. %s", i + 1, tasks[i]));
             }
         }
+        System.out.println();
+    }
+
+    public static void markTaskAsDone(int taskNumber) {
+        tasks[taskNumber - 1].markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(tasks[taskNumber - 1]);
+        System.out.println();
+    }
+
+    public static void markTaskAsUndone(int taskNumber) {
+        tasks[taskNumber - 1].markAsUndone();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(tasks[taskNumber - 1]);
         System.out.println();
     }
 }
