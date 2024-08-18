@@ -1,4 +1,12 @@
-deadline food /by 3 jun
-event food /from 3 may /to 3 jun
+todo slingshot around gargantua
+deadline Get back to the endurance /by 23 years
+event The Lazarus Missions /from 10 years ago /to now
+list
+a
+b
+c
+mark 1
+mark The Lazarus Missions
+unmark The Lazarus Missions
 list
 bye

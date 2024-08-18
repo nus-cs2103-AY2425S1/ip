@@ -5,25 +5,65 @@ ____________________________________
 
 ____________________________________
 Got it. I've added this task:
-[D][ ] food (by: 3 jun)
+[T] [ ] slingshot around gargantua
 Now you have 1 tasks in the list
 
 ____________________________________
 
 ____________________________________
 Got it. I've added this task:
-[E] [ ] food (from: 3 may to: 3 jun)
+[D] [ ] Get back to the endurance (by: 23 years)
 Now you have 2 tasks in the list
 
 ____________________________________
 
 ____________________________________
+Got it. I've added this task:
+[E] [ ] The Lazarus Missions (from: 10 years ago to: now)
+Now you have 3 tasks in the list
+
+____________________________________
+
+____________________________________
 Here are the tasks in your list:
-1. [D][ ] food (by: 3 jun)
-2. [E] [ ] food (from: 3 may to: 3 jun)
+1. [T] [ ] slingshot around gargantua
+2. [D] [ ] Get back to the endurance (by: 23 years)
+3. [E] [ ] The Lazarus Missions (from: 10 years ago to: now)
+____________________________________
+
+____________________________________
+I'm sorry, I can't quite help you with that
+____________________________________
+
+____________________________________
+I'm sorry, I can't quite help you with that
+____________________________________
+
+____________________________________
+I'm sorry, I can't quite help you with that
+____________________________________
+
+____________________________________
+The task you specified cannot be found. Please try again
+____________________________________
+
+____________________________________
+Nice! I've marked this task as done:
+  [E] [X] The Lazarus Missions (from: 10 years ago to: now)
+____________________________________
+
+____________________________________
+OK, I've marked this task as not done yet:
+  [E] [ ] The Lazarus Missions (from: 10 years ago to: now)
+____________________________________
+
+____________________________________
+Here are the tasks in your list:
+1. [T] [ ] slingshot around gargantua
+2. [D] [ ] Get back to the endurance (by: 23 years)
+3. [E] [ ] The Lazarus Missions (from: 10 years ago to: now)
 ____________________________________
 
 ____________________________________
 Bye. Hope to see you again soon!
 ____________________________________
-
