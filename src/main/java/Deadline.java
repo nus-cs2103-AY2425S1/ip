@@ -2,7 +2,7 @@ public class Deadline extends Input {
     String deadline;
 
     public Deadline(String input) {
-        super(input.split(" ", 2)[1].split("/",2)[0]);
+        super(input.split(" ",2)[1].split("/",2)[0]);
         this.deadline = input.split("/by")[1];
 
     }

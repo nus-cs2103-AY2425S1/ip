@@ -21,7 +21,7 @@ public class Input {
             System.out.println("This has already been marked");
         } else {
             this.done = true;
-            System.out.print("I have marked the task as done: \n" + this + "\n");
+            System.out.print("I have marked the task as done:\n" + this + "\n");
         }
     }
 

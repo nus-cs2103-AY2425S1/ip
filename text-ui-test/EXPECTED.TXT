@@ -8,9 +8,9 @@ You have 2 tasks in the list.
 Noted. I have added this task:
 [E] [ ] tuition (from: 230pm  to: 430pm)
 You have 3 tasks in the list.
-Whoopsie! Please enter a task
-Whoopsie! I am unable to understand your request!
+I have marked the task as done:
+[T] [X] sleep
 Noted. I have deleted this task:
-[T] [ ] sleep
+[T] [X] sleep
 You have 2 tasks in the list.
 Bye! Come back to Hoodini soon!
