@@ -30,8 +30,10 @@ public class ZBot {
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter a valid task number!\n");
                 }
-            } else {
+            } else if (input.startsWith("todo")) {
                 storeTask(input);
+            } else {
+                System.out.println("Invalid command.\n");
             }
 
             input = sc.nextLine();
@@ -51,7 +53,8 @@ public class ZBot {
     }
 
     public static void storeTask(String input) {
-        Task task = new Task(input);
+        String description = input.split(" ", 2)[1];
+        Task task = new ToDo(description);
         tasks[taskIndex] = task;
         taskIndex = (taskIndex + 1) % 100;
         System.out.println(String.format("Added Task: %s\n", task));
