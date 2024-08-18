@@ -22,23 +22,29 @@ public class Bruno {
                 firstWord = userResponse;
             }
 
-            if (userResponse.equals("bye")) {
-                running = false;
-                printByeMessage();
-            } else if (userResponse.equals("list")) {
-                printList();
-            } else if (firstWord.equals("mark")) {
-                markTask(restOfString);
-            } else if (firstWord.equals("unmark")) {
-                unmarkTask(restOfString);
-            } else if (firstWord.equals("todo")) {
-                addTask(restOfString, firstWord);
-            } else if (firstWord.equals("deadline")) {
-                addTask(restOfString, firstWord);
-            } else if (firstWord.equals("event")) {
-                addTask(restOfString, firstWord);
-            } else {
-                System.out.println("Sorry, I could not understand");
+            try {
+                if (userResponse.equals("bye")) {
+                    running = false;
+                    printByeMessage();
+                } else if (userResponse.equals("list")) {
+                    printList();
+                } else if (firstWord.equals("mark")) {
+                    markTask(restOfString);
+                } else if (firstWord.equals("unmark")) {
+                    unmarkTask(restOfString);
+                } else if (firstWord.equals("todo")) {
+                    addTask(restOfString, firstWord);
+                } else if (firstWord.equals("deadline")) {
+                    addTask(restOfString, firstWord);
+                } else if (firstWord.equals("event")) {
+                    addTask(restOfString, firstWord);
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (BrunoException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(e.getMessage());
+                System.out.println("____________________________________________________________");
             }
         }
     }
@@ -55,19 +61,29 @@ public class Bruno {
         System.out.println("____________________________________________________________");
     }
 
-    public static void addTask(String str, String type) {
+    public static void addTask(String str, String type) throws BrunoException {
+        if (str.trim().isEmpty()) {
+            throw new EmptyTaskException();
+        }
+
         Task task = null;
         boolean recognized = true;
         if (type.equals("todo")) {
             task = new ToDo(str);
         } else if (type.equals("deadline")) {
-            String description = str.substring(0, str.indexOf(" /by"));
-            String by = str.substring(str.indexOf(" /by") + 5);
+            if (!str.contains("/by")) {
+                throw new MissingFieldException();
+            }
+            String description = str.substring(0, str.indexOf("/by")).trim();
+            String by = str.substring(str.indexOf("/by") + 4).trim();
             task = new Deadline(description, by);
         } else if (type.equals("event")) {
-            String description = str.substring(0, str.indexOf(" /from"));
-            String from = str.substring(str.indexOf(" /from") + 7, str.indexOf("/to"));
-            String to = str.substring(str.indexOf(" /to") + 5);
+            if (!str.contains("/from") || !str.contains("/to")) {
+                throw new MissingFieldException();
+            }
+            String description = str.substring(0, str.indexOf("/from")).trim();
+            String from = str.substring(str.indexOf("/from") + 6, str.indexOf("/to")).trim();
+            String to = str.substring(str.indexOf("/to") + 4).trim();
             task = new Event(description, from, to);
         } else {
             recognized = false;
@@ -80,9 +96,7 @@ public class Bruno {
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
         } else {
-            System.out.println("____________________________________________________________");
-            System.out.println("Event type not recognized");
-            System.out.println("____________________________________________________________");
+            throw new UnknownCommandException();
         }
     }
 
@@ -96,19 +110,27 @@ public class Bruno {
         System.out.println("____________________________________________________________");
     }
 
-    public static void markTask(String num) {
-        Task task = taskList.get(Integer.parseInt(num) - 1);
-        task.complete();
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:\n" + task);
-        System.out.println("____________________________________________________________");
+    public static void markTask(String num) throws BrunoException {
+        try {
+            Task task = taskList.get(Integer.parseInt(num) - 1);
+            task.complete();
+            System.out.println("____________________________________________________________");
+            System.out.println("Nice! I've marked this task as done:\n" + task);
+            System.out.println("____________________________________________________________");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidTaskIndexException();
+        }
     }
 
-    public static void unmarkTask(String num) {
-        Task task = taskList.get(Integer.parseInt(num) - 1);
-        task.uncomplete();
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:\n" + task);
-        System.out.println("____________________________________________________________");
+    public static void unmarkTask(String num) throws BrunoException {
+        try {
+            Task task = taskList.get(Integer.parseInt(num) - 1);
+            task.uncomplete();
+            System.out.println("____________________________________________________________");
+            System.out.println("Nice! I've unmarked this task as done:\n" + task);
+            System.out.println("____________________________________________________________");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidTaskIndexException();
+        }
     }
 }

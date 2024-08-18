@@ -7,4 +7,9 @@ list
 mark 4
 todo borrow book
 list
+todo
+mark 7
+deadline submit assignment
+what is your name?
+list
 bye
