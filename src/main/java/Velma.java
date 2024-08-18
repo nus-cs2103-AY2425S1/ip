@@ -28,11 +28,19 @@ public class Velma {
                 System.out.println("Bye. Hope to see you again soon!");
                 printLine();
                 break;
+            } else if (request.contains("todo")) {
+                String todoDescription = request.replaceFirst("todo\\s+", "");
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                Task newTodo = new Todo(todoDescription);
+                list.add(newTodo);
+                System.out.println("  " + newTodo.toString());
+                System.out.println("Now you have " + list.size() + " tasks in the list");
             } else if (request.equals("list")) {
                 printLine();
                 System.out.println("Here are the tasks in your list:");
                 for (Task task : list) {
-                    System.out.println(count + ". " + "[" + task.getStatusIcon() + "] " + task.description);
+                    System.out.println(count + ". " + task.toString());
                     count++;
                 }
                 printLine();
