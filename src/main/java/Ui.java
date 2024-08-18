@@ -28,7 +28,6 @@ public class Ui {
     }
 
     public String readCommand() {
-        System.out.print("-> ");
         return scanner.nextLine();
     }
 
