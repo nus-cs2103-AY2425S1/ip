@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class TodoList {
-    private ArrayList<Todo> todoList = new ArrayList<>();
+    private ArrayList<Task> todoList = new ArrayList<>();
 
     public TodoList() {
 
@@ -12,17 +12,26 @@ public class TodoList {
      * @param todo The description of the todo item to be added.
      * @return The update list of Todo items.
      */
-    public ArrayList<Todo> add(String todo) {
-        todoList.add(new Todo(todo));
+    public ArrayList<Task> add(String todo) {
+        todoList.add(new Task(todo));
         return todoList;
+    }
+
+    /**
+     * 
+     * @param i
+     * @return
+     */
+    public Task get(int i) {
+        return todoList.get(i);
     }
 
     @Override
     public String toString() {
-        String string = "";
+        String string = "Here are the tasks in your list:\n";
         int size = this.todoList.size();
         for (int i = 0; i < size; i++) {
-            string += String.format("%d. %s", i + 1, todoList.get(i));
+            string += String.format("%d.%s", i + 1, todoList.get(i));
             if (i != size - 1) {
                 string += "\n";
             }
