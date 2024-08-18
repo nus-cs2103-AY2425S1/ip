@@ -7,8 +7,20 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public void setNotDone() {
+        this.isDone = false;
     }
 
     @Override

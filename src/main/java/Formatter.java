@@ -13,21 +13,41 @@ public class Formatter {
     public static String formatTaskListings(int numTasks, Task[] tasks) {
         StringBuilder str = new StringBuilder();
 
-        str.append(formattedBorder());
+        str.append(Formatter.formattedBorder());
         str.append(Formatter.SPACING + " " + "Here are the tasks in your list:" + "\n");
         for (int i = 0; i < numTasks; i++) {
             str.append(Formatter.formatSingleTask(i + 1, tasks[i]));
         }
-        str.append(formattedBorder());
+        str.append(Formatter.formattedBorder());
 
         return str.toString();
     }
 
     public static String formatOutputMessage(String input) {
         return (
-            formattedBorder() +
+            Formatter.formattedBorder() +
             Formatter.SPACING + " " +  input + "\n" +
-            formattedBorder()
+            Formatter.formattedBorder()
+        );
+    }
+
+    public static String formatMarkTask(Task task) {
+        return (
+            Formatter.formattedBorder()  +
+            Formatter.SPACING + " " + "Nice! I've marked this task as done:" + "\n" +
+            Formatter.SPACING + "   [" + task.getStatusIcon() + "] " +
+            task.getDescription() + "\n" +
+            Formatter.formattedBorder()
+        );
+    }
+
+    public static String formatUnmarkTask(Task task) {
+        return (
+                Formatter.formattedBorder()  +
+            Formatter.SPACING + " " + "OK, I've marked this task as not done yet:" + "\n" +
+            Formatter.SPACING + "   [" + task.getStatusIcon() + "] " +
+            task.getDescription() + "\n" +
+            Formatter.formattedBorder()
         );
     }
 }

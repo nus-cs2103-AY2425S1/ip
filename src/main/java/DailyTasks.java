@@ -25,9 +25,13 @@ public class DailyTasks {
             } else if (userInput.equals("list")) {
                 System.out.println(Formatter.formatTaskListings(taskCounter, dailyTasks.tasks));
             } else if (userInput.contains("unmark")) {
-                
+                int index = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+                dailyTasks.tasks[index].setNotDone();
+                System.out.println(Formatter.formatUnmarkTask(dailyTasks.tasks[index]));
             } else if (userInput.contains("mark")) {
-                
+                int index = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+                dailyTasks.tasks[index].setDone();
+                System.out.println(Formatter.formatMarkTask(dailyTasks.tasks[index]));
             } else {
                 dailyTasks.tasks[taskCounter++] = new Task(userInput); // save the user's input into memory
 
