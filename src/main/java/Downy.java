@@ -41,7 +41,7 @@ public class Downy {
                     System.out.printf(divider);
                     System.out.println("Ok! This task is not complete:\n  " + t);
                 }
-                System.out.printf(divider);
+                System.out.println(divider);
                 continue;
             }
             switch (command) {
