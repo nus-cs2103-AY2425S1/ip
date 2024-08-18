@@ -4,7 +4,7 @@ public class KorolevTodo extends KorolevTask {
     private String tag;
 
     public KorolevTodo(String name) {
-        super(EventParser.parseName("todo", "", name));
+        super(name);
         this.tag = "T";
     }
 

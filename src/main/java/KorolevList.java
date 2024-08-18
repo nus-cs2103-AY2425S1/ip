@@ -1,3 +1,6 @@
+import utils.EventParser;
+import utils.ParseException;
+
 import java.util.ArrayList;
 public class KorolevList {
     private ArrayList<KorolevTask> events;
@@ -6,21 +9,51 @@ public class KorolevList {
         this.events = new ArrayList<>();
     }
 
-    public void addEvent(String event) {
-        System.out.println("Got it. I've added this task:");
+    public void addEvent(String event) throws DukeException {
         KorolevTask e;
+        String name;
+        String date;
         if (event.contains("event")) {
-            e = new KorolevEvent(event);
+
+            try {
+
+                name = EventParser.parseName("event", "/from", event);
+                date = EventParser.parseDate(event);
+                e = new KorolevEvent(name, date);
+                this.events.add(e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
+            } catch (ParseException exp) {
+                System.out.println(exp.getMessage());
+            }
         } else if (event.contains("todo")) {
-            e = new KorolevTodo(event);
+            try {
+                name = EventParser.parseName("todo", "", event);
+                e = new KorolevTodo(name);
+                this.events.add(e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
+            } catch (ParseException exp) {
+                System.out.println(exp.getMessage());
+            }
+
         } else if (event.contains("deadline")) {
-            e = new KorolevDeadline(event);
+            try {
+                name = EventParser.parseName("deadline", "/by", event);
+                date = EventParser.parseDate(event);
+                e = new KorolevDeadline(name, date);
+                this.events.add(e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
+            } catch (ParseException exp) {
+                System.out.println(exp.getMessage());
+            }
         } else {
-            e = new KorolevTask(event);
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
-        System.out.println(e);
-        this.events.add(e);
+
+
         System.out.println("Now you have " + events.size() + " tasks in the list");
     }
 

@@ -3,9 +3,9 @@ import utils.EventParser;
 public class KorolevDeadline extends KorolevTask{
     private String deadline;
     private String tag;
-    public KorolevDeadline(String name) {
-        super(EventParser.parseName("deadline", "/by", name));
-        this.deadline = EventParser.parseDate(name);
+    public KorolevDeadline(String name, String date) {
+        super(name);
+        this.deadline = date;
         this.tag = "D";
     }
 

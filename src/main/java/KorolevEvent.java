@@ -3,9 +3,9 @@ public class KorolevEvent extends KorolevTask{
     private String deadline;
     private String tag;
 
-    public KorolevEvent(String name) {
-        super(EventParser.parseName("event", "/from", name));
-        this.deadline = EventParser.parseDate(name);
+    public KorolevEvent(String name, String date) {
+        super(name);
+        this.deadline = date;
         this.tag = "E";
     }
 

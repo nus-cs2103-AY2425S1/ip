@@ -49,7 +49,11 @@ public class DukeKorolev {
                 System.out.println(markNotice);
                 repo.markEvent(DukeKorolev.findIndex(input) - 1);
             } else {
-                repo.addEvent(input);
+                try {
+                    repo.addEvent(input);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             System.out.println(divider);
         }
