@@ -1,5 +1,9 @@
 package sigma;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import sigma.command.CommandType;
 import sigma.exception.SigmaEmptyTaskListException;
 import sigma.exception.SigmaException;
@@ -16,10 +20,6 @@ import sigma.task.Event;
 import sigma.task.Task;
 import sigma.task.TaskList;
 import sigma.task.Todo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The {@code Sigma} class serves as the main application class, handling

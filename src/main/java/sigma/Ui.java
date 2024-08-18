@@ -13,7 +13,6 @@ import sigma.task.TaskList;
  * showing information related to tasks.
  */
 public class Ui {
-    private Scanner scanner;
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String LOGO =
             "   _____ _                       \n"
@@ -24,6 +23,7 @@ public class Ui {
                     + " |_____/|_|\\__, |_| |_| |_|\\__,_|\n"
                     + "            __/ |                \n"
                     + "           |___/                 \n";
+    private Scanner scanner;
 
 
     /**

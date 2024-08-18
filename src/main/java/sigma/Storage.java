@@ -12,8 +12,8 @@ import java.util.Scanner;
 import sigma.exception.SigmaException;
 import sigma.exception.SigmaFileException;
 import sigma.exception.SigmaFileFormatException;
-import sigma.task.Event;
 import sigma.task.Deadline;
+import sigma.task.Event;
 import sigma.task.Task;
 import sigma.task.Todo;
 
