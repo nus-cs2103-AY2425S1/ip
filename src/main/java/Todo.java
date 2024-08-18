@@ -1,0 +1,15 @@
+/**
+ * This class encapsulates a Todo type task.
+ * A Todo task is not attached to any date or time.
+ */
+public class Todo extends Task {
+
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
