@@ -7,7 +7,14 @@ mark 2
 mark 1
 unmark 2
 unmark 3
-lost
 
+lost
+make 1
+deadline
+event project meeting
+event project meeting /start Mon 2pm /end 4pm
+mark a
+mark 100
+mark -1
 list
 bye
