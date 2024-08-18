@@ -8,7 +8,7 @@ public class Task {
         this.name = name;
     }
 
-    public static Task of(String command, String item) throws WrongSyntaxForCommandException {
+    public static Task of(String command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
         switch(command) {
             case "todo":
                 return new Todo(item);
@@ -28,7 +28,7 @@ public class Task {
                     int toLocation = item.indexOf(" /to ");
                     String name, start, end;
                     if (fromLocation == -1 || toLocation == -1) {
-                        throw new WrongSyntaxForCommandException(command); // will replace with error in future
+                        throw new WrongSyntaxForCommandException(command);
                     }
                     if (fromLocation < toLocation) {
                         name = item.substring(0,fromLocation);
@@ -42,7 +42,7 @@ public class Task {
                     return new Event(name,start,end);
                 }
             default:
-                return new Task("");  // shouldn't happen
+                throw new UnknownCommandException(command);  // shouldn't happen
         }
 
     }

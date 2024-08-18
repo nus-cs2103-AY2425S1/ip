@@ -16,4 +16,7 @@ event watch c-drama /from tonight
 event watch k-drama /to tomorrow
 this is a non-existent command
 list
+mark 69
+unmark 69
+list
 bye

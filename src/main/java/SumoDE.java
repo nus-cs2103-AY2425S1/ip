@@ -101,12 +101,18 @@ public class SumoDE {
                     case "mark":
                     {
                         int index = Integer.parseInt(item);
+                        if (index >= tasksIndex || index <= 0) {
+                            throw new NonExistentTaskException(index);
+                        }
                         tasks[index-1].mark();
                     }
                     break;
                     case "unmark":
                     {
                         int index = Integer.parseInt(item);
+                        if (index >= tasksIndex || index <= 0) {
+                            throw new NonExistentTaskException(index);
+                        }
                         tasks[index-1].unmark();
                     }
                     break;
@@ -125,7 +131,7 @@ public class SumoDE {
                     default:
                        throw new UnknownCommandException(command);
                 }
-            } catch (WrongSyntaxForCommandException | UnknownCommandException e) {
+            } catch (WrongSyntaxForCommandException | UnknownCommandException | NonExistentTaskException e) {
                 System.out.println(e.getMessage());
             } finally {
                 if (!terminate) {
