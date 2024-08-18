@@ -29,10 +29,12 @@ public class Velma {
                 printLine();
                 break;
             } else if (request.equals("list")) {
+                printLine();
                 for (String s : list) {
                     System.out.println(count + ". " + s);
                     count++;
                 }
+                printLine();
                 count = 1;
             } else {
                 list.add(request);
