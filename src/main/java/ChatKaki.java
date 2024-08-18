@@ -12,6 +12,7 @@ public class ChatKaki {
         System.out.println("____________________________________________________________\n");
     }
 
+    //deprecated
     public static void sayTask(String message) {
         taskHistory[Task.taskCount] = new Task(message);
         System.out.println("\n____________________________________________________________");
@@ -27,6 +28,7 @@ public class ChatKaki {
 
     public static void sayList() {
         System.out.println("\n____________________________________________________________");
+        System.out.println("Here are the tasks in your list:");
         for (int i=0; i < Task.taskCount; i++) {
             System.out.println(" " + (i + 1) + ". " + taskHistory[i]);
         }
@@ -52,6 +54,50 @@ public class ChatKaki {
         taskHistory[index-1].MarkAsUndone();
     }
 
+    private static void addTask(Task task) {
+         taskHistory[Task.taskCount - 1] = task;
+         System.out.println("\n____________________________________________________________");
+         System.out.println(" Got it. I've added this task:");
+         System.out.println("   " + task.toString());
+         System.out.println(" Now you have " + Task.taskCount + " task" + (Task.taskCount == 1 ? "" : "s") +  " in the list.");
+         System.out.println("____________________________________________________________\n");
+
+    }
+
+    public static void createTodo(String[] inputs) {
+        if (inputs.length > 1) {
+            addTask(new Todo(inputs[1]));
+        } else {
+            System.out.println(" The description of a todo cannot be empty.");
+        }
+    }
+
+    public static void createDeadline(String[] inputs) {
+        if (inputs.length > 1) {
+            String[] deadlineParts = inputs[1].split(" /by ");
+            if (deadlineParts.length == 2) {
+                addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            } else {
+                System.out.println(" Invalid Deadline format");
+            }
+        } else {
+            System.out.println(" The description of a todo cannot be empty.");
+        }
+    }
+
+    public static void createEvent(String[] inputs) {
+        if (inputs.length > 1) {
+            String[] eventParts = inputs[1].split(" /from | /to ");
+             if (eventParts.length == 3) {
+                 addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+             } else {
+                 System.out.println(" Invalid Event format");
+             }
+        } else {
+            System.out.println(" The description of a todo cannot be empty.");
+        }
+    }
+
     public static void chatService() {
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -62,6 +108,15 @@ public class ChatKaki {
             String command = inputs[0];
 
             switch (command) {
+                case "todo":
+                    createTodo(inputs);
+                    break;
+                case "deadline":
+                    createDeadline(inputs);
+                    break;
+                case "event":
+                    createEvent(inputs);
+                    break;
                 case "bye":
                     sayBye();
                     return;
@@ -75,7 +130,7 @@ public class ChatKaki {
                     sayList();
                     break;
                 default:
-                    sayTask(userInput);
+                    System.out.println("Command not found");
                     break;
             }
         }
