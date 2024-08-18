@@ -32,10 +32,21 @@ public class Tecna {
     public void getRequest() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
+        String[] input_words = input.split(" ");
         while (!input.equalsIgnoreCase("bye")) {
             System.out.println("----------------------------------------------");
             if (input.equalsIgnoreCase("list")) {
                 this.listItems();
+            } else if (input_words[0].equalsIgnoreCase("mark")) {
+                int index = Integer.valueOf(input_words[1]);
+                todo[index - 1].markAsDone();
+                System.out.println("Nice job! I've mark this as done. You deserve a short break <3");
+                System.out.println(todo[index - 1]);
+            } else if (input_words[0].equalsIgnoreCase("unmark")) {
+                int index = Integer.valueOf(input_words[1]);
+                todo[index - 1].unMarkAsDone();
+                System.out.println("I've mark this as undone. Keep going, my friend!");
+                System.out.println(todo[index - 1]);
             } else {
                 this.addItem(input);
             }
@@ -43,6 +54,7 @@ public class Tecna {
             System.out.println("----------------------------------------------");
 
             input = sc.nextLine();
+            input_words = input.split(" ");
         }
         this.exitChatBot();
         sc.close();
@@ -56,6 +68,7 @@ public class Tecna {
     }
 
     public void listItems() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.todoSize; ++i) {
             System.out.println(i + 1 + ". " + this.todo[i]);
         }
