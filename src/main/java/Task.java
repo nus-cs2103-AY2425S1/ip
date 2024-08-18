@@ -1,10 +1,12 @@
-public class Task {
-    private String description;
+public abstract class Task {
+    private final String description;
     private boolean isDone;
+    private final TaskType taskType;
 
-    public Task(String description) {
+    public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
     }
 
     public String getStatus() {
