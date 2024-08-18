@@ -21,6 +21,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.taskName;
+        return String.format("%s %s", this.getStatus(), this.taskName);
     }
 }
