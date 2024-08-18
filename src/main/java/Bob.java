@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 public class Bob {
@@ -10,22 +11,38 @@ public class Bob {
                 """;
         System.out.println(greeting);
 
+        ArrayList<String> list = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             String input = in.nextLine();
-            if (!Objects.equals(input, "bye")) {
-                System.out.println("____________________________________________________________\n"
-                        + " " + input + "\n"
-                        + "____________________________________________________________\n"
-                );
-            } else {
-                String exit = """
-                ____________________________________________________________
-                 Bye. Hope to see you again soon!
-                ____________________________________________________________
-                """;
-                System.out.println(exit);
-                System.exit(0);
+            switch (input) {
+                case "bye":
+                    String exit = """
+                        ____________________________________________________________
+                         Bye. Hope to see you again soon!
+                        ____________________________________________________________
+                        """;
+                    System.out.print(exit);
+                    System.exit(0);
+                case "list":
+                    StringBuilder listMsg = new StringBuilder("____________________________________________________________");
+                    for (int i = 0; i < list.size(); i++) {
+                        listMsg
+                                .append("\n ")
+                                .append(i + 1)
+                                .append(". ")
+                                .append(list.get(i));
+                    }
+                    listMsg.append("\n____________________________________________________________\n");
+                    System.out.print(listMsg);
+                    break;
+                default:
+                    list.add(input);
+                    String addedMsg = "____________________________________________________________\n"
+                            + " added: " + input + "\n"
+                            + "____________________________________________________________\n";
+                    System.out.print(addedMsg);
+                    break;
             }
         }
     }
