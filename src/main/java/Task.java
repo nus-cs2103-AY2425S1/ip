@@ -23,5 +23,6 @@ public abstract class Task {
     public void unMark() {
         this.isDone = false;
     }
-    //...
+
+    public abstract String printTask();
 }

@@ -28,7 +28,7 @@ public class Citadel {
         items = db.getTasks();
 
         for (int i = 0; i < items.size(); i++) {
-            System.out.println(items.get(i));
+            System.out.println(items.get(i).printTask());
         }
         while (true) {
             try {
@@ -39,7 +39,7 @@ public class Citadel {
                 }
                 if (Commands.valueOf(command).equals(Commands.LIST)) {
                     for (int i = 0; i < items.size(); i++) {
-                        System.out.println((i + 1) + ". " + items.get(i));
+                        System.out.println((i + 1) + ". " + items.get(i).printTask());
                     }
                 } else if (Commands.valueOf(command).equals(Commands.MARK)) {
                     mark(input);
