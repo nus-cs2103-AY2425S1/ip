@@ -1,7 +1,9 @@
 package common;
 
 import common.Command;
-import commands.AddCommand;
+import commands.AddTodoCommand;
+import commands.AddDeadlineCommand;
+import commands.AddEventCommand;
 import commands.EchoCommand;
 import commands.ExitCommand;
 import commands.ListCommand;
@@ -13,18 +15,33 @@ public class Parser {
 
         String normalizedInput = input.trim().toLowerCase();
 
+//        if (normalizedInput.equals("bye")) {
+//            return new ExitCommand();
+//        } else if (normalizedInput.equals("list")) {
+//            return new ListCommand();
+//        } else if (normalizedInput.startsWith("mark ")) {
+//            String task = input.substring(5).trim();
+//            return new MarkCommand(task);
+//        } else if (normalizedInput.startsWith("unmark ")) {
+//            String task = input.substring(7).trim();
+//            return new UnmarkCommand(task);
+//        } else {
+//            return new EchoCommand(input);
+//        }
         if (normalizedInput.equals("bye")) {
             return new ExitCommand();
         } else if (normalizedInput.equals("list")) {
             return new ListCommand();
-        } else if (normalizedInput.startsWith("add ")) {
-            return new AddCommand(input.substring(4));
+        } else if (normalizedInput.startsWith("todo ")) {
+            return new AddTodoCommand(input);
+        } else if (normalizedInput.startsWith("deadline ")) {
+            return new AddDeadlineCommand(input);
+        } else if (normalizedInput.startsWith("event ")) {
+            return new AddEventCommand(input);
         } else if (normalizedInput.startsWith("mark ")) {
-            String task = input.substring(5).trim();
-            return new MarkCommand(task);
+            return new MarkCommand(input);
         } else if (normalizedInput.startsWith("unmark ")) {
-            String task = input.substring(7).trim();
-            return new UnmarkCommand(task);
+            return new UnmarkCommand(input);
         } else {
             return new EchoCommand(input);
         }

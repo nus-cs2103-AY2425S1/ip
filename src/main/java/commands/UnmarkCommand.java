@@ -9,7 +9,7 @@ public class UnmarkCommand extends Command {
     private String taskInput;
 
     public UnmarkCommand(String taskInput) {
-        this.taskInput = taskInput;
+        this.taskInput = taskInput.substring(7).trim();
     }
 
     @Override

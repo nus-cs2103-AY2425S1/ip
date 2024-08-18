@@ -9,7 +9,7 @@ public class MarkCommand extends Command {
     private String taskInput;
 
     public MarkCommand(String taskInput) {
-        this.taskInput = taskInput;
+        this.taskInput = taskInput.substring(5).trim();
     }
 
     @Override

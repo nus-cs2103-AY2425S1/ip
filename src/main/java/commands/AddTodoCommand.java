@@ -8,8 +8,8 @@ import storage.Todo;
 public class AddTodoCommand extends Command {
     private String description;
 
-    public AddTodoCommand(String description) {
-        this.description = description;
+    public AddTodoCommand(String input) {
+        this.description = input.substring(5).trim();
     }
 
     @Override
