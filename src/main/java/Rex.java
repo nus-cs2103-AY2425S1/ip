@@ -10,7 +10,7 @@ public class Rex {
     private static String rawr = "rawr";
 
     // "RAWRRRR" that comes with each error message
-    private static String errorPrefix = "RAWRRRR";
+    private static String errorPrefix = "RAWRRRR!!!";
 
     public static void main(String[] args) {
         // Rex's greeting message
@@ -31,49 +31,82 @@ public class Rex {
             String command = input[0];
 
             // Process user command
-            switch (command) {
-            // List all valid commands
-            case "help":
-                listCommands();
-                break;
-            // Adding a task to list
-            case "todo":
-            case "deadline":
-            case "event":
-                String argument = input[1];
-                Task newTask = createTask(command, argument);
-                list.add(newTask);
-                break;
-            // Display items added as a numbered list
-            case "list":
-                displayList(list);
-                break;
-            // Mark item in specified index as done
-            case "mark":
+            try {
+                switch (command) {
+                    // List all valid commands
+                    case "help":
+                        // help should be used alone
+                        if (input.length > 1) {
+                            throw new InvalidInputException(errorPrefix + " Too many arguments!");
+                        }
+
+                        listCommands();
+                        break;
+                    // Adding a task to list
+                    case "todo":
+                    case "deadline":
+                    case "event":
+                        // Argument cannot be empty
+                        if (input.length <= 1) {
+                            throw new InvalidInputException(errorPrefix + " Task description cannot be empty!");
+                        }
+
+                        String argument = input[1];
+                        Task newTask = createTask(command, argument);
+                        list.add(newTask);
+                        break;
+                    // Display items added as a numbered list
+                    case "list":
+                        // list should be used alone
+                        if (input.length > 1) {
+                            throw new InvalidInputException(errorPrefix + " Too MANY arguments!");
+                        }
+
+                        displayList(list);
+                        break;
+                    // Mark item in specified index as done
+                    case "mark":
+                        if (input.length <= 1) {
+                            throw new InvalidInputException(errorPrefix + " Too FEW arguments!");
+                        }
+
+                        System.out.println(separation);
+                        argument = input[1];
+                        int index = Integer.parseInt(argument);
+                        list.get(index - 1).markDone();
+                        break;
+                    // Unmark item in specified index as undone
+                    case "unmark":
+                        if (input.length <= 1) {
+                            throw new InvalidInputException(errorPrefix + " Too FEW arguments!");
+                        }
+                        
+                        System.out.println(separation);
+                        argument = input[1];
+                        index = Integer.parseInt(argument);
+                        list.get(index - 1).unmarkDone();
+                        break;
+                    // Rex's goodbye message, exit program
+                    case "bye":
+                        // bye should be used alone
+                        if (input.length > 1) {
+                            throw new InvalidInputException(errorPrefix + " Too many arguments!");
+                        }
+
+                        System.out.println(separation);
+                        System.out.println("Bye. Hope to see you again soon! " + rawr);
+                        System.out.println(separation);
+                        scanner.close();
+                        return;
+                    // Unknown command, guide user to recognized commands
+                    default:
+                        System.out.println(separation);
+                        System.out.println(errorPrefix + " I don't know what that means!!!");
+                        System.out.println("Enter \"help\" for a list of what I do know! " + rawr);
+                }
+            } catch (InvalidInputException e) {
                 System.out.println(separation);
-                argument = input[1];
-                int index = Integer.parseInt(argument);
-                list.get(index - 1).markDone();
-                break;
-            // Unmark item in specified index as undone
-            case "unmark":
-                System.out.println(separation);
-                argument = input[1];
-                index = Integer.parseInt(argument);
-                list.get(index - 1).unmarkDone();
-                break;
-            // Rex's goodbye message, exit program
-            case "bye":
-                System.out.println(separation);
-                System.out.println("Bye. Hope to see you again soon! " + rawr);
-                System.out.println(separation);
-                scanner.close();
-                return;
-            // Unknown command, guide user to recognized commands
-            default:
-                System.out.println(separation);
-                System.out.println(errorPrefix + " I don't know what that means!!!");
-                System.out.println("Enter \"help\" for a list of what I do know! " + rawr);
+                System.out.println(e.getMessage());
             }
         }
     }
