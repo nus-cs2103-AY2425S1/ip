@@ -6,13 +6,17 @@ public class Rex {
     // Horizontal line separation
     private static String separation = "____________________________________________________________";
 
-    // "rawr" string added to end of each print statement for customization
-    private static String rawr = " rawr";
+    // "rawr" string added to end of each print statement
+    private static String rawr = "rawr";
+
+    // "RAWRRRR" that comes with each error message
+    private static String errorPrefix = "RAWRRRR";
+
     public static void main(String[] args) {
         // Rex's greeting message
         System.out.println(separation);
-        System.out.println("Hello! I'm Rex!" + rawr);
-        System.out.println("What can I do for you?" + rawr);
+        System.out.println("Hello! I'm Rex! " + rawr);
+        System.out.println("What can I do for you? " + rawr);
 
         // ArrayList to store added tasks
         ArrayList<Task> list = new ArrayList<>();
@@ -28,13 +32,10 @@ public class Rex {
 
             // Process user command
             switch (command) {
-            // Rex's goodbye message, exit program
-            case "bye":
-                System.out.println(separation);
-                System.out.println("Bye. Hope to see you again soon!" + rawr);
-                System.out.println(separation);
-                scanner.close();
-                return;
+            // List all valid commands
+            case "help":
+                listCommands();
+                break;
             // Adding a task to list
             case "todo":
             case "deadline":
@@ -61,10 +62,18 @@ public class Rex {
                 index = Integer.parseInt(argument);
                 list.get(index - 1).unmarkDone();
                 break;
-            // Echo user input otherwise
+            // Rex's goodbye message, exit program
+            case "bye":
+                System.out.println(separation);
+                System.out.println("Bye. Hope to see you again soon! " + rawr);
+                System.out.println(separation);
+                scanner.close();
+                return;
+            // Unknown command, guide user to recognized commands
             default:
-                 echo(input);
-                 break;
+                System.out.println(separation);
+                System.out.println(errorPrefix + " I don't know what that means!!!");
+                System.out.println("Enter \"help\" for a list of what I do know! " + rawr);
             }
         }
     }
@@ -104,15 +113,32 @@ public class Rex {
         }
     }
 
-    private static void echo(String[] input) {
-        // Display input text back to user through print statement
+    private static void listCommands() {
+        String spaces = "  ";
         System.out.println(separation);
+        System.out.println("Here are a list of valid commands and how to use them: ");
+        System.out.println();
 
-        // Loop through each word in input array
-        String output = "";
-        for (String word : input) {
-            output += word + " ";
-        }
-        System.out.println(output + rawr);
+        System.out.println(spaces + "Adding tasks:");
+        System.out.println(spaces + "* todo <description>");
+        System.out.println(spaces + "* deadline <description> /by <date>");
+        System.out.println(spaces + "* event <description> /from <date/time> /to <date/time>");
+        System.out.println();
+
+        System.out.println(spaces + "List all tasks:");
+        System.out.println(spaces + "* list");
+        System.out.println();
+
+        System.out.println(spaces + "Mark/Unmark tasks:");
+        System.out.println(spaces + "* mark <task number>");
+        System.out.println(spaces + "* unmark <task number>");
+        System.out.println();
+
+        System.out.println(spaces + "rawr:");
+        System.out.println(spaces + "* rawr");
+        System.out.println();
+
+        System.out.println(spaces + "Exit:");
+        System.out.println(spaces + "* bye");
     }
 }
