@@ -71,12 +71,12 @@ public class Thanos {
                 "Invalid input format. Please use the correct format: 'unmark [task index]'"
             );
         }
+
         try {
             int index = Integer.parseInt(argument) - 1;
             Task task = tasks.get(index);
             task.setIsDone(false);
             customPrint(String.format("OK, I've marked this task as not done yet:\n  %s\n", task));
-
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
@@ -134,6 +134,32 @@ public class Thanos {
         printTaskAdded(event);
     }
 
+    private static void deleteTask(String argument) throws InvalidCommandException{
+        if (argument.isEmpty()) {
+            throw new InvalidCommandException(
+                "No task index provided. Please use the correct format: 'delete [task index]'"
+            );
+        }
+
+        if (argument.split(" ").length != 1) {
+            throw new InvalidCommandException(
+                "Invalid input format. Please use the correct format: 'delete [task index]'"
+            );
+        }
+
+        try {
+            int index = Integer.parseInt(argument) - 1;
+            Task task = tasks.remove(index);
+            customPrint(String.format(
+                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size())
+            );
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
+        }
+    }
+
     public static void main(String[] args) {
         customPrint("Hello! I'm Thanos!\nWhat can I do for you?\n");
 
@@ -165,6 +191,9 @@ public class Thanos {
                         break;
                     case "event":
                         addEvent(argument);
+                        break;
+                    case "delete":
+                        deleteTask(argument);
                         break;
                     default:
                         throw new InvalidCommandException(
