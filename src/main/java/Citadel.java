@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
@@ -60,7 +61,9 @@ public class Citadel {
 
             } catch (CitadelException e) {
                 System.out.println(e.toString());
-            } catch (Exception e) {
+            } catch (DateTimeParseException e) {
+                System.out.println("Incorrect Date Format! Please write the date in this format: dd/MM/yyyy HH:mm!");
+            }  catch (Exception e) {
                 System.out.println("Error occurred: " + e.getMessage());
             }
             }
