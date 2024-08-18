@@ -1,0 +1,7 @@
+todo read book
+deadline return book /by August 20th
+event project meeting /from August 21st 2pm /to 4pm
+list
+mark 2
+list
+bye
