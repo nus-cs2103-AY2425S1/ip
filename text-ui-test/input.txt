@@ -1,7 +1,17 @@
 hi
+todo
+todo read book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+deadline project meeting /from Mon 2pm /to 4pm
+event project meeting /from Mon 2pm
 list
 mark 1
-list
+mark 1
 unmark 1
+unmark 1
+mark 1
+list
+delete 1
 list
 bye
