@@ -30,6 +30,7 @@ public class DukeKorolev {
         String listNotice = "Here are the tasks in your list:";
         String markNotice = "Nice! I've marked this task as done:";
         String unmarkNotice = "OK, I've marked this task as not done yet:";
+        String deleteNotice = "Noted. I've removed this task:";
 
         KorolevList repo = new KorolevList();
 
@@ -48,6 +49,9 @@ public class DukeKorolev {
             } else if (input.contains("mark")) {
                 System.out.println(markNotice);
                 repo.markEvent(DukeKorolev.findIndex(input) - 1);
+            } else if (input.contains("delete")) {
+                System.out.println(deleteNotice);
+                repo.removeEvent(DukeKorolev.findIndex(input) - 1);
             } else {
                 try {
                     repo.addEvent(input);

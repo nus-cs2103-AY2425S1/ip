@@ -69,6 +69,12 @@ public class KorolevList {
         System.out.println(t);
     }
 
+    public void removeEvent(int index) {
+        KorolevTask t = this.events.remove(index);
+        System.out.println(t);
+        System.out.println("Now you have " + this.events.size() + " tasks in the list.");
+    }
+
     public void unmarkEvent(int index) {
         KorolevTask t = this.events.get(index);
         t.unmarkTask();
