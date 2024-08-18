@@ -37,6 +37,7 @@ public class YihuiBot {
                 if (exec instanceof TaskModifier) {
                     TaskModifier taskModifier = (TaskModifier) exec;
                     taskModifier.setTasks(tasks);
+                    exec = taskModifier;
                 }
                 
                 if (exec.executeAndPrint() > 0){
@@ -47,6 +48,8 @@ public class YihuiBot {
             }
         } catch (IllegalStateException | NoSuchElementException | NullPointerException e) {
             System.out.println("An error occured. " + e.getMessage());
+        } finally {
+            userInput.close();
         }
     }
 

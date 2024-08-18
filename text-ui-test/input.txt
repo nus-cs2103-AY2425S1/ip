@@ -1,0 +1,31 @@
+list foo
+foo
+list
+todo
+todo read book
+mark
+mark 0
+mark 2
+mark 1
+list
+mark 1
+deadline
+deadline return book
+deadline /by
+deadline /by Sunday 2pm
+deadline return book /by Sunday 2pm
+event
+event project meeting
+event /from Sunday 2pm /to 4pm
+event project meeting /from Sunday 2pm
+event project meeting /to 4pm
+event project meeting /to Sunday 4pm /from 2pm
+event project meeting /from Sunday 2pm /to
+event project meeting /from Sunday 2pm /to 4pm
+list
+unmark
+unmark 4
+unmark 1
+list
+bye foo
+bye
