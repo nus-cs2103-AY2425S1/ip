@@ -29,8 +29,8 @@ public class Velma {
                     System.out.println("Bye. Hope to see you again soon!");
                     printLine();
                     break;
-                } else if (request.contains("todo")) {
-                    String todoDescription = request.replaceFirst("todo\\s+", "");
+                } else if (request.startsWith("todo")) {
+                    String todoDescription = request.replaceFirst("todo\\s*", "").trim();
                     if (todoDescription.isEmpty()) {
                         throw new VelmaException("Sorry boss! Where is your todo description?");
                     }
@@ -41,8 +41,11 @@ public class Velma {
                     System.out.println("  " + newTodo.toString());
                     System.out.println("Now you have " + list.size() + " tasks in the list");
                     printLine();
-                } else if (request.contains("deadline")) {
-                    String[] parts = request.replaceFirst("deadline\\s+", "").split(" /by ");
+                } else if (request.startsWith("deadline")) {
+                    String[] parts = request.replaceFirst("deadline\\s*", "").split(" /by ");
+                    if (parts.length < 2) {
+                        throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
+                    }
                     String description = parts[0];
                     String deadline = parts[1];
                     printLine();
@@ -54,6 +57,9 @@ public class Velma {
                     printLine();
                 } else if (request.contains("event")) {
                     String[] parts = request.replaceFirst("event\\s+", "").split(" /from | /to ");
+                    if (parts.length < 3) {
+                        throw new VelmaException("Sorry boss! An event needs a valid start time and end time!");
+                    }
                     String description = parts[0];
                     String startTime = parts[1];
                     String endTime = parts[2];
@@ -75,6 +81,9 @@ public class Velma {
                     count = 1;
                 } else if (request.contains("mark") || request.contains("unmark")) {
                     String[] parts = request.split(" ");
+                    if (parts.length < 1) {
+                        throw new VelmaException("Sorry boss! Please specify which task.");
+                    }
                     int taskNumber = Integer.parseInt(parts[1]) - 1;
                     list.get(taskNumber).changeIsDone();
                     printLine();
