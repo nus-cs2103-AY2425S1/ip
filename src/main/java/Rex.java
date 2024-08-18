@@ -58,11 +58,9 @@ public class Rex {
                 index = Integer.parseInt(argument);
                 list.get(index - 1).unmarkDone();
                 break;
-            // Echo user input otherwise and add to list
+            // Echo user input otherwise
             default:
-                 String description = echo(input);
-                 newTask = new Task(description);
-                 list.add(newTask);
+                 echo(input);
                  break;
             }
         }
@@ -103,19 +101,15 @@ public class Rex {
         }
     }
 
-    private static String echo(String[] input) {
+    private static void echo(String[] input) {
         // Display input text back to user through print statement
         System.out.println(separation);
-        System.out.print("added: ");
 
         // Loop through each word in input array
         String output = "";
         for (String word : input) {
             output += word + " ";
         }
-        System.out.println(output);
-
-        // Return item description
-        return output;
+        System.out.println(output + rawr);
     }
 }
