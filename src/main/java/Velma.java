@@ -13,7 +13,7 @@ public class Velma {
     public static void main(String[] args) {
 
         int count = 1;
-        ArrayList<String> list = new ArrayList<>(100);
+        ArrayList<Task> list = new ArrayList<>(100);
         boolean end = false;
         printLine();
         System.out.println("Hello! I am Velma!" );
@@ -30,14 +30,15 @@ public class Velma {
                 break;
             } else if (request.equals("list")) {
                 printLine();
-                for (String s : list) {
-                    System.out.println(count + ". " + s);
+                System.out.println("Here are the tasks in your list:");
+                for (Task task : list) {
+                    System.out.println(count + ". " + "[" + task.getStatusIcon() + "] " + task.description);
                     count++;
                 }
                 printLine();
                 count = 1;
             } else {
-                list.add(request);
+                list.add(new Task(request));
                 printLine();
                 System.out.println("added: " + request);
                 printLine();
