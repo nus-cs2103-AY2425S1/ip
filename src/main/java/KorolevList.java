@@ -7,15 +7,21 @@ public class KorolevList {
     }
 
     public void addEvent(String event) {
+        System.out.println("Got it. I've added this task:");
+        KorolevTask e;
         if (event.contains("event")) {
-            this.events.add(new KorolevEvent(event));
+            e = new KorolevEvent(event);
         } else if (event.contains("todo")) {
-            this.events.add(new KorolevTodo(event));
+            e = new KorolevTodo(event);
         } else if (event.contains("deadline")) {
-            this.events.add(new KorolevDeadline(event));
+            e = new KorolevDeadline(event);
         } else {
-            this.events.add(new KorolevTask(event));
+            e = new KorolevTask(event);
         }
+
+        System.out.println(e);
+        this.events.add(e);
+        System.out.println("Now you have " + events.size() + " tasks in the list");
     }
 
     public void displayList() {

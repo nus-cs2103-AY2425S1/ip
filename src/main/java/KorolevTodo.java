@@ -5,7 +5,6 @@ public class KorolevTodo extends KorolevTask {
 
     public KorolevTodo(String name) {
         super(EventParser.parseName("todo", "", name));
-        System.out.println(EventParser.parseName("todo", "", name));
         this.tag = "T";
     }
 
