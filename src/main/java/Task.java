@@ -1,6 +1,6 @@
 public class Task {
     private boolean completed;
-    private String name;
+    private final String name;
     private static final String done = "[X]";
     private static final String undone = "[ ]";
 
@@ -56,7 +56,7 @@ public class Task {
             System.out.println("Sumo has marked this task as done.");
             this.completed = true;
         }
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     public void unmark() {

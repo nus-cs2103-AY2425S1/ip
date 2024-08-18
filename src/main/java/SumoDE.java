@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 public class SumoDE {
 
-    private static void printTask(Task[] tasks) {
+    private static void printTask(List<Task> tasks) {
         System.out.println("Below is the list of tasks:");
-        for (int i = 0; i < tasks.length; i++) {
-            Task task = tasks[i];
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             if (task == null) {
                 break;
             }
@@ -13,8 +15,48 @@ public class SumoDE {
         }
     }
 
-    private static boolean execute(String command, String item, Task[] tasks) {
-        return true; // will do after level 6
+    private static boolean execute(String command, String item, List<Task> tasks)
+            throws NonExistentTaskException, UnknownCommandException, WrongSyntaxForCommandException {
+        switch(command) {
+            case "bye":
+            case "exit":  // added this to allow flexibility though not required by qn
+                return true;
+            case "list":
+                printTask(tasks);
+                break;
+            case "mark":
+            {
+                int index = Integer.parseInt(item);
+                if (index >= tasks.size() || index <= 0) {
+                    throw new NonExistentTaskException(index);
+                }
+                tasks.get(index-1).mark();
+            }
+            break;
+            case "unmark":
+            {
+                int index = Integer.parseInt(item);
+                if (index >= tasks.size() || index <= 0) {
+                    throw new NonExistentTaskException(index);
+                }
+                tasks.get(index - 1).unmark();
+            }
+            break;
+            case "todo":
+            case "deadline":
+            case "event":
+                tasks.add(Task.of(command, item));  // used factory method to be more neat and OOP
+                System.out.println("Sumo has added this task for you.\n"
+                        + tasks.get(tasks.size() - 1)
+                        + "\n"
+                        + "There are now "
+                        + (tasks.size())
+                        + " task(s) in total!");
+                break;
+            default:
+                throw new UnknownCommandException(command);
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -24,29 +66,33 @@ public class SumoDE {
 
 
         // Initialisation
-        Task[] tasks = new Task[100];
-        int tasksIndex = 0;
+        List<Task> tasks = new ArrayList<>();
+
 
         // Note: those extra spaces before \n is done intentionally
         // so it is easier to see the logo and edit it subsequently
         // I know it is waste of space and unnecessary
-        String logo = "           ___\n"
-                    + "          |* *|\n"
-                    + "          |\\_/|\n"
-                    + "  ---------------------\n"
-                    + "  |                   |\n"
-                    + "-----     SUMO      -----\n"
-                    + "| | |               | | |\n"
-                    + "-----      DE       -----\n"
-                    + "  |                   |\n"
-                    + "  ---------------------\n"
-                    + "  |                   |\n"
-                    + "  |      /-----\\      |\n"
-                    + "  |_____/       \\_____|\n";
+        String logo = """
+                           ___
+                          |* *|
+                          |\\_/|
+                  ---------------------
+                  |                   |
+                -----     SUMO      -----
+                | | |               | | |
+                -----      DE       -----
+                  |                   |
+                  ---------------------
+                  |                   |
+                  |      /-----\\      |
+                  |_____/       \\_____|
+                """;
 
-        String goodbye = "------------------------------------\n"
-                        + "Goodbye! Sumo hope to see you again!\n"
-                        + "------------------------------------\n";
+        String goodbye = """
+                ------------------------------------
+                Goodbye! Sumo hope to see you again!
+                ------------------------------------
+                """;
 
 
 
@@ -90,54 +136,15 @@ public class SumoDE {
 
 
             try {
-                switch(command) {
-                    case "bye":
-                    case "exit":  // added this to allow flexibility though not required by qn
-                        terminate = true;
-                        break;
-                    case "list":
-                        printTask(tasks);
-                        break;
-                    case "mark":
-                    {
-                        int index = Integer.parseInt(item);
-                        if (index >= tasksIndex || index <= 0) {
-                            throw new NonExistentTaskException(index);
-                        }
-                        tasks[index-1].mark();
-                    }
-                    break;
-                    case "unmark":
-                    {
-                        int index = Integer.parseInt(item);
-                        if (index >= tasksIndex || index <= 0) {
-                            throw new NonExistentTaskException(index);
-                        }
-                        tasks[index-1].unmark();
-                    }
-                    break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        tasks[tasksIndex] = Task.of(command, item);  // used factory method to be more neat and OOP
-                        System.out.println("Sumo has added this task for you.\n"
-                                + tasks[tasksIndex]
-                                + "\n"
-                                + "There are now "
-                                + (tasksIndex + 1)
-                                + " task(s) in total!");
-                        tasksIndex++;
-                        break;
-                    default:
-                       throw new UnknownCommandException(command);
-                }
+                terminate = execute(command,item,tasks);
             } catch (WrongSyntaxForCommandException | UnknownCommandException | NonExistentTaskException e) {
                 System.out.println(e.getMessage());
             } finally {
                 if (!terminate) {
-                    System.out.println("------------------------------------\n"
-                            + "Do you need anything else from SUMO?\n"
-                            + "------------------------------------");
+                    System.out.println("""
+                            ------------------------------------
+                            Do you need anything else from SUMO?
+                            ------------------------------------""");
                 }
             }
 
