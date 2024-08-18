@@ -16,10 +16,12 @@ public class Ai {
         System.out.println(line);
     }
 
-    public void add(String task) {
-        tasks[counter] = new Task(task);
+    public void add(Task task) {
+        tasks[counter] = task;
         counter++;
-        System.out.println("added: " + task + "\n" + line);
+        System.out.println("Task added!!");
+        System.out.println(task);
+        System.out.println(String.format("You better finish your %d tasks!! ehe :3 \n", counter) + line);
     }
 
     public void mark(int i) {
@@ -52,12 +54,18 @@ public class Ai {
 
             if(reply.equals("list")) {
                 ai.list();
-            } else if (reply.contains("unmark")) {
+            } else if (reply.startsWith("unmark")) {
                 ai.unmark(Character.getNumericValue(reply.charAt(reply.length() - 1)));
-            } else if (reply.contains("mark")) {
+            } else if (reply.startsWith("mark")) {
                 ai.mark(Character.getNumericValue(reply.charAt(reply.length() - 1)));
+            } else if (reply.startsWith("todo")) {
+                ai.add(new ToDo(reply.substring(5)));
+            } else if (reply.startsWith("deadline")){
+                ai.add(new Deadline(reply.substring(9)));
+            } else if (reply.startsWith("event")){
+                ai.add(new Event(reply.substring(6)));
             } else {
-                ai.add(reply);
+                break;
             }
         }  while(!reply.equals("bye"));
         System.out.println(closing + line);
