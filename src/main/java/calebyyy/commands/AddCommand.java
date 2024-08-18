@@ -5,6 +5,7 @@ import calebyyy.Tasks.Deadline;
 import calebyyy.Tasks.Event;
 import calebyyy.Tasks.Task;
 import calebyyy.Tasks.Todo;
+import calebyyy.exceptions.InvalidArgumentException;
 
 public class AddCommand extends Command {
     public AddCommand(Calebyyy calebyyy) {
@@ -12,8 +13,13 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input) throws InvalidArgumentException {
         String[] parts = input.split(" ", 2);
+
+        if (parts.length < 2 || parts[1].isBlank()) {
+            throw new InvalidArgumentException();
+        }
+        
         String commandType = parts[0];
         String taskDetails = parts[1];
 

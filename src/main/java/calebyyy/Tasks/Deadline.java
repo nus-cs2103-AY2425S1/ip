@@ -8,7 +8,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString() {
+    public String toString() throws invalidArgumentException {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
