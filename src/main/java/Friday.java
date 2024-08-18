@@ -4,14 +4,14 @@ public class Friday {
     private String name;
     private boolean isRunning;
 
-    private String[] tasks;
+    private Task[] tasks;
 
     private int taskCount;
 
     public Friday() {
         this.name = "Friday";
         this.isRunning = true;
-        this.tasks = new String[100];
+        this.tasks = new Task[100];
         this.taskCount = 0;
     }
 
@@ -40,13 +40,13 @@ public class Friday {
         );
     }
 
-    public void addTask(String task) {
+    public void addTask(String description) {
         if (taskCount < tasks.length) {
-            tasks[taskCount] = task;
+            tasks[taskCount] = new Task(description);
             taskCount++;
             System.out.println(
                     "    ____________________________________________________________\n" +
-                            "     added: " + task + "\n" +
+                            "     added: " + description + "\n" +
                             "    ____________________________________________________________"
             );
         } else {
@@ -59,11 +59,48 @@ public class Friday {
     }
 
     public void listTasks() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println("    ____________________________________________________________\n" +
+                "     Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.println("     " + (i + 1) + ". " + tasks[i]);
         }
         System.out.println("    ____________________________________________________________");
+    }
+
+    public void markTaskAsDone(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < taskCount) {
+            tasks[taskIndex].markAsDone();
+            System.out.println(
+                    "    ____________________________________________________________\n" +
+                            "     Nice! I've marked this task as done:\n" +
+                            "       " + tasks[taskIndex] + "\n" +
+                            "    ____________________________________________________________"
+            );
+        } else {
+            System.out.println(
+                    "    ____________________________________________________________\n" +
+                            "     Invalid task number.\n" +
+                            "    ____________________________________________________________"
+            );
+        }
+    }
+
+    public void unmarkTaskAsDone(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < taskCount) {
+            tasks[taskIndex].unmarkAsDone();
+            System.out.println(
+                    "    ____________________________________________________________\n" +
+                            "     OK, I've marked this task as not done yet:\n" +
+                            "       " + tasks[taskIndex] + "\n" +
+                            "    ____________________________________________________________"
+            );
+        } else {
+            System.out.println(
+                    "    ____________________________________________________________\n" +
+                            "     Invalid task number.\n" +
+                            "    ____________________________________________________________"
+            );
+        }
     }
 
     public void run() {
@@ -77,6 +114,12 @@ public class Friday {
                 isRunning = false;
             } else if (userInput.equalsIgnoreCase("list")) {
                 listTasks();
+            } else if (userInput.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
+                markTaskAsDone(taskIndex);
+            } else if (userInput.startsWith("unmark ")) {
+                int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                unmarkTaskAsDone(taskIndex);
             } else {
                 addTask(userInput);
             }
