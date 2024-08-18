@@ -18,9 +18,9 @@ public class TodoList {
     }
 
     /**
-     * 
-     * @param i
-     * @return
+     * Get Task in TodoList
+     * @param i The Index you want to retrieve
+     * @return The Task at index i
      */
     public Task get(int i) {
         return todoList.get(i);
