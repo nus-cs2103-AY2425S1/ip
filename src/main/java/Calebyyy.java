@@ -1,29 +1,17 @@
-import java.util.Scanner;
-
 public class Calebyyy {
-    private String[] tasks;
+    private Task[] tasks;
     private int taskCount;
-    private Scanner scanner;
     private CommandManager commandManager;
 
     public Calebyyy() {
-        tasks = new String[100];
+        tasks = new Task[100];
         taskCount = 0;
-        scanner = new Scanner(System.in);
         commandManager = new CommandManager(this);
     }
 
     public void start() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Calebyyy");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
-
-        while (true) {
-            String input = scanner.nextLine();
-            commandManager.executeCommand(input);
-
-        }
+        greet();
+        commandManager.startCommandLoop();
     }
     
 
@@ -35,13 +23,28 @@ public class Calebyyy {
         System.out.println("____________________________________________________________");
     }
 
-    public void addTask(String task) {
-        tasks[taskCount] = task;
+    public void addTask(String taskDescription) {
+        tasks[taskCount] = new Task(taskDescription);
         taskCount++;
     }
 
     public void stop() {
         System.exit(0);
+    }
+
+    public void markTask(int taskNumber) {
+        tasks[taskNumber - 1].markAsDone();
+    }
+
+    public void unmarkTask(int taskNumber) {
+        tasks[taskNumber - 1].markAsNotDone();
+    }
+
+    public void greet() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Hello! I'm Calebyyy");
+        System.out.println(" What can I do for you?");
+        System.out.println("____________________________________________________________");
     }
 
     public static void main(String[] args) {

@@ -11,6 +11,8 @@ public class CommandManager {
         commands = new HashMap<>();
         commands.put("bye", new ByeCommand(calebyyy));
         commands.put("list", new ListCommand(calebyyy));
+        commands.put("mark", new MarkCommand(calebyyy));
+        commands.put("unmark", new UnmarkCommand(calebyyy));
         addCommand = new AddCommand(calebyyy);
         scanner = new Scanner(System.in);
     }
