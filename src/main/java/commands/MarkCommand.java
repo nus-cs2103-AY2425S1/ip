@@ -6,20 +6,25 @@ import storage.Task;
 import storage.TaskStorage;
 
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private String taskInput;
 
-    public MarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    public MarkCommand(String taskInput) {
+        this.taskInput = taskInput;
     }
 
     @Override
     public boolean execute(Ui ui, TaskStorage storage) {
-        Task task = storage.getTask(taskIndex - 1);
-        if (task != null) {
-            task.markAsDone();
-            ui.printMessage("Nice! I've marked this task as done:\n  " + task);
-        } else {
-            ui.printMessage("Task not found.");
+        try {
+            int taskIndex = Integer.parseInt(taskInput) - 1; // Convert to 0-based index
+            if (taskIndex < 0 || taskIndex >= storage.getTasks().size()) {
+                ui.printMessage("Invalid task number.");
+            } else {
+                Task task = storage.getTask(taskIndex);
+                task.markAsDone();
+                ui.printMessage("Nice! I've marked this task as done:\n  " + task);
+            }
+        } catch (NumberFormatException e) {
+            ui.printMessage("Please enter a valid task number.");
         }
         return true;
     }

@@ -6,21 +6,26 @@ import storage.Task;
 import storage.TaskStorage;
 
 public class UnmarkCommand extends Command {
-    private int taskIndex;
+    private String taskInput;
 
-    public UnmarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    public UnmarkCommand(String taskInput) {
+        this.taskInput = taskInput;
     }
 
     @Override
     public boolean execute(Ui ui, TaskStorage storage) {
-        Task task = storage.getTask(taskIndex - 1);
-        if (task != null) {
-            task.markAsUndone();
-            ui.printMessage("Okay, I've marked this task as not done yet:\n  " + task);
-        } else {
-            ui.printMessage("Task not found.");
+        try {
+            int taskIndex = Integer.parseInt(taskInput) - 1; // Convert to 0-based index
+            if (taskIndex < 0 || taskIndex >= storage.getTasks().size()) {
+                ui.printMessage("Invalid task number.");
+            } else {
+                Task task = storage.getTask(taskIndex);
+                task.markAsUndone();
+                ui.printMessage("OK, I've marked this task as not done yet:\n  " + task);
+            }
+        } catch (NumberFormatException e) {
+            ui.printMessage("Please enter a valid task number.");
         }
-        return true;
+        return true; // Continue running
     }
 }
