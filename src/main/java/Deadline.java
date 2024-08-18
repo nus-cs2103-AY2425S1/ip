@@ -7,8 +7,8 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         if (super.isComplete()) {
-            return ("[D] " + super.toString() + "(by: " + this.time + ")");
+            return ("[D] " + super.toString() + " (by: " + this.time + ")");
         }
-        return ("[D] " + super.toString() + "(by: " + this.time + ")");
+        return ("[D] " + super.toString() + " (by: " + this.time + ")");
     }
 }

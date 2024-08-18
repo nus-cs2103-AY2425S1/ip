@@ -9,9 +9,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (super.isComplete()) {
-            return ("[E] " + super.toString() + "(from: " + this.startTime + " to: " + this.endTime + ")");
+            return ("[E] " + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")");
         }
-        return ("[E] " + super.toString() + "(from: " + this.startTime + " to: " + this.endTime + ")");
+        return ("[E] " + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")");
     }
 }
 

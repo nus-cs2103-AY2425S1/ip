@@ -15,21 +15,21 @@ ________________________________________
 
 ________________________________________
 Okay! Added this task:
-  [D] [ ] return book (by:  Sunday)
+  [D] [ ] return book (by: Sunday)
 Now you have 2 tasks in this list
 ________________________________________
 
 ________________________________________
 Okay! Added this task:
-  [E] [ ] meet friends (from:  Mon 2pm  to:  Mon 4pm)
+  [E] [ ] meet friends (from: Mon 2pm to: Mon 4pm)
 Now you have 3 tasks in this list
 ________________________________________
 
 ________________________________________
 Here are the tasks in your list:
 1. [T] [ ] borrow book
-2. [D] [ ] return book (by:  Sunday)
-3. [E] [ ] meet friends (from:  Mon 2pm  to:  Mon 4pm)
+2. [D] [ ] return book (by: Sunday)
+3. [E] [ ] meet friends (from: Mon 2pm to: Mon 4pm)
 ________________________________________
 
 ________________________________________
@@ -39,22 +39,32 @@ ________________________________________
 
 ________________________________________
 Nice! You've completed this task:
-  [D] [X] return book (by:  Sunday)
+  [D] [X] return book (by: Sunday)
 ________________________________________
 
 ________________________________________
 Ok! This task is not complete:
-  [D] [ ] return book (by:  Sunday)
+  [D] [ ] return book (by: Sunday)
 ________________________________________
 
 ________________________________________
 Here are the tasks in your list:
 1. [T] [X] borrow book
-2. [D] [ ] return book (by:  Sunday)
-3. [E] [ ] meet friends (from:  Mon 2pm  to:  Mon 4pm)
+2. [D] [ ] return book (by: Sunday)
+3. [E] [ ] meet friends (from: Mon 2pm to: Mon 4pm)
 ________________________________________
 
-Invalid command
+________________________________________
+InvalidCommandException: Invalid command entered
+Here are a list of valid commands:
+ - list
+ - mark <taskNumber>
+ - unmark <taskNumber>
+ - todo <taskDescription>
+ - deadline <taskDescription> /by <dueDate>
+ - event <taskDescription> /from <startTime> /to <endTime>
+ - bye
+________________________________________
 
 ________________________________________
 Bye! Yippee!
