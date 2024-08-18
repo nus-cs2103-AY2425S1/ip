@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class EchoBot {
@@ -10,8 +9,9 @@ public class EchoBot {
             + "|_ _ _ |      |_ _ _||     |\n"
             + "|      |      |     ||     |\n"
             + "|_ _ _ |_ _ _ |     ||_ _ _|\n";
+    private static ArrayList<Task> allTasks = new ArrayList<>();
 
-    private static void dashline() {
+    public static void dashline() {
         System.out.println("____________________________________________________________");
     }
 
@@ -25,7 +25,12 @@ public class EchoBot {
 
     public static void listAllTask() {
         dashline();
-        System.out.println("list");
+        String tasks = "";
+        for (int i = 0; i < allTasks.size(); i++) {
+            tasks += (i + 1) + ". " + allTasks.get(i).toString();
+            tasks += (i == allTasks.size() - 1) ? "" : "\n";
+        }
+        System.out.println(tasks);
         dashline();
     }
 
@@ -42,11 +47,14 @@ public class EchoBot {
             String userInput = scanner.nextLine();
             if (userInput.equals(EchoBot.LIST)) {
                 EchoBot.listAllTask();
+                continue;
             }
             if (userInput.equals(EchoBot.BYE)) {
                 EchoBot.bye();
                 break;
             }
+            Task task = new Task(userInput);
+            allTasks.add(task);
         }
     }
 }

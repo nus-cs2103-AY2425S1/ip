@@ -3,6 +3,10 @@ public class Task {
 
     public Task(String task) {
         this.task = task;
+
+        EchoBot.dashline();
+        System.out.println("added: " + this.task);
+        EchoBot.dashline();
     }
 
     @Override
