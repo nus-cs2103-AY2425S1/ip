@@ -8,7 +8,6 @@ public class Task {
         this.description = description;
         this.id = COUNT++;
         this.isDone = false;
-        System.out.println("\tadded: " + description);
     }
 
     public String getStatusIcon() {
