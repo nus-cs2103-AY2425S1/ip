@@ -1,30 +1,50 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Command {
     /**
      * The command name.
      */
-    private String name;
+    private final String name;
 
     /**
-     * The parameter string.
+     * The parameter.
      */
-    private String paramString;
+    private final String param;
 
     /**
-     * The constructor. Splits commandString into command and paramString.
-     * @param commandString A full line of command together with all parameters.
+     * Optional keyword parameters specified using '/key value' format.
      */
-    public Command(String commandString) {
-        String[] tmp = commandString.split(" ", 2);
-        name = tmp[0];
-        if (tmp.length == 1) {
-            paramString = ""; // no params
+    private final Map<String, String> keywordParams = new HashMap<>();
+
+    /**
+     * The constructor. Splits input into command and paramString.
+     *
+     * @param input A full line of command together with all parameters.
+     */
+    public Command(String input) {
+        String[] commandAndParams = input.split(" +", 2); // split command and params
+        name = commandAndParams[0];
+        if (commandAndParams.length == 1) { // no params at all
+            param = "";
         } else {
-            paramString = tmp[1];
+            String paramString = commandAndParams[1];
+            String[] paramAndKeywordParams = paramString.split(" +(?=\\/)"); // split params
+            param = paramAndKeywordParams[0]; // extract param
+            for (int i = 1; i < paramAndKeywordParams.length; i++) { // extract keyword params
+                String keywordParamString = paramAndKeywordParams[i];
+                String[] keyAndValue = keywordParamString.split(" +", 2);  // split key and value
+                keywordParams.put(keyAndValue[0].substring(1), keyAndValue[1]);
+            }
         }
+        System.out.println(param);
+        System.out.println(keywordParams);
     }
 
     /**
      * Gets the command name.
+     *
      * @return The command name.
      */
     public String getName() {
@@ -33,21 +53,19 @@ public class Command {
 
     /**
      * Gets the parameter string.
+     *
      * @return The parameter string.
      */
-    public String getParamString() {
-        return paramString;
+    public String getParam() {
+        return param;
     }
 
-    /**
-     * Gets an integer parameter at specific index.
-     * @param index The index of the parameter required.
-     * @return The required parameter.
-     */
-    public int getIntegerParam(int index) {
-        String[] params = paramString.split(" ");
-        return Integer.parseInt(params[index]);
+    public String getKeywordParam(String key) {
+        return keywordParams.get(key);
     }
 
+    public static void main(String[] args) {
+        new Command("event  project  meeting    /from    Mon    2pm    /to       4pm");
+    }
 
 }

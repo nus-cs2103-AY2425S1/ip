@@ -160,9 +160,9 @@ public class Bocchi {
                         return;
                     }
                     case "list" -> list();
-                    case "mark" -> mark(command.getIntegerParam(0));
-                    case "unmark" -> unmark(command.getIntegerParam(0));
-                    default -> todo(new Task(command.getName()));
+                    case "mark" -> mark(Integer.parseInt(command.getParam()));
+                    case "unmark" -> unmark(Integer.parseInt(command.getParam()));
+                    default -> todo(new Todo(command.getName()));
                 }
             }
         }
