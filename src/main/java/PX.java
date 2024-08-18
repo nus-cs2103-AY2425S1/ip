@@ -29,7 +29,13 @@ public class PX {
 
     private static void addTask(Task t, ArrayList<Task> list) {
         list.add(t);
-        PXSays("Got it. I've added this task:", t.getType() + t.getStatusIcon() + t,
+        PXSays("Got it. I've added this task:", "  " + t.getType() + t.getStatusIcon() + t,
+                "Now you have " + list.size() + " tasks in the list.");
+    }
+
+    private static void removeTask(Task t, ArrayList<Task> list) {
+        list.remove(t);
+        PXSays("Noted. I've removed this task:", "  " + t.getType() + t.getStatusIcon() + t,
                 "Now you have " + list.size() + " tasks in the list.");
     }
 
@@ -96,6 +102,10 @@ public class PX {
                     } finally {
 
                     }
+                    break;
+                case "delete":
+                    Task taskToDelete = list.get(Integer.parseInt(input.strip()) - 1);
+                    removeTask(taskToDelete, list);
                     break;
                 default:
                     PXSays("OH NO!!! I don't understand this! Try Again!");
