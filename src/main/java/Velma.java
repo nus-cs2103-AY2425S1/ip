@@ -37,20 +37,20 @@ public class Velma {
                 }
                 printLine();
                 count = 1;
-            } else if (request.contains("mark")) {
+            } else if (request.contains("mark") || request.contains("unmark")) {
                 String[] parts = request.split(" ");
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
                 list.get(taskNumber).changeIsDone();
                 printLine();
-                System.out.println("Nice! I have marked this task as done:");
-                System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
-            } else if (request.contains("unmark")) {
-                String[] parts = request.split(" ");
-                int taskNumber = Integer.parseInt(parts[1]) - 1;
-                list.get(taskNumber).changeIsDone();
-                printLine();
-                System.out.println("OK! I have marked this task as not done yet:");
-                System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
+                if (request.contains("mark")) {
+                    System.out.println("Nice! I have marked this task as done:");
+                    System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
+                    printLine();
+                }else {
+                    System.out.println("OK! I have marked this task as not done yet:");
+                    System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
+                    printLine();
+                }
             }
             else {
                 list.add(new Task(request));
