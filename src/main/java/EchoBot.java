@@ -74,8 +74,8 @@ public class EchoBot {
                         dashline();
                         break;
                     default:
-                        Task task = Task.creatTask(userInput);
                         dashline();
+                        Task task = Task.creatTask(userInput);
                         allTasks.add(task);
                         System.out.println(task);
                         System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
