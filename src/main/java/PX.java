@@ -48,16 +48,16 @@ public class PX {
         while (true) {
             String fullInput = sc.nextLine();
             String cmdString = fullInput.split(" ")[0];
+            PXCommand cmd;
 
             try {
-                PXCommand cmd = PXCommand.valueOf(cmdString.toUpperCase());
+                cmd = PXCommand.valueOf(cmdString.toUpperCase());
             } catch (IllegalArgumentException e) {
                 PXSays("OH NO!!! I don't understand this! Try Again!");
                 continue;
             } finally {
 
             }
-            PXCommand cmd = PXCommand.valueOf(cmdString.toUpperCase());
 
             String input = fullInput.substring(cmdString.length());
 
