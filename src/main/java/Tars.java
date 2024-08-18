@@ -12,7 +12,7 @@ public class Tars {
     }
 
     // Takes the input
-    public String doSomething(String input) {
+    public String doSomething(String input) throws TarsException {
         String[] words = input.split(" ", 2);
         String first = words[0];
         String second = words.length > 1 ? words[1] : "";
@@ -34,40 +34,37 @@ public class Tars {
                 }
             }
             case "todo" -> {
-                if (!second.isEmpty()) {
-                    Todo todo = new Todo(second, false);
-                    addTask(todo);
-                    yield getResponse(todo);
-                } else {
-                    yield "Please specify the task description";
+                if (second.isEmpty()) {
+                    throw new TarsException("The todo is missing a description. Please fill one in.");
                 }
+                Todo todo = new Todo(second, false);
+                addTask(todo);
+                yield getResponse(todo);
             }
             case "deadline" -> {
-                if (!second.isEmpty()) {
-                    String[] parts = second.split(" /by ", 2);
-                    if (parts.length > 1) {
-                        Deadline deadline = new Deadline(parts[0], false, parts[1]);
-                        addTask(deadline);
-                        yield getResponse(deadline);
-                    } else {
-                        yield "Please specify the deadline in the following format: deadline task /by date";
-                    }
+                if (second.isEmpty()) {
+                    throw new TarsException("Please specify the deadline in the following format: deadline task /by date");
+                }
+                String[] parts = second.split(" /by ", 2);
+                if (parts.length > 1) {
+                    Deadline deadline = new Deadline(parts[0], false, parts[1]);
+                    addTask(deadline);
+                    yield getResponse(deadline);
                 } else {
-                    yield "Please specify the task description";
+                    throw new TarsException("Please specify the deadline in the following format: deadline task /by date");
                 }
             }
             case "event" -> {
-                if (!second.isEmpty()) {
-                    String[] parts = second.split(" /from | /to ", 3);
-                    if (parts.length > 2) {
-                        Event event = new Event(parts[0], false, parts[1], parts[2]);
-                        addTask(event);
-                        yield getResponse(event);
-                    } else {
-                        yield "Please specify the event in the following format: event task /from time /to time";
-                    }
+                if (second.isEmpty()) {
+                    throw new TarsException("Please specify the event in the following format: event task /from time /to time");
+                }
+                String[] parts = second.split(" /from | /to ", 3);
+                if (parts.length > 2) {
+                    Event event = new Event(parts[0], false, parts[1], parts[2]);
+                    addTask(event);
+                    yield getResponse(event);
                 } else {
-                    yield "Please specify the task description.";
+                    yield "Please specify the event in the following format: event task /from time /to time";
                 }
             }
             case "humour" -> ("One hundred percent");
@@ -121,7 +118,7 @@ public class Tars {
                 + this.tasks.size() + " tasks in the list\n";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TarsException {
         System.out.println("____________________________________");
         System.out.println("Hello! I'm TARS");
         System.out.println("What can I do for you?");
