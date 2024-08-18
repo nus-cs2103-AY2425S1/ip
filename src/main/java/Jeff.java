@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Jeff {
-    // String for horizontal line
     private static final String HORIZONTAL = "____________________________________________";
+    private static ArrayList<String> inputList = new ArrayList<>();
 
     // Function for enclosing text with horizontal lines and printing it out
     private static void printText(String text) {
@@ -36,6 +37,31 @@ public class Jeff {
         printText("Bye. Hope to see you again soon!");
     }
 
+    // Function for printing out the input list
+    private static void printList() {
+        // Check if the list is empty
+        if (inputList.isEmpty()) {
+            printText("List is empty!");
+            return;
+        }
+
+        // Initialise a StringBuilder
+        StringBuilder listString = new StringBuilder();
+
+        // Loop through the inputList and add it to the StringBuilder
+        for (int i = 0; i < inputList.size(); i++) {
+            listString.append(Integer.toString(i + 1)).append(". ").append(inputList.get(i));
+
+            // Only add a new line when it is not the last string in the list
+            if (i != inputList.size() - 1) {
+                listString.append("\n ");
+            }
+        }
+
+        // Print the text
+        printText(listString.toString());
+    }
+
     // Function for printing out user input
     private static void printUserInput() {
         // Initialise the Scanner
@@ -50,9 +76,17 @@ public class Jeff {
             // Get the input
             input = scanner.nextLine();
 
-            // Print the input
-            if (!input.equals("bye")) {
-                printText(input);
+            // Check for input == some keyword
+            switch (input) {
+                case "list":
+                    printList();
+                    break;
+                case "bye":
+                    break;
+                default:
+                    printText("added: " + input);
+                    inputList.add(input);
+                    break;
             }
         }
 
