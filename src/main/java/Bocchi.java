@@ -138,6 +138,24 @@ public class Bocchi {
         printSeparator();
     }
 
+    /**
+     * Delete the i-th (1-indexed) task.
+     * @param index The index of the task to be deleted.
+     */
+    private void delete(int index) throws BocchiException {
+        index--;
+        if (index >= tasks.size() || index < 0) {
+            throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
+        }
+
+        Task task = tasks.remove(index);
+
+        printSeparator();
+        System.out.println("I have removed the task!");
+        System.out.println(task);
+        printSeparator();
+    }
+
     private void printError(Exception e) {
         printSeparator();
         System.out.println(e.getMessage());
@@ -154,7 +172,8 @@ public class Bocchi {
      * - todo [description]: adds a new todo with the specified description;
      * - ddl/deadline [description] /by [dueDateTime]: adds a new deadline with the specified description and due date/time;
      * - event [description] /from [fromDateTime] /to [toDateTime]: adds a new event with the specified description,
-     * start date/time and end date/time.
+     * start date/time and end date/time;
+     * - del/delete [index]: delete the task in the specified index.
      */
     public void start() {
         greet();
@@ -179,6 +198,7 @@ public class Bocchi {
                                 command.getKeywordParam("from"),
                                 command.getKeywordParam("to")
                         ));
+                        case "del", "delete" -> delete(Integer.parseInt(command.getParam()));
                         case "" -> throw new BocchiException(
                                 "I'm soooo sorry I did't hear you, could you please repeat that? ( T﹏T )"
                         );
