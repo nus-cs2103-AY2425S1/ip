@@ -13,8 +13,11 @@ public class Event extends Task {
      *
      * @param description Event description.
      */
-    public Event(String description, String fromDateTime, String toDateTime) {
+    public Event(String description, String fromDateTime, String toDateTime) throws BocchiException {
         super(description);
+        if (fromDateTime == null || toDateTime == null) {
+            throw new BocchiException("So..sorry, but you have specify both start and end time for an event.");
+        }
         this.fromDateTime = fromDateTime;
         this.toDateTime = toDateTime;
     }

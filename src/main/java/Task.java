@@ -14,7 +14,10 @@ public abstract class Task {
      *
      * @param description Task description.
      */
-    public Task(String description) {
+    public Task(String description) throws BocchiException {
+        if (description == null) {
+            throw new BocchiException("So..sorry, but the task description can't be empty.");
+        }
         this.description = description;
         this.isDone = false;
     }

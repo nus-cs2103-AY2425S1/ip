@@ -7,8 +7,11 @@ public class Deadline extends Task {
      * The constructor.
      * @param description Deadline description.
      */
-    public Deadline(String description, String dueDateTime) {
+    public Deadline(String description, String dueDateTime) throws BocchiException {
         super(description);
+        if (dueDateTime == null) {
+            throw new BocchiException("So..sorry, but you have to specify the due time of a deadline.");
+        }
         this.dueDateTime = dueDateTime;
     }
 

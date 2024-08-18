@@ -103,13 +103,10 @@ public class Bocchi {
      *
      * @param index The index of the task to be marked as done.
      */
-    private void mark(int index) {
+    private void mark(int index) throws BocchiException {
         index--;
         if (index >= tasks.size() || index < 0) {
-            printSeparator();
-            System.out.println("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
-            printSeparator();
-            return;
+            throw new BocchiException("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
         }
 
         Task task = tasks.get(index);
@@ -126,13 +123,10 @@ public class Bocchi {
      *
      * @param index The index of the task to be marked as not done.
      */
-    private void unmark(int index) {
+    private void unmark(int index) throws BocchiException {
         index--;
         if (index >= tasks.size() || index < 0) {
-            printSeparator();
-            System.out.println("Sorry but ... erm maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
-            printSeparator();
-            return;
+            throw new BocchiException("Sorry but ... maybe it is better to double check the index you entered? Cause it seems to be out of bounds. ＞﹏＜");
         }
 
         Task task = tasks.get(index);
@@ -141,6 +135,12 @@ public class Bocchi {
         printSeparator();
         System.out.println("I have marked the task as not done. You will do it better next time! (*/ω＼*)");
         System.out.println(task);
+        printSeparator();
+    }
+
+    private void printError(Exception e) {
+        printSeparator();
+        System.out.println(e.getMessage());
         printSeparator();
     }
 
@@ -163,21 +163,31 @@ public class Bocchi {
             while (true) {
                 Command command = readCommand(scanner);
                 // optimized from if statements to switch by IntelliJ
-                switch (command.getName()) {
-                    case "bye" -> {
-                        exit();
-                        return;
+                try {
+                    switch (command.getName()) {
+                        case "bye" -> {
+                            exit();
+                            return;
+                        }
+                        case "list" -> list();
+                        case "mark" -> mark(Integer.parseInt(command.getParam()));
+                        case "unmark" -> unmark(Integer.parseInt(command.getParam()));
+                        case "todo" -> task(new Todo(command.getParam()));
+                        case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParam("by")));
+                        case "event" -> task(new Event(
+                                command.getParam(),
+                                command.getKeywordParam("from"),
+                                command.getKeywordParam("to")
+                        ));
+                        case "" -> throw new BocchiException(
+                                "I'm soooo sorry I did't hear you, could you please repeat that? ( T﹏T )"
+                        );
+                        default -> throw new BocchiException(
+                                "Wh..what did you say? I'm soooo sorry I did't understand that ( T﹏T )"
+                        );
                     }
-                    case "list" -> list();
-                    case "mark" -> mark(Integer.parseInt(command.getParam()));
-                    case "unmark" -> unmark(Integer.parseInt(command.getParam()));
-                    case "todo" -> task(new Todo(command.getName()));
-                    case "ddl", "deadline" -> task(new Deadline(command.getName(), command.getKeywordParam("by")));
-                    case "event" -> task(new Event(
-                            command.getName(),
-                            command.getKeywordParam("from"),
-                            command.getKeywordParam("to")
-                    ));
+                } catch (BocchiException e) {
+                    printError(e);
                 }
             }
         }

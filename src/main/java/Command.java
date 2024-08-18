@@ -27,7 +27,7 @@ public class Command {
         String[] commandAndParams = input.split(" +", 2); // split command and params
         name = commandAndParams[0];
         if (commandAndParams.length == 1) { // no params at all
-            param = "";
+            param = null;
         } else {
             String paramString = commandAndParams[1];
             String[] paramAndKeywordParams = paramString.split(" +(?=\\/)"); // split params

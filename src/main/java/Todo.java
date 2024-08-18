@@ -5,7 +5,7 @@ public class Todo extends Task {
      *
      * @param description Todo description.
      */
-    public Todo(String description) {
+    public Todo(String description) throws BocchiException {
         super(description);
     }
 
