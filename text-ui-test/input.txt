@@ -1,6 +1,7 @@
 list
 some text
 mark 1
+delete 1
 todo buy stuff
 mark 1
 deadline a
@@ -12,3 +13,7 @@ event meeting /from a /to b
 list
 mark 3
 list
+delete
+delete 1
+delete 0
+delete 3
