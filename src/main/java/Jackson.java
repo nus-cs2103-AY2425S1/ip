@@ -35,7 +35,6 @@ public class Jackson {
                     show_list();
                     break;
                 case "mark":
-
                     break;
                 case "unmark":
                     break;
