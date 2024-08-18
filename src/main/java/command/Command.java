@@ -1,7 +1,7 @@
 package command;
 
 public abstract class Command {
-  private String message;
+  private final String message;
 
   public Command(String message) {
     this.message = message;
