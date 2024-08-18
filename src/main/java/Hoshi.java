@@ -25,19 +25,46 @@ public class Hoshi {
                 "____________________________________________________________\n");
 
 
+        String[] array = new String[100];
+        int indexCounter = -1;
+
         while (true) {
+
+            indexCounter++;
 
             System.out.println("Enter your request below ");
 
             // take in input
             String input = scanner.nextLine();
 
+            // bye
             if (input.equals("bye")) {
                 break;
+
+                // list
+            } else if (input.equals("list")) {
+
+                // for loop for listing
+                for (int i = 0; i < array.length; i++) {
+                    if (array[i] == null) {
+                        break;
+                    }
+                    System.out.println(i+1 + ". " + array[i] + "\n");
+                }
+
+                // add
+            } else {
+                // add
+                array[indexCounter] = input;
+                System.out.println("added: " + input);
+
+                System.out.println("____________________________________________________________");
             }
 
+
+
             // echo
-            System.out.println(input);
+            //System.out.println(input);
 
 
         }
