@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EchoBot {
-    private static final String LIST = "list";
     private static final String BYE = "bye";
     private static String Logo = " _ _ _  _ _ _         _ _ _\n"
             + "|      |      |     ||     | \n"
@@ -35,9 +34,7 @@ public class EchoBot {
     }
 
     public static void bye() {
-        dashline();
         System.out.println("Bye. Hope to see you again soon!");
-        dashline();
     }
 
     public static void main(String[] args) {
@@ -45,16 +42,36 @@ public class EchoBot {
         EchoBot.greet();
         while (true) {
             String userInput = scanner.nextLine();
-            if (userInput.equals(EchoBot.LIST)) {
-                EchoBot.listAllTask();
-                continue;
+            String[] cmdParts = userInput.split(" ");
+            String CMD = cmdParts[0];
+            try {
+                switch (CMD) {
+                    case "list":
+                        EchoBot.listAllTask();
+                        break;
+                    case "mark":
+                        int markIdx = Integer.parseInt(cmdParts[1]) - 1;
+                        Task markTask = allTasks.get(markIdx);
+                        markTask.mark();
+                        break;
+                    case "unmark":
+                        int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
+                        Task unmarkTask = allTasks.get(unmarkIdx);
+                        unmarkTask.unmark();
+                        break;
+                    default:
+                        Task task = new Task(userInput);
+                        allTasks.add(task);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                String msg = "Input Error: " + e.toString();
+                System.out.println(msg);
+                System.exit(0);
             }
-            if (userInput.equals(EchoBot.BYE)) {
+            if (CMD.equals(EchoBot.BYE)) {
                 EchoBot.bye();
                 break;
             }
-            Task task = new Task(userInput);
-            allTasks.add(task);
         }
     }
 }
