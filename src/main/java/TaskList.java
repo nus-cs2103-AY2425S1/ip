@@ -5,12 +5,11 @@ public class TaskList {
 
     public TaskList() {}
 
-    public void addTask(Task task) {
-        if (task != null) {
-            this.tasks.add(task);
-        } else {
-            System.out.println("Cannot add null task.");
+    public void addTask(Task task) throws JarException {
+        if (task == null) {
+            throw new JarException("Cannot add a null task.");
         }
+        this.tasks.add(task);
     }
 
     public String listTasks() {
@@ -26,28 +25,21 @@ public class TaskList {
         return taskListString.toString();
     }
 
-    public void markTaskAsDone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).setStatus(true);
-        } else {
-            System.out.println("Invalid task number, must be more than 0.");
-        }
+    public void markTaskAsDone(int index) throws JarException {
+        Task task = getTask(index);
+        task.setStatus(true);
     }
 
-    public void markTaskAsUndone(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).setStatus(false);
-        } else {
-            System.out.println("Invalid task number, must be more than 0.");
-        }
+    public void markTaskAsUndone(int index) throws JarException {
+        Task task = getTask(index);
+        task.setStatus(false);
     }
 
-    public Task getTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            return tasks.get(index);
-        } else {
-            return null;
+    public Task getTask(int index) throws JarException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new JarException("Invalid task number!");
         }
+        return tasks.get(index);
     }
 
     public int getTaskCount() {

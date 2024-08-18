@@ -51,10 +51,6 @@ public class Ui {
         System.out.println("Added: " + taskContent);
     }
 
-    public void showInvalidTaskNumber() {
-        System.out.println("Invalid task number.");
-    }
-
     public void showTaskCount(int count) {
         System.out.println("Now you have " + count + " tasks in the list.");
     }
