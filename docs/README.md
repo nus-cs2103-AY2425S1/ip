@@ -32,3 +32,4 @@ expected output
 ## Acknowledgements
 
 1. ASCII Art - https://www.asciiart.eu/text-to-ascii-art
+2. Java Input - https://www.w3schools.com/java/java_user_input.asp 
