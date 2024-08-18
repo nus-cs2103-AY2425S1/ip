@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 public class KorolevList {
-    private ArrayList<String> events;
+    private ArrayList<KorolevTask> events;
 
     public KorolevList() {
         this.events = new ArrayList<>();
     }
 
     public void addEvent(String event) {
-        this.events.add(event);
+        this.events.add(new KorolevTask(event));
         System.out.println("added: " + event);
     }
 

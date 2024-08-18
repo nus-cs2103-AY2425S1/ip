@@ -13,6 +13,7 @@ public class DukeKorolev {
         String input = "";
         String end = "Bye. Hope to see you again soon!";
         String divider = "--------------------";
+        String markNotice = "Nice! I've marked this task as done:";
 
         KorolevList repo = new KorolevList();
 
