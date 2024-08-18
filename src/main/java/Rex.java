@@ -51,6 +51,7 @@ public class Rex {
                             throw new InvalidInputException(errorPrefix + " Task description cannot be empty!");
                         }
 
+                        // Create task and add to list
                         String argument = input[1];
                         Task newTask = createTask(command, argument);
                         list.add(newTask);
@@ -64,38 +65,42 @@ public class Rex {
 
                         displayList(list);
                         break;
-                    // Mark item in specified index as done
+                    // Mark/unmark task in specified index as done
                     case "mark":
-                        if (input.length <= 1) {
-                            throw new InvalidInputException(errorPrefix + " Too FEW arguments!");
-                        }
-
-                        System.out.println(separation);
-                        argument = input[1];
-                        int index = Integer.parseInt(argument);
-                        list.get(index - 1).markDone();
-                        break;
-                    // Unmark item in specified index as undone
                     case "unmark":
                         if (input.length <= 1) {
                             throw new InvalidInputException(errorPrefix + " Too FEW arguments!");
                         }
 
+                        // Get task from index
                         System.out.println(separation);
                         argument = input[1];
-                        index = Integer.parseInt(argument);
-                        list.get(index - 1).unmarkDone();
+                        int index = Integer.parseInt(argument);
+                        Task actionTask = list.get(index - 1);
+
+                        // Mark/unmark task according to command
+                        if (command.equals("mark")) {
+                            actionTask.markDone();
+                        } else {
+                            actionTask.unmarkDone();
+                        }
                         break;
-                    // Rex's goodbye message, exit program
+                    case "rawr":
+                        System.out.println(separation);
+                        System.out.println(rawr + "!");
+                    // Exit program
                     case "bye":
                         // bye should be used alone
                         if (input.length > 1) {
                             throw new InvalidInputException(errorPrefix + " Too many arguments!");
                         }
 
+                        // Rex's goodbye message
                         System.out.println(separation);
                         System.out.println("Bye. Hope to see you again soon! " + rawr);
                         System.out.println(separation);
+
+                        // Close scanner to avoid memory leaks
                         scanner.close();
                         return;
                     // Unknown command, guide user to recognized commands
@@ -107,6 +112,8 @@ public class Rex {
             } catch (InvalidInputException e) {
                 System.out.println(separation);
                 System.out.println(e.getMessage());
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                System.out.println(errorPrefix + " Invalid task number!");
             } catch (InvalidTaskException e) {
                 continue;
             }
