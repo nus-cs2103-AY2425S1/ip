@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
-import command.Command;
-import command.Greet;
-import command.Exit;
+import command.*;
 
 public class Mummy {
   private static final String LOGO =  " __  __\n"
@@ -14,8 +12,9 @@ public class Mummy {
 
   private static final Store<String> STORE = new Store<>(100);
 
+
   public static void main(String[] args) {
-    new Greet(LOGO).execute();
+    new Echo("Hello from\n" + LOGO).execute();
     listen(new Scanner(System.in));
   }
 
@@ -24,15 +23,19 @@ public class Mummy {
 
     switch (input) {
       case "bye":
-        new Exit().execute();
+        new Echo("Bye. Hope to see you again soon!\n").execute();
         return;
       case "list":
-        Command displayStore = STORE.createDisplay();
-        displayStore.execute();
+        new Echo(STORE.toString()).execute();
         break;
       default:
-        Command addToStore = STORE.createAddToStore(input);
-        addToStore.execute();
+        new Command("added: " + input) {
+          @Override
+          public void execute() {
+            STORE.add(input);
+            System.out.println(this);
+          }
+        }.execute();
         break;
     }
 
