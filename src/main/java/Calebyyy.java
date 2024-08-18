@@ -23,8 +23,8 @@ public class Calebyyy {
         System.out.println("____________________________________________________________");
     }
 
-    public void addTask(String taskDescription) {
-        tasks[taskCount] = new Task(taskDescription);
+    public void addTask(Task task) {
+        tasks[taskCount] = task;
         taskCount++;
     }
 
@@ -38,6 +38,10 @@ public class Calebyyy {
 
     public void unmarkTask(int taskNumber) {
         tasks[taskNumber - 1].markAsNotDone();
+    }
+
+    public int getTaskCount() {
+        return taskCount;
     }
 
     public void greet() {
