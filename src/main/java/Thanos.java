@@ -168,31 +168,31 @@ public class Thanos {
             try {
                 String userInput = scanner.nextLine();
                 String[] inputArr = parseInput(userInput);
-                String command = inputArr[0];
+                CommandType commandType = CommandType.getCommandType(inputArr[0]);
                 String argument = inputArr[1];
-                switch (command) {
-                    case "bye":
+                switch (commandType) {
+                    case BYE:
                         customPrint("Bye. Hope to see you again soon!\n");
                         return;
-                    case "list":
+                    case LIST:
                         listTasks();
                         break;
-                    case "mark":
+                    case MARK:
                         markTask(argument);
                         break;
-                    case "unmark":
+                    case UNMARK:
                         unmarkTask(argument);
                         break;
-                    case "todo":
+                    case TODO:
                         addTodo(argument);
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         addDeadline(argument);
                         break;
-                    case "event":
+                    case EVENT:
                         addEvent(argument);
                         break;
-                    case "delete":
+                    case DELETE:
                         deleteTask(argument);
                         break;
                     default:
