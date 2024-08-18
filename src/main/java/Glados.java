@@ -91,37 +91,37 @@ public class Glados {
 
     public static void add(TaskType taskType, String input) throws GladosException {
         switch (taskType) {
-            case TODO:
-                String todoDescription = input.trim();
-                checkDescription(todoDescription);
-                taskList.add(new Todo(todoDescription));
-                break;
-            case EVENT:
-                checkDescription(input.trim());
-                String[] eventInputs = input.split(" /from ");
-                String eventDescription = eventInputs[0].trim();
-                checkDescription(eventDescription);
-                if (eventInputs.length != 2) {
-                    throw new DateRangeNotFoundException();
-                }
-                String[] dateRange = eventInputs[1].split(" /to ");
-                if (dateRange.length != 2 || dateRange[0].trim().equals("") || dateRange[1].trim().equals("")) {
-                    throw new DateRangeNotFoundException();
-                }
-                taskList.add(new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()));
-                break;
-            case DEADLINE:
-                checkDescription(input.trim());
-                String[] deadlineInputs = input.split(" /by ");
-                String deadlineDescription = deadlineInputs[0].trim();
-                checkDescription(deadlineDescription);
-                if (deadlineInputs.length != 2 || deadlineInputs[1].trim().equals("")) {
-                    throw new DateNotFoundException();
-                }
-                taskList.add(new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim()));
-                break;
-            default:
-                break;
+        case TODO:
+            String todoDescription = input.trim();
+            checkDescription(todoDescription);
+            taskList.add(new Todo(todoDescription));
+            break;
+        case EVENT:
+            checkDescription(input.trim());
+            String[] eventInputs = input.split(" /from ");
+            String eventDescription = eventInputs[0].trim();
+            checkDescription(eventDescription);
+            if (eventInputs.length != 2) {
+                throw new DateRangeNotFoundException();
+            }
+            String[] dateRange = eventInputs[1].split(" /to ");
+            if (dateRange.length != 2 || dateRange[0].trim().equals("") || dateRange[1].trim().equals("")) {
+                throw new DateRangeNotFoundException();
+            }
+            taskList.add(new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()));
+            break;
+        case DEADLINE:
+            checkDescription(input.trim());
+            String[] deadlineInputs = input.split(" /by ");
+            String deadlineDescription = deadlineInputs[0].trim();
+            checkDescription(deadlineDescription);
+            if (deadlineInputs.length != 2 || deadlineInputs[1].trim().equals("")) {
+                throw new DateNotFoundException();
+            }
+            taskList.add(new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim()));
+            break;
+        default:
+            break;
         }
         listIndex++;
         System.out.println(
