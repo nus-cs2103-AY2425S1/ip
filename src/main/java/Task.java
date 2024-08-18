@@ -1,14 +1,12 @@
 // solution is adapted from the Course Level 3 extension
 
-public class Task {
-    private final String description;
-    private boolean isDone;
-    private final String type;
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
+    protected String type;
 
-    public Task(String description) {
-        this.description = description;
+    public Task() {
         this.isDone = false;
-        this.type = "T";
     }
 
     public String getStatusIcon() {
@@ -19,9 +17,7 @@ public class Task {
         return type;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public abstract String getDescription();
 
     public void markDone() {
         this.isDone = true;

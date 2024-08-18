@@ -16,6 +16,9 @@ public class CommandExecutor {
     public boolean HandleCommand(Command command, TaskList taskList, boolean continueScanning) {
         CommandType commandType = CommandType.values()[command.commandCode()];
 
+        String commandDetails;
+        Task newTask;
+
         switch (commandType) {
             case LIST:
                 FormattedPrinting.printList(taskList);
@@ -44,18 +47,30 @@ public class CommandExecutor {
                 break;
 
             case TODO:
-                String commandDetails = Arrays.stream(command.commandDetails())
+                commandDetails = Arrays.stream(command.commandDetails())
                         .reduce((accumulator, element) -> accumulator + " " + element)
                         .orElse("");
-                Task newTask = new Task(commandDetails);
+                newTask = new ToDo(commandDetails);
                 taskList.addTask(newTask);
                 FormattedPrinting.addTask(newTask, taskList);
                 break;
 
             case DEADLINE:
+                commandDetails = Arrays.stream(command.commandDetails())
+                        .reduce((accumulator, element) -> accumulator + " " + element)
+                        .orElse("");
+                newTask = new Deadline(commandDetails);
+                taskList.addTask(newTask);
+                FormattedPrinting.addTask(newTask, taskList);
+                break;
 
             case EVENT:
-
+                commandDetails = Arrays.stream(command.commandDetails())
+                        .reduce((accumulator, element) -> accumulator + " " + element)
+                        .orElse("");
+                newTask = new Events(commandDetails);
+                taskList.addTask(newTask);
+                FormattedPrinting.addTask(newTask, taskList);
                 break;
 
             case UNKNOWN:
