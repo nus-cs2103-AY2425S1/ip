@@ -6,8 +6,8 @@ public class Duke {
     public static void main(String[] args) {
         String greeting = "   *        *        *        __o    *       *\n"
                 + "*      *       *        *    /_| _     *\n"
-                + "   K  *     K      *        O'_)/ \\  *    *\n"
-                + "  <')____  <')____    __*   V   \\  ) __  *\n"
+                + "  FF  *    FF      *        O'_)/ \\  *    *\n"
+                + "  o')____  o')____    __*   V   \\  ) __  *\n"
                 + "   \\ ___ )--\\ ___ )--( (    (___|__)/ /*     *\n"
                 + " *  |   |    |   |  * \\ \\____| |___/ /  *\n"
                 + "    |*  |    |   |     \\____________/       *\n";
@@ -57,15 +57,36 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task number.");
                     }
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5).trim();
+                tasks.add(new ToDo(description));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String[] substrings = input.split(" /by ");
+                String description = substrings[0].substring(9).trim();
+                String by = substrings[1].trim();
+                tasks.add(new Deadline(description, by));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                String[] substrings = input.split(" /from ");
+                String description = substrings[0].substring(6).trim();
+                String[] fromTo = substrings[1].split(" /to ");
+                String from = fromTo[0].trim();
+                String to = fromTo[1].trim();
+                tasks.add(new Event(description, from, to));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.equals("bye")) {
+                System.out.println("Bye~ Hope to see you again soon! \n" + festiveMessage);
             } else {
-                tasks.add(new Task(input));
-                System.out.println("added: " + input);
+                System.out.println("I'm sorry, I don't understand that command.");
             }
-
             System.out.println("____________________________________________________________");
         }
-
-        System.out.println("Bye~ Hope to see you again soon! \n" + festiveMessage);
-        System.out.println("____________________________________________________________");
     }
 }
