@@ -80,7 +80,7 @@ public class Rex {
                         if (input.length <= 1) {
                             throw new InvalidInputException(errorPrefix + " Too FEW arguments!");
                         }
-                        
+
                         System.out.println(separation);
                         argument = input[1];
                         index = Integer.parseInt(argument);
@@ -107,29 +107,31 @@ public class Rex {
             } catch (InvalidInputException e) {
                 System.out.println(separation);
                 System.out.println(e.getMessage());
+            } catch (InvalidTaskException e) {
+                continue;
             }
         }
     }
 
-    private static Task createTask(String command, String argument) {
+    private static Task createTask(String command, String argument) throws InvalidTaskException {
         System.out.println(separation);
         System.out.println("Got it. I've added this task:");
 
         Task newTask;
-        if (command.equals("todo")) {
-            // Create new ToDo task
-            newTask = new ToDo(argument);
-        } else if (command.equals("deadline")) {
-            // Create new Deadline task, include deadline date
-            String[] descriptionBy = argument.split("/by");
-            newTask = new Deadline(descriptionBy[0], descriptionBy[1]);
-        } else if (command.equals("event")) {
-            // Create new Event task, include from and to periods
-            String[] descriptionFromTo = argument.split("/from | /to");
-            newTask = new Event(descriptionFromTo[0], descriptionFromTo[1], descriptionFromTo[2]);
-        } else {
-            // No command matches
-            return null;
+        try {
+            if (command.equals("todo")) {
+                // Create new ToDo task
+                newTask = new ToDo(argument);
+            } else if (command.equals("deadline")) {
+                // Create new Deadline task
+                newTask = createDeadline(argument);
+            } else {
+                // Create new Event task
+                newTask = createEvent(argument);
+            }
+        } catch (InvalidInputException e) {
+            System.out.println(e.getMessage());
+            throw new InvalidTaskException();
         }
 
         // Print task created and number of tasks added
@@ -137,6 +139,24 @@ public class Rex {
         System.out.println("Now you have " + newTask.getNumberOfTasks() + " tasks in the list.");
 
         return newTask;
+    }
+
+    private static Deadline createDeadline(String argument) throws InvalidInputException {
+        String[] descriptionBy = argument.split("/by", 1);
+        if (descriptionBy.length < 2) {
+            throw new InvalidInputException(errorPrefix + " /by not found in input!");
+        }
+
+        return new Deadline(descriptionBy[0], descriptionBy[1]);
+    }
+
+    private static Event createEvent(String argument) throws InvalidInputException {
+        String[] descriptionFromTo = argument.split("/from | /to", 1);
+        if (descriptionFromTo.length < 3) {
+            throw new InvalidInputException(errorPrefix + " /from or /to not found in input!");
+        }
+
+        return new Event(descriptionFromTo[0], descriptionFromTo[1], descriptionFromTo[2]);
     }
 
     private static void displayList(List<Task> list) {
