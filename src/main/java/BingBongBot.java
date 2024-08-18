@@ -28,6 +28,9 @@ public class BingBongBot {
                 } else if (command.startsWith("unmark")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
                     unmarkTask(index);
+                } else if (command.startsWith("delete")){
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    deleteTask(index);
                 } else {
                     addTask(command);
                 }
@@ -112,5 +115,20 @@ public class BingBongBot {
         Task task = taskList.get(i);
         task.markAsNotDone();
         ui.showResponse("OK, I've marked this task as not done yet:\n" + task);
+    }
+
+    private void deleteTask(int i) throws BingBongException {
+        if (i < 0 || i >= taskList.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        Task task = taskList.get(i);
+        taskList.remove(task);
+        showRemoveTaskMessage(task);
+    }
+
+    private void showRemoveTaskMessage(Task t) {
+        ui.showResponse("Noted. I've removed this task:\n" + t
+                + "\n" + "Now you have " + taskList.size()
+                + " tasks in the list");
     }
 }
