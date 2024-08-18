@@ -20,14 +20,17 @@ public class CommandExecutor {
             // the following code was slightly optimised using ChatGPT
             case MARK:
             case UNMARK:
+            case DELETE:
                 try {
                     index = Integer.parseInt(commandDetails) - 1;
                     newTask = taskList.getTask(index);
                     if (newTask != null) {
                         if (commandType == CommandTypes.MARK) {
                             newTask.markDone();
-                        } else {
+                        } else if (commandType == CommandTypes.UNMARK) {
                             newTask.markUndone();
+                        } else {
+                            taskList.deleteTask(newTask);
                         }
                     }
                 } catch (NumberFormatException e) {

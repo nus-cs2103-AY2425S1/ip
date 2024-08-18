@@ -28,6 +28,16 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(Task task) {
+        if (!Objects.equals(task.description.trim(), "")) {
+            this.taskList.remove(task);
+            FormattedPrinting.deleteTask(task, this);
+        }
+        else {
+            FormattedPrinting.descriptionEmptyError();
+        }
+    }
+
     public int getSize() {
         return this.taskList.size();
     }

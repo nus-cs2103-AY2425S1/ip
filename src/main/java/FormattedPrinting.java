@@ -62,6 +62,16 @@ public class FormattedPrinting {
         FormatPrint(message);
     }
 
+    public static void deleteTask(Task task, TaskList taskList) {
+        String message = "Got it. I've deleted this task:\n"
+                + printTask(task)
+                + "\n"
+                + "Now you have "
+                + taskList.getSize()
+                + " task(s) in the list.";
+        FormatPrint(message);
+    }
+
     public static void printMarked(Task task) {
         FormatPrint("Nice!  I've marked this task as done:\n" + printTask(task));
     }
@@ -83,7 +93,7 @@ public class FormattedPrinting {
     }
 
     public static void unknownCommand() {
-        String outputMessage = "I do not recognise this command, please check again! \n"
+        String outputMessage = "I do not recognise this command, please check again!\n"
                 + "Available commands are:\n"
                 + Arrays.toString(CommandTypes.class.getEnumConstants()).toLowerCase();
         FormatPrint(outputMessage);
