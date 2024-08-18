@@ -51,9 +51,11 @@ public class Hoodini {
             }
         } catch (invalidTaskException | invalidInputException e) {
             System.out.println(e.getMessage());
-            handleInput();
+
 
         }
+        sc.close();
+
 
     }
 
