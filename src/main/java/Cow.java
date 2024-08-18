@@ -1,16 +1,20 @@
+import java.util.Scanner;
 public class Cow {
+    // solution below inspired by https://www.w3schools.com/java/java_user_input.asp
+    private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        String line = "____________________________________________________________";
 
-        String greetings = line + "\n"
-                + " Hello! I'm COW\n"
-                + " What can I do for you?\n"
-                + line;
 
-        String goodbye = " Bye. Hope to see you again soon!\n"
-                + line;
+        Message greetings = new Message(
+                " Hello! I'm COW\n"
+                        + " What can I do for you?"
+        );
 
         System.out.println(greetings);
-        System.out.println(goodbye);
+
+        while (true) {
+            String command = scanner.nextLine();
+            new Command(command).action();
+        }
     }
 }
