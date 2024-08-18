@@ -57,7 +57,10 @@ public class ZBot {
         Task task = new ToDo(description);
         tasks[taskIndex] = task;
         taskIndex = (taskIndex + 1) % 100;
-        System.out.println(String.format("Added Task: %s\n", task));
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println(String.format("Now you have %d tasks in the list.\n", taskIndex));
     }
 
     public static void listTask() {
