@@ -15,19 +15,6 @@ public class Parser {
 
         String normalizedInput = input.trim().toLowerCase();
 
-//        if (normalizedInput.equals("bye")) {
-//            return new ExitCommand();
-//        } else if (normalizedInput.equals("list")) {
-//            return new ListCommand();
-//        } else if (normalizedInput.startsWith("mark ")) {
-//            String task = input.substring(5).trim();
-//            return new MarkCommand(task);
-//        } else if (normalizedInput.startsWith("unmark ")) {
-//            String task = input.substring(7).trim();
-//            return new UnmarkCommand(task);
-//        } else {
-//            return new EchoCommand(input);
-//        }
         if (normalizedInput.equals("bye")) {
             return new ExitCommand();
         } else if (normalizedInput.equals("list")) {

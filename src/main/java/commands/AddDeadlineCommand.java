@@ -12,8 +12,7 @@ public class AddDeadlineCommand extends Command {
     public AddDeadlineCommand(String input) {
         String[] parts = input.split("/by ");
         if (parts.length < 2) {
-            // Invalid format, no need to proceed further
-            this.description = null;  // Mark as invalid
+            this.description = null;
             this.deadline = null;
         } else {
             this.description = parts[0].substring(9).trim();

@@ -26,6 +26,6 @@ public class UnmarkCommand extends Command {
         } catch (NumberFormatException e) {
             ui.printMessage("Please enter a valid task number.");
         }
-        return true; // Continue running
+        return true;
     }
 }
