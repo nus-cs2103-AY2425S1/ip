@@ -1,5 +1,12 @@
+import java.util.Scanner;
+
 public class Hoshi {
+
+
+
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
         String logo = "\n" +
                 " __    __    ______        _______. __    __   __  \n" +
@@ -18,15 +25,37 @@ public class Hoshi {
                 "____________________________________________________________\n");
 
 
+        while (true) {
+
+            System.out.println("Enter your request below ");
+
+            // take in input
+            String input = scanner.nextLine();
+
+            if (input.equals("bye")) {
+                break;
+            }
+
+            // echo
+            System.out.println(input);
 
 
-        System.out.println("Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
+        }
 
-
+        bye();
 
 
 
 
     }
+
+    /**
+     * Prints bye message when user terminates the program
+     *
+     */
+    static void bye() {
+        System.out.println("Bye. Hope to see you again soon!\n" +
+                "____________________________________________________________\n");
+    }
+
 }
