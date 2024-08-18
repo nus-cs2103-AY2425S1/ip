@@ -1,0 +1,4 @@
+todo t1
+event e1 /from d1 /to d2
+deadline t2 /by d3
+bye
