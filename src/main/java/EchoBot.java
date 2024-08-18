@@ -103,6 +103,8 @@ public class EchoBot {
             } catch (ClassCastException e) {
                 String msg = "Input Error: " + e.getMessage();
                 System.out.println(msg);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid command entered. " + e.getMessage());
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 System.exit(0);

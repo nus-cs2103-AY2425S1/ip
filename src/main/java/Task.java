@@ -74,31 +74,36 @@ public abstract class Task {
         String[] taskInfoArray = taskInfo.split(" ", 2);
         String type = taskInfoArray[0].toUpperCase();
         Task newTask;
-        switch (TaskType.valueOf(type)) {
-            case TODO:
-                checkValidCommand(taskInfoArray, TaskType.TODO);
-                String todoInfo = taskInfoArray[1];
-                newTask = new ToDo(todoInfo);
-                break;
-            case DEADLINE:
-                checkValidCommand(taskInfoArray, TaskType.DEADLINE);
-                String ddlInfo = taskInfoArray[1].split(" /by ")[0];
-                String deadline = taskInfoArray[1].split(" /by ")[1];
-                newTask = new Deadline(ddlInfo, deadline);
-                break;
-            case EVENT:
-                checkValidCommand(taskInfoArray, TaskType.EVENT);
-                String eventInfo = taskInfoArray[1].split(" /from ")[0];
-                String[] timeInfo = taskInfoArray[1].split(" /from ")[1].split(" /to ");
-                String startTime = timeInfo[0];
-                String endTime = timeInfo[1];
-                newTask = new Event(eventInfo, startTime, endTime);
-                break;
-            default:
-                String msg = "Oops! It seems you enter a invalid type.";
-                String guide = "Please enter a valid task type: todo/deadline/event";
-                throw new DukeException(msg + "\n" + guide);
+        try {
+            switch (TaskType.valueOf(type)) {
+                case TODO:
+                    checkValidCommand(taskInfoArray, TaskType.TODO);
+                    String todoInfo = taskInfoArray[1];
+                    newTask = new ToDo(todoInfo);
+                    break;
+                case DEADLINE:
+                    checkValidCommand(taskInfoArray, TaskType.DEADLINE);
+                    String ddlInfo = taskInfoArray[1].split(" /by ")[0];
+                    String deadline = taskInfoArray[1].split(" /by ")[1];
+                    newTask = new Deadline(ddlInfo, deadline);
+                    break;
+                case EVENT:
+                    checkValidCommand(taskInfoArray, TaskType.EVENT);
+                    String eventInfo = taskInfoArray[1].split(" /from ")[0];
+                    String[] timeInfo = taskInfoArray[1].split(" /from ")[1].split(" /to ");
+                    String startTime = timeInfo[0];
+                    String endTime = timeInfo[1];
+                    newTask = new Event(eventInfo, startTime, endTime);
+                    break;
+                default:
+                    throw new DukeException();
+            }
+        } catch (IllegalArgumentException e) {
+            String msg = "Oops! It seems you enter a invalid type.";
+            String guide = "Please enter a valid task type: todo/deadline/event";
+            throw new DukeException(msg + "\n" + guide);
         }
+
         System.out.println("Got it. I've added this task:");
         return newTask;
     }
