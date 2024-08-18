@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class Tecna {
-    private String[] todo;
+    private Task[] todo;
     private int todoSize;
 
     public Tecna() {
-        this.todo = new String[100];
+        this.todo = new Task[100];
         this.todoSize = 0;
     }
 
@@ -49,7 +49,8 @@ public class Tecna {
     }
 
     public void addItem(String item) {
-        this.todo[this.todoSize] = item;
+        Task task = new Task(item);
+        this.todo[this.todoSize] = task;
         ++this.todoSize;
         System.out.println("added: " + item);
     }
