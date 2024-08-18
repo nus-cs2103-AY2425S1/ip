@@ -17,10 +17,12 @@ public class Rex {
         // ArrayList to store added tasks
         ArrayList<Task> list = new ArrayList<>();
 
+        // Initialize scanner to take in user input
+        Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.println(separation);
             // Takes in user input and extract command
-            Scanner scanner = new Scanner(System.in);
             String[] input = scanner.nextLine().split(" ", 2);
             String command = input[0];
 
@@ -31,6 +33,7 @@ public class Rex {
                 System.out.println(separation);
                 System.out.println("Bye. Hope to see you again soon!" + rawr);
                 System.out.println(separation);
+                scanner.close();
                 return;
             // Adding a task to list
             case "todo":
