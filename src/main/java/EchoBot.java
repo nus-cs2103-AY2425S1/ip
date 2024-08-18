@@ -3,11 +3,11 @@ import java.util.Scanner;
 
 public class EchoBot {
     private static final String BYE = "bye";
-    private static String Logo = " _ _ _  _ _ _         _ _ _\n"
-            + "|      |      |     ||     | \n"
-            + "|_ _ _ |      |_ _ _||     |\n"
-            + "|      |      |     ||     |\n"
-            + "|_ _ _ |_ _ _ |     ||_ _ _|\n";
+    private static String Logo = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
     private static ArrayList<Task> allTasks = new ArrayList<>();
 
     public static void dashline() {
