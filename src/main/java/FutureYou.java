@@ -4,6 +4,7 @@ import java.util.ArrayList; // import the ArrayList class
 public class FutureYou {
         static ArrayList<Task> taskList = new ArrayList<Task>();
 
+        
         public static void bye() {
                 System.out.println("Bye. Hope to see you again soon!\n" +
                                 "____________________________________________________________\n");
@@ -13,15 +14,22 @@ public class FutureYou {
                 int count = 1;
                 System.out.println("Items in List:");
                 for (Task item : taskList) {
-                        String cross = (item.taskStatus() ? "X" : " ");
-                        System.out.println(count++ + ". " + "[" + cross + "] " + item.taskName());
+                        System.out.println(count++ + ". " + item.print());
                 }
+        }
+
+        public static void addTask(String taskName) {
+                Task newTask = new Task(taskName);
+                taskList.add(newTask);
+                System.out.println("Added this task: ");
+                System.out.println(newTask.print());
+                System.out.println(taskList.size() + " tasks in the list");
         }
 
         public static void markTask(int n) {
                 taskList.get(n).markTask();
                 System.out.println("Marked as Done:");
-                System.out.println("[X] " + taskList.get(n).taskName());
+                System.out.println(taskList.get(n).print());
         }
 
         public static void main(String[] args) {
@@ -47,15 +55,17 @@ public class FutureYou {
                         if (input.toLowerCase().trim().equals("bye")) {
                                 bye();
                                 break;
+                        } else if (input.toLowerCase().trim().contains("todo")) {
+                                String taskName = input.substring(5, input.length());
+                                addTask(taskName);
                         } else if (input.toLowerCase().trim().equals("list")) {
                                 printList();
                         } else if (input.toLowerCase().trim().contains("mark")) {
                                 int num = Integer.parseInt(input.substring(5, input.length()));
                                 markTask(num - 1);
                         } else {
-                                Task newTask = new Task(input);
-                                taskList.add(newTask);
-                                System.out.println("Item: " + input + " added to list"); // Add user input to list
+                                System.err.println(input);
+                                // break;
                         }
                 }
         }
