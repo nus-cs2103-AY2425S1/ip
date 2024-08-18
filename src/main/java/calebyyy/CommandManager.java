@@ -1,7 +1,4 @@
 package calebyyy;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 import calebyyy.commands.AddCommand;
 import calebyyy.commands.ByeCommand;
@@ -12,10 +9,9 @@ import calebyyy.commands.UnmarkCommand;
 import calebyyy.commands.DeleteCommand;
 import calebyyy.exceptions.InvalidCommandException;
 import calebyyy.exceptions.CalebyyyException;
+import java.util.Scanner;
 
 public class CommandManager {
-    private Map<String, Command> commands;
-    private Map<String, Command> commandsWithArguments;
     private Command addCommand;
     private Command listCommand;
     private Command markCommand;
@@ -25,29 +21,41 @@ public class CommandManager {
     private Scanner scanner;
 
     public CommandManager(Calebyyy calebyyy) {
-        commands = new HashMap<>();
-        commandsWithArguments = new HashMap<>();
         addCommand = new AddCommand(calebyyy);
         listCommand = new ListCommand(calebyyy);
         markCommand = new MarkCommand(calebyyy);
         unmarkCommand = new UnmarkCommand(calebyyy);
         byeCommand = new ByeCommand(calebyyy);
         deleteCommand = new DeleteCommand(calebyyy);
-        commands.put("bye", byeCommand);
-        commands.put("list", listCommand);
-        commands.put("mark", markCommand);  
-        commands.put("unmark", unmarkCommand);
-        commands.put("todo", addCommand);
-        commands.put("deadline", addCommand);
-        commands.put("event", addCommand);
-        commands.put("delete", deleteCommand);
-        commandsWithArguments.put("todo", addCommand);
-        commandsWithArguments.put("deadline", addCommand);
-        commandsWithArguments.put("event", addCommand);
-        commandsWithArguments.put("mark", markCommand);
-        commandsWithArguments.put("unmark", unmarkCommand);
-        commandsWithArguments.put("delete", deleteCommand);
         scanner = new Scanner(System.in);
+    }
+
+    public enum CommandType {
+        ADD,
+        LIST,
+        MARK,
+        UNMARK,
+        BYE,
+        DELETE
+    }
+
+    public Command getCommand(CommandType commandType) {
+        switch (commandType) {
+            case ADD:
+                return addCommand;
+            case LIST:
+                return listCommand;
+            case MARK:
+                return markCommand;
+            case UNMARK:
+                return unmarkCommand;
+            case BYE:
+                return byeCommand;
+            case DELETE:
+                return deleteCommand;
+            default:
+                throw new IllegalArgumentException("Invalid command type");
+        }
     }
 
     public void startCommandLoop() {
@@ -66,12 +74,36 @@ public class CommandManager {
     }
 
     public void executeCommand(String input) throws CalebyyyException {
-        String commandKey = input.split(" ")[0];
-        Command command = commands.get(commandKey);
-        if (commands.get(commandKey) != null) {
-            command.execute(input);
-        } else {
-            throw new InvalidCommandException();
+        String[] parts = input.split(" ", 2);
+        String commandName = parts[0];
+
+        CommandType commandType;
+        switch (commandName) {
+            case "list":
+                commandType = CommandType.LIST;
+                break;
+            case "mark":
+                commandType = CommandType.MARK;
+                break;
+            case "unmark":
+                commandType = CommandType.UNMARK;
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                commandType = CommandType.ADD;
+                break;
+            case "delete":
+                commandType = CommandType.DELETE;
+                break;
+            case "bye":
+                commandType = CommandType.BYE;
+                break;
+            default:
+                throw new InvalidCommandException();
         }
+
+        Command command = getCommand(commandType);
+        command.execute(input);
     }
 }
