@@ -53,8 +53,7 @@ public class Rex {
 
                         // Create task and add to list
                         String argument = input[1];
-                        Task newTask = createTask(command, argument);
-                        list.add(newTask);
+                        Task newTask = createTask(list, command, argument);
                         break;
                     // Display items added as a numbered list
                     case "list":
@@ -68,6 +67,8 @@ public class Rex {
                     // Mark/unmark task in specified index as done
                     case "mark":
                     case "unmark":
+                    case "delete":
+                        // Must have a number argument
                         if (input.length <= 1) {
                             throw new InvalidInputException(errorPrefix + " Too FEW arguments!");
                         }
@@ -81,8 +82,11 @@ public class Rex {
                         // Mark/unmark task according to command
                         if (command.equals("mark")) {
                             actionTask.markDone();
-                        } else {
+                        } else if (command.equals("unmark")) {
                             actionTask.unmarkDone();
+                        } else {
+                            // Delete task from list
+                            deleteTask(list, actionTask);
                         }
                         break;
                     case "rawr":
@@ -120,7 +124,7 @@ public class Rex {
         }
     }
 
-    private static Task createTask(String command, String argument) throws InvalidTaskException {
+    private static Task createTask(List<Task> list, String command, String argument) throws InvalidTaskException {
         System.out.println(separation);
 
         Task newTask;
@@ -140,10 +144,11 @@ public class Rex {
             throw new InvalidTaskException();
         }
 
-        // Print task created and number of tasks added
+        // Add task to list
+        list.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + newTask);
-        System.out.println("Now you have " + newTask.getNumberOfTasks() + " tasks in the list.");
+        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
 
         return newTask;
     }
@@ -185,6 +190,16 @@ public class Rex {
         for (int i = 1; i <= list.size(); i++) {
             System.out.println(i + "." + list.get(i - 1));
         }
+    }
+
+    private static void deleteTask(List<Task> list, Task actionTask) {
+        // Remove task from list and decrease number
+        list.remove(actionTask);
+        Task.removeTask();
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(actionTask);
+        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
     private static void listCommands() {
