@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Terminator {
     public static void main(String[] args) {
-        String horizontalLine = "____________________________________________________________\n";
+        String hline = "\t____________________________________________________________\n";
         String logo = """
                                      <((((((\\\\\\
                                      /      . }\\
@@ -19,15 +19,22 @@ public class Terminator {
                          \\  \\       \\ |     | /        /
                           \\  \\      \\        /
                 """;
-        String greeting = horizontalLine +
+        String greeting = hline +
                 logo +
-                "Booting...\n" +
-                "Device booted successfully.\n" +
-                "State your request.\n" +
-                horizontalLine;
+                "\tBooting...\n" +
+                "\tDevice booted successfully.\n" +
+                "\tState your request.\n" +
+                hline;
         System.out.println(greeting);
 
-        String exit = "Mission complete. Shutting down.\n" + horizontalLine;
+        String exit = hline + "\tMission complete. Deactivating...\n" + hline;
+
+        Scanner sc = new Scanner(System.in);
+        String userInput = sc.next();
+        while (!userInput.equals("bye")) {
+            System.out.println(hline + "\t" + userInput + "\n" + hline);
+            userInput = sc.next();
+        }
         System.out.println(exit);
     }
 }
