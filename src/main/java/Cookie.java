@@ -1,6 +1,7 @@
+import java.util.Scanner;
 public class Cookie {
-    public static void main(String[] args) {
-        String logo = "    o      o    \n"
+    public String printLogo() {
+        return "    o      o    \n"
                 + " ____\\____/____\n"
                 + "|   _      _   |\n"
                 + "|  / \\    / \\  |   /\n"
@@ -8,12 +9,28 @@ public class Cookie {
                 + "|              | /\n"
                 + "|______________|/\n"
                 + "\n";
-
-        String greet = "Hello! I'm Cookie\n"
+    }
+    public String printGreet() {
+        return "Hello! I'm Cookie\n"
                 + "How can I help you?\n"
                 + "\n";
+    }
+    public String printQuit() {
+        return "Bye. See you soon!";
+    }
+    public static void main(String[] args) {
+        Cookie cookie = new Cookie();
+        System.out.println(cookie.printLogo() + cookie.printGreet());
 
-        String quit = "Bye. See you soon!";
-        System.out.println(logo + greet + quit);
+        Scanner scanner = new Scanner(System.in);
+        String echoText = scanner.nextLine();
+
+        while(!echoText.equals("bye")) {
+            System.out.println(echoText);
+            echoText = scanner.nextLine();
+        }
+
+        System.out.println(cookie.printQuit());
+
     }
 }
