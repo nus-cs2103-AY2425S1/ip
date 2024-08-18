@@ -31,6 +31,10 @@ public class TaskStorage {
         return tasks;
     }
 
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
     public Task getTask(int index) {
         if (index < 0 || index >= tasks.size()) {
             return null;
