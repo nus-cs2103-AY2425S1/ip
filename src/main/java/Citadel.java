@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import exception.CitadelException;
 import exception.CitadelInvalidArgException;
 import exception.CitadelInvalidCommandException;
@@ -93,7 +96,6 @@ public class Citadel {
 
     private static void delete(String input) throws CitadelException {
         try {
-            //todo finish this
         String[] words = input.split(" ");
         int index = Integer.parseInt(words[1]);
         Task t = items.remove(index - 1);
@@ -119,7 +121,8 @@ public class Citadel {
             throw new CitadelTaskNoInput();
         }
 
-        t = new Deadline(task, deadline);
+        LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        t = new Deadline(task, deadlineFormatted);
         items.add(t);
         System.out.println("Got it! I have added: " + t);
         System.out.println();
@@ -148,7 +151,9 @@ public class Citadel {
             throw new CitadelTaskNoInput();
         }
 
-        t = new Event(task, from, to);
+        LocalDateTime fromFormatted = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime toFormatted = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        t = new Event(task, fromFormatted, toFormatted);
         items.add(t);
 
         System.out.println("Got it! I have added: " + t);
