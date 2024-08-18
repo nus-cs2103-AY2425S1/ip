@@ -1,20 +1,22 @@
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BobbyBot {
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String chatBotName = "BobbyBot";
 
-        Task[] tasks = new Task[100];
         Scanner myScanner = new Scanner(System.in);
         printInput("Hello! I'm " + chatBotName, "What can I do for you?");
         while (true) {
-            String input = myScanner.nextLine();
+            final String input = myScanner.nextLine();
             switch (input) {
                 case "list":
-                    listTasks(tasks);
+                    listTasks(tasks.toArray(new Task[0]));
                     break;
                 case "bye":
                     printInput("Bye. Hope to see you again soon!");
@@ -22,24 +24,63 @@ public class BobbyBot {
                 default:
                     if (input.startsWith("mark")) {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                        tasks[index].setIsDone(true);
-                        printInput("Nice! I've marked this task as done:",  "\t" + tasks[index]);
+                        tasks.get(index).setIsDone(true);
+                        printInput("Nice! I've marked this task as done:",  "\t" + tasks.get(index));
                     } else if (input.startsWith("unmark")) {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                        tasks[index].setIsDone(false);
-                        printInput("OK, I've marked this task as not done yet:",  "\t" + tasks[index]);
-                    } else {
-                        printInput("added: " + input);
-                        for (int i = 0; i < tasks.length; i++) {
-                            if (tasks[i] == null) {
-                                tasks[i] = new Task(input);
-                                break;
+                        tasks.get(index).setIsDone(false);
+                        printInput("OK, I've marked this task as not done yet:",  "\t" + tasks.get(index));
+                    } else if (input.startsWith("todo")) {
+                        String inputTrimmed = input.replace("todo", "").trim();
+                        Supplier<String> addTodo = () -> {
+                            Task todo = new ToDo(inputTrimmed);
+                            tasks.add(todo);
+                            return todo.toString();
+                        };
+                        addTask(addTodo);
+                    } else if (input.startsWith("deadline")) {
+                        Supplier<String> addDeadline = () -> {
+                            String inputTrimmed = input.replace("deadline", "").trim();
+                            Pattern r = Pattern.compile("(.*) /by (.*)");
+                            Matcher m = r.matcher(inputTrimmed);
+                            if (m.find()) {
+                                String description = m.group(1).trim();
+                                String by = m.group(2).trim();
+                                Task deadline = new Deadline(description, by);
+                                tasks.add(deadline);
+                                return deadline.toString();
                             }
-                        }
+                            return "";
+                        };
+                        addTask(addDeadline);
+                    } else if (input.startsWith("event")) {
+                        Supplier<String> addEvent = () -> {
+                            String inputTrimmed = input.replace("event", "").trim();
+                            Pattern r = Pattern.compile("(.*) /from (.*) /to (.*)");
+                            Matcher m = r.matcher(inputTrimmed);
+                            if (m.find()) {
+                                String description = m.group(1).trim();
+                                String from = m.group(2).trim();
+                                String to = m.group(3).trim();
+                                Task event = new Event(description, from, to);
+                                tasks.add(event);
+                                return event.toString();
+                            }
+                            return "";
+                        };
+                        addTask(addEvent);
                     }
                     break;
             }
         }
+    }
+
+    private static void addTask(Supplier<String> task) {
+        printInput(
+                "Got it. I've added this task:",
+                "\t" + task.get(),
+                "Now you have " + tasks.size() + " task(s) in the list."
+        );
     }
 
     private static void listTasks(Task[] tasks) {
