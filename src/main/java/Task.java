@@ -27,7 +27,7 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public int getNumberOfTasks() {
+    public static int getNumberOfTasks() {
         return numberOfTasks;
     }
 
