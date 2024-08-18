@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Yapper {
 
@@ -13,13 +15,17 @@ public class Yapper {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
-        Task[] taskList = new Task[1];
-        int totalTasks = 0;
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Task> taskList = new ArrayList<>();
 
         while (true) {
             try {
-                Scanner sc = new Scanner(System.in);
-                String input = sc.nextLine();
+                String input = "";
+                if (sc.hasNextLine()) {
+                    input = sc.nextLine();
+                } else {
+                    break;
+                }
                 String[] split = input.split(" ");
                 String command = split[0];
 
@@ -28,18 +34,22 @@ public class Yapper {
                     System.out.println("Bye bye!");
                     System.out.println(divider);
                     break;
+                } else if (command.equals("hi")) {
+                    System.out.println(divider);
+                    System.out.println("Hello! :)");
+                    System.out.println(divider);
                 } else if (command.equals("list")) {
                     System.out.println(divider);
-                    System.out.println("Your task list currently has " + totalTasks + " tasks");
-                    for (int i = 1; i <= totalTasks; i++) {
-                        System.out.println(i + "." + taskList[i - 1]);
+                    System.out.println("Your task list currently has " + Task.getTotalTasks() + " tasks");
+                    for (int i = 1; i <= taskList.size(); i++) {
+                        System.out.println(i + "." + taskList.get(i - 1));
                     }
                     System.out.println(divider);
-                } else if (command.equals("mark") | command.equals("unmark")) {
+                } else if (command.equals("mark") || command.equals("unmark")) {
                     int taskNumber = Integer.parseInt(split[1]);
                     Task task = null;
                     try {
-                        task = taskList[taskNumber - 1];
+                        task = taskList.get(taskNumber - 1);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(divider);
                         System.out.println("Oopsie! Couldn't find that one! :)");
@@ -58,12 +68,28 @@ public class Yapper {
                     System.out.println(message);
                     System.out.println(" " + task);
                     System.out.println(divider);
+                } else if (command.equals("delete")) {
+                    int taskNumber = Integer.parseInt(split[1]);
+                    try {
+                        Task task = taskList.get(taskNumber - 1);
+                        taskList.remove(taskNumber - 1);
+                        Task.setTotalTasks(Task.getTotalTasks() - 1);
+                        System.out.println(divider);
+                        System.out.println("The following task has been removed form the lise:");
+                        System.out.println("  " + task);
+                        System.out.println("A total of " + Task.getTotalTasks() + " " + taskPlural(Task.getTotalTasks()) + " are still left.");
+                        System.out.println(divider);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(divider);
+                        System.out.println("That task is not here, sorry! :(");
+                        System.out.println(divider);
+                        continue;
+                    }
                 } else if (command.equals("todo")) {
                     try {
                         String desc = join(split, 1, split.length, Type.DESC);
                         Task task = new ToDo(desc);
-                        addTask(taskList, totalTasks, task);
-                        totalTasks++;
+                        addTask(taskList, task);
                     } catch (YapperException e) {
                         errorCaught(e.getMessage());
                     }
@@ -76,13 +102,12 @@ public class Yapper {
                             }
                         }
                         if (byIndex == -1) {
-                            throw new YapperFormatException("(Format: deadline [TASKDESC] /by [DEADLINE])");
+                            throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE])");
                         }
                         String desc = join(split, 1, byIndex, Type.DESC);
                         String deadline = join(split, byIndex + 1, split.length, Type.DEADLINE);
                         Task task = new Deadline(desc, deadline);
-                        addTask(taskList, totalTasks, task);
-                        totalTasks++;
+                        addTask(taskList, task);
                     } catch (YapperException e) {
                         errorCaught(e.getMessage());
                     }
@@ -104,8 +129,7 @@ public class Yapper {
                         String from = join(split, fromIndex + 1, toIndex, Type.FROM);
                         String to = join(split, toIndex + 1, split.length, Type.TO);
                         Task task = new Event(desc, from, to);
-                        addTask(taskList, totalTasks, task);
-                        totalTasks++;
+                        addTask(taskList, task);
                     } catch (YapperException e) {
                         errorCaught(e.getMessage());
                     }
@@ -124,17 +148,13 @@ public class Yapper {
         System.out.println(divider);
     }
 
-    public static void addTask(Task[] taskList, int totalTasks, Task task) throws TaskLimitException {
-        try {
-            taskList[totalTasks++] = task;
-            System.out.println(divider);
-            System.out.println("Task has been added:");
-            System.out.println("  " + task);
-            System.out.println("A total of " + totalTasks + " " + taskPlural(totalTasks) + " are on the list.");
-            System.out.println(divider);
-        } catch (IndexOutOfBoundsException e) {
-            throw new TaskLimitException();
-        }
+    public static void addTask(ArrayList<Task> taskList, Task task) {
+        taskList.add(task);
+        System.out.println(divider);
+        System.out.println("Task has been added:");
+        System.out.println("  " + task);
+        System.out.println("A total of " + Task.getTotalTasks() + " " + taskPlural(Task.getTotalTasks()) + " are on the list.");
+        System.out.println(divider);
     }
 
     public static String taskPlural(int taskCount) {

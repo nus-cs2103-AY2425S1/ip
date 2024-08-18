@@ -3,12 +3,52 @@ Hello! I'm Yapper
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Task has been added:
+  [T][ ] read book
+A total of 1 task are on the list.
+____________________________________________________________
+____________________________________________________________
+Task has been added:
+  [D][ ] return book (by: June 6th)
+A total of 2 tasks are on the list.
+____________________________________________________________
+____________________________________________________________
+No task description given (E.g. todo [DESC], deadline [DESC] /by [DEADLINE], etc)
+____________________________________________________________
+____________________________________________________________
+No ending time given (Format: event [DESC] /from [FROM] /to [TO])
+____________________________________________________________
+____________________________________________________________
+Invalid format (Format: event [DESC] /from [FROM] /to [TO])
+____________________________________________________________
+____________________________________________________________
+Invalid format (Format: event [DESC] /from [FROM] /to [TO])
+____________________________________________________________
+____________________________________________________________
+Task has been added:
+  [E][ ] project meeting (from: Aug 6th 2pm to : 4pm)
+A total of 3 tasks are on the list.
+____________________________________________________________
+____________________________________________________________
+Task has been added:
+  [T][ ] join sports club
+A total of 4 tasks are on the list.
+____________________________________________________________
+____________________________________________________________
+Task has been added:
   [T][ ] borrow book
-Now you have 1 task in the list.
+A total of 5 tasks are on the list.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+Your task list currently has 5 tasks
+1.[T][ ] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to : 4pm)
+4.[T][ ] join sports club
+5.[T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+The following task has been removed form the lise:
+  [E][ ] project meeting (from: Aug 6th 2pm to : 4pm)
+A total of 4 tasks are still left.
 ____________________________________________________________
