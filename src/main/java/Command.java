@@ -4,12 +4,10 @@ import java.util.Arrays;
 // solution below inspired by https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
 public class Command {
     private enum CommandsEnum {
-        LIST, BYE, TODO, MARK, UNMARK
+        LIST, BYE, TODO, MARK, UNMARK, DEADLINE, EVENT, NULL
     }
     private final CommandsEnum command;
     private String params;
-    private static final Message message = new Message("");
-
     private final TodoList todoList;
 
     /**
@@ -20,6 +18,9 @@ public class Command {
     public Command(String command, TodoList todoList) {
         String[] tokens = command.split(" ", 2);
         this.todoList = todoList;
+        if (tokens.length > 1) {
+            this.params = tokens[1];
+        }
         switch (tokens[0]) {
             case "list":
                 this.command = CommandsEnum.LIST;
@@ -29,15 +30,21 @@ public class Command {
                 break;
             case "mark":
                 this.command = CommandsEnum.MARK;
-                this.params = tokens[1];
                 break;
             case "unmark":
                 this.command = CommandsEnum.UNMARK;
-                this.params = tokens[1];
+                break;
+            case "todo":
+                this.command = CommandsEnum.TODO;
+                break;
+            case "deadline":
+                this.command = CommandsEnum.DEADLINE;
+                break;
+            case "event":
+                this.command = CommandsEnum.EVENT;
                 break;
             default:
-                this.command = CommandsEnum.TODO;
-                this.params = command;
+                this.command = CommandsEnum.NULL;
                 break;
         }
     }
@@ -49,25 +56,40 @@ public class Command {
         Task task;
         switch (command) {
             case LIST:
-                Command.message.text(todoList.toString()).print();
+                Message.print(todoList.toString());
                 break;
             case BYE:
-                Command.message.text("Bye. Hope to see you again soon!").print();
+                Message.print("Bye. Hope to see you again soon!");
                 System.exit(0);
                 break;
             case TODO:
-                todoList.add(params);
-                Command.message.text("added: " + params).print();
+                Todo todo = new Todo(params);
+                todoList.add(todo);
+                Message.printAddedTask(todo, todoList);
+                break;
+            case DEADLINE:
+                String[] deadlineParams = params.split("/by", 2);
+                Deadlines deadlineTodo = new Deadlines(deadlineParams[0].trim(), deadlineParams[1].trim());
+                todoList.add(deadlineTodo);
+                Message.printAddedTask(deadlineTodo, todoList);
+                break;
+            case EVENT:
+                String[] eventParamsDesc = params.split("/from", 2);
+                String[] eventParamsFrom = eventParamsDesc[1].split("/to", 2);
+                Event eventTodo = new Event(eventParamsDesc[0].trim(),
+                        eventParamsFrom[0].trim(), eventParamsFrom[1].trim());
+                todoList.add(eventTodo);
+                Message.printAddedTask(eventTodo, todoList);
                 break;
             case MARK:
                 task = todoList.get(Integer.parseInt(params) - 1);
                 task.markAsDone();
-                Command.message.text("Nice! I've marked this task as done:\n  " + task).print();
+                Message.printMarked(task);
                 break;
             case UNMARK:
                 task = todoList.get(Integer.parseInt(params) - 1);
                 task.unmarkAsDone();
-                Command.message.text("OK, I've marked this task as not done yet:\n  "  + task).print();
+                Message.printUnmarked(task);
                 break;
             default:
                 break;

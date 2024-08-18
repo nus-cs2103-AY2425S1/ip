@@ -9,11 +9,11 @@ public class TodoList {
 
     /**
      * Adds a new item to the todo list.
-     * @param todo The description of the todo item to be added.
+     * @param task A Task object to be added.
      * @return The update list of Todo items.
      */
-    public ArrayList<Task> add(String todo) {
-        todoList.add(new Task(todo));
+    public ArrayList<Task> add(Task task) {
+        todoList.add(task);
         return todoList;
     }
 
@@ -24,6 +24,14 @@ public class TodoList {
      */
     public Task get(int i) {
         return todoList.get(i);
+    }
+
+    /**
+     * Returns a string that consists of the number of tasks in the list.
+     * @return A string that consists of the number of tasks in the list.
+     */
+    public String count() {
+        return "Now you have " + this.todoList.size() + " tasks in the list.";
     }
 
     @Override
