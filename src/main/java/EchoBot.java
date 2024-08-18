@@ -65,7 +65,8 @@ public class EchoBot {
             try {
                 switch (CMD) {
                     case "bye":
-                        break;
+                        EchoBot.bye();
+                        return;
                     case "list":
                         EchoBot.listAllTask();
                         break;
@@ -108,11 +109,6 @@ public class EchoBot {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.exit(0);
-            }
-
-            if (CMD.equals(EchoBot.BYE)) {
-                EchoBot.bye();
-                break;
             }
         }
     }
