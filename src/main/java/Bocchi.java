@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Bocchi {
     /**
      * The name of this bot.
@@ -31,22 +33,27 @@ public class Bocchi {
      * Print a horizontal line.
      */
     private void printSeparator() {
-        System.out.println("_________________________________________");
+        System.out.println("_____________________________________________________________");
     }
 
     /**
      * End the conversation.
      */
     private void exit() {
-        System.out.println("Oh you are leaving.. It was a great time talking to you (>_<)");
+        System.out.println("Oh no you are leaving.. It was a great time talking to you ::>_<::");
     }
 
     /**
      * Greet the user.
      */
     private void greet() {
-        System.out.println("Hi! I'm " + name + "...");
+        System.out.println("Hi! I'm " + name + "! Nice to see you!");
         System.out.println("Wha..what can I do for you today? o(*//▽//*)q");
+    }
+
+    private String readCommand(Scanner scanner) {
+        System.out.print(">> ");
+        return scanner.nextLine();
     }
 
     /**
@@ -56,8 +63,21 @@ public class Bocchi {
         printSeparator();
         greet();
         printSeparator();
-        exit();
-        printSeparator();
+        // try-with-resources code optimisation done by Intellij
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                String command = readCommand(scanner);
+                if (command.equals("bye")) {
+                    exit();
+                    printSeparator();
+                    return;
+                } else {
+                    printSeparator();
+                    System.out.println(command);
+                    printSeparator();
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
