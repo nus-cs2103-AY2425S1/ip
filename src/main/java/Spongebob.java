@@ -38,7 +38,7 @@ public class Spongebob {
                     System.out.println("Here are the tasks in your list:\n");
                     while (iter.hasNext()) {
                         Task cur = iter.next();
-                        System.out.println((iter.previousIndex() + 1) + "." + cur.getStatusIcon() + cur.getDescription());
+                        System.out.println((iter.previousIndex() + 1) + "." + cur);
                     }
 
                     break;
@@ -49,10 +49,10 @@ public class Spongebob {
                         // get index of task
                         int index = Integer.parseInt(command[1]);
 
-                        // mark 
+                        // mark
                         cache.get(index - 1).markAsDone();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(cache.get(index - 1).getStatusIcon() + cache.get(index - 1).getDescription());
+                        System.out.println(cache.get(index - 1));
 
                     } catch (NumberFormatException e) {
                         System.out.println("Error, index must be an integer!");
@@ -70,7 +70,7 @@ public class Spongebob {
                         // unmark
                         cache.get(index - 1).unmarkAsDone();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(cache.get(index - 1).getStatusIcon() + cache.get(index - 1).getDescription());
+                        System.out.println(cache.get(index - 1));
 
                     } catch (NumberFormatException e) {
                         System.out.println("Error, index must be an integer!");
@@ -79,10 +79,38 @@ public class Spongebob {
                     }
                     break;
 
-                default:
-                    System.out.println("added: " + usrInput + "\n");
-                    cache.add(new Task(usrInput));
+                case "todo":
+                    System.out.println("Got it. I've added this task:");
+                    Task newTask = new Todo(command[1]);
+                    cache.add(newTask);
+                    System.out.println(newTask);
+                    System.out.println("Now you have " + cache.size() + " todo borrow booktasks in the list.");
                     break;
+
+                case "deadline":
+
+                    args = command[1].split("/by", 2);
+
+                    Task newDeadline = new Deadline(args[0], args[1]);
+                    cache.add(newDeadline);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newDeadline);
+                    System.out.println("Now you have " + cache.size() + " tasks in the list.");
+                    break;
+
+                case "event":
+
+                    args = command[1].split("/from", 3);
+
+                    Task newEvent = new Event(args[0],
+                                            args[1].split("/to",2)[0],
+                                            args[1].split("/to",2)[1]);
+                    cache.add(newEvent);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newEvent);
+                    System.out.println("Now you have " + cache.size() + " tasks in the list.");
+                    break;
+
             }
 
             System.out.println(LINE + "\n");
