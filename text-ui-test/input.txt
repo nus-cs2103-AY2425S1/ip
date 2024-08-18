@@ -1,0 +1,14 @@
+list
+some text
+mark 1
+todo buy stuff
+mark 1
+deadline a
+deadline a /by Sunday
+list
+mark 2
+event meeting /from a /
+event meeting /from a /to b
+list
+mark 3
+list
