@@ -1,10 +1,23 @@
 public class Task {
-    private String task;
-    public Task(String task) {
-        this.task = task;
+    private String description;
+    private boolean isDone;
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+    public String getStatus() {
+        return isDone ? "X" : "";
+    }
+    public String markDone() {
+        this.isDone = true;
+        return this.toString();
+    }
+    public String unmarkDone() {
+        this.isDone = false;
+        return this.toString();
     }
     @Override
     public String toString() {
-        return this.task + "\n";
+        return "[" + getStatus() + "] " + this.description + "\n";
     }
 }

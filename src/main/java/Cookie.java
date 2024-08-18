@@ -7,8 +7,14 @@ public class Cookie {
     }
     private ArrayList<Task> tasks = new ArrayList<>();
 
-    public void addTask(String task) {
-        tasks.add(new Task(task));
+    public void addTask(String description) {
+        tasks.add(new Task(description));
+    }
+    public String markDone(int index) {
+        return tasks.get(index - 1).markDone();
+    }
+    public String unmarkDone(int index) {
+        return tasks.get(index - 1).unmarkDone();
     }
 
     public String printTasks() {
@@ -44,10 +50,22 @@ public class Cookie {
         Scanner scanner = new Scanner(System.in);
         String echoText = scanner.nextLine();
 
+
         while(!echoText.equals("bye")) {
 
             if (echoText.equals("list")) {
                 System.out.println(cookie.printTasks());
+
+            } else if (echoText.contains("unmark")) {
+                System.out.println("Cookie has marked this task as not done! \n" +
+                        cookie.unmarkDone(
+                                Integer.parseInt(echoText.substring(7))));
+
+            } else if (echoText.contains("mark")) {
+                System.out.println("Cookie has marked this as done! Good job! \n" +
+                        cookie.markDone(
+                                Integer.parseInt(echoText.substring(5))));
+
             } else {
                 System.out.println("added: " + echoText);
                 cookie.addTask(echoText);
@@ -55,7 +73,7 @@ public class Cookie {
 
             echoText = scanner.nextLine();
         }
-
+        scanner.close();
         System.out.println(cookie.printQuit());
 
     }
