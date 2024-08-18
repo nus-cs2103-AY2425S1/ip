@@ -65,7 +65,7 @@ public class Task {
                             + "But SUMO will mark it as NOT done again!"
                     );
         } else {
-            System.out.println("Sumo has marked this task as  NOT done.");
+            System.out.println("Sumo has marked this task as NOT done.");
             this.completed = false;
         }
         System.out.println(this);

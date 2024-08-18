@@ -27,7 +27,7 @@ public class SumoDE {
             case "mark":
             {
                 int index = Integer.parseInt(item);
-                if (index >= tasks.size() || index <= 0) {
+                if (index > tasks.size() || index <= 0) {
                     throw new NonExistentTaskException(index);
                 }
                 tasks.get(index-1).mark();
@@ -36,7 +36,7 @@ public class SumoDE {
             case "unmark":
             {
                 int index = Integer.parseInt(item);
-                if (index >= tasks.size() || index <= 0) {
+                if (index > tasks.size() || index <= 0) {
                     throw new NonExistentTaskException(index);
                 }
                 tasks.get(index - 1).unmark();
