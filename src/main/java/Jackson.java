@@ -3,19 +3,21 @@ import java.util.ArrayList;
 
 public class Jackson {
 
-    private static ArrayList<String> list = new ArrayList<String>(10);
+    private static int EXPECTED_SIZE = 10;
+    private static ArrayList<String> tasks = new ArrayList<>(EXPECTED_SIZE);
 
     public static void add_list(String task) {
         System.out.printf("Adding '%s' to list!\n", task);
-        list.add(task);
+        tasks.add(task);
     }
 
     public static void show_list() {
-        if (list.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.println("Nothing in list!");
         } else {
-            for (int i = 0; i < list.size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, list.get(i));
+            System.out.println("Here's your list!");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, tasks.get(i));
             }
         }
     }
@@ -28,10 +30,17 @@ public class Jackson {
         String response = sc.nextLine().strip();
 
         while (!response.equals("bye")) {
-            if (response.equals("list")) {
-                show_list();
-            } else {
-                add_list(response);
+            switch (response) {
+                case "list":
+                    show_list();
+                    break;
+                case "mark":
+
+                    break;
+                case "unmark":
+                    break;
+                default:
+                    add_list(response);
             }
             System.out.print("> ");
             response = sc.nextLine();
