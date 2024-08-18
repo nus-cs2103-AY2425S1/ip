@@ -1,4 +1,4 @@
-# Duke User Guide
+# Future You User Guide
 
 // Update the title above to match the actual product name
 
@@ -28,3 +28,7 @@ expected output
 ## Feature XYZ
 
 // Feature details
+
+## Acknowledgements
+
+1. ASCII Art - https://www.asciiart.eu/text-to-ascii-art
