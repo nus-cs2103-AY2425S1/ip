@@ -14,14 +14,14 @@ public class Rex {
         System.out.println("Hello! I'm Rex!" + rawr);
         System.out.println("What can I do for you?" + rawr);
 
-        // ArrayList to store added items
+        // ArrayList to store added tasks
         ArrayList<Task> list = new ArrayList<>();
 
         while (true) {
             System.out.println(separation);
             // Takes in user input and extract command
             Scanner scanner = new Scanner(System.in);
-            String[] input = scanner.nextLine().split(" ");
+            String[] input = scanner.nextLine().split(" ", 2);
             String command = input[0];
 
             // Process user command
@@ -32,6 +32,14 @@ public class Rex {
                 System.out.println("Bye. Hope to see you again soon!" + rawr);
                 System.out.println(separation);
                 return;
+            // Adding a task to list
+            case "todo":
+            case "deadline":
+            case "event":
+                String argument = input[1];
+                Task newTask = createTask(command, argument);
+                list.add(newTask);
+                break;
             // Display items added as a numbered list
             case "list":
                 displayList(list);
@@ -39,23 +47,53 @@ public class Rex {
             // Mark item in specified index as done
             case "mark":
                 System.out.println(separation);
-                int index = Integer.parseInt(input[1]);
+                argument = input[1];
+                int index = Integer.parseInt(argument);
                 list.get(index - 1).markDone();
                 break;
             // Unmark item in specified index as undone
             case "unmark":
                 System.out.println(separation);
-                index = Integer.parseInt(input[1]);
+                argument = input[1];
+                index = Integer.parseInt(argument);
                 list.get(index - 1).unmarkDone();
                 break;
             // Echo user input otherwise and add to list
             default:
                  String description = echo(input);
-                 Task newTask = new Task(description);
+                 newTask = new Task(description);
                  list.add(newTask);
                  break;
             }
         }
+    }
+
+    private static Task createTask(String command, String argument) {
+        System.out.println(separation);
+        System.out.println("Got it. I've added this task:");
+
+        Task newTask;
+        if (command.equals("todo")) {
+            // Create new ToDo task
+            newTask = new ToDo(argument);
+        } else if (command.equals("deadline")) {
+            // Create new Deadline task, include deadline date
+            String[] descriptionBy = argument.split("/by");
+            newTask = new Deadline(descriptionBy[0], descriptionBy[1]);
+        } else if (command.equals("event")) {
+            // Create new Event task, include from and to periods
+            String[] descriptionFromTo = argument.split("/from | /to");
+            newTask = new Event(descriptionFromTo[0], descriptionFromTo[1], descriptionFromTo[2]);
+        } else {
+            // No command matches
+            return null;
+        }
+
+        // Print task created and number of tasks added
+        System.out.println("  " + newTask);
+        System.out.println("Now you have " + newTask.getNumberOfTasks() + " tasks in the list.");
+
+        return newTask;
     }
 
     private static ToDo createToDo(String[] input) {
