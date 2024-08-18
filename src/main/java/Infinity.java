@@ -2,10 +2,29 @@ import java.util.Scanner;
 
 public class Infinity {
 
+    private class Task {
+        private String description;
+        private boolean isDone;
+
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+        }
+
+        public void markAsDone() {
+            this.isDone = true;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("[%s] %s", this.isDone ? "X" : " ", this.description);
+        }
+    }
+
     private static final String BOTNAME = "Infinity";
     private static final String BREAKLINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
-    private String[] tasks = new String[100]; 
+    private Task[] tasks = new Task[100]; 
     private int nextTastIndex = 0;
 
     private static String botReply(String input) {
@@ -17,7 +36,7 @@ public class Infinity {
             System.out.println(botReply("I'm sorry, but I can't remember more tasks."));
             return;
         }
-        tasks[nextTastIndex] = task;
+        tasks[nextTastIndex] = new Task(task);
         nextTastIndex++;
         System.out.println(botReply(String.format("I've added '%s'", task)));
     }
@@ -28,7 +47,7 @@ public class Infinity {
         } else {
             System.out.println(botReply(""));
             for (int i = 0; i < nextTastIndex; i++) {
-                System.out.println(String.format("    %d. %s", i + 1, tasks[i]));
+                System.out.println(String.format("    %d. %s", i + 1, tasks[i].toString()));
             }
         }
     }
@@ -44,20 +63,32 @@ public class Infinity {
         while (true) {
             String currentInput = userInputs.nextLine();
             System.out.println(BREAKLINE);
-            switch (currentInput) {
-                case "bye":
-                    System.out.println(botReply("Well, if you are leaving, then I must be infinitely too dumb :("));
+            if (currentInput.equals("bye")) {
+                System.out.println(botReply("Well, if you are leaving, then I must be infinitely too dumb :("));
+                System.out.println(BREAKLINE);
+                userInputs.close();
+                System.exit(0);
+            } else if (currentInput.equals("list")) {
+                this.listTasks();
+                System.out.println(BREAKLINE);
+            } else if (currentInput.startsWith("mark")) {
+                try {
+                    String[] words = currentInput.split(" ");
+                    int taskIndex = Integer.parseInt(words[1]) - 1;
+                    if (taskIndex >= nextTastIndex || taskIndex < 0) {
+                        throw new IndexOutOfBoundsException();
+                    }
+                    tasks[taskIndex].markAsDone();
+                    System.out.println(botReply(String.format("I've marked task %d as done:", taskIndex + 1)));
+                    System.out.println(tasks[taskIndex].toString());
                     System.out.println(BREAKLINE);
-                    userInputs.close();
-                    System.exit(0);
-                    break;
-                case "list":
-                    this.listTasks();
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(botReply("Hmmm, I can't find that task. Please try again."));
                     System.out.println(BREAKLINE);
-                    break;
-                default:
-                    this.addTask(currentInput);
-                    System.out.println(BREAKLINE);
+                }
+            } else {
+                this.addTask(currentInput);
+                System.out.println(BREAKLINE);
             }
         }
     }
