@@ -16,7 +16,10 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 4. After that, locate the `src/main/java/Glados.java` file, right-click it, and choose `Run Glados.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
 
    ```
-   Welcome to Aperture Science Inc.! My name is
+
+   -----------------------------------------------------------------------------
+
+   Hello, welcome to the Aperture Science computer-aided enrichment center! My name is:
 
    ░▒▓██████▓▒░░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░
    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
@@ -25,4 +28,9 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░
    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░
    ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░
+
+   What task would you like me to perform today?
+
+   -----------------------------------------------------------------------------
+
    ```
