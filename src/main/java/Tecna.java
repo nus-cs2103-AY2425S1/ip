@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class Tecna {
-    private Task[] todo;
+    private Task[] taskList;
     private int todoSize;
 
     public Tecna() {
-        this.todo = new Task[100];
+        this.taskList = new Task[100];
         this.todoSize = 0;
     }
 
@@ -39,14 +39,14 @@ public class Tecna {
                 this.listItems();
             } else if (input_words[0].equalsIgnoreCase("mark")) {
                 int index = Integer.valueOf(input_words[1]);
-                todo[index - 1].markAsDone();
+                taskList[index - 1].markAsDone();
                 System.out.println("Nice job! I've mark this as done. You deserve a short break <3");
-                System.out.println(todo[index - 1]);
+                System.out.println(taskList[index - 1]);
             } else if (input_words[0].equalsIgnoreCase("unmark")) {
                 int index = Integer.valueOf(input_words[1]);
-                todo[index - 1].unMarkAsDone();
+                taskList[index - 1].unMarkAsDone();
                 System.out.println("I've mark this as undone. Keep going, my friend!");
-                System.out.println(todo[index - 1]);
+                System.out.println(taskList[index - 1]);
             } else {
                 this.addItem(input);
             }
@@ -62,7 +62,7 @@ public class Tecna {
 
     public void addItem(String item) {
         Task task = new Task(item);
-        this.todo[this.todoSize] = task;
+        this.taskList[this.todoSize] = task;
         ++this.todoSize;
         System.out.println("added: " + item);
     }
@@ -70,7 +70,7 @@ public class Tecna {
     public void listItems() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.todoSize; ++i) {
-            System.out.println(i + 1 + ". " + this.todo[i]);
+            System.out.println(i + 1 + ". " + this.taskList[i]);
         }
     }
 
