@@ -38,8 +38,6 @@ public class Command {
                 keywordParams.put(keyAndValue[0].substring(1), keyAndValue[1]);
             }
         }
-        System.out.println(param);
-        System.out.println(keywordParams);
     }
 
     /**
@@ -60,6 +58,11 @@ public class Command {
         return param;
     }
 
+    /**
+     * Gets the keyword parameter value associated with key.
+     * @param key The key to the required keyword parameter.
+     * @return The value of the required keyword parameter.
+     */
     public String getKeywordParam(String key) {
         return keywordParams.get(key);
     }

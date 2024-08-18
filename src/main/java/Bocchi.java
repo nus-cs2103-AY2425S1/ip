@@ -87,17 +87,20 @@ public class Bocchi {
 
     /**
      * Adds a task to the list.
+     *
      * @param task the task to be added.
      */
-    private void todo(Task task) {
+    private void task(Task task) {
         printSeparator();
         tasks.add(task);
-        System.out.println("added: " + task);
+        System.out.println("Only if I can be as diligent as you... (っ °Д °;)っ An..anyway, task added!");
+        System.out.println(task);
         printSeparator();
     }
 
     /**
      * Mark the i-th task (1-indexed) as done.
+     *
      * @param index The index of the task to be marked as done.
      */
     private void mark(int index) {
@@ -119,6 +122,7 @@ public class Bocchi {
 
     /**
      * Mark the i-th task (1-indexed) as not done.
+     *
      * @param index The index of the task to be marked as not done.
      */
     private void unmark(int index) {
@@ -141,11 +145,14 @@ public class Bocchi {
     /**
      * Starts a conversation.
      * Commands available:
-     * - list: lists out all tasks;
      * - bye: ends the conversation;
+     * - list: lists out all tasks;
      * - mark [index]: mark the task in the specified index as done;
      * - unmark [index]: mark the task in the specified index as not done;
-     * - other inputs: adds a new task with the specified description.
+     * - todo [description]: adds a new todo with the specified description;
+     * - ddl/deadline [description] /by [dueDateTime]: adds a new deadline with the specified description and due date/time;
+     * - event [description] /from [fromDateTime] /to [toDateTime]: adds a new event with the specified description,
+     * start date/time and end date/time.
      */
     public void start() {
         greet();
@@ -162,7 +169,13 @@ public class Bocchi {
                     case "list" -> list();
                     case "mark" -> mark(Integer.parseInt(command.getParam()));
                     case "unmark" -> unmark(Integer.parseInt(command.getParam()));
-                    default -> todo(new Todo(command.getName()));
+                    case "todo" -> task(new Todo(command.getName()));
+                    case "ddl", "deadline" -> task(new Deadline(command.getName(), command.getKeywordParam("by")));
+                    case "event" -> task(new Event(
+                            command.getName(),
+                            command.getKeywordParam("from"),
+                            command.getKeywordParam("to")
+                    ));
                 }
             }
         }
