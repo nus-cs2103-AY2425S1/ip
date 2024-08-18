@@ -8,18 +8,6 @@ public class Task {
         this.isDone = false;
         numberOfTasks++;
     }
-    
-    public static ToDo createTask(String description) {
-        return new ToDo(description);
-    }
-
-    public static Deadline createTask(String description, String by) {
-        return new Deadline(description, by);
-    }
-
-    public static Event createTask(String description, String from, String to) {
-        return new Event(description, from, to);
-    }
 
     public void markDone() {
         this.isDone = true;
