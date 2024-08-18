@@ -32,6 +32,8 @@ public class Bruno {
                     markTask(restOfString);
                 } else if (firstWord.equals("unmark")) {
                     unmarkTask(restOfString);
+                } else if (firstWord.equals("delete")) {
+                    deleteTask(restOfString);
                 } else if (firstWord.equals("todo")) {
                     addTask(restOfString, firstWord);
                 } else if (firstWord.equals("deadline")) {
@@ -128,6 +130,18 @@ public class Bruno {
             task.uncomplete();
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've unmarked this task as done:\n" + task);
+            System.out.println("____________________________________________________________");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidTaskIndexException();
+        }
+    }
+
+    public static void deleteTask(String num) throws BrunoException {
+        try {
+            Task task = taskList.remove(Integer.parseInt(num) - 1);
+            System.out.println("____________________________________________________________");
+            System.out.println("Noted! I've removed this task:\n" + task);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list");
             System.out.println("____________________________________________________________");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
