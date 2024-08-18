@@ -7,34 +7,51 @@ public class BobbyBot {
     public static void main(String[] args) {
         String chatBotName = "BobbyBot";
 
-        String[] messages = new String[100];
+        Task[] tasks = new Task[100];
         Scanner myScanner = new Scanner(System.in);
         printInput("Hello! I'm " + chatBotName, "What can I do for you?");
         while (true) {
             String input = myScanner.nextLine();
             switch (input) {
                 case "list":
-                    String[] formattedMessages = IntStream.
-                            range(0, messages.length).
-                            filter(i -> messages[i] != null).
-                            mapToObj(i -> i + 1 + ". " + messages[i]).
-                            toArray(String[]::new);
-                    printInput(formattedMessages);
+                    listTasks(tasks);
                     break;
                 case "bye":
                     printInput("Bye. Hope to see you again soon!");
                     return;
                 default:
-                    printInput("added: " + input);
-                    for (int i = 0; i < messages.length; i++) {
-                        if (messages[i] == null) {
-                            messages[i] = input;
-                            break;
+                    if (input.startsWith("mark")) {
+                        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                        tasks[index].setIsDone(true);
+                        printInput("Nice! I've marked this task as done:",  "\t" + tasks[index]);
+                    } else if (input.startsWith("unmark")) {
+                        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                        tasks[index].setIsDone(false);
+                        printInput("OK, I've marked this task as not done yet:",  "\t" + tasks[index]);
+                    } else {
+                        printInput("added: " + input);
+                        for (int i = 0; i < tasks.length; i++) {
+                            if (tasks[i] == null) {
+                                tasks[i] = new Task(input);
+                                break;
+                            }
                         }
                     }
                     break;
             }
         }
+    }
+
+    private static void listTasks(Task[] tasks) {
+        String[] formattedMessages = IntStream.
+                range(0, tasks.length).
+                filter(i -> tasks[i] != null).
+                mapToObj(i -> i + 1 + ". " + tasks[i]).
+                toArray(String[]::new);
+        String[] combined = new String[formattedMessages.length + 1];
+        combined[0] = "Here are the tasks in your list:";
+        System.arraycopy(formattedMessages, 0, combined, 1, formattedMessages.length);
+        printInput(combined);
     }
 
     private static void printInput(String ...input) {

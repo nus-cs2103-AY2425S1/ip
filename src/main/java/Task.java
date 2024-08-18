@@ -1,6 +1,6 @@
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private  String description;
+    private  boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -9,6 +9,10 @@ public class Task {
 
     private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
