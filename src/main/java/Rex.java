@@ -108,6 +108,13 @@ public class Rex {
 
     private static void displayList(List<Task> list) {
         System.out.println(separation);
+
+        // Print statement for an empty list
+        if (list.size() == 0) {
+            System.out.println("The list is empty! " + rawr);
+            return;
+        }
+
         for (int i = 1; i <= list.size(); i++) {
             System.out.println(i + "." + list.get(i - 1));
         }
