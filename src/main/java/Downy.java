@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Downy {
 
     public static void main(String[] args) {
         String divider = "________________________________________\n";
         Scanner scanner = new Scanner(System.in);
-        TaskList tasks = new TaskList();
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
         System.out.println(divider + "Hello! I'm Downy.\nHow can I help?\n" + divider);
 
@@ -23,7 +24,7 @@ public class Downy {
                     System.out.printf(divider);
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks.getTask(i));
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     System.out.println(divider);
                     continue;
@@ -39,14 +40,14 @@ public class Downy {
                             String remainder = parts[1];
                             try {
                                 int taskNumber = Integer.parseInt(remainder);
-                                Task t = tasks.getTask(taskNumber - 1);
+                                Task t = tasks.get(taskNumber - 1);
                                 t.completeTask();
                                 System.out.println(divider);
                                 System.out.println("Nice! You've completed this task:\n  " + t);
                                 System.out.println(divider);
                             } catch (NumberFormatException e) {
                                 throw new InvalidFormatException("Task number has to be a positive integer.");
-                            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                            } catch (IndexOutOfBoundsException e) {
                                 throw new IllegalArgumentException("Task number does not exist.");
                             }
                             continue;
@@ -59,14 +60,14 @@ public class Downy {
                             String remainder = parts[1];
                             try {
                                 int taskNumber = Integer.parseInt(remainder);
-                                Task t = tasks.getTask(taskNumber - 1);
+                                Task t = tasks.get(taskNumber - 1);
                                 t.uncompleteTask();
                                 System.out.println(divider);
                                 System.out.println("Ok! This task is not complete:\n  " + t);
                                 System.out.println(divider);
                             } catch (NumberFormatException e) {
                                 throw new InvalidFormatException("Task number has to be a positive integer.");
-                            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                            } catch (IndexOutOfBoundsException e) {
                                 throw new IllegalArgumentException("Task number does not exist.");
                             }
                             continue;
@@ -77,9 +78,9 @@ public class Downy {
                                                                    "   todo <taskDescription>");
                             }
                             String remainder = parts[1];
-                            tasks.setTask(new Todo(remainder), taskCount);
+                            tasks.add(taskCount, new Todo(remainder));
                             taskCount++;
-                            System.out.println(divider + "Okay! Added this task:\n  " + tasks.getTask(taskCount - 1)
+                            System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
                             continue;
                         }
@@ -97,9 +98,9 @@ public class Downy {
                             }
                             String name = splitParts[0].trim();
                             String time = splitParts[1].trim();
-                            tasks.setTask(new Deadline(name, time), taskCount);
+                            tasks.add(taskCount, new Deadline(name, time));
                             taskCount++;
-                            System.out.println(divider + "Okay! Added this task:\n  " + tasks.getTask(taskCount - 1)
+                            System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
                             continue;
                         }
@@ -120,9 +121,9 @@ public class Downy {
                             String[] time = splitParts[1].split("/to", 2);
                             String startTime = time[0].trim();
                             String endTime = time[1].trim();
-                            tasks.setTask(new Event(name, startTime, endTime), taskCount);
+                            tasks.add(taskCount, new Event(name, startTime, endTime));
                             taskCount++;
-                            System.out.println(divider + "Okay! Added this task:\n  " + tasks.getTask(taskCount - 1)
+                            System.out.println(divider + "Okay! Added this task:\n  " + tasks.get(taskCount - 1)
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
                             continue;
                         }
