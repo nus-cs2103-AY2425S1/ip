@@ -1,15 +1,14 @@
 package calebyyy;
 
 import calebyyy.Tasks.Task;
+import java.util.ArrayList;
 
 public class Calebyyy {
-    private Task[] tasks;
-    private int taskCount;
+    private ArrayList<Task> tasks;
     private CommandManager commandManager;
 
     public Calebyyy() {
-        tasks = new Task[100];
-        taskCount = 0;
+        tasks = new ArrayList<>();
         commandManager = new CommandManager(this);
     }
 
@@ -17,19 +16,17 @@ public class Calebyyy {
         greet();
         commandManager.startCommandLoop();
     }
-    
 
     public void listTasks() {
         System.out.println("____________________________________________________________");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
 
     public void addTask(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.add(task);
     }
 
     public void stop() {
@@ -37,15 +34,24 @@ public class Calebyyy {
     }
 
     public void markTask(int taskNumber) {
-        tasks[taskNumber - 1].markAsDone();
+        tasks.get(taskNumber - 1).markAsDone();
     }
 
     public void unmarkTask(int taskNumber) {
-        tasks[taskNumber - 1].markAsNotDone();
+        tasks.get(taskNumber - 1).markAsNotDone();
+    }
+
+    public void deleteTask(int taskNumber) {
+        Task task = tasks.get(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("  " + task);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public int getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
     public void greet() {

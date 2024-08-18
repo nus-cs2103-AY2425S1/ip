@@ -9,6 +9,7 @@ import calebyyy.commands.Command;
 import calebyyy.commands.ListCommand;
 import calebyyy.commands.MarkCommand;
 import calebyyy.commands.UnmarkCommand;
+import calebyyy.commands.DeleteCommand;
 import calebyyy.exceptions.InvalidCommandException;
 import calebyyy.exceptions.CalebyyyException;
 
@@ -20,6 +21,7 @@ public class CommandManager {
     private Command markCommand;
     private Command unmarkCommand;
     private Command byeCommand;
+    private Command deleteCommand;
     private Scanner scanner;
 
     public CommandManager(Calebyyy calebyyy) {
@@ -30,6 +32,7 @@ public class CommandManager {
         markCommand = new MarkCommand(calebyyy);
         unmarkCommand = new UnmarkCommand(calebyyy);
         byeCommand = new ByeCommand(calebyyy);
+        deleteCommand = new DeleteCommand(calebyyy);
         commands.put("bye", byeCommand);
         commands.put("list", listCommand);
         commands.put("mark", markCommand);  
@@ -37,11 +40,13 @@ public class CommandManager {
         commands.put("todo", addCommand);
         commands.put("deadline", addCommand);
         commands.put("event", addCommand);
+        commands.put("delete", deleteCommand);
         commandsWithArguments.put("todo", addCommand);
         commandsWithArguments.put("deadline", addCommand);
         commandsWithArguments.put("event", addCommand);
         commandsWithArguments.put("mark", markCommand);
         commandsWithArguments.put("unmark", unmarkCommand);
+        commandsWithArguments.put("delete", deleteCommand);
         scanner = new Scanner(System.in);
     }
 
