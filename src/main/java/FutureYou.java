@@ -1,10 +1,20 @@
 import java.util.Scanner; // Import the Scanner class
+import java.util.ArrayList; // import the ArrayList class
 
 public class FutureYou {
+        static ArrayList<String> list = new ArrayList<String>();
 
         public static void bye() {
                 System.out.println("Bye. Hope to see you again soon!\n" +
                                 "____________________________________________________________\n");
+        }
+
+        public static void printList() {
+                int count = 1;
+                System.out.println("Items in List:");
+                for (String item : list) {
+                        System.out.println(count++ + ". " + item);
+                }
         }
 
         public static void main(String[] args) {
@@ -30,8 +40,12 @@ public class FutureYou {
                         if (input.toLowerCase().trim().equals("bye")) {
                                 bye();
                                 break;
+                        } else if (input.toLowerCase().trim().equals("list")) {
+                                printList();
+                        } else {
+                                list.add(input);
+                                System.out.println("Item: " + input + " added to list"); // Add user input to list
                         }
-                        System.out.println(input); // Echo user input
                 }
         }
 }
