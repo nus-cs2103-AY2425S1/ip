@@ -77,7 +77,7 @@ public class Bruno {
             taskList.add(task);
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:\n" + task);
-            System.out.println("\nNow you have " + taskList.size() + " tasks in the list.");
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");
