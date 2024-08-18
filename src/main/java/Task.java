@@ -22,17 +22,12 @@ public class Task {
     }
 
     /**
-     * Marks the task as done.
+     * Marks the task to be done or not done.
+     *
+     * @param status of the task
      */
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    /**
-     * Marks the task as not done.
-     */
-    public void markAsNotDone() {
-        this.isDone = false;
+    public void markAsDone(boolean status) {
+        this.isDone = status;
     }
 
     /**
