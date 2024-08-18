@@ -1,3 +1,7 @@
+import exceptions.InvalidTaskException;
+import exceptions.MissingParametersException;
+import exceptions.UnknownCommandException;
+
 import java.util.Scanner;
 public class Cow {
     // solution below inspired by https://www.w3schools.com/java/java_user_input.asp
@@ -11,7 +15,11 @@ public class Cow {
 
         while (true) {
             String command = scanner.nextLine();
-            new Command(command, todoList).action();
+            try {
+                new Command(command, todoList).action();
+            } catch (UnknownCommandException | MissingParametersException | InvalidTaskException e) {
+                Message.print(e.getMessage());
+            }
         }
     }
 }

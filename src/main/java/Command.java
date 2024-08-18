@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import exceptions.*;
 
 // solution below inspired by https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
 public class Command {
@@ -21,7 +22,7 @@ public class Command {
         if (tokens.length > 1) {
             this.params = tokens[1];
         }
-        switch (tokens[0]) {
+        switch (tokens[0].toLowerCase()) {
             case "list":
                 this.command = CommandsEnum.LIST;
                 break;
@@ -52,7 +53,7 @@ public class Command {
     /**
      * Executes the action based on the command and target TodoList
      */
-    public void action() {
+    public void action() throws UnknownCommandException, MissingParametersException, InvalidTaskException {
         Task task;
         switch (command) {
             case LIST:
@@ -63,36 +64,90 @@ public class Command {
                 System.exit(0);
                 break;
             case TODO:
-                Todo todo = new Todo(params);
+                Todo todo = getTodo();
                 todoList.add(todo);
                 Message.printAddedTask(todo, todoList);
                 break;
             case DEADLINE:
-                String[] deadlineParams = params.split("/by", 2);
-                Deadlines deadlineTodo = new Deadlines(deadlineParams[0].trim(), deadlineParams[1].trim());
+                Deadlines deadlineTodo = getDeadlines();
                 todoList.add(deadlineTodo);
                 Message.printAddedTask(deadlineTodo, todoList);
                 break;
             case EVENT:
-                String[] eventParamsDesc = params.split("/from", 2);
-                String[] eventParamsFrom = eventParamsDesc[1].split("/to", 2);
-                Event eventTodo = new Event(eventParamsDesc[0].trim(),
-                        eventParamsFrom[0].trim(), eventParamsFrom[1].trim());
+                Event eventTodo = getEvent();
                 todoList.add(eventTodo);
                 Message.printAddedTask(eventTodo, todoList);
                 break;
             case MARK:
-                task = todoList.get(Integer.parseInt(params) - 1);
+                try {
+                    task = todoList.get(Integer.parseInt(params) - 1);
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    throw new InvalidTaskException();
+                }
                 task.markAsDone();
                 Message.printMarked(task);
                 break;
             case UNMARK:
-                task = todoList.get(Integer.parseInt(params) - 1);
+                try {
+                    task = todoList.get(Integer.parseInt(params) - 1);
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    throw new InvalidTaskException();
+                }
                 task.unmarkAsDone();
                 Message.printUnmarked(task);
                 break;
             default:
-                break;
+                throw new UnknownCommandException();
         }
+    }
+
+    /**
+     * Creates a deadline task from the command.
+     * @return A deadline object.
+     * @throws MissingParametersException Command is malformed
+     */
+    private Deadlines getDeadlines() throws MissingParametersException {
+        String command = "deadline";
+        String error = "deadline return book /by Sunday";
+        if (params == null || params.isEmpty()) {
+            throw new MissingParametersException(command, error);
+        }
+        String[] deadlineParams = params.split("/by", 2);
+        if (deadlineParams.length < 2 || deadlineParams[0].trim().isEmpty() || deadlineParams[1].trim().isEmpty()) {
+            throw new MissingParametersException(command, error);
+        }
+        return new Deadlines(deadlineParams[0].trim(), deadlineParams[1].trim());
+    }
+
+    /**
+     * Creates a todo task from the command.
+     * @return A todo object.
+     * @throws MissingParametersException Command is malformed
+     */
+    private Todo getTodo() throws MissingParametersException {
+        if (params == null || params.isEmpty()) {
+            throw new MissingParametersException("todo", "todo read book");
+        }
+        return new Todo(params);
+    }
+
+    /**
+     * Creates an event task from the command.
+     * @return event object.
+     * @throws MissingParametersException Command is malformed
+     */
+    private Event getEvent() throws MissingParametersException {
+        String command = "event";
+        String error = "event project meeting /from Mon 2pm /to 4pm";
+        if (params == null || params.isEmpty()) {
+            throw new MissingParametersException(command, error);
+        }
+        String[] eventParams = params.split("/from|/to", 3);
+        if (eventParams.length < 3 || eventParams[0].trim().isEmpty() ||
+                eventParams[1].trim().isEmpty() || eventParams[2].trim().isEmpty()) {
+            throw new MissingParametersException(command, error);
+        }
+        return new Event(eventParams[0].trim(),
+                eventParams[1].trim(), eventParams[2].trim());
     }
 }
