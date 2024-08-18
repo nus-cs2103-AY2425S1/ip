@@ -1,14 +1,7 @@
 package common;
 
+import commands.*;
 import common.Command;
-import commands.AddTodoCommand;
-import commands.AddDeadlineCommand;
-import commands.AddEventCommand;
-import commands.EchoCommand;
-import commands.ExitCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.UnmarkCommand;
 
 public class Parser {
     public Command parse(String input) throws SkibidiException {
@@ -29,8 +22,10 @@ public class Parser {
             return new MarkCommand(input);
         } else if (normalizedInput.startsWith("unmark ")) {
             return new UnmarkCommand(input);
+        } else if (normalizedInput.startsWith("delete ")) {
+            return new DeleteCommand(input);
         } else {
-            return new EchoCommand(input);
+            throw new SkibidiException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

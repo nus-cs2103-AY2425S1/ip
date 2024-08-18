@@ -11,7 +11,8 @@ public class DeleteCommand extends Command {
 
     public DeleteCommand(String input) throws SkibidiException {
         try {
-            this.index = Integer.parseInt(input.trim()) - 1; // Convert 1-based to 0-based index
+            input = input.substring(7).trim();
+            this.index = Integer.parseInt(input) - 1; // Convert 1-based to 0-based index
         } catch (NumberFormatException e) {
             throw new SkibidiException("OOPS!!! The index provided for deletion is invalid.");
         }
