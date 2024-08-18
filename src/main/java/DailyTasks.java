@@ -1,3 +1,4 @@
+import java.text.Format;
 import java.util.Scanner;
 
 public class DailyTasks {
@@ -22,13 +23,9 @@ public class DailyTasks {
             if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
-                System.out.print(Formatter.formattedBorder());
-                for (int i = 0; i < taskCounter; i++) {
-                    System.out.print(Formatter.formatTaskListing(i + 1, dailyTasks.tasks[i]));
-                }
-                System.out.println(Formatter.formattedBorder());
+                System.out.println(Formatter.formatTaskListings(taskCounter, dailyTasks.tasks));
             } else {
-                dailyTasks.tasks[taskCounter++] = userInput;
+                dailyTasks.tasks[taskCounter++] = userInput; // save the user's input into memory
 
                 String formattedTask = Formatter.formatOutputMessage("added: " + userInput);
                 System.out.println(formattedTask);
