@@ -16,23 +16,37 @@ public class BingBongBot {
 
         while (isRunning) {
             try {
-                String command = ui.readCommand();
-                if (command.equalsIgnoreCase("bye")) {
-                    isRunning = false;
-                    ui.showGoodbye();
-                } else if (command.equalsIgnoreCase("list")) {
-                    listTasks();
-                } else if (command.startsWith("mark")) {
-                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    markTask(index);
-                } else if (command.startsWith("unmark")) {
-                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    unmarkTask(index);
-                } else if (command.startsWith("delete")){
-                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    deleteTask(index);
-                } else {
-                    addTask(command);
+                String input = ui.readCommand();
+                CommandType command = CommandType.fromString(input);
+
+                switch (command) {
+                    case BYE:
+                        isRunning = false;
+                        ui.showGoodbye();
+                        break;
+                    case LIST:
+                        listTasks();
+                        break;
+                    case MARK:
+                        int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                        markTask(markIndex);
+                        break;
+                    case UNMARK:
+                        int unmarkIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                        unmarkTask(unmarkIndex);
+                        break;
+                    case DELETE:
+                        int deleteIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                        deleteTask(deleteIndex);
+                        break;
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
+                        addTask(input, command);
+                        break;
+                    case INVALID:
+                    default:
+                        ui.showResponse("Command not recognized. Please try again...");
                 }
             } catch (BingBongException e) {
                 ui.showResponse(e.getMessage());
@@ -58,26 +72,23 @@ public class BingBongBot {
         }
     }
 
-    private void addTask(String command) throws BingBongException {
-        if (command.startsWith("todo")) {
+    private void addTask(String command, CommandType type) throws BingBongException {
+        Task task;
+        if (type == CommandType.TODO) {
             String description = command.substring(5).trim();
             if (description.isEmpty()) {
                 throw new BingBongException("The description of a todo cannot be empty.");
             }
-            Task todo = new Todo(description);
-            taskList.add(todo);
-            showAddTaskMessage(todo);
-        } else if (command.startsWith("deadline")) {
+            task = new Todo(description);
+        } else if (type == CommandType.DEADLINE) {
             String[] parts = command.substring(9).trim().split(" /by ");
             if (parts.length < 2) {
                 throw new BingBongException("The deadline format is incorrect. Use: deadline <task> /by <time>");
             }
             String description = parts[0];
             String by = parts[1];
-            Task deadline = new Deadline(description, by);
-            taskList.add(deadline);
-            showAddTaskMessage(deadline);
-        } else if (command.startsWith("event")) {
+            task = new Deadline(description, by);
+        } else if (type == CommandType.EVENT) {
             String[] parts = command.substring(6).trim().split(" /from | /to ");
             if (parts.length < 3) {
                 throw new BingBongException("The event format is incorrect. Use: event <task> /from <start time> /to <end time>");
@@ -85,12 +96,13 @@ public class BingBongBot {
             String description = parts[0];
             String from = parts[1];
             String to = parts[2];
-            Task event = new Event(description, from, to);
-            taskList.add(event);
-            showAddTaskMessage(event);
+            task = new Event(description, from, to);
         } else {
-            throw new BingBongException("Command not recognised. Please try again...");
+            throw new BingBongException("Invalid task type.");
         }
+
+        taskList.add(task);
+        showAddTaskMessage(task);
     }
 
     private void showAddTaskMessage(Task t) {
@@ -121,8 +133,7 @@ public class BingBongBot {
         if (i < 0 || i >= taskList.size()) {
             throw new IndexOutOfBoundsException();
         }
-        Task task = taskList.get(i);
-        taskList.remove(task);
+        Task task = taskList.remove(i);
         showRemoveTaskMessage(task);
     }
 
