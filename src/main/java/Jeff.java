@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Jeff {
     private static final String HORIZONTAL = "____________________________________________";
-    private static ArrayList<String> inputList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     // Function for enclosing text with horizontal lines and printing it out
     private static void printText(String text) {
@@ -40,7 +40,7 @@ public class Jeff {
     // Function for printing out the input list
     private static void printList() {
         // Check if the list is empty
-        if (inputList.isEmpty()) {
+        if (taskList.isEmpty()) {
             printText("List is empty!");
             return;
         }
@@ -49,17 +49,52 @@ public class Jeff {
         StringBuilder listString = new StringBuilder();
 
         // Loop through the inputList and add it to the StringBuilder
-        for (int i = 0; i < inputList.size(); i++) {
-            listString.append(Integer.toString(i + 1)).append(". ").append(inputList.get(i));
+        for (int i = 0; i < taskList.size(); i++) {
+            listString.append(Integer.toString(i + 1)).append(".").append(taskList.get(i).toString());
 
-            // Only add a new line when it is not the last string in the list
-            if (i != inputList.size() - 1) {
+            // Only add a new line when it is not the last task in the list
+            if (i != taskList.size() - 1) {
                 listString.append("\n ");
             }
         }
 
         // Print the text
         printText(listString.toString());
+    }
+
+    // Function for marking the task as done
+    private static void markTask(int taskIndex) {
+        // Check if taskIndex exists in taskList
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            printText("This task number does not exist!");
+            return;
+        }
+        // Get the task from taskList
+        Task targetTask = taskList.get(taskIndex);
+
+        // Mark the task as done
+        targetTask.markAsDone();
+
+        // Print the task text
+        printText("Nice! I've marked this task as done:\n   " + targetTask.toString());
+    }
+
+    // Function for unmarking the task
+    private static void unmarkTask(int taskIndex) {
+        // Check if taskIndex exists in taskList
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            printText("This task number does not exist!");
+            return;
+        }
+
+        // Get the task from taskList
+        Task targetTask = taskList.get(taskIndex);
+
+        // Unmark the task
+        targetTask.markAsNotDone();
+
+        // Print the task text
+        printText("OK, I've marked this task as not done yet:\n   " + targetTask.toString());
     }
 
     // Function for printing out user input
@@ -84,8 +119,16 @@ public class Jeff {
                 case "bye":
                     break;
                 default:
-                    printText("added: " + input);
-                    inputList.add(input);
+                    // Check if input matches "mark" or "unmark"
+                    if (input.matches("mark \\d+")) {
+                        markTask(Integer.parseInt(input.substring(5)) - 1);
+                    } else if (input.matches("unmark \\d+")) {
+                        unmarkTask(Integer.parseInt(input.substring(7)) - 1);
+                    } else {
+                        printText("added: " + input);
+                        taskList.add(new Task(input));
+                    }
+
                     break;
             }
         }
