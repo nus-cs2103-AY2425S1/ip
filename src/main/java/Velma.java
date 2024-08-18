@@ -96,6 +96,18 @@ public class Velma {
                         System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
                         printLine();
                     }
+                } else if (request.contains("delete")) {
+                    String[] parts = request.split(" ");
+                    if (parts.length < 1) {
+                        throw new VelmaException("Sorry boss! Please specify which task to delete.");
+                    }
+                    int taskNumber = Integer.parseInt(parts[1]) - 1;
+                    printLine();
+                    System.out.println("Noted. I've removed this task: ");
+                    System.out.println("  " + list.get(taskNumber).toString());
+                    list.remove(taskNumber);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    printLine();
                 } else {
                     throw new VelmaException("Sorry boss! What are you talking about?");
                 }
