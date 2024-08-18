@@ -1,3 +1,7 @@
+package calebyyy;
+
+import calebyyy.Tasks.Task;
+
 public class Calebyyy {
     private Task[] tasks;
     private int taskCount;

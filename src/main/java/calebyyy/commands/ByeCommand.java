@@ -1,4 +1,8 @@
-class ByeCommand extends Command {
+package calebyyy.commands;
+
+import calebyyy.Calebyyy;
+
+public class ByeCommand extends Command {
     public ByeCommand(Calebyyy calebyyy) {
         super(calebyyy);
     }

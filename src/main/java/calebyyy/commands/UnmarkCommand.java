@@ -1,3 +1,7 @@
+package calebyyy.commands;
+
+import calebyyy.Calebyyy;
+
 public class UnmarkCommand extends Command {
     public UnmarkCommand(Calebyyy calebyyy) {
         super(calebyyy);

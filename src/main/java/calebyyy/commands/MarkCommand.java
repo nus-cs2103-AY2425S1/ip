@@ -1,3 +1,7 @@
+package calebyyy.commands;
+
+import calebyyy.Calebyyy;
+
 public class MarkCommand extends Command {
     public MarkCommand(Calebyyy calebyyy) {
         super(calebyyy);

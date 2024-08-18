@@ -1,4 +1,12 @@
-class AddCommand extends Command {
+package calebyyy.commands;
+
+import calebyyy.Calebyyy;
+import calebyyy.Tasks.Deadline;
+import calebyyy.Tasks.Event;
+import calebyyy.Tasks.Task;
+import calebyyy.Tasks.Todo;
+
+public class AddCommand extends Command {
     public AddCommand(Calebyyy calebyyy) {
         super(calebyyy);
     }

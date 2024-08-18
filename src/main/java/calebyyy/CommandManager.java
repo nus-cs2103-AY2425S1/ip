@@ -1,6 +1,14 @@
+package calebyyy;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import calebyyy.commands.AddCommand;
+import calebyyy.commands.ByeCommand;
+import calebyyy.commands.Command;
+import calebyyy.commands.ListCommand;
+import calebyyy.commands.MarkCommand;
+import calebyyy.commands.UnmarkCommand;
 
 public class CommandManager {
     private Map<String, Command> commands;
