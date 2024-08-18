@@ -11,10 +11,8 @@ public class TaskStorage {
         tasks = new ArrayList<>(MAX_TASKS);
     }
 
-    public void addTask(String taskDescription) {
-        if (tasks.size() < MAX_TASKS) {
-            tasks.add(new Task(taskDescription));
-        } // Error handling here in the fture
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
     public List<Task> getTasks() {

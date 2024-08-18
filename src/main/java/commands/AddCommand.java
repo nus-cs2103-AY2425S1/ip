@@ -2,13 +2,14 @@ package commands;
 
 import common.Command;
 import common.Ui;
+import storage.Task;
 import storage.TaskStorage;
 
 public class AddCommand extends Command {
-    private String task;
+    private Task task;
 
     public AddCommand(String task) {
-        this.task = task;
+        this.task = new Task(task);
     }
 
     @Override
