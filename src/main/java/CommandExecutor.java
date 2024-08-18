@@ -2,19 +2,8 @@ import java.util.Arrays;
 
 public class CommandExecutor {
 
-    public enum CommandType {
-        LIST,
-        MARK,
-        UNMARK,
-        TODO,
-        DEADLINE,
-        EVENT,
-        BYE,
-        UNKNOWN
-    }
-
     public boolean HandleCommand(Command command, TaskList taskList, boolean continueScanning) {
-        CommandType commandType = CommandType.values()[command.commandCode()];
+        CommandTypes commandType = command.commandType();
 
         String commandDetails;
         Task newTask;

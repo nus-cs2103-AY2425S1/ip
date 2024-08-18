@@ -4,8 +4,6 @@ public class Parser {
 
     public Command parseInputFromUser(String input) {
 
-        int commandCode;
-
         // Split the input string by spaces and get the first word
         String[] splitInput = input.split(" ");
         String commandWord = splitInput[0];
@@ -14,19 +12,21 @@ public class Parser {
         int splitInputLength = splitInput.length;
         splitInput = Arrays.copyOfRange(splitInput, 1, splitInputLength);
 
-        commandCode = switch (commandWord) {
-            case "list" -> CommandExecutor.CommandType.LIST.ordinal();
-            case "unmark" -> CommandExecutor.CommandType.UNMARK.ordinal();
-            case "mark" -> CommandExecutor.CommandType.MARK.ordinal();
-            case "todo" -> CommandExecutor.CommandType.TODO.ordinal();
-            case "deadline" -> CommandExecutor.CommandType.DEADLINE.ordinal();
-            case "event" -> CommandExecutor.CommandType.EVENT.ordinal();
-            case "bye" -> CommandExecutor.CommandType.BYE.ordinal();
-            default -> CommandExecutor.CommandType.UNKNOWN.ordinal();
-        };
+        /*
+          the following part was inspired by:
+          https://stackoverflow.com/questions/2290262/search-for-a-string-in-enum-and-return-the-enum
+          and minor syntax errors were debugged using ChatGPT
+         */
+
+        CommandTypes commandType;
+        try {
+            commandType = CommandTypes.valueOf(commandWord.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            commandType = CommandTypes.UNKNOWN;
+        }
 
         // Use the initialise method to create and return a Commands object
-        return Command.initialise(splitInput, commandCode);
+        return Command.initialise(commandType, splitInput);
     }
 
 }
