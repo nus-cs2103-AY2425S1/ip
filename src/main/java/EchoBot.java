@@ -61,30 +61,30 @@ public class EchoBot {
         while (true) {
             String userInput = scanner.nextLine();
             String[] cmdParts = userInput.split(" ");
-            String CMD = cmdParts[0];
+            String CMD = cmdParts[0].toUpperCase();
             try {
-                switch (CMD) {
-                    case "bye":
+                switch (Command.valueOf(CMD)) {
+                    case BYE:
                         EchoBot.bye();
                         return;
-                    case "list":
+                    case LIST:
                         EchoBot.listAllTask();
                         break;
-                    case "mark":
+                    case MARK:
                         dashline();
                         int markIdx = Integer.parseInt(cmdParts[1]) - 1;
                         Task markTask = allTasks.get(markIdx);
                         markTask.mark();
                         dashline();
                         break;
-                    case "unmark":
+                    case UNMARK:
                         dashline();
                         int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
                         Task unmarkTask = allTasks.get(unmarkIdx);
                         unmarkTask.unmark();
                         dashline();
                         break;
-                    case "delete":
+                    case DELETE:
                         int deleteIdx = Integer.parseInt(cmdParts[1]) - 1;
                         EchoBot.deleteTask(deleteIdx);
                         break;

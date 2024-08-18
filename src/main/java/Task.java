@@ -11,7 +11,7 @@ public abstract class Task {
      * @param type task type
      * @throws DukeException a new Exception class defined to represent exceptions specific to EchoBot.
      */
-    public static void checkValidCommand(String[] taskInfoArray, String type) throws DukeException{
+    public static void checkValidCommand(String[] taskInfoArray, TaskType type) throws DukeException{
 
         if (taskInfoArray.length <= 1 || taskInfoArray[1].isEmpty()) {
             String msg = "Oops! The description of a " + type + " cannot be empty.";
@@ -20,7 +20,7 @@ public abstract class Task {
 
         String description = taskInfoArray[1];
 
-        if (type.equals("deadline")) {
+        if (type == TaskType.DEADLINE) {
             if (!description.contains("/by")) {
                 String msg = "Oops! The description of a deadline should contain a '/by' keywords";
                 throw new DukeException(msg);
@@ -37,7 +37,7 @@ public abstract class Task {
             }
         }
 
-        if (type.equals("event")) {
+        if (type == TaskType.EVENT) {
             if (!taskInfoArray[1].contains("/from") || !taskInfoArray[1].contains("/to")) {
                 String msg = "Oops! The description of an event should"
                         + " contain a '/from' and '/to' keywords";
@@ -72,22 +72,22 @@ public abstract class Task {
      */
     public static Task creatTask(String taskInfo) throws DukeException{
         String[] taskInfoArray = taskInfo.split(" ", 2);
-        String type = taskInfoArray[0];
+        String type = taskInfoArray[0].toUpperCase();
         Task newTask;
-        switch (type) {
-            case "todo":
-                checkValidCommand(taskInfoArray, type);
+        switch (TaskType.valueOf(type)) {
+            case TODO:
+                checkValidCommand(taskInfoArray, TaskType.TODO);
                 String todoInfo = taskInfoArray[1];
                 newTask = new ToDo(todoInfo);
                 break;
-            case "deadline":
-                checkValidCommand(taskInfoArray, type);
+            case DEADLINE:
+                checkValidCommand(taskInfoArray, TaskType.DEADLINE);
                 String ddlInfo = taskInfoArray[1].split(" /by ")[0];
                 String deadline = taskInfoArray[1].split(" /by ")[1];
                 newTask = new Deadline(ddlInfo, deadline);
                 break;
-            case "event":
-                checkValidCommand(taskInfoArray, type);
+            case EVENT:
+                checkValidCommand(taskInfoArray, TaskType.EVENT);
                 String eventInfo = taskInfoArray[1].split(" /from ")[0];
                 String[] timeInfo = taskInfoArray[1].split(" /from ")[1].split(" /to ");
                 String startTime = timeInfo[0];
