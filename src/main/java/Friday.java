@@ -54,17 +54,21 @@ public class Friday {
         } else {
             System.out.println(
                     "    ____________________________________________________________\n" +
-                            "     Sorry, I can't store more tasks!\n" +
+                            "     Task list is full! Cannot add more tasks.\n" +
                             "    ____________________________________________________________"
             );
         }
     }
 
     public void listTasks() {
-        System.out.println("    ____________________________________________________________\n" +
-                "     Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("     " + (i + 1) + ". " + tasks[i]);
+        System.out.println("    ____________________________________________________________");
+        if (taskCount == 0) {
+            System.out.println("     Your task list is empty.");
+        } else {
+            System.out.println("     Here are the tasks in your list:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println("     " + (i + 1) + "." + tasks[i]);
+            }
         }
         System.out.println("    ____________________________________________________________");
     }
@@ -81,7 +85,7 @@ public class Friday {
         } else {
             System.out.println(
                     "    ____________________________________________________________\n" +
-                            "     Invalid task number.\n" +
+                            "     Invalid task number. Please enter a valid task number.\n" +
                             "    ____________________________________________________________"
             );
         }
@@ -99,7 +103,7 @@ public class Friday {
         } else {
             System.out.println(
                     "    ____________________________________________________________\n" +
-                            "     Invalid task number.\n" +
+                            "     Invalid task number. Please enter a valid task number.\n" +
                             "    ____________________________________________________________"
             );
         }
@@ -117,22 +121,63 @@ public class Friday {
             } else if (userInput.equalsIgnoreCase("list")) {
                 listTasks();
             } else if (userInput.startsWith("mark ")) {
-                int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
-                markTaskAsDone(taskIndex);
+                try {
+                    int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
+                    markTaskAsDone(taskIndex);
+                } catch (NumberFormatException e) {
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     OOPS!!! Invalid input! Please enter a valid task number after 'mark'.\n" +
+                                    "    ____________________________________________________________"
+                    );
+                }
             } else if (userInput.startsWith("unmark ")) {
-                int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
-                unmarkTaskAsDone(taskIndex);
+                try {
+                    int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                    unmarkTaskAsDone(taskIndex);
+                } catch (NumberFormatException e) {
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     OOPS!!! Invalid input! Please enter a valid task number after 'unmark'.\n" +
+                                    "    ____________________________________________________________"
+                    );
+                }
             } else if (userInput.startsWith("todo ")) {
-                addTask(new Todo(userInput.substring(5)));
+                String description = userInput.substring(5).trim();
+                if (description.isEmpty()) {
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     OOPS!!! The description of a todo cannot be empty.\n" +
+                                    "    ____________________________________________________________"
+                    );
+                } else {
+                    addTask(new Todo(description));
+                }
             } else if (userInput.startsWith("deadline ")) {
                 String[] parts = userInput.substring(9).split(" /by ");
-                addTask(new Deadline(parts[0], parts[1]));
+                if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     OOPS!!! Invalid deadline format! Use 'deadline <description> /by <time>'.\n" +
+                                    "    ____________________________________________________________"
+                    );
+                } else {
+                    addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+                }
             } else if (userInput.startsWith("event ")) {
                 String[] parts = userInput.substring(6).split(" /from | /to ");
-                addTask(new Event(parts[0], parts[1], parts[2]));
+                if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+                    System.out.println(
+                            "    ____________________________________________________________\n" +
+                                    "     OOPS!!! Invalid event format! Use 'event <description> /from <start time> /to <end time>'.\n" +
+                                    "    ____________________________________________________________"
+                    );
+                } else {
+                    addTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                }
             } else {
                 System.out.println("    ____________________________________________________________\n" +
-                        "     Sorry, I don't understand that command.\n" +
+                        "     OOPS!!! I'm sorry, but I don't understand the command :-(\n" +
                         "    ____________________________________________________________");
             }
         }
