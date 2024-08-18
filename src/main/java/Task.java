@@ -1,6 +1,7 @@
+// Parent Task class
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Creates a new Task with the specified description.
@@ -18,7 +19,7 @@ public class Task {
      * @return "X" if the task is done, otherwise " "
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
