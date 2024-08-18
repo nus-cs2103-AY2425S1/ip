@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Ollie {
     private static final int MAX_TASKS = 100;
-    private static String[] tasks = new String[MAX_TASKS];
+    private static final String[] tasks = new String[MAX_TASKS];
     private static int taskCount = 0;
 
     public static void messageWrapper(String message) {
