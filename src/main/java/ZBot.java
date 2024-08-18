@@ -13,11 +13,23 @@ public class ZBot {
             if (input.equals("list")) {
                 listTask();
             } else if (input.startsWith("mark")) {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]);
-                markTaskAsDone(taskNumber);
+                try {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    markTaskAsDone(taskNumber);
+                } catch (NullPointerException e) {
+                    System.out.println("Task not found!\n");
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid task number!\n");
+                }
             } else if (input.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]);
-                markTaskAsUndone(taskNumber);
+                try {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    markTaskAsUndone(taskNumber);
+                } catch (NullPointerException e) {
+                    System.out.println("Task not found!\n");
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid task number!\n");
+                }
             } else {
                 storeTask(input);
             }
