@@ -25,32 +25,36 @@ public class Glados {
                 exit();
                 break;
             } else {
-                String query = input.split(" ")[0];
-                if (query.equals("echo")) {
-                    echo(input.substring(5, input.length()));
-                } else if (query.equals("todo")) {
-                    add(
-                        TaskType.TODO, 
-                        input.substring(5, input.length())
-                    );
-                } else if (query.equals("deadline")) {
-                    add(
-                        TaskType.DEADLINE, 
-                        input.substring(9, input.length())
-                    );
-                } else if (query.equals("event")) {
-                    add(
-                        TaskType.EVENT, 
-                        input.substring(6, input.length())
-                    );
-                } else if (query.equals("list")) {
-                    list();
-                } else if (query.equals("mark")) {
-                    mark(Integer.valueOf(input.substring(5, input.length())));
-                } else if (query.equals("unmark")) {
-                    unmark(Integer.valueOf(input.substring(7, input.length())));
-                } else {
-                    error();
+                try {
+                    String query = input.split(" ")[0];
+                    if (query.equals("echo")) {
+                        echo(input.substring(4, input.length()));
+                    } else if (query.equals("todo")) {
+                        add(
+                            TaskType.TODO, 
+                            input.substring(4, input.length())
+                        );
+                    } else if (query.equals("deadline")) {
+                        add(
+                            TaskType.DEADLINE, 
+                            input.substring(8, input.length())
+                        );
+                    } else if (query.equals("event")) {
+                        add(
+                            TaskType.EVENT, 
+                            input.substring(5, input.length())
+                        );
+                    } else if (query.equals("list")) {
+                        list();
+                    } else if (query.equals("mark")) {
+                        mark(Integer.valueOf(input.substring(5, input.length())));
+                    } else if (query.equals("unmark")) {
+                        unmark(Integer.valueOf(input.substring(7, input.length())));
+                    } else {
+                        throw new CommandNotFoundException();
+                    }
+                } catch (GladosException e) {
+                    error(e);
                 }
             }
         }
@@ -75,26 +79,43 @@ public class Glados {
         );
     }
 
-    public static void error() {
+    public static void error(GladosException e) {
         System.out.println(
             HORIZONTAL_LINE
-            + "\nGLaDOS: I don't know what this command is...\n"
+            + "\n" + e.getMessage() + "\n"
             + HORIZONTAL_LINE
         );
     }
 
-    public static void add(TaskType taskType, String input) {
+    public static void add(TaskType taskType, String input) throws GladosException {
         switch (taskType) {
             case TODO:
-                taskList.add(new Todo(input.trim()));
+                String todoDescription = input.trim();
+                checkDescription(todoDescription);
+                taskList.add(new Todo(todoDescription));
                 break;
             case EVENT:
-                String[] eventInputs = input.split("/from");
-                String[] dateRange = eventInputs[1].split("/to");
+                checkDescription(input.trim());
+                String[] eventInputs = input.split(" /from ");
+                String eventDescription = eventInputs[0].trim();
+                checkDescription(eventDescription);
+                if (eventInputs.length != 2) {
+                    throw new DateRangeNotFoundException();
+                }
+                String[] dateRange = eventInputs[1].split(" /to ");
+                if (dateRange.length != 2 || dateRange[0].trim().equals("") || dateRange[1].trim().equals("")) {
+                    throw new DateRangeNotFoundException();
+                }
                 taskList.add(new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()));
                 break;
             case DEADLINE:
-                String[] deadlineInputs = input.split("/by");
+                checkDescription(input.trim());
+                String[] deadlineInputs = input.split(" /by ");
+                String deadlineDescription = deadlineInputs[0].trim();
+                checkDescription(deadlineDescription);
+                if (deadlineInputs.length != 2 || deadlineInputs[1].trim().equals("")) {
+                    throw new DateNotFoundException();
+                }
                 taskList.add(new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim()));
                 break;
             default:
@@ -107,6 +128,12 @@ public class Glados {
             + "\n" + taskList.get(listIndex - 1).toString() + "\n"
             + "\nNow you have " + listIndex + (listIndex == 1 ? " task.\n" : " tasks.\n")
             + HORIZONTAL_LINE);
+    }
+
+    private static void checkDescription(String description) throws DescriptionNotFoundException {
+         if (description.equals("")) {
+            throw new DescriptionNotFoundException();
+         }
     }
 
     public static void list() {
