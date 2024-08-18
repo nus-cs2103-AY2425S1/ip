@@ -25,12 +25,11 @@ public class Hoshi {
                 "____________________________________________________________\n");
 
 
-        String[] array = new String[100];
+        Task[] array = new Task[100];
         int indexCounter = -1;
 
         while (true) {
 
-            indexCounter++;
 
             System.out.println("Enter your request below ");
 
@@ -49,13 +48,48 @@ public class Hoshi {
                     if (array[i] == null) {
                         break;
                     }
-                    System.out.println(i+1 + ". " + array[i] + "\n");
+
+                    System.out.println(i+1 + ". "+ "[" + array[i].getStatusIcon() + "] " + array[i].getDesc() + "\n");
                 }
+
+                // mark
+            } else if (input.length() >= 4 && input.substring(0, 4).equalsIgnoreCase("mark")) {
+
+                // split string
+                String[] splitInput = input.split(" ");
+
+                // get only the number from the 2nd half of the splitInput
+                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                // set isDone to true
+                array[markIndex].setIsDone(true);
+
+                System.out.println("Nice! I've marked this task as done: \n");
+                System.out.println("[" + array[markIndex].getStatusIcon() + "] " + array[markIndex].getDesc() + "\n");
+
+                // unmark
+            } else if (input.length() >= 6 && input.substring(0, 6).equalsIgnoreCase("unmark")) {
+
+                // split string
+                String[] splitInput = input.split(" ");
+
+                // get only the number from the 2nd half of the splitInput
+                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                // set isDone to false
+                array[markIndex].setIsDone(false);
+
+                System.out.println("OK, I've marked this task as not done yet: \n");
+                System.out.println("[" + array[markIndex].getStatusIcon() + "] " + array[markIndex].getDesc() + "\n");
 
                 // add
             } else {
-                // add
-                array[indexCounter] = input;
+
+                indexCounter++;
+
+                // init new Task object
+                Task newTask = new Task(input);
+
+                // add new task to array
+                array[indexCounter] = newTask;
                 System.out.println("added: " + input);
 
                 System.out.println("____________________________________________________________");
