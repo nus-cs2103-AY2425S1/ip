@@ -1,35 +1,33 @@
 // solution is adapted from the Course Level 3 extension
 
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private final String description;
+    private boolean isDone;
+    private final String type;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.type = "T";
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String markDone() {
+    public String getType() {
+        return type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void markDone() {
         this.isDone = true;
-        return "Nice!  I've marked this task as done:\n" + this.printTask();
     }
 
-    public String markUndone() {
+    public void markUndone() {
         this.isDone = false;
-        return "OK, I've marked this task as not done yet:\n" + this.printTask();
-    }
-
-    public String printTask() {
-        return "[" + this.getStatusIcon() + "]" + " " + this.description;
-    }
-
-    public static void main(String[] args) {
-        Task task = new Task("Task 1");
-        System.out.println(task.markDone());
-        System.out.println(task.markUndone());
     }
 }

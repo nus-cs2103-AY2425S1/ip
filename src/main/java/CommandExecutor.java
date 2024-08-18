@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class CommandExecutor {
 
     public enum CommandType {
@@ -16,41 +18,48 @@ public class CommandExecutor {
 
         switch (commandType) {
             case LIST:
-                System.out.println(taskList.printList());
+                FormattedPrinting.printList(taskList);
                 break;
 
             case MARK:
                 try {
-                    int index = Integer.parseInt(command.commandDetails()) - 1;
+                    int index = Integer.parseInt(command.commandDetails()[0]) - 1;
                     Task taskToMark = taskList.getTask(index);
-                    System.out.println(taskToMark.markDone());
+                    taskToMark.markDone();
+                    FormattedPrinting.printMarked(taskToMark);
                 } catch (Exception e) {
-                    System.out.println("Invalid task number.");
+                    FormattedPrinting.FormatPrint("Invalid task number!");
                 }
                 break;
 
             case UNMARK:
                 try {
-                    int index = Integer.parseInt(command.commandDetails()) - 1;
+                    int index = Integer.parseInt(command.commandDetails()[0]) - 1;
                     Task taskToUnmark = taskList.getTask(index);
-                    System.out.println(taskToUnmark.markUndone());
+                    taskToUnmark.markUndone();
+                    FormattedPrinting.printUnmarked(taskToUnmark);
                 } catch (Exception e) {
-                    System.out.println("Invalid task number.");
+                    FormattedPrinting.FormatPrint("Invalid task number!");
                 }
                 break;
 
             case TODO:
+                String commandDetails = Arrays.stream(command.commandDetails())
+                        .reduce((accumulator, element) -> accumulator + " " + element)
+                        .orElse("");
+                Task newTask = new Task(commandDetails);
+                taskList.addTask(newTask);
+                FormattedPrinting.addTask(newTask, taskList);
+                break;
 
             case DEADLINE:
 
             case EVENT:
-                Task newTask = new Task(command.commandDetails());
-                taskList.addTask(newTask);
-                System.out.println(newTask.printTask());
+
                 break;
 
             case UNKNOWN:
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                FormattedPrinting.FormatPrint("I do not recognise this command, please check again!");
                 break;
 
             case BYE:

@@ -2,8 +2,6 @@ import java.util.Scanner;
 
 public class MortalReminder {
 
-    private TaskList taskList = new TaskList();
-
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
         mortalReminder.Welcome();
@@ -11,36 +9,30 @@ public class MortalReminder {
         mortalReminder.GoodBye();
     }
 
-    private String FormatMessages(String message) {
-        String indentation = "   ";
-        String separatorLine = indentation + "__________________________________";
-        StringBuilder outputMessage = new StringBuilder(separatorLine);
-        String[] messageLines = message.split("\n");
-        for (String line : messageLines) {
-            outputMessage.append("\n")
-                    .append(indentation)
-                    .append(line);
-        }
-        outputMessage.append("\n")
-                .append(separatorLine);
-        return outputMessage.toString();
-    }
-
     private void Welcome() {
         String welcomeMessage = "Hello I'm Mortal Reminder!\n"
                 + "What can I do for you?";
-        welcomeMessage = FormatMessages(welcomeMessage);
-        System.out.println(welcomeMessage);
+        FormattedPrinting.FormatPrint(welcomeMessage);
+
     }
 
     private void GoodBye() {
         String goodByeMessage = "Bye. Hope to see you again soon!";
-        goodByeMessage = FormatMessages(goodByeMessage);
-        System.out.println(goodByeMessage);
+        FormattedPrinting.FormatPrint(goodByeMessage);
     }
 
     private void ProcessInputs() {
+
+        Scanner inputScanner = new Scanner(System.in);
+        TaskList taskList = new TaskList();
         Parser parser = new Parser();
-        parser.scanInputs();
+        CommandExecutor commandExecutor = new CommandExecutor();
+
+        boolean continueScanning = true;
+        while (continueScanning) {
+            String input = inputScanner.nextLine();
+            Command command = parser.parseInputFromUser(input);
+            continueScanning = commandExecutor.HandleCommand(command, taskList, continueScanning);
+        }
     }
 }

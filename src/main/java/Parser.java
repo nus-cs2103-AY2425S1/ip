@@ -1,45 +1,32 @@
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Parser {
 
-    public int parseInputFromUser(String command) {
-        if (command.equals("list")) {
-            return 1;
-        } else if (command.contains("mark")) {
-            return 2;
-        }
-        else if (command.contains("unmark")) {
-            return 3;
-        }
-        else if (command.contains("todo")) {
-            return 4;
-        }
-        else if (command.contains("deadline")) {
-            return 5;
-        }
-        else if (command.contains("event")) {
-            return 6;
-        }
-        else if (command.contains("bye")) {
-            return 0;
-        }
-        else {
-            return -1;
-        }
-    }
+    public Command parseInputFromUser(String input) {
 
-    public void scanInputs() {
-        Scanner inputScanner = new Scanner(System.in);
+        int commandCode;
 
-        while (true) {
-            String input = inputScanner.nextLine();
-            int command = parseInputFromUser(input);
-            if (command == 0) {
-                break;
-            } else {
-                System.out.println(command);
-            }
-        }
+        // Split the input string by spaces and get the first word
+        String[] splitInput = input.split(" ");
+        String commandWord = splitInput[0];
+
+        // return the rest of the input as an array of string
+        int splitInputLength = splitInput.length;
+        splitInput = Arrays.copyOfRange(splitInput, 1, splitInputLength);
+
+        commandCode = switch (commandWord) {
+            case "list" -> CommandExecutor.CommandType.LIST.ordinal();
+            case "unmark" -> CommandExecutor.CommandType.UNMARK.ordinal();
+            case "mark" -> CommandExecutor.CommandType.MARK.ordinal();
+            case "todo" -> CommandExecutor.CommandType.TODO.ordinal();
+            case "deadline" -> CommandExecutor.CommandType.DEADLINE.ordinal();
+            case "event" -> CommandExecutor.CommandType.EVENT.ordinal();
+            case "bye" -> CommandExecutor.CommandType.BYE.ordinal();
+            default -> CommandExecutor.CommandType.UNKNOWN.ordinal();
+        };
+
+        // Use the initialise method to create and return a Commands object
+        return Command.initialise(splitInput, commandCode);
     }
 
 }
