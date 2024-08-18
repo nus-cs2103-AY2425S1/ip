@@ -31,9 +31,8 @@ public class Infinity <T extends Task> {
     }
   }
 
-  public void echo(String input) {
-    System.out.println(botReply(input));
-    System.out.println(BREAKLINE);
+  private void echo(String input) throws InfinityException {
+    throw new InfinityException("Wait a minute, that's not something I recognise...");
   }
 
   public Infinity() {
@@ -47,43 +46,42 @@ public class Infinity <T extends Task> {
     while (true) {
       String currentInput = userInputs.nextLine();
       System.out.println(BREAKLINE);
-      if (currentInput.equals("bye")) {
-        System.out.println(botReply("Well, if you are leaving, then I must be infinitely too dumb :("));
-        System.out.println(BREAKLINE);
-        userInputs.close();
-        System.exit(0);
-      } else if (currentInput.equals("list")) {
-        this.listTasks();
-        System.out.println(BREAKLINE);
-      } else if (currentInput.startsWith("mark")) {
-        try {
-          String[] words = currentInput.split(" ");
-          int taskIndex = Integer.parseInt(words[1]) - 1;
-          if (taskIndex >= nextTastIndex || taskIndex < 0) {
-            throw new IndexOutOfBoundsException();
+      try {
+        if (currentInput.equals("bye")) {
+          System.out.println(botReply("Well, if you are leaving, then I must be infinitely too dumb :("));
+          System.out.println(BREAKLINE);
+          userInputs.close();
+          System.exit(0);
+        } else if (currentInput.equals("list")) {
+          this.listTasks();
+          System.out.println(BREAKLINE);
+        } else if (currentInput.startsWith("mark")) {
+          try {
+            String[] words = currentInput.split(" ");
+            int taskIndex = Integer.parseInt(words[1]) - 1;
+            if (taskIndex >= nextTastIndex || taskIndex < 0) {
+              throw new IndexOutOfBoundsException();
+            }
+            tasks[taskIndex].markAsDone();
+            System.out.println(botReply(String.format("I've marked task %d as done:", taskIndex + 1)));
+            System.out.println(tasks[taskIndex].toString());
+            System.out.println(BREAKLINE);
+          } catch (IndexOutOfBoundsException e) {
+            System.out.println(botReply("Hmmm, I can't find that task. Please try again."));
+            System.out.println(BREAKLINE);
           }
-          tasks[taskIndex].markAsDone();
-          System.out.println(botReply(String.format("I've marked task %d as done:", taskIndex + 1)));
-          System.out.println(tasks[taskIndex].toString());
-          System.out.println(BREAKLINE);
-        } catch (IndexOutOfBoundsException e) {
-          System.out.println(botReply("Hmmm, I can't find that task. Please try again."));
-          System.out.println(BREAKLINE);
-        }
-      } else if (currentInput.startsWith("todo")) {
-        try {
+        } else if (currentInput.startsWith("todo")) {
           this.addTask(new ToDos(currentInput.substring(5)));
-        } catch (ArrayIndexOutOfBoundsException e) {}
-      } else if (currentInput.startsWith("deadline")) {
-        try {
+        } else if (currentInput.startsWith("deadline")) {
           this.addTask(new Deadline(currentInput.substring(9)));
-        } catch (ArrayIndexOutOfBoundsException e) {}
-      } else if (currentInput.startsWith("event")) {
-        try {
+        } else if (currentInput.startsWith("event")) {
           this.addTask(new Event(currentInput.substring(6)));
-        } catch (ArrayIndexOutOfBoundsException e) {}
-      } else {
-        this.echo(currentInput);
+        } else {
+          this.echo(currentInput);
+        }
+      } catch (InfinityException e) {
+        System.out.println(botReply(e.getMessage()));
+        System.out.println(BREAKLINE);
       }
     }
   }
