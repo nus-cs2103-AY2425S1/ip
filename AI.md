@@ -1,0 +1,34 @@
+# Documenting the use of AI tools in this project
+
+---
+
+## Introduction
+I have done quite an extensive bit of coding myself in many languages and while I have a decent amount of experience
+in writing code, I mostly worked in iterative depth first approaches or sequential approaches. I also rarely was involved
+in automated testing. As such I am trying my best to keep the use of AI tools to a minimum. However, I do recognise that
+it is an important tool for reducing repeated tasks such as creating similar code mainly for formatting and parsing inputs
+in the UI. As such, I have created this file to document all of my uses of AI that are more widespread such as auto-completing
+methods. The following is an example of how I plan to document each use:
+
+---
+
+## Example.file
+### Methods involved:
+* Method 1
+* Method 2
+* Method 3
+* Source Method
+
+### What and how AI tool was used
+explanation
+
+### What worked and what did not
+
+### Estimated Time saved: xx minutes/hrs
+
+---
+
+This will be the format that this file will adhere to. Any local changes (for smaller uses), will be documented in comments
+above the method itself inside the code file.
+
+---
