@@ -14,6 +14,9 @@ public class EchoBot {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Send  greet message to users
+     */
     public static void greet() {
         System.out.println("Hello from\n" + Logo);
         dashline();
@@ -22,6 +25,9 @@ public class EchoBot {
         dashline();
     }
 
+    /**
+     * List all tasks in the task list of EchoBot
+     */
     public static void listAllTask() {
         dashline();
         String tasks = "";
@@ -34,7 +40,9 @@ public class EchoBot {
     }
 
     public static void bye() {
+        dashline();
         System.out.println("Bye. Hope to see you again soon!");
+        dashline();
     }
 
     public static void main(String[] args) {
@@ -60,14 +68,21 @@ public class EchoBot {
                         unmarkTask.unmark();
                         break;
                     default:
-                        Task task = new Task(userInput);
-                        allTasks.add(task);
+                        dashline();
+                        Task task = Task.creatTask(userInput);
+                        if (task != null) {
+                            allTasks.add(task);
+                            System.out.println(task);
+                            System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
+                        }
+                        dashline();
                 }
             } catch (IndexOutOfBoundsException e) {
                 String msg = "Input Error: " + e.toString();
                 System.out.println(msg);
                 System.exit(0);
             }
+
             if (CMD.equals(EchoBot.BYE)) {
                 EchoBot.bye();
                 break;
