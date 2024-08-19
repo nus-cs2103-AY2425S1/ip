@@ -63,6 +63,21 @@ public class Derrick {
                     System.out.println(task);
                     break;
                 }
+                case "delete": {
+                    try {
+                        int position = Integer.parseInt(input.split(" ")[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("No item specified for deletion. Please input the number indicating the item.");
+                        break;
+                    }
+                    int position = Integer.parseInt(input.split(" ")[1]);
+                    Task task = this.toDo.get(position - 1);
+                    this.toDo.remove(task);
+                    System.out.println("I have removed this task:");
+                    System.out.println(task);
+                    System.out.println("You have " + this.toDo.size() + " items in your list.");
+                    break;
+                }
                 case "todo": {
                     try {
                         Todo todo = new Todo(input.split(" ", 2)[1]);
