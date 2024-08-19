@@ -37,6 +37,17 @@ public class Janet {
 
 
     /**
+     * @param task a String representation of the task that is to be added into the listOfTasks.
+     * @return a String message to indicate successful addition of task into listOfTasks.
+     */
+    public String addTaskToList(String task) {
+        this.listOfTasks[this.taskIndex] = task;
+        this.taskIndex++;
+        return horizontalLine + "\n" + String.format("added: %s\n", task) + horizontalLine;
+    }
+
+
+    /**
      * Level 2 - Add, list
      * @return a String representation (in numbered list format) of the current tasks inside the listOfTasks
      */
