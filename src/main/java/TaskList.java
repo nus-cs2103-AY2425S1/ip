@@ -22,9 +22,14 @@ public class TaskList {
     public void addTask(String task) {
         this.tasks[this.taskCount] = task;
         this.taskCount++;
+        System.out.println("____________________________________________________________");
         System.out.println("added: " + task);
+        System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Returns a string representation of the task list.
+     */
     @Override
     public String toString() {
         String result = "";
