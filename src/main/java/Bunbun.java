@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * This class implements a chatbot by the name of Bunbun.
  *
@@ -15,9 +18,13 @@ public class Bunbun {
                 UI.endScreen();
                 break;
             } else {
-                System.out.println("You: " + msg);
-                if (msg.equals("list")) {
+                System.out.println(msg);
+                ArrayList<String> tokens = Parser.getTokens();
+                if (tokens.get(0).equals("list")) {
                     list.displayList();
+                } else if (tokens.get(0).equals("mark") && (tokens.size() == 2)) {
+                    String val = tokens.get(1);
+                    list.markDoneTask(Integer.parseInt(val));
                 } else {
                     list.addTask(msg);
                 }
