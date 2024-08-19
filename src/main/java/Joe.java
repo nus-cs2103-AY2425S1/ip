@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Joe {
     public static final String horizontalLine = "____________________________________________________________";
     public static final String chatbotName = "Joe";
@@ -6,8 +7,7 @@ public class Joe {
     public static final String taskCountMessage = "Now you have %d tasks in the list.\n";
 
     public static String input = "";
-    public static Task[] store = new Task[100];
-    public static int currIndex = 0;
+    public static ArrayList<Task> store = new ArrayList<>();
 
     public static void greet() {
         System.out.printf("%s\nHello! I'm %s\nWhat can I do for you?\n%s\n", horizontalLine, chatbotName, horizontalLine);
@@ -17,39 +17,27 @@ public class Joe {
         System.out.printf("Bye. Hope to see you again soon!\n%s", horizontalLine);
     }
 
-    public static void handleList(Task[] list) {
+    public static void handleList(ArrayList<Task> list) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] != null) {
-                System.out.println(i + 1 + "." + list[i]);
-            }
+        for (int i = 0; i < list.size(); i++) {
+                System.out.println(i + 1 + "." + list.get(i));
         }
     }
 
-    public static void handleDone(Task[] list, int index) {
-        if (list[index] != null) {
-            list[index].toggleDone();
-            System.out.printf("Nice! I've marked this task as done:\n%s\n", list[index]);
-        }
+    public static void handleDone(ArrayList<Task> list, int index) {
+        list.get(index).toggleDone();
+        System.out.printf("Nice! I've marked this task as done:\n%s\n", list.get(index));
     }
 
-    public static void handleUndone(Task[] list, int index) {
-        if (list[index] != null) {
-            list[index].toggleDone();
-            System.out.printf("Nice! I've marked this task as not done yet:\n%s\n", list[index]);
-        }
+    public static void handleUndone(ArrayList<Task> list, int index) {
+        list.get(index).toggleDone();
+        System.out.printf("Nice! I've marked this task as not done yet:\n%s\n", list.get(index));
     }
 
-    public static void handleDelete(Task[] list, int index) {
-        if (list[index] != null) {
-            System.out.printf("Noted. I've removed this task:\n%s\n", list[index]);
-            for (int i = index; i < list.length - 1; i++) {
-                list[i] = list[i + 1];
-            }
-            list[list.length - 1] = null;
-            currIndex--;
-            System.out.printf(taskCountMessage, currIndex);
-        }
+    public static void handleDelete(ArrayList<Task> list, int index) {
+        System.out.printf("Noted. I've removed this task:\n%s\n", list.get(index));
+        list.remove(index);
+        System.out.printf(taskCountMessage, list.size());
     }
 
     public static void handleTodo(String input) {
@@ -58,10 +46,9 @@ public class Joe {
             System.out.println("Don't expect me to remember nothing!");
             return;
         }
-        store[currIndex] = new TaskTodo(task);
-        System.out.printf("%s%s\n", addTaskMessage, store[currIndex]);
-        currIndex++;
-        System.out.printf(taskCountMessage, currIndex);
+        store.add(new TaskTodo(task));
+        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
+        System.out.printf(taskCountMessage, store.size());
     }
 
     public static void handleDeadline(String input) {
@@ -76,10 +63,9 @@ public class Joe {
             return;
         }
         String by = input.substring(byIndex + 4);
-        store[currIndex] = new TaskDeadline(task, by);
-        System.out.printf("%s%s\n", addTaskMessage, store[currIndex]);
-        currIndex++;
-        System.out.printf(taskCountMessage, currIndex);
+        store.add(new TaskDeadline(task, by));
+        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
+        System.out.printf(taskCountMessage, store.size());
     }
 
     public static void handleEvent(String input) {
@@ -96,10 +82,9 @@ public class Joe {
         }
         String from = input.substring(fromIndex + 6, toIndex - 1);
         String to = input.substring(toIndex + 4);
-        store[currIndex] = new TaskEvent(task, from, to);
-        System.out.printf("%s%s\n", addTaskMessage, store[currIndex]);
-        currIndex++;
-        System.out.printf(taskCountMessage, currIndex);
+        store.add(new TaskEvent(task, from, to));
+        System.out.printf("%s%s\n", addTaskMessage, store.getLast());
+        System.out.printf(taskCountMessage, store.size());
     }
 
     public static void main(String[] args) {
