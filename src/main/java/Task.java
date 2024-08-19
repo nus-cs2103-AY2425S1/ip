@@ -7,6 +7,14 @@ public class Task {
         isChecked = false;
     }
 
+    public void mark() {
+        this.isChecked = true;
+    }
+
+    public void unMark() {
+        this.isChecked = false;
+    }
+
     @Override
     public String toString() {
         if (isChecked) {

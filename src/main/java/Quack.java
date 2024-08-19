@@ -33,17 +33,25 @@ public class Quack {
     }
 
     private void farewell() {
-        System.out.println("Bye. Hope to see you again soon!\n" + spacer);
+        this.isRunning = false;
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private void act (String item) {
+    private void act (String input) {
+        String[] inputs = input.split(" ");
+        String command = inputs[0].toLowerCase();
 
-        if (item.equals("list")) {
-            System.out.println(this.toDoList.toString());
-        } else {
-           this.toDoList.addItem(item);
+        switch (command) {
+            case "list":
+                System.out.println(this.toDoList.toString());
+                break;
+            case "bye":
+                farewell();
+                break;
+            default:
+                System.out.println("There is no such function, please try again.");
+                break;
         }
-       
         System.out.println(spacer);
     }
 
@@ -57,20 +65,14 @@ public class Quack {
         
         // Keep taking inputs from the user
         while (isRunning) {
-            String command = sc.nextLine();
+            String input = sc.nextLine();
             System.out.println(spacer);
-            
-            // As long as the user types bye in any format it will terminate
-            if (command.toLowerCase().equals("bye")) {
-                this.isRunning = false;
-            } else {
-                act(command);
-            }
+
+            act(input);
         }
 
+        // Close the scanner since it exited the forloop means the bot has terminated
         sc.close();
-        // Chatbot has exited, display the farewell message
-        this.farewell();
     }
 
     public static void main(String[] args) {    

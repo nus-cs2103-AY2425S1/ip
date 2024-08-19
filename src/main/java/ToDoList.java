@@ -7,9 +7,16 @@ public class ToDoList {
         this.toDo = new ArrayList<Task>();
     }
 
+    public void completeTask(int idx) {
+        this.toDo.get(idx).mark();
+    }
+
+    public void uncompleteTask(int idx) {
+        this.toDo.get(idx).unMark();
+    }
+
     public void addItem(String item) {
-        Task newTask = new Task(item);
-        
+        Task newTask = new Task(item);        
         toDo.add(newTask);
 
         System.out.println("Added: " + item);
