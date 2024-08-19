@@ -31,7 +31,7 @@ public class Hoshi {
         while (true) {
 
 
-            System.out.println("Enter your request below ");
+            System.out.println("Add ToDo/Deadline/Event OR List(Lowercase): ");
 
             // take in input
             String input = scanner.nextLine();
@@ -49,7 +49,7 @@ public class Hoshi {
                         break;
                     }
 
-                    System.out.println(i+1 + ". "+ "[" + array[i].getStatusIcon() + "] " + array[i].getDesc() + "\n");
+                    System.out.println(i+1 + ". "+ array[i].toString() + "\n");
                 }
 
                 // mark
@@ -64,7 +64,7 @@ public class Hoshi {
                 array[markIndex].setIsDone(true);
 
                 System.out.println("Nice! I've marked this task as done: \n");
-                System.out.println("[" + array[markIndex].getStatusIcon() + "] " + array[markIndex].getDesc() + "\n");
+                System.out.println(array[markIndex].toString() + "\n");
 
                 // unmark
             } else if (input.length() >= 6 && input.substring(0, 6).equalsIgnoreCase("unmark")) {
@@ -78,18 +78,62 @@ public class Hoshi {
                 array[markIndex].setIsDone(false);
 
                 System.out.println("OK, I've marked this task as not done yet: \n");
-                System.out.println("[" + array[markIndex].getStatusIcon() + "] " + array[markIndex].getDesc() + "\n");
+                System.out.println(array[markIndex].toString() + "\n");
 
                 // add
             } else {
 
-                indexCounter++;
+                //Task newTask = new Task(input);
 
-                // init new Task object
-                Task newTask = new Task(input);
+                if (input.equals("todo")) {
+
+                    System.out.println("Understood! What is your ToDo? ");
+                    String desc = scanner.nextLine();
+
+
+                    Todo newToDo = new Todo(desc);
+                    indexCounter++;
+                    array[indexCounter] = newToDo;
+
+                } else if (input.equals("deadline")) {
+
+                    System.out.println("Understood! What is your Deadline? ");
+                    String desc = scanner.nextLine();
+
+                    System.out.println("When would you like your Deadline to be due by? ");
+
+                    // take in input
+                    String endTime = scanner.nextLine();
+
+                    Deadline newDeadline = new Deadline(desc, endTime);
+                    indexCounter++;
+                    array[indexCounter] = newDeadline;
+                } else if (input.equals("event")) {
+
+                    System.out.println("Understood! What is your Event? ");
+                    String desc = scanner.nextLine();
+
+                    System.out.println("When would you like your Event to start? ");
+
+                    // take in input
+                    String startTime = scanner.nextLine();
+
+                    System.out.println("When would you like your Event to end? ");
+
+                    // take in input
+                    String endTime = scanner.nextLine();
+
+                    Event newEvent = new Event(desc, startTime, endTime);
+                    indexCounter++;
+                    array[indexCounter] = newEvent;
+                }
+
+
+                // init new Task
+
 
                 // add new task to array
-                array[indexCounter] = newTask;
+
                 System.out.println("added: " + input);
 
                 System.out.println("____________________________________________________________");
