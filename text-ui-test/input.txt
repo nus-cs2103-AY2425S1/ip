@@ -14,7 +14,10 @@ deadline
 event project meeting
 event project meeting /start Mon 2pm /end 4pm
 mark a
+delete a
 mark 100
-mark -1
+delete -1
+list
+delete 2
 list
 bye

@@ -37,6 +37,9 @@ public class MoiMoi {
                     case "event":
                         this.event(Parser.inputToArgs(input));
                         break;
+                    case "delete":
+                        this.delete(Parser.inputToArgs(input));
+                        break;
                     case "mark":
                         this.mark(Parser.inputToArgs(input));
                         break;
@@ -90,6 +93,18 @@ public class MoiMoi {
                     + "\nWe have " + tasks.size() + " tasks in the bag~");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
+        }
+    }
+
+    public void delete(String index) throws InvalidArgumentException {
+        try {
+            int i = Integer.parseInt(index) - 1;
+            Task task = tasks.get(i);
+            tasks.remove(i);
+            System.out.println("Aju nice! I've got rid of this task: " + task.toString()
+                    + "\nWe have " + tasks.size() + " tasks left in the bag~");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException();
         }
     }
 
