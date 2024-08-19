@@ -24,9 +24,7 @@ public class TaskList {
         this.tasks[this.taskCount] = task;
         this.taskCount++;
         
-        System.out.println("____________________________________________________________");
         System.out.println("added: " + task);
-        System.out.println("____________________________________________________________");
     }
     
     /**
@@ -35,10 +33,8 @@ public class TaskList {
      */
     public void markTaskAsDone(int taskNumber) {
         this.tasks[taskNumber].markAsDone();
-        System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.tasks[taskNumber]);
-        System.out.println("____________________________________________________________");
     }
     /**
      * Marks a task as not done.
@@ -46,10 +42,16 @@ public class TaskList {
      */
     public void markTaskAsNotDone(int taskNumber) {
         this.tasks[taskNumber].markAsNotDone();
-        System.out.println("____________________________________________________________");
+        
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.tasks[taskNumber]);
-        System.out.println("____________________________________________________________");
+    }
+    /**
+     * Returns the number of tasks in the TaskList.
+     * @return The number of tasks in the TaskList.
+     */
+    public int getTaskCount() {
+        return this.taskCount;
     }
 
     /**
