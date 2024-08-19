@@ -20,14 +20,6 @@ public class Susan {
         System.out.println(logo);
 		printItem("Hello! I'm Susan!\n" + INDENTATION + "What can I do for you?");
 	
-		Scanner sc = new Scanner(System.in);
-		
-		String obj = sc.nextLine();
-		while (!obj.equals("bye")) {
-			printItem(obj);	
-			obj = sc.nextLine();
-		}
-
 		printItem("Bye. Hope to see you again soon!");
     }
 
