@@ -8,6 +8,8 @@ public class Reo {
             BYE,
             LIST,
             TODO,
+            EVENT,
+            DEADLINE,
             MARK,
             UNMARK,
             UNKNOWN,
@@ -46,10 +48,12 @@ public class Reo {
                     toPrint += "----------------------";
                     break;
                 case TODO:
-                    tasks.add(new Todo(words[1]));
+                    Todo toPush = new Todo(words[1]);
+                    tasks.add(toPush);
                     toPrint += "----------------------\n";
                     try {
-                        toPrint += "added: " + words[1] + "\n";
+                        toPrint += "I've added this todo:\n " + toPush.toString() + "\n";
+                        toPrint += "Now, you have " + tasks.size() + " task(s) in your list.\n";
                     } catch (ArrayIndexOutOfBoundsException e) {
                         toPrint += "Please enter a valid task name.\n";
                     }
@@ -74,13 +78,53 @@ public class Reo {
                         toPrint += tasks.get(Integer.valueOf(words[1]) - 1).toString() + "\n";
                         toPrint += "----------------------";
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        toPrint = "----------------------\nPlease enter a valid task number.----------------------";
+                        toPrint = "----------------------\nPlease enter a valid task number.\n----------------------";
+                    }
+                    break;
+                case DEADLINE:
+                    try {
+                        String[] parts = currInput.split("/by", 2);
+                        String[] firstPart = parts[0].split(" ", 2);
+
+                        String name = firstPart[1];
+                        String deadline = parts[1].trim();
+
+                        Deadline toPush1 = new Deadline(name, deadline);
+                        tasks.add(toPush1);
+                        toPrint += "----------------------\n";
+                        toPrint += "I've added this deadline:\n";
+                        toPrint += toPush1.toString() + "\n";
+                        toPrint += "Now, you have " + tasks.size() + " task(s) in your list.\n";
+                        toPrint += "----------------------";
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        toPrint = "----------------------\nPlease enter a valid task name and deadline.\n----------------------";
+                    }
+                    break;
+                case EVENT:
+                    try {
+                        String[] parts = currInput.split("/from", 2);
+                        String[] firstPart = parts[0].split(" ", 2);
+                        String[] secondPart = parts[1].split("/to", 2);
+
+                        String name = firstPart[1];
+                        String from = secondPart[0].trim();
+                        String to = secondPart[1].trim();
+
+                        Event toPush2 = new Event(name, to, from);
+                        tasks.add(toPush2);
+                        toPrint += "----------------------\n";
+                        toPrint += "I've added this event:\n";
+                        toPrint += toPush2.toString() + "\n";
+                        toPrint += "Now, you have " + tasks.size() + " task(s) in your list.\n";
+                        toPrint += "----------------------";
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        toPrint = "----------------------\nPlease enter a valid task name and to / from dates.\n----------------------";
                     }
                     break;
                 case BYE:
                     break;
                 case UNKNOWN:
-                    break;
+                    toPrint = "----------------------\nSorry, please enter a valid command.\n----------------------";
 
             }
 
