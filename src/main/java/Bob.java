@@ -66,14 +66,14 @@ public class Bob {
 
     public static void main(String[] args) {
         ChatBot bot = new ChatBot();
-        System.out.println(formatMessage(bot.greet()));
+        System.out.print(formatMessage(bot.greet()));
 
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             String input = in.nextLine();
             String output = parseInput(input, bot);
 
-            System.out.println(formatMessage(output));
+            System.out.print(formatMessage(output));
             if (input.equals("bye")) {
                 break;
             }
