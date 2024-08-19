@@ -12,7 +12,7 @@ import exception.CitadelTaskNoInput;
 
 public class Citadel {
     public static ArrayList<Task> items = new ArrayList<>();
-    public static Database db =  new Database("citadel");
+    public static Storage db =  new Storage("citadel");
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 

@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
 import exception.CitadelException;
 import exception.CitadelTaskNoInput;
 
-public class Database {
+public class Storage {
     private String filePath;
 
-    public Database(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
         File db = new File(filePath);
         try {
