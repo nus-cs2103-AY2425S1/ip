@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class MrIncredible {
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final TaskStorage taskStorage = new TaskStorage();
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TextStorage textStorage = new TextStorage();
 
         MrIncredible.greet();
         // Start an infinite loop to handle user input
@@ -15,18 +15,14 @@ public class MrIncredible {
             if (input.equals("bye")) {
                 MrIncredible.sayBye();
                 break;
+            } else if (input.equals("list")) {
+                //Handle list command
+                MrIncredible.listTasks();
+            } else if (input.length() >= 4 && input.substring(0,4).equals("mark")) {
+                MrIncredible.markTask(input);
             }
-
-            // Handle "list" command
-            if (input.equals("list")) {
-                System.out.println("    ____________________________________________________________");
-                textStorage.listTasks();
-                System.out.println("    ____________________________________________________________");
-            } else { // Handle other inputs as tasks
-                textStorage.addTask(input);
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     added: " + input);
-                System.out.println("    ____________________________________________________________");
+            else { // Handle other inputs as task
+                MrIncredible.addTask(input);
             }
         }
 
@@ -49,6 +45,31 @@ public class MrIncredible {
 
         System.out.println("    ____________________________________________________________");
         System.out.println(byeText);
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void markTask(String input) {
+        String markTaskText = "    Nice! I've marked this task as done:";
+        int numberToUpdate = Integer.parseInt(input.substring(5));
+        taskStorage.markTask(numberToUpdate);
+
+        System.out.println("    ____________________________________________________________");
+        System.out.println(markTaskText);
+        System.out.println("    " + taskStorage.getTask(numberToUpdate));
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void listTasks() {
+        System.out.println("    ____________________________________________________________");
+        taskStorage.listTasks();
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void addTask(String input) {
+        Task task = new Task(input);
+        taskStorage.addTask(task);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     added: " + task);
         System.out.println("    ____________________________________________________________");
     }
 }
