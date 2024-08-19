@@ -6,8 +6,8 @@ public class GreetBot {
     }
 
     /* solution below inspired by main function in:
-https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/duke/Duke.java
-*/
+    https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/duke/Duke.java
+    */
     private void run() {
         System.out.println("Hello! I'm GreetBot");
         System.out.println("What can I do for you?");
@@ -35,9 +35,15 @@ https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/du
                 int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
                 list[index - 1].unmark();
             } else {
-                list[counter] = new Task(currentCommand);
+                String type = currentCommand.substring(0, currentCommand.indexOf(" "));
+                String rest = currentCommand.substring(currentCommand.indexOf(" ") + 1);
+                list[counter] = Task.decideTask(type, rest);
+
+
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list[counter]);
                 counter += 1;
-                System.out.println(String.format("added: %s", currentCommand));
+                System.out.println(String.format("Now you have %s tasks in the list", counter));
             }
 
 
