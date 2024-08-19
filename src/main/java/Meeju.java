@@ -4,11 +4,11 @@ public class Meeju {
     public static void main(String[] args) {
 
 
-        String LOGO = " __  __ _____ _____    _ _   _ \n" +
+        String LOGO = " __  __ _____ _____    _ _   _\n" +
                 "|  \\/  | ____| ____|  | | | | |\n" +
                 "| |\\/| |  _| |  _| _  | | | | |\n" +
                 "| |  | | |___| |__| |_| | |_| |\n" +
-                "|_|  |_|_____|_____\\___/ \\___/ ";
+                "|_|  |_|_____|_____\\___/ \\___/";
 
 
 
@@ -20,8 +20,5 @@ public class Meeju {
         UserInteraction.interact();
         GoodByeMessage.goodByeMessage();
         System.out.println(Meeju.LINE_BREAK);
-
-
-
     }
 }

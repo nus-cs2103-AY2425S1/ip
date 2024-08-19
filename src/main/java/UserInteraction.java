@@ -8,11 +8,14 @@ public class UserInteraction {
 
         while (true) {
             String instruction = scannerObject.nextLine();
+            System.out.println(instruction);
             System.out.println(Meeju.LINE_BREAK);
             if (instruction.equals("bye")) {
                 break;
+            } else if (instruction.equals("list")) {
+                TaskCollection.printList();
             } else {
-                System.out.println("\t" + instruction);
+                TaskCollection.addTask(new Task(instruction));
             }
             System.out.println(Meeju.LINE_BREAK);
         }
