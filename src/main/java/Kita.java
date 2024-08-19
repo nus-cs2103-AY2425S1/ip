@@ -18,7 +18,7 @@ public class Kita {
         Scanner getInput = new Scanner(System.in);
 
         printLine();
-        System.out.println(" Hello! I'm Kita");
+        System.out.println(" Hello! I'm Kita!");
         System.out.println(" What can I do for you?");
         printLine();
         while (true) {
@@ -27,6 +27,7 @@ public class Kita {
                 printLine();
                 if (command.equals("bye")) {
                     System.out.println(" Bye. Hope to see you again soon!\n");
+                    printLine();
                     break;
                 } else if (command.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
