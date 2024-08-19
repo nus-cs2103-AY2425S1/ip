@@ -10,35 +10,25 @@ public class Qwerty {
     /** True if the bot is currently chatting and accepting input */
     private boolean isChatting;
     /** List of tasks entered by the user */
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public Qwerty() {
         this.isChatting = true;
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
-     * Parses user raw input into a map and returns it.
-     * The map contains parameter-argument pairs, except the
-     * preset keys "command" and "command_args" for the command and its main argument.
+     * Parses additional arguments after the main command and argument.
+     * (Everything after the first forward slash).
+     * Returns a map where the keys are the parameter names and the values are
+     * the arguments.
      *
-     * @param rawInput The raw command line input from the user.
+     * @param additionalArgs String containing arguments input from the user.
      * @return A hashmap containing parameters and their arguments
      */
-    private HashMap<String, String> parse(String rawInput) {
+    private HashMap<String, String> parse(String additionalArgs) {
         HashMap<String, String> map = new HashMap<>();
-        Scanner scanner = new Scanner(rawInput).useDelimiter(" /");
-
-        // extract main command and its argument, if any
-        if (scanner.hasNext()) {
-            String[] mainCommand = scanner.next().split(" ", 2);
-            map.put("command", mainCommand[0]);
-
-            // only create args entry if arguments are given
-            if (mainCommand.length > 1) {
-                map.put("command_args", mainCommand[1]);
-            }
-        }
+        Scanner scanner = new Scanner(additionalArgs).useDelimiter(" /");
 
         // extract additional parameters and their arguments
         while (scanner.hasNext()) {
@@ -193,18 +183,26 @@ public class Qwerty {
         while (isChatting) {
             System.out.println(); // blank line before user input
             String rawInput = scanner.nextLine();
-            HashMap<String, String> map = parse(rawInput);
-            String command = map.get("command");
-            String args = map.get("command_args");
+            HashMap<String, String> map = new HashMap<>();
+
+            // extract main command and its argument first
+            String[] arr = rawInput.split(" /", 2);
+            String[] commandWithArguments = arr[0].split(" ", 2);
+            String command = commandWithArguments[0];
+            String args = commandWithArguments.length > 1 ? commandWithArguments[1] : null;
+
+            // parse additional arguments if there are any
+            if (arr.length > 1) {
+                map = parse(arr[1]);
+            }
 
             try {
-                if (command == null) {
-                    throw new QwertyException("""
+                switch (command) {
+
+                    case "":
+                        throw new QwertyException("""
                             Wow. You hit enter without saying anything.
                             Speak up or I can't help you.""");
-                }
-
-                switch (command) {
 
                     case "bye":
                         isChatting = false;
