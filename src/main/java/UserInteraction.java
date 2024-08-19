@@ -15,18 +15,37 @@ public class UserInteraction {
             } else if (instruction.equals("list")) {
                 TaskCollection.printList();
             } else if (instruction.startsWith("mark ")) {
-                TaskCollection.markItem(instruction.substring(5));
+                try {
+                    TaskCollection.markItem(instruction.substring(5));
+                } catch (MeejuException e) {
+                    System.out.println(e);
+                }
             } else if (instruction.startsWith("unmark ")) {
-                TaskCollection.unmarkItem(instruction.substring(7));
+                try {
+                    TaskCollection.unmarkItem(instruction.substring(7));
+                } catch (MeejuException e) {
+                    System.out.println(e);
+                }
             } else if (instruction.startsWith("todo ")) {
-                TaskCollection.addTodoTask(instruction.substring(5));
+                try {
+                    TaskCollection.addTodoTask(instruction.substring(5));
+                } catch (MeejuException e) {
+                    System.out.println(e);
+                }
             }  else if (instruction.startsWith("deadline ")) {
-                TaskCollection.addDeadlineTask(instruction.substring(9));
+                try {
+                    TaskCollection.addDeadlineTask(instruction.substring(9));
+                } catch (MeejuException e) {
+                    System.out.println(e);
+                }
             }  else if (instruction.startsWith("event ")) {
-                TaskCollection.addEventTask(instruction.substring(6));
+                try {
+                    TaskCollection.addEventTask(instruction.substring(6));
+                } catch (MeejuException e) {
+                    System.out.println(e);
+                }
             } else {
-//                TaskCollection.addTask(new Task(instruction));
-                System.out.println("ERROR");
+                System.out.println("I'm sorry, I did not understand that =^..^=");
             }
             System.out.println(Meeju.LINE_BREAK);
         }
