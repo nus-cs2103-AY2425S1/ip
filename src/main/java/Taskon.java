@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Taskon {
     public static void main(String[] args) {
+        ArrayList<String> tasks = new ArrayList<>();
         greet();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
@@ -9,8 +11,11 @@ public class Taskon {
             if (toEcho.equals("bye")) {
                 exit();
                 break;
+            } else if (toEcho.equals("list")) {
+                listItems(tasks);
             } else {
-                System.out.println(toEcho + "\n");
+                tasks.add(toEcho);
+                System.out.println("Added: " + toEcho + "\n");
             }
         }
     }
@@ -23,5 +28,11 @@ public class Taskon {
     public static void exit() {
         String exiting = "Bye. Hope to see you again soon!\n";
         System.out.println(exiting);
+    }
+
+    public static void listItems(ArrayList<String> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i+1 + ". " + tasks.get(i));
+        }
     }
 }
