@@ -1,3 +1,7 @@
+package duke;
+
+import duke.tasks.Task;
+
 public class Formatter {
     public static final String SPACING = "    ";
     public static final String BORDER = "____________________________________________________________";

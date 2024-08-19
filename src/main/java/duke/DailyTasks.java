@@ -1,8 +1,16 @@
-import java.text.Format;
+package duke;
+
+import duke.exceptions.EmptyTodoDescriptionException;
+import duke.exceptions.UnknownMessageException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDos;
+
 import java.util.Scanner;
 
 public class DailyTasks {
-    public static final String BOT_NAME = "DailyTasks";
+    public static final String BOT_NAME = "duke.DailyTasks";
     public static final String GREETING = "Hello! I'm " + DailyTasks.BOT_NAME + ", your awesome task planner!";
     public static final String GOODBYE = "Bye. Hope to see you again soon!";
 
@@ -36,26 +44,37 @@ public class DailyTasks {
                 System.out.println(Formatter.formatOutputMessage(DailyTasks.GOODBYE));
                 return;
             } else {
-                if (userInput.contains("todo")) {
-                    String description = userInput.split(" ", 2)[1];
-                    dailyTasks.tasks[taskCounter++] = new ToDos(description);
-                } else if (userInput.contains("deadline")) {
-                    String[] deadlineInformation = userInput.split("/by");
-                    String description = deadlineInformation[0].replace("deadline", "").trim();
-                    String date = deadlineInformation[1].trim();
+                try {
+                    if (userInput.contains("todo")) {
+                        try {
+                            String description = userInput.split(" ", 2)[1];
+                            dailyTasks.tasks[taskCounter++] = new ToDos(description);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            throw new EmptyTodoDescriptionException(e.toString());
+                        }
+                    } else if (userInput.contains("deadline")) {
+                        String[] deadlineInformation = userInput.split("/by");
+                        String description = deadlineInformation[0].replace("deadline", "").trim();
+                        String date = deadlineInformation[1].trim();
 
-                    dailyTasks.tasks[taskCounter++] = new Deadline(description, date);
-                } else if (userInput.contains("event")) {
-                    String[] removeFrom = userInput.split("/from");
-                    String description = removeFrom[0].replace("event", "").trim();
+                        dailyTasks.tasks[taskCounter++] = new Deadline(description, date);
+                    } else if (userInput.contains("event")) {
+                        String[] removeFrom = userInput.split("/from");
+                        String description = removeFrom[0].replace("event", "").trim();
 
-                    String[] removeTo = removeFrom[1].split("/to");
-                    String start = removeTo[0].trim();
-                    String end = removeTo[1].trim();
+                        String[] removeTo = removeFrom[1].split("/to");
+                        String start = removeTo[0].trim();
+                        String end = removeTo[1].trim();
 
-                    dailyTasks.tasks[taskCounter++] = new Event(description, start, end);
-                } else {
-                    System.out.println("Please enter a valid Task!");
+                        dailyTasks.tasks[taskCounter++] = new Event(description, start, end);
+                    } else {
+                        throw new UnknownMessageException();
+                    }
+                } catch (EmptyTodoDescriptionException e) {
+                    System.out.println(Formatter.formatOutputMessage("Please include a description of your todo task!!!"));
+                    return;
+                } catch (UnknownMessageException e) {
+                    System.out.println(Formatter.formatOutputMessage("Please enter a valid task!"));
                     return;
                 }
 
