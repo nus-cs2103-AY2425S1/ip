@@ -3,19 +3,28 @@ import java.util.Scanner;
 
 public class Taskon {
     public static void main(String[] args) {
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         greet();
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
-            String toEcho = scanner.nextLine();
-            if (toEcho.equals("bye")) {
+            String description = scanner.nextLine();
+            if (description.equals("bye")) {
                 exit();
                 break;
-            } else if (toEcho.equals("list")) {
+            } else if (description.equals("list")) {
                 listItems(tasks);
+            } else if (description.contains("unmark")) {
+                int index = description.charAt(7) - '0';
+                tasks.get(index - 1).markAsUndone();
+                uncompleted(tasks.get(index - 1));
+            } else if (description.contains("mark")) {
+                int index = description.charAt(5) - '0';
+                tasks.get(index - 1).markAsDone();
+                completed(tasks.get(index - 1));
             } else {
-                tasks.add(toEcho);
-                System.out.println("Added: " + toEcho + "\n");
+                Task t = new Task(description);
+                tasks.add(t);
+                System.out.println("Added: " + description + "\n");
             }
         }
     }
@@ -30,9 +39,21 @@ public class Taskon {
         System.out.println(exiting);
     }
 
-    public static void listItems(ArrayList<String> tasks) {
+    public static void completed(Task task) {
+        String complete = "Woohoo! Task complete! \nI've marked this as done:\n";
+        System.out.println(complete + "[" + task.getStatusIcon() + "] " + task.description);
+    }
+
+    public static void uncompleted(Task task) {
+        String uncompleted = "Got it! No rush, I've marked it as not done yet:\n";
+        System.out.println(uncompleted + "[" + task.getStatusIcon() + "] " + task.description);
+    }
+
+    public static void listItems(ArrayList<Task> tasks) {
+        System.out.println("Here's what we've got on your to-do list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i+1 + ". " + tasks.get(i));
+            Task t = tasks.get(i);
+            System.out.println(i+1 + ".[" + t.getStatusIcon() + "] " + t.description);
         }
     }
 }
