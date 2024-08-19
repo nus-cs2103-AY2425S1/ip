@@ -1,9 +1,17 @@
 public class Task {
+    public enum TaskType {
+        T,
+        D,
+        E,
+    }
     private String taskName;
     private boolean completed;
-    private Task(String name) {
+    private TaskType taskType;
+    public Task(String name, TaskType taskType) {
         this.taskName = name;
         this.completed = false;
+        this.taskType = taskType;
+
     }
 
     public void markAsDone() {
@@ -14,8 +22,8 @@ public class Task {
         this.completed = false;
     }
 
-    public static Task of(String name) {
-        return new Task(name);
+    public static Task of(String name, TaskType taskType) {
+        return new Task(name, taskType);
     }
 
     public String readTask() {
@@ -24,6 +32,17 @@ public class Task {
 
     public String getStatus(){
         return this.completed ? "X": " ";
+    }
+
+    public String getTaskTypeAsString(){
+        if (this.taskType == Task.TaskType.T) {
+            return "T";
+        } else if (this.taskType == Task.TaskType.D) {
+            return "D";
+        } else {
+            return "E";
+        }
+
     }
 
 

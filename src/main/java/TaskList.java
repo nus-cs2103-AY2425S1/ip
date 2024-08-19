@@ -14,18 +14,22 @@ public class TaskList {
         this.taskListLength = 0;
     }
 
-    public void add(String s) {
-        this.taskList.add(Task.of(s));
+    public void add(String s, Task.TaskType taskType) {
+        Task newTask = Task.of(s, taskType);
+        this.taskList.add(newTask);
         this.taskListLength += 1;
         line.drawLine();
-        System.out.println("    added: " + s);
+        System.out.println("    Got it. I've added this task: ");
+        System.out.println("      [" + newTask.getTaskTypeAsString() + "][ ] " + s);
+        System.out.println("    Now you have " + this.taskListLength + "tasks in the list.");
+
         line.drawLine();
     }
 
     public void markAsDone(String s) {
         int idx = parseInt(s);
         idx -= 1;
-        if ((idx < 0) || (idx > taskListLength)) {
+        if ((idx < 0) || (idx >= taskListLength)) {
             return;
         }
         Task currentTask = taskList.get(idx);
@@ -40,7 +44,7 @@ public class TaskList {
     public void markAsUndone(String s) {
         int idx = parseInt(s);
         idx -= 1;
-        if ((idx < 0) || (idx > taskListLength)) {
+        if ((idx < 0) || (idx >= taskListLength)) {
             return;
         }
         Task currentTask = taskList.get(idx);
@@ -60,7 +64,7 @@ public class TaskList {
         for (int i = startPointer; i < taskListLength; i++) {
             int counter = i + 1;
             Task currentTask = this.taskList.get(i);
-            System.out.println("    " + counter + ". [" + currentTask.getStatus()  + "] " + currentTask.readTask());
+            System.out.println("    " + counter + ". [" + currentTask.getTaskTypeAsString() + "] [" + currentTask.getStatus()  + "] " + currentTask.readTask());
         }
         line.drawLine();
     }

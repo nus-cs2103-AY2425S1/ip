@@ -28,7 +28,7 @@ public class NotAGPT {
 
     public static void inputHelper(TaskList taskList, String s) {
         Line line = new Line();
-        String[] parts = s.split(" ");
+        String[] parts = s.split(" ", 2);
         String command = parts[0].toLowerCase();
         switch(command) {
             case "bye":
@@ -61,9 +61,24 @@ public class NotAGPT {
                 }
                 break;
 
-
-            default:
-                taskList.add(s);
+            case "todo":
+                if (parts.length > 1) {
+                    taskList.add(parts[1], Task.TaskType.T);
+                } else {
+                    line.drawLine();
+                    System.out.println("    Enter a task number");
+                    line.drawLine();
+                }
+                break;
+            case "deadline":
+                if (parts.length > 1) {
+                taskList.add(parts[1], Task.TaskType.D);
+            } else {
+                line.drawLine();
+                System.out.println("    Enter a task number");
+                line.drawLine();
+            }
+                break;
         }
 
 
