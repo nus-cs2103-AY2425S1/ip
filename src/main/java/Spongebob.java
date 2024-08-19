@@ -59,11 +59,11 @@ public class Spongebob {
 
                         // mark
                         cache.get(index - 1).markAsDone();
-                        System.out.println("Woohoo! I’ve marked this task as done—great job!");
+                        System.out.println("Woohoo! I’ve marked this task as done — great job!");
                         System.out.println(cache.get(index - 1));
 
                     } catch (NumberFormatException e) {
-                        System.out.println("Oopsie-daisy! Looks like there’s a hiccup—index needs to be a whole number!");
+                        System.out.println("Oopsie-daisy! Looks like there’s a hiccup — index needs to be a whole number!");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Oh no, it’s out of bounds! That index is too far out—try a different number!");
                     }
@@ -86,23 +86,24 @@ public class Spongebob {
                         System.out.println(cache.get(index - 1));
 
                     } catch (NumberFormatException e) {
-                        System.out.println("Oopsie-daisy! Looks like there’s a hiccup—index needs to be a whole number!");
+                        System.out.println("Oopsie-daisy! Looks like there’s a hiccup — index needs to be a whole number!");
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Oh no, it’s out of bounds! That index is too far out—try a different number!");
+                        System.out.println("Oh no, it’s out of bounds! That index is too far out — try a different number!");
+                    } finally {
+                        break;
                     }
-                    break;
 
                 case "todo":
                     try {
 
                         Task newTask = new Todo(arguments[1]);
                         cache.add(newTask);
-                        System.out.println("Got it! I've added this task to your list—keep up the great work!");
+                        System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newTask);
                         System.out.println("Now you have " + cache.size() + " in the list!");
-                        break;
                     } catch (SpongebobException e) {
                         System.out.println(e.getMessage());
+                    } finally {
                         break;
                     }
 
@@ -111,20 +112,20 @@ public class Spongebob {
                     command = arguments[1].split("/by", 2);
 
                     if (command.length > 1) {
-                        arguments[2] = arguments[1].split("/by", 2)[1];
-                        arguments[1] = arguments[1].split("/by", 2)[0];
+                        arguments[2] = command[1];
+                        arguments[1] = command[0];
                     }
 
 
                     try {
                         Task newDeadline = new Deadline(arguments[1], arguments[2]);
                         cache.add(newDeadline);
-                        System.out.println("Got it! I've added this task to your list—keep up the great work!");
+                        System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newDeadline);
                         System.out.println("Now you have " + cache.size() + " tasks in the list.");
-                        break;
                     } catch (SpongebobException e) {
                         System.out.println(e.getMessage());
+                    } finally {
                         break;
                     }
 
@@ -148,12 +149,32 @@ public class Spongebob {
                                 arguments[2],
                                 arguments[3]);
                         cache.add(newEvent);
-                        System.out.println("Got it! I've added this task to your list—keep up the great work!");
+                        System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newEvent);
                         System.out.println("Now you have " + cache.size() + " tasks in the list.");
-                        break;
                     } catch (SpongebobException e) {
                         System.out.println(e.getMessage());
+                    } finally {
+                        break;
+                    }
+
+                case "delete":
+                    if (arguments[1].equals(" ")) {
+                        System.out.println("Oh, barnacles! You can't delete nothing! \nMake sure to fill it in before you add it.");
+                        break;
+                    }
+                    try {
+                        Task cur = cache.get(Integer.parseInt(arguments[1])-1);
+                        cache.remove(Integer.parseInt(arguments[1])-1);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(cur);
+                        System.out.println("Now you have " + cache.size() + " tasks in the list.");
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Barnacles! Index must be a number!");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Oh no, it’s out of bounds! That index is too far out — try a different number!");
+                    } finally {
                         break;
                     }
 
