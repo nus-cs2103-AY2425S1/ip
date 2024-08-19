@@ -7,7 +7,10 @@ public class Reo {
         enum Command {
             BYE,
             LIST,
-            UNKNOWN
+            TODO,
+            MARK,
+            UNMARK,
+            UNKNOWN,
         }
         // Create a new Scanner object
         Scanner scanner = new Scanner(System.in);
@@ -19,15 +22,16 @@ public class Reo {
         currInput = "placeholder";
 
         ArrayList<Task> tasks = new ArrayList<>();
-        while (!currInput.toUpperCase().equals(Command.BYE)) {
+        while (!currInput.toLowerCase().equals("bye")) {
             String toPrint = "";
             toPrint = "";
             currInput = scanner.nextLine().trim();
 
             Command command;
+            String[] words = currInput.split("\\s+");
 
             try {
-                command = Command.valueOf(currInput.toUpperCase());
+                command = Command.valueOf(words[0].toUpperCase());
             } catch (IllegalArgumentException e) {
                 command = Command.UNKNOWN;
             }
@@ -41,13 +45,41 @@ public class Reo {
                     }
                     toPrint += "----------------------";
                     break;
-                case UNKNOWN:
-                    tasks.add(new Todo(currInput));
+                case TODO:
+                    tasks.add(new Todo(words[1]));
                     toPrint += "----------------------\n";
-                    toPrint += "added: " + currInput + "\n";
+                    try {
+                        toPrint += "added: " + words[1] + "\n";
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        toPrint += "Please enter a valid task name.\n";
+                    }
                     toPrint += "----------------------";
                     break;
+                case MARK:
+                    try {
+                        tasks.get(Integer.valueOf(words[1]) - 1).mark();
+                        toPrint += "----------------------\n";
+                        toPrint += "Good job! I've marked this item as done:\n";
+                        toPrint += tasks.get(Integer.valueOf(words[1]) - 1).toString() + "\n";
+                        toPrint += "----------------------";
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        toPrint = "----------------------\nPlease enter a valid task number.----------------------";
+                    }
+                    break;
+                case UNMARK:
+                    try {
+                        tasks.get(Integer.valueOf(words[1]) - 1).unmark();
+                        toPrint += "----------------------\n";
+                        toPrint += "Get better, I've marked this item as not done:\n";
+                        toPrint += tasks.get(Integer.valueOf(words[1]) - 1).toString() + "\n";
+                        toPrint += "----------------------";
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        toPrint = "----------------------\nPlease enter a valid task number.----------------------";
+                    }
+                    break;
                 case BYE:
+                    break;
+                case UNKNOWN:
                     break;
 
             }
