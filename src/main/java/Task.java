@@ -1,6 +1,6 @@
 class Task {
-    private final String name;
-    private boolean isDone;
+    protected final String name;
+    protected boolean isDone;
 
     Task(String name) {
         this.name = name;
