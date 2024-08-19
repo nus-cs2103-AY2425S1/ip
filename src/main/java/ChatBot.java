@@ -2,23 +2,12 @@ import java.util.ArrayList;
 
 public class ChatBot {
     /**
-     * The list of items added.
+     * The list of tasks added.
      */
-    ArrayList<String> list;
+    ArrayList<Task> tasks;
 
     public ChatBot() {
-        this.list = new ArrayList<>();
-    }
-
-    /**
-     * Convert a message to the standard format.
-     * @param msg the message to convert
-     * @return the formatted message
-     */
-    private String formatMessage(String msg) {
-        return "___________________________________________________________\n"
-                + msg
-                + "\n___________________________________________________________\n";
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -26,9 +15,8 @@ public class ChatBot {
      * @return the greeting message
      */
     public String greet() {
-        String greetMsg = " Hello! I'm Bob\n"
+        return " Hello! I'm Bob\n"
                 + " What can I do for you?";
-        return this.formatMessage(greetMsg);
     }
 
     /**
@@ -36,19 +24,38 @@ public class ChatBot {
      * @return the exit message.
      */
     public String exit() {
-        String exitMsg = " Bye. Hope to see you again soon!";
-        return this.formatMessage(exitMsg);
+        return " Bye. Hope to see you again soon!";
     }
 
     /**
-     * Add an item to the list and get the response message.
-     * @param item the item to add
+     * Add an task to the list and get the response message.
+     * @param name the name of the task to add
      * @return the response message
      */
-    public String add(String item) {
-        this.list.add(item);
-        String addMsg = " added: " + item;
-        return this.formatMessage(addMsg);
+    public String add(String name) {
+        BasicTask task = new BasicTask(name);
+        this.tasks.add(task);
+        return " added: " + name;
+    }
+
+    /**
+     * Mark a task as completed or not completed and get the response message.
+     * @param isCompleted whether the task is completed or not completed.
+     * @param itemNum the item number of the task
+     * @return the response message
+     */
+    public String mark(boolean isCompleted, int itemNum) throws InvalidInputException {
+        if (itemNum > this.tasks.size()) {
+            throw new InvalidInputException("Task number " + itemNum + " not found.");
+        }
+
+        Task task = this.tasks.get(itemNum - 1);
+        task.mark(isCompleted);
+        if (isCompleted) {
+            return " Nice! I've marked this task as done:\n   " + task;
+        } else {
+            return " OK, I've marked this task as not done yet:\n   " + task;
+        }
     }
 
     /**
@@ -57,13 +64,13 @@ public class ChatBot {
      */
     public String list() {
         StringBuilder listMsg = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             listMsg
                     .append("\n ")
                     .append(i + 1)
                     .append(". ")
-                    .append(list.get(i));
+                    .append(tasks.get(i));
         }
-        return this.formatMessage(listMsg.toString());
+        return listMsg.toString();
     }
 }
