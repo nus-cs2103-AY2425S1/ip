@@ -1,9 +1,9 @@
-public class Task {
+public abstract class Task {
     protected String taskName;
     protected boolean isChecked;
 
-    Task(String task) {
-        this.taskName = task;
+    Task(String taskName) {
+        this.taskName = taskName;
         isChecked = false;
     }
 

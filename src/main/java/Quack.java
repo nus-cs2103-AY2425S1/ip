@@ -51,13 +51,13 @@ public class Quack {
                 farewell();
                 break;
             case "add":
-                for (int i = 1; i < inputArr.length; i++) {
+                for (int i = 2; i < inputArr.length; i++) {
                     if (taskDescription.length() > 0) {
                         taskDescription.append(" ");
                     }
                     taskDescription.append(inputArr[i]);
                 }
-                this.toDoList.addItem(taskDescription.toString());
+                this.toDoList.addItem(taskDescription.toString(), inputArr[1]);
                 break;
             case "mark":
             case "unmark":

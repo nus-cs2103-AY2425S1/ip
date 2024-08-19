@@ -14,11 +14,11 @@ public class TaskList {
             this.toDo.get(idx).unMark();
         }
     }
-    public void addItem(String item) {
-        //Task newTask = new Task(item);        
-        //toDo.add(newTask);
+    public void addItem(String taskName, String taskType) {
+        Task newTask = new ToDoTask(taskName);
+        this.toDo.add(newTask);
 
-        System.out.println("Added: " + item);
+        System.out.println("Alright I have added this task: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
     @Override
