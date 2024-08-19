@@ -17,21 +17,25 @@ class PoChat {
         System.out.println(introMessage);
     }
 
-    public void addToListAndReply(String textInput) {
-        Task task = new ToDo(textInput);
+    private void addTaskToList(Task task) {
         this.listTasks.add(task);
         System.out.println("Got it. I've added this task:\n " + task + "\nNow you have "
                 + this.getNumTasks() + " tasks in the list.");
     }
 
+    public void addToListAndReply(String textInput) {
+        Task task = new ToDo(textInput);
+        this.addTaskToList(task);
+    }
+
     public void addToListAndReply(String textInput, String deadline) {
-        this.listTasks.add(new Deadline(textInput, deadline));
-        System.out.println("added: " + textInput);
+        Task task = new Deadline(textInput, deadline);
+        this.addTaskToList(task);
     }
 
     public void addToListAndReply(String textInput, String startDate, String endDate) {
-        this.listTasks.add(new Event(textInput, startDate, endDate));
-        System.out.println("added: " + textInput);
+        Task task = new Event(textInput, startDate, endDate);
+        this.addTaskToList(task);
     }
 
     public void replyWithListOfTextsEntered() {
