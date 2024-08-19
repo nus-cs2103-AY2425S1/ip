@@ -48,6 +48,19 @@ public class Evelyn {
                 System.out.println(lst.size() > 1 ? "Now you have " + lst.size() + " tasks in this list"
                                                   : "Now you have " + lst.size() + " task in this list");
                 System.out.println(horizontalLine);
+            } else if (text.startsWith("deadline")) {
+                String input = text.substring(9);
+                String[] parts = input.split("/by ");
+                String description = parts[0];
+                String deadline = parts[1];
+                Deadline newDeadline = new Deadline(description, deadline);
+                lst.add(newDeadline);
+                System.out.println(horizontalLine);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newDeadline.toString());
+                System.out.println(lst.size() > 1 ? "Now you have " + lst.size() + " tasks in this list"
+                                                  : "Now you have " + lst.size() + " task in this list");
+                System.out.println(horizontalLine);
             }
 
             else {
