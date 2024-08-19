@@ -44,6 +44,9 @@ public class GPT {
                 // Mark tasks as done
                 if (input.startsWith("mark")) {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new GPTException("The task number is out of range.");
+                    }
                     tasks.get(taskNumber).markAsDone();
                     printLine();
                     System.out.println("Nice! I've marked this task as done:");
@@ -55,6 +58,9 @@ public class GPT {
                 // Unmark tasks as not done
                 if (input.startsWith("unmark")) {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new GPTException("The task number is out of range.");
+                    }
                     tasks.get(taskNumber).markAsNotDone();
                     printLine();
                     System.out.println("OK, I've marked this task as not done:");
@@ -65,7 +71,19 @@ public class GPT {
 
                 // Delete tasks
                 if (input.startsWith("delete")) {
-                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                    String[] parts = input.split(" ", 2); // Split into command and argument
+                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                        // No task number provided
+                        throw new GPTException("Use 'delete [task number]' to specify the task you want to delete.");
+                    }
+
+                    int taskNumber = Integer.parseInt(parts[1].trim()) - 1;
+                    if (tasks.isEmpty()) {
+                        throw new GPTException("There are no tasks in the list to delete.");
+                    } else if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new GPTException("The task number is out of range. Please provide a valid task number.");
+                    }
+
                     Task removedTask = tasks.remove(taskNumber);
                     printLine();
                     System.out.println("Noted. I've removed this task:");
@@ -81,7 +99,7 @@ public class GPT {
                     if (description.isEmpty()) {
                         throw new GPTException("The description of a todo cannot be empty.");
                     }
-                    Task newTask = new Todo(description);
+                    Task newTask = new ToDo(description);
                     tasks.add(newTask);
                     printLine();
                     System.out.println("Got it. I've added this task:");
@@ -126,6 +144,14 @@ public class GPT {
                 // Handle unrecognized commands
                 throw new GPTException("unrecognized");
 
+            } catch (NumberFormatException e) {
+                printLine();
+                System.out.println("OOPS!!! Please enter a valid task number.");
+                printLine();
+            } catch (IndexOutOfBoundsException e) {
+                printLine();
+                System.out.println("OOPS!!! There's nothing to delete.");
+                printLine();
             } catch (GPTException e) {
                 printLine();
                 if (e.getMessage().equals("unrecognized")) {
