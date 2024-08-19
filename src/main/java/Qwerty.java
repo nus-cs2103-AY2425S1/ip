@@ -234,7 +234,7 @@ public class Qwerty {
                     case "todo":
                         if (args == null) {
                             throw new QwertyException("""
-                                    The description of a Todo cannot be empty.""");
+                                    The description of a todo cannot be empty.""");
                         }
                         Task todoTask = new Todo(args);
                         addTask(todoTask);
