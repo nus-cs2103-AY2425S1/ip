@@ -10,11 +10,16 @@ public class Tina {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void echo() {
+    public static void doTask() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            System.out.println(input);
+            if(input.equals("list")) {
+                TaskList.listTask();
+            } else {
+                TaskList.addTask(new Task(input));
+                System.out.println("added: " + input);
+            }
             input = sc.nextLine();
         }
         sc.close();
@@ -28,7 +33,7 @@ public class Tina {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greet();
-        echo();
+        doTask();
         exit();
     }
 }
