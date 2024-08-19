@@ -4,14 +4,11 @@ public class Justbot {
     public static void main(String[] args) {
         final String chatbotName = "JustBot";
         String[] tasks = new String[100];
-        int tasksIndex = 0;
-
         Scanner scanner = new Scanner(System.in);
-        System.out.println("------------------------------------------");
-        System.out.println("Hello I'm " + chatbotName);
-        System.out.println("What can I do for you?");
-        System.out.println("------------------------------------------");
+        int tasksIndex = 0;
         String input = "";
+
+        Commands.botIntro(chatbotName);
 
         while (!input.equals("bye")) {
             input = scanner.nextLine();
@@ -21,23 +18,15 @@ public class Justbot {
             }
 
             if (input.equals("list")) {
-                System.out.println("------------------------------------------");
-                for(int i =0; i < tasksIndex; i++) {
-                    int taskListCount = i + 1;
-                    System.out.print(taskListCount + ". " + tasks[i] + "\n");
-                }
-                System.out.println("------------------------------------------");
+                Commands.returnTaskList(tasks, tasksIndex);
                 continue;
             }
-            System.out.println("------------------------------------------");
-            tasks[tasksIndex] = input;
+
+            Commands.addTask(tasks, tasksIndex, input);
             tasksIndex += 1;
-            System.out.println( "added: " + input);
-            System.out.println("------------------------------------------");
         }
 
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("------------------------------------------");
+        Commands.bye();
 
     }
 
