@@ -38,22 +38,52 @@ public class Rizzler {
                     }
                     break;
                 case "mark":
-                    int index = Integer.parseInt(parsedInput[1]) - 1;
-                    taskList.get(index).markAsDone();
-                    System.out.println(separator
-                            + "Hell yeah! You finished your task:\n"
-                            + taskList.get(index) + "\n"
-                            + separator);
-                    break;
+                    try {
+                        int index = Integer.parseInt(parsedInput[1]) - 1;
+                        taskList.get(index).markAsDone();
+                        System.out.println(separator
+                                + "Hell yeah! You finished your task:\n"
+                                + taskList.get(index) + "\n"
+                                + separator);
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println(separator
+                                + "Write a valid number for your second argument!\n"
+                                + separator);
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(separator
+                                + "Write a task number that's actually in the list!\n"
+                                + separator);
+                        break;
+                    }
                 case "unmark":
-                    int index2 = Integer.parseInt(parsedInput[1]) - 1;
-                    taskList.get(index2).unmark();
-                    System.out.println(separator
-                            + "Womp womp. Better do it later:\n"
-                            + taskList.get(index2) + "\n"
-                            + separator);
-                    break;
+                    try {
+                        int index2 = Integer.parseInt(parsedInput[1]) - 1;
+                        taskList.get(index2).unmark();
+                        System.out.println(separator
+                                + "Womp womp. Better do it later:\n"
+                                + taskList.get(index2) + "\n"
+                                + separator);
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println(separator
+                                + "Write a valid number for your second argument!\n"
+                                + separator);
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(separator
+                                + "Write a task number that's actually in the list!\n"
+                                + separator);
+                        break;
+                    }
                 case "todo":
+                    if (parsedInput.length == 1) {
+                        System.out.println(separator
+                                + "Please write down your todo ya knobhead!\n"
+                                + separator);
+                        break;
+                    }
                     String taskName = parsedInput[1];
                     for (int i = 2; i < parsedInput.length; i++) {
                         taskName += " " + parsedInput[i];
