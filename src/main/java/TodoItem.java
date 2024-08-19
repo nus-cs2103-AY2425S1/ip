@@ -8,7 +8,7 @@ public class TodoItem {
     private boolean completed;
 
     public TodoItem(String content) {
-        this.content = content;
+        this.content = content.trim();
         this.completed = false;
     }
 
@@ -26,6 +26,6 @@ public class TodoItem {
      * @return a string representation of the entry
      */
     public String toString(){
-        return String.format("[%s] %s", this.completed ? "X" : " ", content);
+        return String.format("[T] [%s] %s", this.completed ? "X" : " ", content);
     }
 }
