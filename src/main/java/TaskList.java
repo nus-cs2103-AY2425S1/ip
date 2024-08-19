@@ -24,4 +24,16 @@ public class TaskList {
         this.taskCount++;
         System.out.println("added: " + task);
     }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < this.taskCount; i++) {
+            if (tasks[i] == null) {
+                break;
+            }
+            result = result + i + "." + tasks[i] + "\n";
+        }
+        return result;
+    }
 }
