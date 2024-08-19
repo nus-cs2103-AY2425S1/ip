@@ -5,6 +5,10 @@ public class Task {
         this.description = description;
     }
 
+    public void mark() {
+        System.out.println("test");
+    }
+
     public String getDescription() {
         return this.description;
     }

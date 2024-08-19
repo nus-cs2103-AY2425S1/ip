@@ -13,7 +13,7 @@ public class GreetBot {
         System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
         
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int counter = 0;
 
         while (true) {
@@ -27,10 +27,14 @@ public class GreetBot {
                 for (int i = 0; i < counter; i++) {
                     System.out.println(String.format("%d. %s", i + 1, list[i]));
                 }
+            } else if (currentCommand.substring(0, currentCommand.indexOf(" ")).equals("mark") ||
+                       currentCommand.substring(0, currentCommand.indexOf(" ")).equals("unmark")) {
+                int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
+                list[index].mark();
             } else {
                                  
                 System.out.println("-----------------------");
-                list[counter] = currentCommand;
+                list[counter] = new Task(currentCommand);
                 counter += 1;
                 System.out.println(String.format("added: %s", currentCommand));
             }
