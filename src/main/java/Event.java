@@ -13,17 +13,11 @@ public class Event extends Task {
      * @param end The end time of the Event.
      */
     public Event(String description, String start, String end) {
-        super(description);
+        super(description, TaskType.EVENT);
         this.start = start;
         this.end = end;
     }
 
-    /**
-     * Validates the description, start time, and end time of the Event task.
-     *
-     * @param command The command string used to create the task.
-     * @throws OllieException if the description, start time, or end time is invalid.
-     */
     @Override
     public void validateDescription(String command) throws OllieException {
         String[] parts = command.split(" /from | /to ");
@@ -41,23 +35,16 @@ public class Event extends Task {
         }
     }
 
-    /**
-     * Creates an Event task from the command string.
-     *
-     * @param command The command string containing the task description, start time, and end time.
-     * @return The created Event task.
-     * @throws OllieException if the description, start time, or end time is invalid.
-     */
     public static Event createTask(String command) throws OllieException {
-        String[] parts = command.substring(6).split(" /from:| /to:");
+        String[] parts = command.substring(5).split(" /from:| /to:");
         if (parts.length != 3) {
-            throw new OllieException("Please enter in the format: ☺\n" + "event event_name /from: start_time /to: end_time");
+            throw new OllieException("Please enter in the format:\n" + "event event_name /from: start_time /to: end_time");
         }
         return new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
     }
 
     @Override
     public String toString() {
-        return "[Event]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }

@@ -4,19 +4,27 @@ import java.util.Scanner;
  * Represents the Ollie task manager that interacts with the user.
  */
 public class Ollie {
+    private TaskList taskList;
+
+    /**
+     * Constructs an Ollie instance with a new TaskList.
+     */
+    public Ollie() {
+        this.taskList = new TaskList();
+    }
 
     /**
      * Greets the user with a welcome message.
      */
-    public static void greeting() {
-        Task.messageWrapper("Hello there! ☺ I'm OLLIE ☺ \nWhat can I do for you? ☺");
+    public void greeting() {
+        taskList.messageWrapper("Hello there! ☺ I'm OLLIE ☺ \nWhat can I do for you? ☺");
     }
 
     /**
      * Bids farewell to the user with a goodbye message.
      */
-    public static void exit() {
-        Task.messageWrapper("Bye. Have a great day. ☺ Hope to see you again soon! ☺ ");
+    public void exit() {
+        taskList.messageWrapper("Bye. Have a great day. ☺ Hope to see you again soon! ☺ ");
     }
 
     /**
@@ -27,7 +35,7 @@ public class Ollie {
      * @return The parsed task number.
      * @throws OllieException If the task number is invalid.
      */
-    private static int parseTaskNumber(String userCommand, int prefixLength) throws OllieException {
+    private int parseTaskNumber(String userCommand, int prefixLength) throws OllieException {
         try {
             return Integer.parseInt(userCommand.substring(prefixLength).trim()) - 1;
         } catch (NumberFormatException e) {
@@ -40,7 +48,7 @@ public class Ollie {
      *
      * @param userCommand The command entered by the user.
      */
-    public static void echo(String userCommand) {
+    public void respond(String userCommand) {
         try {
             if (userCommand.equals("hello") || userCommand.equals("hi")) {
                 greeting();
@@ -49,26 +57,26 @@ public class Ollie {
             if (userCommand.equals("bye")) {
                 exit();
             } else if (userCommand.equals("list")) {
-                Task.listTasks();
+                taskList.listTasks();
             } else if (userCommand.startsWith("mark ")) {
                 int taskNumber = parseTaskNumber(userCommand, 5);
-                Task.markTaskAsDone(taskNumber);
+                taskList.markTaskAsDone(taskNumber);
             } else if (userCommand.startsWith("unmark ")) {
                 int taskNumber = parseTaskNumber(userCommand, 7);
-                Task.unmarkTaskAsDone(taskNumber);
+                taskList.unmarkTaskAsDone(taskNumber);
             } else if (userCommand.startsWith("delete ")) {
                 int taskNumber = parseTaskNumber(userCommand, 7);
-                Task.deleteTask(taskNumber);
+                taskList.deleteTask(taskNumber);
             } else if (userCommand.startsWith("mark") || userCommand.startsWith("unmark") || userCommand.startsWith("delete")) {
                 throw new OllieException("Please enter the command in the correct format with a task number! ☺");
             } else {
                 try {
                     if (userCommand.startsWith("todo")) {
-                        Task.addTask(Todo.createTask(userCommand));
+                        taskList.addTask(Todo.createTask(userCommand));
                     } else if (userCommand.startsWith("deadline")) {
-                        Task.addTask(Deadline.createTask(userCommand));
+                        taskList.addTask(Deadline.createTask(userCommand));
                     } else if (userCommand.startsWith("event")) {
-                        Task.addTask(Event.createTask(userCommand));
+                        taskList.addTask(Event.createTask(userCommand));
                     } else {
                         throw new UnknownTaskTypeException();
                     }
@@ -87,7 +95,8 @@ public class Ollie {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) throws OllieException {
-        greeting();
+        Ollie ollie = new Ollie();
+        ollie.greeting();
         System.out.println();
 
         String command;
@@ -95,7 +104,7 @@ public class Ollie {
 
         do {
             command = input.nextLine();
-            echo(command);
+            ollie.respond(command);
         } while (!command.equals("bye"));
 
         input.close();

@@ -11,16 +11,10 @@ public class Deadline extends Task {
      * @param deadline The due date of the Deadline task.
      */
     public Deadline(String description, String deadline) {
-        super(description);
+        super(description, TaskType.DEADLINE);
         this.deadline = deadline;
     }
 
-    /**
-     * Validates the description and due date of the Deadline task.
-     *
-     * @param command The command string used to create the task.
-     * @throws OllieException if the description or due date is invalid.
-     */
     @Override
     public void validateDescription(String command) throws OllieException {
         String[] parts = command.split(" /by ");
@@ -35,23 +29,16 @@ public class Deadline extends Task {
         }
     }
 
-    /**
-     * Creates a Deadline task from the command string.
-     *
-     * @param command The command string containing the task description and due date.
-     * @return The created Deadline task.
-     * @throws OllieException if the description or due date is invalid.
-     */
     public static Deadline createTask(String command) throws OllieException {
-        String[] parts = command.substring(9).split(" /by:");
+        String[] parts = command.substring(8).split(" /by:");
         if (parts.length != 2) {
-            throw new OllieException("Please enter in the format: ☺\n" + "deadline task_name /by: due_date");
+            throw new OllieException("Please enter in the format:\n" + "deadline task_name /by: due_date");
         }
         return new Deadline(parts[0].trim(), parts[1].trim());
     }
 
     @Override
     public String toString() {
-        return "[Deadline]" + super.toString() + " (by: " + deadline + ")";
+        return super.toString() + " (by: " + deadline + ")";
     }
 }
