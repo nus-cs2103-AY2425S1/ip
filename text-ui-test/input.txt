@@ -5,5 +5,19 @@ list
 mark 1
 mark 2
 unmark 1
+delete 3
 list
+todo
+deadline /by tomorrow
+deadline task4
+event /from now /to later
+event task5 /to later
+event task6 /from now
+mark m
+mark 3
+unmark m
+unmark 3
+delete m
+delete 3
+blah blah blah
 bye

@@ -38,6 +38,12 @@ public class Rizzler {
                     }
                     break;
                 case "mark":
+                    if (taskList.isEmpty()) {
+                        System.out.println(separator
+                                + "Put tasks in the list first!\n"
+                                + separator);
+                        break;
+                    }
                     try {
                         int index = Integer.parseInt(parsedInput[1]) - 1;
                         taskList.get(index).markAsDone();
@@ -58,6 +64,12 @@ public class Rizzler {
                         break;
                     }
                 case "unmark":
+                    if (taskList.isEmpty()) {
+                        System.out.println(separator
+                                + "Put tasks in the list first!\n"
+                                + separator);
+                        break;
+                    }
                     try {
                         int index2 = Integer.parseInt(parsedInput[1]) - 1;
                         taskList.get(index2).unmark();
@@ -184,6 +196,32 @@ public class Rizzler {
                             + "Now you have " + taskList.size() + " tasks in the list.\n"
                             + separator);
                     break;
+                case "delete":
+                    if (taskList.isEmpty()) {
+                        System.out.println(separator
+                                + "Put tasks in the list first!\n"
+                                + separator);
+                        break;
+                    }
+                    try {
+                        int deleteIndex = Integer.parseInt(parsedInput[1]) - 1;
+                        System.out.println(separator
+                                + "I have removed this task for you:\n"
+                                + taskList.remove(deleteIndex) + "\n"
+                                + "Now you have " + taskList.size() + " tasks in the list.\n"
+                                + separator);
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println(separator
+                                + "Write a valid number for your second argument!\n"
+                                + separator);
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(separator
+                                + "Write a task number that's actually in the list!\n"
+                                + separator);
+                        break;
+                    }
                 default:
                     System.out.println(separator
                             + "I've gyatt no idea what you're saying!\n"
