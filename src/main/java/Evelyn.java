@@ -12,13 +12,19 @@ public class Evelyn {
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
 
-        while (!(Objects.equals(text, "bye"))) {
+        while (true) {
             text = scanner.nextLine();
-            System.out.println(horizontalLine);
-            System.out.println(text);
-            System.out.println(horizontalLine);
-        }
 
-        System.out.println("Bye. Hope to see you again soon!");
+            if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
+                System.out.println(horizontalLine);
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(horizontalLine);
+                break;
+            } else {
+                System.out.println(horizontalLine);
+                System.out.println(text);
+                System.out.println(horizontalLine);
+            }
+        }
     }
 }
