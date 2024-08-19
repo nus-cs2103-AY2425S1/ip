@@ -1,3 +1,4 @@
+package Hoodini;
 public class Ui {
 
     public Ui() {
