@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Majima {
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int task_count = 0;
+    private static List<Task> tasks = new ArrayList<>();
+    //Deprecated due to swap to ArrayList
+    //private static int task_count = 0;
     private static final String LINEGAP = "____________________________________________________________";
 
     public static void main(String[] args) {
@@ -36,6 +39,8 @@ public class Majima {
                     addTodo(input);
                 } else if (input.startsWith("event ")) {
                     addEvent(input);
+                } else if (input.startsWith("delete ")) {
+                    deleteTask(input);
                 } else {
                     throw new MajimaException("Uhh, Kiryu-chan? There ain't no sense in whatever ya just said! Regular tasks start with 'todo', tasks with deadlines start with 'deadline' and gotta have a /by date and time, while 'events' need a /from and /to argument.");
                 }
@@ -45,39 +50,55 @@ public class Majima {
                 System.out.println(LINEGAP);
             } catch (NumberFormatException e) {
                 System.out.println(LINEGAP);
-                System.out.println("OOPS!!! The number format seems to be incorrect.");
+                System.out.println("Kiryu-chan? That ain't no number ya gave me!");
                 System.out.println(LINEGAP);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(LINEGAP);
-                System.out.println("OOPS!!! The task number seems to be out of bounds.");
+                System.out.println("Kiryu-chan? That task number seems to be out of bounds.");
                 System.out.println(LINEGAP);
             }
         }
         scanner.close();
     }
 
-    private static void exitProgram() {
-        System.out.println(LINEGAP);
-        System.out.println("Bye bye! Don't keep me waiting fer too long now, ya hear?");
-        System.out.println(LINEGAP);
+    private static void deleteTask(String input) {
+        int numberArgument = Integer.parseInt(input.substring(7).trim()) - 1;
+        if (numberArgument >= 0 && numberArgument < tasks.size()) {
+            Task removedTask = tasks.remove(numberArgument);
+            System.out.println(LINEGAP);
+            System.out.println("Noted, Kiryu-chan. I'll axe this task fer ya:");
+            System.out.println(" " + removedTask.toString());
+            System.out.println("Now, you've " + tasks.size() + " tasks need doin'.");
+            System.out.println(LINEGAP);
+        } else {
+            System.out.println(LINEGAP);
+            System.out.println("Kiryu! That number ain't even there!");
+            System.out.println(LINEGAP);
+        }
     }
 
     private static void listTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println(LINEGAP);
+            System.out.println("おめでとう, Kiryu-chan! There ain't nothing to do left!");
+            System.out.println(LINEGAP);
+            return;
+        }
         System.out.println(LINEGAP);
         System.out.println("Here's whatcha gotta do, Kiryu-chan!");
-        for (int i = 0; i < task_count; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
         System.out.println(LINEGAP);
     }
 
     private static void markTask(String input) throws MajimaException {
         int numberArgument = Integer.parseInt(input.substring(5).trim()) - 1;
-        if (numberArgument >= 0 && numberArgument < task_count) {
-            tasks[numberArgument].markAsDone();
+        if (numberArgument >= 0 && numberArgument < tasks.size()) {
+            tasks.get(numberArgument).markAsDone();
             System.out.println(LINEGAP);
             System.out.println("Okay, I've gone ahead and marked that one fer ya.");
-            System.out.println("  " + tasks[numberArgument].toString());
+            System.out.println("  " + tasks.get(numberArgument).toString());
             System.out.println(LINEGAP);
         } else {
             throw new MajimaException("Eh? Kiryu-chan, yain't making any sense! Tell me the number of the task ya want changed!");
@@ -86,11 +107,11 @@ public class Majima {
 
     private static void unmarkTask(String input) throws MajimaException {
         int numberArgument = Integer.parseInt(input.substring(7).trim()) - 1;
-        if (numberArgument >= 0 && numberArgument < task_count) {
-            tasks[numberArgument].markAsUndone();
+        if (numberArgument >= 0 && numberArgument < tasks.size()) {
+            tasks.get(numberArgument).markAsUndone();
             System.out.println(LINEGAP);
             System.out.println("Okay, I've gone ahead and unmarked that one fer ya.");
-            System.out.println("  " + tasks[numberArgument].toString());
+            System.out.println("  " + tasks.get(numberArgument).toString());
             System.out.println(LINEGAP);
         } else {
             throw new MajimaException("Eh? Kiryu-chan, yain't making any sense! Tell me the number of the task ya want changed!");
@@ -108,12 +129,11 @@ public class Majima {
         }
         String by = parts[1].trim();
         if (canAddTask()) {
-            tasks[task_count] = new Deadline(description, by);
-            task_count++;
+            tasks.add(new Deadline(description, by));
             System.out.println(LINEGAP);
             System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
-            System.out.println(" " + tasks[task_count - 1].toString());
-            System.out.println("Now you've got " + task_count + " tasks need doin'.");
+            System.out.println(" " + tasks.get(tasks.size() - 1).toString());
+            System.out.println("Now you've got " + tasks.size() + " tasks need doin'.");
             System.out.println(LINEGAP);
         }
     }
@@ -124,12 +144,11 @@ public class Majima {
             throw new MajimaException("Kiryu-chan, you gotta describe what the task is!");
         }
         if (canAddTask()) {
-            tasks[task_count] = new Todo(description);
-            task_count++;
+            tasks.add(new Todo(description));
             System.out.println(LINEGAP);
             System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
-            System.out.println(" " + tasks[task_count - 1].toString());
-            System.out.println("Now you've got " + task_count + " tasks need doin'.");
+            System.out.println(" " + tasks.get(tasks.size() - 1).toString());
+            System.out.println("Now you've got " + tasks.size() + " tasks need doin'.");
             System.out.println(LINEGAP);
         }
     }
@@ -150,40 +169,17 @@ public class Majima {
         String from = dateParts[0].trim();
         String to = dateParts[1].trim();
         if (canAddTask()) {
-            tasks[task_count] = new Event(description, from, to);
-            task_count++;
+            tasks.add(new Event(description, from, to));
             System.out.println(LINEGAP);
             System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
-            System.out.println(" " + tasks[task_count - 1].toString());
-            System.out.println("Now you've got " + task_count + " tasks need doin'.");
+            System.out.println(" " + tasks.get(tasks.size() - 1).toString());
+            System.out.println("Now you've got " + tasks.size() + " tasks need doin'.");
             System.out.println(LINEGAP);
         }
     }
 
-    private static void printInvalidTaskMessage() {
-        System.out.println(LINEGAP);
-        System.out.println("Eh? Kiryu-chan, yain't making any sense!");
-        System.out.println("Tell me the number of the task ya want changed!");
-        System.out.println(LINEGAP);
-    }
-
-    private static void printMissingArgumentMessage(String argument) {
-        System.out.println(LINEGAP);
-        System.out.println("Eh? Kiryu-chan, y'aint got no '" + argument + "' argument!");
-        System.out.println(LINEGAP);
-    }
-
-    private static void handleInvalidCommand() {
-        System.out.println(LINEGAP);
-        System.out.println("Uhh, Kiryu-chan? There ain't no sense in whatever ya just said!");
-        System.out.println("Regular tasks start with 'todo', tasks with deadlines start with");
-        System.out.println("'deadline' and gotta have a /by date and time, while 'events' need");
-        System.out.println("a /from and /to argument.");
-        System.out.println(LINEGAP);
-    }
-
     private static boolean canAddTask() {
-        if (task_count >= MAX_TASKS) {
+        if (tasks.size() >= MAX_TASKS) {
             System.out.println(LINEGAP);
             System.out.println("O-oi, Kiryu-chan! Ya can't expect me to 'member all this crap!");
             System.out.println("This ol' noggin of mine can only fit a hundred tasks at best!");
