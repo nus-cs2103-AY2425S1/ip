@@ -22,6 +22,11 @@ public class TaskManager {
                     throw new MendelException("OOPS! No serial given.\nSpecify serial.");
                 }
                 taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
+            }else if(segments[0].equals("delete")) {
+                if (segments.length != 2) {
+                    throw new MendelException("OOPS! No serial given.\nSpecify serial.");
+                }
+                taskStorage.delete(Integer.parseInt(segments[1]) - 1);
             } else {
                 taskStorage.add(currAction);
             }

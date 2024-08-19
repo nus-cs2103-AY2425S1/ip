@@ -1,9 +1,11 @@
+import java.util.*;
+
 public class TaskStorage extends MendelAction{
-    private final Task[] messages;
+    private final List<Task> messages;
     int counter;
 
     public TaskStorage() {
-        this.messages = new Task[100];
+        this.messages = new ArrayList<>();
         this.counter = 0;
     }
 
@@ -13,7 +15,7 @@ public class TaskStorage extends MendelAction{
         } else if (serial < 0) {
             throw new MendelException("OOPS! Serial is too small.\nIncrease serial.");
         }
-        Task task = this.messages[serial];
+        Task task = this.messages.get(serial);
         task.markAsDone();
         String outputMessage = String.format("Nice! I've marked this task as done:\n  %s",
                 task);
@@ -27,10 +29,24 @@ public class TaskStorage extends MendelAction{
         } else if (serial < 0) {
             throw new MendelException("OOPS! Serial is too small.\nIncrease serial.");
         }
-        Task task = this.messages[serial];
+        Task task = this.messages.get(serial);
         task.markAsUnDone();
         String outputMessage = String.format("OK, I've marked this task as not done yet:\n  %s",
                 task);
+        System.out.println(new FormatText(outputMessage).wrapLines());
+    }
+
+    public void delete(int serial) {
+        if (serial >= this.counter) {
+            throw new MendelException("OOPS! serial is too big.\nDecrease serial.");
+        } else if (serial < 0) {
+            throw new MendelException("OOPS! Serial is too small.\nIncrease serial.");
+        }
+        Task task = this.messages.remove(serial);
+        this.counter--;
+        String outputMessage = String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
+                task,
+                this.counter);
         System.out.println(new FormatText(outputMessage).wrapLines());
     }
 
@@ -125,7 +141,7 @@ public class TaskStorage extends MendelAction{
             throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
         }
 
-        this.messages[this.counter] = element;
+        this.messages.add(element);
         this.counter++;
         String outputMessage = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
                 element, this.counter);
@@ -143,12 +159,12 @@ public class TaskStorage extends MendelAction{
         String finalMessage = "";
         if (counter > 0) {
             finalMessage = String.format("1.%s",
-                    this.messages[0].toString());
+                    this.messages.get(0).toString());
         }
         for (int i = 1; i < counter; i++) {
             int increment = i + 1;
             finalMessage += String.format("\n%d.%s", increment,
-                    this.messages[i].toString());
+                    this.messages.get(i).toString());
 
         }
         return finalMessage;
