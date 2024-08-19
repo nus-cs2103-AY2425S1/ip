@@ -19,7 +19,7 @@ class PoChat {
 
     private void addTaskToList(Task task) {
         this.listTasks.add(task);
-        System.out.println("Got it. I've added this task:\n " + task + "\nNow you have "
+        System.out.println("Got it. I've added this task:\n" + task + "\nNow you have "
                 + this.getNumTasks() + " tasks in the list.");
     }
 
