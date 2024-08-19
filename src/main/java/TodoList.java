@@ -35,4 +35,44 @@ public class TodoList {
         }
         return items;
     }
+
+    /**
+     * Mark an item with the specified index as complete
+     * @param index The index of the item
+     * @return Status of the operation
+     */
+    public boolean markComplete(int index) {
+        if (index < 0 || index >= this.index) {
+            return false;
+        }
+        this.todoList[index].setCompleted(true);
+        return true;
+    }
+
+    /**
+     * Mark an item with the specified index as incomplete
+     * @param index The index of the item
+     * @return Status of the operation
+     */
+    public boolean markIncomplete(int index) {
+        if (index < 0 || index >= this.index) {
+            return false;
+        }
+        this.todoList[index].setCompleted(false);
+        return true;
+    }
+
+    /**
+     * Retrieve the status of an item in the list
+     *
+     * @return String representation of the item
+     */
+    public String getItemStatus(int index) {
+        if (index < 0 || index >= this.index) {
+            return null;
+        }
+        return this.todoList[index].toString();
+    }
+
+
 }
