@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 /**
  * Represents a generic task with a description and completion status.
  */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected static Task[] tasks = new Task[100];
+    protected static ArrayList<Task> tasks = new ArrayList<>();
     protected static int taskCount = 0;
 
     /**
@@ -42,11 +44,11 @@ public abstract class Task {
      * @throws OllieException If the task number is invalid.
      */
     public static void markTaskAsDone(int taskNumber) throws OllieException {
-        if (taskNumber >= 0 && taskNumber < taskCount) {
-            tasks[taskNumber].markAsDone(true);
-            messageWrapper("Nice! I've marked this task as done:\n  " + tasks[taskNumber]);
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            tasks.get(taskNumber).markAsDone(true);
+            messageWrapper("Nice! ☺ I've marked this task as done ☺ :\n  " + tasks.get(taskNumber));
         } else {
-            throw new OllieException("Invalid task number. Cannot mark as done.");
+            throw new OllieException("Please enter a valid task number within the list ☺");
         }
     }
 
@@ -57,11 +59,11 @@ public abstract class Task {
      * @throws OllieException If the task number is invalid.
      */
     public static void unmarkTaskAsDone(int taskNumber) throws OllieException {
-        if (taskNumber >= 0 && taskNumber < taskCount) {
-            tasks[taskNumber].markAsDone(false);
-            messageWrapper("OK, I've marked this task as not done yet:\n  " + tasks[taskNumber]);
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            tasks.get(taskNumber).markAsDone(false);
+            messageWrapper("OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber));
         } else {
-            throw new OllieException("Invalid task number. Cannot unmark as done.");
+            throw new OllieException("Please enter a valid task number within the list ☺");
         }
     }
 
@@ -71,9 +73,9 @@ public abstract class Task {
     public static void listTasks() {
         String border = "--".repeat(30);
         System.out.println(border);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        System.out.println("Here are the tasks in your list ☺ :");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
         System.out.println(border);
     }
@@ -92,8 +94,8 @@ public abstract class Task {
      * @param task The task to add.
      */
     public static void addTask(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.add(task);
+        taskCount = tasks.size();
         printTaskAdded(task);
     }
 
@@ -105,9 +107,9 @@ public abstract class Task {
     private static void printTaskAdded(Task task) {
         String border = "____________________________________________________________";
         System.out.println(border);
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this task ☺:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + taskCount + " tasks in the list. ☺");
         System.out.println(border);
     }
 
