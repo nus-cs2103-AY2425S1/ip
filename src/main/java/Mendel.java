@@ -12,10 +12,8 @@ public class Mendel {
             currAction = sc.nextLine();
             if (currAction.equals("bye")) {
                 new Leave().speak();
-            } else if (currAction.equals("list")){
-                taskStorage.speak();
             } else {
-                taskStorage.add(currAction);
+                taskStorage.controller(currAction);
             }
 
         }
