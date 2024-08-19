@@ -97,4 +97,22 @@ public class Janet {
         desiredTask.setDone(true);
         return horizontalLine + "\nNice! I've marked this task as done:\n" + String.format("  %s", desiredTask) + "\n" + horizontalLine;
     }
+
+
+    /**
+     * Level 3 - mark as done (unmark)
+     * marks the desired task as NOT done, by setting the boolean value of Task.done = false.
+     * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
+     * @return a String message to indicate successful unmarking of desired task (done = false).
+     */
+    public String unmark(int desiredTaskNum) {
+        // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be unmarked
+        Task desiredTask = listOfTasks[desiredTaskNum - 1];
+        if (!desiredTask.isDone()) {
+            // desired task is already marked as NOT done (unmarked)
+            return horizontalLine + "\nThis task is not already done!\n" + horizontalLine;
+        }
+        desiredTask.setDone(false);
+        return horizontalLine + "\nOK, I've marked this task as not done yet:\n" + String.format("  %s", desiredTask) + "\n" + horizontalLine;
+    }
 }
