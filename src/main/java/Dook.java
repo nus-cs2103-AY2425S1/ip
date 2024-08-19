@@ -1,13 +1,12 @@
-import java.lang.invoke.StringConcatFactory;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Dook {
     private static Scanner scanner = new Scanner(System.in);
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>(100);
     private static final String separator = "____________________________________________________________";
     private static final String greeting = "Hello! I'm Dook\nWhat can I do for you?\n" + separator;
     private static final String exit = "Bye. Hope to see you again soon!\n" + separator;
 
-    private static int count = 0;
 
     public static void start() {
         System.out.println(separator);
@@ -20,31 +19,31 @@ public class Dook {
 
     public static void list() {
         System.out.println(separator);
-        for (int i = 1; i <= count; i++) {
-            System.out.println(i + ". " + tasks[i - 1]);
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println(i + ". " + tasks.get(i -1 ));
         }
         System.out.println(separator);
     }
 
     public static void markDone(int taskNumber) throws DookException {
-        if (taskNumber >= count) {
+        if (taskNumber >= tasks.size()) {
             throw new DookException("You don't have that many tasks");
         }
-        tasks[taskNumber].markAsDone();
+        tasks.get(taskNumber).markAsDone();
         System.out.println(separator);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[taskNumber]);
+        System.out.println(tasks.get(taskNumber));
         System.out.println(separator);
     }
 
     public static void unmark(int taskNumber) throws DookException {
-        if (taskNumber >= count) {
+        if (taskNumber >= tasks.size()) {
             throw new DookException("You don't have that many tasks");
         }
-        tasks[taskNumber].unmark();
+        tasks.get(taskNumber).unmark();
         System.out.println(separator);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[taskNumber]);
+        System.out.println(tasks.get(taskNumber));
         System.out.println(separator);
     }
 
@@ -53,12 +52,11 @@ public class Dook {
             throw new DookException("Need a description for your todo");
         }
         Task todo = new Todo(description);
-        tasks[count] = todo;
-        count++;
+        tasks.add(todo);
         System.out.println(separator);
         System.out.println("Got it. I've added this task:");
         System.out.println(todo);
-        System.out.println("Now you have " + count + " tasks in the list");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
         System.out.println(separator);
     }
 
@@ -69,12 +67,11 @@ public class Dook {
             throw new DookException("Need a due date for your deadline");
         }
         Task deadline = new Deadline(description, by);
-        tasks[count] = deadline;
-        count++;
+        tasks.add(deadline);
         System.out.println(separator);
         System.out.println("Got it. I've added this task:");
         System.out.println(deadline);
-        System.out.println("Now you have " + count + " tasks in the list");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
         System.out.println(separator);
     }
 
@@ -90,12 +87,24 @@ public class Dook {
         }
 
         Task event = new Event(description, start, end);
-        tasks[count] = event;
-        count++;
+        tasks.add(event);
         System.out.println(separator);
         System.out.println("Got it. I've added this task:");
         System.out.println(event);
-        System.out.println("Now you have " + count + " tasks in the list");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        System.out.println(separator);
+    }
+
+    public static void delete(int taskNumber) throws DookException {
+        if (taskNumber >= tasks.size()) {
+            throw new DookException("You don't have that many tasks");
+        }
+
+        Task removed = tasks.remove(taskNumber - 1);
+        System.out.println(separator);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(removed);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
         System.out.println(separator);
     }
 
@@ -114,10 +123,10 @@ public class Dook {
                 } else if (response.equals("list")) {
                     list();
                 } else if (response.matches("^mark \\d+$")) {
-                    int number = Integer.parseInt(response.split(" ")[1]) - 1;
+                    int number = Integer.parseInt(response.trim().split(" ")[1]) - 1;
                     markDone(number);
                 } else if (response.matches("^unmark \\d+$")) {
-                    int number = Integer.parseInt(response.split(" ")[1]) - 1;
+                    int number = Integer.parseInt(response.trim().split(" ")[1]) - 1;
                     unmark(number);
                 } else if (response.startsWith("todo")) {
                     String description = response.substring(4).trim();
@@ -147,6 +156,9 @@ public class Dook {
                     }
                     throw new DookException("Invalid command, check your formatting");
 
+                } else if (response.matches("^delete \\d+$")) {
+                    int number = Integer.parseInt(response.trim().split(" ")[1]);
+                    delete(number);
                 } else {
                     throw new DookException("Invalid command");
                 }
