@@ -41,19 +41,19 @@ public class Taskon {
 
     public static void completed(Task task) {
         String complete = "Woohoo! Task complete! \nI've marked this as done:\n";
-        System.out.println(complete + "[" + task.getStatusIcon() + "] " + task.description);
+        System.out.println(complete + task.toString());
     }
 
     public static void uncompleted(Task task) {
         String uncompleted = "Got it! No rush, I've marked it as not done yet:\n";
-        System.out.println(uncompleted + "[" + task.getStatusIcon() + "] " + task.description);
+        System.out.println(uncompleted + task.toString());
     }
 
     public static void listItems(ArrayList<Task> tasks) {
         System.out.println("Here's what we've got on your to-do list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
-            System.out.println(i+1 + ".[" + t.getStatusIcon() + "] " + t.description);
+            System.out.println(i+1 + "." + t.toString());
         }
     }
 }
