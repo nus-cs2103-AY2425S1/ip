@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * This class encapsulates the chatbot.
+ * This class encapsulates a task helper chatbot.
  */
 public class Qwerty {
 
@@ -66,7 +66,7 @@ public class Qwerty {
     /**
      * Prints a goodbye message.
      */
-    public void say_goodbye() {
+    public void sayGoodbye() {
         System.out.println("""
                 
                 Bye. Hope to see you again soon!""");
@@ -77,7 +77,7 @@ public class Qwerty {
      *
      * @param task The task to be added.
      */
-    public void add_task(Task task) {
+    public void addTask(Task task) {
         this.tasks.add(task);
         System.out.println("\nGot it. I've added this task:\n" + task
                 + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
@@ -117,7 +117,7 @@ public class Qwerty {
     /**
      * Prints the list of tasks.
      */
-    public void list_tasks() {
+    public void listTasks() {
         System.out.println("\nHere are the tasks in your list:");
         int taskNumber = 1;
         for (Task task: tasks) {
@@ -208,11 +208,11 @@ public class Qwerty {
 
                     case "bye":
                         isChatting = false;
-                        say_goodbye();
+                        sayGoodbye();
                         break;
 
                     case "list":
-                        list_tasks();
+                        listTasks();
                         break;
 
                     case "mark":
@@ -237,7 +237,7 @@ public class Qwerty {
                                     The description of a Todo cannot be empty.""");
                         }
                         Task todoTask = new Todo(args);
-                        add_task(todoTask);
+                        addTask(todoTask);
                         break;
 
                     case "deadline":
@@ -251,7 +251,7 @@ public class Qwerty {
                                     When is your deadline? You didn't say.""");
                         }
                         Task deadlineTask = new Deadline(args, by);
-                        add_task(deadlineTask);
+                        addTask(deadlineTask);
                         break;
 
                     case "event":
@@ -270,7 +270,7 @@ public class Qwerty {
                                     Your event ends at...? You didn't say.""");
                         }
                         Task eventTask = new Event(args, from, to);
-                        add_task(eventTask);
+                        addTask(eventTask);
                         break;
 
                     case "delete":
