@@ -11,17 +11,18 @@ public class Joe {
         System.out.printf("Bye. Hope to see you again soon!\n%s", horizontalLine);
     }
 
-    public static void handleList(String[] list) {
+    public static void handleList(Task[] list) {
         for (int i = 0; i < list.length; i++) {
             if (list[i] != null) {
                 System.out.println(i + 1 + ". " + list[i]);
             }
         }
     }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
-        String[] store = new String[100];
+        Task[] store = new Task[100];
         int currIndex = 0;
 
         greet();
@@ -36,7 +37,7 @@ public class Joe {
             }
             else {
                 System.out.printf("added: %s\n", input);
-                store[currIndex] = input;
+                store[currIndex] = new Task(input);
                 currIndex++;
             }
             System.out.println(horizontalLine);
