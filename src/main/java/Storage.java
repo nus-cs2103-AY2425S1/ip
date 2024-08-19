@@ -66,7 +66,7 @@ public class Storage {
             counter++;
         } else {
             String str1 = str.substring(4);
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")",""));
+            Deadline deadline = new Deadline(str1.split(" ")[0], str1.split("by: ")[1].replace(")",""));
             input.add(deadline);
             counter++;
         }
