@@ -12,9 +12,11 @@ public class Kotori {
             if (input.equals("bye")) {
                 printExit();
                 break;
+            } else if (input.equals("list")) {
+                printList(list);
             } else {
                 list.add(input);
-                printList(list);
+                printMessage("added: " + input);
             }
         }
 
