@@ -28,14 +28,50 @@ public class ChatBot {
     }
 
     /**
-     * Add an task to the list and get the response message.
-     * @param name the name of the task to add
+     * Add a task to the list and get the response message.
+     * @param task the task to add
      * @return the response message
      */
-    public String add(String name) {
-        BasicTask task = new BasicTask(name);
+    private String add(Task task) {
         this.tasks.add(task);
-        return " added: " + name;
+        return String.format("""
+                 Got it. I've added this task:
+                    %s
+                 Now you have %d tasks in the list.""",
+                task.toString(), this.tasks.size());
+    }
+
+    /**
+     * Add a new to-do task to the list and get the response message.
+     * @param name the name of the to-do task
+     * @return the response message
+     */
+    public String todo(String name) {
+        ToDo task = new ToDo(name);
+        return add(task);
+    }
+
+    /**
+     * Add a new deadline task to the list and get the response message.
+     * @param name the name of the deadline task
+     * @param deadline the deadline of the task
+     * @return the response message
+     */
+    public String deadline(String name, String deadline) {
+        Deadline task = new Deadline(name, deadline);
+        return add(task);
+    }
+
+    /**
+     * Add a new event task to the list and get the response message.
+     * @param name the name of the event task
+     * @param start the start of the event
+     * @param end the end of the event
+     * @return the response message
+     */
+    public String event(String name, String start, String end) {
+        Event task = new Event(name, start, end);
+        return add(task);
     }
 
     /**
@@ -46,7 +82,7 @@ public class ChatBot {
      */
     public String mark(boolean isCompleted, int itemNum) throws InvalidInputException {
         if (itemNum > this.tasks.size()) {
-            throw new InvalidInputException("Task number " + itemNum + " not found.");
+            throw new InvalidInputException("I'm sorry, I could not find task number " + itemNum + ".");
         }
 
         Task task = this.tasks.get(itemNum - 1);
@@ -63,7 +99,7 @@ public class ChatBot {
      * @return the list message
      */
     public String list() {
-        StringBuilder listMsg = new StringBuilder();
+        StringBuilder listMsg = new StringBuilder(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             listMsg
                     .append("\n ")
