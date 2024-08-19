@@ -8,16 +8,15 @@ public class TodoList {
     private int index = 0;
 
     /**
-     * Add an entey to the to-do list with provided content
+     * Add an entry to the to-do list with provided to-do item
      *
-     * @param content The content to be set in the to-do item.
+     * @param item The to-dp item to add to the to-do list.
      */
-    public boolean addItem(String content) {
+    public boolean addItem(TodoItem item) {
         if (index == todoList.length) {
             return false;
         }
 
-        TodoItem item = new TodoItem(content);
         todoList[index] = item;
         index++;
         return true;
