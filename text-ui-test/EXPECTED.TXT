@@ -8,11 +8,11 @@
 
 Hello! I'm Cookie 
 How can I help you?
-
-
+Here are some commands you can use:
+todo, deadline, event, mark, unmark, delete, list
 Got it. Cookie has added this task:
   [T][] borrow book
-Now you have 1 tasks in the list.
+Now you have 1 task in the list.
 
 Got it. Cookie has added this task:
   [D][] return book (by: June 6th)

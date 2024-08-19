@@ -8,29 +8,39 @@ public class Cookie {
         deadline,
         event,
     }
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> taskArrayList = new ArrayList<>();
     private void addTask(Task task) {
-        tasks.add(task);
+        taskArrayList.add(task);
+    }
+    private void delete(int index) {
+        Task toRemove = taskArrayList.get(index - 1);
+        taskArrayList.remove(index - 1);
+        System.out.println("Cookie has removed the following task from your list:\n" +
+                toRemove.toString() + "\n" + this.printNoTasks());
     }
     private String markDone(int index) {
-        return tasks.get(index - 1).markDone();
+        return taskArrayList.get(index - 1).markDone();
     }
     private String unmarkDone(int index) {
-        return tasks.get(index - 1).unmarkDone();
+        return taskArrayList.get(index - 1).unmarkDone();
     }
     private String printTasks() {
         int count = 1;
         StringBuilder list = new StringBuilder();
-        for(Task task: this.tasks) {
+        for(Task task: this.taskArrayList) {
             list.append(count++).append(": ").append(task.toString()).append("\n");
         }
         return list.toString();
     }
     private String printNoTasks() {
-        return "\nNow you have " + tasks.size() + " tasks in the list.";
+        if (taskArrayList.size() == 1) {
+            return "\nNow you have " + taskArrayList.size() + " task in the list.";
+        } else {
+            return "\nNow you have " + taskArrayList.size() + " tasks in the list.";
+        }
     }
     private String printLatestTask() {
-        return "Got it. Cookie has added this task:\n  " + tasks.get(tasks.size() - 1);
+        return "Got it. Cookie has added this task:\n  " + taskArrayList.get(taskArrayList.size() - 1);
     }
     public String printLogo() {
         return "    o      o    \n"
@@ -45,7 +55,8 @@ public class Cookie {
     public String printGreet() {
         return "Hello! I'm Cookie \n"
                 + "How can I help you?\n"
-                + "\n";
+                + "Here are some commands you can use:\n"
+                + "todo, deadline, event, mark, unmark, delete, list";
     }
     public String printQuit() {
         return "Bye. See you soon!";
@@ -60,22 +71,39 @@ public class Cookie {
                 System.out.println(this.printTasks());
                 break;
 
+            case "delete":
+                int deleteIndex = Integer.parseInt(description);
+                if (description.isEmpty()) {
+                    throw new CookieException("Cookie does not know which task to delete.\n " +
+                            "(Please enter an integer after \"delete\")");
+                } else if (deleteIndex <= 0 || deleteIndex > taskArrayList.size()) {
+                    throw  new CookieException("The task you want to delete does not exist");
+                }
+                this.delete(deleteIndex);
+                break;
+
             case "mark":
+                int markIndex = Integer.parseInt(description);
                 if (description.isEmpty()) {
                     throw new CookieException("Cookie does not know which task to mark.\n " +
                             "(Please enter an integer after \"mark\")");
+                } else if (markIndex <= 0 || markIndex > taskArrayList.size()) {
+                    throw  new CookieException("The task you want to mark does not exist");
                 }
                 System.out.println("Cookie has marked this as done! Good job! \n" +
-                        this.markDone(Integer.parseInt(description)));
+                        this.markDone(markIndex));
                 break;
 
             case "unmark":
+                int unmarkIndex = Integer.parseInt(description);
                 if (description.isEmpty()) {
                     throw new CookieException("Cookie does not know which task to unmark.\n" +
                             "(Please enter an integer after \"unmark\")");
+                } else if (unmarkIndex <= 0 || unmarkIndex > taskArrayList.size()) {
+                    throw  new CookieException("The task you want to mark does not exist");
                 }
                 System.out.println("Cookie has unmarked this task! \n" +
-                        this.unmarkDone(Integer.parseInt(description)));
+                        this.unmarkDone(unmarkIndex));
                 break;
 
             case "todo":
