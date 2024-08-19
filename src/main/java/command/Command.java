@@ -1,17 +1,19 @@
 package command;
 
-public abstract class Command {
-  private final String message;
+import java.util.function.Supplier;
 
-  public Command(String message) {
-    this.message = message;
+public abstract class Command {
+  private final Supplier<String> messageSupplier;
+
+  public Command(Supplier<String> messageSupplier) {
+    this.messageSupplier = messageSupplier;
   }
 
   @Override
   public String toString() {
     String dashes = "-".repeat(100);
     return dashes + "\n"
-      + this.message + "\n"
+      + this.messageSupplier.get() + "\n"
       + dashes;
   }
 

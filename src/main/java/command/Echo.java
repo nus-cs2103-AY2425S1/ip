@@ -3,7 +3,7 @@ package command;
 public class Echo extends Command{
 
     public Echo(String input) {
-        super(input);
+        super(() -> input);
     }
 
     @Override
