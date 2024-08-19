@@ -1,13 +1,30 @@
+import java.util.Scanner;
+
 public class Cook {
     public static void main(String[] args) {
-        String logo = "_________                __    \n"
-                + "\\_   ___ \\  ____   ____ |  | __\n"
-                + "/    \\  \\/ /  _ \\ /  _ \\|  |/ /\n"
-                + "\\     \\___(  <_> |  <_> )    < \n"
-                + " \\______  /\\____/ \\____/|__|_ \\\n"
-                + "        \\/                   \\/\n";
+        // Solution below adapted from https://www.patorjk.com/software/taag/#p=author&v=0&f=Avatar&t=Cook
+        String logo = """ 
+                          ____  ____  ____  _  __
+                         /   _\\/  _ \\/  _ \\/ |/ /
+                         |  /  | / \\|| / \\||   /\s
+                         |  \\__| \\_/|| \\_/||   \\\s
+                         \\____/\\____/\\____/\\_|\\_\\
+                                                \s
+
+                         """;
         System.out.println(logo);
         start();
+
+        while (true) {
+            // Solution below inspired by https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html
+            Scanner input = new Scanner(System.in);
+            String echo = input.nextLine();
+            if (echo.equalsIgnoreCase("bye")) {
+                break;
+            }
+            System.out.println(echo + "\n");
+        }
+
         exit();
     }
 
