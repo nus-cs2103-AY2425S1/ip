@@ -49,30 +49,41 @@ public class Optimus {
         Task task;
         //used AI to find how to extract relevant words from user input
         if (userInput.startsWith("todo")) {
-            String description = userInput.substring(5).trim();
-            if (description.isEmpty()) {
+            //check if description is keyed in
+            if (userInput.length() <= 5) {
                 throw new OptimusException("The description of a todo cannot be empty >:(");
             }
+            String description = userInput.substring(5).trim();
             task = new Todo(description);
         } else if (userInput.startsWith("deadline")) {
-            String[] parts = userInput.substring(9).split("/by");
-            String description = parts[0].trim();
-            String by = parts[1].trim();
-            if (description.isEmpty()) {
+            if (userInput.length() <= 9) { //check if description is keyed in
                 throw new OptimusException("The description of a deadline cannot be empty >:(");
             }
+            String[] parts = userInput.substring(9).split("/by");
+            if (parts.length < 2) { //check if input format is valid
+                throw new OptimusException("Invalid input");
+            }
+            String description = parts[0].trim();
+            String by = parts[1].trim();
             task = new Deadline(description, by);
         } else if (userInput.startsWith("event")) {
+            if (userInput.length() <= 6) { //check if description is keyed in
+                throw new OptimusException("The description of an event cannot be empty >:(");
+            }
             String[] parts = userInput.substring(6).split ("/from|/to");
+            if (parts.length < 3) { //check if input format is valid
+                throw new OptimusException("Invalid input");
+            }
             String description = parts[0].trim();
             String from = parts[1].trim();
             String to = parts[2].trim();
-            if (description.isEmpty()) {
-                throw new OptimusException("The description of an event cannot be empty >:(");
-            }
             task = new Event(description, from, to);
         } else {
-            task = new Task(userInput);
+            throw new OptimusException("Sorry, you need to start your input with either todo, deadline, or event.\n" +
+                    "For example:\n" +
+                    "todo borrow book\n" +
+                    "deadline return book /by Sunday\n" +
+                    "event project meeting /from Mon 2pm /to 4pm");
         }
         taskList[taskCount] = task;
         taskCount++;
