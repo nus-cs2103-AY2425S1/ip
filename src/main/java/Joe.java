@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Joe {
     public static final String horizontalLine = "____________________________________________________________";
     public static final String chatbotName = "Joe";
@@ -10,6 +11,20 @@ public class Joe {
         System.out.printf("Bye. Hope to see you again soon!\n%s", horizontalLine);
     }
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+
         greet();
+        while (!input.equals("bye")) {
+            input = scanner.nextLine();
+            System.out.println(horizontalLine);
+            if (input.equals("bye")) {
+                break;
+            }
+            System.out.println(input);
+            System.out.println(horizontalLine);
+        }
         farewell();
+        scanner.close();
+    }
 }
