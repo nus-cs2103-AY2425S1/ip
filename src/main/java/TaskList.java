@@ -19,11 +19,9 @@ public class TaskList {
      * Adds a task to the TaskList.
      * @param task The task to be added.
      */
-    public void addTask(String task) {
+    public void addTask(Task task) {
         //Create new task object from user input
-        Task newTask = new Task(task);
-
-        this.tasks[this.taskCount] = newTask;
+        this.tasks[this.taskCount] = task;
         this.taskCount++;
         
         System.out.println("____________________________________________________________");
