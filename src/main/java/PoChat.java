@@ -1,21 +1,26 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
-public class PoChat {
-    public static void main(String[] args) {
+class PoChat {
+    private final ArrayList<String> listTextsEntered = new ArrayList<>();
+
+    public void sayHello() {
         String introMessage = "Hello! I'm PoChat, the chatbot in your pocket.\nWhat can I do for you?";
-        String goodbyeMessage = "Bye. Hope to see you again soon!";
-
         System.out.println(introMessage);
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                System.out.println(goodbyeMessage);
-                break;
-            } else {
-                System.out.println(input);
-            }
+    public void sayGoodbye() {
+        String introMessage = "Bye. Hope to see you again soon!";
+        System.out.println(introMessage);
+    }
+
+    public void addToListAndReply(String textInput) {
+        this.listTextsEntered.add(textInput);
+        System.out.println("added: " + textInput);
+    }
+
+    public void replyWithListOfTextsEntered() {
+        for (int i = 0; i < this.listTextsEntered.size(); i++) {
+            System.out.println((i + 1) + ". " + this.listTextsEntered.get(i));
         }
     }
 }
