@@ -1,17 +1,15 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class GPT {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String chatbotName = "GPT";
-        List<Task> tasks = new ArrayList<>();  // List to store Task objects
+        ArrayList<Task> tasks = new ArrayList<>(); // Use ArrayList to store tasks
 
         // Display the initial greeting
-        System.out.println("Type 'list' to display saved tasks, 'mark [i]' to mark a task as done, 'unmark [i]' to mark a task as not done, or 'bye' to exit.");
+        System.out.println("Type 'list' to display saved tasks, 'mark <index>' to mark a task, 'unmark <index>' to unmark a task, or 'bye' to exit.");
         printLine();
-        System.out.println("Hello! I'm " + chatbotName);
+        System.out.println("Hello! I'm GPT");
         System.out.println("What can I do for you?");
         printLine();
 
@@ -21,9 +19,7 @@ public class GPT {
 
             // Exit
             if (input.equalsIgnoreCase("bye")) {
-                printLine();
                 System.out.println("Bye. Hope to see you again soon!");
-                printLine();
                 break;
             }
 
@@ -41,64 +37,87 @@ public class GPT {
                 continue;
             }
 
-            // Add task
-            if (!input.startsWith("mark ") && !input.startsWith("unmark ")) {
-                tasks.add(new Task(input));
-                printLine();
-                System.out.println("Added: " + input);
-                printLine();
-                continue;
-            }
-
-            // Mark task as done
+            // Mark task
             if (input.startsWith("mark ")) {
-                handleMarkUnmark(tasks, input, true);
+                try {
+                    int index = Integer.parseInt(input.substring(5).trim()) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).markAsDone();
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("  " + tasks.get(index));
+                    } else {
+                        System.out.println("Invalid task number.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input format.");
+                }
                 continue;
             }
 
-            // Unmark task as not done
+            // Unmark task
             if (input.startsWith("unmark ")) {
-                handleMarkUnmark(tasks, input, false);
+                try {
+                    int index = Integer.parseInt(input.substring(7).trim()) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).markAsNotDone();
+                        System.out.println("Nice! I've marked this task as not done:");
+                        System.out.println("  " + tasks.get(index));
+                    } else {
+                        System.out.println("Invalid task number.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input format.");
+                }
                 continue;
             }
 
-            // If command is not recognized
+            // Add tasks based on type
+            String[] parts = input.split(" ", 2);
+            if (parts.length < 2) {
+                System.out.println("Invalid input format.");
+                continue;
+            }
+
+            String command = parts[0].toLowerCase();
+            String description = parts[1].trim();
+
+            Task task = null;
+            if (command.equals("todo")) {
+                task = new Todo(description);
+            } else if (command.equals("deadline")) {
+                // Extract the deadline time
+                String[] deadlineParts = description.split("/by", 2);
+                if (deadlineParts.length < 2) {
+                    System.out.println("Invalid deadline format.");
+                    continue;
+                }
+                task = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+            } else if (command.equals("event")) {
+                // Extract event times
+                String[] eventParts = description.split("/from", 2);
+                if (eventParts.length < 2) {
+                    System.out.println("Invalid event format.");
+                    continue;
+                }
+                String from = eventParts[1].split("/to", 2)[0].trim();
+                String to = eventParts[1].split("/to", 2)[1].trim();
+                task = new Event(eventParts[0].trim(), from, to);
+            } else {
+                System.out.println("Unknown task type.");
+                continue;
+            }
+
+            tasks.add(task);
             printLine();
-            System.out.println("Command not recognized. Please use 'list', 'mark [i]', 'unmark [i]', or 'bye'.");
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             printLine();
         }
         scanner.close();
     }
 
-    // Method to print a line of underscores
     private static void printLine() {
         System.out.println("____________________________________________________________");
-    }
-
-    // Method to handle marking and unmarking tasks
-    private static void handleMarkUnmark(List<Task> tasks, String input, boolean markAsDone) {
-        try {
-            // Extract index from the command
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-
-            if (index >= 0 && index < tasks.size()) {
-                Task task = tasks.get(index);
-                if (markAsDone) {
-                    task.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                } else {
-                    task.markAsNotDone();
-                    System.out.println("Nice! I've marked this task as not done:");
-                }
-                // Display the updated task
-                System.out.println(task);
-            } else {
-                System.out.println("Task index out of range.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid task index format.");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("No task index provided.");
-        }
     }
 }
