@@ -36,6 +36,15 @@ public class TodoList {
     }
 
     /**
+     * Get the total number of to-do entries in the list
+     *
+     * @return The number of entries in the list
+     */
+    public int getTotal() {
+        return this.index;
+    }
+
+    /**
      * Mark an item with the specified index as complete
      * @param index The index of the item
      * @return Status of the operation
