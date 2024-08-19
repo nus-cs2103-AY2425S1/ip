@@ -13,8 +13,14 @@ public class TaskManager {
         } else {
             String[] segments = currAction.split(" ");
             if(segments[0].equals("mark")) {
+                if (segments.length != 2) {
+                    throw new MendelException("OOPS! No serial given.\nSpecify serial.");
+                }
                 taskStorage.marker(Integer.parseInt(segments[1]) - 1);
             } else if(segments[0].equals("unmark")) {
+                if (segments.length != 2) {
+                    throw new MendelException("OOPS! No serial given.\nSpecify serial.");
+                }
                 taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
             } else {
                 taskStorage.add(currAction);

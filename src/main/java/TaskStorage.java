@@ -8,6 +8,11 @@ public class TaskStorage extends MendelAction{
     }
 
     public void marker(int serial) {
+        if (serial >= this.counter) {
+            throw new MendelException("OOPS! serial is too big.\nDecrease serial.");
+        } else if (serial < 0) {
+            throw new MendelException("OOPS! Serial is too small.\nIncrease serial.");
+        }
         Task task = this.messages[serial];
         task.markAsDone();
         String outputMessage = String.format("Nice! I've marked this task as done:\n  %s",
@@ -17,6 +22,11 @@ public class TaskStorage extends MendelAction{
     }
 
     public void unMarker(int serial) {
+        if (serial >= this.counter) {
+            throw new MendelException("OOPS! serial is too big.\nDecrease serial.");
+        } else if (serial < 0) {
+            throw new MendelException("OOPS! Serial is too small.\nIncrease serial.");
+        }
         Task task = this.messages[serial];
         task.markAsUnDone();
         String outputMessage = String.format("OK, I've marked this task as not done yet:\n  %s",
