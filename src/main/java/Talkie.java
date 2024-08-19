@@ -28,16 +28,14 @@ public class Talkie {
 
         // Program runs until user inputs "bye"
         while (true) {
-            String command = scanner.nextLine();
+            String toDo = scanner.nextLine();
 
-            // Program stops when "bye"
-            if (command.equalsIgnoreCase("bye")) {
+            if (toDo.equalsIgnoreCase("bye")) {
                 System.out.println(byeMessage);
                 break;
             }
 
-            // Program display task list when "list"
-            if (command.equalsIgnoreCase("list")) {
+            if (toDo.equalsIgnoreCase("list")) {
 
                 String listMessage = "";
 
@@ -53,8 +51,9 @@ public class Talkie {
                 continue;
             }
 
+
             // Initialise a new Item Object
-            Task t = new Task(command);
+            Task t = new Task(toDo);
             taskList.add(t.toString());
 
             String toDoMessage = "-----------------------------------------------\n"
