@@ -10,9 +10,19 @@ public class Joe {
     public static void farewell() {
         System.out.printf("Bye. Hope to see you again soon!\n%s", horizontalLine);
     }
+
+    public static void handleList(String[] list) {
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] != null) {
+                System.out.println(i + 1 + ". " + list[i]);
+            }
+        }
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
+        String[] store = new String[100];
+        int currIndex = 0;
 
         greet();
         while (!input.equals("bye")) {
@@ -21,7 +31,14 @@ public class Joe {
             if (input.equals("bye")) {
                 break;
             }
-            System.out.println(input);
+            else if (input.equals("list")) {
+                handleList(store);
+            }
+            else {
+                System.out.printf("added: %s\n", input);
+                store[currIndex] = input;
+                currIndex++;
+            }
             System.out.println(horizontalLine);
         }
         farewell();
