@@ -85,6 +85,36 @@ public class Qwerty {
     }
 
     /**
+     * Deletes the task at the given index.
+     *
+     * @param index The index of the task to be deleted.
+     */
+    public void deleteTask(int index) {
+        try {
+            Task task = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            System.out.println("\nNoted. I've removed this task:\n" + task
+                    + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
+                    + "in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\nThat index is invalid.");
+        }
+    }
+
+    /**
+     * Deletes the task at the given index.
+     *
+     * @param index String describing the index of the task to be deleted.
+     */
+    public void deleteTask(String index) {
+        try {
+            deleteTask(Integer.parseInt(index));
+        } catch (NumberFormatException e) {
+            System.out.println("\nPlease enter a number as the index.");
+        }
+    }
+
+    /**
      * Prints the list of tasks.
      */
     public void list_tasks() {
@@ -109,7 +139,6 @@ public class Qwerty {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\nThat index is invalid.");
         }
-
     }
 
     /**
@@ -242,6 +271,14 @@ public class Qwerty {
                         }
                         Task eventTask = new Event(args, from, to);
                         add_task(eventTask);
+                        break;
+
+                    case "delete":
+                        if (args == null) {
+                            throw new QwertyException("""
+                                    You forgot to give me a task number.""");
+                        }
+                        deleteTask(args);
                         break;
 
                     default:
