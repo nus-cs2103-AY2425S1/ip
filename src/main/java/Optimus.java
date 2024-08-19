@@ -71,13 +71,13 @@ public class Optimus {
     //list out tasks from taskList array
     private static void listTasks() {
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
+            System.out.println((i + 1) + "." + taskList[i].toString());
         }
     }
 
     private static void markTaskAsDone(int taskIndex) {
         taskList[taskIndex].isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[X] " + taskList[taskIndex].description);
+        System.out.println(taskList[taskIndex].toString());
     }
 }
