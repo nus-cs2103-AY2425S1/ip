@@ -6,7 +6,7 @@ public class Kita {
     private static void printLine() {
         System.out.println("____________________________________________________________\n");
     }
-    private static ArrayList<String> commandsList = new ArrayList<>();
+    private static ArrayList<Task> commandsList = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner getInput = new Scanner(System.in);
@@ -27,9 +27,23 @@ public class Kita {
                     System.out.println(i + ". " + commandsList.get(i-1));
                 }
             }
+            else if (command.startsWith("mark")) {
+                int numberToMark = Integer.parseInt(command.split(" ")[1]);
+                System.out.println("Nice! I've marked this task as done:");
+                Task selectedTask = commandsList.get(numberToMark-1);
+                selectedTask.setCompleted(true);
+                System.out.println("  [X] " + selectedTask.getName());
+            }
+            else if (command.startsWith("unmark")) {
+                int numberToMark = Integer.parseInt(command.split(" ")[1]);
+                System.out.println("OK, I've marked this task as not done yet:");
+                Task selectedTask = commandsList.get(numberToMark-1);
+                selectedTask.setCompleted(false);
+                System.out.println("  [] " + selectedTask.getName());
+            }
             else {
+                commandsList.add(new Task(command));
                 System.out.println("added: " + command);
-                commandsList.add(command);
             }
 
             printLine();
