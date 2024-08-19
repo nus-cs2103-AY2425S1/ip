@@ -1,0 +1,9 @@
+todo read book
+event attend meeting /from 4pm /to 8pm
+deadline cs2103T ip /by 20 Aug 2024
+list
+mark 1
+list
+unmark 1
+list
+bye

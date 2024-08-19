@@ -108,7 +108,7 @@ public class David {
             t.markAsDone();
             System.out.println(
                     "____________________________________________________________\n" +
-                            "Nice! I've marked this task as done: \n" +
+                            "Nice! I've marked this task as done:\n" +
                             t + "\n" +
                             "____________________________________________________________\n");
         } catch (IndexOutOfBoundsException e) {
@@ -123,7 +123,7 @@ public class David {
             t.markAsUnDone();
             System.out.println(
                     "____________________________________________________________\n" +
-                            "Okay, I've marked this task as not done yet: \n" +
+                            "Okay, I've marked this task as not done yet:\n" +
                             t + "\n" +
                             "____________________________________________________________\n");
         } catch (IndexOutOfBoundsException e) {
