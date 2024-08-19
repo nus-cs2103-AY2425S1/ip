@@ -57,7 +57,7 @@ public class Janet {
     public String addTaskToList(Task task) {
         this.listOfTasks[this.taskIndex] = task;
         this.taskIndex++;
-        return horizontalLine + "\n" + String.format("added: %s\n", task.getDescription()) + horizontalLine;
+        return horizontalLine + "\nGot it. I've added this task:\n" + "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", taskIndex) + horizontalLine;
     }
 
 

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -33,9 +34,18 @@ public class Main {
                     System.out.println(unmarkSuccess);
                 } else {
                     // add the new task into the list of tasks
-                    Task task = new Task(command);
-                    String addTaskSuccess = janet.addTaskToList(task);
-                    System.out.println(addTaskSuccess);
+                    // Task can a ToDo, Deadline, Event
+                    if (commandDetails[0].equals("todo")) {
+                        String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
+                        String todoDescription = String.join(" ", todoItem);
+                        Task task = new ToDo(todoDescription, "T");
+                        String addTaskSuccess = janet.addTaskToList(task);
+                        System.out.println(addTaskSuccess);
+                    } else if (commandDetails[0].equals("deadline")) {
+                        continue;
+                    } else if (commandDetails[0].equals("event")) {
+                        continue;
+                    }
                 }
             }
         }
