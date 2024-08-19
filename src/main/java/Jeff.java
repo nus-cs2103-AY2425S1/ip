@@ -125,6 +125,20 @@ public class Jeff {
 
     }
 
+    // Function for deleting the task
+    private static void deleteTask(String input) throws JeffException {
+        // Get the task from taskList
+        Task targetTask = getTask(input, "delete ");
+
+        // Delete the task
+        taskList.remove(targetTask);
+
+        // Print delete statement
+        printText("Noted. I've removed this task:\n   " +
+                targetTask.toString() +
+                "\n Now you have " + taskList.size() + " tasks in the list.");
+    }
+
     // Function to categorise the task, add it to the task list and print it out
     private static void handleTask(String input) throws JeffException {
         // Check if the input is in the correct format
@@ -229,6 +243,8 @@ public class Jeff {
                     markTask(input);
                 } else if (input.startsWith("unmark")) {
                     unmarkTask(input);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input);
                 } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                     handleTask(input);
                 } else {
