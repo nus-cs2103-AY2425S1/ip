@@ -1,14 +1,17 @@
 import java.util.ArrayList;
 
 public class ToDoList {
-    private ArrayList<String> toDo;
+    private ArrayList<Task> toDo;
 
     ToDoList () {
-        this.toDo = new ArrayList<String>();
+        this.toDo = new ArrayList<Task>();
     }
 
     public void addItem(String item) {
-        toDo.add(item);
+        Task newTask = new Task(item);
+        
+        toDo.add(newTask);
+
         System.out.println("Added: " + item);
     }
 
@@ -20,9 +23,9 @@ public class ToDoList {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < toDo.size(); i++) {
                 if (i == 0) {
-                    sb.append((i + 1) + ". " + toDo.get(i));
+                    sb.append((i + 1) + ". " + toDo.get(i).toString());
                 } else {
-                    sb.append("\n" + (i + 1) + ". " + toDo.get(i));
+                    sb.append("\n" + (i + 1) + ". " + toDo.get(i).toString());
                 }
             }
             return sb.toString();
