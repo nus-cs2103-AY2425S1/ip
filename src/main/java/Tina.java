@@ -14,7 +14,11 @@ public class Tina {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            Parse.parseInput(input);
+            try {
+                Parse.parseInput(input);
+            } catch (TinaException e) {
+                System.out.println(e.getMessage());
+            }
             input = sc.nextLine();
         }
         sc.close();
