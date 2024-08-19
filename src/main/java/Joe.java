@@ -10,7 +10,7 @@ public class Joe {
     public static int currIndex = 0;
 
     public static void greet() {
-        System.out.printf("%s\nHello! I'm %s \nWhat can I do for you? \n%s\n", horizontalLine, chatbotName, horizontalLine);
+        System.out.printf("%s\nHello! I'm %s\nWhat can I do for you?\n%s\n", horizontalLine, chatbotName, horizontalLine);
     }
 
     public static void farewell() {
@@ -18,9 +18,10 @@ public class Joe {
     }
 
     public static void handleList(Task[] list) {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.length; i++) {
             if (list[i] != null) {
-                System.out.println(i + 1 + ". " + list[i]);
+                System.out.println(i + 1 + "." + list[i]);
             }
         }
     }
@@ -28,14 +29,14 @@ public class Joe {
     public static void handleDone(Task[] list, int index) {
         if (list[index] != null) {
             list[index].toggleDone();
-            System.out.printf("Nice! I've marked this task as done: \n%s\n", list[index]);
+            System.out.printf("Nice! I've marked this task as done:\n%s\n", list[index]);
         }
     }
 
     public static void handleUndone(Task[] list, int index) {
         if (list[index] != null) {
             list[index].toggleDone();
-            System.out.printf("Nice! I've marked this task as not done yet: \n%s\n", list[index]);
+            System.out.printf("Nice! I've marked this task as not done yet:\n%s\n", list[index]);
         }
     }
 
