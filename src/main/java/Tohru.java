@@ -19,6 +19,10 @@ public class Tohru {
 
             String[] dissectedPrompt = prompt.split(" ", 2);
             String command = dissectedPrompt[0];
+            String argument = null;
+            if (dissectedPrompt.length == 2) {
+                argument = dissectedPrompt[1];
+            }
 
             printDivider();
             switch (command) {
@@ -26,15 +30,16 @@ public class Tohru {
                 System.out.println("Bye. Hope to see you again soon!");
                 toExit = true;
                 break;
+
             case "list":
-                System.out.println("These are on your todo:");
+                System.out.println(String.format("These are %s entries on your todo:", todoList.getTotal()));
                 for (String todoItem : todoList.listItems()) {
                     System.out.println(todoItem);
                 }
                 break;
+
             case "mark":
-                String markArgument = dissectedPrompt[1];
-                int markItemIndex = Integer.parseInt(markArgument) - 1;
+                int markItemIndex = Integer.parseInt(argument) - 1;
                 if (todoList.markComplete(markItemIndex)) {
                     System.out.println("Alright! I have set this task as done:");
                 } else {
@@ -42,9 +47,9 @@ public class Tohru {
                 }
                 System.out.println(todoList.getItemStatus(markItemIndex));
                 break;
+
             case "unmark":
-                String unmarkArgument = dissectedPrompt[1];
-                int unmarkItemIndex = Integer.parseInt(unmarkArgument) - 1;
+                int unmarkItemIndex = Integer.parseInt(argument) - 1;
                 if (todoList.markIncomplete(unmarkItemIndex)) {
                     System.out.println("Alright! I have set this task as not done:");
                 } else {
@@ -52,13 +57,52 @@ public class Tohru {
                 }
                 System.out.println(todoList.getItemStatus(unmarkItemIndex));
                 break;
-            default:
-                if (todoList.addItem(prompt)) {
-                    System.out.println(String.format("Added entry: %s", prompt));
-                } else {
-                    System.out.println(String.format("Unable to add entry: %s", prompt));
-                }
 
+            case "todo":
+                TodoItem newTodo = new TodoItem(argument);
+
+                if (todoList.addItem(newTodo)) {
+                    System.out.println(String.format("Added todo entry: %s", argument));
+                    System.out.println(newTodo);
+                } else {
+                    System.out.println(String.format("Unable to add todo entry: %s", argument));
+                }
+                System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
+                break;
+
+            case "deadline":
+                String[] dissectedDeadlineArgument = argument.split("/by", 2);
+                String deadlineContent = dissectedDeadlineArgument[0];
+                String deadline = dissectedDeadlineArgument[1];
+                DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
+
+                if (todoList.addItem(newDeadline)) {
+                    System.out.println(String.format("Added deadline entry: %s", deadlineContent));
+                    System.out.println(newDeadline);
+                } else {
+                    System.out.println(String.format("Unable to add deadline entry: %s", deadlineContent));
+                }
+                System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
+                break;
+
+            case "event":
+                String[] dissectedEventArgument = argument.split("/from", 2);
+                String eventContent = dissectedEventArgument[0];
+                String[] eventArgument = dissectedEventArgument[1].split("/to", 2);
+                String from = eventArgument[0];
+                String to = eventArgument[1];
+                EventItem newEvent = new EventItem(eventContent, from, to);
+
+                if (todoList.addItem(newEvent)) {
+                    System.out.println(String.format("Added event entry: %s", eventContent));
+                    System.out.println(newEvent);
+                } else {
+                    System.out.println(String.format("Unable to add event entry: %s", eventContent));
+                }
+                System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
+                break;
+
+            default:
                 break;
             }
             printDivider();
