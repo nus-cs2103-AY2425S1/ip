@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Nameless {
-    private static final String line = "_____________________________________________________________";
+    private static final String line = "______________________________________________________________";
     private static final String name = "Nameless";
     private static final String greetings = "Hello, I'm " + name + "\n" + "What can I do for you?";
     private static final String goodbye = "Bye. Hope to see you again!";
