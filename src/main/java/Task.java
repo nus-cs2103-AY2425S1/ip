@@ -21,7 +21,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return isDone ? "[X] " + this.description
-                      : "[ ] " + this.description;
+        return this.description;
     }
 }

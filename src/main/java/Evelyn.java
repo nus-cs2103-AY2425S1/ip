@@ -25,19 +25,9 @@ public class Evelyn {
             } else if (Objects.equals(text, "list")) {
                 System.out.println(horizontalLine);
                 for (int i = 0; i < lst.size(); i++) {
-                    System.out.println((i + 1) + "." + lst.get(i));
+                    System.out.println((i + 1) + ". " + lst.get(i));
                 }
                 System.out.println(horizontalLine);
-            } else if (text.startsWith("mark")) {
-                int index = Integer.parseInt(text.substring(5)) - 1;
-                Task task = (Task) lst.get(index);
-                System.out.println(horizontalLine);
-                task.mark();
-                System.out.println(horizontalLine);
-            } else if (text.startsWith("unmark")) {
-                int index = Integer.parseInt(text.substring(7)) - 1;
-                Task task = (Task) lst.get(index);
-                task.unmark();
             } else {
                 lst.add(new Task(text));
                 System.out.println(horizontalLine);
