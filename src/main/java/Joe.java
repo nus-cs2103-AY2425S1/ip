@@ -19,6 +19,20 @@ public class Joe {
         }
     }
 
+    public static void handleDone(Task[] list, int index) {
+        if (list[index] != null) {
+            list[index].toggleDone();
+            System.out.printf("Nice! I've marked this task as done: \n%s\n%s", list[index], horizontalLine);
+        }
+    }
+
+    public static void handleUndone(Task[] list, int index) {
+        if (list[index] != null) {
+            list[index].toggleDone();
+            System.out.printf("Nice! I've marked this task as not done yet: \n%s\n%s", list[index], horizontalLine);
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
@@ -34,6 +48,14 @@ public class Joe {
             }
             else if (input.equals("list")) {
                 handleList(store);
+            }
+            else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                handleDone(store, index);
+            }
+            else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                handleUndone(store, index);
             }
             else {
                 System.out.printf("added: %s\n", input);
