@@ -5,8 +5,8 @@ if [ ! -d "../bin" ]; then
     mkdir ../bin
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java; then
+# find all .java files in the duke directory and subdirectories and compile them into the bin folder
+if ! find ../src/main/java/duke -name "*.java" -print0 | xargs javac -cp ../src/main/java -Xlint:none -d ../bin; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi

@@ -17,12 +17,10 @@ public class DailyTasks {
 
         System.out.println(Formatter.formatOutputMessage(DailyTasks.GREETING));
 
-        while (true) {
+        while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine();
 
-            if (userInput.equals("bye")) {
-                break;
-            } else if (userInput.equals("list")) {
+            if (userInput.equals("list")) {
                 System.out.println(Formatter.formatTaskListings(taskCounter, dailyTasks.tasks));
             } else if (userInput.contains("unmark")) {
                 int index = Integer.parseInt(userInput.split(" ", 2)[1]) - 1; // minus 1 because array is 0-indexed
@@ -34,6 +32,9 @@ public class DailyTasks {
 
                 dailyTasks.tasks[index].setDone();
                 System.out.println(Formatter.formatMarkTask(dailyTasks.tasks[index]));
+            } else if (userInput.contains("bye")) {
+                System.out.println(Formatter.formatOutputMessage(DailyTasks.GOODBYE));
+                return;
             } else {
                 if (userInput.contains("todo")) {
                     String description = userInput.split(" ", 2)[1];
@@ -62,7 +63,5 @@ public class DailyTasks {
                 System.out.println(formattedTask);
             }
         }
-
-        System.out.println(Formatter.formatOutputMessage(DailyTasks.GOODBYE));
     }
 }
