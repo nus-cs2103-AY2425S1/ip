@@ -13,6 +13,7 @@ public class Jackson {
     private static final Pattern MARK = Pattern.compile("^mark ([0-9]+)$");
     private static final Pattern UNMARK = Pattern.compile("^unmark ([0-9]+)$");
     private static final Pattern LIST = Pattern.compile("^list$");
+    private static final Pattern DELETE = Pattern.compile("^delete ([0-9]+)$");
 
     private static final int EXPECTED_SIZE = 100;
     private static ArrayList<Task> tasks = new ArrayList<>(EXPECTED_SIZE);
@@ -20,6 +21,14 @@ public class Jackson {
     public static void add_list(Task task) {
         System.out.println("Ya la, adding this task to your list!");
         tasks.add(task);
+        System.out.printf("\t%s\n", task);
+        System.out.printf("You now got %s tasks in your list leh\n", tasks.size());
+    }
+
+    public static void delete_list(int index) throws OutOfListException, InvalidIndexException {
+        if (index < 0 || index >= tasks.size()) throw new OutOfListException();
+        Task task = tasks.remove(index);
+        System.out.println("Deleting now hor!");
         System.out.printf("\t%s\n", task);
         System.out.printf("You now got %s tasks in your list leh\n", tasks.size());
     }
@@ -91,6 +100,10 @@ public class Jackson {
                     m = UNMARK.matcher(response);
                     if (!m.find()) throw new SyntaxException("unmark");
                     unmark(Integer.parseInt(m.group(1)) - 1);
+                } else if (response.startsWith("delete")) {
+                    m = DELETE.matcher(response);
+                    if (!m.find()) throw new SyntaxException("delete");
+                    delete_list(Integer.parseInt(m.group(1)) - 1);
                 } else {
                     throw new UnsupportedException();
                 }
@@ -121,16 +134,21 @@ public class Jackson {
                     case "unmark":
                         System.out.println("unmark [index]");
                         break;
+                    case "delete":
+                        System.out.println("delete [index]");
                 }
             } catch (OutOfListException e) {
                 System.out.printf("Alamak, you got %d items on the list only leh...\n", tasks.size());
                 if (tasks.isEmpty()) {
-                    System.out.println("Try adding items to the list, it's currently empty!");
+                    System.out.println("You've got no items in the list! Add some stuff first!");
                 } else if (tasks.size() == 1) {
-                    System.out.println("You only have 1 item on the list!");
+                    System.out.println("Enter 1 to mark/unmark/delete it!");
                 } else {
-                    System.out.printf("Enter a number between 1 and %d when marking/unmarking tasks!\n", tasks.size());
+                    System.out.printf("Enter a number between 1 and %d when marking/unmarking/deleting tasks!\n", tasks.size());
                 }
+            } catch (InvalidIndexException e) {
+                System.out.println("Alamak, list number start from 1 you still put less than 1?");
+                System.out.println("Try inputting a valid index above 1");
             }
             System.out.print("> ");
             response = sc.nextLine().strip();
