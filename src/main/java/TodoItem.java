@@ -7,6 +7,11 @@ public class TodoItem {
     /** Status of the to-do item **/
     private boolean completed;
 
+    /**
+     * Creates a new to-do item with the specified content
+     *
+     * @param content The task description of the to-do item
+     */
     public TodoItem(String content) {
         this.content = content.trim();
         this.completed = false;
