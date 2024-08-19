@@ -56,6 +56,14 @@ public class Bob {
                         throw new InvalidInputException("Please specify the timing using \"/from\" and \"/to\".");
                     }
                 }
+                case "delete": {
+                    Matcher matcher = Pattern.compile("^delete (\\d*)$").matcher(input);
+                    if (matcher.find()) {
+                        return bot.delete(Integer.parseInt(matcher.group(1)));
+                    } else {
+                        throw new InvalidInputException("Please specify which task to delete.");
+                    }
+                }
                 default:
                     throw new InvalidInputException("I'm sorry, I did not understand your message.");
             }
