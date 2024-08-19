@@ -24,12 +24,21 @@ public class Mel {
                 System.out.println("Buh-bye :)\n" + line);
                 break;
             } else if (Objects.equals(input, "list")) {
+                System.out.println("Mel remembers all your stuff~");
                 storage.printAll();
-                System.out.println(line);
+            } else if (input.contains("unmark")) {
+                int idx = Integer.parseInt(input.split(" ")[1]);
+                System.out.println("Mel wonders how you undid your task...");
+                storage.unmark(--idx);
+            } else if (input.contains("mark")) {
+                int idx = Integer.parseInt(input.split(" ")[1]);
+                System.out.println("Mel sees you completed your task!");
+                storage.mark(--idx);
             } else {
                 storage.add(input);
-                System.out.println("Mel remembers: " + input + "\n" + line);
+                System.out.println("Mel remembers: " + input);
             }
+            System.out.println(line);
         }
 
     }
