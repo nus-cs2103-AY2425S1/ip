@@ -1,17 +1,16 @@
 import java.util.Scanner;
 
-
 public class Majima {
     //leave no magic numbers
     private static int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
     //counter, used in main
     private static int task_count = 0;
+    static String linegap = "____________________________________________________________";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String linegap = "____________________________________________________________";
         System.out.println(linegap);
         System.out.println("KIIIIIRYU-CHAN! It's ya old pal, Majima!");
         System.out.println("What can I do fer ya?");
@@ -71,22 +70,82 @@ public class Majima {
             //be put into one method.
             //is it not better to just make a class which checks whether it's a valid command?
             //OOP and all that: better than making main super clunky right?
-            else {
-                //Becomes new task
-                if (task_count < MAX_TASKS) {
-                    tasks[task_count] = new Task(input);
+            //With regards to step 4, this was all quite hard/new to me, as I'm not familiar with string manip.
+            //My good friend ChatGPT helped out significantly here.
+            else if (input.startsWith("deadline")) {
+                String[] parts = input.split("/by", 2);
+                if (parts.length < 2) {
+                    System.out.println(linegap);
+                    System.out.println("Eh? Kiryu-chan, yain't got no '/by' argument!");
+                    System.out.println(linegap);
+                    continue;
+                }
+                String description = parts[0].substring(9).trim();
+                String by = parts[1].trim();
+                if (canAddTask()) {
+                    tasks[task_count] = new Deadline(description, by);
                     task_count++;
                     System.out.println(linegap);
-                    System.out.println("Understood, Kiryu-chan! Adding that to the list.");
-                    System.out.println("Added: " + input);
-                    System.out.println(linegap);
-                } else {
-                    System.out.println(linegap);
-                    System.out.println("O-oi, Kiryu-chan! Ya can't expect me to 'member all this crap!");
+                    System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
+                    System.out.println(" " + tasks[task_count - 1].toString());
+                    System.out.println("Now you've got " + task_count + " tasks need doin'.");
                     System.out.println(linegap);
                 }
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5).trim();
+                if (canAddTask()) {
+                    tasks[task_count] = new Todo(description);
+                    task_count++;
+                    System.out.println(linegap);
+                    System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
+                    System.out.println(" " + tasks[task_count - 1].toString());
+                    System.out.println("Now you've got " + task_count + " tasks need doin'.");
+                    System.out.println(linegap);
+                }
+            } else if (input.startsWith("event")) {
+                String parts[] = input.split("/from", 2);
+                if (parts.length < 2) {
+                    System.out.println(linegap);
+                    System.out.println("Eh? Kiryu-chan, y'aint got no '/from' argument!");
+                    System.out.println(linegap);
+                    continue;
+                }
+                String description = parts[0].substring(6).trim();
+                String[] dateParts = parts[1].split("/to", 2);
+                if (dateParts.length < 2) {
+                    System.out.println(linegap);
+                    System.out.println("Eh? Kiryu-chan, y'aint got no '/to' argument!");
+                    System.out.println(linegap);
+                    continue;
+                }
+                String from = dateParts[0].trim();
+                String to = dateParts[1].trim();
+                tasks[task_count] = new Event(description, from, to);
+                task_count++;
+                System.out.println(linegap);
+                System.out.println("Understood, Kiryu-chan! Adding that task to the list.");
+                System.out.println(" " + tasks[task_count - 1].toString());
+                System.out.println("Now you've got " + task_count + " tasks need doin'.");
+                System.out.println(linegap);
+            } else {
+                System.out.println(linegap);
+                System.out.println("Uhh, Kiryu-chan? There ain't no sense in whatever ya just said!");
+                System.out.println(linegap);
             }
         }
         scanner.close();
     }
+
+
+    private static boolean canAddTask() {
+        if (task_count >= MAX_TASKS) {
+            System.out.println(linegap);
+            System.out.println("O-oi, Kiryu-chan! Ya can't expect me to 'member all this crap!");
+            System.out.println(linegap);
+            return false;
+        }
+        return true;
+    }
+
+    //Code for refactoring goes here, so main doesn't look so crowded.
 }
