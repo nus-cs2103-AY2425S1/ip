@@ -1,10 +1,20 @@
-public class Duke {
+public class GreetBot {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        new GreetBot().run();
+    }
+
+    /* solution below inspired by main function in:
+    https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/duke/Duke.java
+    */
+    private void run() {
+        System.out.println("Hello! I'm GreetBot");
+        System.out.println("What can I do for you?");
+        
+        while (true) {
+            System.out.println("-----------------------");
+
+            System.out.println("Bye. Hope to see you again soon!");
+            break;
+        }
     }
 }
