@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.lang.NumberFormatException;
 
@@ -61,47 +62,57 @@ public class FriendlyBot {
                     System.out.println("    Please input a valid task index!");
                 }
             } else if (response.startsWith("todo")) {
-                String input = response.split("todo ", 2)[1];
-                Task newTask = new ToDo(input);
-                tasks[numTasks] = newTask;
-                numTasks++;
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + newTask.toString());
-                if (numTasks == 1) {
-                    System.out.println("    Now you have " + numTasks + " task in the list.");
-                } else {
-                    System.out.println("    Now you have " + numTasks + " tasks in the list.");
+                try {
+                    String input = response.split("todo ", 2)[1];
+                    Task newTask = new ToDo(input);
+                    tasks[numTasks] = newTask;
+                    numTasks++;
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + newTask.toString());
+                    if (numTasks == 1) {
+                        System.out.println("    Now you have " + numTasks + " task in the list.");
+                    } else {
+                        System.out.println("    Now you have " + numTasks + " tasks in the list.");
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("    Please follow this format: todo {task_description}");
                 }
             } else if (response.startsWith("deadline")) {
-                String input = response.split("deadline ", 2)[1];
-                String[] descriptions = input.split(" /by ");
-                Task newTask = new Deadline(descriptions[0], descriptions[1]);
-                tasks[numTasks] = newTask;
-                numTasks++;
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + newTask.toString());
-                if (numTasks == 1) {
-                    System.out.println("    Now you have " + numTasks + " task in the list.");
-                } else {
-                    System.out.println("    Now you have " + numTasks + " tasks in the list.");
+                try {
+                    String input = response.split("deadline ", 2)[1];
+                    String[] descriptions = input.split(" /by ");
+                    Task newTask = new Deadline(descriptions[0], descriptions[1]);
+                    tasks[numTasks] = newTask;
+                    numTasks++;
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + newTask.toString());
+                    if (numTasks == 1) {
+                        System.out.println("    Now you have " + numTasks + " task in the list.");
+                    } else {
+                        System.out.println("    Now you have " + numTasks + " tasks in the list.");
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("    Please follow this format: deadline {task_description} /by {date}");
                 }
             } else if (response.startsWith("event")) {
-                String input = response.split("event ", 2)[1];
-                String[] descriptions = input.split(" /from | /to ");
-                Task newTask = new Event(descriptions[0], descriptions[1], descriptions[2]);
-                tasks[numTasks] = newTask;
-                numTasks++;
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + newTask.toString());
-                if (numTasks == 1) {
-                    System.out.println("    Now you have " + numTasks + " task in the list.");
-                } else {
-                    System.out.println("    Now you have " + numTasks + " tasks in the list.");
+                try {
+                    String input = response.split("event ", 2)[1];
+                    String[] descriptions = input.split(" /from | /to ");
+                    Task newTask = new Event(descriptions[0], descriptions[1], descriptions[2]);
+                    tasks[numTasks] = newTask;
+                    numTasks++;
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + newTask.toString());
+                    if (numTasks == 1) {
+                        System.out.println("    Now you have " + numTasks + " task in the list.");
+                    } else {
+                        System.out.println("    Now you have " + numTasks + " tasks in the list.");
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("    Please follow this format: event {task_description} /from {date} /to {date}");
                 }
             } else {
-                tasks[numTasks] = new Task(response);
-                numTasks++;
-                System.out.println("    added: " + response);
+                System.out.println("OOPS!! I'm sorry, that's not a command :-(");
             }
             FriendlyBot.printHorizontalBar();
         }
