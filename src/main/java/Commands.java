@@ -13,7 +13,7 @@ public class Commands {
         for(int i =0; i < tasksIndex; i++) {
             int taskListCount = i + 1;
             Task currTask = tasks[i];
-            System.out.print(taskListCount + ". " + "[" + currTask.getStatusIcon() + "] " + tasks[i].getTaskDescription() + "\n");
+            System.out.print(taskListCount + ". " + currTask.toString() + "\n");
         }
         System.out.println("------------------------------------------");
     }
@@ -21,8 +21,8 @@ public class Commands {
     public static void addTask(Task[] tasksArr, int currIndex, Task task) {
         System.out.println("------------------------------------------");
         tasksArr[currIndex] = task;
-        String taskDescription = task.getTaskDescription();
-        System.out.println( "added: " + taskDescription);
+        int numberOfTasks = currIndex + 1;
+        System.out.println( "Got it. I've added this task: \n" + task.toString() + "\n" + "Now you have " + numberOfTasks + " tasks in your list.");
         System.out.println("------------------------------------------");
     }
 
@@ -31,7 +31,7 @@ public class Commands {
         Task currTask = tasksArr[taskIndex];
         currTask.setIsDone(true);
         System.out.println("------------------------------------------");
-        System.out.println("Nice! I have marked this task as done: \n" + "[" + currTask.getStatusIcon() + "] " + currTask.getTaskDescription());
+        System.out.println("Nice! I have marked this task as done: \n" + currTask.toString());
         System.out.println("------------------------------------------");
     }
 
@@ -40,7 +40,7 @@ public class Commands {
         Task currTask = tasksArr[taskIndex];
         currTask.setIsDone(false);
         System.out.println("------------------------------------------");
-        System.out.println("OK, I've marked this task as not done yet: \n" + "[" + currTask.getStatusIcon() + "] " + currTask.getTaskDescription());
+        System.out.println("OK, I've marked this task as not done yet: \n" + currTask.toString());
         System.out.println("------------------------------------------");
     }
 
