@@ -63,6 +63,18 @@ public class GPT {
                     continue;
                 }
 
+                // Delete tasks
+                if (input.startsWith("delete")) {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                    Task removedTask = tasks.remove(taskNumber);
+                    printLine();
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removedTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    printLine();
+                    continue;
+                }
+
                 // Handle ToDo tasks
                 if (input.startsWith("todo")) {
                     String description = input.substring(4).trim();
@@ -125,6 +137,7 @@ public class GPT {
                     System.out.println("  list - To display all tasks");
                     System.out.println("  mark [task number] - To mark a task as done");
                     System.out.println("  unmark [task number] - To unmark a task");
+                    System.out.println("  delete [task number] - To delete a task");
                 } else {
                     System.out.println(e.getMessage());
                 }
@@ -142,4 +155,3 @@ public class GPT {
         System.out.println("____________________________________________________________");
     }
 }
-
