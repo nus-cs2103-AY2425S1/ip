@@ -26,8 +26,10 @@ public class Kotori {
                 task.unmark();
                 printMessage(String.format("Alright, Job %s has been marked as not done!\n    %s",index,task));
             } else {
-                list.add(new Task(input));
-                printMessage("added:　" + input);
+                Task task = Task.of(input);
+                list.add(task);
+                printMessages(new String[]{"Got it. I've added this task:",task.toString(),
+                String.format("Now you have %s tasks in the list",list.size())});
             }
         }
 
@@ -44,6 +46,16 @@ public class Kotori {
         System.out.println("    " + input);
         printLine();
     }
+
+    public static void printMessages(String[] inputs) {
+        printLine();
+        for (String s : inputs) {
+            System.out.println("    " + s);
+        }
+        printLine();
+    }
+
+
 
     public static void printList(List<? extends Object> list) {
         printLine();
