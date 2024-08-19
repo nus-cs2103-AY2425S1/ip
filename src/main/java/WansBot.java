@@ -3,24 +3,25 @@ import java.util.Scanner;
 public class WansBot {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        TaskList userTaskList = new TaskList();
         String logo ="                 __"
                 + "\n|  |  /\\  |\\ | /__` "
                 + "\n|/\\| /~~\\ | \\| .__/\n";
-
         String hr = "----------------------------------------------------------------------";
 
         System.out.println(hr + "\nWans:\n"
                 + "Hey, I'm\n"
                 + logo
-                + "\nCan I help? (even though I lowkey don't want to)\n" + hr);
+                + "\nCan I help? (I can only manage a todo list so...)\n" + hr);
 
         while (true) {
             System.out.println("User: ");
             String userInput = sc.nextLine();
-            TaskList userTaskList = new TaskList();
 
             if (userInput.equalsIgnoreCase("list")) {
-                System.out.println();
+                System.out.println(hr + "\nWans:"
+                        + "\nHere are your tasks!\n"
+                        + userTaskList.toString());
             } else if (userInput.equalsIgnoreCase("")) {
 
             } else if (userInput.equalsIgnoreCase("bye")) {
@@ -29,12 +30,12 @@ public class WansBot {
                         + "\n|  _ < \\   / |  __|"
                         + "\n| |_) | | |  | |____"
                         + "\n|____/  |_|  |______";
-                System.out.println("Wans: \n"
+                System.out.println(hr + "\nWans: \n"
                         + exit
                         + "\nI'll miss you :( (I really wanna go home)\n" + hr);
                 System.exit(0);
             } else {
-                 userTaskList.add(userInput);
+                userTaskList.add(new Task(userInput));
                 System.out.println(hr + "\nWans:\n"
                         + "Ok! I've added " + userInput
                         + "\n" + hr);

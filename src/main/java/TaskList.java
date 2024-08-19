@@ -4,19 +4,23 @@ public class TaskList {
     private ArrayList<Task> listOfTasks;
 
     public TaskList() {
-        listOfTasks = new ArrayList<Task>();
+        this.listOfTasks = new ArrayList<Task>();
     }
 
-    public void add(String task) {
-        listOfTasks.add(new Task(task));
+    public void add(Task task) {
+        this.listOfTasks.add(task);
     }
 
     @Override
     public String toString() {
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            System.out.println(i + ". " + listOfTasks.get(i).toString());
+        if (this.listOfTasks.size() <= 0) {
+            return "Maybe you can try adding tasks :)";
+        }
+        String myTasks = "";
+        for (int i = 0; i < this.listOfTasks.size(); i++) {
+            myTasks += i + ". " + this.listOfTasks.get(i).toString() + "\n";
         }
 
-        return "1";
+        return myTasks;
     }
 }
