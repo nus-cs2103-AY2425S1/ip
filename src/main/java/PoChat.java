@@ -69,4 +69,12 @@ class PoChat {
     private int getNumTasks() {
         return this.listTasks.size();
     }
+
+    public void deleteTask(int index) {
+        Task task = this.listTasks.get(index);
+        this.listTasks.remove(index);
+
+        System.out.println("Noted. I've removed this task:\n" + task + "\nNow you have "
+        + this.getNumTasks() + " tasks in the list.");
+    }
 }

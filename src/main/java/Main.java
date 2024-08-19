@@ -19,6 +19,9 @@ public class Main {
             } else if (textInput.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
                 poChat.unmarkTaskDone(taskIndex);
+            } else if (textInput.startsWith("delete")) {
+                int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
+                poChat.deleteTask(taskIndex);
             } else if (textInput.startsWith("todo")) {
                 try {
                     String taskDescription = textInput.substring(5);
