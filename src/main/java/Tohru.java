@@ -62,10 +62,10 @@ public class Tohru {
                 TodoItem newTodo = new TodoItem(argument);
 
                 if (todoList.addItem(newTodo)) {
-                    System.out.println(String.format("Added todo entry: %s", argument));
+                    System.out.println(String.format("Added todo entry: %s", argument.trim()));
                     System.out.println(newTodo);
                 } else {
-                    System.out.println(String.format("Unable to add todo entry: %s", argument));
+                    System.out.println(String.format("Unable to add todo entry: %s", argument.trim()));
                 }
                 System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
                 break;
@@ -77,10 +77,10 @@ public class Tohru {
                 DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
 
                 if (todoList.addItem(newDeadline)) {
-                    System.out.println(String.format("Added deadline entry: %s", deadlineContent));
+                    System.out.println(String.format("Added deadline entry: %s", deadlineContent.trim()));
                     System.out.println(newDeadline);
                 } else {
-                    System.out.println(String.format("Unable to add deadline entry: %s", deadlineContent));
+                    System.out.println(String.format("Unable to add deadline entry: %s", deadlineContent.trim()));
                 }
                 System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
                 break;
@@ -94,10 +94,10 @@ public class Tohru {
                 EventItem newEvent = new EventItem(eventContent, from, to);
 
                 if (todoList.addItem(newEvent)) {
-                    System.out.println(String.format("Added event entry: %s", eventContent));
+                    System.out.println(String.format("Added event entry: %s", eventContent.trim()));
                     System.out.println(newEvent);
                 } else {
-                    System.out.println(String.format("Unable to add event entry: %s", eventContent));
+                    System.out.println(String.format("Unable to add event entry: %s", eventContent.trim()));
                 }
                 System.out.println(String.format("There are now %d total entries", todoList.getTotal()));
                 break;
