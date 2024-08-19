@@ -1,26 +1,31 @@
 import java.util.Scanner;
 import java.util.Random;
 
+import java.util.ArrayList;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Fret {
     private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+");
+    private static final Pattern TODO_PATTERN = Pattern.compile("todo (.+)");
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.+?) /by (.+)");
+    private static final Pattern EVENT_PATTERN = Pattern.compile("event (.+?) /from (.+) /to (.+)");
     private static final Random RNG = new Random();
 
     private static final String[] ADD_TASK_PREFIXES = new String[] {
-        "\tYou got it! Adding task: ",
-        "\tYou got it! Adding task: ",
-        "\tYou got it! Adding task: ",
-        "\tYou sure wanna do that? ",
-        "\tAlright! Adding task: ",
-        "\tAlright! Adding task: ",
-        "\tAlright! Adding task: ",
-        "\tOn it! Task added: ",
-        "\tOn it! Task added: ",
-        "\tWhatever you say! *nervous laughter*: ",
-        "\tHmmmm..... Done. Task added: ",
-        "\tWorking..... Done. Task added: ",
+        "\tYou got it! Adding task:\n\t",
+        "\tYou got it! Adding task:\n\t",
+        "\tYou got it! Adding task:\n\t",
+        "\tYou sure wanna do that?\n\t",
+        "\tAlright! Adding task:\n\t",
+        "\tAlright! Adding task:\n\t",
+        "\tAlright! Adding task:\n\t",
+        "\tOn it! Task added:\n\t",
+        "\tOn it! Task added:\n\t",
+        "\tWhatever you say! *nervous laughter*:\n\t",
+        "\tHmmmm..... Done. Task added:\n\t",
+        "\tWorking..... Done. Task added:\n\t",
     };
 
     private static final String[] TASK_COMPLETED_PREFIXES = new String[] {
@@ -40,12 +45,13 @@ public class Fret {
         "\tMarking as incomplete.\n",
         "\tBooooo\n",
         "\tBooooo\n",
+        "\tBooooo\n",
         "\tAw man. Task marked as incomplete\n",
         "\tAw man. Task marked as incomplete\n",
         "\tOh well. Marking task as incomplete\n",
         "\tOh well. Marking task as incomplete\n",
         "\tDamn. Thought we had that.\n",
-        "\tDamn. Thought we had that.\n",
+        "\tAw man. Thought we had that.\n",
         "\tDamn. Thought we had that.\n"
     };
 
@@ -66,7 +72,7 @@ public class Fret {
      * @param numTasks the number of tasks
      * @return an enumeration of the tasks
      */
-    private static String taskListToString(Task[] tasks, int numTasks) {
+    private static String taskListToString(ArrayList<Task> tasks, int numTasks) {
         if (numTasks == 0) {
             return "\tempty";
         }
@@ -74,7 +80,7 @@ public class Fret {
         String[] tempTasks = new String[numTasks];
 
         for (int i = 1; i <= numTasks; i++) {
-            tempTasks[i - 1] = "\t" + i + ". " + tasks[i - 1].toString();
+            tempTasks[i - 1] = "\t" + i + ". " + tasks.get(i - 1).toString();
         }
 
         return String.join("\n", tempTasks);
@@ -93,7 +99,7 @@ public class Fret {
 
     public static void main(String[] args) {
         // declare the list of tasks
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int numTasks = 0;
 
         String logo = "________                ___ \n"
@@ -111,7 +117,7 @@ public class Fret {
         String userInput;
 
         do {
-            userInput = input.nextLine(); // get user input
+            userInput = input.nextLine().toLowerCase(); // get user input and make it small letters
 
             if (!userInput.equals("bye")) {
                 if (userInput.equals("list")) {
@@ -128,9 +134,10 @@ public class Fret {
                         // if integer represents a valid task, set it as complete
                         // otherwise reprompt
                         try {
-                            tasks[taskNum - 1].markAsCompleted();
+                            tasks.get(taskNum - 1).markAsCompleted();
                             printBotOutputString(
-                                generateRandomPrefix(TASK_COMPLETED_PREFIXES) + taskListToString(tasks, numTasks));
+                                generateRandomPrefix(TASK_COMPLETED_PREFIXES) + taskListToString(tasks, numTasks)
+                            );
                         } catch (NullPointerException | IndexOutOfBoundsException e) {
                             printBotOutputString("\tOops! You don't have those many tasks!");
                         }
@@ -147,7 +154,7 @@ public class Fret {
                     if (taskNumMatch.find()) {
                         int taskNum = Integer.parseInt(taskNumMatch.group());
                         try {
-                            tasks[taskNum - 1].markAsNotCompleted();
+                            tasks.get(taskNum - 1).markAsNotCompleted();
                             printBotOutputString(
                                 generateRandomPrefix(TASK_UNCOMPLETED_PREFIXES) + taskListToString(tasks, numTasks));
                         } catch (NullPointerException e) {
@@ -157,18 +164,54 @@ public class Fret {
                         printBotOutputString("\tUhhh hang on what did you want to unmark?");
                     }
                 } 
-                else {
-                    // otherwise just add user input to tasklist
-                    printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + userInput);
+                else if (userInput.startsWith("todo")) {
+                    // add add user input to tasklist as todo
+                    Matcher taskMatcher = TODO_PATTERN.matcher(userInput);
 
-                    tasks[numTasks] = new Task(userInput);
-                    numTasks++;
+                    if (taskMatcher.find()) {
+                        Todo task = new Todo(taskMatcher.group(1));
+                        tasks.add(task);
+                        numTasks++;
+                        printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + task.toString());
+                    } else {
+                        printBotOutputString("\tHang on it looks like you haven't given me any task to add!");
+                    }
+                } else if (userInput.startsWith("deadline")) {
+                    // add user input as deadline task, after parsing out the date and task
+                    Matcher taskMatcher = DEADLINE_PATTERN.matcher(userInput);
+
+                    if (taskMatcher.find()) {
+                        Deadline task = new Deadline(taskMatcher.group(1), taskMatcher.group(2));
+                        tasks.add(task);
+                        numTasks++;
+                        printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + task.toString());
+                    } else {
+                        printBotOutputString("\tOops! You haven't given me any task and deadline to add!");
+                    }
+                } else if (userInput.startsWith("event")) {
+                    // add user input as event task, after parsing out the dates and task
+                    Matcher taskMatcher = EVENT_PATTERN.matcher(userInput);
+
+                    if (taskMatcher.find()) {
+                        Event task = new Event(
+                            taskMatcher.group(1),
+                            taskMatcher.group(2),
+                            taskMatcher.group(3)
+                        );
+                        tasks.add(task);
+                        numTasks++;
+                        printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + task.toString());
+                    } else {
+                        printBotOutputString("\tHold on! You haven't given me any task and timings to add!");
+                    }
+                } else {
+                    printBotOutputString("\tUhhh I did not get that so I'm just gonna say yes!");
                 }
             }
         } while (!userInput.equals("bye"));
 
         // once user enters "bye", leave the loop and exit the program
-        
+
         input.close();
 
         printBotOutputString("\tOh well, it was fun while it lasted. Goodbye!");
