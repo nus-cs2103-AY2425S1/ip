@@ -47,6 +47,7 @@ public class Majima {
                 } else {
                     System.out.println(linegap);
                     System.out.println("Eh? Kiryu-chan, yain't making any sense!");
+                    System.out.println("Tell me the number of the task ya want changed!");
                     System.out.println(linegap);
                 }
             } else if (input.startsWith("unmark")) {
@@ -63,6 +64,7 @@ public class Majima {
                 } else {
                     System.out.println(linegap);
                     System.out.println("Eh? Kiryu-chan, yain't making any sense!");
+                    System.out.println("Tell me the number of the task ya want changed!");
                     System.out.println(linegap);
                 }
             }

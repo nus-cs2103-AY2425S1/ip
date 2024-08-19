@@ -1,0 +1,7 @@
+todo Test1
+deadline Test2 /by Sunday
+event CS2103T tutorial /from Friday 9am /to Friday 12pm
+mark 2
+deadline Test4
+event Test5
+bye
