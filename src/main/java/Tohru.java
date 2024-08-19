@@ -92,6 +92,27 @@ public class Tohru {
                         System.out.println(todoList.getItemStatus(unmarkItemIndex));
                         break;
 
+                    case "delete":
+                        // Check if no arguments are provided
+                        if (argument == null) {
+                            throw new TohruException("Missing argument: Specify index to delete");
+                        }
+
+                        int deletionIndex = Integer.parseInt(argument) - 1;
+                        // Check for valid index
+                        if (deletionIndex < 0 || deletionIndex >= todoList.getTotal()) {
+                            throw new TohruException("The entry you are looking to delete cannot be found");
+                        }
+
+                        String storedItemStatus = todoList.getItemStatus(deletionIndex);
+                        if (todoList.deleteItem(deletionIndex)) {
+                            System.out.println("Alright! I have removed this task from list:");
+                        } else {
+                            System.out.println("Unable to remove this task from list:");
+                        }
+                        System.out.println(storedItemStatus);
+                        break;
+
                     case "todo":
                         // Check if no arguments are provided
                         if (argument == null) {
