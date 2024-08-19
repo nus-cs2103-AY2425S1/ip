@@ -1,5 +1,12 @@
 public class Janet {
     private static final String horizontalLine = "____________________________________________________________";
+    private final String[] listOfTasks;
+    private int taskIndex;
+
+    Janet() {
+        this.listOfTasks = new String[100];
+        this.taskIndex = 0;
+    }
 
     /**
      * Level 0 - greets the user
