@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Bobby {
     private final Scanner input;
-    private ArrayList<String> tasks;
+    private ArrayList<Task> tasks;
     private boolean isRunning;
 
     public Bobby() {
@@ -17,15 +17,28 @@ public class Bobby {
     }
 
     public void processInput(String s) {
-        if (s.equals("bye")) {
+        String[] inputArr = s.split(" ");
+        String command = inputArr[0];
+        if (command.equals("bye")) {
             this.isRunning = false;
             System.out.println("Bye. Hope to see you again soon!");
-        } else if (s.equals("list")) {
+        } else if (command.equals("list")) {
+            System.out.println("Here are the tasks in your list: ");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println(i + 1 + ". " + tasks.get(i));
             }
+        } else if (command.equals("mark")) {
+            int idx = Integer.parseInt(inputArr[1]) - 1;
+            this.tasks.get(idx).setIsDone(true);
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println(this.tasks.get(idx));
+        } else if (command.equals("unmark")) {
+            int idx = Integer.parseInt(inputArr[1]) - 1;
+            this.tasks.get(idx).setIsDone(false);
+            System.out.println("Ok, I've marked this task as not done yet: ");
+            System.out.println(this.tasks.get(idx));
         } else {
-            tasks.add(s);
+            tasks.add(new Task(s));
             String text = String.format("Added: %s", s);
             System.out.println(text);
         }
