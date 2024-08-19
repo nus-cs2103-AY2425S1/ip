@@ -3,7 +3,7 @@
  * As per requirements it can store up to 100 tasks.
  */
 public class TaskList {
-    private String[] tasks;
+    private Task[] tasks;
     private int taskCount;
 
     /**
@@ -11,7 +11,7 @@ public class TaskList {
      * Initializes the task count to zero.
      */
     public TaskList() {
-        this.tasks = new String[100];
+        this.tasks = new Task[100];
         this.taskCount = 0;
     }
 
@@ -20,8 +20,12 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(String task) {
-        this.tasks[this.taskCount] = task;
+        //Create new task object from user input
+        Task newTask = new Task(task);
+
+        this.tasks[this.taskCount] = newTask;
         this.taskCount++;
+        
         System.out.println("____________________________________________________________");
         System.out.println("added: " + task);
         System.out.println("____________________________________________________________");
