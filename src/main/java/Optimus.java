@@ -13,50 +13,63 @@ public class Optimus {
 
         //while loop to keep taking in user input
         while (true) {
-            String userInput = scanner.nextLine();
+            try {
+                String userInput = scanner.nextLine();
 
-            //exit program if user enters "bye"
-            if (userInput.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!\n");
-                scanner.close();
-                System.exit(0);
-            }
-
-            //if user inputs "list", list out all existing tasks from taskList array
-            if (userInput.equals("list")) {
-                listTasks();
-            } else if (userInput.startsWith("mark")) { //check if user wants to mark task
-                String[] parts = userInput.split(" ");
-                int taskIndex = Integer.parseInt(parts[1]) - 1; // Get the index (1-based index to 0-based)
-                if (taskIndex + 1 > taskCount) { //check if task user wants to add exists
-                    System.out.println("Sorry, you only have up to task number " + taskCount);
-                    continue;
+                //exit program if user enters "bye"
+                if (userInput.equals("bye")) {
+                    System.out.println("Bye. Hope to see you again soon!\n");
+                    scanner.close();
+                    System.exit(0);
                 }
-                markTaskAsDone(taskIndex);
-            } else {
-                // else add user task to taskList array and echo "added: <task>"
-                addTask(userInput);
+
+                //if user inputs "list", list out all existing tasks from taskList array
+                if (userInput.equals("list")) {
+                    listTasks();
+                } else if (userInput.startsWith("mark")) { //check if user wants to mark task
+                    String[] parts = userInput.split(" ");
+                    int taskIndex = Integer.parseInt(parts[1]) - 1; // Get the index (1-based index to 0-based)
+                    if (taskIndex + 1 > taskCount) { //check if task user wants to add exists
+                        System.out.println("Sorry, you only have up to task number " + taskCount);
+                        continue;
+                    }
+                    markTaskAsDone(taskIndex);
+                } else {
+                    // else add user task to taskList array and echo "added: <task>"
+                    addTask(userInput);
+                }
+            } catch (OptimusException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
     //add task to taskList array upon user input
-    private static void addTask(String userInput) {
+    private static void addTask(String userInput) throws OptimusException {
         Task task;
         //used AI to find how to extract relevant words from user input
         if (userInput.startsWith("todo")) {
             String description = userInput.substring(5).trim();
+            if (description.isEmpty()) {
+                throw new OptimusException("The description of a todo cannot be empty >:(");
+            }
             task = new Todo(description);
         } else if (userInput.startsWith("deadline")) {
             String[] parts = userInput.substring(9).split("/by");
             String description = parts[0].trim();
             String by = parts[1].trim();
+            if (description.isEmpty()) {
+                throw new OptimusException("The description of a deadline cannot be empty >:(");
+            }
             task = new Deadline(description, by);
         } else if (userInput.startsWith("event")) {
             String[] parts = userInput.substring(6).split ("/from|/to");
             String description = parts[0].trim();
             String from = parts[1].trim();
             String to = parts[2].trim();
+            if (description.isEmpty()) {
+                throw new OptimusException("The description of an event cannot be empty >:(");
+            }
             task = new Event(description, from, to);
         } else {
             task = new Task(userInput);
