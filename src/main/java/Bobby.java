@@ -16,8 +16,14 @@ public class Bobby {
         return this.input.nextLine();
     }
 
+    public void printAddSuccess(Task newTask) {
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(newTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+    }
+
     public void processInput(String s) {
-        String[] inputArr = s.split(" ");
+        String[] inputArr = s.split(" ", 2);
         String command = inputArr[0];
         if (command.equals("bye")) {
             this.isRunning = false;
@@ -37,10 +43,28 @@ public class Bobby {
             this.tasks.get(idx).setIsDone(false);
             System.out.println("Ok, I've marked this task as not done yet: ");
             System.out.println(this.tasks.get(idx));
+        } else if (command.equals("todo")) {
+            Task newTask = new Todo(inputArr[1]);
+            this.tasks.add(newTask);
+            this.printAddSuccess(newTask);
+        } else if (command.equals("deadline")) {
+            String[] args = inputArr[1].split(" /by ", 2);
+            String name = args[0];
+            String deadline = args[1];
+            Task newTask = new Deadline(name, deadline);
+            this.tasks.add(newTask);
+            this.printAddSuccess(newTask);
+        } else if (command.equals("event")) {
+            String[] args = inputArr[1].split(" /from ", 2);
+            String name = args[0];
+            String[] fromTo = args[1].split(" /to ", 2);
+            String from = fromTo[0];
+            String to = fromTo[1];
+            Task newTask = new Event(name, from, to);
+            this.tasks.add(newTask);
+            this.printAddSuccess(newTask);
         } else {
-            tasks.add(new Task(s));
-            String text = String.format("Added: %s", s);
-            System.out.println(text);
+            System.out.println("Invalid command");
         }
     }
 
