@@ -58,6 +58,9 @@ public class David {
                     case "DEADLINE":
                         addDeadlineTask(inputString);
                         break;
+                    case "DELETE":
+                        deleteTask(inputString);
+                        break;
                     default:
                         throw new DavidUnknownActionException();
                 }
@@ -133,6 +136,31 @@ public class David {
                         "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
                         "____________________________________________________________\n");
     }
+
+    /*
+    Deletes a task from the array list of tasks
+     */
+    public void deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException{
+        try {
+            String index = StringParser.parseStringToArguments(s);
+            int i = Integer.parseInt(index) -1;
+            if(i >= tasks.size()){
+                throw new DavidInvalidTaskException();
+            };
+            Task t = tasks.get(i);
+            tasks.remove(i);
+            System.out.println(
+                    "____________________________________________________________\n" +
+                            "Alright, I've removed this task from the list:\n" +
+                            t + "\n" +
+                            "     You now have " + this.tasks.size() +  " tasks in the list.\n" +
+                            "____________________________________________________________\n");
+        } catch (NumberFormatException e) {
+            System.out.println("The number you entered is not a valid number. Please enter a valid number");
+        }
+
+    }
+
 
     public void markTaskAsDone(String s) throws DavidInvalidArgumentsException{
         try {
