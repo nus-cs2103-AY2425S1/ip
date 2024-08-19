@@ -80,10 +80,8 @@ public class Hoshi {
                 System.out.println("OK, I've marked this task as not done yet: \n");
                 System.out.println(array[markIndex].toString() + "\n");
 
-                // add
+                // add a Task
             } else {
-
-                //Task newTask = new Task(input);
 
                 if (input.equals("todo")) {
 
@@ -94,6 +92,7 @@ public class Hoshi {
                     Todo newToDo = new Todo(desc);
                     indexCounter++;
                     array[indexCounter] = newToDo;
+                    System.out.println("added: " + input);
 
                 } else if (input.equals("deadline")) {
 
@@ -108,6 +107,8 @@ public class Hoshi {
                     Deadline newDeadline = new Deadline(desc, endTime);
                     indexCounter++;
                     array[indexCounter] = newDeadline;
+                    System.out.println("added: " + input);
+
                 } else if (input.equals("event")) {
 
                     System.out.println("Understood! What is your Event? ");
@@ -126,15 +127,14 @@ public class Hoshi {
                     Event newEvent = new Event(desc, startTime, endTime);
                     indexCounter++;
                     array[indexCounter] = newEvent;
+                    System.out.println("added: " + input);
+
+                } else {
+
+                    // in event of invalid input
+                    System.out.println("Hoshi dosen't understand! Please try again with the above keywords(in lowercase)");
+
                 }
-
-
-                // init new Task
-
-
-                // add new task to array
-
-                System.out.println("added: " + input);
 
                 System.out.println("____________________________________________________________");
             }
