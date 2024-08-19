@@ -10,6 +10,7 @@ import task.Task;
  * @author Toh Yi Hui A0259080A
  */
 public class MarkTask extends TaskModifier {
+    private String output;
     private int idx;
 
     /**
@@ -41,20 +42,30 @@ public class MarkTask extends TaskModifier {
     @Override
     public int execute() {
         if (tasks == null) {
-            super.output("Task list cannot be null.");
+            output = "Task list cannot be null.";
             return 2;
         }
 
         try {
             Task task = super.tasks.get(idx - 1);
             if (task.markComplete()) {
-                super.output("Nice! I've marked this task as done:\n" + task.toString());
+                output = "Nice! I've marked this task as done:\n" + task.toString();
             } else {
-                super.output("Task " + idx + " is already completed.");
+                output = "Task " + idx + " is already completed.";
             }
         } catch (IndexOutOfBoundsException e) {
-            super.output(idx + " index out bounds of task list of size " + super.tasks.size() + ".");
+            output = idx + " index out bounds of task list of size " + super.tasks.size() + ".";
         }
         return 0;
+    }
+
+    /**
+     * Return the output of the executable.
+     *
+     * @return the output of the executable.
+     */
+    @Override
+    public String getOutput() {
+        return output;
     }
 }

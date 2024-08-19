@@ -8,6 +8,8 @@ import executable.TaskModifier;
 
 import task.Task;
 
+import exception.BotException;
+
 /**
  * Your friendly todolist bot.
  *
@@ -39,15 +41,17 @@ public class YihuiBot {
                     taskModifier.setTasks(tasks);
                     exec = taskModifier;
                 }
-                
-                if (exec.executeAndPrint() > 0){
-                    // The exit code of executing the Executable is > 0, and the program
-                    // should be terminated.
+
+                int exitCode = exec.execute();
+
+                prettyPrint(exec.getOutput());
+
+                if (exitCode > 0){
                     break;
                 }
             }
         } catch (IllegalStateException | NoSuchElementException | NullPointerException e) {
-            System.out.println("An error occured. " + e.getMessage());
+            prettyPrint("An error occured. " + e.getMessage());
         } finally {
             userInput.close();
         }
@@ -58,7 +62,19 @@ public class YihuiBot {
     }
 
     private static void greetings() {
-        new Greet(NAME).executeAndPrint();
+        Greet greet = new Greet(NAME);
+        greet.execute();
+        prettyPrint(greet.getOutput());
+    }
+
+    private static void prettyPrint(String s) {
+        String wrapped = wrapStringWithHorizontalLines(s);
+        System.out.println(wrapped);
+    }
+
+    private static String wrapStringWithHorizontalLines(String s) {
+        String horizontalLine = "-----------------------------------------------------------------";
+        return horizontalLine + "\n" + s + "\n" + horizontalLine;
     }
 }
 

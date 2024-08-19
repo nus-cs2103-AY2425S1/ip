@@ -10,6 +10,7 @@ import task.Task;
  * @author Toh Yi Hui A0259080A
  */
 public class UnmarkTask extends TaskModifier {
+    private String output;
     private int idx;
 
     /**
@@ -41,20 +42,29 @@ public class UnmarkTask extends TaskModifier {
     @Override
     public int execute() {
         if (tasks == null) {
-            super.output("Task list cannot be null.");
+            output = "Task list cannot be null.";
             return 2;
         }
 
         try {
             Task task = super.tasks.get(idx - 1);
             if (task.markIncomplete()) {
-                super.output("Ok. I've marked this task as not done:\n" + task.toString());
+                output = "Ok. I've marked this task as not done:\n" + task.toString();
             } else {
-                super.output("Task " + idx + " is not complete.");
+                output = "Task " + idx + " is not complete.";
             }
         } catch (IndexOutOfBoundsException e) {
-            super.output(idx + " index out of bounds of task list of size " + super.tasks.size() + ".");
+            output = idx + " index out of bounds of task list of size " + super.tasks.size() + ".";
         }
         return 0;
+    }
+
+    /**
+     * Return the output of the executable.
+     *
+     * @return the output of the executable.
+     */
+    public String getOutput() {
+        return output;
     }
 }

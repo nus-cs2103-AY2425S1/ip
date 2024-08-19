@@ -10,6 +10,8 @@ import task.Task;
  * @author Toh Yi Hui A0259080A
  */
 public class ListTask extends TaskModifier {
+    private String output;
+
     /**
      * Constructor for a new ListTask executable.
      */
@@ -34,16 +36,25 @@ public class ListTask extends TaskModifier {
     @Override
     public int execute() {
         if (tasks == null) {
-            super.output("Task list cannot be null.");
+            output = "Task list cannot be null.";
             return 2;
         }
         
-        String output = "Here are the tasks in your list:";
+        output = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             output += "\n" + (i + 1) + ". " + task.toString();
         }
-        super.output(output);
         return 0;
+    }
+
+    /**
+     * Return the output of the executable.
+     *
+     * @return the output of the exectuable.
+     */
+    @Override
+    public String getOutput() {
+        return output;
     }
 }

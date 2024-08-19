@@ -9,7 +9,7 @@ import task.Task;
  *
  * @author Toh Yi Hui A0259080A
  */
-public abstract class TaskModifier extends Executable {
+public abstract class TaskModifier implements Executable {
     protected ArrayList<Task> tasks;
 
     /**

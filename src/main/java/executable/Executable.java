@@ -5,9 +5,7 @@ package executable;
  *
  * @author Toh Yi Hui A0259080A
  */
-public abstract class Executable {
-    private String output;
-
+public interface Executable {
     /**
      * Executes the executable and store the output.
      *
@@ -19,38 +17,9 @@ public abstract class Executable {
     public abstract int execute();
 
     /**
-     * Prints out the output. This print method cannot be override by subclasses of
-     * executable as the output needs to follow the format as indicated here.
-     */
-    public final void print() {
-        String wrapped = wrapStringWithHorizontalLines(output);
-        System.out.println(wrapped);
-    }
-
-    /**
-     * Executes the executable and print the output in a single method.
-     * 
-     * @return the exit code after executing the executable.
-     *         Refer to the individual Executables to see the list of available
-     *         return values.
-     */
-    public final int executeAndPrint() {
-        int exitCode = execute();
-        print();
-        return exitCode;
-    }
-
-    /**
-     * Change the output of the executable.
+     * Return the output of the executable.
      *
-     * @param output the changed output.
+     * @return the output of the executable.
      */
-    public void output(String output) {
-        this.output = output;
-    }
-
-    private String wrapStringWithHorizontalLines(String s) {
-        String horizontalLine = "-----------------------------------------------------------------";
-        return horizontalLine + "\n" + s + "\n" + horizontalLine;
-    }
+    public abstract String getOutput();
 }

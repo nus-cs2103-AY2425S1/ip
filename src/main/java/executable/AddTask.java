@@ -10,6 +10,7 @@ import task.Task;
  * @author Toh Yi Hui A0259080A
  */
 public class AddTask extends TaskModifier {
+    private String output;
     private Task task;
 
     /**
@@ -41,13 +42,23 @@ public class AddTask extends TaskModifier {
     @Override
     public int execute() {
         if (tasks == null) {
-            super.output("Task list cannot be null.");
+            output = "Task list cannot be null.";
             return 2;
         }
 
         tasks.add(task);
-        super.output("Got it. I've added this task:\n" + task.toString()
-                + "\nNow you have " + super.tasks.size() + " task(s) in your list.");
+        output = "Got it. I've added this task:\n" + task.toString()
+                + "\nNow you have " + super.tasks.size() + " task(s) in your list.";
         return 0;
+    }
+
+    /**
+     * Return the output of the executable.
+     *
+     * @return the output of the executable.
+     */
+    @Override
+    public String getOutput() {
+        return output;
     }
 }

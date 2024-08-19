@@ -12,6 +12,11 @@ import task.Deadline;
 import task.Event;
 import task.Todo;
 
+import exception.BotException;
+import exception.CommandNotFoundException;
+import exception.InvalidArgumentException;
+import exception.UnexpectedArgumentException;
+
 /**
  * A parser to parse user's input from YihuiBot and call the appropriate executable.
  *
@@ -38,54 +43,58 @@ public class Parser {
                 ? null
                 : Arrays.copyOfRange(inputArray, 1, inputArray.length);
 
-        switch (command) {
-        case "bye":
-            return bye(arguments);
-        case "list":
-            return list(arguments);
-        case "mark":
-            return mark(arguments);
-        case "unmark":
-            return unmark(arguments);
-        case "todo":
-            return todo(arguments);
-        case "deadline":
-            return deadline(arguments);
-        case "event":
-            return event(arguments);
-        default:
-            return commandNotFound(input);
+        try {
+            switch (command) {
+            case "bye":
+                return bye(arguments);
+            case "list":
+                return list(arguments);
+            case "mark":
+                return mark(arguments);
+            case "unmark":
+                return unmark(arguments);
+            case "todo":
+                return todo(arguments);
+            case "deadline":
+                return deadline(arguments);
+            case "event":
+                return event(arguments);
+            default:
+                throw new CommandNotFoundException(input);
+            }
+        } catch (BotException e) {
+            return new Warning(e.getMessage());
         }
     }
 
-    private Executable bye(String[] arguments) {
+    private Executable bye(String[] arguments) throws UnexpectedArgumentException {
         if (arguments != null) {
             String output = "Unexpected argument called with bye.";
-            return new Warning(output);
+            throw new UnexpectedArgumentException(output);
         }
         return new Exit();
     }
 
-    private Executable list(String[] arguments) {
+    private Executable list(String[] arguments) throws UnexpectedArgumentException {
         if (arguments != null) {
             String output = "Unexpected argument called with list.";
-            return new Warning(output);
+            throw new UnexpectedArgumentException(output);
         }
         return new ListTask();
     }
 
-    private Executable mark(String[] arguments) {
+    private Executable mark(String[] arguments) throws InvalidArgumentException {
         String sample = "mark 2";
 
         if (arguments == null) {
             String output = "Please call mark with an integer.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (arguments.length > 1) {
             String output = "Too many arguments. Please call mark with only 1 integer.\nE.g. "
                     + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         try {
@@ -94,22 +103,22 @@ public class Parser {
         } catch (NumberFormatException e) {
             String output = "Invalid argument. Please call mark with an integer.\nE.g. "
                     + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
     }
 
-    private Executable unmark(String[] arguments) {
+    private Executable unmark(String[] arguments) throws InvalidArgumentException {
         String sample = "unmark 2";
 
         if (arguments == null) {
             String output = "Please call unmark with an integer.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (arguments.length > 1) {
             String output = "Too many arguments. Please call unmark with only 1 integer.\nE.g. "
                     + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         try {
@@ -118,17 +127,17 @@ public class Parser {
         } catch (NumberFormatException e) {
             String output = "Invalid argument. Please call mark with an integer.\nE.g. "
                     + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
     }
 
-    private Executable todo(String[] arguments) {
+    private Executable todo(String[] arguments) throws InvalidArgumentException {
         String sample = "todo read book";
 
         if (arguments == null || arguments.length < 1) {
             String output = "Please specify a task description as argument.\nE.g. "
                     + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         String description = String.join(" ", arguments);
@@ -136,30 +145,30 @@ public class Parser {
         return new AddTask(task);
     }
 
-    private Executable deadline(String[] arguments) {
+    private Executable deadline(String[] arguments) throws InvalidArgumentException {
         String sample = "deadline return book /by Sunday";
 
         if (arguments == null) {
             String output = "Please specify a task description and a deadline as argument.\n"
                     + "E.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         int idx = findIndexOfStringInArray(arguments, "/by");
         
         if (idx < 0) {
             String output = "Please indicate a deadline using '/by'.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (idx == 0) {
             String output = "Please indicate a task description.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (idx == arguments.length - 1) {
             String output = "Please indicate a deadline after '/by'.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         String description = sliceAndJoinAt(arguments, 0, idx, " ");
@@ -168,13 +177,13 @@ public class Parser {
         return new AddTask(task);
     }
 
-    private Executable event(String[] arguments) {
+    private Executable event(String[] arguments) throws InvalidArgumentException {
         String sample = "event project meeting /from Mon 2pm /to 4pm";
 
         if (arguments == null) {
             String output = "Please specify a task description, starting and ending time "
                     + "of event as argument.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         int fromIdx = findIndexOfStringInArray(arguments, "/from");
@@ -183,28 +192,28 @@ public class Parser {
         if (fromIdx < 0 || toIdx < 0) {
             String output = "Please indicate starting and ending time of event using '/from' "
                     + "and '/to'.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (toIdx < fromIdx) {
             String output = "Please indicate the start time before the end time.\nE.g. "
                     + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (fromIdx == 0) {
             String output = "Please indicate a task description.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (toIdx - fromIdx < 2) {
             String output = "Please indicate a start time.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         if (toIdx == arguments.length - 1) {
             String output = "Please indicate an end time.\nE.g. " + sample;
-            return new Warning(output);
+            throw new InvalidArgumentException(output);
         }
 
         String description = sliceAndJoinAt(arguments, 0, fromIdx, " ");
@@ -212,11 +221,6 @@ public class Parser {
         String to = sliceAndJoinAt(arguments, toIdx + 1, arguments.length, " ");
         Event task = new Event(description, from, to);
         return new AddTask(task);
-    }
-
-    private Executable commandNotFound(String input) {
-        String output = "No command found for:\n" + input;
-        return new Warning(output);
     }
 
     /**
@@ -244,5 +248,4 @@ public class Parser {
     private static String sliceAndJoinAt(String[] array, int from, int to, CharSequence delimiter) {
         return String.join(delimiter, Arrays.<String>copyOfRange(array, from, to));
     }
-
 }

@@ -5,7 +5,8 @@ package executable;
  *
  * @author Toh Yi Hui A0259080A
  */
-public class Greet extends Executable {
+public class Greet implements Executable {
+    private String output;
     private String greeter;
 
     /**
@@ -38,7 +39,17 @@ public class Greet extends Executable {
      */
     @Override
     public int execute() {
-        super.output("Hello! I am " + greeter + "!\nWhat can I do for you?");
+        output = "Hello! I am " + greeter + "!\nWhat can I do for you?";
         return 0;
+    }
+
+    /**
+     * Return the output of the executable.
+     *
+     * @return the output of the executable.
+     */
+    @Override
+    public String getOutput() {
+        return output;
     }
 }
