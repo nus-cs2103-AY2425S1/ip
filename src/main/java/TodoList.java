@@ -67,6 +67,20 @@ public class TodoList {
     }
 
     /**
+     * Delete the specified entry at the provided index
+     *
+     * @param index Index of the entry to be deleted
+     * @return Status of the deletion
+     */
+    public boolean deleteItem(int index) {
+        if (index < 0 || index >= this.todoList.size()) {
+            return false;
+        }
+        this.todoList.remove(index);
+        return true;
+    }
+
+    /**
      * Retrieve the status of an item in the list
      *
      * @return String representation of the item
