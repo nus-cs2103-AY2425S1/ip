@@ -22,9 +22,8 @@ public class TaskList {
         } else if (taskType.equals("deadline")) {
             newTask = new DeadlineTask(taskName, endDate);
         } else {
-            newTask = new ToDoTask(taskName);
+            newTask = new EventTask(taskName, startDate, endDate);
         }
-
         this.toDo.add(newTask);
         System.out.println("Alright I have added this task into the list: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
