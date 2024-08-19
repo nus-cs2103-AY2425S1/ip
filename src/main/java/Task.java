@@ -1,6 +1,6 @@
 public class Task {
     private boolean completed;
-    private String name;
+    private final String name;
 
     public Task(String name) {
         this.completed = false;
@@ -21,6 +21,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (this.getCompleted() ? "X" : "") + "] " + this.name;
+        return "[" + (this.getCompleted() ? "X" : " ") + "] " + this.name;
     }
 }
