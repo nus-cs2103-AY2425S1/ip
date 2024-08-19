@@ -5,12 +5,6 @@ public class Spongebob {
      static List<Task> cache = new ArrayList<>();
 
     final static String LINE = "____________________________________________________________\n";
-    final static String lOGO = "▕╮╭┻┻╮╭┻┻╮╭▕╮╲\n" +
-                        "▕╯┃╭╮┃┃╭╮┃╰▕╯╭▏\n" +
-                        "▕╭┻┻┻┛┗┻┻┛ ╰▏\n" +
-                        "▕╰━━━┓┈┈┈╭╮▕╭╮▏\n" +
-                        "▕╭╮╰┳┳┳┳╯╰╯▕╰╯▏\n" +
-                        "▕╰╯┈┗┛┗┛┈╭╮▕╮┈▏";
 
     public static void main(String[] args) {
 
@@ -19,7 +13,7 @@ public class Spongebob {
         String greetings = "Hello! I'm Spongebob! \nWhat can I do for you?\n";
         String goodbye =  "Bye. Hope to see you again soon!\n";
 
-        System.out.println(LINE + lOGO + "\n" + greetings + LINE);
+        System.out.println(LINE + "\n" + greetings + LINE);
 
         String usrInput = scanner.nextLine();   // get user input
 
