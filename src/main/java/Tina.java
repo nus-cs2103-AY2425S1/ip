@@ -14,20 +14,7 @@ public class Tina {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            if(input.equals("list")) {
-                TaskList.listTask();
-            }
-            else if(input.startsWith("mark")) {
-                int idx = Integer.parseInt(input.substring(5));
-                TaskList.markTask(idx);
-            }
-            else if(input.startsWith("unmark")) {
-                int idx = Integer.parseInt(input.substring(7));
-                TaskList.unmarkTask(idx);
-            } else {
-                TaskList.addTask(new Task(input));
-                System.out.println("added: " + input);
-            }
+            Parse.parseInput(input);
             input = sc.nextLine();
         }
         sc.close();

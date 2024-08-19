@@ -1,9 +1,12 @@
 public class TaskList {
-    private static Task[] list = new Task[100];
+    private static final Task[] list = new Task[100];
     private static int idx = 0;
     public static void addTask(Task task) {
         list[idx] = task;
         idx++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.getDes());
+        System.out.printf("Now you have %d tasks in the list.%n", idx);
     }
 
     public static void markTask(int x) {
@@ -24,7 +27,7 @@ public class TaskList {
         System.out.println("Here are the tasks in your list:");
         for(int i=1; i<=idx; i++) {
             Task currTask = list[i-1];
-            System.out.println(String.format("%d. %s", i, currTask.getDes()));
+            System.out.printf("%d.%s%n", i, currTask.getDes());
         }
     }
 }
