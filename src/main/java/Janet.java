@@ -39,10 +39,11 @@ public class Janet {
     /**
      * Level 2 - Add, list
      * @param task a String representation of the task that is to be added into the listOfTasks.
+     * @param taskSymbol a String representation of the task's symbol (T, D, E).
      * @return a String message to indicate successful addition of task into listOfTasks.
      */
-    public String addTaskToList(String task) {
-        Task newTask = new Task(task);
+    public String addTaskToList(String task, String taskSymbol) {
+        Task newTask = new Task(task, taskSymbol);
         this.listOfTasks[this.taskIndex] = newTask;
         this.taskIndex++;
         return horizontalLine + "\n" + String.format("added: %s\n", task) + horizontalLine;

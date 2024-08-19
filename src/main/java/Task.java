@@ -1,10 +1,12 @@
 public class Task {
     private final String description;
+    private final String symbol;
     private boolean done;
 
-    public Task(String description) {
+    public Task(String description, String symbol) {
         this.description = description;
         this.done = false;
+        this.symbol = symbol;
     }
 
     public String getDescription() {
@@ -28,8 +30,8 @@ public class Task {
     @Override
     public String toString() {
         if (this.done) {
-            return String.format("[X] %s", this.description);
+            return String.format("[%s][X] %s", this.symbol, this.description);
         }
-        return String.format("[ ] %s", this.description);
+        return String.format("[%s][ ] %s", this.symbol, this.description);
     }
 }
