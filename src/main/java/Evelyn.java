@@ -1,11 +1,13 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Evelyn {
     private static String chatbotName = "Evelyn";
     private static String horizontalLine = "-----------------------------------------";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList lst = new ArrayList(100);
         String text = null;
         System.out.println(horizontalLine);
         System.out.println("Hi! I am Evelyn");
@@ -20,9 +22,26 @@ public class Evelyn {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(horizontalLine);
                 break;
-            } else {
+            } else if (Objects.equals(text, "list")) {
                 System.out.println(horizontalLine);
-                System.out.println(text);
+                for (int i = 0; i < lst.size(); i++) {
+                    System.out.println((i + 1) + "." + lst.get(i));
+                }
+                System.out.println(horizontalLine);
+            } else if (text.startsWith("mark")) {
+                int index = Integer.parseInt(text.substring(5)) - 1;
+                Task task = (Task) lst.get(index);
+                System.out.println(horizontalLine);
+                task.mark();
+                System.out.println(horizontalLine);
+            } else if (text.startsWith("unmark")) {
+                int index = Integer.parseInt(text.substring(7)) - 1;
+                Task task = (Task) lst.get(index);
+                task.unmark();
+            } else {
+                lst.add(new Task(text));
+                System.out.println(horizontalLine);
+                System.out.println("added: " + text);
                 System.out.println(horizontalLine);
             }
         }
