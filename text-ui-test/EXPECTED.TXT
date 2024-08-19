@@ -26,4 +26,10 @@ You:     Here are the tasks in your list:
     1.[T][ ] sleep
     2.[D][ ] sleep (by: 10pm)
     3.[E][ ] sleep (from: 10pm to: 6am)
+You:     Noted. I've removed this task:
+      [T][ ] sleep
+    Now you have 2 task(s) in the list.
+You:     Here are the tasks in your list:
+    1.[D][ ] sleep (by: 10pm)
+    2.[E][ ] sleep (from: 10pm to: 6am)
 You: Lolo: Bye. Hope to see you again soon! 👋
