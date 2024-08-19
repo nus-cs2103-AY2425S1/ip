@@ -6,13 +6,13 @@ public class GreetBot {
     }
 
     /* solution below inspired by main function in:
-    https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/duke/Duke.java
-    */
+https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/duke/Duke.java
+*/
     private void run() {
         System.out.println("Hello! I'm GreetBot");
         System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
-        
+
         Task[] list = new Task[100];
         int counter = 0;
 
@@ -40,10 +40,10 @@ public class GreetBot {
                 System.out.println(String.format("added: %s", currentCommand));
             }
 
-                           
+
         }
 
         scanner.close();
-        
+
     }
 }
