@@ -79,6 +79,30 @@ public class ProYapper {
                     }
                 }
 
+                // Delete command
+            } else if (userInput.startsWith("delete")) {
+                String[] parts = userInput.split(" ");
+                if (parts.length < 2) {
+                    System.out.println("delete WHAT???");
+                } else {
+                    try {
+                        int lstNum = Integer.parseInt(parts[1]);
+                        if (lstNum < 1 || lstNum > taskList.size()) {
+                            System.out.println("OI WRONG NUMBER.");
+                        } else {
+                            Task deleted = taskList.get(lstNum - 1);
+                            taskList.remove(deleted);
+                            int numTasks = taskList.size();
+
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("  " + deleted.toString());
+                            System.out.println("Now you have " + numTasks + " tasks in the list");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("THIS ONE NOT INTEGER!!!");
+                    }
+                }
+
                 // To Do command
             } else if (userInput.startsWith("todo")) {
                 String[] parts = userInput.split(" ", 2);
