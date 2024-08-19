@@ -22,16 +22,23 @@ public class Spongebob {
 
             // gets first 2 words of command
             String[] command = usrInput.split(" ", 2);
+
+            // array to store arguments
             String[] arguments = new String[4];
 
+            // set array to empty strings
             for (int i = 0; i < arguments.length; i++) {
                 arguments[i] = " ";
             }
+
+            // first argument
             arguments[0] = command[0];
             if (command.length > 1) {
+                // second argument
                 arguments[1] = command[1];
             }
 
+            // check argument
             switch (arguments[0]) {
 
                 // enumerate list
@@ -48,6 +55,7 @@ public class Spongebob {
 
                 case "mark":
 
+                    // empty argument
                     if (arguments[1].equals(" ")) {
                         System.out.println("Oh, barnacles! You can't mark nothing! \nMake sure to fill it in before you add it.");
                         break;
@@ -70,6 +78,8 @@ public class Spongebob {
                     break;
 
                 case "unmark":
+
+                    // empty argument
                     if (arguments[1].equals(" ")) {
                         System.out.println("Oh, barnacles! You can't unmark nothing! \nMake sure to fill it in before you add it.");
                         break;
@@ -96,11 +106,13 @@ public class Spongebob {
                 case "todo":
                     try {
 
+                        // get args
                         Task newTask = new Todo(arguments[1]);
                         cache.add(newTask);
                         System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newTask);
                         System.out.println("Now you have " + cache.size() + " in the list!");
+
                     } catch (SpongebobException e) {
                         System.out.println(e.getMessage());
                     } finally {
@@ -109,6 +121,7 @@ public class Spongebob {
 
                 case "deadline":
 
+                    // split input into arguments and put into array
                     command = arguments[1].split("/by", 2);
 
                     if (command.length > 1) {
@@ -117,6 +130,7 @@ public class Spongebob {
                     }
 
 
+                    // add deadline
                     try {
                         Task newDeadline = new Deadline(arguments[1], arguments[2]);
                         cache.add(newDeadline);
@@ -131,6 +145,7 @@ public class Spongebob {
 
                 case "event":
 
+                    // split into args and place into array
                     command = arguments[1].split("/from", 3);
 
                     if (command.length > 1) {
@@ -144,6 +159,7 @@ public class Spongebob {
                         }
                     }
 
+                    // create event
                     try {
                         Task newEvent = new Event(arguments[1],
                                 arguments[2],
@@ -159,10 +175,14 @@ public class Spongebob {
                     }
 
                 case "delete":
+
+                    // empty args
                     if (arguments[1].equals(" ")) {
                         System.out.println("Oh, barnacles! You can't delete nothing! \nMake sure to fill it in before you add it.");
                         break;
                     }
+
+                    // try to search and delete task
                     try {
                         Task cur = cache.get(Integer.parseInt(arguments[1])-1);
                         cache.remove(Integer.parseInt(arguments[1])-1);
@@ -178,6 +198,7 @@ public class Spongebob {
                         break;
                     }
 
+                    // no applicable command
                 default:
                     System.out.println("Oh, barnacles! I’m not sure what that means either. \nCan you give me a bit more info? We’ll figure it out together!");
                     break;
