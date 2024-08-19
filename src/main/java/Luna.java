@@ -1,6 +1,6 @@
-public class Duke {
+public class Luna {
     public static void main(String[] args) {
-        String greetings = "Hello! I'm Duke\n" +
+        String greetings = "Hello! I'm Luna\n" +
                 "What can I do for you?";
         System.out.println(greetings);
 
