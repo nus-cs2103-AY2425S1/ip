@@ -30,6 +30,10 @@ public class Store<T> {
         return this.array[index - 1];
     }
 
+    public int getCount() {
+        return count;
+    }
+
     @Override
     public String toString() {
         return IntStream.range(0, count)
