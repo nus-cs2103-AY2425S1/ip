@@ -20,6 +20,22 @@ public class Ollie {
     }
 
     /**
+     * Parses the task number from the user's command.
+     *
+     * @param userCommand The command entered by the user.
+     * @param prefixLength The length of the prefix to trim.
+     * @return The parsed task number.
+     * @throws OllieException If the task number is invalid.
+     */
+    private static int parseTaskNumber(String userCommand, int prefixLength) throws OllieException {
+        try {
+            return Integer.parseInt(userCommand.substring(prefixLength).trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new OllieException("Please enter a valid task number! ☺");
+        }
+    }
+
+    /**
      * Echoes the user's command and performs the corresponding action.
      *
      * @param userCommand The command entered by the user.
@@ -35,23 +51,16 @@ public class Ollie {
             } else if (userCommand.equals("list")) {
                 Task.listTasks();
             } else if (userCommand.startsWith("mark ")) {
-                try {
-                    int taskNumber = Integer.parseInt(userCommand.substring(5).trim()) - 1;
-                    Task.markTaskAsDone(taskNumber);
-                } catch (NumberFormatException e) {
-                    throw new OllieException("Please enter a valid task number to mark as done! ☺");
-                }
+                int taskNumber = parseTaskNumber(userCommand, 5);
+                Task.markTaskAsDone(taskNumber);
             } else if (userCommand.startsWith("unmark ")) {
-                try {
-                    int taskNumber = Integer.parseInt(userCommand.substring(7).trim()) - 1;
-                    Task.unmarkTaskAsDone(taskNumber);
-                } catch (NumberFormatException e) {
-                    throw new OllieException("Please enter a valid task number to unmark as done! ☺");
-                }
-            } else if (userCommand.startsWith("mark")) {
-                throw new OllieException("Please enter the task number in the format mark <number> to mark as done! ☺");
-            } else if (userCommand.startsWith("unmark")) {
-                throw new OllieException("Please enter the task number in the format mark <number> to mark as not done! ☺");
+                int taskNumber = parseTaskNumber(userCommand, 7);
+                Task.unmarkTaskAsDone(taskNumber);
+            } else if (userCommand.startsWith("delete ")) {
+                int taskNumber = parseTaskNumber(userCommand, 7);
+                Task.deleteTask(taskNumber);
+            } else if (userCommand.startsWith("mark") || userCommand.startsWith("unmark") || userCommand.startsWith("delete")) {
+                throw new OllieException("Please enter the command in the correct format with a task number! ☺");
             } else {
                 try {
                     if (userCommand.startsWith("todo")) {
@@ -64,11 +73,11 @@ public class Ollie {
                         throw new UnknownTaskTypeException();
                     }
                 } catch (OllieException e) {
-                    throw e; // Re-throw to be caught by the outer catch block
+                    throw e;
                 }
             }
         } catch (OllieException e) {
-            System.out.println(e.getMessage()); // Print the exception message
+            System.out.println(e.getMessage());
         }
     }
 

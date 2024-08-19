@@ -43,11 +43,11 @@ public class Deadline extends Task {
      * @throws OllieException if the description or due date is invalid.
      */
     public static Deadline createTask(String command) throws OllieException {
-        String[] parts = command.substring(8).split(" /by ");
+        String[] parts = command.substring(9).split(" /by:");
         if (parts.length != 2) {
-            throw new OllieException("Please enter a name and deadline for the task! ☺");
+            throw new OllieException("Please enter in the format: ☺\n" + "deadline task_name /by: due_date");
         }
-        return new Deadline(parts[0], parts[1]);
+        return new Deadline(parts[0].trim(), parts[1].trim());
     }
 
     @Override

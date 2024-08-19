@@ -49,11 +49,11 @@ public class Event extends Task {
      * @throws OllieException if the description, start time, or end time is invalid.
      */
     public static Event createTask(String command) throws OllieException {
-        String[] parts = command.substring(5).split(" /from | /to ");
+        String[] parts = command.substring(6).split(" /from:| /to:");
         if (parts.length != 3) {
-            throw new OllieException("Please enter the name, start time, and end time for the task! ☺");
+            throw new OllieException("Please enter in the format: ☺\n" + "event event_name /from: start_time /to: end_time");
         }
-        return new Event(parts[0], parts[1], parts[2]);
+        return new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
     }
 
     @Override
