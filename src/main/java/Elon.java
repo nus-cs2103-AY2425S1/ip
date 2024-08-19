@@ -7,18 +7,22 @@ public class Elon {
         String input = scanner.next();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
+                System.out.println("-------------------------------------------------------");
                 for (int i = 1; i < list.size() + 1; i++) {
                     System.out.println(String.format("%d. ", i) + list.get(i - 1));
                 }
+                System.out.println("-------------------------------------------------------");
                 input = scanner.next();
                 continue;
             }
+            System.out.println("-------------------------------------------------------");
             System.out.println("added: " + input);
             System.out.println("-------------------------------------------------------");
             list.add(input);
             input = scanner.next();
         }
         scanner.close();
+        System.out.println("-------------------------------------------------------");
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println("-------------------------------------------------------");
     }
