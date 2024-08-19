@@ -9,9 +9,10 @@ public class WansBot {
 
         String hr = "----------------------------------------------------------------------";
 
-        System.out.println(hr + "\nWans:");
-        System.out.println("Hey, I'm\n" + logo);
-        System.out.println("Can I help? (even though I lowkey don't want to)\n" + hr);
+        System.out.println(hr + "\nWans:\n"
+                + "Hey, I'm\n"
+                + logo
+                + "\nCan I help? (even though I lowkey don't want to)\n" + hr);
 
         while (true) {
             System.out.println("User: ");
@@ -27,14 +28,14 @@ public class WansBot {
                         + "\n|  _ < \\   / |  __|"
                         + "\n| |_) | | |  | |____"
                         + "\n|____/  |_|  |______";
-                System.out.println("Wans: ");
-                System.out.println(exit + "\nWe won't miss you :(");
-                System.out.println(hr);
+                System.out.println("Wans: \n"
+                        + exit
+                        + "\nWe won't miss you :(\n" + hr);
                 System.exit(0);
             } else {
-                System.out.println("Wans:");
-                System.out.println(userInput);
-                System.out.println(hr);
+                System.out.println(hr + "\nWans:\n"
+                        + userInput
+                        + "\n" + hr);
             }
         }
     }
