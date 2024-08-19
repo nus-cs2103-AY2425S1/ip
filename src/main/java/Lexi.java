@@ -1,10 +1,16 @@
 public class Lexi {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        greet();
+        bye();
     }
+    public static void greet() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Hello! I'm Lexi\n What can I do for you?");
+        System.out.println("____________________________________________________________");
+    }
+    public static void bye() {
+        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
+
 }
