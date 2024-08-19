@@ -8,13 +8,13 @@
  */
 
 import java.util.Scanner;
+import tasklist.TaskList;
 
 public class RoTodo {
-    public static void line(boolean newLine) {
+    public static void print(String line) {
         System.out.println("  " + new String(new char[100]).replace("\0", "-"));
-        if (newLine) {
-            System.out.println();
-        }
+        System.out.println(line);
+        System.out.println("  " + new String(new char[100]).replace("\0", "-") + "\n");
     }
 
     public static void banner() {
@@ -22,8 +22,7 @@ public class RoTodo {
         String ansiReset = "\u001B[0m"; 
         String ansiRed = "\u001B[31m"; 
         
-        RoTodo.line(false);
-        System.out.println("    Hello! I'm \n" 
+        RoTodo.print("    Hello! I'm \n" 
             + ("    R__________E       __________            __   _____\n"
             + "    R\\______   \\E  ____\\__   ___/____    ___|  | /  _  \\   ____\n"
             + "     R|       _/E /  _ \\ |   |  /  _ \\  /  _   ||  / \\  | /  _ \\   ___\n"
@@ -32,31 +31,31 @@ public class RoTodo {
             + "            R\\/E\n").replace("R", ansiRed).replace("E", ansiReset)
             + "    Your very own Robot Todo List!\n"
             + "    How can I help you help yourself?");
-        RoTodo.line(true);
     }
 
     public static void exit() {
-        RoTodo.line(false);
-        System.out.println("    Bye, remember to finish all your tasks!");
-        RoTodo.line(false);
+        RoTodo.print("    Bye, remember to finish all your tasks!");
         System.exit(0);
     }
 
     public static void main(String[] args) {
         RoTodo.banner();
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
+        TaskList taskList = new TaskList();
         String input;
         while (true) {
             input = sc.nextLine();
             switch (input) {
+                case "list":
+                    RoTodo.print(taskList.toString());
+                    break;
+
                 case "bye":
                     RoTodo.exit();
                     break;
             
                 default:
-                    RoTodo.line(false);
-                    System.out.println("    " + input);
-                    RoTodo.line(true);
+                    RoTodo.print(taskList.process(input));
                     break;
             }
         }
