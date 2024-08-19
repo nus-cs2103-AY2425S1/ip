@@ -43,18 +43,45 @@ public class Kita {
                         System.out.println(i + ". " + commandsList.get(i - 1));
                     }
                 } else if (command.startsWith("mark")) {
-                    int numberToMark = Integer.parseInt(command.split(" ")[1]);
+                    String[] splitCommand = command.split(" ");
+                    if (splitCommand.length <= 1) {
+                        throw new KitaMissingIndex();
+                    }
+
+                    int numberToMark = Integer.parseInt(splitCommand[1]);
                     System.out.println("Nice! I've marked this task as done:");
                     Task selectedTask = commandsList.get(numberToMark - 1);
                     selectedTask.setCompleted(true);
                     System.out.println("  " + selectedTask);
                 } else if (command.startsWith("unmark")) {
-                    int numberToMark = Integer.parseInt(command.split(" ")[1]);
+                    String[] splitCommand = command.split(" ");
+                    if (splitCommand.length <= 1) {
+                        throw new KitaMissingIndex();
+                    }
+
+                    int numberToMark = Integer.parseInt(splitCommand[1]);
                     System.out.println("OK, I've marked this task as not done yet:");
                     Task selectedTask = commandsList.get(numberToMark - 1);
                     selectedTask.setCompleted(false);
                     System.out.println("  " + selectedTask);
-                } else {
+                }
+                else if (command.startsWith("delete")) {
+                    String[] splitCommand = command.split(" ");
+                    if (splitCommand.length <= 1) {
+                        throw new KitaMissingIndex();
+                    }
+
+                    int numberToDelete = Integer.parseInt(splitCommand[1]);
+                    if (numberToDelete > commandsList.size() || numberToDelete <= 0) {
+                        throw new KitaOutofBounds();
+                    }
+
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + commandsList.get(numberToDelete - 1));
+                    commandsList.remove(numberToDelete-1);
+                    System.out.println("Now you have " + commandsList.size() + " tasks in the list.");
+                }
+                else {
                     Matcher eventMatcher = eventPattern.matcher(command);
                     Matcher deadlineMatcher = deadlinePattern.matcher(command);
                     Matcher todoMatcher = toDoPattern.matcher(command);
