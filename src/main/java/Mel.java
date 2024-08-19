@@ -26,17 +26,11 @@ public class Mel {
             } else if (Objects.equals(input, "list")) {
                 System.out.println("Mel remembers all your stuff~");
                 storage.printAll();
-            } else if (input.contains("unmark")) {
-                int idx = Integer.parseInt(input.split(" ")[1]);
-                System.out.println("Mel wonders how you undid your task...");
-                storage.unmark(--idx);
             } else if (input.contains("mark")) {
-                int idx = Integer.parseInt(input.split(" ")[1]);
-                System.out.println("Mel sees you completed your task!");
-                storage.mark(--idx);
+                storage.mark(input);
             } else {
+                System.out.println("Mel remembers:");
                 storage.add(input);
-                System.out.println("Mel remembers: " + input);
             }
             System.out.println(line);
         }
