@@ -1,12 +1,12 @@
 import java.util.Objects;
 import java.util.Scanner;
 public class Papadom {
-    public static String printList(String[] list) {
-        String finalList = "";
+    public static String printList(Task[] list) {
+        String finalList = "Here are the tasks in your list:\n";
         int current = 1;
-        for (String task : list) {
+        for (Task task : list) {
             if (task == null) break;
-            finalList += current++ + ". " + task + "\n";
+            finalList += current++ + ". " + task.getDescription() + "\n";
         }
         return finalList;
     }
@@ -17,7 +17,7 @@ public class Papadom {
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n";
 
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int current = 0;
 
         String exitMessage = "____________________________________________________________\n"
@@ -35,8 +35,18 @@ public class Papadom {
                 continue;
             } else if (Objects.equals(text, "bye")) {
                 break;
+            } else if (text.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
+                Task currentTask = list[taskIndex];
+                currentTask.markAsDone();
+                System.out.println("Nice! I've Marked this task as done:\n " + currentTask.getDescription());
+            } else if (text.startsWith("unmark ")) {
+                int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
+                Task currentTask = list[taskIndex];
+                currentTask.unmark();
+                System.out.println("OK, I've marked this task as not done yet:\n " + currentTask.getDescription());
             } else {
-                list[current++] = text;
+                list[current++] = new Task(text);
                 String response = "____________________________________________________________\n"
                         + " added: " + text + "\n"
                         + "____________________________________________________________";
