@@ -1,10 +1,24 @@
 import java.util.Scanner;
-import java.util.List;
+
+
+/**
+ * The {@code Gutti} class represents a simple chatbot that can add tasks, list them,
+ * <p>
+ * The chatbot greets the user, processes commands to add and list tasks, and provides
+ * a farewell message before exiting when user decides to exit via "bye" command.
+ * </p>
+ */
 
 public class Gutti {
+
     private static String[] tasks = new String[100];
     private static int noOfTasks = 0;
 
+    /**
+     * <p>
+     * This method prints a welcome message and prompts the user to enter commands.
+     * </p>
+     */
     private static void greetings() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Gutti");
@@ -12,12 +26,26 @@ public class Gutti {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * <p>
+     * This method prints a goodbye message and indicates that the chatbot is closing.
+     * </p>
+     */
     private static void goodBye() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon! Meow");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Handles user input after user initialize chatbot
+     * <p>
+     * This method continuously reads user input from the console.
+     * When input is provided, it will be added to the list.
+     * Lists all tasks when the user types "list", and exits the program
+     * when the user types "bye".
+     * </p>
+     */
     private static void echo(){
         Scanner scanner = new Scanner(System.in);
         // User's input
@@ -44,6 +72,14 @@ public class Gutti {
         }
         scanner.close();
     }
+
+    /**
+     * Lists all the tasks currently stored.
+     * <p>
+     * This method prints all tasks stored in the array
+     * It is only called when the user types "list".
+     * </p>
+     */
     private static void listsTask() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < noOfTasks; i++) {
@@ -51,7 +87,14 @@ public class Gutti {
         }
         System.out.println("____________________________________________________________");
     }
+
+    /**
+     * The entry point of the program.
+     * @param args (not used)
+     */
+
     public static void main(String[] args) {
+
         // Display the greeting message
         greetings();
         // Echos
