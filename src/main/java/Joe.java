@@ -40,6 +40,18 @@ public class Joe {
         }
     }
 
+    public static void handleDelete(Task[] list, int index) {
+        if (list[index] != null) {
+            System.out.printf("Noted. I've removed this task:\n%s\n", list[index]);
+            for (int i = index; i < list.length - 1; i++) {
+                list[i] = list[i + 1];
+            }
+            list[list.length - 1] = null;
+            currIndex--;
+            System.out.printf(taskCountMessage, currIndex);
+        }
+    }
+
     public static void handleTodo(String input) {
         String task = input.substring(5);
         if (task.equals("")) {
@@ -119,6 +131,9 @@ public class Joe {
             }
             else if (input.startsWith("event")) {
                 handleEvent(input);
+            }
+            else if (input.startsWith("delete")) {
+                handleDelete(store, Integer.parseInt(input.split(" ")[1]) - 1);
             }
             else {
                 System.out.println("Give me a valid command!");
