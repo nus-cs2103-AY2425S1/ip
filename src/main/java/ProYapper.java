@@ -37,58 +37,112 @@ public class ProYapper {
 
                 // Mark command
             } else if (userInput.startsWith("mark")) {
-                System.out.println("Nice! I've marked this task as done:");
                 String[] parts = userInput.split(" ");
-                int lstNum = Integer.parseInt(parts[1]);
-                Task marked = taskList.get(lstNum - 1);
-                marked.markAsDone();
-                System.out.println(marked.toString());
+                if (parts.length < 2) {
+                    System.out.println("mark WHAT???");
+                } else {
+                    try {
+                        int lstNum = Integer.parseInt(parts[1]);
+                        if (lstNum < 1 || lstNum > taskList.size()) {
+                            System.out.println("OI WRONG NUMBER.");
+                        } else {
+                            Task marked = taskList.get(lstNum - 1);
+                            marked.markAsDone();
+
+                            System.out.println("Nice! I've marked this task as done:");
+                            System.out.println(marked.toString());
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("THIS ONE NOT INTEGER!!!");
+                    }
+                }
 
                 // Unmark command
             } else if (userInput.startsWith("unmark")) {
-                System.out.println("OK, I've marked this task as not done yet:");
                 String[] parts = userInput.split(" ");
-                int lstNum = Integer.parseInt(parts[1]);
-                Task unmarked = taskList.get(lstNum - 1);
-                unmarked.markAsUndone();
-                System.out.println(unmarked.toString());
+                if (parts.length < 2) {
+                    System.out.println("unmark WHAT???");
+                } else {
+                    try {
+                        int lstNum = Integer.parseInt(parts[1]);
+                        if (lstNum < 1 || lstNum > taskList.size()) {
+                            System.out.println("OI WRONG NUMBER.");
+                        } else {
+                            Task unmarked = taskList.get(lstNum - 1);
+                            unmarked.markAsUndone();
+
+                            System.out.println("OK, I've marked this task as not done yet:");
+                            System.out.println(unmarked.toString());
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("THIS ONE NOT INTEGER!!!");
+                    }
+                }
 
                 // To Do command
             } else if (userInput.startsWith("todo")) {
-                System.out.println("Got it. I've added this task:");
                 String[] parts = userInput.split(" ", 2);
-                String taskName = parts.length > 1 ? parts[1] : "";
-                Task newTask = new ToDo(taskName);
-                taskList.add(newTask);
-                int numTasks = taskList.size();
-                System.out.println("  " + newTask.toString());
-                System.out.println("Now you have " + numTasks + " tasks in the list");
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    System.out.println("todo WHAT????");
+                } else {
+                    String taskName = parts[1].trim();
+                    Task newTask = new ToDo(taskName);
+                    taskList.add(newTask);
+                    int numTasks = taskList.size();
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + newTask.toString());
+                    System.out.println("Now you have " + numTasks + " tasks in the list");
+                }
 
                 // Deadline
             } else if (userInput.startsWith("deadline")) {
-                System.out.println("Got it. I've added this task:");
                 String[] parts = userInput.split("/by", 2);
-                String taskName = parts[0].replaceFirst("deadline", "").trim();
-                String dueWhen = parts.length > 1 ? parts[1].trim() : "";
-                Task newTask = new Deadline(taskName, dueWhen);
-                taskList.add(newTask);
-                int numTasks = taskList.size();
-                System.out.println("  " + newTask.toString());
-                System.out.println("Now you have " + numTasks + " tasks in the list");
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    System.out.println("WHEN IS THE DEADLINE???");
+                } else {
+                    String taskName = parts[0].replaceFirst("deadline", "").trim();
+                    if (taskName.isEmpty()) {
+                        System.out.println("deadline WHAT???");
+                    } else {
+                        String dueWhen = parts[1].trim();
+                        Task newTask = new Deadline(taskName, dueWhen);
+                        taskList.add(newTask);
+                        int numTasks = taskList.size();
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + newTask.toString());
+                        System.out.println("Now you have " + numTasks + " tasks in the list");
+                    }
+                }
 
                 // Event
             } else if (userInput.startsWith("event")) {
-                System.out.println("Got it. I've added this task:");
                 String[] partsFrom = userInput.split("/from", 2);
-                String taskName = partsFrom[0].replaceFirst("event", "").trim();
-                String[] partsTo = partsFrom[1].split("/to", 2);
-                String startWhen = partsTo[0].trim();
-                String endWhen = partsTo.length > 1 ? partsTo[1].trim() : "";
-                Task newTask = new Event(taskName, startWhen, endWhen);
-                taskList.add(newTask);
-                int numTasks = taskList.size();
-                System.out.println("  " + newTask.toString());
-                System.out.println("Now you have " + numTasks + " tasks in the list");
+                if (partsFrom.length < 2 || partsFrom[1].trim().isEmpty()) {
+                    System.out.println("WHEN DOES IT START???");
+                } else {
+                    String[] partsTo = partsFrom[1].split("/to", 2);
+                    if (partsTo.length < 2 || partsTo[1].trim().isEmpty()) {
+                        System.out.println("WHEN DOES IT END???");
+                    } else {
+                        String taskName = partsFrom[0].replaceFirst("event", "").trim();
+                        if (taskName.isEmpty()) {
+                            System.out.println("event WHAT???");
+                        } else {
+                            String startWhen = partsTo[0].trim();
+                            String endWhen = partsTo[1].trim();
+                            Task newTask = new Event(taskName, startWhen, endWhen);
+                            taskList.add(newTask);
+                            int numTasks = taskList.size();
+
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + newTask.toString());
+                            System.out.println("Now you have " + numTasks + " tasks in the list");
+                        }
+                    }
+                }
+
             } else {
                 System.out.println(errorMessage);
             }
