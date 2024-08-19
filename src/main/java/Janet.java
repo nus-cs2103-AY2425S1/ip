@@ -34,4 +34,25 @@ public class Janet {
     public String echo(String message) {
         return horizontalLine + "\n" + message + "\n" + horizontalLine;
     }
+
+
+    /**
+     * Level 2 - Add, list
+     * @return a String representation (in numbered list format) of the current tasks inside the listOfTasks
+     */
+    public String showList() {
+        String currentList = horizontalLine + "\n";
+        if (taskIndex == 0) {
+            // empty listOfTasks
+            return currentList + "*** Current list is empty ***\n" + horizontalLine;
+        }
+        for (int i = 0; i < taskIndex; i++) {
+            if (i == taskIndex - 1) {
+                currentList += (i+1) + ". " + listOfTasks[i] + "\n" + horizontalLine;
+                break;
+            }
+            currentList += (i+1) + ". " + listOfTasks[i] + "\n";
+        }
+        return currentList;
+    }
 }
