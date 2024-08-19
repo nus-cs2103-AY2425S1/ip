@@ -27,10 +27,9 @@ public class GreetBot {
                 for (int i = 0; i < counter; i++) {
                     System.out.println(String.format("%d. %s", i + 1, list[i]));
                 }
-            } else if (currentCommand.substring(0, currentCommand.indexOf(" ")).equals("mark") ||
-                       currentCommand.substring(0, currentCommand.indexOf(" ")).equals("unmark")) {
+            } else if (currentCommand.startsWith("mark") || currentCommand.startsWith("unmark")) {
                 int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
-                list[index].mark();
+                list[index - 1].mark();
             } else {
                                  
                 System.out.println("-----------------------");
