@@ -31,7 +31,8 @@ public class Task {
      *
      * @return A string representing the task's status and description.
      */
-    public String getDescription() {
+    @Override
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
