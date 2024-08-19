@@ -1,0 +1,7 @@
+todo pack clothes
+deadline return book /by Sunday
+event project final meeting /from Mon 2pm /to 4pm
+list
+mark 2
+list
+bye
