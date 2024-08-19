@@ -41,7 +41,7 @@ public class Joe {
 
     public static void handleTodo(String input) {
         String task = input.substring(5);
-        store[currIndex] = new Todo(task);
+        store[currIndex] = new TaskTodo(task);
         System.out.printf("%s%s\n", addTaskMessage, store[currIndex]);
         currIndex++;
         System.out.printf(taskCountMessage, currIndex);
