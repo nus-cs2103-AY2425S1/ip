@@ -38,7 +38,19 @@ public class Evelyn {
                 int index = Integer.parseInt(text.substring(7)) - 1;
                 Task task = (Task) lst.get(index);
                 task.unmark();
-            } else {
+            } else if (text.startsWith("todo")) {
+                String description = text.substring(5);
+                Todo newTodo = new Todo(description);
+                lst.add(newTodo);
+                System.out.println(horizontalLine);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newTodo.toString());
+                System.out.println(lst.size() > 1 ? "Now you have " + lst.size() + " tasks in this list"
+                                                  : "Now you have " + lst.size() + " task in this list");
+                System.out.println(horizontalLine);
+            }
+
+            else {
                 lst.add(new Task(text));
                 System.out.println(horizontalLine);
                 System.out.println("added: " + text);
