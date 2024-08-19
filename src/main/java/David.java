@@ -1,3 +1,4 @@
+import Exceptions.*;
 import Task.Task;
 import Task.TodoTask;
 import Task.DeadlineTask;
@@ -37,33 +38,47 @@ public class David {
                 endChatBot();  //end chatbot
                 break;
             }
-
-            switch (StringParser.parseStringToCommand(inputString)) {
-                case "LIST":
-                    listTasks();
-                    break;
-                case "MARK":
-                    markTaskAsDone(inputString);
-                    break;
-                case "UNMARK":
-                    markTaskAsUnDone(inputString);
-                    break;
-                case "TODO":
-                    addTodoTask(inputString);
-                    break;
-                case "EVENT":
-                    addEventTask(inputString);
-                    break;
-                case "DEADLINE":
-                    addDeadlineTask(inputString);
-                    break;
-
+            try {
+                switch (StringParser.parseStringToCommand(inputString)) {
+                    case "LIST":
+                        listTasks();
+                        break;
+                    case "MARK":
+                        markTaskAsDone(inputString);
+                        break;
+                    case "UNMARK":
+                        markTaskAsUnDone(inputString);
+                        break;
+                    case "TODO":
+                        addTodoTask(inputString);
+                        break;
+                    case "EVENT":
+                        addEventTask(inputString);
+                        break;
+                    case "DEADLINE":
+                        addDeadlineTask(inputString);
+                        break;
+                    default:
+                        throw new DavidUnknownActionException();
+                }
+            } catch (DavidException e) {
+                /*
+                Catch all exception.
+                The actual error message thrown/shown depends on the runtime type of
+                the exception thrown. (Polymorphism)
+                 */
+                System.out.println(e.showErrorMessage());
             }
+
         }
     }
 
-    public void addTodoTask(String s) {
-        Task t = new TodoTask(s);
+    /*
+    Adds todo task to array list of tasks
+     */
+    public void addTodoTask(String s) throws DavidInvalidArgumentsException{
+        String event = StringParser.parseStringToArguments(s);
+        Task t = new TodoTask(event);
         this.tasks.add(t);
         System.out.println(
                 "____________________________________________________________\n" +
@@ -73,11 +88,22 @@ public class David {
                         "____________________________________________________________\n");
     }
 
-    public void addEventTask(String s) {
+    /*
+    Adds event task to array list of tasks
+     */
+    public void addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /from", 2);
         String eventName = eventSplit[0];
+        if (eventSplit.length <= 1) {
+            //"from" field does not exist
+            throw new DavidInvalidRangeException();
+        }
         String[] eventDetails = eventSplit[1].split(" /to", 2);
+        if (eventDetails.length <= 1 || eventDetails[0].trim().equals("") || eventDetails[1].trim().equals("")) {
+            //only the "from" field exist
+            throw new DavidInvalidRangeException();
+        }
         Task t = new EventTask(eventName, eventDetails[0], eventDetails[1]);
         this.tasks.add(t);
         System.out.println(
@@ -88,9 +114,16 @@ public class David {
                         "____________________________________________________________\n");
     }
 
-    public void addDeadlineTask(String s) {
+    /*
+    Adds deadline task to array list of tasks
+     */
+    public void addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /by", 2);
+        if(eventSplit.length <= 1 || eventSplit[1].trim().equals("")) {
+            //deadline is not added to the input string
+            throw new DavidInvalidDeadlineException();
+        }
         Task t = new DeadlineTask(eventSplit[0], eventSplit[1]);
         this.tasks.add(t);
         System.out.println(
@@ -101,7 +134,7 @@ public class David {
                         "____________________________________________________________\n");
     }
 
-    public void markTaskAsDone(String s) {
+    public void markTaskAsDone(String s) throws DavidInvalidArgumentsException{
         try {
             String index = StringParser.parseStringToArguments(s);
             Task t = tasks.get(Integer.parseInt(index) -1);
@@ -113,10 +146,12 @@ public class David {
                             "____________________________________________________________\n");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such task! Please enter a valid task.");
+        } catch (NumberFormatException e) {
+            System.out.println("The number you entered is not a valid number. Please enter a valid number");
         }
     }
 
-    public void markTaskAsUnDone(String s) {
+    public void markTaskAsUnDone(String s) throws DavidInvalidArgumentsException {
         try {
             String index = StringParser.parseStringToArguments(s);
             Task t = tasks.get(Integer.parseInt(index) - 1);
@@ -128,6 +163,8 @@ public class David {
                             "____________________________________________________________\n");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such task! Please enter a valid task.");
+        } catch (NumberFormatException e) {
+            System.out.println("The number you entered is not a valid number. Please enter a valid number");
         }
     }
 

@@ -4,7 +4,7 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[T][ ] todo read book
+[T][ ] read book
      You now have 1 tasks in the list.
 ____________________________________________________________
 
@@ -20,23 +20,23 @@ Got it. I've added this task:
      You now have 3 tasks in the list.
 ____________________________________________________________
 
-1: [T][ ] todo read book
+1: [T][ ] read book
 2: [E][ ] attend meeting (from: 4pm to: 8pm)
 3: [D][ ] cs2103T ip(by: 20 Aug 2024)
 ____________________________________________________________
 Nice! I've marked this task as done:
-[T][X] todo read book
+[T][X] read book
 ____________________________________________________________
 
-1: [T][X] todo read book
+1: [T][X] read book
 2: [E][ ] attend meeting (from: 4pm to: 8pm)
 3: [D][ ] cs2103T ip(by: 20 Aug 2024)
 ____________________________________________________________
 Okay, I've marked this task as not done yet:
-[T][ ] todo read book
+[T][ ] read book
 ____________________________________________________________
 
-1: [T][ ] todo read book
+1: [T][ ] read book
 2: [E][ ] attend meeting (from: 4pm to: 8pm)
 3: [D][ ] cs2103T ip(by: 20 Aug 2024)
 ____________________________________________________________
