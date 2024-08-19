@@ -23,6 +23,10 @@ public class GreetBot {
             if (currentCommand.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (currentCommand.equals("list")) {
+                for (int i = 0; i < counter; i++) {
+                    System.out.println(String.format("%d. %s", i + 1, list[i]));
+                }
             } else {
                                  
                 System.out.println("-----------------------");
