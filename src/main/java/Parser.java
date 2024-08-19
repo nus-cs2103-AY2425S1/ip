@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 import executable.AddTask;
+import executable.DeleteTask;
 import executable.Executable;
 import executable.Exit;
 import executable.ListTask;
@@ -59,6 +60,8 @@ public class Parser {
                 return deadline(arguments);
             case "event":
                 return event(arguments);
+            case "delete":
+                return delete(arguments);
             default:
                 throw new CommandNotFoundException(input);
             }
@@ -165,7 +168,6 @@ public class Parser {
             String output = "Please indicate a task description.\nE.g. " + sample;
             throw new InvalidArgumentException(output);
         }
-
         if (idx == arguments.length - 1) {
             String output = "Please indicate a deadline after '/by'.\nE.g. " + sample;
             throw new InvalidArgumentException(output);
@@ -221,6 +223,30 @@ public class Parser {
         String to = sliceAndJoinAt(arguments, toIdx + 1, arguments.length, " ");
         Event task = new Event(description, from, to);
         return new AddTask(task);
+    }
+
+    private Executable delete(String[] arguments) throws InvalidArgumentException {
+        String sample = "delete 2";
+
+        if (arguments == null) {
+            String output = "Please call delete with an integer.\nE.g. " + sample;
+            throw new InvalidArgumentException(output);
+        }
+
+        if (arguments.length > 1) {
+            String output = "Too many arguments. Please call delete with only 1 integer.\nE.g. "
+                    + sample;
+            throw new InvalidArgumentException(output);
+        }
+
+        try {
+            int idx = Integer.parseInt(arguments[0]);
+            return new DeleteTask(idx);
+        } catch (NumberFormatException e) {
+            String output = "Invalid argument. Please call delete with an integer.\nE.g. "
+                    + sample;
+            throw new InvalidArgumentException(output);
+        }
     }
 
     /**

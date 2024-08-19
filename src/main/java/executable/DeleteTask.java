@@ -5,37 +5,37 @@ import java.util.ArrayList;
 import task.Task;
 
 /**
- * An executable to mark tasks as done.
+ * An executable for deleting tasks.
  *
  * @author Toh Yi Hui A0259080A
  */
-public class MarkTask extends TaskModifier {
+public class DeleteTask extends TaskModifier {
     private String output;
     private int idx;
 
     /**
-     * Constructor for a new MarkTask executable.
-     * 
-     * @param idx the 1-index of the tasks to mark as complete.
+     * Constructor for a new DeleteTask executable.
+     *
+     * @param idx the 1-index of the tasks to delete.
      */
-    public MarkTask(int idx) {
+    public DeleteTask(int idx) {
         super();
         this.idx = idx;
     }
 
     /**
-     * Constructor for a new MarkTask executable.
+     * Constructor for a new DeleteTask executable.
      *
      * @param tasks the tasks to modify.
-     * @param idx the 1-index of the tasks to mark as complete.
+     * @param idx the 1-index of the tasks to delete.
      */
-    public MarkTask(ArrayList<Task> tasks, int idx) {
+    public DeleteTask(ArrayList<Task> tasks, int idx) {
         super(tasks);
         this.idx = idx;
     }
 
     /**
-     * Mark the task at idx as completed.
+     * Delete the task from list.
      *
      * @return 0 normally, 2 if tasks == null.
      */
@@ -47,12 +47,10 @@ public class MarkTask extends TaskModifier {
         }
 
         try {
-            Task task = super.tasks.get(idx - 1);
-            if (task.markComplete()) {
-                output = "Nice! I've marked this task as done:\n" + task.toString();
-            } else {
-                output = "Task " + idx + " is already completed.";
-            }
+            ArrayList<Task> tasks = super.tasks;
+            Task task = tasks.remove(idx - 1);
+            output = "Noted. I've removed this task:\n" + task.toString()
+                    + "\nNow you have " + tasks.size() + " task(s) in your list.";
         } catch (IndexOutOfBoundsException e) {
             output = idx + " index out bounds of task list of size " + super.tasks.size() + ".";
         }
