@@ -7,7 +7,7 @@ public class TaskList {
     /**
      * List of tasks.
      */
-    private List<tasklist.Task> list;
+    private List<Task> list;
 
     /**
      * Different types of tasks

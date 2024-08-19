@@ -1,0 +1,10 @@
+todo First Thing
+deadline Second Thing /by start of third thing
+event Third Thing /from just now /to later
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+bye
