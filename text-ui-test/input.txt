@@ -1,4 +1,4 @@
-todo sleep
+todo
 deadline homework /by Monday
 event tuition /from 230pm /to 430pm
 mark 1
