@@ -75,17 +75,43 @@ public class ChatBot {
     }
 
     /**
+     * Get a task from the list by item number.
+     * @param itemNum the item number of the task
+     * @return the task to get
+     */
+    private Task get(int itemNum) throws InvalidInputException {
+        if (itemNum <= 0 || itemNum > this.tasks.size()) {
+            throw new InvalidInputException("I'm sorry, I could not find task number " + itemNum + ".");
+        }
+
+        return this.tasks.get(itemNum - 1);
+    }
+
+    /**
+     * Remove a task from the list and get the response message.
+     * @param itemNum the item number of the task
+     * @return the response message
+     */
+    public String delete(int itemNum) throws InvalidInputException {
+        Task task = get(itemNum);
+
+        this.tasks.remove(itemNum - 1);
+        return String.format("""
+                Noted. I've removed this task:
+                    %s
+                Now you have %d tasks in the list.
+               """, task.toString(), this.tasks.size());
+    }
+
+    /**
      * Mark a task as completed or not completed and get the response message.
      * @param isCompleted whether the task is completed or not completed.
      * @param itemNum the item number of the task
      * @return the response message
      */
     public String mark(boolean isCompleted, int itemNum) throws InvalidInputException {
-        if (itemNum > this.tasks.size()) {
-            throw new InvalidInputException("I'm sorry, I could not find task number " + itemNum + ".");
-        }
+        Task task = get(itemNum);
 
-        Task task = this.tasks.get(itemNum - 1);
         task.mark(isCompleted);
         if (isCompleted) {
             return " Nice! I've marked this task as done:\n   " + task;
