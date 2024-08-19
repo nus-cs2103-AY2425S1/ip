@@ -4,10 +4,12 @@ public class Task {
 
     public static Task decideTask(String type, String rest) {
         if (type.equals("deadline")) {
-            return new Task("test");
+            String[] parse = rest.split("/");
+            return new Deadline(parse[0], parse[1]);
         } else if (type.equals("todo")) {
             return new Todo(rest);
         } else {
+            String[] parse = rest.split("/");
             return new Task("test");
         }
     }
@@ -43,7 +45,12 @@ public class Task {
 
         public Deadline(String description, String by) {
             super(description);
-            this.by = by;
+            this.by = by.split(" ")[1];
+        }
+
+        @Override
+        public String toString() {
+            return String.format("[D]%s (by: %s)", super.toString(), this.by);
         }
     }
 
@@ -65,6 +72,11 @@ public class Task {
         public Event(String description, String by) {
             super(description);
             this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString();
         }
     }
 
