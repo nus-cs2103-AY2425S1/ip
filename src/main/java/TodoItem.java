@@ -4,9 +4,20 @@
 public class TodoItem {
     /** Content that the entry stores **/
     private final String content;
+    /** Status of the to-do item **/
+    private boolean completed;
 
     public TodoItem(String content) {
         this.content = content;
+        this.completed = false;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     /**
@@ -15,6 +26,6 @@ public class TodoItem {
      * @return a string representation of the entry
      */
     public String toString(){
-        return this.content;
+        return String.format("[%s] %s", this.completed ? "X" : " ", content);
     }
 }
