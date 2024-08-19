@@ -1,3 +1,6 @@
+# Java Binary Files
+*.class
+
 # IDEA files
 /.idea/
 /out/
