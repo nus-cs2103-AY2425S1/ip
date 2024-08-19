@@ -1,18 +1,34 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 public class Avo {
-    public static void main(String[] args) {
+    private static void greet() {
         String greetingMessage = "Hello, I am Avo.\nWhat can I do for you?";
-        String exitMessage = "Bye. Hope to see you again soon!";
         System.out.println(greetingMessage);
+    }
+    private static void endSession() {
+        String exitMessage = "Bye. Hope to see you again soon!";
+        System.out.println(exitMessage);
+    }
+    public static void main(String[] args) {
+        greet();
+        List<String> inputs = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
-            System.out.println(userInput);
             if (Objects.equals(userInput, "exit")) {
                 break;
             }
+            if (Objects.equals(userInput, "list")) {
+                for (int i = 0; i < inputs.size(); i++) {
+                    System.out.println(Integer.toString(i + 1) + "." + inputs.get(i));
+                }
+            } else {
+                inputs.add(userInput);
+                System.out.println("added: " + userInput);
+            }
         }
-        System.out.println(exitMessage);
+        endSession();
     }
 }
