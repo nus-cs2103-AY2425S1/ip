@@ -13,6 +13,7 @@ public class Papagu {
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("bye")) {
+            //If input is list return TaskList
             if (userInput.equals("list")) {
                 System.out.println("____________________________________________________________");
                 System.out.println(taskList);
@@ -26,9 +27,30 @@ public class Papagu {
                     } else if (word.equals("unmark")) {
                         taskList.markTaskAsNotDone(num);
                     }    
-            } else {
-                taskList.addTask(userInput);
-            }
+            } else if (userInput.contains("todo")) {
+                String[] input = userInput.split(" ", 2);
+                String description = input[1];
+                ToDos newToDo = new ToDos(description);
+                taskList.addTask(newToDo);
+
+            } else if (userInput.contains("deadline")) {
+                String[] input = userInput.split(" ", 2);
+                String[] parts = input[1].split(" /by ");
+                String description = parts[0];
+                String time = parts[1];
+                Deadlines newDeadline = new Deadlines(description, time);
+                taskList.addTask(newDeadline);
+            } else if (userInput.contains("event")) {
+                String[] input = userInput.split(" ", 2);
+                String[] parts = input[1].split(" /from ");
+                String description = parts[0];
+                String time = parts[1];
+                String[] duration = time.split(" /to ");
+                String start = duration[0];
+                String end = duration[1];
+                Events newEvent = new Events(description, start, end);
+                taskList.addTask(newEvent);
+            } 
             userInput = scanner.nextLine();
         } 
         System.out.println("Bye! Hope to see you again soon!");
