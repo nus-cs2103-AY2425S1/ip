@@ -1,0 +1,13 @@
+todo Read Book
+deadline Submit CS2103T IP /by Friday 1600
+mark 2
+list
+event Meeting /from 2.00PM /to 5.00PM
+list
+unmark 2
+mark 3
+mark 1
+unmark 1
+unmark 3
+list
+bye
