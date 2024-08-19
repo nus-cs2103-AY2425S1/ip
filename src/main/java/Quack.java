@@ -57,7 +57,24 @@ public class Quack {
                     }
                     taskDescription.append(inputArr[i]);
                 }
-                this.toDoList.addItem(taskDescription.toString(), inputArr[1]);
+
+                String taskType = inputArr[1].toLowerCase();
+                String startDate = "";
+                String endDate = "";
+
+                Scanner sc = new Scanner(System.in);
+
+                if (taskType.equals("event")) {
+                    System.out.println("When does this event start?");
+                    startDate = sc.nextLine();
+                }
+
+                if (!taskType.equals("todo")) {
+                    System.out.println("When is this task due?");
+                    endDate = sc.nextLine();
+                }
+
+                this.toDoList.addItem(taskDescription.toString(), taskType, startDate, endDate);
                 break;
             case "mark":
             case "unmark":

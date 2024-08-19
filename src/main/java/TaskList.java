@@ -14,11 +14,19 @@ public class TaskList {
             this.toDo.get(idx).unMark();
         }
     }
-    public void addItem(String taskName, String taskType) {
-        Task newTask = new ToDoTask(taskName);
-        this.toDo.add(newTask);
+    
+    public void addItem(String taskName, String taskType, String startDate, String endDate) {
+        Task newTask;
+        if (taskType.equals("todo")) {
+            newTask = new ToDoTask(taskName);
+        } else if (taskType.equals("deadline")) {
+            newTask = new DeadlineTask(taskName, endDate);
+        } else {
+            newTask = new ToDoTask(taskName);
+        }
 
-        System.out.println("Alright I have added this task: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
+        this.toDo.add(newTask);
+        System.out.println("Alright I have added this task into the list: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
     @Override
