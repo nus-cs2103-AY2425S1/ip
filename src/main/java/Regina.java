@@ -1,12 +1,11 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Regina {
     final static String NAME = "Regina";
     final static String INDENT = "    ";
     final static String LINE = INDENT + "-------------------------------";
-    private final ArrayList<String> listOfTasks;
+    private final ArrayList<Task> listOfTasks;
     private final Scanner scanner = new Scanner(System.in);
 
     public Regina() {
@@ -23,22 +22,37 @@ public class Regina {
     }
 
     public void add(String input) {
-        listOfTasks.add(input);
+        Task task = new Task(input);
+        listOfTasks.add(task);
         System.out.println(LINE + "\n" + INDENT + "added: "
                 + input + "\n" + LINE); // show that input was added
     }
 
-    public String list() {
+    public void list() {
         int length = listOfTasks.size();
         StringBuilder inputList = new StringBuilder();
-        for (int i = 1; i <= length; i++) {
+        for (int i = 0; i < length; i++) {
             inputList.append(INDENT)
-                    .append(i)
-                    .append(". ")
-                    .append(listOfTasks.get(i - 1))
+                    .append(i + 1)
+                    .append(".")
+                    .append(listOfTasks.get(i).toString()) // get task
                     .append("\n");
         }
-        return inputList.toString();
+        System.out.println(LINE + "\n" + inputList + LINE);
+    }
+
+    public void mark(int index) {
+        Task task = listOfTasks.get(index);
+        task.checkTask();
+        System.out.printf("%sNice! I've marked this task as done:\n%s  %s\n",
+                INDENT, INDENT, task.toString());
+    }
+
+    public void unmark(int index) {
+        Task task = listOfTasks.get(index);
+        task.uncheckTask();
+        System.out.printf("%sOK, I've marked this task as not done yet:\n%s  %s\n",
+                INDENT, INDENT, task.toString());
     }
 
     public void exit() {
@@ -48,26 +62,34 @@ public class Regina {
     }
 
     public static void main(String[] args) {
-        Regina regina = new Regina(); // create instance of Regina chatbot
-        regina.greet(); // greet
+        final Regina REGINA = new Regina(); // create instance of Regina chatbot
+        REGINA.greet(); // greet
         String userInput;
 
         while (true) {
-            userInput = regina.readInput();   // Read user input
+            userInput = REGINA.readInput();   // Read user input
             if (userInput.equals("bye")) {
-                break;
+                break; // proceed to exit chatbot
             }
-
-            // Print out the list
             if (userInput.equals("list")) {
-                String inputList = regina.list();
-                System.out.println(LINE + "\n" + inputList + LINE);
+                REGINA.list(); // Print out the list
+            } else if (userInput.startsWith("mark")) {
+                String[] parts = userInput.split(" "); // Split input by spaces
+                if (parts.length == 2) { // Ensure there's an index
+                    int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+                    REGINA.mark(index); // Unmark the task
+                }
+            } else if (userInput.startsWith("unmark")) {
+                String[] parts = userInput.split(" "); // Split input by spaces
+                if (parts.length == 2) { // Ensure there's an index
+                    int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+                    REGINA.unmark(index); // Unmark the task
+                }
             } else {
-                // Add input to list
-                regina.add(userInput);
+                REGINA.add(userInput); // Add input to list
             }
         }
         // Exit
-        regina.exit();
+        REGINA.exit();
     }
 }
