@@ -14,4 +14,14 @@ public class TaskList {
         this.tasks = new String[100];
         this.taskCount = 0;
     }
+
+    /**
+     * Adds a task to the TaskList.
+     * @param task The task to be added.
+     */
+    public void addTask(String task) {
+        this.tasks[this.taskCount] = task;
+        this.taskCount++;
+        System.out.println("added: " + task);
+    }
 }
