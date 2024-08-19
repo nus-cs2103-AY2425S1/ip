@@ -18,11 +18,7 @@ public class Task {
     System.out.printf("%s  %s", status, this.task);
   }
 
-  public void markAsDone() {
-    this.isDone = true;
-  }
-
-  public void unmarkAsDone() {
-    this.isDone = false;
+  public void toggleDone() {
+    this.isDone = !this.isDone;
   }
 }
