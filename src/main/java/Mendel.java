@@ -10,7 +10,11 @@ public class Mendel {
         new Welcome().speak();
         while (!currAction.equals("bye")) {
             currAction = sc.nextLine();
-            taskManager.manage(currAction);
+            try {
+                taskManager.manage(currAction);
+            } catch (MendelException e) {
+                System.out.println(new FormatText(e.toString()).wrapLines());
+            }
         }
     }
 }

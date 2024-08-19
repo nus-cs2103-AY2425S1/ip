@@ -67,12 +67,14 @@ public class TaskStorage extends MendelAction{
             }
             reformattedMsg += String.format(" (from: %s to %s)", startMsg, endMsg);
             element = new Event(reformattedMsg);
+        } else {
+            throw new UnknownCmdException();
         }
 
         this.messages[this.counter] = element;
         this.counter++;
         String outputMessage = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
-                element.toString(), this.counter);
+                element, this.counter);
         System.out.println(new FormatText(outputMessage).wrapLines());
     }
 
@@ -87,13 +89,11 @@ public class TaskStorage extends MendelAction{
         String finalMessage = "";
         if (counter > 0) {
             finalMessage = String.format("1.%s",
-//                    this.messages[0].getStatusIcon(),
                     this.messages[0].toString());
         }
         for (int i = 1; i < counter; i++) {
             int increment = i + 1;
             finalMessage += String.format("\n%d.%s", increment,
-//                    this.messages[i].getStatusIcon(),
                     this.messages[i].toString());
 
         }
