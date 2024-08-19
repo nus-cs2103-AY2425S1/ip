@@ -1,15 +1,17 @@
 //imports for user input
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 import java.util.Set;
 
 public class Monique {
     //Create array to store tasks
-    private static Task[] taskList = new Task[100];
+
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
     //Create counter to store the number of items in taskList;
     private static int numItems =0;
-    private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands");
+    private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
 
     public static void main(String[] args) throws IOException, MarkException, ParseException, UnknownCommandException {
@@ -47,7 +49,7 @@ public class Monique {
                         System.out.println(HORIZONTAL_LINE);
                         IntStream.range(0, numItems)
                                 .forEach(i -> {
-                                    System.out.println((i + 1) + "." + taskList[i]);
+                                    System.out.println((i + 1) + "." + taskList.get(i));
                                 });
                         System.out.println(HORIZONTAL_LINE);
                         break;
@@ -62,9 +64,9 @@ public class Monique {
                             if (itemNum > numItems - 1 || itemNum <0 ) {
                                 throw new MarkException();
                             }
-                            taskList[itemNum] = taskList[itemNum].mark();
+                            taskList.set(itemNum, taskList.get(itemNum).mark());
                             System.out.println("Nice lah.. Great job on doing work! I've marked it: ");
-                            System.out.println((itemNum + 1) + "." + taskList[itemNum].toString());
+                            System.out.println((itemNum + 1) + "." + taskList.get(itemNum).toString());
                             break;
                         } catch (MarkException marke) {
                             marke.advice();
@@ -84,9 +86,9 @@ public class Monique {
                             if (itemNum > numItems-1 || itemNum<0){
                                 throw new MarkException();
                             }
-                            taskList[itemNum] = taskList[itemNum].unmark();
+                            taskList.set(itemNum, taskList.get(itemNum).unmark());
                             System.out.println("ok... I've unmarked:");
-                            System.out.println((itemNum + 1) + "." + taskList[itemNum].toString());
+                            System.out.println((itemNum + 1) + "." + taskList.get(itemNum).toString());
                             break;
                         } catch (MarkException me) {
                             me.advice();
@@ -99,6 +101,28 @@ public class Monique {
                     case "/commands": {
                             System.out.println(GuideText.GUIDE);
                     }
+                    case "delete" : {
+                        try {
+                            if (!hasSecondWord) {
+                                throw new ParseException();
+                            }
+                            int itemNum = (Integer.parseInt(userInput.split(" ")[1])) - 1;
+                            if (itemNum > numItems-1 || itemNum<0){
+                                throw new DeleteException();
+                            }
+                            System.out.println("ok... I've deleted:");
+                            System.out.println((itemNum + 1) + "." + taskList.get(itemNum).toString());
+                            taskList.remove(itemNum);
+                            numItems--;
+                            System.out.println("You now have " + numItems + " tasks in the list");
+                        } catch (ParseException pe){
+                            pe.advice();
+                        } catch (DeleteException de) {
+                            de.advice();
+                        } finally {
+                            break;
+                        }
+                    }
                 }
             } else if (taskTypes.contains(firstWord)) {
                 //add to taskList
@@ -110,8 +134,8 @@ public class Monique {
                                 throw new ParseException();
                             }
                             String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-                            taskList[numItems] = new ToDo(description);
-                            System.out.println("added: " + taskList[numItems]);
+                            taskList.add(new ToDo(description));
+                            System.out.println("added: " + taskList.get(numItems));
                             numItems++;
                         } catch (ParseException pe) {
                             pe.advice();
@@ -128,8 +152,8 @@ public class Monique {
                             String by = parts[1].trim();
                             String[] commandAndDescription = parts[0].trim().split(" ", 2);
                             String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
-                            taskList[numItems] = new Deadline(description, false, by);
-                            System.out.println("Got it, I've added this deadline " + taskList[numItems]);
+                            taskList.add(new Deadline(description, false, by));
+                            System.out.println("Got it, I've added this deadline " + taskList.get(numItems));
                             numItems++;
                         } catch (ParseException pe) {
                             pe.advice();
@@ -152,8 +176,8 @@ public class Monique {
                             String description = commandAndDescription.length > 1 ? commandAndDescription[1] : "";
                             String fromDate = toSplit[0].trim();
                             String toDate = toSplit[1].trim();
-                            taskList[numItems] = new Event(description, false, fromDate, toDate);
-                            System.out.println("Got it, I've added this event " + taskList[numItems]);
+                            taskList.add(new Event(description, false, fromDate, toDate));
+                            System.out.println("Got it, I've added this event " + taskList.get(numItems));
                             numItems++;
                         } catch (ParseException pe) {
                             pe.advice();
