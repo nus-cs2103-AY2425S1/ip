@@ -42,6 +42,10 @@ public class Joe {
 
     public static void handleTodo(String input) {
         String task = input.substring(5);
+        if (task.equals("")) {
+            System.out.println("Don't expect me to remember nothing!");
+            return;
+        }
         store[currIndex] = new TaskTodo(task);
         System.out.printf("%s%s\n", addTaskMessage, store[currIndex]);
         currIndex++;
@@ -49,8 +53,17 @@ public class Joe {
     }
 
     public static void handleDeadline(String input) {
-        String task = input.substring(9, input.indexOf("/by ") - 1);
-        String by = input.substring(input.indexOf("/by ") + 4);
+        int byIndex = input.indexOf("/by ");
+        if (byIndex == -1) {
+            System.out.println("BY WHEN??!!");
+            return;
+        }
+        String task = input.substring(9, byIndex - 1);
+        if (task.equals("")) {
+            System.out.println("Don't expect me to remember nothing!");
+            return;
+        }
+        String by = input.substring(byIndex + 4);
         store[currIndex] = new TaskDeadline(task, by);
         System.out.printf("%s%s\n", addTaskMessage, store[currIndex]);
         currIndex++;
@@ -58,9 +71,19 @@ public class Joe {
     }
 
     public static void handleEvent(String input) {
-        String task = input.substring(6, input.indexOf("/from ") - 1);
-        String from = input.substring(input.indexOf("/from ") + 6, input.indexOf("/to ") - 1);
-        String to = input.substring(input.indexOf("/to ") + 4);
+        int fromIndex = input.indexOf("/from ");
+        int toIndex = input.indexOf("/to ");
+        if (fromIndex == -1 || toIndex == -1) {
+            System.out.println("Give me a valid from and to!");
+            return;
+        }
+        String task = input.substring(6, fromIndex - 1);
+        if (task.equals("")) {
+            System.out.println("Don't expect me to remember nothing!");
+            return;
+        }
+        String from = input.substring(fromIndex + 6, toIndex - 1);
+        String to = input.substring(toIndex + 4);
         store[currIndex] = new TaskEvent(task, from, to);
         System.out.printf("%s%s\n", addTaskMessage, store[currIndex]);
         currIndex++;
@@ -98,7 +121,7 @@ public class Joe {
                 handleEvent(input);
             }
             else {
-                System.out.println("I'm sorry, but I don't know what that means :-(");
+                System.out.println("Give me a valid command!");
             }
             System.out.println(horizontalLine);
         }
