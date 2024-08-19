@@ -21,11 +21,11 @@ public class Warning implements Executable {
     /**
      * Does nothing.
      *
-     * @return 0.
+     * @return NORMAL.
      */
     @Override
-    public int execute() {
-        return 0;
+    public Executable.exitCode execute() {
+        return Executable.exitCode.NORMAL;
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import executable.Executable;
 import executable.Greet;
+import executable.Executable;
 import executable.TaskModifier;
 
 import task.Task;
@@ -42,11 +43,11 @@ public class YihuiBot {
                     exec = taskModifier;
                 }
 
-                int exitCode = exec.execute();
+                Executable.exitCode exitCode = exec.execute();
 
                 prettyPrint(exec.getOutput());
 
-                if (exitCode > 0){
+                if (exitCode != Executable.exitCode.NORMAL){
                     break;
                 }
             }

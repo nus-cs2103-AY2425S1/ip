@@ -31,13 +31,13 @@ public class ListTask extends TaskModifier {
     /**
      * Output the list of tasks in a nice format.
      *
-     * @return 0 normally, 2 if tasks == null.
+     * @return NORMAL normally, ERROR if tasks == null.
      */
     @Override
-    public int execute() {
+    public Executable.exitCode execute() {
         if (tasks == null) {
             output = "Task list cannot be null.";
-            return 2;
+            return Executable.exitCode.ERROR;
         }
         
         output = "Here are the tasks in your list:";
@@ -45,7 +45,7 @@ public class ListTask extends TaskModifier {
             Task task = tasks.get(i);
             output += "\n" + (i + 1) + ". " + task.toString();
         }
-        return 0;
+        return Executable.exitCode.NORMAL;
     }
 
     /**

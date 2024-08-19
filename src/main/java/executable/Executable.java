@@ -6,15 +6,17 @@ package executable;
  * @author Toh Yi Hui A0259080A
  */
 public interface Executable {
+    public enum exitCode {NORMAL, TERMINATE, ERROR};
+
     /**
      * Executes the executable and store the output.
      *
      * @return the exit code after executing the executable. In general, it should return:
-     *         0 if there are no issues.
-     *         1 if the bot should be terminated (e.g. after a terminating executable).
-     *         2 if there are any unexpected errors encountered when executing.
+     *         NORMAL if there are no issues.
+     *         TERMINATE if the bot should be terminated (e.g. after a terminating executable).
+     *         ERROR if there are any unexpected errors encountered when executing.
      */
-    public abstract int execute();
+    public abstract exitCode execute();
 
     /**
      * Return the output of the executable.

@@ -37,13 +37,13 @@ public class MarkTask extends TaskModifier {
     /**
      * Mark the task at idx as completed.
      *
-     * @return 0 normally, 2 if tasks == null.
+     * @return NORMAL normally, ERROR if tasks == null.
      */
     @Override
-    public int execute() {
+    public Executable.exitCode execute() {
         if (super.tasks == null) {
             output = "Task list cannot be null.";
-            return 2;
+            return Executable.exitCode.ERROR;
         }
 
         try {
@@ -56,7 +56,7 @@ public class MarkTask extends TaskModifier {
         } catch (IndexOutOfBoundsException e) {
             output = idx + " index out bounds of task list of size " + super.tasks.size() + ".";
         }
-        return 0;
+        return Executable.exitCode.NORMAL;
     }
 
     /**

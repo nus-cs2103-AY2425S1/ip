@@ -11,12 +11,12 @@ public class Exit implements Executable {
     /**
      * Output an exit message.
      *
-     * @return 1.
+     * @return TERMINATE.
      */
     @Override
-    public int execute() {
+    public Executable.exitCode execute() {
         output = "Bye. Hope to see you again soon!";
-        return 1;
+        return Executable.exitCode.TERMINATE;
     }
 
     /**

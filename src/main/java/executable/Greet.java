@@ -35,12 +35,12 @@ public class Greet implements Executable {
     /**
      * Output a greeting message.
      *
-     * @return 0.
+     * @return NORMAL.
      */
     @Override
-    public int execute() {
+    public Executable.exitCode execute() {
         output = "Hello! I am " + greeter + "!\nWhat can I do for you?";
-        return 0;
+        return Executable.exitCode.NORMAL;
     }
 
     /**
