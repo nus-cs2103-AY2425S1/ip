@@ -14,14 +14,14 @@ public class Quack {
     
     public String spacer = "-".repeat(50);
 
-    private ToDoList toDoList;
+    private TaskList toDoList;
     private boolean isRunning;
     
     // Functions
 
     Quack() {
         this.isRunning = true;
-        this.toDoList = new ToDoList();
+        this.toDoList = new TaskList();
     }
 
     private void printLogo() {

@@ -1,6 +1,6 @@
 public class Task {
-    private String taskName;
-    private boolean isChecked;
+    protected String taskName;
+    protected boolean isChecked;
 
     Task(String task) {
         this.taskName = task;

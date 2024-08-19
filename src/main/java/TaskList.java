@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class ToDoList {
+public class TaskList {
     private ArrayList<Task> toDo;
 
-    ToDoList () {
+    TaskList () {
         this.toDo = new ArrayList<Task>();
     }
 
@@ -15,8 +15,8 @@ public class ToDoList {
         }
     }
     public void addItem(String item) {
-        Task newTask = new Task(item);        
-        toDo.add(newTask);
+        //Task newTask = new Task(item);        
+        //toDo.add(newTask);
 
         System.out.println("Added: " + item);
     }
