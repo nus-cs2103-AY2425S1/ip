@@ -6,6 +6,9 @@ public class SlothingWaffler {
                 Hello! I'm the Slothing Waffler!
                 Let's stop slothing and get cracking!""");
 
+        String[] tasks = new String[100];
+        int tasksCount = 0;
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -14,7 +17,15 @@ public class SlothingWaffler {
                 System.out.println("See you next time! Remember to get a waffle!");
                 break;
             }
-            System.out.println(input);
+            if (input.strip().equals("list")) {
+                for (int i = 1; i <= tasksCount; i++) {
+                    System.out.println((i) + ". " + tasks[i - 1]);
+                }
+            } else {
+                tasks[tasksCount] = input;
+                tasksCount++;
+                System.out.println("added: " + input);
+            }
         }
         scanner.close();
     }
