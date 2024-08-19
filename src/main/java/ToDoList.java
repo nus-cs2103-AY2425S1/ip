@@ -7,14 +7,13 @@ public class ToDoList {
         this.toDo = new ArrayList<Task>();
     }
 
-    public void completeTask(int idx) {
-        this.toDo.get(idx).mark();
+    public void updateTask(int idx, String command) {
+        if (command.equals("mark")) {
+            this.toDo.get(idx).mark();
+        } else {
+            this.toDo.get(idx).unMark();
+        }
     }
-
-    public void uncompleteTask(int idx) {
-        this.toDo.get(idx).unMark();
-    }
-
     public void addItem(String item) {
         Task newTask = new Task(item);        
         toDo.add(newTask);
@@ -28,11 +27,11 @@ public class ToDoList {
             return "The list is empty, why not add something!";
         } else {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < toDo.size(); i++) {
+            for (int i = 0; i < this.toDo.size(); i++) {
                 if (i == 0) {
-                    sb.append((i + 1) + ". " + toDo.get(i).toString());
+                    sb.append((i + 1) + ". " + this.toDo.get(i).toString());
                 } else {
-                    sb.append("\n" + (i + 1) + ". " + toDo.get(i).toString());
+                    sb.append("\n" + (i + 1) + ". " + this.toDo.get(i).toString());
                 }
             }
             return sb.toString();

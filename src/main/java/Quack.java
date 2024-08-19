@@ -12,7 +12,7 @@ public class Quack {
         "\\_____\\ \\_/____/(____  /\\___  >__|_ \\ \n" +
         "       \\__>          \\/     \\/     \\/\n";
     
-    public String spacer = "-".repeat(40);
+    public String spacer = "-".repeat(50);
 
     private ToDoList toDoList;
     private boolean isRunning;
@@ -38,8 +38,10 @@ public class Quack {
     }
 
     private void act (String input) {
-        String[] inputs = input.split(" ");
-        String command = inputs[0].toLowerCase();
+        String[] inputArr = input.split(" ");
+        String command = inputArr[0].toLowerCase();
+
+        StringBuilder taskDescription = new StringBuilder();
 
         switch (command) {
             case "list":
@@ -47,6 +49,19 @@ public class Quack {
                 break;
             case "bye":
                 farewell();
+                break;
+            case "add":
+                for (int i = 1; i < inputArr.length; i++) {
+                    if (taskDescription.length() > 0) {
+                        taskDescription.append(" ");
+                    }
+                    taskDescription.append(inputArr[i]);
+                }
+                this.toDoList.addItem(taskDescription.toString());
+                break;
+            case "mark":
+            case "unmark":
+                this.toDoList.updateTask(Integer.valueOf(inputArr[1]) - 1, command);
                 break;
             default:
                 System.out.println("There is no such function, please try again.");
