@@ -24,6 +24,7 @@ public class Evelyn {
                 break;
             } else if (Objects.equals(text, "list")) {
                 System.out.println(horizontalLine);
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < lst.size(); i++) {
                     System.out.println((i + 1) + "." + lst.get(i));
                 }
@@ -50,7 +51,7 @@ public class Evelyn {
                 System.out.println(horizontalLine);
             } else if (text.startsWith("deadline")) {
                 String input = text.substring(9);
-                String[] parts = input.split("/by ");
+                String[] parts = input.split(" /by ");
                 String description = parts[0];
                 String deadline = parts[1];
                 Deadline newDeadline = new Deadline(description, deadline);
@@ -61,9 +62,22 @@ public class Evelyn {
                 System.out.println(lst.size() > 1 ? "Now you have " + lst.size() + " tasks in this list"
                                                   : "Now you have " + lst.size() + " task in this list");
                 System.out.println(horizontalLine);
-            }
-
-            else {
+            } else if (text.startsWith("event")) {
+                String input = text.substring(6);
+                String[] partA = input.split(" /from " );
+                String description = partA[0];
+                String[] partB = partA[1].split(" /to ");
+                String start = partB[0];
+                String end = partB[1];
+                Event newEvent = new Event(description, start, end);
+                lst.add(newEvent);
+                System.out.println(horizontalLine);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newEvent.toString());
+                System.out.println(lst.size() > 1 ? "Now you have " + lst.size() + " tasks in this list"
+                        : "Now you have " + lst.size() + " task in this list");
+                System.out.println(horizontalLine);
+            } else {
                 lst.add(new Task(text));
                 System.out.println(horizontalLine);
                 System.out.println("added: " + text);
