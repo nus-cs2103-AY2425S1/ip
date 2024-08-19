@@ -7,6 +7,10 @@ public class Task {
         this.done = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * @return the value of this.done, indicating whether the task is done or not done
      */
