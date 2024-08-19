@@ -22,9 +22,21 @@ public class Main {
                 String currentListOfTasks = janet.showList();
                 System.out.println(currentListOfTasks);
             } else {
-                // add the new task into the list of tasks
-                String addTaskSuccess = janet.addTaskToList(command);
-                System.out.println(addTaskSuccess);
+                String[] commandDetails = command.split(" ");
+                if (commandDetails[0].equals("mark")) {
+                    // mark the task as done
+                    String markSuccess = janet.markAsDone(Integer.parseInt(commandDetails[1]));
+                    System.out.println(markSuccess);
+                } else if (commandDetails[0].equals("unmark")) {
+                    // unmark the task
+                    String unmarkSuccess = janet.unmark(Integer.parseInt(commandDetails[1]));
+                    System.out.println(unmarkSuccess);
+                } else {
+                    // add the new task into the list of tasks
+                    Task task = new Task(command);
+                    String addTaskSuccess = janet.addTaskToList(task);
+                    System.out.println(addTaskSuccess);
+                }
             }
         }
     }
