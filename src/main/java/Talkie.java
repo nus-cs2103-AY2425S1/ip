@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Talkie {
+
+    private static List<String> taskList = new ArrayList<>();
+
     public static void main(String[] args) {
 
         // Initialisation of Scanner
@@ -30,9 +35,29 @@ public class Talkie {
                 break;
             }
 
+            if (toDo.equalsIgnoreCase("list")) {
+
+                String listMessage = "";
+
+                for (int i=0; i<taskList.size(); i++) {
+                    String description = (i + 1) + ". " + taskList.get(i) + "\n";
+                    listMessage += description;
+                }
+
+                String finalListMessage = "-----------------------------------------------\n"
+                        +  listMessage
+                        + "-----------------------------------------------\n";
+                System.out.println(finalListMessage);
+                continue;
+            }
+
+
+            // Initialise a new Item Object
+            Task t = new Task(toDo);
+            taskList.add(t.toString());
 
             String toDoMessage = "-----------------------------------------------\n"
-                    + toDo + "\n"
+                    + "Added: " + t + "\n"
                     + "-----------------------------------------------\n";
 
             System.out.println(toDoMessage);
