@@ -1,10 +1,10 @@
 public class Janet {
     private static final String horizontalLine = "____________________________________________________________";
-    private final String[] listOfTasks;
+    private final Task[] listOfTasks;
     private int taskIndex;
 
     Janet() {
-        this.listOfTasks = new String[100];
+        this.listOfTasks = new Task[100];
         this.taskIndex = 0;
     }
 
@@ -37,13 +37,26 @@ public class Janet {
 
 
     /**
+     * Level 2 - Add, list
      * @param task a String representation of the task that is to be added into the listOfTasks.
      * @return a String message to indicate successful addition of task into listOfTasks.
      */
     public String addTaskToList(String task) {
-        this.listOfTasks[this.taskIndex] = task;
+        Task newTask = new Task(task);
+        this.listOfTasks[this.taskIndex] = newTask;
         this.taskIndex++;
         return horizontalLine + "\n" + String.format("added: %s\n", task) + horizontalLine;
+    }
+
+
+    /**
+     * @param task a Task object that is to be added into the listOfTasks
+     * @return a String message to indicate successful addition of task into listOfTasks.
+     */
+    public String addTaskToList(Task task) {
+        this.listOfTasks[this.taskIndex] = task;
+        this.taskIndex++;
+        return horizontalLine + "\n" + String.format("added: %s\n", task.getDescription()) + horizontalLine;
     }
 
 
@@ -52,7 +65,7 @@ public class Janet {
      * @return a String representation (in numbered list format) of the current tasks inside the listOfTasks
      */
     public String showList() {
-        String currentList = horizontalLine + "\n";
+        String currentList = horizontalLine + "\nHere are the tasks in your list:\n";
         if (taskIndex == 0) {
             // empty listOfTasks
             return currentList + "*** Current list is empty ***\n" + horizontalLine;
