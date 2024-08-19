@@ -1,7 +1,11 @@
 public class Welcome extends MendelAction{
     public void speak() {
-        String message = "Hello! I'm Mendel \n" +
+        System.out.println(new FormatText(this.toString()).wrapLines());
+    }
+
+    @Override
+    public String toString() {
+        return "Hello! I'm Mendel \n" +
                 "What can I do for you?";
-        System.out.println(new FormatText(message).wrapLines());
     }
 }

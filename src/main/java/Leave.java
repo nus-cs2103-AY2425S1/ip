@@ -1,6 +1,10 @@
 public class Leave {
     public void speak() {
-        String message = " Bye. Hope to see you again soon!";
-        System.out.println(new FormatText(message).wrapLines());
+        System.out.println(new FormatText(this.toString()).wrapLines());
+    }
+
+    @Override
+    public String toString() {
+        return "Bye. Hope to see you again soon!";
     }
 }
