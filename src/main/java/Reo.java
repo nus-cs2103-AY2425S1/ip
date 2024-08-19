@@ -12,6 +12,7 @@ public class Reo {
             DEADLINE,
             MARK,
             UNMARK,
+            DELETE,
             UNKNOWN,
         }
         // Create a new Scanner object
@@ -121,6 +122,18 @@ public class Reo {
                         toPrint = "----------------------\nPlease enter a valid task name and to & from dates.\n----------------------";
                     }
                     break;
+                case DELETE:
+                    try {
+                        Task toRemove = tasks.get(Integer.valueOf(words[1]) - 1);
+                        tasks.remove(Integer.valueOf(words[1]) - 1);
+                        toPrint += "----------------------\n";
+                        toPrint += "I've deleted this task:\n";
+                        toPrint += toRemove.toString() + "\n";
+                        toPrint += "Now, you have " + tasks.size() + " task(s) in your list.\n";
+                        toPrint += "----------------------";
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        toPrint = "----------------------\nPlease enter a valid task number.----------------------";
+                    }
                 case BYE:
                     break;
                 case UNKNOWN:
