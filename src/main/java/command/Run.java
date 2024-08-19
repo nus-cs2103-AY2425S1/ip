@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 public class Run extends Command {
     private final Runnable runnable;
 
-    public Run(Supplier<String> messageSupplier, Runnable runnable) {
+    public Run(Runnable runnable, Supplier<String> messageSupplier) {
         super(messageSupplier);
         this.runnable = runnable;
     }

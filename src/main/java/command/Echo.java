@@ -1,6 +1,6 @@
 package command;
 
-public class Echo extends Command{
+public class Echo extends Command {
 
     public Echo(String input) {
         super(() -> input);
