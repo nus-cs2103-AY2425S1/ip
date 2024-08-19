@@ -1,35 +1,50 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected TaskStatus status;
+    protected TaskType type;
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
-        this.isDone = false;
+        this.status = TaskStatus.UNDONE;
+        this.type = type;
     }
 
     @Override
     public String toString() {
-        return this.description;
+        return getStatusIcon() + " " + this.description;
     }
 
-    //turns out i was looking at an old revision of the CS2103 website which had these unicode
-    //numbers instead of the current semester's implementation of task.
-    /*public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
-    }*/
-    //Note that the above code has unintended side effects when performing A-TextUiTesting.
-    //So, I have opted to use a blank for undone and an 'X' for successfully marked. That is all.
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return status.getIcon();
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        this.status = TaskStatus.DONE;
     }
 
     public void markAsUndone() {
-        this.isDone = false;
+        this.status = TaskStatus.UNDONE;
     }
 
-    //...
+    public enum TaskStatus {
+        DONE("[X]"),
+        UNDONE("[ ]");
+
+        private final String icon;
+
+        TaskStatus(String icon) {
+            this.icon = icon;
+        }
+
+        public String getIcon() {
+            return icon;
+        }
+    }
+
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
 }
