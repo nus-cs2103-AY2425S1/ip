@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.Scanner;
+
 
 public class Hoodini {
     private Storage store;
@@ -12,12 +14,30 @@ public class Hoodini {
 
     public void start() {
         System.out.println("Hello I am Hoodini! How may I assist you?");
+        String home = System.getProperty("user.home");
+        java.nio.file.Path path = java.nio.file.Paths.get(home, "Desktop", "hoodini.txt");
+        if(java.nio.file.Files.exists(path)) {
+            try {
+                store.readFromFile(path.toString());
+            } catch (invalidTaskException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+
         handleInput();
 
     }
 
     public void end() {
-        System.out.println("Bye! Come back to Hoodini soon!");
+        try {
+            System.out.println("Bye! Come back to Hoodini soon!");
+            String home = System.getProperty("user.home");
+            String filePath = home + "/Desktop/hoodini.txt";
+            store.writeToFile(filePath);
+        } catch (IOException e) {
+            System.out.println("Whoopsie! There was an error writing to the file");
+        }
     }
 
     private void handleInput() {

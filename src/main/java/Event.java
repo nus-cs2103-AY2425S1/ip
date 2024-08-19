@@ -9,6 +9,12 @@ public class Event extends Input{
         this.to = input.split("/to", 2)[1];
     }
 
+    public Event(String input, String from, String to) {
+        super(input);
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String toString() {
         String str = "[E] " + super.toString() + "(from:" + this.from + " to:" + this.to + ")";
