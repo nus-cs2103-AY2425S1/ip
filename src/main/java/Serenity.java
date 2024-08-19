@@ -9,12 +9,12 @@ public class Serenity {
         System.out.println(horizontalLine);
 
         Scanner sc = new Scanner(System.in);
-        String input = sc.next();
+        String input = sc.nextLine();
         while (!input.equalsIgnoreCase("bye")) {
             System.out.println(horizontalLine);
             System.out.println(input);
             System.out.println(horizontalLine);
-            input = sc.next();
+            input = sc.nextLine();
         }
         sc.close();
 
