@@ -6,12 +6,21 @@ public class Jeff {
             "_____________________________________________________________________________________";
     private static ArrayList<Task> taskList = new ArrayList<>();
 
-    // Function for enclosing text with horizontal lines and printing it out
+    /**
+     * Encloses the text with horizontal lines and indents the text before printing it out
+     *
+     * @param text The string to be enclosed
+     */
     private static void printText(String text) {
         System.out.println(indentText(HORIZONTAL + "\n " + text + "\n" + HORIZONTAL));
     }
 
-    // Function to indent text
+    /**
+     * Returns the same text but indented. If the text has multiple lines, each line will be indented.
+     *
+     * @param text the string to be indented
+     * @return indented text
+     */
     private static String indentText(String text) {
         // Split the text into lines
         String[] lines = text.split("\n");
@@ -29,17 +38,25 @@ public class Jeff {
 
     }
 
-    // Function for printing out greetings
+    /**
+     * Prints out a greeting message
+     */
     private static void printGreetings() {
         printText("Hello! I'm Jeff.\n What can I do for you?");
     }
 
-    // Function for printing out farewells
+    /**
+     * Prints out a farewell message
+     */
     private static void printFarewell() {
         printText("Bye. Hope to see you again soon!");
     }
 
-    // Function for printing out the input list
+    /**
+     * Prints out the task list
+     *
+     * @throws JeffException if the task list is empty
+     */
     private static void printList() throws JeffException {
         // Check if the list is empty
         if (taskList.isEmpty()) {
@@ -65,7 +82,15 @@ public class Jeff {
 
     }
 
-    // Function to get task from input
+    /**
+     * Gets the target task from the task list based on the user input
+     *
+     * @param input String that the user types into the command line interface
+     * @param prefix the action that the user wants to take
+     * @return the target task from the task list
+     * @throws JeffException if the input is in the wrong format or if the task number specified by the user does not
+     *                       exist
+     */
     private static Task getTask(String input, String prefix) throws JeffException {
         // Check if input is valid
         if (!input.matches(prefix + "\\d+")) {
@@ -85,7 +110,12 @@ public class Jeff {
 
     }
 
-    // Function for marking the task as done
+    /**
+     * Marks the target task as done
+     *
+     * @param input String that the user types into the command line interface
+     * @throws JeffException from getTask or if the task has already been marked as done before this
+     */
     private static void markTask(String input) throws JeffException {
         // Get the task from taskList
         Task targetTask = getTask(input, "mark ");
@@ -104,7 +134,12 @@ public class Jeff {
         }
     }
 
-    // Function for unmarking the task
+    /**
+     * Marks the target task as not done
+     *
+     * @param input String that the user types into the command line interface
+     * @throws JeffException from getTask or if the task has already been marked as not done before this
+     */
     private static void unmarkTask(String input) throws JeffException {
         // Get the task from taskList
         Task targetTask = getTask(input, "unmark ");
@@ -125,7 +160,12 @@ public class Jeff {
 
     }
 
-    // Function for deleting the task
+    /**
+     * Deletes the target task from the task list
+     *
+     * @param input String that the user types into the command line interface
+     * @throws JeffException from getTask
+     */
     private static void deleteTask(String input) throws JeffException {
         // Get the task from taskList
         Task targetTask = getTask(input, "delete ");
@@ -139,7 +179,12 @@ public class Jeff {
                 "\n Now you have " + taskList.size() + " tasks in the list.");
     }
 
-    // Function to categorise the task, add it to the task list and print it out
+    /**
+     * Figures out the task type, adds it to the task list and prints out the task addition statement
+     *
+     * @param input String that the user types into the command line interface
+     * @throws JeffException if the input is in the wrong format
+     */
     private static void handleTask(String input) throws JeffException {
         // Check if the input is in the correct format
         if (input.matches("todo .+") ||
@@ -219,7 +264,10 @@ public class Jeff {
         }
     }
 
-    // Function for printing out user input
+    /**
+     * Gets the user input from the command line interface and figure out the action to take based on the input.
+     * This is continuously repeated until the user says "bye"
+     */
     private static void printUserInput() {
         // Initialise the Scanner
         Scanner scanner = new Scanner(System.in);
