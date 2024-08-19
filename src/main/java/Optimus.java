@@ -1,8 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Optimus {
-    private static Task[] taskList = new Task[100]; //stores list of tasks
-    private static int taskCount = 0; //tracks number of tasks
+    private static ArrayList<Task> taskList = new ArrayList<>(); //stores list of tasks
     public static void main(String[] args) {
         //greeting for user
         String greeting = "Hello! I'm Optimus.\n" +
@@ -29,11 +29,15 @@ public class Optimus {
                 } else if (userInput.startsWith("mark")) { //check if user wants to mark task
                     String[] parts = userInput.split(" ");
                     int taskIndex = Integer.parseInt(parts[1]) - 1; // Get the index (1-based index to 0-based)
-                    if (taskIndex + 1 > taskCount) { //check if task user wants to add exists
-                        System.out.println("Sorry, you only have up to task number " + taskCount);
+                    if (taskIndex + 1 > taskList.size()) { //check if task user wants to add exists
+                        System.out.println("Sorry, you only have up to task number " + taskList.size());
                         continue;
                     }
                     markTaskAsDone(taskIndex);
+                } else if (userInput.startsWith("delete")) { //check if user wants to delete task
+                    String[] parts = userInput.split(" ");
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    delete(taskIndex);
                 } else {
                     // else add user task to taskList array and echo "added: <task>"
                     addTask(userInput);
@@ -85,23 +89,30 @@ public class Optimus {
                     "deadline return book /by Sunday\n" +
                     "event project meeting /from Mon 2pm /to 4pm");
         }
-        taskList[taskCount] = task;
-        taskCount++;
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     //list out tasks from taskList array
     private static void listTasks() {
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + taskList[i].toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + "." + taskList.get(i).toString());
         }
     }
 
     private static void markTaskAsDone(int taskIndex) {
-        taskList[taskIndex].isDone = true;
+        taskList.get(taskIndex).isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskList[taskIndex].toString());
+        System.out.println(taskList.get(taskIndex).toString());
+    }
+
+    private static void delete(int taskIndex) {
+        Task[] newTaskList = new Task[100];
+        System.out.println("Noted, I've removed this task:");
+        System.out.println(taskList.get(taskIndex));
+        taskList.remove(taskIndex);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list");
     }
 }
