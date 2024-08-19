@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TaskDescriptionEmptyException {
         PoChat poChat = new PoChat();
         poChat.sayHello();
 
@@ -20,23 +20,47 @@ public class Main {
                 int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
                 poChat.unmarkTaskDone(taskIndex);
             } else if (textInput.startsWith("todo")) {
-                poChat.addToListAndReply(textInput.substring(5));
+                try {
+                    String taskDescription = textInput.substring(5);
+                    if (taskDescription.isEmpty()) {
+                        throw new TaskDescriptionEmptyException();
+                    }
+                    poChat.addToListAndReply(taskDescription);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new TaskDescriptionEmptyException();
+                }
             } else if (textInput.startsWith("deadline")) {
-                int byIndex = textInput.indexOf("/by");
+                try {
+                    int byIndex = textInput.indexOf("/by");
 
-                String taskDescription = textInput.substring(9, byIndex - 1);
-                String deadline = textInput.substring(byIndex + 4);
+                    String taskDescription = textInput.substring(9, byIndex - 1);
+                    String deadline = textInput.substring(byIndex + 4);
 
-                poChat.addToListAndReply(taskDescription, deadline);
+                    if (taskDescription.isEmpty()) {
+                        throw new TaskDescriptionEmptyException();
+                    }
+
+                    poChat.addToListAndReply(taskDescription, deadline);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new TaskDescriptionEmptyException();
+                }
             } else if (textInput.startsWith("event")) {
-                int fromIndex = textInput.indexOf("/from");
-                int toIndex = textInput.indexOf("/to");
+                try {
+                    int fromIndex = textInput.indexOf("/from");
+                    int toIndex = textInput.indexOf("/to");
 
-                String taskDescription = textInput.substring(6, fromIndex - 1);
-                String startDate = textInput.substring(fromIndex + 6, toIndex - 1);
-                String endDate = textInput.substring(toIndex + 4);
+                    String taskDescription = textInput.substring(6, fromIndex - 1);
+                    String startDate = textInput.substring(fromIndex + 6, toIndex - 1);
+                    String endDate = textInput.substring(toIndex + 4);
 
-                poChat.addToListAndReply(taskDescription, startDate, endDate);
+                    if (taskDescription.isEmpty()) {
+                        throw new TaskDescriptionEmptyException();
+                    }
+
+                    poChat.addToListAndReply(taskDescription, startDate, endDate);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new TaskDescriptionEmptyException();
+                }
             } else {
                 poChat.replyToInvalidInput();
             }

@@ -60,7 +60,9 @@ class PoChat {
     }
 
     public void replyToInvalidInput() {
-        String errorMessage = "Please enter a valid input and try again!";
+        String errorMessage = "Please enter a valid input and try again! Some examples of valid inputs are:\n" +
+                "todo [description]\ndeadline [description] /by [deadline]\n" +
+                "event [description] /from [start time] /to [end time]";
         System.out.println(errorMessage);
     }
 
