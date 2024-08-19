@@ -12,17 +12,25 @@ public class GreetBot {
         System.out.println("Hello! I'm GreetBot");
         System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
+        
+        String[] list = new String[100];
+        int counter = 0;
 
         while (true) {
             System.out.println("-----------------------");
-            String nextCommand = scanner.nextLine();
+            String currentCommand = scanner.nextLine();
 
-            if (nextCommand.equals("bye")) {
+            if (currentCommand.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else {
-                System.out.println(nextCommand);
+                                 
+                System.out.println("-----------------------");
+                list[counter] = currentCommand;
+                counter += 1;
+                System.out.println(String.format("added: %s", currentCommand));
             }
+
                            
         }
 
