@@ -16,13 +16,19 @@ public class UserInteraction {
                 TaskCollection.printList();
             } else if (instruction.startsWith("mark ")) {
                 try {
-                    TaskCollection.markItem(instruction.substring(5));
+                    TaskCollection.markTask(instruction.substring(5));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }
             } else if (instruction.startsWith("unmark ")) {
                 try {
-                    TaskCollection.unmarkItem(instruction.substring(7));
+                    TaskCollection.unmarkTask(instruction.substring(7));
+                } catch (MeejuException e) {
+                    System.out.println(e);
+                }
+            } else if (instruction.startsWith("delete ")) {
+                try {
+                    TaskCollection.deleteTask(instruction.substring(7));
                 } catch (MeejuException e) {
                     System.out.println(e);
                 }
