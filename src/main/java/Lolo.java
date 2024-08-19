@@ -1,16 +1,19 @@
 import java.util.Scanner;
 
 public class Lolo {
+
+    private static final int MAX_TASKS = 100;  // Maximum number of tasks
+    private static String[] tasks = new String[MAX_TASKS];  // Array to store tasks
+    private static int taskCount = 0;  // Counter for the number of tasks added
+
     public static void main(String[] args) {
         // Create a Scanner object to read input from the user
         Scanner scanner = new Scanner(System.in);
 
-        // Greet the user and introduce itself
-        System.out.println("Hello! I'm Lolo, your digital BFF 😊 I am always there for you:)");
-        System.out.println("I can remember whatever you say and even crack a joke or two!");
+        // Greet the user and introduce the chatbot
+        System.out.println("Hello! I'm Lolo, your friendly task manager. 😊");
+        System.out.println("What do you want to do today?\n");
 
-        // Prompt the user for input/command
-        System.out.print("So, what would you like to say? \n");
         String userCommand;
 
         // Start a loop that continues until the user types "bye"
@@ -19,33 +22,43 @@ public class Lolo {
             System.out.print("You: ");
             userCommand = scanner.nextLine();
 
-            // Call the repeatCommand function to echo the user's command
-            if (!userCommand.equalsIgnoreCase("bye")) {
-                repeatCommand(userCommand);
+            if (userCommand.equalsIgnoreCase("bye")) {
+                break;
+            } else if (userCommand.equalsIgnoreCase("list")) {
+                listTasks();
+            } else {
+                addTask(userCommand);
             }
 
         } while (!userCommand.equalsIgnoreCase("bye")); // Loop ends when user types "bye"
 
         // Say goodbye to the user before exiting
-        System.out.println("Lolo: Goodbye! It was nice talking to you. 👋");
+        System.out.println("Lolo: Bye. Hope to see you again soon! 👋");
 
         // Close the scanner
         scanner.close();
-
     }
 
-    public static void repeatCommand(String command) {
-        String response = generateResponse(command);
-        System.out.println("\u001B[34mChatBot: " + response + "\u001B[0m"); // output blue text
-    }
-
-    public static String generateResponse(String command) {
-        if (command.equalsIgnoreCase("tell me a joke")) {
-            return "Why don't programmers like nature? It has too many bugs! 🐛";
-        } else if (command.equalsIgnoreCase("hello") || command.equalsIgnoreCase("hi")) {
-            return command + " nice to meet you too!";
+    // Function to add a task to the list
+    public static void addTask(String task) {
+        if (taskCount < MAX_TASKS) {
+            tasks[taskCount] = task;
+            taskCount++;
+            System.out.println("Added: " + task);
         } else {
-            return "Hmm, interesting... \"" + command + "\", right?";
+            System.out.println("Sorry, the task list is full! You cannot add more tasks :( " +
+                    "Consider completing the tasks in the list before adding new tasks!");
+        }
+    }
+
+    // Function to list all the tasks
+    public static void listTasks() {
+        if (taskCount == 0) {
+            System.out.println("You have not added any tasks yet. Get started now! :D");
+        } else {
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + ". " + tasks[i]);
+            }
         }
     }
 }
