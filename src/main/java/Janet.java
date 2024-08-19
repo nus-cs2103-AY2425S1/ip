@@ -79,4 +79,22 @@ public class Janet {
         }
         return currentList;
     }
+
+
+    /**
+     * Level 3 - mark as done
+     * marks the desired task as done, by setting the boolean value of Task.done = true.
+     * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
+     * @return a String message to indicate successful marking of desired task as done (done = true).
+     */
+    public String markAsDone(int desiredTaskNum) {
+        // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be marked as done
+        Task desiredTask = listOfTasks[desiredTaskNum - 1];
+        if (desiredTask.isDone()) {
+            // the desired task is already marked as done
+            return horizontalLine + "\nThis task is already done!\n" + horizontalLine;
+        }
+        desiredTask.setDone(true);
+        return horizontalLine + "\nNice! I've marked this task as done:\n" + String.format("  %s", desiredTask) + "\n" + horizontalLine;
+    }
 }
