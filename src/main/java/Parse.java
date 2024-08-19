@@ -35,6 +35,9 @@ public class Parse {
             } else if (input.startsWith("unmark")) {
                 int idx = Integer.parseInt(input.substring(7));
                 TaskList.unmarkTask(idx);
+            } else if (input.startsWith("delete")) {
+                int idx = Integer.parseInt(input.substring(7));
+                TaskList.deleteTask(idx);
             } else {
                 parseTask(input);
             }
