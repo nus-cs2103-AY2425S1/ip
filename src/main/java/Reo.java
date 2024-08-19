@@ -118,13 +118,13 @@ public class Reo {
                         toPrint += "Now, you have " + tasks.size() + " task(s) in your list.\n";
                         toPrint += "----------------------";
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        toPrint = "----------------------\nPlease enter a valid task name and to / from dates.\n----------------------";
+                        toPrint = "----------------------\nPlease enter a valid task name and to & from dates.\n----------------------";
                     }
                     break;
                 case BYE:
                     break;
                 case UNKNOWN:
-                    toPrint = "----------------------\nSorry, please enter a valid command.\n----------------------";
+                    toPrint = "----------------------\nERROR: Please enter a valid command.\n----------------------";
 
             }
 
