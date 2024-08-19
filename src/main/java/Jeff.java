@@ -97,6 +97,67 @@ public class Jeff {
         printText("OK, I've marked this task as not done yet:\n   " + targetTask.toString());
     }
 
+    // Function to categorise the task, add it to the task list and print it out
+    private static void handleTask(String input) {
+        // Split the string to obtain the task type and task description
+        String[] taskParts = input.split(" ", 2);
+        String taskType = taskParts[0];
+        String taskDescription = taskParts[1];
+
+        // Initialise the task
+        Task targetTask = null;
+
+        // Check the task type and initialise accordingly
+        switch (taskType) {
+            case "todo":
+                targetTask = new ToDoTask(taskDescription);
+                break;
+            case "deadline":
+                // Split the description into content and deadline
+                String[] deadlineParts = taskDescription.split(" /by ", 2);
+
+                // Check if the format is correct
+                if (deadlineParts.length != 2) {
+                    printText("The format is wrong! It should be \"deadline xx /by xx\"!");
+                } else {
+                    String content = deadlineParts[0];
+                    String deadline = deadlineParts[1];
+                    targetTask = new DeadlineTask(content, deadline);
+                }
+
+                break;
+            case "event":
+                // Split the description into content, start and end
+                String[] eventParts = taskDescription.split(" /from ", 2);
+                String eventContent = eventParts[0];
+                String eventPeriod = eventParts.length > 1 ? eventParts[1] : "";
+                String[] periodParts = eventPeriod.split(" /to ", 2);
+                String start = periodParts[0];
+                String end = periodParts.length > 1 ? periodParts[1] : "";
+
+                // Check if the format is correct
+                if (end.isEmpty()) {
+                    printText("The format is wrong! It should be \"event xx /from xx /to xx\"!");
+                } else {
+                    targetTask = new EventTask(eventContent, start, end);
+                }
+
+                break;
+            default:
+                break;
+        }
+
+        if (targetTask != null) {
+            // Add the task to the taskList
+            taskList.add(targetTask);
+
+            // Print the task out
+            printText("Got it. I've added this task:\n   " +
+                    targetTask.toString() +
+                    "\n Now you have " + taskList.size() + " tasks in the list.");
+        }
+    }
+
     // Function for printing out user input
     private static void printUserInput() {
         // Initialise the Scanner
@@ -119,14 +180,26 @@ public class Jeff {
                 case "bye":
                     break;
                 default:
-                    // Check if input matches "mark" or "unmark"
+                    // Check if input matches "mark", "unmark", "todo", "deadline", "event"
                     if (input.matches("mark \\d+")) {
-                        markTask(Integer.parseInt(input.substring(5)) - 1);
+                        String prefix = "mark ";
+                        int taskNumber = Integer.parseInt(input.substring(prefix.length()));
+                        markTask(taskNumber - 1);
+
                     } else if (input.matches("unmark \\d+")) {
-                        unmarkTask(Integer.parseInt(input.substring(7)) - 1);
+                        String prefix = "unmark ";
+                        int taskNumber = Integer.parseInt(input.substring(prefix.length()));
+                        unmarkTask(taskNumber - 1);
+
+                    } else if (input.matches("todo .+") ||
+                            input.matches("deadline .+") ||
+                            input.matches("event .+")) {
+                        handleTask(input);
+
                     } else {
                         printText("added: " + input);
                         taskList.add(new Task(input));
+
                     }
 
                     break;
