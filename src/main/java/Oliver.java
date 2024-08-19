@@ -16,9 +16,13 @@ public class Oliver {
                 System.out.println("\tBye. Hope to see you again soon!");
                 break;
             } else if (input.equals("list")) {
-                System.out.println("\tHere are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println("\t" + (i+1) + "." + tasks.get(i));
+                if (tasks.isEmpty()) {
+                    System.out.println("\tThere are no tasks in your list.");
+                } else {
+                    System.out.println("\tHere are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println("\t" + (i+1) + "." + tasks.get(i));
+                    }
                 }
             } else if (command.equals("mark")) {
                 try {
@@ -80,6 +84,23 @@ public class Oliver {
                     addSuccess(e, tasks);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("\tMissing arguments for this command.");
+                }
+            } else if (command.equals("delete")) {
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (index > tasks.size() - 1 || index < 0) {
+                        System.out.println("\tNo such task exists. Task number out of range.");
+                    } else {
+                        Task removedTask = tasks.get(index);
+                        tasks.remove(index);
+                        System.out.println("\tOk, I've removed this task:");
+                        System.out.println("\t" + removedTask);
+                        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("\tMissing arguments for this command.");
+                } catch (NumberFormatException e) {
+                    System.out.println("\tInvalid arguments provided for this command.");
                 }
             } else {
                 System.out.println("\tInvalid command. Command was not recognised.");
