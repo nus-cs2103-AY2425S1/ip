@@ -7,6 +7,7 @@
 public class Bunbun {
     public static void main(String[] args) {
         UI.startScreen();
+        TaskList list = new TaskList();
 
         while (true) {
             String msg = Parser.getMessage();
@@ -14,7 +15,12 @@ public class Bunbun {
                 UI.endScreen();
                 break;
             } else {
-                System.out.println(msg);
+                System.out.println("You: " + msg);
+                if (msg.equals("list")) {
+                    list.displayList();
+                } else {
+                    list.addTask(msg);
+                }
             }
         }
     }

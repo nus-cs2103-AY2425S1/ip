@@ -7,6 +7,11 @@
 import java.util.Scanner;
 public class Parser {
 
+    /**
+     * Method to read user input.
+     *
+     * @return user input as a string.
+     */
     public static String getMessage() {
         Scanner scanner = new Scanner(System.in);
         String msg = scanner.nextLine();
