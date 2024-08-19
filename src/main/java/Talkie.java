@@ -1,10 +1,14 @@
-public class Duke {
+public class Talkie {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = """
+                -----------------------------------------------\s
+                Hello! I'm Talkie, your friendly ChatBot.\s
+                What can I do for you?\s
+                -----------------------------------------------\s
+                Bye. Hope to see you again soon!\s
+                -----------------------------------------------\s
+               """;
+
+        System.out.println(logo);
     }
 }
