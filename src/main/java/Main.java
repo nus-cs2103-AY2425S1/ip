@@ -13,6 +13,12 @@ public class Main {
                 break;
             } else if (textInput.equals(("list"))) {
                 poChat.replyWithListOfTextsEntered();
+            } else if (textInput.startsWith("mark")) {
+                int index = Integer.parseInt(textInput.substring(5)) - 1;
+                poChat.markTaskDone(index);
+            } else if (textInput.startsWith("unmark")) {
+                int index = Integer.parseInt(textInput.substring(7)) - 1;
+                poChat.unmarkTaskDone(index);
             } else {
                 poChat.addToListAndReply(textInput);
             }
