@@ -1,26 +1,28 @@
-read book
-return book
+hello
 list
-mark 0
-mark -1
+mark 1
+todo
+deadline
+event
+mark
+mark hi
+unmark
+unmark hi
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
 list
 mark 1
 list
-mark 4
+mark 1
 unmark 1
 list
-todo
-todo borrow book
-list
-mark 5
-list
-deadline return book /by Sunday
-list
+unmark 1
+mark 4
+unmark 4
 deadline return book/by Sunday
 deadline return book
 deadline return book /by
-event project meeting /from Mon 2pm /to 4pm
-list
 event project meeting
 event project meeting /to 4pm
 event project meeting /from
@@ -28,8 +30,4 @@ event project meeting /from Mon 2pm
 event project meeting /from Mon 2pm /to
 event project meeting/from Mon 2pm /to 4pm
 event project meeting /from Mon 2pm/to 4pm
-list
-event project meeting /from /from
-event project meeting /from /from /to 4pm
-event project meeting /from Mon 2pm /to /to
 bye

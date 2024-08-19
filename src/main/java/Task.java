@@ -26,4 +26,9 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    // Function to get the task status
+    public boolean isDone() {
+        return this.isDone;
+    }
 }
