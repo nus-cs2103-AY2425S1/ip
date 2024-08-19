@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class SlothingWaffler {
     public static void main(String[] args) {
         System.out.println("""
-                Hello! I'm the Slothing Wafller!
+                Hello! I'm the Slothing Waffler!
                 Let's stop slothing and get cracking!""");
 
         Scanner scanner = new Scanner(System.in);
