@@ -12,8 +12,154 @@ public class Derrick {
         System.out.println("What can I do for you?");
     }
 
+    public void list(ArrayList<Task> list) {
+        if (this.toDo.isEmpty()) {
+            System.out.println("You have nothing in your list.");
+        } else {
+            System.out.println(("Here are the items in your list:"));
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println((i + 1) + ". " + list.get(i));
+            }
+        }
+    }
 
-    public void addTodo() {
+
+    public void markItem(ArrayList<Task> list, String input) throws MissingPositionException, MissingItemException {
+        int position;
+        try {
+            position = Integer.parseInt(input.split(" ")[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingPositionException("You are missing a specific position. Please try again.");
+        } catch (NumberFormatException e) {
+            throw new MissingPositionException("Position must be an integer. Please try again.");
+        }
+
+        if (position <= 0 || position > list.size()) {
+            throw new MissingItemException("Item does not exist in the list. Please try again.");
+        }
+
+        Task task = list.get(position - 1);
+        task.changeStatus();
+        System.out.println("I have marked this task as done!");
+        System.out.println(task);
+    }
+
+    public void unmarkItem(ArrayList<Task> list, String input) throws MissingPositionException, MissingItemException {
+        int position;
+        try {
+            position = Integer.parseInt(input.split(" ")[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingPositionException("You are missing a specific position. Please try again.");
+        } catch (NumberFormatException e) {
+            throw new MissingPositionException("Position must be an integer. Please try again.");
+        }
+
+        if (position <= 0 || position > list.size()) {
+            throw new MissingItemException("Item does not exist in the list. Please try again.");
+        }
+
+        Task task = list.get(position - 1);
+        task.changeStatus();
+        System.out.println("I have marked this task as not done yet!");
+        System.out.println(task);
+    }
+
+
+    public void delete(ArrayList<Task> list, String input) throws MissingPositionException, MissingItemException, EmptyListException {
+        int position;
+        try {
+            position = Integer.parseInt(input.split(" ")[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingPositionException("You are missing a specific position. Please try again.");
+        } catch (NumberFormatException e) {
+            throw new MissingPositionException("Position must be an integer. Please try again.");
+        }
+
+        if (list.isEmpty()) {
+            throw new EmptyListException("You are trying to delete from an empty list.");
+        } else if (position <= 0 || position > list.size()) {
+            throw new MissingItemException("Item does not exist in the list. Please try again.");
+        }
+        Task task = list.get(position - 1);
+        list.remove(task);
+        System.out.println("I have removed this task:");
+        System.out.println(task);
+        System.out.println("You have " + list.size() + " items in your list.");
+    }
+
+    public void addTodo(ArrayList<Task> list, String input) throws InvalidDescriptionException {
+        Todo todo;
+        try {
+            todo = new Todo(input.split(" ", 2)[1]);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidDescriptionException("You have not added any description for the todo task. Please try again.");
+        }
+        this.toDo.add(todo);
+        System.out.println("Got it. I have added this todo.");
+        System.out.println(todo);
+        System.out.println("You have " + list.size() + " items in your list.");
+
+    }
+
+
+    public void addDeadline(ArrayList<Task> list, String input) throws InvalidDescriptionException {
+        String time;
+        String description;
+
+        try {
+            time = input.split("/by")[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidDescriptionException("You have not added any deadline for the todo task. Please try again.");
+        }
+
+        try {
+            description = input.split("/by")[0].split(" ", 2)[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidDescriptionException("You have not added any description for the todo task. Please try again.");
+        }
+
+        Deadline deadline = new Deadline(description, time);
+        this.toDo.add(deadline);
+        System.out.println("Got it. I have added this deadline.");
+        System.out.println(deadline);
+        System.out.println("You have " + list.size() + " items in your list");
+    }
+
+
+    public void addEvent(ArrayList<Task> list, String input) throws InvalidDescriptionException {
+        String start;
+        String end;
+        String description;
+
+        try {
+            description = input.split("/from")[0].split(" ", 2)[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidDescriptionException("You are missing the description for the event. Please try again.");
+        }
+
+        try {
+            start = input.split("/from")[1].split("/to")[0];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidDescriptionException("You are missing the start time for the event. Please try again.");
+        }
+
+        try {
+            end = input.split("/from")[1].split("/to")[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidDescriptionException("You are missing the end time for the event. Please try again.");
+        }
+
+
+
+        Event event = new Event(description, start, end);
+        list.add(event);
+        System.out.println("Got it. I have added this event.");
+        System.out.println(event);
+        System.out.println("You have " + list.size() + " items in your list.");
+    }
+
+
+    public void addItems() {
 
         Scanner scanner = new Scanner(System.in);
         label:
@@ -26,108 +172,55 @@ public class Derrick {
                     exit();
                     break label;
                 case "list":
-                    if (this.toDo.isEmpty()) {
-                        System.out.println("You have nothing in your list.");
-                    } else {
-                        System.out.println(("Here are the items in your list:"));
-                        for (int i = 0; i < this.toDo.size(); i++) {
-                            System.out.println((i + 1) + ". " + this.toDo.get(i));
-                        }
-                    }
+                    this.list(this.toDo);
                     break;
-                case "mark": {
+                case "mark":
                     try {
-                        int position = Integer.parseInt(input.split(" ")[1]);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("No item specified for marking. Please input the number indicating the item.");
-                        break;
+                        this.markItem(this.toDo, input);
+                    } catch (MissingPositionException | MissingItemException e) {
+                        System.out.println(e.getMessage());
                     }
-                    int position = Integer.parseInt(input.split(" ")[1]);
-                    Task task = this.toDo.get(position - 1);
-                    task.changeStatus();
-                    System.out.println("I have marked this task as done!");
-                    System.out.println(task);
                     break;
-                }
                 case "unmark": {
                     try {
-                        int position = Integer.parseInt(input.split(" ")[1]);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("No item specified for unmarking. Please input the number indicating the item.");
-                        break;
+                        this.unmarkItem(this.toDo, input);
+                    } catch (MissingPositionException | MissingItemException e) {
+                        System.out.println(e.getMessage());
                     }
-                    int position = Integer.parseInt(input.split(" ")[1]);
-                    Task task = this.toDo.get(position - 1);
-                    task.changeStatus();
-                    System.out.println("I have marked this task as not done yet!");
-                    System.out.println(task);
                     break;
                 }
                 case "delete": {
                     try {
-                        int position = Integer.parseInt(input.split(" ")[1]);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("No item specified for deletion. Please input the number indicating the item.");
-                        break;
+                        this.delete(this.toDo, input);
+                    } catch (MissingItemException | MissingPositionException | EmptyListException e) {
+                        System.out.println(e.getMessage());
                     }
-                    int position = Integer.parseInt(input.split(" ")[1]);
-                    Task task = this.toDo.get(position - 1);
-                    this.toDo.remove(task);
-                    System.out.println("I have removed this task:");
-                    System.out.println(task);
-                    System.out.println("You have " + this.toDo.size() + " items in your list.");
                     break;
                 }
                 case "todo": {
                     try {
-                        Todo todo = new Todo(input.split(" ", 2)[1]);
+                        this.addTodo(this.toDo, input);
                     }
-                    catch (IndexOutOfBoundsException e) {
-                        System.out.println("You have not added any description for the todo task. Please try again.");
-                        break;
+                    catch (InvalidDescriptionException e) {
+                        System.out.println(e.getMessage());
                     }
-                    Todo todo = new Todo(input.split(" ", 2)[1]);
-                    this.toDo.add(todo);
-                    System.out.println("Got it. I have added this todo.");
-                    System.out.println(todo);
-                    System.out.println("You have " + this.toDo.size() + " items in your list.");
                     break;
                 }
                 case "deadline": {
                     try {
-                        String time = input.split("/by")[1];
-                        String description = input.split("/by")[0].split(" ", 2)[1];
+                        this.addDeadline(this.toDo, input);
                     }
-                    catch(IndexOutOfBoundsException e) {
-                        System.out.println("You have not added any description or deadline for the deadline task. Please try again.");
-                        break;
+                    catch(InvalidDescriptionException e) {
+                        System.out.println(e.getMessage());
                     }
-                    String time = input.split("/by")[1];
-                    String description = input.split("/by")[0].split(" ", 2)[1];
-                    Deadline deadline = new Deadline(description, time);
-                    this.toDo.add(deadline);
-                    System.out.println("Got it. I have added this deadline.");
-                    System.out.println(deadline);
-                    System.out.println("You have " + this.toDo.size() + " items in your list");
                     break;
                 }
                 case "event": {
                     try {
-                        String start = input.split("/from")[1].split("/to")[0];
-                        String end = input.split("/from")[1].split("/to")[1];
-                        String description = input.split("/from")[0].split(" ", 2)[1];
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("You have not added any description or timings for the event task. Please try again.");
-                        break;
+                        this.addEvent(this.toDo, input);
+                    } catch (InvalidDescriptionException e) {
+                        System.out.println(e.getMessage());
                     }
-                    String start = input.split("/from")[1].split("/to")[0];
-                    String end = input.split("/from")[1].split("/to")[1];
-                    String description = input.split("/from")[0].split(" ", 2)[1];
-                    Event event = new Event(description, start, end);
-                    this.toDo.add(event);
-                    System.out.println("Got it. I have added this event.");
-                    System.out.println(event);
-                    System.out.println("You have " + this.toDo.size() + " items in your list.");
                     break;
                 }
                 default: {
@@ -145,6 +238,6 @@ public class Derrick {
     public static void main(String[] args) {
         Derrick chatbot = new Derrick();
         chatbot.greetings();
-        chatbot.addTodo();
+        chatbot.addItems();
     }
 }
