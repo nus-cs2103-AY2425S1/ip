@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Represents the Ollie task manager that interacts with the user.
+ */
 public class Ollie {
 
     /**
@@ -19,25 +22,43 @@ public class Ollie {
     /**
      * Echoes the user's command and performs the corresponding action.
      *
-     * @param userCommand the command entered by the user
+     * @param userCommand The command entered by the user.
+     * @throws OllieException if the user command is invalid or unrecognized.
      */
-    public static void echo(String userCommand) {
+    public static void echo(String userCommand) throws OllieException {
         if (userCommand.equals("bye")) {
             exit();
         } else if (userCommand.equals("list")) {
             Task.listTasks();
         } else if (userCommand.startsWith("mark ")) {
-            int taskNumber = Integer.parseInt(userCommand.substring(5)) - 1;
-            Task.markTaskAsDone(taskNumber);
+            try {
+                int taskNumber = Integer.parseInt(userCommand.substring(5).trim()) - 1;
+                Task.markTaskAsDone(taskNumber);
+            } catch (NumberFormatException e) {
+                throw new OllieException("Please enter a valid task number to mark as done! ☺");
+            }
         } else if (userCommand.startsWith("unmark ")) {
-            int taskNumber = Integer.parseInt(userCommand.substring(7)) - 1;
-            Task.unmarkTaskAsDone(taskNumber);
+            try {
+                int taskNumber = Integer.parseInt(userCommand.substring(7).trim()) - 1;
+                Task.unmarkTaskAsDone(taskNumber);
+            } catch (NumberFormatException e) {
+                throw new OllieException("Please enter a valid task number to unmark as done! ☺");
+            }
+        } else if (userCommand.startsWith("mark") || userCommand.startsWith("unmark")) {
+            throw new OllieException("Please enter the task number to mark or unmark as done! ☺");
         } else {
             try {
-                Task task = Task.createTask(userCommand);
-                Task.addTask(task);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid command: " + e.getMessage());
+                if (userCommand.startsWith("todo")) {
+                    Task.addTask(Todo.createTask(userCommand));
+                } else if (userCommand.startsWith("deadline")) {
+                    Task.addTask(Deadline.createTask(userCommand));
+                } else if (userCommand.startsWith("event")) {
+                    Task.addTask(Event.createTask(userCommand));
+                } else {
+                    throw new UnknownTaskTypeException();
+                }
+            } catch (OllieException e) {
+                Task.messageWrapper(e.getMessage());
             }
         }
     }
@@ -45,9 +66,9 @@ public class Ollie {
     /**
      * The main method that runs the Ollie task manager.
      *
-     * @param args command-line arguments (not used)
+     * @param args Command-line arguments (not used).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws OllieException {
         greeting();
         System.out.println();
 

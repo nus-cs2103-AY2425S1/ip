@@ -8,6 +8,6 @@ public class EmptyDescriptionException extends OllieException {
      * @param taskType the type of task that caused the exception
      */
     public EmptyDescriptionException(String taskType) {
-        super("Please add a description for a " + taskType + "task!");
+        super("Please add a name for a " + taskType + " task!");
     }
 }
