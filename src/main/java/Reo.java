@@ -49,7 +49,8 @@ public class Reo {
                     toPrint += "----------------------";
                     break;
                 case TODO:
-                    Todo toPush = new Todo(words[1]);
+                    String[] parts1 = currInput.split(" ", 2);
+                    Todo toPush = new Todo(parts1[1]);
                     tasks.add(toPush);
                     toPrint += "----------------------\n";
                     try {
