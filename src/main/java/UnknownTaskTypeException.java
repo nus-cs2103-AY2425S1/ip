@@ -7,5 +7,4 @@ public class UnknownTaskTypeException extends OllieException {
      */
     public UnknownTaskTypeException() {
         super("Oops! I don't recognize this task type. Please use 'todo', 'deadline', or 'event'. ☺");
-    }
-}
+   
