@@ -33,14 +33,14 @@ public class Jackson {
 
     public static void mark(int index) {
         Task curr = tasks.get(index);
-        System.out.println("Solid lah, marked awready");
+        System.out.println("Solid lah, marked already");
         curr.mark();
         System.out.printf("\t%s\n", curr);
     }
 
     public static void unmark(int index) {
         Task curr = tasks.get(index);
-        System.out.println("Walao, ok la I unmark awready...");
+        System.out.println("Walao, ok la I unmark already...");
         curr.unmark();
         System.out.printf("\t%s\n", curr);
     }
@@ -63,6 +63,7 @@ public class Jackson {
             } else if (response.startsWith("deadline")) {
                 suffix = response.split(" ", 2)[1];
                 splitted = suffix.split("/by", 0);
+
                 Task t = new Deadline(splitted[0].strip(), splitted[1].strip());
                 add_list(t);
             } else if (response.startsWith("event")) {

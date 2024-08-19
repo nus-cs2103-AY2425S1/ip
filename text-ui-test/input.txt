@@ -1,0 +1,11 @@
+todo water plants
+todo buy fish
+deadline finish cs2103t homework /by next Monday
+event holiday /from next Tuesday /to next Sunday
+list
+mark 2
+mark 1
+unmark 2
+mark 3
+list
+bye
