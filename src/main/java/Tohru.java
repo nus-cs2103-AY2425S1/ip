@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Tohru {
     public static void main(String[] args) {
         // Setup scanner to receive user input and set exit condition.
+        TodoList todoList = new TodoList();
         Scanner userInput = new Scanner(System.in);
         boolean toExit = false;
 
@@ -17,12 +18,22 @@ public class Tohru {
             String prompt = userInput.nextLine();
             printDivider();
             switch (prompt) {
-            case "bye": // When bye is entered, exit.
+            case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 toExit = true;
                 break;
+            case "list":
+                for (String todoItem : todoList.listItems()) {
+                    System.out.println(todoItem);
+                }
+                break;
             default:
-                System.out.println(prompt);
+                if (todoList.addItem(prompt)) {
+                    System.out.println(String.format("Added entry: %s", prompt));
+                } else {
+                    System.out.println(String.format("Unable to add entry: %s", prompt));
+                }
+
                 break;
             }
             printDivider();
