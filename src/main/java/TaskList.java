@@ -42,6 +42,13 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    public void deleteTask(int index) throws JarException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new JarException("Invalid task number, cannot delete task");
+        }
+        tasks.remove(index);
+    }
+
     public int getTaskCount() {
         return tasks.size();
     }

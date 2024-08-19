@@ -14,6 +14,13 @@ public class Parser {
         return false; // If the command is shorter than 4 characters, it cannot be "mark"
     }
 
+    public boolean isDelete(String command) {
+        if (command.length() >= 6) {
+            return command.substring(0, 6).equalsIgnoreCase("delete");
+        }
+        return false;
+    }
+
     public int getTaskNumber(String command) throws JarException {
         String[] parts = command.split(" ");
         if (parts.length == 2) {
@@ -39,28 +46,37 @@ public class Parser {
     }
 
     public Task parseTask(String command) throws JarException {
-        try {
-            if (command.startsWith("todo")) {
-                String description = command.substring(5).trim();
-                return new ToDo(description);
-            } else if (command.startsWith("deadline")) {
-                String[] parts = command.substring(9).split("/by");
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                return new Deadline(description, by);
-            } else if (command.startsWith("event")) {
-                String[] parts = command.substring(6).split("/from");
-                String description = parts[0].trim();
-                String[] timeParts = parts[1].split("/to");
-                String from = timeParts[0].trim();
-                String to = timeParts[1].trim();
-                return new Event(description, from, to);
-            } else {
-                throw new JarException("what u talking about?????"); //Unknown command
+        if (command.startsWith("todo")) {
+            String description = command.substring(4).trim();
+            if (description.isEmpty()) {
+                throw new JarException("The description of a todo cannot be empty.");
             }
-        } catch (Exception e) {
-            throw new JarException("what u talking about?????");
+            return new ToDo(description);
+        } else if (command.startsWith("deadline")) {
+            String[] parts = command.substring(8).split("/by", 2);
+            if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                throw new JarException("Invalid deadline format. Use: deadline <description> /by <date>");
+            }
+            String description = parts[0].trim();
+            String by = parts[1].trim();
+            return new Deadline(description, by);
+        } else if (command.startsWith("event")) {
+            String[] parts = command.substring(5).split("/from", 2);
+            if (parts.length < 2 || parts[0].trim().isEmpty()) {
+                throw new JarException("Invalid event format. Use: event <description> /from <start time> /to <end time>");
+            }
+            String description = parts[0].trim();
+            String[] timeParts = parts[1].split("/to", 2);
+            if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
+                throw new JarException("Invalid event time format. Use: event <description> /from <start time> /to <end time>");
+            }
+            String from = timeParts[0].trim();
+            String to = timeParts[1].trim();
+            return new Event(description, from, to);
+        } else {
+            throw new JarException("Unknown command: " + command + ". Please enter a valid command."); //Unknown command
         }
+
     }
 
     public boolean handleCommand(String command, TaskList taskList, Ui ui) throws JarException {
@@ -87,6 +103,11 @@ public class Parser {
             } else {
                 throw new JarException("Invalid task number.");
             }
+        } else if (isDelete(command)) {
+            int number = getTaskNumber(command);
+            Task task = taskList.getTask(number);
+            taskList.deleteTask(number);
+            ui.showDeleteTask(task);
         } else {
             Task task = parseTask(command);
             taskList.addTask(task);

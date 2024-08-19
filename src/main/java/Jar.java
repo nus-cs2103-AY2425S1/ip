@@ -1,3 +1,4 @@
+
 public class Jar {
     //class fields for parser and UI
     private Parser parser;
@@ -7,7 +8,7 @@ public class Jar {
     public Jar() {
         parser = new Parser();
         ui = new Ui();
-        taskList  = new TaskList();
+        taskList = new TaskList();
     }
 
     public void runBot() {

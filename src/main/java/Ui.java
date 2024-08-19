@@ -54,5 +54,9 @@ public class Ui {
     public void showTaskCount(int count) {
         System.out.println("Now you have " + count + " tasks in the list.");
     }
+    
+    public void showDeleteTask(Task task) {
+        System.out.println("Noted. I've removed this task:\n" + task);
+    }
 
 }
