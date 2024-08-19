@@ -1,10 +1,16 @@
 public class Taskon {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        greet();
+        exit();
+    }
+
+    public static void greet() {
+        String greeting = "Hello! I'm Taskon\nWhat can I do for you?\n";
+        System.out.println(greeting);
+    }
+
+    public static void exit() {
+        String exiting = "Bye. Hope to see you again soon!\n";
+        System.out.println(exiting);
     }
 }
