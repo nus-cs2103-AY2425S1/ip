@@ -16,6 +16,14 @@ public class Tina {
         while (!input.equals("bye")) {
             if(input.equals("list")) {
                 TaskList.listTask();
+            }
+            else if(input.startsWith("mark")) {
+                int idx = Integer.parseInt(input.substring(5));
+                TaskList.markTask(idx);
+            }
+            else if(input.startsWith("unmark")) {
+                int idx = Integer.parseInt(input.substring(7));
+                TaskList.unmarkTask(idx);
             } else {
                 TaskList.addTask(new Task(input));
                 System.out.println("added: " + input);
