@@ -9,7 +9,7 @@ public class WansBot {
 
         String hr = "----------------------------------------------------------------------";
 
-        System.out.println(hr + "\nHello! I'm\n" + logo);
+        System.out.println(hr + "\nHey, I'm\n" + logo);
         System.out.println("What can I do for you?\n" + hr);
 
         while (true) {
@@ -25,7 +25,7 @@ public class WansBot {
                         + "\n|  _ < \\   / |  __|"
                         + "\n| |_) | | |  | |____"
                         + "\n|____/  |_|  |______";
-                System.out.println(exit + "\nWe'll miss you :(");
+                System.out.println(exit + "\nWe won't miss you :(");
                 System.out.println(hr);
                 System.exit(0);
             }
