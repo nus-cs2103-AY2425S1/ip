@@ -9,7 +9,7 @@ public class Mendel {
         TaskManager taskManager = new TaskManager();
         new Welcome().speak();
         while (!currAction.equals("bye")) {
-            currAction = sc.nextLine();
+            currAction = sc.nextLine().trim();
             try {
                 taskManager.manage(currAction);
             } catch (MendelException e) {
