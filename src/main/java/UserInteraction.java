@@ -14,6 +14,10 @@ public class UserInteraction {
                 break;
             } else if (instruction.equals("list")) {
                 TaskCollection.printList();
+            } else if (instruction.startsWith("mark")) {
+                TaskCollection.markItem(instruction.substring(5));
+            } else if (instruction.startsWith("unmark")) {
+                TaskCollection.unmarkItem(instruction.substring(7));
             } else {
                 TaskCollection.addTask(new Task(instruction));
             }
