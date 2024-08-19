@@ -1,16 +1,35 @@
 public class TaskStorage extends MendelAction{
-    private final String message;
+    private String[] messages;
+    int counter;
 
-    public TaskStorage(String message) {
-        this.message = message;
+    public TaskStorage() {
+        this.messages = new String[100];
+        this.counter = 0;
+    }
+
+    public void add(String message) {
+        this.messages[this.counter] = message;
+        this.counter++;
+        String outputMessage = "added: " + message;
+        System.out.println(new FormatText(outputMessage).wrapLines());
     }
 
     public void speak() {
+
         System.out.println(new FormatText(this.toString()).wrapLines());
     }
 
     @Override
     public String toString() {
-        return message;
+        String finalMessage = "";
+        if (counter > 0) {
+            finalMessage = "1. " + this.messages[0];
+        }
+        for (int i = 1; i < counter; i++) {
+            int increment = i + 1;
+            finalMessage += "\n" + increment + ". " + this.messages[i];
+
+        }
+        return finalMessage;
     }
 }

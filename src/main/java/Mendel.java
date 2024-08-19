@@ -5,14 +5,17 @@ public class Mendel {
         String logo = "Mendel";
         System.out.println("Hello from\n" + logo);
         String currAction = "hello";
+        TaskStorage taskStorage = new TaskStorage();
         new Welcome().speak();
         while (!currAction.equals("bye")) {
             Scanner sc = new Scanner(System.in);
             currAction = sc.nextLine();
             if (currAction.equals("bye")) {
                 new Leave().speak();
+            } else if (currAction.equals("list")){
+                taskStorage.speak();
             } else {
-                new TaskStorage(currAction).speak();
+                taskStorage.add(currAction);
             }
 
         }
