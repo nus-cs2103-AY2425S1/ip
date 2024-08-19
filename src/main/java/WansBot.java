@@ -17,9 +17,10 @@ public class WansBot {
         while (true) {
             System.out.println("User: ");
             String userInput = sc.nextLine();
+            TaskList userTaskList = new TaskList();
 
-            if (userInput.equalsIgnoreCase("")) {
-
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println();
             } else if (userInput.equalsIgnoreCase("")) {
 
             } else if (userInput.equalsIgnoreCase("bye")) {
@@ -30,11 +31,12 @@ public class WansBot {
                         + "\n|____/  |_|  |______";
                 System.out.println("Wans: \n"
                         + exit
-                        + "\nWe won't miss you :(\n" + hr);
+                        + "\nI'll miss you :( (I really wanna go home)\n" + hr);
                 System.exit(0);
             } else {
+                 userTaskList.add(userInput);
                 System.out.println(hr + "\nWans:\n"
-                        + userInput
+                        + "Ok! I've added " + userInput
                         + "\n" + hr);
             }
         }
