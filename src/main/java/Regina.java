@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Regina {
@@ -15,19 +17,38 @@ public class Regina {
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
+        List<String> list = new ArrayList<>();
+
         while (true) {
             userInput = scanner.nextLine();   // Read user input
             if (userInput.equals("bye")) {
                 break;
             }
-            // Echo the input
-            System.out.println(LINE + "\n" + INDENT + userInput + "\n" + LINE);
+
+            // Print out the list
+            int length = list.size();
+            if (userInput.equals("list")) {
+                StringBuilder inputList = new StringBuilder();
+                for (int i = 1; i <= length; i++) {
+                    inputList.append(INDENT)
+                            .append(i)
+                            .append(". ")
+                            .append(list.get(i - 1))
+                            .append("\n");
+                }
+                System.out.println(LINE + "\n" + inputList + LINE);
+            } else {
+                // Add input to list
+                list.add(userInput);
+                System.out.println(LINE + "\n" + INDENT + "added: "
+                        + userInput + "\n" + LINE); // show that input was added
+            }
         }
 
         // Exit
-        System.out.println("\n" + LINE + "\n" + INDENT +
+        System.out.println(LINE + "\n" + INDENT +
                 "Bye. Hope to see you again soon!\n" + LINE);
 
-        scanner.close();  // Close the scanner to free up resources
+        scanner.close();
     }
 }
