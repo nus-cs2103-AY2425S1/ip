@@ -55,6 +55,14 @@ public class Fret {
         "\tDamn. Thought we had that.\n"
     };
 
+    private static final String[] TASK_DELETED_PREFIXES = new String[] {
+        "\tO-Okay, deleting task now.\n",
+        "\tAlright, task removed.\n",
+        "\tWhatever you say! Task deleted.\n",
+        "\tCtrl-alt-del\n",
+        "\tWatch me make this task disappear!\n"
+    };
+
     /**
      * Randomly selects and returns a prefix for a command from a given list
      * 
@@ -204,7 +212,30 @@ public class Fret {
                     } else {
                         printBotOutputString("\tHold on! You haven't given me any task and timings to add!");
                     }
-                } else {
+                } else if (userInput.startsWith("delete")) {
+                    // else if user input starts with "delete" then delete task X
+
+                    Matcher taskNumMatch = NUMBER_PATTERN.matcher(userInput);
+
+                    // use same integer finder regex
+                    if (taskNumMatch.find()) {
+                        int taskNum = Integer.parseInt(taskNumMatch.group());
+
+                        try {
+                            tasks.remove(taskNum - 1);
+                            numTasks--;
+                            printBotOutputString(
+                                generateRandomPrefix(TASK_DELETED_PREFIXES) + taskListToString(tasks, numTasks)
+                            );
+                        } catch (NullPointerException | IndexOutOfBoundsException e) {
+                            printBotOutputString("\tHold on a second! You don't have those many tasks!");
+                        }
+                    } else {
+                        // if no integer found, reprompt for input
+                        printBotOutputString("\tUhhh sorry which task did you wish to delete?");
+                    }
+                }
+                else {
                     printBotOutputString("\tUhhh I did not get that so I'm just gonna say yes!");
                 }
             }
