@@ -7,11 +7,6 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public Task(String taskDescription) {
-        this.taskDescription = taskDescription;
-        this.isDone = false;
-    }
-
     public String getTaskDescription() {
         return this.taskDescription;
     }
@@ -24,11 +19,17 @@ public class Task {
         this.isDone = isDone;
     }
 
+
     public String getStatusIcon() {
         if (this.isDone) {
             return "[X]";
         } else {
             return "[ ]";
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.getStatusIcon() + " " + this.getTaskDescription();
     }
 }

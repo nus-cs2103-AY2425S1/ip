@@ -14,12 +14,19 @@ public class UserInteraction {
                 break;
             } else if (instruction.equals("list")) {
                 TaskCollection.printList();
-            } else if (instruction.startsWith("mark")) {
+            } else if (instruction.startsWith("mark ")) {
                 TaskCollection.markItem(instruction.substring(5));
-            } else if (instruction.startsWith("unmark")) {
+            } else if (instruction.startsWith("unmark ")) {
                 TaskCollection.unmarkItem(instruction.substring(7));
+            } else if (instruction.startsWith("todo ")) {
+                TaskCollection.addTodoTask(instruction.substring(5));
+            }  else if (instruction.startsWith("deadline ")) {
+                TaskCollection.addDeadlineTask(instruction.substring(9));
+            }  else if (instruction.startsWith("event ")) {
+                TaskCollection.addEventTask(instruction.substring(6));
             } else {
-                TaskCollection.addTask(new Task(instruction));
+//                TaskCollection.addTask(new Task(instruction));
+                System.out.println("ERROR");
             }
             System.out.println(Meeju.LINE_BREAK);
         }
