@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class NotAGPT {
 
     public static void main(String[] args) {
@@ -26,7 +28,9 @@ public class NotAGPT {
 
     public static void inputHelper(TaskList taskList, String s) {
         Line line = new Line();
-        switch(s.toLowerCase()) {
+        String[] parts = s.split(" ");
+        String command = parts[0].toLowerCase();
+        switch(command) {
             case "bye":
                 NotAGPTExit();
                 break;
@@ -34,6 +38,29 @@ public class NotAGPT {
             case "list":
                 taskList.list();
                 break;
+
+            case "mark":
+                if (parts.length > 1) {
+                    String idx = parts[1];
+                    taskList.markAsDone(idx);
+                } else {
+                    line.drawLine();
+                    System.out.println("    Enter a task number");
+                    line.drawLine();
+                }
+                break;
+
+            case "unmark":
+                if (parts.length > 1) {
+                    String idx = parts[1];
+                    taskList.markAsUndone(idx);
+                } else {
+                    line.drawLine();
+                    System.out.println("    Enter a task number");
+                    line.drawLine();
+                }
+                break;
+
 
             default:
                 taskList.add(s);

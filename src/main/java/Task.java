@@ -1,8 +1,16 @@
 public class Task {
-    public String taskName;
-    public boolean completed;
+    private String taskName;
+    private boolean completed;
     private Task(String name) {
         this.taskName = name;
+        this.completed = false;
+    }
+
+    public void markAsDone() {
+        this.completed = true;
+    }
+
+    public void markAsUndone() {
         this.completed = false;
     }
 
@@ -12,6 +20,10 @@ public class Task {
 
     public String readTask() {
         return this.taskName;
+    }
+
+    public String getStatus(){
+        return this.completed ? "X": " ";
     }
 
 

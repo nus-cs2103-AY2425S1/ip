@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 public class TaskList {
     private ArrayList<Task> taskList;
     private final Line line = new Line();
@@ -20,15 +22,45 @@ public class TaskList {
         line.drawLine();
     }
 
+    public void markAsDone(String s) {
+        int idx = parseInt(s);
+        idx -= 1;
+        if ((idx < 0) || (idx > taskListLength)) {
+            return;
+        }
+        Task currentTask = taskList.get(idx);
+        currentTask.markAsDone();
+        line.drawLine();
+        System.out.println("    Nice! I've marked this task as done:");
+        System.out.println("      [" + currentTask.getStatus() + "] " + currentTask.readTask());
+        line.drawLine();
+    }
+
+
+    public void markAsUndone(String s) {
+        int idx = parseInt(s);
+        idx -= 1;
+        if ((idx < 0) || (idx > taskListLength)) {
+            return;
+        }
+        Task currentTask = taskList.get(idx);
+        currentTask.markAsUndone();
+        line.drawLine();
+        System.out.println("    OK, I've marked this task as not done yet:");
+        System.out.println("      [" + currentTask.getStatus() + "] " + currentTask.readTask());
+        line.drawLine();
+    }
+
     public void list() {
         if (taskListLength == 0) {
             return;
         }
 
         line.drawLine();
-        for (int i = 0; i < taskListLength; i++) {
+        for (int i = startPointer; i < taskListLength; i++) {
             int counter = i + 1;
-            System.out.println("    "+ counter + ". " + this.taskList.get(i).readTask());
+            Task currentTask = this.taskList.get(i);
+            System.out.println("    " + counter + ". [" + currentTask.getStatus()  + "] " + currentTask.readTask());
         }
         line.drawLine();
     }
