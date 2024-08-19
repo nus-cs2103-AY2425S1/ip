@@ -10,7 +10,7 @@ public class Task {
             return new Todo(rest);
         } else {
             String[] parse = rest.split("/");
-            return new Task("test");
+            return new Event(parse[0], parse[1], parse[2]);
         }
     }
 
@@ -45,7 +45,7 @@ public class Task {
 
         public Deadline(String description, String by) {
             super(description);
-            this.by = by.split(" ")[1];
+            this.by = by.substring(by.indexOf(" ") + 1);
         }
 
         @Override
@@ -67,16 +67,18 @@ public class Task {
     }
 
     private static class Event extends Task {
-        protected String by;
+        protected String from;
+        protected String to;
 
-        public Event(String description, String by) {
+        public Event(String description, String from, String to) {
             super(description);
-            this.by = by;
+            this.from = from.substring(from.indexOf(" ") + 1);
+            this.to = to.substring(to.indexOf(" ") + 1);
         }
 
         @Override
         public String toString() {
-            return "[E]" + super.toString();
+            return String.format("[E]%s (from: %sto: %s)", super.toString(), this.from, this.to);
         }
     }
 
