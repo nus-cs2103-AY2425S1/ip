@@ -1,3 +1,4 @@
+import java.lang.invoke.StringConcatFactory;
 import java.util.Scanner;
 public class Dook {
     public static void main(String[] args) {
@@ -42,6 +43,52 @@ public class Dook {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[number]);
                 System.out.println(separator);
+
+            } else if (response.startsWith("todo")) {
+                String description = response.substring(5).trim();
+                Task todo = new Todo(description);
+                tasks[count] = todo;
+                count++;
+                System.out.println(separator);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(todo);
+                System.out.println("Now you have " + count + " tasks in the list");
+                System.out.println(separator);
+
+            } else if (response.startsWith("deadline")) {
+                String[] deadlineInput = response.substring(9).split(" /by ", 2);
+                if (deadlineInput.length == 2) {
+                    String description = deadlineInput[0].trim();
+                    String by = deadlineInput[1].trim();
+                    Task deadline = new Deadline(description, by);
+                    tasks[count] = deadline;
+                    count++;
+                    System.out.println(separator);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(deadline);
+                    System.out.println("Now you have " + count + " tasks in the list");
+                    System.out.println(separator);
+                }
+
+
+            } else if (response.startsWith("event")) {
+                String[] eventInput = response.substring(6).split(" /from ", 2);
+                if (eventInput.length == 2) {
+                    String description = eventInput[0].trim();
+                    String[] timings = eventInput[1].split(" /to ", 2);
+                    if (timings.length == 2) {
+                        String start = timings[0].trim();
+                        String end = timings[1].trim();
+                        Task event = new Event(description, start, end);
+                        tasks[count] = event;
+                        count++;
+                        System.out.println(separator);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(event);
+                        System.out.println("Now you have " + count + " tasks in the list");
+                        System.out.println(separator);
+                    }
+                }
 
             } else {
                 Task task = new Task(response);
