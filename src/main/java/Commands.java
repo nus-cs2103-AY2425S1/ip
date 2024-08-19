@@ -9,7 +9,7 @@ public class Commands {
 
     public static void returnTaskList(Task[] tasks, int tasksIndex) {
         System.out.println("------------------------------------------");
-        System.out.println("Here are the tasks in your list: \n");
+        System.out.println("Here are the tasks in your list:\n");
         for(int i =0; i < tasksIndex; i++) {
             int taskListCount = i + 1;
             Task currTask = tasks[i];
@@ -22,7 +22,7 @@ public class Commands {
         System.out.println("------------------------------------------");
         tasksArr[currIndex] = task;
         int numberOfTasks = currIndex + 1;
-        System.out.println( "Got it. I've added this task: \n" + task.toString() + "\n" + "Now you have " + numberOfTasks + " tasks in your list.");
+        System.out.println( "Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + numberOfTasks + " tasks in your list.");
         System.out.println("------------------------------------------");
     }
 
