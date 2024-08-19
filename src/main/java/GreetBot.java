@@ -16,23 +16,25 @@ public class GreetBot {
         Task[] list = new Task[100];
         int counter = 0;
 
-        while (true) {
-            System.out.println("-----------------------");
+        while (scanner.hasNext()) {
+
             String currentCommand = scanner.nextLine();
 
             if (currentCommand.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (currentCommand.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < counter; i++) {
-                    System.out.println(String.format("%d. %s", i + 1, list[i]));
+                    System.out.println(String.format("%d.%s", i + 1, list[i]));
                 }
-            } else if (currentCommand.startsWith("mark") || currentCommand.startsWith("unmark")) {
+            } else if (currentCommand.startsWith("mark")) {
                 int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
                 list[index - 1].mark();
+            } else if (currentCommand.startsWith("unmark")) {
+                int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
+                list[index - 1].unmark();
             } else {
-                                 
-                System.out.println("-----------------------");
                 list[counter] = new Task(currentCommand);
                 counter += 1;
                 System.out.println(String.format("added: %s", currentCommand));
