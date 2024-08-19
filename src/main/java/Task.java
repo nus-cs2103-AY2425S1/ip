@@ -114,6 +114,23 @@ public abstract class Task {
     }
 
     /**
+     * Deletes a specific task based on the task number.
+     *
+     * @param taskNumber The task number to delete.
+     * @throws OllieException If the task number is invalid.
+     */
+    public static void deleteTask(int taskNumber) throws OllieException {
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task removedTask = tasks.remove(taskNumber);
+            taskCount = tasks.size();
+            messageWrapper("Noted. I've removed this task:\n  " + removedTask +
+                    "\nNow you have " + taskCount + " tasks in the list.");
+        } else {
+            throw new OllieException("Please enter a valid task number within the list ☺");
+        }
+    }
+
+    /**
      * Prints a message within a decorative border.
      *
      * @param message The message to print.
