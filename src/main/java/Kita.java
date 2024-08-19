@@ -14,15 +14,6 @@ public class Kita {
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void checkTaskParameters(Matcher matcherObj, int params) {
-        int paramsDetected = matcherObj.groupCount();
-        if (paramsDetected < params) {
-            if (paramsDetected == 0) {
-                throw new KitaMissingDescription();
-            }
-        };
-    }
-
     public static void main(String[] args) {
         Scanner getInput = new Scanner(System.in);
 
