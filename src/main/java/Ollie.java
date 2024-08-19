@@ -17,14 +17,16 @@ public class Ollie {
      * Greets the user with a welcome message.
      */
     public void greeting() {
-        taskList.messageWrapper("Hello there! ☺ I'm OLLIE ☺ \nWhat can I do for you? ☺");
+        System.out.println("Hello there! ☺ I'm OLLIE ☺" ) ;
+        System.out.println("What can I do for you today? ☺");
     }
 
     /**
      * Bids farewell to the user with a goodbye message.
      */
     public void exit() {
-        taskList.messageWrapper("Bye. Have a great day. ☺ Hope to see you again soon! ☺ ");
+        System.out.println("Bye. Have a great day. ☺");
+        System.out.println("Hope to see you again soon! ☺");
     }
 
     /**
