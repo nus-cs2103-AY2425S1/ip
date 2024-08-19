@@ -3,5 +3,6 @@ public class Mendel {
         String logo = "Mendel";
         System.out.println("Hello from\n" + logo);
         new Welcome().speak();
+        new Leave().speak();
     }
 }
