@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Talkie {
 
-    private static List<String> taskList = new ArrayList<>();
+    private static List<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -28,36 +28,68 @@ public class Talkie {
 
         // Program runs until user inputs "bye"
         while (true) {
-            String toDo = scanner.nextLine();
+            String input = scanner.nextLine();
 
-            if (toDo.equalsIgnoreCase("bye")) {
+            if (input.equalsIgnoreCase("bye")) {
                 System.out.println(byeMessage);
                 break;
             }
 
-            if (toDo.equalsIgnoreCase("list")) {
+            if (input.equalsIgnoreCase("list")) {
 
                 String listMessage = "";
 
                 for (int i=0; i<taskList.size(); i++) {
-                    String description = (i + 1) + ". " + taskList.get(i) + "\n";
+                    Task currTask = taskList.get(i);
+                    String description = (i + 1) + ". " + currTask + "\n";
                     listMessage += description;
                 }
 
                 String finalListMessage = "-----------------------------------------------\n"
+                        + "Here are the tasks in your list:\n"
                         +  listMessage
                         + "-----------------------------------------------\n";
                 System.out.println(finalListMessage);
                 continue;
             }
 
+            if (input.startsWith("mark")) {
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    Task task = taskList.get(index);
+                    task.markAsDone();
+                    String doneMessage = "Nice! I've marked this task as done:\n"
+                            + task + "\n"
+                            + "______________________________________________\n";
+                    System.out.println(doneMessage);
+                } catch (Exception e) {
+                    System.out.println("Invalid task number.");
+                }
+                continue;
+            }
+
+            if (input.startsWith("unmark")) {
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    Task task = taskList.get(index);
+                    task.markAsNotDone();
+                    String undoneMessage = "OK, I've marked this task as not done yet:\n"
+                            + task + "\n"
+                            + "______________________________________________\n";
+                    System.out.println(undoneMessage);
+                } catch (Exception e) {
+                    System.out.println("Invalid task number.");
+                }
+                continue;
+            }
+
 
             // Initialise a new Item Object
-            Task t = new Task(toDo);
-            taskList.add(t.toString());
+            Task t = new Task(input);
+            taskList.add(t);
 
             String toDoMessage = "-----------------------------------------------\n"
-                    + "Added: " + t + "\n"
+                    + "Added: " + t.getDesc() + "\n"
                     + "-----------------------------------------------\n";
 
             System.out.println(toDoMessage);
