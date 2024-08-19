@@ -1,16 +1,17 @@
 public class TaskStorage extends MendelAction{
-    private String[] messages;
+    private Task[] messages;
     int counter;
 
     public TaskStorage() {
-        this.messages = new String[100];
+        this.messages = new Task[100];
         this.counter = 0;
     }
 
     public void add(String message) {
-        this.messages[this.counter] = message;
+        Task element = new Task(message);
+        this.messages[this.counter] = element;
         this.counter++;
-        String outputMessage = "added: " + message;
+        String outputMessage = "added: " + element.toString();
         System.out.println(new FormatText(outputMessage).wrapLines());
     }
 
@@ -23,11 +24,11 @@ public class TaskStorage extends MendelAction{
     public String toString() {
         String finalMessage = "";
         if (counter > 0) {
-            finalMessage = "1. " + this.messages[0];
+            finalMessage = "1. " + this.messages[0].toString();
         }
         for (int i = 1; i < counter; i++) {
             int increment = i + 1;
-            finalMessage += "\n" + increment + ". " + this.messages[i];
+            finalMessage += "\n" + increment + ". " + this.messages[i].toString();
 
         }
         return finalMessage;
