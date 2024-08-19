@@ -64,7 +64,7 @@ public class TaskList {
             if (tasks[i] == null) {
                 break;
             }
-            result = result + i + "." + tasks[i] + "\n";
+            result = result + (i + 1) + "." + tasks[i] + "\n";
         }
         return result;
     }
