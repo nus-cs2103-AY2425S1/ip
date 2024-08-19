@@ -22,21 +22,21 @@ public class Bob {
                     return bot.exit();
                 case "list":
                     return bot.list();
-            case "mark": {
-                    String[] inputWords = input.split(" ");
-                    if (inputWords.length != 2) {
+                case "mark": {
+                    Matcher matcher = Pattern.compile("^mark (\\d*)$").matcher(input);
+                    if (matcher.find()) {
+                        return bot.mark(true, Integer.parseInt(matcher.group(1)));
+                    } else {
                         throw new InvalidInputException("Please specify which task to mark.");
                     }
-                    int itemNum = Integer.parseInt(inputWords[1]);
-                    return bot.mark(true, itemNum);
                 }
                 case "unmark": {
-                    String[] inputWords = input.split(" ");
-                    if (inputWords.length != 2) {
+                    Matcher matcher = Pattern.compile("^unmark (\\d*)$").matcher(input);
+                    if (matcher.find()) {
+                        return bot.mark(false, Integer.parseInt(matcher.group(1)));
+                    } else {
                         throw new InvalidInputException("Please specify which task to unmark.");
                     }
-                    int itemNum = Integer.parseInt(inputWords[1]);
-                    return bot.mark(false, itemNum);
                 }
                 case "todo":
                     return bot.todo(input.substring(5));
