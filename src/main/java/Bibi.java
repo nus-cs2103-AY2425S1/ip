@@ -9,6 +9,11 @@ public class Bibi {
                         ########   #######   ########   #######\s
                       """;
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + logo + "\n"
+                    + "How can I help you?");
+
+        System.out.println("---------------------------------");
+        System.out.println("See you soon :3");
+        System.out.println("---------------------------------");
     }
 }
