@@ -1,15 +1,12 @@
 import java.util.Scanner;
 
 public class Optimus {
-    //stores list of tasks
-    private static String[] taskList = new String[100];
-    //tracks number of tasks
-    private static int taskCount = 0;
+    private static Task[] taskList = new Task[100]; //stores list of tasks
+    private static int taskCount = 0; //tracks number of tasks
     public static void main(String[] args) {
-        //greeting for user
         String greeting = "Hello! I'm Optimus.\n" +
                 "What can I do for you?\n";
-        System.out.println(greeting);
+        System.out.println(greeting); //greeting for user
         //Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
@@ -27,24 +24,38 @@ public class Optimus {
             //if user inputs "list", list out all existing tasks from taskList array
             if (userInput.equals("list")) {
                 listTasks();
-            } else {
+            } else if (userInput.startsWith("mark")) {
+                String[] parts = userInput.split(" ");
+                int taskIndex = Integer.parseInt(parts[1]) - 1; // Get the index (1-based index to 0-based)
+                if (taskIndex + 1 > taskCount) {
+                    System.out.println("Sorry, you only have up to task number " + taskCount);
+                    continue;
+                }
+                markTaskAsDone(taskIndex);
+            }else {
                 // else add user task to taskList array and echo "added: <task>"
-                addTask(userInput);
+                addTask(new Task(userInput));
             }
         }
     }
 
     //add task to taskList array upon user input
-    private static void addTask(String task) {
+    private static void addTask(Task task) {
         taskList[taskCount] = task;
         taskCount++;
-        System.out.println("added: " + task + "\n");
+        System.out.println("added: " + task.description + "\n");
     }
 
     //list out tasks from taskList array
     private static void listTasks() {
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+            System.out.println((i + 1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].description);
         }
+    }
+
+    private static void markTaskAsDone(int taskIndex) {
+        taskList[taskIndex].isDone = true;
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[X] " + taskList[taskIndex].description);
     }
 }
