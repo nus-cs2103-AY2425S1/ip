@@ -35,16 +35,37 @@ public class Optimus {
                 markTaskAsDone(taskIndex);
             } else {
                 // else add user task to taskList array and echo "added: <task>"
-                addTask(new Task(userInput));
+                addTask(userInput);
             }
         }
     }
 
     //add task to taskList array upon user input
-    private static void addTask(Task task) {
+    private static void addTask(String userInput) {
+        Task task;
+        //used AI to find how to extract relevant words from user input
+        if (userInput.startsWith("todo")) {
+            String description = userInput.substring(5).trim();
+            task = new Todo(description);
+        } else if (userInput.startsWith("deadline")) {
+            String[] parts = userInput.substring(9).split("/by");
+            String description = parts[0].trim();
+            String by = parts[1].trim();
+            task = new Deadline(description, by);
+        } else if (userInput.startsWith("event")) {
+            String[] parts = userInput.substring(6).split ("/from|/to");
+            String description = parts[0].trim();
+            String from = parts[1].trim();
+            String to = parts[2].trim();
+            task = new Event(description, from, to);
+        } else {
+            task = new Task(userInput);
+        }
         taskList[taskCount] = task;
         taskCount++;
-        System.out.println("added: " + task.description + "\n");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     //list out tasks from taskList array
