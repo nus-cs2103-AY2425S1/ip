@@ -18,9 +18,17 @@ public class Susan {
 "     \\/__/         \\/__/         \\/__/         \\/__/         \\/__/    \n";
 
         System.out.println(logo);
-		printItem("Hello! I'm Susan!\n" + INDENTATION + "What can I do for you?");
+		printItem("Meow. I'm Susan!\n" + INDENTATION + "What can I do for you?");
+		
+		Scanner sc = new Scanner(System.in);
+  
+		String obj = sc.nextLine();
+		while (!obj.equals("bye")) {
+			printItem(obj + " Meow");
+            obj = sc.nextLine();
+        }
 	
-		printItem("Bye. Hope to see you again soon!");
+		printItem("Meow. Hope to see you again soon!");
     }
 
 	public static void printItem(String item) {
