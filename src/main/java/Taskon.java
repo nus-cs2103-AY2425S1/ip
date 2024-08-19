@@ -1,7 +1,18 @@
+import java.util.Scanner;
+
 public class Taskon {
     public static void main(String[] args) {
         greet();
-        exit();
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            String toEcho = scanner.nextLine();
+            if (toEcho.equals("bye")) {
+                exit();
+                break;
+            } else {
+                System.out.println(toEcho + "\n");
+            }
+        }
     }
 
     public static void greet() {
