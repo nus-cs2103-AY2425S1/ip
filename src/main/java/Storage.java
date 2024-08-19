@@ -1,8 +1,10 @@
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class Storage {
@@ -60,13 +62,13 @@ public class Storage {
     private void handledeadline(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")",""));
+            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")","").trim());
             deadline.markdone();
             input.add(deadline);
             counter++;
         } else {
             String str1 = str.substring(4);
-            Deadline deadline = new Deadline(str1.split(" ")[0], str1.split("by: ")[1].replace(")",""));
+            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")","").trim());
             input.add(deadline);
             counter++;
         }

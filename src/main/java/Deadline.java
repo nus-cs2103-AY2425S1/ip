@@ -1,20 +1,31 @@
-public class Deadline extends Input {
-    String deadline;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String input) {
+public class Deadline extends Input {
+    LocalDate deadline;
+
+    public Deadline(String input) throws DateTimeParseException{
         super(input.split(" ",2)[1].split("/",2)[0]);
-        this.deadline = input.split("/by")[1];
+        try {
+            this.deadline = LocalDate.parse(input.split("/by")[1].trim());
+        } catch (DateTimeParseException e) {
+            System.out.println("Please enter the date in the format yyyy-mm-dd");
+        }
+
 
     }
 
     public Deadline(String input, String deadline) {
         super(input);
-        this.deadline = deadline;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        this.deadline = LocalDate.parse(deadline, formatter);
     }
 
     @Override
     public String toString() {
-        String str = "[D] " + super.toString() + "(by: " + this.deadline + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        String str = "[D] " + super.toString() + "(by: " + this.deadline.format(formatter) + ")";
         return str;
     }
 
