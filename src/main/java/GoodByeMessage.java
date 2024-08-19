@@ -1,5 +1,6 @@
 public class GoodByeMessage {
-    public static String goodByeMessage() {
-        return " Bye. Hope to see you again soon!";
+    public static void goodByeMessage() {
+        System.out.println(" Bye. Hope to see you again soon!");
+
     }
 }
