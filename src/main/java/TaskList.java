@@ -30,6 +30,29 @@ public class TaskList {
         System.out.println("added: " + task);
         System.out.println("____________________________________________________________");
     }
+    
+    /**
+     * Marks a task as done.
+     * @param taskNumber
+     */
+    public void markTaskAsDone(int taskNumber) {
+        this.tasks[taskNumber].markAsDone();
+        System.out.println("____________________________________________________________");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(this.tasks[taskNumber]);
+        System.out.println("____________________________________________________________");
+    }
+    /**
+     * Marks a task as not done.
+     * @param taskNumber
+     */
+    public void markTaskAsNotDone(int taskNumber) {
+        this.tasks[taskNumber].markAsNotDone();
+        System.out.println("____________________________________________________________");
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(this.tasks[taskNumber]);
+        System.out.println("____________________________________________________________");
+    }
 
     /**
      * Returns a string representation of the task list.
