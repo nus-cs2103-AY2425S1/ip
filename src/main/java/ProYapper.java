@@ -7,7 +7,7 @@ public class ProYapper {
         Scanner scanner = new Scanner(System.in);
 
         String greeting = "Hello! I am Pro Yapper!\nWhat can I do for you?\n";
-        String goodbye = "Bye. Hope to see you again soon!\n";
+        String goodbye = "Bye. Hope to see you again soon!";
         String errorMessage = "Please type in a command!\n" +
                 "list: shows a list of your tasks\n" +
                 "mark <task number>: mark the task in your list as done\n" +
@@ -23,74 +23,62 @@ public class ProYapper {
             String userInput = scanner.nextLine();
             // Bye command
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("\n" + goodbye);
+                System.out.println(goodbye);
                 break;
 
-            // List command
+                // List command
             } else if (userInput.equalsIgnoreCase("list")) {
-                System.out.println("\nHere are the tasks in your list:");
-
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.size(); i++) {
                     int lstNum = i + 1;
                     Task next = taskList.get(i);
-
                     System.out.println(lstNum + ". " + next.toString());
                 }
-                System.out.println("\n");
 
-            // Mark command
+                // Mark command
             } else if (userInput.startsWith("mark")) {
-                System.out.println("\nNice! I've marked this task as done:");
-
+                System.out.println("Nice! I've marked this task as done:");
                 String[] parts = userInput.split(" ");
                 int lstNum = Integer.parseInt(parts[1]);
                 Task marked = taskList.get(lstNum - 1);
                 marked.markAsDone();
+                System.out.println(marked.toString());
 
-                System.out.println(marked.toString() + "\n");
-
-            // Unmark command
+                // Unmark command
             } else if (userInput.startsWith("unmark")) {
-                System.out.println("\nOK, I've marked this task as not done yet:");
-
+                System.out.println("OK, I've marked this task as not done yet:");
                 String[] parts = userInput.split(" ");
                 int lstNum = Integer.parseInt(parts[1]);
                 Task unmarked = taskList.get(lstNum - 1);
                 unmarked.markAsUndone();
+                System.out.println(unmarked.toString());
 
-                System.out.println(unmarked.toString() + "\n");
-
-            // To Do command
+                // To Do command
             } else if (userInput.startsWith("todo")) {
-                System.out.println("\nGot it. I've added this task:");
-
+                System.out.println("Got it. I've added this task:");
                 String[] parts = userInput.split(" ", 2);
                 String taskName = parts.length > 1 ? parts[1] : "";
                 Task newTask = new ToDo(taskName);
                 taskList.add(newTask);
                 int numTasks = taskList.size();
-
                 System.out.println("  " + newTask.toString());
                 System.out.println("Now you have " + numTasks + " tasks in the list");
 
-            // Deadline
+                // Deadline
             } else if (userInput.startsWith("deadline")) {
-                System.out.println("\nGot it. I've added this task:");
-
+                System.out.println("Got it. I've added this task:");
                 String[] parts = userInput.split("/by", 2);
                 String taskName = parts[0].replaceFirst("deadline", "").trim();
                 String dueWhen = parts.length > 1 ? parts[1].trim() : "";
                 Task newTask = new Deadline(taskName, dueWhen);
                 taskList.add(newTask);
                 int numTasks = taskList.size();
-
                 System.out.println("  " + newTask.toString());
                 System.out.println("Now you have " + numTasks + " tasks in the list");
 
-            // Event
+                // Event
             } else if (userInput.startsWith("event")) {
-                System.out.println("\nGot it. I've added this task:");
-
+                System.out.println("Got it. I've added this task:");
                 String[] partsFrom = userInput.split("/from", 2);
                 String taskName = partsFrom[0].replaceFirst("event", "").trim();
                 String[] partsTo = partsFrom[1].split("/to", 2);
@@ -99,14 +87,14 @@ public class ProYapper {
                 Task newTask = new Event(taskName, startWhen, endWhen);
                 taskList.add(newTask);
                 int numTasks = taskList.size();
-
                 System.out.println("  " + newTask.toString());
                 System.out.println("Now you have " + numTasks + " tasks in the list");
             } else {
-                System.out.println("\n" + errorMessage + "\n");
+                System.out.println(errorMessage);
             }
         }
         scanner.close();
     }
 }
+
 
