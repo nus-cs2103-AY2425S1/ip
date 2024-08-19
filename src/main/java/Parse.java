@@ -22,22 +22,26 @@ public class Parse {
                 throw new TinaException("I have no idea what that means");
             }
         } catch (StringIndexOutOfBoundsException e) {
-            throw new TinaException("Where is your description");
+            throw new TinaException("Where is your description?");
         }
     }
     public static void parseInput(String input) throws TinaException {
-        if(input.equals("list")) {
-            TaskList.listTask();
-        }
-        else if(input.startsWith("mark")) {
-            int idx = Integer.parseInt(input.substring(5));
-            TaskList.markTask(idx);
-        }
-        else if(input.startsWith("unmark")) {
-            int idx = Integer.parseInt(input.substring(7));
-            TaskList.unmarkTask(idx);
-        } else {
-            parseTask(input);
+        try {
+            if (input.equals("list")) {
+                TaskList.listTask();
+            } else if (input.startsWith("mark")) {
+                int idx = Integer.parseInt(input.substring(5));
+                TaskList.markTask(idx);
+            } else if (input.startsWith("unmark")) {
+                int idx = Integer.parseInt(input.substring(7));
+                TaskList.unmarkTask(idx);
+            } else {
+                parseTask(input);
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new TinaException("What is the index?");
+        } catch (NumberFormatException e) {
+            throw new TinaException("Enter the index after the space.");
         }
     }
 }
