@@ -4,9 +4,10 @@ public class Optimus {
     private static Task[] taskList = new Task[100]; //stores list of tasks
     private static int taskCount = 0; //tracks number of tasks
     public static void main(String[] args) {
+        //greeting for user
         String greeting = "Hello! I'm Optimus.\n" +
                 "What can I do for you?\n";
-        System.out.println(greeting); //greeting for user
+        System.out.println(greeting);
         //Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
@@ -24,15 +25,15 @@ public class Optimus {
             //if user inputs "list", list out all existing tasks from taskList array
             if (userInput.equals("list")) {
                 listTasks();
-            } else if (userInput.startsWith("mark")) {
+            } else if (userInput.startsWith("mark")) { //check if user wants to mark task
                 String[] parts = userInput.split(" ");
                 int taskIndex = Integer.parseInt(parts[1]) - 1; // Get the index (1-based index to 0-based)
-                if (taskIndex + 1 > taskCount) {
+                if (taskIndex + 1 > taskCount) { //check if task user wants to add exists
                     System.out.println("Sorry, you only have up to task number " + taskCount);
                     continue;
                 }
                 markTaskAsDone(taskIndex);
-            }else {
+            } else {
                 // else add user task to taskList array and echo "added: <task>"
                 addTask(new Task(userInput));
             }
