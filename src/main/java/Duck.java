@@ -9,6 +9,7 @@ public class Duck {
         LIST,
         MARK,
         UNMARK,
+        DELETE,
         TODO,
         DEADLINE,
         EVENT,
@@ -48,7 +49,7 @@ public class Duck {
         String message;
 
         while (in.hasNextLine()) {
-            message = in.nextLine();
+            message = in.nextLine().trim();
             if (message.equalsIgnoreCase(Instruction.BYE.toString())) {
                 break;
             }
@@ -65,6 +66,9 @@ public class Duck {
                     break;
                 case MARK, UNMARK:
                     updateStatus(message);
+                    break;
+                case DELETE:
+                    deleteTask(message);
                     break;
                 case TODO:
                     toDoInstruction(message);
@@ -87,7 +91,7 @@ public class Duck {
     }
 
     public static String getInstruction(String message) {
-        return message.trim().split(" ")[0].toUpperCase();
+        return message.split(" ")[0].toUpperCase();
     }
 
     public static ToDo parseToDo(String input) throws DukeException {
@@ -158,11 +162,9 @@ public class Duck {
         addTask(event);
     }
 
-    public static boolean isUpdatingStatus(String message) {
+    public static boolean checkUpdateTaskFormat(String message) {
         String[] words = message.split(" ");
-        return words.length == 2
-                && (words[0].equals("mark") || words[0].equals("unmark"))
-                && isInteger(words[1]);
+        return words.length == 2 && isInteger(words[1]);
     }
 
     public static boolean isInteger(String str) {
@@ -175,8 +177,9 @@ public class Duck {
     }
 
     public static void updateStatus(String message) throws DukeException {
-        if (!isUpdatingStatus(message)) {
-            return;
+        if (!checkUpdateTaskFormat(message)) {
+            throw new DukeException("Update tasks with correct format please >:(\n" +
+                    "mark/unmark {index of task to update}");
         }
 
         String[] words = message.split(" ");
@@ -193,6 +196,25 @@ public class Duck {
         }
     }
 
+    public static void deleteTask(String message) throws DukeException {
+        if (!checkUpdateTaskFormat(message)) {
+            throw new DukeException("Delete tasks with correct format please >:(\n" +
+                    "delete {index of task to delete}");
+        }
+
+        String[] words = message.split(" ");
+
+        try {
+            System.out.println("Noted. I've removed this task:\n" +
+                    tasks.get(Integer.parseInt(words[1]) - 1));
+            tasks.remove(Integer.parseInt(words[1]) - 1);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Oops! you have to indicate a valid task index!\n");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Oops! Index out of bound :( Input a valid task index.\n");
+        }
+    }
     public static void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:\n" + task);
