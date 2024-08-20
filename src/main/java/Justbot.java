@@ -12,24 +12,27 @@ public class Justbot {
 
         while (!input.equals("bye")) {
             input = scanner.nextLine();
-            String command = input.split(" ")[0];
-
+            String commandString = input.split(" ")[0];
+            CommandType command = CommandType.fromString(commandString);
             switch(command) {
-                case "bye":
+                case BYE:
                     System.out.println("------------------------------------------");
                     Commands.bye();
+                    scanner.close();
                     return;
-                case "list":
+                case LIST:
                     try {
                         if (tasks.isEmpty()) {
                             throw new JustbotException("Hey man you have no tasks in your list!");
                         }
                         Commands.returnTaskList(tasks);
                     } catch (JustbotException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
+                        System.out.println("------------------------------------------");
                     }
                     break;
-                case "mark":
+                case MARK:
                     try {
                         String[] splitInputMark = input.split(" ");
 
@@ -43,14 +46,20 @@ public class Justbot {
                         }
                         Commands.markTask(tasks, markNumber);
                     } catch (NumberFormatException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man please input a number for the task number!");
+                        System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man there is no such task!");
+                        System.out.println("------------------------------------------");
                     } catch (JustbotException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
+                        System.out.println("------------------------------------------");
                     }
                     break;
-                case "unmark":
+                case UNMARK:
                     try {
                         String[] splitInputUnmark = input.split(" ");
 
@@ -64,14 +73,20 @@ public class Justbot {
                         }
                         Commands.unmarkTask(tasks, unmarkNumber);
                     } catch (NumberFormatException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man please input a number for the task number!");
+                        System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man there is no such task!");
+                        System.out.println("------------------------------------------");
                     } catch (JustbotException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
+                        System.out.println("------------------------------------------");
                     }
                     break;
-                case "deadline":
+                case DEADLINE:
                     try {
                         String[] splitPartsDeadline = input.split("/by");
 
@@ -82,7 +97,7 @@ public class Justbot {
 
                         String commandAndDescriptionDeadline = splitPartsDeadline[0].trim();
                         String by = splitPartsDeadline[1];
-                        String deadlineDescription = commandAndDescriptionDeadline.substring(command.length()).trim();
+                        String deadlineDescription = commandAndDescriptionDeadline.substring(8).trim();
 
                         if (deadlineDescription.isBlank() && by.isBlank()) {
                             throw new JustbotException("Hey man the description and deadline date cannot be blank!");
@@ -93,13 +108,17 @@ public class Justbot {
                         }
                         Commands.addTask(tasks, new Deadline(deadlineDescription, by));
                     } catch (JustbotException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
+                        System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
                                 + "deadline [description] /by [deadline]");
+                        System.out.println("------------------------------------------");
                     }
                     break;
-                case "event":
+                case EVENT:
                     try {
                         String[] splitPartsEvent = input.split("/from");
 
@@ -109,7 +128,7 @@ public class Justbot {
                         }
                         String commandAndDescriptionEvent = splitPartsEvent[0].trim();
                         String startAndEnd = splitPartsEvent[1].trim();
-                        String eventDescription = commandAndDescriptionEvent.substring(command.length()).trim();
+                        String eventDescription = commandAndDescriptionEvent.substring(5).trim();
                         String eventStart = startAndEnd.split("/to")[0].trim();
                         String eventEnd = startAndEnd.split("/to")[1].trim();
 
@@ -124,13 +143,17 @@ public class Justbot {
                         }
                         Commands.addTask(tasks, new Event(eventDescription, eventStart, eventEnd));
                     } catch (JustbotException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
+                        System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
                                 + "event [description] /from [start] /to [end]");
+                        System.out.println("------------------------------------------");
                     }
                     break;
-                case "todo":
+                case TODO:
                     try {
                         String[] splitPartsTodo = input.split(" ", 2);
 
@@ -145,13 +168,17 @@ public class Justbot {
                         }
                         Commands.addTask(tasks, new Todo(description));
                     } catch (JustbotException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
+                        System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
                                 + "event [description] /from [start] /to [end]");
+                        System.out.println("------------------------------------------");
                     }
                     break;
-                case "delete":
+                case DELETE:
                     try {
                         String[] splitInputDelete = input.split(" ");
 
@@ -165,14 +192,21 @@ public class Justbot {
                         }
                         Commands.deleteTask(tasks, deleteNumber);
                     } catch (NumberFormatException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man please input a number for the task number!");
+                        System.out.println("------------------------------------------");
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println("Hey man there is no such task!");
+                        System.out.println("------------------------------------------");
                     } catch (JustbotException e) {
+                        System.out.println("------------------------------------------");
                         System.out.println(e.getMessage());
+                        System.out.println("------------------------------------------");
                     }
                     break;
                 default:
+                    System.out.println("------------------------------------------");
                     System.out.println("Hey man please provide me with a valid command!");
                     System.out.println("------------------------------------------");
             }

@@ -32,7 +32,7 @@ public class Commands {
         Task currTask = tasksArr.get(taskIndex);
         currTask.setIsDone(true);
         System.out.println("------------------------------------------");
-        System.out.println("Nice! I have marked this task as done: \n" + currTask.toString());
+        System.out.println("Nice! I have marked this task as done:\n" + currTask.toString());
         System.out.println("------------------------------------------");
     }
 
@@ -41,7 +41,7 @@ public class Commands {
         Task currTask = tasksArr.get(taskIndex);
         currTask.setIsDone(false);
         System.out.println("------------------------------------------");
-        System.out.println("OK, I've marked this task as not done yet: \n" + currTask.toString());
+        System.out.println("OK, I've marked this task as not done yet:\n" + currTask.toString());
         System.out.println("------------------------------------------");
     }
 
