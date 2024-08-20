@@ -25,6 +25,11 @@ public class WansBot {
             if (posTask > taskListSize || posTask < 1) {
                 throw new NotANumMarkingException(posTask);
             }
+        } else if (userInput.startsWith("remove")) {
+            int posTask = Integer.parseInt(userInput.substring(7));
+            if (posTask > taskListSize || posTask < 1) {
+                throw new NotANumMarkingException(posTask);
+            }
         }
     }
 
@@ -179,6 +184,19 @@ public class WansBot {
                 System.exit(0);
                 // Bot doesn't recognize the command
             } else if (userInput.startsWith("remove ")) {
+                try {
+                    notNumInput(userInput, numTasks);
+                } catch (NumberFormatException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input a single space, followed by a number after remove"
+                            + "!\n" + hr);
+                    continue;
+                } catch (NotANumMarkingException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input a valid number that exists in your TaskList!"
+                            + "\n" + hr);
+                    continue;
+                }
                 int posTask = Integer.parseInt(userInput.substring(7)) - 1;
                 System.out.println(hr + "\nWans:\n"
                         + "Ok! I've removed " + userTaskList.number(posTask)
