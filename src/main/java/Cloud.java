@@ -27,16 +27,24 @@ public class Cloud {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        TaskList tasks = new TaskList();
         printHorizLine();
         greet();
         while (true) {
             printHorizLine();
             String userInput = sc.nextLine().strip();
+            // exit chat if user enters exit command
             if (userInput.equals(EXIT_COMMAND)) {
                 exit();
                 break;
             }
-            System.out.println(userInput);
+            if (userInput.equals("list")) {
+                System.out.println(tasks);
+            } else {
+                // save each input to the task list
+                tasks.add(userInput);
+                System.out.println("added: " + userInput);
+            }
         }
         printHorizLine();
     }
