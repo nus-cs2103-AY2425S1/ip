@@ -9,8 +9,11 @@ public class Alice {
 
         // get commands from the user while response is not "bye"
         String response = "";
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner scanner = new Scanner(System.in);
+            if (!scanner.hasNext()) {
+                return;
+            }
             response = scanner.nextLine();
 
             // if user says bye, exit the loop
@@ -89,5 +92,6 @@ public class Alice {
 
         System.out.println("------------------------------------------");
         System.out.println("Bye. Hope to see you again soon!");
+        scanner.close();
     }
 }
