@@ -21,7 +21,6 @@ public class SeanBot {
             } else if (first.equals("mark")) {
                 int second = Integer.parseInt(part[1]) - 1;
                 tasks[second].Done();
-                tasks[second].Done();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[second]);
             } else if (first.equals("unmark")) {
