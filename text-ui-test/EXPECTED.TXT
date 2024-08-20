@@ -94,5 +94,29 @@ Now you have 6 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
+Here are the tasks in your list:
+1 [T][X] read book
+2 [D][ ] return book (by: Sunday)
+3 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4 [D][ ] do homework (by: no idea :-p)
+5 [D][ ] do leetcode problem 2 sums (by: Monday)
+6 [E][ ] RC4 Directors meeting (from: Thursday 10pm to: 11pm)
+____________________________________________________________
+
+____________________________________________________________
+Noted. I've removed this task:
+   [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1 [T][X] read book
+2 [D][ ] return book (by: Sunday)
+3 [D][ ] do homework (by: no idea :-p)
+4 [D][ ] do leetcode problem 2 sums (by: Monday)
+5 [E][ ] RC4 Directors meeting (from: Thursday 10pm to: 11pm)
+____________________________________________________________
+
+____________________________________________________________
  Till we meet again! May this journey lead us starward!
 ____________________________________________________________

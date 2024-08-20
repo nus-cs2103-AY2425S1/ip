@@ -72,7 +72,7 @@ public class SilverWolf {
                 // reading the user input
                 String input = scanner.nextLine();
 
-                // exit if the user types "bye" or "list"
+                // checks for commands from input
                 if (input.equals("bye")) {
                     handleBye();
                     break;
@@ -88,6 +88,8 @@ public class SilverWolf {
                     handleDeadline(input);
                 } else if (input.startsWith("event")) {
                     handleEvent(input);
+                } else if (input.startsWith("delete")) {
+                    handleDeleteCommand(input);
                 } else {
                     handleWrongInput();
                 }
@@ -100,13 +102,9 @@ public class SilverWolf {
                 System.out.println("An unexpected error occurred: " + e);
                 printDivider();
             }
-
-
         }
-
         // close the scanner
         scanner.close();
-
     }
 
     private static void handleBye() {
@@ -205,5 +203,21 @@ public class SilverWolf {
 
     private static void handleWrongInput() throws SilverWolfException{
         throw new SilverWolfException("Sorry what are you trying to say????");
+    }
+
+    private static void handleDeleteCommand(String input) throws SilverWolfException{
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task removedTask = list.remove(index);
+            printDivider();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            showTotalTask();
+            printDivider();
+        } catch (IndexOutOfBoundsException e) {
+            throw new SilverWolfException("Hey, this index is empty or out of bounds");
+        } catch (NumberFormatException e) {
+            throw new SilverWolfException("Yo, please provide a valid index");
+        }
     }
 }

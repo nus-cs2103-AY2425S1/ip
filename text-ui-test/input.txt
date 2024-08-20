@@ -8,4 +8,7 @@ unmark 2
 list
 deadline do leetcode problem 2 sums /by Monday
 event RC4 Directors meeting /from Thursday 10pm /to 11pm
+list
+delete 3
+list
 bye
