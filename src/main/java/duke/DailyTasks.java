@@ -6,6 +6,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDos;
+import duke.tasks.TaskEnum;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -16,6 +17,18 @@ public class DailyTasks {
     public static final String GOODBYE = "Bye. Hope to see you again soon!";
 
     public ArrayList<Task> tasks;
+
+    private static TaskEnum getTaskType(String input) throws UnknownMessageException {
+        if (input.startsWith("todo")) {
+            return TaskEnum.TODOS;
+        } else if (input.startsWith("deadline")) {
+            return TaskEnum.DEADLINE;
+        } else if (input.startsWith("event")) {
+            return TaskEnum.EVENT;
+        } else {
+            throw new UnknownMessageException();
+        }
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -51,30 +64,32 @@ public class DailyTasks {
                 return;
             } else {
                 try {
-                    if (userInput.contains("todo")) {
-                        try {
-                            String description = userInput.split(" ", 2)[1];
-                            dailyTasks.tasks.add(new ToDos(description));
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            throw new EmptyTodoDescriptionException(e.toString());
-                        }
-                    } else if (userInput.contains("deadline")) {
-                        String[] deadlineInformation = userInput.split("/by");
-                        String description = deadlineInformation[0].replace("deadline", "").trim();
-                        String date = deadlineInformation[1].trim();
+                    // Determine the task type using Enums
+                    TaskEnum taskType = getTaskType(userInput);
 
-                        dailyTasks.tasks.add(new Deadline(description, date));
-                    } else if (userInput.contains("event")) {
-                        String[] removeFrom = userInput.split("/from");
-                        String description = removeFrom[0].replace("event", "").trim();
-
-                        String[] removeTo = removeFrom[1].split("/to");
-                        String start = removeTo[0].trim();
-                        String end = removeTo[1].trim();
-
-                        dailyTasks.tasks.add(new Event(description, start, end));
-                    } else {
-                        throw new UnknownMessageException();
+                    switch (taskType) {
+                        case TODOS:
+                            try {
+                                String description = userInput.split(" ", 2)[1];
+                                dailyTasks.tasks.add(new ToDos(description));
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                throw new EmptyTodoDescriptionException(e.toString());
+                            }
+                            break;
+                        case DEADLINE:
+                            String[] deadlineInformation = userInput.split("/by");
+                            String description = deadlineInformation[0].replace("deadline", "").trim();
+                            String date = deadlineInformation[1].trim();
+                            dailyTasks.tasks.add(new Deadline(description, date));
+                            break;
+                        case EVENT:
+                            String[] removeFrom = userInput.split("/from");
+                            String eventDescription = removeFrom[0].replace("event", "").trim();
+                            String[] removeTo = removeFrom[1].split("/to");
+                            String start = removeTo[0].trim();
+                            String end = removeTo[1].trim();
+                            dailyTasks.tasks.add(new Event(eventDescription, start, end));
+                            break;
                     }
                 } catch (EmptyTodoDescriptionException e) {
                     System.out.println(Formatter.formatOutputMessage("Please include a description of your todo task!!!"));
