@@ -7,7 +7,7 @@ public class Patrick {
         String exitMsg = horizontalLine + "Bye. Hope to see you again soon!\n" + horizontalLine;
         String input;
         ArrayList list = new ArrayList();
-        int count = 0;
+        Task task;
 
         Scanner inputMsg = new Scanner(System.in);
         System.out.println(greetingMsg);
@@ -15,16 +15,54 @@ public class Patrick {
             input = inputMsg.nextLine();
             if (input.equals("list")) {
                 for (int i = 1; i <= list.size(); i++) {
-                    System.out.println(i + ". " + list.get(i - 1));
+                    Task curr = (Task) list.get(i - 1);
+                    System.out.println(i + ". [" + curr.getStatusIcon() + "] "
+                            + curr.description);
                 }
             } else if (input.equals("bye")) {
                 break;
+            } else if (input.startsWith("mark")) {
+                String taskNo = input.replace("mark", "").trim();
+                int num = Integer.parseInt(taskNo);
+                Task curr = (Task) list.get(num - 1);
+                curr.markAsDone();
+
+                System.out.println(horizontalLine + "Nice! I've marked this task as done:\n  "
+                + curr.toString() + "\n" + horizontalLine);
             }
             else {
-                list.add(input);
                 System.out.println("added: " + input + "\n");
+                task = new Task(input);
+                list.add(task);
             }
         } while (true);
         System.out.println(exitMsg);
+    }
+
+    public static class Task {
+        protected String description;
+        protected boolean isDone;
+
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " ");
+        }
+
+        public void markAsDone() {
+            this.isDone = true;
+        }
+
+        public void markAsUndone() {
+            this.isDone = false;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + getStatusIcon() + "] " + this.description;
+        }
     }
 }
