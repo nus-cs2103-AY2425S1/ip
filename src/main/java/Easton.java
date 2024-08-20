@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Easton {
 
     public static final String CHATBOT_NAME = "Easton";
@@ -15,13 +17,29 @@ public class Easton {
         System.out.println("Hello! I'm " + CHATBOT_NAME);
         System.out.println("What can I do for you?");
         printDivider();
-        System.out.println("Bye. Hope to see you again soon!");
-        printDivider();
 
+        Scanner scanner = new Scanner(System.in);
+        boolean isFinished = false;
+        String input;
 
+        while (!isFinished) {
+            input = prompt(scanner);
+            printDivider();
+            if (input.equalsIgnoreCase("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                isFinished = true;
+            } else {
+                System.out.println(input);
+            }
+            printDivider();
+        }
     }
 
     private static void printDivider() {
         System.out.println("____________________________________________________________");
+    }
+
+    private static String prompt(Scanner scanner) {
+        return scanner.nextLine();
     }
 }
