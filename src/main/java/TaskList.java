@@ -15,6 +15,7 @@ public class TaskList {
         StringBuilder str = new StringBuilder();
         int length = listOfTasks.size();
         for (int i = 0; i < length; i++) {
+            str.append((i + 1) + ". ");
             str.append(listOfTasks.get(i).toString());
             if (i != length - 1) {
                 str.append("\n");
