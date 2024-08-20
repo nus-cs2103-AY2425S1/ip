@@ -136,5 +136,6 @@ public class Tecna {
         System.out.println("----------------------------------------------");
         Tecna tecna = new Tecna();
         tecna.getRequest();
+        // tecna.echo();
     }
 }

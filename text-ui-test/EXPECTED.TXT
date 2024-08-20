@@ -12,7 +12,43 @@
      * ** *
     *  **  *
     ***  ***
-I'm Tecna.
+
+I'm Tecna!
 How can I help you?
 ----------------------------------------------
+----------------------------------------------
+Sure! I've added this task:
+[T][ ] borrow book
+>> Now you have 1 task in the list.
+----------------------------------------------
+----------------------------------------------
+Sure! I've added this task:
+[D][ ] return book (by: June 6th)
+>> Now you have 2 tasks in the list.
+----------------------------------------------
+----------------------------------------------
+Sure! I've added this task:
+[E][ ] project meeting (from: 12/11/2021 to: 21/11/2022)
+>> Now you have 3 tasks in the list.
+----------------------------------------------
+----------------------------------------------
+Nice job! I've mark this as done. You deserve a short break <3
+[D][X] return book (by: June 6th)
+----------------------------------------------
+----------------------------------------------
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][X] return book (by: June 6th)
+3. [E][ ] project meeting (from: 12/11/2021 to: 21/11/2022)
+----------------------------------------------
+----------------------------------------------
+Nice job! I've mark this as done. You deserve a short break <3
+[T][X] borrow book
+----------------------------------------------
+----------------------------------------------
+I've mark this as undone. Keep going, my friend!
+[D][ ] return book (by: June 6th)
+----------------------------------------------
+----------------------------------------------
 Pleased to help you! See you again ^_^
+----------------------------------------------
