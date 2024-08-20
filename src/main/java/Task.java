@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String desc;
     private boolean isDone;
 
@@ -18,6 +18,8 @@ public class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
+    public abstract String getType();
 
     @Override
     public String toString() {

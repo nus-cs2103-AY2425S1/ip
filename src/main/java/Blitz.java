@@ -6,6 +6,13 @@ public class Blitz {
         System.out.print(divider + cont + divider);
     }
 
+    private static void printTaskAddedWithDivider(String divider, String type, int size, Task task) {
+        String toPrint = "    Got it. I've added this task:\n" +
+                "      [" + type + "][ ] " + task + "\n" +
+                "    " + "Now you have " + size + " tasks in the list.\n";
+        printInDivider(divider, toPrint);
+    }
+
     public static void main(String[] args) {
         ArrayList<Task> db = new ArrayList<>();
         String tab = "    ";
@@ -29,30 +36,58 @@ public class Blitz {
                         tab + "Here are the tasks in your list:");
                 for (int i = 0; i < db.size(); i++) {
                     Task curr = db.get(i);
-                    System.out.println(tab + (i + 1) + ".[" + (curr.getStatus() ? "X" : " ") + "] " + curr);
+                    System.out.println(tab + (i + 1) + ".[" + curr.getType() + "]" + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr);
                 }
                 System.out.print(divider);
             } else {
-                String[] cont = inp.split(" ");
-                if (cont[0].equals("mark")) {
-                    int ind = Integer.parseInt(cont[1]) - 1;
-                    db.get(ind).markDone();
+                String[] cont = inp.split(" ", 2);
+                String command = cont[0];
 
-                    String toPrint = tab + "Nice! I've marked this task as done:\n" +
-                            tab + "  [X] "  + db.get(ind) + "\n";
-                    printInDivider(divider, toPrint);
-                } else if (cont[0].equals("unmark")) {
-                    int ind = Integer.parseInt(cont[1]) - 1;
-                    db.get(ind).unmarkDone();
+                switch (command) {
+                    case "mark" -> {
+                        int ind = Integer.parseInt(cont[1]) - 1;
+                        Task task = db.get(ind);
 
-                    String toPrint = tab + "Ok, I've marked this task as not done yet:\n" +
-                            tab + "  [ ] "  + db.get(ind) + "\n";
-                    printInDivider(divider, toPrint);
-                } else {
-                    db.add(new Task(inp, false));
-                    String toPrint = tab + "added: " + inp + "\n";
+                        task.markDone();
+                        String toPrint = tab + "Nice! I've marked this task as done:\n" +
+                                tab + "  [" + task.getType() + "]" + "[X] " + task + "\n";
+                        printInDivider(divider, toPrint);
+                    }
+                    case "unmark" -> {
+                        int ind = Integer.parseInt(cont[1]) - 1;
+                        Task task = db.get(ind);
 
-                    printInDivider(divider, toPrint);
+                        task.unmarkDone();
+                        String toPrint = tab + "Ok, I've marked this task as not done yet:\n" +
+                                tab + "  [" + task.getType() + "]" + "[ ] " + task + "\n";
+                        printInDivider(divider, toPrint);
+                    }
+                    case "todo" -> {
+                        Task temp = new Todo(cont[1], "T", false);
+
+                        db.add(temp);
+                        printTaskAddedWithDivider(divider, "T", db.size(), temp);
+                    }
+                    case "deadline" -> {
+                        String[] str = cont[1].split(" /by ");
+                        Task temp = new Deadline(str[0], "D", str[1], false);
+
+                        db.add(temp);
+                        printTaskAddedWithDivider(divider, "D", db.size(), temp);
+                    }
+                    case "event" -> {
+                        String[] str1 = cont[1].split(" /from ");
+                        String[] str2 = str1[1].split(" /to ");
+                        Task temp = new Event(str1[0], "E", str2[0], str2[1], false);
+
+                        db.add(temp);
+                        printTaskAddedWithDivider(divider, "E", db.size(), temp);
+                    }
+                    default -> {
+                        String toPrint = tab + "Invalid command\n";
+
+                        printInDivider(divider, toPrint);
+                    }
                 }
             }
         }
