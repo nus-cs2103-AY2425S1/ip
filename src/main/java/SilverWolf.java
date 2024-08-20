@@ -139,6 +139,7 @@ public class SilverWolf {
                 printDivider();
             }
 
+
         }
 
         // close the scanner
