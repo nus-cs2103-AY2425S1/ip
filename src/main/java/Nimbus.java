@@ -1,9 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nimbus {
-    private static String name = "Nimbus";
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    final private static String name = "Nimbus";
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     private static void printDash() {
         System.out.println("____________________________________________________________");
@@ -23,32 +23,95 @@ public class Nimbus {
     }
 
     public static void addTask(Task task) {
-        tasks[taskCount++] = task;
+        tasks.add(task);
         System.out.println("Got it. I've added this task:\n" + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void setDone(int x) {
+    public static void removeTask(int index) {
+        System.out.println("Noted. I've removed this task: " + tasks.remove(index));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public static void setDone(int index) {
         System.out.println("Nice! I've marked this task as done:");
-        tasks[x].setDone();
-        System.out.println(tasks[x]);
+        tasks.get(index).setDone();
+        System.out.println(tasks.get(index));
     }
 
-    public static void setNotDone(int x) {
+    public static void setNotDone(int index) {
         System.out.println("OK, I've marked this task as not done yet:");
-        tasks[x].setNotDone();
-        System.out.println(tasks[x]);
+        tasks.get(index).setNotDone();
+        System.out.println(tasks.get(index));
     }
 
     public static void printAllTask() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; ++i) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); ++i) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
     public static void invalidCommand() {
         System.out.println("Invalid Command");
+    }
+
+    public static void readCommand(String line) throws InvalidCommandException, InvalidArgumentException{
+        String text;
+        String command = "";
+        int index = line.indexOf(" ");
+        if (index == -1) {
+            switch (line) {
+                case "list":
+                    printAllTask();
+                    break;
+                default:
+                    throw new InvalidArgumentException(line + ": Is not a valid command");
+            }
+        } else {
+            command = line.substring(0, index);
+            text    = line.substring(index + 1);
+            switch (command) {
+                case "remove":
+                    removeTask(Integer.parseInt(text) - 1);
+                    break;
+                case "list":
+                    printAllTask();
+                    break;
+                case "mark":
+                    setDone(Integer.parseInt(text) - 1);
+                    break;
+                case "unmark":
+                    setNotDone(Integer.parseInt(text) - 1);
+                    break;
+                case "todo":
+                    if (text.isEmpty())
+                        throw new InvalidArgumentException("Todo's description can't be empty!");
+                    addTask(new Todo(text));
+                    break;
+                case "deadline": {
+                    String byArg = "/by";
+                    int byIndex = text.indexOf(byArg);
+                    String description = text.substring(0, byIndex);
+                    String deadline = text.substring(byIndex + byArg.length());
+                    addTask(new Deadline(description.trim(), deadline.trim()));
+                    break;
+                }
+                case "event": {
+                    String fromArg = "/from";
+                    String toArg = "/to";
+                    int fromIndex = text.indexOf(fromArg);
+                    int toIndex = text.indexOf(toArg);
+                    String description = text.substring(0, fromIndex);
+                    String from = text.substring(fromIndex + fromArg.length(), toIndex);
+                    String to = text.substring(toIndex + toArg.length());
+                    addTask(new Event(description.trim(), from.trim(), to.trim()));
+                    break;
+                }
+                default:
+                    throw new InvalidCommandException(command + " is not a valid command");
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -58,58 +121,12 @@ public class Nimbus {
         String line;
 
         while(!(line = scanner.nextLine()).equals("bye")) {
-            String text;
-            String command = "";
-            int index = line.indexOf(" ");
-            if (index == -1) {
-                switch (line) {
-                    case "list":
-                        printAllTask();
-                        break;
-                    default:
-                        invalidCommand();
-                }
-            } else {
-                command = line.substring(0, index);
-                text    = line.substring(index + 1);
-                if (text == "") {
-                    invalidCommand();
-                }
-                switch (command) {
-                    case "list":
-                        printAllTask();
-                        break;
-                    case "mark":
-                        setDone(Integer.parseInt(text) - 1);
-                        break;
-                    case "unmark":
-                        setNotDone(Integer.parseInt(text) - 1);
-                        break;
-                    case "todo":
-                        addTask(new Todo(text));
-                        break;
-                    case "deadline": {
-                        String byArg = "/by";
-                        int byIndex = text.indexOf(byArg);
-                        String description = text.substring(0, byIndex);
-                        String deadline = text.substring(byIndex + byArg.length());
-                        addTask(new Deadline(description.trim(), deadline.trim()));
-                        break;
-                    }
-                    case "event": {
-                        String fromArg = "/from";
-                        String toArg = "/to";
-                        int fromIndex = text.indexOf(fromArg);
-                        int toIndex = text.indexOf(toArg);
-                        String description = text.substring(0, fromIndex);
-                        String from = text.substring(fromIndex + fromArg.length(), toIndex);
-                        String to = text.substring(toIndex + toArg.length());
-                        addTask(new Event(description.trim(), from.trim(), to.trim()));
-                        break;
-                    }
-                    default:
-                        invalidCommand();
-                }
+            try {
+                readCommand(line);
+            } catch (InvalidCommandException e) {
+                System.out.println(e.getMessage());
+            } catch (InvalidArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
 
