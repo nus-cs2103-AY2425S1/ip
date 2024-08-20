@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Soju {
-    private static final List<String> tasks = new ArrayList<>();
+    private static final List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = """
                           _____                   _______                   _____                    _____         \s
@@ -54,9 +53,10 @@ public class Soju {
     public static void runWithHorizontalLine() {
         System.out.println("-------------------------------------");
     }
-    public static void addToList(String task) {
+    public static void addToList(String description) {
+        Task task = new Task(description);
         tasks.add(task);
-        System.out.println("added: " + task);
+        System.out.println("added: " + description);
         runWithHorizontalLine();
     }
     public static void displayList() {
