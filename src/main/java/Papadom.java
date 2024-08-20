@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Papadom {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
-
     public static void printList() {
         String finalList = "____________________________________________________________\n" + " Here are the tasks in your list:\n";
         for (int i = 0; i < Papadom.tasks.size(); i++) {
@@ -15,7 +14,10 @@ public class Papadom {
         finalList += "____________________________________________________________";
         System.out.println(finalList);
     }
-    public static void addToList(Task task) {
+    public static void addToList(Task task) throws NoTaskException {
+        if (task.description == "") {
+            throw new NoTaskException();
+        }
         tasks.add(task);
         String response = "____________________________________________________________\n"
                 + " Got it. I've added this task:\n  " + task.toString() + "\n"
@@ -41,12 +43,16 @@ public class Papadom {
         System.out.println("  " + task);
         System.out.println("____________________________________________________________");
     }
-    private static void addDeadline(String details) {
+    private static void addDeadline(String details) throws NoTaskException, NoDateException {
         String[] parts = details.split(" /by ");
+        if (parts[0] == "") throw new NoTaskException();
+        else if (parts.length == 1) throw new NoDateException();
         addToList(new Deadline(parts[0], parts[1]));
     }
-    private static void addEvent(String details) {
+    private static void addEvent(String details) throws NoTaskException, NoDateException {
         String[] parts = details.split(" /from | /to ");
+        if (parts[0] == "") throw new NoTaskException();
+        else if (parts.length <= 2) throw new NoDateException();
         addToList(new Event(parts[0], parts[1], parts[2]));
     }
     public static void main(String[] args) {
@@ -63,21 +69,27 @@ public class Papadom {
         System.out.println(logo);
 
         while (true) {
-            String text = scanner.nextLine();
-            if (Objects.equals(text, "list")) {
-                printList();
-            } else if (Objects.equals(text, "bye")) {
-                break;
-            } else if (text.startsWith("mark ")) {
-                markTask(text);
-            } else if (text.startsWith("unmark ")) {
-                unmarkTask(text);
-            } else if (text.startsWith("todo ")) {
-                addToList(new Todo(text.substring(5)));
-            } else if (text.startsWith("deadline ")) {
-                addDeadline(text.substring(9));
-            } else if (text.startsWith("event ")) {
-                addEvent(text.substring(6));
+            try {
+                String text = scanner.nextLine();
+                if (Objects.equals(text, "list")) {
+                    printList();
+                } else if (Objects.equals(text, "bye")) {
+                    break;
+                } else if (text.startsWith("mark ")) {
+                    markTask(text);
+                } else if (text.startsWith("unmark ")) {
+                    unmarkTask(text);
+                } else if (text.startsWith("todo ")) {
+                    addToList(new Todo(text.substring(5)));
+                } else if (text.startsWith("deadline ")) {
+                    addDeadline(text.substring(9));
+                } else if (text.startsWith("event ")) {
+                    addEvent(text.substring(6));
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
         System.out.println(exitMessage);
