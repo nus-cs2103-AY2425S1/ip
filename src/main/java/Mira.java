@@ -25,13 +25,25 @@ public class Mira {
         while (this.isRunning) {
             // read user input until a newline is entered
             String userInput = ui.readCommand();
-            if (userInput.equals("bye")) {
-                this.ui.showMessage("Bye. Hope to see you again soon!");
-                this.isRunning = false;
-            } else if (userInput.equals("list")) {
-                this.tasks.listTasks();
-            } else {
-                this.tasks.addTask(userInput);
+            String[] commandParts = userInput.split(" ", 2); // cam only split one time
+            String command = commandParts[0];
+            String argument = commandParts.length > 1 ? commandParts[1] : "";
+
+            switch (command) {
+                case "bye" -> {
+                    this.ui.showMessage("Bye. Hope to see you again soon!");
+                    this.isRunning = false;
+                }
+                case "list" -> this.tasks.listTasks();
+                case "mark" -> {
+                    int index = Integer.parseInt(argument);
+                    this.tasks.markTask(index);
+                }
+                case "unmark" -> {
+                    int index = Integer.parseInt(argument);
+                    this.tasks.unmarkTask(index);
+                }
+                default -> this.tasks.addTask(userInput);
             }
         }
     }
