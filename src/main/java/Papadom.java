@@ -6,30 +6,30 @@ public class Papadom {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void printList() {
-        String finalList = "Here are the tasks in your list:\n";
+        String finalList = "____________________________________________________________\n" + " Here are the tasks in your list:\n";
         for (int i = 0; i < Papadom.tasks.size(); i++) {
             Task task = Papadom.tasks.get(i);
             if (task == null) break;
-            finalList += (i + 1) + ". " + task.toString() + "\n";
+            finalList += " " + (i + 1) + "." + task.toString() + "\n";
         }
+        finalList += "____________________________________________________________";
         System.out.println(finalList);
     }
     public static void addToList(Task task) {
         tasks.add(task);
         String response = "____________________________________________________________\n"
-                + " Got it. I've added this task:\n " + task.toString() + "\n"
-                + "Now you have " + (Papadom.tasks.size()) + " tasks in the list.\n"
+                + " Got it. I've added this task:\n  " + task.toString() + "\n"
+                + " Now you have " + (Papadom.tasks.size()) + " tasks in the list.\n"
                 + "____________________________________________________________";
         System.out.println(response);
     }
     public static void markTask(String text) {
-        System.out.println(text.split(" ")[1]);
         int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
         Task task = Papadom.tasks.get(taskIndex);
         task.markAsDone();
         System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + task);
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println("  " + task);
         System.out.println("____________________________________________________________");
     }
     private static void unmarkTask(String text) {
@@ -37,8 +37,8 @@ public class Papadom {
         Task task = Papadom.tasks.get(taskIndex);
         task.unmark();
         System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(" " + task);
+        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println("  " + task);
         System.out.println("____________________________________________________________");
     }
     private static void addDeadline(String details) {
@@ -52,13 +52,13 @@ public class Papadom {
     public static void main(String[] args) {
 
         String logo = "____________________________________________________________\n"
-                + "Hello! I'm Papadom\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n";
+                + " Hello! I'm Papadom\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
 
         String exitMessage = "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
+                + " Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________";
 
         System.out.println(logo);
 
