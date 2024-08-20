@@ -1,6 +1,6 @@
-public class Task {
+public abstract class Task {
      private boolean isCompleted;
-     private String name;
+     private final String name;
      public Task(String name) {
           this.name = name;
           isCompleted = false;

@@ -21,21 +21,22 @@ public class Avo {
                 break;
             }
             if (userInput.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
                 manager.listTasks();
+            } else if (userInput.startsWith("todo")) {
+                String[] inputs = userInput.split("todo ");
+                manager.addTask(new ToDo(inputs[0]));
+            } else if (userInput.startsWith("deadline")) {
+                String[] inputs = userInput.split("deadline |/by ");
+                manager.addTask(new Deadline(inputs[1], inputs[2]));
+            } else if (userInput.startsWith("event")) {
+                String[] inputs = userInput.split("event |/from |/to ");
+                manager.addTask(new Event(inputs[1], inputs[2], inputs[3]));
             } else if (userInput.startsWith("mark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 manager.completeTask(index);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(index + 1 + ". " + manager.getItem(index));
             } else if (userInput.startsWith("unmark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                manager.completeTask(index);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(index + 1 + ". " + manager.getItem(index));
-            } else {
-                manager.addTask(userInput);
-                System.out.println("added: " + userInput);
+                manager.unCompleteTask(index);
             }
         }
         endSession();
