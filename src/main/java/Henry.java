@@ -24,15 +24,32 @@ public class Henry {
     public static void main(String[] args) {
         greetings();
 
+        String[] tasks = new String[100];
+
         Scanner scanner = new Scanner(System.in);
+        int index = 0;
         do {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 System.out.println();
                 bye();
                 break;
+            } else if (input.equals("list")) {
+                System.out.println();
+                for (int i = 0; i < index; i++) {
+                    System.out.println(i + 1
+                            + ". "
+                            + tasks[i]);
+                }
+                System.out.println();
+            } else {
+                tasks[index] = input;
+                System.out.println("\n"
+                        + "added: "
+                        + input
+                        + "\n");
+                index++;
             }
-            System.out.println("\n" + input + "\n");
         } while (true);
     }
 }
