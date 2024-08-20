@@ -5,11 +5,11 @@ public class Testament {
     public static void main(String[] args) {
         boolean powerOn = true;
         Scanner scanner = new Scanner(System.in);
-        printDialogue(" Hello! I'm Testament\n What can I do for you?");
+        printDialogue(" Morning!\n Nice day for a stroll, don't you think?");
         while (powerOn) {
             String userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
-                printDialogue(" Bye. Hope to see you again soon!");
+                printDialogue(" I'd say it's time for a tea break. Milk and sugar for you?");
                 powerOn = false;
             } else {
                 printDialogue(userInput);
