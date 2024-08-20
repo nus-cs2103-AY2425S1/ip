@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Soju {
     public static void main(String[] args) {
         String logo = """
@@ -26,7 +28,7 @@ public class Soju {
         System.out.println("Hello from\n" + logo);
 
         runWithHorizontalLine(Soju::greet);
-        runWithHorizontalLine(Soju::exit);
+        echo();
     }
 
     public static void greet() {
@@ -41,5 +43,27 @@ public class Soju {
     public static void runWithHorizontalLine(Runnable function) {
         function.run();
         System.out.println("-------------------------------------");
+    }
+    public static void runWithHorizontalLine(String message) {
+        System.out.println(message);
+        System.out.println("-------------------------------------");
+    }
+    public static void runWithHorizontalLine() {
+        System.out.println("-------------------------------------");
+    }
+    public static void echo() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String userInput = scanner.nextLine();
+            runWithHorizontalLine();
+            if (userInput.equals("bye")) {
+                runWithHorizontalLine(Soju::exit);
+                break;
+            } else {
+                runWithHorizontalLine(userInput);
+            }
+        }
+        scanner.close();
     }
 }
