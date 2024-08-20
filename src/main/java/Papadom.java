@@ -51,6 +51,12 @@ public class Papadom {
         else if (parts.length <= 2) throw new NoDateException();
         return addToList(new Event(parts[0], parts[1], parts[2]));
     }
+    private static String deleteEvent(String text){
+        int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
+        Task taskToBeDeleted = Papadom.tasks.get(taskIndex);
+        Papadom.tasks.remove(taskIndex);
+        return " Noted. I've removed this task:\n  " + taskToBeDeleted + "\n Now you have " + Papadom.tasks.size() + " tasks in the list.";
+    }
     public static void main(String[] args) {
         Papadom.output(" Hello! I'm Papadom\n"
                 + " What can I do for you?");
@@ -72,7 +78,10 @@ public class Papadom {
                     output(addDeadline(text.substring(9)));
                 } else if (text.startsWith("event ")) {
                     output(addEvent(text.substring(6)));
-                } else {
+                } else if (text.startsWith("delete ")) {
+                    output(deleteEvent(text));
+                }
+                else {
                     throw new UnknownCommandException();
                 }
             } catch (Exception e) {
