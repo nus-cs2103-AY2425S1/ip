@@ -1,19 +1,28 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Struggling {
     final private String name = "struggling";
+    private ArrayList<String> arr = new ArrayList<>();
 
     Struggling() {
         reply("Hello! I'm " + this.name + "\nWhat can I do for you?");
     }
 
     public boolean read(String cmd) {
-        if(cmd.compareTo("bye") == 0) {
-            reply("Bye. Hope to see you again soon!");
-            return false;
+
+        switch (cmd) {
+            case "bye":
+                reply("Bye. Hope to see you again soon!");
+                return false;
+            case "list":
+                list();
+                break;
+            default:
+                addCmd(cmd);
+                break;
         }
 
-        reply(cmd);
         return true;
     }
 
@@ -24,6 +33,25 @@ public class Struggling {
             System.out.println("\t" + s);
         }
         System.out.println();
+    }
+
+    private void addCmd(String str) {
+        this.arr.add(str);
+        reply("added: " + str);
+    }
+
+    private  void list() {
+        StringBuilder ans = new StringBuilder();
+        int count = 0;
+        for(String s : this.arr) {
+            ans.append(++count).append(". ").append(s).append("\n");
+        }
+
+        if(!ans.isEmpty()) {
+            ans.deleteCharAt(ans.length() - 1);
+        }
+
+        reply(ans.toString());
     }
 
     public static void main(String[] args) {
