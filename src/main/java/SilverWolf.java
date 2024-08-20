@@ -68,30 +68,37 @@ public class SilverWolf {
                 "____________________________________________________________\n");
         Scanner scanner = new Scanner(System.in);
         while(true) {
-            // reading the user input
-            String input = scanner.nextLine();
+            try {
+                // reading the user input
+                String input = scanner.nextLine();
 
-            // exit if the user types "bye" or "list"
-            if (input.equals("bye")) {
-                handleBye();
-                break;
-            } else if (input.equals("list")) {
-                handleList();
-            } else if (input.startsWith("mark ")){
-                handleMark(input);
-            } else if (input.startsWith("unmark ")){
-                handleUnmark(input);
-            } else if (input.startsWith("todo")){
-                handleTodo(input);
-            } else if (input.startsWith("deadline")){
-                handleDeadline(input);
-            } else if (input.startsWith("event")){
-                handleEvent(input);
-            }
-            else if (input != ""){
-                handleAddingList(input);
-            } else {
-                handleEmptyInput();
+                // exit if the user types "bye" or "list"
+                if (input.equals("bye")) {
+                    handleBye();
+                    break;
+                } else if (input.equals("list")) {
+                    handleList();
+                } else if (input.startsWith("mark ")) {
+                    handleMark(input);
+                } else if (input.startsWith("unmark ")) {
+                    handleUnmark(input);
+                } else if (input.startsWith("todo")) {
+                    handleTodo(input);
+                } else if (input.startsWith("deadline")) {
+                    handleDeadline(input);
+                } else if (input.startsWith("event")) {
+                    handleEvent(input);
+                } else {
+                    handleWrongInput();
+                }
+            } catch(SilverWolfException e){
+                printDivider();
+                System.out.println(e.getMessage());
+                printDivider();
+            } catch (Exception e){
+                printDivider();
+                System.out.println("An unexpected error occurred: " + e);
+                printDivider();
             }
 
 
@@ -116,22 +123,27 @@ public class SilverWolf {
         System.out.print("\n");
     }
 
-    private static void handleMark(String input){
+    private static void handleMark(String input) throws SilverWolfException{
         //extract the input number
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        // retrieve the specific task from the arraylist
-        Todo specificTask = list.get(index);
-        // mark the task as done
-        specificTask.markAsDone();
-        printDivider();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(specificTask);
-        printDivider();
-        System.out.print("\n");
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            // retrieve the specific task from the arraylist
+            Todo specificTask = list.get(index);
+            // mark the task as done
+            specificTask.markAsDone();
+            printDivider();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(specificTask);
+            printDivider();
+            System.out.print("\n");
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Hey! the index you provided is not correct you know");
+        }
     }
 
-    private static void handleUnmark(String input){
+    private static void handleUnmark(String input) throws SilverWolfException{
         //extract the input number
+        try {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         // retrieve the specific task from the arraylist
         Todo specificTask = list.get(index);
@@ -142,44 +154,56 @@ public class SilverWolf {
         System.out.println(specificTask);
         printDivider();
         System.out.print("\n");
+    } catch (IndexOutOfBoundsException e){
+        System.out.println("Hey! the index you provided is not correct you know");
+    }
     }
 
-    private static void handleTodo(String input){
+    private static void handleTodo(String input) throws SilverWolfException{
         //taking in the input
-        String descrption = input.substring(5);
-
-        Todo newTodo = new Todo(descrption);
-        list.add(newTodo);
-        showConfirmation();
+        try {
+            String descrption = input.substring(5);
+            if (descrption.isEmpty()) {
+                throw new SilverWolfException("Hey! your todo cannot be empty you know");
+            }
+            Todo newTodo = new Todo(descrption);
+            list.add(newTodo);
+            showConfirmation();
+        } catch (StringIndexOutOfBoundsException e){
+            throw new SilverWolfException("Hey! your todo cannot be empty you know");
+        }
     }
 
-    private static void handleDeadline(String input){
+    private static void handleDeadline(String input) throws SilverWolfException{
         //taking in the input
-        String[] parts = input.substring(9).split(" /by ");
-        Todo newDeadline = new Deadline(parts[0], parts[1]);
-        list.add(newDeadline);
-        showConfirmation();
+        try {
+            String[] parts = input.substring(9).split(" /by ");
+            Todo newDeadline = new Deadline(parts[0], parts[1]);
+            list.add(newDeadline);
+            showConfirmation();
+        } catch (StringIndexOutOfBoundsException e){
+            throw new SilverWolfException("Hey! your deadline cannot be empty you know");
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new SilverWolfException("Wrong usage. Correct usage: deadline [task in String] /by [date/time] e.g deadline submit report by 11/10/2019 ");
+        }
     }
 
-    private static void handleEvent(String input){
+    private static void handleEvent(String input) throws SilverWolfException{
+        try {
         //taking in the input
         String[] parts = input.substring(6).split(" /from ");
         String[] to = parts[1].split(" /to ");
         Todo newEvent = new Event(parts[0],to[0],to[1]);
         list.add(newEvent);
         showConfirmation();
+    } catch (StringIndexOutOfBoundsException e){
+        throw new SilverWolfException("Hey! your event cannot be empty you know");
+    } catch (ArrayIndexOutOfBoundsException e){
+        throw new SilverWolfException("Wrong usage. Correct usage: event [task in String] /from [date/time] /to [date/time] e.g event project meeting /from Mon 2pm /to 4pm ");
+    }
     }
 
-    private static void handleAddingList(String input){
-        // echo the input back to the user
-        printDivider();
-        System.out.println("added: " + input);
-        list.add(new Todo(input));
-        printDivider();
-        System.out.print("\n");
-    }
-
-    private static void handleEmptyInput(){
-        System.out.println("Sorry what are you trying to say?");
+    private static void handleWrongInput() throws SilverWolfException{
+        throw new SilverWolfException("Sorry what are you trying to say????");
     }
 }
