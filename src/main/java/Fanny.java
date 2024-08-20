@@ -10,9 +10,10 @@ public class Fanny {
 
         String[] list = new String[100];
         int listIndex = 0;
+        Scanner scanner = new Scanner(System.in);
+
         //while ensure continuous reading of user inputs
         while(true) {
-            Scanner scanner = new Scanner(System.in);
             System.out.println("User: ");
             String cmd = scanner.nextLine();
 
@@ -39,5 +40,6 @@ public class Fanny {
 
         }
 
+        scanner.close();
     }
 }
