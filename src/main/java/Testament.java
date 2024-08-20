@@ -5,19 +5,21 @@ public class Testament {
     public static void main(String[] args) {
         boolean powerOn = true;
         Scanner scanner = new Scanner(System.in);
-        System.out.println(LINE);
-        System.out.println(" Hello! I'm Testament\n What can I do for you?");
-        System.out.println(LINE);
+        printDialogue(" Hello! I'm Testament\n What can I do for you?");
         while (powerOn) {
             String userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
-                System.out.println(LINE);
+                printDialogue(" Bye. Hope to see you again soon!");
                 powerOn = false;
             } else {
-                System.out.println(userInput);
-                System.out.println(LINE);
+                printDialogue(userInput);
             }
         }
+    }
+
+    private static void printDialogue(String s) {
+        System.out.println(LINE);
+        System.out.println(s);
+        System.out.println(LINE);
     }
 }
