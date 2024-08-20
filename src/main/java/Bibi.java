@@ -80,9 +80,17 @@ public class Bibi {
                         System.out.printf("added: \"%s\" to task list%n", dl);
                         break;
                     }
-//                    case "event": {
-//                        break;
-//                    }
+                    case "event": {
+                        String[] input = cmd.substring(6).split(" /from ");
+                        String[] interval = input[1].split(" /to ");
+                        Event e = new Event(input[0], interval[0], interval[1]);
+                        tasks[taskCount++] = e;
+
+                        // Console
+                        printHorizontalLine();
+                        System.out.printf("added: \"%s\" to task list%n", e);
+                        break;
+                    }
                     default: {
                         tasks[taskCount++] = new Task(cmd);
 
