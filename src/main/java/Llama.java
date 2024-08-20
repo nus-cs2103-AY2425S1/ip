@@ -29,6 +29,12 @@ public class Llama {
                 // End program
                 shouldContinue = false;
                 sc.close();
+            } else if (input.equals("list")) {
+                // List out tasks
+                for (int i = 0; i < last; i++) {
+                    int x = i + 1;
+                    displayString(x + ": " + taskArray[i]);
+                }
             } else {
                 // Add text into a list
                 taskArray[last] = input;
