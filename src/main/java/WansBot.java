@@ -24,7 +24,7 @@ public class WansBot {
                 System.out.println(hr + "\nWans:"
                         + "\nHere are your tasks!\n"
                         + userTaskList.toString());
-                System.out.println("You have " + numTasks + " tasks!");
+                System.out.println("You have " + numTasks + " tasks!" + "\n" + hr);
                 // User can mark Tasks
             } else if (userInput.toLowerCase().startsWith("mark ")) {
                 int posTask = Integer.parseInt(userInput.substring(4).strip()) - 1;
@@ -32,7 +32,7 @@ public class WansBot {
                 System.out.println(hr + "\nWans:"
                         + "\nNice! I've marked\n"
                         + userTaskList.number(posTask).toString()
-                        + " as completed");
+                        + " as completed\n" + hr);
                 // User can unmark tasks
             } else if (userInput.toLowerCase().startsWith("unmark ")) {
                 int posTask = Integer.parseInt(userInput.substring(6).strip()) - 1;
@@ -40,7 +40,7 @@ public class WansBot {
                 System.out.println(hr + "\nWans:"
                         + "\nOkay, so you lied! I've marked\n"
                         + userTaskList.number(posTask).toString()
-                        + " as uncompleted");
+                        + " as uncompleted\n" + hr);
                 // User can add a todos to list
             } else if (userInput.toLowerCase().startsWith("todos ")) {
                 Todos newTodo = new Todos(userInput.substring(5));
