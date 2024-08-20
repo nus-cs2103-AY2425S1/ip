@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Count {
-    private ArrayList<String> ls;
+    private ArrayList<Task> ls;
 
     public Count() {
         this.ls = new ArrayList<>();
@@ -18,26 +18,44 @@ public class Count {
         reply("Bye. Hope to see you again soon!");
     }
 
-    private void addToList(String toDo) {
-        reply("Added: " + toDo);
-        ls.add(toDo);
+    private void addToList(String description) {
+        reply("Added: " + description);
+        ls.add(new Task(description));
+    }
+
+    // Given an index, returns the completion state and the task description
+    private String taskFormat(int i) {
+        Task curr = ls.get(i);
+        return String.format("[%s] ", curr.getStatusIcon()) + curr.getDescription();
     }
 
     private void listReply() {
         String ans = "";
         for (int i = 0 ; i < ls.size() ; i++) {
             if (i != ls.size() - 1) {
-                ans += (i + 1) + ". " + ls.get(i) + "\n";
+                ans += (i + 1) + "." + taskFormat(i) + "\n";
             } else {
-                ans += (i + 1) + ". " + ls.get(i);
+                ans += (i + 1) + "." + taskFormat(i);
             }
         }
         reply(ans);
     }
 
-    // Default case is add
-    private void parser(String input) {
-        switch (input.toLowerCase()) {
+    // Sets the task to complete
+    // TODO: exception for not existing index for mark and unmark
+    private void mark(int i) {
+        ls.get(i - 1).setCompletion(true);
+        reply("Good job, I have marked this task as complete:\n" + taskFormat(i - 1));
+    }
+
+    private void unmark(int i) {
+        ls.get(i - 1).setCompletion(false);
+        reply("No problem, I have marked this task as incomplete:\n" + taskFormat(i - 1));
+    }
+
+    // single word command parser
+    private void parser(String command) {
+        switch (command.toLowerCase()) {
             case "hello":
                 greet();
                 break;
@@ -48,7 +66,24 @@ public class Count {
                 listReply();
                 break;
             default:
-                addToList(input);
+                addToList(command);
+        }
+    }
+
+    // multi-world parser
+    // TODO: catch exception for valueof
+    private void parser(String command, String firstWord) {
+        String temp[] = command.split(" ", 2);
+        String rest = temp[1];
+        switch (firstWord.toLowerCase()) {
+            case "mark":
+                mark(Integer.valueOf(rest));
+                break;
+            case "unmark":
+                unmark(Integer.valueOf(rest));
+                break;
+            default:
+                addToList(command);
         }
     }
 
@@ -58,8 +93,15 @@ public class Count {
         c.greet();
 
         while (true) {
-            String input = sc.nextLine();
-            c.parser(input);
+            String command = sc.nextLine();
+
+            // If there is more than 1 word,
+            if (command.indexOf(" ") > -1) {
+                c.parser(command, command.substring(0, command.indexOf(" ")).trim());
+            } else {
+                c.parser(command);
+            }
         }
+
     }
 }
