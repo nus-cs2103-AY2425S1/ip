@@ -31,67 +31,88 @@ public class Alice {
                 continue;
             }
 
-            // for marking tasks as done or undone: separate the string from the index
-            String[] result = response.split(" ");
-            switch (result[0]) {
-                case "mark":
-                    Task markTask = tasks.get(Integer.parseInt(result[1]) - 1);
-                    markTask.markAsDone();
-                    System.out.println("------------------------------------------");
-                    System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println(markTask);
-                    System.out.println("------------------------------------------");
-                    break;
-                case "unmark":
-                    Task unmarkTask = tasks.get(Integer.parseInt(result[1]) - 1);
-                    unmarkTask.markAsUndone();
-                    System.out.println("------------------------------------------");
-                    System.out.println("Ok, I've marked this task as not done yet: ");
-                    System.out.println(unmarkTask);
-                    System.out.println("------------------------------------------");
-                    break;
-                default:
-                    break;
+            try {
+                handleTask(response);
+            } catch (AliceException e) {
+                System.out.println(e);
+                System.out.println("------------------------------------------");
             }
-            if (result[0].equals("mark") || result[0].equals("unmark")) {
-                continue;
-            }
-            
-            // all other strings are tasks that should be added
-            // determines type of task added
-            String[] taskInfo = response.split(" ", 2);
-            switch (taskInfo[0]) {
-                case "todo":
-                    // taskInfo[1] contains description
-                    Todo todoTask = new Todo(taskInfo[1]);
-                    tasks.add(todoTask);
-                    break;
-                case "deadline":
-                    // taskInfo[1] contains description /by deadline
-                    String[] deadlineInfo = taskInfo[1].split("/by");
-                    // deadlineInfo[0] = description, deadlineInfo[1] = deadline
-                    Deadline deadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-                    tasks.add(deadlineTask);
-                    break;
-                case "event":
-                    // taskInfo[1] contains description /from from /to to
-                    String[] eventInfo = taskInfo[1].split("/from");
-                    String[] times = eventInfo[1].split("/to");
-                    Event eventTask = new Event(eventInfo[0], times[0], times[1]);
-                    tasks.add(eventTask);
-                    break;
-                default:
-                    break;
-            }
-            System.out.println("------------------------------------------");
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(tasks.get(tasks.size() - 1));
-            System.out.printf("Now you have %d tasks in the list%n", tasks.size());
-            System.out.println("------------------------------------------");
         }
 
         System.out.println("------------------------------------------");
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
+    }
+
+    // for marking tasks as done or undone: separate the string from the index
+    // all other strings are tasks that should be added
+    public static void handleTask(String response) throws AliceException{
+        String[] result = response.split(" ", 2);
+        switch (result[0]) {
+            case "mark":
+                Task markTask = tasks.get(Integer.parseInt(result[1]) - 1);
+                markTask.markAsDone();
+                System.out.println("------------------------------------------");
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(markTask);
+                System.out.println("------------------------------------------");
+                break;
+            case "unmark":
+                Task unmarkTask = tasks.get(Integer.parseInt(result[1]) - 1);
+                unmarkTask.markAsUndone();
+                System.out.println("------------------------------------------");
+                System.out.println("Ok, I've marked this task as not done yet: ");
+                System.out.println(unmarkTask);
+                System.out.println("------------------------------------------");
+                break;
+            case "todo":
+                // result[1] contains description
+                if (result.length != 2) {
+                    throw new MissingArgumentException("Todo", new String[]{"description"});
+                }
+                Todo todoTask = new Todo(result[1]);
+                tasks.add(todoTask);
+                break;
+            case "deadline":
+                // result[1] contains description /by deadline
+                if (result.length != 2) {
+                    throw new MissingArgumentException("Deadline", new String[]{"description, by"});
+                }
+                String[] deadlineInfo = result[1].split("/by");
+                if (deadlineInfo.length != 2) {
+                    throw new MissingArgumentException("Deadline", new String[]{"description, by"});
+                }
+                // deadlineInfo[0] = description, deadlineInfo[1] = deadline
+                Deadline deadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                tasks.add(deadlineTask);
+                break;
+            case "event":
+                // result[1] contains description /from from /to to
+                if (result.length != 2) {
+                    throw new MissingArgumentException("Event", new String[]{"description, from, to"});
+                }
+                String[] eventInfo = result[1].split("/from");
+                if (eventInfo.length != 2) {
+                    throw new MissingArgumentException("Event", new String[]{"description, from, to"});
+                }
+                String[] times = eventInfo[1].split("/to");
+                if (times.length != 2) {
+                    throw new MissingArgumentException("Event", new String[]{"description, from, to"});
+                }
+                Event eventTask = new Event(eventInfo[0], times[0], times[1]);
+                tasks.add(eventTask);
+                break;
+            default:
+                throw new AliceException(response);
+        }
+        if (result[0].equals("mark") || result[0].equals("unmark")) {
+            return;
+        }
+
+        System.out.println("------------------------------------------");
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.printf("Now you have %d tasks in the list%n", tasks.size());
+        System.out.println("------------------------------------------");
     }
 }
