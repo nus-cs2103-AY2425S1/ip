@@ -93,7 +93,7 @@ public class SilverWolf {
                 specificTask.markAsDone();
                 printDivider();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + specificTask.type() + "]["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
+                System.out.println(specificTask);
                 printDivider();
                 System.out.print("\n");
 
@@ -106,7 +106,7 @@ public class SilverWolf {
                 specificTask.unmarkTask();
                 printDivider();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[" + specificTask.type() + "]["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
+                System.out.println(specificTask);
                 printDivider();
                 System.out.print("\n");
 
@@ -119,24 +119,26 @@ public class SilverWolf {
             } else if (input.startsWith("deadline")){
                 //taking in the input
                 String[] parts = input.substring(9).split(" /by ");
-                Deadline newDeadline = new Deadline(parts[0], parts[1]);
+                Todo newDeadline = new Deadline(parts[0], parts[1]);
                 list.add(newDeadline);
                 showConfirmation();
 
-            } else if (input.startsWith("deadline")){
-                //TODO
-
             } else if (input.startsWith("event")){
-                //TODO
-
+                //taking in the input
+                String[] parts = input.substring(6).split(" /from ");
+                String[] to = parts[1].split(" /to ");
+                Todo newEvent = new Event(parts[0],to[0],to[1]);
+                list.add(newEvent);
+                showConfirmation();
             }
-            else {
+            else if (input != ""){
                 // echo the input back to the user
                 printDivider();
                 System.out.println("added: " + input);
                 list.add(new Todo(input));
                 printDivider();
             }
+
         }
 
         // close the scanner
