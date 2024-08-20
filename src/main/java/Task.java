@@ -20,7 +20,8 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getTaskName() {
-        return this.name;
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getTaskStatus(), this.name);
     }
 }
