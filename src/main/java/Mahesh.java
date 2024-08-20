@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Mahesh {
 
     private static String[] list = new String[100];
+    private static int[] done = new int[100];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -27,24 +29,32 @@ public class Mahesh {
         boolean exit = false;
         
         while (!exit) {
-            String input = scan.nextLine();
+            String originalInput = scan.nextLine();
+            StringTokenizer tokenizedInput = new StringTokenizer(originalInput);
             System.out.println(divider);
-            switch (input) {
+            String command = tokenizedInput.nextToken();
+            switch (command) {
                 case "list":
                     Mahesh.printList();
                     break;
                 case "bye":
                     exit = true;
                     break;
+                case "mark":
+                    markAsDone(Integer.parseInt(tokenizedInput.nextToken()));
+                    break;
+                case "unmark":
+                    unmarkAsDone(Integer.parseInt(tokenizedInput.nextToken()));
+                    break;
                 default:
-                    Mahesh.addToList(input);
+                    Mahesh.addToList(originalInput);
             }
             System.out.println(divider);
         }
 
         System.out.println("Bye. Hope to see you again soon!\n");
         System.out.println(divider);
-
+        scan.close();
     }
 
     private static void addToList(String task) {
@@ -56,7 +66,20 @@ public class Mahesh {
         int count = 1;
         for (String task : Mahesh.list) {
             if (task == null) break;
-            System.out.println(count++ + ". " + task);
+            String indicator = Mahesh.done[count - 1] == 0 ? "[ ]" : "[X]";
+            System.out.println(count++ + "." + indicator + " " + task);
         }
+    }
+
+    private static void markAsDone(int index) {
+        Mahesh.done[index - 1] = 1;
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[X] " + Mahesh.list[index - 1]);
+    }
+
+    private static void unmarkAsDone(int index) {
+        Mahesh.done[index - 1] = 0;
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("[ ] " + Mahesh.list[index - 1]);
     }
 }
