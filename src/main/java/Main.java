@@ -60,9 +60,18 @@ public class Main {
      * @throws JanetException a custom exception class specific to Janet
      */
     public static void validateCommand(String[] commandDetails) throws JanetException {
-        if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
+        if (commandDetails[0].equals("mark") || commandDetails[0].equals("unmark")) {
+            // when the command is mark/unmark X, where X is an invalid num (too big or <= 0)
+            int taskNumber = Integer.parseInt(commandDetails[1]);
+            if (taskNumber <= 0) {
+                // still need to handle case when taskNumber >= taskIndex + 1
+                throw new JanetException("WHOOPS! You don't have a task of this number!");
+            }
+        } else if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
+            // when the command is gibberish and NOT one of the commands (todo, deadline, event)
             throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (commandDetails.length == 1) {
+            // when the command is either (todo, deadline, todo), BUT there is no task description
             throw new JanetException("WHOOPS! You can't leave out the task's description!");
         }
     }
@@ -86,6 +95,13 @@ public class Main {
                 System.out.println(currentListOfTasks);
             } else {
                 String[] commandDetails = command.split(" ");   // an array containing each word of the command
+                // handle exceptions
+                try {
+                    validateCommand(commandDetails);
+                } catch (JanetException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
                 if (commandDetails[0].equals("mark")) {
                     // mark the task as done
                     String markSuccess = janet.markAsDone(Integer.parseInt(commandDetails[1]));
@@ -97,12 +113,6 @@ public class Main {
                 } else {
                     // add the new task into the list of tasks
                     // Task can be a ToDo, Deadline, Event
-                    try {
-                        validateCommand(commandDetails);
-                    } catch (JanetException e) {
-                        System.out.println(e.getMessage());
-                        continue;
-                    }
                     if (commandDetails[0].equals("todo")) {
                         // get the todo description and create a new Todo object
                         String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
