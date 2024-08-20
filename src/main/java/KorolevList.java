@@ -1,8 +1,9 @@
 import utils.EventParser;
 import utils.ParseException;
-
 import java.util.ArrayList;
+
 public class KorolevList {
+
     private ArrayList<KorolevTask> events;
 
     public KorolevList() {
