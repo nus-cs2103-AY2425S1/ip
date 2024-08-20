@@ -1,19 +1,23 @@
+import Tasks.*;
+import Exceptions.AvoException;
+
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
+
 public class Avo {
-    private static void greet() {
+    private final TaskManager manager;
+    public Avo() {
+        manager = new TaskManager();
+    }
+    public void start() {
         String greetingMessage = "Hello, I am Avo.\nWhat can I do for you?";
         System.out.println(greetingMessage);
     }
-    private static void endSession() {
+    public void stop() {
         String exitMessage = "Bye. Hope to see you again soon!";
         System.out.println(exitMessage);
     }
-    public static void main(String[] args) {
-        greet();
-        TaskManager manager = new TaskManager();
+    public void listen() throws AvoException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
@@ -24,21 +28,51 @@ public class Avo {
                 manager.listTasks();
             } else if (userInput.startsWith("todo")) {
                 String[] inputs = userInput.split("todo ");
-                manager.addTask(new ToDo(inputs[0]));
+                if (inputs.length < 2) {
+                    throw new AvoException("OOPS!!! The description of a todo cannot be empty.");
+                }
+                manager.addTask(new ToDo(inputs[1]));
             } else if (userInput.startsWith("deadline")) {
                 String[] inputs = userInput.split("deadline |/by ");
+                if (inputs.length < 3) {
+                    throw new AvoException("OOPS!!! The description of a deadline cannot be empty.");
+                }
                 manager.addTask(new Deadline(inputs[1], inputs[2]));
             } else if (userInput.startsWith("event")) {
                 String[] inputs = userInput.split("event |/from |/to ");
+                if (inputs.length < 4) {
+                    throw new AvoException("OOPS!!! The description of an event cannot be empty.");
+                }
                 manager.addTask(new Event(inputs[1], inputs[2], inputs[3]));
             } else if (userInput.startsWith("mark")) {
-                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                manager.completeTask(index);
+                String[] inputs = userInput.split(" ");
+                if (inputs.length < 2) {
+                    throw new AvoException("OOPS!!! The task number cannot be empty.");
+                }
+                manager.completeTask(Integer.parseInt(inputs[1]) - 1);
             } else if (userInput.startsWith("unmark")) {
-                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                manager.unCompleteTask(index);
+                String[] inputs = userInput.split(" ");
+                if (inputs.length < 2) {
+                    throw new AvoException("OOPS!!! The task number cannot be empty.");
+                }
+                manager.unCompleteTask(Integer.parseInt(inputs[1]) - 1);
+            } else {
+                throw new AvoException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
-        endSession();
+    }
+    private void run() {
+        try {
+            listen();
+        } catch (AvoException e) {
+            System.out.println(e.getMessage());
+            run();
+        }
+    }
+    public static void main(String[] args) {
+        Avo chatBot = new Avo();
+        chatBot.start();
+        chatBot.run();
+        chatBot.stop();
     }
 }
