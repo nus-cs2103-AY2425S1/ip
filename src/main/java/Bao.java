@@ -1,5 +1,7 @@
 import java.util.Scanner;
 public class Bao {
+    private static String[] messages = new String[100];
+    private static int messageCount = 0;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String baoHi =   "     ___   \n"
@@ -29,12 +31,36 @@ public class Bao {
                 System.out.println("Bye :( Come back soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else {
+            } else if (input.equalsIgnoreCase("list")){
                 System.out.println("____________________________________________________________");
-                System.out.println(input);
+                showMessages();
+                System.out.println("____________________________________________________________");
+            } else {
+                addMessage(input);
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + input);
                 System.out.println("____________________________________________________________");
             }
         }
         scanner.close();
+    }
+
+    private static void showMessages() {
+        if (messageCount == 0) {
+            System.out.println("You haven't told Bao anything yet!");
+        } else {
+            for (int i = 0; i < messageCount; i++) {
+                System.out.println((i + 1) + ". " + messages[i]);
+            }
+        }
+    }
+
+    private static void addMessage(String message) {
+        if (messageCount < 100) {
+            messages[messageCount] = message;
+            messageCount++;
+        } else {
+            System.out.println("Bao cannot remember so many thing :(");
+        }
     }
 }
