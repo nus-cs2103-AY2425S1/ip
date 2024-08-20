@@ -21,6 +21,39 @@ public class Henry {
         System.out.println(bye);
     }
 
+    /**
+     * Prints all the tasks recorded
+     *
+     * @param tasks array of tasks recorded
+     * @param index number of tasks recorded
+     */
+    public static void printList(Task[] tasks, int index) {
+        System.out.println("\nHere are the tasks in your list:");
+        for (int i = 0; i < index; i++) {
+            System.out.println(i + 1
+                    + ". ["
+                    + tasks[i].getStatusIcon()
+                    + "] "
+                    + tasks[i].getDescription());
+        }
+        System.out.println();
+    }
+
+    /**
+     * Adds new task into the array of tasks recorded
+     *
+     * @param tasks array of tasks recorded
+     * @param index number of tasks recorded
+     * @param input name of task
+     */
+    public static void addTask(Task[] tasks, int index, String input) {
+        tasks[index] = new Task(input);
+        System.out.println("\n"
+                + "added: "
+                + input
+                + "\n");
+    }
+
     public static void main(String[] args) {
         greetings();
 
@@ -35,19 +68,9 @@ public class Henry {
                 bye();
                 break;
             } else if (input.equals("list")) {
-                System.out.println();
-                for (int i = 0; i < index; i++) {
-                    System.out.println(i + 1
-                            + ". "
-                            + tasks[i].getDescription());
-                }
-                System.out.println();
+                printList(tasks, index);
             } else {
-                tasks[index] = new Task(input);
-                System.out.println("\n"
-                        + "added: "
-                        + input
-                        + "\n");
+                addTask(tasks, index, input);
                 index++;
             }
         } while (true);
