@@ -1,5 +1,8 @@
-public class InputEmptyException extends Exception {
-    public InputEmptyException(String errMessage) {
-        super(errMessage);
+public class InputEmptyException extends RuntimeException {
+    private final String userInput;
+
+    public InputEmptyException(String userInput) {
+        super("You need to input something after " + userInput);
+        this.userInput = userInput;
     }
 }

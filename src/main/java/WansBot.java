@@ -1,6 +1,17 @@
 import java.util.Scanner;
 
 public class WansBot {
+
+    public static void emptyInput(String userInput) throws InputEmptyException{
+        if (userInput.split(" ")[0].trim().equalsIgnoreCase("todos") ||
+            userInput.split(" ")[0].trim().equalsIgnoreCase("deadline") ||
+            userInput.split(" ")[0].trim().equalsIgnoreCase("event") ||
+            userInput.split(" ")[0].trim().equalsIgnoreCase("mark") ||
+            userInput.split(" ")[0].trim().equalsIgnoreCase("unmark")) {
+            throw new InputEmptyException(userInput);
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         TaskList userTaskList = new TaskList();
@@ -18,6 +29,14 @@ public class WansBot {
         while (true) {
             System.out.println("User: ");
             String userInput = sc.nextLine();
+            try {
+                emptyInput(userInput);
+            } catch (InputEmptyException e) {
+                System.out.println(hr + "\nWans:\n"
+                        + "You need to input something after " + userInput
+                        + "!\n" + hr);
+                continue;
+            }
 
             // User can open list of numbered Tasks
             if (userInput.equalsIgnoreCase("list")) {
