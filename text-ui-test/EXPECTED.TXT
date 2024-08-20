@@ -1,12 +1,12 @@
-Greetings! I'm Sentinel.
+Greetings! I'm Sentinel. 
 What can I do for you?
-Added the following todo:
+Added the following todo: 
 [T][ ] borrow book
-Here are the list of your tasks
-1. [T][ ] borrow book
+Here are the list of your tasks 
+1. [T][ ] borrow book 
 
-Added the following deadline:
+Added the following deadline: 
 [D][ ] return book (by: Sunday)
-Added the following event:
+Added the following event: 
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 It was a pleasure conversing with you. Goodbye!
