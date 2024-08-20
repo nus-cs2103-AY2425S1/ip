@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Taskon {
-    public static void main(String[] args) throws TaskonException {
+    public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
         greet();
         Scanner scanner = new Scanner(System.in);
