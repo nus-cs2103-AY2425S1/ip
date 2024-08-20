@@ -1,10 +1,15 @@
 package todo;
 
+/**
+ * Represents each individual task
+ *
+ * @author celeschai
+ * @version 1.0 20 Aug 2023
+ */
 public class Task {
     private String name = "new task";
     private boolean status = false;
 
-    Task() {}
     public Task(String name) {
         this.name = name;
     }
@@ -17,9 +22,6 @@ public class Task {
         this.status = false;
     }
 
-    public void editTask(String name) {
-        this.name = name;
-    }
 
     @Override
     public String toString() {
