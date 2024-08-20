@@ -1,8 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 
 public class Miku {
-    public static ArrayList<String> itemList = new ArrayList<>();
+    public static String regex = "mark \\d+";
+    public static String regex2 = "unmark \\d+";
+    public static ArrayList<Task> itemList = new ArrayList<>();
     public static String sectionBreak = "\n_______________________________________________";
 
     public static void main(String[] args) {
@@ -62,6 +68,10 @@ public class Miku {
                 break;
             } else if (input.equals("list")) {
                 Miku.printList();
+            } else if (input.matches(regex)) {
+                Miku.mark(Integer.parseInt(input.split(" ")[1]));
+            } else if (input.matches(regex2)){
+                Miku.unmark(Integer.parseInt(input.split(" ")[1]));
             } else {
                 Miku.addItem(input);
             }
@@ -74,14 +84,22 @@ public class Miku {
 
     public static void addItem(String item){
         System.out.println("added: " + item);
-        itemList.add(item);
+        itemList.add(new Task(item));
         System.out.println(sectionBreak);
     }
     public static void printList(){
-        for (String item: itemList) {
-            System.out.println(item);
+        for (int i = 0; i < itemList.size(); i++) {
+            System.out.println(String.valueOf(i+1) + ". " + itemList.get(i).stringValue());
         }
         System.out.println(sectionBreak);
+    }
+
+    public static void mark(int num){
+        itemList.get(num - 1).markDone();
+    }
+
+    public static void unmark(int num){
+        itemList.get(num - 1).markUndone();
     }
 
     public static void greet(){
