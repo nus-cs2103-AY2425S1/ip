@@ -14,7 +14,7 @@ public class Deadlines extends Task {
         return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
 
-    public static Task createTask(String input) {
+    public static Task createTask(String input) throws AlfredException {
         String regex = "^deadline\\s+(.+?)\\s+/by\\s+(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -25,7 +25,8 @@ public class Deadlines extends Task {
 
             return new Deadlines(description, deadline);
         } else {
-            throw new IllegalArgumentException("Invalid deadline: " + input);
+            throw new AlfredException("That is the wrong deadline format Sir. It goes deadline <task> " +
+                    "/by date");
         }
     }
 }

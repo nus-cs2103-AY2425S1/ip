@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Alfred {
     private static List<Task> lis;
@@ -22,14 +24,20 @@ public class Alfred {
 
             if (input.equals("list")) {
                 printList();
-            } else if (command.equals("mark")) {
-                markCommand(input);
-            } else if (command.equals("unmark")) {
-                unmarkCommand(input);
+            } else if (command.equals("mark") || command.equals("unmark")) {
+                processMarkCommand(input, command.equals("mark"));
             } else if (Task.isTaskCommand(input)){
-                Task task = Task.initialise(input);
-                lis.add(task);
-                printAddedTaskMessage(task);
+                try {
+                    Task task = Task.initialise(input);
+                    lis.add(task);
+                    printAddedTaskMessage(task);
+                } catch (AlfredException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("Unexpected error: " + e.getMessage());
+                }
             } else {
                 invalidCommand();
             }
@@ -77,29 +85,44 @@ public class Alfred {
         return input.split(" ")[0];
     }
 
-    public static void markCommand(String input) {
-        String[] parts = input.split(" ");
+    public static void processMarkCommand(String input, boolean mark) {
+        String action = mark ? "mark" : "unmark";
+
+        String regex = "^" + action + " \\d+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        if (!matcher.matches()) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Invalid " + action + " command Sir.");
+            System.out.println("____________________________________________________________");
+            return;
+        }
 
         int taskNumber = getTaskNumberFromInput(input);
+        if (taskNumber < 0 || taskNumber > lis.size()) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Invalid task number Sir.");
+            System.out.println("You only have " + lis.size() + " items in the list.");
+            System.out.println("____________________________________________________________");
+            return;
+        }
+
         Task task = lis.get(taskNumber - 1);
-        task.markAsDone();
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Indeed, Sir, the task has been duly completed:");
-        System.out.println("    " + task);
-        System.out.println("____________________________________________________________");
-    }
-
-    public static void unmarkCommand(String input) {
-        int taskNumber = getTaskNumberFromInput(input);
-        Task task = lis.get(taskNumber - 1);
-
-        task.unmark();
-        System.out.println("____________________________________________________________");
-        System.out.println("Very well, Sir, the task remains outstanding:");
-        System.out.println("    " + task);
-        System.out.println("A reminder that even small tasks deserve attention.");
-        System.out.println("____________________________________________________________");
+        if (mark) {
+            task.markAsDone();
+            System.out.println("____________________________________________________________");
+            System.out.println("Indeed, Sir, the task has been duly completed:");
+            System.out.println("    " + task);
+            System.out.println("____________________________________________________________");
+        } else {
+            task.unmark();
+            System.out.println("____________________________________________________________");
+            System.out.println("Very well, Sir, the task remains outstanding:");
+            System.out.println("    " + task);
+            System.out.println("A reminder that even small tasks deserve attention.");
+            System.out.println("____________________________________________________________");
+        }
     }
 
     public static void printAddedTaskMessage(Task task) {

@@ -34,7 +34,7 @@ abstract public class Task {
         return TASKS.contains(parts[0]);
     }
 
-    public static Task initialise(String input) {
+    public static Task initialise(String input) throws AlfredException {
         String[] parts = input.split(" ");
         switch (parts[0]) {
             case "todo":

@@ -12,7 +12,7 @@ public class ToDos extends Task {
         return "[T]" + super.toString();
     }
 
-    public static Task createTask(String input) {
+    public static Task createTask(String input) throws AlfredException {
         String regex = "^todo\\s+(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -21,7 +21,7 @@ public class ToDos extends Task {
             String description = matcher.group(1);
             return new ToDos(description);
         } else {
-            throw new IllegalArgumentException("Invalid input: " + input);
+            throw new AlfredException("That is the wrong todo format Sir. It goes todo <task>");
         }
     }
 }

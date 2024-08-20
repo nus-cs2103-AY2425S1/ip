@@ -16,7 +16,7 @@ public class Events extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
-    public static Task createTask(String input) {
+    public static Task createTask(String input) throws AlfredException {
         String regex = "^event\\s+(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -28,7 +28,8 @@ public class Events extends Task {
 
             return new Events(description, from, to);
         } else {
-            throw new IllegalArgumentException("Invalid input: " + input);
+            throw new AlfredException("That is the wrong events format Sir. It goes event <task> " +
+                    "/from <date> /to <date>");
         }
     }
 }

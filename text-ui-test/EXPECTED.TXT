@@ -3,9 +3,28 @@ Good day Sir. I am Alfred, your English butler.
 Might I offer you some tea, or perhaps something stronger to suit the occasion?
 ____________________________________________________________
 ____________________________________________________________
+That is the wrong todo format Sir. It goes todo <task>
+____________________________________________________________
+____________________________________________________________
+Terribly sorry Sir, I have no idea what you are saying.
+____________________________________________________________
+____________________________________________________________
+That is the wrong deadline format Sir. It goes deadline <task> /by date
+____________________________________________________________
+____________________________________________________________
+Invalid task number Sir.
+You only have 0 items in the list.
+____________________________________________________________
+____________________________________________________________
+That is the wrong deadline format Sir. It goes deadline <task> /by date
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
     [T][ ] borrow book
 Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -19,22 +38,44 @@ Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-    [T][ ] eat
+    [D][ ] do homework (by: no idea :-p)
 Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Indeed, Sir, the task has been duly completed:
-    [D][X] return book (by: Sunday)
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
 Indeed, Sir, the task has been duly completed:
-    [T][X] eat
+    [D][X] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Very well, Sir, the task remains outstanding:
+    [D][ ] return book (by: Sunday)
+A reminder that even small tasks deserve attention.
+____________________________________________________________
+____________________________________________________________
+Invalid task number Sir.
+You only have 4 items in the list.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
+2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4. [T][X] eat
+4. [D][X] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Very well, Sir, the task remains outstanding:
+    [D][ ] do homework (by: no idea :-p)
+A reminder that even small tasks deserve attention.
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
 Farewell Sir. Should you need anything, you know where to find me.
