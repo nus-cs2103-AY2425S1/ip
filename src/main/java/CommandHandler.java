@@ -9,13 +9,22 @@ public class CommandHandler {
     }
 
     public void handleCommand(String command) {
-        if (command.equals("list")) {
-            handleList();
-        } else if (command.startsWith("mark") || command.startsWith("unmark")) {
-            handleMark(command);
-        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
-            handleAddTask(command);
-        }
+        try {
+			if (command.equals("list")) {
+				handleList();
+			} else if (command.startsWith("mark") || command.startsWith("unmark")) {
+				handleMark(command);
+			} else if (command.startsWith("todo") || 
+						command.startsWith("deadline") || 
+						command.startsWith("event")) {
+				handleAddTask(command);
+			} else {
+				throw new Exception("Unknown message :(. Please see below for the list of available commands:\n\n" + Config.commands);
+
+			}
+		} catch (Exception ex) {
+			Utils.printItem(ex.getMessage());
+		}
     }
 
     private void handleList() {
@@ -25,11 +34,10 @@ public class CommandHandler {
         Utils.printItem(s.toString());
     }
 
-    private void handleMark(String command) {
+    private void handleMark(String command) throws Exception {
         String[] parts = command.split(" ");
         if (parts.length != 2) {
-            Utils.printItem("Invalid command. Usage: mark/unmark [id]");
-            return;
+			throw new Exception("Invalid command. Usage: mark/unmark <id>"); 
         }
 
         String action = parts[0];
@@ -46,7 +54,7 @@ public class CommandHandler {
         Utils.printItem(res.toString());
     }
 
-    private void handleAddTask(String task) {
+    private void handleAddTask(String task) throws Exception {
 		String[] parts = task.split(" ");
 		String type = parts[0];
 		
@@ -56,6 +64,9 @@ public class CommandHandler {
 			String taskDescription = Arrays.stream(parts)
 										.skip(1)
 										.collect(Collectors.joining(" "));
+			if (taskDescription.equals("")) {	
+				throw new Exception("Invalid command. Usage: todo <description>.");
+			}
 			t = new TodoTask(taskDescription);
 			
 		} else if (type.equals("deadline")) {
@@ -69,6 +80,10 @@ public class CommandHandler {
 			String deadline = Arrays.stream(parts)
 									.skip(index + 1)
 									.collect(Collectors.joining(" "));
+
+			if (taskDescription.equals("") || deadline.equals("")) {
+				throw new Exception("Invalid command. Usage: deadline <description> /by <deadline>.");
+			}
 			t = new DeadlineTask(taskDescription, deadline); 
 
 		} else if (type.equals("event")) {
@@ -89,9 +104,13 @@ public class CommandHandler {
 								.skip(indexTo + 1)
 								.collect(Collectors.joining(" "));
 
+			if (taskDescription.equals("") || from.equals("") || to.equals("")) {
+				throw new Exception("Invalid command. Usage: event <description> /from <start> /to <end>.");
+			}
 			t = new EventTask(taskDescription, from, to);	
 		} else {
-			return;
+			// not possible to reach here
+			throw new Exception("Invalid task type.");
 		}
 
 		tm.add(t);
