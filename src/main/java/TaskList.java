@@ -6,8 +6,8 @@ public class TaskList {
         listOfTasks = new ArrayList<>();
     }
 
-    public void add(Task task) {
-        listOfTasks.add(task);
+    public void add(String task) {
+        listOfTasks.add(new Task(task));
     }
 
     @Override
