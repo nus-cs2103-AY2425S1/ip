@@ -1,5 +1,5 @@
 public class Task {
-    
+
     private String description;
     private boolean isDone;
     private int taskID;
@@ -16,7 +16,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
+        return (isDone ? "[X] " : "[ ] ");
     }
 
     public int getTaskID() {
@@ -25,11 +25,16 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("OK, I've marked this task as done:");
+        System.out.println("    Nice! I've marked this task as done:");
     }
 
     public void markAsNotDone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("    OK, I've marked this task as not done yet:");
+    }
+
+    @Override
+    public String toString() {
+        return this.getStatusIcon() + " " + this.getDescription();
     }
 }
