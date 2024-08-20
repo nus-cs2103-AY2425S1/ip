@@ -20,15 +20,12 @@ public class SlothingWaffler {
                 break;
             }
             if (split[0].strip().equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 1; i <= tasksCount; i++) {
-                    System.out.println((i) + ".[" + tasks[i - 1].getStatusIcon() + "] " + tasks[i - 1].toString());
-                }
+                displayTaskList(tasks, tasksCount);
             } else if (split[0].strip().equals("mark")) {
                 int taskNumber = Integer.parseInt(split[1]) - 1;
                 tasks[taskNumber].markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].toString());
+                System.out.println("  " + tasks[taskNumber].toString());
             } else {
                 tasks[tasksCount] = new Task(input);
                 tasksCount++;
@@ -36,5 +33,12 @@ public class SlothingWaffler {
             }
         }
         scanner.close();
+    }
+
+    private static void displayTaskList(Task[] tasks, int tasksCount) {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i <= tasksCount; i++) {
+            System.out.println((i) + "." + tasks[i - 1].toString());
+        }
     }
 }
