@@ -115,6 +115,25 @@ public class Gray {
                 }
             }
 
+            { // Delete Task
+                Pattern pattern = Pattern.compile("delete (-?\\d+)");
+                Matcher matcher = pattern.matcher(user);
+                if (matcher.matches()) {
+                    int index = Integer.parseInt(matcher.group(1));
+                    if (index <= 0 || index > taskList.size()) {
+                        say("Not a valid index");
+                        continue;
+                    }
+                    Task task = taskList.remove(index - 1);
+                    say(String.format("""
+                            Noted. I've removed this task:
+                                %s
+                            Now you have %d tasks in the list.""",
+                            task, taskList.size()));
+                    continue;
+                }
+            }
+
             say("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         say("Bye. Hope to see you again soon!");
