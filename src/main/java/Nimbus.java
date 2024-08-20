@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Nimbus {
     private static String name = "Nimbus";
     private static void printDash() {
@@ -19,6 +21,14 @@ public class Nimbus {
 
     public static void main(String[] args) {
         printWelcomeMessage();
+
+        Scanner scanner = new Scanner(System.in);
+        String line;
+
+        while(!(line = scanner.nextLine()).equals("bye")) {
+            System.out.println(line);
+        }
+
         printGoodbyeMessage();
     }
 }
