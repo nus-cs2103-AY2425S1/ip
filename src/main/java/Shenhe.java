@@ -12,23 +12,52 @@ public class Shenhe {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        List<String> tasks = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         String userInput;
 
         while (true) {
             userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
                 break;
+            } else if (userInput.startsWith("mark")) {
+                int length = userInput.length();
+                char lastChar = userInput.charAt(length - 1);
+                int lastDigit = -1;
+                if (Character.isDigit(lastChar)) {
+                    lastDigit = lastChar - '0';
+                }
+                if (lastDigit >= 1 && lastDigit <= length) {
+                    tasks.get(lastDigit - 1).markAsDone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(tasks.get(lastDigit - 1).toString());
+                    System.out.println("____________________________________________________________");
+                }
+            } else if (userInput.startsWith("unmark")) {
+                int length = userInput.length();
+                char lastChar = userInput.charAt(length - 1);
+                int lastDigit = -1;
+                if (Character.isDigit(lastChar)) {
+                    lastDigit = lastChar - '0';
+                }
+                if (lastDigit >= 1 && lastDigit <= length) {
+                    tasks.get(lastDigit - 1).markAsUndone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(tasks.get(lastDigit - 1).toString());
+                    System.out.println("____________________________________________________________");
+                }
             } else if (!userInput.equals("list")) {
-                tasks.add(userInput);
+                tasks.add(new Task(userInput));
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
             } else {
                 int length = tasks.size();
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < length; i++) {
-                    System.out.println(i + 1 + ". " + tasks.get(i));
+                    System.out.println(i + 1 + "." + tasks.get(i).toString());
                 }
                 System.out.println("____________________________________________________________");
             }
