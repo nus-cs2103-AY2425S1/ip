@@ -8,6 +8,6 @@ public class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format("(%s)", deadlineInfo);
+        return "[D]" + super.toString() + String.format(" (%s)", deadlineInfo);
     }
 }

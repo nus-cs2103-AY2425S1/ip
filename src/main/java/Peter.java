@@ -12,9 +12,9 @@ public class Peter {
 
         while (!command.equals("bye")) {
             if (command.equals("list")) {
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < lastIndex; i++) {
                     Task t = tasks[i];
-                    System.out.println("Here are the tasks in your list: ");
                     System.out.println((i + 1) + String.format(".%s ", t.toString()));
                 }
             } else if (command.contains("unmark")) {
@@ -38,8 +38,23 @@ public class Peter {
                 System.out.println("Good job! I've marked this task as done: ");
                 System.out.println(t.toString());
             } else {
-                tasks[lastIndex++] = new Task(command);
-                System.out.println("added: " + command);
+                String name = "";
+                if (command.contains("todo")) {
+                    name = command.replace("todo ", "");
+                    tasks[lastIndex++] = new ToDos(name);
+                } else if (command.contains("deadline")) {
+                    String[] splits = command.split("/");
+                    name = splits[0].replace("deadline ", "").strip();
+                    String details = splits[1].replace("by", "by:");
+                    tasks[lastIndex++] = new Deadlines(name, details);
+                } else if (command.contains("event")) {
+                    String[] splits = command.split("/");
+                    name = splits[0].replace("event ", "").strip();
+                    String details = splits[1].replace("from", "from:") + splits[2].replace("to", "to:");
+                    tasks[lastIndex++] = new Event(name, details);
+                }
+                System.out.println("I've added: " + name);
+                System.out.println(String.format("Now you have %d in the list!", lastIndex));
             }
 
             command = scanner.nextLine();
