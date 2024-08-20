@@ -2,31 +2,34 @@ import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 
 
 public class Storage {
     private ArrayList<Input> input;
+    private Ui ui;
     private static int counter = 0;
 
-    public Storage() {
+    public Storage(Ui ui) {
         this.input = new ArrayList<>();
+        this.ui = ui;
     }
 
     public void store(Input input) {
         if(input.empty()) {
-            System.out.println("Whoopsie! Please enter a task");
+            ui.invalidTask();
         } else {
             this.input.add(input);
             counter++;
-            System.out.println("Noted. I have added this task:");
-            System.out.println(input);
-            System.out.println("You have " + counter + " tasks in the list.");
+            ui.store(input, counter);
         }
 
 
+    }
+
+    public void add(Input input) {
+        this.input.add(input);
+        counter++;
     }
 
     public void writeToFile(String filename) throws IOException {
@@ -37,6 +40,7 @@ public class Storage {
             }
         }
     }
+
 
     private void handletodo(String str) {
         if (str.startsWith("[X]")) {
@@ -114,6 +118,7 @@ public class Storage {
         }
     }
 
+
     public void output() {
         System.out.println("Here are the list of tasks that needs to be completed: ");
         for(int i = 0; i < counter; i++) {
@@ -124,7 +129,7 @@ public class Storage {
     public void mark(String str) {
         int i = Integer.parseInt(str.substring(5));
         if (i > counter) {
-            System.out.println("Invalid number, enter a valid number to mark");
+            ui.invalidInput();
         } else {
             input.get(i-1).done();
 
@@ -136,13 +141,13 @@ public class Storage {
     public void delete(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {
-            System.out.println("Invalid number, enter a valid number to delete");
+            ui.invalidInput();
         } else {
-            System.out.println("Noted. I have deleted this task:");
-            System.out.println(input.get(i-1));
+            Input input1 = input.get(i-1);
             input.remove(i-1);
             counter--;
-            System.out.println("You have " + counter + " tasks in the list.");
+            ui.delete(input1, counter);
+
         }
     }
 
@@ -154,7 +159,7 @@ public class Storage {
     public void unmark(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {
-            System.out.println("Invalid number, enter a valid number to mark");
+            ui.invalidInput();
         } else {
             input.get(i-1).undone();
 
