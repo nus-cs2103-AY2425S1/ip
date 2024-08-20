@@ -62,7 +62,8 @@ public class Mahesh {
                     Mahesh.addToList((Mahesh.parseEvent(tokenizedInput)));
                     break;
                 default:
-                    Mahesh.addToList(new Task(originalInput));
+                    exit = true;
+                    break;
             }
             System.out.println(divider);
         }
@@ -76,11 +77,11 @@ public class Mahesh {
         Mahesh.list[taskCount++] = task;
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.err.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
+        System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
     }
 
     private static void printList() {
-        System.err.println("Here are the tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         int count = 1;
         for (Task task : Mahesh.list) {
             if (task == null) break;

@@ -1,0 +1,8 @@
+deadline CS2103T Week 2 IP tasks /by Fri, Aug 23rd 1600
+todo Setup a meeting with CS2103T Project team
+event Lunch with friends /from Sat, Aug 24th 1200 /to Sat, Aug 24th 1500
+list
+mark 1
+mark 2
+unmark 2
+bye
