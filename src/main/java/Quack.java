@@ -67,7 +67,7 @@ public class Quack {
         if (!taskType.equals("todo")) {
             System.out.println("When is this task due?");
             endDate = sc.nextLine();
-            if (startDate == "") {
+            if (endDate == "") {
                 throw new InvalidInputException("End date cannot be empty");
             }
         }
