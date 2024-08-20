@@ -1,8 +1,10 @@
-public class Tasks {
+public abstract class Tasks {
+
     //Description of task
-    private String description;
+    protected String description;
+
     //Completion status of task
-    private boolean isDone;
+    protected boolean isDone;
 
     public Tasks(String description) {
         this.description = description;
@@ -11,7 +13,7 @@ public class Tasks {
 
     @Override
     public String toString() {
-        return description;
+        return completionIcon() + " " + description;
     }
 
     //Displays completion icon based on completion status
@@ -19,14 +21,17 @@ public class Tasks {
         return isDone ? "[X]" : "[ ]";
     }
 
-    //marks completion status as done
+    //Marks completion status as done
     protected void markDone() {
         isDone = true;
     }
 
-    //marks completion status as not done
+    //Marks completion status as not done
     protected void unmarkDone() {
         isDone = false;
     }
+
+    //Type icon for tasks implemented by the different type of tasks
+    protected abstract String typeIcon();
 
 }

@@ -7,7 +7,7 @@ public class BeeBoo {
     //Arraylist for the tasklist
     ArrayList<Tasks> list;
 
-    //Initalise tasklist when beeboo is created
+    //Initialise tasklist when beeboo is created
     public BeeBoo() {
         list = new ArrayList<>();
     }
@@ -15,41 +15,39 @@ public class BeeBoo {
     //Adding to the tasklist
     private String addList(Tasks task) {
         list.add(task);
-        return "added: " + task;
+        return ("added: " + task + "\n" + "You have " + list.size() + " tasks in the list");
     }
 
-    //Marks item of specified index as done
+    //Marks item at specified index as done
     private void markDone(int index) {
         Tasks task = list.get(index);
         task.markDone();
-        chatBox("Nice! I've marked this task as done:\n" + task.completionIcon() + task);
-        ;
+        chatBox("Nice! I've marked this task as done:\n" + task);
     }
 
-    //Marks item of specified index as not done
+    //Unchecks item and mark as not done
     private void unmarkDone(int index) {
         Tasks task = list.get(index);
         task.unmarkDone();
-        chatBox("OK, I've marked this task as not done yet:\n" + task.completionIcon() + task);
+        chatBox("OK, I've marked this task as not done yet:\n" + task);
     }
 
     //Returns list when prompted
     private String produceList() {
         String result = "";
         for (Tasks task : list) {
-            result = result + (list.indexOf(task) + 1) + ". " + task.completionIcon() + " " + task + "\n";
+            result = result + (list.indexOf(task) + 1) + ". " + " " + task + "\n";
         }
         return result;
     }
 
-    //Creating chatbox
-
+    //Create chatbox
     private void chatBox(String str) {
         for (int i = 0; i < 60; i++) {
             System.out.print("-");
         }
         System.out.println();
-        System.out.println("" + str);
+        System.out.println(str);
         System.out.println();
         for (int i = 0; i < 60; i++) {
             System.out.print("-");
@@ -81,17 +79,47 @@ public class BeeBoo {
                 //Marking item at index as completed
                 beeBoo.markDone(index - 1);
             } else if (text.startsWith("unmark")) {
-                //Getting the index from the user input
                 String number = "";
                 for (int i = 7; i < text.length(); i++) {
                     number = number + text.charAt(i);
                 }
                 int index = Integer.parseInt(number);
-                //Marking item at index as completed
+                //Marking item at index as not done
                 beeBoo.unmarkDone(index - 1);
+
+            } else if (text.startsWith("deadline")) {
+                //Getting the ending index of the description ending at /
+                int descriptionEnd = text.indexOf('/');
+                //Creating a substring of description
+                String description = text.substring(9, descriptionEnd - 1);
+                //Creating substring of date
+                String date = text.substring(descriptionEnd + 1, text.length());
+                //Adding Deadline to list and then chatboxing it
+                beeBoo.chatBox(beeBoo.addList(new Deadlines(description, date)));
+
+            } else if (text.startsWith("event")) {
+                //Getting the ending index of the description ending at /
+                int descriptionEnd = text.indexOf('/');
+                //Creating substring of description
+                String description = text.substring(6, descriptionEnd - 1);
+
+                //Creating Date substring
+                String dateSubstring = text.substring(descriptionEnd + 6, text.length());
+
+                int startDateEnd = dateSubstring.indexOf('/');
+                //Creating startDate substring
+                String startDate = dateSubstring.substring(0, startDateEnd - 1);
+                //Creating endDate substring
+                String endDate = dateSubstring.substring(startDateEnd + 4, dateSubstring.length());
+
+                //Adding Event to list and then chatboxing it
+                beeBoo.chatBox(beeBoo.addList(new Events(description, startDate, endDate)));
+
             } else {
-                //Add item to list
-                beeBoo.chatBox(beeBoo.addList(new Tasks(text)));
+                //Creating substring of description
+                String description = text.substring(5, text.length());
+                //Adding ToDo to list and then chatboxing it
+                beeBoo.chatBox(beeBoo.addList(new ToDos(description)));
             }
             text = input.nextLine().trim().toLowerCase();
         }
