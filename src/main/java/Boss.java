@@ -41,34 +41,22 @@ public class Boss {
             else if (task.contains("todo")) {
                 tasks[numTasks] = new Todo(task);
 
-                System.out.println("Got it! I've added this task now");
-                System.out.println(tasks[numTasks]);
-                int i = numTasks + 1;
-                System.out.println("Now you have " + i + " tasks in the list.");
-                numTasks++;
+                numTasks = incrementAndPrint(numTasks, tasks);
 
             } else if (task.contains("deadline")) {
                 String[] string = task.split("/by");
                 tasks[numTasks] = new Deadline(string[0], string[1]);
 
-                System.out.println("Got it! I've added this task now");
-                System.out.println(tasks[numTasks]);
-                int i = numTasks + 1;
-                System.out.println("Now you have " + i + " tasks in the list.");
+                numTasks = incrementAndPrint(numTasks, tasks);
 
-                numTasks++;
             } else if (task.contains("event")) {
                 String[] string = task.split("/");
                 String from = string[1].split("from")[1];
                 String to = string[2].split("to")[1];
                 tasks[numTasks] = new Event(string[0], from, to);
 
-                System.out.println("Got it! I've added this task now");
-                System.out.println(tasks[numTasks]);
-                int i = numTasks + 1;
-                System.out.println("Now you have " + i + " tasks in the list.");
+                numTasks = incrementAndPrint(numTasks, tasks);
 
-                numTasks++;
             }
             else {
                 System.out.println("added: " + task);
@@ -79,7 +67,15 @@ public class Boss {
         } while(!task.equals("bye") && numTasks < 100);
 
         System.out.println("Bye. Hope to see you again soon!");
+    }
 
+    //for abstraction mainly
+    public static int incrementAndPrint(int count, Task[] tasks) {
+        System.out.println("Got it! I've added this task now");
+        System.out.println(tasks[count]);
+        int i = count + 1;
+        System.out.println("Now you have " + i + " tasks in the list.");
+        return i;
     }
 
     public static boolean isDigit(String s) {
