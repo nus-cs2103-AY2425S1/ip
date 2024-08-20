@@ -18,6 +18,10 @@ public class TaskList {
     return list.get(idx).toString();
   }
 
+  public static int getTaskCount() {
+    return list.size();
+  }
+
   public static void addTask(Task newTask) {
     list.add(newTask);
   }
