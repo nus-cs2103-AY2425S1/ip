@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Llama {
     public static void displayString(String str) {
@@ -9,8 +8,9 @@ public class Llama {
         String logo = "";
         String hr = "____________________________________________________________" ;
         Scanner sc = new Scanner(System.in);
-
-        ArrayList<String> taskList = new ArrayList<>();
+        // Assume less than 100 tasks
+        String[] taskArray = new String[100];
+        int last = 0;
 
         // Initializing message
         displayString(hr);
@@ -31,7 +31,8 @@ public class Llama {
                 sc.close();
             } else {
                 // Add text into a list
-                taskList.add(input);
+                taskArray[last] = input;
+                last++;
                 displayString("Added: " + input);
             }
         }
