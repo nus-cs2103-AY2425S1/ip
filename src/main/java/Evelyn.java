@@ -15,6 +15,15 @@ public class Evelyn {
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println(horizontalLine);
             cont = false;
+        } else if (text.startsWith("delete")) {
+            int index = Integer.parseInt(text.substring(7)) - 1;
+            Task task = (Task) lst.get(index);
+            lst.remove(index);
+            System.out.println(horizontalLine);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("   " + task.toString());
+            System.out.println(lst.size() > 1 ? "Now you have " + lst.size() + " tasks in this list"
+                    : "Now you have " + lst.size() + " task in this list");
         } else if (Objects.equals(text, "list")) {
             System.out.println(horizontalLine);
             System.out.println("Here are the tasks in your list: ");
