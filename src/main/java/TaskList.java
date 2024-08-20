@@ -15,8 +15,25 @@ public class TaskList {
      *
      * @param description Description of the task.
      */
-    public void add(String description) {
-        this.tasks[numberOfTasks++] = new Task(description);
+    public Task addTodo(String description) {
+        Task newTodo = new Todo(description);
+
+        this.tasks[numberOfTasks++] = newTodo;
+        return newTodo;
+    }
+
+    public Task addEvent(String description, String startTime, String endTime) {
+        Task newEvent = new Event(description, startTime, endTime);
+
+        this.tasks[numberOfTasks++] = newEvent;
+        return newEvent;
+    }
+
+    public Task addDeadline(String description, String endTime) {
+        Task newDeadline = new Deadline(description, endTime);
+
+        this.tasks[numberOfTasks++] = newDeadline;
+        return newDeadline;
     }
 
     /**

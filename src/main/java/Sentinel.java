@@ -15,8 +15,13 @@ public class Sentinel {
 
         // Initialize Commands
         commands.put("list", new ListTasks());
+
         commands.put("mark", new markDone());
         commands.put("unmark", new markUndone());
+
+        commands.put("todo", new addTodo());
+        commands.put("deadline", new addDeadline());
+        commands.put("event", new addEvent());
     }
 
     // Commands
@@ -29,6 +34,8 @@ public class Sentinel {
 
     /**
      * Makes Sentinel mark the given task number as done.
+     *
+     * @param taskNumber Task number to be marked.
      */
     public void markDone(int taskNumber) {
         say("Marked the following task as done: \n " + taskList.markAsDone(taskNumber));
@@ -36,9 +43,23 @@ public class Sentinel {
 
     /**
      * Makes Sentinel mark the given task number as undone.
+     *
+     * @param taskNumber Task number to be unmarked.
      */
     public void markUndone(int taskNumber) {
         say("Unmarked the following task: \n " + taskList.markAsUndone(taskNumber));
+    }
+
+    public void addTodo(String description) {
+        say("Added the following todo: \n" + taskList.addTodo(description));
+    }
+
+    public void addEvent(String description, String startTime, String endTime) {
+        say("Added the following event: \n" + taskList.addEvent(description, startTime, endTime));
+    }
+
+    public void addDeadline(String description, String endTime) {
+        say("Added the following deadline: \n" + taskList.addDeadline(description, endTime));
     }
 
     // Sentinel methods
@@ -80,6 +101,10 @@ public class Sentinel {
         }
     }
 
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
     /**
      * Makes Sentinel listen for tasks.
      */
@@ -96,10 +121,9 @@ public class Sentinel {
             }
 
             if (this.commands.get(parsedCommands[0]) == null) {
-                this.taskList.add(userInput);
-                say(String.format("Added: %s", userInput));
+                say("Invalid command broski");
             } else {
-                this.commands.get(parsedCommands[0]).run(this, parsedCommands);
+                this.commands.get(parsedCommands[0]).run(this, userInput);
             }
 
             userInput = scanner.nextLine();
