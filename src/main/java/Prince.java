@@ -1,9 +1,8 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Prince {
 
-    private static String LINE = "--------------------------------------";
+    private static String LINE = "    --------------------------------------";
     private static boolean TOGGLER = true;
 
     public static void main(String[] args) {
@@ -11,12 +10,12 @@ public class Prince {
         // initialise scanner for user input
         Scanner sc = new Scanner(System.in);
 
-        // initialise arr for input storage
-        ArrayList<Task> arr = new ArrayList<Task>();
+        // initialise array for input storage
+        Task[] tasksArray = new Task[100];
 
         printline();
-        System.out.println("Hello! I'm Prince");
-        System.out.println("What can I do for you?");
+        System.out.println("    Hello! I'm Prince");
+        System.out.println("    What can I do for you?");
         printline();
 
         while (TOGGLER) {
@@ -27,34 +26,33 @@ public class Prince {
             if (!input.equals("bye") && !input.equals("list")
                     && !input.contains("mark") && !input.contains("unmark")) {
 
-                System.out.println("added: " + input);
+                System.out.println("    added: " + input);
                 printline();
 
                 // create a new task
                 Task task = new Task(input);
+                // get task id to add into array
+                int taskID = task.getTaskID();
                 // add the task to the arraylist
-                arr.add(task);
+                tasksArray[taskID] = task;
 
             } else if (input.equals("list")) {
 
-                int length = arr.size();
+                int length = tasksArray.length;
+                System.out.println("    Here are the tasks in your list:");
 
                 // print the list of inputs
                 for (int i = 0; i < length; i++) {
-                    // get the task
-                    Task task = arr.get(i);
+                    if (tasksArray[i] != null) {
+                        // get the task
+                        Task task = tasksArray[i];
 
-                    // get description of task
-                    String desc = task.getDescription();
+                        // formatting for numbering of list
+                        int listNum = i + 1;
+                        String numDot = listNum + ".";
 
-                    // get status of task
-                    String status = task.getStatusIcon();
-
-                    // formatting for numbering of list
-                    int listNum = i + 1;
-                    String numDot = listNum + ".";
-
-                    System.out.println(numDot + status + desc);
+                        System.out.println("    " + numDot + task.toString());
+                    }
                 }
 
                 printline();
@@ -69,20 +67,14 @@ public class Prince {
                     // convert to arr index
                     int index = Integer.valueOf(indexAsString) - 1;
                     // mark task as undone
-                    Task task = arr.get(index);
+                    Task task = tasksArray[index];
                     task.markAsNotDone();
 
-                    // get description of task
-                    String desc = task.getDescription();
-
-                    // get status of task
-                    String status = task.getStatusIcon();
-
-                    System.out.println(status + desc);
+                    System.out.println("      " + task.toString());
                 }
 
                 printline();
-               
+
             } else if (input.contains("mark")) {
 
                 String checkMark = input.substring(0, 4);
@@ -92,20 +84,14 @@ public class Prince {
                     // convert to arr index
                     int index = Integer.valueOf(indexAsString) - 1;
                     // mark task as undone
-                    Task task = arr.get(index);
+                    Task task = tasksArray[index];
                     task.markAsDone();
 
-                    // get description of task
-                    String desc = task.getDescription();
-
-                    // get status of task
-                    String status = task.getStatusIcon();
-
-                    System.out.println(status + desc);
+                    System.out.println("      " + task.toString());
                 }
 
                 printline();
-              
+
             } else {
                 TOGGLER = false;
             }
