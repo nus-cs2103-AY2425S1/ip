@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class ThatOneGuy {
     private static String line = "____________________________________________________________";
-    private static ArrayList<String> tasks = new ArrayList<String>();
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void greet() {
         String name = "that one guy";
         System.out.println(line + "\nI'm " + name + ".");
@@ -21,8 +21,9 @@ public class ThatOneGuy {
             System.out.println("You really don't have anything better to do?");
         }
         else {
+            System.out.println("Here are your damned tasks. Complete them or something.");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i));
+                System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i).toString());
             }
         }
         System.out.println(line);
@@ -35,12 +36,15 @@ public class ThatOneGuy {
             next = sc.nextLine();
             if (next.equals("bye")) {
                 break;
-            }
-            else if (next.equals("list")) {
+            } else if (next.equals("list")) {
                 list();
-            }
-            else {
-                tasks.add(next);
+            } else if (next.startsWith("mark")) {
+                return;
+            } else if (next.startsWith("unmark")) {
+                return;
+            } else {
+                Task nextTask = new Task(next);
+                tasks.add(nextTask);
                 System.out.println(line + "\n" + "added: " + next + "\n" + line + "\n");
             }
         }
