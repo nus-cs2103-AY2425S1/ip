@@ -7,9 +7,8 @@ public class Colress {
     private static String input = "";
     private static String spacer = "____________________________________________________________________\n";
     private static String greetingMessage = "Hello! My name is Colress.\n"
-            + "What can I do for you?";
-    private static String listEmptyMessage = "I'm sorry, but it appears you have not added anything to your list.";
-    private static String invalidCommandMessage = "I'm sorry, but I do not recognise that command.";
+            + "What brings you here?";
+    private static String listEmptyMessage = "It appears you have not added anything to your list.";
     private static String farewellMessage = "Well then, I hope to see you around soon!";
     private static String addCommand = "add";
     private static String checkCommand = "check";
@@ -27,83 +26,105 @@ public class Colress {
     public static void makeList() {
         Colress.getInput();
         while (!Colress.input.equals(exitCommand)) {
-            if (Colress.input.equals(addCommand)) {
-                print("Enter the type of task you wish to add to your list");
-                Colress.getInput();
-                Colress.addTask(Colress.input);
-            } else if (Colress.input.equals(checkCommand)) {
-                Colress.editTask("check");
-            } else if (Colress.input.equals(uncheckCommand)) {
-                Colress.editTask("uncheck");
-            } else if (Colress.input.equals(listCommand)) {
-                Colress.print(Colress.printList());
-            } else {
-                Colress.print(invalidCommandMessage);
+            try {
+                if (Colress.input.equals(addCommand)) {
+                    Colress.addTask();
+                } else if (Colress.input.equals(checkCommand)) {
+                    Colress.editTask("check");
+                } else if (Colress.input.equals(uncheckCommand)) {
+                    Colress.editTask("uncheck");
+                } else if (Colress.input.equals(listCommand)) {
+                    Colress.print(Colress.printList());
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (UnknownCommandException | UnknownTaskTypeException e) {
+                print(String.valueOf(e));
             }
             Colress.getInput();
         }
     }
 
-    public static void addTask(String type) {
-        Task currTask;
+    public static void addTask() throws UnknownTaskTypeException {
+
+        Task currTask = null;
         String description;
         String date;
         String from;
         String to;
 
-        switch (type) {
-            case "todo":
-                Colress.print("Enter the description of the task");
-                description = Colress.scanner.nextLine();
+        while (currTask == null) {
+            try {
+                print("Enter the type of task you wish to add to your list");
+                Colress.getInput();
 
-                currTask = new ToDo(description);
-                Colress.taskList.add(currTask);
-                Colress.print("Okay. I have added this task to your list:\n"
-                        + Colress.taskList.size() + "." + currTask);
-                break;
-            case "deadline":
-                Colress.print("Enter the description of the task");
-                description = Colress.scanner.nextLine();
+                switch (Colress.input) {
+                    case "todo":
+                        Colress.print("Enter the description of the task");
+                        description = Colress.scanner.nextLine();
 
-                Colress.print("Enter the deadline");
-                date = Colress.scanner.nextLine();
+                        currTask = new ToDo(description);
+                        Colress.taskList.add(currTask);
+                        Colress.print("Okay. I have added this task to your list:\n"
+                                + Colress.taskList.size() + "." + currTask);
+                        break;
+                    case "deadline":
+                        Colress.print("Enter the description of the task");
+                        description = Colress.scanner.nextLine();
 
-                currTask = new Deadline(description, date);
-                Colress.taskList.add(currTask);
-                Colress.print("Okay. I have added this task to your list:\n"
-                        + Colress.taskList.size() + "." + currTask);
-                break;
-            case "event":
-                Colress.print("Enter the description of the event");
-                description = Colress.scanner.nextLine();
+                        Colress.print("Enter the deadline");
+                        date = Colress.scanner.nextLine();
 
-                Colress.print("Enter the date of the event");
-                date = Colress.scanner.nextLine();
+                        currTask = new Deadline(description, date);
+                        Colress.taskList.add(currTask);
+                        Colress.print("Okay. I have added this task to your list:\n"
+                                + Colress.taskList.size() + "." + currTask);
+                        break;
+                    case "event":
+                        Colress.print("Enter the description of the event");
+                        description = Colress.scanner.nextLine();
 
-                Colress.print("Enter the starting time of the event");
-                from = Colress.scanner.nextLine();
+                        Colress.print("Enter the date of the event");
+                        date = Colress.scanner.nextLine();
 
-                Colress.print("Enter the ending time of the event");
-                to = Colress.scanner.nextLine();
+                        Colress.print("Enter the starting time of the event");
+                        from = Colress.scanner.nextLine();
 
-                currTask = new Event(description, date, from, to);
-                Colress.taskList.add(currTask);
-                Colress.print("Okay. I have added this task to your list:\n"
-                        + Colress.taskList.size() + "." + currTask);
-                break;
-            default:
-                print(Colress.invalidCommandMessage);
-                break;
+                        Colress.print("Enter the ending time of the event");
+                        to = Colress.scanner.nextLine();
+
+                        currTask = new Event(description, date, from, to);
+                        Colress.taskList.add(currTask);
+                        Colress.print("Okay. I have added this task to your list:\n"
+                                + Colress.taskList.size() + "." + currTask);
+                        break;
+                    default:
+                        throw new UnknownTaskTypeException();
+                }
+            } catch (UnknownTaskTypeException e) {
+                print(String.valueOf(e));
+            }
         }
+
     }
 
-    public static void editTask(String action) {
+    public static void editTask(String action) throws UnknownCommandException {
         if (Colress.taskList.isEmpty()) {
             Colress.print(Colress.listEmptyMessage);
         } else {
-            Colress.print("Enter the task number");
-            int index = Integer.parseInt(Colress.scanner.nextLine());
-            Task currTask = Colress.taskList.get(index - 1);
+            int index = -1;
+            Task currTask = null;
+            while (currTask == null) {
+                Colress.print("Enter the task number");
+                try {
+                    index = Integer.parseInt(Colress.scanner.nextLine());
+                    currTask = Colress.taskList.get(index - 1);
+                } catch (NumberFormatException e) {
+                    print("You did not seem to have entered a number. Try Again.");
+                } catch (IndexOutOfBoundsException e) {
+                    print("You did not seem to have entered a valid number. Try Again.");
+                }
+            }
             switch (action) {
                 case "check":
                     currTask.check();
@@ -116,8 +137,7 @@ public class Colress {
                             + index + "." + currTask);
                     break;
                 default:
-                    Colress.print(Colress.invalidCommandMessage);
-                    break;
+                    throw new UnknownCommandException();
             }
         }
     }
@@ -132,8 +152,8 @@ public class Colress {
         return "Here is your list:" + result;
     }
     public static void main(String[] args) {
-        print(Colress.greetingMessage);
+        Colress.print(Colress.greetingMessage);
         Colress.makeList();
-        print(Colress.farewellMessage);
+        Colress.print(Colress.farewellMessage);
     }
 }
