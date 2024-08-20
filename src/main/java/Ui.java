@@ -24,7 +24,7 @@ public class Ui {
 
     public void printAddTask(Task t) {
         this.printHorizontalLine();
-        System.out.println("\tadded: " + t.getDescription());
+        System.out.println("\tadded: " + t);
         this.printHorizontalLine();
     }
 

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,6 +14,27 @@ public class LevelHundred {
         this.storage = new Storage();
     }
 
+    private Task createTask(String[] words, String command) {
+        if (command.equals("todo")) {
+            String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+            return new Todo(taskDescription);
+        } else if (command.equals("deadline")) {
+            List<String> tmp = Arrays.asList(words);
+            int byIdx = tmp.indexOf("/by");
+            String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, byIdx));
+            String by = String.join(" ", Arrays.copyOfRange(words, byIdx + 1, words.length));
+            return new Deadline(taskDescription, by);
+        } else {
+            List<String> tmp = Arrays.asList(words);
+            int fromIdx = tmp.indexOf("/from");
+            int toIdx = tmp.indexOf("/to");
+            String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, fromIdx));
+            String from = String.join(" ", Arrays.copyOfRange(words, fromIdx + 1, toIdx));
+            String to = String.join(" ", Arrays.copyOfRange(words, toIdx + 1, words.length));
+            return new Event(taskDescription, from, to);
+        }
+    }
+
     private void run() {
         this.ui.greet(this.name);
 
@@ -21,7 +44,7 @@ public class LevelHundred {
 
         while (isRunning) {
             userInput = sc.nextLine();
-            String[] words =userInput.split(" ");
+            String[] words = userInput.split(" ");
             String command = words[0];
             switch(command) {
                 case "bye":
@@ -51,15 +74,19 @@ public class LevelHundred {
                         this.ui.printFail();
                     }
                     break;
-                default:
-                    Task newTask = new Task(userInput);
+                case "todo": case "deadline": case "event":
+                    Task newTask = createTask(words, command);
                     this.storage.addTask(newTask);
                     this.ui.printAddTask(newTask);
+                    break;
+                default:
+
             }
         }
 
         sc.close();
     }
+
     public static void main(String[] args) {
         LevelHundred chatbot = new LevelHundred();
         chatbot.run();
