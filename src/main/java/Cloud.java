@@ -35,7 +35,6 @@ public class Cloud {
             String userInput = sc.nextLine().strip();
             // exit chat if user enters exit command
             if (userInput.equals(EXIT_COMMAND)) {
-                exit();
                 break;
             }
             if (userInput.equals("list")) {
@@ -46,6 +45,7 @@ public class Cloud {
                 System.out.println("added: " + userInput);
             }
         }
+        exit();
         printHorizLine();
     }
 }
