@@ -30,7 +30,7 @@ public class Delta {
         list.set(i - 1, task);
         return "\t____________________________________________________________\n"
                 + "\t Nice! I've marked this task as done:\n"
-                + "\t\t[" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + "\t   [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
                 + "\t_____________________________________________________________";
     }
 
@@ -40,7 +40,7 @@ public class Delta {
         list.set(i - 1, task);
         return "\t____________________________________________________________\n"
                 + "\t Ok, I've marked this task as not done yet:\n"
-                + "\t\t[" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + "\t   [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
                 + "\t_____________________________________________________________";
     }
 
