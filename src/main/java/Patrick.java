@@ -9,7 +9,7 @@ public class Patrick {
     static String numTaskMsg1 = "Now you have ";
     static String numTaskMsg2 = " tasks in the list.\n";
     static String input;
-    static ArrayList list = new ArrayList();
+    static ArrayList<Task> list = new ArrayList<>();
     static Task task;
 
     public static void main(String[] args) {
@@ -59,6 +59,13 @@ public class Patrick {
             else if (input.startsWith("event")) {
                 try {
                     EventTask(input);
+                } catch (PatrickException e) {
+                    System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
+                }
+            }
+            else if (input.startsWith("delete")) {
+                try {
+                    Delete(input);
                 } catch (PatrickException e) {
                     System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
                 }
@@ -144,6 +151,11 @@ public class Patrick {
         if (taskNo.isEmpty()) {
             throw new PatrickException("Task Number cannot be empty!!");
         } else {
+            try {
+                Integer.parseInt(taskNo);
+            } catch (NumberFormatException e) {
+                throw new PatrickException("Mark Task Details must be an integer");
+            }
             int num = Integer.parseInt(taskNo);
             if (num > list.size()) {
                 throw new PatrickException("Invalid Task Number!!");
@@ -165,7 +177,13 @@ public class Patrick {
         if (taskNo.isEmpty()) {
             throw new PatrickException("Task Number cannot be empty!!");
         } else {
+            try {
+                Integer.parseInt(taskNo);
+            } catch (NumberFormatException e) {
+                throw new PatrickException("Unmark Task Details must be an integer");
+            }
             int num = Integer.parseInt(taskNo);
+
             if (num > list.size()) {
                 throw new PatrickException("Invalid Task Number!!");
             } else {
@@ -178,6 +196,27 @@ public class Patrick {
                             + curr.toString() + "\n" + horizontalLine);
                 }
             }
+        }
+    }
+
+    private static void Delete(String input) throws PatrickException {
+        String taskNo = input.replace("delete", "").trim();
+        try {
+            Integer.parseInt(taskNo);
+        } catch (NumberFormatException e) {
+            throw new PatrickException("Delete Task Details must be an integer");
+        }
+        int num = Integer.parseInt(taskNo);
+        if (taskNo.isEmpty()) {
+            throw new PatrickException("Delete Task Details cannot be empty!!");
+        }
+        else if (num > list.size()){
+            throw new PatrickException("Input task index is invalid. Please try again!!");
+        }
+        else {
+            System.out.println(horizontalLine + "Noted. I've removed this task:\n"
+                + list.get(num - 1).toString() + "\n" + numTaskMsg1 + (list.size() - 1) + numTaskMsg2);
+            list.remove(num - 1);
         }
     }
 
