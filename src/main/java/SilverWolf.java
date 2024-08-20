@@ -73,70 +73,25 @@ public class SilverWolf {
 
             // exit if the user types "bye" or "list"
             if (input.equals("bye")) {
-                printDivider();
-                System.out.println(" Till we meet again! May this journey lead us starward!");
-                printDivider();
+                handleBye();
                 break;
-                // display the list that the user entered
             } else if (input.equals("list")) {
-                printDivider();
-                System.out.println("Here are the tasks in your list:");
-                outputList();
-                printDivider();
-                System.out.print("\n");
+                handleList();
             } else if (input.startsWith("mark ")){
-                //extract the input number
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                // retrieve the specific task from the arraylist
-                Todo specificTask = list.get(index);
-                // mark the task as done
-                specificTask.markAsDone();
-                printDivider();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(specificTask);
-                printDivider();
-                System.out.print("\n");
-
+                handleMark(input);
             } else if (input.startsWith("unmark ")){
-                //extract the input number
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                // retrieve the specific task from the arraylist
-                Todo specificTask = list.get(index);
-                // mark the task as undone
-                specificTask.unmarkTask();
-                printDivider();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(specificTask);
-                printDivider();
-                System.out.print("\n");
-
+                handleUnmark(input);
             } else if (input.startsWith("todo")){
-                //taking in the input
-                String descrption = input.substring(5);
-                Todo newTodo = new Todo(descrption);
-                list.add(newTodo);
-                showConfirmation();
+                handleTodo(input);
             } else if (input.startsWith("deadline")){
-                //taking in the input
-                String[] parts = input.substring(9).split(" /by ");
-                Todo newDeadline = new Deadline(parts[0], parts[1]);
-                list.add(newDeadline);
-                showConfirmation();
-
+                handleDeadline(input);
             } else if (input.startsWith("event")){
-                //taking in the input
-                String[] parts = input.substring(6).split(" /from ");
-                String[] to = parts[1].split(" /to ");
-                Todo newEvent = new Event(parts[0],to[0],to[1]);
-                list.add(newEvent);
-                showConfirmation();
+                handleEvent(input);
             }
             else if (input != ""){
-                // echo the input back to the user
-                printDivider();
-                System.out.println("added: " + input);
-                list.add(new Todo(input));
-                printDivider();
+                handleAddingList(input);
+            } else {
+                handleEmptyInput();
             }
 
 
@@ -145,5 +100,86 @@ public class SilverWolf {
         // close the scanner
         scanner.close();
 
+    }
+
+    private static void handleBye() {
+        printDivider();
+        System.out.println(" Till we meet again! May this journey lead us starward!");
+        printDivider();
+    }
+
+    private static void handleList() {
+        printDivider();
+        System.out.println("Here are the tasks in your list:");
+        outputList();
+        printDivider();
+        System.out.print("\n");
+    }
+
+    private static void handleMark(String input){
+        //extract the input number
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        // retrieve the specific task from the arraylist
+        Todo specificTask = list.get(index);
+        // mark the task as done
+        specificTask.markAsDone();
+        printDivider();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(specificTask);
+        printDivider();
+        System.out.print("\n");
+    }
+
+    private static void handleUnmark(String input){
+        //extract the input number
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        // retrieve the specific task from the arraylist
+        Todo specificTask = list.get(index);
+        // mark the task as undone
+        specificTask.unmarkTask();
+        printDivider();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(specificTask);
+        printDivider();
+        System.out.print("\n");
+    }
+
+    private static void handleTodo(String input){
+        //taking in the input
+        String descrption = input.substring(5);
+
+        Todo newTodo = new Todo(descrption);
+        list.add(newTodo);
+        showConfirmation();
+    }
+
+    private static void handleDeadline(String input){
+        //taking in the input
+        String[] parts = input.substring(9).split(" /by ");
+        Todo newDeadline = new Deadline(parts[0], parts[1]);
+        list.add(newDeadline);
+        showConfirmation();
+    }
+
+    private static void handleEvent(String input){
+        //taking in the input
+        String[] parts = input.substring(6).split(" /from ");
+        String[] to = parts[1].split(" /to ");
+        Todo newEvent = new Event(parts[0],to[0],to[1]);
+        list.add(newEvent);
+        showConfirmation();
+    }
+
+    private static void handleAddingList(String input){
+        // echo the input back to the user
+        printDivider();
+        System.out.println("added: " + input);
+        list.add(new Todo(input));
+        printDivider();
+        System.out.print("\n");
+    }
+
+    private static void handleEmptyInput(){
+        System.out.println("Sorry what are you trying to say?");
     }
 }
