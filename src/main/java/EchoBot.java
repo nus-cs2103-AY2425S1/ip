@@ -3,14 +3,23 @@ import java.util.Scanner;
 public class EchoBot {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        TaskList taskList = new TaskList();
         UI ui = new UI();
         ui.greeting();
 
-        String command = scan.next();
-        while (!"bye".equals(command)) {
-            ui.echo(command);
-            command = scan.next();
+
+        while (true) {
+            String command = scan.nextLine();
+            if ("bye".equals(command)) {
+                ui.exit();
+                break;
+            }
+            else if ("list".equals(command)) {
+                ui.printTaskList(taskList.getTaskList());
+            } else {
+                taskList.addTask(new Task(command));
+                ui.printAddTaskFeedback(command);
+            }
         }
-        ui.exit();
     }
 }
