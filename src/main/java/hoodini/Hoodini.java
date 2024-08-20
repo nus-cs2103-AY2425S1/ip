@@ -11,7 +11,7 @@ public class Hoodini {
     private Ui ui;
 
     /**
-     * Constructor to start the Hoodini chatbot, takes no parameters
+     * Constructor to start the Hoodini chatbot, takes no parameters.
      */
 
     public Hoodini() {
