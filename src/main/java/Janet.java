@@ -37,6 +37,13 @@ public class Janet {
 
 
     /**
+     * @return the latest value of taskIndex
+     */
+    public int getTaskIndex() {
+        return taskIndex;
+    }
+
+    /**
      * Level 2 - Add, list
      * @param task a String representation of the task that is to be added into the listOfTasks.
      * @param taskSymbol a String representation of the task's symbol (T, D, E).
