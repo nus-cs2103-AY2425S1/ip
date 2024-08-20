@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Delta {
-    private static ArrayList<String> list = new ArrayList<String>();
+    private static ArrayList<Task> list = new ArrayList<Task>();
 
     public static String sayHello() {
         return "\t____________________________________________________________\n"
@@ -17,10 +17,10 @@ public class Delta {
                 + "\t_____________________________________________________________";
     }
 
-    public static String addTask(String phrase) {
-        list.add(phrase);
+    public static String addTask(Task task) {
+        list.add(task);
         return "\t____________________________________________________________\n"
-                + "\t added: " + phrase + "\n"
+                + "\t added: " + task.getDescription() + "\n"
                 + "\t_____________________________________________________________";
     }
 
@@ -39,14 +39,14 @@ public class Delta {
         System.out.println(sayHello());
 
         while (sc.hasNextLine()) {
-            String phrase = sc.nextLine();
-            if (phrase.equals("bye")) {
+            Task task = new Task(sc.nextLine());
+            if (task.getDescription().equals("bye")) {
                 System.out.println(sayBye());
                 break;
-            } else if (phrase.equals("list")) {
+            } else if (task.getDescription().equals("list")) {
                 System.out.println(printTasks());
             } else {
-                System.out.println(addTask(phrase));
+                System.out.println(addTask(task));
             }
         }
 
