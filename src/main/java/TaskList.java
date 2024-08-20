@@ -7,7 +7,10 @@ public class TaskList {
         this.toDo = new ArrayList<Task>();
     }
 
-    public void updateTask(int idx, String command) {
+    public void updateTask(int idx, String command) throws InvalidIndexException{
+        if (idx < 0 || idx >= toDo.size()) {
+            throw new InvalidIndexException(idx);
+        }
         if (command.equals("mark")) {
             this.toDo.get(idx).mark();
         } else {
@@ -28,7 +31,10 @@ public class TaskList {
         System.out.println("Alright I have added this task into the list: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
-    public void deleteTask(int idx) {
+    public void deleteTask(int idx) throws InvalidIndexException{
+        if (idx < 0 || idx >= toDo.size()) {
+            throw new InvalidIndexException(idx);
+        }
         Task removedTask = this.toDo.remove(idx);
         System.out.println("Alright I have removed this task into the list: \n" + removedTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }

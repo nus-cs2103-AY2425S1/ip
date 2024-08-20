@@ -37,7 +37,7 @@ public class Quack {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private void getTaskDetails(String[] inputArr){
+    private void getTaskDetails(String[] inputArr) throws InvalidInputException, InvalidTaskTypeException{
 
         StringBuilder taskDescription = new StringBuilder();
 
@@ -52,14 +52,24 @@ public class Quack {
         String startDate = "";
         String endDate = "";
 
+        if (!taskType.equals("todo") && !taskType.equals("event") && !taskType.equals("deadling")) {
+            throw new InvalidTaskTypeException(taskType);
+        }
+
         if (taskType.equals("event")) {
             System.out.println("When does this event start?");
             startDate = sc.nextLine();
+            if (startDate == "") {
+                throw new InvalidInputException("Start date cannot be empty");
+            }
         }
 
         if (!taskType.equals("todo")) {
             System.out.println("When is this task due?");
             endDate = sc.nextLine();
+            if (startDate == "") {
+                throw new InvalidInputException("End date cannot be empty");
+            }
         }
 
         this.toDoList.addItem(taskDescription.toString(), taskType, startDate, endDate);
@@ -73,27 +83,49 @@ public class Quack {
             case "list":
                 System.out.println(this.toDoList.toString());
                 break;
+
             case "bye":
                 farewell();
                 break;
+
             case "add":
                 if (inputArr.length < 3) {
-                    InvalidInputException error = new InvalidInputException("Invalid syntax to add a task, try: add <task type> <task description>! \n" + 
-                                                                                    "And here are the available task types:\n 1. Todo \n 2. Deadline \n 3. Event");
-                    throw error;
+                    throw new InvalidInputException("Invalid syntax to add a task, try: add <task type> <task description>!");
                 }
-                this.getTaskDetails(inputArr);
+                try {
+                    this.getTaskDetails(inputArr);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
+
             case "mark":
             case "unmark":
-                this.toDoList.updateTask(Integer.valueOf(inputArr[1]) - 1, command);
+                if (inputArr.length < 2) {
+                    throw new InvalidInputException("Invalid syntax to add a task, try: " + command + " <index of the task>!");
+                }
+                
+                try {
+                    this.toDoList.updateTask(Integer.valueOf(inputArr[1]) - 1, command);
+                } catch (InvalidIndexException indexErr) {
+                    System.out.println(indexErr.getMessage());
+                }
                 break;
+
             case "delete":
-                this.toDoList.deleteTask(Integer.valueOf(inputArr[1]) - 1);
+                if (inputArr.length < 2) {
+                    throw new InvalidInputException("Invalid syntax to add a task, try: delete <index of the task>!");
+                }
+
+                try {
+                    this.toDoList.deleteTask(Integer.valueOf(inputArr[1]) - 1);
+                } catch (InvalidIndexException indexErr) {
+                    System.out.println(indexErr.getMessage());
+                }
                 break;
+            
             default:
-                InvalidInputException error = new InvalidInputException("There is no such function as " + command + ", please try again.");
-                throw error;
+                throw new InvalidInputException("There is no such function as " + command + ", please try again.");
         }
         System.out.println(spacer);
     }
@@ -116,7 +148,6 @@ public class Quack {
                 System.out.println(spacer);
             }
         }
-
         // Close the scanner since it exited the forloop means the bot has terminated
         sc.close();
     }
