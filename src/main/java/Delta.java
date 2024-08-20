@@ -24,6 +24,16 @@ public class Delta {
                 + "\t_____________________________________________________________";
     }
 
+    public static String markTask(int i) {
+        Task task = list.get(i - 1);
+        task.markAsDone();
+        list.set(i - 1, task);
+        return "\t____________________________________________________________"
+                + "\t Nice! I've marked this task as done:\n"
+                + "\t\t[" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + "\t_____________________________________________________________";
+    }
+
     public static String printTasks() {
         String output = "\t____________________________________________________________\n"
                 + "\t Here are the tasks in your list:\n";
