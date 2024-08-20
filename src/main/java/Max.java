@@ -2,12 +2,18 @@ import java.util.Scanner;
 
 public class Max {
     private final Scanner scanner = new Scanner(System.in);
+    private String[] storedTexts;
+    private int storedTextsIndex;
 
     public static void main(String[] args) {
         Max max = new Max();
         max.runMax();
     }
 
+    public Max() {
+        storedTexts = new String[100];
+        storedTextsIndex = 0;
+    }
     public void runMax() {
         printHello();
 
@@ -15,9 +21,14 @@ public class Max {
 
         while (running) {
             String text = scanner.nextLine();
+
             if (text.equals("bye")) {
                 running = false;
+            } else if (text.equals("list")){
+                list();
             } else {
+                this.storedTexts[this.storedTextsIndex] = text;
+                this.storedTextsIndex++;
                 echo(text);
             }
         }
@@ -45,6 +56,15 @@ public class Max {
 
     public void echo(String text) {
         printLine();
-        printMessage(text);
+        printMessage("added: " + text);
+    }
+
+    public void list() {
+        printLine();
+        for (int i = 0; i < this.storedTextsIndex; i++) {
+            int count = i + 1;
+            System.out.println("\t" + count + ". " + this.storedTexts[i]);
+        }
+        printLine();
     }
 }
