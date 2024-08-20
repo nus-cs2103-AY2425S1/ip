@@ -14,6 +14,10 @@ public class Input {
         return this.input.isEmpty();
     }
 
+    public void markdone() {
+        this.done = true;
+    }
+
 
 
     public void done() {

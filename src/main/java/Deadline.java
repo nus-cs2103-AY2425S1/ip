@@ -7,6 +7,11 @@ public class Deadline extends Input {
 
     }
 
+    public Deadline(String input, String deadline) {
+        super(input);
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
         String str = "[D] " + super.toString() + "(by: " + this.deadline + ")";
