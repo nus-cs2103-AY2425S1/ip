@@ -4,17 +4,26 @@ public class Tecna {
     private Task[] taskList;
     private int todoSize;
 
+    /**
+     * A constructor of Tecna chatbot
+     */
     public Tecna() {
         this.taskList = new Task[100];
         this.todoSize = 0;
     }
 
+    /**
+     * Exits the chatbot by printing the goodbye lines
+     */
     public void exitChatBot() {
         System.out.println("----------------------------------------------");
         System.out.println("Pleased to help you! See you again ^_^");
         System.out.println("----------------------------------------------");
     }
 
+    /**
+     * Repeats the input entered by the user
+     */
     public void echo() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -29,6 +38,10 @@ public class Tecna {
         sc.close();
     }
 
+    /**
+     * Receives requests entered by the user.
+     * Accepts string input and processes accordingly
+     */
     public void getRequest() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -60,19 +73,12 @@ public class Tecna {
         sc.close();
     }
 
+    /**
+     * Adds new item to the list of tasks
+     * @param item extracted from the user input
+     */
     public void addItem(String item) {
-        int boundary = item.indexOf(" ");
-        String category = item.substring(0, boundary);
-        Task task;
-        if (category.equalsIgnoreCase("todo")) {
-            task = new ToDo(item.substring(boundary + 1));
-        } else if (category.equalsIgnoreCase("deadline")) {
-            String[] description = item.substring(boundary + 1).split("/by");
-            task = new Deadline(description[0].trim(), description[1].trim());
-        } else {
-            String[] description = item.substring(boundary + 1).split("/from | /to ");
-            task = new Event(description[0].trim(), description[1].trim(), description[2].trim());
-        }
+        Task task = getTask(item);
         this.taskList[this.todoSize] = task;
         ++this.todoSize;
         System.out.println("Sure! I've added this task:");
@@ -80,6 +86,29 @@ public class Tecna {
         System.out.println(">> Now you have " + this.todoSize + (todoSize > 1 ? " tasks" : " task") + " in the list." );
     }
 
+    /**
+     * Creates the appropriate type of task
+     * based on the input
+     * @param input including type of task and task description
+     * @return the corresponding task with correct type
+     */
+    private Task getTask(String input) {
+        int boundary = input.indexOf(" ");
+        String category = input.substring(0, boundary);
+        if (category.equalsIgnoreCase("todo")) {
+            return new ToDo(input.substring(boundary + 1));
+        } else if (category.equalsIgnoreCase("deadline")) {
+            String[] description = input.substring(boundary + 1).split("/by");
+            return new Deadline(description[0].trim(), description[1].trim());
+        } else {
+            String[] description = input.substring(boundary + 1).split("/from | /to ");
+            return new Event(description[0].trim(), description[1].trim(), description[2].trim());
+        }
+    }
+
+    /**
+     * Displays all the tasks in the task list
+     */
     public void listItems() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.todoSize; ++i) {
