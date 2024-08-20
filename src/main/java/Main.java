@@ -61,9 +61,9 @@ public class Main {
      */
     public static void validateCommand(String[] commandDetails) throws JanetException {
         if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
-            throw new JanetException("OOPS! Unknown command!");
+            throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
         } else if (commandDetails.length == 1) {
-            throw new JanetException("Task description cannot be empty!");
+            throw new JanetException("WHOOPS! You can't leave out the task's description!");
         }
     }
 
