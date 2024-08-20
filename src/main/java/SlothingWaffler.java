@@ -25,7 +25,7 @@ public class SlothingWaffler {
                     case "list" -> displayTaskList(tasks, tasksCount);
                     case "mark" -> markTask(tasks, Integer.parseInt(split[1]) - 1);
                     case "todo" -> {
-                        if (split.length < 2 || split[1].strip().isEmpty()) {
+                        if (split.length < 2 || split[1].isBlank()) {
                             throw new SlothingWafflerException("The description of a Todo Task cannot be empty!");
                         }
                         tasks[tasksCount] = new Todo(split[1]);
@@ -35,7 +35,13 @@ public class SlothingWaffler {
                         System.out.println("Now you have " + tasksCount + " tasks in the list.");
                     }
                     case "deadline" -> {
+                        if (split.length < 2 || split[1].isBlank()) {
+                            throw new SlothingWafflerException("The description of a Deadline Task cannot be empty.");
+                        }
                         String[] desc = split[1].split(" /by ", 2);
+                        if (desc.length < 2) {
+                            throw new SlothingWafflerException("The Deadline Task must have a description AND a due date.");
+                        }
                         tasks[tasksCount] = new Deadline(desc[0], desc[1]);
                         tasksCount++;
                         System.out.println("Got it. I've added this task:");
@@ -43,7 +49,13 @@ public class SlothingWaffler {
                         System.out.println("Now you have " + tasksCount + " tasks in the list.");
                     }
                     case "event" -> {
+                        if (split.length < 2 || split[1].strip().isEmpty()) {
+                            throw new SlothingWafflerException("The description of an Event Task cannot be empty.");
+                        }
                         String[] desc = split[1].split(" /from | /to ");
+                        if (desc.length < 3) {
+                            throw new SlothingWafflerException("An event must have a description, start time, and end time.");
+                        }
                         tasks[tasksCount] = new Event(desc[0], desc[1], desc[2]);
                         tasksCount++;
                         System.out.println("Got it. I've added this task:");
@@ -56,7 +68,7 @@ public class SlothingWaffler {
             } catch (SlothingWafflerException e) {
                 System.out.println("OOPS!! " + e.getMessage());
             } finally {
-                System.out.println("The Waffler is ready for your next command!");
+                System.out.println("YUM. The Waffler is ready for your next command!");
             }
         }
         scanner.close();
