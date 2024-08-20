@@ -19,8 +19,8 @@ public class Momo {
                 "⠄⠄⠎⠄⠄⣨⣿⣿⣿⣿⣿⣿⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡲⣿⣿⣿⣿";
 
         System.out.println("Hello! I'm Momo\nWhat can I do for you?");
-        String input = sc.next();
-        String[] list = new String[100];
+        String input = sc.nextLine();
+        Task[] list = new Task[100];
         int count = 0;
 
         while (!Objects.equals(input, "bye")) {
@@ -31,15 +31,36 @@ public class Momo {
                     System.out.println(i + 1 + ". " + list[i]);
                 }
                 System.out.println(horizontalLine);
-                input = sc.next();
+                input = sc.nextLine();
                 continue;
-
             }
-            list[count] = input;
+
+            if (input.startsWith("mark")) {
+                System.out.println(horizontalLine);
+                int index =  Integer.parseInt(input.split(" ")[1]) - 1;
+                Task task = list[index];
+                task.markComplete();
+                System.out.println(horizontalLine);
+                input = sc.nextLine();
+                continue;
+            }
+
+            if (input.startsWith("unmark")) {
+                System.out.println(horizontalLine);
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task task = list[index];
+                task.unmark();
+                System.out.println(horizontalLine);
+                input = sc.nextLine();
+                continue;
+            }
+
+
+            list[count] = new Task(input);
             System.out.println(horizontalLine);
             System.out.println("added: " + input);
             System.out.println(horizontalLine);
-            input = sc.next();
+            input = sc.nextLine();
             count++;
         }
 
