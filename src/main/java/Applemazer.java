@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Applemazer {
+    Scanner sc = new Scanner(System.in);
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     private static class Task {
         private final String description;
@@ -28,10 +30,63 @@ public class Applemazer {
         public String toString() {
             return description;
         }
+
+        public void printTaskAddedMessage() {
+            System.out.println("Got it. I've added this task: ");
+            System.out.println("    " + this.getStatusIcon() + this);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list. \n");
+        }
     }
 
-    Scanner sc = new Scanner(System.in);
-    ArrayList<Task> tasks = new ArrayList<>();
+    private static class Todo extends Task {
+        public Todo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String getStatusIcon() {
+            return "[T]" + super.getStatusIcon();
+        }
+    }
+
+    private static class Deadline extends Task {
+        private final String deadline;
+
+        public Deadline(String description, String deadline) {
+            super(description);
+            this.deadline = deadline;
+        }
+
+        @Override
+        public String getStatusIcon() {
+            return "[D]" + super.getStatusIcon();
+        }
+
+        @Override
+        public String toString() {
+            return super.description + " (by: " + deadline + ") ";
+        }
+    }
+
+    private static class Event extends Task {
+        private final String from, to;
+
+        public Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String getStatusIcon() {
+            return "[E]" + super.getStatusIcon();
+        }
+
+        @Override
+        public String toString() {
+            return super.description + " (from: " + from + " to: " + to + ") ";
+        }
+    }
 
     private void greeting() {
         String greeting = "Hello! I'm Applemazer.\nWhat can I do for you?\n";
@@ -47,6 +102,7 @@ public class Applemazer {
         boolean processing = true;
         Task task;
         int taskNumber;
+        String[] split;
         while (processing) {
             String command = sc.next();
             switch (command) {
@@ -77,11 +133,35 @@ public class Applemazer {
                     System.out.println("OK, I've marked this task as not done yet: ");
                     System.out.println("    " + task.getStatusIcon() + task + "\n");
                     break;
+                case "todo" :
+                    command = sc.nextLine();
+                    task = new Todo(command);
+                    tasks.add(task);
+                    task.printTaskAddedMessage();
+                    break;
+                case "deadline" :
+                    split = sc.nextLine().split("/by");
+                    for (int i = 0; i < split.length; ++i) {
+                        split[i] = split[i].trim();
+                    }
+                    task = new Deadline(split[0], split[1]);
+                    tasks.add(task);
+                    task.printTaskAddedMessage();
+                    break;
+                case "event" :
+                    split = sc.nextLine().split("/from | /to ");
+                    for (int i = 0; i < split.length; ++i) {
+                        split[i] = split[i].trim();
+                    }
+                    task = new Event(split[0], split[1], split[2]);
+                    tasks.add(task);
+                    task.printTaskAddedMessage();
+                    break;
                 default:
                     command += sc.nextLine(); // Get rest of line if first word not valid command.
                     task = new Task(command);
                     tasks.add(task);
-                    System.out.println("added: " + task + "\n");
+                    task.printTaskAddedMessage();
             }
         }
     }
