@@ -24,7 +24,7 @@ public class Fanny {
                 break;
             } else if(cmd.equals("list")) {
                 System.out.println("_____________________________________________");
-                for(int i = 0; i < listIndex + 1; i++) {
+                for(int i = 0; i < listIndex; i++) {
                     System.out.println(i+1 + ":" + list[i]);
                 }
                 System.out.println("_____________________________________________");
