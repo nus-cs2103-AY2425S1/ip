@@ -1,8 +1,13 @@
+import exception.TaskNameEmptyException;
+
 public class Task {
     private final String taskName;
     private boolean isDone;
 
-    public Task(String taskName) {
+    public Task(String taskName) throws TaskNameEmptyException {
+        if (taskName.isBlank()) {
+            throw new TaskNameEmptyException();
+        }
         this.taskName = taskName;
         this.isDone = false;
     }

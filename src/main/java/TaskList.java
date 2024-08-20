@@ -1,3 +1,5 @@
+import exception.TaskNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,11 @@ public class TaskList {
         return this.taskList;
     }
 
-    public Task getTaskByIndex(int index) {
-        return this.taskList.get(index - 1);
+    public Task getTaskByIndex(int index) throws TaskNotFoundException {
+        try {
+            return this.taskList.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNotFoundException();
+        }
     }
 }

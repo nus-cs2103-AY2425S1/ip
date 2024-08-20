@@ -1,12 +1,18 @@
+import exception.EchoBotException;
+import exception.UnknownCommandException;
+
 import java.util.Scanner;
 
 public class EchoBot {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
         TaskList taskList = new TaskList();
         UI ui = new UI();
         ui.greeting();
+        start(taskList, ui);
+    }
 
+    private static void start(TaskList taskList, UI ui) {
+        Scanner scan = new Scanner(System.in);
         while (true) {
             String command = scan.nextLine();
             String[] commandSplit = command.split(" ");
@@ -16,33 +22,39 @@ public class EchoBot {
                 break;
             }
 
-            if ("list".equals(command)) {
-                ui.printTaskList(taskList.getTaskList());
-            } else if (commandSplit.length == 2 && "mark".equals(commandSplit[0])) {
-                int taskIndex = Integer.parseInt(commandSplit[1]);
-                Task task = taskList.getTaskByIndex(taskIndex);
-                task.markDone();
-                ui.printTaskMarkedDone(task);
-            } else if (commandSplit.length == 2 && "unmark".equals(commandSplit[0])) {
-                int taskIndex = Integer.parseInt(commandSplit[1]);
-                Task task = taskList.getTaskByIndex(taskIndex);
-                task.markUndone();
-                ui.printTaskMarkedUndone(task);
-            } else if ("deadline".equals(commandSplit[0])) {
-                String[] commands = splitCommand(commandSplit, new String[]{"/by"});
-                Task task = new Deadline(commands[0], commands[1]);
-                taskList.addTask(task);
-                ui.printAddTaskFeedback(task, taskList.getTaskList().size());
-            } else if ("todo".equals(commandSplit[0])) {
-                String[] commands = splitCommand(commandSplit, new String[]{});
-                Task task = new ToDo(commands[0]);
-                taskList.addTask(task);
-                ui.printAddTaskFeedback(task, taskList.getTaskList().size());
-            } else if ("event".equals(commandSplit[0])) {
-                String[] commands = splitCommand(commandSplit, new String[]{"/from", "/to"});
-                Task task = new Event(commands[0], commands[1], commands[2]);
-                taskList.addTask(task);
-                ui.printAddTaskFeedback(task, taskList.getTaskList().size());
+            try {
+                if ("list".equals(command)) {
+                    ui.printTaskList(taskList.getTaskList());
+                } else if (commandSplit.length == 2 && "mark".equals(commandSplit[0])) {
+                    int taskIndex = Integer.parseInt(commandSplit[1]);
+                    Task task = taskList.getTaskByIndex(taskIndex);
+                    task.markDone();
+                    ui.printTaskMarkedDone(task);
+                } else if (commandSplit.length == 2 && "unmark".equals(commandSplit[0])) {
+                    int taskIndex = Integer.parseInt(commandSplit[1]);
+                    Task task = taskList.getTaskByIndex(taskIndex);
+                    task.markUndone();
+                    ui.printTaskMarkedUndone(task);
+                } else if ("deadline".equals(commandSplit[0])) {
+                    String[] commands = splitCommand(commandSplit, new String[]{"/by"});
+                    Task task = new Deadline(commands[0], commands[1]);
+                    taskList.addTask(task);
+                    ui.printAddTaskFeedback(task, taskList.getTaskList().size());
+                } else if ("todo".equals(commandSplit[0])) {
+                    String[] commands = splitCommand(commandSplit, new String[]{});
+                    Task task = new ToDo(commands[0]);
+                    taskList.addTask(task);
+                    ui.printAddTaskFeedback(task, taskList.getTaskList().size());
+                } else if ("event".equals(commandSplit[0])) {
+                    String[] commands = splitCommand(commandSplit, new String[]{"/from", "/to"});
+                    Task task = new Event(commands[0], commands[1], commands[2]);
+                    taskList.addTask(task);
+                    ui.printAddTaskFeedback(task, taskList.getTaskList().size());
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (EchoBotException e) {
+                ui.printErrorMessage(e);
             }
         }
     }
@@ -52,7 +64,7 @@ public class EchoBot {
      * Example: commandSplit = {"event", "project", "meeting", "/from", "Mon", "2pm", "/to", "4pm"}, splitKeywords = {"/from", "/to"}
      * will return {"project meeting", "Mon 2pm", "4pm"}
      *
-     * @param commandSplit commands to split
+     * @param commandSplit  commands to split
      * @param splitKeywords target keywords
      * @return an array of strings after being split by keywords.
      */
@@ -86,6 +98,10 @@ public class EchoBot {
             word.deleteCharAt(word.length() - 1);
         }
         ans[j] = word.toString();
+
+        while (j++ < splitKeywords.length) {
+            ans[j] = "";
+        }
         return ans;
     }
 }

@@ -1,5 +1,7 @@
+import exception.TaskNameEmptyException;
+
 public class ToDo extends Task {
-    public ToDo(String taskName) {
+    public ToDo(String taskName) throws TaskNameEmptyException {
         super(taskName);
     }
 

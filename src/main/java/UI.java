@@ -38,6 +38,10 @@ public class UI {
         System.out.println(this.addMsgWithOutline("OK, I've marked this task as not done yet:\n\t\t\t\t" + task));
     }
 
+    public void printErrorMessage(Exception e) {
+        System.out.println(this.addMsgWithOutline(e.getMessage()));
+    }
+
     public void exit() {
         System.out.println(this.addMsgWithOutline("Bye. Hope to see you again soon!"));
     }

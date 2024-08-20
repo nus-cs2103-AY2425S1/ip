@@ -1,7 +1,14 @@
+import exception.DeadlineEmptyException;
+import exception.TaskNameEmptyException;
+
 public class Deadline extends Task {
     private final String deadline;
-    public Deadline (String taskName, String deadline) {
+
+    public Deadline(String taskName, String deadline) throws TaskNameEmptyException, DeadlineEmptyException {
         super(taskName);
+        if (deadline.isBlank()) {
+            throw new DeadlineEmptyException();
+        }
         this.deadline = deadline;
     }
 
