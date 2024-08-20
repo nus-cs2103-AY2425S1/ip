@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -21,8 +22,12 @@ public class NotAGPT {
         System.out.println("    What can I do for you?");
         line.drawLine();
         while (true) {
-            String next = scanner.nextLine();
-            inputHelper(tasks, next);
+            try {
+                String next = scanner.nextLine();
+                inputHelper(tasks, next);
+            } catch (NoSuchElementException e) {
+                break;
+            }
         }
     }
 
@@ -44,9 +49,7 @@ public class NotAGPT {
                     String idx = parts[1];
                     taskList.markAsDone(idx);
                 } else {
-                    line.drawLine();
-                    System.out.println("    Enter a task number");
-                    line.drawLine();
+                    responseHelper("Enter a task number");
                 }
                 break;
 
@@ -55,32 +58,55 @@ public class NotAGPT {
                     String idx = parts[1];
                     taskList.markAsUndone(idx);
                 } else {
-                    line.drawLine();
-                    System.out.println("    Enter a task number");
-                    line.drawLine();
+                    responseHelper("Enter a task number");
                 }
                 break;
 
             case "todo":
                 if (parts.length > 1) {
-                    taskList.add(ToDo.of(parts[1], Task.TaskType.T));
+                    taskList.add(parts[1], Task.TaskType.T);
                 } else {
-                    line.drawLine();
-                    System.out.println("    Enter a task number");
-                    line.drawLine();
+                    responseHelper("Enter a name for the To Do Task");
                 }
                 break;
             case "deadline":
                 if (parts.length > 1) {
                 taskList.add(parts[1], Task.TaskType.D);
             } else {
-                line.drawLine();
-                System.out.println("    Enter a task number");
-                line.drawLine();
+                    responseHelper("Incomplete command. Enter a deadline");
             }
                 break;
+            case "event":
+                if (parts.length > 1) {
+                    taskList.add(parts[1], Task.TaskType.E);
+                } else {
+                    responseHelper("Incomplete command. Enter a start and end time");
+                }
+                break;
+                case "delete":
+                    if (parts.length == 2) {
+                        try {
+                            int idx = parseInt(parts[1]);
+                            taskList.delete(idx);
+                        } catch (NumberFormatException e) {
+                         responseHelper("Enter a valid index to delete");
+                        }
+                    } else {
+                        responseHelper("Enter a valid argument");
+                    }
+                    break;
+            default:
+                responseHelper("Unknown command, type help for a list of available commands");
+
         }
     }
+    public static void responseHelper(String s) {
+        Line line = new Line();
+        line.drawLine();
+        System.out.println("    " + s);
+        line.drawLine();
+    }
+
 
     public static void NotAGPTExit() {
         Line line = new Line();

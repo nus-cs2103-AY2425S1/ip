@@ -9,8 +9,6 @@ public class ToDo extends Task {
     }
 
     public static ToDo of(String name, TaskType taskType) {
-        String[] parts = name.split(" ", 2);
-        String taskName = parts[1];
-        return new ToDo(taskName, TaskType.T);
+        return new ToDo(name, TaskType.T);
     }
 }

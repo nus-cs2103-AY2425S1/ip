@@ -8,17 +8,29 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    @Override
     public String getTaskTypeAsString(){
             return "E";
     }
 
-    public static Event of(String name, TaskType taskType) {
-        String[] parts = name.split("/from", 2);
-        String taskName = parts[0];
-        String times = parts[1];
-        String[] timeParts = name.split("/to", 2);
-        String taskStart =  timeParts[0];
-        String taskEnd =  timeParts[1];
-        return new Event(name, taskType, taskStart, taskEnd);
+    @Override
+    public String readTask() {
+        return super.readTask() + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
+
+    public static Event of(String name, TaskType taskType) throws TaskCreationException {
+        try {
+            String[] parts = name.split("/from", 2);
+            String taskName = parts[0];
+            String times = parts[1];
+            String[] timeParts = times.split("/to", 2);
+            String taskStart = timeParts[0].trim();
+            String taskEnd = timeParts[1].trim();
+            return new Event(taskName, taskType, taskStart, taskEnd);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            throw new TaskCreationException();
+        }
+    }
+
 }

@@ -15,15 +15,59 @@ public class TaskList {
     }
 
     public void add(String s, Task.TaskType taskType) {
-        Task newTask = Task.of(s, taskType);
-        this.taskList.add(newTask);
-        this.taskListLength += 1;
-        line.drawLine();
-        System.out.println("    Got it. I've added this task: ");
-        System.out.println("      [" + newTask.getTaskTypeAsString() + "][ ] " + s);
-        System.out.println("    Now you have " + this.taskListLength + "tasks in the list.");
+        try {
+            Task newTask;
 
-        line.drawLine();
+            switch (taskType) {
+                case T:
+                    newTask = ToDo.of(s, taskType);
+                    break;
+                case D:
+                    newTask = Deadline.of(s, taskType);
+                    break;
+                case E:
+                    newTask = Event.of(s, taskType);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid task type");
+            }
+            this.taskList.add(newTask);
+            this.taskListLength += 1;
+            line.drawLine();
+            System.out.println("    Got it. I've added this task: ");
+            System.out.println("      [" + newTask.getTaskTypeAsString() + "][ ] " + newTask.readTask());
+            if (this.taskListLength == 1) {
+                System.out.println("    Now you have 1 task in the list.");
+            } else {
+                System.out.println("    Now you have " + this.taskListLength + " tasks in the list.");
+            }
+            line.drawLine();
+        } catch (TaskCreationException e) {
+            line.drawLine();
+            System.out.println("    " + e.getMessage());
+            line.drawLine();
+        }
+    }
+
+    public void delete(int idx) {
+        idx = idx - 1;
+        if (idx < 0 || idx >= taskListLength) {
+            line.drawLine();
+            System.out.println("    Enter a valid index");
+            line.drawLine();
+        } else {
+            Task removedTask = taskList.remove(idx);
+            line.drawLine();
+            taskListLength--;
+            System.out.println("    Noted. I've removed this task: ");
+            System.out.println("      [" + removedTask.getTaskTypeAsString() + "]" + "["+ removedTask.getStatus() + "] " + removedTask.readTask());
+            if (taskListLength == 1) {
+                System.out.println("    Now you have 1 task in the list.");
+            } else {
+                System.out.println("    Now you have " + this.taskListLength + " tasks in the list.");
+            }
+            line.drawLine();
+        }
     }
 
     public void markAsDone(String s) {

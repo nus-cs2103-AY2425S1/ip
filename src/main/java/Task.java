@@ -22,7 +22,7 @@ public class Task {
         this.completed = false;
     }
 
-    public static Task of(String name, TaskType taskType) {
+    public static Task of(String name, TaskType taskType) throws TaskCreationException {
         return new Task(name, taskType);
     }
 
