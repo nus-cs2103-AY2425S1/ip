@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Azir {
     public static void main(String[] args) {
         String input;
+        ArrayList<String> taskList = new ArrayList<String>();
         System.out.println("----------------------------------");
         System.out.println("Hello! I'm Azir");
         System.out.println("What can I do for you?");
@@ -12,7 +14,14 @@ public class Azir {
 
         while (!(input = obj.nextLine()).equals("bye")) {
             System.out.println("----------------------------------");
-            System.out.println(input);
+            if (input.equals("list")) {
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.printf("%d. %s\n", i + 1, taskList.get(i));
+                }
+            } else {
+                taskList.add(input);
+                System.out.printf("added: %s\n", input);
+            }
             System.out.println("----------------------------------");
         }
         System.out.println("----------------------------------");
