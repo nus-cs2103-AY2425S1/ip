@@ -4,94 +4,81 @@ import java.util.Scanner;
 public class Papadom {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
-    public static void printList() {
-        String finalList = "____________________________________________________________\n" + " Here are the tasks in your list:\n";
+    public static void output(String message) {
+        System.out.println("____________________________________________________________\n"
+                + message
+                + "\n____________________________________________________________");
+    }
+    public static String printList() {
+        String finalList = " Here are the tasks in your list:";
         for (int i = 0; i < Papadom.tasks.size(); i++) {
             Task task = Papadom.tasks.get(i);
             if (task == null) break;
-            finalList += " " + (i + 1) + "." + task.toString() + "\n";
+            finalList += "\n " + (i + 1) + "." + task.toString();
         }
-        finalList += "____________________________________________________________";
-        System.out.println(finalList);
+        return finalList;
     }
-    public static void addToList(Task task) throws NoTaskException {
+    public static String addToList(Task task) throws NoTaskException {
         if (task.description == "") {
             throw new NoTaskException();
         }
         tasks.add(task);
-        String response = "____________________________________________________________\n"
-                + " Got it. I've added this task:\n  " + task.toString() + "\n"
-                + " Now you have " + (Papadom.tasks.size()) + " tasks in the list.\n"
-                + "____________________________________________________________";
-        System.out.println(response);
+        String response = " Got it. I've added this task:\n  " + task.toString() + "\n"
+                + " Now you have " + (Papadom.tasks.size()) + " tasks in the list.";
+        return response;
     }
-    public static void markTask(String text) {
+    public static String markTask(String text) {
         int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
         Task task = Papadom.tasks.get(taskIndex);
         task.markAsDone();
-        System.out.println("____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("  " + task);
-        System.out.println("____________________________________________________________");
+        return " Nice! I've marked this task as done:\n  " + task;
     }
-    private static void unmarkTask(String text) {
+    private static String unmarkTask(String text) {
         int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
         Task task = Papadom.tasks.get(taskIndex);
         task.unmark();
-        System.out.println("____________________________________________________________");
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
-        System.out.println("____________________________________________________________");
+        return " OK, I've marked this task as not done yet:\n  " + task;
     }
-    private static void addDeadline(String details) throws NoTaskException, NoDateException {
+    private static String addDeadline(String details) throws NoTaskException, NoDateException {
         String[] parts = details.split(" /by ");
         if (parts[0] == "") throw new NoTaskException();
         else if (parts.length == 1) throw new NoDateException();
-        addToList(new Deadline(parts[0], parts[1]));
+        return addToList(new Deadline(parts[0], parts[1]));
     }
-    private static void addEvent(String details) throws NoTaskException, NoDateException {
+    private static String addEvent(String details) throws NoTaskException, NoDateException {
         String[] parts = details.split(" /from | /to ");
         if (parts[0] == "") throw new NoTaskException();
         else if (parts.length <= 2) throw new NoDateException();
-        addToList(new Event(parts[0], parts[1], parts[2]));
+        return addToList(new Event(parts[0], parts[1], parts[2]));
     }
     public static void main(String[] args) {
-
-        String logo = "____________________________________________________________\n"
-                + " Hello! I'm Papadom\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________";
-
-        String exitMessage = "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
-
-        System.out.println(logo);
+        Papadom.output(" Hello! I'm Papadom\n"
+                + " What can I do for you?");
 
         while (true) {
             try {
                 String text = scanner.nextLine();
                 if (Objects.equals(text, "list")) {
-                    printList();
+                    output(printList());
                 } else if (Objects.equals(text, "bye")) {
                     break;
                 } else if (text.startsWith("mark ")) {
-                    markTask(text);
+                    output(markTask(text));
                 } else if (text.startsWith("unmark ")) {
-                    unmarkTask(text);
+                    output(unmarkTask(text));
                 } else if (text.startsWith("todo ")) {
-                    addToList(new Todo(text.substring(5)));
+                    output(addToList(new Todo(text.substring(5))));
                 } else if (text.startsWith("deadline ")) {
-                    addDeadline(text.substring(9));
+                    output(addDeadline(text.substring(9)));
                 } else if (text.startsWith("event ")) {
-                    addEvent(text.substring(6));
+                    output(addEvent(text.substring(6)));
                 } else {
                     throw new UnknownCommandException();
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                output(e.getMessage());
             }
         }
-        System.out.println(exitMessage);
+        output(" Bye. Hope to see you again soon!");
     }
 }
