@@ -47,7 +47,27 @@ public class Patrick {
                 String taskDescription = input.replace("todo ", "");
                 task = new ToDo(taskDescription);
                 list.add(task);
-                System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1 + list.size() + numTaskMsg2 + horizontalLine);
+                System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1
+                        + list.size() + numTaskMsg2 + horizontalLine);
+            }
+            else if (input.startsWith("deadline")) {
+                String newInput = input.replace("deadline ", "");
+                String taskDescription = newInput.substring(0, newInput.indexOf("/") - 1);
+                String deadline = newInput.substring(newInput.indexOf("/by ")).replace("/by ", "");
+                task = new Deadline(taskDescription, deadline);
+                list.add(task);
+                System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1
+                        + list.size() + numTaskMsg2 + horizontalLine);
+            }
+            else if (input.startsWith("event")) {
+                String newInput = input.replace("event ", "");
+                String taskDescription = newInput.substring(0, newInput.indexOf("/from") - 1);
+                String from = newInput.substring(newInput.indexOf("/from"), newInput.indexOf("/to") - 1).replace("/from", "");
+                String to = newInput.substring(newInput.indexOf("/to ")).replace("/to ", "");
+                task = new Event(taskDescription, from, to);
+                list.add(task);
+                System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1
+                        + list.size() + numTaskMsg2 + horizontalLine);
             }
             else {
                 System.out.println(horizontalLine + "Wrong command. Please re-enter. \n" + horizontalLine);
@@ -105,6 +125,21 @@ public class Patrick {
         @Override
         public String toString() {
             return "[T]" + super.toString();
+        }
+    }
+
+    public static class Event extends Task {
+        protected String from, to;
+
+        public Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from:" + this.from + " to: " + this.to + ")";
         }
     }
 }
