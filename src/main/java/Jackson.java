@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -40,50 +41,42 @@ public class Jackson {
         Scanner sc = new Scanner(System.in);
 
         System.out.printf("Oi! I'm %s!\nWhat you want me do today ah?\n> ", name);
-        String response = sc.nextLine().strip();
-        Parser p;
+        String input = sc.nextLine().strip();
         Task t;
+        Response r;
+        Actions.ACTIONS a;
+        Matcher m;
 
         while (true) {
             try {
-                if (response.startsWith("list")) {
+                r = Parser.parse(input);
+                a = r.getAction();
+                m = r.getMatcher();
+
+                if (a == Actions.ACTIONS.LIST) {
                     taskList.show_list();
-                } else if (response.startsWith("todo")) {
-                    m = TODO.matcher(response);
-                    if (!m.find()) throw new SyntaxException("todo");
+                } else if (a == Actions.ACTIONS.TODO) {
                     t = new Todo(m.group(1));
                     taskList.add_list(t);
-                } else if (response.startsWith("deadline")) {
-                    m = DEADLINE.matcher(response);
-                    if (!m.find()) throw new SyntaxException("deadline");
+                } else if (a == Actions.ACTIONS.DEADLINE) {
                     t = new Deadline(m.group(1), m.group(2));
                     taskList.add_list(t);
-                } else if (response.startsWith("event")) {
-                    m = EVENT.matcher(response);
-                    if (!m.find()) throw new SyntaxException("event");
+                } else if (a == Actions.ACTIONS.EVENT) {
                     t = new Event(m.group(1), m.group(2), m.group(3));
                     taskList.add_list(t);
-                } else if (response.startsWith("mark")) {
-                    m = MARK.matcher(response);
-                    if (!m.find()) throw new SyntaxException("mark");
+                } else if (a == Actions.ACTIONS.MARK) {
                     taskList.mark(Integer.parseInt(m.group(1)) - 1);
-                } else if (response.startsWith("unmark")) {
-                    m = UNMARK.matcher(response);
-                    if (!m.find()) throw new SyntaxException("unmark");
+                } else if (a == Actions.ACTIONS.UNMARK) {
                     taskList.unmark(Integer.parseInt(m.group(1)) - 1);
-                } else if (response.startsWith("delete")) {
-                    m = DELETE.matcher(response);
-                    if (!m.find()) throw new SyntaxException("delete");
+                } else if (a == Actions.ACTIONS.DELETE) {
                     taskList.delete_list(Integer.parseInt(m.group(1)) - 1);
-                } else if (response.startsWith("bye")) {
-                    m = BYE.matcher(response);
-                    if (!m.find()) throw new SyntaxException("bye");
+                } else if (a == Actions.ACTIONS.BYE) {
                     System.out.println("K k bye lah!");
                     return;
-                } else if (SECRET.matcher(response).find()) {
+                } else if (a == Actions.ACTIONS.SECRET) {
                     read_anthem();
-                } else {
-                    throw new UnsupportedException();
+                } else if (a == Actions.ACTIONS.INVALID){
+                    throw new UnsupportedException(input);
                 }
             } catch (UnsupportedException e) {
                 System.out.println("Harh? What you talking about?");
@@ -122,7 +115,7 @@ public class Jackson {
                         break;
                 }
             } catch (OutOfListException e) {
-                int size = taskList.getSize();
+                int size = Integer.parseInt(e.getMessage());
                 System.out.printf("Alamak, you got %d items on the list only leh...\n", size);
                 if (size == 0) {
                     System.out.println("You've got no items in the list! Add some stuff first!");
@@ -131,9 +124,12 @@ public class Jackson {
                 } else {
                     System.out.printf("Enter a number between 1 and %d when marking/unmarking/deleting tasks!\n", size);
                 }
+            } catch (Exception e) {
+                System.out.println("Oops! Something went wrong!");
+                System.out.println(e.getMessage());
             }
             System.out.print("> ");
-            response = sc.nextLine().strip();
+            input = sc.nextLine().strip();
         }
     }
 }
