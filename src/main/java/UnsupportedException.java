@@ -1,4 +1,4 @@
-public class UnsupportedException extends Exception {
+public class UnsupportedException extends JacksonException {
     public UnsupportedException() {
        super();
     }

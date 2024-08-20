@@ -1,4 +1,4 @@
-public class SyntaxException extends Exception {
+public class SyntaxException extends JacksonException {
     public SyntaxException(String type) {
         super(type);
     }
