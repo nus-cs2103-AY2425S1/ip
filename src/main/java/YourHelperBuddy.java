@@ -1,5 +1,6 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
+
 public class YourHelperBuddy {
     public static void main(String[] args) {
         System.out.println("Hello! I'm YourHelperBuddy.");
@@ -7,49 +8,81 @@ public class YourHelperBuddy {
         System.out.println("________________________________________________");
         Scanner myObj = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
-        // User enters the tasks until he types bye
-        System.out.println("Enter your task: ");
-        String taskDescription = myObj.nextLine();
-        while (!taskDescription.equals("bye")) {
-            if (taskDescription.equals("list")) {
+
+        while (true) {
+            System.out.println("Enter your task: ");
+            String taskDescription = myObj.nextLine();
+            if (taskDescription.equals("bye")) {
+                break;
+            }
+            else if (taskDescription.equals("list")) {
                 System.out.println("________________________________________________");
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.size(); i++) {
-                    String taskLabel = String.valueOf(i + 1);
                     Task currentTask = taskList.get(i);
-                    System.out.println(" " + taskLabel + ".[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+                    System.out.println(" " + (i + 1) + ". " + currentTask.toString());
                 }
                 System.out.println("________________________________________________");
             }
             else if (taskDescription.startsWith("mark")) {
-                int lastIndex = taskDescription.length() - 1;
-                int taskLabel = Character.getNumericValue(taskDescription.charAt(lastIndex));
-                Task currentTask = taskList.get(taskLabel - 1);
+                int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
+                Task currentTask = taskList.get(taskLabel);
                 System.out.println("________________________________________________");
                 System.out.println("Nice! I've marked this task as done:");
                 currentTask.markDone();
-                System.out.println("  [" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+                System.out.println("  " + currentTask);
                 System.out.println("________________________________________________");
             }
             else if (taskDescription.startsWith("unmark")) {
-                int lastIndex = taskDescription.length() - 1;
-                int taskLabel = Character.getNumericValue(taskDescription.charAt(lastIndex));
-                Task currentTask = taskList.get(taskLabel - 1);
+                int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
+                Task currentTask = taskList.get(taskLabel);
                 System.out.println("________________________________________________");
                 System.out.println("OK, I've marked this task as not done yet:");
                 currentTask.markUndone();
-                System.out.println("  [" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+                System.out.println("  [" + currentTask);
+                System.out.println("________________________________________________");
+            }
+            else if (taskDescription.startsWith("todo")) {
+                String todoDescription = taskDescription.substring(5);
+                Task newTask = new ToDo(todoDescription);
+                taskList.add(newTask);
+                System.out.println("________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newTask);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println("________________________________________________");
+            }
+            else if (taskDescription.startsWith("deadline")) {
+                String[] parts = taskDescription.split(" /by ");
+                String deadlineDescription = parts[0].substring(9);
+                String deadlineBy = parts[1];
+                Task newTask = new Deadline(deadlineDescription, deadlineBy);
+                taskList.add(newTask);
+                System.out.println("________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newTask);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println("________________________________________________");
+            }
+            else if (taskDescription.startsWith("event")) {
+                String[] parts = taskDescription.split(" /from ");
+                String[] subParts = parts[1].split(" /to ");
+                String eventDescription = parts[0].substring(6);
+                String eventFrom = subParts[0];
+                String eventTo = subParts[1];
+                Task newTask = new Event(eventDescription, eventFrom, eventTo);
+                taskList.add(newTask);
+                System.out.println("________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newTask);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println("________________________________________________");
             }
             else {
                 System.out.println("________________________________________________");
-                Task newTask = new Task(taskDescription);
-                taskList.add(newTask);
-                System.out.println("  added: " + taskDescription);
+                System.out.println("Invalid command. Please use 'todo', 'deadline', or 'event'.");
                 System.out.println("________________________________________________");
             }
-            System.out.println("Enter your task: ");
-            taskDescription = myObj.nextLine();
         }
         System.out.println("________________________________________________");
         System.out.println("Goodbye. Take care and see you again!");
