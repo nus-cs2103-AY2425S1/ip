@@ -19,7 +19,4 @@ public class Task {
         this.done = false;
     }
 
-    public String toString() {
-        return String.format("[%s] %s", getStatusIcons(), this.description);
-    }
-}
+ 
