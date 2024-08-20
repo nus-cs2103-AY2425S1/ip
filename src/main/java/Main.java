@@ -54,6 +54,15 @@ public class Main {
         return new String[]{description, startDate, endDate};
     }
 
+
+    public static void checkTaskDescription(String[] commandDetails) throws JanetException {
+        if (commandDetails.length <= 1) {
+            throw new JanetException("Task description cannot be empty!");
+        } else if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
+            throw new JanetException("OOPS! Unknown command!");
+        }
+    }
+
     public static void main(String[] args) {
         Janet janet = new Janet();
         System.out.println(janet.greet());
@@ -84,6 +93,12 @@ public class Main {
                 } else {
                     // add the new task into the list of tasks
                     // Task can be a ToDo, Deadline, Event
+                    try {
+                        checkTaskDescription(commandDetails);
+                    } catch (JanetException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
                     if (commandDetails[0].equals("todo")) {
                         // get the todo description and create a new Todo object
                         String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
