@@ -68,6 +68,21 @@ public class Pikappi {
         System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
                 "\nNow you have " + tasks.size() + " tasks in the list.");
     }
+
+    public static void deleteTask(String command) throws PikappiException {
+        String[] substrings = command.split(" ");
+        if (substrings.length == 1) {
+            throw new PikappiException("Pi-ka..?? What do you want to delete..?");
+        }
+        int taskToDelete = Integer.parseInt(substrings[1]);
+        if (taskToDelete > tasks.size() || taskToDelete < 1) {
+            throw new PikappiException("Pi-ka..?? Task does not exist..");
+        }
+        tasks.remove(taskToDelete - 1);
+        System.out.println("Pipi-ka-pi! I've removed this task:\n " + tasks.get(tasks.size() - 1) +
+                "\nNow you have " + tasks.size() + " tasks in the list.");
+    }
+
     
     public static void listTasks() {
         if (tasks.isEmpty()) {
@@ -124,6 +139,12 @@ public class Pikappi {
             } else if (command.startsWith("event")) {
                 try {
                     addEventTask(command);
+                } catch (PikappiException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (command.startsWith("delete")) {
+                try {
+                    deleteTask(command);
                 } catch (PikappiException e) {
                     System.out.println(e.getMessage());
                 }
