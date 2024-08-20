@@ -52,10 +52,15 @@ public class Bao {
                 System.out.println("You have " + taskCount + " tasks in the list");
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("deadline ")) {
-            String task = input.substring(9);
-            addTask(task, "D");
-            System.out.println("You have " + taskCount + " tasks in the list");
-            System.out.println("____________________________________________________________");
+                String task = input.substring(9);
+                addTask(task, "D");
+                System.out.println("You have " + taskCount + " tasks in the list");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("event ")) {
+                String task = input.substring(6);
+                addTask(task, "E");
+                System.out.println("You have " + taskCount + " tasks in the list");
+                System.out.println("____________________________________________________________");
             }
         }
         scanner.close();
@@ -73,19 +78,33 @@ public class Bao {
 
     private static void addTask(String taskDescription, String type) {
         if (taskCount < 100) {
-            if (type == "T") {
-                taskList[taskCount] = new ToDo(taskDescription, null);
-                System.out.println("Bao got it! Bao is now tracking:");
-                System.out.println(taskList[taskCount].toString());
-                taskCount++;
-            } else if (type == "D") {
-                int byIndex = taskDescription.indexOf("/by ");
-                String deadline = taskDescription.substring(byIndex + 4);
-                String description = taskDescription.substring(0, byIndex - 1);
-                taskList[taskCount] = new Deadline(description, deadline);
-                System.out.println("Bao got it! Bao is now tracking:");
-                System.out.println(taskList[taskCount].toString());
-                taskCount++;
+            switch (type) {
+                case "T" -> {
+                    taskList[taskCount] = new ToDo(taskDescription);
+                    System.out.println("Bao got it! Bao is now tracking:");
+                    System.out.println(taskList[taskCount].toString());
+                    taskCount++;
+                }
+                case "D" -> {
+                    int byIndex = taskDescription.indexOf("/by ");
+                    String deadline = taskDescription.substring(byIndex + 4);
+                    String description = taskDescription.substring(0, byIndex - 1);
+                    taskList[taskCount] = new Deadline(description, deadline);
+                    System.out.println("Bao got it! Bao is now tracking:");
+                    System.out.println(taskList[taskCount].toString());
+                    taskCount++;
+                }
+                case "E" -> {
+                    int fromIndex = taskDescription.indexOf("/from ");
+                    int toIndex = taskDescription.indexOf("/to ");
+                    String from = taskDescription.substring(fromIndex + 6, toIndex - 1);
+                    String to = taskDescription.substring(toIndex + 4);
+                    String description = taskDescription.substring(0, fromIndex - 1);
+                    taskList[taskCount] = new Event(description, from, to);
+                    System.out.println("Bao got it! Bao is now tracking:");
+                    System.out.println(taskList[taskCount].toString());
+                    taskCount++;
+                }
             }
         } else {
             System.out.println(baoSad);

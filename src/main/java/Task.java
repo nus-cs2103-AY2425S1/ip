@@ -1,11 +1,9 @@
 public class Task {
     private String description;
-    private String info;
     private boolean isDone;
 
-    public Task(String description, String info) {
+    public Task(String description) {
         this.description = description;
-        this.info = info;
         this.isDone = false;
     }
 
