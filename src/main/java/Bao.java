@@ -22,7 +22,7 @@ public class Bao {
         System.out.println("____________________________________________________________");
         System.out.println(baoHappy);
         System.out.println("Hello! I'm Bao but you can call me Bao");
-        System.out.println("What can I do for you?");
+        System.out.println("What can Bao do for you?");
         System.out.println("____________________________________________________________");
 
         while (true) {
@@ -51,6 +51,11 @@ public class Bao {
                 addTask(task, "T");
                 System.out.println("You have " + taskCount + " tasks in the list");
                 System.out.println("____________________________________________________________");
+            } else if (input.startsWith("deadline ")) {
+            String task = input.substring(9);
+            addTask(task, "D");
+            System.out.println("You have " + taskCount + " tasks in the list");
+            System.out.println("____________________________________________________________");
             }
         }
         scanner.close();
@@ -66,10 +71,18 @@ public class Bao {
         }
     }
 
-    private static void addTask(String message, String type) {
+    private static void addTask(String taskDescription, String type) {
         if (taskCount < 100) {
             if (type == "T") {
-                taskList[taskCount] = new ToDo(message, null);
+                taskList[taskCount] = new ToDo(taskDescription, null);
+                System.out.println("Bao got it! Bao is now tracking:");
+                System.out.println(taskList[taskCount].toString());
+                taskCount++;
+            } else if (type == "D") {
+                int byIndex = taskDescription.indexOf("/by ");
+                String deadline = taskDescription.substring(byIndex + 4);
+                String description = taskDescription.substring(0, byIndex - 1);
+                taskList[taskCount] = new Deadline(description, deadline);
                 System.out.println("Bao got it! Bao is now tracking:");
                 System.out.println(taskList[taskCount].toString());
                 taskCount++;

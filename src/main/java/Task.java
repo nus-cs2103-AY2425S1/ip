@@ -3,7 +3,7 @@ public class Task {
     private String info;
     private boolean isDone;
 
-    public Task(String description, String type) {
+    public Task(String description, String info) {
         this.description = description;
         this.info = info;
         this.isDone = false;
