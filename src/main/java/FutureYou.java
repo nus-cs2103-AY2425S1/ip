@@ -76,6 +76,7 @@ public class FutureYou {
 
                         if (input.toLowerCase().trim().equals("bye")) {
                                 bye();
+                                scanInput.close();
                                 break;
                         }
 
