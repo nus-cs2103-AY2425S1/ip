@@ -3,15 +3,16 @@ import java.util.Scanner;
 public class Waterfall {
     public static void main(String[] args) {
         String chatBotName = "Waterfall";
+        int indentSpace = 4;
         String welcomeMessage =
-            "____________________________________________________________\n"
+            ("____________________________________________________________\n"
             + "Hello I'm " + chatBotName + "\n"
             + "What can I do for you?\n"
-            + "____________________________________________________________\n";
+            + "____________________________________________________________\n").indent(indentSpace);
         String byeMessage =
-            "____________________________________________________________\n"
+            ("____________________________________________________________\n"
             + "Bye. Hope to see you again soon!\n"
-            + "____________________________________________________________\n";
+            + "____________________________________________________________\n").indent(indentSpace);
         System.out.println(welcomeMessage);
         Scanner userInput = new Scanner(System.in);
         while (true) {
@@ -19,9 +20,10 @@ public class Waterfall {
             if (nextInput.equals("bye")) {
                 break;
             } else {
-                System.out.println("____________________________________________________________\n");
-                System.out.println(nextInput);
-                System.out.println("____________________________________________________________\n");
+                String echoString = ("____________________________________________________________\n"
+                + nextInput + "\n"
+                + "____________________________________________________________\n").indent(indentSpace);
+                System.out.println(echoString);
             }
         }
         System.out.println(byeMessage);
