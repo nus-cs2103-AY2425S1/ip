@@ -70,10 +70,16 @@ public class Bibi {
                         System.out.printf("added: \"%s\" to task list%n", td);
                         break;
                     }
-//                    case "deadline": {
-//
-//                        break;
-//                    }
+                    case "deadline": {
+                        String[] input = cmd.substring(9).split(" /by ");
+                        Deadline dl = new Deadline(input[0], input[1]);
+                        tasks[taskCount++] = dl;
+
+                        // Console
+                        printHorizontalLine();
+                        System.out.printf("added: \"%s\" to task list%n", dl);
+                        break;
+                    }
 //                    case "event": {
 //                        break;
 //                    }
@@ -85,7 +91,7 @@ public class Bibi {
                         System.out.printf("added: \"%s\" to task list%n", cmd);
                     }
                 }
-                System.out.printf("You now have %d tasks to do%n", taskCount);
+                System.out.printf("You now have %d task(s) to do%n", taskCount);
                 printHorizontalLine();
             }
         }
