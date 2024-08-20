@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.IOException;
 
 
 public class Main {
@@ -64,7 +63,7 @@ public class Main {
             // when the command is mark/unmark X, where X is an invalid num (too big or <= 0)
             int taskNumber = Integer.parseInt(commandDetails[1]);
             if (taskNumber <= 0) {
-                // still need to handle case when taskNumber >= taskIndex + 1
+                // still need to handle case when taskNumber >= taskIndex + 1 (unable to access janet.getTaskIndex())
                 throw new JanetException("WHOOPS! You don't have a task of this number!");
             }
         } else if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
