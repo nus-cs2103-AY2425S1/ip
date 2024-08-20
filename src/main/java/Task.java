@@ -1,16 +1,16 @@
 public class Task {
-    private String taskDescription;
+    private String description;
     private boolean isDone;
 
-    Task(String taskDescription) {
-        this.taskDescription = taskDescription;
+    Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
     @Override
     public String toString() {
         char label = this.isDone ? 'X' : ' ';
-        return String.format("[%s] %s", label, this.taskDescription);
+        return String.format("[%s] %s", label, this.description);
     }
 
     public void mark() {
