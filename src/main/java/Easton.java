@@ -27,6 +27,7 @@ public class Easton {
         while (!isFinished) {
             input = prompt(scanner);
             printDivider();
+
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 isFinished = true;
@@ -35,8 +36,11 @@ public class Easton {
                     System.out.println((i + 1) + ". " + itemList[i]);
                 }
             } else {
-                System.out.println(input);
+                itemList[itemListSize] = input;
+                itemListSize++;
+                System.out.println("added: " + input);
             }
+
             printDivider();
         }
     }
