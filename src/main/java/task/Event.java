@@ -1,3 +1,5 @@
+package task;
+
 import exception.EventStartEndDateEmptyException;
 import exception.TaskNameEmptyException;
 
