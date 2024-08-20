@@ -1,5 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class PurrfessorDipsy {
+    private static ArrayList<String> memory = new ArrayList<>(100);
+
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
         printWelcomeMessage();
