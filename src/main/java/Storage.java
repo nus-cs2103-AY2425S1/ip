@@ -3,11 +3,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
     private String filePath;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -36,8 +39,8 @@ public class Storage {
                     tasks.get(tasks.size() - 1).setStatus(isDone);
                     break;
                 case "D":
-                    String by = parts[3];
-                    tasks.add(new Deadline(description, by));
+                    LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                    tasks.add(new DeadLine(description, by));
                     tasks.get(tasks.size() - 1).setStatus(isDone);
                     break;
                 case "E":

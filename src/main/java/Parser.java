@@ -1,5 +1,9 @@
 import enums.CommandName;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     public int getTaskNumber(String command) throws JarException {
@@ -35,21 +39,35 @@ public class Parser {
                 if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
                     throw new JarException("Invalid deadline format. Use: deadline <description> /by <date>");
                 }
-                return new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                String deadlineDescription = deadlineParts[0].trim();
+                LocalDateTime deadlineDateTime = parseDateTime(deadlineParts[1].trim());
+                return new DeadLine(deadlineDescription, deadlineDateTime);
 
             case EVENT:
                 String[] eventParts = command.substring(5).split("/from", 2);
                 if (eventParts.length < 2 || eventParts[0].trim().isEmpty()) {
                     throw new JarException("Invalid event format. Use: event <description> /from <start time> /to <end time>");
                 }
+                String eventDescription = eventParts[0].trim();
                 String[] timeParts = eventParts[1].split("/to", 2);
                 if (timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
                     throw new JarException("Invalid event time format. Use: event <description> /from <start time> /to <end time>");
                 }
-                return new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim());
+                String from = timeParts[0].trim();
+                String to = timeParts[1].trim();
+                return new Event(eventDescription, from, to);
 
             default:
                 throw new JarException("Unknown command: " + command + ". Please enter a valid command.");
+        }
+    }
+
+    private LocalDateTime parseDateTime(String dateTimeStr) throws JarException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        } catch (DateTimeParseException e) {
+            throw new JarException("Invalid date-time format. Use: d/M/yyyy HHmm.");
         }
     }
 
