@@ -109,6 +109,10 @@ public class Main {
                     // unmark the task
                     String unmarkSuccess = janet.unmark(Integer.parseInt(commandDetails[1]));
                     System.out.println(unmarkSuccess);
+                } else if (commandDetails[0].equals("delete")) {
+                    // delete specified task
+                    String deleteSuccess = janet.deleteTask(Integer.parseInt(commandDetails[1]));
+                    System.out.println(deleteSuccess);
                 } else {
                     // add the new task into the list of tasks
                     // Task can be a ToDo, Deadline, Event
