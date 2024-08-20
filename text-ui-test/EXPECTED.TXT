@@ -1,4 +1,4 @@
-Hello I am Hoodini! How may I assist you?
+Hello I am hoodini! How may I assist you?
 Noted. I have added this task:
 [T] [ ] sleep
 You have 1 tasks in the list.
@@ -13,4 +13,4 @@ I have marked the task as done:
 Noted. I have deleted this task:
 [T] [X] sleep
 You have 2 tasks in the list.
-Bye! Come back to Hoodini soon!
+Bye! Come back to hoodini soon!

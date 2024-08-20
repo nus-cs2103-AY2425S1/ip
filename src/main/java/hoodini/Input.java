@@ -1,4 +1,4 @@
-package Hoodini;
+package hoodini;
 public class Input {
 
     private String input;
@@ -30,7 +30,7 @@ public class Input {
         }
     }
 
-    public void undone() {
+    public void unDone() {
         if(!this.done) {
             System.out.println("This has already been unmarked");
         } else {

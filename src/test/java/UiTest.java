@@ -1,15 +1,9 @@
-import Hoodini.Storage;
-import Hoodini.Input;
-import Hoodini.Ui;
-import Hoodini.ToDo;
-import Hoodini.Deadline;
-import Hoodini.Event;
+import hoodini.Ui;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

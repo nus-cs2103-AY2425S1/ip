@@ -1,4 +1,4 @@
-package Hoodini;
+package hoodini;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -18,14 +18,14 @@ public class Parser {
         if(java.nio.file.Files.exists(path)) {
             try {
                 readFromFile(path.toString());
-            } catch (invalidTaskException e) {
+            } catch (InvalidTaskException e) {
                 System.out.println(e.getMessage());
             }
 
         }
     }
 
-    private void handlefiletodo(String str) {
+    private void handleFileToDo(String str) {
         if (str.startsWith("[X]")) {
             String str1 = "todo " + str.substring(4);
             ToDo toDo = new ToDo(str1);
@@ -41,7 +41,7 @@ public class Parser {
     }
 
 
-    private void handlefiledeadline(String str) {
+    private void handleFileDeadline(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
             Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")","").trim());
@@ -56,7 +56,7 @@ public class Parser {
         }
     }
 
-    private void handlefileevent(String str) {
+    private void handleFileEvent(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
             Event event = new Event(str1.split(" ",2)[0] + " ", str1.split("from:")[1].split(" to: ")[0], str1.split("to:")[1].replace(")", ""));
@@ -71,20 +71,20 @@ public class Parser {
         }
     }
 
-    public void readFromFile(String filepath) throws invalidTaskException {
+    public void readFromFile(String filepath) throws InvalidTaskException {
         try {
             java.io.File file = new java.io.File(filepath);
             java.util.Scanner input = new java.util.Scanner(file);
             while (input.hasNext()) {
                 String str = input.nextLine();
                 if (str.startsWith("[T]")) {
-                    handlefiletodo(str.substring(4));
+                    handleFileToDo(str.substring(4));
                 } else if (str.startsWith("[D]")) {
-                    handlefiledeadline(str.substring(4));
+                    handleFileDeadline(str.substring(4));
                 } else if (str.startsWith("[E]")) {
-                    handlefileevent(str.substring(4));
+                    handleFileEvent(str.substring(4));
                 } else {
-                    throw new invalidTaskException("Whoopsie! There are invalid tasks in the file");
+                    throw new InvalidTaskException("Whoopsie! There are invalid tasks in the file");
                 }
             }
         } catch (java.io.FileNotFoundException e) {
@@ -119,7 +119,7 @@ public class Parser {
                 } else if (str.equalsIgnoreCase("list")) {
                     store.output();
                 } else if (str.startsWith("todo")) {
-                    handletodo(str);
+                    handleToDo(str);
                 } else if (str.startsWith("deadline")) {
                     handleDeadline(str);
                 } else if (str.startsWith("event")) {
@@ -131,10 +131,10 @@ public class Parser {
                 } else if (str.startsWith("delete")) {
                     store.delete(str);
                 } else {
-                    throw new invalidInputException("Whoopsie! I am unable to understand your request!");
+                    throw new InvalidInputException("Whoopsie! I am unable to understand your request!");
                 }
             }
-        } catch (invalidTaskException | invalidInputException e) {
+        } catch (InvalidTaskException | InvalidInputException e) {
             System.out.println(e.getMessage());
 
 
@@ -144,27 +144,27 @@ public class Parser {
 
     }
 
-    private void handletodo(String str) throws invalidTaskException {
+    private void handleToDo(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("todo")) {
-            throw new invalidTaskException("Whoopsie! Please enter a task");
+            throw new InvalidTaskException("Whoopsie! Please enter a task");
         } else {
             ToDo toDo = new ToDo(str);
             store.store(toDo);
         }
     }
 
-    private void handleDeadline(String str) throws invalidTaskException {
+    private void handleDeadline(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("deadline")) {
-            throw new invalidTaskException("Whoopsie! Please enter a task");
+            throw new InvalidTaskException("Whoopsie! Please enter a task");
         } else {
             Deadline deadline = new Deadline(str);
             store.store(deadline);
         }
     }
 
-    private void handleEvent(String str) throws invalidTaskException {
+    private void handleEvent(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("event")) {
-            throw new invalidTaskException("Whoopsie! Please enter a task");
+            throw new InvalidTaskException("Whoopsie! Please enter a task");
         } else {
             Event event = new Event(str);
             store.store(event);

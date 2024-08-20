@@ -1,9 +1,7 @@
-import Hoodini.Storage;
-import Hoodini.Input;
-import Hoodini.Ui;
-import Hoodini.ToDo;
-import Hoodini.Deadline;
-import Hoodini.Event;
+import hoodini.Storage;
+import hoodini.Ui;
+import hoodini.ToDo;
+import hoodini.Deadline;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

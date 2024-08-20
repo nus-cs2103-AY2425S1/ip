@@ -1,4 +1,4 @@
-package Hoodini;
+package hoodini;
 
 public class Event extends Input{
 

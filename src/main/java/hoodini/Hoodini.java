@@ -1,6 +1,4 @@
-package Hoodini;
-import java.io.IOException;
-import java.util.Scanner;
+package hoodini;
 
 
 public class Hoodini {

@@ -1,4 +1,4 @@
-package Hoodini;
+package hoodini;
 
 import java.util.ArrayList;
 import java.io.BufferedWriter;
@@ -68,7 +68,10 @@ public class Storage {
     private void handledeadline(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")","").trim());
+            Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
+                    str1.split("by: ")[1]
+                            .replace(")","")
+                            .trim());
             deadline.markdone();
             input.add(deadline);
             counter++;
@@ -77,7 +80,10 @@ public class Storage {
 
             
 
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")","").trim());
+            Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
+                    str1.split("by: ")[1]
+                            .replace(")","")
+                            .trim());
 
             input.add(deadline);
             counter++;
@@ -87,19 +93,27 @@ public class Storage {
     private void handleevent(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ", str1.split("from:")[1].split(" to: ")[0], str1.split("to:")[1].replace(")", ""));
+            Event event = new Event(str1.split(" ",2)[0] + " ",
+                    str1.split("from:")[1]
+                            .split(" to: ")[0],
+                    str1.split("to:")[1].
+                            replace(")", ""));
             event.markdone();
             input.add(event);
             counter++;
         } else {
             String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ", str1.split("from:")[1].split(" to: ")[0], str1.split("to:")[1].replace(")", ""));
+            Event event = new Event(str1.split(" ",2)[0] + " ",
+                    str1.split("from:")[1]
+                            .split(" to: ")[0],
+                    str1.split("to:")[1]
+                            .replace(")", ""));
             input.add(event);
             counter++;
         }
     }
 
-    public void readFromFile(String filepath) throws invalidTaskException {
+    public void readFromFile(String filepath) throws InvalidTaskException {
         try {
             java.io.File file = new java.io.File(filepath);
             java.util.Scanner input = new java.util.Scanner(file);
@@ -112,7 +126,8 @@ public class Storage {
                 } else if (str.startsWith("[E]")) {
                     handleevent(str.substring(4));
                 } else {
-                    throw new invalidTaskException("Whoopsie! There are invalid tasks in the file");
+                    throw new InvalidTaskException("Whoopsie! " +
+                            "There are invalid tasks in the file");
                 }
             }
         } catch (java.io.FileNotFoundException e) {
@@ -122,8 +137,9 @@ public class Storage {
 
 
     public void output() {
-        System.out.println("Here are the list of tasks that needs to be completed: ");
-        for(int i = 0; i < counter; i++) {
+        System.out.println("Here are the list of tasks " +
+                "that needs to be completed: ");
+        for (int i = 0; i < counter; i++) {
             System.out.println((i+1) + ". " + input.get(i));
         }
     }
@@ -155,7 +171,8 @@ public class Storage {
 
     public void empty() {
 
-        System.out.println("Whoopsie! Please enter a task");
+        System.out.println("Whoopsie! " +
+                "Please enter a task");
     }
 
     public void unmark(String str) {
@@ -163,7 +180,7 @@ public class Storage {
         if (i > counter) {
             ui.invalidInput();
         } else {
-            input.get(i-1).undone();
+            input.get(i-1).unDone();
 
         }
 

@@ -1,4 +1,4 @@
-package Hoodini;
+package hoodini;
 public class ToDo extends Input{
 
     public ToDo(String input) {
