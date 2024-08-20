@@ -24,10 +24,13 @@ public class Delta {
                 + "\t_____________________________________________________________";
     }
 
-    public static String echo(String phrase) {
-        return "\t____________________________________________________________\n"
-                + "\t " + phrase + "\n"
-                + "\t_____________________________________________________________";
+    public static String echo() {
+        String output = "\t____________________________________________________________\n";
+        for (int i = 0; i < list.size(); i++) {
+            output += "\t " + (Integer.toString(i + 1)) + ". " + list.get(i) + "\n";
+        }
+        output += "\t_____________________________________________________________";
+        return output;
     }
 
     public static void main(String[] args) {
