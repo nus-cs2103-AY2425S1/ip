@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Nimbus {
     private static String name = "Nimbus";
-    private static String[] texts = new String[100];
-    private static int textCount = 0;
+    private static Task[] tasks = new Task[100];
+    private static int taskCount = 0;
 
     private static void printDash() {
         System.out.println("____________________________________________________________");
@@ -22,19 +22,28 @@ public class Nimbus {
         printDash();
     }
 
-    public static void logMessage(String Message) {
-        printDash();
-        texts[textCount++] = Message;
-        System.out.println("added: " + Message);
-        printDash();
+    public static void addTask(Task task) {
+        tasks[taskCount++] = task;
+        System.out.println("added: " + task.getDescription());
     }
 
-    public static void printAllMessage() {
-        printDash();
-        for (int i = 0; i < textCount; ++i) {
-            System.out.println((i + 1) + ". " + texts[i]);
+    public static void setDone(int x) {
+        System.out.println("Nice! I've marked this task as done:");
+        tasks[x].setDone();
+        System.out.println(tasks[x]);
+    }
+
+    public static void setNotDone(int x) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        tasks[x].setNotDone();
+        System.out.println(tasks[x]);
+    }
+
+    public static void printAllTask() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < taskCount; ++i) {
+            System.out.println((i + 1) + ". " + tasks[i]);
         }
-        printDash();
     }
 
     public static void main(String[] args) {
@@ -44,10 +53,33 @@ public class Nimbus {
         String line;
 
         while(!(line = scanner.nextLine()).equals("bye")) {
-            if (line.equals("list")) {
-                printAllMessage();
+            String text;
+            String command = "";
+            int index = line.indexOf(" ");
+            if (index == -1) {
+                switch (line) {
+                    case "list":
+                        printAllTask();
+                        break;
+                    default:
+                        // throws error
+                }
             } else {
-                logMessage(line);
+                command = line.substring(0, index);
+                text    = line.substring(index + 1);
+                switch (command) {
+                    case "list":
+                        printAllTask();
+                        break;
+                    case "mark":
+                        setDone(Integer.parseInt(text) - 1);
+                        break;
+                    case "unmark":
+                        setNotDone(Integer.parseInt(text) - 1);
+                        break;
+                    default:
+                        addTask(new Task(line));
+                }
             }
         }
 
