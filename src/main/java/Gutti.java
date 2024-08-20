@@ -150,6 +150,12 @@ public class Gutti {
         }
     }
 
+    /**
+     * Prints an error message based on the given exception.
+     *
+     * @param e The {@code GuttiException} to be printed.
+     */
+
     private static void generateError(GuttiException e){
         System.out.println("____________________________________________________________");
         System.out.println(e.getMessage());
