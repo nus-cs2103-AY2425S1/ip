@@ -6,7 +6,7 @@ public class BottleOpener {
     public static void main(String[] args) {
         String spacer = "-----------------------------------\n";
         String botName = "BottleOpener";
-        String greeting = "Hello! I'm " + botName + ".\n";
+        String greeting = "Hello! I'm " + botName + ".\n" + "What can I do for you?\n";
         String goodbye = "Bye! See you next time!\n";
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
