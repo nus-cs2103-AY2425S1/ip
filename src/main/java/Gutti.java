@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 /**
  * Enum representing different types of commands.
  */
@@ -11,7 +11,8 @@ enum CommandType {
     DEADLINE,
     EVENT,
     LIST,
-    UNKNOWN
+    UNKNOWN,
+    DELETE
 
 }
 
@@ -26,7 +27,7 @@ enum CommandType {
 
 public class Gutti {
 
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int noOfTasks = 0;
 
     /**
@@ -109,6 +110,13 @@ public class Gutti {
                         }
                         createsEvent(input.substring(6).trim());
                         break;
+                    case DELETE:
+                        if (input.length() < 7) {
+                            printError("Delete");
+                            break;
+                        }
+                        handlesDelete(input.substring(7).trim());
+                        break;
                     case UNKNOWN:
                         generateError(new GuttiException("Meow me dumb dumb me no understand me no thoughts head empty."));
                         break;
@@ -145,8 +153,30 @@ public class Gutti {
             return CommandType.DEADLINE;
         } else if (input.startsWith("event")) {
             return CommandType.EVENT;
+        } else if (input.startsWith("delete")) {
+            return CommandType.DELETE;
         } else {
             return CommandType.UNKNOWN;
+        }
+    }
+
+    /**
+     * Deletes the task at the specified index from the list.
+     * <p>
+     * @param index The index of the task to be deleted (1-based).
+     */
+    private static void handlesDelete(String index) {
+        try {
+            int taskIndex = Integer.parseInt(index) - 1;
+            Task removedTask = tasks.remove(taskIndex);
+            System.out.println("____________________________________________________________");
+            System.out.println("Meow. I've removed this task:");
+            System.out.println(removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        }
+        catch(IndexOutOfBoundsException e) {
+            generateError(new GuttiException("No such item to delete!"));
         }
     }
 
@@ -215,12 +245,11 @@ public class Gutti {
      * @param task The task to be added.
      */
     private static void taskAdder(Task task) {
-        tasks[noOfTasks] = task;
-        noOfTasks++;
+        tasks.add(task);
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + noOfTasks + " tasks in the list meow!");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list meow!");
         System.out.println("____________________________________________________________");
 
     }
@@ -237,7 +266,7 @@ public class Gutti {
         try{
             int taskIndex = Integer.parseInt(index) - 1;
             try{
-                tasks[taskIndex].markAsDone();
+                tasks.get(taskIndex).markAsDone();
             }
             catch(NullPointerException e) {
                 throw new GuttiException("Cannot mark task as done as there is no such task added yet!");
@@ -245,6 +274,9 @@ public class Gutti {
         }
         catch (java.lang.NumberFormatException e) {
             throw new GuttiException("Incorrect format for marking tasks! Ensure you typed : mark (int) with only 1 space");
+        }
+        catch(IndexOutOfBoundsException e) {
+            throw new GuttiException("No such task to mark!");
         }
     }
 
@@ -260,7 +292,7 @@ public class Gutti {
         try {
             int taskIndex = Integer.parseInt(index) - 1;
             try {
-                tasks[taskIndex].unmark();
+                tasks.get(taskIndex).unmark();
             }
             catch(NullPointerException e) {
                 throw new GuttiException("Cannot unmark task as there is no such task added yet!");
@@ -268,6 +300,9 @@ public class Gutti {
         }
         catch (java.lang.NumberFormatException e) {
             throw new GuttiException("Incorrect format for unmarking tasks! Ensure you typed : unmark (int) with only 1 space");
+        }
+        catch(IndexOutOfBoundsException e) {
+            generateError(new GuttiException("No such task to unmark!"));
         }
     }
 
@@ -281,8 +316,8 @@ public class Gutti {
     private static void listsTask() {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < noOfTasks; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
@@ -295,7 +330,7 @@ public class Gutti {
      */
     private static void printError(String taskType) {
         System.out.println("____________________________________________________________");
-        System.out.println("fishfishfish!!! The description of a " + taskType + " cannot be empty.");
+        System.out.println("fishfishfish!!! The field of a " + taskType + " command cannot be empty.");
         System.out.println("____________________________________________________________");
     }
 
