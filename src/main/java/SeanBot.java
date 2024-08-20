@@ -28,10 +28,34 @@ public class SeanBot {
                 tasks[second].Undone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[second]);
+            } else if (first.equals("todo")) {
+                Task todo = new Todo(part[1]);
+                tasks[counter] = todo;
+                counter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + todo);
+                System.out.println("Now you have " + counter + " tasks in the list.");
+            } else if (first.equals("deadline")) {
+                String[] specifications = part[1].split(" /by ");
+                Task deadline = new Deadline(specifications[0], specifications[1]);
+                tasks[counter] = deadline;
+                counter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + deadline);
+                System.out.println("Now you have " + counter + " tasks in the list.");
+            } else if (first.equals("event")) {
+                String[] firstpart = part[1].split(" /from ", 2);
+                String[] secondpart = firstpart[1].split(" /to", 2);
+                Task event = new Event(firstpart[0].trim(), secondpart[0].trim(), secondpart[1].trim());
+                tasks[counter] = event;
+                counter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + event);
+                System.out.println("Now you have " + counter + " tasks in the list.");
             }
             else {
                 tasks[counter] = new Task(userInput);
-                counter++;
+                counter++;  
                 System.out.println("added: " + userInput);
             }
         }
