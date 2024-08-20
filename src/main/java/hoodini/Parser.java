@@ -150,7 +150,7 @@ public class Parser {
                 switch(cases) {
                     case BYE:
                         end();
-                        break;
+                        return;
                     case LIST:
                         store.output();
                         break;
@@ -185,9 +185,9 @@ public class Parser {
         } catch (InvalidTaskException | InvalidInputException e) {
             System.out.println(e.getMessage());
 
-        } finally {
-            sc.close();
         }
+        sc.close();
+
 
 
 
