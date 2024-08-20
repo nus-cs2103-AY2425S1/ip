@@ -29,7 +29,8 @@ public class TaskList {
         }
 
         this.toDo.add(newTask);
-        System.out.println("Alright I have added this task into the list: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
+        System.out.println("Alright I have added this task into the list: \n" + newTask.toString() + 
+                           "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
     public void deleteTask(int idx) throws InvalidIndexException{
@@ -37,7 +38,8 @@ public class TaskList {
             throw new InvalidIndexException(idx);
         }
         Task removedTask = this.toDo.remove(idx);
-        System.out.println("Alright I have removed this task into the list: \n" + removedTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
+        System.out.println("Alright I have removed this task into the list: \n" + removedTask.toString() + 
+                           "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
     @Override
