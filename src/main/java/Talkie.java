@@ -8,16 +8,16 @@ public class Talkie {
     protected static Scanner scanner = new Scanner(System.in);
 
     protected static String welcomeMessage = """
-                -----------------------------------------------\s
-                Hello! I'm Talkie, your friendly ChatBot.\s
-                What can I do for you?\s
-                -----------------------------------------------\s
+                -----------------------------------------------
+                Hello! I'm Talkie, your friendly ChatBot.
+                What can I do for you?
+                -----------------------------------------------
                 """;
 
     protected static String byeMessage = """ 
-                -----------------------------------------------\s
-                Bye. Hope to see you again soon!\s
-                -----------------------------------------------\s
+                -----------------------------------------------
+                Bye. Hope to see you again soon!
+                -----------------------------------------------
                 """;
 
     // Creates Deadline Task
