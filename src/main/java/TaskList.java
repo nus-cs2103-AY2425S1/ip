@@ -28,6 +28,10 @@ public class TaskList {
         return this.listOfTasks.size();
     }
 
+    public void removeTask(int taskNum) {
+        this.listOfTasks.remove(taskNum);
+    }
+
     @Override
     public String toString() {
         if (this.listOfTasks.size() <= 0) {
