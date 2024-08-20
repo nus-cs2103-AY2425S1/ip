@@ -11,6 +11,13 @@ public class TaskList {
         this.listOfTasks.add(task);
     }
 
+    public void finish(int index) {
+        listOfTasks.get(index).finish();
+    }
+
+    public void unfinish(int index) {
+        listOfTasks.get(index).unfinish();
+    }
     @Override
     public String toString() {
         if (this.listOfTasks.size() <= 0) {
@@ -18,7 +25,7 @@ public class TaskList {
         }
         String myTasks = "";
         for (int i = 0; i < this.listOfTasks.size(); i++) {
-            myTasks += i + ". " + this.listOfTasks.get(i).toString() + "\n";
+            myTasks += (i+1) + ". " + this.listOfTasks.get(i).toString() + "\n";
         }
 
         return myTasks;

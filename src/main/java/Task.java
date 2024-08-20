@@ -15,6 +15,10 @@ public class Task {
         this.finished = true;
     }
 
+    public void unfinish() {
+        this.finished = false;
+    }
+
     @Override
     public String toString(){
         return this.name;
