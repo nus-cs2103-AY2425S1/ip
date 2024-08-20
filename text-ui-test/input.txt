@@ -4,10 +4,15 @@ deadline task3 /by 6pm
 deadline task4 /by 9pm
 event task5 /from now /to later
 event task6 /from later /to 9pm
+todo
+deadline
+event
 mark 2
 list
 mark 5
 list
 unmark 2
+delete 10
+delete 2
 list
 bye
