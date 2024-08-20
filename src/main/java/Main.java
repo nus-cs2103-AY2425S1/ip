@@ -55,11 +55,15 @@ public class Main {
     }
 
 
-    public static void checkTaskDescription(String[] commandDetails) throws JanetException {
-        if (commandDetails.length <= 1) {
-            throw new JanetException("Task description cannot be empty!");
-        } else if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
+    /**
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @throws JanetException a custom exception class specific to Janet
+     */
+    public static void validateCommand(String[] commandDetails) throws JanetException {
+        if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
             throw new JanetException("OOPS! Unknown command!");
+        } else if (commandDetails.length == 1) {
+            throw new JanetException("Task description cannot be empty!");
         }
     }
 
@@ -94,7 +98,7 @@ public class Main {
                     // add the new task into the list of tasks
                     // Task can be a ToDo, Deadline, Event
                     try {
-                        checkTaskDescription(commandDetails);
+                        validateCommand(commandDetails);
                     } catch (JanetException e) {
                         System.out.println(e.getMessage());
                         continue;
