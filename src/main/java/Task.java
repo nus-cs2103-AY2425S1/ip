@@ -1,4 +1,3 @@
-// TODO: Change this into an interface for later levels
 public abstract class Task {
     private String description;
     private boolean isDone;
