@@ -27,16 +27,14 @@ public class WansBot {
                 System.out.println("You have " + numTasks + " tasks!");
                 // User can mark Tasks
             } else if (userInput.toLowerCase().startsWith("mark ")) {
-                Integer integer;
                 int posTask = Integer.parseInt(userInput.substring(4).strip()) - 1;
                 userTaskList.number(posTask).finish();
                 System.out.println(hr + "\nWans:"
                         + "\nNice! I've marked\n"
                         + userTaskList.number(posTask).toString()
                         + " as completed");
-                // User can UNMARK tasks
+                // User can unmark tasks
             } else if (userInput.toLowerCase().startsWith("unmark ")) {
-                Integer integer;
                 int posTask = Integer.parseInt(userInput.substring(6).strip()) - 1;
                 userTaskList.number(posTask).unfinish();
                 System.out.println(hr + "\nWans:"
