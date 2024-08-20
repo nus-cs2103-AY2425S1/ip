@@ -7,4 +7,5 @@ event project meeting /from Mon 2pm /to 4pm
 mark 3
 deadline do homework /by no idea :-p
 list
-bye
+delete 3
+list

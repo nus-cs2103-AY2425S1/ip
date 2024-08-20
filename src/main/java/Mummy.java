@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import command.Echo;
-import command.Run;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -16,8 +14,7 @@ public class Mummy {
       + "|_|  |_|\\__,_|_| |_| |_|_| |_| |_|\\__, |\n"
       + "                                  |___/ \n";
 
-  private static final Store<Task> STORE = new Store<>(100,
-          "Here are the tasks in your list:");
+  private static final Store<Task> STORE = new Store<>("Here are the tasks in your list:");
 
   public static void main(String[] args) {
     new Echo("Hello from\n"
@@ -60,6 +57,9 @@ public class Mummy {
           case "event":
             onEvent(input);
             break;
+          case "delete":
+            onDelete(input);
+            break;
           default:
             throw new MummyException("I'm sorry, but I don't know what that means :-(");
         }
@@ -82,28 +82,28 @@ public class Mummy {
             input.replaceAll("[^0-9]", ""),
             -1);
 
-    Task task = STORE.get(taskIndex);
-    if (task == null) {
-      throw new MummyException("No suck task");
+    try {
+      Task task = STORE.get(taskIndex);
+      task.setAsDone();
+      new Echo("Nice! I've marked this task as done:\n\t" + task)
+              .execute();
+    } catch (StoreException exception) {
+      throw new MummyException(exception.getMessage());
     }
-
-    new Run(task::setAsDone,
-            () -> "Nice! I've marked this task as done:\n\t" + task)
-            .execute();
   }
 
   private static void onUnmark(String input) throws MummyException {
     int taskIndex = parseIntOrDefault(
             input.replaceAll("[^0-9]", ""),
             -1);
-    Task task = STORE.get(taskIndex);
-    if (task == null) {
-      throw new MummyException("No suck task");
+    try {
+      Task task = STORE.get(taskIndex);
+      task.setAsUndone();
+      new Echo("OK, I've marked this task as not done yet::\n\t" + task)
+              .execute();
+    } catch (StoreException exception) {
+      throw new MummyException(exception.getMessage());
     }
-
-    new Run(task::setAsUndone,
-            () -> "OK, I've marked this task as not done yet::\n\t" + task)
-            .execute();
   }
 
   private static void onToDo(String input) throws MummyException {
@@ -111,10 +111,10 @@ public class Mummy {
     try {
       String description = input.strip().substring(5);
       Task task = new ToDo(description);
-      new Run(() -> STORE.add(task),
-              () -> String.format(
+      STORE.add(task);
+      new Echo(String.format(
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                task,STORE.getCount()
+                task, STORE.getCount()
               ))
               .execute();
     } catch (IndexOutOfBoundsException exception) {
@@ -130,9 +130,8 @@ public class Mummy {
       String dueBy = tokens[1];
 
       Task task = new Deadline(description, dueBy);
-
-      new Run(() -> STORE.add(task),
-              () -> String.format(
+      STORE.add(task);
+      new Echo(String.format(
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
                 task, STORE.getCount()
               ))
@@ -152,14 +151,31 @@ public class Mummy {
       String to = argumentTokens[1];
 
       Task task = new Event(description, from, to);
-      new Run(() -> STORE.add(task),
-              () -> String.format(
+      STORE.add(task);
+      new Echo(String.format(
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
                 task, STORE.getCount()
               ))
               .execute();
     } catch (IndexOutOfBoundsException exception) {
       throw new MummyException("Invalid argument: /from and /to are required");
+    }
+  }
+
+  private static void onDelete(String input) throws MummyException {
+    int taskIndex = parseIntOrDefault(
+            input.replaceAll("[^0-9]", ""),
+            -1);
+
+    try {
+      Task task = STORE.remove(taskIndex);
+      new Echo(String.format(
+              "Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.\n",
+              task, STORE.getCount()
+              ))
+              .execute();
+    } catch (StoreException exception) {
+      throw new MummyException(exception.getMessage());
     }
   }
 

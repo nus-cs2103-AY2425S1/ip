@@ -1,44 +1,46 @@
 import java.util.stream.IntStream;
+import java.util.ArrayList;
 
 public class Store<T> {
-    private final T[] array;
-
-    private int count = 0;
+    private final ArrayList<T> list;
 
     private final String label;
 
-    public Store(int length, String label) {
-        Object[] array = new Object[length];
-        @SuppressWarnings("unchecked")
-        T[] temp = (T[]) array;
-        this.array = temp;
+    public Store(String label) {
         this.label = label;
+        this.list = new ArrayList<>();
     }
 
     public void add(T item) {
-        if (count >= array.length) {
-            return;
-        }
-        array[count++] = item;
+        this.list.add(item);
     }
 
-    public T get(int index) {
+    public T get(int index) throws StoreException {
         // index starts from 1
-        if (index <= 0 || index > count) {
-            return null;
+        try {
+            return this.list.get(index - 1);
+        } catch (IndexOutOfBoundsException exception) {
+            throw new StoreException("No such item");
         }
-        return this.array[index - 1];
+    }
+
+    public T remove(int index) throws StoreException{
+        try {
+            return this.list.remove(index - 1);
+        } catch (IndexOutOfBoundsException exception) {
+            throw new StoreException("No such item");
+        }
     }
 
     public int getCount() {
-        return count;
+        return this.list.size();
     }
 
     @Override
     public String toString() {
-        return IntStream.range(0, count)
-                .mapToObj(i -> (i + 1) + ". " + array[i])
+        return IntStream.range(0, list.size())
+                .mapToObj(i -> (i + 1) + ". " + list.get(i))
                 .reduce(label + "\n",
-                        (x, acc) -> x + acc + "\n");
+                        (acc, x) -> acc + x + "\n");
     }
 }
