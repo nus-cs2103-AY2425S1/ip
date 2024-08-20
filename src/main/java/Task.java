@@ -13,4 +13,9 @@ public class Task {
         return " ";
     }
 
+
+    @Override
+    public String toString() {
+        return " ["+this.type()+"][ ] " + description;
+    }
 }

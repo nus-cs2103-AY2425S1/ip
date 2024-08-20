@@ -18,4 +18,10 @@ public class Deadline extends Todo{
         return "D";
     }
 
+    @Override
+    public String toString(){
+        return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription()+" (by: "+this.by +")";
+    }
+
+
 }

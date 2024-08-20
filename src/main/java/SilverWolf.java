@@ -12,11 +12,23 @@ public class SilverWolf {
     private static void outputList(){
         int index = 1;
         for(Todo t : list){
-            System.out.println(index + "[" + t.type() + "]" + "["+t.getStatusIcon()+"] "+t.getDescription());
+            System.out.println(index + t.toString());
             index++;
         }
     }
 
+    private static void showConfirmation(){
+        printDivider();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(list.get(list.size()-1));
+        showTotalTask();
+        printDivider();
+        System.out.print("\n");
+    }
+
+    private static void showTotalTask(){
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+    }
     public static void main(String[] args) {
         // initialize the scanner to read user input
 
@@ -71,6 +83,7 @@ public class SilverWolf {
                 System.out.println("Here are the tasks in your list:");
                 outputList();
                 printDivider();
+                System.out.print("\n");
             } else if (input.startsWith("mark ")){
                 //extract the input number
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -82,6 +95,8 @@ public class SilverWolf {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("[" + specificTask.type() + "]["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
                 printDivider();
+                System.out.print("\n");
+
             } else if (input.startsWith("unmark ")){
                 //extract the input number
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -93,18 +108,20 @@ public class SilverWolf {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("[" + specificTask.type() + "]["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
                 printDivider();
+                System.out.print("\n");
+
             } else if (input.startsWith("todo")){
                 //taking in the input
                 String descrption = input.substring(5);
-
-                printDivider();
-                System.out.println("Got it. I've added this task:");
                 Todo newTodo = new Todo(descrption);
                 list.add(newTodo);
-                System.out.println(" ["+newTodo.type()+"] ["+newTodo.getStatusIcon()+"] "+ newTodo.getDescription());
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-
-                printDivider();
+                showConfirmation();
+            } else if (input.startsWith("deadline")){
+                //taking in the input
+                String[] parts = input.substring(9).split(" /by ");
+                Deadline newDeadline = new Deadline(parts[0], parts[1]);
+                list.add(newDeadline);
+                showConfirmation();
 
             } else if (input.startsWith("deadline")){
                 //TODO

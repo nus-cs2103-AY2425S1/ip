@@ -25,8 +25,9 @@ class Todo extends Task {
     public String type(){
         return "T";
     }
-
-
-
+    @Override
+    public String toString(){
+        return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription();
+    }
 
 }
