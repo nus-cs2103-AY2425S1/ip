@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Colress {
-    private static ArrayList<Task> toDoList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private static String input = "";
-    private static String spacer = "______________________________________\n";
+    private static String spacer = "__________________________________________\n";
     private static String greetingMessage = "Hello! My name is Colress.\n"
             + "What can I do for you?";
     private static String listEmptyMessage = "I'm sorry, but it appears you have not added anything to your list.";
@@ -28,7 +28,9 @@ public class Colress {
         Colress.getInput();
         while (!Colress.input.equals(exitCommand)) {
             if (Colress.input.equals(addCommand)) {
-                Colress.addTask();
+                print("Enter the type of task you wish to add to your list");
+                Colress.getInput();
+                Colress.addTask(Colress.input);
             } else if (Colress.input.equals(checkCommand)) {
                 Colress.editTask("check");
             } else if (Colress.input.equals(uncheckCommand)) {
@@ -42,21 +44,66 @@ public class Colress {
         }
     }
 
-    public static void addTask() {
-        Colress.print("Please enter the task description");
-        Colress.getInput();
-        Task currTask = new Task(Colress.input);
-        toDoList.add(currTask);
-        Colress.print("Okay. I have added this task to your list:\n" + toDoList.size() + "." + currTask);
+    public static void addTask(String type) {
+        Task currTask;
+        String description;
+        String date;
+        String from;
+        String to;
+
+        switch (type) {
+            case "todo":
+                Colress.print("Enter the description of the task");
+                description = Colress.scanner.nextLine();
+
+                currTask = new ToDo(description);
+                Colress.taskList.add(currTask);
+                Colress.print("Okay. I have added this task to your list:\n"
+                        + Colress.taskList.size() + "." + currTask);
+                break;
+            case "deadline":
+                Colress.print("Enter the description of the task");
+                description = Colress.scanner.nextLine();
+
+                Colress.print("Enter the deadline");
+                date = Colress.scanner.nextLine();
+
+                currTask = new Deadline(description, date);
+                Colress.taskList.add(currTask);
+                Colress.print("Okay. I have added this task to your list:\n"
+                        + Colress.taskList.size() + "." + currTask);
+                break;
+            case "event":
+                Colress.print("Enter the description of the event");
+                description = Colress.scanner.nextLine();
+
+                Colress.print("Enter the date of the event");
+                date = Colress.scanner.nextLine();
+
+                Colress.print("Enter the starting time of the event");
+                from = Colress.scanner.nextLine();
+
+                Colress.print("Enter the ending time of the event");
+                to = Colress.scanner.nextLine();
+
+                currTask = new Event(description, date, from, to);
+                Colress.taskList.add(currTask);
+                Colress.print("Okay. I have added this task to your list:\n"
+                        + Colress.taskList.size() + "." + currTask);
+                break;
+            default:
+                print(Colress.invalidCommandMessage);
+                break;
+        }
     }
 
     public static void editTask(String action) {
-        if (toDoList.isEmpty()) {
-            Colress.print(listEmptyMessage);
+        if (Colress.taskList.isEmpty()) {
+            Colress.print(Colress.listEmptyMessage);
         } else {
-            Colress.print("Please enter the task number");
-            int index = Integer.parseInt(scanner.nextLine());
-            Task currTask = toDoList.get(index - 1);
+            Colress.print("Enter the task number");
+            int index = Integer.parseInt(Colress.scanner.nextLine());
+            Task currTask = Colress.taskList.get(index - 1);
             switch (action) {
                 case "check":
                     currTask.check();
@@ -69,24 +116,24 @@ public class Colress {
                             + index + "." + currTask);
                     break;
                 default:
-                    Colress.print(invalidCommandMessage);
+                    Colress.print(Colress.invalidCommandMessage);
                     break;
             }
         }
     }
     public static String printList() {
         String result = "";
-        for(int i = 0; i < toDoList.size(); i++) {
-            result += String.format("\n%d. " + toDoList.get(i), i + 1);
+        for(int i = 0; i < Colress.taskList.size(); i++) {
+            result += String.format("\n%d. " + Colress.taskList.get(i), i + 1);
         }
         if(result.isEmpty()) {
-            return listEmptyMessage;
+            return Colress.listEmptyMessage;
         }
         return result;
     }
     public static void main(String[] args) {
-        print(greetingMessage);
+        print(Colress.greetingMessage);
         Colress.makeList();
-        print(farewellMessage);
+        print(Colress.farewellMessage);
     }
 }

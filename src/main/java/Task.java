@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -17,20 +17,19 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public void check() {
         this.isDone = true;
     }
 
     public void uncheck() {
         this.isDone = false;
-    }
-
-    @Override
-    public String toString() {
-        if (this.isDone) {
-            return String.format("[X] %s", this.description);
-        } else {
-            return String.format("[ ] %s", this.description);
-        }
     }
 }
