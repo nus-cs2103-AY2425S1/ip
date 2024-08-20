@@ -1,16 +1,16 @@
 public class Ekud {
     public static final String LINE_SEPARATOR =
-            "_____________________________________________________________";
+            "\t_____________________________________________________________";
 
     public static void greet() {
-        String greeting = "Heyo! My name is EKuD!! You can call me Eku-chan"
-                + "\nHow may I be of assistance";
+        String greeting = "\tHeyo! My name is EKuD!! You can call me Eku-chan :)"
+                + "\n\tHow may I be of assistance!";
         System.out.println(LINE_SEPARATOR);
         System.out.println(greeting);
     }
 
     public static void sayGoodbye() {
-        String goodbye = "I hope you enjoyed your stay!\nSee you next time!";
+        String goodbye = "\tI hope you enjoyed your stay!\n\tSee you next time!";
         System.out.println(LINE_SEPARATOR);
         System.out.println(goodbye);
         System.out.println(LINE_SEPARATOR);
