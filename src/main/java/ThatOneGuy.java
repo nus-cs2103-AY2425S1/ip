@@ -64,7 +64,8 @@ public class ThatOneGuy {
             } else {
                 Task nextTask = new Task(next);
                 tasks.add(nextTask);
-                System.out.println(line + "\n" + "added: " + next + "\n" + line + "\n");
+                System.out.println(line + "\n" + "added: " + next);
+                System.out.println("That's " + tasks.size() + " tasks for your ass to handle.\n" + line);
             }
         }
         sc.close();
