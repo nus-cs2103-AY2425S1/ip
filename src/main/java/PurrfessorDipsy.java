@@ -31,12 +31,6 @@ public class PurrfessorDipsy {
         printTerminalLine();
     }
 
-    private static void echoUserInput(String userInput) {
-        printTerminalLine();
-        System.out.println(userInput);
-        printTerminalLine();
-    }
-
     private static void doAction(String userInput) {
         String trimmedInput = userInput.trim().toLowerCase();
 
@@ -50,8 +44,20 @@ public class PurrfessorDipsy {
                 break;
             default:
                 echoUserInput(userInput);
+                saveToMemory(userInput);
                 break;
         }
     }
+
+    private static void echoUserInput(String userInput) {
+        printTerminalLine();
+        System.out.println(userInput);
+        printTerminalLine();
+    }
+
+    private static void saveToMemory(String userInput) {
+        memory.add(userInput);
+    }
+
 
 }
