@@ -52,8 +52,6 @@ class addTodo implements Commands {
     public void run(Sentinel sentinel, String args) {
         String[] parsedArgs = args.split("\\s+", 2);
 
-        System.out.println(parsedArgs[0]);
-
         if (parsedArgs.length < 2) {
             sentinel.say("Invalid todo name");
             return;
