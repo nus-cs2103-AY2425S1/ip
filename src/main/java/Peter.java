@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Peter {
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Peter\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Peter!\nWhat can I do for you?\n");
 
         // Init Globals
         Task[] tasks = new Task[100];
