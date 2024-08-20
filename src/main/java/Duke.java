@@ -1,4 +1,8 @@
 import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Scanner;
+import java.io.IOException;
 public class Duke {
     private List<Task> taskStore = new ArrayList<Task>();
     public static void main(String[] args) {
@@ -10,6 +14,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
         Duke duke = new Duke();
+        duke.readData();
         duke.handleUserInput();
     }
 
@@ -44,9 +49,52 @@ public class Duke {
                     default:
                         throw new DukeException("Invalid command provided.");
                 }
+                writeData();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private void readData() {
+        try {
+            File filedir = new File("data/");
+            if (!filedir.exists()) {
+                boolean success = filedir.mkdir();
+            }
+            File file = new File("data/duke.txt");
+            if (!file.exists()) {
+                boolean success = file.createNewFile();
+            }
+
+            Scanner scan = new Scanner(file);
+            while (scan.hasNext()) {
+                String[] line = scan.nextLine().split("\\s*|\\s*");
+                String taskType = line[0];
+                Task task = switch (taskType) {
+                    case "T" -> new Todo(line[2]);
+                    case "D" -> new Deadline(line[2], line[3]);
+                    case "E" -> new Event(line[2], line[3], line[4]);
+                    default -> throw new DukeException("Invalid Task type provided.");
+                };
+                if (line[1].equals("1")) task.markAsDoneNonVerbose();
+                this.taskStore.add(task);
+            }
+            scan.close();
+        } catch (IOException | DukeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void writeData() {
+        try {
+            FileWriter filewriter = new FileWriter("data/duke.txt");
+            for (Task t : this.taskStore) {
+                filewriter.write(t.saveFormat() + "\n");
+            }
+            filewriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
