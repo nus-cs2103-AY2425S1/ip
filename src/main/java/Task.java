@@ -38,4 +38,8 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
 }
