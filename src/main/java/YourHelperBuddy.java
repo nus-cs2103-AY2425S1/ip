@@ -25,6 +25,25 @@ public class YourHelperBuddy {
                 }
                 System.out.println("________________________________________________");
             }
+            else if (taskDescription.startsWith("delete")) {
+                try {
+                    int taskIndex = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                        throw new IndexOutOfBoundsException();
+                    }
+                    Task removedTask = taskList.remove(taskIndex);
+                    System.out.println("________________________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removedTask);
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println("________________________________________________");
+                }
+                catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    System.out.println("________________________________________________");
+                    System.out.println("Sorry! There seems to be an issue with the task number you provided.");
+                    System.out.println("________________________________________________");
+                }
+            }
             else if (taskDescription.startsWith("mark")) {
                 try {
                     int taskLabel = Integer.parseInt(taskDescription.split(" ")[1]) - 1;
@@ -83,7 +102,8 @@ public class YourHelperBuddy {
                         System.out.println("________________________________________________");
                         System.out.println("Sorry! The description or the deadline cannot be empty.");
                         System.out.println("________________________________________________");
-                    } else {
+                    }
+                    else {
                         Task newTask = new Deadline(deadlineDescription, deadlineBy);
                         taskList.add(newTask);
                         System.out.println("________________________________________________");
@@ -92,7 +112,8 @@ public class YourHelperBuddy {
                         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                         System.out.println("________________________________________________");
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     System.out.println("________________________________________________");
                     System.out.println("Oops! The deadline command is not formatted correctly.");
                     System.out.println("Please use 'deadline <description> /by <date/time>'.");
@@ -130,7 +151,8 @@ public class YourHelperBuddy {
             }
             else {
                 System.out.println("________________________________________________");
-                System.out.println("Invalid command. Please use 'todo', 'deadline', or 'event'.");
+                System.out.println("Invalid command. Please use 'todo', 'deadline', 'event', 'delete'," +
+                        " 'mark', 'unmark', 'list' or 'bye'. Thank you for understanding!");
                 System.out.println("________________________________________________");
             }
         }
