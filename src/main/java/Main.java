@@ -26,6 +26,34 @@ public class Main {
         return new String[]{description, dueDate};
     }
 
+    /**
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @return a String[], where first elem = Event.description, second elem = Event.startDate, third elem = Event.endDate.
+     */
+    public static String[] findEventDetails(String[] commandDetails) {
+        int indexOfFrom = 0;
+        int indexOfTo = 0;
+        // first word in commandDetails must be event, so start from i=1 word
+        for (int i = 1; i < commandDetails.length; i++) {
+            if (commandDetails[i].equals("/from")) {
+                indexOfFrom = i;
+            }
+            if (commandDetails[i].equals("/to")) {
+                indexOfTo = i;
+            }
+        }
+        // get the description
+        String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfFrom);
+        String description = String.join(" ", descriptionArray);
+        // get the start date
+        String[] startDateArray = Arrays.copyOfRange(commandDetails, indexOfFrom + 1, indexOfTo);
+        String startDate = String.join(" ", startDateArray);
+        // get the end date
+        String[] endDateArray = Arrays.copyOfRange(commandDetails, indexOfTo + 1, commandDetails.length);
+        String endDate = String.join(" ", endDateArray);
+        return new String[]{description, startDate, endDate};
+    }
+
     public static void main(String[] args) {
         Janet janet = new Janet();
         System.out.println(janet.greet());
