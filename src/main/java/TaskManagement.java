@@ -2,21 +2,25 @@ import java.util.*;
 
 public class TaskManagement {
 	private List<Task> tasks;
+	public int length;
 
 	public TaskManagement() {
 		this.tasks = new ArrayList<>();
+		this.length = 0;
 	}
 
 	public void add(Task task) {
 		int len = this.tasks.size();
 		task.setId(len + 1);
 		this.tasks.add(task);
+		this.length++;
 	}
 
 	public void remove(int id) {
 		this.tasks = this.tasks.stream()
 								.filter(task -> !task.getId().equals(id))
 								.toList();
+		this.length--;
 	}
 
 	public String getPrintTasks() {
