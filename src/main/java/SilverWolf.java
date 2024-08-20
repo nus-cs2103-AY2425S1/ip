@@ -5,11 +5,15 @@ public class SilverWolf {
     // using arraylist
     private static ArrayList<Task> list = new ArrayList<>();
 
+    // prints the line
+    private static void printDivider() {
+        System.out.println("____________________________________________________________");
+    }
     // output the list
-    public static void outputList(){
+    private static void outputList(){
         int index = 1;
         for(Task t : list){
-            System.out.println(index + ". "+t.getDescription());
+            System.out.println(index + ".["+t.getStatusIcon()+"] "+t.getDescription());
             index++;
         }
     }
@@ -34,23 +38,44 @@ public class SilverWolf {
 
             // exit if the user types "bye" or "list"
             if (input.equals("bye")) {
-                System.out.println("____________________________________________________________");
+                printDivider();
                 System.out.println(" Till we meet again!");
-                System.out.println("____________________________________________________________");
+                printDivider();
                 break;
                 // display the list that the user entered
             } else if (input.equals("list")) {
-                System.out.println("____________________________________________________________");
+                printDivider();
+                System.out.println("Here are the tasks in your list:");
                 outputList();
-                System.out.println("____________________________________________________________");
-
+                printDivider();
+            } else if (input.startsWith("mark ")){
+                //extract the input number
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                // retrieve the specific task from the arraylist
+                Task specificTask = list.get(index);
+                // mark the task as done
+                specificTask.markAsDone();
+                printDivider();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
+                printDivider();
+            } else if (input.startsWith("unmark ")){
+                //extract the input number
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                // retrieve the specific task from the arraylist
+                Task specificTask = list.get(index);
+                // mark the task as undone
+                specificTask.unmarkTask();
+                printDivider();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
+                printDivider();
             } else {
                 // echo the input back to the user
-                System.out.println("____________________________________________________________");
+                printDivider();
                 System.out.println("added: " + input);
                 list.add(new Task(input));
-                System.out.println("____________________________________________________________");
-
+                printDivider();
             }
         }
 
