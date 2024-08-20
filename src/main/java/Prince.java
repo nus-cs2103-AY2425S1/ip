@@ -26,9 +26,6 @@ public class Prince {
             if (!input.equals("bye") && !input.equals("list")
                     && !input.contains("mark") && !input.contains("unmark")) {
 
-                System.out.println("    added: " + input);
-                printline();
-
                 // create a new task
                 Task task = new Task(input);
                 // get task id to add into array
@@ -36,6 +33,8 @@ public class Prince {
                 // add the task to the arraylist
                 tasksArray[taskID] = task;
 
+                System.out.println("    added: " + input);
+                printline();
             } else if (input.equals("list")) {
 
                 int length = tasksArray.length;
@@ -56,16 +55,13 @@ public class Prince {
                 }
 
                 printline();
-
             } else if (input.contains("unmark")) {
 
                 // extra check to make sure the start of input is "unmark"
                 String checkMark = input.substring(0, 6);
                 if (checkMark.equals("unmark")) {
-                    // get input of index
-                    String indexAsString = input.substring(7);
-                    // convert to arr index
-                    int index = Integer.valueOf(indexAsString) - 1;
+                    // get index of input
+                    int index = getIndex(input);
                     // mark task as undone
                     Task task = tasksArray[index];
                     task.markAsNotDone();
@@ -74,15 +70,12 @@ public class Prince {
                 }
 
                 printline();
-
             } else if (input.contains("mark")) {
 
                 String checkMark = input.substring(0, 4);
                 if (checkMark.equals("mark")) {
-                    // get input of index
-                    String indexAsString = input.substring(5);
-                    // convert to arr index
-                    int index = Integer.valueOf(indexAsString) - 1;
+                    // get index of input
+                    int index = getIndex(input);
                     // mark task as undone
                     Task task = tasksArray[index];
                     task.markAsDone();
@@ -91,7 +84,6 @@ public class Prince {
                 }
 
                 printline();
-
             } else {
                 TOGGLER = false;
             }
@@ -105,5 +97,24 @@ public class Prince {
 
     private static void printline() {
         System.out.println(LINE);
+    }
+
+    private static int getIndex(String input) {
+        if (input.contains("unmark")) {
+            // get character value of index in the input
+            String indexAsString = input.substring(7);
+            // convert to arr index
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else if (input.contains("mark")) {
+            // get character value of index in input
+            String indexAsString = input.substring(5);
+            // convert to arr index
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else {
+            // should not reach here
+            return -1;
+        }
     }
 }
