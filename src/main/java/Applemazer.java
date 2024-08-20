@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Applemazer {
-    Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
     static ArrayList<Task> tasks = new ArrayList<>();
 
     private static class Task {
@@ -98,74 +98,134 @@ public class Applemazer {
         System.out.println(farewell);
     }
 
+    private void handleMarking(boolean shouldBeDone) {
+        try {
+            int taskNumber = Integer.parseInt(sc.nextLine().trim())-1; // Will throw error if non-integer or no input.
+            Task task = tasks.get(taskNumber);
+
+            if (shouldBeDone) {
+                task.setDone();
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println("    " + task.getStatusIcon() + task + "\n");
+            } else {
+                task.setUndone();
+                System.out.println("OK, I've marked this task as not done yet: ");
+                System.out.println("    " + task.getStatusIcon() + task + "\n");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            if (tasks.isEmpty()) {
+                System.out.println("You have no tasks to mark. ");
+            } else {
+                int size = tasks.size();
+                String message = String.format("""
+                                               You currently have %d tasks.
+                                               Please enter a number between 1 and %d.
+                                               """, size, size);
+                System.out.println(message);
+            }
+        } catch (Exception e) {
+            System.out.println("""
+                               OOPS!!! You either have a non-integer input or no input at all.
+                               Try 'mark <task number>'.
+                               """);
+        }
+    }
+
     private void process() {
         boolean processing = true;
         Task task;
-        int taskNumber;
         String[] split;
         while (processing) {
             if (!sc.hasNext()) { break; } // For automated testing of text UIs.
             String command = sc.next();
             switch (command) {
                 case "bye" :
-                    processing = false;
+                    try {
+                        command = sc.nextLine().trim();
+                        if (!command.isEmpty()) {
+                            throw new Exception("OOPS!!! The description of bye should be empty. ");
+                        }
+                        processing = false;
+                    } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                    }
                     break;
                 case "list" :
-                    System.out.println("Here are the tasks in your list: ");
-                    for (int i = 0; i < tasks.size(); ++i) {
-                        task = tasks.get(i);
-                        System.out.println((i+1) + "." + task.getStatusIcon() + task);
+                    try {
+                        command = sc.nextLine().trim();
+                        if (!command.isEmpty()) {
+                            throw new Exception("OOPS!!! The description of list should be empty. ");
+                        }
+                        System.out.println("Here are the tasks in your list: ");
+                        for (int i = 0; i < tasks.size(); ++i) {
+                            task = tasks.get(i);
+                            System.out.println((i+1) + "." + task.getStatusIcon() + task);
+                        }
+                        System.out.println(); // Leave empty line.
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
-                    System.out.println(); // Leave empty line.
                     break;
                 case "mark" :
-                    taskNumber = sc.nextInt()-1;
-                    assert taskNumber < tasks.size(): "Index exceeds number of tasks. ";
-                    task = tasks.get(taskNumber);
-                    task.setDone();
-                    System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    handleMarking(true);
                     break;
                 case "unmark" :
-                    taskNumber = sc.nextInt()-1;
-                    assert taskNumber < tasks.size(): "Index exceeds number of tasks. ";
-                    task = tasks.get(taskNumber);
-                    task.setUndone();
-                    System.out.println("OK, I've marked this task as not done yet: ");
-                    System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    handleMarking(false);
                     break;
                 case "todo" :
-                    command = sc.nextLine();
-                    task = new Todo(command);
-                    tasks.add(task);
-                    task.printTaskAddedMessage();
+                    try {
+                        command = sc.nextLine().trim();
+                        if (command.isEmpty()) {
+                            throw new Exception("""
+                                                OOPS!!! The description of a todo cannot be empty.
+                                                Try todo <description>.
+                                                """);
+                        }
+
+                        task = new Todo(command);
+                        tasks.add(task);
+                        task.printTaskAddedMessage();
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "deadline" :
-                    split = sc.nextLine().split("/by");
-                    for (int i = 0; i < split.length; ++i) {
-                        split[i] = split[i].trim();
+                    try {
+                        split = sc.nextLine().split("/by");
+                        for (int i = 0; i < split.length; ++i) {
+                            split[i] = split[i].trim();
+                        }
+                        task = new Deadline(split[0], split[1]);
+                        tasks.add(task);
+                        task.printTaskAddedMessage();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("""
+                                           OOPS!!! The description of deadline is wrong.
+                                           Try 'deadline <description> /by <date>'.
+                                           """);
                     }
-                    task = new Deadline(split[0], split[1]);
-                    tasks.add(task);
-                    task.printTaskAddedMessage();
                     break;
                 case "event" :
-                    split = sc.nextLine().split("/from | /to ");
-                    for (int i = 0; i < split.length; ++i) {
-                        split[i] = split[i].trim();
+                    try {
+                        split = sc.nextLine().split("/from | /to ");
+                        for (int i = 0; i < split.length; ++i) {
+                            split[i] = split[i].trim();
+                        }
+                        task = new Event(split[0], split[1], split[2]);
+                        tasks.add(task);
+                        task.printTaskAddedMessage();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("""
+                                           OOPS!!! The description of event is wrong.
+                                           Try 'event <description> /from <date1> /to <date2>'.
+                                           """);
                     }
-                    task = new Event(split[0], split[1], split[2]);
-                    tasks.add(task);
-                    task.printTaskAddedMessage();
                     break;
                 default:
-                    command += sc.nextLine(); // Get rest of line if first word not valid command.
-                    task = new Task(command);
-                    tasks.add(task);
-                    task.printTaskAddedMessage();
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
             }
         }
-
         sc.close();
     }
 
