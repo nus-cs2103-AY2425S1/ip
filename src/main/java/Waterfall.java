@@ -17,30 +17,34 @@ public class Waterfall {
         int num = 0;
         System.out.println(welcomeMessage);
         Scanner userInput = new Scanner(System.in);
-        while (true) {
+        boolean completed = false;
+        while (!completed) {
             String nextInput = userInput.nextLine();
-            if (nextInput.equals("bye")) {
-                break;
-            } else if (nextInput.equals("list")) {
-                System.out.println("___________________________________________________________".indent(indentSpace));
-                for (int i = 0; i < num; i++) {
-                    if (taskList[i] != null) {
-                        String taskString = (Integer.toString(i + 1) + ". " + taskList[i]).indent(indentSpace + 1);
-                        System.out.println(taskString);
-                    } else {
-                        break;
+            switch (nextInput) {
+                case "bye":
+                    System.out.println(byeMessage);
+                    completed = true;
+                    break;
+                case "list":
+                    System.out.println(" ".repeat(indentSpace) + "___________________________________________________________");
+                    for (int i = 0; i < num; i++) {
+                        if (taskList[i] != null) {
+                            String taskString = " ".repeat(indentSpace + 1) + Integer.toString(i + 1) + ". " + taskList[i];
+                            System.out.println(taskString);
+                        } else {
+                            break;
+                        }
                     }
-                }
-                System.out.println("____________________________________________________________".indent(indentSpace));
-            } else {
-                String echoString = ("____________________________________________________________\n"
-                + "added: " + nextInput + "\n"
-                + "____________________________________________________________\n").indent(indentSpace);
-                taskList[num] = nextInput;
-                num++;
-                System.out.println(echoString);
+                    System.out.println("____________________________________________________________".indent(indentSpace));
+                    break;
+                default:
+                    String echoString = ("____________________________________________________________\n"
+                            + "added: " + nextInput + "\n"
+                            + "____________________________________________________________\n").indent(indentSpace);
+                    taskList[num] = nextInput;
+                    num++;
+                    System.out.println(echoString);
             }
         }
-        System.out.println(byeMessage);
     }
 }
