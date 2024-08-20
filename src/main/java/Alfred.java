@@ -9,7 +9,7 @@ public class Alfred {
         // Create a Scanner Object
         Scanner in = new Scanner(System.in);
 
-        // List to store text entered by used
+        // List to store tasks
         lis = new ArrayList<>();
 
         // Greet user
@@ -18,35 +18,22 @@ public class Alfred {
         // Echo user input
         String input = in.nextLine();
         while (!input.equals("bye")) {
+            String command = getCommand(input);
+
             if (input.equals("list")) {
                 printList();
-            } else if (isMarkCommand(input)) {
-                int taskNumber = getTaskNumberFromInput(input);
-                Task task = lis.get(taskNumber - 1);
-
-                task.markAsDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("Indeed, Sir, the task has been duly completed:");
-                System.out.println("    " + task);
-                System.out.println("____________________________________________________________");
-
-            } else if (isUnmarkCommand(input)) {
-                int taskNumber = getTaskNumberFromInput(input);
-                Task task = lis.get(taskNumber - 1);
-
-                task.unmark();
-                System.out.println("____________________________________________________________");
-                System.out.println("Very well, Sir, the task remains outstanding:");
-                System.out.println("    " + task);
-                System.out.println("A reminder that even small tasks deserve attention.");
-                System.out.println("____________________________________________________________");
-
-            } else {
-                Task task = new Task(input);
+            } else if (command.equals("mark")) {
+                markCommand(input);
+            } else if (command.equals("unmark")) {
+                unmarkCommand(input);
+            } else if (Task.isTaskCommand(input)){
+                Task task = Task.initialise(input);
                 lis.add(task);
-
-                printAddedMessage(input);
+                printAddedTaskMessage(task);
+            } else {
+                invalidCommand();
             }
+
             input = in.nextLine();
         }
         farewell();
@@ -65,9 +52,9 @@ public class Alfred {
         System.out.println("____________________________________________________________");
     }
 
-    public static void printAddedMessage(String input) {
+    public static void invalidCommand() {
         System.out.println("____________________________________________________________");
-        System.out.println("added: " + input);
+        System.out.println("Terribly sorry Sir, I have no idea what you are saying.");
         System.out.println("____________________________________________________________");
     }
 
@@ -81,24 +68,45 @@ public class Alfred {
         System.out.println("____________________________________________________________");
     }
 
-    public static boolean isMarkCommand(String input) {
-        String[] parts = input.split(" ");
-        if (parts.length != 2) {
-            return false;
-        }
-        return parts[0].equals("mark");
-    }
-
-    public static boolean isUnmarkCommand(String input) {
-        String[] parts = input.split(" ");
-        if (parts.length != 2) {
-            return false;
-        }
-        return parts[0].equals("unmark");
-    }
-
     public static int getTaskNumberFromInput(String input) {
         String[] parts = input.split(" ");
         return Integer.parseInt(parts[1]);
+    }
+
+    public static String getCommand(String input) {
+        return input.split(" ")[0];
+    }
+
+    public static void markCommand(String input) {
+        String[] parts = input.split(" ");
+
+        int taskNumber = getTaskNumberFromInput(input);
+        Task task = lis.get(taskNumber - 1);
+        task.markAsDone();
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Indeed, Sir, the task has been duly completed:");
+        System.out.println("    " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void unmarkCommand(String input) {
+        int taskNumber = getTaskNumberFromInput(input);
+        Task task = lis.get(taskNumber - 1);
+
+        task.unmark();
+        System.out.println("____________________________________________________________");
+        System.out.println("Very well, Sir, the task remains outstanding:");
+        System.out.println("    " + task);
+        System.out.println("A reminder that even small tasks deserve attention.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void printAddedTaskMessage(Task task) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + task);
+        System.out.println("Now you have " + lis.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
 }
