@@ -1,6 +1,6 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected boolean isDone = false;
 
     public Task(String desc) {
         description = desc;
@@ -14,11 +14,12 @@ public class Task {
         isDone = false;
     }
 
+    @Override
     public String toString() {
         if (isDone) {
-            return "[X] " + this.toString();
+            return "[X] " + description;
         } else {
-            return "[ ] " + this.toString();
+            return "[ ] " + description;
         }
     }
 
