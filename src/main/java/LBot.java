@@ -8,12 +8,15 @@ public class LBot {
         Scanner scanner = new Scanner(System.in);
         System.out.println(greeting);
         String userInput = "";
-        while (!userInput.equals("bye")){
+        while (true){
             userInput = scanner.nextLine();
             if (!userInput.equals("bye")){
                 System.out.println(userInput);
+            }else{
+                System.out.println(exitMsg);
+                break;
             }
         }
-        System.out.println(exitMsg);
+        scanner.close();
     }
 }
