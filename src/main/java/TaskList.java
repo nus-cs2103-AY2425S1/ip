@@ -11,6 +11,11 @@ public class TaskList {
         this.listOfTasks.add(task);
     }
 
+    public Task number(int index) {
+        if (listOfTasks.isEmpty()) return null;
+        return this.listOfTasks.get(index);
+    }
+
     public void finish(int index) {
         listOfTasks.get(index).finish();
     }
