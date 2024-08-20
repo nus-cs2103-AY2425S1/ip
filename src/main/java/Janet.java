@@ -125,4 +125,16 @@ public class Janet {
         desiredTask.setDone(false);
         return horizontalLine + "\nOK, I've marked this task as not done yet:\n" + String.format("  %s", desiredTask) + "\n" + horizontalLine;
     }
+
+
+    /**
+     * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
+     * @return a String message to indicate successful deletion of the desired task from listOfTasks.
+     */
+    public String deleteTask(int desiredTaskNum) {
+        taskIndex--;
+        Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
+        listOfTasks.remove(desiredTask);
+        return horizontalLine + "\nNoted. I've removed this task:\n" + String.format("    %s\nNow you have %d tasks in your list", desiredTask, taskIndex) + horizontalLine;
+    }
 }
