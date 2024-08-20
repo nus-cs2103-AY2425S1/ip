@@ -132,37 +132,50 @@ public class Parser {
         try{
             while(true) {
                 String str = sc.nextLine();
-                if (str.equalsIgnoreCase("bye")) {
-                    end();
-                    break;
-                } else if (str.isEmpty()) {
-                    ui.empty();
-                } else if (str.equalsIgnoreCase("list")) {
-                    store.output();
-                } else if (str.startsWith("todo")) {
-                    handleToDo(str);
-                } else if (str.startsWith("deadline")) {
-                    handleDeadline(str);
-                } else if (str.startsWith("event")) {
-                    handleEvent(str);
-                } else if (str.startsWith("mark")) {
-                    store.mark(str);
-                } else if (str.startsWith("unmark")) {
-                    store.unmark(str);
-                } else if (str.startsWith("delete")) {
-                    store.delete(str);
-                } else if (str.startsWith("find")) {
-                    store.find(str);
-                } else {
-                    throw new InvalidInputException("Whoopsie! I am unable to understand your request!");
+                String command = str.split(" ")[0];
+                Case cases = Case.getCase(command);
+
+                switch(cases) {
+                    case BYE:
+                        end();
+                        break;
+                    case LIST:
+                        store.output();
+                        break;
+                    case TODO:
+                        handleToDo(str);
+                        break;
+                    case DEADLINE:
+                        handleDeadline(str);
+                        break;
+                    case EVENT:
+                        handleEvent(str);
+                        break;
+                    case MARK:
+                        store.mark(str);
+                        break;
+                    case UNMARK:
+                        store.unmark(str);
+                        break;
+                    case DELETE:
+                        store.delete(str);
+                        break;
+                    case FIND:
+                        store.find(str);
+                        break;
+                    case ERROR:
+                    default:
+                        throw new InvalidInputException("Whoopsie! I am unable to understand your request!");
                 }
+                
             }
         } catch (InvalidTaskException | InvalidInputException e) {
             System.out.println(e.getMessage());
 
-
+        } finally {
+            sc.close();
         }
-        sc.close();
+
 
 
     }
