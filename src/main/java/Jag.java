@@ -163,6 +163,30 @@ public class Jag {
                 }
             }
 
+            if (answer.length() >= 6) {
+                String delete = answer.substring(0, 6);
+                char marker = answer.charAt(answer.length() - 1);
+                int index = 0;
+
+                if (Character.isDigit(marker)) {
+                    index = Integer.parseInt(Character.toString(marker));
+                }
+
+                if (delete.equals("delete")) {
+                    Task task = tasks.get(index - 1);
+
+                    System.out.println(dashed);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(task.toString());
+                    tasks.remove(index - 1);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(dashed);
+
+                    answer = scanner.nextLine();
+                    continue;
+                }
+            }
+
             // Wrong command
             else {
                 System.out.println(dashed);
