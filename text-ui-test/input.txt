@@ -1,1 +1,13 @@
+list
+FunnyInput
+add Event 2103 Tutorial
+Tomorrow 12pm
+Tomorrow 1pm
+mark 2
+mark 1
+mark 1
+unmark 1
+delete 2
+list
+delete 1
 bye

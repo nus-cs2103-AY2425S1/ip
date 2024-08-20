@@ -52,7 +52,7 @@ public class Quack {
         String startDate = "";
         String endDate = "";
 
-        if (!taskType.equals("todo") && !taskType.equals("event") && !taskType.equals("deadling")) {
+        if (!taskType.equals("todo") && !taskType.equals("event") && !taskType.equals("deadline")) {
             throw new InvalidTaskTypeException(taskType);
         }
 
@@ -104,7 +104,7 @@ public class Quack {
                 if (inputArr.length < 2) {
                     throw new InvalidInputException("Invalid syntax to add a task, try: " + command + " <index of the task>!");
                 }
-                
+
                 try {
                     this.toDoList.updateTask(Integer.valueOf(inputArr[1]) - 1, command);
                 } catch (InvalidIndexException indexErr) {

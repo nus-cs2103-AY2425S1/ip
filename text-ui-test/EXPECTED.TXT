@@ -10,5 +10,44 @@ Hello! I'm Quack
 What can I do for you?
 --------------------------------------------------
 --------------------------------------------------
+The list is empty, why not add something!
+--------------------------------------------------
+--------------------------------------------------
+There is no such function as funnyinput, please try again.
+--------------------------------------------------
+--------------------------------------------------
+When does this event start?
+When is this task due?
+Alright I have added this task into the list: 
+[E][ ] 2103 Tutorial(From: Tomorrow 12pm To: Tomorrow 1pm)
+You now have 1 tasks in your list right now!
+--------------------------------------------------
+--------------------------------------------------
+I cannot access the task at index 2 is out of bounds!!
+--------------------------------------------------
+--------------------------------------------------
+Nice! I've marked this task as done:
+[E][X] 2103 Tutorial(From: Tomorrow 12pm To: Tomorrow 1pm)
+--------------------------------------------------
+--------------------------------------------------
+This task is already marked as done!
+[E][X] 2103 Tutorial(From: Tomorrow 12pm To: Tomorrow 1pm)
+--------------------------------------------------
+--------------------------------------------------
+OK, I've marked this task as not done yet:
+[E][ ] 2103 Tutorial(From: Tomorrow 12pm To: Tomorrow 1pm)
+--------------------------------------------------
+--------------------------------------------------
+I cannot access the task at index 2 is out of bounds!!
+--------------------------------------------------
+--------------------------------------------------
+1. [E][ ] 2103 Tutorial(From: Tomorrow 12pm To: Tomorrow 1pm)
+--------------------------------------------------
+--------------------------------------------------
+Alright I have removed this task into the list: 
+[E][ ] 2103 Tutorial(From: Tomorrow 12pm To: Tomorrow 1pm)
+You now have 0 tasks in your list right now!
+--------------------------------------------------
+--------------------------------------------------
 Bye. Hope to see you again soon!
 --------------------------------------------------
