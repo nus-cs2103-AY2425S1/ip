@@ -2,8 +2,36 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Applemazer {
+
+    private static class Task {
+        private final String description;
+        private boolean isDone;
+
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+        }
+
+        public String getStatusIcon() {
+            return isDone ? "[X] " : "[ ] ";
+        }
+
+        public void setDone() {
+            isDone = true;
+        }
+
+        public void setUndone() {
+            isDone = false;
+        }
+
+        @Override
+        public String toString() {
+            return description;
+        }
+    }
+
     Scanner sc = new Scanner(System.in);
-    ArrayList<String> items = new ArrayList<>();
+    ArrayList<Task> tasks = new ArrayList<>();
 
     private void greeting() {
         String greeting = "Hello! I'm Applemazer.\nWhat can I do for you?\n";
@@ -17,22 +45,41 @@ public class Applemazer {
 
     private void process() {
         boolean processing = true;
+        Task task;
+        int taskNumber;
         while (processing) {
-            String command = sc.nextLine();
-
+            String command = sc.next();
             switch (command) {
                 case "bye" :
                     processing = false;
                     break;
                 case "list" :
-                    for (int i = 0; i < items.size(); ++i) {
-                        System.out.println((i+1) + ". " + items.get(i));
+                    for (int i = 0; i < tasks.size(); ++i) {
+                        System.out.println((i+1) + ". " + tasks.get(i));
                     }
                     System.out.println(); // Leave empty line.
                     break;
+                case "mark" :
+                    taskNumber = sc.nextInt()-1;
+                    assert taskNumber < tasks.size(): "Index exceeds number of tasks. ";
+                    task = tasks.get(taskNumber);
+                    task.setDone();
+                    System.out.println("Nice! I've marked this task as done: ");
+                    System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    break;
+                case "unmark" :
+                    taskNumber = sc.nextInt()-1;
+                    assert taskNumber < tasks.size(): "Index exceeds number of tasks. ";
+                    task = tasks.get(taskNumber);
+                    task.setUndone();
+                    System.out.println("OK, I've marked this task as not done yet: ");
+                    System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    break;
                 default:
-                    items.add(command);
-                    System.out.println("added: " + command + "\n");
+                    command += sc.nextLine(); // Get rest of line if first word not valid command.
+                    task = new Task(command);
+                    tasks.add(task);
+                    System.out.println("added: " + task + "\n");
             }
         }
     }
