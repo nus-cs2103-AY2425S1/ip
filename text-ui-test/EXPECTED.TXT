@@ -13,26 +13,26 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Pi-ka-pipi! I've added this task:
- [D][ ] task3  (by: 6pm)
+ [D][ ] task3 (by: 6pm)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Pi-ka-pipi! I've added this task:
- [D][ ] task4  (by: 9pm)
+ [D][ ] task4 (by: 9pm)
 Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Pi-ka-pipi! I've added this task:
- [E][ ] task5  (from: now  to: later)
+ [E][ ] task5 (from: now to: later)
 Now you have 5 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Pi-ka-pipi! I've added this task:
- [E][ ] task6  (from: later  to: 9pm)
+ [E][ ] task6 (from: later to: 9pm)
 Now you have 6 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Pi-ka..?? What do you want todo..?
+Pi-ka..?? What is the task..?
 ____________________________________________________________
 ____________________________________________________________
 Pi-ka..?? What is the task..?
@@ -48,23 +48,23 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] task1
 2.[T][X] task2
-3.[D][ ] task3  (by: 6pm)
-4.[D][ ] task4  (by: 9pm)
-5.[E][ ] task5  (from: now  to: later)
-6.[E][ ] task6  (from: later  to: 9pm)
+3.[D][ ] task3 (by: 6pm)
+4.[D][ ] task4 (by: 9pm)
+5.[E][ ] task5 (from: now to: later)
+6.[E][ ] task6 (from: later to: 9pm)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[E][X] task5  (from: now  to: later)
+[E][X] task5 (from: now to: later)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] task1
 2.[T][X] task2
-3.[D][ ] task3  (by: 6pm)
-4.[D][ ] task4  (by: 9pm)
-5.[E][X] task5  (from: now  to: later)
-6.[E][ ] task6  (from: later  to: 9pm)
+3.[D][ ] task3 (by: 6pm)
+4.[D][ ] task4 (by: 9pm)
+5.[E][X] task5 (from: now to: later)
+6.[E][ ] task6 (from: later to: 9pm)
 ____________________________________________________________
 ____________________________________________________________
 Okie, I've unmarked this task as not done yet:
@@ -75,16 +75,16 @@ Pi-ka..?? Task does not exist..
 ____________________________________________________________
 ____________________________________________________________
 Pipi-ka-pi! I've removed this task:
- [E][ ] task6  (from: later  to: 9pm)
+ [E][ ] task6 (from: later to: 9pm)
 Now you have 5 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] task1
-2.[D][ ] task3  (by: 6pm)
-3.[D][ ] task4  (by: 9pm)
-4.[E][X] task5  (from: now  to: later)
-5.[E][ ] task6  (from: later  to: 9pm)
+2.[D][ ] task3 (by: 6pm)
+3.[D][ ] task4 (by: 9pm)
+4.[E][X] task5 (from: now to: later)
+5.[E][ ] task6 (from: later to: 9pm)
 ____________________________________________________________
 ____________________________________________________________
 Pi-kapi! See you again~
