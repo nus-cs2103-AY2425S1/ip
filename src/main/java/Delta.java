@@ -29,6 +29,7 @@ public class Delta {
             String phrase = sc.nextLine();
             if (phrase.equals("bye")) {
                 System.out.println(sayBye());
+                break;
             } else {
                 System.out.println(echo(phrase));
             }
