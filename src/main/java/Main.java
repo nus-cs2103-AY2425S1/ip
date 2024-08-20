@@ -60,11 +60,15 @@ public class Main {
                         // get the todo description and create a new Todo object
                         String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
                         String todoDescription = String.join(" ", todoItem);
-                        Task task = new ToDo(todoDescription, "T");
-                        String addTaskSuccess = janet.addTaskToList(task);
+                        Task todo = new ToDo(todoDescription, "T");
+                        String addTaskSuccess = janet.addTaskToList(todo);
                         System.out.println(addTaskSuccess);
                     } else if (commandDetails[0].equals("deadline")) {
-                        continue;
+                        // get the details of the deadline task and create a new Deadline object
+                        String[] deadlineDetails = findDeadlineDetails(commandDetails);
+                        Task deadline = new Deadline(deadlineDetails[0], "D", deadlineDetails[1]);
+                        String addTaskSuccess = janet.addTaskToList(deadline);
+                        System.out.println(addTaskSuccess);
                     } else if (commandDetails[0].equals("event")) {
                         continue;
                     }
