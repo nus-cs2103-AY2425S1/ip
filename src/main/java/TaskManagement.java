@@ -16,11 +16,13 @@ public class TaskManagement {
 		this.length++;
 	}
 
-	public void remove(int id) {
+	public Task remove(int id) {
+		Task t = this.findTaskById(id).get(); 
 		this.tasks = this.tasks.stream()
 								.filter(task -> !task.getId().equals(id))
 								.toList();
 		this.length--;
+		return t;
 	}
 
 	public String getPrintTasks() {

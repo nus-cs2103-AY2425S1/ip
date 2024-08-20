@@ -22,7 +22,8 @@ public class Config {
 		new Command("list", "Lists down your current tasks."),
 		new Command("mark <taskNumber>", "Checks the task with taskNumber as done."),
 		new Command("unmark <taskNumber>", "Checks the task with taskNumber as undone."),
-		new Command("bye", "Exits the program.")
+		new Command("bye", "Exits the program."),
+		new Command("delete <taskNumber>", "Deletes the task with taskNumber.")
 	));
 
 	public static String makeCommandMessage(List<Command> cmds) {

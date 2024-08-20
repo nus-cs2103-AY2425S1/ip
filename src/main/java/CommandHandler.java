@@ -18,6 +18,8 @@ public class CommandHandler {
 						command.startsWith("deadline") || 
 						command.startsWith("event")) {
 				handleAddTask(command);
+			} else if (command.startsWith("delete")) {
+				handleDeleteTask(command);
 			} else {
 				throw new Exception("Unknown message :(. Please see below for the list of available commands:\n\n" + Config.commands);
 
@@ -53,6 +55,17 @@ public class CommandHandler {
         tm.findTaskById(id).ifPresent(t -> res.append("\n" + Config.INDENTATION + "  " + t.toString()));
         Utils.printItem(res.toString());
     }
+
+	private void handleDeleteTask(String command) throws Exception {
+		String[] parts = command.split(" ");
+		if (parts.length != 2) {
+			throw new Exception("Invalid command. Usage: delete <id>");
+		}
+
+		int id = Integer.parseInt(parts[1]);
+		Task t = tm.remove(id);
+		printAfterEditList("Noted. I've removed this task:", t);
+	}
 
     private void handleAddTask(String task) throws Exception {
 		String[] parts = task.split(" ");
@@ -114,12 +127,18 @@ public class CommandHandler {
 		}
 
 		tm.add(t);
+	    printAfterEditList("Got it. I've added the following task:", t);	
+    }
+	
+	private void printAfterEditList(String message, Task t) {
 		StringBuilder res = new StringBuilder();
-		res.append("Got it. I've added this task:");
+        res.append(message);
 		res.append("\n  " + Config.INDENTATION + t.toString());
 		String taskString = tm.length == 1 ? "task" : "tasks";
 		res.append("\n" + Config.INDENTATION + "Now you have " + tm.length + " " + taskString + " in the list.");
 
-		Utils.printItem(res.toString());
-    }
+        Utils.printItem(res.toString());
+
+	}
+	
 }	
