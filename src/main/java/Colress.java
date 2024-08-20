@@ -13,6 +13,7 @@ public class Colress {
     private static String addCommand = "add";
     private static String checkCommand = "check";
     private static String uncheckCommand = "uncheck";
+    private static String deleteCommand = "delete";
     private static String listCommand = "list";
     private static String exitCommand = "bye";
     public static void print(String s) {
@@ -30,22 +31,24 @@ public class Colress {
                 if (Colress.input.equals(addCommand)) {
                     Colress.addTask();
                 } else if (Colress.input.equals(checkCommand)) {
-                    Colress.editTask("check");
+                    Colress.editList("check");
                 } else if (Colress.input.equals(uncheckCommand)) {
-                    Colress.editTask("uncheck");
+                    Colress.editList("uncheck");
+                } else if (Colress.input.equals(deleteCommand)) {
+                    Colress.editList("delete");
                 } else if (Colress.input.equals(listCommand)) {
                     Colress.print(Colress.printList());
                 } else {
                     throw new UnknownCommandException();
                 }
-            } catch (UnknownCommandException | UnknownTaskTypeException e) {
+            } catch (UnknownCommandException e) {
                 print(String.valueOf(e));
             }
             Colress.getInput();
         }
     }
 
-    public static void addTask() throws UnknownTaskTypeException {
+    public static void addTask() {
 
         Task currTask = null;
         String description;
@@ -108,7 +111,7 @@ public class Colress {
 
     }
 
-    public static void editTask(String action) throws UnknownCommandException {
+    public static void editList(String action) throws UnknownCommandException {
         if (Colress.taskList.isEmpty()) {
             Colress.print(Colress.listEmptyMessage);
         } else {
@@ -135,6 +138,10 @@ public class Colress {
                     currTask.uncheck();
                     Colress.print("Right. I have marked this task on your list as not done:\n"
                             + index + "." + currTask);
+                    break;
+                case "delete":
+                    taskList.remove(index - 1);
+                    Colress.print("Got it. I have removed the task from your list\n" + printList());
                     break;
                 default:
                     throw new UnknownCommandException();
