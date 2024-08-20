@@ -1,7 +1,98 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+-------------------------------------------
+Powering up...
+System booted successfully.
+YapBot online.
+-------------------------------------------
+
+
+-------------------------------------------
+Adding Task...
+Success
+Task Added:
+  [T][ ] find nemo
+Total tasks: 1
+-------------------------------------------
+
+
+-------------------------------------------
+Adding Task...
+Success
+Task Added:
+  [D][ ] find dory (by: 10pm)
+Total tasks: 2
+-------------------------------------------
+
+
+-------------------------------------------
+Adding Task...
+Success
+Task Added:
+  [E][ ] celebrate birthday (From: Monday 5pm To: Tuesday 11pm)
+Total tasks: 3
+-------------------------------------------
+
+
+-------------------------------------------
+Retrieving Tasks...
+Success
+Current Tasks:
+  1.[T][ ] find nemo
+  2.[D][ ] find dory (by: 10pm)
+  3.[E][ ] celebrate birthday (From: Monday 5pm To: Tuesday 11pm)
+-------------------------------------------
+
+
+-------------------------------------------
+Finding Task...
+Success
+Task Completed:
+[T][X] find nemo
+-------------------------------------------
+
+
+-------------------------------------------
+Finding Task...
+Success
+Task Completed:
+[D][X] find dory (by: 10pm)
+-------------------------------------------
+
+
+-------------------------------------------
+Retrieving Tasks...
+Success
+Current Tasks:
+  1.[T][X] find nemo
+  2.[D][X] find dory (by: 10pm)
+  3.[E][ ] celebrate birthday (From: Monday 5pm To: Tuesday 11pm)
+-------------------------------------------
+
+
+-------------------------------------------
+Finding Task...
+Success
+Task Incomplete:
+[T][ ] find nemo
+-------------------------------------------
+
+
+-------------------------------------------
+Finding Task...
+Failure
+Error, requested Task does not exist.
+-------------------------------------------
+
+
+-------------------------------------------
+Adding Task...
+Failure
+Invalid Task Type: fakeevent
+-------------------------------------------
+
+
+-------------------------------------------
+Shutting down...
+YapBot process terminated.
+-------------------------------------------
 

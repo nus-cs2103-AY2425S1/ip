@@ -1,0 +1,11 @@
+todo find nemo
+deadline find dory /by 10pm
+event celebrate birthday /from Monday 5pm /to Tuesday 11pm
+list
+mark 1
+mark 2
+list
+unmark 1
+mark 0
+fakeevent commit crime
+bye
