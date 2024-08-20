@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Sentinel {
 
     /**
@@ -25,9 +27,23 @@ public class Sentinel {
         System.out.println(message);
     }
 
+    /**
+     * Makes Sentinel echo a message until a bye command is received
+     */
+    public void echo() {
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine();
+        while (!userInput.equals("bye")) {
+            say(userInput);
+            userInput = scanner.nextLine();
+        }
+    }
+
     public static void main(String[] args) {
         Sentinel mySentinel = new Sentinel();
         mySentinel.greet();
+        mySentinel.echo();
         mySentinel.goodbye();
     }
 }
