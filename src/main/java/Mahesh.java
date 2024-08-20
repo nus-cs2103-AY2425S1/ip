@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.NoSuchElementException;
@@ -14,8 +15,7 @@ public class Mahesh {
   + "#     # #    # #    # ######  ####  #    #    ######  #    # ###### ######         ###### \n";
     private static String DIVIDER = "-------------------------------------------------------";
     private static String INCOMPLETE_COMMAND_ERR = "The command is incomplete/incorrect. Please refer to the below usage for this command.";
-    private static int LIST_CAPACITY = 100;
-    private static Task[] list = new Task[LIST_CAPACITY];
+    private static ArrayList<Task> list = new ArrayList<>();
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -47,7 +47,7 @@ public class Mahesh {
                     exit = true;
                     break;
                 case "mark":
-                    task = list[Integer.parseInt(tokenizedInput.nextToken()) - 1];
+                    task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
                     if (task == null) {
                         System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
                         System.out.println("Use the \"list\" command to view all your tasks.");
@@ -58,7 +58,7 @@ public class Mahesh {
                     System.out.println("  " + task);
                     break;
                 case "unmark":
-                    task = list[Integer.parseInt(tokenizedInput.nextToken()) - 1];
+                    task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
                     if (task == null) {
                         System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
                         System.out.println("Use the \"list\" command to view all your tasks.");
@@ -74,8 +74,6 @@ public class Mahesh {
                     } catch (NoSuchElementException err) {
                         System.out.println(INCOMPLETE_COMMAND_ERR);
                         System.out.println("todo task_description");
-                    } catch (MaheshException err) {
-                        System.out.println(err.getMessage());
                     }
                     break;
                 case "deadline":
@@ -84,8 +82,6 @@ public class Mahesh {
                     } catch (NoSuchElementException err) {
                         System.out.println(INCOMPLETE_COMMAND_ERR);
                         System.out.println("deadline task_description /by task_deadline");
-                    } catch (MaheshException err) {
-                        System.out.println(err.getMessage());
                     }
                     break;
                 case "event": 
@@ -94,8 +90,6 @@ public class Mahesh {
                     } catch (NoSuchElementException err) {
                         System.out.println(INCOMPLETE_COMMAND_ERR);
                         System.out.println("event task_description /from event_start /to event_end");
-                    } catch (MaheshException err) {
-                        System.out.println(err.getMessage());
                     }
                     break;
                 default:
@@ -110,11 +104,9 @@ public class Mahesh {
         scan.close();
     }
 
-    private static void addToList(Task task) throws MaheshException {
-        if (taskCount == Mahesh.LIST_CAPACITY) {
-            throw new MaheshException("Task list is full!");
-        } 
-        Mahesh.list[taskCount++] = task;
+    private static void addToList(Task task) {
+        Mahesh.list.add(task);
+        Mahesh.taskCount++;
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
