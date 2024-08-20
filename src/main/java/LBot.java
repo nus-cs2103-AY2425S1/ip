@@ -17,6 +17,7 @@ public class LBot {
                 Commands:
                 1. Add task
                 2. List tasks
+                3. Mark tasks as complete
              */
             String command = userInput.split("\\s+")[0];
             switch (command) {
@@ -26,18 +27,34 @@ public class LBot {
                     System.exit(0);
                     break;
                 case "add":
-                    // get details of task, removes command
-                    String taskName = userInput.substring(command.length() + 1);
                     try {
+                        // get details of task, removes command
+                        String taskName = userInput.substring(command.length() + 1);
                         taskList.add(new Task(taskName));
-                        System.out.println("Successfully added task: " + taskList.get(taskList.size() - 1));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println("Successfully added task: " + taskName);
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Please specify task name.");
                     }
                     break;
                 case "list":
+                    if (taskList.isEmpty()) {
+                        System.out.println("No tasks found");
+                        break;
+                    }
+                    System.out.println("Task List:");
                     for (int i = 1; i < taskList.size() + 1; i++) {
-                        System.out.println(i + ": " + taskList.get(i - 1).toString());
+                        System.out.println("\t" + i + ": " + taskList.get(i - 1).toString());
+                    }
+                    break;
+                case "mark":
+                    try {
+                        int taskNo = Integer.parseInt(userInput.substring(command.length() + 1)) - 1;
+                        taskList.get(taskNo).setComplete(true);
+                        System.out.println("Successfully marked task: " + taskList.get(taskNo));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Task does not exist");
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Specify a task to mark.");
                     }
                     break;
                 default:
