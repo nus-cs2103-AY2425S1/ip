@@ -10,7 +10,7 @@ public class EventsTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)\n",
+        return String.format("[E]%s (from: %s to: %s)",
                 super.toString(),
                 this.startTime,
                 this.endTime);

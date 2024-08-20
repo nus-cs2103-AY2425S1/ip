@@ -1,33 +1,47 @@
     -------------------------------
-    Hello! I'm Regina
-    What can I do for you?
+    Hey there! I'm Regina
+    I am a chatbot designed to help you track your activities.
+    You can add tasks using the following formats:
+    1. To add a To-Do task: todo <task_description>
+       Example: todo Finish homework
+    2. To add a Deadline task: deadline <task_description> /by <deadline>
+       Example: deadline Submit report /by Sunday
+    3. To add an Event task: event <task_description> /from <start_time> /to <end_time>
+       Example: event Team meeting /from Mon 2pm /to 4pm
+    In case you forget, type 'help' to be reminded of the formats again!
+    So how can I help you?
     -------------------------------
     -------------------------------
     Got it. I've added this task:
       [T][ ] borrow book
     Now you have 1 task in the list.
+    Jiayous!
     -------------------------------
     -------------------------------
     Got it. I've added this task:
       [D][ ] return book (by: Sunday)
     Now you have 2 tasks in the list.
+    Jiayous!
     -------------------------------
     -------------------------------
     Got it. I've added this task:
       [E][ ] project meeting (from: Mon 2pm to: 4pm)
     Now you have 3 tasks in the list.
+    Jiayous!
     -------------------------------
     -------------------------------
     1.[T][ ] borrow book
     2.[D][ ] return book (by: Sunday)
     3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
     -------------------------------
-    Nice! I've marked this task as done:
+    -------------------------------
+    YAY! This task finish liao!:
       [D][X] return book (by: Sunday)
-
-    OK, I've marked this task as not done yet:
+    -------------------------------
+    -------------------------------
+    Hais! Need to do this task again!:
       [D][ ] return book (by: Sunday)
-
+    -------------------------------
     -------------------------------
     Bye. Hope to see you again soon!
     -------------------------------

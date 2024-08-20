@@ -8,7 +8,7 @@ public class DeadlinesTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)\n",
+        return String.format("[D]%s (by: %s)",
                 super.toString(),
                 this.deadline);
     }

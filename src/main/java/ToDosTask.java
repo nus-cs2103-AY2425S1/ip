@@ -5,6 +5,6 @@ public class ToDosTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[T]%s\n", super.toString());
+        return String.format("[T]%s", super.toString());
     }
 }

@@ -49,6 +49,21 @@ public class Regina {
         return type.equals(TODO) || type.equals(DEADLINE) || type.equals(EVENT);
     }
 
+    public boolean haveNumber(String[] parts) throws ReginaException {
+        if (parts.length < 2) {
+            throw new ReginaException("Which task you referring to lah!");
+        }
+        if (parts.length > 2) {
+            throw new ReginaException("Follow the proper format please!\nType 'help' for reference.");
+        }
+        try {
+            Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
     public void add(String input) throws ReginaException {;
         String[] parts = input.split(" "); // Split input by spaces
         String taskType = parts[0];
@@ -102,11 +117,33 @@ public class Regina {
         System.out.println(LINE + "\n" + INDENT + "Got it. I've added this task: \n  "
                 + INDENT
                 + task.toString()
-                + String.format("%sNow you have %d task%s in the list.\n%sJiayous!\n",
+                + String.format("\n%sNow you have %d task%s in the list.\n%sJiayous!\n",
                     INDENT,
                     noOfTasks,
                     noOfTasks > 1 ? "s" : "",
                     INDENT) + LINE);
+    }
+
+    public void delete(int index) throws ReginaException {
+        if (listOfTasks.isEmpty()) {
+            throw new ReginaException("No more tasks to delete alr lah!");
+        }
+        if (index < 0) {
+            throw new ReginaException("Choose index greater than 1 please!");
+        }
+        int taskCount = listOfTasks.size();
+        if (index >= taskCount) {
+            String message = String.format("You cannot count ah! There %s only %d task%s!",
+                    taskCount > 1 ? "are" : "is",
+                    taskCount,
+                    taskCount > 1 ? "s" : "");
+            throw new ReginaException(message);
+        }
+        Task task = listOfTasks.get(index);
+        listOfTasks.remove(index);
+        taskCount = listOfTasks.size(); // update the number of tasks
+        System.out.printf("%s\n%sWah shiok!\n%sCan forget about %s liao!\n%sList now has %d task%s!\n%s",
+                LINE, INDENT, INDENT, task.toString(), INDENT, taskCount, taskCount > 1 ? "s" : "", LINE);
     }
 
     public void list() throws ReginaException {
@@ -119,7 +156,8 @@ public class Regina {
             inputList.append(INDENT)
                     .append(i + 1)
                     .append(".")
-                    .append(listOfTasks.get(i).toString()); // get task
+                    .append(listOfTasks.get(i).toString())
+                    .append("\n"); // get task
         }
         System.out.println(LINE + "\n" + inputList + LINE);
     }
@@ -138,7 +176,7 @@ public class Regina {
         }
         Task task = listOfTasks.get(index);
         task.checkTask();
-        System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s%s\n",
+        System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
 
@@ -156,7 +194,7 @@ public class Regina {
         }
         Task task = listOfTasks.get(index);
         task.uncheckTask();
-        System.out.printf("%s\n%sHais! Need to do this task again!:\n%s  %s%s\n",
+        System.out.printf("%s\n%sHais! Need to do this task again!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
 
@@ -183,15 +221,21 @@ public class Regina {
                     REGINA.list(); // Print out the list
                 } else if (userInput.startsWith("mark")) {
                     String[] parts = userInput.split(" "); // Split input by spaces
-                    if (parts.length == 2) { // Ensure there's an index
+                    if (REGINA.haveNumber(parts)) { // Ensure there's an index
                         int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
                         REGINA.mark(index); // Unmark the task
                     }
                 } else if (userInput.startsWith("unmark")) {
                     String[] parts = userInput.split(" "); // Split input by spaces
-                    if (parts.length == 2) { // Ensure there's an index
+                    if (REGINA.haveNumber(parts)) { // Ensure there's an index
                         int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
                         REGINA.unmark(index); // Unmark the task
+                    }
+                } else if (userInput.startsWith("delete")) {
+                    String[] parts = userInput.split(" "); // Split input by spaces
+                    if (REGINA.haveNumber(parts)) { // Ensure there's an index
+                        int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+                        REGINA.delete(index); // Unmark the task
                     }
                 } else {
                     REGINA.add(userInput); // Add input to list
