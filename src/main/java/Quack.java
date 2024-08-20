@@ -17,6 +17,12 @@ public class Quack {
     private Scanner sc = new Scanner(System.in);  // Create a Scanner object for the chatbot
     private TaskList toDoList;
     private boolean isRunning;
+
+    enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
     
     // Functions
     Quack() {
@@ -48,15 +54,23 @@ public class Quack {
             taskDescription.append(inputArr[i]);
         }
 
-        String taskType = inputArr[1].toLowerCase();
+        String taskType = inputArr[1].toUpperCase();
+        boolean correctType = false;
         String startDate = "";
         String endDate = "";
 
-        if (!taskType.equals("todo") && !taskType.equals("event") && !taskType.equals("deadline")) {
+        for (TaskType type : TaskType.values()) {
+            if (taskType.equals(type.name())) {
+                correctType = true;
+                break;
+            }
+        }
+
+        if (!correctType) {
             throw new InvalidTaskTypeException(taskType);
         }
 
-        if (taskType.equals("event")) {
+        if (taskType.equals(TaskType.EVENT.name())) {
             System.out.println("When does this event start?");
             startDate = sc.nextLine();
             if (startDate == "") {
@@ -64,7 +78,7 @@ public class Quack {
             }
         }
 
-        if (!taskType.equals("todo")) {
+        if (!taskType.equals(TaskType.TODO.name())) {
             System.out.println("When is this task due?");
             endDate = sc.nextLine();
             if (endDate == "") {

@@ -20,14 +20,14 @@ public class TaskList {
     
     public void addItem(String taskName, String taskType, String startDate, String endDate) {
         Task newTask;
-        if (taskType.equals("todo")) {
+        if (taskType.equals("TODO")) {
             newTask = new ToDoTask(taskName);
-        } else if (taskType.equals("deadline")) {
+        } else if (taskType.equals("DEADLINE")) {
             newTask = new DeadlineTask(taskName, endDate);
         } else {
             newTask = new EventTask(taskName, startDate, endDate);
         }
-        
+
         this.toDo.add(newTask);
         System.out.println("Alright I have added this task into the list: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
