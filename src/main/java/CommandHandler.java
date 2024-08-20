@@ -10,19 +10,19 @@ public class CommandHandler {
 
     public void handleCommand(String command) {
         try {
-			if (command.equals("list")) {
+			if (command.equals(CommandType.LIST.getType())) {
 				handleList();
-			} else if (command.startsWith("mark") || command.startsWith("unmark")) {
+			} else if (command.startsWith(CommandType.MARK.getType()) 
+					|| command.startsWith(CommandType.UNMARK.getType())) {
 				handleMark(command);
-			} else if (command.startsWith("todo") || 
-						command.startsWith("deadline") || 
-						command.startsWith("event")) {
+			} else if (command.startsWith(CommandType.TODO.getType()) || 
+						command.startsWith(CommandType.DEADLINE.getType()) || 
+						command.startsWith(CommandType.EVENT.getType())) {
 				handleAddTask(command);
-			} else if (command.startsWith("delete")) {
+			} else if (command.startsWith(CommandType.DELETE.getType())) {
 				handleDeleteTask(command);
 			} else {
 				throw new Exception("Unknown message :(. Please see below for the list of available commands:\n\n" + Config.commands);
-
 			}
 		} catch (Exception ex) {
 			Utils.printItem(ex.getMessage());
@@ -141,4 +141,25 @@ public class CommandHandler {
 
 	}
 	
-}	
+}
+
+enum CommandType {
+	TODO("todo"),
+	DEADLINE("deadline"),
+	EVENT("event"),
+	LIST("list"),
+	EXIT("bye"),
+	MARK("mark"),
+	UNMARK("unmark"),
+	DELETE("delete");
+
+	private final String cmd;
+
+	CommandType(String cmd) {
+		this.cmd = cmd;
+	}
+
+	public String getType() {
+		return cmd;
+	}
+}
