@@ -1,10 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Llama {
     public static void main(String[] args) {
         String logo = "";
         String hr = "\t____________________________________________________________" ;
         Scanner sc = new Scanner(System.in);
+
+        ArrayList<String> taskList = new ArrayList<>();
 
         // Initializing message
         System.out.println(hr);
@@ -22,10 +25,10 @@ public class Llama {
                 shouldContinue = false;
                 sc.close();
             } else {
-                System.out.println("\t" + input);
+                // Add text into a list
+                taskList.add(input);
+                System.out.println("\tAdded: " + input);
             }
-
-
         }
 
         // Exit message
