@@ -166,22 +166,22 @@ public class Derrick {
         while (true) {
             String input = scanner.nextLine();
             String instructions = input.split(" ")[0];
-
-            switch (instructions) {
-                case "bye":
+            Commands command = Commands.fromString(instructions);
+            switch (command) {
+                case BYE:
                     exit();
                     break label;
-                case "list":
+                case LIST:
                     this.list(this.toDo);
                     break;
-                case "mark":
+                case MARK:
                     try {
                         this.markItem(this.toDo, input);
                     } catch (MissingPositionException | MissingItemException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case "unmark": {
+                case UNMARK: {
                     try {
                         this.unmarkItem(this.toDo, input);
                     } catch (MissingPositionException | MissingItemException e) {
@@ -189,7 +189,7 @@ public class Derrick {
                     }
                     break;
                 }
-                case "delete": {
+                case DELETE: {
                     try {
                         this.delete(this.toDo, input);
                     } catch (MissingItemException | MissingPositionException | EmptyListException e) {
@@ -197,7 +197,7 @@ public class Derrick {
                     }
                     break;
                 }
-                case "todo": {
+                case TODO: {
                     try {
                         this.addTodo(this.toDo, input);
                     }
@@ -206,7 +206,7 @@ public class Derrick {
                     }
                     break;
                 }
-                case "deadline": {
+                case DEADLINE: {
                     try {
                         this.addDeadline(this.toDo, input);
                     }
@@ -215,7 +215,7 @@ public class Derrick {
                     }
                     break;
                 }
-                case "event": {
+                case EVENT: {
                     try {
                         this.addEvent(this.toDo, input);
                     } catch (InvalidDescriptionException e) {
@@ -223,7 +223,7 @@ public class Derrick {
                     }
                     break;
                 }
-                default: {
+                case UNKNOWN: {
                     System.out.println("Please specify the type of item that you wish to add ( Todo / Event / Deadline )");
                     break;
                 }
