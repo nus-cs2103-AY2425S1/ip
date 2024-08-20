@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class which stores the tasklist and methods
@@ -126,6 +128,29 @@ public class Storage {
 
         }
 
+    }
+
+    /**
+     * Method uses regex to find patterns within the string
+     * in order to find matching tasks in task list
+     * @param str string which user wants to find
+     */
+    public void find(String str) {
+        String regex = str.substring(5);
+        Pattern pattern = Pattern.compile(regex);
+        ArrayList<Input> arr = new ArrayList<>();
+        for(int i = 0; i < counter; i++) {
+            Input found = input.get(i);
+            Matcher matcher = pattern.matcher(found.toString());
+            if(matcher.find()) {
+                arr.add(found);
+            }
+
+        }
+        System.out.println("Here are the list of tasks found: ");
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println((i+1) + ". " + arr.get(i).toString());
+        }
     }
 
 

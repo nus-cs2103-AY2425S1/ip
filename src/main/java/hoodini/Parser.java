@@ -151,6 +151,8 @@ public class Parser {
                     store.unmark(str);
                 } else if (str.startsWith("delete")) {
                     store.delete(str);
+                } else if (str.startsWith("find")) {
+                    store.find(str);
                 } else {
                     throw new InvalidInputException("Whoopsie! I am unable to understand your request!");
                 }
