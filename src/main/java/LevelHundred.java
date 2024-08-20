@@ -21,7 +21,9 @@ public class LevelHundred {
 
         while (isRunning) {
             userInput = sc.nextLine();
-            switch(userInput) {
+            String[] words =userInput.split(" ");
+            String command = words[0];
+            switch(command) {
                 case "bye":
                     isRunning = false;
                     this.ui.exit();
@@ -29,6 +31,25 @@ public class LevelHundred {
                 case "list":
                     ArrayList<Task> tasks = this.storage.getTaskList();
                     this.ui.printTasks(tasks);
+                    break;
+                case "mark": case "unmark":
+                    if (words.length == 1) {
+                        this.ui.printFail();
+                        break;
+                    }
+                    try {
+                        int idx = Integer.parseInt(words[1]) - 1;
+                        Task t = this.storage.get(idx);
+                        if (command.equals("mark")) {
+                            t.mark();
+                            this.ui.printSuccessfulMark(t);
+                        } else {
+                            t.unmark();
+                            this.ui.printSuccessfulUnmark(t);
+                        }
+                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                        this.ui.printFail();
+                    }
                     break;
                 default:
                     Task newTask = new Task(userInput);

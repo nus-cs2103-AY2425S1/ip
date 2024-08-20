@@ -7,11 +7,15 @@ public class Storage {
         this.taskList = new ArrayList<Task>();
     }
 
-    public void addTask(Task t) {
-        this.taskList.add(t);
-    }
-
     public ArrayList<Task> getTaskList() {
         return this.taskList;
+    }
+
+    public Task get(int idx) throws IndexOutOfBoundsException {
+        return this.taskList.get(idx);
+    }
+
+    public void addTask(Task t) {
+        this.taskList.add(t);
     }
 }

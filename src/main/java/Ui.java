@@ -24,7 +24,7 @@ public class Ui {
 
     public void printAddTask(Task t) {
         this.printHorizontalLine();
-        System.out.println("\tadded: " + t.toString());
+        System.out.println("\tadded: " + t.getDescription());
         this.printHorizontalLine();
     }
 
@@ -34,9 +34,29 @@ public class Ui {
             System.out.println("\tNo tasks yet");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
+                System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
             }
         }
+        this.printHorizontalLine();
+    }
+
+    public void printSuccessfulMark(Task t) {
+        this.printHorizontalLine();
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t\t" + t.toString());
+        this.printHorizontalLine();
+    }
+
+    public void printSuccessfulUnmark(Task t) {
+        this.printHorizontalLine();
+        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\t\t" + t.toString());
+        this.printHorizontalLine();
+    }
+
+    public void printFail() {
+        this.printHorizontalLine();
+        System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
         this.printHorizontalLine();
     }
 }
