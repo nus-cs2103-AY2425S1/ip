@@ -12,7 +12,7 @@ public class DeadlineTask extends Task{
         s += "[D]";
         s += super.toString();
         s += super.taskDesc;
-        s += String.format(" (by: %s) ", this.deadline);
+        s += String.format(" (by: %s)", this.deadline);
         return s;
     }
 }

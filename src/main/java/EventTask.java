@@ -13,7 +13,7 @@ public class EventTask extends Task {
         s += "[E]";
         s += super.toString();
         s += super.taskDesc;
-        s += String.format(" (from: %s to: %s) ", this.start, this.end);
+        s += String.format(" (from: %s to: %s)", this.start, this.end);
         return s;
     }
 }

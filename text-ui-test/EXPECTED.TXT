@@ -1,7 +1,28 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Optimus
+What can I do for you?
+____________________________
+Invalid command. Please provide a task description.
+Invalid command. Please provide a task description.
+Invalid command. Please provide a task description.
+Got it. I've added this task:
+[T][ ] 2103 iP
+Now you have 1 tasks in the list
+____________________________
+Got it. I've added this task:
+[D][ ] 2103 iP (by: friday)
+Now you have 2 tasks in the list
+____________________________
+Deadline Tasks must have a deadline specified
+Events must have a start and end specified
+Got it. I've added this task:
+[E][ ] splashdown (from: 28th Aug to: 29th Aug)
+Now you have 3 tasks in the list
+____________________________
+Nice! I've marked this task as complete:
+[T][X] 2103 iP
+____________________________
+1. [T][X] 2103 iP
+2. [D][ ] 2103 iP (by: friday)
+3. [E][ ] splashdown (from: 28th Aug to: 29th Aug)
+____________________________
+Invalid task number.
