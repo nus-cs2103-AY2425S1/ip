@@ -4,10 +4,12 @@
  */
 public class Mira {
     private final UI ui; // handle user interface
+    private final TaskList tasks; // Manages tasks
     private boolean isRunning; // default is true
 
     public Mira() {
         this.ui = new UI();
+        this.tasks = new TaskList(this.ui);
         this.isRunning = true;
     }
 
@@ -26,9 +28,10 @@ public class Mira {
             if (userInput.equals("bye")) {
                 this.ui.showMessage("Bye. Hope to see you again soon!");
                 this.isRunning = false;
+            } else if (userInput.equals("list")) {
+                this.tasks.listTasks();
             } else {
-                // the rest of the commands are echoed
-                this.ui.echoCommand(userInput);
+                this.tasks.addTask(userInput);
             }
         }
     }
