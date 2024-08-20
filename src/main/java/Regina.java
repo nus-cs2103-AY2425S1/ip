@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Regina {
-    final static String NAME = "Regina";
-    final static String INDENT = "    ";
-    final static String LINE = INDENT + "-------------------------------";
+    private final static String NAME = "Regina";
+    private final static String INDENT = "    ";
+    private final static String LINE = INDENT + "-------------------------------";
     private final ArrayList<Task> listOfTasks;
     private final Scanner scanner = new Scanner(System.in);
 
@@ -22,10 +22,44 @@ public class Regina {
     }
 
     public void add(String input) {
-        Task task = new Task(input);
+        // types of tasks
+        final String TODO = "todo";
+        final String DEADLINE = "deadline";
+        final String EVENT = "event";
+        String[] parts = input.split(" "); // Split input by spaces
+        String taskType = parts[0];
+        Task task = null;
+        switch (taskType) {
+            case TODO:
+                String todoDescription = input.substring(5).trim();;
+                task = new ToDosTask(todoDescription);
+                break;
+            case DEADLINE:
+                String[] deadlineParts = input.substring(9).trim().split(" /by ");
+                String deadlineDescription = deadlineParts[0];
+                String deadline = deadlineParts[1];
+                task = new DeadlinesTask(deadlineDescription, deadline);
+                break;
+            case EVENT:
+                String[] eventParts = input.substring(6).trim().split(" /");
+                String eventDescription = eventParts[0];
+                String startTime = eventParts[1].substring(5).trim(); // take the substring after the word "from"
+                String endTime = eventParts[2].substring(3).trim(); // take the substring after the word "to"
+                task = new EventsTask(eventDescription, startTime, endTime);
+                break;
+            default:
+                System.out.println(LINE + "\n" + INDENT + "Unknown task type. Use: todo, deadline, or event.\n" + LINE);
+                return;
+        }
         listOfTasks.add(task);
-        System.out.println(LINE + "\n" + INDENT + "added: "
-                + input + "\n" + LINE); // show that input was added
+        int noOfTasks = listOfTasks.size();
+        System.out.println(LINE + "\n" + INDENT + "Got it. I've added this task: \n  "
+                + INDENT
+                + task.toString()
+                + String.format("%sNow you have %d task%s in the list.\n",
+                    INDENT,
+                    noOfTasks,
+                    noOfTasks > 1 ? "s" : "") + LINE);
     }
 
     public void list() {
@@ -35,8 +69,7 @@ public class Regina {
             inputList.append(INDENT)
                     .append(i + 1)
                     .append(".")
-                    .append(listOfTasks.get(i).toString()) // get task
-                    .append("\n");
+                    .append(listOfTasks.get(i).toString()); // get task
         }
         System.out.println(LINE + "\n" + inputList + LINE);
     }
