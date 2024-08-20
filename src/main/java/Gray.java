@@ -35,6 +35,10 @@ public class Gray {
                 Matcher matcher = pattern.matcher(user);
                 if (matcher.matches()) {
                     String description = matcher.group(1);
+                    if (description.isEmpty()) {
+                        say("OOPS!!! The description cannot be empty.");
+                        continue;
+                    }
                     TodoTask task = new TodoTask(description);
                     taskList.add(task);
                     say(String.format("""
@@ -52,6 +56,10 @@ public class Gray {
                 if (matcher.matches()) {
                     String description = matcher.group(1);
                     String deadline = matcher.group(2);
+                    if (description.isEmpty() || deadline.isEmpty()) {
+                        say("OOPS!!! The description and deadline cannot be empty.");
+                        continue;
+                    }
                     DeadlineTask task = new DeadlineTask(description, deadline);
                     taskList.add(task);
                     say(String.format("""
@@ -70,6 +78,10 @@ public class Gray {
                     String description = matcher.group(1);
                     String start = matcher.group(2);
                     String end = matcher.group(3);
+                    if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
+                        say("OOPS!!! The description, start and end cannot be empty.");
+                        continue;
+                    }
                     EventTask task = new EventTask(description, start, end);
                     taskList.add(task);
                     say(String.format("""
@@ -103,7 +115,7 @@ public class Gray {
                 }
             }
 
-            say("Ops");
+            say("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         say("Bye. Hope to see you again soon!");
         reader.close();
