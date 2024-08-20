@@ -2,24 +2,25 @@ import java.util.Scanner;
 public class Bao {
     private static String[] messages = new String[100];
     private static int messageCount = 0;
+
+    private static String baoHappy =   "     ___   \n"
+            + "   /     \\  \n"
+            + "  /       \\ \n"
+            + " |  ^   ^  |\n"
+            + " |    3    |\n"
+            + " \\________/ \n";
+
+    private static String baoSad =   "     ___   \n"
+            + "   /     \\  \n"
+            + "  /       \\ \n"
+            + " |  T   T  |\n"
+            + " |    ^    |\n"
+            + " \\________/ \n";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String baoHi =   "     ___   \n"
-                        + "   /     \\  \n"
-                        + "  /       \\ \n"
-                        + " |  ^   ^  |\n"
-                        + " |    3    |\n"
-                        + " \\________/ \n";
-
-        String baoBye =   "     ___   \n"
-                        + "   /     \\  \n"
-                        + "  /       \\ \n"
-                        + " |  T   T  |\n"
-                        + " |    ^    |\n"
-                        + " \\________/ \n";
 
         System.out.println("____________________________________________________________");
-        System.out.println(baoHi);
+        System.out.println(baoHappy);
         System.out.println("Hello! I'm Bao but you can call me Bao");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
@@ -27,7 +28,7 @@ public class Bao {
         while (true) {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("bye")) {
-                System.out.println(baoBye);
+                System.out.println(baoSad);
                 System.out.println("Bye :( Come back soon!");
                 System.out.println("____________________________________________________________");
                 break;
@@ -60,7 +61,8 @@ public class Bao {
             messages[messageCount] = message;
             messageCount++;
         } else {
-            System.out.println("Bao cannot remember so many thing :(");
+            System.out.println(baoSad);
+            System.out.println("Bao cannot remember so many things :(");
         }
     }
 }
