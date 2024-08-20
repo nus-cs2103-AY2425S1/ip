@@ -6,6 +6,14 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public void setNotDone() {
+        this.isDone = false;
+    }
+
     @Override
     public String toString() {
         if (this.isDone) {
