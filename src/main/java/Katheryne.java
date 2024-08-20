@@ -1,10 +1,23 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Katheryne {
     private Scanner sc;
+    private ArrayList<String> list;
 
     public Katheryne() {
         this.sc= new Scanner(System.in);
+        this.list = new ArrayList<String>();
+    }
+
+    private String getList() {
+        String output = "";
+        for (int i = 0; i < list.size(); i++) {
+            int index = i+1;
+            String item = index + ". " + list.get(i) + '\n';
+            output = output + item;
+        }
+        return output;
     }
 
     public void run() {
@@ -18,8 +31,14 @@ public class Katheryne {
             userInput = sc.nextLine();
             if (!userInput.equals("bye")) {
                 System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
-                System.out.println("Katheryne: " + userInput);
-            } else {
+                if (userInput.equals("list")) {
+                    System.out.println(this.getList());
+                } else {
+                    System.out.println("Katheryne: Have added " + userInput + " to your list.");
+                    list.add(userInput);
+                }
+            }
+            else{
                 finish = true;
                 System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
                 System.out.println("Katheryne: " + "Farewell, Adventurer, and thank you for supporting the Adventurers' Guild.");
