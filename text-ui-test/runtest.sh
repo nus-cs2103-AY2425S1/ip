@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+//dk how to run this check script, it always shows error
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then
