@@ -1,11 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Justbot {
     public static void main(String[] args) {
         final String chatbotName = "JustBot";
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        int tasksIndex = 0;
         String input = "";
 
         Commands.botIntro(chatbotName);
@@ -21,48 +21,54 @@ public class Justbot {
                     return;
                 case "list":
                     try {
-                        if (tasksIndex == 0) {
+                        if (tasks.isEmpty()) {
                             throw new JustbotException("Hey man you have no tasks in your list!");
                         }
-                        Commands.returnTaskList(tasks, tasksIndex);
+                        Commands.returnTaskList(tasks);
                     } catch (JustbotException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case "mark":
                     try {
-                        int markNumber = Integer.parseInt(input.split(" ")[1]);
-                        if (markNumber == 0) {
-                            throw new JustbotException("Hey man there is no such task!");
+                        String[] splitInputMark = input.split(" ");
+
+                        if (splitInputMark.length < 2) {
+                            throw new JustbotException("Hey man you have provided me an invalid format for delete.\n" +
+                                    "Use the format: mark [task number]");
+                        }
+                        int markNumber = Integer.parseInt(splitInputMark[1]);
+                        if (markNumber < 1 || markNumber > tasks.size()) {
+                            throw new IndexOutOfBoundsException("Hey man there is no such task");
                         }
                         Commands.markTask(tasks, markNumber);
-                    } catch (JustbotException e) {
-                        System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
                         System.out.println("Hey man please input a number for the task number!");
-                    }catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
-                                + "mark [task number]");
-                    } catch (NullPointerException e) {
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("Hey man there is no such task!");
+                    } catch (JustbotException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "unmark":
                     try {
-                        int unmarkNumber = Integer.parseInt(input.split(" ")[1]);
-                        if (unmarkNumber == 0) {
-                            throw new JustbotException("Hey man there is no such task!");
+                        String[] splitInputUnmark = input.split(" ");
+
+                        if (splitInputUnmark.length < 2) {
+                            throw new JustbotException("Hey man you have provided me an invalid format for delete.\n" +
+                                    "Use the format: unmark [task number]");
+                        }
+                        int unmarkNumber = Integer.parseInt(splitInputUnmark[1]);
+                        if (unmarkNumber < 1 || unmarkNumber > tasks.size()) {
+                            throw new IndexOutOfBoundsException("Hey man there is no such task");
                         }
                         Commands.unmarkTask(tasks, unmarkNumber);
-                    } catch (JustbotException e) {
-                        System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
                         System.out.println("Hey man please input a number for the task number!");
-                    }catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
-                                + "unmark [task number]");
-                    } catch (NullPointerException e) {
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("Hey man there is no such task!");
+                    } catch (JustbotException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "deadline":
@@ -85,11 +91,10 @@ public class Justbot {
                         } else if (by.isBlank()) {
                             throw new JustbotException("Hey man the deadline date cannot be blank!");
                         }
-                        Commands.addTask(tasks, tasksIndex, new Deadline(deadlineDescription, by));
-                        tasksIndex += 1;
+                        Commands.addTask(tasks, new Deadline(deadlineDescription, by));
                     } catch (JustbotException e) {
                         System.out.println(e.getMessage());
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
                                 + "deadline [description] /by [deadline]");
                     }
@@ -117,11 +122,10 @@ public class Justbot {
                         } else if (eventEnd.isBlank()) {
                             throw new JustbotException("Hey man the end of the event cannot be blank!");
                         }
-                        Commands.addTask(tasks, tasksIndex, new Event(eventDescription, eventStart, eventEnd));
-                        tasksIndex += 1;
+                        Commands.addTask(tasks, new Event(eventDescription, eventStart, eventEnd));
                     } catch (JustbotException e) {
                         System.out.println(e.getMessage());
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
                                 + "event [description] /from [start] /to [end]");
                     }
@@ -139,13 +143,33 @@ public class Justbot {
                         if (description.isBlank()) {
                             throw new JustbotException("Hey man the description cannot be blank!");
                         }
-                        Commands.addTask(tasks, tasksIndex, new Todo(description));
-                        tasksIndex += 1;
+                        Commands.addTask(tasks, new Todo(description));
                     } catch (JustbotException e) {
                         System.out.println(e.getMessage());
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("Hey man the format is wrong. Make sure to follow the format:\n"
                                 + "event [description] /from [start] /to [end]");
+                    }
+                    break;
+                case "delete":
+                    try {
+                        String[] splitInputDelete = input.split(" ");
+
+                        if (splitInputDelete.length < 2) {
+                            throw new JustbotException("Hey man you have provided me an invalid format for delete.\n" +
+                                    "Use the format: delete [task number]");
+                        }
+                        int deleteNumber = Integer.parseInt(splitInputDelete[1]);
+                        if (deleteNumber < 1 || deleteNumber > tasks.size()) {
+                            throw new IndexOutOfBoundsException("Hey man there is no such task");
+                        }
+                        Commands.deleteTask(tasks, deleteNumber);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Hey man please input a number for the task number!");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Hey man there is no such task!");
+                    } catch (JustbotException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 default:
