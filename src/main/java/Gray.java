@@ -30,7 +30,58 @@ public class Gray {
                 continue;
             }
 
-            {
+            { // Add _todo task
+                Pattern pattern = Pattern.compile("todo (.*)");
+                Matcher matcher = pattern.matcher(user);
+                if (matcher.matches()) {
+                    String description = matcher.group(1);
+                    TodoTask task = new TodoTask(description);
+                    taskList.add(task);
+                    say(String.format("""
+                            Got it. I've added this task:
+                                %s
+                            Now you have %d tasks in the list.""",
+                            task, taskList.size()));
+                    continue;
+                }
+            }
+
+            { // Add deadline task
+                Pattern pattern = Pattern.compile("deadline (.*) /by (.*)");
+                Matcher matcher = pattern.matcher(user);
+                if (matcher.matches()) {
+                    String description = matcher.group(1);
+                    String deadline = matcher.group(2);
+                    DeadlineTask task = new DeadlineTask(description, deadline);
+                    taskList.add(task);
+                    say(String.format("""
+                            Got it. I've added this task:
+                                %s
+                            Now you have %d tasks in the list.""",
+                            task, taskList.size()));
+                    continue;
+                }
+            }
+
+            { // Add event task
+                Pattern pattern = Pattern.compile("event (.*) /from (.*) /to (.*)");
+                Matcher matcher = pattern.matcher(user);
+                if (matcher.matches()) {
+                    String description = matcher.group(1);
+                    String start = matcher.group(2);
+                    String end = matcher.group(3);
+                    EventTask task = new EventTask(description, start, end);
+                    taskList.add(task);
+                    say(String.format("""
+                            Got it. I've added this task:
+                                %s
+                            Now you have %d tasks in the list.""",
+                            task, taskList.size()));
+                    continue;
+                }
+            }
+
+            { // Mark/Unmark Task
                 Pattern pattern = Pattern.compile("(mark|unmark) (-?\\d+)");
                 Matcher matcher = pattern.matcher(user);
                 if (matcher.matches()) {
@@ -52,13 +103,10 @@ public class Gray {
                 }
             }
 
-            {
-                Task task = new Task(user);
-                taskList.add(task);
-                say(String.format("added: %s", task));
-            }
+            say("Ops");
         }
         say("Bye. Hope to see you again soon!");
+        reader.close();
     }
 
     private static void say(String text) {
