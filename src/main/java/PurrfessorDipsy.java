@@ -1,7 +1,12 @@
+import java.util.Scanner;
 public class PurrfessorDipsy {
     public static void main(String[] args) {
+        Scanner inputScanner = new Scanner(System.in);
         printWelcomeMessage();
-        printExitMessage();
+        while (true) {
+            String userInput = inputScanner.nextLine();
+            doAction(userInput);
+        }
     }
 
     private static void printTerminalLine() {
@@ -21,4 +26,28 @@ public class PurrfessorDipsy {
         System.out.println("Fur-well friend, stay paw-sitive!");
         printTerminalLine();
     }
+
+    private static void echoUserInput(String userInput) {
+        printTerminalLine();
+        System.out.println(userInput);
+        printTerminalLine();
+    }
+
+    private static void doAction(String userInput) {
+        String trimmedInput = userInput.trim().toLowerCase();
+
+        switch (trimmedInput) {
+            case "":
+                // do nothing
+                break;
+            case "bye":
+                printExitMessage();
+                System.exit(0);
+                break;
+            default:
+                echoUserInput(userInput);
+                break;
+        }
+    }
+
 }
