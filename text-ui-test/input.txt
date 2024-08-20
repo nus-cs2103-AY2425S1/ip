@@ -1,0 +1,26 @@
+hello
+check
+uncheck
+list
+add
+todo
+go jogging
+add
+event
+lecture
+aug 22
+1400
+1600
+check
+1
+list
+add
+deadline
+assignment
+aug 23
+check
+3
+uncheck
+1
+list
+bye

@@ -5,7 +5,7 @@ public class Colress {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private static String input = "";
-    private static String spacer = "__________________________________________\n";
+    private static String spacer = "____________________________________________________________________\n";
     private static String greetingMessage = "Hello! My name is Colress.\n"
             + "What can I do for you?";
     private static String listEmptyMessage = "I'm sorry, but it appears you have not added anything to your list.";
@@ -36,7 +36,7 @@ public class Colress {
             } else if (Colress.input.equals(uncheckCommand)) {
                 Colress.editTask("uncheck");
             } else if (Colress.input.equals(listCommand)) {
-                Colress.print("Here is your list:" + Colress.printList());
+                Colress.print(Colress.printList());
             } else {
                 Colress.print(invalidCommandMessage);
             }
@@ -129,7 +129,7 @@ public class Colress {
         if(result.isEmpty()) {
             return Colress.listEmptyMessage;
         }
-        return result;
+        return "Here is your list:" + result;
     }
     public static void main(String[] args) {
         print(Colress.greetingMessage);
