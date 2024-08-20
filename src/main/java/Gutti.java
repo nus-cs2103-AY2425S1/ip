@@ -38,12 +38,12 @@ public class Gutti {
     }
 
     /**
-     * Handles user input after user initialize chatbot
+     * Handles user input after user initializes the chatbot.
      * <p>
      * This method continuously reads user input from the console.
-     * When input is provided, it will be added to the list.
-     * Lists all tasks when the user types "list", and exits the program
-     * when the user types "bye".
+     * Lists all tasks when the user types "list", marks a task as done when the user
+     * types "mark" followed by the task number, and unmarks a task when the user types "unmark"
+     * followed by the task number. Exits the program when the user types "bye".
      * </p>
      */
     private static void echo(){
@@ -90,6 +90,15 @@ public class Gutti {
         scanner.close();
     }
 
+
+    /**
+     * Creates a new task with the provided input and adds it to the task list.
+     * <p>
+     * This method prints a confirmation message indicating that the task has been added.
+     * </p>
+     *
+     * @param input The description of the task to be added.
+     */
     private static void createsTask(String input){
         System.out.println("____________________________________________________________");
         System.out.println("Gutti painstakingly added: " + input);
