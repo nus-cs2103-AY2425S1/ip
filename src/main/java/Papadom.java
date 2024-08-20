@@ -27,17 +27,32 @@ public class Papadom {
                 + " Now you have " + (Papadom.tasks.size()) + " tasks in the list.";
         return response;
     }
-    public static String markTask(String text) {
-        int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
-        Task task = Papadom.tasks.get(taskIndex);
-        task.markAsDone();
-        return " Nice! I've marked this task as done:\n  " + task;
+    public static String markTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
+        String[] parts = text.split(" ");
+        if (parts.length <= 1) throw new NoTaskNumberException();
+        try {
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            if (taskIndex >= Papadom.tasks.size()) throw new WrongTaskNumberException();
+            Task task = Papadom.tasks.get(taskIndex);
+            task.markAsDone();
+            return " Nice! I've marked this task as done:\n  " + task;
+        } catch (NumberFormatException e) {
+            throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
+        }
     }
-    private static String unmarkTask(String text) {
-        int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
-        Task task = Papadom.tasks.get(taskIndex);
-        task.unmark();
-        return " OK, I've marked this task as not done yet:\n  " + task;
+    private static String unmarkTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
+        String[] parts = text.split(" ");
+        if (parts.length <= 1) throw new NoTaskNumberException();
+        try {
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            if (taskIndex >= Papadom.tasks.size()) throw new WrongTaskNumberException();
+            Task task = Papadom.tasks.get(taskIndex);
+            task.unmark();
+            return " OK, I've marked this task as not done yet:\n  " + task;
+            // Proceed with your logic using taskIndex
+        } catch (NumberFormatException e) {
+            throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
+        }
     }
     private static String addDeadline(String details) throws NoTaskException, NoDateException {
         String[] parts = details.split(" /by ");
@@ -51,11 +66,19 @@ public class Papadom {
         else if (parts.length <= 2) throw new NoDateException();
         return addToList(new Event(parts[0], parts[1], parts[2]));
     }
-    private static String deleteEvent(String text){
-        int taskIndex = Integer.parseInt(text.split(" ")[1]) - 1;
-        Task taskToBeDeleted = Papadom.tasks.get(taskIndex);
-        Papadom.tasks.remove(taskIndex);
-        return " Noted. I've removed this task:\n  " + taskToBeDeleted + "\n Now you have " + Papadom.tasks.size() + " tasks in the list.";
+    private static String deleteEvent(String text) throws NoTaskNumberException, WrongTaskNumberException {
+        String[] parts = text.split(" ");
+        if (parts.length <= 1) throw new NoTaskNumberException();
+        try {
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            if (taskIndex >= Papadom.tasks.size()) throw new WrongTaskNumberException();
+            Task taskToBeDeleted = Papadom.tasks.get(taskIndex);
+            Papadom.tasks.remove(taskIndex);
+            return " Noted. I've removed this task:\n  " + taskToBeDeleted + "\n Now you have " + Papadom.tasks.size() + " tasks in the list.";
+            // Proceed with your logic using taskIndex
+        } catch (NumberFormatException e) {
+            throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
+        }
     }
     public static void main(String[] args) {
         Papadom.output(" Hello! I'm Papadom\n"
