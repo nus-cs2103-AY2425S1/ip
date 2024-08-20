@@ -2,6 +2,8 @@ package duke;
 
 import duke.tasks.Task;
 
+import java.util.ArrayList;
+
 public class Formatter {
     public static final String SPACING = "    ";
     public static final String BORDER = "____________________________________________________________";
@@ -14,13 +16,13 @@ public class Formatter {
         return Formatter.SPACING + " " + i + "." + task.toString() + "\n";
     }
 
-    public static String formatTaskListings(int numTasks, Task[] tasks) {
+    public static String formatTaskListings(int numTasks, ArrayList<Task> tasks) {
         StringBuilder str = new StringBuilder();
 
         str.append(Formatter.formattedBorder()).append("\n");
         str.append(Formatter.SPACING + " " + "Here are the tasks in your list:" + "\n");
         for (int i = 0; i < numTasks; i++) {
-            str.append(Formatter.formatSingleTask(i + 1, tasks[i]));
+            str.append(Formatter.formatSingleTask(i + 1, tasks.get(i)));
         }
         str.append(Formatter.formattedBorder()).append("\n");
 

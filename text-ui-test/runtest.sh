@@ -6,26 +6,26 @@ if [ ! -d "../bin" ]; then
 fi
 
 # find all .java files in the duke directory and subdirectories and compile them into the bin folder
-if ! find ../src/main/java/duke -name "*.java" -print0 | xargs javac -cp ../src/main/java -Xlint:none -d ../bin; then
+if ! find ./src/main/java/duke -name "*.java" -print0 | xargs javac -cp ./src/main/java -Xlint:none -d ./bin; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # delete actual-test-results directory if it exists
-if [ -d "./actual-test-results" ]; then
-    rm -r ./actual-test-results
+if [ -d "./text-ui-test/actual-test-results" ]; then
+    rm -r ./text-ui-test/actual-test-results
 fi
 
 # create the actual-test-results directory to store test case outputs
-mkdir ./actual-test-results
+mkdir ./text-ui-test/actual-test-results
 
 # loop through all test files in the tests directory
-for testfile in ./tests/test*.txt; do
+for testfile in ./text-ui-test/tests/test*.txt; do
     # extract the test number (e.g., 1 from test1.txt)
     testnum=$(echo "$testfile" | grep -o '[0-9]\+')
 
     # corresponding expected output file
-    expectedfile="./expected-test-results/expected${testnum}.txt"
+    expectedfile="./text-ui-test/expected-test-results/expected${testnum}.txt"
 
     # check if the expected file exists
     if [ ! -f "$expectedfile" ]; then
@@ -37,7 +37,7 @@ for testfile in ./tests/test*.txt; do
     actualfile="./actual-test-results/actual${testnum}.txt"
 
     # run the program with the current test input and redirect the output to the actual test file
-    java -classpath ../bin DailyTasks < "$testfile" > "$actualfile"
+    java -classpath ./bin DailyTasks < "$testfile" > "$actualfile"
 
     # convert both actual and expected files to UNIX format
     cp "$expectedfile" EXPECTED-UNIX.TXT
