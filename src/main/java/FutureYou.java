@@ -47,6 +47,13 @@ public class FutureYou {
                 System.out.println(taskList.get(n).print());
         }
 
+        public static void deleteTask(int n) {
+                Task removed = taskList.remove(n);
+                System.out.println("Task Deleted:");
+                System.out.println(removed.print());
+                System.out.println(taskList.size() + " tasks left in the list");
+        }
+
         public static void main(String[] args) {
                 String logo = " _____      _                   __   __          \n"
                                 + "|  ___|   _| |_ _   _ _ __ ___  \\ \\ / /__  _   _ \n"
@@ -103,7 +110,7 @@ public class FutureYou {
                                         }
                                 } catch (Exception e) {
                                         System.out.println(
-                                                        "Please enter in a valid deadline format! (deadname <task name> /by <Date>)");
+                                                        "Please enter in a valid deadline command format! (deadname <task name> /by <Date>)");
                                 }
 
                         } else if (input.toLowerCase().trim().contains("event")) {
@@ -120,13 +127,12 @@ public class FutureYou {
                                                 System.out.println("Please enter a valid start datetime!");
                                         } else if (endDT.trim().length() <= 0) {
                                                 System.out.println("Please enter a valid end datetime!");
-                                        }
-                                        else {
+                                        } else {
                                                 addEvent(taskName, startDT, endDT);
                                         }
                                 } catch (Exception e) {
                                         System.out.println(
-                                                        "Please enter in a valid event format! (event <task name> /from <DateTime> /to <DateTime>)");
+                                                        "Please enter in a valid event command format! (event <task name> /from <DateTime> /to <DateTime>)");
                                 }
 
                         } else if (input.toLowerCase().trim().equals("list")) {
@@ -136,11 +142,20 @@ public class FutureYou {
                                         int num = Integer.parseInt(input.substring(5, input.length()));
                                         markTask(num - 1);
                                 } catch (Exception e) {
-                                        System.out.println("Please enter a valid mark format! (mark <task number>)");
+                                        System.out.println(
+                                                        "Please enter in a valid mark task format! (mark <task number>)");
+                                }
+                        } else if (input.toLowerCase().trim().contains("delete")) {
+                                try {
+                                        int num = Integer.parseInt(input.substring(7, input.length()));
+                                        deleteTask(num - 1);
+                                } catch (Exception e) {
+                                        System.out.println(
+                                                        "Please enter in a valid delete command format! (delete <task number>)");
                                 }
 
                         } else { // If user inputs an unrecognized command
-                                System.err.println("Please Enter a valid command!");
+                                System.err.println("Please enter a valid command!");
                         }
                 }
         }
