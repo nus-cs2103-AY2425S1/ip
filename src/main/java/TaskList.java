@@ -1,3 +1,6 @@
+/**
+ * List of tasks.
+ */
 public class TaskList {
     private Task[] tasks;
     private int numberOfTasks;
@@ -7,6 +10,11 @@ public class TaskList {
         this.numberOfTasks = 0;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param description Description of the task.
+     */
     public void add(String description) {
         this.tasks[numberOfTasks++] = new Task(description);
     }

@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Sentinel chatbot system.
+ */
 public class Sentinel {
     private TaskList taskList;
 
@@ -46,7 +49,7 @@ public class Sentinel {
     }
 
     /**
-     * Makes Sentinel echo a message until a bye command is received.
+     * Makes Sentinel listen for tasks.
      */
     public void listen() {
         Scanner scanner = new Scanner(System.in);
