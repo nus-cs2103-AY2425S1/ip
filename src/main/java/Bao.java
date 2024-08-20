@@ -29,43 +29,77 @@ public class Bao {
 
         while (true) {
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println(baoSad);
+                    System.out.println("Bye :( Come back soon!");
+                    System.out.println("____________________________________________________________");
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    System.out.println("____________________________________________________________");
+                    showTasks();
+                    System.out.println("____________________________________________________________");
+                } else if (input.startsWith("mark ")) {
+                    String number = input.substring(5).trim();
+                    try {
+                        int index = Integer.parseInt(number) - 1;
+                        checkIndex(index);
+                        taskList[index].mark();
+                        System.out.println("Bao has marked it as done!");
+                        System.out.println(taskList[index]);
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Bao needs a task number to mark!");
+                    }
+                } else if (input.startsWith("unmark ")) {
+                    String number = input.substring(7).trim();
+                    try {
+                        int index = Integer.parseInt(number) - 1;
+                        checkIndex(index);
+                        taskList[index].unmark();
+                        System.out.println("Bao has marked it as not done!");
+                        System.out.println(taskList[index]);
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Bao needs a task number to unmark!");
+                    }
+                } else if (input.startsWith("todo ")) {
+                    String task = input.substring(5).trim();
+                    if (task.isEmpty()) {
+                        throw new IllegalArgumentException("Bao needs a description of the task!");
+                    }
+                    addTask(task, "T");
+                    System.out.println("You have " + taskCount + " tasks in the list");
+                    System.out.println("____________________________________________________________");
+                } else if (input.startsWith("deadline ")) {
+                    String task = input.substring(9).trim();
+                    if (task.isEmpty()) {
+                        throw new IllegalArgumentException("Bao needs a description of the task!");
+                    }
+                    addTask(task, "D");
+                    System.out.println("You have " + taskCount + " tasks in the list");
+                    System.out.println("____________________________________________________________");
+                } else if (input.startsWith("event ")) {
+                    String task = input.substring(6).trim();
+                    if (task.isEmpty()) {
+                        throw new IllegalArgumentException("Bao needs a description of the task!");
+                    }
+                    addTask(task, "E");
+                    System.out.println("You have " + taskCount + " tasks in the list");
+                    System.out.println("____________________________________________________________");
+                } else {
+                    throw new UnsupportedOperationException("Bao needs a proper command :(");
+                }
+            } catch (Exception e){
                 System.out.println(baoSad);
-                System.out.println("Bye :( Come back soon!");
-                System.out.println("____________________________________________________________");
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                System.out.println("____________________________________________________________");
-                showTasks();
-                System.out.println("____________________________________________________________");
-            } else if (input.startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                taskList[index].mark();
-                System.out.println("Bao has marked it as done!");
-                System.out.println(taskList[index]);
-            } else if (input.startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                taskList[index].unmark();
-                System.out.println("Bao has marked it as not done!");
-                System.out.println(taskList[index]);
-            } else if (input.startsWith("todo ")) {
-                String task = input.substring(5);
-                addTask(task, "T");
-                System.out.println("You have " + taskCount + " tasks in the list");
-                System.out.println("____________________________________________________________");
-            } else if (input.startsWith("deadline ")) {
-                String task = input.substring(9);
-                addTask(task, "D");
-                System.out.println("You have " + taskCount + " tasks in the list");
-                System.out.println("____________________________________________________________");
-            } else if (input.startsWith("event ")) {
-                String task = input.substring(6);
-                addTask(task, "E");
-                System.out.println("You have " + taskCount + " tasks in the list");
-                System.out.println("____________________________________________________________");
+                System.out.println(e.getMessage());
             }
         }
         scanner.close();
+    }
+
+    private static void checkIndex(int index) {
+        if (index < 0 || index >= taskCount) {
+            throw new IndexOutOfBoundsException("Bao needs you to refer to tasks within the range!");
+        }
     }
 
     private static void showTasks() {
@@ -89,6 +123,9 @@ public class Bao {
                 }
                 case "D" -> {
                     int byIndex = taskDescription.indexOf("/by ");
+                    if (byIndex == -1) {
+                        throw new IllegalArgumentException("Bao needs the deadline to be after /by");
+                    }
                     String deadline = taskDescription.substring(byIndex + 4);
                     String description = taskDescription.substring(0, byIndex - 1);
                     taskList[taskCount] = new Deadline(description, deadline);
@@ -99,6 +136,9 @@ public class Bao {
                 case "E" -> {
                     int fromIndex = taskDescription.indexOf("/from ");
                     int toIndex = taskDescription.indexOf("/to ");
+                    if (fromIndex == -1 || toIndex == -1) {
+                        throw new IllegalArgumentException("Bao needs the start and end to be after /from and /to");
+                    }
                     String from = taskDescription.substring(fromIndex + 6, toIndex - 1);
                     String to = taskDescription.substring(toIndex + 4);
                     String description = taskDescription.substring(0, fromIndex - 1);
