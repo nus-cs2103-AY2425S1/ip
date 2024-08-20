@@ -65,6 +65,7 @@ public class PurrfessorDipsy {
     private static void printMemory() {
         int counter = 1;
         printTerminalLine();
+        System.out.println("Here are the tasks in your list:");
         for ( String str : memory) {
             System.out.println(counter + ". " + str);
             counter++;
