@@ -73,6 +73,18 @@ public class Alice {
                 System.out.println(unmarkTask);
                 System.out.println("------------------------------------------");
                 break;
+            case "delete":
+                int taskNo = Integer.parseInt(result[1]);
+                if (taskNo > tasks.size()) {
+                    throw new InvalidTaskException(response, taskNo);
+                }
+                Task task = tasks.remove(taskNo - 1);
+                System.out.println("------------------------------------------");
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(task);
+                System.out.printf("Now you have %d tasks in the list%n", tasks.size());
+                System.out.println("------------------------------------------");
+                break;
             case "todo":
                 // result[1] contains description
                 if (result.length != 2) {
@@ -113,7 +125,7 @@ public class Alice {
             default:
                 throw new AliceException(response);
         }
-        if (result[0].equals("mark") || result[0].equals("unmark")) {
+        if (result[0].equals("mark") || result[0].equals("unmark") || result[0].equals("delete")) {
             return;
         }
 
