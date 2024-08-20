@@ -9,30 +9,26 @@ public class LevelHundred {
         this.ui = new Ui();
     }
 
-    private void greet() {
-        this.ui.printHorizontalLine();
-        System.out.println("\t" + "Hello, I'm " + this.name);
-        System.out.println("\t" + "What can I do for you?");
-        this.ui.printHorizontalLine();
-    }
-
-    private void exit() {
-        System.out.println("\t" + "Bye. Hope to see you again soon!");
-        ui.printHorizontalLine();
-    }
-
     private void run() {
-        this.greet();
-        Scanner sc = new Scanner(System.in);
-        String END = "bye";
-        String userInput = sc.nextLine();
+        this.ui.greet(this.name);
 
-        while (!userInput.equals(END)) {
-            this.ui.echo(userInput);
+        Scanner sc = new Scanner(System.in);
+        boolean isRunning = true;
+        String userInput = "";
+
+        while (isRunning) {
             userInput = sc.nextLine();
+            switch(userInput) {
+                case "bye":
+                    isRunning = false;
+                    this.ui.exit();
+                    break;
+                default:
+                    this.ui.echo(userInput);
+            }
         }
 
-        this.exit();
+        sc.close();
     }
     public static void main(String[] args) {
         LevelHundred chatbot = new LevelHundred();
