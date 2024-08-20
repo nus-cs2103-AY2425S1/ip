@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Bao {
-    private static Task[] messages = new Task[100];
-    private static int messageCount = 0;
+    private static Task[] taskList = new Task[100];
+    private static int taskCount = 0;
 
     private static String baoHappy =   "     ___   \n"
             + "   /     \\  \n"
@@ -34,72 +34,49 @@ public class Bao {
                 break;
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("____________________________________________________________");
-                showMessages();
+                showTasks();
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("mark ")) {
                 int index = Integer.parseInt(input.substring(5)) - 1;
-                messages[index].mark();
+                taskList[index].mark();
                 System.out.println("Bao has marked it as done!");
-                System.out.println(messages[index]);
+                System.out.println(taskList[index]);
             } else if (input.startsWith("unmark ")) {
                 int index = Integer.parseInt(input.substring(7)) - 1;
-                messages[index].unmark();
+                taskList[index].unmark();
                 System.out.println("Bao has marked it as not done!");
-                System.out.println(messages[index]);
-            } else {
-                addMessage(input);
-                System.out.println("____________________________________________________________");
-                System.out.println("added: " + input);
+                System.out.println(taskList[index]);
+            } else if (input.startsWith("todo ")) {
+                String task = input.substring(5);
+                addTask(task, "T");
+                System.out.println("You have " + taskCount + " tasks in the list");
                 System.out.println("____________________________________________________________");
             }
         }
         scanner.close();
     }
 
-    private static void showMessages() {
-        if (messageCount == 0) {
+    private static void showTasks() {
+        if (taskCount == 0) {
             System.out.println("You haven't told Bao anything yet!");
         } else {
-            for (int i = 0; i < messageCount; i++) {
-                System.out.println((i + 1) + ". " + messages[i]);
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + ". " + taskList[i]);
             }
         }
     }
 
-    private static void addMessage(String message) {
-        if (messageCount < 100) {
-            messages[messageCount] = new Task(message);
-            messageCount++;
+    private static void addTask(String message, String type) {
+        if (taskCount < 100) {
+            if (type == "T") {
+                taskList[taskCount] = new ToDo(message, null);
+                System.out.println("Bao got it! Bao is now tracking:");
+                System.out.println(taskList[taskCount].toString());
+                taskCount++;
+            }
         } else {
             System.out.println(baoSad);
             System.out.println("Bao cannot remember so many things :(");
-        }
-    }
-}
-
-class Task {
-    private String description;
-    private boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public void mark() {
-        this.isDone = true;
-    }
-
-    public void unmark() {
-        this.isDone = false;
-    }
-
-    @Override
-    public String toString() {
-        if (isDone) {
-            return "[X] " + description;
-        } else {
-            return "[ ] " + description;
         }
     }
 }
