@@ -1,9 +1,9 @@
 Hello! I'm Optimus
 What can I do for you?
 ____________________________
-Invalid command. Please provide a task description.
-Invalid command. Please provide a task description.
-Invalid command. Please provide a task description.
+This Task requires a description
+This Task requires a description
+This Task requires a description
 Got it. I've added this task:
 [T][ ] 2103 iP
 Now you have 1 tasks in the list
@@ -13,7 +13,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list
 ____________________________
 Deadline Tasks must have a deadline specified
-Events must have a start and end specified
+Events must have a start specified
 Got it. I've added this task:
 [E][ ] splashdown (from: 28th Aug to: 29th Aug)
 Now you have 3 tasks in the list
@@ -25,6 +25,13 @@ ____________________________
 2. [D][ ] 2103 iP (by: friday)
 3. [E][ ] splashdown (from: 28th Aug to: 29th Aug)
 ____________________________
-Invalid task number.
+A Task with this number does not exist.
+Noted. I've removed this task:
+[D][ ] 2103 iP (by: friday)
+Now you have 2 tasks in the list
+____________________________
+1. [T][X] 2103 iP
+2. [E][ ] splashdown (from: 28th Aug to: 29th Aug)
+____________________________
 Bye. Hope to see you again soon!
 ____________________________

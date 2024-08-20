@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Optimus {
     boolean isLive;
     public static String linebreak = "____________________________";
@@ -25,41 +26,39 @@ public class Optimus {
         System.out.println(Optimus.linebreak);
     }
 
+    private void handleCommand(String input) throws InvalidCommandException {
+        String[] commands = input.split(" ");
+        if (commands.length == 0) {
+            throw new InvalidCommandException("No command entered.");
+        }
+
+        String command = commands[0].toLowerCase();
+        try{
+            switch (command) {
+                case "bye" -> leave();
+                case "list" -> taskManager.printAllTasks();
+                case "mark" -> taskManager.markTaskAsDone(commands);
+                case "unmark" -> taskManager.markTaskAsIncomplete(commands);
+                case "todo", "deadline", "event" -> taskManager.addTask(commands);
+                case "delete" -> taskManager.deleteTask(commands);
+                default -> throw new InvalidCommandException("This command does not exist.");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Optimus optimus = new Optimus();
-        Scanner scanner = new Scanner(System.in);
-        
-        while (optimus.getStatus()) {
-            String input = scanner.nextLine();
-            String[] commands = input.split(" ");
-            String command = commands[0];
-
-            try {
-                switch (command) {
-                    case "bye":
-                        optimus.leave();
-                        break;
-                    case "list":
-                        optimus.taskManager.printAllTasks();
-                        break;
-                    case "mark":
-                        optimus.taskManager.markTaskAsDone(commands);
-                        break;
-                    case "unmark":
-                        optimus.taskManager.markTaskAsIncomplete(commands);
-                        break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        optimus.taskManager.addTask(commands);
-                        break;
-                    default:
-                        throw new InvalidCommandException("This command does not exist.");
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (optimus.getStatus()) {
+                String input = scanner.nextLine();
+                try {
+                    optimus.handleCommand(input);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
-
         }
     }
 }

@@ -9,4 +9,6 @@ event splashdown /from 28th Aug /to 29th Aug
 mark 1
 list
 mark 9
+delete 2
+list
 bye
