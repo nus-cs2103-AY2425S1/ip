@@ -1,0 +1,8 @@
+todo buy books
+deadline assignment1 /by Tuesday
+deadline assignment2 /by Wed 21 Aug
+event coffee talk /from Mon /to Fri
+list
+mark 1
+unmark 1
+list

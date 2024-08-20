@@ -27,7 +27,7 @@ public class UI {
     }
 
     public void printAddTaskFeedback(Task task, int noOfTasksInList) {
-        System.out.println(this.addMsgWithOutline("Got it. I've added this task: \n\t\t\t\t" + task + "\n\t\t\tNow you have " + noOfTasksInList + " task(s) in the list."));
+        System.out.println(this.addMsgWithOutline("Got it. I've added this task:\n\t\t\t\t" + task + "\n\t\t\tNow you have " + noOfTasksInList + " task(s) in the list."));
     }
 
     public void printTaskMarkedDone(Task task) {
