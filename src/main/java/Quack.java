@@ -88,6 +88,9 @@ public class Quack {
             case "unmark":
                 this.toDoList.updateTask(Integer.valueOf(inputArr[1]) - 1, command);
                 break;
+            case "delete":
+                this.toDoList.deleteTask(Integer.valueOf(inputArr[1]) - 1);
+                break;
             default:
                 InvalidInputException error = new InvalidInputException("There is no such function as " + command + ", please try again.");
                 throw error;

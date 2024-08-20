@@ -28,6 +28,11 @@ public class TaskList {
         System.out.println("Alright I have added this task into the list: \n" + newTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
+    public void deleteTask(int idx) {
+        Task removedTask = this.toDo.remove(idx);
+        System.out.println("Alright I have removed this task into the list: \n" + removedTask.toString() + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
+    }
+
     @Override
     public String toString() {
         if (this.toDo.size() == 0) {
