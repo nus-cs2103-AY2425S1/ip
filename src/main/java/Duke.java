@@ -3,6 +3,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Duke {
     private List<Task> taskStore = new ArrayList<Task>();
     public static void main(String[] args) {
@@ -58,6 +62,7 @@ public class Duke {
 
     private void readData() {
         try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             File filedir = new File("data/");
             if (!filedir.exists()) {
                 boolean success = filedir.mkdir();
@@ -73,8 +78,8 @@ public class Duke {
                 String taskType = line[0];
                 Task task = switch (taskType) {
                     case "T" -> new Todo(line[2]);
-                    case "D" -> new Deadline(line[2], line[3]);
-                    case "E" -> new Event(line[2], line[3], line[4]);
+                    case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3].trim(), dtf));
+                    case "E" -> new Event(line[2], LocalDateTime.parse(line[3].trim(), dtf), LocalDateTime.parse(line[4].trim(), dtf));
                     default -> throw new DukeException("Invalid Task type provided.");
                 };
                 if (line[1].equals("1")) task.markAsDoneNonVerbose();
@@ -109,28 +114,40 @@ public class Duke {
     }
 
     private void createTask(String type, String input) throws DukeException {
-        if (input.isEmpty()) throw new DukeException("Empty Task description provided.");
-        System.out.println("Got it. I've added this task:");
-        Task task;
-        switch (type) {
-            case "todo":
-                task = new Todo(input);
-                break;
-            case "deadline":
-                int byDate = input.indexOf("/by");
-                task = new Deadline(input.substring(0, byDate - 1), input.substring(byDate + 4));
-                break;
-            case "event":
-                int fromDate = input.indexOf("/from");
-                int toDate = input.indexOf("/to");
-                task = new Event(input.substring(0, fromDate - 1), input.substring(fromDate + 6, toDate - 1), input.substring(toDate + 4));
-                break;
-            default:
-                throw new DukeException("Invalid Task type.");
+        try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            if (input.isEmpty()) throw new DukeException("Empty Task description provided.");
+            System.out.println("Got it. I've added this task:");
+            Task task;
+            switch (type) {
+                case "todo":
+                    task = new Todo(input);
+                    break;
+                case "deadline":
+                    if (!input.contains("/by") || input.indexOf("/by") == input.length() - 3) throw new DukeException("Invalid deadline description provided.");
+                    String[] deadlineInput = input.split("/by", 2);
+                    task = new Deadline(deadlineInput[0].trim(), LocalDateTime.parse(deadlineInput[1].trim(), dtf));
+                    break;
+                case "event":
+                    if (
+                            !input.contains("/from") ||
+                            !input.contains("/to") ||
+                            input.indexOf("/from") == input.length() - 5 ||
+                            input.indexOf("/to") == input.length() - 2
+                    ) throw new DukeException("Invalid event description provided.");
+                    String[] eventInput = input.split("/from", 2);
+                    String[] eventTimeInput = eventInput[1].trim().split("/to", 2);
+                    task = new Event(eventInput[0].trim(), LocalDateTime.parse(eventTimeInput[0].trim(), dtf), LocalDateTime.parse(eventTimeInput[1].trim(), dtf));
+                    break;
+                default:
+                    throw new DukeException("Invalid Task type.");
+            }
+            this.taskStore.add(task);
+            System.out.println(task);
+            System.out.printf("Now you have %d tasks in the list.\n", this.taskStore.size());
+        } catch (DateTimeParseException | DukeException e) {
+            System.out.println(e.getMessage());
         }
-        this.taskStore.add(task);
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.taskStore.size());
     }
 
     private void deleteTask(String input) throws DukeException {
