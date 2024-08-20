@@ -59,10 +59,33 @@ public class Bibi {
                     System.out.println(t);
                     printHorizontalLine();
                 }
-            } else {
-                tasks[taskCount++] = new Task(cmd);
-                printHorizontalLine();
-                System.out.printf("added: \"%s\" to task list%n", cmd);
+            } else { // Add to task list
+                switch (cmd.split(" ")[0]) {
+                    case "todo": {
+                        ToDo td = new ToDo(cmd.substring(5));
+                        tasks[taskCount++] = td;
+
+                        // Console
+                        printHorizontalLine();
+                        System.out.printf("added: \"%s\" to task list%n", td);
+                        break;
+                    }
+//                    case "deadline": {
+//
+//                        break;
+//                    }
+//                    case "event": {
+//                        break;
+//                    }
+                    default: {
+                        tasks[taskCount++] = new Task(cmd);
+
+                        // Console
+                        printHorizontalLine();
+                        System.out.printf("added: \"%s\" to task list%n", cmd);
+                    }
+                }
+                System.out.printf("You now have %d tasks to do%n", taskCount);
                 printHorizontalLine();
             }
         }
