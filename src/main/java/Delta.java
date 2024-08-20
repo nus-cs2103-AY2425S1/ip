@@ -25,9 +25,10 @@ public class Delta {
     }
 
     public static String printTasks() {
-        String output = "\t____________________________________________________________\n";
+        String output = "\t____________________________________________________________\n"
+                + "\t Here are the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
-            output += "\t " + (Integer.toString(i + 1)) + ". " + list.get(i) + "\n";
+            output += String.format("\t %d.[%s] %s\n", i + 1, list.get(i).getStatusIcon(), list.get(i).getDescription());
         }
         output += "\t_____________________________________________________________";
         return output;
