@@ -13,6 +13,7 @@ public class Shenhe {
 
         Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>();
+        int totalNumberOfTasks = 0;
         String userInput;
 
         while (true) {
@@ -47,10 +48,39 @@ public class Shenhe {
                     System.out.println(tasks.get(lastDigit - 1).toString());
                     System.out.println("____________________________________________________________");
                 }
-            } else if (!userInput.equals("list")) {
-                tasks.add(new Task(userInput));
+            } else if (userInput.startsWith("todo")) {
+                String task = userInput.substring(5);
+                tasks.add(new Todo(task));
+                totalNumberOfTasks++;
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + userInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
+                System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("deadline")) {
+                int indexOfSlash = userInput.indexOf("/");
+
+                String task = userInput.substring(9, indexOfSlash - 1);
+                String by = userInput.substring(indexOfSlash + 4);
+                tasks.add(new Deadline(task, by));
+                totalNumberOfTasks++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
+                System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("event")) {
+                int indexOfFirstSlash = userInput.indexOf("/");
+                int indexOfSecondSlash = userInput.indexOf("/", indexOfFirstSlash + 1);
+                String task = userInput.substring(6, indexOfFirstSlash - 1);
+                String from = userInput.substring(indexOfFirstSlash + 6, indexOfSecondSlash - 1);
+                String to = userInput.substring(indexOfSecondSlash + 4);
+                tasks.add(new Event(task, from, to));
+                totalNumberOfTasks++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
+                System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else {
                 int length = tasks.size();
