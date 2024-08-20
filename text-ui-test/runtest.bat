@@ -19,3 +19,8 @@ java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+
+:cleanup
+REM Delete the entire data folder if it exists
+
+exit /b %ERRORLEVEL%

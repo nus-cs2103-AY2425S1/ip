@@ -23,11 +23,19 @@ public class Task {
         }
     }
 
+    public void markAsDoneNonVerbose() {
+        if (!this.isDone) this.isDone = true;
+    }
+
     public void markAsNotDone() {
         if (!this.isDone) System.out.println("Task already marked as not done:\n" + this);
         else {
             this.isDone = false;
             System.out.println("Ok, I've marked this task as not done yet:\n" + this);
         }
+    }
+
+    public String saveFormat() {
+        return (this.isDone ? 1 : 0) + " | " + this.description;
     }
 }
