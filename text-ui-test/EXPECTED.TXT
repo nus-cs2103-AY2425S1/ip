@@ -30,5 +30,13 @@ You now got 4 tasks in your list leh
 2. [T][ ] buy fish
 3. [D][X] finish cs2103t homework (by: next Monday)
 4. [E][ ] holiday (from: next Tuesday | to: next Sunday)
-> K k, bye lah!
+> Deleting now hor!
+	[T][X] water plants
+You now got 3 tasks in your list leh
+> Oops! Secret file not found...
+> Here's your list lor!
+1. [T][ ] buy fish
+2. [D][X] finish cs2103t homework (by: next Monday)
+3. [E][ ] holiday (from: next Tuesday | to: next Sunday)
+> K k bye lah!
 

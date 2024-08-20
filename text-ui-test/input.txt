@@ -8,4 +8,7 @@ mark 1
 unmark 2
 mark 3
 list
+delete 1
+national anthem
+list
 bye
