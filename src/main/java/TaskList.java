@@ -21,6 +21,10 @@ public class TaskList {
         tasks[taskId - 1].markNotDone();
     }
 
+    public String getTaskStatus(int taskId) {
+        return tasks[taskId - 1].toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
