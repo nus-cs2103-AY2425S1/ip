@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Pikappi {
     static Scanner reader = new Scanner(System.in);
     static String command;
-    static Task[] tasks = new Task[100];
-    static int numTasks = 0;
+    static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void greet() {
         System.out.println("Pika! I'm Pikappi!\nWhat can I do for you?\n");
@@ -20,10 +21,9 @@ public class Pikappi {
             throw new PikappiException("Pi-ka..?? What do you want todo..?");
         }
         String task = substrings[1];
-        tasks[numTasks] = new TodoTask(task);
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks[numTasks] +
-                "\nNow you have " + (numTasks + 1) + " tasks in the list.");
-        numTasks++;
+        tasks.add(new TodoTask(task));
+        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
+                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void addDeadlineTask(String command) throws PikappiException {
@@ -41,10 +41,9 @@ public class Pikappi {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new PikappiException("Pi-ka..?? When is the deadline..?");
         }
-        tasks[numTasks] = new DeadlineTask(task, by);
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks[numTasks] +
-                "\nNow you have " + (numTasks + 1) + " tasks in the list.");
-        numTasks++;
+        tasks.add(new DeadlineTask(task, by));
+        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
+                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void addEventTask(String command) throws PikappiException {
@@ -65,21 +64,20 @@ public class Pikappi {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new PikappiException("Pi-ka..?? When is the event starting and ending..?");
         }
-        tasks[numTasks] = new EventTask(task, from, to);
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks[numTasks] +
-                "\nNow you have " + (numTasks + 1) + " tasks in the list.");
-        numTasks++;
+        tasks.add(new EventTask(task, from, to));
+        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
+                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
     
     public static void listTasks() {
-        if (numTasks == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("Pika-ka! You have no tasks!");
             return;
         }
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numTasks; i++) {
-            if (tasks[i] != null) {
-                System.out.println((i + 1) + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) != null) {
+                System.out.println((i + 1) + "." + tasks.get(i));
             } else {
                 break;
             }
@@ -87,13 +85,13 @@ public class Pikappi {
     }
 
     public static void markTask(int taskNumber) {
-        tasks[taskNumber - 1].markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n" + tasks[taskNumber - 1]);
+        tasks.get(taskNumber - 1).markAsDone();
+        System.out.println("Nice! I've marked this task as done:\n" + tasks.get(taskNumber - 1));
     }
 
     public static void unmarkTask(int taskNumber) {
-        tasks[taskNumber - 1].unmarkAsDone();
-        System.out.println("Okie, I've unmarked this task as not done yet:\n" + tasks[taskNumber - 1]);
+        tasks.get(taskNumber - 1).unmarkAsDone();
+        System.out.println("Okie, I've unmarked this task as not done yet:\n" + tasks.get(taskNumber - 1));
     }
 
     public static void main(String[] args) throws PikappiException {
