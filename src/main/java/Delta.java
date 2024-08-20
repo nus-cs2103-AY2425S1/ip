@@ -43,8 +43,10 @@ public class Delta {
             if (phrase.equals("bye")) {
                 System.out.println(sayBye());
                 break;
+            } else if (phrase.equals("list")) {
+                System.out.println(echo());
             } else {
-                System.out.println(echo(phrase));
+                System.out.println(add(phrase));
             }
         }
 
