@@ -74,10 +74,13 @@ public class Mahesh {
 
     private static void addToList(Task task) {
         Mahesh.list[taskCount++] = task;
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.err.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
     }
 
     private static void printList() {
+        System.err.println("Here are the tasks in your list:");
         int count = 1;
         for (Task task : Mahesh.list) {
             if (task == null) break;
