@@ -1,7 +1,9 @@
+import java.io.FileNotFoundException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Jackson {
 
@@ -14,6 +16,9 @@ public class Jackson {
     private static final Pattern UNMARK = Pattern.compile("^unmark ([0-9]+)$");
     private static final Pattern LIST = Pattern.compile("^list$");
     private static final Pattern DELETE = Pattern.compile("^delete ([0-9]+)$");
+    private static final Pattern SECRET = Pattern.compile("^national anthem$");
+    private static final Pattern BYE = Pattern.compile("^bye$");
+    private static String na = "";
 
     private static final int EXPECTED_SIZE = 100;
     private static ArrayList<Task> tasks = new ArrayList<>(EXPECTED_SIZE);
@@ -62,6 +67,27 @@ public class Jackson {
         System.out.printf("\t%s\n", curr);
     }
 
+    public static void read_anthem() {
+        StringBuilder output = new StringBuilder();
+        String out;
+        if (na.isEmpty()) {
+            File f = new File("src/main/java/secret_text.txt");
+            try {
+                Scanner sc = new Scanner(f);
+                while (sc.hasNextLine()) {
+                    output.append(sc.nextLine()).append("\n");
+                }
+                out = output.toString().strip();
+            } catch (FileNotFoundException e) {
+                System.out.println("Oops! Secret file not found...");
+                return;
+            }
+        } else {
+            out = na;
+        }
+        System.out.println(out);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -70,10 +96,9 @@ public class Jackson {
         Matcher m;
         Task t;
 
-        while (!response.equals("bye")) {
+        while (true) {
             try {
                 if (response.startsWith("list")) {
-                    // match regex
                     m = LIST.matcher(response);
                     if (!m.find()) throw new SyntaxException("list");
                     show_list();
@@ -104,6 +129,13 @@ public class Jackson {
                     m = DELETE.matcher(response);
                     if (!m.find()) throw new SyntaxException("delete");
                     delete_list(Integer.parseInt(m.group(1)) - 1);
+                } else if (response.startsWith("bye")) {
+                    m = BYE.matcher(response);
+                    if (!m.find()) throw new SyntaxException("bye");
+                    System.out.println("K k bye lah!");
+                    return;
+                } else if (SECRET.matcher(response).find()) {
+                    read_anthem();
                 } else {
                     throw new UnsupportedException();
                 }
@@ -136,6 +168,12 @@ public class Jackson {
                         break;
                     case "delete":
                         System.out.println("delete [index]");
+                    case "bye":
+                        System.out.println("bye");
+                        break;
+                    default:
+                        System.out.println("Unknown error...");
+                        break;
                 }
             } catch (OutOfListException e) {
                 System.out.printf("Alamak, you got %d items on the list only leh...\n", tasks.size());
@@ -153,7 +191,5 @@ public class Jackson {
             System.out.print("> ");
             response = sc.nextLine().strip();
         }
-
-        System.out.println("K k, bye lah!");
     }
 }
