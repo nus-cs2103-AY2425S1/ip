@@ -5,6 +5,9 @@ public class Patrick {
         String horizontalLine = "-----------------------------------------------------------------------\n";
         String greetingMsg = horizontalLine + "Hello! I'm Patrick, Spongebob bestie\nHow can I help you?\n" + horizontalLine;
         String exitMsg = horizontalLine + "Bye. Hope to see you again soon!\n" + horizontalLine;
+        String taskMsg = "Got it. I've added this task:\n";
+        String numTaskMsg1 = "Now you have ";
+        String numTaskMsg2 = " tasks in the list.\n";
         String input;
         ArrayList list = new ArrayList();
         Task task;
@@ -40,10 +43,14 @@ public class Patrick {
                 System.out.println(horizontalLine + "Nice! I've marked this task as not done yet:\n  "
                         + curr.toString() + "\n" + horizontalLine);
             }
-            else {
-                System.out.println("added: " + input + "\n");
-                task = new Task(input);
+            else if (input.startsWith("todo")) {
+                String taskDescription = input.replace("todo ", "");
+                task = new ToDo(taskDescription);
                 list.add(task);
+                System.out.println(horizontalLine + taskMsg + task.toString() + "\n" + numTaskMsg1 + list.size() + numTaskMsg2 + horizontalLine);
+            }
+            else {
+                System.out.println(horizontalLine + "Wrong command. Please re-enter. \n" + horizontalLine);
             }
         } while (true);
         System.out.println(exitMsg);
@@ -73,6 +80,31 @@ public class Patrick {
         @Override
         public String toString() {
             return "[" + getStatusIcon() + "] " + this.description;
+        }
+    }
+
+    public static class Deadline extends Task {
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + this.by + ")";
+        }
+    }
+
+    public static class ToDo extends Task {
+        public ToDo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
         }
     }
 }
