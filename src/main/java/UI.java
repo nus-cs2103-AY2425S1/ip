@@ -40,6 +40,10 @@ public class UI {
         System.out.println(this.addMsgWithOutline("OK, I've marked this task as not done yet:\n\t\t\t\t" + task));
     }
 
+    public void printTaskRemoved(Task taskRemoved, int noOfTasksInList) {
+        System.out.println(this.addMsgWithOutline("Noted. I've removed this task: \n\t\t\t\t" + taskRemoved + "\n\t\t\tNow you have " + noOfTasksInList + " task(s) in the list."));
+    }
+
     public void printErrorMessage(Exception e) {
         System.out.println(this.addMsgWithOutline(e.getMessage()));
     }

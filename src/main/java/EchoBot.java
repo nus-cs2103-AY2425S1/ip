@@ -39,6 +39,10 @@ public class EchoBot {
                     Task task = taskList.getTaskByIndex(taskIndex);
                     task.markUndone();
                     ui.printTaskMarkedUndone(task);
+                } else if (commandSplit.length == 2 && "delete".equals(commandSplit[0])) {
+                    int taskIndex = Integer.parseInt(commandSplit[1]);
+                    Task removedTask = taskList.deleteTaskByIndex(taskIndex);
+                    ui.printTaskRemoved(removedTask, taskList.getTaskList().size());
                 } else if ("deadline".equals(commandSplit[0])) {
                     String[] commands = splitCommand(commandSplit, new String[]{"/by"});
                     Task task = new Deadline(commands[0], commands[1]);

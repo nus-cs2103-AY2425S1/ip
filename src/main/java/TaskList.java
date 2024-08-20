@@ -15,6 +15,14 @@ public class TaskList {
         this.taskList.add(task);
     }
 
+    public Task deleteTaskByIndex(int index) throws TaskNotFoundException {
+        try {
+            return this.taskList.remove(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNotFoundException();
+        }
+    }
+
     public List<Task> getTaskList() {
         return this.taskList;
     }
