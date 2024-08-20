@@ -66,11 +66,12 @@ public class Hoshi {
                 // get only the number from the 2nd half of the splitInput
                 int markIndex = Integer.parseInt(splitInput[1]) - 1;
 
+                System.out.println(markIndex);
 
                 try {
 
                     // if specified index is not out of bounds
-                    if (markIndex <= arrayList.size()) {
+                    if (markIndex <= arrayList.size() - 1) {
 
                         arrayList.get(markIndex).setIsDone(true);
 
@@ -98,7 +99,7 @@ public class Hoshi {
                 try {
 
                     // if specified index is not out of bounds
-                    if (markIndex <= arrayList.size()) {
+                    if (markIndex <= arrayList.size() - 1) {
 
                         // set isDone to false
                         arrayList.get(markIndex).setIsDone(false);
@@ -128,9 +129,12 @@ public class Hoshi {
                 arrayList.remove(markIndex);
 
                 // add a Task
-            } else {
+            } else if (input.startsWith("add")) {
 
-                switch (input) {
+                String[] splitInput = input.split(" ");
+                String taskInput = splitInput[1];
+
+                switch (taskInput) {
                     case "todo" -> {
 
                         System.out.println("Understood! What is your ToDo? ");
@@ -212,16 +216,15 @@ public class Hoshi {
                     default ->
 
                         // in event of invalid input
-                            System.out.println("Hoshi dosen't understand! Please try again with the above keywords(in lowercase)");
+                            System.out.println("Hoshi doesn't understand! Please try again with the above keywords(in lowercase)");
                 }
 
+            } else {
+
+                System.out.println("Hoshi doesn't understand, try a different input? ");
                 System.out.println("____________________________________________________________");
+
             }
-
-
-
-            // echo
-            //System.out.println(input);
 
 
         }
