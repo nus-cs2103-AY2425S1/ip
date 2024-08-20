@@ -21,10 +21,12 @@ public class TaskList {
      *
      * @param task
      */
-    public void addTask(String task) {
-        this.taskList[numOfTasks] = new Task(task);
+    public void addTask(Task task) {
+        this.taskList[numOfTasks] = task;
         this.numOfTasks += 1;
-        UI.response("added \'" + task + "\' task!");
+        UI.response("Added \'" + task + "\' task!");
+        String msg = String.format("By the way, you have %d tasks now!", this.numOfTasks);
+        UI.response(msg);
     }
 
     /**
@@ -36,9 +38,9 @@ public class TaskList {
             Task currTask = this.taskList[i];
             String res;
             if (currTask.isComplete()) {
-                res = String.format("%d.[X] %s", i + 1, currTask.getTask());
+                res = String.format("%d.%s", i + 1, currTask);
             } else {
-                res = String.format("%d.[ ] %s", i + 1, currTask.getTask());
+                res = String.format("%d.%s", i + 1, currTask);
             }
             UI.response(res);
         }
@@ -54,7 +56,7 @@ public class TaskList {
         Task reqTask = this.taskList[taskNum - 1];
         reqTask.complete();
         UI.response("Oki, I'll mark the task as done *w*! Good job finishing the task!!");
-        String res = String.format("  [X] %s", reqTask.getTask());
+        String res = String.format("%s", reqTask);
         UI.response(res);
     }
 

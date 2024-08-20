@@ -26,12 +26,17 @@ public class Task {
     }
 
     /**
-     * Method to return the String description of task.
+     * Return the String description of task.
      *
      * @return String description of task.
      */
-    public String getTask() {
-        return this.task;
+    @Override
+    public String toString() {
+        if (this.isComplete()) {
+            return "[X] " + this.task;
+        } else {
+            return "[ ] " + this.task;
+        }
     }
 
     /**
