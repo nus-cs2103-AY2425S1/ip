@@ -25,7 +25,6 @@ public class Commands {
         System.out.println( "Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + numberOfTasks + " tasks in your list.");
         System.out.println("------------------------------------------");
     }
-
     public static void markTask(Task[] tasksArr, int taskNumber) {
         int taskIndex = taskNumber - 1;
         Task currTask = tasksArr[taskIndex];
@@ -48,5 +47,4 @@ public class Commands {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("------------------------------------------");
     }
-
 }

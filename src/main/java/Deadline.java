@@ -1,6 +1,6 @@
 public class Deadline extends Task {
     protected String by;
-    public Deadline(String taskDescription, String by) {
+    public Deadline(String taskDescription, String by) throws JustbotException {
         super(taskDescription);
         this.by = by;
     }
