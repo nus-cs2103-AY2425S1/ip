@@ -1,14 +1,10 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
     }
 
     public void setDone() {
@@ -22,6 +18,12 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public abstract String getTypeIcon();
 
     @Override
     public String toString() {

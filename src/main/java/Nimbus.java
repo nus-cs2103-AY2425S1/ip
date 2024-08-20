@@ -24,7 +24,8 @@ public class Nimbus {
 
     public static void addTask(Task task) {
         tasks[taskCount++] = task;
-        System.out.println("added: " + task.getDescription());
+        System.out.println("Got it. I've added this task:\n" + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     public static void setDone(int x) {
@@ -46,6 +47,10 @@ public class Nimbus {
         }
     }
 
+    public static void invalidCommand() {
+        System.out.println("Invalid Command");
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
 
@@ -62,11 +67,14 @@ public class Nimbus {
                         printAllTask();
                         break;
                     default:
-                        // throws error
+                        invalidCommand();
                 }
             } else {
                 command = line.substring(0, index);
                 text    = line.substring(index + 1);
+                if (text == "") {
+                    invalidCommand();
+                }
                 switch (command) {
                     case "list":
                         printAllTask();
@@ -77,8 +85,30 @@ public class Nimbus {
                     case "unmark":
                         setNotDone(Integer.parseInt(text) - 1);
                         break;
+                    case "todo":
+                        addTask(new Todo(text));
+                        break;
+                    case "deadline": {
+                        String byArg = "/by";
+                        int byIndex = text.indexOf(byArg);
+                        String description = text.substring(0, byIndex);
+                        String deadline = text.substring(byIndex + byArg.length());
+                        addTask(new Deadline(description.trim(), deadline.trim()));
+                        break;
+                    }
+                    case "event": {
+                        String fromArg = "/from";
+                        String toArg = "/to";
+                        int fromIndex = text.indexOf(fromArg);
+                        int toIndex = text.indexOf(toArg);
+                        String description = text.substring(0, fromIndex);
+                        String from = text.substring(fromIndex + fromArg.length(), toIndex);
+                        String to = text.substring(toIndex + toArg.length());
+                        addTask(new Event(description.trim(), from.trim(), to.trim()));
+                        break;
+                    }
                     default:
-                        addTask(new Task(line));
+                        invalidCommand();
                 }
             }
         }
