@@ -11,6 +11,33 @@
   ----------------------------------------------------------------------------------------------------
 
   ----------------------------------------------------------------------------------------------------
+    Options:
+      help          list all available options
+      list          Prints all tasks on tasklist
+      mark INDEX    Mark task as done
+      unmark INDEX  Mark task as undone
+      bye           Exit program
+
+      Supported Task commands:
+        todo TASK_DESCRIPTION
+                    Add new ToDo task to tasklist
+        deadline TASK_DESCRIPTION /by DEADLINE
+                    Add new Deadline task to tasklist,
+                    with due by date/time
+        event TASK_DESCRIPTION /from START /to END
+                    Add new Event task to tasklist,
+                    with start and end date/time
+
+
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    [31mRoTodo.Error: Invalid Input
+      Reep Roop... RoTodo Read No Understand?[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
     Got it! I've added this task:
       [T][ ] First Thing
     Now you have 1 tasks in the list.
@@ -62,6 +89,54 @@
   ----------------------------------------------------------------------------------------------------
 
   ----------------------------------------------------------------------------------------------------
-    Bye, remember to finish all your tasks!
+    [31mRoTodo.Error: Invalid Input
+      Reep Roop... RoTodo Read No Understand?[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    [31mRoTodo.Error: Invalid Input
+      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo needs a task description[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    [31mRoTodo.Error: Invalid Input
+      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo needs a task description and deadline[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    [31mRoTodo.Error: Invalid Input
+      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo needs a task description, from and to date/time[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    [31mRoTodo.Error: Invalid Input
+      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo needs a task description, from and to date/time[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    [31mRoTodo.Error: Invalid Input
+      Task number doesn't exist
+[0m    type 'list' to view tasklist[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    [31mRoTodo.Error: Invalid Input
+      Task number doesn't exist
+[0m    type 'list' to view tasklist[0m
+    type 'help' to see guide
+  ----------------------------------------------------------------------------------------------------
+
+  ----------------------------------------------------------------------------------------------------
+    Bye, RoTodo wish you all the best. Remember to finish all your tasks!
   ----------------------------------------------------------------------------------------------------
 

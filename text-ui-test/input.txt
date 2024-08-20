@@ -1,3 +1,4 @@
+help
 todo First Thing
 deadline Second Thing /by start of third thing
 event Third Thing /from just now /to later
@@ -7,4 +8,11 @@ mark 3
 list
 unmark 1
 list
+TESTING EXCEPTIONS
+todo
+deadline by right error
+event should be error
+event still not enough /from this line
+mark 4
+unmark 0
 bye

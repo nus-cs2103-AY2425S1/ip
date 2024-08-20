@@ -1,6 +1,6 @@
 package rotodo.exception;
 
-public class InvalidInputException extends Exception{
+public class InvalidInputException extends Exception {
     private static int count = 0;
     private static String[] error = new String[] {
         "RoTodo.Error: Invalid Input",

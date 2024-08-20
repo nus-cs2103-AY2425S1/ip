@@ -15,9 +15,9 @@ public class TaskList {
     }
 
     /**
-     * Mark the i'th Task as 'done'
+     * Mark the i'th Task as 'done'.
      * 
-     * @param i
+     * @param i task index
      * @return i'th task state
      */
     public String markDone(int i) throws InvalidInputException {
@@ -30,9 +30,9 @@ public class TaskList {
     }
 
     /**
-     * Unmark the i'th Task as 'done'
+     * Unmark the i'th Task as 'done'.
      * 
-     * @param i
+     * @param i task index
      * @return i'th task state
      */
     public String unmarkDone(int i) throws InvalidInputException {
@@ -48,7 +48,7 @@ public class TaskList {
      * Overloaded function addTask(). Adds tasks to 
      * the task list.
      * 
-     * @param value
+     * @param value task description
      * @return The action completed
      */
     public String addTask(String value) {
@@ -73,7 +73,7 @@ public class TaskList {
     }
 
     /**
-     * String representation of TaskList
+     * String representation of TaskList.
      * 
      * @return The list of tasks
      */

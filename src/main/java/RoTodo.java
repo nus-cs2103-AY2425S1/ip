@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 import rotodo.tasklist.TaskList;
-import rotodo.tasklist.Todo;
 import rotodo.exception.IncompleteInputException;
 import rotodo.exception.InvalidInputException;;
 
@@ -30,6 +29,7 @@ public class RoTodo {
      */
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
+    private static final String HELP = "help";
     private static final String LIST = "list";
     private static final String EXIT = "bye";
 
@@ -61,6 +61,25 @@ public class RoTodo {
             + "            R\\/E\n").replace("R", ansiRed).replace("E", ansiReset)
             + "    Your very own Robot Todo List!\n"
             + "    How can I help you help yourself?");
+    }
+
+    public static void help() {
+        RoTodo.print(
+            "    Options:\n"
+            + "      help          list all available options\n"
+            + "      list          Prints all tasks on tasklist\n"
+            + "      mark INDEX    Mark task as done\n"
+            + "      unmark INDEX  Mark task as undone\n"
+            + "      bye           Exit program\n\n"
+            + "      Supported Task commands:\n"
+            + "        todo TASK_DESCRIPTION\n"
+            + "                    Add new ToDo task to tasklist\n"
+            + "        deadline TASK_DESCRIPTION /by DEADLINE\n"
+            + "                    Add new Deadline task to tasklist,\n"
+            + "                    with due by date/time\n"
+            + "        event TASK_DESCRIPTION /from START /to END\n"
+            + "                    Add new Event task to tasklist,\n"
+            + "                    with start and end date/time\n\n");
     }
 
     /**
@@ -152,6 +171,9 @@ public class RoTodo {
                 }
                 break;
             
+            case HELP:
+                RoTodo.help();
+        
             default:
                 throw new InvalidInputException(
                     "Reep Roop... RoTodo Read No Understand?");
