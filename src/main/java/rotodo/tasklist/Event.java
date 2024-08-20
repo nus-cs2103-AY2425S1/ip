@@ -1,4 +1,4 @@
-package tasklist;
+package rotodo.tasklist;
 
 /**
  * The Event class encapsulates the specific type of 

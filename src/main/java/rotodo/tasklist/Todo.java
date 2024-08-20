@@ -1,4 +1,4 @@
-package tasklist;
+package rotodo.tasklist;
 
 /**
  * The Todo class encapsulates the specific type of 

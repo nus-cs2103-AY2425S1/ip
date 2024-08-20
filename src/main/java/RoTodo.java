@@ -1,5 +1,9 @@
 import java.util.Scanner;
-import tasklist.TaskList;
+
+import rotodo.tasklist.TaskList;
+import rotodo.tasklist.Todo;
+import rotodo.exception.IncompleteInputException;
+import rotodo.exception.InvalidInputException;;
 
 /**
  * __________       __________            __   _____
@@ -14,6 +18,21 @@ import tasklist.TaskList;
  * @version CS2103T AY24/25 Semester 1
  */
 public class RoTodo {
+    /**
+     * Different types of tasks
+     */
+    private static final String TODO = "todo";
+    private static final String EVENT = "event";
+    private static final String DEADLINE = "deadline";
+
+    /**
+     * Different types of commands
+     */
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String LIST = "list";
+    private static final String EXIT = "bye";
+
     /**
      * Wraps input string x with line text above and below.
      * 
@@ -45,10 +64,106 @@ public class RoTodo {
     }
 
     /**
+     * Process user inputs
+     * 
+     * @param taskList
+     * @param input
+     * @throws InvalidInputException
+     */
+    public static void process(TaskList taskList, String input) throws InvalidInputException {
+        String[] token = input.split(" ", 2);
+        boolean mark = false;
+        switch (token[0]) {
+            case LIST:
+                RoTodo.print(taskList.toString());
+                break;
+
+            case EXIT:
+                RoTodo.exit();
+                break;
+
+            case MARK:
+                mark = true;
+            case UNMARK:
+                if (token.length < 2) {
+                    throw new IncompleteInputException(
+                        "RoTodo need task number");
+                }
+
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(token[1]) - 1;
+                } catch (NumberFormatException e) {
+                    throw new InvalidInputException(String.format("'%s' not a "
+                        + "number RoTodo knows (and RoTodo know much numbers, "
+                        + "like 1s and 0s)", token[1]));
+                }
+                
+                if (mark) RoTodo.print(taskList.markDone(taskNumber));
+                else RoTodo.print(taskList.unmarkDone(taskNumber));
+                break;
+
+            case TODO:
+                if (token.length < 2) {
+                    throw new IncompleteInputException(
+                        "RoTodo can't read you mind, otherwise "
+                        + "RoTodo's creator would be rich!\n      "
+                        + "RoTodo needs a task description");
+                }
+                RoTodo.print(taskList.addTask(token[1]));
+                break;
+            
+            case DEADLINE:
+                if (token.length < 2) {
+                    throw new IncompleteInputException(
+                        "RoTodo can't read you mind, otherwise "
+                        + "RoTodo's creator would be rich!\n      "
+                        + "RoTodo needs a task description and deadline");
+                }
+                token = token[1].split(" /by ", 2);
+                if (token.length < 2) {
+                    throw new IncompleteInputException(
+                        "RoTodo can't read you mind, otherwise "
+                        + "RoTodo's creator would be rich!\n      "
+                        + "RoTodo needs a task description and deadline");
+                }
+                RoTodo.print(taskList.addTask(token[0], token[1]));
+                break;
+
+            case EVENT:
+                if (token.length < 2) {
+                    throw new IncompleteInputException(
+                        "RoTodo can't read you mind, otherwise "
+                        + "RoTodo's creator would be rich!\n      "
+                        + "RoTodo needs a task description, from and to date/time");
+                }
+                token = token[1].split(" /from | /to ", 3);
+                if (token.length < 3) {
+                    throw new IncompleteInputException(
+                        "RoTodo can't read you mind, otherwise "
+                        + "RoTodo's creator would be rich!\n      "
+                        + "RoTodo needs a task description, from and to date/time");
+                }
+                boolean fromBeforeTo = input.indexOf("/from") < input.indexOf("/to");
+                if (fromBeforeTo) {
+                    RoTodo.print(taskList.addTask(token[0], token[1], token[2]));
+                } else {
+                    RoTodo.print(taskList.addTask(token[0], token[2], token[1]));
+                }
+                break;
+            
+            default:
+                throw new InvalidInputException(
+                    "Reep Roop... RoTodo Read No Understand?");
+        }
+        InvalidInputException.noError();
+    }
+
+    /**
      * Exits program after printing goodbye text.
      */
     public static void exit() {
-        RoTodo.print("    Bye, remember to finish all your tasks!");
+        RoTodo.print("    Bye, RoTodo wish you all the best. Remember to finish all your tasks!");
         System.exit(0);
     }
 
@@ -56,22 +171,11 @@ public class RoTodo {
         RoTodo.banner();
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
         TaskList taskList = new TaskList();
-        String input;
         while (true) {
-            input = sc.nextLine();
-            switch (input) {
-                case "list":
-                    RoTodo.print(taskList.toString());
-                    break;
-
-                case "bye":
-                    sc.close();
-                    RoTodo.exit();
-                    break;
-            
-                default:
-                    RoTodo.print(taskList.process(input));
-                    break;
+            try {
+                RoTodo.process(taskList, sc.nextLine());
+            } catch (InvalidInputException e) {
+                RoTodo.print(e.toString());
             }
         }
     }
