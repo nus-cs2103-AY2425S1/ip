@@ -35,7 +35,7 @@ public class Duck {
         System.out.println("Hello from\n" + logo);
 
         System.out.println("Hello! I'm Duck");
-        System.out.println("What can I do for you? \n");
+        System.out.println("What can I do for you?\n");
 
         getInputTillBye();
         System.out.println("Bye. Hope to see you again soon!");
@@ -45,11 +45,14 @@ public class Duck {
     // obtain user input till he inputs bye, ignoring case
     public static void getInputTillBye() {
         Scanner in = new Scanner(System.in);
-        String message = in.nextLine();
-        while (!message.equalsIgnoreCase(Instruction.BYE.toString())) {
-            reactTo(message);
-            in = new Scanner(System.in);
+        String message;
+
+        while (in.hasNextLine()) {
             message = in.nextLine();
+            if (message.equalsIgnoreCase(Instruction.BYE.toString())) {
+                break;
+            }
+            reactTo(message);
         }
     }
 
@@ -128,6 +131,7 @@ public class Duck {
         for (Task t : tasks) {
             System.out.println(idx++ + "." + t.toString());
         }
+        System.out.println();
     }
 
     public static void toDoInstruction(String message) {
@@ -174,16 +178,16 @@ public class Duck {
                 tasks.get(Integer.parseInt(words[1]) - 1).markAsIncomplete();
             }
         } catch (NumberFormatException e) {
-            System.out.println("Oops! you have to indicate a valid task index!");
+            System.out.println("Oops! you have to indicate a valid task index!\n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops! Index out of bound :( Input a valid task index.");
+            System.out.println("Oops! Index out of bound :( Input a valid task index.\n");
         }
     }
 
     public static void addTask(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task: \n" + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
 
