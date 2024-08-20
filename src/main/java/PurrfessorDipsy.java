@@ -42,6 +42,9 @@ public class PurrfessorDipsy {
                 printExitMessage();
                 System.exit(0);
                 break;
+            case "list":
+                printMemory();
+                break;
             default:
                 echoUserInput(userInput);
                 saveToMemory(userInput);
@@ -57,6 +60,16 @@ public class PurrfessorDipsy {
 
     private static void saveToMemory(String userInput) {
         memory.add(userInput);
+    }
+
+    private static void printMemory() {
+        int counter = 1;
+        printTerminalLine();
+        for ( String str : memory) {
+            System.out.println(counter + ". " + str);
+            counter++;
+        }
+        printTerminalLine();
     }
 
 
