@@ -14,7 +14,6 @@ public class WansBot {
 
     public static void notNumInput(String userInput, int taskListSize) throws NumberFormatException
     , NotANumMarkingException {
-        Integer.parseInt(userInput.substring(5));
         if (userInput.startsWith("unmark")) {
             int posTask = Integer.parseInt(userInput.substring(7));
             if (posTask > taskListSize || posTask < 1) {
@@ -25,6 +24,13 @@ public class WansBot {
             if (posTask > taskListSize || posTask < 1) {
                 throw new NotANumMarkingException(posTask);
             }
+        }
+    }
+
+    public static void missingInput(String userInput) {
+        String[] splitUser = userInput.split( " /by ", 2);
+        if (splitUser.length < 2) {
+            throw new InputEmptyException(userInput, "/by");
         }
     }
 
@@ -112,6 +118,14 @@ public class WansBot {
                 numTasks++;
                 // User can add a deadline task to list
             } else if (userInput.toLowerCase().startsWith("deadline ")) {
+                try {
+                    missingInput(userInput);
+                } catch(InputEmptyException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input a deadline, followed by /by, then the deadline!"
+                            + "\n" + hr);
+                    continue;
+                }
                 String[] splitUser = userInput.split( " /by ", 2);
                 Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8)
                 , splitUser[1]);
