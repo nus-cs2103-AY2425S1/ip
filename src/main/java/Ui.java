@@ -8,7 +8,6 @@ public class Ui {
         System.out.println(this.horizontalLine);
     }
 
-
     public void greet(String name) {
         this.printHorizontalLine();
         System.out.println("\t" + "Hello, I'm " + name);
@@ -59,6 +58,12 @@ public class Ui {
     public void printFail() {
         this.printHorizontalLine();
         System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+        this.printHorizontalLine();
+    }
+
+    public void printException(Exception e) {
+        this.printHorizontalLine();
+        System.out.println("\t" + e);
         this.printHorizontalLine();
     }
 }
