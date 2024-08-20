@@ -11,11 +11,11 @@ public class Task {
         this.taskID = lastID++;
     }
 
-    public String getDescription() {
+    private String getDescription() {
         return this.description;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] ");
     }
 
