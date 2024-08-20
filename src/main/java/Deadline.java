@@ -1,3 +1,6 @@
+/**
+ * Deadline class containing name and deadline.
+ */
 public class Deadline extends Task {
     private String deadline;
 

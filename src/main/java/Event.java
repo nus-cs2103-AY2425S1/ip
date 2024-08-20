@@ -1,3 +1,6 @@
+/**
+ * Event class containing name, from date and to date.
+ */
 public class Event extends Task {
 
     private String from;

@@ -1,7 +1,12 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * Parser class to handle regex checking and input parsing.
+ */
 public class Parser {
+
+    /* Bunch of regex patterns for user input checking */
     private static final Pattern TODO = Pattern.compile("^todo (.+)$");
     private static final Pattern DEADLINE = Pattern.compile("^deadline (.+) /by (.+)$");
     private static final Pattern EVENT = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
@@ -11,11 +16,24 @@ public class Parser {
     private static final Pattern DELETE = Pattern.compile("^delete ([0-9]+)$");
     private static final Pattern SECRET = Pattern.compile("^national anthem$");
     private static final Pattern BYE = Pattern.compile("^bye$");
-    public Parser() {}
-    
+
+    /**
+     * Parses the provided query and checks it against the relevant regex.
+     * Either throws an Exception if error is found, else returns a Response
+     * @param  query String containing user input
+     * @return Response containing Action Type and regex Matcher object
+     * @throws JacksonException Jackson-specific exception
+     */
     public static Response parse(String query) throws JacksonException {
         Actions.ACTIONS a;
         Matcher m = null;
+
+        /*
+            Generally:
+            1. Match regex with input
+            2. if regex doesn't match, throw exception (signifying wrong input format)
+            3. if they do match, package action to be taken and parsed user input into Response object
+        */
         if (query.startsWith("list")) {
             m = LIST.matcher(query);
             if (!m.find()) throw new SyntaxException("list");
