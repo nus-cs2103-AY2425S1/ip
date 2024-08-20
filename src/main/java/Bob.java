@@ -5,7 +5,7 @@ public class Bob {
         Scanner scanner = new Scanner(System.in);
         String input = "";
         int taskCounter = 0;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
 
         System.out.println("\t------------------------------------------");
         System.out.println("\tHello! I'm Bob!\n\tHow can I help you today?");
@@ -15,8 +15,8 @@ public class Bob {
             input = scanner.nextLine();
 
             // add task to tasks array
-            if (!input.equals("bye") && !input.equals("list")) {
-                tasks[taskCounter] = input;
+            if (!input.equals("bye") && !input.equals("list") && !input.startsWith("mark") && !input.startsWith("unmark")) {
+                tasks[taskCounter] = new Task(input); // input as task description
                 taskCounter++;
 
                 System.out.println("\t------------------------------------------");
@@ -31,7 +31,7 @@ public class Bob {
                 System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < taskCounter; i++) {
                     int j = i + 1;
-                    System.out.println(j + ". " + tasks[i]);
+                    System.out.println(j + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
                 System.out.println("\t------------------------------------------");
             }
