@@ -11,70 +11,84 @@ public class Patrick {
     static String input;
     static ArrayList<Task> list = new ArrayList<>();
     static Task task;
+    public enum Type {
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR
+    }
+    static Type inputType;
 
     public static void main(String[] args) {
         Scanner inputMsg = new Scanner(System.in);
         System.out.println(greetingMsg);
         do {
             input = inputMsg.nextLine();
-            if (input.equals("list")) {
-                System.out.println(horizontalLine + "Here are the tasks in your list:");
-                for (int i = 1; i <= list.size(); i++) {
-                    Task curr = (Task) list.get(i - 1);
-                    System.out.println(i + "." + curr.toString());
-                }
-                System.out.println(horizontalLine);
+            CheckType(input);
+            switch (inputType) {
+                case LIST:
+                    System.out.println(horizontalLine + "Here are the tasks in your list:");
+                    for (int i = 1; i <= list.size(); i++) {
+                        Task curr = (Task) list.get(i - 1);
+                        System.out.println(i + "." + curr.toString());
+                    }
+                    System.out.println(horizontalLine);
+                    break;
+
+                case BYE:
+                    System.out.println(exitMsg);
+                    break;
+
+                case MARK:
+                    try {
+                        Mark(input);
+                        break;
+                    } catch (PatrickException e) {
+                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
+                    }
+
+                case UNMARK:
+                    try {
+                        Unmark(input);
+                        break;
+                    } catch (PatrickException e) {
+                        System.out.println(horizontalLine + e.toString() + "\n" + horizontalLine);
+                    }
+
+                case TODO:
+                    try {
+                        ToDoTask(input);
+                        break;
+                    } catch (PatrickException e) {
+                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
+                    }
+
+                case DEADLINE:
+                    try {
+                        DeadlineTask(input);
+                        break;
+                    } catch (PatrickException e) {
+                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
+                    }
+
+                case EVENT:
+                    try {
+                        EventTask(input);
+                        break;
+                    } catch (PatrickException e) {
+                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
+                    }
+
+                case DELETE:
+                    try {
+                        Delete(input);
+                        break;
+                    } catch (PatrickException e) {
+                        System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
+                    }
+
+                default:
+                    System.out.println(horizontalLine + "What are you trying to say man. Re-enter your command \n" + horizontalLine);
+                    break;
             }
-            else if (input.equals("bye")) {
-                break;
-            }
-            else if (input.startsWith("mark")) {
-                try {
-                    Mark(input);
-                } catch (PatrickException e) {
-                    System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                }
-            }
-            else if (input.startsWith("unmark")) {
-                try {
-                    Unmark(input);
-                } catch (PatrickException e) {
-                    System.out.println(horizontalLine + e.toString() + "\n" + horizontalLine);
-                }
-            }
-            else if (input.startsWith("todo")) {
-                try {
-                    ToDoTask(input);
-                } catch (PatrickException e) {
-                    System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                }
-            }
-            else if (input.startsWith("deadline")) {
-                try {
-                    DeadlineTask(input);
-                } catch (PatrickException e) {
-                    System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                }
-            }
-            else if (input.startsWith("event")) {
-                try {
-                    EventTask(input);
-                } catch (PatrickException e) {
-                    System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                }
-            }
-            else if (input.startsWith("delete")) {
-                try {
-                    Delete(input);
-                } catch (PatrickException e) {
-                    System.out.print(horizontalLine + e.toString() + "\n" + horizontalLine);
-                }
-            }
-            else {
-                System.out.println(horizontalLine + "What are you trying to say man. Re-enter your command \n" + horizontalLine);
-            }
-        } while (true);
-        System.out.println(exitMsg);
+        } while (!inputType.equals(Type.BYE));
     }
 
     private static void ToDoTask(String input) throws PatrickException {
@@ -218,6 +232,27 @@ public class Patrick {
                 + list.get(num - 1).toString() + "\n" + numTaskMsg1 + (list.size() - 1) + numTaskMsg2);
             list.remove(num - 1);
         }
+    }
+
+    private static void CheckType(String input) {
+        if (input.startsWith("list"))
+            inputType = Type.LIST;
+        else if (input.startsWith("bye"))
+            inputType = Type.BYE;
+        else if (input.startsWith("mark"))
+            inputType = Type.MARK;
+        else if (input.startsWith("unmark"))
+            inputType = Type.UNMARK;
+        else if (input.startsWith("todo"))
+            inputType = Type.TODO;
+        else if (input.startsWith("deadline"))
+            inputType = Type.DEADLINE;
+        else if (input.startsWith("event"))
+            inputType = Type.EVENT;
+        else if (input.startsWith("delete"))
+            inputType = Type.DELETE;
+        else
+            inputType = Type.ERROR;
     }
 
     public static class Task {
