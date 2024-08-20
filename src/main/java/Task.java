@@ -17,13 +17,6 @@ public class Task {
 
     @Override
     public String toString() {
-        String s = "";
-        if (this.isDone) {
-            s += "[X] ";
-        } else {
-            s += "[ ] ";
-        }
-        s += this.taskDesc;
-        return s;
+        return this.isDone ? "[X] " : "[ ] ";
     }
 }
