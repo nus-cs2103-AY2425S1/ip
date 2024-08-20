@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Gutti {
 
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int noOfTasks = 0;
 
     /**
@@ -48,29 +48,54 @@ public class Gutti {
      */
     private static void echo(){
         Scanner scanner = new Scanner(System.in);
-        // User's input
         String input;
-        // Loops until user says bye
         while (true) {
             input = scanner.nextLine();
-            // Stop when user types bye
             if(input.equalsIgnoreCase("bye")) {
                 break;
-            }
-            // Lists out all the tasks
-            if(input.equalsIgnoreCase("list")) {
+            } else if(input.equalsIgnoreCase("list")) {
                 listsTask();
-            }
-            // Adds tasks
-            else {
-                System.out.println("____________________________________________________________");
-                System.out.println("Gutti painstakingly added: " + input);
-                System.out.println("____________________________________________________________");
-                tasks[noOfTasks] = input;
-                Gutti.noOfTasks++;
+            } else if (input.startsWith("mark ")) {
+                try{
+                    int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+                    try{
+                        tasks[taskIndex].markAsDone();
+                    }
+                    catch(NullPointerException e) {
+                        System.out.println("Cannot mark task as done as there is no task added yet! Meow");
+                    }
+                }
+                catch (java.lang.NumberFormatException e) {
+                    System.out.println("Meow incorrect format for marking tasks! Ensure you typed : Mark (int) " +
+                            "with only 1 space");
+                }
+            } else if (input.startsWith("unmark ")) {
+                try {
+                    int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                    try {
+                        tasks[taskIndex].unmark();
+                    }
+                    catch(NullPointerException e) {
+                        System.out.println("Cannot unmark Task as there is no task added yet! Meow");
+                    }
+                }
+                catch (java.lang.NumberFormatException e) {
+                    System.out.println("Meow incorrect format for unmarking tasks! Ensure you typed : unmark (int) " +
+                            "with only 1 space");
+                }
+            } else {
+                createsTask(input);
             }
         }
         scanner.close();
+    }
+
+    private static void createsTask(String input){
+        System.out.println("____________________________________________________________");
+        System.out.println("Gutti painstakingly added: " + input);
+        System.out.println("____________________________________________________________");
+        tasks[noOfTasks] = new Task(input);
+        Gutti.noOfTasks++;
     }
 
     /**
@@ -82,6 +107,7 @@ public class Gutti {
      */
     private static void listsTask() {
         System.out.println("____________________________________________________________");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < noOfTasks; i++) {
             System.out.println((i + 1) + ". " + tasks[i]);
         }
