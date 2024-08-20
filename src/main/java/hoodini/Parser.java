@@ -21,7 +21,8 @@ public class Parser {
      */
     public void load() {
         String home = System.getProperty("user.home");
-        java.nio.file.Path path = java.nio.file.Paths.get(home, "Desktop", "hoodini.txt");
+        java.nio.file.Path path = java.nio.file.Paths.get(home,
+                "Desktop", "hoodini.txt");
         if(java.nio.file.Files.exists(path)) {
             try {
                 readFromFile(path.toString());
@@ -51,13 +52,19 @@ public class Parser {
     private void handleFileDeadline(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")","").trim());
+            Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
+                    str1.split("by: ")[1]
+                            .replace(")","")
+                            .trim());
             deadline.markdone();
             store.add(deadline);
 
         } else {
             String str1 = str.substring(4);
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ", str1.split("by: ")[1].replace(")","").trim());
+            Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
+                    str1.split("by: ")[1]
+                            .replace(")","")
+                            .trim());
             store.add(deadline);
 
         }
@@ -66,13 +73,17 @@ public class Parser {
     private void handleFileEvent(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ", str1.split("from:")[1].split(" to: ")[0], str1.split("to:")[1].replace(")", ""));
+            Event event = new Event(str1.split(" ",2)[0] + " ",
+                    str1.split("from:")[1].split(" to: ")[0],
+                    str1.split("to:")[1].replace(")", ""));
             event.markdone();
             store.add(event);
 
         } else {
             String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ", str1.split("from:")[1].split(" to: ")[0], str1.split("to:")[1].replace(")", ""));
+            Event event = new Event(str1.split(" ",2)[0] + " ",
+                    str1.split("from:")[1].split(" to: ")[0],
+                    str1.split("to:")[1].replace(")", ""));
             store.add(event);
 
         }
@@ -98,7 +109,8 @@ public class Parser {
                 } else if (str.startsWith("[E]")) {
                     handleFileEvent(str.substring(4));
                 } else {
-                    throw new InvalidTaskException("Whoopsie! There are invalid tasks in the file");
+                    throw new InvalidTaskException("Whoopsie! " +
+                            "There are invalid tasks in the file");
                 }
             }
         } catch (java.io.FileNotFoundException e) {
@@ -165,9 +177,10 @@ public class Parser {
                         break;
                     case ERROR:
                     default:
-                        throw new InvalidInputException("Whoopsie! I am unable to understand your request!");
+                        throw new InvalidInputException("Whoopsie! " +
+                                "I am unable to understand your request!");
                 }
-                
+
             }
         } catch (InvalidTaskException | InvalidInputException e) {
             System.out.println(e.getMessage());
