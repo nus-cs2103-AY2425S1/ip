@@ -16,6 +16,11 @@ public class Mummy {
 
   private static final Store<Task> STORE = new Store<>("Here are the tasks in your list:");
 
+  private enum Command {
+    BYE, LIST, MARK, UNMARK, TODO, DEADLINE,
+    EVENT, DELETE, UNKNOWN
+  }
+
   public static void main(String[] args) {
     new Echo("Hello from\n"
             + LOGO + "\n"
@@ -29,35 +34,42 @@ public class Mummy {
   }
 
   public static void listen(Scanner scanner) {
-    while (scanner.hasNext()) {
+    while (scanner.hasNextLine()) {
 
       String input = scanner.nextLine();
-      String command = input.split(" ")[0];
+      Command command;
+
+      try {
+        command = Command.valueOf(
+                input.split(" ")[0].toUpperCase());
+      } catch (IllegalArgumentException exception) {
+        command = Command.UNKNOWN;
+      }
 
       try {
         switch (command) {
-          case "bye":
+          case BYE:
             onBye();
             return;
-          case "list":
+          case LIST:
             onList();
             break;
-          case "mark":
+          case MARK:
             onMark(input);
             break;
-          case "unmark":
+          case UNMARK:
             onUnmark(input);
             break;
-          case "todo":
+          case TODO:
             onToDo(input);
             break;
-          case "deadline":
+          case DEADLINE:
             onDeadline(input);
             break;
-          case "event":
+          case EVENT:
             onEvent(input);
             break;
-          case "delete":
+          case DELETE:
             onDelete(input);
             break;
           default:
