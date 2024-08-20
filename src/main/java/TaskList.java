@@ -10,6 +10,7 @@ public class TaskList {
 
     public void add(String task) {
         this.tasks[this.head] = task;
+        this.head++;
     }
 
     @Override
