@@ -6,12 +6,12 @@ public class YapBot {
     private static final String PREFIXLINE = "\n-------------------------------------------";
     private static final String POSTFIXLINE = "-------------------------------------------\n";
 
-    public static void list(ArrayList<String> stored) {
-        Iterator<String> iterateStored = stored.iterator();
+    public static void list(ArrayList<Task> stored) {
+        Iterator<Task> iterateStored = stored.iterator();
         System.out.println(PREFIXLINE);
         int index = 1;
         while (iterateStored.hasNext()) {
-            System.out.println(index + ". " + iterateStored.next());
+            System.out.println(index + "." + iterateStored.next());
             index++;
         }
         System.out.println(POSTFIXLINE);
@@ -22,19 +22,26 @@ public class YapBot {
         System.out.println(PREFIXLINE + "\nHello, I am YapBot. \nHow can I help?\n" + POSTFIXLINE);
 
         Scanner in = new Scanner(System.in);
-        ArrayList<String> stored = new ArrayList<>();
+        ArrayList<Task> stored = new ArrayList<>();
         String input = in.nextLine();
 
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 list(stored);
                 input = in.nextLine();
-            } else {
-                stored.add(input);
+            } else if (input.contains("unmark")) {
+                int index = input.charAt(input.length() - 1);
+                stored.get(index - 1).changeDone(false);
+            } else if (input.contains("mark")) {
+                int index = Integer.parseInt(input.substring(input.length() - 1));
+                stored.get(index - 1).changeDone(true);
+                input = in.nextLine();
+            }  else {
+                Task taskToAdd = new Task(input);
+                stored.add(taskToAdd);
                 System.out.println(PREFIXLINE + "\nAdded: " + input + "\n" + POSTFIXLINE);
                 input = in.nextLine();
             }
-
         }
 
         in.close();
