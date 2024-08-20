@@ -4,13 +4,31 @@ import java.util.Scanner;
 public class Regina {
     private final static String NAME = "Regina";
     private final static String INDENT = "    ";
-    private final static String LINE = INDENT + "-------------------------------";
+    private final static String LINE = INDENT + "********************************************************************";
     private final ArrayList<Task> listOfTasks;
     private final Scanner scanner = new Scanner(System.in);
+
+    // Enum to represent task types
+    public enum TaskType {
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event");
+
+        private final String type;
+
+        TaskType(String type) {
+            this.type = type;
+        }
+
+        public String getType() {
+            return this.type;
+        }
+    }
+
     // types of tasks
-    private final String TODO = "todo";
-    private final String DEADLINE = "deadline";
-    private final String EVENT = "event";
+    private final String TODO_TYPE = TaskType.TODO.type;
+    private final String DEADLINE_TYPE = TaskType.DEADLINE.type;
+    private final String EVENT_TYPE = TaskType.EVENT.type;
 
     public Regina() {
         listOfTasks = new ArrayList<>();
@@ -23,30 +41,48 @@ public class Regina {
                 INDENT + "1. To add a To-Do task: %s <task_description>\n" +
                 INDENT + "   Example: %s Finish homework\n" +
                 INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n" +
-                INDENT + "   Example: %s Submit report /by Sunday\n" +
+                INDENT + "   Example: %s Submit report /by 2023-12-01\n" +
                 INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n" +
                 INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n" +
-                INDENT + "In case you forget, type 'help' to be reminded of the formats again!\n" +
-                INDENT + "So how can I help you?\n" + LINE + "\n", NAME, TODO, TODO, DEADLINE, DEADLINE, EVENT, EVENT);
+                INDENT + "You can also:\n" +
+                INDENT + "1. Mark a task as done: mark <task_number>\n" +
+                INDENT + "   Example: mark 1\n" +
+                INDENT + "2. Unmark a task: unmark <task_number>\n" +
+                INDENT + "   Example: unmark 1\n" +
+                INDENT + "3. Delete a task: delete <task_number>\n" +
+                INDENT + "   Example: delete 1\n" +
+                INDENT + "4. List tasks: type 'list' to see all your tasks\n" +
+                INDENT + "5. For help: type 'help'\n" +
+                INDENT + "What can I do for you?\n" + LINE + "\n", NAME, TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
 
+
     public void help() {
-        System.out.printf(LINE + "\n" + INDENT + "Here are the formats: \n" +
+        System.out.printf(LINE + "\n" + INDENT + "Here are the commands you can use: \n" +
                 INDENT + "1. To add a To-Do task: %s <task_description>\n" +
                 INDENT + "   Example: %s Finish homework\n" +
                 INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n" +
-                INDENT + "   Example: %s Submit report /by Sunday\n" +
+                INDENT + "   Example: %s Submit report /by 2023-12-01\n" +
                 INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n" +
                 INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n" +
-                LINE + "\n", TODO, TODO, DEADLINE, DEADLINE, EVENT, EVENT);
+                INDENT + "4. To mark a task as done: mark <task_number>\n" +
+                INDENT + "   Example: mark 1\n" +
+                INDENT + "5. To unmark a task: unmark <task_number>\n" +
+                INDENT + "   Example: unmark 1\n" +
+                INDENT + "6. To delete a task: delete <task_number>\n" +
+                INDENT + "   Example: delete 1\n" +
+                INDENT + "7. To view your tasks: list\n" +
+                INDENT + "8. For help: help\n" +
+                LINE + "\n", TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
+
 
     public String readInput() {
         return this.scanner.nextLine();
     }
 
     private boolean isValidTaskType(String type) {
-        return type.equals(TODO) || type.equals(DEADLINE) || type.equals(EVENT);
+        return type.equals(TODO_TYPE) || type.equals(DEADLINE_TYPE) || type.equals(EVENT_TYPE);
     }
 
     public boolean haveNumber(String[] parts) throws ReginaException {
@@ -73,11 +109,11 @@ public class Regina {
         }
         Task task = null;
         switch (taskType) {
-            case TODO:
+            case "todo":
                 String todoDescription = input.substring(5).trim();
                 task = new ToDosTask(todoDescription);
                 break;
-            case DEADLINE:
+            case "deadline":
                 String[] deadlineParts = input.substring(9).trim().split(" /by ");
                 // check if deadline was added for this task
                 if (deadlineParts.length < 2) {
@@ -87,7 +123,7 @@ public class Regina {
                 String deadline = deadlineParts[1];
                 task = new DeadlinesTask(deadlineDescription, deadline);
                 break;
-            case EVENT:
+            case "event":
                 String[] eventParts = input.substring(6).trim().split(" /");
                 int length = eventParts.length;
                 // check if there is the expected number of sub-parts
@@ -142,7 +178,7 @@ public class Regina {
         Task task = listOfTasks.get(index);
         listOfTasks.remove(index);
         taskCount = listOfTasks.size(); // update the number of tasks
-        System.out.printf("%s\n%sWah shiok!\n%sCan forget about %s liao!\n%sList now has %d task%s!\n%s",
+        System.out.printf("%s\n%sWah shiok!\n%sCan forget about %s liao!\n%sList now has %d task%s!\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), INDENT, taskCount, taskCount > 1 ? "s" : "", LINE);
     }
 
