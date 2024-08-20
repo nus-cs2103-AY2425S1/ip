@@ -24,7 +24,7 @@ public class Henry {
     public static void main(String[] args) {
         greetings();
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
 
         Scanner scanner = new Scanner(System.in);
         int index = 0;
@@ -39,11 +39,11 @@ public class Henry {
                 for (int i = 0; i < index; i++) {
                     System.out.println(i + 1
                             + ". "
-                            + tasks[i]);
+                            + tasks[i].getDescription());
                 }
                 System.out.println();
             } else {
-                tasks[index] = input;
+                tasks[index] = new Task(input);
                 System.out.println("\n"
                         + "added: "
                         + input
