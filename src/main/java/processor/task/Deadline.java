@@ -20,7 +20,7 @@ public class Deadline extends Task {
 
   @Override
   public Deadline unmark() {
-    return new Deadline(this, true);
+    return new Deadline(this, false);
   }
 
   @Override

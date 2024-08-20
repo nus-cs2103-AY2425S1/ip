@@ -22,8 +22,20 @@ public abstract class Task {
       case "todo":
         return new Todo(arg);
       case "deadline":
-        final List<String> args = Arrays.asList(arg.split("/by "));
-        return new Deadline(args.get(0), args.get(1));
+        final List<String> deadlineArgs = Arrays.asList(arg.split("/by "));
+        return new Deadline(deadlineArgs.get(0), deadlineArgs.get(1));
+      case "event":
+        final List<String> eventArgs = Arrays.asList(arg.split("/"));
+        final String from, to;
+        if (eventArgs.get(1).startsWith("to")) {
+          to = eventArgs.get(1).substring(3);
+          from = eventArgs.get(2).substring(5);
+        } else {
+          from = eventArgs.get(1).substring(5);
+          to = eventArgs.get(2).substring(3);
+        }
+
+        return new Event(eventArgs.get(0), from, to);
     }
 
     return null;

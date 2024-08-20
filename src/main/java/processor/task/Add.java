@@ -19,4 +19,11 @@ public class Add {
     processor.task.TaskList.addTask(newTask);
     return new Response(java.util.List.of("added: " + newTask));
   }
+
+  public static Response event(String prompt) {
+    final List<String> prompts = Arrays.asList(prompt.split("event "));
+    final Task newTask = Task.of("event", prompts.get(1));
+    processor.task.TaskList.addTask(newTask);
+    return new Response(java.util.List.of("added: " + newTask));
+  }
 }

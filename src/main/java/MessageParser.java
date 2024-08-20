@@ -32,6 +32,8 @@ public class MessageParser {
         return Add::todo;
       case "deadline":
         return Add::deadline;
+      case "event":
+        return Add::event;
     }
     return null;
   }
