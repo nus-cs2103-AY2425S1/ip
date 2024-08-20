@@ -57,12 +57,12 @@ public class Taskon {
 
     public static void completed(Task task) {
         String complete = "Woohoo! Task complete! \nI've marked this as done:\n";
-        System.out.println(complete + task.toString());
+        System.out.println(complete + task.toString() + "\n");
     }
 
     public static void uncompleted(Task task) {
         String uncompleted = "Got it! No rush, I've marked it as not done yet:\n";
-        System.out.println(uncompleted + task.toString());
+        System.out.println(uncompleted + task.toString() + "\n");
     }
 
     public static void listItems(ArrayList<Task> tasks) {
