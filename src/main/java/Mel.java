@@ -24,10 +24,11 @@ public class Mel {
                 System.out.println("Buh-bye :)\n" + line);
                 break;
             } else if (Objects.equals(input, "list")) {
-                System.out.println("Mel remembers all your stuff~");
                 storage.printAll();
             } else if (input.contains("mark")) {
                 storage.mark(input);
+            } else if (input.contains("delete")) {
+                storage.delete(input);
             } else {
                 System.out.println("Mel remembers...");
                 try {

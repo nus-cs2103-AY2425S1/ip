@@ -28,10 +28,10 @@ public class Storage {
     }
 
     public void mark(String str) {
+        String[] temp = str.split(" ");
+        String m = temp[0];
+        int idx = Integer.parseInt(temp[1]) - 1;
         try {
-            String[] temp = str.split(" ");
-            String m = temp[0];
-            int idx = Integer.parseInt(temp[1]) - 1;
             if (Objects.equals(m, "mark")) {
                 System.out.println("Mel sees you completed your task!");
                 list.get(idx).mark();
@@ -45,10 +45,30 @@ public class Storage {
         }
     }
 
+    public void delete(String str) {
+        String[] temp = str.split(" ");
+        int idx = Integer.parseInt(temp[1]) - 1;
+        try {
+            System.out.println("Mel helps you forget:\n"
+                    + "  " + list.get(idx));
+            list.remove(idx);
+            System.out.println("Mel counts " + list.size()
+                    + " stuffs memorized XD");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Mel's brain explodes in anger?! " +
+                    "Mel recalls only " + list.size() + " things");
+        }
+    }
+
     public void printAll() {
-        int i = 0;
-        for (Task t : list) {
-            System.out.println(++i + "." + t);
+        if (list.isEmpty()) {
+            System.out.println("Mel remembers... nothing?!");
+        } else {
+            System.out.println("Mel remembers all your stuff~");
+            int i = 0;
+            for (Task t : list) {
+                System.out.println(++i + "." + t);
+            }
         }
     }
 
