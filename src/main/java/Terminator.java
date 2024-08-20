@@ -1,5 +1,6 @@
 import command.Command;
 import command.CommandParser;
+import command.DukeException;
 import task.Task;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class Terminator {
     }
 
     public void exit() {
-        String exitMsg = HLINE + "All mission objectives fulfilled. Shutting down.\n" + HLINE;
+        String exitMsg = HLINE + "Terminating session. I will be back...\n" + HLINE;
         System.out.println(exitMsg);
     }
     public void mainEventLoop() {
@@ -52,8 +53,12 @@ public class Terminator {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             printHorizontalLine();
-            Command command = this.parser.parse(input);
-            command.execute(this.todoList);
+            try {
+                Command command = this.parser.parse(input);
+                command.execute(this.todoList);
+            } catch (DukeException de) {
+                System.out.println("Error detected: " + de.getMessage());
+            }
             printHorizontalLine();
             input = sc.nextLine();
         }
@@ -62,11 +67,7 @@ public class Terminator {
     public static void main(String[] args) {
         Terminator tChatbot = Terminator.build();
         tChatbot.greet();
-        try {
-            tChatbot.mainEventLoop();
-        } catch (Exception e) {
-
-        }
+        tChatbot.mainEventLoop();
         tChatbot.exit();
     }
 }

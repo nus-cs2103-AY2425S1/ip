@@ -9,5 +9,5 @@ public abstract class Command {
     public Command() {
     }
 
-    public abstract void execute(ArrayList<Task> todoList);
+    public abstract void execute(ArrayList<Task> todoList) throws DukeException;
 }

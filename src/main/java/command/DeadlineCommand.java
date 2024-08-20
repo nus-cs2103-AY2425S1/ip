@@ -11,9 +11,12 @@ public class DeadlineCommand extends Command {
         this.input = input;
     }
     @Override
-    public void execute(ArrayList<Task> todoList) {
+    public void execute(ArrayList<Task> todoList) throws DukeException {
         String[] tokens = input.split("/by ");
-        String description = tokens[0].replaceFirst("deadline", "").trim();
+        String description = tokens[0].substring(8).trim();
+        if (description.isEmpty()) {
+            throw new DukeException("Deadline description cannot be empty");
+        }
         String deadline = tokens[1];
         Task t = new DeadlineTask(description, deadline);
         todoList.add(t);

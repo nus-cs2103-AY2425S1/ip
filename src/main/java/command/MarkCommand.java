@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> todoList) {
+    public void execute(ArrayList<Task> todoList) throws DukeException {
         try {
             int idx = Integer.parseInt(input.split(" ")[1]) - 1;
             if (idx >= 0 && idx < todoList.size()) {
@@ -21,10 +21,10 @@ public class MarkCommand extends Command {
                 currentTask.markAsDone();
                 System.out.println(currentTask);
             } else {
-                System.out.println("Does not compute. Your input parameters are incorrect.");
+                throw new DukeException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("Error detected.");
+            System.out.println("Error in parsing int.");
         }
     }
 }

@@ -10,6 +10,6 @@ public class UnknownCommand extends Command {
     }
     @Override
     public void execute(ArrayList<Task> todoList) {
-        System.out.println("Insufficient data. Clarify your command.");
+        System.out.println("I do not understand your request. Clarify your command.");
     }
 }

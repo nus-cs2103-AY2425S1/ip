@@ -11,7 +11,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> todoList) {
+    public void execute(ArrayList<Task> todoList) throws DukeException {
         try {
             int idx = Integer.parseInt(input.split(" ")[1]) - 1;
             if (idx >= 0 && idx < todoList.size()) {
@@ -19,9 +19,11 @@ public class UnmarkCommand extends Command {
                 Task currentTask = todoList.get(idx);
                 currentTask.markAsIncomplete();
                 System.out.println(currentTask);
+            } else {
+                throw new DukeException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("Does not compute. Your input parameters are incorrect. Rephrase your request:");
+            System.out.println("Error in parsing int.");
         }
     }
 }

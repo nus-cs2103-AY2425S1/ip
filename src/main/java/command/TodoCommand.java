@@ -13,8 +13,12 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> todoList) {
-        Task t = new TodoTask(input);
+    public void execute(ArrayList<Task> todoList) throws DukeException {
+        String description = input.replaceFirst("todo", "").trim();
+        if (description.isEmpty()) {
+            throw new DukeException("Todo description cannot be empty.");
+        }
+        Task t = new TodoTask(description);
         todoList.add(t);
         System.out.println("Mission parameters updated. Added new objective:\n" + t);
         System.out.println("" + todoList.size() + " objective(s) remaining.");

@@ -14,9 +14,9 @@ public class CommandParser {
         this.listPattern = Pattern.compile("^list$");
         this.markPattern = Pattern.compile("^mark \\d+$");
         this.unmarkPattern = Pattern.compile("^unmark \\d+$");
-        this.todoPattern = Pattern.compile("^todo (\\w*\\s*)+");
-        this.eventPattern = Pattern.compile("^event (\\w*\\s)+/from (\\w*\\s*)+ /to (\\w*\\s*)+");
-        this.deadlinePattern = Pattern.compile("^deadline (\\w*\\s)*/by [\\w\\s]*");
+        this.todoPattern = Pattern.compile("^todo\\s*(\\w*\\s*)*");
+        this.eventPattern = Pattern.compile("^event\\s*(\\w*\\s)+/from (\\w*\\s*)+ /to (\\w*\\s*)+");
+        this.deadlinePattern = Pattern.compile("^deadline\\s*(\\w*\\s)*/by [\\w\\s]*");
     }
     public Command parse(String input) {
         if (input.isEmpty()) return new EmptyCommand();
