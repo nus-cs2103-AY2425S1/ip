@@ -18,4 +18,8 @@ public class Storage {
     public void addTask(Task t) {
         this.taskList.add(t);
     }
+
+    public int size() {
+        return this.taskList.size();
+    }
 }

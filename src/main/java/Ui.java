@@ -22,9 +22,11 @@ public class Ui {
         this.printHorizontalLine();
     }
 
-    public void printAddTask(Task t) {
+    public void printAddTask(Task t, int size) {
         this.printHorizontalLine();
-        System.out.println("\tadded: " + t);
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t\t" + t);
+        System.out.println("\tNow you have " + size + " tasks in the list.");
         this.printHorizontalLine();
     }
 

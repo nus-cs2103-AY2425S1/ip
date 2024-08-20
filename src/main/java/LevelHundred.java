@@ -77,7 +77,7 @@ public class LevelHundred {
                 case "todo": case "deadline": case "event":
                     Task newTask = createTask(words, command);
                     this.storage.addTask(newTask);
-                    this.ui.printAddTask(newTask);
+                    this.ui.printAddTask(newTask, this.storage.size());
                     break;
                 default:
 
