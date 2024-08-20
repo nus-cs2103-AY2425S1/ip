@@ -23,14 +23,16 @@ public class MessageParser {
       }
     }
 
-    switch (prompt) {
+    switch (prompts.get(0)) {
       case "list":
         return processor.task.List::process;
       case "bye":
         return Exit::process;
-      default:
-        return Add::process;
+      case "todo":
+        return Add::todo;
+      case "deadline":
+        return Add::deadline;
     }
-
+    return null;
   }
 }

@@ -1,5 +1,8 @@
 package processor.task;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class Task {
   private final String name;
   private final boolean state;
@@ -15,7 +18,15 @@ public abstract class Task {
   }
 
   public static Task of(String type, String arg) {
-    return new Todo(arg);
+    switch (type) {
+      case "todo":
+        return new Todo(arg);
+      case "deadline":
+        final List<String> args = Arrays.asList(arg.split("/by "));
+        return new Deadline(args.get(0), args.get(1));
+    }
+
+    return null;
   }
 
   public abstract Task mark();
@@ -24,8 +35,10 @@ public abstract class Task {
 
   public abstract String getSymbol();
 
+  public abstract String getExtraInformation();
+
   @Override
   public String toString() {
-    return this.getSymbol() + "[" + (state ? "X" : " ") + "] " + name;
+    return this.getSymbol() + "[" + (state ? "X" : " ") + "] " + name + this.getExtraInformation();
   }
 }

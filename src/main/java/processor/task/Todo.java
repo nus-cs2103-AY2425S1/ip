@@ -5,7 +5,7 @@ public class Todo extends Task {
     super(name);
   }
 
-  private Todo(Task a, boolean state) {
+  private Todo(Todo a, boolean state) {
     super(a, state);
   }
 
@@ -17,6 +17,11 @@ public class Todo extends Task {
   @Override
   public Todo unmark() {
     return new Todo(this, false);
+  }
+
+  @Override
+  public String getExtraInformation() {
+    return "";
   }
 
   @Override
