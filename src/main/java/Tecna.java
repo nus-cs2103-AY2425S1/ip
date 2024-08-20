@@ -38,12 +38,12 @@ public class Tecna {
             if (input.equalsIgnoreCase("list")) {
                 this.listItems();
             } else if (input_words[0].equalsIgnoreCase("mark")) {
-                int index = Integer.valueOf(input_words[1]);
+                int index = Integer.parseInt(input_words[1]);
                 taskList[index - 1].markAsDone();
                 System.out.println("Nice job! I've mark this as done. You deserve a short break <3");
                 System.out.println(taskList[index - 1]);
             } else if (input_words[0].equalsIgnoreCase("unmark")) {
-                int index = Integer.valueOf(input_words[1]);
+                int index = Integer.parseInt(input_words[1]);
                 taskList[index - 1].unMarkAsDone();
                 System.out.println("I've mark this as undone. Keep going, my friend!");
                 System.out.println(taskList[index - 1]);
@@ -61,10 +61,23 @@ public class Tecna {
     }
 
     public void addItem(String item) {
-        Task task = new Task(item);
+        int boundary = item.indexOf(" ");
+        String category = item.substring(0, boundary);
+        Task task;
+        if (category.equalsIgnoreCase("todo")) {
+            task = new ToDo(item.substring(boundary + 1));
+        } else if (category.equalsIgnoreCase("deadline")) {
+            String[] description = item.substring(boundary + 1).split("/by");
+            task = new Deadline(description[0].trim(), description[1].trim());
+        } else {
+            String[] description = item.substring(boundary + 1).split("/from | /to ");
+            task = new Event(description[0].trim(), description[1].trim(), description[2].trim());
+        }
         this.taskList[this.todoSize] = task;
         ++this.todoSize;
-        System.out.println("added: " + item);
+        System.out.println("Sure! I've added this task:");
+        System.out.println(task);
+        System.out.println(">> Now you have " + this.todoSize + (todoSize > 1 ? " tasks" : " task") + " in the list." );
     }
 
     public void listItems() {
