@@ -1,28 +1,40 @@
+import java.util.Scanner;
+
 public class Struggling {
     final private String name = "struggling";
 
     Struggling() {
-        greeting();
-        exit();
+        reply("Hello! I'm " + this.name + "\nWhat can I do for you?");
     }
 
-    private void greeting() {
-        line();
-        System.out.println("Hello! I'm " + this.name);
-        System.out.println("What can I do for you?");
-        line();
+    public boolean read(String cmd) {
+        if(cmd.compareTo("bye") == 0) {
+            reply("Bye. Hope to see you again soon!");
+            return false;
+        }
+
+        reply(cmd);
+        return true;
     }
 
-    private void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        line();
-    }
-
-    private void line() {
-        System.out.println("____________________________________________________________");
+    private void reply(String str) {
+        String line = "____________________________________________________________";
+        str = line + "\n" + str + "\n" + line;
+        for(String s : str.split("\\R")) {
+            System.out.println("\t" + s);
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
-        Struggling s = new Struggling();
+        Struggling bot = new Struggling();
+        Scanner sc = new Scanner(System.in);
+        boolean isActive = true;
+
+        do {
+            isActive = bot.read(sc.nextLine());
+        } while (isActive);
+
     }
 }
+
