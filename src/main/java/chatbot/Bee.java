@@ -1,5 +1,7 @@
 package chatbot;
 
+import todo.*;
+
 import java.util.Scanner;
 
 public class Bee {
@@ -10,17 +12,12 @@ public class Bee {
             + "| |_\\ |  __/|  __/ \n"
             + "|____/ \\___| \\___|\n";
 
-    //Format standard output
-    public static void printBtnLines(String content) {
-        System.out.println("    _________________________________________");
-        System.out.println(String.format("     %s", content));
-        System.out.println("    _________________________________________\n");
-    }
-
     public static void main(String[] args) {
+        TodoList todoList = new TodoList();
+
         //Welcome user
         System.out.println(logo);
-        printBtnLines("Hello, I'm Bee! What can I do for you?");
+        System.out.println(Format.printBtnLines("Hello, I'm Bee! What can I do for you?"));
 
         //Scan for user input
         Scanner sc = new Scanner(System.in);
@@ -30,16 +27,20 @@ public class Bee {
 
             //Exit program if user inputs bye
             if (next.equalsIgnoreCase("bye")) {
-                printBtnLines("Bye~ Hope to see you again soon!");
+                System.out.println(Format.printBtnLines("Bye~ Hope to see you again soon!"));
                 break;
 
             //Prompt user for input if no input
-            } else if (next.isEmpty()){
-                printBtnLines("Hey! Say something.");
+            } else if (next.isEmpty()) {
+                System.out.println(Format.printBtnLines("Hey! Say something."));
+
+            } else if (next.equalsIgnoreCase("list")) {
+                System.out.println(Format.printBtnLines(todoList.toString()));
 
             //Echo user input
             } else {
-                printBtnLines(String.format("I heard: \"%s\"", next));
+                todoList.addTask(new Task(next));
+                System.out.println(Format.printBtnLines(String.format("added: \"%s\"", next)));
             }
         }
     }
