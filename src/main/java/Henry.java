@@ -31,27 +31,44 @@ public class Henry {
         System.out.println("\nHere are the tasks in your list:");
         for (int i = 0; i < index; i++) {
             System.out.println(i + 1
-                    + ". ["
-                    + tasks[i].getStatusIcon()
-                    + "] "
-                    + tasks[i].getDescription());
+                    +"."
+                    + tasks[i].toString());
         }
         System.out.println();
     }
 
     /**
-     * Adds new task into the array of tasks recorded
+     * Adds new task into the array of tasks recorded and split them into todo, event and deadline
      *
      * @param tasks array of tasks recorded
      * @param index number of tasks recorded
      * @param input name of task
      */
     public static void addTask(Task[] tasks, int index, String input) {
-        tasks[index] = new Task(input);
-        System.out.println("\n"
-                + "added: "
-                + input
-                + "\n");
+        String[] words = input.split(" ");
+        String task = words[0];
+        String activityAndTime = input.replaceFirst(task
+                + " ", "");
+        String[] activityAndTimeList = activityAndTime.split(" /");
+        if (words[0].equals("todo")) {
+            tasks[index] = new Todo(activityAndTime);
+        } else if (words[0].equals("deadline")) {
+            String time = activityAndTimeList[1]
+                    .replaceFirst("by ", "");
+            tasks[index] = new Deadline(activityAndTimeList[0], time);
+        } else if (words[0].equals("event")) {
+            String startTime = activityAndTimeList[1]
+                    .replaceFirst("from ", "");
+            String endTime = activityAndTimeList[2]
+                    .replaceFirst("to ", "");
+            tasks[index] = new Event(activityAndTimeList[0], startTime, endTime);
+        }
+        System.out.println("\nGot it. I've added this task:\n"
+                + tasks[index].toString()
+                + "\nNow you have "
+                + (index + 1)
+                + (index + 1 <= 1 ? " task" : " tasks")
+                + " in the list.\n");
     }
 
     /**
@@ -65,14 +82,12 @@ public class Henry {
         if (words[0].equals("mark")) {
             tasks[number - 1].mark();
             System.out.println("\nNice! I've marked this task as done:\n"
-                    + "[X] "
-                    + tasks[number - 1].getDescription()
+                    + tasks[number - 1].toString()
                     + "\n");
         } else {
             tasks[number - 1].unmark();
             System.out.println("\nOK, I've marked this task as not done yet:\n"
-                    + "[ ] "
-                    + tasks[number - 1].getDescription()
+                    + tasks[number - 1].toString()
                     + "\n");
         }
     }
@@ -100,7 +115,6 @@ public class Henry {
                     addTask(tasks, index, input);
                     index++;
                 }
-
             }
         } while (true);
     }
