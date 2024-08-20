@@ -1,15 +1,29 @@
+import java.util.Scanner;
+
 public class Sigma {
     public static void main(String[] args) {
-        String line = "----------------------------------------------------------------------------------------------";
         String name = "SIGMA";
-        System.out.println(line);
-        System.out.println("Hello! I'm " + name + "\nLooking forward to slaying with you!");
-        System.out.println(line);
+        Scanner input = new Scanner(System.in);
+        print("Hello! I'm " + name + "\nLooking forward to slaying with you!\nWhat do you need today?");
+        String userPrompt = input.nextLine();
+        while (!userPrompt.toLowerCase().equals("bye")) {
+            print(userPrompt);
+            userPrompt = input.nextLine();
+        }
         exit();
-        System.out.println(line);
     }
 
     private static void exit() {
-        System.out.println("What the sigma? You're leaving so soon? Bye chat, see you again!");
+        print("What the sigma? You're leaving so soon? Bye chat, see you again!");
+    }
+
+    private static void print(String message) {
+        line();
+        System.out.println(message);
+        line();
+    }
+    private static void line() {
+        String line = "----------------------------------------------------------------------------------------------";
+        System.out.println(line);
     }
 }
