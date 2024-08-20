@@ -26,8 +26,25 @@ public class Struggling {
             case "unmark":
                 unmarkTask(Integer.parseInt(args[1]));
                 break;
+            case "todo":
+                addTask(new ToDo(cmd.substring(5)));
+                break;
+            case "deadline":
+                int byIndex = cmd.indexOf("/by ");
+                String dDescription = cmd.substring(9, byIndex).trim();
+                String dBy = cmd.substring(byIndex + 4);
+                addTask(new Deadline(dDescription, dBy));
+                break;
+            case "event":
+                int fromIndex = cmd.indexOf("/from ");
+                int toIndex = cmd.indexOf("/to ");
+                String eDescription = cmd.substring(6, fromIndex).trim();
+                String eFrom = cmd.substring(fromIndex + 6, toIndex).trim();
+                String eTo = cmd.substring(toIndex + 4);
+                addTask(new Event(eDescription, eFrom, eTo));
+                break;
             default:
-                addTask(cmd);
+                reply("INVALID INPUT");
                 break;
         }
 
@@ -43,9 +60,11 @@ public class Struggling {
         System.out.println();
     }
 
-    private void addTask(String taskDescription) {
-        this.taskArr.add(new Task(taskDescription));
-        reply(String.format("added: %s", taskDescription));
+    private void addTask(Task task) {
+        this.taskArr.add(task);
+
+        reply(String.format("Got it. I've added this task: \n\t%s\nNow you have %d tasks in the list.",
+                task, this.taskArr.size()));
     }
 
     private  void list() {
