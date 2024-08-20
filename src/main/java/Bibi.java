@@ -18,13 +18,11 @@ public class Bibi {
         System.out.println("Hello from\n" + logo + "\n"
                     + "How can I help you?");
         printHorizontalLine();
-
         String cmd;
-        while (scanner.hasNext()) {
-            cmd = scanner.nextLine();
 
+        while (scanner.hasNext()) {
             // Preconfigured commands
-            switch (cmd.split(" ")[0]) {
+            switch (cmd = scanner.next()) {
                 case "bye": {
                     // Exit
                     printHorizontalLine();
@@ -39,15 +37,15 @@ public class Bibi {
                     break;
                 }
                 case "mark": {
-                    String[] cmdArr = cmd.split(" ");
                     printHorizontalLine();
-                    if (cmdArr.length != 2) {
+                    int index;
+                    if (!scanner.hasNext()) {
                         System.out.println("Invalid command syntax: Please use \"mark <int>\"");
-                    } else if (Integer.parseInt(cmdArr[1]) <= 0 || Integer.parseInt(cmdArr[1]) - 1 >= tasks.size()) {
+                    } else if ((index = scanner.nextInt()) - 1 >= tasks.size() || index <= 0) {
                         System.out.println("Invalid task index");
                     } else {
                         System.out.printf("Alrighty, marked the following task as done:%n");
-                        Task t = tasks.get(Integer.parseInt(cmdArr[1]) - 1);
+                        Task t = tasks.get(index - 1);
                         t.markAsDone();
                         System.out.println(t);
                     }
@@ -55,15 +53,15 @@ public class Bibi {
                     break;
                 }
                 case "unmark": {
-                    String[] cmdArr = cmd.split(" ");
                     printHorizontalLine();
-                    if (cmdArr.length != 2) {
+                    int index;
+                    if (!scanner.hasNext()) {
                         System.out.println("Invalid command syntax: Please use \"mark <int>\"");
-                    } else if (Integer.parseInt(cmdArr[1]) <= 0 || Integer.parseInt(cmdArr[1]) - 1 >= tasks.size()) {
+                    } else if ((index = scanner.nextInt()) - 1 >= tasks.size() || index <= 0) {
                         System.out.println("Invalid task index");
                     } else {
                         System.out.printf("Oops, we'll get 'em next time:%n");
-                        Task t = tasks.get(Integer.parseInt(cmdArr[1]) - 1);
+                        Task t = tasks.get(index - 1);
                         t.markAsNotDone();
                         System.out.println(t);
                     }
@@ -72,10 +70,10 @@ public class Bibi {
                 }
                 case "todo": {
                     printHorizontalLine();
-                    if (!cmd.matches("todo .+")) {
+                    if (!(cmd = scanner.nextLine()).matches(".+")) {
                         System.out.println("Invalid todo syntax: Please use \"todo <description>\"");
                     } else {
-                        ToDo td = new ToDo(cmd.substring(5));
+                        ToDo td = new ToDo(cmd);
                         addToTaskList(tasks, td);
 
                         // Console
@@ -87,10 +85,10 @@ public class Bibi {
                 }
                 case "deadline": {
                     printHorizontalLine();
-                    if (!cmd.matches("deadline .+ /by .+")) {
+                    if (!(cmd = scanner.nextLine()).matches(".+ /by .+")) {
                         System.out.println("Invalid deadline syntax: Please use \"deadline <description> /by <deadline>\"");
                     } else {
-                        String[] input = cmd.substring(9).split(" /by ");
+                        String[] input = cmd.split(" /by ");
                         Deadline dl = new Deadline(input[0], input[1]);
                         addToTaskList(tasks, dl);
 
@@ -103,10 +101,10 @@ public class Bibi {
                 }
                 case "event": {
                     printHorizontalLine();
-                    if (!cmd.matches("event .+ /from .+ /to .+")) {
+                    if (!(cmd = scanner.nextLine()).matches(".+ /from .+ /to .+")) {
                         System.out.println("Invalid event syntax: Please use \"event <description> /from <time> /to <time>\"");
                     } else {
-                        String[] input = cmd.substring(6).split(" /from ");
+                        String[] input = cmd.split(" /from ");
                         String[] interval = input[1].split(" /to ");
                         Event e = new Event(input[0], interval[0], interval[1]);
                         tasks.add(e);
@@ -120,14 +118,14 @@ public class Bibi {
                 }
                 case "remove": {
                     printHorizontalLine();
-                    if (!cmd.matches("remove \\d+")) {
+                    int index;
+                    if (!scanner.hasNextInt()) {
                         System.out.println("Invalid event syntax: Please use \"remove <index>\"");
-                    } else if (Integer.parseInt(cmd.split(" ")[1]) > tasks.size()
-                            || Integer.parseInt(cmd.split(" ")[1]) <= 0) {
+                    } else if ((index = scanner.nextInt()) > tasks.size() || index <= 0) {
                         System.out.println("Invalid task index");
                     } else {
                         System.out.println("You will never see this task ever again >:(");
-                        System.out.printf("Removed %s from task list%n", tasks.remove(Integer.parseInt(cmd.split(" ")[1]) - 1));
+                        System.out.printf("Removed %s from task list%n", removeFromTaskList(tasks, index).toString());
                         System.out.printf("You now have %d task(s) to do%n", tasks.size());
                     }
                     printHorizontalLine();
@@ -143,8 +141,8 @@ public class Bibi {
         }
     }
 
-    private static void removeFromTaskList(ArrayList<Task> tasks, int index) {
-        tasks.remove(index - 1);
+    private static Task removeFromTaskList(ArrayList<Task> tasks, int index) {
+        return tasks.remove(index - 1);
     }
 
     private static void addToTaskList(ArrayList<Task> tasks, Task t) {
