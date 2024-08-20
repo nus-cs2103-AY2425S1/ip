@@ -4,25 +4,59 @@ What can I do for you? Meow
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[T][ ] borrow book
+[T][ ] tonight
 Now you have 1 tasks in the list meow!
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
-1. [T][ ] borrow book
+Nice! I've marked this task as done:
+[T][X] tonight
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list meow!
+OK, I've marked this task as not done yet:
+[T][ ] tonight
+____________________________________________________________
+____________________________________________________________
+fishfishfish!!! The description of a Todo cannot be empty.
+____________________________________________________________
+____________________________________________________________
+Meow me dumb dumb me no understand me no thoughts head empty.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list meow!
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
 Now you have 3 tasks in the list meow!
 ____________________________________________________________
-Cannot mark task as done as there is no such task added yet! Meow
-Meow! Invalid format. Use: event <task description> /from <start time> /to <end time>
+____________________________________________________________
+Invalid format. Use: deadline <task description> /by <date/time>
+____________________________________________________________
+____________________________________________________________
+Invalid format. Use: event <task description> /from <start time> /to <end time>
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] tonight
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] tonight
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][X] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[D][ ] return book (by: Sunday)
+____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon! Meow
 ____________________________________________________________
