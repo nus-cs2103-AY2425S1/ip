@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Pikappi {
     static Scanner reader = new Scanner(System.in);
     static String command;
-    static String[] tasks = new String[100];
+    static Task[] tasks = new Task[100];
     static int numTasks = 0;
 
     public static void greet() {
@@ -22,7 +22,7 @@ public class Pikappi {
         System.out.println("____________________________________________________________");
         System.out.println("added: " + task);
         System.out.println("____________________________________________________________");
-        tasks[numTasks] = task;
+        tasks[numTasks] = new Task(task);
         numTasks++;
     }
     
@@ -33,7 +33,7 @@ public class Pikappi {
         }
         for (int i = 0; i < numTasks; i++) {
             if (tasks[i] != null) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+                System.out.println((i + 1) + "." + tasks[i]);
             } else {
                 break;
             }
