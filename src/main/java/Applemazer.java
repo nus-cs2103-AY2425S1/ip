@@ -54,8 +54,10 @@ public class Applemazer {
                     processing = false;
                     break;
                 case "list" :
+                    System.out.println("Here are the tasks in your list: ");
                     for (int i = 0; i < tasks.size(); ++i) {
-                        System.out.println((i+1) + ". " + tasks.get(i));
+                        task = tasks.get(i);
+                        System.out.println((i+1) + "." + task.getStatusIcon() + task);
                     }
                     System.out.println(); // Leave empty line.
                     break;
