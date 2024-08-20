@@ -28,24 +28,53 @@ public class Luna {
                     System.out.println(taskStr);
                 }
             } else {
-                String[] str = input.split(" ");
+                String[] str = input.split(" ", 2);
+                String command = str[0];
 
-                if (str[0].equals("mark")) {
+                if (command.equals("mark")) {
                     int i = Integer.parseInt(str[1]) - 1;
                     tasks[i].markAsDone();
 
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks[i].toString());
-                } else if (str[0].equals("unmark")) {
+
+                } else if (command.equals("unmark")) {
                     int i = Integer.parseInt(str[1]) - 1;
                     tasks[i].unmark();
 
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks[i].toString());
+
                 } else {
-                    tasks[taskNum] = new Task(input);
+                    String[] taskDescription = str[1].split(" /");
+                    Task task = null;
+
+                    switch (command) {
+                        case "todo":
+                            task = new ToDo(taskDescription[0]);
+                            tasks[taskNum] = task;
+                            break;
+
+                        case "deadline":
+                            task = new Deadline(taskDescription[0],
+                                    taskDescription[1].substring(3));
+                            tasks[taskNum] = task;
+                            break;
+
+                        case "event":
+                            task = new Event(taskDescription[0],
+                                    taskDescription[1].substring(5),
+                                    taskDescription[2].substring(3));
+                            tasks[taskNum] = task;
+                            break;
+                    }
+
                     taskNum++;
-                    System.out.println("added: " + input);
+                    assert task != null;
+
+                    String s = String.format("Now you have %d tasks in the list.", taskNum);
+                    System.out.println("Got it. I've added this task:\n" +
+                            "  " + task.toString() + "\n" + s);
                 }
             }
         }
