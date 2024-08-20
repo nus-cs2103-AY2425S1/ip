@@ -1,15 +1,47 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
  * Sentinel chatbot system.
  */
 public class Sentinel {
-    private TaskList taskList;
+    private final TaskList taskList;
+    private final Map<String, Commands> commands;
 
     public Sentinel() {
         this.taskList = new TaskList();
+        this.commands = new HashMap<>();
+
+        // Initialize Commands
+        commands.put("list", new ListTasks());
+        commands.put("mark", new markDone());
+        commands.put("unmark", new markUndone());
     }
 
+    // Commands
+    /**
+     * Makes Sentinel say the list of tasks.
+     */
+    public void outputTaskList() {
+        say("Here are the list of your tasks \n" + this.taskList.toString());
+    }
+
+    /**
+     * Makes Sentinel mark the given task number as done.
+     */
+    public void markDone(int taskNumber) {
+        say("Marked the following task as done: \n " + taskList.markAsDone(taskNumber));
+    }
+
+    /**
+     * Makes Sentinel mark the given task number as undone.
+     */
+    public void markUndone(int taskNumber) {
+        say("Unmarked the following task: \n " + taskList.markAsUndone(taskNumber));
+    }
+
+    // Sentinel methods
     /**
      * Makes Sentinel say a greeting message.
      */
@@ -56,11 +88,18 @@ public class Sentinel {
 
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
-                say(this.taskList.toString());
-            } else {
+            String[] parsedCommands = userInput.split("\\s+");
+
+            if (parsedCommands.length == 0) {
+                userInput = scanner.nextLine();
+                continue;
+            }
+
+            if (this.commands.get(parsedCommands[0]) == null) {
                 this.taskList.add(userInput);
                 say(String.format("Added: %s", userInput));
+            } else {
+                this.commands.get(parsedCommands[0]).run(this, parsedCommands);
             }
 
             userInput = scanner.nextLine();
