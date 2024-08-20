@@ -1,5 +1,5 @@
 public class UnsupportedException extends JacksonException {
-    public UnsupportedException() {
-       super();
+    public UnsupportedException(String msg) {
+       super(msg);
     }
 }

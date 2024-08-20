@@ -1,5 +1,5 @@
 public class OutOfListException extends JacksonException {
-    public OutOfListException() {
-        super();
+    public OutOfListException(String msg) {
+        super(msg);
     }
 }
