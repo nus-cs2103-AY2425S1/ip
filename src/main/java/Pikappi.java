@@ -41,6 +41,20 @@ public class Pikappi {
         System.out.println("____________________________________________________________");
     }
 
+    public static void markTask(int taskNumber) {
+        System.out.println("____________________________________________________________");
+        tasks[taskNumber - 1].markAsDone();
+        System.out.println("Nice! I've marked this task as done:\n" + tasks[taskNumber - 1]);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void unmarkTask(int taskNumber) {
+        System.out.println("____________________________________________________________");
+        tasks[taskNumber - 1].unmarkAsDone();
+        System.out.println("Ok, I've unmarked this task as not done yet:\n" + tasks[taskNumber - 1]);
+        System.out.println("____________________________________________________________");
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -52,13 +66,9 @@ public class Pikappi {
             } else if (command.equals("list")) {
                 listTasks();
             } else if (command.startsWith("mark")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                tasks[taskNumber - 1].markAsDone();
-                System.out.println("Nice! I've marked this task as done:\n" + tasks[taskNumber - 1]);
+               markTask(Integer.parseInt(command.split(" ")[1]));
             } else if (command.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                tasks[taskNumber - 1].unmarkAsDone();
-                System.out.println("Ok, I've unmarked this task as not done yet:\n" + tasks[taskNumber - 1]);
+                unmarkTask(Integer.parseInt(command.split(" ")[1]));
             }
             else {
                 addTask(command);
