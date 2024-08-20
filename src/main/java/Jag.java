@@ -24,33 +24,52 @@ public class Jag {
         // Chatbot
         while (!answer.equals("bye")) {
 
-            // Feature for displaying list
-            if (answer.equals("list")) {
+            String[] splitWords = answer.split(" ");
+            String cmd = splitWords[0].toUpperCase();
+            Commands command;
+
+            // Reused variables in switch statement
+            char marker;
+            int index;
+            Task task;
+            String[] split;
+            String description;
+
+            try {
+                command = Commands.valueOf(cmd);
+            } catch (IllegalArgumentException e) {
                 System.out.println(dashed);
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    Task task = tasks.get(i);
-                    System.out.println((i + 1) + ". " + task.toString());
-                }
+                AExceptions ex = new AExceptions("I'm sorry, but I don't know what that means :-(");
+                System.out.println(ex.getErrorMessage());
                 System.out.println(dashed);
                 answer = scanner.nextLine();
                 continue;
             }
 
-            // Checking for mark
-            if (answer.length() >= 4) {
-                String mark = answer.substring(0, 4);
-                char marker = answer.charAt(answer.length() - 1);
-                int index = 0;
+            switch (command) {
+                case LIST:
+                    System.out.println(dashed);
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        task = tasks.get(i);
+                        System.out.println((i + 1) + ". " + task.toString());
+                    }
+                    System.out.println(dashed);
 
-                // Convert index character to a string
-                if (Character.isDigit(marker)) {
-                    index = Integer.parseInt(Character.toString(marker));
-                }
+                    answer = scanner.nextLine();
+                    continue;
 
-                // Feature for mark
-                if (mark.equals("mark")) {
-                    Task task = tasks.get(index-1);
+                case MARK:
+                    marker = answer.charAt(answer.length() - 1);
+                    index = 0;
+
+                    // Convert index character to a string
+                    if (Character.isDigit(marker)) {
+                        index = Integer.parseInt(Character.toString(marker));
+                    }
+
+                    // Feature for mark
+                    task = tasks.get(index-1);
 
                     System.out.println(dashed);
                     System.out.println("Nice! I've marked this task as done:");
@@ -60,23 +79,17 @@ public class Jag {
 
                     answer = scanner.nextLine();
                     continue;
-                }
 
-            }
+                case UNMARK:
+                    marker = answer.charAt(answer.length() - 1);
+                    index = 0;
 
-            // Checking for unmark
-            if (answer.length() >= 6) {
-                String unmark = answer.substring(0, 6);
-                char marker = answer.charAt(answer.length() - 1);
-                int index = 0;
-
-                // Convert index character to a string
-                if (Character.isDigit(marker)) {
-                    index = Integer.parseInt(Character.toString(marker));
-                }
-                // Feature for unmark
-                if (unmark.equals("unmark")) {
-                    Task task = tasks.get(index-1);
+                    // Convert index character to a string
+                    if (Character.isDigit(marker)) {
+                        index = Integer.parseInt(Character.toString(marker));
+                    }
+                    // Feature for unmark
+                    task = tasks.get(index-1);
 
                     System.out.println(dashed);
                     System.out.println("OK, I've marked this task as not done yet:");
@@ -86,26 +99,21 @@ public class Jag {
 
                     answer = scanner.nextLine();
                     continue;
-                }
-            }
 
-
-            // Creating todos
-            if (answer.length() >= 4) {
-                String todo = answer.substring(0, 4);
-                if (todo.equals("todo")) {
+                case TODO:
                     // Exception handling
                     if (answer.length() == 4) {
                         System.out.println(dashed);
                         AExceptions ex = new AExceptions("The description of a todo cannot be empty.");
                         System.out.println(ex.getErrorMessage());
                         System.out.println(dashed);
+
                         answer = scanner.nextLine();
                         continue;
                     }
 
-                    String[] split = answer.split("todo");
-                    String description = split[1].trim();
+                    split = answer.split("todo");
+                    description = split[1].trim();
                     Todo newTodo = new Todo(description);
                     tasks.add(newTodo);
 
@@ -117,15 +125,10 @@ public class Jag {
 
                     answer = scanner.nextLine();
                     continue;
-                }
-            }
 
-            // Creating Deadlines
-            if (answer.length() >= 8) {
-                String deadline = answer.substring(0, 8);
-                if (deadline.equals("deadline")) {
-                    String[] split = answer.split("/by");
-                    String description = split[0].replaceFirst("deadline", "").trim();
+                case DEADLINE:
+                    split = answer.split("/by");
+                    description = split[0].replaceFirst("deadline", "").trim();
                     String by = split[1].trim();
                     Deadline newDeadline = new Deadline(description, by);
                     tasks.add(newDeadline);
@@ -138,15 +141,10 @@ public class Jag {
 
                     answer = scanner.nextLine();
                     continue;
-                }
-            }
 
-            // Creating Events
-            if (answer.length() >= 5) {
-                String event = answer.substring(0, 5);
-                if (event.equals("event")) {
-                    String[] split = answer.split("/from | /to");
-                    String description = split[0].replaceFirst("event", "").trim();
+                case EVENT:
+                    split = answer.split("/from | /to");
+                    description = split[0].replaceFirst("event", "").trim();
                     String from = split[1].trim();
                     String to = split[2].trim();
                     Event newEvent = new Event(description, from, to);
@@ -160,20 +158,16 @@ public class Jag {
 
                     answer = scanner.nextLine();
                     continue;
-                }
-            }
 
-            if (answer.length() >= 6) {
-                String delete = answer.substring(0, 6);
-                char marker = answer.charAt(answer.length() - 1);
-                int index = 0;
+                case DELETE:
+                    marker = answer.charAt(answer.length() - 1);
+                    index = 0;
 
-                if (Character.isDigit(marker)) {
-                    index = Integer.parseInt(Character.toString(marker));
-                }
+                    if (Character.isDigit(marker)) {
+                        index = Integer.parseInt(Character.toString(marker));
+                    }
 
-                if (delete.equals("delete")) {
-                    Task task = tasks.get(index - 1);
+                    task = tasks.get(index - 1);
 
                     System.out.println(dashed);
                     System.out.println("Noted. I've removed this task:");
@@ -184,17 +178,7 @@ public class Jag {
 
                     answer = scanner.nextLine();
                     continue;
-                }
-            }
 
-            // Wrong command
-            else {
-                System.out.println(dashed);
-                AExceptions ex = new AExceptions("I'm sorry, but I don't know what that means :-(");
-                System.out.println(ex.getErrorMessage());
-                System.out.println(dashed);
-                answer = scanner.nextLine();
-                continue;
             }
 
         }
