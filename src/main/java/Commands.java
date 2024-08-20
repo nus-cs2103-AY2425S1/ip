@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 interface Commands {
     void run(Sentinel sentinel, String args);
 }
