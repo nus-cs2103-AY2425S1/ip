@@ -10,7 +10,7 @@ public class Sigma {
         print("Hello! I'm " + name + "\nLooking forward to slaying with you!\nWhat do you need today?");
         String userPrompt = input.nextLine();
         while (!userPrompt.isEmpty()) {
-            String[] split = userPrompt.split(" ");
+            String[] split = userPrompt.split(" ", 2);
             String command = split[0];
             switch (command) {
                 case "bye":
@@ -20,8 +20,7 @@ public class Sigma {
                 case "list":
                     StringBuilder s = new StringBuilder();
                     for (Task item : items) {
-                        s.append(String.format("%d. [%s] %s\n",
-                                item.getId(), item.getStatusString(), item.getDesc()));
+                        s.append(item.getId() + ". " + item.toString() + "\n");
                     }
                     print("You want a list? You got it!\n" + s.toString());
                     break;
@@ -61,9 +60,42 @@ public class Sigma {
                         print("Bro's dreaming. Add a number bozo!");
                     }
                     break;
+                case "todo":
+                    ToDoTask toDoTask = new ToDoTask(split[1]);
+                    items.add(toDoTask);
+                    print("Productive! Added: \n" + toDoTask.toString()
+                    + "\nNow you have " + items.size() + " tasks in the list!");
+                    break;
+                case "deadline":
+                    String[] deadlineSplit = split[1].split(" /by ");
+                    if (deadlineSplit.length < 2) {
+                        print("What the sigma? You're missing the deadline!");
+                        break;
+                    }
+                    DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], deadlineSplit[1]);
+                    items.add(deadlineTask);
+                    print("Wow! Keeping yourself busy! Added: \n" + deadlineTask.toString()
+                    + "\nNow you have " + items.size() + " tasks in the list!");
+                    break;
+                case "event":
+                    String[] eventSplit = split[1].split(" /from ");
+                    if (eventSplit.length < 2) {
+                        print("What the sigma? You're missing the timing!");
+                        break;
+                    }
+                    String[] timing = eventSplit[1].split(" /to ");
+                    if (timing.length < 2) {
+                        print("What the sigma? You're missing the end timing!");
+                        break;
+                    }
+                    EventTask eventTask = new EventTask(eventSplit[0], timing[0], timing[1]);
+                    items.add(eventTask);
+                    print("You're a busy bee! Added: \n" + eventTask.toString()
+                    + "\nNow you have " + items.size() + " tasks in the list!");
+                    break;
                 default:
-                    items.add(new Task(userPrompt));
-                    print("Added: " + userPrompt);
+                    print("That's crazy - I don't understand! Try again! Enter " +
+                            "\"todo\", \"deadline\", \"event\", \"list\", \"mark\", \"unmark\" or \"bye\"!");
                     break;
             }
             userPrompt = input.nextLine();

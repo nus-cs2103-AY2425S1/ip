@@ -26,4 +26,9 @@ public class Task {
     public String getStatusString() {
         return status ? "X" : " ";
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getStatusString(), getDesc());
+    }
 }
