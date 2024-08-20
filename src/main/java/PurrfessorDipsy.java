@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.HashMap;
 
 public class PurrfessorDipsy {
-    private static HashMap<String, Boolean> memory = new HashMap<>(100);
+    private static HashMap<String, Boolean> tasks = new HashMap<>(100);
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
@@ -59,15 +59,15 @@ public class PurrfessorDipsy {
     }
 
     private static void saveToMemory(String userInput) {
-        memory.put(userInput, false);
+        tasks.put(userInput, false);
     }
 
     private static void printMemory() {
         int counter = 1;
         printTerminalLine();
         System.out.println("Here are the tasks in your list:");
-        for ( String str : memory.keySet()) {
-            System.out.println(counter + ". " + str);
+        for ( String task : tasks.keySet()) {
+            System.out.println(counter + ". " + task);
             counter++;
         }
         printTerminalLine();
