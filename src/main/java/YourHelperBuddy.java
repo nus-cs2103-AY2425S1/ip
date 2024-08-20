@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class YourHelperBuddy {
     public static void main(String[] args) {
@@ -10,6 +9,9 @@ public class YourHelperBuddy {
         ArrayList<Task> taskList = new ArrayList<>();
         while (true) {
             System.out.println("Enter your task: ");
+            if (!myObj.hasNextLine()) {
+                break;
+            }
             String taskDescription = myObj.nextLine();
             if (taskDescription.equals("bye")) {
                 break;
@@ -132,6 +134,7 @@ public class YourHelperBuddy {
                 System.out.println("________________________________________________");
             }
         }
+        myObj.close();
         System.out.println("________________________________________________");
         System.out.println("Goodbye. Take care and see you again!");
         System.out.println("________________________________________________");
