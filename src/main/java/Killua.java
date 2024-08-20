@@ -8,9 +8,11 @@ public class Killua {
         System.out.println(LINE);
     }
 
-    private static void add(String message){
+    private static void add(ArrayList<Task> tasks, Task task){
         printLine();
-        System.out.println("added task: " + message);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() +  " tasks in the list.");
         printLine();
     }
 
@@ -57,7 +59,10 @@ public class Killua {
         ArrayList<Task> tasks = new ArrayList<>();
 
         while (flag) {
-            String command = scanner.nextLine().trim();
+            String input = scanner.nextLine().trim();
+            String[] parts = input.split(" ", 2);
+            String command = parts[0];
+            String argument = (parts.length > 1) ? parts[1] : "";
 
             switch(command.toLowerCase()) {
                 case "bye" -> {
@@ -65,17 +70,33 @@ public class Killua {
                     flag = false;
                 }
                 case "list" -> list(tasks);
-                default -> {
-                    if (command.startsWith("mark ")) {
-                        int taskNumber = Integer.parseInt(command.substring(5).trim());
-                        markTaskDone(tasks, taskNumber-1);
-                    } else if (command.startsWith("unmark ")) {
-                        int taskNumber = Integer.parseInt(command.substring(7).trim());
-                        unmarkTask(tasks, taskNumber-1);
-                    } else {
-                        tasks.add(new Task(command));
-                        add(command);
-                    }
+                case "mark" -> {
+                    int taskNumber = Integer.parseInt(argument);
+                    markTaskDone(tasks, taskNumber-1);
+                }
+                case "unmark" -> {
+                    int taskNumber = Integer.parseInt(argument);
+                    unmarkTask(tasks, taskNumber-1);
+                }
+                case "todo" -> {
+                    Task todo = new Todo(argument);
+                    tasks.add(todo);
+                    add(tasks, todo);
+                }
+                case "deadline" -> {
+                    String[] strs = argument.split("/", 2);
+                    String by = strs[1].substring(3).strip();
+                    Task deadline = new Deadline(strs[0].strip(), by);
+                    tasks.add(deadline);
+                    add(tasks, deadline);
+                }
+                case "event" -> {
+                    String[] strs = argument.split("/", 3);
+                    String from = strs[1].substring(5).strip();
+                    String to = strs[2].substring(3).strip();
+                    Task event = new Event(strs[0].strip(), from, to);
+                    tasks.add(event);
+                    add(tasks, event);
                 }
             }
         }
