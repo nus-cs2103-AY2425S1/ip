@@ -126,7 +126,11 @@ public class Sentinel {
                 this.commands.get(parsedCommands[0]).run(this, userInput);
             }
 
-            userInput = scanner.nextLine();
+            if (scanner.hasNextLine()) {
+                userInput = scanner.nextLine();
+            } else {
+                break;
+            }
         }
     }
 
