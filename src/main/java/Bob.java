@@ -28,6 +28,7 @@ public class Bob {
             // print tasks
             if (input.equals("list")) {
                 System.out.println("\t------------------------------------------");
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < taskCounter; i++) {
                     int j = i + 1;
                     System.out.println(j + ". " + tasks[i]);
