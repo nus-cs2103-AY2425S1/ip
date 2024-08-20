@@ -18,6 +18,17 @@ public class Count {
         reply("Bye. Hope to see you again soon!");
     }
 
+    private void helpTutorial() {
+        reply("1.'hello': Prompts me for a greeting!\n Usecase: hello" +
+                "\n\n2.'bye': Closes the program\n Usecase: bye" +
+                "\n\n3.'list': Lists all tasks added in the order that they were added in\n Usecase: list" +
+                "\n\n4.'todo': Adds a task with no date or time attached\n Usecase: todo bake bread" +
+                "\n\n5.'deadline': Adds a task with a date or time to complete by\n Usecase: deadline homework /by Monday" +
+                "\n\n6.'event': Adds a task with from a date or time to another date or time\n Usecase: event project meeting /from 3pm /to 6pm" +
+                "\n\n7.'mark': Marks specified task as complete\n Usecase: mark 2" +
+                "\n\n8.'unmark': Marks specified task as incomplete\n Usecase: unmark 1");
+    }
+
     private void addTask(Task t) {
         ls.add(t);
         reply("Added the following task:\n" + t.toString() +"\nYou now have " + ls.size() + " task(s) in your list");
@@ -35,16 +46,22 @@ public class Count {
         reply(ans);
     }
 
-    // Sets the task to complete
-    // TODO: exception for not existing index for mark and unmark
     private void mark(int i) {
-        ls.get(i - 1).setCompletion(true);
-        reply("Good job, I have marked this task as complete:\n" + ls.get(i - 1).toString());
+        try {
+            ls.get(i - 1).setCompletion(true);
+            reply("Good job, I have marked this task as complete:\n" + ls.get(i - 1).toString());
+        } catch (IndexOutOfBoundsException e) {
+            reply("Invalid list index chosen! Choose a number from 1 to " + ls.size() + "\nType 'help' to see correct formatting examples");
+        }
     }
 
     private void unmark(int i) {
-        ls.get(i - 1).setCompletion(false);
-        reply("No problem, I have marked this task as incomplete:\n" + ls.get(i - 1).toString());
+        try {
+            ls.get(i - 1).setCompletion(false);
+            reply("No problem, I have marked this task as incomplete:\n" + ls.get(i - 1).toString());
+        } catch (IndexOutOfBoundsException e) {
+            reply("Invalid list index chosen! Choose a number from 1 to " + ls.size() + "\nType 'help' to see correct formatting examples");
+        }
     }
 
     // single word command parser
@@ -59,37 +76,45 @@ public class Count {
             case "list":
                 listReply();
                 break;
+            case "help":
+                helpTutorial();
+                break;
             default:
-                reply("I'm sorry, I did not understand that, could you say that again?");
+                reply("I'm sorry, I did not understand that, type 'help' for available commands.");
         }
     }
 
     // multi-world parser
-    // TODO: catch exception for valueof
     private void parser(String command, String firstWord) {
         String temp[] = command.split(" ", 2);
         String rest = temp[1];
-        switch (firstWord.toLowerCase()) {
-            case "mark":
-                mark(Integer.valueOf(rest));
-                break;
-            case "unmark":
-                unmark(Integer.valueOf(rest));
-                break;
-            case "todo":
-                addTask(new ToDos(rest));
-                break;
-            case "deadline":
-                String commandSplitD[] = rest.split(" /by ", 2);
-                addTask(new Deadlines(commandSplitD[0], commandSplitD[1]));
-                break;
-            case "event":
-                String commandSplitE[] = rest.split(" /from ", 2);
-                String startEndTime[] = commandSplitE[1].split(" /to ", 2);
-                addTask(new Events(commandSplitE[0], startEndTime[0], startEndTime[1]));
-                break;
-            default:
-                reply("I'm sorry, I did not understand that, could you say that again?");
+        try {
+            switch (firstWord.toLowerCase()) {
+                case "mark":
+                    mark(Integer.valueOf(rest));
+                    break;
+                case "unmark":
+                    unmark(Integer.valueOf(rest));
+                    break;
+                case "todo":
+                    addTask(new ToDos(rest));
+                    break;
+                case "deadline":
+                    String commandSplitD[] = rest.split(" /by ", 2);
+                    addTask(new Deadlines(commandSplitD[0], commandSplitD[1]));
+                    break;
+                case "event":
+                    String commandSplitE[] = rest.split(" /from ", 2);
+                    String startEndTime[] = commandSplitE[1].split(" /to ", 2);
+                    addTask(new Events(commandSplitE[0], startEndTime[0], startEndTime[1]));
+                    break;
+                default:
+                    reply("I'm sorry, I did not understand that, could you say that again?");
+            }
+        } catch (NumberFormatException e) {
+            reply("Use a number after mark and unmark to specify the task targeted!\nType 'help' to see correct formatting examples");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            reply("Invalid format for event or deadline!\nType 'help' to see correct formatting examples");
         }
     }
 
