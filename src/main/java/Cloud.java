@@ -37,13 +37,30 @@ public class Cloud {
             if (userInput.equals(EXIT_COMMAND)) {
                 break;
             }
+            // print out the task list
             if (userInput.equals("list")) {
                 System.out.println(tasks);
-            } else {
-                // save each input to the task list
-                tasks.add(userInput);
-                System.out.println("added: " + userInput);
+                continue;
             }
+            // check the first word in the command
+            String[] splitCommand = userInput.split(" ", 3);
+            if (splitCommand[0].equals("mark")) {
+                int taskNum = Integer.valueOf(splitCommand[1]);
+                tasks.mark(taskNum);
+                System.out.println("Task marked as done!");
+                System.out.println(tasks.getTaskStatus(taskNum));
+                continue;
+            }
+            if (splitCommand[0].equals("unmark")) {
+                int taskNum = Integer.valueOf(splitCommand[1]);
+                tasks.unmark(taskNum);
+                System.out.println("Task marked as not done");
+                System.out.println(tasks.getTaskStatus(taskNum));
+                continue;
+            }
+            // save each input to the task list
+            tasks.add(userInput);
+            System.out.println("added: " + userInput);
         }
         exit();
         printHorizLine();
