@@ -4,6 +4,11 @@ import java.util.ArrayList;
 public class Applemazer {
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Task> tasks = new ArrayList<>();
+    enum IntegerCommands {
+        Mark,
+        Unmark,
+        Delete
+    }
 
     private static class Task {
         private final String description;
@@ -33,6 +38,12 @@ public class Applemazer {
 
         public void printTaskAddedMessage() {
             System.out.println("Got it. I've added this task: ");
+            System.out.println("    " + this.getStatusIcon() + this);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list. \n");
+        }
+
+        public void printTaskDeletedMessage() {
+            System.out.println("Noted. I've removed this task: ");
             System.out.println("    " + this.getStatusIcon() + this);
             System.out.println("Now you have " + tasks.size() + " tasks in the list. \n");
         }
@@ -98,23 +109,32 @@ public class Applemazer {
         System.out.println(farewell);
     }
 
-    private void handleMarking(boolean shouldBeDone) {
+    private void handleIntegerCommands(IntegerCommands shouldBeDone) {
         try {
             int taskNumber = Integer.parseInt(sc.nextLine().trim())-1; // Will throw error if non-integer or no input.
             Task task = tasks.get(taskNumber);
 
-            if (shouldBeDone) {
-                task.setDone();
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("    " + task.getStatusIcon() + task + "\n");
-            } else {
-                task.setUndone();
-                System.out.println("OK, I've marked this task as not done yet: ");
-                System.out.println("    " + task.getStatusIcon() + task + "\n");
+            switch (shouldBeDone) {
+                case Mark :
+                    task.setDone();
+                    System.out.println("Nice! I've marked this task as done: ");
+                    System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    break;
+                case Unmark :
+                    task.setUndone();
+                    System.out.println("OK, I've marked this task as not done yet: ");
+                    System.out.println("    " + task.getStatusIcon() + task + "\n");
+                    break;
+                case Delete :
+                    tasks.remove(task);
+                    task.printTaskDeletedMessage();
+                    break;
             }
         } catch (IndexOutOfBoundsException e) {
             if (tasks.isEmpty()) {
-                System.out.println("You have no tasks to mark. ");
+                String emptyMessage = String.format("You have no tasks to %s.\n", shouldBeDone.toString()
+                                                                                              .toLowerCase());
+                System.out.println(emptyMessage);
             } else {
                 int size = tasks.size();
                 String message = String.format("""
@@ -124,10 +144,12 @@ public class Applemazer {
                 System.out.println(message);
             }
         } catch (Exception e) {
-            System.out.println("""
-                               OOPS!!! You either have a non-integer input or no input at all.
-                               Try 'mark <task number>'.
-                               """);
+            String errorMessage = String.format("""
+                                                OOPS!!! You either have a non-integer input or no input at all.
+                                                Try '%s <task number>'.
+                                                """, shouldBeDone.toString()
+                                                                 .toLowerCase());
+            System.out.println(errorMessage);
         }
     }
 
@@ -167,10 +189,10 @@ public class Applemazer {
                     }
                     break;
                 case "mark" :
-                    handleMarking(true);
+                    handleIntegerCommands(IntegerCommands.Mark);
                     break;
                 case "unmark" :
-                    handleMarking(false);
+                    handleIntegerCommands(IntegerCommands.Unmark);
                     break;
                 case "todo" :
                     try {
@@ -181,11 +203,9 @@ public class Applemazer {
                                                 Try todo <description>.
                                                 """);
                         }
-
                         task = new Todo(command);
                         tasks.add(task);
                         task.printTaskAddedMessage();
-
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -222,7 +242,11 @@ public class Applemazer {
                                            """);
                     }
                     break;
+                case "delete" :
+                    handleIntegerCommands(IntegerCommands.Delete);
+                    break;
                 default:
+                    sc.nextLine(); // Prevents parsing next word which duplicates message.
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
             }
         }
