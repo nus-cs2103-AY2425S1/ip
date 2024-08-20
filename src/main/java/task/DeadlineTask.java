@@ -6,4 +6,9 @@ public class DeadlineTask extends Task {
         super(description, TaskType.DEADLINE);
         this.deadline = deadline;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "(by: " + this.deadline + ")";
+    }
 }

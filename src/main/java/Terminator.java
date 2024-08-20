@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Terminator {
-    private static final String HLINE = "\t____________________________________________________________\n";
+    private static final String HLINE = "____________________________________________________________\n";
     private static final String LOGO =
-                """
+                  """
                                      <((((((\\\\\\
                                      /      . }\\
                                      ;--..--._|}
@@ -23,7 +23,7 @@ public class Terminator {
                         \\ '\\ /     \\  |     |  _/       /
                          \\  \\       \\ |     | /        /
                           \\  \\      \\        /
-                """;
+                  """;
     private final ArrayList<Task> todoList;
     private final CommandParser parser;
     private Terminator() {
@@ -39,12 +39,12 @@ public class Terminator {
     }
 
     public void greet() {
-        String msg = HLINE + LOGO + "\tDevice booted successfully. State your request.\n" + HLINE;
+        String msg = HLINE + LOGO + "Device booted successfully. State your request.\n" + HLINE;
         System.out.println(msg);
     }
 
     public void exit() {
-        String exitMsg = HLINE + "\tAll mission objectives fulfilled. Shutting down.\n" + HLINE;
+        String exitMsg = HLINE + "All mission objectives fulfilled. Shutting down.\n" + HLINE;
         System.out.println(exitMsg);
     }
     public void mainEventLoop() {
@@ -65,7 +65,7 @@ public class Terminator {
         try {
             tChatbot.mainEventLoop();
         } catch (Exception e) {
-            System.out.println("Critical error detected.");
+
         }
         tChatbot.exit();
     }

@@ -13,7 +13,7 @@ public abstract class Task {
 
     public TaskType getTaskType() {
         return this.taskType;
-    };
+    }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X

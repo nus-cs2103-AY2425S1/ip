@@ -17,10 +17,10 @@ public class EventCommand extends Command {
         String description = input.substring(0, idx);
         int toDateIdx = dates.indexOf("/to");
         String fromDate = dates.substring(6, toDateIdx);
-        String toDate = dates.substring(toDateIdx + 4, dates.length());
+        String toDate = dates.substring(toDateIdx + 4);
         Task t = new EventTask(description, fromDate,  toDate);
         todoList.add(t);
-        System.out.println("\tMission parameters updated. Added new objective: " + t);
-        System.out.println("\t" + todoList.size() + " objective(s) remaining.");
+        System.out.println("Mission parameters updated. Added new objective: " + t);
+        System.out.println(todoList.size() + " objective(s) remaining.");
     }
 }

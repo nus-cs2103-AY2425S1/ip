@@ -17,7 +17,7 @@ public class DeadlineCommand extends Command {
         String deadline = tokens[1];
         Task t = new DeadlineTask(description, deadline);
         todoList.add(t);
-        System.out.println("\tMission parameters updated. Added new objective: " + t);
-        System.out.println("\t" + todoList.size() + " objective(s) remaining.");
+        System.out.println("Mission parameters updated. Added new objective: " + t);
+        System.out.println(todoList.size() + " objective(s) remaining.");
     }
 }
