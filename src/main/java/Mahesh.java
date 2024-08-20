@@ -1,3 +1,4 @@
+import java.lang.IndexOutOfBoundsException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -47,26 +48,26 @@ public class Mahesh {
                     exit = true;
                     break;
                 case "mark":
-                    task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                    if (task == null) {
+                    try {
+                        task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
+                        task.markAsDone();
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("  " + task);
+                    } catch (IndexOutOfBoundsException err) {
                         System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
                         System.out.println("Use the \"list\" command to view all your tasks.");
-                        break;
                     }
-                    task.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + task);
                     break;
                 case "unmark":
-                    task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                    if (task == null) {
+                    try {
+                        task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
+                        task.unmarkAsDone();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println("  " + task);
+                    } catch (IndexOutOfBoundsException err) {
                         System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
                         System.out.println("Use the \"list\" command to view all your tasks.");
-                        break;
                     }
-                    task.unmarkAsDone();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + task);
                     break;
                 case "todo":
                     try {
@@ -92,6 +93,8 @@ public class Mahesh {
                         System.out.println("event task_description /from event_start /to event_end");
                     }
                     break;
+                case "delete":
+                    
                 default:
                     System.out.println("That is not a valid command. Use the \"bye\" command if you wish to exit the bot.");
                     break;
