@@ -7,8 +7,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public void toggle() {
-        this.isDone = !this.isDone;
+    public void mark() {
+        this.isDone = true;
+    }
+
+    public void unmark() {
+        this.isDone = false;
     }
 
     public String getStatus() {

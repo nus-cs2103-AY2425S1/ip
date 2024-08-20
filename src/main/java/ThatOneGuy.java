@@ -23,7 +23,7 @@ public class ThatOneGuy {
         else {
             System.out.println("Here are your damned tasks. Complete them or something.");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i).toString());
+                System.out.println((i + 1) + ". " + tasks.get(i).toString());
             }
         }
         System.out.println(line);
@@ -38,16 +38,36 @@ public class ThatOneGuy {
                 break;
             } else if (next.equals("list")) {
                 list();
-            } else if (next.startsWith("mark")) {
-                return;
-            } else if (next.startsWith("unmark")) {
-                return;
+            } else if (next.startsWith("mark ")) {
+                Integer id = Integer.parseInt(next.substring(5)) - 1;
+                if (id < 0 || id >= tasks.size()) {
+                    System.out.println(line + '\n' + "That's not a valid ID, bozo.");
+                } else {
+                    tasks.get(id).mark();
+                    System.out.println(line);
+                    System.out.println("Eh. Consider this task done:");
+                    System.out.println(tasks.get(id).toString());
+                    System.out.println(line);
+                }
+
+            } else if (next.startsWith("unmark ")) {
+                Integer id = Integer.parseInt(next.substring(7)) - 1;
+                if (id < 0 || id >= tasks.size()) {
+                    System.out.println(line + '\n' + "That's not a valid ID, bozo.");
+                } else {
+                    tasks.get(id).unmark();
+                    System.out.println(line);
+                    System.out.println("Sucks to be you. Looks like you haven't done this task:");
+                    System.out.println(tasks.get(id).toString());
+                    System.out.println(line);
+                }
             } else {
                 Task nextTask = new Task(next);
                 tasks.add(nextTask);
                 System.out.println(line + "\n" + "added: " + next + "\n" + line + "\n");
             }
         }
+        sc.close();
     }
     public static void main(String[] args) {
         greet();
