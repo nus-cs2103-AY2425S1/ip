@@ -12,9 +12,10 @@ public class UI {
     public void printTaskList(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
+            ToDo task = (ToDo) tasks.get(i);
             output.append(i + 1);
-            output.append(". ");
-            output.append(tasks.get(i).getTaskName());
+            output.append(".");
+            output.append(task);
             output.append("\n\t\t\t");
         }
 
@@ -24,8 +25,16 @@ public class UI {
         System.out.println(this.addMsgWithOutline(output.toString()));
     }
 
-    public void printAddTaskFeedback(String taskName) {
-        System.out.println(this.addMsgWithOutline("added: "+ taskName));
+    public void printAddTaskFeedback(Task task) {
+        System.out.println(this.addMsgWithOutline("added: " + task.getTaskName()));
+    }
+
+    public void printTaskMarkedDone(Task task) {
+        System.out.println(this.addMsgWithOutline("Nice! I've marked this task as done:\n\t\t\t\t" + task));
+    }
+
+    public void printTaskMarkedUndone(Task task) {
+        System.out.println(this.addMsgWithOutline("OK, I've marked this task as not done yet:\n\t\t\t\t" + task));
     }
 
     public void exit() {
