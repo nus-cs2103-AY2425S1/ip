@@ -1,16 +1,30 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Blitz {
     private static void printInDivider(String divider, String cont) {
         System.out.print(divider + cont + divider);
     }
 
-    private static void printTaskAddedWithDivider(String divider, String type, int size, Task task) {
-        String toPrint = "    Got it. I've added this task:\n" +
-                "      [" + type + "][ ] " + task + "\n" +
-                "    " + "Now you have " + size + " tasks in the list.\n";
+    private static void printTaskAddedWithDivider(String divider, String tab, String type, int size, Task task) {
+        String toPrint = tab + "Got it. I've added this task:\n" +
+                tab + "  [" + type + "][ ] " + task + "\n" +
+                tab + "Now you have " + size + " tasks in the list.\n";
         printInDivider(divider, toPrint);
+    }
+
+    private static void printError(String divider, String tab, String msg) {
+        String toPrint = tab + msg + "\n";
+        printInDivider(divider, toPrint);
+    }
+
+    private static boolean regexChecker(String reg, String inp) {
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(inp);
+
+        return matcher.find();
     }
 
     public static void main(String[] args) {
@@ -43,45 +57,92 @@ public class Blitz {
                 String[] cont = inp.split(" ", 2);
                 String command = cont[0];
 
+                if (cont.length == 1 || cont[1].isBlank()) {
+                    printError(divider, tab, "Command without parameter!");
+                    continue;
+                }
+
                 switch (command) {
-                    case "mark" -> {
-                        int ind = Integer.parseInt(cont[1]) - 1;
-                        Task task = db.get(ind);
+                    case "mark", "unmark" -> {
+                        String[] param = cont[1].split(" ");
+                        if (param.length > 1) {
+                            printError(divider, tab, "Only ONE parameter is required!");
+                            continue;
+                        }
 
-                        task.markDone();
-                        String toPrint = tab + "Nice! I've marked this task as done:\n" +
-                                tab + "  [" + task.getType() + "]" + "[X] " + task + "\n";
-                        printInDivider(divider, toPrint);
-                    }
-                    case "unmark" -> {
-                        int ind = Integer.parseInt(cont[1]) - 1;
-                        Task task = db.get(ind);
+                        try {
+                            int ind = Integer.parseInt(param[0]) - 1;
 
-                        task.unmarkDone();
-                        String toPrint = tab + "Ok, I've marked this task as not done yet:\n" +
-                                tab + "  [" + task.getType() + "]" + "[ ] " + task + "\n";
-                        printInDivider(divider, toPrint);
+                            if (db.isEmpty()) {
+                                printError(divider, tab, "There is nothing in the list!");
+                                continue;
+                            }
+
+                            Task task = db.get(ind);
+
+                            String toPrint;
+                            if (command.equals("mark")) {
+                                task.markDone();
+                                toPrint = tab + "Nice! I've marked this task as done:\n" +
+                                        tab + "  [" + task.getType() + "]" + "[X] " + task + "\n";
+                            } else {
+                                task.unmarkDone();
+                                toPrint = tab + "Ok, I've marked this task as not done yet:\n" +
+                                    tab + "  [" + task.getType() + "]" + "[ ] " + task + "\n";
+                            }
+
+                            printInDivider(divider, toPrint);
+                        } catch (IndexOutOfBoundsException e) {
+                            printError(divider, tab, "There is no such task in the list!");
+                        } catch (NumberFormatException e) {
+                            printError(divider, tab, "Integer value is expected for parameter!");
+                        }
                     }
                     case "todo" -> {
                         Task temp = new Todo(cont[1], "T", false);
 
                         db.add(temp);
-                        printTaskAddedWithDivider(divider, "T", db.size(), temp);
+                        printTaskAddedWithDivider(divider, tab, "T", db.size(), temp);
                     }
                     case "deadline" -> {
-                        String[] str = cont[1].split(" /by ");
-                        Task temp = new Deadline(str[0], "D", str[1], false);
+                        if (!regexChecker(".+ /by .+", cont[1])) {
+                            printError(divider, tab, "Wrong parameter! Please use this format \"[Task name] /by [Deadline]!\"");
+                            continue;
+                        }
+
+                        String[] param = cont[1].split(" /by ");
+
+                        if (param[0].contains("/by") || param[1].contains("/by")) {
+                            printError(divider, tab, "/by can only use ONCE! Please use this format \"[Task name] /by [Deadline]!\"");
+                            continue;
+                        }
+
+                        Task temp = new Deadline(param[0], "D", param[1], false);
 
                         db.add(temp);
-                        printTaskAddedWithDivider(divider, "D", db.size(), temp);
+                        printTaskAddedWithDivider(divider, tab, "D", db.size(), temp);
                     }
                     case "event" -> {
-                        String[] str1 = cont[1].split(" /from ");
-                        String[] str2 = str1[1].split(" /to ");
-                        Task temp = new Event(str1[0], "E", str2[0], str2[1], false);
+                        if (!regexChecker(".+ /from .+ /to .+", cont[1])) {
+                            printError(divider, tab, "Wrong parameter! Please use this format \"[Task name] /from [Start date/time] /to [End date/time]!\"");
+                            continue;
+                        }
+
+                        String[] param1 = cont[1].split(" /from ");
+                        String[] param2 = param1[1].split(" /to ");
+
+                        if (param1[0].contains("/from") || param1[1].contains("/from")) {
+                            printError(divider, tab, "/from can only use ONCE! Please use this format \"[Task name] /from [Start date/time] /to [End date/time]!\"");
+                            continue;
+                        } else if (param2[0].contains("/to") || param2[1].contains("/to")) {
+                            printError(divider, tab, "/to can only use ONCE! Please use this format \"[Task name] /from [Start date/time] /to [End date/time]!\"");
+                            continue;
+                        }
+
+                        Task temp = new Event(param1[0], "E", param2[0], param2[1], false);
 
                         db.add(temp);
-                        printTaskAddedWithDivider(divider, "E", db.size(), temp);
+                        printTaskAddedWithDivider(divider, tab, "E", db.size(), temp);
                     }
                     default -> {
                         String toPrint = tab + "Invalid command\n";
