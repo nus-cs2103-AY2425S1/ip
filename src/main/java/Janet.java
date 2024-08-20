@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class Janet {
     private static final String horizontalLine = "____________________________________________________________";
-    private final Task[] listOfTasks;
+    private final ArrayList<Task> listOfTasks;
     private int taskIndex;
 
     Janet() {
-        this.listOfTasks = new Task[100];
+        this.listOfTasks = new ArrayList<Task>();
         this.taskIndex = 0;
     }
 
@@ -51,7 +53,7 @@ public class Janet {
      */
     public String addTaskToList(String task, String taskSymbol) {
         Task newTask = new Task(task, taskSymbol);
-        this.listOfTasks[this.taskIndex] = newTask;
+        this.listOfTasks.add(newTask);
         this.taskIndex++;
         return horizontalLine + "\n" + String.format("added: %s\n", task) + horizontalLine;
     }
@@ -62,7 +64,7 @@ public class Janet {
      * @return a String message to indicate successful addition of task into listOfTasks.
      */
     public String addTaskToList(Task task) {
-        this.listOfTasks[this.taskIndex] = task;
+        this.listOfTasks.add(task);
         this.taskIndex++;
         return horizontalLine + "\nGot it. I've added this task:\n" + "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", taskIndex) + horizontalLine;
     }
@@ -80,10 +82,10 @@ public class Janet {
         }
         for (int i = 0; i < taskIndex; i++) {
             if (i == taskIndex - 1) {
-                currentList += (i+1) + ". " + listOfTasks[i] + "\n" + horizontalLine;
+                currentList += (i+1) + ". " + listOfTasks.get(i) + "\n" + horizontalLine;
                 break;
             }
-            currentList += (i+1) + ". " + listOfTasks[i] + "\n";
+            currentList += (i+1) + ". " + listOfTasks.get(i) + "\n";
         }
         return currentList;
     }
@@ -97,7 +99,7 @@ public class Janet {
      */
     public String markAsDone(int desiredTaskNum) {
         // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be marked as done
-        Task desiredTask = listOfTasks[desiredTaskNum - 1];
+        Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
         if (desiredTask.isDone()) {
             // the desired task is already marked as done
             return horizontalLine + "\nThis task is already done!\n" + horizontalLine;
@@ -115,7 +117,7 @@ public class Janet {
      */
     public String unmark(int desiredTaskNum) {
         // (desiredTaskNum - 1) is the index of the task, inside listOfTasks, that needs to be unmarked
-        Task desiredTask = listOfTasks[desiredTaskNum - 1];
+        Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
         if (!desiredTask.isDone()) {
             // desired task is already marked as NOT done (unmarked)
             return horizontalLine + "\nThis task is not already done!\n" + horizontalLine;
