@@ -1,9 +1,9 @@
-package processor.text;
+package processor.task;
 
 import response.Response;
 
 public class List {
   public static Response process(String prompt) {
-    return new Response(TextList.getStringList());
+    return new Response(processor.task.TaskList.getStringList());
   }
 }
