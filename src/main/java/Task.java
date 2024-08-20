@@ -29,7 +29,7 @@ abstract public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public static boolean isTaskCommand(String input) {
+    public static boolean isCreateTaskCommand(String input) {
         String[] parts = input.split(" ");
         return TASKS.contains(parts[0]);
     }

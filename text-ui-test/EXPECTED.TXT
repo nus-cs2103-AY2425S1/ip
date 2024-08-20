@@ -12,34 +12,35 @@ ____________________________________________________________
 That is the wrong deadline format Sir. It goes deadline <task> /by date
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number Sir.
-You only have 0 items in the list.
+Apologies, Sir, but that task number is not valid.
+You currently have only 0 items in the list.
+Might I suggest reviewing the list before proceeding?
 ____________________________________________________________
 ____________________________________________________________
 That is the wrong deadline format Sir. It goes deadline <task> /by date
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it Sir. The following task has been added to your list:
     [T][ ] borrow book
-Now you have 1 tasks in the list.
+You now have 1 tasks awaiting your attention.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it Sir. The following task has been added to your list:
     [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+You now have 2 tasks awaiting your attention.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it Sir. The following task has been added to your list:
     [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+You now have 3 tasks awaiting your attention.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it Sir. The following task has been added to your list:
     [D][ ] do homework (by: no idea :-p)
-Now you have 4 tasks in the list.
+You now have 4 tasks awaiting your attention.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
@@ -52,13 +53,14 @@ Indeed, Sir, the task has been duly completed:
     [D][X] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-Very well, Sir, the task remains outstanding:
+Very well Sir, the task remains outstanding:
     [D][ ] return book (by: Sunday)
 A reminder that even small tasks deserve attention.
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number Sir.
-You only have 4 items in the list.
+Apologies, Sir, but that task number is not valid.
+You currently have only 4 items in the list.
+Might I suggest reviewing the list before proceeding?
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow book
@@ -67,7 +69,7 @@ ____________________________________________________________
 4. [D][X] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-Very well, Sir, the task remains outstanding:
+Very well Sir, the task remains outstanding:
     [D][ ] do homework (by: no idea :-p)
 A reminder that even small tasks deserve attention.
 ____________________________________________________________
@@ -76,6 +78,26 @@ ____________________________________________________________
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 4. [D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Of course Sir, the task has been successfully removed.
+    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Your list now contains 3 tasks. Efficiency is its own rewards.
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Apologies, Sir, but that task number is not valid.
+You currently have only 3 items in the list.
+Might I suggest reviewing the list before proceeding?
+____________________________________________________________
+____________________________________________________________
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
 Farewell Sir. Should you need anything, you know where to find me.

@@ -17,7 +17,6 @@ public class Alfred {
         // Greet user
         greet();
 
-        // Echo user input
         String input = in.nextLine();
         while (!input.equals("bye")) {
             String command = getCommand(input);
@@ -26,7 +25,9 @@ public class Alfred {
                 printList();
             } else if (command.equals("mark") || command.equals("unmark")) {
                 processMarkCommand(input, command.equals("mark"));
-            } else if (Task.isTaskCommand(input)){
+            } else if (command.equals("delete")) {
+                deleteTask(input);
+            } else if (Task.isCreateTaskCommand(input)){
                 try {
                     Task task = Task.initialise(input);
                     lis.add(task);
@@ -88,27 +89,13 @@ public class Alfred {
     public static void processMarkCommand(String input, boolean mark) {
         String action = mark ? "mark" : "unmark";
 
-        String regex = "^" + action + " \\d+$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
-
-        if (!matcher.matches()) {
-            System.out.println("____________________________________________________________");
-            System.out.println("Invalid " + action + " command Sir.");
-            System.out.println("____________________________________________________________");
+        if (!isValidCommand(input, action)) {
             return;
         }
 
         int taskNumber = getTaskNumberFromInput(input);
-        if (taskNumber < 0 || taskNumber > lis.size()) {
-            System.out.println("____________________________________________________________");
-            System.out.println("Invalid task number Sir.");
-            System.out.println("You only have " + lis.size() + " items in the list.");
-            System.out.println("____________________________________________________________");
-            return;
-        }
-
         Task task = lis.get(taskNumber - 1);
+
         if (mark) {
             task.markAsDone();
             System.out.println("____________________________________________________________");
@@ -118,7 +105,7 @@ public class Alfred {
         } else {
             task.unmark();
             System.out.println("____________________________________________________________");
-            System.out.println("Very well, Sir, the task remains outstanding:");
+            System.out.println("Very well Sir, the task remains outstanding:");
             System.out.println("    " + task);
             System.out.println("A reminder that even small tasks deserve attention.");
             System.out.println("____________________________________________________________");
@@ -127,9 +114,49 @@ public class Alfred {
 
     public static void printAddedTaskMessage(Task task) {
         System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it Sir. The following task has been added to your list:");
         System.out.println("    " + task);
-        System.out.println("Now you have " + lis.size() + " tasks in the list.");
+        System.out.println("You now have " + lis.size() + " tasks awaiting your attention.");
         System.out.println("____________________________________________________________");
+    }
+
+    public static void deleteTask(String input) {
+        if (!isValidCommand(input, "delete")) {
+            return;
+        }
+
+        int taskNumber = getTaskNumberFromInput(input);
+        Task task = lis.remove(taskNumber - 1);
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Of course Sir, the task has been successfully removed.");
+        System.out.println("    " + task);
+        System.out.println("Your list now contains " + lis.size() + " tasks. Efficiency is its own rewards.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static boolean isValidCommand(String input, String action) {
+        String regex = "^" + action + " \\d+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        if (!matcher.matches()) {
+            System.out.println("____________________________________________________________");
+            System.out.println("I regret to inform you, Sir, that the command you entered is not recognized.");
+            System.out.println("Please check the instructions, and I shall be ready to assist you further.");
+            System.out.println("____________________________________________________________");
+            return false;
+        }
+
+        int taskNumber = getTaskNumberFromInput(input);
+        if (taskNumber <= 0 || taskNumber > lis.size()) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Apologies, Sir, but that task number is not valid.");
+            System.out.println("You currently have only " + lis.size() + " items in the list.");
+            System.out.println("Might I suggest reviewing the list before proceeding?");
+            System.out.println("____________________________________________________________");
+            return false;
+        }
+        return true;
     }
 }
