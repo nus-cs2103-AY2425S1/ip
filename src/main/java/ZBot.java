@@ -57,9 +57,9 @@ public class ZBot {
     public static void storeTask(String input) {
         // inputParts[0] is the command
         // inputParts[1] is the description
+        Task task;
         String[] inputParts = input.split(" ", 2);
 
-        Task task = new ToDo(inputParts[1]);
         if (inputParts[0].equals("deadline")) {
             try {
                 String[] deadlineParts = inputParts[1].split(" /by ", 2);
@@ -75,6 +75,13 @@ public class ZBot {
                 task = new Event(eventParts[0], period[0], period[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Please enter a valid event task format!\n");
+                return;
+            }
+        } else {
+            try {
+                task = new ToDo(inputParts[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Please enter a valid todo task format!\n");
                 return;
             }
         }
