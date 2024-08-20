@@ -54,6 +54,29 @@ public class Henry {
                 + "\n");
     }
 
+    /**
+     * Changes status of task
+     *
+     * @param tasks array of tasks recorded
+     * @param words user input
+     */
+    public static void changeTaskStatus(Task[] tasks, String[] words){
+        int number = Integer.parseInt(words[1]);
+        if (words[0].equals("mark")) {
+            tasks[number - 1].mark();
+            System.out.println("\nNice! I've marked this task as done:\n"
+                    + "[X] "
+                    + tasks[number - 1].getDescription()
+                    + "\n");
+        } else {
+            tasks[number - 1].unmark();
+            System.out.println("\nOK, I've marked this task as not done yet:\n"
+                    + "[ ] "
+                    + tasks[number - 1].getDescription()
+                    + "\n");
+        }
+    }
+
     public static void main(String[] args) {
         greetings();
 
@@ -70,8 +93,14 @@ public class Henry {
             } else if (input.equals("list")) {
                 printList(tasks, index);
             } else {
-                addTask(tasks, index, input);
-                index++;
+                String[] words = input.split(" ");
+                if (words[0].equals("mark") || words[0].equals("unmark")) {
+                    changeTaskStatus(tasks, words);
+                } else {
+                    addTask(tasks, index, input);
+                    index++;
+                }
+
             }
         } while (true);
     }
