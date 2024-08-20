@@ -3,38 +3,58 @@ import java.util.Scanner;
 
 public class Killua {
     private static final String LINE = "____________________________________________________________";
-    private static final String GREETING = "Hello! I'm Killua";
-    private static final String FAREWELL = "Bye. Hope to see you again soon!";
+
+    private static void printLine() {
+        System.out.println(LINE);
+    }
 
     private static void add(String message){
-        System.out.println(LINE);
-        System.out.println("added: " + message);
-        System.out.println(LINE);
+        printLine();
+        System.out.println("added task: " + message);
+        printLine();
     }
 
     private static void bye(){
-        System.out.println(LINE);
-        System.out.println(FAREWELL);
-        System.out.println(LINE);
+        printLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        printLine();
     }
 
-    private static void list(ArrayList<String> memo){
-        System.out.println(LINE);
-        for (int i = 0; i < memo.size(); i++) {
-            System.out.printf("%d. %s%n", i + 1, memo.get(i));
+    private static void list(ArrayList<Task> tasks){
+        printLine();
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.printf("%d.%s%n", i + 1, task);
         }
-        System.out.println(LINE);
+        printLine();
+    }
+
+    private static void markTaskDone(ArrayList<Task> tasks, int taskNumber) {
+        printLine();
+        System.out.println("Nice! I've marked this task as done:");
+        tasks.get(taskNumber).markAsDone();
+        System.out.println("  " + tasks.get(taskNumber));
+        printLine();
+    }
+
+    private static void unmarkTask(ArrayList<Task> tasks, int taskNumber) {
+        printLine();
+        System.out.println("OK, I've marked this task as not done yet:");
+        tasks.get(taskNumber).unmark();
+        System.out.println("  " + tasks.get(taskNumber));
+        printLine();
     }
 
     public static void main(String[] args) {
-        System.out.println(LINE);
-        System.out.println(GREETING);
+        printLine();
+        System.out.println("Hello! I'm Killua");
         System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        printLine();
 
         boolean flag = true;
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> memo = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (flag) {
             String command = scanner.nextLine().trim();
@@ -44,10 +64,18 @@ public class Killua {
                     bye();
                     flag = false;
                 }
-                case "list" -> list(memo);
+                case "list" -> list(tasks);
                 default -> {
-                    memo.add(command);
-                    add(command);
+                    if (command.startsWith("mark ")) {
+                        int taskNumber = Integer.parseInt(command.substring(5).trim());
+                        markTaskDone(tasks, taskNumber-1);
+                    } else if (command.startsWith("unmark ")) {
+                        int taskNumber = Integer.parseInt(command.substring(7).trim());
+                        unmarkTask(tasks, taskNumber-1);
+                    } else {
+                        tasks.add(new Task(command));
+                        add(command);
+                    }
                 }
             }
         }
