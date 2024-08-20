@@ -59,8 +59,8 @@ public class Main {
      * @throws JanetException a custom exception class specific to Janet
      */
     public static void validateCommand(String[] commandDetails) throws JanetException {
-        if (commandDetails[0].equals("mark") || commandDetails[0].equals("unmark")) {
-            // when the command is mark/unmark X, where X is an invalid num (too big or <= 0)
+        if (commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete")) {
+            // when the command is mark/unmark X OR delete, where X is an invalid num (too big or <= 0)
             int taskNumber = Integer.parseInt(commandDetails[1]);
             if (taskNumber <= 0) {
                 // still need to handle case when taskNumber >= taskIndex + 1 (unable to access janet.getTaskIndex())
