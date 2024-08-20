@@ -16,7 +16,7 @@ public class Taskon {
                 System.out.println("\n");
             } else if (description.startsWith("unmark")) {
                 try {
-                    int index = description.charAt(7) - '0';
+                    int index = Integer.parseInt(description.substring(7));
                     tasks.get(index - 1).markAsUndone();
                     uncompleted(tasks.get(index - 1));
                 } catch (IndexOutOfBoundsException e) {
@@ -29,6 +29,17 @@ public class Taskon {
                     completed(tasks.get(index - 1));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("You only have " + tasks.size() + " tasks!\n");
+                }
+            } else if (description.startsWith("delete")) {
+                try {
+                    int index = Integer.parseInt(description.substring(7));
+                    Task task = tasks.get(index-1);
+                    tasks.remove(index-1);
+                    System.out.println("Alright, I've removed this task:\n    " + task + "\nNow you have " + tasks.size() + " tasks.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("You only have " + tasks.size() + " tasks!\n");
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Integer Input!\n");
                 }
             } else {
                 try {
