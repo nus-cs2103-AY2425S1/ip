@@ -13,43 +13,45 @@ public class KorolevList {
         KorolevTask e;
         String name;
         String date;
-        if (event.contains("event")) {
+        String target = event.split("\\s")[0];
+        switch (target) {
+            case "event" -> {
+                try {
 
-            try {
-
-                name = EventParser.parseName("event", "/from", event);
-                date = EventParser.parseDate(event);
-                e = new KorolevEvent(name, date);
-                this.events.add(e);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(e);
-            } catch (ParseException exp) {
-                System.out.println(exp.getMessage());
+                    name = EventParser.parseName("event", "/from", event);
+                    date = EventParser.parseDate(event);
+                    e = new KorolevEvent(name, date);
+                    this.events.add(e);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(e);
+                } catch (ParseException exp) {
+                    System.out.println(exp.getMessage());
+                }
             }
-        } else if (event.contains("todo")) {
-            try {
-                name = EventParser.parseName("todo", "", event);
-                e = new KorolevTodo(name);
-                this.events.add(e);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(e);
-            } catch (ParseException exp) {
-                System.out.println(exp.getMessage());
+            case "todo" -> {
+                try {
+                    name = EventParser.parseName("todo", "", event);
+                    e = new KorolevTodo(name);
+                    this.events.add(e);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(e);
+                } catch (ParseException exp) {
+                    System.out.println(exp.getMessage());
+                }
             }
-
-        } else if (event.contains("deadline")) {
-            try {
-                name = EventParser.parseName("deadline", "/by", event);
-                date = EventParser.parseDate(event);
-                e = new KorolevDeadline(name, date);
-                this.events.add(e);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(e);
-            } catch (ParseException exp) {
-                System.out.println(exp.getMessage());
+            case "deadline" -> {
+                try {
+                    name = EventParser.parseName("deadline", "/by", event);
+                    date = EventParser.parseDate(event);
+                    e = new KorolevDeadline(name, date);
+                    this.events.add(e);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(e);
+                } catch (ParseException exp) {
+                    System.out.println(exp.getMessage());
+                }
             }
-        } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            default -> throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
 
