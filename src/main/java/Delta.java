@@ -61,11 +61,16 @@ public class Delta {
 
         while (sc.hasNextLine()) {
             Task task = new Task(sc.nextLine());
-            if (task.getDescription().equals("bye")) {
+            String taskName = task.getDescription();
+            if (taskName.equals("bye")) {
                 System.out.println(sayBye());
                 break;
-            } else if (task.getDescription().equals("list")) {
+            } else if (taskName.equals("list")) {
                 System.out.println(printTasks());
+            } else if (taskName.substring(0, 4).equals("mark")) {
+                System.out.println(markTask(Integer.parseInt(taskName.substring(5))));
+            } else if (taskName.substring(0, 6).equals("unmark")) {
+                System.out.println(unmarkTask(Integer.parseInt(taskName.substring(7))));
             } else {
                 System.out.println(addTask(task));
             }
