@@ -12,7 +12,7 @@ public class Task {
     public void markAsDone() {
         isDone = true;
     }
-    public void unmarkAsDone() {
+    public void markAsNotDone() {
         isDone = false;
     }
     public boolean isDone() {
