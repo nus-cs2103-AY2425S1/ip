@@ -1,29 +1,31 @@
 package processor.task;
 
-public class Task {
+public abstract class Task {
   private final String name;
   private final boolean state;
 
-  public Task(String name) {
+  protected Task(String name) {
     this.name = name;
     this.state = false;
   }
 
-  private Task(String name, boolean state) {
-    this.name = name;
+  protected Task(Task oldTask, boolean state) {
+    this.name = oldTask.name;
     this.state = state;
   }
 
-  public Task mark() {
-    return new Task(this.name, true);
+  public static Task of(String type, String arg) {
+    return new Todo(arg);
   }
 
-  public Task unmark() {
-    return new Task(this.name, false);
-  }
+  public abstract Task mark();
+
+  public abstract Task unmark();
+
+  public abstract String getSymbol();
 
   @Override
   public String toString() {
-    return "[" + (state ? "X" : " ") + "] " + name;
+    return this.getSymbol() + "[" + (state ? "X" : " ") + "] " + name;
   }
 }
