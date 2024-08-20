@@ -2,13 +2,29 @@ import java.util.Scanner;
 
 public class WansBot {
 
-    public static void emptyInput(String userInput) throws InputEmptyException{
-        if (userInput.split(" ")[0].trim().equalsIgnoreCase("todos") ||
-            userInput.split(" ")[0].trim().equalsIgnoreCase("deadline") ||
-            userInput.split(" ")[0].trim().equalsIgnoreCase("event") ||
-            userInput.split(" ")[0].trim().equalsIgnoreCase("mark") ||
-            userInput.split(" ")[0].trim().equalsIgnoreCase("unmark")) {
+    public static void emptyInput(String userInput) throws InputEmptyException {
+        if (userInput.strip().equalsIgnoreCase("todos") ||
+            userInput.strip().equalsIgnoreCase("deadline") ||
+            userInput.strip().equalsIgnoreCase("event") ||
+            userInput.strip().equalsIgnoreCase("mark") ||
+            userInput.strip().equalsIgnoreCase("unmark")) {
             throw new InputEmptyException(userInput);
+        }
+    }
+
+    public static void notNumInput(String userInput, int taskListSize) throws NumberFormatException
+    , NotANumMarkingException {
+        Integer.parseInt(userInput.substring(5));
+        if (userInput.startsWith("unmark")) {
+            int posTask = Integer.parseInt(userInput.substring(7));
+            if (posTask > taskListSize || posTask < 1) {
+                throw new NotANumMarkingException(posTask);
+            }
+        } else if (userInput.startsWith("mark")) {
+            int posTask = Integer.parseInt(userInput.substring(5));
+            if (posTask > taskListSize || posTask < 1) {
+                throw new NotANumMarkingException(posTask);
+            }
         }
     }
 
@@ -46,7 +62,20 @@ public class WansBot {
                 System.out.println("You have " + numTasks + " tasks!" + "\n" + hr);
                 // User can mark Tasks
             } else if (userInput.toLowerCase().startsWith("mark ")) {
-                int posTask = Integer.parseInt(userInput.substring(4).strip()) - 1;
+                try {
+                    notNumInput(userInput, numTasks);
+                } catch (NumberFormatException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input a single space, followed by a number after mark"
+                            + "!\n" + hr);
+                    continue;
+                } catch (NotANumMarkingException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input a valid number that exists in your TaskList!"
+                            + "\n" + hr);
+                    continue;
+                }
+                int posTask = Integer.parseInt(userInput.substring(5)) - 1;
                 userTaskList.number(posTask).finish();
                 System.out.println(hr + "\nWans:"
                         + "\nNice! I've marked\n"
@@ -54,7 +83,20 @@ public class WansBot {
                         + " as completed\n" + hr);
                 // User can unmark tasks
             } else if (userInput.toLowerCase().startsWith("unmark ")) {
-                int posTask = Integer.parseInt(userInput.substring(6).strip()) - 1;
+                try {
+                    notNumInput(userInput, numTasks);
+                } catch (NumberFormatException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input a single space, followed by a number after mark"
+                            + "!\n" + hr);
+                    continue;
+                } catch (NotANumMarkingException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input a valid number that exists in your TaskList!"
+                            + "\n" + hr);
+                    continue;
+                }
+                int posTask = Integer.parseInt(userInput.substring(7)) - 1;
                 userTaskList.number(posTask).unfinish();
                 System.out.println(hr + "\nWans:"
                         + "\nOkay, so you lied! I've marked\n"

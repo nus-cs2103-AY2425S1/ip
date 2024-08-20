@@ -23,6 +23,11 @@ public class TaskList {
     public void unfinish(int index) {
         listOfTasks.get(index).unfinish();
     }
+
+    public int numOfTasks() {
+        return this.listOfTasks.size();
+    }
+
     @Override
     public String toString() {
         if (this.listOfTasks.size() <= 0) {
