@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.util.Base64;
 
 public class Jackson {
 
@@ -78,6 +79,8 @@ public class Jackson {
                     output.append(sc.nextLine()).append("\n");
                 }
                 out = output.toString().strip();
+                byte[] decoded = Base64.getDecoder().decode(out);
+                out = new String(decoded);
             } catch (FileNotFoundException e) {
                 System.out.println("Oops! Secret file not found...");
                 return;
