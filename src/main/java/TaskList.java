@@ -34,4 +34,14 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (Task task : this.taskList) {
+            output.append(task.getTxtSavedToFile());
+            output.append("\n");
+        }
+        return output.toString();
+    }
 }

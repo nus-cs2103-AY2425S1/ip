@@ -9,13 +9,14 @@ import java.util.Scanner;
 
 public class EchoBot {
     public static void main(String[] args) {
-        TaskList taskList = new TaskList();
+        FileManagement fileManagement = new FileManagement();
+        TaskList taskList = fileManagement.load();
         UI ui = new UI();
         ui.greeting();
-        start(taskList, ui);
+        start(taskList, ui, fileManagement);
     }
 
-    private static void start(TaskList taskList, UI ui) {
+    private static void start(TaskList taskList, UI ui, FileManagement fileManagement) {
         Scanner scan = new Scanner(System.in);
         while (true) {
             String command = scan.nextLine();
@@ -34,30 +35,36 @@ public class EchoBot {
                     Task task = taskList.getTaskByIndex(taskIndex);
                     task.markDone();
                     ui.printTaskMarkedDone(task);
+                    fileManagement.save();
                 } else if (commandSplit.length == 2 && "unmark".equals(commandSplit[0])) {
                     int taskIndex = Integer.parseInt(commandSplit[1]);
                     Task task = taskList.getTaskByIndex(taskIndex);
                     task.markUndone();
                     ui.printTaskMarkedUndone(task);
+                    fileManagement.save();
                 } else if (commandSplit.length == 2 && "delete".equals(commandSplit[0])) {
                     int taskIndex = Integer.parseInt(commandSplit[1]);
                     Task removedTask = taskList.deleteTaskByIndex(taskIndex);
                     ui.printTaskRemoved(removedTask, taskList.getTaskList().size());
+                    fileManagement.save();
                 } else if ("deadline".equals(commandSplit[0])) {
                     String[] commands = splitCommand(commandSplit, new String[]{"/by"});
                     Task task = new Deadline(commands[0], commands[1]);
                     taskList.addTask(task);
                     ui.printAddTaskFeedback(task, taskList.getTaskList().size());
+                    fileManagement.save();
                 } else if ("todo".equals(commandSplit[0])) {
                     String[] commands = splitCommand(commandSplit, new String[]{});
                     Task task = new ToDo(commands[0]);
                     taskList.addTask(task);
                     ui.printAddTaskFeedback(task, taskList.getTaskList().size());
+                    fileManagement.save();
                 } else if ("event".equals(commandSplit[0])) {
                     String[] commands = splitCommand(commandSplit, new String[]{"/from", "/to"});
                     Task task = new Event(commands[0], commands[1], commands[2]);
                     taskList.addTask(task);
                     ui.printAddTaskFeedback(task, taskList.getTaskList().size());
+                    fileManagement.save();
                 } else {
                     throw new UnknownCommandException();
                 }
