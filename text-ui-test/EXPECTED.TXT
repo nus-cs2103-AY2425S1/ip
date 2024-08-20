@@ -16,4 +16,16 @@ Got it. I've added this task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list.
 
+Nice! I've marked this task as done:
+[T][X] borrow book
+
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+
 Bye. Hope to see you again soon!
