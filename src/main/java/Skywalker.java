@@ -9,6 +9,9 @@ public class Skywalker {
         System.out.println("Hello! I'm Skywalker");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
+        String[] tasks = new String[100];
+        int count = 0;
+
 
 
         while (true) {
@@ -22,7 +25,15 @@ public class Skywalker {
 
                 break;
             }
-            System.out.println(printable);
+            else if(Objects.equals(printable, "list")){
+                for(int i =0; i<count; i++){
+                    System.out.println(i+1+". "+tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+
+            }
+            tasks[count++]= printable;
+            System.out.println("added: "+ printable);
             System.out.println("____________________________________________________________");
 
         }
