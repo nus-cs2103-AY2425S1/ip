@@ -8,59 +8,56 @@ Hihi! Mel here (:
 What you need?
 ____________________________________
 ____________________________________
-Mel remembers:
-  [ ] nothing
+Mel remembers...
+Mel is confused... Mel doesn't understand you :((
+____________________________________
+____________________________________
+Mel remembers...
+  [D][ ] something (by: sometime)
 Mel counts 1 stuffs memorized XD
 ____________________________________
 ____________________________________
-Mel remembers:
-  [D][ ] something (by: sometime)
+Mel remembers all your stuff~
+1.[D][ ] something (by: sometime)
+____________________________________
+____________________________________
+Mel remembers...
+  [T][ ] maybe some
 Mel counts 2 stuffs memorized XD
 ____________________________________
 ____________________________________
-Mel remembers all your stuff~
-1.[ ] nothing
-2.[D][ ] something (by: sometime)
-____________________________________
-____________________________________
-Mel remembers:
-  [T][ ] maybe some
+Mel remembers...
+  [E][ ] even more (from: before  to: some after)
 Mel counts 3 stuffs memorized XD
 ____________________________________
 ____________________________________
-Mel remembers:
-  [E][ ] even more (from: before  to: some after)
-Mel counts 4 stuffs memorized XD
+Mel remembers...
+Mel sees something missing? Mel expected:
+  event <task> /from <time> /to <time> :((
 ____________________________________
 ____________________________________
 Mel remembers all your stuff~
-1.[ ] nothing
-2.[D][ ] something (by: sometime)
-3.[T][ ] maybe some
-4.[E][ ] even more (from: before  to: some after)
-____________________________________
-____________________________________
-Mel sees you completed your task!
-  [X] nothing
-____________________________________
-____________________________________
-Mel sees you completed your task!
-  [T][X] maybe some
-____________________________________
-____________________________________
-Mel wonders how you undid your task...
-  [ ] nothing
+1.[D][ ] something (by: sometime)
+2.[T][ ] maybe some
+3.[E][ ] even more (from: before  to: some after)
 ____________________________________
 ____________________________________
 Mel sees you completed your task!
   [D][X] something (by: sometime)
 ____________________________________
 ____________________________________
+Mel sees you completed your task!
+Mel's brain explodes in anger?! Mel recalls only 3 things
+____________________________________
+____________________________________
+Mel wonders how you undid your task...
+  [D][ ] something (by: sometime)
+____________________________________
+____________________________________
 Mel remembers all your stuff~
-1.[ ] nothing
-2.[D][X] something (by: sometime)
-3.[T][X] maybe some
-4.[E][ ] even more (from: before  to: some after)
+1.[D][ ] something (by: sometime)
+2.[T][ ] maybe some
+3.[E][ ] even more (from: before  to: some after)
 ____________________________________
 ____________________________________
 Buh-bye :)

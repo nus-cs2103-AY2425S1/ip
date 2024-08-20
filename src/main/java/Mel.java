@@ -29,8 +29,12 @@ public class Mel {
             } else if (input.contains("mark")) {
                 storage.mark(input);
             } else {
-                System.out.println("Mel remembers:");
-                storage.add(input);
+                System.out.println("Mel remembers...");
+                try {
+                    storage.add(input);
+                } catch (MelException e) {
+                    System.out.println(e);
+                }
             }
             System.out.println(line);
         }

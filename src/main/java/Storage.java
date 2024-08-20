@@ -4,16 +4,22 @@ import java.util.Objects;
 public class Storage {
     private ArrayList<Task> list = new ArrayList<>();
 
-    public void add(String str) {
+    public void add(String str) throws MelException {
         Task task;
-        if (str.contains("todo")) {
-            task = new ToDo(str);
-        } else if (str.contains("deadline")) {
-            task = new Deadline(str);
-        } else if (str.contains("event")) {
-            task = new Event(str);
-        } else {
-            task = new Task(str);
+        try {
+            if (str.contains("todo")) {
+                task = new ToDo(str);
+            } else if (str.contains("deadline")) {
+                task = new Deadline(str);
+            } else if (str.contains("event")) {
+                task = new Event(str);
+            } else {
+                throw new MelException("Mel is confused... " +
+                        "Mel doesn't understand you :((");
+            }
+        } catch (TaskException e) {
+            System.out.println(e);
+            return;
         }
         list.add(task);
         System.out.println("  " + task);
@@ -22,20 +28,20 @@ public class Storage {
     }
 
     public void mark(String str) {
-        String[] temp = str.split(" ");
-        String m = temp[0];
-        int idx = Integer.parseInt(temp[1]) - 1;
-        if (idx < 0 || idx >= list.size()) {
-            System.out.println("Mel's memory explodes in anger?! " +
-                    "Mel only recalled " + list.size() + " things");
-            return;
-        }
-        if (Objects.equals(m, "mark")) {
-            System.out.println("Mel sees you completed your task!");
-            list.get(idx).mark();
-        } else {
-            System.out.println("Mel wonders how you undid your task...");
-            list.get(idx).unmark();
+        try {
+            String[] temp = str.split(" ");
+            String m = temp[0];
+            int idx = Integer.parseInt(temp[1]) - 1;
+            if (Objects.equals(m, "mark")) {
+                System.out.println("Mel sees you completed your task!");
+                list.get(idx).mark();
+            } else {
+                System.out.println("Mel wonders how you undid your task...");
+                list.get(idx).unmark();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Mel's brain explodes in anger?! " +
+                    "Mel recalls only " + list.size() + " things");
         }
     }
 

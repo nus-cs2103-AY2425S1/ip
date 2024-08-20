@@ -3,10 +3,10 @@ deadline something /by sometime
 list
 todo maybe some
 event even more /from before /to some after
+event give error
 list
 mark 1
-mark 3
+mark 5
 unmark 1
-mark 2
 list
 bye

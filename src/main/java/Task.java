@@ -2,6 +2,10 @@ public class Task {
     protected final String task;
     protected boolean isDone;
 
+    public Task() {
+        task = "";
+    }
+
     public Task(String task) {
         this.task = task;
     }
