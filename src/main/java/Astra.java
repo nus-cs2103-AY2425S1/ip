@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Astra {
     private static String formatMsg(String msg) {
         return "____________________________________________________________\n" +
@@ -16,8 +18,18 @@ public class Astra {
         System.out.println(formatMsg(msg));
     }
 
+    public static void echo(String text) {
+        System.out.println(formatMsg(text));
+    }
+
     public static void main(String[] args) {
+        Scanner inp = new Scanner(System.in);
+        String text = "";
         greet();
+        while (!text.equals("bye")) {
+            text = inp.nextLine();
+            echo(text);
+        }
         goodbye();
     }
 }
