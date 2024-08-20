@@ -1,3 +1,5 @@
+import java.util.Scanner;  // Import the Scanner class
+
 public class Tuesday {
     public static String Msg_welcome() {
         return "_______________________________\n"
@@ -20,8 +22,17 @@ public class Tuesday {
 
     public static void main(String[] args) {
         System.out.println(Msg_welcome());
-        System.out.println(Msg_list());
-        System.out.println(Msg_blah());
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+        String userName = "";
+        while (!userName.equals("bye")) {
+            userName = myObj.nextLine();  // Read user input
+            //System.out.println(userName);
+            if (userName.equals("list")) {
+                System.out.println(Msg_list());
+            } else if (userName.equals("blah")) {
+                System.out.println(Msg_blah());
+            }
+        }
         System.out.println(Msg_bye());
     }
 }
