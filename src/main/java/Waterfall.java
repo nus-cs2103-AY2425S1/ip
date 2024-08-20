@@ -1,4 +1,4 @@
-public class Duke {
+public class Waterfall {
     public static void main(String[] args) {
         String chatBotName = "Waterfall";
         System.out.println(
