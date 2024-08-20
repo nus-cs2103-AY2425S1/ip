@@ -28,4 +28,9 @@ public class TaskList {
         list[index].markAsDone();
         return list[index].toString();
     }
+
+    public String markAsNotDone(int index) {
+        list[index].markAsNotDone();
+        return list[index].toString();
+    }
 }

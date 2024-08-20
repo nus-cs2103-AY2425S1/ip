@@ -31,7 +31,12 @@ public class Fanny {
                 int taskId = scanner.nextInt();
                 System.out.println("Fanny: ");
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(list.markAsDone(taskId));
+                System.out.println(list.markAsDone(taskId - 1));
+            } else if (cmd.equals("unmark")) {
+                int taskId = scanner.nextInt();
+                System.out.println("Fanny: ");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(list.markAsNotDone(taskId - 1));
             } else {
                 System.out.println("_____________________________________________");
                 System.out.println("Fanny: ");
