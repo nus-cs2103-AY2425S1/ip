@@ -70,30 +70,77 @@ public class FutureYou {
                         if (input.toLowerCase().trim().equals("bye")) {
                                 bye();
                                 break;
-                        } else if (input.toLowerCase().trim().contains("todo")) {
-                                String taskName = input.substring(5, input.length());
-                                addTask(taskName);
+                        }
+
+                        else if (input.toLowerCase().trim().contains("todo")) {
+                                try {
+                                        String taskName = input.substring(5, input.length());
+
+                                        if (taskName.trim().length() <= 0) {
+
+                                                System.out.println("Please enter a valid task name!");
+                                        } else {
+                                                addTask(taskName);
+                                        }
+                                } catch (Exception e) {
+                                        System.out.println("Please enter a valid task name!");
+                                }
+
                         } else if (input.toLowerCase().trim().contains("deadline")) {
-                                String[] inputs = input.split("/");
+                                try {
+                                        String[] inputs = input.split("/");
 
-                                String taskName = inputs[0].substring(9, inputs[0].length());
-                                String date = inputs[1].substring(3, inputs[1].length());
-                                addDeadline(taskName, date);
+                                        String taskName = inputs[0].substring(9, inputs[0].length());
+                                        String date = inputs[1].substring(3, inputs[1].length());
+                                        if (taskName.trim().length() <= 0) {
+                                                System.out.println("Please enter a valid task name!");
+                                        } else if (date.trim().length() <= 0) {
+                                                System.out.println("Please enter a valid deadline!");
+                                        }
+
+                                        else {
+                                                addDeadline(taskName, date);
+                                        }
+                                } catch (Exception e) {
+                                        System.out.println(
+                                                        "Please enter in a valid deadline format! (deadname <task name> /by <Date>)");
+                                }
+
                         } else if (input.toLowerCase().trim().contains("event")) {
-                                String[] inputs = input.split("/");
+                                try {
+                                        String[] inputs = input.split("/");
 
-                                String taskName = inputs[0].substring(6, inputs[0].length());
-                                String startDT = inputs[1].substring(5, inputs[1].length());
-                                String endDT = inputs[2].substring(3, inputs[2].length());
-                                addEvent(taskName, startDT, endDT);
+                                        String taskName = inputs[0].substring(6, inputs[0].length());
+                                        String startDT = inputs[1].substring(5, inputs[1].length());
+                                        String endDT = inputs[2].substring(3, inputs[2].length());
+
+                                        if (taskName.trim().length() <= 0) {
+                                                System.out.println("Please enter a valid task name!");
+                                        } else if (startDT.trim().length() <= 0) {
+                                                System.out.println("Please enter a valid start datetime!");
+                                        } else if (endDT.trim().length() <= 0) {
+                                                System.out.println("Please enter a valid end datetime!");
+                                        }
+                                        else {
+                                                addEvent(taskName, startDT, endDT);
+                                        }
+                                } catch (Exception e) {
+                                        System.out.println(
+                                                        "Please enter in a valid event format! (event <task name> /from <DateTime> /to <DateTime>)");
+                                }
+
                         } else if (input.toLowerCase().trim().equals("list")) {
                                 printList();
                         } else if (input.toLowerCase().trim().contains("mark")) {
-                                int num = Integer.parseInt(input.substring(5, input.length()));
-                                markTask(num - 1);
-                        } else {
-                                System.err.println(input);
-                                // break;
+                                try {
+                                        int num = Integer.parseInt(input.substring(5, input.length()));
+                                        markTask(num - 1);
+                                } catch (Exception e) {
+                                        System.out.println("Please enter a valid mark format! (mark <task number>)");
+                                }
+
+                        } else { // If user inputs an unrecognized command
+                                System.err.println("Please Enter a valid command!");
                         }
                 }
         }
