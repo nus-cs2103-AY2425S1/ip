@@ -2,37 +2,41 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Llama {
+    public static void displayString(String str) {
+        System.out.println("\t" + str);
+    }
     public static void main(String[] args) {
         String logo = "";
-        String hr = "\t____________________________________________________________" ;
+        String hr = "____________________________________________________________" ;
         Scanner sc = new Scanner(System.in);
 
         ArrayList<String> taskList = new ArrayList<>();
 
         // Initializing message
-        System.out.println(hr);
-        System.out.println("\tHello! I'm Llama!\n" + logo);
-        System.out.println("\tWhat can I do for you?");
+        displayString(hr);
+        displayString("Hello! I'm Llama!");
+        displayString(logo);
+        displayString("What can I do for you?");
 
         // Get user input
         boolean shouldContinue = true;
         while (shouldContinue) {
-            System.out.println(hr);
+            displayString(hr);
             String input = sc.nextLine();
-            System.out.println(hr);
+            displayString(hr);
 
             if (input.equals("bye")) {
+                // End program
                 shouldContinue = false;
                 sc.close();
             } else {
                 // Add text into a list
                 taskList.add(input);
-                System.out.println("\tAdded: " + input);
+                displayString("Added: " + input);
             }
         }
 
         // Exit message
-        System.out.println("Baaaaaa byeeee. Come baaaaack soon!");
-
+        displayString("Baaaaaa byeeee. Come baaaaack soon!");
     }
 }
