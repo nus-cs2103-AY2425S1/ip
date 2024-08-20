@@ -11,8 +11,9 @@ public class UI {
 
     public void printTaskList(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
+        output.append("Here are the tasks in your list:\n\t\t\t");
         for (int i = 0; i < tasks.size(); i++) {
-            ToDo task = (ToDo) tasks.get(i);
+            Task task = tasks.get(i);
             output.append(i + 1);
             output.append(".");
             output.append(task);
@@ -25,8 +26,8 @@ public class UI {
         System.out.println(this.addMsgWithOutline(output.toString()));
     }
 
-    public void printAddTaskFeedback(Task task) {
-        System.out.println(this.addMsgWithOutline("added: " + task.getTaskName()));
+    public void printAddTaskFeedback(Task task, int noOfTasksInList) {
+        System.out.println(this.addMsgWithOutline("Got it. I've added this task: \n\t\t\t\t" + task + "\n\t\t\tNow you have " + noOfTasksInList + " task(s) in the list."));
     }
 
     public void printTaskMarkedDone(Task task) {

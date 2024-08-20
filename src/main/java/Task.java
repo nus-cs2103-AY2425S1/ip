@@ -1,16 +1,22 @@
 public class Task {
     private final String taskName;
+    private boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
+        this.isDone = false;
     }
 
-    public String getTaskName() {
-        return this.taskName;
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    public void markUndone() {
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        return this.taskName;
+        return "[" + (this.isDone ? "X" : " ") + "] " + taskName;
     }
 }
