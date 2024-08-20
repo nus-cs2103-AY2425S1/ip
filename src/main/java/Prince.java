@@ -12,7 +12,7 @@ public class Prince {
         Scanner sc = new Scanner(System.in);
 
         // initialise arr for input storage
-        ArrayList<String> arr = new ArrayList<String>();
+        ArrayList<Task> arr = new ArrayList<Task>();
 
         printline();
         System.out.println("Hello! I'm Prince");
@@ -24,23 +24,91 @@ public class Prince {
             String input = sc.nextLine();
             printline();
 
-            if (!input.equals("bye") && !input.equals("list")) {
+            if (!input.equals("bye") && !input.equals("list")
+                    && !input.contains("mark") && !input.contains("unmark")) {
+
                 System.out.println("added: " + input);
                 printline();
 
-                // add the input to the arraylist
-                arr.add(input);
+                // create a new task
+                Task task = new Task(input);
+                // add the task to the arraylist
+                arr.add(task);
+
             } else if (input.equals("list")) {
 
-                // print the list of inputs
                 int length = arr.size();
+
+                // print the list of inputs
                 for (int i = 0; i < length; i++) {
-                    String text = arr.get(i);
+                    // get the task
+                    Task task = arr.get(i);
+
+                    // get description of task
+                    String desc = task.getDescription();
+
+                    // get status of task
+                    String status = task.getStatusIcon();
+                    String formattedStatus = "[" + status + "] ";
+
+                    // formatting for numbering of list
                     int num = i + 1;
-                    System.out.println(num + ". " + text);
+                    String numDot = num + ".";
+
+                    System.out.println(numDot + formattedStatus + desc);
                 }
+
                 printline();
 
+            } else if (input.contains("unmark")) {
+
+                // extra check to make sure the start of input is "unmark"
+                String checkMark = input.substring(0, 6);
+                if (checkMark.equals("unmark")) {
+                    // get input of index
+                    String indexAsString = input.substring(7);
+                    // convert to arr index
+                    int index = Integer.valueOf(indexAsString) - 1;
+                    // mark task as undone
+                    Task task = arr.get(index);
+                    task.markAsNotDone();
+
+                    // get description of task
+                    String desc = task.getDescription();
+
+                    // get status of task
+                    String status = task.getStatusIcon();
+                    String formattedStatus = "[" + status + "] ";
+
+                    System.out.println(formattedStatus + desc);
+                }
+
+                printline();
+               
+            } else if (input.contains("mark")) {
+
+                String checkMark = input.substring(0, 4);
+                if (checkMark.equals("mark")) {
+                    // get input of index
+                    String indexAsString = input.substring(5);
+                    // convert to arr index
+                    int index = Integer.valueOf(indexAsString) - 1;
+                    // mark task as undone
+                    Task task = arr.get(index);
+                    task.markAsDone();
+
+                    // get description of task
+                    String desc = task.getDescription();
+
+                    // get status of task
+                    String status = task.getStatusIcon();
+                    String formattedStatus = "[" + status + "] ";
+
+                    System.out.println(formattedStatus + desc);
+                }
+
+                printline();
+              
             } else {
                 TOGGLER = false;
             }
