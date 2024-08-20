@@ -27,10 +27,21 @@ public class WansBot {
         }
     }
 
-    public static void missingInput(String userInput) {
+    public static void missingInputDeadline(String userInput) {
         String[] splitUser = userInput.split( " /by ", 2);
         if (splitUser.length < 2) {
             throw new InputEmptyException(userInput, "/by");
+        }
+    }
+
+    public static void missingInputEvent(String userInput) {
+        String[] splitUserStartDate = userInput.split(" /from ", 3);
+        if (splitUserStartDate.length < 2) {
+            throw new InputEmptyException(userInput, "/from");
+        }
+        String[] splitUserEndDate = splitUserStartDate[1].split( " /to ", 2);
+        if (splitUserEndDate.length < 2) {
+            throw new InputEmptyException(userInput, "/to");
         }
     }
 
@@ -119,10 +130,10 @@ public class WansBot {
                 // User can add a deadline task to list
             } else if (userInput.toLowerCase().startsWith("deadline ")) {
                 try {
-                    missingInput(userInput);
+                    missingInputDeadline(userInput);
                 } catch(InputEmptyException e) {
                     System.out.println(hr + "\nWans:\n"
-                            + "You need to input a deadline, followed by /by, then the deadline!"
+                            + "You need to input deadline, followed by /by, then the deadline!"
                             + "\n" + hr);
                     continue;
                 }
@@ -136,6 +147,15 @@ public class WansBot {
                 numTasks++;
                 // User can add a task with start and end date
             } else if (userInput.toLowerCase().startsWith("event ")) {
+                try {
+                    missingInputEvent(userInput);
+                } catch (InputEmptyException e) {
+                    System.out.println(hr + "\nWans:\n"
+                            + "You need to input event, followed by /from, then your start time, then /to, then " +
+                            "your end time!"
+                            + "\n" + hr);
+                    continue;
+                }
                 String[] splitUserStartDate = userInput.split(" /from ", 3);
                 String[] splitUserEndDate = splitUserStartDate[1].split( " /to ", 2);
                 Events newEvent = new Events(splitUserStartDate[0].substring(5),
