@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Henry {
 
     /**
@@ -18,8 +20,19 @@ public class Henry {
         String bye = "Bye. Hope to see you again soon!\n";
         System.out.println(bye);
     }
+
     public static void main(String[] args) {
         greetings();
-        bye();
+
+        Scanner scanner = new Scanner(System.in);
+        do {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                System.out.println();
+                bye();
+                break;
+            }
+            System.out.println("\n" + input + "\n");
+        } while (true);
     }
 }
