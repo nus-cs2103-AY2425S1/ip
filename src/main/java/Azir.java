@@ -33,7 +33,7 @@ public class Azir {
                 System.out.println(chosenTask);
             }
             else {
-                taskList.add(new Task(input, false));
+                taskList.add(new Task(input));
                 System.out.printf("added: %s\n", input);
             }
             System.out.println("----------------------------------");
