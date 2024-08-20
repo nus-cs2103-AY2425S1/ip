@@ -3,19 +3,21 @@ public class Bao {
     private static Task[] taskList = new Task[100];
     private static int taskCount = 0;
 
-    private static String baoHappy =   "     ___   \n"
-            + "   /     \\  \n"
-            + "  /       \\ \n"
+    private static String baoHappy =
+              "     ___\n"
+            + "   /     \\\n"
+            + "  /       \\\n"
             + " |  ^   ^  |\n"
             + " |    3    |\n"
-            + " \\________/ \n";
+            + " \\________/\n";
 
-    private static String baoSad =   "     ___   \n"
-            + "   /     \\  \n"
-            + "  /       \\ \n"
+    private static String baoSad =
+              "     ___\n"
+            + "   /     \\\n"
+            + "  /       \\\n"
             + " |  T   T  |\n"
             + " |    ^    |\n"
-            + " \\________/ \n";
+            + " \\________/\n";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
