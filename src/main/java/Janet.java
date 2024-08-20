@@ -135,6 +135,6 @@ public class Janet {
         taskIndex--;
         Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
         listOfTasks.remove(desiredTask);
-        return horizontalLine + "\nNoted. I've removed this task:\n" + String.format("    %s\nNow you have %d tasks in your list", desiredTask, taskIndex) + horizontalLine;
+        return horizontalLine + "\nNoted. I've removed this task:\n" + String.format("    %s\nNow you have %d tasks in your list\n", desiredTask, taskIndex) + horizontalLine;
     }
 }
