@@ -5,9 +5,10 @@ import java.util.Scanner;
 public class YapBot {
     private static final String PREFIXLINE = "\n-------------------------------------------";
     private static final String POSTFIXLINE = "-------------------------------------------\n";
+    private static ArrayList<Task> storedTasks = new ArrayList<>();
 
-    public static void list(ArrayList<Task> stored) {
-        Iterator<Task> iterateStored = stored.iterator();
+    public static void list() {
+        Iterator<Task> iterateStored = storedTasks.iterator();
         System.out.println(PREFIXLINE);
         int index = 1;
         while (iterateStored.hasNext()) {
@@ -17,28 +18,47 @@ public class YapBot {
         System.out.println(POSTFIXLINE);
     }
 
+    public static void markOrUnmark(String input) {
+        if (input.contains("unmark")) {
+            int index = Integer.parseInt(input.substring(7)) - 1;
+
+            if (index == -1 || index >= storedTasks.size()) {
+                System.out.println(PREFIXLINE + "\nNope, that task does not exist, continue yapping\n" + POSTFIXLINE);
+                return;
+            }
+
+            Task task = storedTasks.get(index);
+            task.changeDone(false);
+            System.out.println(PREFIXLINE + "\nAlright, you have not done this task then: \n" + task + "\n" + POSTFIXLINE);
+        } else {
+            int index = Integer.parseInt(input.substring(5)) - 1;
+            if (index == -1 || index >= storedTasks.size()) {
+                System.out.println(PREFIXLINE + "\nNope, that task does not exist, continue yapping\n" + POSTFIXLINE);
+                return;
+            }
+            Task task = storedTasks.get(index);
+            task.changeDone(true);
+            System.out.println(PREFIXLINE + "\nGood Job, this task is done: \n" + task + "\n" + POSTFIXLINE);
+        }
+    }
+
     public static void main(String[] args) {
 
         System.out.println(PREFIXLINE + "\nHello, I am YapBot. \nHow can I help?\n" + POSTFIXLINE);
-
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> stored = new ArrayList<>();
+
         String input = in.nextLine();
 
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                list(stored);
+                list();
                 input = in.nextLine();
-            } else if (input.contains("unmark")) {
-                int index = input.charAt(input.length() - 1);
-                stored.get(index - 1).changeDone(false);
             } else if (input.contains("mark")) {
-                int index = Integer.parseInt(input.substring(input.length() - 1));
-                stored.get(index - 1).changeDone(true);
+                markOrUnmark(input);
                 input = in.nextLine();
             }  else {
                 Task taskToAdd = new Task(input);
-                stored.add(taskToAdd);
+                storedTasks.add(taskToAdd);
                 System.out.println(PREFIXLINE + "\nAdded: " + input + "\n" + POSTFIXLINE);
                 input = in.nextLine();
             }
