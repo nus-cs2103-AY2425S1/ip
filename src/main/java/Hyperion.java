@@ -8,15 +8,12 @@ public class Hyperion {
         String exit = "Bye. Hope to see you again soon!";
         // greets the user
         System.out.println(solidLine + greet1 + greet2 + solidLine);
-        // obtains user input
-        Scanner firstScannerObj = new Scanner(System.in);
-        String userInput = firstScannerObj.nextLine();
-        System.out.println(solidLine + userInput + "\n" + solidLine);
-        // prints out the user input
-        while (!userInput.equals("bye")) {
+        // obtains user input and exits only when user types bye
+        String input = "";
+        do {
             Scanner scannerObj = new Scanner(System.in);
-            userInput = scannerObj.nextLine();
-            System.out.println(solidLine + userInput + "\n" + solidLine);
-        }
+            input = scannerObj.nextLine();
+            System.out.println(solidLine + input + "\n" + solidLine);
+        } while (!input.equals("bye"));
     }
 }
