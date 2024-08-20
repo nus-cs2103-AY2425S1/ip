@@ -3,6 +3,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class which handles deadline inputs from the user
+ * and stores the deadline date.
+ */
 public class Deadline extends Input {
     private LocalDate deadline;
 

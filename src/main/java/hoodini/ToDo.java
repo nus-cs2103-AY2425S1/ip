@@ -1,4 +1,7 @@
 package hoodini;
+/**
+ * Represents a ToDo task.
+ */
 public class ToDo extends Input{
 
     public ToDo(String input) {

@@ -1,22 +1,34 @@
 package hoodini;
-
-import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
-
-
+/**
+ * Class which stores the tasklist and methods
+ * to handle tasks.
+ * Has a method to write tasks to a text file
+ */
 public class Storage {
     private ArrayList<Input> input;
     private Ui ui;
     private static int counter = 0;
 
+    /**
+     * Constructor for a new Storage object. 
+     * Takes in a UI object to handle messages
+     * @param ui Handles messages to the user.
+     */
     public Storage(Ui ui) {
         this.input = new ArrayList<>();
         this.ui = ui;
     }
 
+    /**
+     * Stores the input object into the Tasklist
+     * Takes in the input object to be stored
+     * @param input Object to be stored in the task list
+     */
     public void store(Input input) {
         if(input.empty()) {
             ui.invalidTask();
@@ -29,11 +41,21 @@ public class Storage {
 
     }
 
+    /**
+     * Adding items to the tasklist without a message
+     * Handles input objects read from file
+     * @param input Task which is read from the file
+     */
     public void add(Input input) {
         this.input.add(input);
         counter++;
     }
 
+    /**
+     * Method to write the tasklist to a local text file
+     * @param filename Name of file
+     * @throws IOException Invalid file name
+     */
     public void writeToFile(String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (Input i : input) {
@@ -44,98 +66,10 @@ public class Storage {
     }
 
 
-    private void handletodo(String str) {
-        if (str.startsWith("[X]")) {
-            String str1 = "todo " + str.substring(4);
-            ToDo toDo = new ToDo(str1);
-            toDo.markdone();
-            input.add(toDo);
-            counter++;
-        } else {
-            String str1 = "todo " + str.substring(4);
-            ToDo toDo = new ToDo(str1);
-            input.add(toDo);
-            counter++;
-        }
-    }
-
-
-
-
-
-
-
-    private void handledeadline(String str) {
-        if (str.startsWith("[X]")) {
-            String str1 = str.substring(4);
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
-                    str1.split("by: ")[1]
-                            .replace(")","")
-                            .trim());
-            deadline.markdone();
-            input.add(deadline);
-            counter++;
-        } else {
-            String str1 = str.substring(4);
-
-            
-
-            Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
-                    str1.split("by: ")[1]
-                            .replace(")","")
-                            .trim());
-
-            input.add(deadline);
-            counter++;
-        }
-    }
-
-    private void handleevent(String str) {
-        if (str.startsWith("[X]")) {
-            String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ",
-                    str1.split("from:")[1]
-                            .split(" to: ")[0],
-                    str1.split("to:")[1].
-                            replace(")", ""));
-            event.markdone();
-            input.add(event);
-            counter++;
-        } else {
-            String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ",
-                    str1.split("from:")[1]
-                            .split(" to: ")[0],
-                    str1.split("to:")[1]
-                            .replace(")", ""));
-            input.add(event);
-            counter++;
-        }
-    }
-
-    public void readFromFile(String filepath) throws InvalidTaskException {
-        try {
-            java.io.File file = new java.io.File(filepath);
-            java.util.Scanner input = new java.util.Scanner(file);
-            while (input.hasNext()) {
-                String str = input.nextLine();
-                if (str.startsWith("[T]")) {
-                    handletodo(str.substring(4));
-                } else if (str.startsWith("[D]")) {
-                    handledeadline(str.substring(4));
-                } else if (str.startsWith("[E]")) {
-                    handleevent(str.substring(4));
-                } else {
-                    throw new InvalidTaskException("Whoopsie! " +
-                            "There are invalid tasks in the file");
-                }
-            }
-        } catch (java.io.FileNotFoundException e) {
-            System.out.println("File not found");
-        }
-    }
-
-
+    /**
+     * Method to list out tasks to the user.
+     * No params required.
+     */
     public void output() {
         System.out.println("Here are the list of tasks " +
                 "that needs to be completed: ");
@@ -144,6 +78,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Method to mark the task as done
+     * @param str String from user on which task to mark
+     */
     public void mark(String str) {
         int i = Integer.parseInt(str.substring(5));
         if (i > counter) {
@@ -156,6 +94,10 @@ public class Storage {
 
     }
 
+    /**
+     * Method to delete the task
+     * @param str String from user on which task to delete
+     */
     public void delete(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {
@@ -169,12 +111,12 @@ public class Storage {
         }
     }
 
-    public void empty() {
 
-        System.out.println("Whoopsie! " +
-                "Please enter a task");
-    }
 
+    /**
+     * Method to unmark the task
+     * @param str String from user on which task to unmark
+     */
     public void unmark(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {

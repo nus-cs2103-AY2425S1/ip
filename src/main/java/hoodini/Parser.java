@@ -2,6 +2,10 @@ package hoodini;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles the user inputs and file inputs.
+ * Ensures that the inputs are valid
+ */
 public class Parser {
 
     private Storage store;
@@ -12,6 +16,9 @@ public class Parser {
 
     }
 
+    /**
+     * Method to scan for file on desktop and load the file
+     */
     public void load() {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "Desktop", "hoodini.txt");
@@ -71,6 +78,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to read from file and input content
+     * to the chatbot
+     * @param filepath the path of the file
+     * @throws InvalidTaskException Handles invalid tasks in file
+     */
+
     public void readFromFile(String filepath) throws InvalidTaskException {
         try {
             java.io.File file = new java.io.File(filepath);
@@ -94,7 +108,10 @@ public class Parser {
     }
 
 
-    public void end() {
+    /**
+     * Method to end the chatbot
+     */
+    private void end() {
         try {
             ui.showGoodbye();
             String home = System.getProperty("user.home");
@@ -105,6 +122,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the user inputs and identifies tasks to store
+     * into the task list
+     */
     public void handleInput() {
         Scanner sc = new Scanner(System.in);
 
@@ -115,7 +136,7 @@ public class Parser {
                     end();
                     break;
                 } else if (str.isEmpty()) {
-                    store.empty();
+                    ui.empty();
                 } else if (str.equalsIgnoreCase("list")) {
                     store.output();
                 } else if (str.startsWith("todo")) {
