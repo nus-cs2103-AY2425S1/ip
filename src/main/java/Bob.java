@@ -15,7 +15,7 @@ public class Bob {
             input = scanner.nextLine();
 
             // add task to tasks array
-            if (!input.equals("bye")) {
+            if (!input.equals("bye") && !input.equals("list")) {
                 tasks[taskCounter] = input;
                 taskCounter++;
 
@@ -24,6 +24,16 @@ public class Bob {
                 System.out.println("\t------------------------------------------");
             }
 
+
+            // print tasks
+            if (input.equals("list")) {
+                System.out.println("\t------------------------------------------");
+                for (int i = 0; i < taskCounter; i++) {
+                    int j = i + 1;
+                    System.out.println(j + ". " + tasks[i]);
+                }
+                System.out.println("\t------------------------------------------");
+            }
         }
 
         System.out.println("\t------------------------------------------");
