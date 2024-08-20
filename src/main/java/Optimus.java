@@ -34,27 +34,30 @@ public class Optimus {
             String[] commands = input.split(" ");
             String command = commands[0];
 
-            switch (command) {
-                case "bye":
-                    optimus.leave();
-                    break;
-                case "list":
-                    optimus.taskManager.printAllTasks();
-                    break;
-                case "mark":
-                    optimus.taskManager.markTaskAsDone(commands);
-                    break;
-                case "unmark":
-                    optimus.taskManager.markTaskAsIncomplete(commands);
-                    break;
-                case "todo":
-                case "deadline":
-                case "event":
-                    optimus.taskManager.addTask(commands);
-                    break;
-                default:
-                    System.out.println("Invalid command");
-                    break;
+            try {
+                switch (command) {
+                    case "bye":
+                        optimus.leave();
+                        break;
+                    case "list":
+                        optimus.taskManager.printAllTasks();
+                        break;
+                    case "mark":
+                        optimus.taskManager.markTaskAsDone(commands);
+                        break;
+                    case "unmark":
+                        optimus.taskManager.markTaskAsIncomplete(commands);
+                        break;
+                    case "todo":
+                    case "deadline":
+                    case "event":
+                        optimus.taskManager.addTask(commands);
+                        break;
+                    default:
+                        throw new InvalidCommandException("This command does not exist.");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
 
         }

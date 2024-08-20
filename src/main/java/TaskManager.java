@@ -11,10 +11,9 @@ public class TaskManager {
         this.numOfTasksStored = 0;
     }
 
-    public void addTask(String[] commands) {
+    public void addTask(String[] commands) throws IncompleteCommandException, InvalidCommandException {
         if (commands.length < 2) {
-            System.out.println("Invalid command. Please provide a task description.");
-            return;
+            throw new IncompleteCommandException("This Task requires a description");
         }
 
         String type = commands[0];
@@ -30,7 +29,7 @@ public class TaskManager {
             case "deadline":
                 endTime = extractDate(commands, "/by");
                 if (endTime.isEmpty()) {
-                    System.out.println("Deadline Tasks must have a deadline specified");
+                    throw new IncompleteCommandException("Deadline Tasks must have a deadline specified");
                 } else {
                     addDeadlineTask(description, endTime);
                 }
@@ -39,13 +38,13 @@ public class TaskManager {
                 startTime = extractDate(commands, "/from");
                 endTime = extractDate(commands, "/to");
                 if (startTime.isEmpty() || endTime.isEmpty()) {
-                    System.out.println("Events must have a start and end specified");
+                    throw new IncompleteCommandException("Events must have a start and end specified");
                 } else {
                     addEventTask(description, startTime, endTime);
                 }
                 break;
             default:
-                System.out.println("Unknown task type: " + type);
+                throw new InvalidCommandException("This task does not exist.");
         }
     }
 
@@ -105,17 +104,15 @@ public class TaskManager {
         System.out.println(Optimus.linebreak);
     }
 
-    private void markTask(String[] commands, boolean markComplete) {
+    private void markTask(String[] commands, boolean markComplete) throws InvalidTaskNumberException , IncompleteCommandException{
         if (commands.length != 2) {
-            System.out.println("Invalid command");
-            return;
+            throw new IncompleteCommandException("The Task number is not specified");
         }
 
         try {
             int taskNum = Integer.parseInt(commands[1]);
             if (taskNum <= 0 || taskNum > this.numOfTasksStored) {
-                System.out.println("Invalid task number.");
-                return;
+                throw new InvalidTaskNumberException("A Task with this number does not exist.");
             }
 
             Task task = this.storage[taskNum - 1];
@@ -133,11 +130,11 @@ public class TaskManager {
         }
     }
 
-    public void markTaskAsDone(String[] commands) {
+    public void markTaskAsDone(String[] commands) throws IncompleteCommandException, InvalidTaskNumberException {
         markTask(commands, true);
     }
 
-    public void markTaskAsIncomplete(String[] commands) {
+    public void markTaskAsIncomplete(String[] commands) throws IncompleteCommandException, InvalidTaskNumberException {
         markTask(commands, false);
     }
 
