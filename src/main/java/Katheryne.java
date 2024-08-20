@@ -45,11 +45,45 @@ public class Katheryne {
                     Task target = list.get(id);
                     target.unmark();
                     System.out.println("Katheryne: OK, I've marked this task as not done yet:" + '\n' + target.toString());
-                } else {
-                    System.out.println("Katheryne: Have added " + userInput + " to your list.");
-                    Task t = new Task(userInput);
-                    list.add(t);
+                } else if (userInput.startsWith("todo")) {
+                    String[] input = userInput.split(" ",2);
+                    String des = input[1];
+                    ToDo task = new ToDo(des);
+                    list.add(task);
+                    String str = String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",task.toString(),list.size());
+                    System.out.println(str);
+                } else if (userInput.startsWith("event")) {
+                    int fromIndex = userInput.indexOf("/from");
+                    int toIndex = userInput.indexOf("/to");
+                    String fromTime = "";
+                    String toTime = "";
+                    if (fromIndex != -1) {
+                        int startOfFromTime = fromIndex + "/from".length();
+                        fromTime = userInput.substring(startOfFromTime, toIndex).trim();
+                    }
+                    if (toIndex != -1) {
+                        int startOfToTime = toIndex + "/to".length();
+                        toTime = userInput.substring(startOfToTime).trim();
+                    }
+
+                    int firstSpaceIndex = userInput.indexOf(" ");
+                    String description = userInput.substring(firstSpaceIndex + 1, fromIndex);
+                    Event task = new Event(description, fromTime, toTime);
+                    list.add(task);
+                    String str = String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",task.toString(),list.size());
+                    System.out.println(str);
+                } else if (userInput.startsWith("deadline")) {
+                    String[] input = userInput.split(" /by ",2);
+                    String des = input[0];
+                    int firstSpaceIndex = des.indexOf(" ");
+                    String description = des.substring(firstSpaceIndex + 1);
+                    String byTime = input[1];
+                    Deadline task = new Deadline(description,byTime);
+                    list.add(task);
+                    String str = String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",task.toString(),list.size());
+                    System.out.println(str);
                 }
+
             }
             else{
                 finish = true;
