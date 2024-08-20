@@ -26,7 +26,11 @@ public class Bibi {
             // Preconfigured commands
             switch (cmd.split(" ")[0]) {
                 case "bye": {
-                    break;
+                    // Exit
+                    printHorizontalLine();
+                    System.out.println("See you soon :3");
+                    printHorizontalLine();
+                    return;
                 }
                 case "list": {
                     printHorizontalLine();
@@ -46,8 +50,8 @@ public class Bibi {
                         Task t = tasks.get(Integer.parseInt(cmdArr[1]) - 1);
                         t.markAsDone();
                         System.out.println(t);
-                        printHorizontalLine();
                     }
+                    printHorizontalLine();
                     break;
                 }
                 case "unmark": {
@@ -62,8 +66,8 @@ public class Bibi {
                         Task t = tasks.get(Integer.parseInt(cmdArr[1]) - 1);
                         t.markAsNotDone();
                         System.out.println(t);
-                        printHorizontalLine();
                     }
+                    printHorizontalLine();
                     break;
                 }
                 case "todo": {
@@ -78,6 +82,7 @@ public class Bibi {
                         System.out.printf("added: \"%s\" to task list%n", td);
                         System.out.printf("You now have %d task(s) to do%n", tasks.size());
                     }
+                    printHorizontalLine();
                     break;
                 }
                 case "deadline": {
@@ -93,6 +98,7 @@ public class Bibi {
                         System.out.printf("added: \"%s\" to task list%n", dl);
                         System.out.printf("You now have %d task(s) to do%n", tasks.size());
                     }
+                    printHorizontalLine();
                     break;
                 }
                 case "event": {
@@ -109,21 +115,18 @@ public class Bibi {
                         System.out.printf("added: \"%s\" to task list%n", e);
                         System.out.printf("You now have %d task(s) to do%n", tasks.size());
                     }
+                    printHorizontalLine();
                     break;
                 }
                 default: {
                     // Console
                     printHorizontalLine();
                     System.out.printf("%s is an unknown command%n", cmd);
+                    printHorizontalLine();
                 }
             }
         }
-
-        // Exit
-        printHorizontalLine();
-        System.out.println("See you soon :3");
-        printHorizontalLine();
-        }
+    }
 
     private static void addToTaskList(ArrayList<Task> tasks, Task t) {
         tasks.add(t);
