@@ -16,12 +16,12 @@ public class Formatter {
         return Formatter.SPACING + " " + i + "." + task.toString() + "\n";
     }
 
-    public static String formatTaskListings(int numTasks, ArrayList<Task> tasks) {
+    public static String formatTaskListings(ArrayList<Task> tasks) {
         StringBuilder str = new StringBuilder();
 
         str.append(Formatter.formattedBorder()).append("\n");
         str.append(Formatter.SPACING + " " + "Here are the tasks in your list:" + "\n");
-        for (int i = 0; i < numTasks; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             str.append(Formatter.formatSingleTask(i + 1, tasks.get(i)));
         }
         str.append(Formatter.formattedBorder()).append("\n");
@@ -51,8 +51,7 @@ public class Formatter {
         return (
             Formatter.formattedBorder() + "\n"+
             Formatter.SPACING + " " + "Nice! I've marked this task as done:" + "\n" +
-            Formatter.SPACING + "   " + "[" + task.getStatusIcon() + "]" + " " +
-            task.getDescription() + "\n" +
+            Formatter.SPACING + "   " + task.toString() + "\n" +
             Formatter.formattedBorder() + "\n"
         );
     }
@@ -61,8 +60,17 @@ public class Formatter {
         return (
             Formatter.formattedBorder() + "\n"  +
             Formatter.SPACING + " " + "OK, I've marked this task as not done yet:" + "\n" +
-            Formatter.SPACING + "   [" + task.getStatusIcon() + "] " +
-            task.getDescription() + "\n" +
+            Formatter.SPACING + "   " + task.toString() + "\n" +
+            Formatter.formattedBorder() + "\n"
+        );
+    }
+
+    public static String formatDeleteTask(Task task, int size) {
+        return (
+            Formatter.formattedBorder() + "\n" +
+            Formatter.SPACING + " " + "Noted. I've removed this task:" + "\n" +
+            Formatter.SPACING + "   " + task.toString() + "\n" +
+            Formatter.SPACING + " " + "Now you have " + size + " tasks in the list." + "\n" +
             Formatter.formattedBorder() + "\n"
         );
     }

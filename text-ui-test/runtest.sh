@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # create bin directory if it doesn't exist
-if [ ! -d "../bin" ]; then
-    mkdir ../bin
+if [ ! -d "./bin" ]; then
+    mkdir ./bin
 fi
 
 # find all .java files in the duke directory and subdirectories and compile them into the bin folder
-if ! find ./src/main/java/duke -name "*.java" -print0 | xargs javac -cp ./src/main/java -Xlint:none -d ./bin; then
+if ! find ./src/main/java/duke -name "*.java" -print0 | xargs -0 javac -cp ./bin -Xlint:none -d ./bin; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
@@ -34,10 +34,10 @@ for testfile in ./text-ui-test/tests/test*.txt; do
     fi
 
     # specify the output file in the actual-test-results directory
-    actualfile="./actual-test-results/actual${testnum}.txt"
+    actualfile="./text-ui-test/actual-test-results/actual${testnum}.txt"
 
     # run the program with the current test input and redirect the output to the actual test file
-    java -classpath ./bin DailyTasks < "$testfile" > "$actualfile"
+    java -classpath ./bin duke.DailyTasks < "$testfile" > "$actualfile"
 
     # convert both actual and expected files to UNIX format
     cp "$expectedfile" EXPECTED-UNIX.TXT
@@ -50,9 +50,9 @@ for testfile in ./text-ui-test/tests/test*.txt; do
     else
         echo "Test $testnum result: FAILED"
     fi
-done
 
-# remove the temporary EXPECTED-UNIX.TXT file
-if [ -e "./EXPECTED-UNIX.TXT" ]; then
-    rm EXPECTED-UNIX.TXT
-fi
+    # remove the temporary EXPECTED-UNIX.TXT file
+    if [ -e "./EXPECTED-UNIX.TXT" ]; then
+        rm EXPECTED-UNIX.TXT
+    fi
+done

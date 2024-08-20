@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class DailyTasks {
-    public static final String BOT_NAME = "duke.DailyTasks";
+    public static final String BOT_NAME = "DailyTasks";
     public static final String GREETING = "Hello! I'm " + DailyTasks.BOT_NAME + ", your awesome task planner!";
     public static final String GOODBYE = "Bye. Hope to see you again soon!";
 
@@ -22,7 +22,6 @@ public class DailyTasks {
         
         DailyTasks dailyTasks = new DailyTasks();
         dailyTasks.tasks = new ArrayList<Task>();
-        int taskCounter = 0;
 
         System.out.println(Formatter.formatOutputMessage(DailyTasks.GREETING));
 
@@ -30,7 +29,7 @@ public class DailyTasks {
             String userInput = scanner.nextLine();
 
             if (userInput.equals("list")) {
-                System.out.println(Formatter.formatTaskListings(taskCounter, dailyTasks.tasks));
+                System.out.println(Formatter.formatTaskListings(dailyTasks.tasks));
             } else if (userInput.contains("unmark")) {
                 int index = Integer.parseInt(userInput.split(" ", 2)[1]) - 1; // minus 1 because array is 0-indexed
 
@@ -41,6 +40,12 @@ public class DailyTasks {
 
                 dailyTasks.tasks.get(index).setDone();
                 System.out.println(Formatter.formatMarkTask(dailyTasks.tasks.get(index)));
+            } else if (userInput.contains("delete")) {
+                int index = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+
+                Task task = dailyTasks.tasks.get(index);
+                dailyTasks.tasks.remove(index);
+                System.out.println(Formatter.formatDeleteTask(task, dailyTasks.tasks.size()));
             } else if (userInput.contains("bye")) {
                 System.out.println(Formatter.formatOutputMessage(DailyTasks.GOODBYE));
                 return;
@@ -79,7 +84,7 @@ public class DailyTasks {
                     return;
                 }
 
-                String formattedTask = Formatter.formatAddTask(taskCounter, dailyTasks.tasks.get(dailyTasks.tasks.size() - 1));
+                String formattedTask = Formatter.formatAddTask(dailyTasks.tasks.size(), dailyTasks.tasks.get(dailyTasks.tasks.size() - 1));
                 System.out.println(formattedTask);
             }
         }
