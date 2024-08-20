@@ -1,9 +1,14 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskList() {}
+
+    public TaskList(Storage storage) throws IOException, JarException {
+        this.tasks = new ArrayList<>(storage.load());  // Load tasks from the storage
+    }
 
     public void addTask(Task task) throws JarException {
         if (task == null) {
@@ -51,5 +56,9 @@ public class TaskList {
 
     public int getTaskCount() {
         return tasks.size();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 }

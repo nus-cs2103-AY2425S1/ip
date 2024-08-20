@@ -1,14 +1,22 @@
+import java.io.IOException;
 
 public class Jar {
     //class fields for parser and UI
     private Parser parser;
     private Ui ui;
     private TaskList taskList;
+    private Storage storage;
 
-    public Jar() {
+    public Jar(String filePath) {
         parser = new Parser();
         ui = new Ui();
-        taskList = new TaskList();
+        try {
+            storage = new Storage(filePath);
+            taskList = new TaskList(storage);
+        } catch (IOException | JarException e) {
+            ui.showResponse("Error loading tasks: " + e.getMessage());
+            taskList = new TaskList();
+        }
     }
 
     public void runBot() {
@@ -24,11 +32,21 @@ public class Jar {
             }
             ui.showLine();
         }
+        saveTasksBeforeExit();
+    }
+
+    private void saveTasksBeforeExit() {
+        try {
+            storage.save(taskList.getTasks());
+            ui.showResponse("Tasks saved successfully.");
+        } catch (IOException e) {
+            ui.showResponse("Error saving tasks: " + e.getMessage());
+        }
     }
 
 
     public static void main(String[] args) {
-        Jar jar = new Jar();
+        Jar jar = new Jar("./data/jar.txt");
         jar.runBot();
     }
 }

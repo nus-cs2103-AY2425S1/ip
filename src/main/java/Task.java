@@ -24,4 +24,8 @@ public class Task {
         }
         return header + this.taskContent;
     }
+
+    public String toFileFormat() {
+        return (isDone ? "1" : "0") + " | " + taskContent;
+    }
 }
