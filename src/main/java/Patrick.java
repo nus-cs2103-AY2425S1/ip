@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Patrick {
     public static void main(String[] args) {
-        String horizontalLine = "-----------------------------------------------------------------------\n";
+        String horizontalLine = "____________________________________________________________\n";
         String greetingMsg = horizontalLine + "Hello! I'm Patrick, Spongebob bestie\nHow can I help you?\n" + horizontalLine;
         String exitMsg = horizontalLine + "Bye. Hope to see you again soon!\n" + horizontalLine;
         String taskMsg = "Got it. I've added this task:\n";
@@ -17,10 +17,12 @@ public class Patrick {
         do {
             input = inputMsg.nextLine();
             if (input.equals("list")) {
+                System.out.println(horizontalLine + "Here are the tasks in your list:");
                 for (int i = 1; i <= list.size(); i++) {
                     Task curr = (Task) list.get(i - 1);
-                    System.out.println(i + ". " + curr.toString());
+                    System.out.println(i + "." + curr.toString());
                 }
+                System.out.println(horizontalLine);
             }
             else if (input.equals("bye")) {
                 break;
