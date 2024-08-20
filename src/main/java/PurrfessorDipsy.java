@@ -1,8 +1,8 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PurrfessorDipsy {
-    private static ArrayList<String> memory = new ArrayList<>(100);
+    private static HashMap<String, Boolean> memory = new HashMap<>(100);
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
@@ -59,14 +59,14 @@ public class PurrfessorDipsy {
     }
 
     private static void saveToMemory(String userInput) {
-        memory.add(userInput);
+        memory.put(userInput, false);
     }
 
     private static void printMemory() {
         int counter = 1;
         printTerminalLine();
         System.out.println("Here are the tasks in your list:");
-        for ( String str : memory) {
+        for ( String str : memory.keySet()) {
             System.out.println(counter + ". " + str);
             counter++;
         }
