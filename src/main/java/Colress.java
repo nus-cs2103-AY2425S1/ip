@@ -58,12 +58,12 @@ public class Colress {
 
         while (currTask == null) {
             try {
-                print("Enter the type of task you wish to add to your list");
+                print("Enter the type of task you wish to add to your list.");
                 Colress.getInput();
 
                 switch (Colress.input) {
                     case "todo":
-                        Colress.print("Enter the description of the task");
+                        Colress.print("Enter the description of the task.");
                         description = Colress.scanner.nextLine();
 
                         currTask = new ToDo(description);
@@ -72,10 +72,10 @@ public class Colress {
                                 + Colress.taskList.size() + "." + currTask);
                         break;
                     case "deadline":
-                        Colress.print("Enter the description of the task");
+                        Colress.print("Enter the description of the task.");
                         description = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the deadline");
+                        Colress.print("Enter the deadline.");
                         date = Colress.scanner.nextLine();
 
                         currTask = new Deadline(description, date);
@@ -84,16 +84,16 @@ public class Colress {
                                 + Colress.taskList.size() + "." + currTask);
                         break;
                     case "event":
-                        Colress.print("Enter the description of the event");
+                        Colress.print("Enter the description of the event.");
                         description = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the date of the event");
+                        Colress.print("Enter the date of the event.");
                         date = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the starting time of the event");
+                        Colress.print("Enter the starting time of the event.");
                         from = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the ending time of the event");
+                        Colress.print("Enter the ending time of the event.");
                         to = Colress.scanner.nextLine();
 
                         currTask = new Event(description, date, from, to);
@@ -118,7 +118,7 @@ public class Colress {
             int index = -1;
             Task currTask = null;
             while (currTask == null) {
-                Colress.print("Enter the task number");
+                Colress.print("Enter the task number.");
                 try {
                     index = Integer.parseInt(Colress.scanner.nextLine());
                     currTask = Colress.taskList.get(index - 1);
@@ -141,7 +141,7 @@ public class Colress {
                     break;
                 case "delete":
                     taskList.remove(index - 1);
-                    Colress.print("Got it. I have removed the task from your list\n" + printList());
+                    Colress.print("Got it. I have removed the task from your list.\n" + printList());
                     break;
                 default:
                     throw new UnknownCommandException();

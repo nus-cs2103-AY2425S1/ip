@@ -23,4 +23,7 @@ check
 uncheck
 1
 list
+delete
+5
+2
 bye
