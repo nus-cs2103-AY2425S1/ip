@@ -2,6 +2,22 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 public class Papadom {
+    enum Command {
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+        public static Command fromString(String command) {
+            return switch (command.toLowerCase()) {
+                case "list" -> LIST;
+                case "bye" -> BYE;
+                case "mark" -> MARK;
+                case "unmark" -> UNMARK;
+                case "todo" -> TODO;
+                case "deadline" -> DEADLINE;
+                case "event" -> EVENT;
+                case "delete" -> DELETE;
+                default -> UNKNOWN;
+            };
+        }
+    }
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
     public static void output(String message) {
@@ -87,30 +103,39 @@ public class Papadom {
         while (true) {
             try {
                 String text = scanner.nextLine();
-                if (Objects.equals(text, "list")) {
-                    output(printList());
-                } else if (Objects.equals(text, "bye")) {
-                    break;
-                } else if (text.startsWith("mark ")) {
-                    output(markTask(text));
-                } else if (text.startsWith("unmark ")) {
-                    output(unmarkTask(text));
-                } else if (text.startsWith("todo ")) {
-                    output(addToList(new Todo(text.substring(5))));
-                } else if (text.startsWith("deadline ")) {
-                    output(addDeadline(text.substring(9)));
-                } else if (text.startsWith("event ")) {
-                    output(addEvent(text.substring(6)));
-                } else if (text.startsWith("delete ")) {
-                    output(deleteEvent(text));
-                }
-                else {
-                    throw new UnknownCommandException();
+                String commandText = text.split(" ")[0];
+                Command command = Command.fromString(commandText);
+                switch (command) {
+                    case LIST:
+                        output(printList());
+                        break;
+                    case BYE:
+                        output(" Bye. Hope to see you again soon!");
+                        return;
+                    case MARK:
+                        output(markTask(text));
+                        break;
+                    case UNMARK:
+                        output(unmarkTask(text));
+                        break;
+                    case TODO:
+                        output(addToList(new Todo(text.substring(5))));
+                        break;
+                    case DEADLINE:
+                        output(addDeadline(text.substring(9)));
+                        break;
+                    case EVENT:
+                        output(addEvent(text.substring(6)));
+                        break;
+                    case DELETE:
+                        output(deleteEvent(text));
+                        break;
+                    default:
+                        throw new UnknownCommandException();
                 }
             } catch (Exception e) {
                 output(e.getMessage());
             }
         }
-        output(" Bye. Hope to see you again soon!");
     }
 }
