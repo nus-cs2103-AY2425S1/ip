@@ -22,6 +22,11 @@ class Todo extends Task {
         this.isDone = false;
     }
 
+    public String type(){
+        return "T";
+    }
+
+
 
 
 }

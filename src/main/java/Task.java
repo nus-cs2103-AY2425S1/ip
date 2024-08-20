@@ -5,9 +5,12 @@ public class Task {
         this.description = description;
     }
 
-
     public String getDescription(){
         return this.description;
+    }
+
+    public String type(){
+        return " ";
     }
 
 }

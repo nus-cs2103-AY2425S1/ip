@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class SilverWolf {
     // using arraylist
     private static ArrayList<Todo> list = new ArrayList<>();
-
     // prints the line
     private static void printDivider() {
         System.out.println("____________________________________________________________");
@@ -25,7 +24,7 @@ public class SilverWolf {
         System.out.print(" \\_____  \\ |  |  |\\  \\/ // __ \\_  __ \\ \\   \\/\\/   /  _ \\|  |\\   __\\ \n");
         System.out.print(" /        \\|  |  |_\\   /\\  ___/|  | \\/  \\        (  <_> )  |_|  |   \n");
         System.out.print("/_______  /|__|____/\\_/  \\___  >__|      \\__/\\  / \\____/|____/__|   \n");
-        System.out.print("        \\/                   \\/               \\/                    ");
+        System.out.println("        \\/                   \\/               \\/                    ");
 
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm Silver Wolf\n" +
@@ -70,7 +69,27 @@ public class SilverWolf {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
                 printDivider();
-            } else {
+            } else if (input.startsWith("todo")){
+                //taking in the input
+                String descrption = input.substring(5);
+
+                printDivider();
+                System.out.println("Got it. I've added this task:");
+                Todo newTodo = new Todo(descrption);
+                list.add(newTodo);
+                System.out.println(" ["+newTodo.type()+"] ["+newTodo.getStatusIcon()+"] "+ newTodo.getDescription());
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+                printDivider();
+
+            } else if (input.startsWith("deadline")){
+                //TODO
+
+            } else if (input.startsWith("event")){
+                //TODO
+
+            }
+            else {
                 // echo the input back to the user
                 printDivider();
                 System.out.println("added: " + input);
