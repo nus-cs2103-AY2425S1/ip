@@ -18,4 +18,9 @@ public class Task {
     public String getStatusIcon() {
         return (this.completion ? "X" : " ");
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] ", this.getStatusIcon()) + this.getDescription();
+    }
 }

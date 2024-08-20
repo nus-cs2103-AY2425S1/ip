@@ -18,24 +18,18 @@ public class Count {
         reply("Bye. Hope to see you again soon!");
     }
 
-    private void addToList(String description) {
-        reply("Added: " + description);
-        ls.add(new Task(description));
-    }
-
-    // Given an index, returns the completion state and the task description
-    private String taskFormat(int i) {
-        Task curr = ls.get(i);
-        return String.format("[%s] ", curr.getStatusIcon()) + curr.getDescription();
+    private void addTask(Task t) {
+        ls.add(t);
+        reply("Added the following task:\n" + t.toString() +"\nYou now have " + ls.size() + " task(s) in your list");
     }
 
     private void listReply() {
-        String ans = "";
+        String ans = "Here are the tasks in your list:\n";
         for (int i = 0 ; i < ls.size() ; i++) {
             if (i != ls.size() - 1) {
-                ans += (i + 1) + "." + taskFormat(i) + "\n";
+                ans += (i + 1) + "." + ls.get(i).toString() + "\n";
             } else {
-                ans += (i + 1) + "." + taskFormat(i);
+                ans += (i + 1) + "." + ls.get(i).toString();
             }
         }
         reply(ans);
@@ -45,12 +39,12 @@ public class Count {
     // TODO: exception for not existing index for mark and unmark
     private void mark(int i) {
         ls.get(i - 1).setCompletion(true);
-        reply("Good job, I have marked this task as complete:\n" + taskFormat(i - 1));
+        reply("Good job, I have marked this task as complete:\n" + ls.get(i - 1).toString());
     }
 
     private void unmark(int i) {
         ls.get(i - 1).setCompletion(false);
-        reply("No problem, I have marked this task as incomplete:\n" + taskFormat(i - 1));
+        reply("No problem, I have marked this task as incomplete:\n" + ls.get(i - 1).toString());
     }
 
     // single word command parser
@@ -66,7 +60,7 @@ public class Count {
                 listReply();
                 break;
             default:
-                addToList(command);
+                reply("I'm sorry, I did not understand that, could you say that again?");
         }
     }
 
@@ -82,8 +76,20 @@ public class Count {
             case "unmark":
                 unmark(Integer.valueOf(rest));
                 break;
+            case "todo":
+                addTask(new ToDos(rest));
+                break;
+            case "deadline":
+                String commandSplitD[] = rest.split(" /by ", 2);
+                addTask(new Deadlines(commandSplitD[0], commandSplitD[1]));
+                break;
+            case "event":
+                String commandSplitE[] = rest.split(" /from ", 2);
+                String startEndTime[] = commandSplitE[1].split(" /to ", 2);
+                addTask(new Events(commandSplitE[0], startEndTime[0], startEndTime[1]));
+                break;
             default:
-                addToList(command);
+                reply("I'm sorry, I did not understand that, could you say that again?");
         }
     }
 
