@@ -14,6 +14,12 @@ public class Delta {
                 + "_____________________________________________________________";
     }
 
+    public static String echo(String phrase) {
+        return "____________________________________________________________\n"
+                + phrase + "\n"
+                + "_____________________________________________________________";
+    }
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
