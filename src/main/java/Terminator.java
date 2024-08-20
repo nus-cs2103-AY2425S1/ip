@@ -45,7 +45,7 @@ public class Terminator {
     }
 
     public void exit() {
-        String exitMsg = HLINE + "Terminating session. I will be back...\n" + HLINE;
+        String exitMsg = HLINE + "Connection terminated. I will be back...\n" + HLINE;
         System.out.println(exitMsg);
     }
     public void mainEventLoop() {

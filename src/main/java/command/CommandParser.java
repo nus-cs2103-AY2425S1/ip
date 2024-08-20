@@ -9,6 +9,7 @@ public class CommandParser {
     private final Pattern todoPattern;
     private final Pattern eventPattern;
     private final Pattern deadlinePattern;
+    private final Pattern deletePattern;
 
     public CommandParser() {
         this.listPattern = Pattern.compile("^list$");
@@ -17,6 +18,7 @@ public class CommandParser {
         this.todoPattern = Pattern.compile("^todo\\s*(\\w*\\s*)*");
         this.eventPattern = Pattern.compile("^event\\s*(\\w*\\s)+/from (\\w*\\s*)+ /to (\\w*\\s*)+");
         this.deadlinePattern = Pattern.compile("^deadline\\s*(\\w*\\s)*/by [\\w\\s]*");
+        this.deletePattern = Pattern.compile("^delete \\d+$");
     }
     public Command parse(String input) {
         if (input.isEmpty()) return new EmptyCommand();
@@ -26,6 +28,7 @@ public class CommandParser {
         else if (todoPattern.matcher(input).find()) return new TodoCommand(input);
         else if (eventPattern.matcher(input).find()) return new EventCommand(input);
         else if (deadlinePattern.matcher(input).find()) return new DeadlineCommand(input);
+        else if (deletePattern.matcher(input).find()) return new DeleteCommand(input);
         else return new UnknownCommand();
     }
 }
