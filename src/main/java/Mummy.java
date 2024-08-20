@@ -33,7 +33,7 @@ public class Mummy {
     scanner.close();
   }
 
-  public static void listen(Scanner scanner) {
+  private static void listen(Scanner scanner) {
     while (scanner.hasNextLine()) {
 
       String input = scanner.nextLine();
