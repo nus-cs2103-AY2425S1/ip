@@ -104,6 +104,7 @@ public class Applemazer {
         int taskNumber;
         String[] split;
         while (processing) {
+            if (!sc.hasNext()) { break; } // For automated testing of text UIs.
             String command = sc.next();
             switch (command) {
                 case "bye" :
@@ -164,6 +165,8 @@ public class Applemazer {
                     task.printTaskAddedMessage();
             }
         }
+
+        sc.close();
     }
 
     public static void main(String[] args) {
