@@ -6,12 +6,12 @@ public class Waterfall {
         int indentSpace = 4;
         String welcomeMessage =
             ("____________________________________________________________\n"
-            + "Hello I'm " + chatBotName + "\n"
+            + "Hualalalalala I'm " + chatBotName + "\n"
             + "What can I do for you?\n"
             + "____________________________________________________________\n").indent(indentSpace);
         String byeMessage =
             ("____________________________________________________________\n"
-            + "Bye. Hope to see you again soon!\n"
+            + "Shhhhhhhhhhhh. Hope to see you again soon!\n"
             + "____________________________________________________________\n").indent(indentSpace);
         System.out.println(welcomeMessage);
         Scanner userInput = new Scanner(System.in);
