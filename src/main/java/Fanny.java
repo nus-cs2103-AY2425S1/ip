@@ -4,7 +4,7 @@ public class Fanny {
 
     public static void main(String[] args) {
 
-        List list = new List();
+        TaskList list = new TaskList();
 
         System.out.println("_____________________________________________");
         System.out.println("Hello! I'm Fanny");
@@ -25,13 +25,19 @@ public class Fanny {
                 System.out.println("_____________________________________________");
                 break;
             } else if (cmd.equals("list")) {
+                System.out.println("Fanny: ");
                 list.printList();
+            } else if (cmd.equals("mark")) {
+                int taskId = scanner.nextInt();
+                System.out.println("Fanny: ");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(list.markAsDone(taskId));
             } else {
                 System.out.println("_____________________________________________");
                 System.out.println("Fanny: ");
                 System.out.println("Added: " + cmd);
                 System.out.println("_____________________________________________");
-                list.add(cmd);
+                list.add(new Task(cmd));
             }
 
         }
