@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Delta {
     public static String sayHello() {
         return "____________________________________________________________\n"
@@ -13,6 +15,8 @@ public class Delta {
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
         System.out.println(sayHello());
         System.out.println(sayBye());
     }
