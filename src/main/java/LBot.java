@@ -1,10 +1,10 @@
-public class Bot {
+public class LBot {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String greeting = "Hello! I'm LBot";
+        String help = "What can I do for you?";
+        String exitMsg = "Bye. Hope to smell you again!";
+        System.out.println(greeting);
+        System.out.println(help);
+        System.out.println(exitMsg);
     }
 }
