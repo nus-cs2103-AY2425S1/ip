@@ -50,7 +50,11 @@ public class Alice {
         String[] result = response.split(" ", 2);
         switch (result[0]) {
             case "mark":
-                Task markTask = tasks.get(Integer.parseInt(result[1]) - 1);
+                int taskNumber = Integer.parseInt(result[1]);
+                if (taskNumber > tasks.size()) {
+                    throw new InvalidTaskException(response, taskNumber);
+                }
+                Task markTask = tasks.get(taskNumber - 1);
                 markTask.markAsDone();
                 System.out.println("------------------------------------------");
                 System.out.println("Nice! I've marked this task as done: ");
@@ -58,7 +62,11 @@ public class Alice {
                 System.out.println("------------------------------------------");
                 break;
             case "unmark":
-                Task unmarkTask = tasks.get(Integer.parseInt(result[1]) - 1);
+                int taskNum = Integer.parseInt(result[1]);
+                if (taskNum > tasks.size()) {
+                    throw new InvalidTaskException(response, taskNum);
+                }
+                Task unmarkTask = tasks.get(taskNum - 1);
                 unmarkTask.markAsUndone();
                 System.out.println("------------------------------------------");
                 System.out.println("Ok, I've marked this task as not done yet: ");
