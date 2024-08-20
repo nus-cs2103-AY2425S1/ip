@@ -48,6 +48,9 @@ public class Struggling {
                     String eTo = cmd.substring(toIndex + 4);
                     addTask(new Event(eDescription, eFrom, eTo));
                     break;
+                case "delete":
+                    deleteTask(Integer.parseInt(args[1]));
+                    break;
                 default:
                     throw new StrugglingException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -106,6 +109,14 @@ public class Struggling {
         t.unmark();
 
         reply(String.format("OK, I've marked this task as not done yet:\n\t%s", t));
+    }
+
+    private void deleteTask(int i) {
+        int index = i - 1;
+        Task t = this.taskArr.remove(index);
+
+        reply(String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.",
+                t, this.taskArr.size()));
     }
 
     public static void main(String[] args) {
