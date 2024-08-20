@@ -1,0 +1,6 @@
+deadline Homework /by Today 6:00 PM
+list
+event Studying /from Tmr 7:00 PM /to Tmr 9:00 PM
+todo Clean the house
+list
+bye
