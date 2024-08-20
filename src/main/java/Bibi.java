@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bibi {
@@ -13,9 +14,7 @@ public class Bibi {
                       """;
 
         // Mini Database
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
-
+        ArrayList<Task> tasks = new ArrayList<>();
         System.out.println("Hello from\n" + logo + "\n"
                     + "How can I help you?");
         printHorizontalLine();
@@ -31,7 +30,7 @@ public class Bibi {
                 }
                 case "list": {
                     printHorizontalLine();
-                    printTaskList(tasks, taskCount);
+                    printTaskList(tasks);
                     printHorizontalLine();
                     break;
                 }
@@ -40,11 +39,11 @@ public class Bibi {
                     printHorizontalLine();
                     if (cmdArr.length != 2) {
                         System.out.println("Invalid command syntax: Please use \"mark <int>\"");
-                    } else if (Integer.parseInt(cmdArr[1]) <= 0 || Integer.parseInt(cmdArr[1]) - 1 >= taskCount) {
+                    } else if (Integer.parseInt(cmdArr[1]) <= 0 || Integer.parseInt(cmdArr[1]) - 1 >= tasks.size()) {
                         System.out.println("Invalid task index");
                     } else {
                         System.out.printf("Alrighty, marked the following task as done:%n");
-                        Task t = tasks[Integer.parseInt(cmdArr[1]) - 1];
+                        Task t = tasks.get(Integer.parseInt(cmdArr[1]) - 1);
                         t.markAsDone();
                         System.out.println(t);
                         printHorizontalLine();
@@ -56,11 +55,11 @@ public class Bibi {
                     printHorizontalLine();
                     if (cmdArr.length != 2) {
                         System.out.println("Invalid command syntax: Please use \"mark <int>\"");
-                    } else if (Integer.parseInt(cmdArr[1]) <= 0 || Integer.parseInt(cmdArr[1]) - 1 >= taskCount) {
+                    } else if (Integer.parseInt(cmdArr[1]) <= 0 || Integer.parseInt(cmdArr[1]) - 1 >= tasks.size()) {
                         System.out.println("Invalid task index");
                     } else {
                         System.out.printf("Oops, we'll get 'em next time:%n");
-                        Task t = tasks[Integer.parseInt(cmdArr[1]) - 1];
+                        Task t = tasks.get(Integer.parseInt(cmdArr[1]) - 1);
                         t.markAsNotDone();
                         System.out.println(t);
                         printHorizontalLine();
@@ -73,11 +72,11 @@ public class Bibi {
                         System.out.println("Invalid todo syntax: Please use \"todo <description>\"");
                     } else {
                         ToDo td = new ToDo(cmd.substring(5));
-                        tasks[taskCount++] = td;
+                        addToTaskList(tasks, td);
 
                         // Console
                         System.out.printf("added: \"%s\" to task list%n", td);
-                        System.out.printf("You now have %d task(s) to do%n", taskCount);
+                        System.out.printf("You now have %d task(s) to do%n", tasks.size());
                     }
                     break;
                 }
@@ -88,11 +87,11 @@ public class Bibi {
                     } else {
                         String[] input = cmd.substring(9).split(" /by ");
                         Deadline dl = new Deadline(input[0], input[1]);
-                        tasks[taskCount++] = dl;
+                        addToTaskList(tasks, dl);
 
                         // Console
                         System.out.printf("added: \"%s\" to task list%n", dl);
-                        System.out.printf("You now have %d task(s) to do%n", taskCount);
+                        System.out.printf("You now have %d task(s) to do%n", tasks.size());
                     }
                     break;
                 }
@@ -104,11 +103,11 @@ public class Bibi {
                         String[] input = cmd.substring(6).split(" /from ");
                         String[] interval = input[1].split(" /to ");
                         Event e = new Event(input[0], interval[0], interval[1]);
-                        tasks[taskCount++] = e;
+                        tasks.add(e);
 
                         // Console
                         System.out.printf("added: \"%s\" to task list%n", e);
-                        System.out.printf("You now have %d task(s) to do%n", taskCount);
+                        System.out.printf("You now have %d task(s) to do%n", tasks.size());
                     }
                     break;
                 }
@@ -126,14 +125,18 @@ public class Bibi {
         printHorizontalLine();
         }
 
-    private static void printTaskList(Task[] tasks, int taskCount) {
-        if (taskCount == 0) {
+    private static void addToTaskList(ArrayList<Task> tasks, Task t) {
+        tasks.add(t);
+    }
+
+    private static void printTaskList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
             System.out.println("Good for you, nothing to do today :3");
             return;
         }
 
-        for (int i = 1; i <= taskCount; i++) {
-            System.out.printf("%d: %s%n", i, tasks[i - 1]);
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.printf("%d: %s%n", i, tasks.get(i - 1));
         }
     }
 
