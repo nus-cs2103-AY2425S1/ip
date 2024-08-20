@@ -1,5 +1,5 @@
 // TODO: Change this into an interface for later levels
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -20,9 +20,6 @@ public class Task {
         return this.isDone ? "[X]" : "[ ]";
     }
 
-    public String getDescription() {
-        return this.description;
-    }
     @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.description;
