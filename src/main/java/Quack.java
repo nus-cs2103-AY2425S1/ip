@@ -77,6 +77,11 @@ public class Quack {
                 farewell();
                 break;
             case "add":
+                if (inputArr.length < 3) {
+                    InvalidInputException error = new InvalidInputException("Invalid syntax to add a task, try: add <task type> <task description>! \n" + 
+                                                                                    "And here are the available task types:\n 1. Todo \n 2. Deadline \n 3. Event");
+                    throw error;
+                }
                 this.getTaskDetails(inputArr);
                 break;
             case "mark":
