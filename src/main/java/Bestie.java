@@ -14,7 +14,7 @@ public class Bestie {
         System.out.println("What can I do for you today :)?");
 
         String userInput;
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         // echoes commands entered by the user, and exits when the user types the command "bye"
         while (true) {
             userInput = sc.nextLine();
@@ -24,12 +24,16 @@ public class Bestie {
 
             if (userInput.equals("list")) {
                 // display the list of all items entered by the user
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++){
                     int index = i + 1;
-                    System.out.println(index +". " + tasks.get(i));
+                    System.out.println(index +".[" + tasks.get(i).getStatusIcon() + "] " + tasks.get(i).getDescription());
                 }
             } else {
-                tasks.add(userInput);
+
+                // create a new Task object for that task
+                Task newTask = new Task(userInput);
+                tasks.add(newTask);
                 System.out.println("added: " + userInput);
 
             }
