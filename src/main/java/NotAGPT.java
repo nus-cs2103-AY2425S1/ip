@@ -63,7 +63,7 @@ public class NotAGPT {
 
             case "todo":
                 if (parts.length > 1) {
-                    taskList.add(parts[1], Task.TaskType.T);
+                    taskList.add(ToDo.of(parts[1], Task.TaskType.T));
                 } else {
                     line.drawLine();
                     System.out.println("    Enter a task number");
@@ -80,8 +80,6 @@ public class NotAGPT {
             }
                 break;
         }
-
-
     }
 
     public static void NotAGPTExit() {
