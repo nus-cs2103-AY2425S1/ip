@@ -1,20 +1,19 @@
 import java.util.Scanner;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
 
 public class Maxine {
 
-    static Set<String> list = new HashSet<>();
+    static HashMap<Integer, Task> list = new HashMap<>();
 
     /**
      * This method prompts the user to ask for their answer
      * @return The user's input
      */
-    public static String answer() {
+    public static Task answer() {
         Scanner scanner = new Scanner(System.in);
-        String answer;
+        Task answer;
         System.out.print("What can I do for you today? : ");
-        answer = scanner.nextLine();
+        answer = new Task(scanner.nextLine());
         return answer;
     }
 
@@ -23,25 +22,30 @@ public class Maxine {
      * @param args Command-line arguments passed to the program
      */
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Hi! Nice to meet you :) I am Maxine");
         String answer;
         do {
-            answer = answer();
-            answer = answer.toLowerCase();
+            System.out.print("What can I do for you today? : ");
+            answer = scanner.nextLine().toLowerCase();
             if (answer.equals("list")) {
-                int count = 1;
-                for (String item : list) {
-                    System.out.println(count + ". " + item);
-                    count++;
+                for (int i = 1; i < (list.size() + 1); i++) {
+                    System.out.println(i + ". " + list.get(i));
                 }
+            } else if (answer.contains("mark") || answer.contains("unmark")) {
+                String[] arr = answer.split(" ");
+                int mark = Integer.parseInt(arr[1]);
+                Task curr = list.get(mark);
+                curr.changeStatus();
             } else {
-                list.add(answer);
+                Task task = new Task(answer);
+                list.put(task.num, task);
             }
 
         }
         while (!answer.equals("bye max!"));
 
-        System.out.println("\nBye! It was nice chatting with you. Hope to see you again soon!");
+        System.out.println("\nBye! I have been maxxed out and am going to sleep. Hope to see you again soon!");
     }
 
 
