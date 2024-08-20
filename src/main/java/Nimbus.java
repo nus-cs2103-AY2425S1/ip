@@ -110,6 +110,7 @@ public class Nimbus {
                 }
                 default:
                     throw new InvalidCommandException(command + " is not a valid command");
+
             }
         }
     }
