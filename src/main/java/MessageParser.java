@@ -15,16 +15,11 @@ public class MessageParser {
 
     final List<String> prompts = Arrays.asList(prompt.split(" "));
 
-    if (prompts.size() == 2) {
-      switch (prompts.get(0)) {
-        case "mark":
-          return Mark::process;
-        case "unmark":
-          return Unmark::process;
-      }
-    }
-
     switch (prompts.get(0)) {
+      case "mark":
+        return Mark::process;
+      case "unmark":
+        return Unmark::process;
       case "list":
         return processor.task.List::process;
       case "bye":
