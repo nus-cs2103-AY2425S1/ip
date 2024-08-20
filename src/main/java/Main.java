@@ -98,7 +98,11 @@ public class Main {
                         String addTaskSuccess = janet.addTaskToList(deadline);
                         System.out.println(addTaskSuccess);
                     } else if (commandDetails[0].equals("event")) {
-                        continue;
+                        // get the details of the event task and create a new Event object
+                        String[] eventDetails = findEventDetails(commandDetails);
+                        Task event = new Event(eventDetails[0], "E", eventDetails[1], eventDetails[2]);
+                        String addTaskSuccess = janet.addTaskToList(event);
+                        System.out.println(addTaskSuccess);
                     }
                 }
             }
