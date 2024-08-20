@@ -5,15 +5,25 @@ import java.io.IOException;
 
 public class Main {
 
-    public static String findDeadlineDueDate(String[] commandDetails) {
-        String deadline = "";
+    /**
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @return a String[], where first elem = Deadline.description, second elem = Deadline.dueDate.
+     */
+    public static String[] findDeadlineDetails(String[] commandDetails) {
+        int indexOfBy = 0;
         // first word in commandDetails must be deadline, so start from the i=1 word
         for (int i = 1; i < commandDetails.length; i++) {
             if (commandDetails[i].equals("/by")) {
-                deadline = commandDetails[i + 1];
+                indexOfBy = i;
             }
         }
-        return deadline;
+        // get description of Deadline
+        String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
+        String description = String.join(" ", descriptionArray);
+        // get due date
+        String[] dueDateArray = Arrays.copyOfRange(commandDetails, indexOfBy + 1, commandDetails.length);
+        String dueDate = String.join(" ", dueDateArray);
+        return new String[]{description, dueDate};
     }
 
     public static void main(String[] args) {
