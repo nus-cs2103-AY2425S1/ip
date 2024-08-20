@@ -34,6 +34,16 @@ public class Delta {
                 + "\t_____________________________________________________________";
     }
 
+    public static String unmarkTask(int i) {
+        Task task = list.get(i - 1);
+        task.markAsNotDone();
+        list.set(i - 1, task);
+        return "\t____________________________________________________________"
+                + "\t Ok, I've marked this task as not done yet:\n"
+                + "\t\t[" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + "\t_____________________________________________________________";
+    }
+
     public static String printTasks() {
         String output = "\t____________________________________________________________\n"
                 + "\t Here are the tasks in your list:\n";
