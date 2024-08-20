@@ -24,7 +24,7 @@ public class Delta {
                 + "\t_____________________________________________________________";
     }
 
-    public static String echo() {
+    public static String printTasks() {
         String output = "\t____________________________________________________________\n";
         for (int i = 0; i < list.size(); i++) {
             output += "\t " + (Integer.toString(i + 1)) + ". " + list.get(i) + "\n";
@@ -44,7 +44,7 @@ public class Delta {
                 System.out.println(sayBye());
                 break;
             } else if (phrase.equals("list")) {
-                System.out.println(echo());
+                System.out.println(printTasks());
             } else {
                 System.out.println(add(phrase));
             }
