@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Easton {
 
     public static final String CHATBOT_NAME = "Easton";
+    public static String[] itemList = new String[100];
+    public static int itemListSize = 0;
 
     public static void main(String[] args) {
         String logo = " _______  _______  _______  _______  _______  __    _ \n"
@@ -28,6 +30,10 @@ public class Easton {
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 isFinished = true;
+            } else if (input.equalsIgnoreCase("list")) {
+                for (int i = 0; i < itemListSize; i ++) {
+                    System.out.println((i + 1) + ". " + itemList[i]);
+                }
             } else {
                 System.out.println(input);
             }
