@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+
+enum Commands
+{
+    bye, list, mark, unmark, todo, deadline, event, delete;
+}
 
 public class Struggling {
     final private String name = "struggling";
@@ -14,33 +18,34 @@ public class Struggling {
 
         try {
             String[] args = cmd.split(" ");
-            switch (args[0]) {
-                case "bye":
+
+            switch (Commands.valueOf(args[0])) {
+                case bye:
                     reply("Bye. Hope to see you again soon!");
                     return false;
-                case "list":
+                case list:
                     list();
                     break;
-                case "mark":
+                case mark:
                     markTask(Integer.parseInt(args[1]));
                     break;
-                case "unmark":
+                case unmark:
                     unmarkTask(Integer.parseInt(args[1]));
                     break;
-                case "todo":
+                case todo:
                     try {
                         addTask(new ToDo(cmd.substring(5)));
                     } catch (StringIndexOutOfBoundsException e) {
                         throw new StrugglingException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     break;
-                case "deadline":
+                case deadline:
                     int byIndex = cmd.indexOf("/by ");
                     String dDescription = cmd.substring(9, byIndex).trim();
                     String dBy = cmd.substring(byIndex + 4);
                     addTask(new Deadline(dDescription, dBy));
                     break;
-                case "event":
+                case event:
                     int fromIndex = cmd.indexOf("/from ");
                     int toIndex = cmd.indexOf("/to ");
                     String eDescription = cmd.substring(6, fromIndex).trim();
@@ -48,12 +53,12 @@ public class Struggling {
                     String eTo = cmd.substring(toIndex + 4);
                     addTask(new Event(eDescription, eFrom, eTo));
                     break;
-                case "delete":
+                case delete:
                     deleteTask(Integer.parseInt(args[1]));
                     break;
-                default:
-                    throw new StrugglingException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+        } catch (IllegalArgumentException e) {
+            reply("OOPS!!! I'm sorry, but I don't know what that means :-(");
         } catch (StrugglingException e) {
             reply(e.getMessage());
         }
