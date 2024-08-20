@@ -14,11 +14,11 @@ public class Quack {
     
     public String spacer = "-".repeat(50);
 
+    private Scanner sc = new Scanner(System.in);  // Create a Scanner object for the chatbot
     private TaskList toDoList;
     private boolean isRunning;
     
     // Functions
-
     Quack() {
         this.isRunning = true;
         this.toDoList = new TaskList();
@@ -37,11 +37,37 @@ public class Quack {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private void act (String input) {
-        String[] inputArr = input.split(" ");
-        String command = inputArr[0].toLowerCase();
+    private void getTaskDetails(String[] inputArr){
 
         StringBuilder taskDescription = new StringBuilder();
+
+        for (int i = 2; i < inputArr.length; i++) {
+            if (taskDescription.length() > 0) {
+                taskDescription.append(" ");
+            }
+            taskDescription.append(inputArr[i]);
+        }
+
+        String taskType = inputArr[1].toLowerCase();
+        String startDate = "";
+        String endDate = "";
+
+        if (taskType.equals("event")) {
+            System.out.println("When does this event start?");
+            startDate = sc.nextLine();
+        }
+
+        if (!taskType.equals("todo")) {
+            System.out.println("When is this task due?");
+            endDate = sc.nextLine();
+        }
+
+        this.toDoList.addItem(taskDescription.toString(), taskType, startDate, endDate);
+    }
+
+    private void act (String input) throws InvalidInputException{
+        String[] inputArr = input.split(" ");
+        String command = inputArr[0].toLowerCase();
 
         switch (command) {
             case "list":
@@ -51,45 +77,20 @@ public class Quack {
                 farewell();
                 break;
             case "add":
-                for (int i = 2; i < inputArr.length; i++) {
-                    if (taskDescription.length() > 0) {
-                        taskDescription.append(" ");
-                    }
-                    taskDescription.append(inputArr[i]);
-                }
-
-                String taskType = inputArr[1].toLowerCase();
-                String startDate = "";
-                String endDate = "";
-
-                Scanner sc = new Scanner(System.in);
-
-                if (taskType.equals("event")) {
-                    System.out.println("When does this event start?");
-                    startDate = sc.nextLine();
-                }
-
-                if (!taskType.equals("todo")) {
-                    System.out.println("When is this task due?");
-                    endDate = sc.nextLine();
-                }
-
-                this.toDoList.addItem(taskDescription.toString(), taskType, startDate, endDate);
+                this.getTaskDetails(inputArr);
                 break;
             case "mark":
             case "unmark":
                 this.toDoList.updateTask(Integer.valueOf(inputArr[1]) - 1, command);
                 break;
             default:
-                System.out.println("There is no such function, please try again.");
-                break;
+                InvalidInputException error = new InvalidInputException("There is no such function as " + command + ", please try again.");
+                throw error;
         }
         System.out.println(spacer);
     }
 
     private void run() {
-
-        Scanner sc = new Scanner(System.in);  // Create a Scanner object
 
         // Chatbot is running for the first time, display the logo and greet the user
         this.printLogo();
@@ -100,7 +101,12 @@ public class Quack {
             String input = sc.nextLine();
             System.out.println(spacer);
 
-            act(input);
+            try {
+                act(input);
+            } catch (InvalidInputException inputErr) {
+                System.out.println(inputErr.getMessage());
+                System.out.println(spacer);
+            }
         }
 
         // Close the scanner since it exited the forloop means the bot has terminated
