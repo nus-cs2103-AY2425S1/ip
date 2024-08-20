@@ -12,7 +12,7 @@ public class SilverWolf {
     private static void outputList(){
         int index = 1;
         for(Todo t : list){
-            System.out.println(index + ".["+t.getStatusIcon()+"] "+t.getDescription());
+            System.out.println(index + "[" + t.type() + "]" + "["+t.getStatusIcon()+"] "+t.getDescription());
             index++;
         }
     }
@@ -80,7 +80,7 @@ public class SilverWolf {
                 specificTask.markAsDone();
                 printDivider();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
+                System.out.println("[" + specificTask.type() + "]["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
                 printDivider();
             } else if (input.startsWith("unmark ")){
                 //extract the input number
@@ -91,7 +91,7 @@ public class SilverWolf {
                 specificTask.unmarkTask();
                 printDivider();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
+                System.out.println("[" + specificTask.type() + "]["+specificTask.getStatusIcon()+"] " + specificTask.getDescription());
                 printDivider();
             } else if (input.startsWith("todo")){
                 //taking in the input
