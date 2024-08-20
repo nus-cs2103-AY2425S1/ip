@@ -45,7 +45,7 @@ public class Astra {
     public static void unmark(int index) {
         Task t = tasks.get(index);
         t.setDone(false);
-        String msg = " OK, I've marked this task as not done yet: \n" + t + "\n";
+        String msg = " OK, I've marked this task as not done yet: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
 
