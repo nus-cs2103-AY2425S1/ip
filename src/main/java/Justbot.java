@@ -44,6 +44,10 @@ public class Justbot {
                         if (markNumber < 1 || markNumber > tasks.size()) {
                             throw new IndexOutOfBoundsException("Hey man there is no such task");
                         }
+
+                        if (tasks.get(markNumber -1).getIsDone()) {
+                            throw new JustbotException("Hey man this task is already marked!");
+                        }
                         Commands.markTask(tasks, markNumber);
                     } catch (NumberFormatException e) {
                         System.out.println("------------------------------------------");
@@ -70,6 +74,9 @@ public class Justbot {
                         int unmarkNumber = Integer.parseInt(splitInputUnmark[1]);
                         if (unmarkNumber < 1 || unmarkNumber > tasks.size()) {
                             throw new IndexOutOfBoundsException("Hey man there is no such task");
+                        }
+                        if (!tasks.get(unmarkNumber -1).getIsDone()) {
+                            throw new JustbotException("Hey man this task is already unmarked!");
                         }
                         Commands.unmarkTask(tasks, unmarkNumber);
                     } catch (NumberFormatException e) {

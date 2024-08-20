@@ -8,11 +8,16 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
+
         return (isDone ? "X" : " ");
     }
 
     public String getTaskDescription() {
+
         return this.description;
+    }
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public void setIsDone(boolean bool) {
@@ -23,5 +28,4 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + getTaskDescription();
     }
-
 }
