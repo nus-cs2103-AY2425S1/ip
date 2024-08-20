@@ -17,7 +17,7 @@ public class Delta {
                 + "\t_____________________________________________________________";
     }
 
-    public static String add(String phrase) {
+    public static String addTask(String phrase) {
         list.add(phrase);
         return "\t____________________________________________________________\n"
                 + "\t added: " + phrase + "\n"
@@ -46,7 +46,7 @@ public class Delta {
             } else if (phrase.equals("list")) {
                 System.out.println(printTasks());
             } else {
-                System.out.println(add(phrase));
+                System.out.println(addTask(phrase));
             }
         }
 
