@@ -1,16 +1,24 @@
 public class TaskList {
 
-    private String[] tasks;
+    private Task[] tasks;
     private int head;
     public TaskList() {
         // Assume no more than 100 tasks
-        this.tasks = new String[100];
+        this.tasks = new Task[100];
         this.head = 0;
     }
 
     public void add(String task) {
-        this.tasks[this.head] = task;
+        this.tasks[this.head] = new Task(task);
         this.head++;
+    }
+
+    public void mark(int taskId) {
+        tasks[taskId - 1].markDone();
+    }
+
+    public void unmark(int taskId) {
+        tasks[taskId - 1].markNotDone();
     }
 
     @Override
@@ -19,6 +27,6 @@ public class TaskList {
         for (int taskId = 0; taskId < this.head; taskId++) {
             sb.append(String.format("%d: %s\n", taskId + 1, tasks[taskId]));
         }
-        return sb.toString();
+        return "Here are the tasks in your list:\n" + sb.toString();
     }
 }
