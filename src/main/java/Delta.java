@@ -19,11 +19,20 @@ public class Delta {
                 + phrase + "\n"
                 + "_____________________________________________________________";
     }
-    
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println(sayHello());
-        System.out.println(sayBye());
+
+        while (sc.hasNextLine()) {
+            String phrase = sc.nextLine();
+            if (phrase.equals("bye")) {
+                System.out.println(sayBye());
+            } else {
+                System.out.println(echo(phrase));
+            }
+        }
+
     }
 }
