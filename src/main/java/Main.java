@@ -5,6 +5,17 @@ import java.io.IOException;
 
 public class Main {
 
+    public static String findDeadlineDueDate(String[] commandDetails) {
+        String deadline = "";
+        // first word in commandDetails must be deadline, so start from the i=1 word
+        for (int i = 1; i < commandDetails.length; i++) {
+            if (commandDetails[i].equals("/by")) {
+                deadline = commandDetails[i + 1];
+            }
+        }
+        return deadline;
+    }
+
     public static void main(String[] args) {
         Janet janet = new Janet();
         System.out.println(janet.greet());
@@ -23,7 +34,7 @@ public class Main {
                 String currentListOfTasks = janet.showList();
                 System.out.println(currentListOfTasks);
             } else {
-                String[] commandDetails = command.split(" ");
+                String[] commandDetails = command.split(" ");   // an array containing each word of the command
                 if (commandDetails[0].equals("mark")) {
                     // mark the task as done
                     String markSuccess = janet.markAsDone(Integer.parseInt(commandDetails[1]));
@@ -34,8 +45,9 @@ public class Main {
                     System.out.println(unmarkSuccess);
                 } else {
                     // add the new task into the list of tasks
-                    // Task can a ToDo, Deadline, Event
+                    // Task can be a ToDo, Deadline, Event
                     if (commandDetails[0].equals("todo")) {
+                        // get the todo description and create a new Todo object
                         String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
                         String todoDescription = String.join(" ", todoItem);
                         Task task = new ToDo(todoDescription, "T");
