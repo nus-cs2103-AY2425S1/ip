@@ -19,16 +19,12 @@ public class Momo {
                 "⠄⠄⠎⠄⠄⣨⣿⣿⣿⣿⣿⣿⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡲⣿⣿⣿⣿";
 
         System.out.println("Hello! I'm Momo\nWhat can I do for you?");
-        System.out.println(horizontalLine);
-        String input = "";
+        String input = sc.next();
 
         while (!Objects.equals(input, "bye")) {
-            input = sc.next();
-
             System.out.println(horizontalLine);
             System.out.println(input);
-            System.out.println(horizontalLine);
-
+            input = sc.next();
         }
 
         System.out.println("Bye. Hope to see you again soon!\n" + logo);
