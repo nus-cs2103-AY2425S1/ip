@@ -32,10 +32,20 @@ public class Bao {
                 System.out.println("Bye :( Come back soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else if (input.equalsIgnoreCase("list")){
+            } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("____________________________________________________________");
                 showMessages();
                 System.out.println("____________________________________________________________");
+            } else if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.substring(5)) - 1;
+                messages[index].mark();
+                System.out.println("Bao has marked it as done!");
+                System.out.println(messages[index]);
+            } else if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                messages[index].unmark();
+                System.out.println("Bao has marked it as not done!");
+                System.out.println(messages[index]);
             } else {
                 addMessage(input);
                 System.out.println("____________________________________________________________");
@@ -76,11 +86,11 @@ class Task {
         this.isDone = false;
     }
 
-    private void mark() {
+    public void mark() {
         this.isDone = true;
     }
 
-    private void unmark() {
+    public void unmark() {
         this.isDone = false;
     }
 
