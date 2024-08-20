@@ -60,8 +60,9 @@ public class Soju {
         runWithHorizontalLine();
     }
     public static void displayList() {
+        System.out.println("Here are the tasks in your list:");
         tasks.stream()
-                .map(task -> (tasks.indexOf(task) + 1) + ". " + task) // Add index to each task
+                .map(task -> (tasks.indexOf(task) + 1) + "." + task) // Add index to each task
                 .forEach(System.out::println); // Print each task
         runWithHorizontalLine();
     }
@@ -76,6 +77,20 @@ public class Soju {
                 break;
             } else if (userInput.equals("list")) {
                 displayList();
+            } else if (userInput.startsWith("mark")) {
+                String[] parts = userInput.split(" ");
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                tasks.get(taskIndex).markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks.get(taskIndex));
+                runWithHorizontalLine();
+            } else if (userInput.startsWith("unmark")) {
+                String[] parts = userInput.split(" ");
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                tasks.get(taskIndex).unmark();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks.get(taskIndex));
+                runWithHorizontalLine();
             } else {
                 addToList(userInput);
             }
