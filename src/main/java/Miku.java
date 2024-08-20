@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Miku {
     public static void main(String[] args) {
         String logo = " __  __   __   _   _   _    _\n"
@@ -44,16 +46,29 @@ public class Miku {
 
         Miku.greet();
 
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
         System.out.println(sectionBreak);
 
+        while (!input.equals("bye")){
+            input = scanner.nextLine();
+            System.out.println(sectionBreak);
+
+            if (!input.equals("bye")){
+                Miku.echo(input);
+                System.out.println(sectionBreak);
+            }
+        }
+
         Miku.farewell();
+        System.out.println(sectionBreak);
 
 
     }
 
     public static void greet(){
         String greeting = "Hello! I'm Miku\n"
-                + "What can I do for you?";
+                + "What song do you want to listen to today?";
         System.out.println(greeting);
     }
 
@@ -61,6 +76,10 @@ public class Miku {
 
         String farewell = "Bye. Hope to see you again soon!";
         System.out.println(farewell);
+    }
+
+    public static void echo(String input){
+        System.out.println(input);
     }
 
 }
