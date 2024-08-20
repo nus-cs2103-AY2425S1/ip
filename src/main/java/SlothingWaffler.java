@@ -13,40 +13,50 @@ public class SlothingWaffler {
 
         while (true) {
 
-            String input = scanner.nextLine();
-            String[] split = input.split(" ", 2);
+            try {
+                String input = scanner.nextLine();
+                String[] split = input.split(" ", 2);
 
-            if (split[0].strip().equals("bye")) {
-                System.out.println("See you next time! Remember to get a waffle!");
-                break;
-            }
-            switch (split[0].strip()) {
-                case "list" -> displayTaskList(tasks, tasksCount);
-                case "mark" -> markTask(tasks, Integer.parseInt(split[1]) - 1);
-                case "todo" -> {
-                    tasks[tasksCount] = new Todo(split[1]);
-                    tasksCount++;
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[tasksCount - 1].toString());
-                    System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                if (split[0].strip().equals("bye")) {
+                    System.out.println("See you next time! Remember to get a waffle!");
+                    break;
                 }
-                case "deadline" -> {
-                    String[] desc = split[1].split(" /by ", 2);
-                    tasks[tasksCount] = new Deadline(desc[0], desc[1]);
-                    tasksCount++;
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[tasksCount - 1].toString());
-                    System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                switch (split[0].strip()) {
+                    case "list" -> displayTaskList(tasks, tasksCount);
+                    case "mark" -> markTask(tasks, Integer.parseInt(split[1]) - 1);
+                    case "todo" -> {
+                        if (split.length < 2 || split[1].strip().isEmpty()) {
+                            throw new SlothingWafflerException("The description of a Todo Task cannot be empty!");
+                        }
+                        tasks[tasksCount] = new Todo(split[1]);
+                        tasksCount++;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + tasks[tasksCount - 1].toString());
+                        System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                    }
+                    case "deadline" -> {
+                        String[] desc = split[1].split(" /by ", 2);
+                        tasks[tasksCount] = new Deadline(desc[0], desc[1]);
+                        tasksCount++;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + tasks[tasksCount - 1].toString());
+                        System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                    }
+                    case "event" -> {
+                        String[] desc = split[1].split(" /from | /to ");
+                        tasks[tasksCount] = new Event(desc[0], desc[1], desc[2]);
+                        tasksCount++;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + tasks[tasksCount - 1].toString());
+                        System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                    }
+                    default -> throw new SlothingWafflerException("The Waffler will continuing slothing!! " +
+                            "Please give me instructions that I can understand :(");
                 }
-                case "event" -> {
-                    String[] desc = split[1].split(" /from | /to ");
-                    tasks[tasksCount] = new Event(desc[0], desc[1], desc[2]);
-                    tasksCount++;
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[tasksCount - 1].toString());
-                    System.out.println("Now you have " + tasksCount + " tasks in the list.");
-                }
-                default -> System.out.println("Unrecognised command!");
+            } catch (SlothingWafflerException e) {
+                System.out.println("OOPS!! " + e.getMessage());
+            } finally {
+                System.out.println("The Waffler is ready for your next command!");
             }
         }
         scanner.close();
