@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class Sentinel {
+    private TaskList taskList;
+
+    public Sentinel() {
+        this.taskList = new TaskList();
+    }
 
     /**
      * Makes Sentinel say a greeting message.
@@ -28,7 +33,7 @@ public class Sentinel {
     }
 
     /**
-     * Makes Sentinel echo a message until a bye command is received
+     * Makes Sentinel echo a message until a bye command is received.
      */
     public void echo() {
         Scanner scanner = new Scanner(System.in);
@@ -40,10 +45,29 @@ public class Sentinel {
         }
     }
 
+    /**
+     * Makes Sentinel echo a message until a bye command is received.
+     */
+    public void listen() {
+        Scanner scanner = new Scanner(System.in);
+
+        String userInput = scanner.nextLine();
+        while (!userInput.equals("bye")) {
+            if (userInput.equals("list")) {
+                say(this.taskList.toString());
+            } else {
+                this.taskList.add(userInput);
+                say(String.format("Added: %s", userInput));
+            }
+
+            userInput = scanner.nextLine();
+        }
+    }
+
     public static void main(String[] args) {
         Sentinel mySentinel = new Sentinel();
         mySentinel.greet();
-        mySentinel.echo();
+        mySentinel.listen();
         mySentinel.goodbye();
     }
 }
