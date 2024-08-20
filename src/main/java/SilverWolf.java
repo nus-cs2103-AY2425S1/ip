@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class SilverWolf {
     // using arraylist
-    private static ArrayList<Task> list = new ArrayList<>();
+    private static ArrayList<Todo> list = new ArrayList<>();
 
     // prints the line
     private static void printDivider() {
@@ -12,7 +12,7 @@ public class SilverWolf {
     // output the list
     private static void outputList(){
         int index = 1;
-        for(Task t : list){
+        for(Todo t : list){
             System.out.println(index + ".["+t.getStatusIcon()+"] "+t.getDescription());
             index++;
         }
@@ -52,7 +52,7 @@ public class SilverWolf {
                 //extract the input number
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 // retrieve the specific task from the arraylist
-                Task specificTask = list.get(index);
+                Todo specificTask = list.get(index);
                 // mark the task as done
                 specificTask.markAsDone();
                 printDivider();
@@ -63,7 +63,7 @@ public class SilverWolf {
                 //extract the input number
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 // retrieve the specific task from the arraylist
-                Task specificTask = list.get(index);
+                Todo specificTask = list.get(index);
                 // mark the task as undone
                 specificTask.unmarkTask();
                 printDivider();
@@ -74,7 +74,7 @@ public class SilverWolf {
                 // echo the input back to the user
                 printDivider();
                 System.out.println("added: " + input);
-                list.add(new Task(input));
+                list.add(new Todo(input));
                 printDivider();
             }
         }
