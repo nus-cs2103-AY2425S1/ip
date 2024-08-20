@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Ui {
     private final int lineLength = 50;
     private final String horizontalLine = "\t" + "-".repeat(this.lineLength);
@@ -20,9 +22,21 @@ public class Ui {
         this.printHorizontalLine();
     }
 
-    public void echo(String msg) {
+    public void printAddTask(Task t) {
         this.printHorizontalLine();
-        System.out.println("\t" + msg);
+        System.out.println("\tadded: " + t.toString());
+        this.printHorizontalLine();
+    }
+
+    public void printTasks(ArrayList<Task> tasks) {
+        this.printHorizontalLine();
+        if (tasks.size() == 0) {
+            System.out.println("\tNo tasks yet");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
+            }
+        }
         this.printHorizontalLine();
     }
 }
