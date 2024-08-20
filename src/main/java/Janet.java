@@ -137,4 +137,12 @@ public class Janet {
         listOfTasks.remove(desiredTask);
         return horizontalLine + "\nNoted. I've removed this task:\n" + String.format("    %s\nNow you have %d tasks in your list\n", desiredTask, taskIndex) + horizontalLine;
     }
+
+
+    /**
+     * @return true if the list has no elements
+     */
+    public boolean listIsEmpty() {
+        return listOfTasks.isEmpty();
+    }
 }
