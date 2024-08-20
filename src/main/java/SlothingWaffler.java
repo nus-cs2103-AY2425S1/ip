@@ -12,6 +12,7 @@ public class SlothingWaffler {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+
             String input = scanner.nextLine();
             String[] split = input.split(" ", 2);
 
@@ -19,17 +20,33 @@ public class SlothingWaffler {
                 System.out.println("See you next time! Remember to get a waffle!");
                 break;
             }
-            if (split[0].strip().equals("list")) {
-                displayTaskList(tasks, tasksCount);
-            } else if (split[0].strip().equals("mark")) {
-                int taskNumber = Integer.parseInt(split[1]) - 1;
-                tasks[taskNumber].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks[taskNumber].toString());
-            } else {
-                tasks[tasksCount] = new Task(input);
-                tasksCount++;
-                System.out.println("added: " + input);
+            switch (split[0].strip()) {
+                case "list" -> displayTaskList(tasks, tasksCount);
+                case "mark" -> markTask(tasks, Integer.parseInt(split[1]) - 1);
+                case "todo" -> {
+                    tasks[tasksCount] = new Todo(split[1]);
+                    tasksCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[tasksCount - 1].toString());
+                    System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                }
+                case "deadline" -> {
+                    String[] desc = split[1].split(" /by ", 2);
+                    tasks[tasksCount] = new Deadline(desc[0], desc[1]);
+                    tasksCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[tasksCount - 1].toString());
+                    System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                }
+                case "event" -> {
+                    String[] desc = split[1].split(" /from | /to ");
+                    tasks[tasksCount] = new Event(desc[0], desc[1], desc[2]);
+                    tasksCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[tasksCount - 1].toString());
+                    System.out.println("Now you have " + tasksCount + " tasks in the list.");
+                }
+                default -> System.out.println("Unrecognised command!");
             }
         }
         scanner.close();
@@ -40,5 +57,11 @@ public class SlothingWaffler {
         for (int i = 1; i <= tasksCount; i++) {
             System.out.println((i) + "." + tasks[i - 1].toString());
         }
+    }
+
+    private static void markTask(Task[] tasks, int taskNum) {
+        tasks[taskNum].markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + tasks[taskNum].toString());
     }
 }
