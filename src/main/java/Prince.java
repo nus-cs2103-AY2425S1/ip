@@ -49,13 +49,12 @@ public class Prince {
 
                     // get status of task
                     String status = task.getStatusIcon();
-                    String formattedStatus = "[" + status + "] ";
 
                     // formatting for numbering of list
-                    int num = i + 1;
-                    String numDot = num + ".";
+                    int listNum = i + 1;
+                    String numDot = listNum + ".";
 
-                    System.out.println(numDot + formattedStatus + desc);
+                    System.out.println(numDot + status + desc);
                 }
 
                 printline();
@@ -78,9 +77,8 @@ public class Prince {
 
                     // get status of task
                     String status = task.getStatusIcon();
-                    String formattedStatus = "[" + status + "] ";
 
-                    System.out.println(formattedStatus + desc);
+                    System.out.println(status + desc);
                 }
 
                 printline();
@@ -102,9 +100,8 @@ public class Prince {
 
                     // get status of task
                     String status = task.getStatusIcon();
-                    String formattedStatus = "[" + status + "] ";
 
-                    System.out.println(formattedStatus + desc);
+                    System.out.println(status + desc);
                 }
 
                 printline();

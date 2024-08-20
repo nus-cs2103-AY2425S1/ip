@@ -1,18 +1,26 @@
 public class Task {
+    
     private String description;
     private boolean isDone;
+    private int taskID;
+    private static int lastID = 0;
 
     public Task (String description) {
         this.description = description;
         this.isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        this.taskID = lastID++;
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]");
+    }
+
+    public int getTaskID() {
+        return this.taskID;
     }
 
     public void markAsDone() {
