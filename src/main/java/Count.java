@@ -2,9 +2,11 @@ import java.util.*;
 
 public class Count {
     private ArrayList<Task> ls;
+    private boolean on;
 
     public Count() {
         this.ls = new ArrayList<>();
+        this.on = true;
     }
     private void reply(String output) {
         String spacer = "\n____________________________________________________________\n";
@@ -15,6 +17,7 @@ public class Count {
     }
 
     private void farewell() {
+        this.on = false;
         reply("Bye. Hope to see you again soon!");
     }
 
@@ -26,7 +29,8 @@ public class Count {
                 "\n\n5.'deadline': Adds a task with a date or time to complete by\n Usecase: deadline homework /by Monday" +
                 "\n\n6.'event': Adds a task with from a date or time to another date or time\n Usecase: event project meeting /from 3pm /to 6pm" +
                 "\n\n7.'mark': Marks specified task as complete\n Usecase: mark 2" +
-                "\n\n8.'unmark': Marks specified task as incomplete\n Usecase: unmark 1");
+                "\n\n8.'unmark': Marks specified task as incomplete\n Usecase: unmark 1" +
+                "\n\n9.'delete': Deletes specified task number\n Usecase: delete 3");
     }
 
     private void addTask(Task t) {
@@ -64,6 +68,16 @@ public class Count {
         }
     }
 
+    private void delete(int i) {
+        try {
+            Task curr = ls.get(i - 1);
+            ls.remove(i - 1);
+            reply("Got it, I have removed this task from the list:\n" + curr.toString() + "\nYou now have " + ls.size() + " task(s) in your list");
+        } catch (IndexOutOfBoundsException e) {
+            reply("Invalid list index chosen! Choose a number from 1 to " + ls.size() + "\nType 'help' to see correct formatting examples");
+        }
+    }
+
     // single word command parser
     private void parser(String command) {
         switch (command.toLowerCase()) {
@@ -96,6 +110,9 @@ public class Count {
                 case "unmark":
                     unmark(Integer.valueOf(rest));
                     break;
+                case "delete":
+                    delete(Integer.valueOf(rest));
+                    break;
                 case "todo":
                     addTask(new ToDos(rest));
                     break;
@@ -112,7 +129,7 @@ public class Count {
                     reply("I'm sorry, I did not understand that, could you say that again?");
             }
         } catch (NumberFormatException e) {
-            reply("Use a number after mark and unmark to specify the task targeted!\nType 'help' to see correct formatting examples");
+            reply("Use a number after mark/unmark/delete to specify the task targeted!\nType 'help' to see correct formatting examples");
         } catch (ArrayIndexOutOfBoundsException e) {
             reply("Invalid format for event or deadline!\nType 'help' to see correct formatting examples");
         }
@@ -123,7 +140,7 @@ public class Count {
         Scanner sc = new Scanner(System.in);
         c.greet();
 
-        while (true) {
+        while (c.on) {
             String command = sc.nextLine();
 
             // If there is more than 1 word,
