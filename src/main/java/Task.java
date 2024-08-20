@@ -7,6 +7,10 @@ public class Task {
         isDone = false;
     }
 
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
