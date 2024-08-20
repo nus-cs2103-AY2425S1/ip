@@ -54,21 +54,31 @@ public class TaskList {
     public String addTask(String value) {
         Task toAdd = new Todo(value);
         list.add(toAdd);
-        return "    Got it! I've added this task:\n      " + toAdd
+        return "    Good good! RoTodo is happy to add:\n      " + toAdd
             + "\n    Now you have " + list.size() + " tasks in the list.";
     }
 
     public String addTask(String value, String by) {
         Task toAdd = new Deadline(value, by);
         list.add(toAdd);
-        return "    Got it! I've added this task:\n      " + toAdd
+        return "    Good good! RoTodo is happy to add:\n      " + toAdd
             + "\n    Now you have " + list.size() + " tasks in the list.";
     }
 
     public String addTask(String value, String from, String to) {
         Task toAdd = new Event(value, from, to);
         list.add(toAdd);
-        return "    Got it! I've added this task:\n      " + toAdd
+        return "    Good good! RoTodo is happy to add:\n      " + toAdd
+            + "\n    Now you have " + list.size() + " tasks in the list.";
+    }
+
+    public String deleteTask(int i) throws InvalidInputException {
+        if (i >= list.size() || i < 0) {
+            throw new InvalidInputException("Task number doesn't exist\n"
+                + "\u001B[0m    type 'list' to view tasklist");
+        }
+        Task removed = list.remove(i);
+        return "    Deleting task? That's cheating... but whatever... removed:\n      " + removed
             + "\n    Now you have " + list.size() + " tasks in the list.";
     }
 

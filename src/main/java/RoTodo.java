@@ -27,9 +27,10 @@ public class RoTodo {
     /**
      * Different types of commands
      */
+    private static final String HELP = "help";
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
-    private static final String HELP = "help";
+    private static final String DELETE = "delete";
     private static final String LIST = "list";
     private static final String EXIT = "bye";
 
@@ -91,6 +92,7 @@ public class RoTodo {
      */
     public static void process(TaskList taskList, String input) throws InvalidInputException {
         String[] token = input.split(" ", 2);
+        boolean delete = false;
         boolean mark = false;
         switch (token[0]) {
             case LIST:
@@ -101,6 +103,8 @@ public class RoTodo {
                 RoTodo.exit();
                 break;
 
+            case DELETE:
+                delete = true;
             case MARK:
                 mark = true;
             case UNMARK:
@@ -117,7 +121,10 @@ public class RoTodo {
                         + "number RoTodo knows (and RoTodo know much numbers, "
                         + "like 1s and 0s)", token[1]));
                 }
-                
+                if (delete) {
+                    RoTodo.print(taskList.deleteTask(taskNumber));
+                    break;
+                }
                 if (mark) RoTodo.print(taskList.markDone(taskNumber));
                 else RoTodo.print(taskList.unmarkDone(taskNumber));
                 break;

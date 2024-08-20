@@ -23,7 +23,7 @@ public abstract class Task {
      */
     public String markAsDone() {
         done = true;
-        return "    Nice! I've marked this task as done:\n      " + this.toString();
+        return "    RoTodo is happy for you! Task done:\n      " + this.toString();
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class Task {
      */
     public String unmarkAsDone() {
         done = false;
-        return "    OK, I've marked this task as not done yet:\n      " + this.toString();
+        return "    Did something happen? RoTodo is confused... Task undone:\n      " + this.toString();
     }
 
     @Override
