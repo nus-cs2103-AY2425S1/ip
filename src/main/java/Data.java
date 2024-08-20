@@ -21,8 +21,11 @@ public class Data {
     public static ArrayList<Task> read() {
         ArrayList<Task> list = new ArrayList<>();
         try {
-//            File file = new File(filename);
+            File file = new File(filename);
 //            System.out.println("Looking for file at: " + file.getAbsolutePath());
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             String line;
             while ((line = reader.readLine()) != null) {
