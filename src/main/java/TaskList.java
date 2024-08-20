@@ -15,7 +15,7 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int taskId = 0; taskId < this.tasks.length; taskId++) {
+        for (int taskId = 0; taskId < this.head; taskId++) {
             sb.append(String.format("%d: %s", taskId + 1, tasks[taskId]));
         }
         return sb.toString();
