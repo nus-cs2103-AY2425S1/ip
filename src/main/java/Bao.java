@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Bao {
-    private static String[] messages = new String[100];
+    private static Task[] messages = new Task[100];
     private static int messageCount = 0;
 
     private static String baoHappy =   "     ___   \n"
@@ -58,11 +58,38 @@ public class Bao {
 
     private static void addMessage(String message) {
         if (messageCount < 100) {
-            messages[messageCount] = message;
+            messages[messageCount] = new Task(message);
             messageCount++;
         } else {
             System.out.println(baoSad);
             System.out.println("Bao cannot remember so many things :(");
+        }
+    }
+}
+
+class Task {
+    private String description;
+    private boolean isDone;
+
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    private void mark() {
+        this.isDone = true;
+    }
+
+    private void unmark() {
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        if (isDone) {
+            return "[X] " + description;
+        } else {
+            return "[ ] " + description;
         }
     }
 }
