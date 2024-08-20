@@ -6,4 +6,6 @@ deadline do homework /by no idea :-p
 mark 1
 unmark 2
 list
+deadline do leetcode problem 2 sums /by Monday
+event RC4 Directors meeting /from Thursday 10pm /to 11pm
 bye

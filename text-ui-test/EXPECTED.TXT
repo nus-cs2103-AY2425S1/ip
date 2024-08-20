@@ -82,5 +82,17 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ____________________________________________________________
+Got it. I've added this task:
+ [D][ ] do leetcode problem 2 sums (by: Monday)
+Now you have 5 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+Got it. I've added this task:
+ [E][ ] RC4 Directors meeting (from: Thursday 10pm to: 11pm)
+Now you have 6 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
  Till we meet again! May this journey lead us starward!
 ____________________________________________________________
