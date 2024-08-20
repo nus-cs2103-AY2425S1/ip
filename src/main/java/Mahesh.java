@@ -52,8 +52,17 @@ public class Mahesh {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + task);
                     break;
+                case "todo":
+                    Mahesh.addToList(Mahesh.parseTodo(tokenizedInput));
+                    break;
+                case "deadline":
+                    Mahesh.addToList(Mahesh.parseDeadline(tokenizedInput));
+                    break;
+                case "event": 
+                    Mahesh.addToList((Mahesh.parseEvent(tokenizedInput)));
+                    break;
                 default:
-                    Mahesh.addToList(originalInput);
+                    Mahesh.addToList(new Task(originalInput));
             }
             System.out.println(divider);
         }
@@ -63,8 +72,8 @@ public class Mahesh {
         scan.close();
     }
 
-    private static void addToList(String task) {
-        Mahesh.list[taskCount++] = new Task(task);
+    private static void addToList(Task task) {
+        Mahesh.list[taskCount++] = task;
         System.out.println("added: " + task);
     }
 
@@ -75,4 +84,51 @@ public class Mahesh {
             System.out.println(count++ + "." + task);
         }
     }
+    
+    private static Todo parseTodo(StringTokenizer tokenizedInput) {
+        StringBuilder description = new StringBuilder();
+        String token = "";
+        while (tokenizedInput.hasMoreTokens()) {
+            token = tokenizedInput.nextToken();
+            description.append(token).append(" ");
+        }
+        return new Todo(description.toString());
+    }
+
+    private static Deadline parseDeadline(StringTokenizer tokenizedInput) {
+        StringBuilder description = new StringBuilder();
+        String token = tokenizedInput.nextToken();
+        while (!token.equals("/by")) {
+            description.append(token).append(" ");
+            token = tokenizedInput.nextToken();
+        }
+        StringBuilder by = new StringBuilder();
+        while (tokenizedInput.hasMoreTokens()) {
+            token = tokenizedInput.nextToken();
+            by.append(token).append(" ");
+        }
+        return new Deadline(description.toString(), by.toString());
+    }
+
+    private static Event parseEvent(StringTokenizer tokenizedInput) {
+        StringBuilder description = new StringBuilder();
+        String token = tokenizedInput.nextToken();
+        while (!token.equals("/from")) {
+            description.append(token).append(" ");
+            token = tokenizedInput.nextToken();
+        }
+        StringBuilder from = new StringBuilder();
+        token = tokenizedInput.nextToken();
+        while (!token.equals("/to")) {
+            from.append(token).append(" ");
+            token = tokenizedInput.nextToken();
+        }
+        StringBuilder to = new StringBuilder();
+        while (tokenizedInput.hasMoreTokens()) {
+            token = tokenizedInput.nextToken();
+            to.append(token).append(" ");
+        }
+        return new Event(description.toString(), from.toString(), to.toString());
+    }
+
 }

@@ -7,6 +7,7 @@ public class Task {
     this.isDone = false;
   }
 
+  @Override
   public String toString() {
     String indicator = this.isDone ? "[X]" : "[ ]";
     return indicator + " " + this.description;
