@@ -35,6 +35,29 @@ public class Bob {
                 }
                 System.out.println("\t------------------------------------------");
             }
+
+            // mark
+            if (input.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                // split the input into array "mark" "2", convert to int, -1
+                tasks[taskIndex].mark();
+
+                System.out.println("\t------------------------------------------");
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t\t[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
+                System.out.println("\t------------------------------------------");
+            }
+
+            // unmark
+            if (input.startsWith("unmark ")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                tasks[taskIndex].unmark();
+
+                System.out.println("\t------------------------------------------");
+                System.out.println("\tOk, I've marked this task as not done yet:");
+                System.out.println("\t\t[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
+                System.out.println("\t------------------------------------------");
+            }
         }
 
         System.out.println("\t------------------------------------------");
