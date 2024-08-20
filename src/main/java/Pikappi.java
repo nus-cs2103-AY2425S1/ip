@@ -51,7 +51,16 @@ public class Pikappi {
                 return;
             } else if (command.equals("list")) {
                 listTasks();
-            } else {
+            } else if (command.startsWith("mark")) {
+                int taskNumber = Integer.parseInt(command.split(" ")[1]);
+                tasks[taskNumber - 1].markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n" + tasks[taskNumber - 1]);
+            } else if (command.startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(command.split(" ")[1]);
+                tasks[taskNumber - 1].unmarkAsDone();
+                System.out.println("Ok, I've unmarked this task as not done yet:\n" + tasks[taskNumber - 1]);
+            }
+            else {
                 addTask(command);
             }
         }
