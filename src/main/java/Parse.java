@@ -47,4 +47,27 @@ public class Parse {
             throw new TinaException("Enter the index after the space.");
         }
     }
+
+    public static Task parseLine(String input) {
+        char type = input.charAt(0);
+        boolean isMark = input.charAt(2) == '1';
+        switch(type) {
+            case 'T':
+                String desT = input.substring(4);
+                return new Todo(desT, isMark);
+            case 'D':
+                String[] parts = input.substring(4).split(" \\| ");
+                String desD = parts[0];
+                String endD = parts[1];
+                return new Deadline(desD, isMark, endD);
+            case 'E':
+                String[] partsE = input.substring(4).split(" \\| ");
+                String desE = partsE[0];
+                String start = partsE[1];
+                String end = partsE[2];
+                return new Event(desE, isMark, start, end);
+            default:
+                throw new TinaException("Invalid task type: " + type);
+        }
+    }
 }

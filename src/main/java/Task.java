@@ -1,6 +1,6 @@
 public abstract class Task {
-    private final String des;
-    private boolean isMark = false;
+    protected final String des;
+    protected boolean isMark = false;
     public Task(String des) throws TinaException {
         if (des.isEmpty()) {
             throw new TinaException("Enter your description after the space");
