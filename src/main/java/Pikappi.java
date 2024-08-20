@@ -14,28 +14,32 @@ public class Pikappi {
         System.out.println("Pi-kapi! See you again~\n");
     }
 
-    public static void addTask(String task) {
-        tasks[numTasks] = new Task(task);
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks[numTasks] +
-                "\nNow you have " + (numTasks + 1) + " tasks in the list.");
-        numTasks++;
-    }
-
-    public static void addTodoTask(String task) {
+    public static void addTodoTask(String command) throws PikappiException {
+        String[] substrings = command.split(" ");
+        if (substrings.length == 1) {
+            throw new PikappiException("Pi-ka..?? What do you want todo..?");
+        }
+        String task = substrings[1];
         tasks[numTasks] = new TodoTask(task);
         System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks[numTasks] +
                 "\nNow you have " + (numTasks + 1) + " tasks in the list.");
         numTasks++;
     }
 
-    public static void addDeadlineTask(String command) {
+    public static void addDeadlineTask(String command) throws PikappiException {
         String[] substrings = command.split("/by");
+        if (command.split(" ").length == 1) {
+            throw new PikappiException("Pi-ka..?? What is the task..?");
+        }
         String task = substrings[0].substring(9);
+        if (task.isEmpty()) {
+            throw new PikappiException("Pi-ka..?? What is the task..?");
+        }
         String by = "";
         try {
             by = substrings[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            by = "";
+            throw new PikappiException("Pi-ka..?? When is the deadline..?");
         }
         tasks[numTasks] = new DeadlineTask(task, by);
         System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks[numTasks] +
@@ -43,9 +47,15 @@ public class Pikappi {
         numTasks++;
     }
 
-    public static void addEventTask(String command) {
+    public static void addEventTask(String command) throws PikappiException {
         String[] substrings = command.split("/from");
+        if (command.split(" ").length == 1) {
+            throw new PikappiException("Pi-ka..?? What is the task..?");
+        }
         String task = substrings[0].substring(6);
+        if (task.isEmpty()) {
+            throw new PikappiException("Pi-ka..?? What is the task..?");
+        }
         String from = "";
         String to = "";
         try {
@@ -53,8 +63,7 @@ public class Pikappi {
             from = fromTo[0];
             to = fromTo[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            from = "";
-            to = "";
+            throw new PikappiException("Pi-ka..?? When is the event starting and ending..?");
         }
         tasks[numTasks] = new EventTask(task, from, to);
         System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks[numTasks] +
@@ -84,10 +93,10 @@ public class Pikappi {
 
     public static void unmarkTask(int taskNumber) {
         tasks[taskNumber - 1].unmarkAsDone();
-        System.out.println("Ok, I've unmarked this task as not done yet:\n" + tasks[taskNumber - 1]);
+        System.out.println("Okie, I've unmarked this task as not done yet:\n" + tasks[taskNumber - 1]);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PikappiException {
         greet();
 
         while (true) {
@@ -103,13 +112,29 @@ public class Pikappi {
             } else if (command.startsWith("unmark")) {
                 unmarkTask(Integer.parseInt(command.split(" ")[1]));
             } else if (command.startsWith("todo")) {
-                addTodoTask(command.substring(5));
+                try {
+                    addTodoTask(command);
+                } catch (PikappiException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (command.startsWith("deadline")) {
-                addDeadlineTask(command);
+                try {
+                    addDeadlineTask(command);
+                } catch (PikappiException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (command.startsWith("event")) {
-                addEventTask(command);
+                try {
+                    addEventTask(command);
+                } catch (PikappiException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
-                addTask(command);
+                try {
+                    throw new PikappiException("Pi-ka..?? I don't understand..");
+                } catch (PikappiException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             System.out.println("____________________________________________________________");
         }
