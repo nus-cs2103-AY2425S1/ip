@@ -13,6 +13,7 @@ public class Taskon {
                 break;
             } else if (description.equals("list")) {
                 listItems(tasks);
+                System.out.println("\n");
             } else if (description.contains("unmark")) {
                 int index = description.charAt(7) - '0';
                 tasks.get(index - 1).markAsUndone();
@@ -22,9 +23,24 @@ public class Taskon {
                 tasks.get(index - 1).markAsDone();
                 completed(tasks.get(index - 1));
             } else {
-                Task t = new Task(description);
+                Task t;
+                if (description.startsWith("todo")) {
+                    t = new Todo(description.substring(5));
+                } else if (description.startsWith("deadline")) {
+                    String by = description.substring(description.indexOf("/by") + 4);
+                    String substring = description.substring(9, description.indexOf("/by"));
+                    t = new Deadline(substring, by);
+                } else {
+                    int start = description.indexOf("/from") + 6;
+                    int end = description.indexOf("/to") + 4;
+                    String from = description.substring(start, description.indexOf("/to")-1);
+                    String to = description.substring(end);
+                    String substring = description.substring(6, description.indexOf("/from")-1);
+                    t = new Event(substring, from, to);
+                }
                 tasks.add(t);
-                System.out.println("Added: " + description + "\n");
+                System.out.println("Got it! I've added this task:\n    " + t + "\nNow you have " +
+                        tasks.size() + " tasks in your list.\n");
             }
         }
     }
