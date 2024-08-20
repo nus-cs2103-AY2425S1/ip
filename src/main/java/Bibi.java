@@ -118,6 +118,21 @@ public class Bibi {
                     printHorizontalLine();
                     break;
                 }
+                case "remove": {
+                    printHorizontalLine();
+                    if (!cmd.matches("remove \\d+")) {
+                        System.out.println("Invalid event syntax: Please use \"remove <index>\"");
+                    } else if (Integer.parseInt(cmd.split(" ")[1]) > tasks.size()
+                            || Integer.parseInt(cmd.split(" ")[1]) <= 0) {
+                        System.out.println("Invalid task index");
+                    } else {
+                        System.out.println("You will never see this task ever again >:(");
+                        System.out.printf("Removed %s from task list%n", tasks.remove(Integer.parseInt(cmd.split(" ")[1]) - 1));
+                        System.out.printf("You now have %d task(s) to do%n", tasks.size());
+                    }
+                    printHorizontalLine();
+                    break;
+                }
                 default: {
                     // Console
                     printHorizontalLine();
@@ -126,6 +141,10 @@ public class Bibi {
                 }
             }
         }
+    }
+
+    private static void removeFromTaskList(ArrayList<Task> tasks, int index) {
+        tasks.remove(index - 1);
     }
 
     private static void addToTaskList(ArrayList<Task> tasks, Task t) {
