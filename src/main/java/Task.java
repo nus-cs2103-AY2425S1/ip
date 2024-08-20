@@ -7,11 +7,17 @@ abstract class Task {
         this.isDone = false;
     }
 
-    public void checkTask() {
+    public void checkTask() throws ReginaException {
+        if (isDone) {
+            throw new ReginaException("Task is already marked!");
+        }
         this.isDone = true;
     }
 
-    public void uncheckTask() {
+    public void uncheckTask() throws ReginaException {
+        if (!isDone) {
+            throw new ReginaException("Task is already unmarked!");
+        }
         this.isDone = false;
     }
 
