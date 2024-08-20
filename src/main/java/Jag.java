@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Jag {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AExceptions {
         // Variables
         Scanner scanner = new Scanner(System.in);
         String greetings = """
@@ -16,6 +16,7 @@ public class Jag {
                 ------------------""";
         ArrayList<Task> tasks = new ArrayList<>();
         String dashed = "----------";
+
         // Greeting and receiving first input
         System.out.println(greetings);
         String answer = scanner.nextLine();
@@ -93,6 +94,16 @@ public class Jag {
             if (answer.length() >= 4) {
                 String todo = answer.substring(0, 4);
                 if (todo.equals("todo")) {
+                    // Exception handling
+                    if (answer.length() == 4) {
+                        System.out.println(dashed);
+                        AExceptions ex = new AExceptions("The description of a todo cannot be empty.");
+                        System.out.println(ex.getErrorMessage());
+                        System.out.println(dashed);
+                        answer = scanner.nextLine();
+                        continue;
+                    }
+
                     String[] split = answer.split("todo");
                     String description = split[1].trim();
                     Todo newTodo = new Todo(description);
@@ -152,6 +163,15 @@ public class Jag {
                 }
             }
 
+            // Wrong command
+            else {
+                System.out.println(dashed);
+                AExceptions ex = new AExceptions("I'm sorry, but I don't know what that means :-(");
+                System.out.println(ex.getErrorMessage());
+                System.out.println(dashed);
+                answer = scanner.nextLine();
+                continue;
+            }
 
         }
 
