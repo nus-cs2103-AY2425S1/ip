@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Delta {
+    private static ArrayList<String> list = new ArrayList<String>();
+
     public static String sayHello() {
         return "\t____________________________________________________________\n"
                 + "\t Hello! I'm Delta\n"
