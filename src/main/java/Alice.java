@@ -50,7 +50,14 @@ public class Alice {
         String[] result = response.split(" ", 2);
         switch (result[0]) {
             case "mark":
-                int taskNumber = Integer.parseInt(result[1]);
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(result[1]);
+                } catch (NumberFormatException e) {
+                    System.out.println(result[1] + " is not a number!");
+                    System.out.println("------------------------------------------");
+                    break;
+                }
                 if (taskNumber > tasks.size()) {
                     throw new InvalidTaskException(response, taskNumber);
                 }
@@ -62,7 +69,14 @@ public class Alice {
                 System.out.println("------------------------------------------");
                 break;
             case "unmark":
-                int taskNum = Integer.parseInt(result[1]);
+                int taskNum;
+                try {
+                    taskNum = Integer.parseInt(result[1]);
+                } catch (NumberFormatException e) {
+                    System.out.println(result[1] + " is not a number!");
+                    System.out.println("------------------------------------------");
+                    break;
+                }
                 if (taskNum > tasks.size()) {
                     throw new InvalidTaskException(response, taskNum);
                 }
@@ -74,7 +88,14 @@ public class Alice {
                 System.out.println("------------------------------------------");
                 break;
             case "delete":
-                int taskNo = Integer.parseInt(result[1]);
+                int taskNo;
+                try {
+                    taskNo = Integer.parseInt(result[1]);
+                } catch (NumberFormatException e) {
+                    System.out.println(result[1] + " is not a number!");
+                    System.out.println("------------------------------------------");
+                    break;
+                }
                 if (taskNo > tasks.size()) {
                     throw new InvalidTaskException(response, taskNo);
                 }
