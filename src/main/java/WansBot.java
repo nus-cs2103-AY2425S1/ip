@@ -7,7 +7,8 @@ public class WansBot {
             userInput.strip().equalsIgnoreCase("deadline") ||
             userInput.strip().equalsIgnoreCase("event") ||
             userInput.strip().equalsIgnoreCase("mark") ||
-            userInput.strip().equalsIgnoreCase("unmark")) {
+            userInput.strip().equalsIgnoreCase("unmark") ||
+            userInput.strip().equalsIgnoreCase("remove")) {
             throw new InputEmptyException(userInput);
         }
     }
@@ -177,6 +178,13 @@ public class WansBot {
                         + "\nI'll miss you :( (I really wanna go home)\n" + hr);
                 System.exit(0);
                 // Bot doesn't recognize the command
+            } else if (userInput.startsWith("remove ")) {
+                int posTask = Integer.parseInt(userInput.substring(7)) - 1;
+                System.out.println(hr + "\nWans:\n"
+                        + "Ok! I've removed " + userTaskList.number(posTask)
+                        + "\n" + hr);
+                userTaskList.removeTask(posTask);
+                numTasks--;
             } else {
                 System.out.println(hr + "\nWans: \n"
                                 + "I'm sorry I'm not that useful I don't know what "
