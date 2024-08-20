@@ -8,7 +8,11 @@ public class Task {
     }
 
     public void mark() {
-        completed = !completed;
+        completed = true;
+    }
+
+    public void unMark() {
+        completed = false;
     }
 
     public boolean isCompleted() {
