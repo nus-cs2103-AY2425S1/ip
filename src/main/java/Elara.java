@@ -1,3 +1,5 @@
+import jdk.jfr.Event;
+
 import java.util.Scanner;
 
 public class Elara {
@@ -14,6 +16,7 @@ public class Elara {
             if (text.equalsIgnoreCase("bye")) {
                 break;
             } else if (text.equalsIgnoreCase("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < count; i++) {
                     if (list[i] == null) {
                         break;
@@ -35,9 +38,33 @@ public class Elara {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(list[i]);
                 }
-            } else {
-                Task newTask = new Task(text);
-                System.out.println("added: " + newTask.description);
+            } else if (text.toLowerCase().startsWith("todo")) {
+                ToDoTask newTask = new ToDoTask(text.substring(5));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask);
+                System.out.printf("Now you have %d tasks in the list%n", count + 1);
+                list[count] = newTask;
+                count++;
+            } else if (text.toLowerCase().startsWith("deadline")) {
+                int i = text.lastIndexOf("/by ");
+                String description = text.substring(9, i - 1);
+                String deadline = text.substring(i + 4);
+                DeadlineTask newTask = new DeadlineTask(description, deadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask);
+                System.out.printf("Now you have %d tasks in the list%n", count + 1);
+                list[count] = newTask;
+                count++;
+            } else if (text.toLowerCase().startsWith("event")) {
+                int i = text.lastIndexOf("/from ");
+                int j = text.lastIndexOf("/to ");
+                String description = text.substring(5, i - 1);
+                String start = text.substring(i + 6, j - 1);
+                String end = text.substring(j + 3);
+                EventTask newTask = new EventTask(description, start, end);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask);
+                System.out.printf("Now you have %d tasks in the list%n", count + 1);
                 list[count] = newTask;
                 count++;
             }
