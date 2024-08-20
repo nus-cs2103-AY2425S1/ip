@@ -53,10 +53,9 @@ public class Soju {
     public static void runWithHorizontalLine() {
         System.out.println("-------------------------------------");
     }
-    public static void addToList(String description) {
-        Task task = new Task(description);
+    public static void addToList(Task task) {
         tasks.add(task);
-        System.out.println("added: " + description);
+        System.out.println("added: " + task.description);
         runWithHorizontalLine();
     }
     public static void displayList() {
@@ -91,8 +90,66 @@ public class Soju {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks.get(taskIndex));
                 runWithHorizontalLine();
-            } else {
-                addToList(userInput);
+            } else if (userInput.startsWith("todo")){
+                // Extract the task description by removing the "todo " prefix
+                String description = userInput.substring(5).trim();
+
+                // Create a new Todo task with the extracted description
+                Todo todoTask = new Todo(description);
+
+                // Add the task to your tasks list
+                tasks.add(todoTask);
+
+                // Print the confirmation message
+                runWithHorizontalLine(() -> {
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + todoTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                });
+            } else if (userInput.startsWith("deadline")) {
+                // Extract the part after "deadline "
+                String[] parts = userInput.substring(9).split(" /by ", 2);
+
+                // The description is before the "/by"
+                String description = parts[0].trim();
+
+                // The due date is after the "/by"
+                String by = parts[1].trim();
+
+                // Create a new Deadline task
+                Deadline deadlineTask = new Deadline(description, by);
+
+                // Add the task to your tasks list
+                tasks.add(deadlineTask);
+
+                // Print the confirmation message
+                runWithHorizontalLine(() -> {
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + deadlineTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                });
+            } else if (userInput.startsWith("event")) {
+                // Extract the part after "event"
+                String[] parts = userInput.substring(6).split(" /from ", 2);
+                String descriptionPart = parts[0].trim(); // This is the task description
+                String[] timeParts = parts[1].split(" /to ", 2);
+                String from = timeParts[0].trim(); // Start time
+                String to = timeParts[1].trim(); // End time
+
+                // Create a new Event task
+                Event eventTask = new Event(descriptionPart, from, to);
+
+                // Add the task to your tasks list
+                tasks.add(eventTask);
+
+                // Print the confirmation message
+                runWithHorizontalLine(() -> {
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + eventTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                });
+                } else {
+                runWithHorizontalLine(() -> System.out.println("Invalid command"));
             }
         }
         scanner.close();
