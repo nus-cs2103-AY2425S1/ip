@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 /**
 * The Quack chatbot program implements the functionality needed
-* help users keep track of tasks for them.
+* to help users keep track of tasks for them.
 */
 public class Quack {
 
@@ -32,7 +32,7 @@ public class Quack {
     }
     
     /**
-     * Creates a Quack chatbot object.
+     * Constructor to create a Quack chatbot object.
      */
     Quack() {
         this.isRunning = true;
@@ -119,7 +119,7 @@ public class Quack {
         }
         
         // Add the task into the list
-        this.toDoList.addItem(taskDescription.toString(), taskType, startDate, endDate);
+        this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
     }
 
     /**
