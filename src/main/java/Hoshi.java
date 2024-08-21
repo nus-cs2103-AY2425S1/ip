@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Hoshi {
     
-
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
@@ -38,11 +37,11 @@ public class Hoshi {
             String input = scanner.nextLine();
 
             // bye
-            if (input.equals("bye")) {
+            if (input.equalsIgnoreCase("bye")) {
                 break;
 
                 // list
-            } else if (input.equals("list")) {
+            } else if (input.equalsIgnoreCase("list")) {
 
                 if (!arrayList.isEmpty()) {
 
@@ -57,165 +56,195 @@ public class Hoshi {
 
 
                 // mark
-            } else if (input.startsWith("mark")) {
+            } else if (input.toLowerCase().startsWith("mark")) {
 
-                // split string
-                String[] splitInput = input.split(" ");
+                if (input.trim().length() < 5) {
+                    System.out.println("Please specify the task number to mark!");
 
-                // get only the number from the 2nd half of the splitInput
-                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                } else {
 
-                System.out.println(markIndex);
+                    // split string
+                    String[] splitInput = input.split(" ");
 
-                try {
+                    // get only the number from the 2nd half of the splitInput
+                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
 
-                    // if specified index is not out of bounds
-                    if (markIndex <= arrayList.size() - 1) {
+                    try {
 
-                        arrayList.get(markIndex).setIsDone(true);
+                        // if specified index is not out of bounds
+                        if (markIndex <= arrayList.size() - 1) {
 
-                        System.out.println("Nice! I've marked this task as done: \n");
-                        System.out.println(arrayList.get(markIndex).toString() + "\n");
-                    } else {
-                        throw new HoshiException("Hoshi doesn't have such a task!");
+                            arrayList.get(markIndex).setIsDone(true);
+
+                            System.out.println("Nice! I've marked this task as done: \n");
+                            System.out.println(arrayList.get(markIndex).toString() + "\n");
+                        } else {
+                            throw new HoshiException("Hoshi doesn't have such a task!");
+                        }
+
+
+                    } catch (HoshiException e) {
+                        System.out.println(e.getMessage());
                     }
 
-
-                } catch (HoshiException e) {
-                    System.out.println(e.getMessage());
                 }
 
 
                 // unmark
-            } else if (input.startsWith("unmark")) {
+            } else if (input.toLowerCase().startsWith("unmark")) {
 
-                // split string
-                String[] splitInput = input.split(" ");
+                if (input.trim().length() < 7) {
+                    System.out.println("Please specify the task number to unmark! \n");
 
-                // get only the number from the 2nd half of the splitInput
-                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                } else {
 
-                try {
+                    // split string
+                    String[] splitInput = input.split(" ");
 
-                    // if specified index is not out of bounds
-                    if (markIndex <= arrayList.size() - 1) {
+                    // get only the number from the 2nd half of the splitInput
+                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
 
-                        // set isDone to false
-                        arrayList.get(markIndex).setIsDone(false);
+                    try {
 
-                        System.out.println("OK, I've marked this task as not done yet: \n");
-                        System.out.println(arrayList.get(markIndex).toString() + "\n");
+                        // if specified index is not out of bounds
+                        if (markIndex <= arrayList.size() - 1) {
 
-                    } else {
-                        throw new HoshiException("Hoshi doesn't have such a task!");
+                            // set isDone to false
+                            arrayList.get(markIndex).setIsDone(false);
+
+                            System.out.println("OK, I've marked this task as not done yet: \n");
+                            System.out.println(arrayList.get(markIndex).toString() + "\n");
+
+                        } else {
+                            throw new HoshiException("Hoshi doesn't have such a task! \n");
+                        }
+
+                    } catch (HoshiException e) {
+                        System.out.println(e.getMessage());
                     }
-
-                } catch (HoshiException e) {
-                    System.out.println(e.getMessage());
                 }
 
+
                 // delete a task
-            } else if (input.startsWith("delete")) {
+            } else if (input.toLowerCase().startsWith("delete")) {
 
-                // split string
-                String[] splitInput = input.split(" ");
+                if (input.length() < 7) {
+                    System.out.println("Please specify the task number to delete! \n");
 
-                // get only the number from the 2nd half of the splitInput
-                int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                } else {
 
-                System.out.println("OK, Hoshi has removed ( " + arrayList.get(markIndex).getDesc() + " )! \n");
+                    // split string
+                    String[] splitInput = input.split(" ");
 
-                arrayList.remove(markIndex);
+                    // get only the number from the 2nd half of the splitInput
+                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
+
+                    System.out.println("OK, Hoshi has removed ( " + arrayList.get(markIndex).getDesc() + " )! \n");
+
+                    arrayList.remove(markIndex);
+                }
 
                 // add a Task
-            } else if (input.startsWith("add")) {
+            } else if (input.toLowerCase().startsWith("add")) {
 
-                String[] splitInput = input.split(" ");
-                String taskInput = splitInput[1];
+                if (input.trim().length() < 4) {
 
-                switch (taskInput) {
-                    case "todo" -> {
+                    System.out.println("Please specify the task to add! E.g. Add {task to be added} \n");
 
-                        System.out.println("Understood! What is your ToDo? ");
-                        String desc = scanner.nextLine();
-
-                        try {
-
-                            if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi dosen't understand! Is input empty?");
-                            }
-
-                            Todo newToDo = new Todo(desc);
-                            arrayList.add(newToDo);
-                            System.out.println("added: " + input);
-
-                        } catch (HoshiException e) {
-                            System.out.println(e.getMessage());
-                        }
+                } else {
+                    {
 
                     }
-                    case "deadline" -> {
+                    String[] splitInput = input.split(" ");
 
-                        System.out.println("Understood! What is your Deadline? ");
-                        String desc = scanner.nextLine();
 
-                        try {
+                    String taskInput = splitInput[1];
 
-                            if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi dosen't understand! Is input empty?");
+                    switch (taskInput) {
+                        case "todo" -> {
+
+                            System.out.println("Understood! What is your ToDo? ");
+                            String desc = scanner.nextLine();
+
+                            try {
+
+                                if (desc.isEmpty()) {
+                                    throw new HoshiException("Hoshi dosen't understand! Is input empty? \n");
+                                }
+
+                                Todo newToDo = new Todo(desc);
+                                arrayList.add(newToDo);
+                                System.out.println("added: " + input);
+
+                            } catch (HoshiException e) {
+                                System.out.println(e.getMessage());
                             }
 
-                            System.out.println("When would you like your Deadline to be due by? ");
-
-                            // take in input
-                            String endTime = scanner.nextLine();
-
-                            Deadline newDeadline = new Deadline(desc, endTime);
-                            arrayList.add(newDeadline);
-                            System.out.println("added: " + input);
-
-                        } catch (HoshiException e) {
-                            System.out.println(e.getMessage());
                         }
+                        case "deadline" -> {
 
+                            System.out.println("Understood! What is your Deadline? ");
+                            String desc = scanner.nextLine();
 
-                    }
-                    case "event" -> {
+                            try {
 
-                        System.out.println("Understood! What is your Event? ");
+                                if (desc.isEmpty()) {
+                                    throw new HoshiException("Hoshi dosen't understand! Is input empty? \n");
+                                }
 
-                        String desc = scanner.nextLine();
+                                System.out.println("When would you like your Deadline to be due by? ");
 
-                        try {
-                            if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi dosen't understand! Is input empty?");
+                                // take in input
+                                String endTime = scanner.nextLine();
+
+                                Deadline newDeadline = new Deadline(desc, endTime);
+                                arrayList.add(newDeadline);
+                                System.out.println("added: " + input);
+
+                            } catch (HoshiException e) {
+                                System.out.println(e.getMessage());
                             }
 
-                            System.out.println("When would you like your Event to start? ");
 
-                            // take in input
-                            String startTime = scanner.nextLine();
-
-                            System.out.println("When would you like your Event to end? ");
-
-                            // take in input
-                            String endTime = scanner.nextLine();
-
-                            Event newEvent = new Event(desc, startTime, endTime);
-                            arrayList.add(newEvent);
-                            System.out.println("added: " + input);
-
-
-                        } catch (HoshiException e) {
-                            System.out.println(e.getMessage());
                         }
+                        case "event" -> {
+
+                            System.out.println("Understood! What is your Event? ");
+
+                            String desc = scanner.nextLine();
+
+                            try {
+                                if (desc.isEmpty()) {
+                                    throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
+                                }
+
+                                System.out.println("When would you like your Event to start? ");
+
+                                // take in input
+                                String startTime = scanner.nextLine();
+
+                                System.out.println("When would you like your Event to end? ");
+
+                                // take in input
+                                String endTime = scanner.nextLine();
+
+                                Event newEvent = new Event(desc, startTime, endTime);
+                                arrayList.add(newEvent);
+                                System.out.println("added: " + input);
 
 
+                            } catch (HoshiException e) {
+                                System.out.println(e.getMessage());
+                            }
+
+
+                        }
+                        default ->
+
+                            // in event of invalid input
+                                System.out.println("Hoshi doesn't understand! Please try again with the above keywords");
                     }
-                    default ->
 
-                        // in event of invalid input
-                            System.out.println("Hoshi doesn't understand! Please try again with the above keywords(in lowercase)");
                 }
 
             } else {
