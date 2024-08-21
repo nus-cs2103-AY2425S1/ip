@@ -4,7 +4,7 @@ public class Zenith {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<Task> list = new ArrayList<Task>();
         int listCount = 1;
 
         System.out.println(Message.getGreeting());
@@ -16,8 +16,8 @@ public class Zenith {
             switch (input) {
                 case "list":
                     list = user.getList();
-                    for (String item: list) {
-                        System.out.println(listCount + ". " + item);
+                    for (Task item: list) {
+                        System.out.println(listCount + ". " + "[" + (item.getStatus() ? "X" : " ") + "] " + item.getDescription());
                         listCount++;
                     }
                     System.out.println();

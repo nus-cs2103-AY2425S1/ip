@@ -2,17 +2,17 @@ import java.util.ArrayList;
 
 public class User {
 
-    private ArrayList<String> list;
+    private ArrayList<Task> list;
 
     public User() {
-        this.list = new ArrayList<String>();
+        this.list = new ArrayList<Task>();
     }
 
     public void addList(String content) {
-        this.list.add(content);
+        this.list.add(new Task(content));
     }
 
-    public ArrayList<String> getList() {
+    public ArrayList<Task> getList() {
         return this.list;
     }
 
