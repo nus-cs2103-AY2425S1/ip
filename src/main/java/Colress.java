@@ -2,22 +2,36 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Colress {
-    private static ArrayList<Task> taskList = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
     private static String input = "";
-    private static String spacer = "____________________________________________________________________\n";
-    private static String greetingMessage = "Hello! My name is Colress.\n"
+    private static final String spacer = "____________________________________________________________________\n";
+    private static final String greetingMessage = "Hello! My name is Colress.\n"
             + "What brings you here?";
-    private static String listEmptyMessage = "It appears you have not added anything to your list.";
-    private static String farewellMessage = "Well then, I hope to see you around soon!";
-    private static String addCommand = "add";
-    private static String checkCommand = "check";
-    private static String uncheckCommand = "uncheck";
-    private static String deleteCommand = "delete";
-    private static String listCommand = "list";
-    private static String exitCommand = "bye";
+    private static final String taskTypePrompt = "Enter the type of task you wish to add to your list.";
+    private static final String taskDescriptionPrompt = "Enter the description of the task.";
+    private static final String eventDescriptionPrompt = "Enter the description of the event.";
+    private static final String deadlinePrompt = "Enter the deadline.";
+    private static final String eventDatePrompt = "Enter the date of the event.";
+    private static final String eventStartTimePrompt = "Enter the starting time of the event.";
+    private static final String eventEndTimePrompt = "Enter the ending time of the event.";
+    private static final String taskNumberPrompt = "Enter the task number.";
+    private static final String addConfirmationMessage = "Okay. I have added this task to your list:";
+    private static final String checkConfirmationMessage = "Sure. I have marked this task on your list as done:";
+    private static final String uncheckConfirmationMessage = "Right. I have marked this task on your list as not done:";
+    private static final String deleteConfirmationMessage = "Got it. I have removed the task from your list.";
+    private static final String notANumberMessage = "You did not seem to have entered a number. Try Again.";
+    private static final String notAValidNumberMessage = "You did not seem to have entered a valid number. Try Again.";
+    private static final String listEmptyMessage = "Your list is empty.";
+    private static final String farewellMessage = "Well then, I hope to see you around soon!";
+    private static final String addCommand = "add";
+    private static final String checkCommand = "check";
+    private static final String uncheckCommand = "uncheck";
+    private static final String deleteCommand = "delete";
+    private static final String listCommand = "list";
+    private static final String exitCommand = "bye";
     public static void print(String s) {
-        System.out.println(spacer + s + "\n" + spacer);
+        System.out.println(Colress.spacer + s + "\n" + Colress.spacer);
     }
 
     public static void getInput() {
@@ -26,20 +40,20 @@ public class Colress {
 
     public static void makeList() {
         Colress.getInput();
-        while (!Colress.input.equals(exitCommand)) {
+        while (!Colress.input.equals(Colress.exitCommand)) {
             try {
-                if (Colress.input.equals(addCommand)) {
-                    Colress.addTask();
-                } else if (Colress.input.equals(checkCommand)) {
-                    Colress.editList("check");
-                } else if (Colress.input.equals(uncheckCommand)) {
-                    Colress.editList("uncheck");
-                } else if (Colress.input.equals(deleteCommand)) {
-                    Colress.editList("delete");
-                } else if (Colress.input.equals(listCommand)) {
-                    Colress.print(Colress.printList());
-                } else {
-                    throw new UnknownCommandException();
+                switch (Colress.input) {
+                    case Colress.addCommand:
+                        Colress.addTask();
+                        break;
+                    case Colress.checkCommand, Colress.uncheckCommand, Colress.deleteCommand:
+                        Colress.editList(Colress.input);
+                        break;
+                    case Colress.listCommand:
+                        Colress.print(Colress.printList());
+                        break;
+                    default:
+                        throw new UnknownCommandException();
                 }
             } catch (UnknownCommandException e) {
                 print(String.valueOf(e));
@@ -58,48 +72,57 @@ public class Colress {
 
         while (currTask == null) {
             try {
-                print("Enter the type of task you wish to add to your list.");
+                print(Colress.taskTypePrompt);
                 Colress.getInput();
 
                 switch (Colress.input) {
                     case "todo":
-                        Colress.print("Enter the description of the task.");
+                        Colress.print(Colress.taskDescriptionPrompt);
                         description = Colress.scanner.nextLine();
 
                         currTask = new ToDo(description);
                         Colress.taskList.add(currTask);
-                        Colress.print("Okay. I have added this task to your list:\n"
-                                + Colress.taskList.size() + "." + currTask);
+                        Colress.print(Colress.addConfirmationMessage
+                                + "\n"
+                                + Colress.taskList.size()
+                                + "."
+                                + currTask);
                         break;
                     case "deadline":
-                        Colress.print("Enter the description of the task.");
+                        Colress.print(Colress.taskDescriptionPrompt);
                         description = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the deadline.");
+                        Colress.print(Colress.deadlinePrompt);
                         date = Colress.scanner.nextLine();
 
                         currTask = new Deadline(description, date);
                         Colress.taskList.add(currTask);
-                        Colress.print("Okay. I have added this task to your list:\n"
-                                + Colress.taskList.size() + "." + currTask);
+                        Colress.print(Colress.addConfirmationMessage
+                                + "\n"
+                                + Colress.taskList.size()
+                                + "."
+                                + currTask);
                         break;
                     case "event":
-                        Colress.print("Enter the description of the event.");
+                        Colress.print(Colress.eventDescriptionPrompt);
                         description = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the date of the event.");
+                        Colress.print(Colress.eventDatePrompt);
                         date = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the starting time of the event.");
+                        Colress.print(Colress.eventStartTimePrompt);
                         from = Colress.scanner.nextLine();
 
-                        Colress.print("Enter the ending time of the event.");
+                        Colress.print(Colress.eventEndTimePrompt);
                         to = Colress.scanner.nextLine();
 
                         currTask = new Event(description, date, from, to);
                         Colress.taskList.add(currTask);
-                        Colress.print("Okay. I have added this task to your list:\n"
-                                + Colress.taskList.size() + "." + currTask);
+                        Colress.print(Colress.addConfirmationMessage
+                                + "\n"
+                                + Colress.taskList.size()
+                                + "."
+                                + currTask);
                         break;
                     default:
                         throw new UnknownTaskTypeException();
@@ -108,7 +131,6 @@ public class Colress {
                 print(String.valueOf(e));
             }
         }
-
     }
 
     public static void editList(String action) throws UnknownCommandException {
@@ -118,30 +140,28 @@ public class Colress {
             int index = -1;
             Task currTask = null;
             while (currTask == null) {
-                Colress.print("Enter the task number.");
+                Colress.print(Colress.taskNumberPrompt);
                 try {
                     index = Integer.parseInt(Colress.scanner.nextLine());
                     currTask = Colress.taskList.get(index - 1);
                 } catch (NumberFormatException e) {
-                    print("You did not seem to have entered a number. Try Again.");
+                    print(Colress.notANumberMessage);
                 } catch (IndexOutOfBoundsException e) {
-                    print("You did not seem to have entered a valid number. Try Again.");
+                    print(Colress.notAValidNumberMessage);
                 }
             }
             switch (action) {
                 case "check":
                     currTask.check();
-                    Colress.print("Sure. I have marked this task on your list as done:\n"
-                            + index + "." + currTask);
+                    Colress.print(Colress.checkConfirmationMessage + "\n" + index + "." + currTask);
                     break;
                 case "uncheck":
                     currTask.uncheck();
-                    Colress.print("Right. I have marked this task on your list as not done:\n"
-                            + index + "." + currTask);
+                    Colress.print(Colress.uncheckConfirmationMessage + "\n" + index + "." + currTask);
                     break;
                 case "delete":
                     taskList.remove(index - 1);
-                    Colress.print("Got it. I have removed the task from your list.\n" + printList());
+                    Colress.print(Colress.deleteConfirmationMessage + "\n" + printList());
                     break;
                 default:
                     throw new UnknownCommandException();
