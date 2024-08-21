@@ -28,24 +28,33 @@ public class Rex {
             System.out.println(separation);
             // Takes in user input and extract command
             String[] input = scanner.nextLine().split(" ", 2);
-            String command = input[0];
+
+            Command command;
+            try {
+                command = Command.inputToCommand(input[0]);
+            } catch (InvalidInputException e) {
+                System.out.println(separation);
+                System.out.println(errorPrefix + " " + e.getMessage());
+                System.out.println("Enter \"help\" for a list of what I do know! " + rawr);
+                continue;
+            }
 
             // Process user command
             try {
                 switch (command) {
                     // List all valid commands
-                    case "help":
+                    case HELP:
                         // help should be used alone
                         if (input.length > 1) {
                             throw new InvalidInputException(errorPrefix + " Too many arguments!");
                         }
 
-                        listCommands();
+                        System.out.println(Command.listCommands());
                         break;
                     // Adding a task to list
-                    case "todo":
-                    case "deadline":
-                    case "event":
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
                         // Argument cannot be empty
                         if (input.length <= 1) {
                             throw new InvalidInputException(errorPrefix + " Task description cannot be empty!");
@@ -56,7 +65,7 @@ public class Rex {
                         Task newTask = createTask(list, command, argument);
                         break;
                     // Display items added as a numbered list
-                    case "list":
+                    case LIST:
                         // list should be used alone
                         if (input.length > 1) {
                             throw new InvalidInputException(errorPrefix + " Too MANY arguments!");
@@ -65,9 +74,9 @@ public class Rex {
                         displayList(list);
                         break;
                     // Mark/unmark task in specified index as done
-                    case "mark":
-                    case "unmark":
-                    case "delete":
+                    case MARK:
+                    case UNMARK:
+                    case DELETE:
                         // Must have a number argument
                         if (input.length <= 1) {
                             throw new InvalidInputException(errorPrefix + " Too FEW arguments!");
@@ -80,20 +89,20 @@ public class Rex {
                         Task actionTask = list.get(index - 1);
 
                         // Mark/unmark task according to command
-                        if (command.equals("mark")) {
+                        if (command.equals(Command.MARK)) {
                             actionTask.markDone();
-                        } else if (command.equals("unmark")) {
+                        } else if (command.equals(Command.UNMARK)) {
                             actionTask.unmarkDone();
                         } else {
                             // Delete task from list
                             deleteTask(list, actionTask);
                         }
                         break;
-                    case "rawr":
+                    case RAWR:
                         System.out.println(separation);
                         System.out.println(rawr + "!");
                     // Exit program
-                    case "bye":
+                    case BYE:
                         // bye should be used alone
                         if (input.length > 1) {
                             throw new InvalidInputException(errorPrefix + " Too many arguments!");
@@ -107,32 +116,29 @@ public class Rex {
                         // Close scanner to avoid memory leaks
                         scanner.close();
                         return;
-                    // Unknown command, guide user to recognized commands
-                    default:
-                        System.out.println(separation);
-                        System.out.println(errorPrefix + " I don't know what that means!!!");
-                        System.out.println("Enter \"help\" for a list of what I do know! " + rawr);
                 }
             } catch (InvalidInputException e) {
                 System.out.println(separation);
                 System.out.println(e.getMessage());
+                System.out.println("Usage: " + Command.usageMessage(command));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 System.out.println(errorPrefix + " Invalid task number!");
+                System.out.println("Usage: " + Command.usageMessage(command));
             } catch (InvalidTaskException e) {
-                continue;
+                System.out.println("Usage: " + Command.usageMessage(command));
             }
         }
     }
 
-    private static Task createTask(List<Task> list, String command, String argument) throws InvalidTaskException {
+    private static Task createTask(List<Task> list, Command command, String argument) throws InvalidTaskException {
         System.out.println(separation);
 
         Task newTask;
         try {
-            if (command.equals("todo")) {
+            if (command.equals(Command.TODO)) {
                 // Create new ToDo task
                 newTask = new ToDo(argument);
-            } else if (command.equals("deadline")) {
+            } else if (command.equals(Command.DEADLINE)) {
                 // Create new Deadline task
                 newTask = createDeadline(argument);
             } else {
@@ -200,34 +206,5 @@ public class Rex {
         System.out.println("Noted. I've removed this task:");
         System.out.println(actionTask);
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
-    }
-
-    private static void listCommands() {
-        String spaces = "  ";
-        System.out.println(separation);
-        System.out.println("Here are a list of valid commands and how to use them: ");
-        System.out.println();
-
-        System.out.println(spaces + "Adding tasks:");
-        System.out.println(spaces + "* todo <description>");
-        System.out.println(spaces + "* deadline <description> /by <date>");
-        System.out.println(spaces + "* event <description> /from <date/time> /to <date/time>");
-        System.out.println();
-
-        System.out.println(spaces + "List all tasks:");
-        System.out.println(spaces + "* list");
-        System.out.println();
-
-        System.out.println(spaces + "Mark/Unmark tasks:");
-        System.out.println(spaces + "* mark <task number>");
-        System.out.println(spaces + "* unmark <task number>");
-        System.out.println();
-
-        System.out.println(spaces + "rawr:");
-        System.out.println(spaces + "* rawr");
-        System.out.println();
-
-        System.out.println(spaces + "Exit:");
-        System.out.println(spaces + "* bye");
     }
 }
