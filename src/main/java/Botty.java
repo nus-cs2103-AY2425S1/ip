@@ -28,6 +28,19 @@ public class Botty {
 
         System.out.println();
 
+        Scanner inputScanner = new Scanner(System.in);
+
+        while (true) {
+            String userInput = inputScanner.nextLine();
+            if (userInput.equals("bye")) {
+                break;
+            }
+
+            System.out.println(bottySymbol + userInput);
+            System.out.println();
+        }
+
+        inputScanner.close();
         System.out.println(bottySymbol + "Thank you for your continued patronage. Goodbye!");
     }
 }
