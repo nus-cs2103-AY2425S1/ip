@@ -1,8 +1,9 @@
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone;
     protected String icon;
 
+    public abstract String getDetails();
     public Task(String name) {
         this.name = name;
         this.isDone = false;
