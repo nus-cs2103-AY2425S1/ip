@@ -37,6 +37,51 @@ ____________________________________________________________
  OK, I've marked this task as not done yet:
    [D][ ] return book (by: Sunday)
 ____________________________________________________________
+ list
+____________________________________________________________
+Here are the tasks in your list:
+ 1. [T][ ] borrow book
+ 2. [D][ ] return book (by: Sunday)
+ 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+_____________________________________________________________
+ event arron lecture /from Tue 2pm /to 4pm
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] arron lecture (from: Tue 2pm to: 4pm)
+ Now you have 4 tasks in the list.
+____________________________________________________________
+ delete 2
+____________________________________________________________
+ Noted. I've removed this task:
+   [D][ ] return book (by: Sunday)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+ mark 4
+____________________________________________________________
+ OOPS!!! The task number is out of range.
+____________________________________________________________
+ invalid command
+____________________________________________________________
+ OOPS!!! I'm sorry, but I don't understand that command.
+____________________________________________________________
+ deadline
+____________________________________________________________
+ OOPS!!! The description of a deadline must include a '/by' clause.
+____________________________________________________________
+ todo
+____________________________________________________________
+ OOPS!!! The description of a todo cannot be empty.
+____________________________________________________________
+ event sleep /from
+____________________________________________________________
+ OOPS!!! The description of an event must include '/from' and '/to' clauses.
+____________________________________________________________
+ delete 1
+____________________________________________________________
+ Noted. I've removed this task:
+   [T][ ] borrow book
+ Now you have 2 tasks in the list.
+____________________________________________________________
  bye
 ____________________________________________________________
  Bye. Hope to see you again soon!
