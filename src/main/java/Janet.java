@@ -128,6 +128,7 @@ public class Janet {
 
 
     /**
+     * Level 6 - delete task
      * @param desiredTaskNum specifies the index of the task, inside listOfTasks, + 1.
      * @return a String message to indicate successful deletion of the desired task from listOfTasks.
      */
