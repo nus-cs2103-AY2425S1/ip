@@ -72,13 +72,29 @@ public class Joe {
 
     public static void mark(int idx) {
         System.out.println(line);
-        if (idx-1 < taskCount) {
+        if (idx > 0 && idx-1 < taskCount) {
             Task toBeMarked = userTasks[idx-1];
             if (!toBeMarked.isDone()) {
                 toBeMarked.setDone(true);
                 System.out.printf("Nice! I've marked this task as done:\n  %s\n", toBeMarked);
             } else {
-                System.out.println("This task has already been marked.");
+                System.out.println("This task is already marked.");
+            }
+        } else {
+            System.out.printf("There is no task %d\n", idx);
+        }
+        System.out.println(line);
+    }
+
+    public static void unmark(int idx) {
+        System.out.println(line);
+        if (idx > 0 && idx-1 < taskCount) {
+            Task toBeUnmarked = userTasks[idx-1];
+            if (toBeUnmarked.isDone()) {
+                toBeUnmarked.setDone(false);
+                System.out.printf("Ok, I've marked this task as not done yet:\n  %s\n", toBeUnmarked);
+            } else {
+                System.out.println("This task is already unmarked.");
             }
         } else {
             System.out.printf("There is no task %d\n", idx);
@@ -97,17 +113,9 @@ public class Joe {
             if (userIn.equalsIgnoreCase("list")) {
                 list();
             } else if (userIn.startsWith("mark")) {
-                int idx = -1;
-                int n = userIn.length();
-                for (int i = 5; i < n; i++) {
-                    while (i < n && Character.isDigit(userIn.charAt(i))) {
-                        if (idx < 0) {
-                            idx = 0;
-                        }
-                        idx = idx * 10 + (userIn.charAt(i++) - '0');
-                    }
-                }
-                mark(idx);
+                mark(getDigits(userIn));
+            } else if (userIn.startsWith("unmark")) {
+                unmark(getDigits(userIn));
             } else {
                 add(userIn);
             }
@@ -115,5 +123,19 @@ public class Joe {
         }
 
         bye();
+    }
+
+    private static int getDigits(String userIn) {
+        int idx = -1;
+        int n = userIn.length();
+        for (int i = 5; i < n; i++) {
+            while (i < n && Character.isDigit(userIn.charAt(i))) {
+                if (idx < 0) {
+                    idx = 0;
+                }
+                idx = idx * 10 + (userIn.charAt(i++) - '0');
+            }
+        }
+        return idx;
     }
 }
