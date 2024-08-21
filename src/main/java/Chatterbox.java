@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 public class Chatterbox {
     final static String botName = "Chatterbox";
     public static String greeting() {
@@ -25,22 +27,32 @@ ____________________________________________________________
 //                + "|____/ \\__,_|_|\\_\\___|\n";
         Scanner scanner = new Scanner(System.in);
         System.out.println(greeting());
-        String input = "";
-        Boolean done = false;
+        String[] userList = new String[100];
+        int current  = 0;
 
         while (true) {
             String response = scanner.nextLine();
             if (response.equals("bye")) {
                 break;
-            } else {
-                System.out.println(response);
+            } else if (response.equals("list")){
+                System.out.println("____________________________________________________________");
+
+                for (int i  = 0; i < current; i++) {
+                    System.out.println(String.format(i+1 +". %s", userList[i]));
+                }
+                System.out.println("____________________________________________________________");
+
+            }else {
+                userList[current] = response;
+                current++;
+                System.out.println("added: " + response);
                 System.out.println("____________________________________________________________");
             }
         }
         System.out.println(goodBye());
 
 
-
+        scanner.close();
 
     }
 }
