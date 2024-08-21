@@ -3,11 +3,14 @@ public class Task {
 
     private static final ArrayList<Task> list = new ArrayList<Task>();
     private final String task;
+    private boolean completed;
+
 
 
     public Task(String t) {
         this.task = t;
         Task.list.add(this);
+        this.completed = false;
     }
 
     public static void printList() {
@@ -18,9 +21,32 @@ public class Task {
         }
     }
 
+    public static void mark(int i) {
+        Task t = Task.list.get(i);
+        t.done();
+    }
+
+    public static void unmark(int i) {
+        Task t = Task.list.get(i);
+        t.undone();
+    }
+
+    private void done() {
+        this.completed = true;
+    }
+
+    private void undone() {
+        this.completed = false;
+    }
 
     @Override
     public String toString() {
-        return " " + this.task;
+        String done;
+        if (this.completed) {
+            done = "[X]";
+        } else {
+            done = "[ ]";
+        }
+        return done + " " + this.task;
     }
 }

@@ -8,6 +8,19 @@ public class Bob {
         while (true) {
             Scanner input = new Scanner(System.in);
             s = input.nextLine();
+            int i = s.indexOf(" ");
+            if (i != -1) {
+                String s1 = s.substring(0, i);
+                if (s1.equals("mark") || s1.equals("unmark")) {
+                    int a = Integer.parseInt(s.substring(i+1)) - 1;
+                    if (s1.equals("mark")) {
+                        Task.mark(a);
+                    } else {
+                        Task.unmark(a);
+                    }
+                    s = "list";
+                }
+            }
             if (s.equals("list")) {
                 Task.printList();
             } else if (s.equals("bye")) {
