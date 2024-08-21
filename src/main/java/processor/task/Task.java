@@ -23,14 +23,14 @@ public abstract class Task {
     this.state = state;
   }
 
-  public static Task of(String type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException {
+  public static Task of(TaskType type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException {
     switch (type) {
-      case "todo":
+      case Todo:
         if (arg.replaceAll("\\s+", "").isEmpty()) {
           throw new TodoEmptyNameException();
         }
         return new Todo(arg);
-      case "deadline":
+      case Deadline:
         final List<String> deadlineArgs = Arrays.asList(arg.split("/by "));
         if (deadlineArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
           throw new DeadlineEmptyNameException();
@@ -40,7 +40,7 @@ public abstract class Task {
         }
 
         return new Deadline(deadlineArgs.get(0), deadlineArgs.get(1));
-      case "event":
+      case Event:
         final List<String> eventArgs = Arrays.asList(arg.split("/"));
         if (eventArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
           throw new EventEmptyNameException();
@@ -73,7 +73,7 @@ public abstract class Task {
         return new Event(eventArgs.get(0), from, to);
     }
 
-    return null;
+    throw new IllegalStateException();
   }
 
   public abstract Task mark();

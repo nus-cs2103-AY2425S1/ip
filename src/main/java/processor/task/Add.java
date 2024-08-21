@@ -21,7 +21,7 @@ public class Add {
     if (prompts.size() < 2) {
       throw new TodoEmptyNameException();
     }
-    final Task newTask = Task.of("todo", prompts.get(1));
+    final Task newTask = Task.of(TaskType.Todo, prompts.get(1));
     return Add.process(newTask);
   }
 
@@ -30,7 +30,7 @@ public class Add {
     if (prompts.size() < 2) {
       throw new DeadlineEmptyNameException();
     }
-    final Task newTask = Task.of("deadline", prompts.get(1));
+    final Task newTask = Task.of(TaskType.Deadline, prompts.get(1));
     return Add.process(newTask);
   }
 
@@ -39,7 +39,7 @@ public class Add {
     if (prompts.size() < 2) {
       throw new EventEmptyNameException();
     }
-    final Task newTask = Task.of("event", prompts.get(1));
+    final Task newTask = Task.of(TaskType.Event, prompts.get(1));
     return Add.process(newTask);
   }
 }
