@@ -21,8 +21,17 @@ public class Twilight {
                 tasks.get(task_num).unDone();
                 System.out.println("Fine I have unmarked it: " + tasks.get(task_num).toString());
             } else {
-                tasks.add(new Task(command));
-                System.out.println("added: " + command);
+                if (command.substring(0, 4).equals("todo")) {
+                    tasks.add(new Todo(command.substring(5)));
+                } else if (command.substring(0, 5).equals("event")) {
+                    String[] split = command.split(" /from | /to ");
+                    tasks.add(new Event(split[0].substring(6), split[1], split[2]));
+                } else {
+                    String[] split = command.split(" /by ");
+                    tasks.add(new Deadline(split[0].substring(9), split[1]));
+                }
+                System.out.println("added: " + tasks.get(tasks.size() - 1).toString());
+                System.out.println("There are " + tasks.size() + " tasks in the list");
             }
             command = input.nextLine();
         }
