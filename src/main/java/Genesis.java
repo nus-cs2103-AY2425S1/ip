@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Genesis {
     public static void main(String[] args) {
 
@@ -10,13 +11,19 @@ public class Genesis {
         System.out.println("Hello! I'm Genesis!\n"
                 + "What can I do for you?\n");
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> items = new ArrayList<>();
         while (true) {
             String input = sc.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                for (int i = 0; i < items.size(); i++) {
+                    System.out.println(i + 1 + ". " + items.get(i));
+                }
             } else {
-                System.out.println(input);
+                items.add(input);
+                System.out.println("added: " + input);
             }
         }
 
