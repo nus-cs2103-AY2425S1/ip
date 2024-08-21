@@ -1,4 +1,4 @@
-import java.util.NoSuchElementException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hyperion {
@@ -7,9 +7,8 @@ public class Hyperion {
         String greet1 = "Hello! I'm Hyperion\n";
         String greet2 = "What can I do for you?\n";
         String exit = "Bye. Hope to see you again soon!";
-        // initialize an array of size 100 to store user input
-        Task[] allUserInputs = new Task[100];
-        int count = 0;
+        // initialize an arraylist to store all the tasks
+        ArrayList<Task> allUserInputs = new ArrayList<>();
         // greets the user
         System.out.println(solidLine + greet1 + greet2 + solidLine);
         // obtains user input and exits only when user types bye
@@ -21,9 +20,9 @@ public class Hyperion {
                 System.out.print(solidLine);
                 if (input.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < count; i++) {
+                    for (int i = 0; i < allUserInputs.size(); i++) {
                         String index = String.format("%d. ", i + 1);
-                        System.out.println(index + allUserInputs[i].toString());
+                        System.out.println(index + allUserInputs.get(i).toString());
                     }
                     System.out.print(solidLine);
                 } else if (input.startsWith("mark") || input.startsWith("unmark")) {
@@ -42,25 +41,25 @@ public class Hyperion {
                         }
                     }
                     if (command.equals("mark")) {
-                        if (index >= 0 && index < count) {
-                            allUserInputs[index].markAsDone();
+                        if (index >= 0 && index < allUserInputs.size()) {
+                            allUserInputs.get(index).markAsDone();
                             System.out.println(
                                     "Nice! I've marked this task as done:\n " +
-                                            allUserInputs[index].toString());
+                                            allUserInputs.get(index).toString());
                         }
                     }
                     if (command.equals("unmark")) {
-                        if (index >= 0 && index < count) {
-                            allUserInputs[index].markAsNotDone();
+                        if (index >= 0 && index < allUserInputs.size()) {
+                            allUserInputs.get(index).markAsNotDone();
                             System.out.println(
                                     "OK, I've marked this task as not done yet:\n " +
-                                            allUserInputs[index].toString());
+                                            allUserInputs.get(index).toString());
                         }
                     }
                     System.out.print(solidLine);
                 } else {
                     String str1 = "Got it. I've added this task:\n ";
-                    String str2 = String.format("Now you have %d tasks in the list", count + 1);
+                    String str2 = String.format("Now you have %d tasks in the list", allUserInputs.size() + 1);
                     if (input.startsWith("todo")) {
                         // should do split also
                         String[] inputArray = input.split(" ", 2);
@@ -69,8 +68,7 @@ public class Hyperion {
                         }
                         if (inputArray.length == 2) {
                             ToDos current = new ToDos(inputArray[1]);
-                            allUserInputs[count] = current;
-                            count++;
+                            allUserInputs.add(current);
                             System.out.println(str1 + current.toString() + "\n" + str2);
                             System.out.print(solidLine);
                         } else {
@@ -85,8 +83,7 @@ public class Hyperion {
                         }
                         if (inputArray.length == 2) {
                             Deadlines current = new Deadlines(inputArray[0].trim(), inputArray[1].trim());
-                            allUserInputs[count] = current;
-                            count++;
+                            allUserInputs.add(current);
                             System.out.println(str1 + current.toString() + "\n" + str2);
                             System.out.print(solidLine);
                         } else {
@@ -105,8 +102,7 @@ public class Hyperion {
                                 String start = secondSplit[0].trim();
                                 String end = secondSplit[1].trim();
                                 Events current = new Events(desc, start, end);
-                                allUserInputs[count] = current;
-                                count++;
+                                allUserInputs.add(current);
                                 System.out.println(str1 + current.toString() + "\n" + str2);
                             } else {
                                 throw new InvalidSyntaxException("event");
