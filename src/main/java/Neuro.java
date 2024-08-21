@@ -33,7 +33,15 @@ public class Neuro {
                 System.out.println("    " + task);
                 System.out.println("    ___________________________________________________");
             } else if (input.startsWith("unmark")) {
-                // TODO add functionality
+                String[] inputComponents = input.split("[\s]");
+                int taskIndex = Integer.valueOf(inputComponents[1]);
+                Task task = taskList.get(taskIndex - 1);
+                task.markUndone();
+
+                System.out.println("    ___________________________________________________");
+                System.out.println("    Ok, I've marked this task as not done:");
+                System.out.println("    " + task);
+                System.out.println("    ___________________________________________________");
             } else {
                 taskList.add(new Task(input));
                 System.out.println("    ___________________________________________________");
