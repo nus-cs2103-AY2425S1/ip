@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class Neon {
     private static final String NAME = "Neon";
     private static final String DASH_BREAK = "-----------------------------------";
-    private static String[] list = new String[100];
-    private static int last_list_index = 0;
-    private static void greeting_line() {
+    private static Task[] list = new Task[100];
+    private static int lastListIndex = 0;
+    private static void greetingLine() {
         System.out.println(DASH_BREAK);
         String greeting = "Hello I'm " + NAME + "!\n"
                 + "What can I help you with?\n";
@@ -15,50 +15,88 @@ public class Neon {
         System.out.println(DASH_BREAK);
     }
 
-    private static void closing_line() {
+    private static void closingLine() {
         System.out.println(DASH_BREAK);
         String closing = "Byeee! Nice to meet you :)\n";
         System.out.println(closing);
         System.out.println(DASH_BREAK);
     }
 
-    private static void main_chat(String answer) {
+    private static void mainChat(String answer) {
         System.out.println(DASH_BREAK);
         System.out.println("adding to list : " + answer);
         System.out.println(DASH_BREAK);
 
-        list[last_list_index] = answer;
-        last_list_index++;
+        Task newTask = new Task(answer, false, lastListIndex);
+        list[lastListIndex] = newTask;
+        lastListIndex++;
     }
 
-    private static void print_list() {
+    private static void printList() {
         System.out.println(DASH_BREAK);
-        for(int i = 0; i < last_list_index; i++) {
-            System.out.println(i + ". " + list[i]);
+        for(int i = 0; i < lastListIndex; i++) {
+            System.out.println(list[i].toString());
         }
+        System.out.println(DASH_BREAK);
+    }
+
+    private static void markItem(int taskNumber) {
+        Task currTask = list[taskNumber];
+        currTask.check();
+
+        System.out.println(DASH_BREAK);
+        System.out.println("checking task number :" + taskNumber);
+        System.out.println(DASH_BREAK);
+    }
+
+    private static void unmarkItem(int taskNumber) {
+        Task currTask = list[taskNumber];
+        currTask.uncheck();
+
+        System.out.println(DASH_BREAK);
+        System.out.println("checking task number : " + taskNumber);
         System.out.println(DASH_BREAK);
     }
 
     public static void main(String[] args) {
         boolean chatting = true;
-        greeting_line();
-        String answer = "";
+        greetingLine();
+        StringBuilder answer = new StringBuilder();
+        int number = -1;
+
         while (chatting) {
             Scanner ansObj = new Scanner(System.in);
-            answer  = ansObj.nextLine();
+            String line = ansObj.nextLine();
 
-            switch (answer) {
+            Scanner lineSc = new Scanner(line);
+            while (lineSc.hasNext()) {
+                if (lineSc.hasNextInt()) {
+                    number = lineSc.nextInt();
+                    break;
+                } else {
+                    answer.append(lineSc.next()).append(" ");
+                }
+            }
+
+            switch (answer.toString().substring(0, answer.toString().length() - 1)) {
                 case "bye":
                     chatting = false;
                     break;
                 case "list":
-                    print_list();
+                    printList();
+                    break;
+                case "mark":
+                    markItem(number);
+                    break;
+                case "unmark":
+                    unmarkItem(number);
                     break;
                 default:
-                    main_chat(answer);
+                    mainChat(String.valueOf(answer));
                     break;
             }
+            answer = new StringBuilder();
         }
-        closing_line();
+        closingLine();
     }
 }
