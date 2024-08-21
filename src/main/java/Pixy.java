@@ -5,7 +5,7 @@ public class Pixy {
 
     private String[] list = new String[100];
     private int numOfItems;
-    private String inputCommand() {
+    private String inputTask() {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
         return sc.next();
@@ -28,7 +28,7 @@ public class Pixy {
                 "____________________________________________________________\n");
         Pixy pixy = new Pixy();
         while (true) {
-            String item = pixy.inputCommand();
+            String item = pixy.inputTask();
             System.out.println("____________________________________________________________\n");
             if (item.equalsIgnoreCase("list")) {
                 pixy.printList();
