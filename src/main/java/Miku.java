@@ -93,6 +93,7 @@ public class Miku {
     public static void addItem(Task task){
         itemList.add(task);
         System.out.println("Got it . I've added this task: \n" + task.stringValue());
+        System.out.println("いまは " + itemList.size() + " tasks in the list");
         System.out.println(sectionBreak);
     }
     public static void printList(){
