@@ -8,10 +8,12 @@ public class Task {
     }
 
     public void setDone() {
+        // Exception handling here?
         this.isDone = true;
     }
 
     public void setUndone() {
+        // Exception handling here?
         this.isDone = false;
     }
 

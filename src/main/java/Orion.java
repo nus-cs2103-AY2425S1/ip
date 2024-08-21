@@ -36,31 +36,83 @@ public class Orion {
 
     private static void sayGoodbye() {
         Orion.printIndent("Bye! Hope to see you again soon!");
-        Orion.printBar();
     }
 
     private static void list() {
+        Orion.printIndent("Here are the tasks in your list:");
         for (int i = 0; i < Orion.noTasks; i++) {
             String task = String.format("%d. %s", i + 1, Orion.tasks[i]);
             Orion.printIndent(task);
         }
     }
 
-    private static void obey(String command) {
+    private static void addTask(String input) {
+        Task task = new Task(input);
+        Orion.tasks[Orion.noTasks] = task;
+        Orion.noTasks++;
+        Orion.printIndent("Sure! I've added the following task to your list:");
+        Orion.printIndent(task.toString());
+    }
+
+    // taskNo is 0 indexed
+    private static void markTask(int taskNo) {
+        Task task = Orion.tasks[taskNo];
+        task.setDone();
+        Orion.printIndent("Sure! I've marked the following task as done:");
+        Orion.printIndent(task.toString());
+    }
+
+    // taskNo is 0 indexed
+    private static void unmarkTask(int taskNo) {
+        Task task = Orion.tasks[taskNo];
+        task.setUndone();
+        Orion.printIndent("Sure! I've marked the following task as undone:");
+        Orion.printIndent(task.toString());
+    }
+
+    private static void obey(String input) {
+        String[] inputArray = input.split(" ");
+        String command = inputArray[0].toLowerCase();
         switch (command) {
             case "bye":
                 Orion.isOnline = false;
+                Orion.sayGoodbye();
                 break;
             case "list":
                 Orion.list();
-                Orion.printBar();
                 break;
+            case "mark":
+                if (inputArray[1] == null) {
+                    Orion.printIndent("Correct syntax: mark <task number>");
+                    break;
+                } else if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
+                    int taskNo = Integer.parseInt(inputArray[1]);
+                    String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as done.", Orion.noTasks, taskNo);
+                    Orion.printIndent(errorMsg);
+                    break;
+                } else {
+                    int taskNo = Integer.parseInt(inputArray[1]);
+                    Orion.markTask(taskNo - 1);
+                    break;
+                }
+            case "unmark":
+                if (inputArray[1] == null) {
+                    Orion.printIndent("Correct syntax: unmark <task number>");
+                    break;
+                } else if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
+                    int taskNo = Integer.parseInt(inputArray[1]);
+                    String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as undone.", Orion.noTasks, taskNo);
+                    Orion.printIndent(errorMsg);
+                    break;
+                } else {
+                    int taskNo = Integer.parseInt(inputArray[1]);
+                    Orion.unmarkTask(taskNo - 1);
+                    break;
+                }
             default:
-                Orion.tasks[Orion.noTasks] = new Task(command);
-                Orion.noTasks++;
-                Orion.printIndent("added: " + command);
-                Orion.printBar();
+                Orion.addTask(input);
         }
+        Orion.printBar();
     }
 
     public static void main(String[] args) {
@@ -77,6 +129,5 @@ public class Orion {
         }
 
         sc.close();
-        Orion.sayGoodbye();
     }
 }
