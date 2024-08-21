@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Winde {
     public static void main(String[] args) {
         /* String logo =
@@ -10,6 +12,14 @@ public class Winde {
          */
         // System.out.println("Hello from\n" + "Winde");
         greet();
+
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (!(input.equals("bye"))) {
+            System.out.println("    " + input);
+            input = scanner.nextLine();
+        }
+
         exit();
     }
     public static void greet() {
