@@ -1,10 +1,13 @@
 public class Deadline extends ToDo {
-    public Deadline(String name) {
+    private String by;
+
+    public Deadline(String name, String by) {
         super(name);
+        this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString();
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
