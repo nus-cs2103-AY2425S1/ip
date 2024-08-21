@@ -7,6 +7,17 @@ public class Alice {
 
     private final List<Task> tasks;
 
+    private enum Commands {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     public Alice() {
         this.tasks = new ArrayList<>();
     }
@@ -149,32 +160,32 @@ public class Alice {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String input = line.trim().toLowerCase();
-            if (input.equals("bye")) {
+            String input = line.trim().toUpperCase();
+            if (input.equals(Commands.BYE.name())) {
                 break;
             }
 
-            if (input.equals("list")) {
+            if (input.equals(Commands.LIST.name())) {
                 listTasks();
                 continue;
             }
 
-            if (input.startsWith("mark")) {
+            if (input.startsWith(Commands.MARK.name())) {
                 markTask(line);
                 continue;
             }
 
-            if (input.startsWith("unmark")) {
+            if (input.startsWith(Commands.UNMARK.name())) {
                 unmarkTask(line);
                 continue;
             }
 
-            if (input.startsWith("delete")) {
+            if (input.startsWith(Commands.DELETE.name())) {
                 deleteTask(line);
                 continue;
             }
 
-            if (input.startsWith("todo")) {
+            if (input.startsWith(Commands.TODO.name())) {
                 try {
                     Task toDo = new ToDo(line);
                     addTask(toDo);
@@ -184,7 +195,7 @@ public class Alice {
                 continue;
             }
 
-            if (input.startsWith("deadline")) {
+            if (input.startsWith(Commands.DEADLINE.name())) {
                 try {
                     Task deadline = new Deadline(line);
                     addTask(deadline);
@@ -194,7 +205,7 @@ public class Alice {
                 continue;
             }
 
-            if (input.startsWith("event")) {
+            if (input.startsWith(Commands.EVENT.name())) {
                 try {
                     Task event = new Event(line);
                     addTask(event);
