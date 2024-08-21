@@ -1,7 +1,10 @@
+import java.util.Scanner;
+
 public class Bobby {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         greet();
-        bye();
     }
 
     // Make a horizontal line of x dashes
