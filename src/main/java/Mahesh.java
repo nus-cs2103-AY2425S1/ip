@@ -94,7 +94,13 @@ public class Mahesh {
                     }
                     break;
                 case "delete":
-                    
+                    try {
+                        Mahesh.deleteFromList(Integer.parseInt(tokenizedInput.nextToken()) - 1);
+                    } catch (IndexOutOfBoundsException err) {
+                        System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
+                        System.out.println("Use the \"list\" command to view all your tasks.");
+                    }
+                    break;
                 default:
                     System.out.println("That is not a valid command. Use the \"bye\" command if you wish to exit the bot.");
                     break;
@@ -111,6 +117,15 @@ public class Mahesh {
         Mahesh.list.add(task);
         Mahesh.taskCount++;
         System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
+    }
+
+    private static void deleteFromList(int index) throws IndexOutOfBoundsException {
+        Task task = list.get(index);
+        Mahesh.list.remove(index);
+        Mahesh.taskCount--;
+        System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
     }
@@ -177,5 +192,4 @@ public class Mahesh {
         }
         return new Event(description.toString(), from.toString(), to.toString());
     }
-
 }
