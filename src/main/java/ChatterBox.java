@@ -84,7 +84,7 @@ public class ChatterBox {
                 int index_2 = temp.indexOf("/");
                 int index_m = temp.indexOf("m");
                 String dateStart = temp.substring(index_m + 1, index_2);
-                String dateEnd = temp.substring(index_2 + 3);
+                String dateEnd = temp.substring(index_2 + 4);
                 taskList[counter] = new Event(description, dateStart, dateEnd);
                 counter++;
                 System.out.println("\t\t" + "_".repeat(50));

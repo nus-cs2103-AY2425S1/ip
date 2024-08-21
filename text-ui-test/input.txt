@@ -1,0 +1,11 @@
+todo return books
+deadline homework /by Friday
+event student life fair /from Mon 2pm /to Wed 3pm
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+mark 4
+unmark 2
+unmark 4
+bye
