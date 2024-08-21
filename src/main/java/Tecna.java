@@ -60,6 +60,9 @@ public class Tecna {
                 taskList[index - 1].unMarkAsDone();
                 System.out.println("I've mark this as undone. Keep going, my friend!");
                 System.out.println(taskList[index - 1]);
+            } else if (input_words[0].equalsIgnoreCase("delete")) {
+                int index = Integer.parseInt(input_words[1]);
+                this.deleteItem(index - 1);
             } else {
                 try {
                     this.addItem(input);
@@ -134,6 +137,17 @@ public class Tecna {
         for (int i = 0; i < this.todoSize; ++i) {
             System.out.println(i + 1 + ". " + this.taskList[i]);
         }
+    }
+
+    public void deleteItem(int index) {
+        String item = this.taskList[index].toString();
+        for (int i = index; i < this.todoSize; ++i) {
+            taskList[i] = taskList[i + 1];
+        }
+        this.todoSize--;
+        System.out.println("Sure! I've deleted this task:");
+        System.out.println(item);
+        System.out.println(">> Now you have " + this.todoSize + (todoSize > 1 ? " tasks" : " task") + " in the list." );
     }
 
     public static void main(String[] args) {
