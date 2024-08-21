@@ -14,7 +14,7 @@ public class Delta {
     public static String sayBye() {
         return "\t____________________________________________________________\n"
                 + "\t Bye. Hope to see you again soon!\n"
-                + "\t_____________________________________________________________";
+                + "\t____________________________________________________________";
     }
 
     public static String addTask(Task task) {
@@ -23,7 +23,7 @@ public class Delta {
                 + "\t Got it. I've added this task:\n"
                 + "\t   " + task.toString() + "\n"
                 + "\t Now you have " + list.size() + " tasks in the list.\n"
-                + "\t_____________________________________________________________";
+                + "\t____________________________________________________________";
     }
 
     public static String markTask(int i) {
@@ -33,7 +33,7 @@ public class Delta {
         return "\t____________________________________________________________\n"
                 + "\t Nice! I've marked this task as done:\n"
                 + "\t   " + task + "\n"
-                + "\t_____________________________________________________________";
+                + "\t____________________________________________________________";
     }
 
     public static String unmarkTask(int i) {
@@ -43,7 +43,7 @@ public class Delta {
         return "\t____________________________________________________________\n"
                 + "\t Ok, I've marked this task as not done yet:\n"
                 + "\t   " + task + "\n"
-                + "\t_____________________________________________________________";
+                + "\t____________________________________________________________";
     }
 
     public static String printTasks() {
@@ -52,7 +52,7 @@ public class Delta {
         for (int i = 0; i < list.size(); i++) {
             output += String.format("\t %d.%s\n", i + 1, list.get(i));
         }
-        output += "\t_____________________________________________________________";
+        output += "\t____________________________________________________________";
         return output;
     }
 
