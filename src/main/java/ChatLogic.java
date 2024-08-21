@@ -47,6 +47,17 @@ public class ChatLogic {
         if (possibleTaskNumString.isEmpty()) {
             throw new DeletionNotSpecifiedException();
         }
+
+        int possibleTaskNum = Integer.valueOf(possibleTaskNumString);
+        if (possibleTaskNum <= 0 || possibleTaskNum > this.taskList.size()) {
+            throw new NoSuchTaskException();
+        }
+
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Alright. Removed the task:");
+        System.out.println(this.taskList.get(possibleTaskNum - 1));
+        System.out.println(HORIZONTAL_LINE);
+        this.taskList.remove(possibleTaskNum - 1);
     }
 
     private void processMarkUnmarkInput(String input) throws TaskException {
