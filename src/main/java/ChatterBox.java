@@ -28,6 +28,11 @@ public class ChatterBox {
                 }
                 System.out.println("\t\t" + "_".repeat(50));
             } else if (input.startsWith("mark")) {
+                if(input.length() < 6 || !Character.isDigit(input.charAt(5))) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t Command must be followed by a specific task number");
+                    System.out.println("\t\t" + "_".repeat(50));
+                }
                 int indexSpace = input.indexOf(" ");
                 int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
                 if (taskIndex >= 0 && taskIndex < counter) {
@@ -42,6 +47,11 @@ public class ChatterBox {
                     System.out.println("\t\t" + "_".repeat(50));
                 }
             } else if (input.startsWith("unmark")) {
+                if(input.length() < 6 || !Character.isDigit(input.charAt(5))) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t Command must be followed by a specific task number");
+                    System.out.println("\t\t" + "_".repeat(50));
+                }
                 int indexSpace = input.indexOf(" ");
                 int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
                 if (taskIndex >= 0 && taskIndex < counter) {
@@ -56,41 +66,75 @@ public class ChatterBox {
                     System.out.println("\t\t" + "_".repeat(50));
                 }
             } else if(input.startsWith("todo")) {
-                String description = input.substring(5);
-                taskList[counter] = new ToDo(description);
-                counter++;
-                System.out.println("\t\t" + "_".repeat(50));
-                System.out.println("\t\t" + description + " is added to your list");
-                System.out.println("\t\t" +taskList[counter - 1]);
-                System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
-                System.out.println("\t\t" + "_".repeat(50));
+                if (input.length() == 4) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\tOOPS!!! The description of a todo cannot be empty");
+                    System.out.println("\t\t" + "_".repeat(50));
+                } else {
+                    String description = input.substring(5);
+                    taskList[counter] = new ToDo(description);
+                    counter++;
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t" + description + " is added to your list");
+                    System.out.println("\t\t" + taskList[counter - 1]);
+                    System.out.println("\t\t" + "Now you have " + counter + " tasks in your list.");
+                    System.out.println("\t\t" + "_".repeat(50));
+                }
             } else if(input.startsWith("deadline")) {
-                int index = input.indexOf("/");
-                String temp = input.substring(index + 1);
-                int tempIndex = input.indexOf("y");
-                String deadline = input.substring(tempIndex + 2);
-                String description = input.substring(9, index);
-                taskList[counter] = new Deadline(description, deadline);
-                counter++;
+                if (!input.contains("/by")) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t Deadline format should be: deadline DESCRIPTION /by DATE");
+                    System.out.println("\t\t" + "_".repeat(50));
+                    continue;
+                }
+                if (input.length() == 8) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\tOOPS!!! The description of a deadline cannot be empty");
+                    System.out.println("\t\t" + "_".repeat(50));
+                } else {
+                    int index = input.indexOf("/");
+                    String temp = input.substring(index + 1);
+                    int tempIndex = input.indexOf("y");
+                    String deadline = input.substring(tempIndex + 2);
+                    String description = input.substring(9, index);
+                    taskList[counter] = new Deadline(description, deadline);
+                    counter++;
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t" + description + " is added to your list");
+                    System.out.println("\t\t" + taskList[counter - 1]);
+                    System.out.println("\t\t" + "Now you have " + counter + " tasks in your list.");
+                    System.out.println("\t\t" + "_".repeat(50));
+                }
+            }  else if(input.startsWith("event")) {
+                if (!input.contains("/from") || !input.contains("/to")) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t event format should be: event DESCRIPTION /from DATE/to DATE");
+                    System.out.println("\t\t" + "_".repeat(50));
+                    continue;
+                }
+                if (input.length() == 5) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\tOOPS!!! The description of an event cannot be empty");
+                    System.out.println("\t\t" + "_".repeat(50));
+                } else {
+                    int index = input.indexOf("/");
+                    String description = input.substring(6, index);
+                    String temp = input.substring(index + 1);
+                    int index_2 = temp.indexOf("/");
+                    int index_m = temp.indexOf("m");
+                    String dateStart = temp.substring(index_m + 1, index_2);
+                    String dateEnd = temp.substring(index_2 + 4);
+                    taskList[counter] = new Event(description, dateStart, dateEnd);
+                    counter++;
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t" + description + " is added to your list");
+                    System.out.println("\t\t" +taskList[counter - 1]);
+                    System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
+                    System.out.println("\t\t" + "_".repeat(50));
+                }
+            } else {
                 System.out.println("\t\t" + "_".repeat(50));
-                System.out.println("\t\t" + description + " is added to your list");
-                System.out.println("\t\t" +taskList[counter - 1]);
-                System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
-                System.out.println("\t\t" + "_".repeat(50));
-            }  else {
-                int index = input.indexOf("/");
-                String description = input.substring(6, index);
-                String temp = input.substring(index + 1);
-                int index_2 = temp.indexOf("/");
-                int index_m = temp.indexOf("m");
-                String dateStart = temp.substring(index_m + 1, index_2);
-                String dateEnd = temp.substring(index_2 + 4);
-                taskList[counter] = new Event(description, dateStart, dateEnd);
-                counter++;
-                System.out.println("\t\t" + "_".repeat(50));
-                System.out.println("\t\t" + description + " is added to your list");
-                System.out.println("\t\t" +taskList[counter - 1]);
-                System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
+                System.out.println("\t\tOOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("\t\t" + "_".repeat(50));
             }
         }
