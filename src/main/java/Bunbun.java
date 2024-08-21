@@ -28,14 +28,20 @@ public class Bunbun {
                         String val = tokens.get(1);
                         list.markDoneTask(Integer.parseInt(val));
                     } else {
-                        UI.response("Specify 1! positive integer to mark as complete D:");
+                        UI.response("Specify 1! positive integer to mark task as complete D:");
                     }
-                } else if (tokens.get(0).equals("todo")) {
-                    ToDo.addToDo(list, tokens);
-                } else if (tokens.get(0).equals("deadline")) {
-                    Deadline.addDeadline(list, tokens);
-                } else if (tokens.get(0).equals("event")) {
-                    Event.addEvent(list, tokens);
+                } else if (firstWord.equals("todo")) {
+                    list.addToDo(tokens);
+                } else if (firstWord.equals("deadline")) {
+                    list.addDeadline(tokens);
+                } else if (firstWord.equals("event")) {
+                    list.addEvent(tokens);
+                } else if (firstWord.equals("delete")) {
+                    if (len == 2) {
+                        list.deleteTask(Integer.parseInt(tokens.get(1)));
+                    } else {
+                        UI.response("Specify 1! positive integer to delete task D:");
+                    }
                 } else {
                     UI.response("Sorry, I don't understand ><");
                 }
