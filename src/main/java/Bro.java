@@ -29,6 +29,17 @@ public class Bro {
                 list.get(index - 1).unmark();
                 System.out.print("   " + line + "   OK, I've marked this task as not done yet:\n"
                                  + "   " + list.get(index - 1) + "\n   " + line);
+            } else if (word.length() > 7 &&
+                    word.substring(0, 7).equalsIgnoreCase("delete ")) {
+                int index = Integer.parseInt(word.substring(7));
+                Task curr = list.get(index - 1);
+                list.remove(index - 1);
+                System.out.printf("""
+                           %s   Noted. I've removed this task:
+                           %s
+                           \
+                        Now you have %d tasks in the list
+                           %s""", line, curr, list.size(), line);
             } else if (word.length() >= 4 &&
                     word.substring(0, 4).equalsIgnoreCase("todo")) {
                 if (word.length() == 4) {
