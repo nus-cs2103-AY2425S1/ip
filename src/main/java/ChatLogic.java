@@ -87,7 +87,7 @@ public class ChatLogic {
         }
 
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(this.taskArray[this.taskCount - 1].toString());
         System.out.println("Now you have " + this.taskCount + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
@@ -151,7 +151,7 @@ public class ChatLogic {
 
     private void listTasks() {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Here are the tasks in your list: ");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.taskCount; i++) {
             String output = " " + (i + 1) + ". " + this.taskArray[i].toString();
             System.out.println(output);
