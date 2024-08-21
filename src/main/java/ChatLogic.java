@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ChatLogic {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
     static final String BYE_COMMAND = "bye";
@@ -16,8 +18,7 @@ public class ChatLogic {
     }
 
     private final String name;
-    private Task[] taskArray = new Task[100];
-    private int taskCount = 0;
+    private ArrayList<Task> taskList = new ArrayList<Task>();
 
     public ChatLogic(String name) {
         this.name = name;
@@ -90,8 +91,8 @@ public class ChatLogic {
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Got it. I've added this task:");
-        System.out.println(this.taskArray[this.taskCount - 1].toString());
-        System.out.println("Now you have " + this.taskCount + " tasks in the list.");
+        System.out.println(this.taskList.get(taskList.size() - 1).toString());
+        System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -102,8 +103,7 @@ public class ChatLogic {
             throw new ToDoNoDescriptionException();
         }
 
-        taskArray[taskCount] = new ToDo(taskName);
-        this.taskCount++;
+        taskList.add(new ToDo(taskName));
     }
 
     private void addDeadline(String input) throws TaskException {
@@ -114,8 +114,7 @@ public class ChatLogic {
         }
         String date = noCommandInput.split("/by")[1].strip();
 
-        taskArray[taskCount] = new Deadline(taskName, date);
-        this.taskCount++;
+        taskList.add(new Deadline(taskName, date));
     }
 
     private void addEvent(String input) throws TaskException {
@@ -128,16 +127,15 @@ public class ChatLogic {
         String fromDate = fromAndTo.split("/to")[0].strip();
         String toDate = fromAndTo.split("/to")[1].strip();
 
-        taskArray[taskCount] = new Event(taskName, fromDate, toDate);
-        this.taskCount++;
+        taskList.add(new Event(taskName, fromDate, toDate));
     }
 
     private void markTask(int taskNum) throws TaskException {
-        if (taskNum <= 0 || taskNum > this.taskCount) {
+        if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
         }
 
-        Task task = this.taskArray[taskNum - 1];
+        Task task = this.taskList.get(taskNum - 1);
         task.mark();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Nice! I've marked this task as done:");
@@ -146,11 +144,11 @@ public class ChatLogic {
     }
 
     private void unmarkTask(int taskNum) throws TaskException {
-        if (taskNum <= 0 || taskNum > this.taskCount) {
+        if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
         }
 
-        Task task = this.taskArray[taskNum - 1];
+        Task task = this.taskList.get(taskNum - 1);
         task.unmark();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:");
@@ -161,8 +159,8 @@ public class ChatLogic {
     private void listTasks() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.taskCount; i++) {
-            String output = " " + (i + 1) + ". " + this.taskArray[i].toString();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            String output = " " + (i + 1) + ". " + this.taskList.get(i).toString();
             System.out.println(output);
         }
         System.out.println(HORIZONTAL_LINE);
