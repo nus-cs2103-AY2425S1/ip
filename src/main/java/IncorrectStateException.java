@@ -1,3 +1,5 @@
+//A-enum is used here
+
 public class IncorrectStateException extends Exception {
     enum State {mark,unmark}
     State state;
