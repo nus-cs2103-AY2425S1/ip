@@ -12,5 +12,6 @@ public class Duke {
         //System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm " + NAME + "\nWhat can I do for you?");
         System.out.println(Duke.bye());
+        System.out.println("Hiiii");
     }
 }
