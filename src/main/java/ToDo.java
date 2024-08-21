@@ -5,7 +5,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        String mark = super.isDone() ? "X" : " ";
-        return String.format("[T][%s] %s", mark, super.getDescription());
+        String mark = isDone() ? "X" : " ";
+        return String.format("[T][%s] %s", mark, getDescription());
     }
 }

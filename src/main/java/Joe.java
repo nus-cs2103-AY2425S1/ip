@@ -53,8 +53,19 @@ public class Joe {
         System.out.println(line);
         if (taskCount < 100) {
             Task newTask = new Task(s);
+            if (s.startsWith("todo")) {
+                s = s.substring(4);
+                newTask = new ToDo(s);
+            } else if (s.startsWith("deadline")) {
+                String[] parems = s.substring(8).split("/");
+                newTask = new Deadline(parems[0], parems[1]);
+            } else if (s.startsWith("event")) {
+                String[] parems = s.substring(5).split("/");
+                newTask = new Event(parems[0], parems[1], parems[2]);
+            }
             userTasks[taskCount++] = newTask;
-            System.out.printf("added: %s\n", newTask);
+            System.out.printf("Got it. I've added this task:\n  %s\n", newTask);
+            System.out.printf("Now you have %d tasks in the list.\n", taskCount);
         } else {
             System.out.println("Input has reached max capacity!");
         }
@@ -63,6 +74,7 @@ public class Joe {
 
     public static void list() {
         System.out.println(line);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             Task currTask = userTasks[i];
             System.out.printf("%d. %s\n", i+1, currTask);
@@ -128,7 +140,7 @@ public class Joe {
     private static int getDigits(String userIn) {
         int idx = -1;
         int n = userIn.length();
-        for (int i = 5; i < n; i++) {
+        for (int i = 4; i < n; i++) {
             while (i < n && Character.isDigit(userIn.charAt(i))) {
                 if (idx < 0) {
                     idx = 0;
