@@ -81,7 +81,7 @@ public class TaskList {
     public String list() {
         String message = "     Here are the tasks in your list:\n";
         for (int i = 1; i <= this.numItems; i++) {
-            message += String.format("     %d. %s\n", i, this.items[i - 1]);
+            message += String.format("     %d.%s\n", i, this.items[i - 1]);
         }
         return message;
     }

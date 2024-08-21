@@ -44,7 +44,7 @@ public class Dumpling {
     private void greet() {
         String greetingMessage = "    Hello! I'm Dumpling\n" +
                 "    What can I do for you?\n" +
-                DIVIDER + "\n";
+                DIVIDER;
         System.out.println(greetingMessage);
     }
 
@@ -56,7 +56,7 @@ public class Dumpling {
 
     private void echo(String message) {
         String updatedMessage = "    " + message + "\n" +
-                DIVIDER + "\n";
+                DIVIDER;
         System.out.println(updatedMessage);
     }
 
