@@ -30,16 +30,30 @@ public class Llama {
             String input = sc.nextLine();
             displayString(hr);
 
-            if (input.equals("bye")) {
+            String command = input;
+            String remaining = "";
+            if (input.contains(" ")) {
+                command = input.substring(0, input.indexOf(" "));
+                remaining = input.substring(input.indexOf(" ") + 1);
+            }
+
+
+            if (command.equals("bye")) {
                 // End program
                 shouldContinue = false;
                 sc.close();
-            } else if (input.equals("list")) {
+            } else if (command.equals("list")) {
                 // List out tasks
                 for (int i = 0; i < last; i++) {
                     int x = i + 1;
                     displayTask(x, taskArray[i]);
                 }
+            } else if (command.equals("mark")) {
+                int index = Integer.parseInt(remaining) - 1;
+                taskArray[index].markDone();
+            } else if (command.equals("unmark")) {
+                int index = Integer.parseInt(remaining) - 1;
+                taskArray[index].markNotDone();
             } else {
                 // Add text into a list
                 taskArray[last] = new Task(input);
