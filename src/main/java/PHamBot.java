@@ -1,7 +1,10 @@
+import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class PHamBot {
     private static final String line = "____________________________________________________________\n";
+    private static ArrayList<String> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Greet();
@@ -14,9 +17,13 @@ public class PHamBot {
                 SayGoodbye();
                 break;
             }
-
-            input = OutlineMessage(input);
-            System.out.println(input);
+            if (input.equals("list")) {
+                ListTasks();
+            }
+            else {
+                input = AddTask(input);
+                System.out.println(OutlineMessage(input));
+            }
         }
     }
 
@@ -33,5 +40,17 @@ public class PHamBot {
     public static void SayGoodbye() {
         String goodbye = "Hope I was able to help\nGoodbye!";
         System.out.println(OutlineMessage(goodbye));
+    }
+
+    public static String AddTask(String task) {
+        tasks.add(task);
+        return "Added: " + task;
+    }
+    public static void ListTasks() {
+        String res = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            res = res + (i + 1) + ". " + tasks.get(i) + "\n";
+        }
+        System.out.println(OutlineMessage(res));
     }
 }
