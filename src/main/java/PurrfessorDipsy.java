@@ -34,20 +34,41 @@ public class PurrfessorDipsy {
     }
 
     private static void doAction(String userInput) {
-        // markPattern can be moved to class field to reduce overhead
-        Pattern markPattern = Pattern.compile("(mark|unmark)\\s+(\\d+)");
-        String trimmedInput = userInput.trim().toLowerCase();
-        Matcher matcher = markPattern.matcher(trimmedInput);
+        String trimmedInput = userInput.trim();
 
-        if (matcher.matches()) {
-            String command = matcher.group(1);
-            int index = Integer.parseInt(matcher.group(2));
+        // Patterns can be moved to class field to reduce overhead of initialization.
+        Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
+        Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
+        Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
+        Pattern EVENT_PATTERN = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
+        Matcher markMatcher = MARK_PATTERN.matcher(trimmedInput);
+        Matcher todoMatcher = TODO_PATTERN.matcher(trimmedInput);
+        Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(trimmedInput);
+        Matcher eventMatcher = EVENT_PATTERN.matcher(trimmedInput);
+
+
+        if (markMatcher.matches()) {
+            String command = markMatcher.group(1);
+            int index = Integer.parseInt(markMatcher.group(2));
 
             if (command.equals("mark")) {
                 markTaskAsDone(index);
             } else if (command.equals("unmark")) {
                 markTaskAsUndone(index);
             }
+
+        } else if (todoMatcher.matches()) {
+            String description = todoMatcher.group(1);
+            saveToMemory(new ToDo(description));
+        } else if (deadlineMatcher.matches()) {
+            String description = deadlineMatcher.group(1);
+            String by = deadlineMatcher.group(2);
+            saveToMemory(new Deadline(description, by));
+        } else if (eventMatcher.matches()) {
+            String description = eventMatcher.group(1);
+            String start = eventMatcher.group(2);
+            String end = eventMatcher.group(3);
+            saveToMemory(new Event(description, start, end));
         } else {
             switch (trimmedInput) {
                 case "":
@@ -62,7 +83,7 @@ public class PurrfessorDipsy {
                     break;
                 default:
                     echoUserInput(userInput);
-                    saveToMemory(userInput);
+                    saveToMemory(new Task(userInput));
                     break;
             }
         }
@@ -74,9 +95,12 @@ public class PurrfessorDipsy {
         printTerminalLine();
     }
 
-    private static void saveToMemory(String userInput) {
-        taskTable[taskTableRowCount] = new Task(userInput);
+    private static void saveToMemory(Task t) {
+        taskTable[taskTableRowCount] = t;
         taskTableRowCount++;
+        System.out.println("Got it! I've added this task: ");
+        System.out.println(t.toString());
+        System.out.println("You now have " + taskTableRowCount + " tasks in your list.");
     }
 
     private static void markTaskAsDone(int index) {
