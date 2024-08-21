@@ -16,11 +16,26 @@ public class Bean {
         while (true) {
             String response = scanner.nextLine();
             String[] splited = response.split(" ");
-            if (!response.equals("bye") && !response.equals("list") && !splited[0].equals("mark") && !splited[0].equals("unmark")) {
-                String output = "________________________________\n" + "added: " + response + "\n" + "________________________________\n";
+            if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
+                String output = "________________________________\n" + "Got it. I've added this task:";
                 System.out.println(output);
-                taskList[pointer] = new Task(response);
+                Task current = null;
+                switch (splited[0]) {
+                    case "todo":
+                        current = new Todo(response.replace("todo ",""));
+                        break;
+                    case "event":
+                        current = new Event(response.replace("event ",""));
+                        break;
+                    case "deadline":
+                        current = new Deadline(response.replace("deadline ",""));
+                        break;
+                }
+                taskList[pointer] = current;
                 pointer++;
+                System.out.println(current.getString());
+                output = "Now you have " + String.valueOf(pointer) + " tasks in the list.\n" + "________________________________";
+                System.out.println(output);
             } else if (response.equals("list")) {
                 System.out.println("________________________________");
                 for (int i = 0; i < pointer; i++) {
