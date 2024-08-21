@@ -32,6 +32,13 @@ public class BeeBoo {
         chatBox("OK, I've marked this task as not done yet:\n" + task);
     }
 
+    //Deletes item
+    private void deleteItem(int index) {
+        Tasks item = list.get(index - 1);
+        list.remove(index - 1);
+        chatBox("Ok i have removed the following item\n" + item + "\n" + "You have " + list.size() + " tasks left");
+    }
+
     //Returns list when prompted
     private String produceList() {
         String result = "";
@@ -58,7 +65,7 @@ public class BeeBoo {
     //To create ToDos
     private void createToDo(String text) throws NoDescriptionException {
         String description = text.substring(4).trim();
-        if (description.length() == 0) {
+        if (description.isEmpty()) {
             throw new NoDescriptionException("No description");
         }
         chatBox(addList(new ToDos(description)));
@@ -97,8 +104,10 @@ public class BeeBoo {
             return 2;
         } else if (text.equals("list")) {
             return 3;
-        } else if (text.startsWith("deadline") || text.startsWith("event") || text.startsWith("todo")) {
+        } else if (text.startsWith("delete")) {
             return 4;
+        } else if (text.startsWith("deadline") || text.startsWith("event") || text.startsWith("todo")) {
+            return 5;
         } else {
             return -1;
         }
@@ -138,6 +147,11 @@ public class BeeBoo {
             //Command is list so the chatbot lists out the items
             chatBox(produceList());
         } else if (commandCheck == 4) {
+            //Command is delete so chatpot deletes indexed item
+            String number = text.substring(6, text.length()).trim();
+            int index = Integer.parseInt(number);
+            deleteItem(index);
+        } else if (commandCheck == 5) {
             //Command is task creation so the chatbot creates tasks
             createTasks(text);
         } else {
