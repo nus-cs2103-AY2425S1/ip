@@ -29,16 +29,6 @@ public class Deez {
         String CMD_deadline = "deadline";
         String CMD_event = "event";
 
-        String logo = """
-                    ____  _________________
-                   / __ \\/ ____/ ____/__  /
-                  / / / / __/ / __/    / /\s
-                 / /_/ / /___/ /___   / /__
-                /_____/_____/_____/  /____/
-                                          \s
-                """;
-        System.out.println(logo);
-
         ArrayList<Task> tasks = new ArrayList<>();
 
         say("Hello! I'm Deez!", "What can I do you for?");
@@ -157,6 +147,4 @@ public class Deez {
         }
         say("Bye. Hope to see you soon!");
     }
-
-
 }
