@@ -35,6 +35,10 @@ public class Azir {
                 }
                 else {
                     if (input.startsWith("todo")) {
+                        if (input.length() == 4) {
+                            throw new AzirException("todo cannot have an empty description. " +
+                                    "Format: todo [description]");
+                        }
                         System.out.println("Got it. I've added this task:");
                         String description = input.substring(5);
                         Task currTask = new Todo(description);
