@@ -20,16 +20,37 @@ public class Gopher {
             """;
     private final static String horizontalSeparator = "==================================================";
 
+    // Show greeting message when user first enter the application
     private static void greet () {
         System.out.println(horizontalSeparator);
         System.out.println(gopherLogo);
         System.out.println("Hello! I am Gopher.\nWhat can I do for you?\n");
     }
 
-    private static void addTask (String input) {
+    // Check if the user input command is invalid
+    private static boolean isUnknownCommand(String command) {
+        return (!command.equalsIgnoreCase("todo"))
+                && (!command.equalsIgnoreCase("deadline"))
+                && (!command.equalsIgnoreCase("event"));
+    }
+
+    // Handle the logic when user input command to add a new task
+    private static void addTask (String input) throws UnknownCommandException,
+            EmptyTaskDescriptionException, MissingTokenException {
+        // Split user command into tokens
         String[] tokens = input.split(" ");
 
+        // Determine if the user command is valid
         String taskType = tokens[0];
+        if (isUnknownCommand(taskType)) {
+            throw new UnknownCommandException(taskType);
+        }
+
+        // Determine if there's any missing task description
+        if (tokens.length < 2) {
+            throw new EmptyTaskDescriptionException(taskType);
+        }
+
         StringBuilder taskName = new StringBuilder();
 
         if (taskType.equalsIgnoreCase("todo")) {
@@ -48,6 +69,10 @@ public class Gopher {
                 if (tokens[i].equalsIgnoreCase("/by")) {
                     byTokenIndex = i;
                 }
+            }
+
+            if (byTokenIndex == -1) {
+                throw new MissingTokenException(taskType, "/by");
             }
 
             for (int i = 1; i < byTokenIndex; i++) {
@@ -79,6 +104,14 @@ public class Gopher {
                 if (tokens[i].equalsIgnoreCase("/to")) {
                     toTokenIndex = i;
                 }
+            }
+
+            if (fromTokenIndex == -1) {
+                throw new MissingTokenException(taskType, "/from");
+            }
+
+            if (toTokenIndex == -1) {
+                throw new MissingTokenException(taskType, "/from");
             }
 
             for (int i = 1; i < fromTokenIndex; i++) {
@@ -116,6 +149,7 @@ public class Gopher {
         System.out.println(horizontalSeparator + "\n");
     }
 
+    // List out all the existing tasks in the application
     private static void listTasks() {
         System.out.println(horizontalSeparator);
         for (int i = 1; i <= currentTaskNumber; i++) {
@@ -126,6 +160,7 @@ public class Gopher {
         System.out.println(horizontalSeparator + "\n");
     }
 
+    // Mark the task with corresponding number as done
     private static void markTaskAsDone(int taskNumber) {
         int taskIndex = taskNumber - 1;
         Task task = taskList[taskIndex];
@@ -136,6 +171,7 @@ public class Gopher {
         System.out.println(horizontalSeparator + "\n");
     }
 
+    // Mark the task with corresponding number as not done
     private static void markTaskAsNotDone(int taskNumber) {
         int taskIndex = taskNumber - 1;
         Task task = taskList[taskIndex];
@@ -146,6 +182,7 @@ public class Gopher {
         System.out.println(horizontalSeparator + "\n");
     }
 
+    // Say goodbye to the user and exit the application
     private static void exit () {
         System.out.println(horizontalSeparator);
         System.out.println("Bye. Hope to see you again soon!");
@@ -153,7 +190,6 @@ public class Gopher {
     }
 
     public static void main(String[] args) {
-        // Greet the user when starting application
         greet();
 
         // Start the event loop for responding user input and query
@@ -181,11 +217,16 @@ public class Gopher {
                 markTaskAsNotDone(taskNumber);
             // Handle Add Task Logic
             } else {
-                addTask(userInput);
+                try {
+                    addTask(userInput);
+                } catch (UnknownCommandException
+                        | EmptyTaskDescriptionException
+                        | MissingTokenException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
 
-        // Send exit message to user when event loop ends
         exit();
     }
 }
