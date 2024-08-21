@@ -24,6 +24,7 @@ public class Luke {
 	    if (splittedLine[0].equals("bye")) {
         break;
 	    } else if (splittedLine[0].equals("list")) {
+            System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < l.size(); i++) {
           System.out.println(String.format("%d. %s", i + 1, l.get(i).toString()));
         }
@@ -32,13 +33,19 @@ public class Luke {
         Task t = l.get(Integer.parseInt(splittedLine[1]) - 1);
         t.mark();
         System.out.println(t);
-      } else if (splittedLine[0].equals("unmark")) {
+        } else if (splittedLine[0].equals("unmark")) {
         System.out.println("OK, I've marked this task as not done yet:");
         Task t = l.get(Integer.parseInt(splittedLine[1]) - 1);
         t.unMark();
         System.out.println(t);
-      } else {
-
+        } else if (splittedLine[0].equals("delete")) {
+            int index = Integer.parseInt(splittedLine[1]) - 1;
+            Task t = l.get(index);
+            l.remove(index);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(t);
+            System.out.printf("Now you have %d tasks in the list.\n", l.size());
+        }else {
           Task t;
           if (splittedLine[0].equals("todo")) {
             t = new Todo(line.substring(4).trim());

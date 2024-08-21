@@ -19,3 +19,7 @@ event something /from 2pm /to 5pm
 deadline something else by 5pm
 deadline something else/by 5pm
 deadline something else /by 5pm
+delete 9
+delete 8
+delete 1
+list
