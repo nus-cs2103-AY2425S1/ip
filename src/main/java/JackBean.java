@@ -7,6 +7,10 @@ public class JackBean {
     public static String exitMessage = "Bye homie! Come back if you need anything else. JackBean, signing off!";
     public static ArrayList<Task> taskList = new ArrayList<Task>();
 
+    public static void howManyTasks() {
+        System.out.println("Homie, you have " + taskList.size() + " task(s) in the list now.");
+    }
+
     // Partial solution reused from course website
     // extra comment here to aid with tagging A-Classes
     public static class Task {
@@ -56,7 +60,7 @@ public class JackBean {
         protected String from;
         protected String to;
 
-        public Event(String description, String at) {
+        public Event(String description, String from, String to) {
             super(description);
             this.from = from;
             this.to = to;
@@ -141,11 +145,40 @@ public class JackBean {
                 System.out.println("All good my homie! You've got this, I've undone this task:");
                 System.out.println(taskList.get(taskNumber - 1));
                 System.out.println(horizontalLine);
-            } else {
-                taskList.add(new Task(input));
+            } else if (input.toLowerCase().startsWith("todo")) {
+                String description = input.substring(5);
+                taskList.add(new Todo(description));
                 System.out.println(horizontalLine);
-                System.out.println("Got it homie! I've added this task:\n" + input);
-                System.out.println("Homie!, you have " + taskList.size() + " task(s) in the list now.");
+                System.out.println("Got it homie! I've added your todo, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
+                howManyTasks();
+                System.out.println(horizontalLine);
+            } else if (input.toLowerCase().startsWith("deadline")) {
+                String important = input.substring(9);
+                String[] splitImportant = important.split(" /");
+                String description = splitImportant[0];
+                String by = splitImportant[1].substring(3);
+
+                taskList.add(new Deadline(description, by));
+                System.out.println(horizontalLine);
+                System.out.println("Got it homie! I've added your deadline, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
+                howManyTasks();
+                System.out.println(horizontalLine);
+            } else if (input.toLowerCase().startsWith("event")) {
+                String important = input.substring(6);
+                String[] splitImportant = important.split(" /");
+                String description = splitImportant[0];
+                String from = splitImportant[1].substring(5);
+                String to = splitImportant[2].substring(3);
+
+
+                taskList.add(new Event(description, from, to));
+                System.out.println(horizontalLine);
+                System.out.println("Got it homie! I've added your event, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
+                howManyTasks();
+                System.out.println(horizontalLine);
+            } else {
+                System.out.println(horizontalLine);
+                System.out.println("Homie, did you mean to say something else? I don't understand what you're saying :(");
                 System.out.println(horizontalLine);
             }
         }
