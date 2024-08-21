@@ -4,7 +4,7 @@ interface Commands {
 
 class ListTasks implements Commands {
     @Override
-    public void run(Sentinel sentinel, String args) throws SentinelException {
+    public void run(Sentinel sentinel, String args) {
         sentinel.outputTaskList();
     }
 }

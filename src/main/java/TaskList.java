@@ -1,13 +1,13 @@
+import java.util.ArrayList;
+
 /**
  * List of tasks.
  */
 public class TaskList {
-    private Task[] tasks;
-    private int numberOfTasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new Task[100];
-        this.numberOfTasks = 0;
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -18,21 +18,21 @@ public class TaskList {
     public Task addTodo(String description) {
         Task newTodo = new Todo(description);
 
-        this.tasks[numberOfTasks++] = newTodo;
+        this.tasks.add(newTodo);
         return newTodo;
     }
 
     public Task addEvent(String description, String startTime, String endTime) {
         Task newEvent = new Event(description, startTime, endTime);
 
-        this.tasks[numberOfTasks++] = newEvent;
+        this.tasks.add(newEvent);
         return newEvent;
     }
 
     public Task addDeadline(String description, String endTime) {
         Task newDeadline = new Deadline(description, endTime);
 
-        this.tasks[numberOfTasks++] = newDeadline;
+        this.tasks.add(newDeadline);
         return newDeadline;
     }
 
@@ -42,9 +42,9 @@ public class TaskList {
      * @param taskNumber Number of the task.
      */
     public Task markAsDone(int taskNumber) {
-        this.tasks[taskNumber - 1].markAsDone();
+        this.tasks.get(taskNumber - 1).markAsDone();
 
-        return this.tasks[taskNumber - 1];
+        return this.tasks.get(taskNumber - 1);
     }
 
     /**
@@ -53,9 +53,9 @@ public class TaskList {
      * @param taskNumber Number of the task.
      */
     public Task markAsUndone(int taskNumber) {
-        this.tasks[taskNumber - 1].markAsUndone();
+        this.tasks.get(taskNumber - 1).markAsUndone();
 
-        return this.tasks[taskNumber - 1];
+        return this.tasks.get(taskNumber - 1);
     }
 
     /**
@@ -67,8 +67,8 @@ public class TaskList {
     public String toString() {
         StringBuilder output = new StringBuilder();
 
-        for (int i = 0; i < numberOfTasks; i++) {
-            output.append(String.format("%d. %s \n", i + 1, this.tasks[i].toString()));
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append(String.format("%d. %s \n", i + 1, this.tasks.get(i).toString()));
         }
 
         return output.toString();
