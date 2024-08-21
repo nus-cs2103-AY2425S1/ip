@@ -15,7 +15,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String mark = super.isDone() ? "X" : " ";
-        return String.format("[T][%s] %s (%s %s)",
+        return String.format("[E][%s] %s (%s %s)",
                 mark, super.getDescription(), start, end);
     }
 }
