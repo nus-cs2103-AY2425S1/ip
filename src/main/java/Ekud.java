@@ -36,7 +36,7 @@ public class Ekud {
     public void sayGoodbye() {
         System.out.printf("""
                         \t I hope you enjoyed your stay!
-                        \t See you next time!
+                        \t See you next time! NOT!!
                         \t%s""",
                 LINE_SEPARATOR);
     }
@@ -88,6 +88,13 @@ public class Ekud {
                         \t%s%n""",
                 tasks.getTask(listIndex),
                 tasks.getIncompleteCount(),
+                LINE_SEPARATOR);
+    }
+
+    public void warnUnknownCommand() {
+        System.out.printf("""
+                            \t Stop yapping buddy, I have no clue what ya saying!
+                            \t%s%n""",
                 LINE_SEPARATOR);
     }
 
@@ -157,8 +164,7 @@ public class Ekud {
                 ekud.addToList(new EventTask(argument, tokenMap.get("/from"), tokenMap.get("/to")));
                 break;
             default:
-                System.out.println(input);
-                System.out.println(LINE_SEPARATOR);
+                ekud.warnUnknownCommand();
             }
         }
         ekud.sayGoodbye();
