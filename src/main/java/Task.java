@@ -7,6 +7,14 @@ public class Task {
         this.description = description;
     }
 
+    public void markDone() {
+        this.completed = true;
+    }
+
+    public void markNotDone() {
+        this.completed = false;
+    }
+
     @Override
     public String toString() {
         if (completed) {
