@@ -1,12 +1,15 @@
 todo sunday
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
-deadline do CS2103 assignment /by Monday
-todo Grocery run
-event fintech meeting /from Tue 1pm /to 2pm
 list
 mark 2
-mark 1
 unmark 2
+mark 4
+unmark 4
+mark a
+unmark a
+todo
+deadline
+event
 list
 bye
