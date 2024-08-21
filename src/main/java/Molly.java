@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Molly {
     public static String name = "Molly";
@@ -19,14 +20,28 @@ public class Molly {
         System.out.println("____________________________________________________________");
     }
 
-    public static void echoUser() {
+    public static void listToString(ArrayList<String> botMemory) {
+        for (int i = 0; i < botMemory.size(); i++) {
+            System.out.println((i + 1) + ". " + botMemory.get(i));
+        }
+    }
+
+    public static void assistUser() {
+        ArrayList<String> botMemory = new ArrayList<>();
         Scanner botScanner = new Scanner(System.in);
         System.out.println("____________________________________________________________");
         String userInput = botScanner.nextLine();
         while (!userInput.toLowerCase().equals("bye")) {
-            System.out.println("____________________________________________________________");
-            System.out.println(userInput);
-            System.out.println("____________________________________________________________");
+            if (!userInput.toLowerCase().equals("list")) {
+                botMemory.add(userInput);
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + userInput);
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________");
+                Molly.listToString(botMemory);
+                System.out.println("____________________________________________________________");
+            }
             userInput = botScanner.nextLine();
         }
         Molly.sayBye();
@@ -36,6 +51,6 @@ public class Molly {
 
     public static void main(String[] args) {
         Molly.greetUser();
-        Molly.echoUser();
+        Molly.assistUser();
     }
 }
