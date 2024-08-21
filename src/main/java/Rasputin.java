@@ -31,7 +31,7 @@ public class Rasputin {
 
         while (true) {
             String input = scanner.nextLine();
-            // if user types "bye", bid farewell to user and return
+            // if user types "bye", break out of loop and bid farewell
             if (input.equals("bye")) {
                 break;
             }
@@ -90,6 +90,7 @@ public class Rasputin {
                 continue;
             }
 
+            // create deadline task
             if (input.contains("deadline")) {
                 String str = input.substring(9);
                 String desc = str.split(" /by ")[0];
@@ -101,9 +102,24 @@ public class Rasputin {
                 continue;
             }
 
+            // create event task
+            if (input.contains("event")) {
+                String str = input.substring(6);
+                String desc = str.split(" /from ")[0];
+                String duration = str.split(" /from ")[1];
+                String from = duration.split(" /to ")[0];
+                String to = duration.split(" /to ")[1];
+
+                Event task = new Event(desc, from, to);
+                ls.add(task);
+                String output = "Added Event task:\n" + task.toString();
+                printText(output);
+                continue;
+            }
+
         }
 
-        printText("Bye. Hope to see you soon!");
+        printText("Bye. See you later!");
     }
 
 
