@@ -1,0 +1,11 @@
+todo borrow book
+deadline return book /by Monday
+deadline study /by June 10th
+event project meeting /from Mon 2pm /to 4pm
+list
+todo CS2103 homework
+mark 1
+mark 3
+unmark 1
+list
+bye
