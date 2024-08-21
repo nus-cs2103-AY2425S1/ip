@@ -1,10 +1,18 @@
 import java.sql.Array;
 import java.util.Scanner;  // Import the Scanner class
 import java.util.ArrayList; // import the ArrayList class
+import java.lang.ArrayIndexOutOfBoundsException;
 
 public class Tuesday {
     private static ArrayList<Task> tasksArray = new ArrayList<>();
 
+    private static void print_taskcount(String action) {
+        System.out.println("_______________________________\n"
+                + "Got it. I've "+ action + " this task:\n  "
+                + tasksArray.get(Task.count - 1).toString()
+                + "\nNow you have " + Task.count + " task(s) in the list."
+                + "\n_______________________________");
+    }
     private static void Msg_welcome() {
         System.out.println("_______________________________\n"
                 + "Hello! I'm Tuesday, a randomly created bot.\n"
@@ -23,11 +31,6 @@ public class Tuesday {
         }
         System.out.println("_______________________________\n"
                 + message
-                + "_______________________________");
-    }
-    private static void Msg_blah() {
-        System.out.println("_______________________________\n"
-                + "blah\n"
                 + "_______________________________");
     }
 
@@ -50,35 +53,29 @@ public class Tuesday {
         ToDo taskItem = new ToDo(title);
         tasksArray.add(taskItem);
 
-        System.out.println("_______________________________\n"
-                + "Got it. I've added this task:\n  "
-                + tasksArray.get(Task.count - 1).toString()
-                + "\nNow you have " + Task.count + " task(s) in the list."
-                + "\n_______________________________");
+        print_taskcount("added");
     }
 
     private static void comm_deadline(String title, String by_msg) {
         Deadline deadlineItem = new Deadline(title, by_msg);
         tasksArray.add(deadlineItem);
 
-        System.out.println("_______________________________\n"
-                + "Got it. I've added this task:\n  "
-                + tasksArray.get(Task.count - 1).toString()
-                + "\nNow you have " + Task.count + " task(s) in the list."
-                + "\n_______________________________");
+        print_taskcount("added");
     }
 
     private static void comm_event(String title, String from_msg, String to_msg) {
         Event eventItem = new Event(title, from_msg, to_msg);
         tasksArray.add(eventItem);
 
-        System.out.println("_______________________________\n"
-                + "Got it. I've added this task:\n  "
-                + tasksArray.get(Task.count - 1).toString()
-                + "\nNow you have " + Task.count + " task(s) in the list."
-                + "\n_______________________________");
+        print_taskcount("added");
     }
 
+    private static void comm_delete(int index) {
+        print_taskcount("removed");
+
+        Task.deleteTask();
+        tasksArray.remove(index-1);
+    }
     public static void main(String[] args) {
         Msg_welcome();
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
@@ -93,43 +90,61 @@ public class Tuesday {
 
             if (userInput.equals("list")) {
                 Msg_list();
-            } else if (userInput.equals("blah")) {
-                Msg_blah();
             } else if (userInputArr[0].equals("mark")) {
                 try {
                     comm_mark(Integer.parseInt(userInputArr[1]), true);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'mark' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("unmark")) {
                 try {
                     comm_mark(Integer.parseInt(userInputArr[1]), false);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'unmark' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("todo")) {
                 try {
                     comm_todo(userInputArr[1]);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'todo' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("deadline")) {
                 try {
                     String[] msg_split_by = userInputArr[1].split("/by ", 2);
                     comm_deadline(msg_split_by[0], msg_split_by[1]);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'deadline' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("event")) {
                 try {
                     String[] msg_split_from = userInputArr[1].split("/from ", 2);
                     String[] msg_split_to = msg_split_from[1].split(" /to ", 2);
                     comm_event(msg_split_from[0], msg_split_to[0], msg_split_to[1]);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'event' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
+                }
+            } else if (userInputArr[0].equals("delete")) {
+                try {
+                    comm_delete(Integer.parseInt(userInputArr[1]));
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'event' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else {
-                comm_todo(userInput);
+                System.out.println("_______________________________\n"
+                        + "ERROR: Hey there!! I do not know what you mean. Can you type it out differently?"
+                        + "\n_______________________________");
             }
         }
         Msg_bye();
