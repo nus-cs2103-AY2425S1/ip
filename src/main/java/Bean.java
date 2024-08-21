@@ -15,36 +15,53 @@ public class Bean {
     public void startConversation() {
         greetAndAsk();
         while (true) {
-            String input = scanner.nextLine().trim();
-            String[] parts = input.split(" ", 2);
-            String command = parts[0];
-            String details = parts.length > 1 ? parts[1] : "";
+            try {
+                String input = scanner.nextLine().trim();
+                String[] parts = input.split(" ", 2);
+                String command = parts[0];
+                String details = parts.length > 1 ? parts[1] : "";
 
-            if (isBye(command)) {
-                break;
-            } else if (command.equals("list")) {
-                printList();
-            } else if (command.equals("mark")) {
-                markTask(Integer.parseInt(details));
-            } else if (command.equals("unmark")) {
-                unmarkTask(Integer.parseInt(details));
-            } else if (command.equals("todo")) {
-                TodoTask tt = new TodoTask(details);
-                tasks.add(tt);
-                numOfTasks++;
-                echo(tt);
-            } else if (command.equals("deadline")){
-                String[] deadlineParts = details.split(" /by ");
-                DeadlineTask dt = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
-                tasks.add(dt);
-                numOfTasks++;
-                echo(dt);
-            } else if (command.equals("event")){
-                String[] eventParts = details.split(" /from | /to ");
-                EventTask et = new EventTask(eventParts[0], eventParts[1], eventParts[2]);
-                tasks.add(et);
-                numOfTasks++;
-                echo(et);
+                if (isBye(command)) {
+                    break;
+                } else if (command.equals("list")) {
+                    printList();
+                } else if (command.equals("mark")) {
+                    markTask(Integer.parseInt(details));
+                } else if (command.equals("unmark")) {
+                    unmarkTask(Integer.parseInt(details));
+                } else if (command.equals("todo")) {
+                    if (details.isEmpty()) {
+                        throw new EmptyDescriptionException();
+                    }
+                    TodoTask tt = new TodoTask(details);
+                    tasks.add(tt);
+                    numOfTasks++;
+                    echo(tt);
+                } else if (command.equals("deadline")){
+                    if (details.isEmpty()) {
+                        throw new EmptyDescriptionException();
+                    }
+                    String[] deadlineParts = details.split(" /by ");
+                    DeadlineTask dt = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
+                    tasks.add(dt);
+                    numOfTasks++;
+                    echo(dt);
+                } else if (command.equals("event")){
+                    if (details.isEmpty()) {
+                        throw new EmptyDescriptionException();
+                    }
+                    String[] eventParts = details.split(" /from | /to ");
+                    EventTask et = new EventTask(eventParts[0], eventParts[1], eventParts[2]);
+                    tasks.add(et);
+                    numOfTasks++;
+                    echo(et);
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (EmptyDescriptionException | UnknownCommandException e) {
+                System.out.println("______________________________");
+                System.out.println(e.getMessage());
+                System.out.println("______________________________");
             }
 
         }
@@ -72,7 +89,7 @@ public class Bean {
 
     private void echo(Task task) {
         System.out.println("______________________________");
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + numOfTasks + " tasks in the list.");
         System.out.println("______________________________");
