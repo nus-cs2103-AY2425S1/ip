@@ -10,6 +10,7 @@ public class Sigma {
         print("Hello! I'm " + name + "\nLooking forward to slaying with you!\nWhat do you need today?" +
                 "\nYou can add tasks with \"todo\", \"deadline\", \"event\" or view tasks with \"list\"." +
                 "\nYou can also mark tasks as done with \"mark\" or \"unmark\" them." +
+                "\nYou can also delete tasks with \"delete\"." +
                 "\nIf you're done, just type \"bye\" to exit.");
 
         String userPrompt = input.nextLine();
@@ -24,8 +25,8 @@ public class Sigma {
                         break;
                     case "list":
                         StringBuilder s = new StringBuilder();
-                        for (Task item : items) {
-                            s.append(item.getId() + ". " + item.toString() + "\n");
+                        for (int i = 1; i <= items.size(); i++) {
+                            s.append(i + ". " + items.get(i - 1).toString() + "\n");
                         }
                         if (items.size() == 0) {
                             print("What the sigma? You have no tasks!");
@@ -110,6 +111,23 @@ public class Sigma {
                         print("You're a busy bee! Added: \n" + eventTask.toString()
                                 + "\nNow you have " + items.size() + " tasks in the list!");
                         break;
+
+                    case "delete":
+                        if (split.length < 2) {
+                            throw new SigmaException("What the sigma? You're missing the task! " +
+                                    "Write \"delete <task>\"!");
+                        }
+                        int index = Integer.parseInt(split[1]);
+                        if (index > 0 && index <= items.size()) {
+                            Task item = items.get(index - 1);
+                            items.remove(index - 1);
+                            print(String.format("Dang, I'm going to delete this for you:\n %s\n " +
+                                    "Now you have %d tasks!", item.toString(), items.size()));
+                        } else {
+                            throw new SigmaException("What the skibidi? Invalid task number!");
+                        }
+                        break;
+
                     default:
                         throw new SigmaException("That's crazy - I don't understand! Try again! Enter " +
                                 "\"todo\", \"deadline\", \"event\", \"list\", \"mark\", \"unmark\" or \"bye\"!");
@@ -135,6 +153,7 @@ public class Sigma {
         System.out.println(message);
         line();
     }
+
     private static void line() {
         String line = "----------------------------------------------------------------------------------------------";
         System.out.println(line);
