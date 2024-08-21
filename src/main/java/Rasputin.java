@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.Scanner;
 import  java.util.ArrayList;
 
@@ -54,9 +53,8 @@ public class Rasputin {
                     continue;
                 }
                 int index = (input.charAt(7) - '0' - 1);
-                System.out.println(index);
                 ls.get(index).markAsNotDone();
-                String output = "Unmarked that as done for you. \n " +
+                String output = "Unmarked that as done for you. \n" +
                         ls.get(index).toString();
                 printText(output);
                 continue;
@@ -68,10 +66,19 @@ public class Rasputin {
                     continue;
                 }
                 int index = (input.charAt(5) - '0' - 1);
-                System.out.println(index);
                 ls.get(index).markAsDone();
-                String output = "Marked that as done for you. \n " +
+                String output = "Marked that as done for you. \n" +
                         ls.get(index).toString();
+                printText(output);
+                continue;
+            }
+
+            if (input.contains("todo")) {
+                String desc = input.split(" ")[1];
+                System.out.println(desc);
+                Todo task = new Todo(desc);
+                ls.add(task);
+                String output = "Added task:\n" + task.toString();
                 printText(output);
                 continue;
             }
