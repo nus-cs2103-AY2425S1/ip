@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Murphy {
-    private static String[] tasks = new String[100];
+    private static final Task[] tasks = new Task[100];
     private static int numOfTasks = 0;
     public static void main(String[] args) {
         /*
@@ -26,22 +26,45 @@ public class Murphy {
             }
             if (input.equals("list")) {
                 Murphy.list();
+            } else if (input.startsWith("mark ")){
+                String[] split = input.split(" ");
+                if (split.length > 2) {
+                    Murphy.addItem(input);
+                    continue;
+                }
+                int index;
+                try {
+                    index = Integer.parseInt(split[1]);
+                } catch (NumberFormatException e) {
+                    Murphy.addItem(input);
+                    continue;
+                }
+                if (index > Murphy.numOfTasks || index <= 0) {
+                    System.out.println("Out of the range of tasks!");
+                    continue;
+                }
+                Murphy.tasks[index - 1].mark();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(Murphy.tasks[index - 1]);
             } else {
-                System.out.println("added: " + input);
                 Murphy.addItem(input);
             }
         }
     }
+
     private static void bye() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("________________");
     }
+
     private static void list() {
         for (int i = 0; i < Murphy.numOfTasks; i++) {
             System.out.println((i+1) + ". " + Murphy.tasks[i]);
         }
     }
+
     private static void addItem(String item) {
-        Murphy.tasks[Murphy.numOfTasks++] = item;
+        System.out.println("added: " + item);
+        Murphy.tasks[Murphy.numOfTasks++] = new Task(item);
     }
 }
