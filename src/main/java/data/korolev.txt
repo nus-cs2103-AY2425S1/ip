@@ -1,2 +1,5 @@
 [T][ ] task 1
-[T][X] task 3: do your homework
+[T][ ] task 3: do your homework
+[D][ ] d2  (by: 25)
+[E][ ] task123 test  (from: d1  to: d2)
+[E][ ] task1234 read Marx work  (from: d1  to: d2)

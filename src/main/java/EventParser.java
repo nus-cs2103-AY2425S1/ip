@@ -67,19 +67,31 @@ public class EventParser {
         Pattern p1 = Pattern.compile("\\]\\s(.+)\\s\\(");
         Matcher m1 = p1.matcher(record);
 
-        Pattern p2 = Pattern.compile("\\(from:\\s(.+)\\s*to");
+        Pattern p2 = Pattern.compile("\\(by:\\s(.+)\\)");
         Matcher m2 = p2.matcher(record);
         String taskDescription, date;
         if (m1.find() && m2.find()) {
             taskDescription = m1.group(1);
             date = m2.group(1);
-            return new KorolevDeadline(taskDescription, "by" + date);
+            return new KorolevDeadline(taskDescription, "by: " + date);
         } else {
             throw new DukeException("Fail to parse record");
         }
     }
 
     private static KorolevEvent parseEventRecord(String record) throws DukeException {
-        return new KorolevEvent("", "");
+        Pattern p1 = Pattern.compile("\\]\\s(.+)\\s\\(");
+        Matcher m1 = p1.matcher(record);
+
+        Pattern p2 = Pattern.compile("from:\\s(.+)\\s*to:\\s([^\\)]+)");
+        Matcher m2 = p2.matcher(record);
+        String taskDescription, date;
+        if (m1.find() && m2.find()) {
+            taskDescription = m1.group(1);
+            date = m2.group();
+            return new KorolevEvent(taskDescription, date);
+        } else {
+            throw new DukeException("Fail to parse record");
+        }
     }
 }
