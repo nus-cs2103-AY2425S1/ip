@@ -1,10 +1,10 @@
-public class NotStringException extends Exception{
+public class InvalidCommandException extends Exception{
     String desc = "";
-    public NotStringException(String desc){
+    public InvalidCommandException(String desc){
         this.desc = desc;
     }
 
     public void print(){
-        System.out.println("The input is not a String!" + desc);
+        System.out.println("The command is not valid: " + desc);
     }
 }

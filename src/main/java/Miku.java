@@ -68,6 +68,15 @@ public class Miku {
 
             input = scanner.nextLine();
             System.out.println(sectionBreak);
+            try {
+                String command = input.split(" ")[0];
+                if (!validCommands.contains(command)){
+                    throw new InvalidCommandException(command);
+                }
+            } catch (InvalidCommandException e){
+                e.print();
+                System.out.println(sectionBreak);
+            }
 
             if (input.equals("bye")){
                 break;
