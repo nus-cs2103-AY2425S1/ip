@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Joe {
     private static final String line =
             "____________________________________________________________";
-    private static Task[] userTasks = new Task[100];
+    private static final Task[] userTasks = new Task[100];
     private static int taskCount = 0;
     private static void bye() {
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
@@ -77,7 +77,7 @@ public class Joe {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             Task currTask = userTasks[i];
-            System.out.printf("%d. %s\n", i+1, currTask);
+            System.out.printf("%d.%s\n", i+1, currTask);
         }
         System.out.println(line);
     }
@@ -104,7 +104,7 @@ public class Joe {
             Task toBeUnmarked = userTasks[idx-1];
             if (toBeUnmarked.isDone()) {
                 toBeUnmarked.setDone(false);
-                System.out.printf("Ok, I've marked this task as not done yet:\n  %s\n", toBeUnmarked);
+                System.out.printf("OK, I've marked this task as not done yet:\n  %s\n", toBeUnmarked);
             } else {
                 System.out.println("This task is already unmarked.");
             }
