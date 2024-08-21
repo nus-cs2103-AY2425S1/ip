@@ -17,8 +17,17 @@ public class Snowy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(GREETING);
-        lastCommand = scanner.nextLine();
-        System.out.println(lastCommand);
+        while (true) {
+            lastCommand = scanner.nextLine();
+            if (lastCommand.equalsIgnoreCase("bye")) {
+                break;
+            }
+            System.out.println(lastCommand);
+            System.out.print(LINE);
+
+        }
+
+
         System.out.print(ENDING);
     }
 }
