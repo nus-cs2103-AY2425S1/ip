@@ -49,16 +49,32 @@ public class Fanny {
                 System.out.println("_____________________________________________");
             } else if (action.equals("todo")) {
                 System.out.println("_____________________________________________");
+                String description = "";
                 if (cmdParts.length > 1) {
-                    Task task = new ToDo(cmdParts[1]);
-                    list.add(task);
-                    System.out.println("Fanny: ");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(task.toString());
-                    System.out.println("Now you have " + list.getLength() + " tasks in the list.");
+                    for (int i = 1; i < cmdParts.length; i++) {
+                        description += cmdParts[i] + " ";
+                    }
                 }
+                Task todo = new ToDo(description);
+                list.add(todo);
+                System.out.println("Fanny: ");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(todo.toString());
+                System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                 System.out.println("_____________________________________________");
-            }else {
+            } else if (action.equals("deadline")) {
+                System.out.println("_____________________________________________");
+                String[] cmdDeadline = cmd.split("/by ");
+                String time = cmdDeadline[1];
+                String description = cmdDeadline[0].split("deadline")[1];
+                Task deadline = new Deadline(description, time);
+                list.add(deadline);
+                System.out.println("Fanny: ");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(deadline.toString());
+                System.out.println("Now you have " + list.getLength() + " tasks in the list.");
+                System.out.println("_____________________________________________");
+            } else {
                 System.out.println("_____________________________________________");
                 System.out.println("Fanny: ");
                 System.out.println("Added: " + cmd);
