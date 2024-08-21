@@ -48,8 +48,9 @@ public class Alice {
     // all other strings are tasks that should be added
     public static void handleTask(String response) throws AliceException{
         String[] result = response.split(" ", 2);
-        switch (result[0]) {
-            case "mark":
+        Command command = Command.stringToCommand(result[0]);
+        switch (command) {
+            case MARK:
                 int taskNumber;
                 try {
                     taskNumber = Integer.parseInt(result[1]);
@@ -68,7 +69,7 @@ public class Alice {
                 System.out.println(markTask);
                 System.out.println("------------------------------------------");
                 break;
-            case "unmark":
+            case UNMARK:
                 int taskNum;
                 try {
                     taskNum = Integer.parseInt(result[1]);
@@ -87,7 +88,7 @@ public class Alice {
                 System.out.println(unmarkTask);
                 System.out.println("------------------------------------------");
                 break;
-            case "delete":
+            case DELETE:
                 int taskNo;
                 try {
                     taskNo = Integer.parseInt(result[1]);
@@ -106,7 +107,7 @@ public class Alice {
                 System.out.printf("Now you have %d tasks in the list%n", tasks.size());
                 System.out.println("------------------------------------------");
                 break;
-            case "todo":
+            case TODO:
                 // result[1] contains description
                 if (result.length != 2) {
                     throw new MissingArgumentException("Todo", new String[]{"description"});
@@ -114,7 +115,7 @@ public class Alice {
                 Todo todoTask = new Todo(result[1]);
                 tasks.add(todoTask);
                 break;
-            case "deadline":
+            case DEADLINE:
                 // result[1] contains description /by deadline
                 if (result.length != 2) {
                     throw new MissingArgumentException("Deadline", new String[]{"description, by"});
@@ -127,7 +128,7 @@ public class Alice {
                 Deadline deadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
                 tasks.add(deadlineTask);
                 break;
-            case "event":
+            case EVENT:
                 // result[1] contains description /from from /to to
                 if (result.length != 2) {
                     throw new MissingArgumentException("Event", new String[]{"description, from, to"});
@@ -146,7 +147,7 @@ public class Alice {
             default:
                 throw new AliceException(response);
         }
-        if (result[0].equals("mark") || result[0].equals("unmark") || result[0].equals("delete")) {
+        if (command == Command.MARK || command == Command.UNMARK || command == Command.DELETE) {
             return;
         }
 
