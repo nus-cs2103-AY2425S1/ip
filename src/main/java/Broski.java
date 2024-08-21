@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Broski {
     private String line = "_________________________________________";
     private Scanner scanner = new Scanner(System.in);
-    private ArrayList<String> list = new ArrayList<>(100);
+    private ArrayList<Task> list = new ArrayList<>(100);
     public void start() {
         System.out.println(line);
         System.out.println("Wassup! I'm Broski!");
@@ -24,9 +24,25 @@ public class Broski {
         } else if (reply.equals("bye")) {
             System.out.println(line);
             this.exit();
+        } else if (reply.length() > 5 && reply.substring(0, 4).equals("mark")) {
+            System.out.println(line);
+            int i = Integer.valueOf(reply.split("[ ]")[1]);
+            list.get(i).mark();
+            System.out.println("Solid! Marked as done for you:");
+            System.out.println(list.get(i));
+            System.out.println(line);
+            this.chatbot();
+        } else if (reply.length() > 7 && reply.substring(0, 6).equals("unmark")) {
+            System.out.println(line);
+            int i = Integer.valueOf(reply.split("[ ]")[1]);
+            list.get(i).unmark();
+            System.out.println("Alright, I've marked the task as undone:");
+            System.out.println(list.get(i));
+            System.out.println(line);
+            this.chatbot();
         } else {
             System.out.println(line);
-            list.add(reply);
+            list.add(new Task(reply));
             System.out.println("added: " + reply);
             System.out.println(line);
             this.chatbot();
@@ -34,7 +50,7 @@ public class Broski {
     }
 
     public void exit() {
-        System.out.println("Bye. See ya around!");
+        System.out.println("Bye, bro. See ya around!");
         System.out.println(line);
     }
 
