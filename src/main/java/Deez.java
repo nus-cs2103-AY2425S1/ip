@@ -12,11 +12,11 @@ public class Deez {
         System.out.println("____________________________________________________________");
     }
 
-    static int parseInt(String s) {
+    static int parseInt(String s) throws DeezException {
         try {
             return Integer.parseInt(s);
         } catch (Exception e) {
-            return -1;
+            throw new DeezException("Invalid input!", "Please enter a valid number.");
         }
     }
     public static void main(String[] args) throws IOException {
@@ -28,6 +28,7 @@ public class Deez {
         String CMD_todo = "todo";
         String CMD_deadline = "deadline";
         String CMD_event = "event";
+        String CMD_delete = "delete";
 
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -125,22 +126,34 @@ public class Deez {
 
                 if (cmd.equals(CMD_markDone) || cmd.equals(CMD_unmarkDone)) {
                     int taskIdx = parseInt(param);
-                    if (taskIdx > 0) {
-                        try {
-                            Task t = tasks.get(taskIdx-1);
-                            if (cmd.equals(CMD_markDone) && !t.isDone()) {
-                                t.toggleDone();
-                            } else if (cmd.equals(CMD_unmarkDone) && t.isDone()) {
-                                t.toggleDone();
-                            }
-                            say("Updated task:", t.toString());
-                        } catch (Exception e) {
-                            throw new DeezException("No task at index " + param, "Please try again.");
+                    try {
+                        Task t = tasks.get(taskIdx-1);
+                        if (cmd.equals(CMD_markDone) && !t.isDone()) {
+                            t.toggleDone();
+                        } else if (cmd.equals(CMD_unmarkDone) && t.isDone()) {
+                            t.toggleDone();
                         }
-                    } else {
-                        throw new DeezException("Invalid input!", "Please enter a valid number.");
+                        say("Updated task:", t.toString());
+                        continue;
+                    } catch (Exception e) {
+                        throw new DeezException("No task at index " + param, "Please try again.");
                     }
                 }
+
+                if(cmd.equals(CMD_delete)) {
+                    int taskIdx = parseInt(param);
+                    try {
+                        Task t = tasks.get(taskIdx-1);
+                        tasks.remove(t);
+                        say("Deleted task:", t.toString(), tasks.size() + " tasks remain.");
+                        continue;
+                    } catch (Exception e) {
+                        throw new DeezException("No task at index " + param, "Please try again.");
+                    }
+                }
+
+                say("Please enter a valid command.");
+
             } catch (DeezException e) {
                 say(e.getErrorMessages());
             }
