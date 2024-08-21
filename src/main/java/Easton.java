@@ -52,7 +52,11 @@ public class Easton {
                 changeTaskStatus(getTextFromInput(input), false, "OK, I've marked this task as not done yet:");
                 break;
             case TODO:
-                addTask(new ToDo(getTextFromInput(input)));
+                try {
+                    addTask(createToDo(input));
+                } catch (EmptyDescriptionException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case DEADLINE:
                 String[] text = getTextFromInput(input).split(" /by ", 2);
@@ -88,6 +92,15 @@ public class Easton {
             }
         } catch (NumberFormatException e) {
             System.out.println(text + " is not an integer!");
+        }
+    }
+
+    private static ToDo createToDo(String input) throws EmptyDescriptionException {
+        String[] splitInput = input.split(" ", 2);
+        if (splitInput.length == 2) {
+            return new ToDo(splitInput[1]);
+        } else {
+            throw new EmptyDescriptionException();
         }
     }
 
