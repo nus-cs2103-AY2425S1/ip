@@ -187,6 +187,21 @@ public class Delta {
                     }
                     output = addTask(new Event(details[0], timings[0], timings[1]));
 
+                // Catch Invalid Delete
+                } else if (task.strip().equalsIgnoreCase("delete")) {
+                    throw new DeltaException("OOPS!!! Please indicate which task to delete.");
+
+                // Delete Task
+                } else if (task.length() >= 7 && task.substring(0, 7).equalsIgnoreCase("delete ")) {
+                    int taskIdx;
+                    try {
+                        taskIdx = Integer.parseInt(task.substring(7));
+                    }
+                    catch (NumberFormatException e) {
+                        throw new DeltaException("OOPS!!! Index of the task must be an integer.");
+                    }
+                    output = deleteTask(taskIdx);
+
                 // Unknown Action
                 } else {
                     throw new DeltaException("OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
