@@ -29,59 +29,92 @@ public class Bro {
                 list.get(index - 1).unmark();
                 System.out.print("   " + line + "   OK, I've marked this task as not done yet:\n"
                                  + "   " + list.get(index - 1) + "\n   " + line);
-            } else if (word.length() > 5 &&
-                    word.substring(0, 5).equalsIgnoreCase("todo ")) {
-                Task curr = new Todo(word.substring(5));
-                list.add(curr);
-                System.out.printf("""
+            } else if (word.length() >= 4 &&
+                    word.substring(0, 4).equalsIgnoreCase("todo")) {
+                if (word.length() == 4) {
+                    System.out.printf("   %s\n   Please provide the name of the task!!!\n   %s",
+                            line, line);
+                } else {
+                    Task curr = new Todo(word.substring(5));
+                    list.add(curr);
+                    System.out.printf("""
                            %s   Got it. I've added this task:
                            %s
                            \
                         Now you have %d tasks in the list
                            %s""", line, curr, list.size(), line);
-            } else if (word.length() > 9 &&
-                    word.substring(0, 9).equalsIgnoreCase("deadline ")) {
-                StringBuilder name = new StringBuilder();
-                int index = 9;
-                while (word.charAt(index) != '/') {
-                    name.append(word.charAt(index));
-                    index++;
                 }
-                Task curr = new Deadline(name.toString(), word.substring(index + 4));
-                list.add(curr);
-                System.out.printf("""
+            } else if (word.length() >= 8 &&
+                    word.substring(0, 8).equalsIgnoreCase("deadline")) {
+                if (word.length() == 8) {
+                    System.out.printf("   %s\n   Please provide the name of the task!!!\n   %s",
+                            line, line);
+                } else {
+                    StringBuilder name = new StringBuilder();
+                    int index = 9;
+                    while (index < word.length() && word.charAt(index) != '/') {
+                        name.append(word.charAt(index));
+                        index++;
+                    }
+                    if (word.length() - index < 5 ||
+                            !word.substring(index, index + 3).equalsIgnoreCase("/by")) {
+                        System.out.printf("   %s\n   Please provide /by [date or time] after name\n   %s",
+                                line, line);
+                    } else {
+                        Task curr = new Deadline(name.toString(), word.substring(index + 4));
+                        list.add(curr);
+                        System.out.printf("""
                            %s   Got it. I've added this task:
                            %s
                            \
                         Now you have %d tasks in the list
                            %s""", line, curr, list.size(), line);
-            } else if (word.length() > 6 &&
-                    word.substring(0, 6).equalsIgnoreCase("event ")) {
-                StringBuilder name = new StringBuilder();
-                int index = 6;
-                while (word.charAt(index) != '/') {
-                    name.append(word.charAt(index));
-                    index++;
+                    }
                 }
-                index += 6;
-                StringBuilder from = new StringBuilder();
-                while (word.charAt(index) != '/') {
-                    from.append(word.charAt(index));
-                    index++;
-                }
-                Task curr = new Event(name.toString(), from.toString(),
-                                         word.substring(index + 4));
-                list.add(curr);
-                System.out.printf("""
+            } else if (word.length() >= 5 &&
+                    word.substring(0, 5).equalsIgnoreCase("event")) {
+                if (word.length() == 5) {
+                    System.out.printf("   %s\n   Please provide the name of the task!!!\n   %s",
+                            line, line);
+                } else {
+                    StringBuilder name = new StringBuilder();
+                    int index = 6;
+                    while (index < word.length() && word.charAt(index) != '/') {
+                        name.append(word.charAt(index));
+                        index++;
+                    }
+                    if (word.length() - index < 7 ||
+                            !word.substring(index, index + 5).equalsIgnoreCase("/from")) {
+                        System.out.printf("   %s\n   Please provide /from [date or time] /to [date or time] " +
+                                "after name\n   %s", line, line);
+                    } else {
+                        index += 6;
+                        StringBuilder from = new StringBuilder();
+                        while (index < word.length() && word.charAt(index) != '/') {
+                            from.append(word.charAt(index));
+                            index++;
+                        }
+                        if (word.length() - index < 5 ||
+                                !word.substring(index, index + 3).equalsIgnoreCase("/to")) {
+                            System.out.printf("   %s\n   Please provide /to [date or time] " +
+                                    "after name and start date or time\n   %s", line, line);
+                        } else {
+                            Task curr = new Event(name.toString(), from.toString(),
+                                    word.substring(index + 4));
+                            list.add(curr);
+                            System.out.printf("""
                            %s   Got it. I've added this task:
                            %s
                            \
                         Now you have %d tasks in the list
                            %s""", line, curr, list.size(), line);
+                        }
+                    }
+                }
             }
             else {
-                list.add(new Task(word));
-                System.out.println("   " + line + "   added: " + word + "\n" + "   " + line);
+                System.out.println("   " + line + "   Well, what are u trying to do here? " +
+                        "I don't quite understand :(\n" + "   " + line);
             }
             Scanner next_prompt = new Scanner(System.in);
             word = next_prompt.nextLine();
