@@ -32,15 +32,15 @@ public class Tako {
             } else if (command.length() > 8 && command.substring(0, 9).equals("deadline ")) {
                 //deadline command
                 int markerOfBy = command.indexOf("/by");
-                String deadlineDescription = command.substring(9, markerOfBy);
+                String deadlineDescription = command.substring(9, markerOfBy - 1);
                 String by = command.substring(markerOfBy + 4);
                 addStorage(listOfTask, new Deadline(deadlineDescription, by));
             } else if (command.length() > 5 && command.substring(0, 6).equals("event ")) {
                 //event command
                 int markerOfFrom = command.indexOf("/from");
                 int markerOfTo = command.indexOf("/to");
-                String eventDescription = command.substring(6, markerOfFrom);
-                String from = command.substring(markerOfFrom + 6, markerOfTo);
+                String eventDescription = command.substring(6, markerOfFrom - 1);
+                String from = command.substring(markerOfFrom + 6, markerOfTo - 1);
                 String to = command.substring(markerOfTo + 4);
                 addStorage(listOfTask, new Event(eventDescription, from, to));
             } else {
@@ -69,11 +69,11 @@ public class Tako {
 
     public static void markTask(ArrayList<Task> listOfTask, int taskNumber) {
         listOfTask.get(taskNumber - 1).markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n" + listOfTask.get(taskNumber - 1).toString());
+        System.out.println("Nice! I've marked this task as done:\n" + "  " + listOfTask.get(taskNumber - 1).toString());
     }
 
     public static void unmarkTask(ArrayList<Task> listOfTask, int taskNumber) {
         listOfTask.get(taskNumber - 1).markAsUndone();
-        System.out.println("OK, I've marked this task as not done yet:\n" + listOfTask.get(taskNumber - 1).toString());
+        System.out.println("OK, I've marked this task as not done yet:\n" + "  " + listOfTask.get(taskNumber - 1).toString());
     }
 }
