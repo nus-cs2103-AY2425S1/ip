@@ -1,0 +1,9 @@
+event finish elden ring /from sun 6pm /to 10pm
+mark 1
+todo borrow book
+list
+mark 2
+unmark 1
+deadline play football /by Sunday
+list
+bye
