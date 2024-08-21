@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -6,7 +8,7 @@ import java.util.regex.Pattern;
 public class Rob {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        List<Task> tasks = new ArrayList<>();
         int taskCount = 0;
 
         String greet = "Hello! I'm Rob\n" +
@@ -30,18 +32,18 @@ public class Rob {
             } else if (Objects.equals(input, "list")) {
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
                 System.out.println("____________________________________________________________\n");
             } else if (input.startsWith("mark")) {
                 int taskNum = findTaskNum(input);
                 if (taskNum > 0 && taskNum <= taskCount) {
-                    if (tasks[taskNum - 1].isDone) {
+                    if (tasks.get(taskNum - 1).isDone) {
                         System.out.println("Already done!");
                     } else {
-                        tasks[taskNum - 1].markAsDone();
+                        tasks.get(taskNum - 1).markAsDone();
                         String marked = "____________________________________________________________\n" +
-                                "Nice! I've marked this task as done:\n" + tasks[taskNum - 1] + "\n" +
+                                "Nice! I've marked this task as done:\n" + tasks.get(taskNum - 1) + "\n" +
                                 "____________________________________________________________\n";
                         System.out.println(marked);
                     }
@@ -52,18 +54,37 @@ public class Rob {
                 int taskNum = findTaskNum(input);
 
                 if (taskNum > 0 && taskNum <= taskCount) {
-                    if (!tasks[taskNum - 1].isDone) {
+                    if (!tasks.get(taskNum - 1).isDone) {
                         System.out.println("Already unmarked!");
                     } else {
-                        tasks[taskNum - 1].unmark();
+                        tasks.get(taskNum - 1).unmark();
                         String unmarked = "____________________________________________________________\n" +
-                                "OK, I've marked this task as not done yet:\n" + tasks[taskNum - 1] + "\n" +
+                                "OK, I've marked this task as not done yet:\n" + tasks.get(taskNum - 1) + "\n" +
                                 "____________________________________________________________\n";
                         System.out.println(unmarked);
                     }
                 } else {
                     System.out.println("Invalid task number... Try another?");
                 }
+            } else if (input.startsWith("delete")) {
+                try {
+                    int taskNum = findTaskNum(input);
+                    if (taskNum < 1 || taskNum > taskCount) {
+                        throw new DukeException("Invalid task number... Unable to delete");
+                    } else {
+                        tasks.remove(taskNum - 1);
+                        taskCount--;
+                    }
+                    // echo
+                    String echo = "____________________________________________________________\n" +
+                            "deleted: " + tasks.get(taskCount - 1) + "\n" +
+                            "____________________________________________________________\n";
+                    String numTaskInList = "Now you have " + taskCount + " task(s) in the list.\n";
+                    System.out.println(echo + numTaskInList);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+
             } else {
                 try {
                     if (input.startsWith("deadline")) {
@@ -77,7 +98,7 @@ public class Rob {
                         String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
                         String desc = rem.split(" /by")[0].trim();
                         String day = rem.split(" /by")[1].trim();
-                        tasks[taskCount] = new Deadline(desc, day);
+                        tasks.add(new Deadline(desc, day));
                         taskCount++;
 
                     } else if (input.startsWith("event")) {
@@ -93,7 +114,7 @@ public class Rob {
                         String desc = rem.split(" /from")[0].trim();
                         String from = rem.split(" /from")[1].split(" /to")[0].trim();
                         String to = rem.split(" /from")[1].split(" /to")[1].trim();
-                        tasks[taskCount] = new Event(desc, from, to);
+                        tasks.add(new Event(desc, from, to));
                         taskCount++;
 
                     } else if (input.startsWith("todo")) {
@@ -102,14 +123,14 @@ public class Rob {
                         }
 
                         String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
-                        tasks[taskCount] = new Todo(rem);
+                        tasks.add(new Todo(rem));
                         taskCount++;
                     } else {
                         throw new DukeException("I'm sorry... I don't seem to understand.");
                     }
                     // echo
                     String echo = "____________________________________________________________\n" +
-                            "added: " + tasks[taskCount - 1] + "\n" +
+                            "added: " + tasks.get(taskCount - 1) + "\n" +
                             "____________________________________________________________\n";
                     String numTaskInList = "Now you have " + taskCount + " task(s) in the list.\n";
                     System.out.println(echo + numTaskInList);
