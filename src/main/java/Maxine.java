@@ -1,9 +1,9 @@
 import java.util.Scanner;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Maxine {
 
-    static HashMap<Integer, Task> list = new HashMap<>();
+    static ArrayList<Task> list = new ArrayList<>();
 
     /**
      * This method prompts the user to ask for their answer
@@ -28,18 +28,26 @@ public class Maxine {
         do {
             System.out.print("What can I do for you today? : ");
             answer = scanner.nextLine().toLowerCase();
+            String[] arr = answer.split(" ");
             if (answer.equals("list")) {
-                for (int i = 1; i < (list.size() + 1); i++) {
-                    System.out.println(i + ". " + list.get(i));
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i + 1) + ". " + list.get(i));
                 }
-            } else if (answer.contains("mark") || answer.contains("unmark")) {
-                String[] arr = answer.split(" ");
-                int mark = Integer.parseInt(arr[1]);
+            } else if (arr[0].equals("mark") || arr[0].equals("unmark")) {
+                int mark = Integer.parseInt(arr[1]) - 1;
                 Task curr = list.get(mark);
                 curr.changeStatus();
+            } else if (arr[0].equals("todo")) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(arr[1]);
+                for (int i = 2; i < arr.length; i++) {
+                    String word = " " + arr[i];
+                    sb.append(word);
+                }
+                Todo task = new Todo(sb.toString());
             } else {
                 Task task = new Task(answer);
-                list.put(task.num, task);
+                list.add(task);
             }
 
         }

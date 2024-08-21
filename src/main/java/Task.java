@@ -4,6 +4,13 @@ public class Task {
     protected int num;
     private static int count;
 
+    public Task() {
+        this.description = null;
+        this.isDone = false;
+        count += 1;
+        this.num = count;
+    }
+
     public Task(String description) {
         this.description = description.toLowerCase();
         this.isDone = false;
