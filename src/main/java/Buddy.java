@@ -51,19 +51,42 @@ public class Buddy {
             return;
         }
 
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
 
     /**
      * Adds a new task to the task list.
      *
-     * @param description Description of the task.
+     * @param input User input.
      */
-    private static void addTask(String description) {
-        tasks.add(new Task(description));
-        System.out.println("added: " + description);
+    private static void addTask(String input) {
+        String[] parts = input.split(" ", 2);
+        String type = parts[0];
+        String description = parts[1];
+
+        switch (type) {
+            case "todo":
+                tasks.add(new ToDo(description));
+                break;
+            case "deadline":
+                String[] deadlineParts = description.split(" /by ");
+                tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                break;
+            case "event":
+                String[] eventParts = description.split(" /from | /to ");
+                tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                break;
+            default:
+                System.out.println("Invalid task type!");
+                return;
+        }
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -91,7 +114,7 @@ public class Buddy {
         }
 
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(taskIndex));
+        System.out.println("  " + tasks.get(taskIndex));
     }
 
     /**
@@ -119,6 +142,6 @@ public class Buddy {
         }
 
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks.get(taskIndex));
+        System.out.println("  " + tasks.get(taskIndex));
     }
 }
