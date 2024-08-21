@@ -1,32 +1,39 @@
 import java.util.Scanner;
 
 public class FRIDAY {
-    public static void main(String[] args) {
+    private Boolean isActive;
+    private String userInput, output, greeting, exitMessage, divider;
+    private String[] storage = new String[100];
+    private int storagePointer = 0;
+
+    public FRIDAY() {
         //divider
-        String divider = "";
+        divider = "";
         for (int i = 0; i < 40; i++) {
             divider += "-";
         }
         divider += "\n";
 
         //preset messages
-        String greeting = divider + "Hello! I'm FRIDAY\nWhat can I do for you?\n" + divider;
-        String exitMessage = divider + "Bye. Hope to see you again soon!\n" + divider;
+        greeting = divider + "Hello! I'm FRIDAY\nWhat can I do for you?\n" + divider;
+        exitMessage = divider + "Bye. Hope to see you again soon!\n" + divider;
 
-        //variable to track state of bot
-        Boolean isActive = true;
+        //variable to store user input
+        userInput = "";
 
+        //variable to store output
+        output = "";
+    }
+
+    public void start() {
         //initialize scanner object
         Scanner scanner = new Scanner(System.in);
 
-        //variable to store user input
-        String userInput = "";
+        //start the bot
+        isActive = true;
 
-        //variable to store output
-        String output = "";
-
+        //bot running
         System.out.println(greeting);
-        //running the chatbot
         while(isActive) {
             userInput = scanner.nextLine();
             //the keyword bye triggers exit bot
@@ -35,7 +42,36 @@ public class FRIDAY {
                 isActive = false;
                 break;
             }
-            System.out.println(divider  + userInput + "\n" + divider);
+            if(userInput.toLowerCase().equals("list")) {
+                display();
+                continue;
+            }
+            add(userInput);
         }
+    }
+
+    //function to add string to storage array
+    public void add(String input) {
+        //add the input to the array
+        storage[storagePointer] = input;
+        storagePointer += 1;
+        output = divider + "added: " + input + "\n" + divider;
+        System.out.println(output);
+    }
+
+    //function to display storage in list format
+    public void display() {
+        String displayList = divider;
+        for(int i = 1; i <= storagePointer; i++) {
+            displayList += i + ". " + storage[i - 1] + "\n";
+        }
+        displayList += divider;
+        output = displayList;
+        System.out.println(output);
+    }
+
+    public static void main(String[] args) {
+        FRIDAY bot = new FRIDAY();
+        bot.start();
     }
 }
