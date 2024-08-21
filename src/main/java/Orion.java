@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 public class Orion {
@@ -14,7 +15,7 @@ public class Orion {
     public static final String INDENT = "    ";
 
     private static boolean isOnline;
-    private static Task[] tasks;
+    private static ArrayList<Task> tasks;
     private static int noTasks;
 
     private static void printBar() {
@@ -46,13 +47,13 @@ public class Orion {
     private static void list() {
         Orion.printIndent("Here are the tasks in your list:");
         for (int i = 0; i < Orion.noTasks; i++) {
-            String task = String.format("%d. %s", i + 1, Orion.tasks[i]);
+            String task = String.format("%d. %s", i + 1, Orion.tasks.get(i));
             Orion.printIndent(task);
         }
     }
 
     private static void addTask(Task task) {
-        Orion.tasks[Orion.noTasks] = task;
+        Orion.tasks.add(task);
         Orion.noTasks++;
         Orion.printIndent("Sure! I've added the following task to your list:");
         Orion.printIndent(task.toString());
@@ -76,7 +77,7 @@ public class Orion {
 
     // taskNo is 0 indexed
     private static void markTask(int taskNo) {
-        Task task = Orion.tasks[taskNo];
+        Task task = Orion.tasks.get(taskNo);
         task.setDone();
         Orion.printIndent("Sure! I've marked the following task as done:");
         Orion.printIndent(task.toString());
@@ -84,10 +85,19 @@ public class Orion {
 
     // taskNo is 0 indexed
     private static void unmarkTask(int taskNo) {
-        Task task = Orion.tasks[taskNo];
+        Task task = Orion.tasks.get(taskNo);
         task.setUndone();
         Orion.printIndent("Sure! I've marked the following task as undone:");
         Orion.printIndent(task.toString());
+    }
+
+    private static void deleteTask(int taskNo) {
+        Task task = Orion.tasks.get(taskNo);
+        Orion.tasks.remove(task);
+        Orion.noTasks--;
+        Orion.printIndent("Sure! I've deleted the following task:");
+        Orion.printIndent(task.toString());
+        Orion.printIndent("Now you have " + Orion.noTasks + " tasks in your list.");
     }
 
     private static void obey(String input) {
@@ -110,7 +120,9 @@ public class Orion {
                     } else {
                         try {
                             int taskNo = Integer.parseInt(inputArray[1]);
-                            if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
+                            if (taskNo < 1) {
+                                throw new IllegalArgumentException("Please provide a positive task number!");
+                            } else if (taskNo > Orion.noTasks) {
                                 String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as done.", Orion.noTasks, taskNo);
                                 throw new IllegalArgumentException(errorMsg);
                             } else {
@@ -127,8 +139,10 @@ public class Orion {
                     } else {
                         try {
                             int taskNo = Integer.parseInt(inputArray[1]);
-                            if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
-                                String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as done.", Orion.noTasks, taskNo);
+                            if (taskNo < 1) {
+                                throw new IllegalArgumentException("Please provide a positive task number!");
+                            } else if (taskNo > Orion.noTasks) {
+                                String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as undone.", Orion.noTasks, taskNo);
                                 throw new IllegalArgumentException(errorMsg);
                             } else {
                                 Orion.unmarkTask(taskNo - 1);
@@ -167,6 +181,25 @@ public class Orion {
                         Orion.addEvent(mapped[0].trim(), mapped[1].trim(), mapped[2].trim());
                         break;
                     }
+                case "delete":
+                    if (inputArray.length != 2) {
+                        throw new IllegalArgumentException("Correct syntax: delete <task number>");
+                    } else {
+                        try {
+                            int taskNo = Integer.parseInt(inputArray[1]);
+                            if (taskNo < 1) {
+                                throw new IllegalArgumentException("Please provide a positive task number!");
+                            } else if (taskNo > Orion.noTasks) {
+                                String errorMsg = String.format("Number of tasks: %d. Unable to delete task %d.", Orion.noTasks, taskNo);
+                                throw new IllegalArgumentException(errorMsg);
+                            } else {
+                                Orion.deleteTask(taskNo - 1);
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new IllegalArgumentException("Correct syntax: delete <task number>");
+                        }
+                    }
                 default:
                     throw new IllegalArgumentException("Please provide a supported command!");
             }
@@ -179,7 +212,7 @@ public class Orion {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Orion.isOnline = true;
-        Orion.tasks = new Task[100];
+        Orion.tasks = new ArrayList<>();
         Orion.noTasks = 0;
         Orion.greet();
 
