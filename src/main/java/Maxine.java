@@ -25,11 +25,14 @@ public class Maxine {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hi! Nice to meet you :) I am Maxine");
         String answer;
-        do {
+        while (true) {
             System.out.print("What can I do for you today? : ");
             answer = scanner.nextLine().toLowerCase();
             String[] arr = answer.split(" ");
-            if (answer.equals("list")) {
+            if (answer.equals("bye")) {
+                System.out.println("\nBye! I have been maxed out and am going to sleep. Hope to see you again soon!");
+                break;
+            } else if (answer.equals("list")) {
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println((i + 1) + ". " + list.get(i));
                 }
@@ -98,9 +101,8 @@ public class Maxine {
             }
 
         }
-        while (!answer.equals("bye"));
 
-        System.out.println("\nBye! I have been maxed out and am going to sleep. Hope to see you again soon!");
+        scanner.close();
     }
 
 
