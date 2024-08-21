@@ -1,13 +1,25 @@
+import java.util.Scanner;
 public class brainRot {
     public static void main(String[] args) {
 
-        String message = "____________________________________________________________ \n"
+        Scanner reader = new Scanner(System.in);
+
+        String greeting = "____________________________________________________________ \n"
         + "Hello! I'm fanumTaxRizzlerOhioSigmaLooksmaxxer\n"
         + "What can I do for you?\n"
-        + "____________________________________________________________ \n"
-        + "Bye. Hope to see you again soon!\n"
-        + "____________________________________________________________";
+        + "____________________________________________________________ \n";
 
-        System.out.println(message);
+        String goodBye = "Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________";
+
+        System.out.println(greeting);
+        String answer = reader.nextLine();
+
+        while(!answer.equals("bye")) {
+            System.out.println(answer);
+            reader = new Scanner(System.in);
+            answer = reader.nextLine();
+        }
+        System.out.println(goodBye);
     }
 }
