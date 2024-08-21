@@ -41,57 +41,77 @@ public class Nether {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("");
-        while (true) {
-            String userInput = scanner.nextLine();
-            if (userInput.equalsIgnoreCase(EXIT_COMMAND)) {
-                break;
-            }
-
-            if (userInput.equalsIgnoreCase(LIST_COMMAND)) {
-                printHorizontalLine();
-                printList(tasks);
-                printHorizontalLine();
-                continue;
-            }
-
-            if (userInput.toLowerCase().startsWith(MARK_DONE_COMMAND)
-                    || userInput.toLowerCase().startsWith(MARK_NOT_DONE_COMMAND)) {
-                int taskNumber = extractTaskNumber(userInput);
-                if (taskNumber != -1 && taskNumber <= counter) {
-                    Task taskToMark = tasks[taskNumber - 1];
-                    if (userInput.toLowerCase().startsWith(MARK_DONE_COMMAND)) {
-                        taskToMark.markAsDone();
-                        System.out.println("Well done! I've marked this task as done:");
-                    } else {
-                        taskToMark.markAsNotDone();
-                        System.out.println("Understood, I've marked this task as not done:");
-                    }
-                    System.out.println("  " + taskToMark);
+        while (scanner.hasNextLine()) {
+            try {
+                String userInput = scanner.nextLine();
+                if (userInput.equalsIgnoreCase(EXIT_COMMAND)) {
+                    break;
                 }
+
+                if (userInput.equalsIgnoreCase(LIST_COMMAND)) {
+                    printHorizontalLine();
+                    printList(tasks);
+                    printHorizontalLine();
+                    continue;
+                }
+
+                if (userInput.toLowerCase().startsWith(MARK_DONE_COMMAND)
+                        || userInput.toLowerCase().startsWith(MARK_NOT_DONE_COMMAND)) {
+                    int taskNumber = extractTaskNumber(userInput);
+                    if (taskNumber != -1 && taskNumber <= counter) {
+                        Task taskToMark = tasks[taskNumber - 1];
+                        if (userInput.toLowerCase().startsWith(MARK_DONE_COMMAND)) {
+                            taskToMark.markAsDone();
+                            System.out.println("Well done! I've marked this task as done:");
+                        } else {
+                            taskToMark.markAsNotDone();
+                            System.out.println("Understood, I've marked this task as not done:");
+                        }
+                        System.out.println("  " + taskToMark);
+                    }
+                    printHorizontalLine();
+                    continue;
+                }
+
+                // if none of the special command above are input, run the code below:
                 printHorizontalLine();
-                continue;
+
+                String[] processedInput;
+                if (userInput.toLowerCase().startsWith(TODO_TASK_COMMAND)) {
+                    processedInput = extractInputDetails(userInput, TODO_TASK_COMMAND);
+//                    if (processedInput[0].trim().isEmpty()) {
+//                        throw new NetherException("the description field of a todo cannot be empty.");
+//                    }
+                    System.out.println("Got it. I've added this task:");
+                    tasks[counter] = new TodoTask(processedInput[0]);
+                } else if (userInput.toLowerCase().startsWith(DEADLINE_TASK_COMMAND)) {
+                    processedInput = extractInputDetails(userInput, DEADLINE_TASK_COMMAND);
+//                    if (processedInput[0].trim().isEmpty() || processedInput[1].trim().isEmpty()) {
+//                        throw new NetherException("the description or by field of a deadline cannot be empty.");
+//                    }
+                    System.out.println("Got it. I've added this task:");
+                    tasks[counter] = new DeadlineTask(processedInput[0], processedInput[1]);
+                } else if (userInput.toLowerCase().startsWith(EVENT_TASK_COMMAND)) {
+                    processedInput = extractInputDetails(userInput, EVENT_TASK_COMMAND);
+//                    if (processedInput[0].trim().isEmpty() || processedInput[1].trim().isEmpty()
+//                            || processedInput[2].trim().isEmpty()) {
+//                        throw new NetherException("the description, start time, or end time of an event cannot be " +
+//                                "empty.");
+//                    }
+                    System.out.println("Got it. I've added this task:");
+                    tasks[counter] = new EventTask(processedInput[0], processedInput[1], processedInput[2]);
+                } else {
+                    extractInputDetails(userInput, userInput);
+                }
+
+                System.out.println("  " + tasks[counter].toString());
+                counter++;
+                System.out.println("Now you have " + counter + " tasks in the list.");
+                printHorizontalLine();
+            } catch (NetherException e) {
+                System.out.println("Sir, " + e.getMessage());
+                printHorizontalLine();
             }
-
-            // if none of the special command above are input, run the code below:
-            printHorizontalLine();
-            System.out.println("Got it. I've added this task:");
-
-            String[] processedInput;
-            if (userInput.toLowerCase().startsWith(TODO_TASK_COMMAND)) {
-                processedInput = extractInputDetails(userInput, TODO_TASK_COMMAND);
-                tasks[counter] = new TodoTask(processedInput[0]);
-            } else if (userInput.toLowerCase().startsWith(DEADLINE_TASK_COMMAND)) {
-                processedInput = extractInputDetails(userInput, DEADLINE_TASK_COMMAND);
-                tasks[counter] = new DeadlineTask(processedInput[0], processedInput[1]);
-            } else if (userInput.toLowerCase().startsWith(EVENT_TASK_COMMAND)) {
-                processedInput = extractInputDetails(userInput, EVENT_TASK_COMMAND);
-                tasks[counter] = new EventTask(processedInput[0], processedInput[1], processedInput[2]);
-            }
-
-            System.out.println("  " + tasks[counter].toString());
-            counter++;
-            System.out.println("Now you have " + counter + " tasks in the list.");
-            printHorizontalLine();
         }
 
         // exit message
@@ -139,34 +159,48 @@ public class Nether {
      *
      * @param userInput input by the user
      * @param taskType can be todo, deadline, or event
-     * @return a String array of the parts of the user input that will be used for the 
+     * @return a String array of the parts of the user input that will be used for the
      *
      */
     private static String[] extractInputDetails(String userInput, String taskType) {
         String[] preprocessArray;
-        String[] resultArray;
+        String[] resultArray = new String[]{};
         switch (taskType) {
         case "todo":
             preprocessArray = userInput.split("todo ", 2);
+            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
+                throw new NetherException("The description of a todo cannot be empty.");
+            }
             resultArray = new String[]{preprocessArray[1]};
             break;
+
         case "deadline":
             preprocessArray = userInput.split("deadline ", 2);
+            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
+                throw new NetherException("The description of a deadline cannot be empty.");
+            }
             String[] deadlineParts = preprocessArray[1].split("/by ", 2);
-            resultArray = new String[2];
-            resultArray[0] = deadlineParts[0]; // Task description
-            resultArray[1] = deadlineParts[1]; // Task deadline
+            if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+                throw new NetherException("The description or date/time of a deadline cannot be empty.");
+            }
+            resultArray = new String[] {deadlineParts[0], deadlineParts[1]};
             break;
+
         case "event":
             preprocessArray = userInput.split("event ", 2);
+            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
+                throw new NetherException("The description of an event cannot be empty.");
+            }
             String[] eventParts = preprocessArray[1].split("/from |/to ", 3);
-            resultArray = new String[3];
-            resultArray[0] = eventParts[0]; // Event description
-            resultArray[1] = eventParts[1]; // Event start time
-            resultArray[2] = eventParts[2]; // Event end time
+            if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty()
+                    || eventParts[2].trim().isEmpty()) {
+                throw new NetherException(
+                        "The description, start time, or end time of an event cannot be empty.");
+            }
+            resultArray = new String[]{eventParts[0], eventParts[1], eventParts[2]};
             break;
         default:
-            resultArray = new String[]{};
+            throw new NetherException("the command: '" + userInput + "' is not in our database");
         }
         return resultArray;
     }
