@@ -5,7 +5,15 @@ public class Prince {
     private static String LINE = "    --------------------------------------";
     private static boolean TOGGLER = true;
 
+    // flag to control input printing
+    private static boolean DEBUG = false;  
+
     public static void main(String[] args) {
+
+        // check if debug argument is passed during automated text ui testing
+        if (args.length > 0 && args[0].equals("debug")) {
+            DEBUG = true;
+        }
 
         // initialise scanner for user input
         Scanner sc = new Scanner(System.in);
@@ -21,6 +29,12 @@ public class Prince {
         while (TOGGLER) {
             // get input from the user
             String input = sc.nextLine();
+
+            // prints input if in automated testing mode
+            if (DEBUG) {
+                System.out.println(input);
+            }
+
             printline();
 
             if (!input.equals("bye") && !input.equals("list")
@@ -53,7 +67,7 @@ public class Prince {
                     System.out.println("      " + event.toString());
                 }
 
-                System.out.println("Now you have " + getTaskArrayLength(tasksArray) +
+                System.out.println("    Now you have " + getTaskArrayLength(tasksArray) +
                         " tasks in the list.");
                 printline();
             } else if (input.equals("list")) {
@@ -91,6 +105,7 @@ public class Prince {
                 printline();
             } else if (input.contains("mark")) {
 
+                // extra check to make sure the start of input is "mark"
                 String checkMark = input.substring(0, 4);
                 if (checkMark.equals("mark")) {
                     // get index of input
@@ -149,7 +164,7 @@ public class Prince {
     }
 
     /*
-     * Mehthods to get descriptions of each respective task
+     * Methods to get descriptions of each respective task
      */
     // method to get description of the todo input
     private static String getTodo(String input) {
