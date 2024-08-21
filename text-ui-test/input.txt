@@ -16,4 +16,11 @@ unmark 2
 list
 event Test CS2103 bot thingy /from now /to later
 list
+todo
+event
+deadline
+event Event with no from and to 
+event Event with no to /from today 
+event Event with no to string /from today /to
+deadline Deadline with no by /by
 bye

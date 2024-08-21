@@ -117,4 +117,32 @@
 	___________________________________________
 
 	___________________________________________
+	Oi, you need to provide a description for the todo
+	Format as such:
+	  todo <description>
+	___________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	___________________________________________
+	Oi, you need to provide a description and a deadline for the deadline
+	Format as such:
+	  deadline <description> /by <deadline>
+	___________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	___________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	___________________________________________
+	Oi, you need to provide a description, a start time and an end time for the event
+	Format as such:
+	  event <description> /from <start time> /to <end time>
+	___________________________________________
+	Oi, you need to provide a description and a deadline for the deadline
+	Format as such:
+	  deadline <description> /by <deadline>
+	___________________________________________
 	Goodbye! See you sooooonnn!
