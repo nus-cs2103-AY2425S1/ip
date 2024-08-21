@@ -40,6 +40,32 @@ public class Gopher {
                 }
             }
             taskList[currentTaskNumber] = new ToDo(taskName.toString());
+        } else if (taskType.equalsIgnoreCase("deadline")) {
+            StringBuilder dueDate = new StringBuilder();
+
+            int byTokenIndex = -1;
+            for (int i = 1; i < tokens.length; i++) {
+                if (tokens[i].equalsIgnoreCase("/by")) {
+                    byTokenIndex = i;
+                }
+            }
+
+            for (int i = 1; i < byTokenIndex; i++) {
+                taskName.append(tokens[i]);
+                if (i < byTokenIndex - 1) {
+                    taskName.append(" ");
+                }
+            }
+
+            for (int i = byTokenIndex + 1; i < tokens.length; i++) {
+                dueDate.append(tokens[i]);
+                if (i < tokens.length - 1) {
+                    dueDate.append(" ");
+                }
+            }
+
+            taskList[currentTaskNumber] = new Deadline(taskName.toString(),
+                    dueDate.toString());
         } 
 
         Task addedTask = taskList[currentTaskNumber];
