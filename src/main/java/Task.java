@@ -1,20 +1,22 @@
 public class Task {
-    private String name;
+    private String description;
     private boolean isDone;
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
     }
 
-    public String getName() {
-        return name;
+    public void markAsDone() {
+        this.isDone = true;
     }
 
-    public void markAs(boolean isDone) {
-        this.isDone = isDone;
-    }
-    public boolean checkIsDone() {
-        return isDone;
+    public void markAsNotDone() {
+        this.isDone = false;
     }
 
+    @Override
+    public String toString() {
+        return (isDone ? "[X] " : "[ ] ") + description;
+    }
 }
