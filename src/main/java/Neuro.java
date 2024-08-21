@@ -3,7 +3,9 @@ import java.util.ArrayList;
 
 public class Neuro {
     public static void main(String[] args) {
-        ArrayList<String> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        // Scanner creation format inspired by https://www.w3schools.com/java/java_user_input.asp
         Scanner scanner = new Scanner(System.in);
         System.out.println("    ___________________________________________________");
         System.out.println("    Hii, I'm Neuro, your chatbot assistant!");
@@ -20,8 +22,20 @@ public class Neuro {
                     System.out.println("    " + (i + 1) + ". " + taskList.get(i));
                 }
                 System.out.println("    ___________________________________________________");
+            } else if (input.startsWith("mark")) {
+                String[] inputComponents = input.split("[\s]");
+                int taskIndex = Integer.valueOf(inputComponents[1]);
+                Task task = taskList.get(taskIndex - 1);
+                task.markDone();
+
+                System.out.println("    ___________________________________________________");
+                System.out.println("    Nice! I've marked this task as done:");
+                System.out.println("    " + task);
+                System.out.println("    ___________________________________________________");
+            } else if (input.startsWith("unmark")) {
+                // TODO add functionality
             } else {
-                taskList.add(input);
+                taskList.add(new Task(input));
                 System.out.println("    ___________________________________________________");
                 System.out.println("    added: " + input);
                 System.out.println("    ___________________________________________________");
