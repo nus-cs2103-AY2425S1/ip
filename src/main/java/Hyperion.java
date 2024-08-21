@@ -111,6 +111,18 @@ public class Hyperion {
                         } else {
                             throw new InvalidSyntaxException("event");
                         }
+                    } else if (input.startsWith("delete")) {
+                        String[] inputArray = input.split(" ", 2);
+                        if (inputArray.length == 1) {
+                            throw new EmptyDescriptionException("delete");
+                        }
+                        if (inputArray.length == 2) {
+                            int index = Integer.parseInt(inputArray[1]) - 1;
+                            String s1 = "Noted. I've removed this task:";
+                            String s2 = String.format("Now you have %d tasks in the list", allUserInputs.size() - 1);
+                            System.out.println(s1 + "\n" + " " + allUserInputs.get(index).toString() + "\n" + s2);
+                            allUserInputs.remove(index);
+                        }
                     } else {
                         if (!input.equals("bye")) {
                             throw new CommandNotFoundException(input);
@@ -121,7 +133,7 @@ public class Hyperion {
                 System.out.println(e.getMessage());
                 System.out.print(solidLine);
             } catch (NumberFormatException e) {
-                System.out.println("You can only mark and unmark integers shown in the list");
+                System.out.println("You have typed strings in places that expects numbers");
                 System.out.print(solidLine);
             }
         } while (!input.equals("bye"));
