@@ -123,7 +123,11 @@ public class Sentinel {
             if (this.commands.get(parsedCommands[0]) == null) {
                 say("Invalid command broski");
             } else {
-                this.commands.get(parsedCommands[0]).run(this, userInput);
+                try {
+                    this.commands.get(parsedCommands[0]).run(this, userInput);
+                } catch (SentinelException exception) {
+                    say(exception.getMessage());
+                }
             }
 
             if (scanner.hasNextLine()) {
