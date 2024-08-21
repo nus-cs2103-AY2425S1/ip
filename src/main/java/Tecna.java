@@ -65,6 +65,8 @@ public class Tecna {
                     this.addItem(input);
                 } catch (InvalidRequestException ive) {
                     System.out.println("Oops! Your request sounds strange for me. Please enter a valid request ^^");
+                } catch (TodoWrongFormatException tde) {
+                    System.out.println(tde.getMessage());
                 }
             }
 
@@ -81,7 +83,7 @@ public class Tecna {
      * Adds new item to the list of tasks
      * @param item extracted from the user input
      */
-    public void addItem(String item) throws InvalidRequestException {
+    public void addItem(String item) throws InvalidRequestException, TodoWrongFormatException {
         Task task = getTask(item);
         this.taskList[this.todoSize] = task;
         ++this.todoSize;
@@ -96,7 +98,7 @@ public class Tecna {
      * @param input including type of task and task description
      * @return the corresponding task with correct type
      */
-    private Task getTask(String input) throws InvalidRequestException {
+    private Task getTask(String input) throws InvalidRequestException,TodoWrongFormatException {
         int boundary = input.indexOf(" ");
         String category;
         try {
@@ -105,7 +107,14 @@ public class Tecna {
             category = input;
         }
         if (category.equalsIgnoreCase("todo")) {
-            return new ToDo(input.substring(boundary + 1));
+            if (boundary == -1) {
+                throw new TodoWrongFormatException("todo description cannot be empty!");
+            }
+            String des = input.substring(boundary + 1);
+            if (des.isBlank()) {
+                throw new TodoWrongFormatException("todo description cannot be empty!");
+            }
+            return new ToDo(des);
         } else if (category.equalsIgnoreCase("deadline")) {
             String[] description = input.substring(boundary + 1).split("/by");
             return new Deadline(description[0].trim(), description[1].trim());
