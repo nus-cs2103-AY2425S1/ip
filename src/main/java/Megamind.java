@@ -2,15 +2,16 @@ import java.util.Scanner;
 
 public class Megamind {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final List taskList = new List();
 
     public static void main(String[] args) {
         String logo = """
-                  _____  
-                 /     \\ 
+                  _____ \s
+                 /     \\\s
                 | () () |
-                 \\  ^  / 
-                  |||||  
-                  |||||  
+                 \\  ^  /\s
+                  ||||| \s
+                  ||||| \s
                 """;
         Scanner scanner = new Scanner(System.in);
 
@@ -30,8 +31,18 @@ public class Megamind {
                 break;
             }
 
+            // Print the list of tasks
+            if (command.equalsIgnoreCase("list")) {
+                System.out.println(taskList);
+                System.out.println(HORIZONTAL_LINE);
+                continue;
+            }
+
+            // Add the command to the list
+            taskList.add(command);
+
             // Echo the command
-            System.out.println(command + "\n");
+            System.out.println("Added " + command + " to list." + "\n");
             System.out.println(HORIZONTAL_LINE);
         }
     }
