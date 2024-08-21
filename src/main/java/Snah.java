@@ -10,6 +10,7 @@ public class Snah {
     private final static String DEADLINE_INPUT = "deadline";
     private final static String EVENT_INPUT = "event";
     private final static String TODO_INPUT = "todo";
+    private final static String DELETE_INPUT = "delete";
     private final static String CHAT_NAME = "Snah";
     private final static String START_DIVIDER = "___________________________________________";
     private final static String END_DIVIDER = "___________________________________________\n";
@@ -165,10 +166,23 @@ public class Snah {
                 tasksList.add(new Event(splitInput[0], finalSplit[0], finalSplit[1]));
                 chatbotPrint("Added event to list");
                 chatbotPrint(String.format("  %s", tasksList.get(tasksList.size() - 1)));
+            } else if (userInput.startsWith(DELETE_INPUT)) {
+                String[] splitInput = userInput.split(" ");
+                int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+
+                if (taskIndex < 0 || taskIndex >= tasksList.size()) {
+                    chatbotPrint("Oi, you're trying to delete a task that doesn't exist");
+                    continue;
+                }
+
+                Task deletedTask = tasksList.remove(taskIndex);
+
+                chatbotPrint(String.format("Alright, task is removed"));
+                chatbotPrint(String.format("  %s", deletedTask));
             } else {
                 String command = userInput.split(" ")[0];
                 String[] commandList = { EXIT_INPUT, LIST_INPUT, MARK_DONE_STRING, UNMARK_DONE_STRING, DEADLINE_INPUT,
-                        EVENT_INPUT, TODO_INPUT };
+                        EVENT_INPUT, TODO_INPUT, DELETE_INPUT };
                 chatbotPrint(String.format("Oi, no such command \"%s\". Try these instead", command));
                 for (String commandString : commandList) {
                     chatbotPrint(String.format("- %s", commandString));
