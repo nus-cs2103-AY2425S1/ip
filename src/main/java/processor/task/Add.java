@@ -1,7 +1,6 @@
 package processor.task;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidTodoArgsException;
+import exceptions.TodoInvalidArgsException;
 import response.Response;
 
 import java.util.Arrays;
@@ -13,10 +12,10 @@ public class Add {
     return new Response(java.util.List.of("Got it! I have added:\n  " + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"));
   }
 
-  public static Response todo(String prompt) throws InvalidTodoArgsException {
+  public static Response todo(String prompt) throws TodoInvalidArgsException {
     final List<String> prompts = Arrays.asList(prompt.split("todo "));
     if (prompts.size() != 2) {
-      throw new InvalidTodoArgsException();
+      throw new TodoInvalidArgsException();
     }
     final Task newTask = Task.of("todo", prompts.get(1));
     return Add.process(newTask);

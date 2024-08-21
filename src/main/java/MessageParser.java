@@ -1,15 +1,12 @@
-import exceptions.InvalidCommandException;
-import processor.Echo;
+import exceptions.CommandInvalidException;
 import processor.Exit;
 import processor.Processor;
 import processor.task.Add;
 import processor.task.Mark;
 import processor.task.Unmark;
-import response.Response;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 public class MessageParser {
   public static Processor parse(String prompt) throws Exception {
@@ -32,6 +29,6 @@ public class MessageParser {
       case "event":
         return Add::event;
     }
-    throw new InvalidCommandException();
+    throw new CommandInvalidException();
   }
 }
