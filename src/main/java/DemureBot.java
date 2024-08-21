@@ -3,8 +3,6 @@ import java.util.ArrayList;
 
 public class DemureBot {
     public static void check(String command, ArrayList<Task> list) throws DemureBotException {
-//        String[] parts = command.split(" ");
-
         if (command.startsWith("mark")) {
             String remainder = command.substring(4).trim();
             try {
@@ -18,9 +16,13 @@ public class DemureBot {
                     "\n"
                 );
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number format: " + remainder);
+                System.out.println("Please enter a positive integer after mark.\n");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid index: " + (Integer.parseInt(remainder)));
+                System.out.println("Invalid index: " +
+                    (Integer.parseInt(remainder)) +
+                    "\n" +
+                    "Please enter a number within 1 to number of current tasks.\n"
+                );
             }
         } else if (command.startsWith("unmark")) {
             String remainder = command.substring(6).trim();
@@ -35,16 +37,34 @@ public class DemureBot {
                     "\n"
                 );
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number format: " +
-                    remainder +
-                    "\n" +
-                    "Please enter a valid number.\n"
-                );
+                System.out.println("Please enter a positive integer after unmark.\n");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid index: " +
                     (Integer.parseInt(remainder)) +
                     "\n" +
-                    "Please enter a positive number with a max value of number of current tasks.\n"
+                    "Please enter a number within 1 to number of current tasks.\n"
+                );
+            }
+        } else if (command.startsWith("delete")) {
+            String remainder = command.substring(6).trim();
+            try {
+                int index = Integer.parseInt(remainder) - 1;
+                Task task = list.get(index);
+                list.remove(index);
+                System.out.println("____________________________________________________________\n" +
+                    " Noted. I've removed this task:\n   " +
+                    task + "\n" +
+                    "Now you have " + list.size() + " tasks in the list.\n" +
+                    "____________________________________________________________\n" +
+                    "\n"
+                );
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a positive integer after delete.\n");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid index: " +
+                    (Integer.parseInt(remainder)) +
+                    "\n" +
+                    "Please enter a number within 1 to number of current tasks.\n"
                 );
             }
         } else if (command.startsWith("todo")) {
