@@ -20,7 +20,9 @@ public class Delta {
     public static String addTask(Task task) {
         list.add(task);
         return "\t____________________________________________________________\n"
-                + "\t added: " + task.getDescription() + "\n"
+                + "\t Got it. I've added this task:\n"
+                + "\t   " + task.toString() + "\n"
+                + "\t Now you have " + list.size() + " tasks in the list.\n"
                 + "\t_____________________________________________________________";
     }
 
@@ -85,6 +87,7 @@ public class Delta {
                 String[] timings = details[1].split(" /to ");
                 output = addTask(new Event(details[0], timings[0], timings[1]));
             }
+
             System.out.println(output);
         }
 
