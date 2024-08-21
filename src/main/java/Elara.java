@@ -51,6 +51,16 @@ public class Elara {
                             break;
                         }
                         throw new InvalidInputException("Index out of range!");
+                    case "delete":
+                        int k = Integer.parseInt(arg) - 1;
+                        if (k >= 0 && k < list.size()) {
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(list.get(k));
+                            list.remove(k);
+                            System.out.println("Now you have " + list.size() + " tasks in the list.");
+                            break;
+                        }
+                        throw new InvalidInputException("Index out of range!");
                     case "todo":
                         // add a new todo task
                         if (arg.isEmpty()) {
