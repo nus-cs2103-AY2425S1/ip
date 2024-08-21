@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Luke {
@@ -37,22 +38,34 @@ public class Luke {
         t.unMark();
         System.out.println(t);
       } else {
-          System.out.println("Got it. I've added this task:");
+
           Task t;
           if (splittedLine[0].equals("todo")) {
             t = new Todo(line.substring(4).trim());
             l.add(t);
           } else if (splittedLine[0].equals("deadline")) {
-            t = new Deadline(line.substring(8).trim());
-            l.add(t);
+              try {
+                  t = new Deadline(line.substring(8).trim());
+                  l.add(t);
+              } catch (LukeException e) {
+                  System.out.println(e.getMessage());
+                  continue;
+              }
           } else if (splittedLine[0].equals("event")) {
-            t = new Event(line.substring(5).trim());
-            l.add(t);
+              try {
+                  t = new Event(line.substring(5).trim());
+                  l.add(t);
+              } catch (LukeException e) {
+                  System.out.println(e.getMessage());
+                  continue;
+              }
           } else {
-            continue;
+              System.out.printf("Yo! This command \"%s\" doesn't exist.\n", splittedLine[0]);
+              continue;
           }
-          System.out.println(t);
-          System.out.printf("Now you have %d tasks in the list.\n", l.size());
+            System.out.println("Got it. I've added this task:");
+            System.out.println(t);
+            System.out.printf("Now you have %d tasks in the list.\n", l.size());
         }
     }
     System.out.println("Aight, Cya later.");
