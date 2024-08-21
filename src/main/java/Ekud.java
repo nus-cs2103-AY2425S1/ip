@@ -6,7 +6,7 @@ public class Ekud {
             "\t_____________________________________________________________";
     public static final String END_COMMAND = "bye";
 
-    public static void greet() {
+    public void greet() {
         String greeting = "\tHeyo! My name is EKuD!! You can call me Eku-chan :)"
                 + "\n\tHow may I be of assistance!";
         System.out.println(LINE_SEPARATOR);
@@ -14,22 +14,23 @@ public class Ekud {
         System.out.println(LINE_SEPARATOR);
     }
 
-    public static void sayGoodbye() {
+    public void sayGoodbye() {
         String goodbye = "\tI hope you enjoyed your stay!\n\tSee you next time!";
         System.out.println(goodbye);
         System.out.println(LINE_SEPARATOR);
     }
 
-    public static void echo(String message) {
+    public void echo(String message) {
         System.out.println("\t" + message);
         System.out.println(LINE_SEPARATOR);
     }
 
     public static void main(String[] args) {
+        Ekud ekud = new Ekud();
         Scanner sc = new Scanner(System.in);
         String command = "";
 
-        greet();
+        ekud.greet();
         while (true) {
             System.out.println();
             command = sc.nextLine();
@@ -38,8 +39,8 @@ public class Ekud {
             if (Objects.equals(command, END_COMMAND)) {
                 break;
             }
-            echo(command);
+            ekud.echo(command);
         }
-        sayGoodbye();
+        ekud.sayGoodbye();
     }
 }
