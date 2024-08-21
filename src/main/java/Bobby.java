@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Bobby {
-    private static List<String> storage = new ArrayList<>();
+    private static List<Task> storage = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -22,7 +22,8 @@ public class Bobby {
                 listOutTasks();
                 System.out.println();
             } else {
-                addToList(input);
+                Task t = new Task(input);
+                addToList(t);
             }
         }
     }
@@ -56,11 +57,11 @@ public class Bobby {
         horizontalLine(35);
     }
 
-    public static void addToList(String s) {
-        Bobby.storage.add(s);
+    public static void addToList(Task t) {
+        Bobby.storage.add(t);
         horizontalLine(35);
         System.out.println();
-        System.out.println("added: " + s);
+        System.out.println("added: " + t.getDescription());
         horizontalLine(35);
     }
 
