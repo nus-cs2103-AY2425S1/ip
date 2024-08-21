@@ -53,6 +53,10 @@ public class Llama {
                     tasks.addTask(new Todo(remaining));
                 } else if (command.equals("deadline")) {
                     tasks.addTask(new Deadline(remaining));
+                } else if (command.equals("event")) {
+                    tasks.addTask(new Event(remaining));
+                } else {
+                    displayString("Unknown command ;-;");
                 }
             }
         }
