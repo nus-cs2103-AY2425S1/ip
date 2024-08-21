@@ -1,12 +1,13 @@
 import java.util.Scanner;
 import java.lang.StringBuilder;
+import java.util.ArrayList;
 
 public class Gopher {
     // Initialize the input reader
     private final static Scanner inputReader = new Scanner(System.in);
 
     // Tasks List Data to handle user input tasks
-    private final static Task[] taskList = new Task[100];
+    private final static ArrayList<Task> taskList = new ArrayList<>();
     private static int currentTaskNumber = 0;
 
     // Common Interface elements for easy reuse
@@ -60,7 +61,7 @@ public class Gopher {
                     taskName.append(" ");
                 }
             }
-            taskList[currentTaskNumber] = new ToDo(taskName.toString());
+            taskList.add(new ToDo(taskName.toString()));
         } else if (taskType.equalsIgnoreCase("deadline")) {
             StringBuilder dueDate = new StringBuilder();
 
@@ -89,8 +90,8 @@ public class Gopher {
                 }
             }
 
-            taskList[currentTaskNumber] = new Deadline(taskName.toString(),
-                    dueDate.toString());
+            taskList.add(new Deadline(taskName.toString(),
+                    dueDate.toString()));
         } else if (taskType.equalsIgnoreCase("event")) {
             StringBuilder startDate = new StringBuilder();
             StringBuilder endDate = new StringBuilder();
@@ -134,12 +135,12 @@ public class Gopher {
                     endDate.append(" ");
                 }
             }
-            taskList[currentTaskNumber] = new Event(taskName.toString(),
+            taskList.add(new Event(taskName.toString(),
                     startDate.toString(),
-                    endDate.toString());
+                    endDate.toString()));
         }
 
-        Task addedTask = taskList[currentTaskNumber];
+        Task addedTask = taskList.get(currentTaskNumber);
         currentTaskNumber++;
         System.out.println(horizontalSeparator);
         System.out.println("Got it! I have added this task:\n" + addedTask);
@@ -154,7 +155,7 @@ public class Gopher {
         System.out.println(horizontalSeparator);
         for (int i = 1; i <= currentTaskNumber; i++) {
             int currentTaskIndex = i - 1;
-            String message = String.format("%d. %s", i, taskList[currentTaskIndex]);
+            String message = String.format("%d. %s", i, taskList.get(currentTaskIndex));
             System.out.println(message);
         }
         System.out.println(horizontalSeparator + "\n");
@@ -163,7 +164,7 @@ public class Gopher {
     // Mark the task with corresponding number as done
     private static void markTaskAsDone(int taskNumber) {
         int taskIndex = taskNumber - 1;
-        Task task = taskList[taskIndex];
+        Task task = taskList.get(taskIndex);
         task.markAsDone();
         System.out.println(horizontalSeparator);
         System.out.println("Nice! I've marked this task as done:");
@@ -174,11 +175,23 @@ public class Gopher {
     // Mark the task with corresponding number as not done
     private static void markTaskAsNotDone(int taskNumber) {
         int taskIndex = taskNumber - 1;
-        Task task = taskList[taskIndex];
+        Task task = taskList.get(taskIndex);
         task.markAsNotDone();
         System.out.println(horizontalSeparator);
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(task);
+        System.out.println(horizontalSeparator + "\n");
+    }
+
+    // Delete the task with the corresponding task number
+    private static void deleteTask(int taskNumber) {
+        int taskIndex = taskNumber - 1;
+        String deletedTask = taskList.get(taskIndex).toString();
+        taskList.remove(taskIndex);
+        currentTaskNumber--;
+        System.out.println(horizontalSeparator);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(deletedTask);
         System.out.println(horizontalSeparator + "\n");
     }
 
@@ -212,10 +225,14 @@ public class Gopher {
                 markTaskAsDone(taskNumber);
             // Handle Mark Task as Not Done Logic
             } else if (userInput.toLowerCase().startsWith("unmark")) {
-                String [] tokens = userInput.split(" ");
+                String[] tokens = userInput.split(" ");
                 int taskNumber = Integer.parseInt(tokens[1]);
                 markTaskAsNotDone(taskNumber);
-            // Handle Add Task Logic
+                // Handle Add Task Logic
+            }else if (userInput.toLowerCase().startsWith("delete")){
+                String[] tokens = userInput.split(" ");
+                int taskNumber = Integer.parseInt(tokens[1]);
+                deleteTask(taskNumber);
             } else {
                 try {
                     addTask(userInput);
