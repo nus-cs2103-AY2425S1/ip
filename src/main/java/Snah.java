@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Snah {
 
     private final static String EXIT_INPUT = "bye";
+    private final static String LIST_INPUT = "list";
     private final static String CHAT_NAME = "Snah";
     private final static String START_DIVIDER = "___________________________________________";
     private final static String END_DIVIDER = "___________________________________________\n";
@@ -26,6 +27,10 @@ public class Snah {
     public static void chatLoop() {
         Scanner scanner = new Scanner(System.in);
         String userInput = "";
+
+        String[] memory = new String[100];
+        int memoryIndex = 0;
+
         while (true) {
             userInput = scanner.nextLine();
 
@@ -34,11 +39,21 @@ public class Snah {
                 chatbotPrint("Goodbye! See you sooooonnn!");
                 chatbotPrint(END_DIVIDER);
                 break;
+            } else if (userInput.equals(LIST_INPUT)) {
+                chatbotPrint(START_DIVIDER);
+                for (int i = 0; i < memoryIndex; i++) {
+                    chatbotPrint(String.format("%d. %s", i + 1, memory[i]));
+                }
+                chatbotPrint(END_DIVIDER);
+            } else {
+                chatbotPrint(START_DIVIDER);
+                chatbotPrint(String.format("Add to list: \"%s\"", userInput));
+                chatbotPrint(END_DIVIDER);
+
+                memory[memoryIndex] = userInput;
+                memoryIndex++;
             }
 
-            chatbotPrint(START_DIVIDER);
-            chatbotPrint(userInput);
-            chatbotPrint(END_DIVIDER);
         }
         scanner.close();
     }
