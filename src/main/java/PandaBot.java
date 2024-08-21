@@ -5,6 +5,10 @@ public class PandaBot {
         String line = "_________________________________________";
         Scanner scanner = new Scanner(System.in);
 
+        // statically storing tasks
+        String[] taskList = new String[100];
+        int taskCount = 0;
+
         // Simple greeting to the user by PandaBot
         System.out.println(line);
         System.out.println("Hello! I'm PandaBot");
@@ -23,9 +27,12 @@ public class PandaBot {
                 break;
             }
 
+            taskList[taskCount] = input;
+            taskCount++;
+
             // echo user input
             System.out.println(line);
-            System.out.println(input);
+            System.out.println("added: " + input);
             System.out.println(line);
         }
 
