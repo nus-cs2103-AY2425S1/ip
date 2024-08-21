@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -9,13 +10,18 @@ public class TheBotFather {
         printGreeting();
         printLine();
 
+        ArrayList<String> taskList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
             String input = sc.nextLine();
             printLine();
             if (Objects.equals(input, "bye")) break;
-            else print(input);
+            if (Objects.equals(input, "list")) printList(taskList);
+            else {
+                print("added: " + input);
+                taskList.add(input);
+            }
             printLine();
         }
 
@@ -24,6 +30,12 @@ public class TheBotFather {
 
 
 
+    }
+
+    public static void printList(ArrayList<String> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            print(i + 1 + ". " + taskList.get(i));
+        }
     }
 
     public static void print(String str) {
