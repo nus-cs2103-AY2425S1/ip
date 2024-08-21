@@ -1,11 +1,28 @@
 public class Task {
-    private String Taskname;
+    private String taskname;
+    private boolean done;
     public Task(String s) {
-        Taskname = s;
+        taskname = s;
+        done = false;
+    }
+
+    public void done() {
+        done = true;
+    }
+
+    public void undone() {
+        done = false;
     }
 
     @Override
     public String toString() {
-        return Taskname;
+        String str = "";
+        if (done) {
+            str = "[X] ";
+        } else {
+            str = "[ ] ";
+        }
+        str = str + taskname;
+        return str;
     }
 }
