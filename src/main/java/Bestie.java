@@ -51,6 +51,12 @@ public class Bestie {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(index).toString());
                 }
+            } else if (userInput.startsWith("delete")) {
+                // get index of task to be deleted
+                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                tasks.remove(index);
+                System.out.println("Noted! The task has been removed.");
+                System.out.println("You now have " + tasks.size() + " tasks in the list.");
             } else {
                 Task newTask;
                 if (userInput.startsWith("todo")) {
