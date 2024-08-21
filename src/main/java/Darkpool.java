@@ -16,7 +16,9 @@ public class Darkpool {
                     scanner.close();
                     return;
                 }
-                default -> output(userInput);
+                default -> {
+                    output(userInput);
+                }
             }
         }
 
