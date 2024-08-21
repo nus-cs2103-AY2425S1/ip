@@ -39,9 +39,44 @@ public class Assistinator {
                     }
                 }
             } else {
-                tasks[count] = new Task(command);
-                System.out.println("added: " + command);
-                count++;
+//                tasks[count] = new Task(command);
+//                System.out.println("added: " + command);
+//                count++;
+                if (command.startsWith("todo")) {
+                    tasks[count] = new Todo(command);
+                    System.out.println("Task added successfully");
+                    count++;
+                    System.out.printf("Number of Tasks: %d%n", count);
+                } else if (command.startsWith("deadline")) {
+                    String[] description = command.split(" /");
+                    tasks[count] = new Deadline(
+                            description[0].substring(
+                                    description[0].indexOf(' ') + 1
+                            ),
+                            description[1].substring(
+                                    description[1].indexOf(' ') + 1
+                            )
+                    );
+                    System.out.println("Task added successfully");
+                    count++;
+                    System.out.printf("Number of Tasks: %d%n", count);
+                } else if (command.startsWith("event")) {
+                    String[] description = command.split(" /");
+                    tasks[count] = new Event(
+                            description[0].substring(
+                                    description[0].indexOf(' ') + 1
+                            ),
+                            description[1].substring(
+                                    description[1].indexOf(' ') + 1
+                            ),
+                            description[2].substring(
+                                    description[2].indexOf(' ') + 1
+                            )
+                    );
+                    System.out.println("Task added successfully");
+                    count++;
+                    System.out.printf("Number of Tasks: %d%n", count);
+                }
             }
             System.out.println("______________________________________________");
         }
