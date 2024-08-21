@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import TaskObj.Task;
 
 public class Bob {
     private static final String hLine = "____________________________________________________________\n";
@@ -23,7 +24,8 @@ public class Bob {
         String greetingMessage = hLine + greeting + hLine;
         String byeMessage = hLine + bye + hLine;
         // Database to store text
-        List<String> todoList = new ArrayList<>();
+        // Assumption no more than 100 tasks
+        Task[] todoList = new Task[100];
 
         // Greets user
         System.out.println(greetingMessage);
@@ -37,7 +39,7 @@ public class Bob {
                     userInput = myScanner.nextLine();
                     break;
                 default:
-                    todoList.add(userInput);
+                    todoList[Task.taskNumber] = new Task(userInput);
                     System.out.println(hLine + "added: " + userInput + "\n" + hLine);
                     userInput = myScanner.nextLine();
             }
@@ -49,10 +51,10 @@ public class Bob {
     }
 
     // Method to print todolist
-    private static void printList(List<String> todoList) {
+    private static void printList(Task[] todoList) {
         System.out.print(hLine);
-        for (int i = 0; i < todoList.size(); i++) {
-            System.out.println(i+1 + ". " + todoList.get(i));
+        for (int i = 0; i < Task.taskNumber; i++) {
+            System.out.println(i+1 + "." + todoList[i].toString());
         }
         System.out.println(hLine);
     }
