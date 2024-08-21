@@ -52,19 +52,26 @@ public class Henry {
         String activity = activityAndTimeList[0];
         if (words[0].equals("todo")) {
             if (words.length == 1 ) {
-                throw new HenryException("The todo description is wrong!!");
+                throw new HenryException("The todo description is wrong!! " +
+                        "Ensure that you have included the activity. " +
+                        "Example: todo read book");
             }
             tasks[index] = new Todo(activity);
         } else if (words[0].equals("deadline")) {
             if (activityAndTimeList.length != 2 ) {
-                throw new HenryException("The deadline description is wrong!!");
+                throw new HenryException("The deadline description is wrong!! " +
+                        "Ensure that you have included the activity, followed by the deadline. " +
+                        "Example: deadline return book /by Sunday");
             }
             String time = activityAndTimeList[1]
                     .replaceFirst("by ", "");
             tasks[index] = new Deadline(activity, time);
         } else if (words[0].equals("event")) {
             if (activityAndTimeList.length != 3 ) {
-                throw new HenryException("The event description is wrong!!");
+                throw new HenryException("The event description is wrong!! " +
+                        "Ensure that you have included the activity, " +
+                        "followed by the start time and end time. " +
+                        "Example: event project meeting /from Mon 2pm /to 4pm");
             }
             String startTime = activityAndTimeList[1]
                     .replaceFirst("from ", "");
@@ -72,7 +79,11 @@ public class Henry {
                     .replaceFirst("to ", "");
             tasks[index] = new Event(activity, startTime, endTime);
         } else {
-            throw new HenryException("This is not a task!!");
+            throw new HenryException("This is not a task!! " +
+                    "To write a task, start with "
+                    + "\"" + "todo" +"\","
+                    + " \"" + "deadline" +"\" or"
+                    + " \"" + "event" +"\"");
         }
         System.out.println("\nGot it. I've added this task:\n"
                 + tasks[index].toString()
