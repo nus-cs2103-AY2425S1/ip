@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.stream.IntStream;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LightException {
         String lineBreak = "____________________________________________________________\n";
         String intro = lineBreak + "Hello! I'm Light\nWhat can I do for you?\n" + lineBreak;
         String exit = lineBreak + " Bye. Hope to see you again soon!\n" + lineBreak;
@@ -13,9 +13,11 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String[] splitedBySpace;
         String[] splitedBySlash;
+        Task event;
         ArrayList<Task> list = new ArrayList<>();
-        Task event = null;
+
         while (true) {
+            event = null;
             command = scanner.nextLine();
             splitedBySpace = command.split("\\s+", 2);
             switch (splitedBySpace[0]) {
@@ -46,23 +48,45 @@ public class Duke {
                     System.out.print(lineBreak);
                     break;
                 default:
-
                     switch (splitedBySpace[0]) {
                         case "todo":
-                            event = new Todo(command);
+                            try {
+                                event = new Todo(command.replace("todo", ""));
+                            } catch (LightException e) {
+                                System.out.println(e);
+                            }
+
                             break;
                         case "deadline":
-                            splitedBySlash = splitedBySpace[1].split("/");
-                            event = new Deadline(splitedBySlash[0], splitedBySlash[1].replace("by",""));
+                            try {
+                                splitedBySlash = splitedBySpace[1].split("/");
+                                event = new Deadline(splitedBySlash[0], splitedBySlash[1].replace("by", ""));
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println("Not enough arguments");
+                            }
+                            catch (LightException e) {
+                                System.out.println(e);
+                            }
+
                             break;
                         case "event":
-                            splitedBySlash = splitedBySpace[1].split("/");
-                            event = new Event(splitedBySlash[0], splitedBySlash[1].replace("from",""), splitedBySlash[2].replace("to",""));
+                            try {
+                                splitedBySlash = splitedBySpace[1].split("/");
+                                event = new Event(splitedBySlash[0], splitedBySlash[1].replace("from", ""), splitedBySlash[2].replace("to", ""));
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println("Not enough arguments");
+                            } catch (LightException e) {
+                                System.out.println(e);
+                            }
+
                             break;
+
+                        default:
+                            System.out.println(new LightException("Please key in a valid input"));
                     }
                     if (event != null && list.add(event)) {
                         System.out.println("Got it. I've added this task:\n" +
-                                event.toString() +
+                                event +
                                 "\nNow you have " + list.size() + " tasks in the list.");
                     }
 
