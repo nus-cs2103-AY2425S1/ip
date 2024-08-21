@@ -6,7 +6,7 @@ public class PandaBot {
         Scanner scanner = new Scanner(System.in);
 
         // statically storing tasks
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int taskCount = 0;
 
         // Simple greeting to the user by PandaBot
@@ -31,8 +31,30 @@ public class PandaBot {
                     System.out.println((i + 1) + ". " + taskList[i]);
                 }
                 System.out.println(line);
+            } else if (input.startsWith("mark ")) {
+                int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (taskNum >= 0 && taskNum < taskCount) {
+                    taskList[taskNum].markAsDone();
+                    System.out.println(line);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(taskList[taskNum]);
+                    System.out.println(line);
+                } else {
+                    System.out.println("The specified task does not exist");
+                }
+            } else if (input.startsWith("unmark ")) {
+                int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (taskNum >= 0 && taskNum < taskCount) {
+                    taskList[taskNum].unmark();
+                    System.out.println(line);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(taskList[taskNum]);
+                    System.out.println(line);
+                } else {
+                    System.out.println("The specified task does not exist");
+                }
             } else {
-                taskList[taskCount] = input;
+                taskList[taskCount] = new Task(input);
                 taskCount++;
 
                 // echo user input
@@ -40,10 +62,7 @@ public class PandaBot {
                 System.out.println("added: " + input);
                 System.out.println(line);
             }
-
-
         }
-
         scanner.close();
     }
 }
