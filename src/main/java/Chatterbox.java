@@ -23,11 +23,24 @@ ____________________________________________________________
 //                + "| | | | | | | |/ / _ \\\n"
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
+        Scanner scanner = new Scanner(System.in);
         System.out.println(greeting());
-        System.out.println(goodBye());
         String input = "";
         Boolean done = false;
-//        scanner = new Scanner(System.in);
+
+        while (true) {
+            String response = scanner.nextLine();
+            if (response.equals("bye")) {
+                break;
+            } else {
+                System.out.println(response);
+                System.out.println("____________________________________________________________");
+            }
+        }
+        System.out.println(goodBye());
+
+
+
 
     }
 }
