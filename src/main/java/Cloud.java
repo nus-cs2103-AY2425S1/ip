@@ -25,6 +25,7 @@ public class Cloud {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         TaskList tasks = new TaskList();
@@ -43,24 +44,31 @@ public class Cloud {
                 continue;
             }
             // check the first word in the command
-            String[] splitCommand = userInput.split(" ", 3);
-            if (splitCommand[0].equals("mark")) {
-                int taskNum = Integer.valueOf(splitCommand[1]);
-                tasks.mark(taskNum);
-                System.out.println("Task marked as done!");
-                System.out.println(tasks.getTaskStatus(taskNum));
-                continue;
-            }
-            if (splitCommand[0].equals("unmark")) {
-                int taskNum = Integer.valueOf(splitCommand[1]);
-                tasks.unmark(taskNum);
-                System.out.println("Task marked as not done");
-                System.out.println(tasks.getTaskStatus(taskNum));
-                continue;
+            String[] commandString = userInput.split(" ", 1);
+            String command = commandString[0];
+            int taskNum;
+            switch (command) {
+                case "mark":
+                    taskNum = Integer.parseInt(commandString[1]);
+                    tasks.mark(taskNum);
+                    System.out.println("Task marked as done!");
+                    System.out.println(tasks.getTaskStatus(taskNum));
+                    break;
+                case "unmark":
+                    taskNum = Integer.parseInt(commandString[1]);
+                    tasks.unmark(taskNum);
+                    System.out.println("Task marked as not done");
+                    System.out.println(tasks.getTaskStatus(taskNum));
+                    break;
+                case "todo":
+                    Todo todo = new Todo(commandString[1].strip());
+                    tasks.add(todo);
+                    System.out.println("added: " + userInput);
+
             }
             // save each input to the task list
             tasks.add(userInput);
-            System.out.println("added: " + userInput);
+
         }
         exit();
         printHorizLine();
