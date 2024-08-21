@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected boolean done;
     protected String description;
 
@@ -22,3 +22,4 @@ public class Task {
         return this.done;
     }
 }
+
