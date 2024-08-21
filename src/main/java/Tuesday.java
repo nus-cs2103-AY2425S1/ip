@@ -1,6 +1,7 @@
 import java.sql.Array;
 import java.util.Scanner;  // Import the Scanner class
 import java.util.ArrayList; // import the ArrayList class
+import java.lang.ArrayIndexOutOfBoundsException;
 
 public class Tuesday {
     private static ArrayList<Task> tasksArray = new ArrayList<>();
@@ -23,11 +24,6 @@ public class Tuesday {
         }
         System.out.println("_______________________________\n"
                 + message
-                + "_______________________________");
-    }
-    private static void Msg_blah() {
-        System.out.println("_______________________________\n"
-                + "blah\n"
                 + "_______________________________");
     }
 
@@ -93,43 +89,53 @@ public class Tuesday {
 
             if (userInput.equals("list")) {
                 Msg_list();
-            } else if (userInput.equals("blah")) {
-                Msg_blah();
             } else if (userInputArr[0].equals("mark")) {
                 try {
                     comm_mark(Integer.parseInt(userInputArr[1]), true);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'mark' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("unmark")) {
                 try {
                     comm_mark(Integer.parseInt(userInputArr[1]), false);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'unmark' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("todo")) {
                 try {
                     comm_todo(userInputArr[1]);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'todo' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("deadline")) {
                 try {
                     String[] msg_split_by = userInputArr[1].split("/by ", 2);
                     comm_deadline(msg_split_by[0], msg_split_by[1]);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'deadline' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else if (userInputArr[0].equals("event")) {
                 try {
                     String[] msg_split_from = userInputArr[1].split("/from ", 2);
                     String[] msg_split_to = msg_split_from[1].split(" /to ", 2);
                     comm_event(msg_split_from[0], msg_split_to[0], msg_split_to[1]);
-                } catch(Exception e){
-                    continue;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Hey there! The 'event' function cannot be empty");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently ");
                 }
             } else {
-                comm_todo(userInput);
+                System.out.println("_______________________________\n"
+                        + "ERROR: Hey there!! I do not know what you mean. Can you type it out differently?"
+                        + "\n_______________________________");
             }
         }
         Msg_bye();
