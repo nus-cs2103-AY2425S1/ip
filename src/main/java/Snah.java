@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Snah {
@@ -33,8 +34,7 @@ public class Snah {
         Scanner scanner = new Scanner(System.in);
         String userInput = "";
 
-        Task[] memory = new Task[100];
-        int memoryIndex = 0;
+        ArrayList<Task> tasksList = new ArrayList<>();
 
         while (true) {
             userInput = scanner.nextLine();
@@ -45,36 +45,36 @@ public class Snah {
                 break;
             } else if (userInput.startsWith(LIST_INPUT)) {
                 chatbotPrint("Here are the tasks in your list:");
-                for (int i = 0; i < memoryIndex; i++) {
-                    chatbotPrint(String.format("%d. %s", i + 1, memory[i]));
+                for (int i = 0; i < tasksList.size(); i++) {
+                    chatbotPrint(String.format("%d. %s", i + 1, tasksList.get(i)));
                 }
             } else if (userInput.startsWith(MARK_DONE_STRING)) {
                 String[] splitInput = userInput.split(" ");
                 int taskIndex = Integer.parseInt(splitInput[1]) - 1;
 
-                if (taskIndex < 0 || taskIndex >= memoryIndex) {
+                if (taskIndex < 0 || taskIndex >= tasksList.size()) {
                     chatbotPrint("Oi, you're trying to mark a task that doesn't exist");
                     continue;
                 }
 
-                memory[taskIndex].markAsDone();
+                tasksList.get(taskIndex).markAsDone();
 
                 chatbotPrint(String.format("Alright, I will mark the task as done"));
-                chatbotPrint(String.format("  %s", memory[taskIndex]));
+                chatbotPrint(String.format("  %s", tasksList.get(taskIndex)));
 
             } else if (userInput.startsWith(UNMARK_DONE_STRING)) {
                 String[] splitInput = userInput.split(" ");
                 int taskIndex = Integer.parseInt(splitInput[1]) - 1;
 
-                if (taskIndex < 0 || taskIndex >= memoryIndex) {
+                if (taskIndex < 0 || taskIndex >= tasksList.size()) {
                     chatbotPrint("Oi, you're trying to unmark a task that doesn't exist");
                     continue;
                 }
 
-                memory[taskIndex].unmarkAsDone();
+                tasksList.get(taskIndex).unmarkAsDone();
 
                 chatbotPrint(String.format("Walao, why you press wrong; Will mark the task as NOT done"));
-                chatbotPrint(String.format("  %s", memory[taskIndex]));
+                chatbotPrint(String.format("  %s", tasksList.get(taskIndex)));
 
             } else if (userInput.startsWith(TODO_INPUT)) {
 
@@ -94,10 +94,9 @@ public class Snah {
                     continue;
                 }
 
-                memory[memoryIndex] = new ToDo(taskDescription);
+                tasksList.add(new ToDo(taskDescription));
                 chatbotPrint("Added todo to list");
-                chatbotPrint(String.format("  %s", memory[memoryIndex]));
-                memoryIndex++;
+                chatbotPrint(String.format("  %s", tasksList.get(tasksList.size() - 1)));
             } else if (userInput.startsWith(DEADLINE_INPUT)) {
 
                 if (userInput.length() < DEADLINE_INPUT.length() + 1) {
@@ -123,10 +122,9 @@ public class Snah {
                     continue;
                 }
 
-                memory[memoryIndex] = new Deadline(splitInput[0], splitInput[1]);
+                tasksList.add(new Deadline(splitInput[0], splitInput[1]));
                 chatbotPrint("Added deadline to list");
-                chatbotPrint(String.format("  %s", memory[memoryIndex]));
-                memoryIndex++;
+                chatbotPrint(String.format("  %s", tasksList.get(tasksList.size() - 1)));
             } else if (userInput.startsWith(EVENT_INPUT)) {
 
                 if (userInput.length() < EVENT_INPUT.length() + 1) {
@@ -164,10 +162,9 @@ public class Snah {
                     continue;
                 }
 
-                memory[memoryIndex] = new Event(splitInput[0], finalSplit[0], finalSplit[1]);
+                tasksList.add(new Event(splitInput[0], finalSplit[0], finalSplit[1]));
                 chatbotPrint("Added event to list");
-                chatbotPrint(String.format("  %s", memory[memoryIndex]));
-                memoryIndex++;
+                chatbotPrint(String.format("  %s", tasksList.get(tasksList.size() - 1)));
             } else {
                 String command = userInput.split(" ")[0];
                 String[] commandList = { EXIT_INPUT, LIST_INPUT, MARK_DONE_STRING, UNMARK_DONE_STRING, DEADLINE_INPUT,
