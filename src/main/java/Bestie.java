@@ -27,7 +27,7 @@ public class Bestie {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++){
                     int index = i + 1;
-                    System.out.println(index +".[" + tasks.get(i).getStatusIcon() + "] " + tasks.get(i).getDescription());
+                    System.out.println(index +"." + tasks.get(i).toString());
                 }
             } else if (userInput.startsWith("mark")) {
                 // user wants to mark a task as done
@@ -38,8 +38,8 @@ public class Bestie {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     tasks.get(index).markTaskDone();
-                    System.out.println("Nice! I've marked this task as done.");
-                    System.out.println("  [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
+                    System.out.println("Awesome work! I've marked this task as done.");
+                    System.out.println("  " + tasks.get(index).toString());
                 }
 
 
@@ -48,18 +48,40 @@ public class Bestie {
                 if (index >= 0 && index < tasks.size()) {
                     tasks.get(index).markUndone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
+                    System.out.println("  " + tasks.get(index).toString());
                 }
-            }
-
-
-            else {
+            } else {
 
                 // create a new Task object for that task
-                Task newTask = new Task(userInput);
-                tasks.add(newTask);
-                System.out.println("added: " + userInput);
-
+                // Task newTask = new Task(userInput);
+                Task newTask;
+                if (userInput.startsWith("todo")) {
+                    String description = userInput.substring(5);
+                    newTask = new Todo(description);
+                    tasks.add(newTask);
+                    System.out.println("added: " + newTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+                } else if (userInput.startsWith("deadline")) {
+                    String[] parts = userInput.split(" /by ");
+                    String description = parts[0].substring(9);
+                    String deadline = parts[1];
+                    newTask = new Deadline(description, deadline);
+                    tasks.add(newTask);
+                    System.out.println("added: " + newTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+                } else if (userInput.startsWith("event")) {
+                    String[] parts = userInput.split("/");
+                    String description = parts[0].substring(6).trim();
+                    String start = parts[1].substring(5).trim();
+                    String end = parts[2].substring(3).trim();
+                    newTask = new Event(description, start, end);
+                    tasks.add(newTask);
+                    System.out.println("added: " + newTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+                } else {
+                    System.out.println("Invalid input! Please remember to start with \"todo\", \"deadline\" or \"event\".");
+                    System.out.println("Double check your spelling for other common commands like \"unmark\" or \"list\"");
+                }
             }
 
         }
