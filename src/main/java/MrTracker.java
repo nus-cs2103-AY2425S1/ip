@@ -31,19 +31,47 @@ public class MrTracker {
         System.out.println("added: " + taskName);
     }
 
-    public static int checkMarkIndex(String command) {
-        // start at 5 because thats where the number should be
-        String trimmed = command.substring(5);
+    public static boolean checkValidIndex(String command, int start) {
+        String trimmed = command.substring(start);
+        try {
+            int res = Integer.parseInt(trimmed);
+            return true;
+        } catch (Exception ex) {
+            // if the string after "mark " are not numbers, return an invalid index
+            return false;
+        }
+    }
+
+    public static int checkIndex(String command, int start) {
+        String trimmed = command.substring(start);
         try {
             int res = Integer.parseInt(trimmed);
             return res;
         } catch (Exception ex) {
-            // if the string after "mark " are not numbers, return an invalid index
+            // should not happen unless something bad happens
             return Integer.MAX_VALUE;
         }
     }
 
-    public static void markTask()
+    public static void markAndUnmark (ArrayList<Task> taskList, String input, int index, boolean isMark) throws RuntimeException {
+        // only comes here if something really bad happens
+        if (index == Integer.MAX_VALUE) {
+            throw new RuntimeException();
+        } else if (index < 1 || index > taskList.size()) {
+            System.out.println("task " + index + " does not exist");
+        } else {
+            index--;
+            Task curr = taskList.get(index);
+            if (isMark) {
+                curr.mark();
+                System.out.println("task " + ++index + " is marked!");
+            } else {
+                curr.unMark();
+                System.out.println("task " + ++index + " is unmarked!");
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         String name = "Mr Tracker";
@@ -64,18 +92,25 @@ public class MrTracker {
                 MrTracker.printTaskList(taskList);
             } else {
                 if (input.startsWith("mark ")) {
-                    int index = MrTracker.checkMarkIndex(input);
-                    // if index is outside of acceptable range,
-                    if (index == Integer.MAX_VALUE) {
-                        MrTracker.addTask(taskList, input);
-                    } else if (index < 1 || index > taskList.size()) {
-                        System.out.println("task " + index + " does not exist");
+                    // if an int is passed
+                    if (MrTracker.checkValidIndex(input, 5)) {
+                        int index = MrTracker.checkIndex(input, 5);
+                        // if index is outside of acceptable range,
+                        markAndUnmark(taskList, input, index, true);
                     } else {
-                        index--;
-                        Task curr = taskList.get(index);
-                        curr.mark();
-                        System.out.println("task " + ++index + " is marked!");
+                        MrTracker.addTask(taskList, input);
                     }
+
+                } else if (input.startsWith("unmark ")) {
+
+                    if (MrTracker.checkValidIndex(input, 7)) {
+                        int index = MrTracker.checkIndex(input, 7);
+                        // if index is outside of acceptable range,
+                        markAndUnmark(taskList, input, index, false);
+                    } else {
+                        MrTracker.addTask(taskList, input);
+                    }
+
                 } else {
                     MrTracker.addTask(taskList, input);
                 }
