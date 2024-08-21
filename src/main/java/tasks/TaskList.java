@@ -9,14 +9,26 @@ import java.util.ArrayList;
 import exceptions.DukeException;
 import storage.Storage;
 
+/**
+ * The TaskList class manages a list of tasks.
+ * It follows the Singleton pattern to ensure only one instance exists.
+ */
 public class TaskList {
     private static TaskList taskList;
     private final List<Task> taskStore;
 
+    /**
+     * Constructs a new TaskList object.
+     */
     public TaskList() {
         this.taskStore = new ArrayList<>();
     }
 
+    /**
+     * Gets the singleton instance of the TaskList class.
+     *
+     * @return The TaskList instance
+     */
     public static TaskList getInstance() {
         if (taskList == null) {
             taskList = new TaskList();
@@ -24,6 +36,11 @@ public class TaskList {
         return taskList;
     }
 
+    /**
+     * Loads a task from a string representation and adds it to the task list.
+     *
+     * @param data String representation of the task
+     */
     public void loadData(String data) {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -43,6 +60,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints all tasks in the list.
+     */
     public void printTaskList() {
         if (taskStore.isEmpty()) {
             System.out.println("List is currently empty.");
@@ -54,11 +74,23 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a copy of the task list.
+     *
+     * @return ArrayList containing all tasks
+     */
     public ArrayList<Task> getTaskList() {
         ArrayList<Task> resList = new ArrayList<>(taskStore);
         return resList;
     }
 
+    /**
+     * Creates a new task and adds it to the list.
+     *
+     * @param type Type of the task (todo, deadline, or event)
+     * @param input Description of the task
+     * @throws DukeException If the input is invalid
+     */
     public void createTask(String type, String input) throws DukeException {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -97,6 +129,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param input Index of the task to delete
+     * @throws DukeException If the index is invalid or the list is empty
+     */
     public void deleteTask(String input) throws DukeException {
         if (this.taskStore.isEmpty()) throw new DukeException("Task list is already empty.");
         if (input.isEmpty()) throw new DukeException("No Task index provided.");
@@ -112,6 +150,12 @@ public class TaskList {
         System.out.printf("Now you have %d tasks in the list.\n", this.taskStore.size());
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param input Index of the task to mark as done
+     * @throws DukeException If the index is invalid or the list is empty
+     */
     public void mark(String input) throws DukeException {
         if (this.taskStore.isEmpty()) throw new DukeException("List is empty, no tasks to mark.");
         if (input == null) throw new DukeException("No input provided.");
@@ -123,6 +167,12 @@ public class TaskList {
         Storage.saveData();
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param input Index of the task to mark as not done
+     * @throws DukeException If the index is invalid or the list is empty
+     */
     public void unmark(String input) throws DukeException {
         if (this.taskStore.isEmpty()) throw new DukeException("List is empty, no tasks to unmark.");
         if (input == null) throw new DukeException("No input provided.");
