@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Ekud {
@@ -69,21 +70,53 @@ public class Ekud {
         echo("Oh ho ho, did you forget something?");
         echo("It's OK, I will take note of your incompetence...");
         tasks[listIndex].markAsUndone();
-        echo("  " + tasks[listIndex].toString());
+        echo("   " + tasks[listIndex].toString());
         echo(LINE_SEPARATOR);
+    }
+
+    public static HashMap<String, String> parseTokens(String[] tokens) {
+        // parses scanner into a map of tokens into a map of keywords and values
+        // each line of commands has at least 2 keywords: command & argument
+        StringBuilder tokenBuilder = new StringBuilder();
+        HashMap<String, String> tokenMap = new HashMap<>();
+        // get command
+        tokenMap.put("command", tokens[0]);
+        // get params
+        String currToken = "argument";
+        for (int i = 1; i < tokens.length; i++) {
+            // encounter optional token
+            if (!tokens[i].isEmpty() && tokens[i].charAt(0) == '/') {
+                tokenMap.put(currToken, tokenBuilder.toString());
+                currToken = tokens[i];
+                tokenBuilder.setLength(0); // reset builder
+            } else {
+                if (!tokenBuilder.isEmpty()) { // add space in between words
+                    tokenBuilder.append(" ");
+                }
+                tokenBuilder.append(tokens[i]);
+            }
+        }
+        tokenMap.put(currToken, tokenBuilder.toString());
+        return tokenMap;
     }
 
     public static void main(String[] args) {
         Ekud ekud = new Ekud();
         Scanner sc = new Scanner(System.in);
         String command;
+        String argument;
+        String[] tokens;
+        HashMap<String, String> tokenMap;
 
         ekud.greet();
         while (ekud.isRunning()) {
             // get user command
             // assumes user puts correct format
             System.out.println();
-            command = sc.next();
+            tokens = sc.nextLine().split("\\s"); // delimits input by space into array of String
+            tokenMap = parseTokens(tokens);
+            command = tokenMap.get("command");
+            argument = tokenMap.get("argument");
             ekud.echo(LINE_SEPARATOR);
 
             // handle command
@@ -95,13 +128,13 @@ public class Ekud {
                 ekud.echoList();
                 break;
             case MARK_COMMNAD:
-                ekud.markList(sc.nextInt()-1);
+                ekud.markList(Integer.parseInt(argument) - 1);
                 break;
             case UNMARK_COMMAND:
-                ekud.unmarkList(sc.nextInt()-1);
+                ekud.unmarkList(Integer.parseInt(argument) - 1);
                 break;
             default:
-                ekud.addToList(command + sc.nextLine());
+                ekud.addToList(command + " " + argument);
             }
         }
         ekud.sayGoodbye();
