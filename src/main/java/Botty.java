@@ -79,7 +79,7 @@ public class Botty {
                     }
                     break;
                 case "todo":
-                    addToTasklist(new Todo(splitInput[1]));
+                    addToTaskList(new Todo(splitInput[1]));
                     break;
                 case "event":
                     Event event = Event.generateFromString(splitInput[1]);
@@ -87,7 +87,7 @@ public class Botty {
                         System.out.println(bottySymbol + "I am unable to add that event! Please provide details in " +
                                 "the following format: [description] /from [start] /to [end]");
                     } else {
-                        addToTasklist(event);
+                        addToTaskList(event);
                     }
                     break;
                 case "deadline":
@@ -96,20 +96,18 @@ public class Botty {
                         System.out.println(bottySymbol + "I am unable to add that deadline! Please provide details " +
                                 "in the following format: [description] /by [deadline]");
                     } else {
-                        addToTasklist(deadline);
+                        addToTaskList(deadline);
                     }
                     break;
                 default:
                     System.out.println(bottySymbol + "I'm sorry, that is not a command I am familiar with.");
-
             }
-
         }
 
         inputScanner.close();
         System.out.println(bottySymbol + "Thank you for your continued patronage. Goodbye!");
     }
-    private static void addToTasklist(Task task) {
+    private static void addToTaskList(Task task) {
         if (currentIndex < taskList.length) {
             taskList[currentIndex] = task;
             currentIndex++;
