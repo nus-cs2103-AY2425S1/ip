@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -15,7 +15,5 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toString() {
-        return ((isDone ? "[X] " : "[ ] ") + this.description);
-    }
+    public abstract String toString();
 }
