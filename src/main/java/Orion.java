@@ -91,80 +91,87 @@ public class Orion {
     }
 
     private static void obey(String input) {
-        String[] inputArray = input.split(" ");
-        String command = inputArray[0].toLowerCase();
-        // For use by deadline and event commands
-        String[] parsed = input.split("/");
-        switch (command) {
-            case "bye":
-                Orion.isOnline = false;
-                Orion.sayGoodbye();
-                break;
-            case "list":
-                Orion.list();
-                break;
-            case "mark":
-                if (inputArray.length != 2) {
-                    Orion.printIndent("Correct syntax: mark <task number>");
+        try {
+            String[] inputArray = input.split(" ");
+            String command = inputArray[0].toLowerCase();
+            // For use by deadline and event commands
+            String[] parsed = input.split("/");
+            switch (command) {
+                case "bye":
+                    Orion.isOnline = false;
+                    Orion.sayGoodbye();
                     break;
-                } else if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
-                    int taskNo = Integer.parseInt(inputArray[1]);
-                    String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as done.", Orion.noTasks, taskNo);
-                    Orion.printIndent(errorMsg);
+                case "list":
+                    Orion.list();
                     break;
-                } else {
-                    int taskNo = Integer.parseInt(inputArray[1]);
-                    Orion.markTask(taskNo - 1);
-                    break;
-                }
-            case "unmark":
-                if (inputArray.length != 2) {
-                    Orion.printIndent("Correct syntax: unmark <task number>");
-                    break;
-                } else if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
-                    int taskNo = Integer.parseInt(inputArray[1]);
-                    String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as undone.", Orion.noTasks, taskNo);
-                    Orion.printIndent(errorMsg);
-                    break;
-                } else {
-                    int taskNo = Integer.parseInt(inputArray[1]);
-                    Orion.unmarkTask(taskNo - 1);
-                    break;
-                }
-            case "todo":
-                if (inputArray.length < 2) {
-                    Orion.printIndent("Correct syntax: todo <task>");
-                    break;
-                } else {
-                    Orion.addTodo(Orion.removeFirstWordFromString(input).trim());
-                    break;
-                }
-            case "deadline":
-                if (parsed.length != 2 || !parsed[1].matches("^by.*$")) {
-                    Orion.printIndent("Correct syntax: deadline <task> /by <deadline>");
-                    break;
-                } else {
-                    // Removes "deadline" and "by" keywords from input
-                    String[] mapped = Arrays.stream(parsed)
-                                            .map(Orion::removeFirstWordFromString)
-                                            .toArray(String[]::new);
-                    Orion.addDeadline(mapped[0].trim(), mapped[1].trim());
-                    break;
-                }
-            case "event":
-                if (parsed.length != 3 || !parsed[1].matches("^from.*$") || !parsed[2].matches("^to.*$")) {
-                    Orion.printIndent("Correct syntax: event <task> /from <start> /to <end>");
-                    break;
-                } else {
-                    // Removes "event", "from" and "to" keywords from input
-                    String[] mapped = Arrays.stream(parsed)
-                            .map(Orion::removeFirstWordFromString)
-                            .toArray(String[]::new);
-                    Orion.addEvent(mapped[0].trim(), mapped[1].trim(), mapped[2].trim());
-                    break;
-                }
-            default:
-                Orion.printIndent("Please provide a supported command!");
+                case "mark":
+                    if (inputArray.length != 2) {
+                        throw new IllegalArgumentException("Correct syntax: mark <task number>");
+                    } else {
+                        try {
+                            int taskNo = Integer.parseInt(inputArray[1]);
+                            if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
+                                String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as done.", Orion.noTasks, taskNo);
+                                throw new IllegalArgumentException(errorMsg);
+                            } else {
+                                Orion.markTask(taskNo - 1);
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new IllegalArgumentException("Correct syntax: mark <task number>");
+                        }
+                    }
+                case "unmark":
+                    if (inputArray.length != 2) {
+                        throw new IllegalArgumentException("Correct syntax: unmark <task number>");
+                    } else {
+                        try {
+                            int taskNo = Integer.parseInt(inputArray[1]);
+                            if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
+                                String errorMsg = String.format("Number of tasks: %d. Unable to mark task %d as done.", Orion.noTasks, taskNo);
+                                throw new IllegalArgumentException(errorMsg);
+                            } else {
+                                Orion.unmarkTask(taskNo - 1);
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new IllegalArgumentException("Correct syntax: unmark <task number>");
+                        }
+                    }
+                case "todo":
+                    if (inputArray.length < 2) {
+                        throw new IllegalArgumentException("Correct syntax: todo <task>");
+                    } else {
+                        Orion.addTodo(Orion.removeFirstWordFromString(input).trim());
+                        break;
+                    }
+                case "deadline":
+                    if (parsed.length != 2 || !parsed[1].matches("^by.*$")) {
+                        throw new IllegalArgumentException("Correct syntax: deadline <task> /by <deadline>");
+                    } else {
+                        // Removes "deadline" and "by" keywords from input
+                        String[] mapped = Arrays.stream(parsed)
+                                .map(Orion::removeFirstWordFromString)
+                                .toArray(String[]::new);
+                        Orion.addDeadline(mapped[0].trim(), mapped[1].trim());
+                        break;
+                    }
+                case "event":
+                    if (parsed.length != 3 || !parsed[1].matches("^from.*$") || !parsed[2].matches("^to.*$")) {
+                        throw new IllegalArgumentException("Correct syntax: event <task> /from <start> /to <end>");
+                    } else {
+                        // Removes "event", "from" and "to" keywords from input
+                        String[] mapped = Arrays.stream(parsed)
+                                .map(Orion::removeFirstWordFromString)
+                                .toArray(String[]::new);
+                        Orion.addEvent(mapped[0].trim(), mapped[1].trim(), mapped[2].trim());
+                        break;
+                    }
+                default:
+                    throw new IllegalArgumentException("Please provide a supported command!");
+            }
+        } catch (Exception e) {
+            Orion.printIndent(e.getMessage());
         }
         Orion.printBar();
     }

@@ -7,13 +7,17 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public void setDone() {
-        // Exception handling here?
+    public void setDone() throws IllegalStateException {
+        if (this.isDone) {
+            throw new IllegalStateException("Task has already been set as completed!");
+        }
         this.isDone = true;
     }
 
     public void setUndone() {
-        // Exception handling here?
+        if (!this.isDone) {
+            throw new IllegalStateException("Task has already been set as uncompleted!");
+        }
         this.isDone = false;
     }
 
