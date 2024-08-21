@@ -11,7 +11,7 @@ public class Rob {
 
         String greet = "Hello! I'm Rob\n" +
                 "What can I do for you?\n";
-        String exit = "Bye. Hope to see you again soon!\n";
+        String exit = "Bye. Hope to see you again soon!";
 
         System.out.println(greet);
 
