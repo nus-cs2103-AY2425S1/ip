@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 
 public class Miku {
-    public static String regex = "mark \\d+";
-    public static String regex2 = "unmark \\d+";
+    public static String regexMark = "mark \\d+";
+    public static String regexUnmark = "unmark \\d+";
+    public static String regexToDo = "todo .*";
+    public static String regexDeadline = "deadline .* /by .*";
+    public static String regexEvent = "event .* /.* /.*";
     public static ArrayList<Task> itemList = new ArrayList<>();
     public static String sectionBreak = "\n_______________________________________________";
 
@@ -68,12 +68,20 @@ public class Miku {
                 break;
             } else if (input.equals("list")) {
                 Miku.printList();
-            } else if (input.matches(regex)) {
+            } else if (input.matches(regexMark)) {
                 Miku.mark(Integer.parseInt(input.split(" ")[1]));
-            } else if (input.matches(regex2)){
+            } else if (input.matches(regexUnmark)){
                 Miku.unmark(Integer.parseInt(input.split(" ")[1]));
+            } else if (input.matches(regexToDo)){
+                Miku.addItem(new Todo(input));
+            } else if (input.matches(regexDeadline)){
+                String[] strs = input.split("/");
+                Miku.addItem(new Deadline(strs[0].substring(9), strs[1].substring(3)));
+            } else if (input.matches(regexEvent)){
+                String[] strs = input.split("/");
+                Miku.addItem(new Event(strs[0].substring(6),strs[1].substring(5),strs[2].substring(3)));
             } else {
-                Miku.addItem(input);
+                System.out.println("すみません、わかりません！\nEnter a valid command please, 39!");
             }
         }
 
@@ -82,9 +90,9 @@ public class Miku {
 
     }
 
-    public static void addItem(String item){
-        System.out.println("added: " + item);
-        itemList.add(new Task(item));
+    public static void addItem(Task task){
+        itemList.add(task);
+        System.out.println("Got it . I've added this task: \n" + task.stringValue());
         System.out.println(sectionBreak);
     }
     public static void printList(){
