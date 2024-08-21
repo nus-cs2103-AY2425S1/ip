@@ -5,10 +5,13 @@ import java.util.*;
 public class Deadline extends Task {
     private String by;
 
-    public Deadline(String line) {
+    public Deadline(String line) throws InvalidTaskException {
         super(line);
 
         Map<String, String> flags = parseFlags(line);
+        if (!flags.containsKey("by")) {
+            throw new InvalidTaskException("Missing /by flag.");
+        }
         this.by = flags.get("by");
     }
 

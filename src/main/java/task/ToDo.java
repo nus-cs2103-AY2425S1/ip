@@ -1,7 +1,7 @@
 package task;
 
 public class ToDo extends Task {
-    public ToDo(String line) {
+    public ToDo(String line) throws InvalidTaskException {
         super(line);
     }
 

@@ -6,7 +6,7 @@ public abstract class Task {
     protected String description;
     protected boolean isCompleted;
 
-    public Task(String line) {
+    public Task(String line) throws InvalidTaskException {
         this.description = parseDescription(line);
         this.isCompleted = false;
     }
@@ -15,9 +15,13 @@ public abstract class Task {
         this.isCompleted = isCompleted;
     }
 
-    protected String parseDescription(String line) {
-        // TODO: error handling
-        return line.split(" ", 2)[1].trim().split("/", 2)[0].trim();
+    private String parseDescription(String line) throws InvalidTaskException {
+        String[] tokens = line.split(" ", 2);
+        if (tokens.length != 2) {
+            throw new InvalidTaskException();
+        }
+        String arguments = tokens[1].trim();
+        return arguments.split("/", 2)[0].trim();
     }
 
     protected Map<String, String> parseFlags(String line) {
