@@ -15,7 +15,6 @@ public class GreetBot {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Task> list = new ArrayList<>();
-        int counter = 0;
 
         while (scanner.hasNext()) {
 
@@ -26,7 +25,7 @@ public class GreetBot {
                 break;
             } else if (currentCommand.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < counter; i++) {
+                for (int i = 0; i < list.size(); i++) {
                     System.out.println(String.format("%d.%s", i + 1, list.get(i)));
                 }
             } else if (currentCommand.startsWith("mark")) {
@@ -41,10 +40,10 @@ public class GreetBot {
                     list.add(Task.decideTask(currentCommand));
 
 
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(list.get(counter));
-                    counter += 1;
-                    System.out.println(String.format("Now you have %s tasks in the list.", counter));
+                    //System.out.println("Got it. I've added this task:");
+                    //System.out.println(list.get(c));
+
+                    System.out.println(String.format("Now you have %s tasks in the list.", list.size()));
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getMessage());
                 } catch (RandomInputException e) {

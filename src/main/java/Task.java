@@ -7,7 +7,7 @@ public class Task {
         if (currentCommand.startsWith("deadline ") || currentCommand.startsWith("deadline")) {
             //special case
             if (currentCommand.equals("deadline") || currentCommand.equals("deadline ")) {
-                throw new EmptyDescriptionException("OOPS!!! The description of a deadline cannot be empty.");
+                throw new EmptyDescriptionException("OOPS!!! The description of deadline cannot be empty.");
             }
 
             String rest = currentCommand.substring(9);
@@ -17,7 +17,7 @@ public class Task {
         } else if (currentCommand.startsWith("todo ") || currentCommand.startsWith("todo")) {
             //special case
             if (currentCommand.equals("todo") || currentCommand.equals("todo ")) {
-                throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+                throw new EmptyDescriptionException("OOPS!!! The description of todo cannot be empty.");
             }
 
             String rest = currentCommand.substring(5);
@@ -26,12 +26,18 @@ public class Task {
         } else if (currentCommand.startsWith("event ") || currentCommand.startsWith("event")) {
             //special case
             if (currentCommand.equals("event") || currentCommand.equals("event ")) {
-                throw new EmptyDescriptionException("OOPS!!! The description of a event cannot be empty.");
+                throw new EmptyDescriptionException("OOPS!!! The description of event cannot be empty.");
             }
 
             String rest = currentCommand.substring(6);
             String[] parse = rest.split("/");
             return new Event(parse[0], parse[1], parse[2]);
+
+        } else if (currentCommand.startsWith("delete ") || currentCommand.startsWith("delete")) {
+            if (currentCommand.equals("delete") || currentCommand.equals("delete ")) {
+                throw new EmptyDescriptionException("OOPS!!! The description of a delete cannot be empty.");
+            }
+            return new Task("test");
 
         } else {
             throw new RandomInputException("何のことを言っているのか分かりません");
@@ -70,6 +76,8 @@ public class Task {
         public Deadline(String description, String by) {
             super(description);
             this.by = by.substring(by.indexOf(" ") + 1);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(this.toString());
         }
 
         @Override
@@ -82,6 +90,8 @@ public class Task {
 
         public Todo(String description) {
             super(description);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(this.toString());
         }
 
         @Override
@@ -98,6 +108,8 @@ public class Task {
             super(description);
             this.from = from.substring(from.indexOf(" ") + 1);
             this.to = to.substring(to.indexOf(" ") + 1);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(this.toString());
         }
 
         @Override
