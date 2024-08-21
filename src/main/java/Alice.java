@@ -65,16 +65,22 @@ public class Alice {
     private void markTask(String line) {
         String[] tokens = line.split(" ", 2);
         if (tokens.length != 2) {
+            warn("Missing task number. Usage: mark <task number>");
+            return;
+        }
+
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(tokens[1]);
+        } catch (NumberFormatException e) {
             warn("Invalid task number. Usage: mark <task number>");
             return;
         }
 
-        int taskNumber = Integer.parseInt(tokens[1]);
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            warn("Invalid task number. Usage: mark <task number>");
+            warn("Task number out of bounds. Usage: mark <task number>");
             return;
         }
-
         int index = taskNumber - 1;
         tasks.get(index).setCompletion(true);
         System.out.println(HORIZONTAL_LINE);
@@ -84,23 +90,58 @@ public class Alice {
     }
 
     private void unmarkTask(String line) {
-        System.out.println(HORIZONTAL_LINE);
         String[] tokens = line.split(" ", 2);
         if (tokens.length != 2) {
+            warn("Missing task number. Usage: unmark <task number>");
+            return;
+        }
+
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(tokens[1]);
+        } catch (NumberFormatException e) {
             warn("Invalid task number. Usage: unmark <task number>");
             return;
         }
 
-        int taskNumber = Integer.parseInt(tokens[1]);
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            warn("Invalid task number. Usage: unmark <task number>");
+            warn("Task number out of bounds. Usage: unmark <task number>");
             return;
         }
 
         int index = taskNumber - 1;
-        tasks.get(index).setCompletion(false);             
+        tasks.get(index).setCompletion(false);            
+        System.out.println(HORIZONTAL_LINE); 
         say("OK, I've marked this task as not done yet:");
         System.out.println(String.format("\t%s", tasks.get(index)));
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void deleteTask(String line) {
+        String[] tokens = line.split(" ", 2);
+        if (tokens.length != 2) {
+            warn("Missing task number. Usage: delete <task number>");
+            return;
+        }
+
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(tokens[1]);
+        } catch (NumberFormatException e) {
+            warn("Invalid task number. Usage: delete <task number>");
+            return;
+        }
+
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            warn("Task number out of bounds. Usage: delete <task number>");
+            return;
+        }
+
+        int index = taskNumber - 1;
+        Task removedTask = tasks.remove(index);
+        System.out.println(HORIZONTAL_LINE);
+        say("Noted. I've removed this task:");
+        System.out.println(String.format("\t%s", removedTask));
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -125,6 +166,11 @@ public class Alice {
 
             if (input.startsWith("unmark")) {
                 unmarkTask(line);
+                continue;
+            }
+
+            if (input.startsWith("delete")) {
+                deleteTask(line);
                 continue;
             }
 
