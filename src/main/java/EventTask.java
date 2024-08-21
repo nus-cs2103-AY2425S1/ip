@@ -10,11 +10,11 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + getDetails();
+        return "[E]" + super.toString() + getDetails();
     }
 
     @Override
     public String getDetails() {
-        return " (from " + from + " to " + to + ")";
+        return " (from: " + from + " to: " + to + ")";
     }
 }

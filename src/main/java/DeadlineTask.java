@@ -8,7 +8,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + getDetails();
+        return "[D]" + super.toString() + getDetails();
     }
 
     @Override
