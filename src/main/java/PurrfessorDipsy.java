@@ -4,26 +4,28 @@ import java.util.regex.Pattern;
 
 class Task {
     String taskName;
-    boolean isCompleted;
+    boolean isDone;
 
-    Task(String taskName, boolean isCompleted) {
+    Task(String taskName, boolean isDone) {
         this.taskName = taskName;
-        this.isCompleted = isCompleted;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
-        isCompleted = true;
+        isDone = true;
     }
 
     public void markAsUndone() {
-        isCompleted = false;
+        isDone = false;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     @Override
     public String toString() {
-        return isCompleted
-        ? "[X] " + taskName
-        : "[ ] " + taskName;
+        return "[" + getStatusIcon() + "] " + taskName;
     }
 }
 
