@@ -24,4 +24,12 @@ public class Storage {
             return "";
         }
     }
+    
+    public String listWord() {
+        StringBuilder result = new StringBuilder();
+            for (int i =0; i < this.UserInputs.size(); i++) {
+                result.append(i + 1).append(". ").append(this.UserInputs.get(i)).append("\n");
+            }
+        return result.toString();
+    }
 }

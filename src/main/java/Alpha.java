@@ -14,17 +14,26 @@ public class Alpha {
             String s1 = scanner.nextLine();
         
             // Check if the user input is "bye"
-            if (s1.equalsIgnoreCase("bye")) {
+            if (s1.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;  // Exit the loop
             }
-        
-            storage.storeWord(s1);
-            String userInput = storage.lastWord();
-            String echoResponse = "____________________________________________________________ \n"
-                    + userInput + "\n"
-                    + "____________________________________________________________ \n";
-            System.out.println(echoResponse);
+    
+            if (s1.equals("list")) {
+                String echoResponse = "____________________________________________________________ \n"
+                        + storage.listWord() +"\n"
+                        + "____________________________________________________________ \n";
+                System.out.println(echoResponse);
+            }
+            
+            else {
+                storage.storeWord(s1);
+                String userInput = storage.lastWord();
+                String echoResponse = "____________________________________________________________ \n"
+                        + "added: " + userInput + "\n"
+                        + "____________________________________________________________ \n";
+                System.out.println(echoResponse);
+            }
         }
     
         // Close the scanner after the loop ends
