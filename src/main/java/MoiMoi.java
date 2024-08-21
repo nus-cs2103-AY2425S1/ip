@@ -28,29 +28,29 @@ public class MoiMoi {
             try {
                 System.out.print("\n" + MoiMoi.moiMoiHeader);
                 switch (command) {
-                    case "todo":
-                        this.todo(Parser.inputToArgs(input));
-                        break;
-                    case "deadline":
-                        this.deadline(Parser.inputToArgs(input));
-                        break;
-                    case "event":
-                        this.event(Parser.inputToArgs(input));
-                        break;
-                    case "delete":
-                        this.delete(Parser.inputToArgs(input));
-                        break;
-                    case "mark":
-                        this.mark(Parser.inputToArgs(input));
-                        break;
-                    case "unmark":
-                        this.unmark(Parser.inputToArgs(input));
-                        break;
-                    case "list":
-                        this.list();
-                        break;
-                    default:
-                        throw new InvalidCommandException();
+                case "todo":
+                    this.todo(Parser.inputToArgs(input));
+                    break;
+                case "deadline":
+                    this.deadline(Parser.inputToArgs(input));
+                    break;
+                case "event":
+                    this.event(Parser.inputToArgs(input));
+                    break;
+                case "delete":
+                    this.delete(Parser.inputToArgs(input));
+                    break;
+                case "mark":
+                    this.mark(Parser.inputToArgs(input));
+                    break;
+                case "unmark":
+                    this.unmark(Parser.inputToArgs(input));
+                    break;
+                case "list":
+                    this.list();
+                    break;
+                default:
+                    throw new InvalidCommandException();
                 }
             } catch (MoiMoiException e) {
                 System.out.println(e.getMessage());
