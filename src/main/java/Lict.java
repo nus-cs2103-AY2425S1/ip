@@ -21,8 +21,7 @@ public class Lict {
                 System.out.println("Here are the tasks in your list:");
                 int counter = 1;
                 for (Task task : tasks) {
-                    String info = String.format("%d.[%s] ", counter, task.getStatusIcon());
-                    System.out.println(info + task);
+                    System.out.println(counter + "." + task);
                     counter+=1;
                 }
             } else if (input.startsWith("mark")) {
@@ -30,16 +29,32 @@ public class Lict {
                 Task t = tasks.get(index);
                 t.changeStatus(true);
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(String.format("  [%s] %s", t.getStatusIcon(), t.description));
+                System.out.println("    " + t);
             } else if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.substring(6).trim()) - 1;
                 Task t = tasks.get(index);
                 t.changeStatus(false);
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(String.format("  [%s] %s", t.getStatusIcon(), t.description));
+                System.out.println("    " + t);
             } else {
-                tasks.add(new Task(input));
-                System.out.println("added: " + input);
+                Task newTask;
+                if (input.startsWith("todo")) {
+                    newTask = new Todo(input.substring(4).trim());
+                } else if (input.startsWith("deadline")) {
+                    input = input.substring(8).trim();
+                    String[] messages = input.split("/");
+                    newTask = new Deadline(messages[0].trim(), messages[1].substring(2).trim());
+                } else if (input.startsWith("event")) {
+                    input = input.substring(5).trim();
+                    String[] messages = input.split("/");
+                    newTask = new Event(messages[0].trim(), messages[1].substring(4).trim(), messages[2].substring(2).trim());
+                } else {
+                    newTask = new Todo(input.substring(4).trim());
+                }
+                tasks.add(newTask);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("    " + newTask);
+                System.out.println("Now you have " + Task.getTotalTasks() + " in the list.");
             }
             System.out.println(horizontal_line);
             input = sc.nextLine();

@@ -1,10 +1,12 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected static int totalTasks = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        totalTasks += 1;
     }
 
     public String getStatusIcon() {
@@ -17,6 +19,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return description;
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+    }
+
+    public static int getTotalTasks() {
+        return totalTasks;
     }
 }
