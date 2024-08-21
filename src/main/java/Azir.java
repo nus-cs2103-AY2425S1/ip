@@ -44,6 +44,18 @@ public class Azir {
                     chosenTask.setNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(chosenTask);
+                } else if (input.startsWith("delete")) {
+                    String [] result = input.split(" ");
+                    if (result.length == 1) {
+                        throw new AzirException("Input the task number you would like to delete.");
+                    }
+                    if (Integer.valueOf(result[1]) < 1 || (Integer.valueOf(result[1]) > taskList.size())) {
+                        throw new AzirException("Invalid value");
+                    }
+                    System.out.println("Noted. I've removed this task:");
+                    Task chosenTask = taskList.remove(Integer.valueOf(result[1]) - 1);
+                    System.out.println(chosenTask);
+                    System.out.printf("Now you have %d %s in the list\n", taskList.size(), taskList.size() == 1 ? "task" : "tasks");
                 }
                 else {
                     if (input.startsWith("todo")) {
@@ -77,7 +89,7 @@ public class Azir {
                         Task currTask = new Deadline(description, day);
                         taskList.add(currTask);
                         System.out.println(currTask);
-                    } else if (input.startsWith("event")){
+                    } else if (input.startsWith("event")) {
                         int fromIndex = input.indexOf("/from");
                         int toIndex = input.indexOf("/to");
                         if (fromIndex == -1) {
