@@ -20,7 +20,7 @@ public class Tuesday {
     private static void Msg_list() {
         String message = "Here are the tasks in your list:\n";
         for (int n = 0; n < count; n++) {
-            message += (n+1) + ".[" +tasksArray.get(n).getDone() + "] " + tasksArray.get(n).getTask() + "\n";
+            message += (n+1) + "." +tasksArray.get(n).toString() + "\n";
         }
         System.out.println("_______________________________\n"
                 + message
@@ -36,11 +36,11 @@ public class Tuesday {
         tasksArray.get(task_num - 1).changeDone(state);
         String message = "";
         if (state)
-            message = "Nice! I've marked this task as done: \n  [X] ";
+            message = "Nice! I've marked this task as done: \n  ";
         else
-            message = "OK, I've marked this task as not done yet: \n  [ ] ";
+            message = "OK, I've marked this task as not done yet: \n  ";
 
-        message += tasksArray.get(task_num - 1).getTask();
+        message += tasksArray.get(task_num - 1).toString();
 
         System.out.println("_______________________________\n"
                 + message

@@ -7,12 +7,8 @@ public class Task {
         this.done = false;
     }
 
-    public String getTask() {
-        return task;
-    }
-
     public String getDone() {
-        if (done)
+        if (this.done)
             return "X";
         else
             return " ";
@@ -20,5 +16,10 @@ public class Task {
 
     public void changeDone(boolean state) {
         this.done = state;
+    }
+
+    @Override
+    public String toString() {
+        return "["+ this.getDone()+"] "+ this.task;
     }
 }
