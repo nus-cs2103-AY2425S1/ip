@@ -55,12 +55,6 @@ public class Ui {
         this.printHorizontalLine();
     }
 
-    public void printFail() {
-        this.printHorizontalLine();
-        System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
-        this.printHorizontalLine();
-    }
-
     public void printException(Exception e) {
         this.printHorizontalLine();
         System.out.println("\t" + e);

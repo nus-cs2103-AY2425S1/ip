@@ -78,6 +78,26 @@ public class LevelHundred {
         }
     }
 
+    private void handleUpdateTaskStatus(String[] words, String command) {
+        if (words.length == 1) {
+            this.ui.printException(new MissingArgumentException(command, "task index"));
+            return;
+        }
+        try {
+            int idx = Integer.parseInt(words[1]) - 1;
+            Task t = this.storage.get(idx);
+            if (command.equals("mark")) {
+                t.mark();
+                this.ui.printSuccessfulMark(t);
+            } else {
+                t.unmark();
+                this.ui.printSuccessfulUnmark(t);
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            this.ui.printException(new InvalidArgumentException("task index", words[1]));
+        }
+    }
+
     private void run() {
         this.ui.greet(this.name);
 
@@ -99,23 +119,7 @@ public class LevelHundred {
                     this.ui.printTasks(tasks);
                     break;
                 case "mark": case "unmark":
-                    if (words.length == 1) {
-                        this.ui.printFail();
-                        break;
-                    }
-                    try {
-                        int idx = Integer.parseInt(words[1]) - 1;
-                        Task t = this.storage.get(idx);
-                        if (command.equals("mark")) {
-                            t.mark();
-                            this.ui.printSuccessfulMark(t);
-                        } else {
-                            t.unmark();
-                            this.ui.printSuccessfulUnmark(t);
-                        }
-                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                        this.ui.printFail();
-                    }
+                    this.handleUpdateTaskStatus(words, command);
                     break;
                 case "todo": case "deadline": case "event":
                     this.handleAddTask(words, command);
