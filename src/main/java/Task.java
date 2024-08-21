@@ -2,17 +2,26 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public static Task decideTask(String currentCommand) {
+    public static Task decideTask(String currentCommand) throws EmptyDescriptionException {
 
         if (currentCommand.startsWith("deadline ")) {
             String rest = currentCommand.substring(9);
+            if (rest.isEmpty()) {
+                throw new EmptyDescriptionException("OOPS!!! The description of a deadline cannot be empty.");
+            }
             String[] parse = rest.split("/");
             return new Deadline(parse[0], parse[1]);
         } else if (currentCommand.startsWith("todo ")) {
             String rest = currentCommand.substring(5);
+            if (rest.isEmpty()) {
+                throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+            }
             return new Todo(rest);
         } else {
             String rest = currentCommand.substring(6);
+            if (rest.isEmpty()) {
+                throw new EmptyDescriptionException("OOPS!!! The description of a event cannot be empty.");
+            }
             String[] parse = rest.split("/");
             return new Event(parse[0], parse[1], parse[2]);
         }

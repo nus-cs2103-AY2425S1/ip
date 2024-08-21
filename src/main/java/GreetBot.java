@@ -37,19 +37,23 @@ public class GreetBot {
                 list.get(index - 1).unmark();
             } else {
 
+                try {
+                    list.add(Task.decideTask(currentCommand));
 
 
-                list.add(Task.decideTask(currentCommand));
-
-
-                System.out.println("Got it. I've added this task:");
-                System.out.println(list.get(counter));
-                counter += 1;
-                System.out.println(String.format("Now you have %s tasks in the list.", counter));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(list.get(counter));
+                    counter += 1;
+                    System.out.println(String.format("Now you have %s tasks in the list.", counter));
+                } catch (EmptyDescriptionException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
 
         }
+
+
 
         scanner.close();
 
