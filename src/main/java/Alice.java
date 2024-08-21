@@ -26,6 +26,9 @@ public class Alice {
              } else if (verb.equals("unmark")) {
                  int num = Integer.parseInt(input.split(" ")[1]);
                  list.unmarkTask(num);
+             } else if (verb.equals("delete")) {
+                 int num = Integer.parseInt(input.split(" ")[1]);
+                 list.delete(num);
              } else if (verb.equals("todo")) {
                  try {
                      Todo toDo = new Todo(parts[1]);
@@ -63,7 +66,7 @@ public class Alice {
                  }
              } else {
                  System.out.println(line);
-                 System.out.println("Invalid command, use command words: list, todo, deadline & event");
+                 System.out.println("Invalid command, use command words: list, todo, deadline, event, mark, unmark & delete");
                  System.out.println(line);
              }
          }

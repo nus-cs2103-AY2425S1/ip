@@ -48,6 +48,22 @@ public class TaskList {
         }
     }
 
+    public void delete(int num) {
+        if (num <= list.size() && num > 0) {
+            Task currTask = list.get(num - 1);
+            this.list.remove(currTask);
+            System.out.println(line);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(currTask.toString());
+            System.out.println(" Now you have " + list.size() + " tasks in the list.");
+            System.out.println(line);
+        } else {
+            System.out.println(line);
+            System.out.println("Invalid number");
+            System.out.println(line);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
