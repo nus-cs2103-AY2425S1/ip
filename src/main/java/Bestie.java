@@ -1,9 +1,10 @@
 // use Scanner class to get user inputs
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Bestie {
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         // create Scanner object to read user input
         Scanner sc = new Scanner(System.in);
@@ -51,36 +52,55 @@ public class Bestie {
                     System.out.println("  " + tasks.get(index).toString());
                 }
             } else {
-
-                // create a new Task object for that task
-                // Task newTask = new Task(userInput);
                 Task newTask;
                 if (userInput.startsWith("todo")) {
-                    String description = userInput.substring(5);
-                    newTask = new Todo(description);
-                    tasks.add(newTask);
-                    System.out.println("added: " + newTask.toString());
-                    System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+                    try {
+                        String description = userInput.substring(5);
+                        newTask = new Todo(description);
+                        tasks.add(newTask);
+                        System.out.println("added: " + newTask.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+                    } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+                        System.out.println("The description of a todo cannot be empty. Please input your todo again!");
+                    }
+
                 } else if (userInput.startsWith("deadline")) {
-                    String[] parts = userInput.split(" /by ");
-                    String description = parts[0].substring(9);
-                    String deadline = parts[1];
-                    newTask = new Deadline(description, deadline);
-                    tasks.add(newTask);
-                    System.out.println("added: " + newTask.toString());
-                    System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+                    try {
+                        String[] parts = userInput.split(" /by ");
+                        String description = parts[0].substring(9);
+                        String deadline = parts[1];
+                        newTask = new Deadline(description, deadline);
+                        tasks.add(newTask);
+                        System.out.println("added: " + newTask.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+                    } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+                        System.out.println("You did not input the deadline in a valid format.");
+                        System.out.println("Please follow the format \"deadline (name of task) /by (deadline)\"");
+                    }
+
                 } else if (userInput.startsWith("event")) {
-                    String[] parts = userInput.split("/");
-                    String description = parts[0].substring(6).trim();
-                    String start = parts[1].substring(5).trim();
-                    String end = parts[2].substring(3).trim();
-                    newTask = new Event(description, start, end);
-                    tasks.add(newTask);
-                    System.out.println("added: " + newTask.toString());
-                    System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+
+                        try {
+                            String[] parts = userInput.split("/");
+                            String description = parts[0].substring(6).trim();
+                            String start = parts[1].substring(5).trim();
+                            String end = parts[2].substring(3).trim();
+                            newTask = new Event(description, start, end);
+                            tasks.add(newTask);
+                            System.out.println("added: " + newTask.toString());
+                            System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+
+                        } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                            System.out.println("You did not input the event in a valid format.");
+                            System.out.println("Please follow the format \"event (name of event) /from (start time) /to (end time)\"");
+                        }
+
+
+
                 } else {
-                    System.out.println("Invalid input! Please remember to start with \"todo\", \"deadline\" or \"event\".");
-                    System.out.println("Double check your spelling for other common commands like \"unmark\" or \"list\".");
+                    System.out.println("Invalid command! Please remember to start with \"todo\", \"deadline\" " +
+                            "or \"event\".\nDouble check your spelling for other common commands like \"unmark\" or \"list\".");
+
                 }
             }
 
