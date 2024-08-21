@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import util.CommandHist;
 
 public class Mizz {
   /** Name of the chat bot */
@@ -6,6 +7,8 @@ public class Mizz {
   /** Constant len(13) line to be used for prettier printing */
   private static final String LINE = "-------------";
 
+  /** Stores the past commands entered */
+  private final CommandHist usrCmds;
   /** Greeting to be printed */
   private final String greeting;
   /** ByeBye to be printed */
@@ -13,9 +16,16 @@ public class Mizz {
   /** Last command entered by the user */
   private String cmd;
 
+  /**
+   * Constructor for Mizz class. Initialises the Mizz object with defualt values
+   * 
+   * @param greeting The greeting msg to be printed.
+   * @param exitMsg  The exit msg to be printed.
+   */
   public Mizz(String greeting, String exitMsg) {
     this.greeting = greeting;
     this.exitMsg = exitMsg;
+    this.usrCmds = new CommandHist();
     this.cmd = "";
   }
 
@@ -29,6 +39,7 @@ public class Mizz {
 
     while (!bot.isExited()) {
       bot.commandHandler(scanner.nextLine());
+      bot.usrCmds.addCmd(bot.cmd);
     }
     bot.exit();
 
