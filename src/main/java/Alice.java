@@ -1,5 +1,5 @@
 import java.util.*;
-import task.Task;
+import task.*;
 
 public class Alice {
     private static final String NAME = "Alice";
@@ -24,10 +24,11 @@ public class Alice {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private void addTask(String description) {
-        tasks.add(new Task(description));
+    private void addTask(Task task) {
+        tasks.add(task);
         System.out.println(HORIZONTAL_LINE);
-        System.out.println(String.format("> added: %s", description));
+        System.out.println("> Got it. I've added this task:");
+        System.out.println(String.format("\t%s", task));
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -37,9 +38,9 @@ public class Alice {
         if (tasks.isEmpty()) {
             System.out.println("> No tasks added");
         } else {
-            System.out.println(" These are your tasks:");
+            System.out.println("> These are your tasks:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(String.format(" %d. %s", i + 1, tasks.get(i)));
+                System.out.println(String.format("\t%d. %s", i + 1, tasks.get(i)));
             }
         }
 
@@ -78,7 +79,7 @@ public class Alice {
         tasks.get(index).setCompletion(false);
              
         System.out.println("> OK, I've marked this task as not done yet:");
-        System.out.println(tasks.get(index));
+        System.out.println(String.format("\t%s", tasks.get(index)));
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -105,7 +106,17 @@ public class Alice {
                 continue;
             }
 
-            addTask(line);
+            if (line.startsWith("todo")) {
+                addTask(new ToDo(line));
+            }
+
+            if (line.startsWith("deadline")) {
+                addTask(new Deadline(line));
+            }
+
+            if (line.startsWith("event")) {
+                addTask(new Event(line));
+            }
         }
         scanner.close();
     }
