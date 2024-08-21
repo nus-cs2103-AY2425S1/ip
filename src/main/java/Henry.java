@@ -50,7 +50,7 @@ public class Henry {
      * @param index number of tasks recorded
      * @param input name of task
      */
-    public static void addTask(ArrayList<Task> tasks,int index, String input)
+    public static void addTask(ArrayList<Task> tasks, int index, String input)
             throws HenryException  {
         String[] words = input.split(" ");
         String task = words[0].toLowerCase();
@@ -117,8 +117,15 @@ public class Henry {
         try {
             int number = Integer.parseInt(words[1]);
             //check if number is out of range
-            if (number <= 0 || number > index) {
-                throw new HenryException("The number is wrong!");
+            if (number > index) {
+                throw new HenryException("There "
+                        + (index <= 1 ? "is " : "are ")
+                        + "only "
+                        + index
+                        + (index <= 1 ? " task" : " tasks")
+                        + "!");
+            } else if (number <= 0) {
+                throw new HenryException("Number must be greater than zero!");
             }
             if (words[0].equals("mark")) {
                 //check if task is already marked
@@ -157,8 +164,15 @@ public class Henry {
         try {
             int number = Integer.parseInt(num);
             //check if number is out of range
-            if (number <= 0 || number > index) {
-                throw new HenryException("The number is wrong!");
+            if (number > index) {
+                throw new HenryException("There "
+                        + (index <= 1 ? "is " : "are ")
+                        + "only "
+                        + index
+                        + (index <= 1 ? " task" : " tasks")
+                        + "!");
+            } else if (number <= 0) {
+                throw new HenryException("Number must be greater than zero!");
             }
             System.out.println("\nNoted. I've removed this task:\n"
                     + tasks.get(number - 1).toString()
