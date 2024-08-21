@@ -8,9 +8,8 @@ public class List {
      *
      * @param task Task object that is to be added to the array list.
      */
-    public void add(String task) {
-        Task t = new Task(task);
-        tasks.add(t);
+    public void add(Task task) {
+        tasks.add(task);
     }
 
     /**
@@ -65,5 +64,14 @@ public class List {
      */
     public String get(int index) {
         return tasks.get(index).toString();
+    }
+
+    /**
+     * Returns the size of the list.
+     *
+     * @return Size of the list.
+     */
+    public int size() {
+        return tasks.size();
     }
 }

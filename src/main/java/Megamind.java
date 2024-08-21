@@ -27,34 +27,49 @@ public class Megamind {
             String command = scanner.nextLine().trim();
 
             // Exit the loop if the user types "bye"
-            if (command.equalsIgnoreCase("bye")) {
+            if (command.startsWith("bye")) {
                 exit();
                 break;
             }
 
             // Print the list of tasks
-            if (command.equalsIgnoreCase("list")) {
+            if (command.startsWith("list")) {
                 System.out.println(taskList);
                 continue;
             }
 
             // Mark a task as done
-            if (command.contains("unmark")) {
+            if (command.startsWith("unmark")) {
                 unmark(command);
                 continue;
             }
 
             // Mark a task as done
-            if (command.contains("mark")) {
+            if (command.startsWith("mark")) {
                 mark(command);
                 continue;
             }
 
-            // Add the command to the list
-            taskList.add(command);
+            // Add a to do task
+            if (command.startsWith("todo")) {
+                addTodo(command);
+                continue;
+            }
 
-            // Echo the command
-            System.out.println("Added " + command + " to list." + "\n");
+            // Add a deadline task
+            if (command.startsWith("deadline")) {
+                addDeadline(command);
+                continue;
+            }
+
+            // Add an event task
+            if (command.startsWith("event")) {
+                addEvent(command);
+                continue;
+            }
+
+            // If the command is not recognized, print an error message
+            System.out.println("I'm sorry, but I don't know what that means. Please try again.\n");
         }
     }
 
@@ -109,5 +124,59 @@ public class Megamind {
         } else {
             System.out.println("Good job! You've completed a task:\n" + taskList.get(index) + "\n");
         }
+    }
+
+    /**
+     * Adds a to do task to the list.
+     *
+     * @param command Command entered by the user.
+     */
+    public static void addTodo(String command) {
+        String description = command.substring(5);
+        taskList.add(new Todo(description));
+        System.out.println("Got it. I've added this task:\n" + taskList.get(taskList.size() - 1) + "\n" +
+                "Now you have " + taskList.size() + " tasks in the list.\n");
+    }
+
+    /**
+     * Adds a deadline task to the list.
+     * If the deadline is not specified, print an error message.
+     *
+     * @param command Command entered by the user.
+     */
+    public static void addDeadline(String command) {
+        if (!command.contains(" /by ")) {
+            System.out.println("Please specify the deadline of the task.\n");
+            return;
+        }
+
+        String[] words = command.split(" /by ");
+        String description = words[0].substring(9);
+        String deadline = words[1];
+        taskList.add(new Deadline(description, deadline));
+        System.out.println("Got it. I've added this task:\n" + taskList.get(taskList.size() - 1) + "\n" +
+                "Now you have " + taskList.size() + " tasks in the list.\n");
+    }
+
+    /**
+     * Adds an event task to the list.
+     * If the event start or end time is not specified, print an error message.
+     *
+     * @param command Command entered by the user.
+     */
+    public static void addEvent(String command) {
+        if (!command.contains(" /from ") || !command.contains(" /to ")) {
+            System.out.println("Please specify the start and end time of the event.\n");
+            return;
+        }
+
+        String[] words = command.split(" /from ");
+        String description = words[0].substring(6);
+        words = words[1].split(" /to ");
+        String start = words[0];
+        String end = words[1];
+        taskList.add(new Event(description, start, end));
+        System.out.println("Got it. I've added this task:\n" + taskList.get(taskList.size() - 1) + "\n" +
+                "Now you have " + taskList.size() + " tasks in the list.\n");
     }
 }
