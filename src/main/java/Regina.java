@@ -1,11 +1,15 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Regina class represents a chatbot designed to help users track their tasks and activities.
+ * It provides functionalities to add, mark, unmark, delete, and list tasks.
+ */
 public class Regina {
     private final static String NAME = "Regina";
     private final static String INDENT = "    ";
     private final static String LINE = INDENT + "********************************************************************";
-    private final ArrayList<Task> listOfTasks;
+    private final TaskList listOfTasks;
+    private final Marker marker;
     private final Scanner scanner = new Scanner(System.in);
 
     // Enum to represent task types
@@ -30,10 +34,17 @@ public class Regina {
     private final String DEADLINE_TYPE = TaskType.DEADLINE.type;
     private final String EVENT_TYPE = TaskType.EVENT.type;
 
+    /**
+     * Constructs a Regina instance containing an empty task list and initializes the marker.
+     */
     public Regina() {
-        listOfTasks = new ArrayList<>();
+        listOfTasks = new TaskList();
+        marker = new Marker(listOfTasks);
     }
 
+    /**
+     * Greets the user and provides instructions on how to interact with the chatbot.
+     */
     public void greet() {
         System.out.printf(LINE + "\n" + INDENT + "Hey there! I'm %s \n" +
                 INDENT + "I am a chatbot designed to help you track your activities.\n" +
@@ -56,7 +67,9 @@ public class Regina {
                 INDENT + "What can I do for you?\n" + LINE + "\n", NAME, TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
 
-
+    /**
+     * Provides help details about the commands the user can use.
+     */
     public void help() {
         System.out.printf(LINE + "\n" + INDENT + "Here are the commands you can use: \n" +
                 INDENT + "1. To add a To-Do task: %s <task_description>\n" +
@@ -76,15 +89,31 @@ public class Regina {
                 LINE + "\n", TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
 
-
+    /**
+     * Reads a line of input from the user.
+     *
+     * @return The input string entered by the user.
+     */
     public String readInput() {
         return this.scanner.nextLine();
     }
 
+    /**
+     * Validates whether a given task type is recognized.
+     *
+     * @param type The task type to check.
+     * @return True if the task type is valid; false otherwise.
+     */
     private boolean isValidTaskType(String type) {
         return type.equals(TODO_TYPE) || type.equals(DEADLINE_TYPE) || type.equals(EVENT_TYPE);
     }
 
+    /**
+     * Validates if the command for marking or unmarking contains a number.
+     *
+     * @param parts The parts of the input command split into an array.
+     * @throws ReginaException If the command does not properly contain a task number.
+     */
     public boolean haveNumber(String[] parts) throws ReginaException {
         if (parts.length < 2) {
             throw new ReginaException("Which task you referring to lah!");
@@ -100,6 +129,12 @@ public class Regina {
         return true;
     }
 
+    /**
+     * Adds a new task based on the input command.
+     *
+     * @param input The user input string containing the task details.
+     * @throws ReginaException If the input format is incorrect or invalid.
+     */
     public void add(String input) throws ReginaException {;
         String[] parts = input.split(" "); // Split input by spaces
         String taskType = parts[0];
@@ -160,6 +195,12 @@ public class Regina {
                     INDENT) + LINE);
     }
 
+    /**
+     * Deletes a task at the specified index.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws ReginaException If the index is out of bounds or if there are no tasks to delete.
+     */
     public void delete(int index) throws ReginaException {
         if (listOfTasks.isEmpty()) {
             throw new ReginaException("No more tasks to delete alr lah!");
@@ -182,6 +223,11 @@ public class Regina {
                 LINE, INDENT, INDENT, task.toString(), INDENT, taskCount, taskCount > 1 ? "s" : "", LINE);
     }
 
+    /**
+     * Lists all tasks currently in the task list.
+     *
+     * @throws ReginaException If there are no tasks to display.
+     */
     public void list() throws ReginaException {
         int length = listOfTasks.size();
         if (length == 0) {
@@ -198,42 +244,35 @@ public class Regina {
         System.out.println(LINE + "\n" + inputList + LINE);
     }
 
+    /**
+     * Marks a task based on the given index.
+     *
+     * @param index The index of the task to mark as done.
+     * @throws ReginaException If the index is out of bounds.
+     */
     public void mark(int index) throws ReginaException {
-        int taskCount = listOfTasks.size();
-        if (index >= taskCount) {
-            String message = String.format("You cannot count ah! There %s only %d task%s!",
-                    taskCount > 1 ? "are" : "is",
-                    taskCount,
-                    taskCount > 1 ? "s" : "");
-            throw new ReginaException(message);
-        }
-        if (index < 0) {
-            throw new ReginaException("Oops! Please choose an index greater than 0.");
-        }
-        Task task = listOfTasks.get(index);
-        task.checkTask();
+        this.marker.mark(index);
+        Task task = this.listOfTasks.get(index);
         System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
 
+    /**
+     * Unmarks a task based on the given index.
+     *
+     * @param index The index of the task to unmark.
+     * @throws ReginaException If the index is out of bounds.
+     */
     public void unmark(int index) throws ReginaException {
-        int taskCount = listOfTasks.size();
-        if (index >= taskCount) {
-            String message = String.format("You cannot count ah! There %s only %d task%s",
-                    taskCount > 1 ? "are" : "is",
-                    taskCount,
-                    taskCount > 1 ? "s" : "");
-            throw new ReginaException(message);
-        }
-        if (index < 0) {
-            throw new ReginaException("Oops! Please choose an index greater than 0.");
-        }
-        Task task = listOfTasks.get(index);
-        task.uncheckTask();
+        this.marker.unmark(index);
+        Task task = this.listOfTasks.get(index);
         System.out.printf("%s\n%sHais! Need to do this task again!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
 
+    /**
+     * Exits the program and closes the scanner.
+     */
     public void exit() {
         System.out.println(LINE + "\n" + INDENT +
                 "Bye. Hope to see you again soon!\n" + LINE);
@@ -259,7 +298,7 @@ public class Regina {
                     String[] parts = userInput.split(" "); // Split input by spaces
                     if (REGINA.haveNumber(parts)) { // Ensure there's an index
                         int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
-                        REGINA.mark(index); // Unmark the task
+                        REGINA.mark(index); // Mark the task
                     }
                 } else if (userInput.startsWith("unmark")) {
                     String[] parts = userInput.split(" "); // Split input by spaces
