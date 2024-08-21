@@ -6,6 +6,11 @@ public final class Query {
         this.command = command;
     }
 
+    public Query(String command) {
+        this.command = command;
+        this.details = null;
+    }
+
     public String getCommand() {
         return this.command;
     }
