@@ -101,7 +101,7 @@ public class PurrfessorDipsy {
         taskTable[taskTableRowCount] = t;
         taskTableRowCount++;
         printTerminalLine();
-        System.out.println("Got it! I've added this task: ");
+        System.out.println("Got it! I've added this task:");
         System.out.println(t.toString());
         System.out.println("You now have " + taskTableRowCount + " tasks in your list.");
         printTerminalLine();
