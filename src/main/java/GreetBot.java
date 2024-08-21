@@ -37,9 +37,7 @@ public class GreetBot {
             } else {
 
                 try {
-                    list.add(Task.decideTask(currentCommand));
-
-
+                    Task.decideTask(currentCommand, list);
                     //System.out.println("Got it. I've added this task:");
                     //System.out.println(list.get(c));
 

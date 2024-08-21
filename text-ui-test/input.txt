@@ -5,11 +5,15 @@ deadline
 deadline 
 event
 event 
+delete
+delete 
 todo borrow book
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 mark 1
 mark 2
 unmark 2
+list
+delete 3
 list
 bye
