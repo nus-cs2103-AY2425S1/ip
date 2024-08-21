@@ -102,25 +102,28 @@ public class Henry {
      * @param tasks array of tasks recorded
      * @param words user input
      */
-    public static void changeTaskStatus(Task[] tasks, String[] words) throws HenryException {
-        int number = Integer.parseInt(words[1]);
-        if (words[0].equals("mark")) {
-            if (tasks[number - 1].isDone()) {
-                throw new HenryException("The task is already marked!");
+    public static void changeTaskStatus(Task[] tasks, String[] words, int index) throws HenryException {
+            int number = Integer.parseInt(words[1]);
+            if (number <= 0 || number > index) {
+                throw new HenryException("The number is wrong!");
             }
-            tasks[number - 1].mark();
-            System.out.println("\nNice! I've marked this task as done:\n"
-                    + tasks[number - 1].toString()
-                    + "\n");
-        } else {
-            if (!tasks[number - 1].isDone()) {
-                throw new HenryException("The task is already unmarked!");
+            if (words[0].equals("mark")) {
+                if (tasks[number - 1].isDone()) {
+                    throw new HenryException("The task is already marked!");
+                }
+                tasks[number - 1].mark();
+                System.out.println("\nNice! I've marked this task as done:\n"
+                        + tasks[number - 1].toString()
+                        + "\n");
+            } else {
+                if (!tasks[number - 1].isDone()) {
+                    throw new HenryException("The task is already unmarked!");
+                }
+                tasks[number - 1].unmark();
+                System.out.println("\nOK, I've marked this task as not done yet:\n"
+                        + tasks[number - 1].toString()
+                        + "\n");
             }
-            tasks[number - 1].unmark();
-            System.out.println("\nOK, I've marked this task as not done yet:\n"
-                    + tasks[number - 1].toString()
-                    + "\n");
-        }
     }
 
     public static void main(String[] args) {
@@ -146,7 +149,7 @@ public class Henry {
                 String[] words = input.split(" ");
                 if (words[0].equals("mark") || words[0].equals("unmark")) {
                     try {
-                        changeTaskStatus(tasks, words);
+                        changeTaskStatus(tasks, words, index);
                     } catch (HenryException e) {
                         System.out.println("\nSorry! " + e.getMessage() + "\n");
                     }
