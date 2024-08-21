@@ -16,6 +16,16 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor for a new Todo with the specified status of the Todo.
+     *
+     * @param description the description of the task.
+     * @param isComplete the status of the task.
+     */
+    public Todo(String description, boolean isComplete) {
+        super(description, isComplete);
+    }
+
+    /**
      * Return the String representation of the task.
      */
     @Override

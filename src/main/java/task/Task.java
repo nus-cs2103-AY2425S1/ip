@@ -7,7 +7,7 @@ package task;
  */
 public class Task {
     private String description;
-    private boolean isCompleted;
+    private boolean isComplete;
 
     /**
      * Constructor for a new task.
@@ -16,14 +16,25 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isCompleted = false;
+        isComplete = false;
+    }
+
+    /**
+     * Constructor for a new task with the specified status of the task.
+     *
+     * @param description the description of the task.
+     * @param isComplete the status of the task.
+     */
+    public Task(String description, boolean isComplete) {
+        this.description = description;
+        this.isComplete = isComplete;
     }
 
     /**
      * Return whether the task is completed.
      */
     public boolean isComplete() {
-        return isCompleted;
+        return isComplete;
     }
 
     /**
@@ -32,10 +43,10 @@ public class Task {
      * @return whether the tasks status has been changed.
      */
     public boolean markComplete() {
-        if (isCompleted) {
+        if (isComplete) {
             return false;
         }
-        isCompleted = true;
+        isComplete = true;
         return true;
     }
     /**
@@ -44,10 +55,10 @@ public class Task {
      * @return whether the tasks status has been changed.
      */
     public boolean markIncomplete() {
-        if (!isCompleted) {
+        if (!isComplete) {
             return false;
         }
-        isCompleted = false;
+        isComplete = false;
         return true;
     }
 
@@ -56,7 +67,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String symbol = isCompleted ? "X" : " ";
+        String symbol = isComplete ? "X" : " ";
         return String.format("[%s] %s", symbol, description);
     }
 }

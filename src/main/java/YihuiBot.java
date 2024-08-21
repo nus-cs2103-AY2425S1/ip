@@ -14,6 +14,7 @@ import executable.TaskModifier;
 import task.Task;
 
 import exception.BotException;
+import exception.IncorrectTaskFormatException;
 
 /**
  * Your friendly todolist bot.
@@ -28,7 +29,12 @@ public class YihuiBot {
     private static ArrayList<Task> tasks;
 
     public static void main(String[] args) {
-        reset();
+        try {
+            initializeTasks();
+        } catch (IncorrectTaskFormatException e) {
+            prettyPrint("An error occured. " + e.getMessage());
+            return;
+        }
         greetings();
 
         Scanner userInput = new Scanner(System.in);
@@ -64,8 +70,20 @@ public class YihuiBot {
         userInput.close();
     }
 
-    private static void reset() {
-        tasks = new ArrayList<>();
+    private static void initializeTasks() throws IncorrectTaskFormatException {
+        prettyPrint("Initializing tasks...");
+        String path = "data/task.txt";
+        File data = new File(path);
+        try {
+            TaskReader taskReader = new TaskReader(data);
+            tasks = taskReader.read();
+        } catch (FileNotFoundException e) {
+            prettyPrint("No file with path ./data/task.txt found.\n"
+                    + "If this file exists, make sure to run the program where ./data/task.txt is accessible.\n"
+                    + "Initializing an empty array of tasks...");
+            tasks = new ArrayList<>();
+        }
+        prettyPrint("Tasks initialized");
     }
 
     private static void greetings() {
