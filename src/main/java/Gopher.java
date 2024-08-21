@@ -33,6 +33,16 @@ public class Gopher {
         System.out.println(horizontalSeparator + "\n");
     }
 
+    private static void listTasks() {
+        System.out.println(horizontalSeparator);
+        for (int i = 1; i <= currentTaskNumber; i++) {
+            int currentTaskIndex = i - 1;
+            String message = String.format("%d. %s", i, taskList[currentTaskIndex]);
+            System.out.println(message);
+        }
+        System.out.println(horizontalSeparator + "\n");
+    }
+
     private static void exit () {
         System.out.println(horizontalSeparator);
         System.out.println("Bye. Hope to see you again soon!");
@@ -50,6 +60,8 @@ public class Gopher {
             userInput = inputReader.nextLine();
             if (userInput.equalsIgnoreCase("Bye")) {
                 isRunning = false;
+            } else if (userInput.equalsIgnoreCase("List")) {
+                listTasks();
             } else {
                 addTask(userInput);
             }
