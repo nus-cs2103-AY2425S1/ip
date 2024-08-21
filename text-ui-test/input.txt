@@ -1,0 +1,43 @@
+todo Buy groceries
+todo Clean the house
+deadline Submit assignment /by Sunday
+event Project meeting /from Monday 10am /to 12pm
+list
+mark 2
+list
+unmark 2
+list
+todo
+deadline
+deadline Finish report /by
+event Team outing /from Friday /to
+mark two
+mark 5
+unmark 1
+list
+mark 1
+todo
+list
+todo Read a book
+todo Write a letter
+deadline Pay rent /by 1st of next month
+event Birthday party /from Saturday 6pm /to 11pm
+mark 1
+mark 2
+unmark 1
+list
+todo Finish coding project
+deadline Submit taxes /by April 15
+event Conference /from May 10 /to May 12
+list
+todo Finish homework
+deadline Return library book /by Friday
+event Family gathering /from Sunday 3pm /to 7pm
+mark 1
+mark 2
+mark 3
+unmark 1
+unmark 2
+unmark 3
+list
+bye
