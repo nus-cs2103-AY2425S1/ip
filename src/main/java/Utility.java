@@ -4,10 +4,13 @@ public class Utility {
     public static String greeting() {
         return line +
                 "Hello! I'm LuToDo\n" +
-                "What can I do for you?\n";
+                "What can I do for you?\n" +
+                line;
     }
 
     public static String bye() {
-        return line + "Bye. Hope to see you again soon!\n" + line;
+        return line +
+                "Bye. Hope to see you again soon!\n" +
+                line;
     }
 }
