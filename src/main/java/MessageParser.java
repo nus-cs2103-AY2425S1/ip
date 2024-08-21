@@ -4,6 +4,7 @@ import processor.Processor;
 import processor.task.Add;
 import processor.task.Mark;
 import processor.task.Unmark;
+import processor.task.Delete;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,8 @@ public class MessageParser {
         return Add::deadline;
       case "event":
         return Add::event;
+      case "delete":
+        return Delete::process;
     }
     throw new CommandInvalidException();
   }

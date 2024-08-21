@@ -26,6 +26,10 @@ public class TaskList {
     list.add(newTask);
   }
 
+  public static void deleteTask(int idx) {
+    list.remove(idx);
+  }
+
   public static void mark(int idx) {
     list.set(idx, list.get(idx).mark());
   }
