@@ -80,7 +80,8 @@ public class Botty {
                         currentIndex++;
                         System.out.println(bottySymbol + "I have added \"" + userInput + "\" to the list!");
                     } else {
-                        System.out.println(bottySymbol + "I have run out of space, sorry! Here's a cookie \uD83C\uDF6A");
+                        System.out.println(bottySymbol +
+                                "I have run out of space, sorry! Here's a cookie \uD83C\uDF6A");
                     }
             }
 
