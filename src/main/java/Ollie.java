@@ -1,3 +1,4 @@
+import java.security.spec.RSAOtherPrimeInfo;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -19,13 +20,13 @@ public class Ollie {
 
             if(input.matches("list")) {
                 Ollie.list();
-            } else if (input.matches("mark [0-9]")){
+            } else if (input.matches("^mark \\d+$")){
                 int i = Integer.parseInt(input.replaceAll("\\D+",""));
                 Ollie.mark(i);
-            } else if (input.matches("unmark [0-9]")) {
+            } else if (input.matches("^unmark \\d+$")) {
                 int i = Integer.parseInt(input.replaceAll("\\D+",""));
                 Ollie.unmark(i);
-            } else {
+            }  else if (input.matches("^(deadline|event|todo) .+$")) {
                 Ollie.add(input);
             }
             input = scanner.nextLine();
@@ -46,8 +47,22 @@ public class Ollie {
     }
 
     private static void add(String s) {
-        tasks.add(new Task(s));
-        Ollie.printResponse("added: " + s);
+        Task task;
+
+        // Input parser:
+        if (s.matches("^deadline .+ /by .+$")){
+            String[] splitString = s.split("/by", 2);
+            task = new Deadline(splitString[0].trim().replaceFirst("deadline",""), splitString[1].trim());
+        } else if(s.matches("^event .+ /from .+ /to .+$")) {
+            String[] splitString = s.split("/from|/to", 3);
+            task = new Event(splitString[0].trim(), splitString[1].trim(), splitString[2].trim());
+        } else {
+            task = new Todo(s);
+        }
+        tasks.add(task);
+        Ollie.printResponse("Got it. I've added this task:\n  "
+                + task.toString()
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
     private static void list() {
         ArrayList<String> list = new ArrayList<>();
