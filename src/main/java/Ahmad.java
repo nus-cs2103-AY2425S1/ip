@@ -1,3 +1,4 @@
+import processor.Processor;
 import response.Response;
 
 import java.util.List;
@@ -11,9 +12,9 @@ public class Ahmad {
     while (true) {
       try {
         final String prompt = scanner.nextLine();
-        final Function<String, Response> inst = MessageParser.parse(prompt);
+        final Processor inst = MessageParser.parse(prompt);
 
-        final Response response = inst.apply(prompt);
+        final Response response = inst.process(prompt);
 
 
         response.getResponse().forEach(IO::print);

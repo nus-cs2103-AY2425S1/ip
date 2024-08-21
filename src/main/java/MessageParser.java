@@ -1,6 +1,7 @@
 import exceptions.InvalidCommandException;
 import processor.Echo;
 import processor.Exit;
+import processor.Processor;
 import processor.task.Add;
 import processor.task.Mark;
 import processor.task.Unmark;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class MessageParser {
-  public static Function<String, Response> parse(String prompt) throws InvalidCommandException {
+  public static Processor parse(String prompt) throws Exception {
 
     final List<String> prompts = Arrays.asList(prompt.split(" "));
 
