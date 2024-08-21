@@ -6,6 +6,9 @@ public class Sigma {
         String name = "SIGMA";
         Scanner input = new Scanner(System.in);
         ArrayList<Task> items = new ArrayList<>();
+        enum Commands {
+            TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE
+        }
 
         print("Hello! I'm " + name + "\nLooking forward to slaying with you!\nWhat do you need today?" +
                 "\nYou can add tasks with \"todo\", \"deadline\", \"event\" or view tasks with \"list\"." +
@@ -17,13 +20,14 @@ public class Sigma {
         while (!userPrompt.isEmpty()) {
             try {
                 String[] split = userPrompt.split(" ", 2);
-                String command = split[0];
-                switch (command.toLowerCase()) {
-                    case "bye":
+                String command = split[0].toUpperCase(); // Convert input to uppercase to match enum
+                Commands cmd = Commands.valueOf(command); // Convert to Commands enum
+                switch (cmd) {
+                    case BYE:
                         exit();
                         System.exit(0);
                         break;
-                    case "list":
+                    case LIST:
                         StringBuilder s = new StringBuilder();
                         for (int i = 1; i <= items.size(); i++) {
                             s.append(i + ". " + items.get(i - 1).toString() + "\n");
@@ -34,7 +38,7 @@ public class Sigma {
                             print("You want a list? You got it!\n" + s.toString());
                         }
                         break;
-                    case "mark":
+                    case MARK:
                         if (split.length > 1) {
                             int index = Integer.parseInt(split[1]);
                             if (index > 0 && index <= items.size()) {
@@ -51,7 +55,7 @@ public class Sigma {
                             throw new SigmaException("Bro's dreaming. Add a number bozo!");
                         }
                         break;
-                    case "unmark":
+                    case UNMARK:
                         if (split.length > 1) {
                             int index = Integer.parseInt(split[1]);
                             if (index > 0 && index <= items.size()) {
@@ -68,7 +72,7 @@ public class Sigma {
                             throw new SigmaException("Bro's dreaming. Add a number bozo!");
                         }
                         break;
-                    case "todo":
+                    case TODO:
                         if (split.length < 2) {
                             throw new SigmaException("???? You're missing the task! Write \"todo <task>\"!");
                         }
@@ -78,7 +82,7 @@ public class Sigma {
                                 + "\nNow you have " + items.size() + " tasks in the list!");
                         break;
 
-                    case "deadline":
+                    case DEADLINE:
                         if (split.length < 2) {
                             throw new SigmaException("What the sigma? You're missing the task! " +
                                     "Write \"deadline <task> /by <deadline>\"!");
@@ -93,7 +97,7 @@ public class Sigma {
                         print("Wow! Keeping yourself busy! Added: \n" + deadlineTask.toString()
                                 + "\nNow you have " + items.size() + " tasks in the list!");
                         break;
-                    case "event":
+                    case EVENT:
                         if (split.length < 2) {
                             throw new SigmaException("What the sigma? You're missing the task! " +
                                     "Write \"event <task> /from <start time> /to <end time>\"!");
@@ -112,7 +116,7 @@ public class Sigma {
                                 + "\nNow you have " + items.size() + " tasks in the list!");
                         break;
 
-                    case "delete":
+                    case DELETE:
                         if (split.length < 2) {
                             throw new SigmaException("What the sigma? You're missing the task! " +
                                     "Write \"delete <task>\"!");
