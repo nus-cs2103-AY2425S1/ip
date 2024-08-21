@@ -2,7 +2,10 @@ public abstract class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws EchoMIndException {
+        if (description == "") {
+            throw new EchoMIndException("OOPS!!! The description of a todo cannot be empty.");
+        }
         this.description = description;
         this.isDone = false;
     }
