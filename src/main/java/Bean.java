@@ -11,24 +11,40 @@ public class Bean {
                 + "________________________________\n";
         System.out.println(greeting);
         Scanner scanner = new Scanner(System.in);
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int pointer = 0;
         while (true) {
             String response = scanner.nextLine();
-            if (!response.equals("bye") && !response.equals("list")) {
+            String[] splited = response.split(" ");
+            if (!response.equals("bye") && !response.equals("list") && !splited[0].equals("mark") && !splited[0].equals("unmark")) {
                 String output = "________________________________\n" + "added: " + response + "\n" + "________________________________\n";
                 System.out.println(output);
-                taskList[pointer] = response;
+                taskList[pointer] = new Task(response);
                 pointer++;
             } else if (response.equals("list")) {
-                System.out.println("________________________________\n");
+                System.out.println("________________________________");
                 for (int i = 0; i < pointer; i++) {
-                    String output = String.valueOf(i + 1) + ". " + taskList[i];
+                    String output = String.valueOf(i + 1) + ". " + taskList[i].getString();
                     System.out.println(output);
                 }
-                System.out.println("________________________________\n");
-            }
-            else {
+                System.out.println("________________________________");
+            } else if (splited[0].equals("mark")) {
+                int index = Integer.parseInt(splited[1]) - 1;
+                Task curr = taskList[index];
+                String msg = curr.mark();
+                System.out.println("________________________________");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(msg);
+                System.out.println("________________________________");
+            } else if (splited[0].equals("unmark")) {
+                int index = Integer.parseInt(splited[1]) - 1;
+                Task curr = taskList[index];
+                String msg = curr.mark();
+                System.out.println("________________________________");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(msg);
+                System.out.println("________________________________");
+            } else if (splited[0].equals("bye")){
                 System.out.println(byeMsg);
                 break;
             }
