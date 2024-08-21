@@ -24,6 +24,26 @@ public class Simon {
                 }
                 System.out.println(HOR_LINE);
             }
+            else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (index < 0 || index >= taskCount) {
+                    throw new IndexOutOfBoundsException("Task number does not exist.");
+                }
+                taskList.get(index).markAsDone();
+                String prMsg = printMessage("Nice! I've marked this task as done:\n" + "\t" + taskList.get(index).toString());
+                System.out.print(prMsg);
+                continue;
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (index < 0 || index >= taskCount) {
+                    throw new IndexOutOfBoundsException("Task number does not exist.");
+                }
+                taskList.get(index).markAsNotDone();
+                String prMsg = printMessage("OK, I've marked this task as not done yet:\n" + "\t" + taskList.get(index).toString());
+                System.out.print(prMsg);
+                continue;
+            }
+
             else {
                 taskCount++;
                 Task task = new Task(input, taskCount);
