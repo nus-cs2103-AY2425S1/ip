@@ -1,7 +1,30 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+I'm that one guy.
+Make it quick, I don't have much time.
+You really don't have anything better to do?
+Fine. Added this lousy task:
+[T] [ ] break something
+That's 1 tasks for your ass to handle.
+Consider picking a number that's actually in range.
+Eh. Consider this task done:
+[T] [X] break something
+You dingus. This task was already done:
+[T] [X] break something
+Consider picking a number that's actually in range.
+Fine. Added this lousy task:
+[D] [ ] whack table (by: tomorrow)
+That's 2 tasks for your ass to handle.
+Fine. Added this lousy task:
+[E] [ ] malding (from: Wednesday to: Friday)
+That's 3 tasks for your ass to handle.
+Eh. Consider this task done:
+[D] [X] whack table (by: tomorrow)
+Sucks to be you. Looks like you haven't done this task:
+[T] [ ] break something
+You dingus. This task still hasn't been done:
+[T] [ ] break something
+Here are your damned tasks. Complete them or something.
+1. [T] [ ] break something
+2. [D] [X] whack table (by: tomorrow)
+3. [E] [ ] malding (from: Wednesday to: Friday)
+Maybe put in an actual command next time, shitass.
+Whatever. Hope you never come back.
