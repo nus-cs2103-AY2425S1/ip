@@ -30,6 +30,12 @@ mark 2
     Nice! I've marked this task as done:
       [T][X]  borrow book
     ___________________________________________
+list
+    ___________________________________________
+    Here are the tasks in your list:
+    1.[E][X]  finish elden ring (from: sun 6pm to: 10pm)
+    2.[T][X]  borrow book
+    ___________________________________________
 unmark 1
     ___________________________________________
     OK, I've marked this task as not done yet:
@@ -47,6 +53,26 @@ list
     1.[E][ ]  finish elden ring (from: sun 6pm to: 10pm)
     2.[T][X]  borrow book
     3.[D][ ]  play football (by: Sunday)
+    ___________________________________________
+delete 1
+    ___________________________________________
+    Noted. I've removed this task:
+      [E][ ]  finish elden ring (from: sun 6pm to: 10pm)
+    Now you have 2 tasks in the list.
+    ___________________________________________
+list
+    ___________________________________________
+    Here are the tasks in your list:
+    1.[T][X]  borrow book
+    2.[D][ ]  play football (by: Sunday)
+    ___________________________________________
+fishing
+    ___________________________________________
+    Sorry, I am not sure what 'fishing' means. Please try again!
+    ___________________________________________
+deadline
+    ___________________________________________
+    Please describe your 'deadline' task in more detail!
     ___________________________________________
 bye
     ___________________________________________

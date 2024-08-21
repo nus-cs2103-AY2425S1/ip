@@ -3,7 +3,12 @@ mark 1
 todo borrow book
 list
 mark 2
+list
 unmark 1
 deadline play football /by Sunday
 list
+delete 1
+list
+fishing
+deadline
 bye
