@@ -44,6 +44,10 @@ public class Tako {
                     String from = command.substring(markerOfFrom + 6, markerOfTo - 1);
                     String to = command.substring(markerOfTo + 4);
                     addStorage(listOfTask, new Event(eventDescription, from, to));
+                } else if (command.length() > 6 && command.substring(0, 7).equals("delete ")) {
+                    int taskNumber = Integer.parseInt(command.substring(7));
+                    deleteTask(listOfTask, taskNumber);
+                    System.out.println("Now you have " + listOfTask.size() + " tasks in the list.");
                 } else {
                     throw new InvalidCommandException(command);
                 }
@@ -78,5 +82,11 @@ public class Tako {
     public static void unmarkTask(ArrayList<Task> listOfTask, int taskNumber) {
         listOfTask.get(taskNumber - 1).markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:\n" + "  " + listOfTask.get(taskNumber - 1).toString());
+    }
+
+    public static void deleteTask(ArrayList<Task> listOfTask, int taskNumber) {
+        System.out.println("Noted. I've removed this task:\n " +
+                           "  " + listOfTask.get(taskNumber - 1));
+        listOfTask.remove(taskNumber - 1);
     }
 }
