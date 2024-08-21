@@ -1,4 +1,6 @@
+import java.sql.Array;
 import java.util.*;
+import java.util.ArrayList;
 
 import static java.lang.System.exit;
 import java.util.regex.*;
@@ -10,6 +12,7 @@ public class Momo {
     public enum Command {
         BYE,
         LIST,
+        DELETE,
         MARK,
         UNMARK,
         TODO,
@@ -17,7 +20,7 @@ public class Momo {
         EVENT
     }
 
-    static Task[] list = new Task[100];
+    static ArrayList<Task> list = new ArrayList<>();
     static int count = 0;
 
     public static void main(String[] args) throws MomoException {
@@ -40,6 +43,9 @@ public class Momo {
                 }
                 else if (command == Command.UNMARK) {
                     changeCompletion(Integer.parseInt(input.split(" ")[1]) - 1, Command.UNMARK);
+                }
+                else if (command == Command.DELETE) {
+                    deleteTask(Integer.parseInt(input.split(" ")[1]) - 1);
                 }
                 else {
                     if (command == Command.TODO) {
@@ -82,6 +88,21 @@ public class Momo {
         // Check if input is list
         if (Objects.equals(input, "list")) {
             return Command.LIST;
+        }
+
+        // Check if input is delete
+        if (input.startsWith("delete")) {
+            if (Pattern.matches("delete\\s\\d", input)) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+
+                if (index >= count || index < 0) {
+                    throw new MomoException("You can only delete a task of a number your task list contains");
+                }
+                return Command.DELETE;
+            }
+
+            throw new MomoException("You're supposed to indicate the task number you want to delete!");
+
         }
 
         // Checking for mark and unmark input
@@ -170,15 +191,16 @@ public class Momo {
 
     public static void printList() {
         System.out.println(horizontalLine);
-        for (int i = 0; list[i] != null; i++) {
-            System.out.println(i + 1 + ". " + list[i]);
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + ". " + list.get(i));
         }
         System.out.println(horizontalLine);
     }
 
     public static void changeCompletion(int index, Command command) {
         System.out.println(horizontalLine);
-        Task task = list[index];
+        Task task = list.get(index);
 
         if (command == Command.MARK) {
             task.markComplete();
@@ -191,14 +213,14 @@ public class Momo {
 
     public static void addToDo(String input) {
         String task = input.split(" ",2)[1];
-        list[count] = new Todo(task);
+        list.add(new Todo(task));
     }
 
     public static void addDeadline(String input) {
         String desc = input.split(" ",2)[1];
         String task =  desc.split("/",2)[0];
         String by = desc.split("/",2)[1];
-        list[count] = new Deadline(task, by);
+        list.add(new Deadline(task, by));
 
     }
 
@@ -207,15 +229,23 @@ public class Momo {
         String task =  desc.split("/",2)[0];
         String from = desc.split("/",3)[1];
         String to = desc.split("/",3)[2];
-        list[count] = new Event(task, from, to);
-
+        list.add(new Event(task, from, to));
 
     }
     public static void printTaskAdded() {
         System.out.println(horizontalLine);
-        System.out.println("Noted. I've added this task:\n " + list[count]);
+        System.out.println("Noted. I've added this task:\n " + list.get(count));
         System.out.println(String.format("Now you have %d task(s) in the list", count + 1));
         System.out.println(horizontalLine);
+    }
+
+    public static void deleteTask(int index) {
+        count--;
+        System.out.println("Noted. I've removed this task:\n " + list.get(index));
+        list.remove(index);
+        System.out.println(String.format("Now you have %d task(s) in the list", count));
+        System.out.println(horizontalLine);
+
     }
 }
 
