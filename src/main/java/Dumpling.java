@@ -6,56 +6,39 @@ public class Dumpling {
 
     private TaskList todoList;
 
-    private static final String TERMINATE_STRING = "bye";
-    private static final String LIST_COMMAND_STRING = "list";
-    private static final String MARK_COMMAND_STRING = "mark";
-    private static final String UNMARK_COMMAND_STRING = "unmark";
-    private static final String TODO_COMMAND_STRING = "todo";
-    private static final String DEADLINE_COMMAND_STRING = "deadline";
-    private static final String EVENT_COMMAND_STRING = "event";
-    private static final String DELETE_COMMAND_STRING = "delete";
-
     public Dumpling(){
         this.todoList = new TaskList();
     }
 
     private boolean commandRouter(String userInput) throws InvalidCommandException, EmptyDescriptionException, NumberFormatException, IndexOutOfBoundsException {
         String operationMessage = "";
-        String command = userInput.split(" ")[0];
+        Command command = Command.getCommand(userInput.split(" ")[0]);
         switch (command) {
-            case TERMINATE_STRING:
+            case BYE:
                 this.exit();
                 return false;
-            case LIST_COMMAND_STRING:
+            case LIST:
                 operationMessage += this.todoList.list();
                 break;
-            case MARK_COMMAND_STRING:
+            case MARK:
                 operationMessage += this.todoList.mark(
                         Integer.parseInt(userInput.split(" ")[1]));
                 break;
-            case UNMARK_COMMAND_STRING:
+            case UNMARK:
                 operationMessage += this.todoList.unmark(
                         Integer.parseInt(userInput.split(" ")[1]));
                 break;
-            case TODO_COMMAND_STRING:
-            case DEADLINE_COMMAND_STRING:
-            case EVENT_COMMAND_STRING:
-                operationMessage += this.todoList.add(userInput);
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                operationMessage += this.todoList.add(userInput, command);
                 break;
-            case DELETE_COMMAND_STRING:
+            case DELETE:
                 operationMessage += this.todoList.delete(
                         Integer.parseInt(userInput.split(" ")[1]));
                 break;
             default:
-                throw new InvalidCommandException(
-                        String.format(
-                                "     %s is not a valid command!\n" +
-                                        "     To list items, use 'list'.\n" +
-                                        "     To mark or unmark an item as done, use '<mark/unmark> <item index>'.\n" +
-                                        "     To add a new item, use '<todo/deadline/event> <task name> <args>'.",
-                                command
-                        )
-                );
+                // invalid commands would have been thrown when getting the command
         }
         if (!operationMessage.isEmpty()) {
             System.out.println(operationMessage);

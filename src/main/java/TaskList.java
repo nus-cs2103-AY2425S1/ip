@@ -5,9 +5,6 @@ public class TaskList {
 
     private List<Task> items;
 
-    private static final String TODO_STRING = "todo";
-    private static final String DEADLINE_STRING = "deadline";
-    private static final String EVENT_STRING = "event";
     private static final String DEADLINE_DATE_SEPARATOR = "/by";
     private static final String EVENT_FROM_SEPARATOR = "/from";
     private static final String EVENT_TO_SEPARATOR = "/to";
@@ -33,19 +30,18 @@ public class TaskList {
         return new Pair<>(formedSection, currIdx);
     }
 
-    public String add(String description) throws EmptyDescriptionException {
+    public String add(String description, Command command) throws EmptyDescriptionException {
         String[] splitDescription = description.split(" ");
-        String taskType = splitDescription[0];
         String taskDescription;
         Task task;
         Pair<String, Integer> taskDescriptionIdxPair;
-        switch (taskType) {
-            case TODO_STRING:
+        switch (command) {
+            case TODO:
                 taskDescriptionIdxPair = formSubSection(splitDescription, 1, "");
                 taskDescription = taskDescriptionIdxPair.getFirst();
                 task = new ToDo(taskDescription);
                 break;
-            case DEADLINE_STRING:
+            case DEADLINE:
                 taskDescriptionIdxPair = formSubSection(splitDescription, 1, DEADLINE_DATE_SEPARATOR);
                 taskDescription = taskDescriptionIdxPair.getFirst();
                 Pair<String, Integer> deadlineIdxPair = formSubSection(
@@ -53,7 +49,7 @@ public class TaskList {
                 String deadline = deadlineIdxPair.getFirst();
                 task = new Deadline(taskDescription, deadline);
                 break;
-            case EVENT_STRING:
+            case EVENT:
                 taskDescriptionIdxPair = formSubSection(splitDescription, 1, EVENT_FROM_SEPARATOR);
                 taskDescription = taskDescriptionIdxPair.getFirst();
                 Pair<String, Integer> fromIdxPair = formSubSection(
