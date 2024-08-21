@@ -1,0 +1,8 @@
+todo Task 1
+deadline Task 2 /by Monday
+event Task 3 /from August /to September
+list
+mark 1
+list
+unmark 1
+bye
