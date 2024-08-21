@@ -121,7 +121,11 @@ public class Delta {
 
                 // Unknown Action
                 } else {
-                    throw new DeltaException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DeltaException("OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
+                            "\t Please follow the proper formats:\n" +
+                            "\t * todo [description]\n" +
+                            "\t * deadline [description] /by[date/time]\n" +
+                            "\t * event [description] /from[start] /to[end]");
                 }
             }
             catch (DeltaException e) {
