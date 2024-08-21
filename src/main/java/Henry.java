@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Henry {
@@ -27,7 +28,7 @@ public class Henry {
      * @param tasks array of tasks recorded
      * @param index number of tasks recorded
      */
-    public static void printList(Task[] tasks, int index) throws HenryException {
+    public static void printList(ArrayList<Task> tasks, int index) throws HenryException {
         //check if there is any task to print
         if (index == 0) {
             throw new HenryException("You do not have any tasks!");
@@ -36,7 +37,7 @@ public class Henry {
         for (int i = 0; i < index; i++) {
             System.out.println(i + 1
                     +"."
-                    + tasks[i].toString());
+                    + tasks.get(i).toString());
         }
         System.out.println();
     }
@@ -48,7 +49,7 @@ public class Henry {
      * @param index number of tasks recorded
      * @param input name of task
      */
-    public static void addTask(Task[] tasks, int index, String input) throws HenryException  {
+    public static void addTask(ArrayList<Task> tasks, int index, String input) throws HenryException  {
         String[] words = input.split(" ");
         String task = words[0].toLowerCase();
         String activityAndTime = input.replaceFirst(words[0] + " ", "");
@@ -61,7 +62,7 @@ public class Henry {
                         "Ensure that you have included the activity. " +
                         "Example: todo read book");
             }
-            tasks[index] = new Todo(activity);
+            tasks.add(new Todo(activity));
         } else if (task.equals("deadline")) {
             //check if deadline description is valid
             if (activityAndTimeList.length != 2 ) {
@@ -71,7 +72,7 @@ public class Henry {
             }
             String time = activityAndTimeList[1]
                     .replaceFirst("by ", "");
-            tasks[index] = new Deadline(activity, time);
+            tasks.add(new Deadline(activity, time));
         } else if (task.equals("event")) {
             //check if event description is valid
             if (activityAndTimeList.length != 3 ) {
@@ -84,7 +85,7 @@ public class Henry {
                     .replaceFirst("from ", "");
             String endTime = activityAndTimeList[2]
                     .replaceFirst("to ", "");
-            tasks[index] = new Event(activity, startTime, endTime);
+            tasks.add(new Event(activity, startTime, endTime));
         } else {
             //check for invalid input
             throw new HenryException("This is not a task!! " +
@@ -94,7 +95,7 @@ public class Henry {
                     + " \"" + "event" +"\"");
         }
         System.out.println("\nGot it. I've added this task:\n"
-                + tasks[index].toString()
+                + tasks.get(index).toString()
                 + "\nNow you have "
                 + (index + 1)
                 + (index + 1 <= 1 ? " task" : " tasks")
@@ -107,7 +108,7 @@ public class Henry {
      * @param tasks array of tasks recorded
      * @param words user input
      */
-    public static void changeTaskStatus(Task[] tasks, String[] words, int index) throws HenryException {
+    public static void changeTaskStatus(ArrayList<Task> tasks, String[] words, int index) throws HenryException {
         //check for invalid number
         try {
             int number = Integer.parseInt(words[1]);
@@ -117,21 +118,21 @@ public class Henry {
             }
             if (words[0].equals("mark")) {
                 //check if task is already marked
-                if (tasks[number - 1].isDone()) {
+                if (tasks.get(number - 1).isDone()) {
                     throw new HenryException("The task is already marked!");
                 }
-                tasks[number - 1].mark();
+                tasks.get(number - 1).mark();
                 System.out.println("\nNice! I've marked this task as done:\n"
-                        + tasks[number - 1].toString()
+                        + tasks.get(number - 1).toString()
                         + "\n");
             } else {
                 //check if task is already unmarked
-                if (!tasks[number - 1].isDone()) {
+                if (!tasks.get(number - 1).isDone()) {
                     throw new HenryException("The task is already unmarked!");
                 }
-                tasks[number - 1].unmark();
+                tasks.get(number - 1).unmark();
                 System.out.println("\nOK, I've marked this task as not done yet:\n"
-                        + tasks[number - 1].toString()
+                        + tasks.get(number - 1).toString()
                         + "\n");
             }
         } catch(NumberFormatException e) {
@@ -142,7 +143,7 @@ public class Henry {
     public static void main(String[] args) {
         greetings();
 
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         Scanner scanner = new Scanner(System.in);
         int index = 0;
