@@ -75,7 +75,7 @@ public class PurrfessorDipsy {
     }
 
     private static void saveToMemory(String userInput) {
-        taskTable[taskTableRowCount] = new Task(userInput, false);
+        taskTable[taskTableRowCount] = new Task(userInput);
         taskTableRowCount++;
     }
 
