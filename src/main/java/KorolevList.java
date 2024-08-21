@@ -147,9 +147,9 @@ public class KorolevList {
         }
     }
 
-    private KorolevTask parseStorage(String msg) {
+    private KorolevTask parseStorage(String msg) throws DukeException{
 
-        return new KorolevTask("");
+        return EventParser.parseLoadedRecord(msg);
     }
 
     public void loadEvent() {
@@ -162,6 +162,8 @@ public class KorolevList {
             }
         } catch (IOException e) {
             System.out.println("IOException: " + e.toString());
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

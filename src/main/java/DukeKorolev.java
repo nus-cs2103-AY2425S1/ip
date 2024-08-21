@@ -28,6 +28,7 @@ public class DukeKorolev {
         KorolevList repo = new KorolevList();
 
         System.out.println(newLogo);
+        repo.loadEvent();
         while (true) {
             input = scanner.nextLine();
             String[] target = input.split("\\s");
