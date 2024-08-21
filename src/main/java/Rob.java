@@ -24,8 +24,7 @@ public class Rob {
                 break;
             } else if (Objects.equals(input, "list")) {
                 System.out.println("____________________________________________________________");
-                for (int i = 0; i < taskCount; i++)
-                {
+                for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
                 System.out.println("____________________________________________________________\n");
@@ -61,14 +60,35 @@ public class Rob {
                     System.out.println("Invalid task number... Try another?");
                 }
             } else {
-                tasks[taskCount] = new Task(input);
-                taskCount++;
+                if (input.startsWith("deadline")) {
+                    String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
+                    String desc = rem.split(" /by")[0].trim();
+                    String day = rem.split(" /by")[1].trim();
+                    tasks[taskCount] = new Deadline(desc, day);
+                    taskCount++;
 
+                } else if (input.startsWith("event")) {
+                    String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
+                    String desc = rem.split(" /from")[0].trim();
+                    String from = rem.split(" /from")[1].split(" /to")[0].trim();
+                    String to = rem.split(" /from")[1].split(" /to")[1].trim();
+                    tasks[taskCount] = new Event(desc, from, to);
+                    taskCount++;
+
+                } else if (input.startsWith("todo")) {
+                    String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
+                    tasks[taskCount] = new Todo(rem);
+                    taskCount++;
+                } else {
+                    tasks[taskCount] = new Task(input);
+                    taskCount++;
+                }
                 // echo
                 String echo = "____________________________________________________________\n" +
-                        "added: " + input + "\n" +
+                        "added: " + tasks[taskCount - 1] + "\n" +
                         "____________________________________________________________\n";
-                System.out.println(echo);
+                String numTaskInList = "Now you have " + taskCount + " task(s) in the list.\n";
+                System.out.println(echo + numTaskInList);
             }
         }
         scanner.close();
