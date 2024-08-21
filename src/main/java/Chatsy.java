@@ -26,9 +26,9 @@ public class Chatsy {
         scanner.close(); // Close the scanner to prevent resource leaks
     }
 
-    public static void addTask(String taskDescription) {
-        tasks.add(new Task(taskDescription));
-        output("\tadded: " + taskDescription);
+    public static void addTask(Task task) {
+        tasks.add(task);
+        output("\tGot it. I've added this task:\n\t  " + task + "\n\tNow you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void listTasks() {
@@ -92,8 +92,42 @@ public class Chatsy {
                 }
                 nextCommand();
                 break;
+            case "todo":
+                if (parts.length > 1) {
+                    addTask(new Todo(parts[1]));
+                } else {
+                    output("\tThe description of a todo cannot be empty.");
+                }
+                nextCommand();
+                break;
+            case "deadline":
+                if (parts.length > 1) {
+                    String[] deadlineParts = parts[1].split(" /by ", 2);
+                    if (deadlineParts.length > 1) {
+                        addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                    } else {
+                        output("\tPlease specify the deadline in the format: description /by deadline");
+                    }
+                } else {
+                    output("\tThe description of a deadline cannot be empty.");
+                }
+                nextCommand();
+                break;
+            case "event":
+                if (parts.length > 1) {
+                    String[] eventParts = parts[1].split(" /from | /to ", 3);
+                    if (eventParts.length == 3) {
+                        addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                    } else {
+                        output("\tPlease specify the event in the format: description /from start_time /to end_time");
+                    }
+                } else {
+                    output("\tThe description of an event cannot be empty.");
+                }
+                nextCommand();
+                break;
             default:
-                addTask(command);
+                output("\tInvalid command.");
                 nextCommand();
                 break;
         }
