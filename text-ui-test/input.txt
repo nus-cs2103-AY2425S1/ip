@@ -1,0 +1,12 @@
+randomword
+todo hello there my bro im testing
+deadline hOmIeEE im testing /by tomorrow
+event hello there my bro im testing /from yesterday /to tOdAy
+list
+unmark 1
+list
+mark 2
+list
+mark 2
+list
+bye
