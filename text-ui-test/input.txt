@@ -2,7 +2,9 @@ todo borrow book
 deadline return book /by Sunday
 event CCA /from Wed 7pm /to Wed 9pm
 list
+hi
 mark 1
+list
 unmark 1
 list
 bye

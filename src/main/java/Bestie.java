@@ -80,7 +80,7 @@ public class Bestie {
                     System.out.println("Now you have " + tasks.size() + " tasks in your list.");
                 } else {
                     System.out.println("Invalid input! Please remember to start with \"todo\", \"deadline\" or \"event\".");
-                    System.out.println("Double check your spelling for other common commands like \"unmark\" or \"list\"");
+                    System.out.println("Double check your spelling for other common commands like \"unmark\" or \"list\".");
                 }
             }
 

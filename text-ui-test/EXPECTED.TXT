@@ -11,8 +11,14 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] CCA (from: Wed 5pm to: Wed 7pm)
+Invalid input! Please remember to start with "todo", "deadline" or "event".
+Double check your spelling for other common commands like "unmark" or "list".
 Awesome work! I've marked this task as done.
   [T][X] borrow book
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] CCA (from: Wed 5pm to: Wed 7pm)
 OK, I've marked this task as not done yet:
   [T][ ] borrow book
 Here are the tasks in your list:
