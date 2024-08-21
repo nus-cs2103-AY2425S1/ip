@@ -2,7 +2,7 @@ import java.util.*;
 import tasks.*;
 
 public class ThatOneGuy {
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String name = "that one guy";
@@ -40,6 +40,9 @@ public class ThatOneGuy {
                     case "deadline":
                     case "event":
                         addTask(cmd, args);
+                        break;
+                    case "delete":
+                        deleteTask(args);
                         break;
                     default:
                         throw new GuyException("Maybe put in an actual command next time, shitass.");
@@ -83,7 +86,7 @@ public class ThatOneGuy {
         if (rest.isEmpty()) {
             throw new GuyException("I can't work without a valid input. Screw you.");
         }
-        Integer id = Integer.parseInt(rest) - 1;
+        int id = Integer.parseInt(rest) - 1;
         if (id < 0 || id >= tasks.size()) {
             throw new GuyException("Consider picking a number that's actually in range.");
         } else {
@@ -107,7 +110,7 @@ public class ThatOneGuy {
         if (rest.isEmpty()) {
             throw new GuyException("I can't work without a valid input. Screw you.");
         }
-        Integer id = Integer.parseInt(rest) - 1;
+        int id = Integer.parseInt(rest) - 1;
         if (id < 0 || id >= tasks.size()) {
             throw new GuyException("Consider picking a number that's actually in range.");
         } else {
@@ -156,6 +159,32 @@ public class ThatOneGuy {
             System.out.println("Fine. Added this lousy task:");
             System.out.println(task);
             System.out.println("That's " + tasks.size() + " tasks for your ass to handle.");
+        } catch (GuyException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void deleteTask(String input) {
+        try {
+            if (tasks.isEmpty()) {
+                throw new GuyException("You have nothing to delete. You dumb or what?");
+            } else if (input.isEmpty()) {
+                throw new GuyException("What do you want me to delete, you moron!?");
+            }
+            String rest = input.replaceAll("\\D+", "");
+            if (rest.isEmpty()) {
+                throw new GuyException("I can't work without a valid input. Screw you.");
+            }
+            int id = Integer.parseInt(rest) - 1;
+            if (id < 0 || id >= tasks.size()) {
+                throw new GuyException("Consider picking a number that's actually in range.");
+            } else {
+                Task task = tasks.get(id);
+                tasks.remove(id);
+                System.out.println("There goes this dumb task:");
+                System.out.println(task);
+                System.out.println("Your ass still needs to handle " + tasks.size() + " more tasks.");
+            }
         } catch (GuyException e) {
             System.out.println(e.getMessage());
         }
