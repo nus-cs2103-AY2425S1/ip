@@ -3,6 +3,8 @@ package chatbot;
 import todo.*;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Main entrypoint to the chatbot "Bee"
@@ -11,7 +13,9 @@ import java.util.Scanner;
  * @version 1.0 20 Aug 2023
  */
 public class Bee {
-    /** Print out "Bee" logo in ASCII art */
+    /**
+     * Print out "Bee" logo in ASCII art
+     */
     private static final String logo = " ____\n"
             + "|  _ \\  ___   ___ \n"
             + "| |_/  / _ \\ / _ \\\n"
@@ -24,30 +28,26 @@ public class Bee {
 
         // Welcome user
         System.out.println(logo);
-        System.out.println(FormatString.printBtnLines("Hello, I'm Bee! What can I do for you?"));
+        ChatbotOutput.printBtnLines("Hello, I'm Bee! What can I do for you?");
 
         // Scan for user input
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
             // Case-insensitive input
-            String next = sc.nextLine().toLowerCase();
+            String next = sc.nextLine();
 
             // Exit program if user inputs bye
             if (next.matches("bye.*")) {
-                System.out.println(FormatString.printBtnLines("Bye~ Hope to see you again soon!"));
+                ChatbotOutput.printBtnLines("Bye~ Hope to see you again soon!");
                 break;
 
-                // Prompt user for input if no input or input only has whitespaces
-            } else if (next.isEmpty() || next.matches("\\s+")) {
-                System.out.println(FormatString.printBtnLines("Hey! Say something."));
-
-                // List tasks in todoList
+            // List tasks in todoList
             } else if (next.equalsIgnoreCase("list")) {
-                System.out.println(FormatString.printBtnLines(
-                        "Here are the tasks in your list:\n".concat(todoList.toString())));
+                ChatbotOutput.printBtnLines(
+                        "Here are the tasks in your list:\n".concat(todoList.toString()));
 
-                // Parse input from user to get task number
+            // Parse input from user to get task number
             } else if (next.matches("mark .*")) {
                 String[] taskIndex = next.split(" ");
                 int index = Integer.parseInt(taskIndex[1]);
@@ -56,21 +56,19 @@ public class Bee {
                 if (todoList.isTaskExist(index)) {
                     todoList.markTaskAsDone(index);
 
-                    System.out.println(
-                            FormatString.printBtnLines(
-                                    String.format(
-                                            "Nice! I've marked this task as done:\n    %s",
-                                            todoList.getTask(index))));
+                    ChatbotOutput.printBtnLines(
+                            String.format(
+                                    "Nice! I've marked this task as done:\n    %s",
+                                    todoList.getTask(index)));
 
-                    // Warn user of invalid task specified
+                // Warn user of invalid task specified
                 } else {
-                    System.out.println(
-                            FormatString.printBtnLines(
-                                    "Hey! This task does not exist.\n" +
-                                            "Type 'list' to see what tasks you have"));
+                    ChatbotOutput.printBtnLines(
+                            "Hey! This task does not exist.\n" +
+                                    "Type 'list' to see what tasks you have");
                 }
 
-                // Parse input from user to get task number
+            // Parse input from user to get task number
             } else if (next.matches("unmark .*")) {
                 String[] taskIndex = next.split(" ");
                 int index = Integer.parseInt(taskIndex[1]);
@@ -79,24 +77,63 @@ public class Bee {
                 if (todoList.isTaskExist(index)) {
                     todoList.markTaskAsIncomplete(index);
 
-                    System.out.println(
-                            FormatString.printBtnLines(
-                                    String.format(
-                                            "OK, I've marked this task as not done yet:\n    %s",
-                                            todoList.getTask(index))));
+                    ChatbotOutput.printBtnLines(
+                            String.format(
+                                    "OK, I've marked this task as not done yet:\n    %s",
+                                    todoList.getTask(index)));
 
-                    // Warn user of invalid task specified
+                // Warn user of invalid task specified
                 } else {
-                    System.out.println(
-                            FormatString.printBtnLines(
-                                    "Hey! This task does not exist.\n" +
-                                            "Type 'list' to see what tasks you have"));
+                    ChatbotOutput.printBtnLines(
+                            "Hey! This task does not exist.\n" +
+                                    "Type 'list' to see what tasks you have");
                 }
 
-                // Echo user input
+            // Add todo
+            } else if (next.matches("todo .*")) {
+                Todo todo = new Todo(next);
+                todoList.addTask(todo);
+                ChatbotOutput.addTaskResponse(todo.toString(), todoList.getTotalNumOfTasks());
+
+            // Add deadline
+            } else if (next.matches("deadline (.+) /by (.+)")) {
+                // Regular expression to capture event name /from and /to parameters
+                Pattern pattern = Pattern.compile("deadline (.+) /by (.+)");
+                Matcher matcher = pattern.matcher(next);
+
+                // If match succeeds, obtain parameters
+                if (matcher.matches()) {
+                    String name = matcher.group(1);
+                    String byParam = matcher.group(2);
+
+                    // Instantiate a Task object and add it to todolist
+                    Deadline deadline = new Deadline(name, byParam);
+                    todoList.addTask(deadline);
+                    ChatbotOutput.addTaskResponse(deadline.toString(), todoList.getTotalNumOfTasks());
+                }
+
+            // Add event
+            } else if (next.matches("event (.+) /from (.+) /to (.+)")) {
+                // Regular expression to capture event name /from and /to parameters
+                Pattern pattern = Pattern.compile("event (.+) /from (.+) /to (.+)");
+                Matcher matcher = pattern.matcher(next);
+
+                // If match succeeds, obtain parameters
+                if (matcher.matches()) {
+                    String name = matcher.group(1);
+                    String fromParam = matcher.group(2);
+                    String toParam = matcher.group(3);
+
+                    // Instantiate a Task object and add it to todolist
+                    Event event = new Event(name, fromParam, toParam);
+                    todoList.addTask(event);
+                    ChatbotOutput.addTaskResponse(event.toString(), todoList.getTotalNumOfTasks());
+                }
+
+            // Prompt user for valid input
+            // when nothing, whitespaces, or no name is provided
             } else {
-                todoList.addTask(new Task(next));
-                System.out.println(FormatString.printBtnLines(String.format("added: \"%s\"", next)));
+                ChatbotOutput.printBtnLines("Hey! Say something helpful.");
             }
         }
     }

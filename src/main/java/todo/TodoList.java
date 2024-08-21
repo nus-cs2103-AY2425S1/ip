@@ -44,6 +44,10 @@ public class TodoList {
         return this.todoList.get(taskInd);
     }
 
+    public int getTotalNumOfTasks() {
+        return this.todoList.size();
+    }
+
     /**
      * Checks if task index provided by user is valid
      * A valid task id means the task exists

@@ -1,5 +1,7 @@
 package chatbot;
 
+import todo.Task;
+
 /**
  * Formats string to standardise chatbot
  * output format
@@ -7,7 +9,7 @@ package chatbot;
  * @author celeschai
  * @version 1.0 20 Aug 2023
  */
-public class FormatString {
+public class ChatbotOutput {
     /**
      * Ensure correct indentation for any text
      * Indent single and multiline strings
@@ -30,10 +32,27 @@ public class FormatString {
         return modifiedString.toString();
     }
 
-    //Format standard output to be sandwiched by two lines
-    public static String printBtnLines(String content) {
-        return "    __________________________________________________\n" +
+    /**
+     * Format standard output to be sandwiched by two lines
+     *
+     * @param content text to be included between 2 lines
+     */
+    public static void printBtnLines(String content) {
+        System.out.println("    __________________________________________________\n" +
                 multiLineIndent(content) +
-                "    __________________________________________________\n";
+                "    __________________________________________________\n");
+    }
+
+    /**
+     * Format chatbot response after adding a task
+     * Inform user of total number of tasks in todolist
+     *
+     * @param added string representation of task added
+     * @param numOfTasks total number of tasks added
+     */
+    public static void addTaskResponse(String added, int numOfTasks) {
+        printBtnLines(String.format(
+                "Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.",
+                added, numOfTasks));
     }
 }

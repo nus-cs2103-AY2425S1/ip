@@ -1,12 +1,13 @@
 package todo;
 
 /**
- * Represents each individual task
+ * A class representing each individual task
+ * Declared as abstract to prevent instantiation
  *
  * @author celeschai
  * @version 1.0 20 Aug 2023
  */
-public class Task {
+public abstract class Task {
     private String name = "new task";
     private boolean status = false;
 
@@ -22,9 +23,10 @@ public class Task {
         this.status = false;
     }
 
-
     @Override
     public String toString() {
-        return String.format("[%c] %s", this.status ? 'X' : ' ', this.name);
+        return String.format("[%c] %s",
+                this.status ? 'X' : ' ',
+                this.name);
     }
 }
