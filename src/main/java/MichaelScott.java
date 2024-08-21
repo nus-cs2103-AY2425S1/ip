@@ -31,7 +31,7 @@ public class MichaelScott {
                 }
                 case "bye" -> {
                     printLine();
-                    System.out.println("Catch you on the flippity flip! ");
+                    System.out.println("Catch you on the flippity flip!");
                     printLine();
                     flag = false;
                 }
@@ -41,13 +41,13 @@ public class MichaelScott {
                             throw new MichaelScottException("Please provide the number of task to be marked as completed");
                         }
                         int index = Integer.parseInt(parts[1]) - 1;
-                        if (index > todo.size()) {
+                        if (index > todo.size() - 1 || index < 0) {
                             throw new MichaelScottException("Please provide a task in range");
                         }
                         Task task = todo.get(index);
                         task.completeTask();
                         printLine();
-                        System.out.println("Nice! I've marked this task as done: ");
+                        System.out.println("Nice! I've marked this task as done:");
                         System.out.println(task.toString());
                         printLine();
                     } catch (MichaelScottException e) {
@@ -62,7 +62,7 @@ public class MichaelScott {
                             throw new MichaelScottException("Please provide the number of task to be marked as not completed");
                         }
                         int index = Integer.parseInt(parts[1]) - 1;
-                        if (index > todo.size()) {
+                        if (index > todo.size() - 1 || index < 0) {
                             throw new MichaelScottException("Please provide a task in range");
                         }
                         Task task = todo.get(index);
@@ -84,6 +84,10 @@ public class MichaelScott {
                         }
 
                         int index = Integer.parseInt(parts[1]) - 1;
+                        if (index > todo.size() - 1 || index < 0) {
+                            throw new MichaelScottException("Please provide a task in range");
+                        }
+
                         Task task = todo.get(index);
                         todo.remove(index);
                         printLine();
@@ -147,9 +151,6 @@ public class MichaelScott {
                         if (eventParts.length != 3) {
                             throw new MichaelScottException("Please specify description, start-time and end-time");
                         }
-                        System.out.println(eventParts[0]);
-                        System.out.println(eventParts[1]);
-                        System.out.println(eventParts[2]);
                         todo.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
                         printLine();
                         System.out.println("Got it. I've added this task:");
