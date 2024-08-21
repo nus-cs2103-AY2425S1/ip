@@ -52,12 +52,12 @@ public class Ollie {
         // Input parser:
         if (s.matches("^deadline .+ /by .+$")){
             String[] splitString = s.split("/by", 2);
-            task = new Deadline(splitString[0].trim().replaceFirst("deadline",""), splitString[1].trim());
+            task = new Deadline(splitString[0].replaceFirst("deadline","").trim(), splitString[1].trim());
         } else if(s.matches("^event .+ /from .+ /to .+$")) {
             String[] splitString = s.split("/from|/to", 3);
-            task = new Event(splitString[0].trim(), splitString[1].trim(), splitString[2].trim());
+            task = new Event(splitString[0].replaceFirst("event","").trim(), splitString[1].trim(), splitString[2].trim());
         } else {
-            task = new Todo(s);
+            task = new Todo(s.replaceFirst("todo","").trim());
         }
         tasks.add(task);
         Ollie.printResponse("Got it. I've added this task:\n  "
