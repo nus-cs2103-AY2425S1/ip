@@ -34,8 +34,38 @@ public class Bob {
                 continue;
             }
 
-            Bob.memory.add(new Task(response));
-            Bob.print("Added: " + response);
+            Task task;
+
+            if (response.startsWith("deadline")) {
+                String by = response.substring(response.indexOf("/by") + "/by".length()).trim();
+                String description = response.substring(
+                        "deadline ".length(),
+                        response.indexOf("/by")).trim();
+                task = new Deadline(description, by);
+            } else if (response.startsWith("todo")) {
+                String description = response.substring(
+                        "todo ".length()).trim();
+                task = new ToDo(description);
+            } else if (response.startsWith("event")) {
+                String from = response.substring(
+                        response.indexOf("/from") + "/from".length(),
+                        response.indexOf("/to")).trim();
+                String to = response.substring(response.indexOf("/to") + "/to".length()).trim();
+                String description = response.substring(
+                        "event ".length(),
+                        response.indexOf("/from")).trim();
+                task = new Event(description, from, to);
+            } else {
+                Bob.print("I don't recognise that command :(\n" +
+                        "Try again.");
+                continue;
+            }
+            Bob.memory.add(task);
+            Bob.print(
+                    String.format("Here's the added task:\n" +
+                    "%s\n" +
+                    "Now you have %s tasks in the list.", task, Bob.memory.size())
+            );
         }
 
         Bob.print("Bye.");
@@ -60,4 +90,5 @@ public class Bob {
         list += Bob.memory.size() + ":" + Bob.memory.get(Bob.memory.size() - 1);
         return list;
     }
+
 }
