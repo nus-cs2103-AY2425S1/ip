@@ -1,23 +1,23 @@
 public class Task {
     private final String name;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String name) {
         this.name = name;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
         String doneMark;
-        if (done) {
+        if (isDone) {
             doneMark = "X";
         } else {
             doneMark = " ";
