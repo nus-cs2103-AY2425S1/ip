@@ -73,7 +73,7 @@ public class Delta {
         return "\t____________________________________________________________\n" +
                 "\t Noted. I've removed this task:\n" +
                 "\t   " + task + "\n" +
-                "Now you have " + list.size() + " tasks" + " in the list.\n" +
+                "\t Now you have " + list.size() + " tasks" + " in the list.\n" +
                 "\t____________________________________________________________";
     }
 
