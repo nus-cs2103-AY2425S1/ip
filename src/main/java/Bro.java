@@ -29,7 +29,57 @@ public class Bro {
                 list.get(index - 1).unmark();
                 System.out.print("   " + line + "   OK, I've marked this task as not done yet:\n"
                                  + "   " + list.get(index - 1) + "\n   " + line);
-            } else {
+            } else if (word.length() > 5 &&
+                    word.substring(0, 5).equalsIgnoreCase("todo ")) {
+                Task curr = new Todo(word.substring(5));
+                list.add(curr);
+                System.out.printf("""
+                           %s   Got it. I've added this task:
+                           %s
+                           \
+                        Now you have %d tasks in the list
+                           %s""", line, curr, list.size(), line);
+            } else if (word.length() > 9 &&
+                    word.substring(0, 9).equalsIgnoreCase("deadline ")) {
+                StringBuilder name = new StringBuilder();
+                int index = 9;
+                while (word.charAt(index) != '/') {
+                    name.append(word.charAt(index));
+                    index++;
+                }
+                Task curr = new Deadline(name.toString(), word.substring(index + 4));
+                list.add(curr);
+                System.out.printf("""
+                           %s   Got it. I've added this task:
+                           %s
+                           \
+                        Now you have %d tasks in the list
+                           %s""", line, curr, list.size(), line);
+            } else if (word.length() > 6 &&
+                    word.substring(0, 6).equalsIgnoreCase("event ")) {
+                StringBuilder name = new StringBuilder();
+                int index = 6;
+                while (word.charAt(index) != '/') {
+                    name.append(word.charAt(index));
+                    index++;
+                }
+                index += 6;
+                StringBuilder from = new StringBuilder();
+                while (word.charAt(index) != '/') {
+                    from.append(word.charAt(index));
+                    index++;
+                }
+                Task curr = new Event(name.toString(), from.toString(),
+                                         word.substring(index + 4));
+                list.add(curr);
+                System.out.printf("""
+                           %s   Got it. I've added this task:
+                           %s
+                           \
+                        Now you have %d tasks in the list
+                           %s""", line, curr, list.size(), line);
+            }
+            else {
                 list.add(new Task(word));
                 System.out.println("   " + line + "   added: " + word + "\n" + "   " + line);
             }
