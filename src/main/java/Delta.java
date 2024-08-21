@@ -58,6 +58,19 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    public static String deleteTask(int i) throws DeltaException {
+        if (i < 1 || i > list.size()) {
+            throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to delete.");
+        }
+        Task task = list.get(i - 1);
+        list.remove(i - 1);
+        return "\t____________________________________________________________\n" +
+                "\t Noted. I've removed this task:\n" +
+                "\t   " + task + "\n" +
+                "Now you have " + list.size() + " tasks" + " in the list.\n" +
+                "\t____________________________________________________________";
+    }
+
     public static String printTasks() throws DeltaException {
         String output = "\t____________________________________________________________\n";
         if (list.isEmpty()) {
