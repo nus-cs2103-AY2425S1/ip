@@ -14,9 +14,9 @@ public class Add {
     return new Response(java.util.List.of("Got it! I have added:\n  " + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"));
   }
 
-  public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException {
+  public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException, DeadlineEmptyNameException {
     final List<String> prompts = Arrays.asList(prompt.split("todo "));
-    if (prompt.replaceAll("\\s+", "").length() == 4) {
+    if (prompts.size() < 2) {
       throw new TodoEmptyNameException();
     }
     final Task newTask = Task.of("todo", prompts.get(1));
@@ -25,14 +25,14 @@ public class Add {
 
   public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException {
     final List<String> prompts = Arrays.asList(prompt.split("deadline "));
-    if (prompt.replaceAll("\\s+", "").length() == 8) {
+    if (prompts.size() < 2) {
       throw new DeadlineEmptyNameException();
     }
     final Task newTask = Task.of("deadline", prompts.get(1));
     return Add.process(newTask);
   }
 
-  public static Response event(String prompt) throws DeadlineInvalidArgsException {
+  public static Response event(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException {
     final List<String> prompts = Arrays.asList(prompt.split("event "));
     final Task newTask = Task.of("event", prompts.get(1));
     return Add.process(newTask);

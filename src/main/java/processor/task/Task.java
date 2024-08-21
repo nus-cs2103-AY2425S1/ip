@@ -1,5 +1,6 @@
 package processor.task;
 
+import exceptions.deadline.DeadlineEmptyNameException;
 import exceptions.deadline.DeadlineInvalidArgsException;
 
 import java.util.Arrays;
@@ -19,12 +20,18 @@ public abstract class Task {
     this.state = state;
   }
 
-  public static Task of(String type, String arg) throws DeadlineInvalidArgsException {
+  public static Task of(String type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException {
     switch (type) {
       case "todo":
+        if (arg.replaceAll("\\s+", "").isEmpty()) {
+          throw new DeadlineEmptyNameException();
+        }
         return new Todo(arg);
       case "deadline":
         final List<String> deadlineArgs = Arrays.asList(arg.split("/by "));
+        if (deadlineArgs.get(0).replaceAll("\\s+", "").isEmpty()) {
+          throw new DeadlineEmptyNameException();
+        }
         if (deadlineArgs.size() != 2 || deadlineArgs.get(1).replaceAll("\\s+", "").isEmpty()) {
           throw new DeadlineInvalidArgsException();
         }

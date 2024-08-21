@@ -1,3 +1,4 @@
+import exceptions.AhmadException;
 import processor.Processor;
 import response.Response;
 
@@ -21,7 +22,7 @@ public class Ahmad {
         if (response.shouldExit()) {
           break;
         }
-      } catch (Exception e) {
+      } catch (AhmadException e) {
         IO.print(e.getMessage());
       }
     }
