@@ -7,12 +7,16 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markAsDone() {
+    public boolean markAsDone() {
+        if (this.isDone) return false;
         this.isDone = true;
+        return true;
     }
 
-    public void markAsNotDone() {
+    public boolean markAsNotDone() {
+        if (!this.isDone) return false;
         this.isDone = false;
+        return true;
     }
 
     public String getStatusIcon() {

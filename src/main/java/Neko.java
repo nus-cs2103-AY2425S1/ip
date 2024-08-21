@@ -20,15 +20,19 @@ public class Neko {
         String input = scanner.nextLine();
 
         while (!input.equals(EXIT_COMMAND)) {
-            handleInput(input);
-            input = scanner.nextLine();
+            try {
+                handleInput(input);
+            } catch (NekoException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                input = scanner.nextLine();
+            }
         }
-
         System.out.println(EXIT_MESSAGE);
         scanner.close();
     }
 
-    private static void handleInput(String input) {
+    private static void handleInput (String input) throws NekoException {
         if (input.equals(LIST_COMMAND)) {
             listTask();
         } else if (input.startsWith(MARK_COMMAND)) {
@@ -38,25 +42,54 @@ public class Neko {
         } else if (input.startsWith(TODO_COMMAND) || input.startsWith(DEADLINE_COMMAND) || input.startsWith(EVENT_COMMAND)) {
             addTask(input);
         } else {
-            System.out.println("Invalid command meow. Please try again.");
+            throw new NekoException("Gomenasai! Neko doesn't know what that means :(");
         }
     }
 
-    private static void addTask(String input) {
+    private static void addTask(String input) throws NekoException {
         Task task;
         if (input.startsWith(TODO_COMMAND)) {
-            String taskName = input.substring(4).trim();
+            String taskName = input.substring(TODO_COMMAND.length()).trim();
+            if (taskName == "") {
+                throw new NekoException("The description of a todo cannot be empty!");
+            }
             task = new Todo(taskName);
         } else if (input.startsWith(DEADLINE_COMMAND)) {
             String[] parts = input.split("/", 2);
-            String taskName = parts[0].substring(8).trim();
-            String deadline = parts[1].substring(3).trim();
+
+            if (parts.length < 2 || !parts[1].startsWith("by")) {
+                throw new NekoException("The deadline must contain a '/by' to separate the task description and the deadline!");
+            }
+
+            String taskName = parts[0].substring(DEADLINE_COMMAND.length()).trim();
+            String deadline = parts[1].substring(2).trim();
+
+            if (taskName.isEmpty()) {
+                throw new NekoException("The description of a deadline cannot be empty!");
+            }
+            if (deadline.isEmpty()) {
+                throw new NekoException("The deadline of a deadline cannot be empty!");
+            }
             task = new Deadline(taskName, deadline);
         } else {
             String[] parts = input.split("/", 3);
-            String taskName = parts[0].substring(5).trim();
-            String start = parts[1].substring(5).trim();
-            String end = parts[2].substring(3).trim();
+
+            if (parts.length < 3 || !parts[1].startsWith("from") || !parts[2].startsWith("to")) {
+                throw new NekoException("The event must contain '/from' and '/to' to specify the start and end times!");
+            }
+            String taskName = parts[0].substring(EVENT_COMMAND.length()).trim();
+            String start = parts[1].substring(4).trim();
+            String end = parts[2].substring(2).trim();
+
+            if (taskName.isEmpty()) {
+                throw new NekoException("The description of an event cannot be empty!");
+            }
+            if (start.isEmpty()) {
+                throw new NekoException("The start time of an event cannot be empty!");
+            }
+            if (end.isEmpty()) {
+                throw new NekoException("The end time of an event cannot be empty!");
+            }
             task = new Event(taskName, start, end);
         }
         taskList[numOfTask++] = task;
@@ -71,18 +104,36 @@ public class Neko {
         }
     }
 
-    private static void markTask(String input) {
+    private static void markTask(String input) throws NekoException {
         int index = Integer.parseInt(input.substring(5).trim()) - 1;
+        if (index >= numOfTask) {
+            throw new NekoException("You only have " + numOfTask + " tasks now!");
+        }
+        if (index < 0 || index >= 100) {
+            throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
+        }
         Task task = taskList[index];
-        task.markAsDone();
-        System.out.println("Nice meow! I've marked this task as done:\n " + task);
+        if (task.markAsDone()) {
+            System.out.println("Nice meow! I've marked this task as done:\n " + task);
+        } else {
+            throw new NekoException("The task is already marked as done!");
+        }
     }
 
-    private static void unmarkTask(String input) {
+    private static void unmarkTask(String input) throws NekoException {
         int index = Integer.parseInt(input.substring(7).trim()) - 1;
+        if (index >= numOfTask) {
+            throw new NekoException("You only have " + numOfTask + " tasks now!");
+        }
+        if (index < 0 || index >= 100) {
+            throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
+        }
         Task task = taskList[index];
-        task.markAsNotDone();
-        System.out.println("Ok meow, I've marked this task as not done yet:\n " + task);
+        if (task.markAsNotDone()) {
+            System.out.println("Ok meow, I've marked this task as not done yet:\n " + task);
+        } else {
+            throw new NekoException("The task is not marked as done yet!");
+        }
     }
 
 
