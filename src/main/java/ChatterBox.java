@@ -7,15 +7,15 @@ public class ChatterBox {
         Scanner sc = new Scanner(System.in);
         //Greeting the user
         System.out.println("\t\t" + "_".repeat(50));
-        System.out.println("\t\t" + "Hello! I'm ChatterBox");
-        System.out.println("\t\t" + "What can I do for you?");
+        System.out.println("\t\t" + "Hey there! I'm ChatterBox");
+        System.out.println("\t\t" + "What's on your plate today?");
         System.out.println("\t\t" + "_".repeat(50));
 
         while (true) {
             taskList[counter] = sc.nextLine();
             if (taskList[counter].equalsIgnoreCase("bye")) {
                 System.out.println("\t\t" + "_".repeat(50));
-                System.out.println("\t\t" + "Bye. Hope to see you again soon!");
+                System.out.println("\t\t" + "Take care! Looking forward to helping you again soon!");
                 System.out.println("\t\t" + "_".repeat(50));
                 break;
             } else if (taskList[counter].equalsIgnoreCase("list")) {
