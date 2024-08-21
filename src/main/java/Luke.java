@@ -1,14 +1,10 @@
 import java.io.*;
+import java.util.*;
     
 public class Luke {
-
-    public static String getRequest(BufferedReader br) throws IOException {
-	String line = br.readLine();
-	return line;
-    }
-    
     public static void main(String[] args) throws IOException {
 	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	ArrayList<String> l = new ArrayList<String>();
         String logo =
 	          " __                \n"
                 + "| |    _   _ _  _____ \n"
@@ -22,11 +18,16 @@ public class Luke {
 	    line = br.readLine();
 	    if (line.equals("bye")) {
 		break;
+	    } else if (line.equals("list")) {
+		for (int i = 0; i < l.size(); i++) {
+		    System.out.println(String.format("%d. %s", i + 1, l.get(i)));
+		}
+	    } else {
+		l.add(line);
+		System.out.println("added: " + line);
 	    }
-	    System.out.println("Luke: " + line);
 	}
 	System.out.println("Aight, Cya later.");
 	br.close();
     }
-    
 }
