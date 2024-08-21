@@ -58,7 +58,7 @@ public class Mizz {
       case "bye":
         break;
       default:
-        Mizz.prettyPrint(this.cmd);
+        Mizz.prettyPrint(String.format("added: %s", this.cmd));
         break;
     }
     return this.cmd;
