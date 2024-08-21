@@ -18,7 +18,7 @@ public class Botty {
             "       \\ \\__\\ \\ \\__\\ \\__\\ \\_______\\       \\ \\_______\\ \\_______\\   \\ \\__\\\n" +
             "        \\|__|  \\|__|\\|__|\\|_______|        \\|_______|\\|_______|    \\|__|";
 
-    private static final String bottySymbol = "|┐∵|┘: ";
+    private static final String bottySymbol = "Botty: ";
     private static final String bottyIndentation = "       ";
 
     private static int currentIndex = 0;
