@@ -13,6 +13,7 @@ public class Dumpling {
     private static final String TODO_COMMAND_STRING = "todo";
     private static final String DEADLINE_COMMAND_STRING = "deadline";
     private static final String EVENT_COMMAND_STRING = "event";
+    private static final String DELETE_COMMAND_STRING = "delete";
 
     public Dumpling(){
         this.todoList = new TaskList();
@@ -40,6 +41,10 @@ public class Dumpling {
             case DEADLINE_COMMAND_STRING:
             case EVENT_COMMAND_STRING:
                 operationMessage += this.todoList.add(userInput);
+                break;
+            case DELETE_COMMAND_STRING:
+                operationMessage += this.todoList.delete(
+                        Integer.parseInt(userInput.split(" ")[1]));
                 break;
             default:
                 throw new InvalidCommandException(

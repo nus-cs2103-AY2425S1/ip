@@ -1,10 +1,9 @@
-import javafx.util.Pair;
+import java.util.List;
+import java.util.ArrayList;
 
 public class TaskList {
 
-    private static final int MAX_TASKS = 100;
-    private Task[] items;
-    private int numItems;
+    private List<Task> items;
 
     private static final String TODO_STRING = "todo";
     private static final String DEADLINE_STRING = "deadline";
@@ -14,8 +13,7 @@ public class TaskList {
     private static final String EVENT_TO_SEPARATOR = "/to";
 
     public TaskList() {
-        this.items = new Task[MAX_TASKS];
-        this.numItems = 0;
+        this.items = new ArrayList<>();
     }
 
     private Pair<String, Integer> formSubSection(
@@ -44,26 +42,26 @@ public class TaskList {
         switch (taskType) {
             case TODO_STRING:
                 taskDescriptionIdxPair = formSubSection(splitDescription, 1, "");
-                taskDescription = taskDescriptionIdxPair.getKey();
+                taskDescription = taskDescriptionIdxPair.getFirst();
                 task = new ToDo(taskDescription);
                 break;
             case DEADLINE_STRING:
                 taskDescriptionIdxPair = formSubSection(splitDescription, 1, DEADLINE_DATE_SEPARATOR);
-                taskDescription = taskDescriptionIdxPair.getKey();
+                taskDescription = taskDescriptionIdxPair.getFirst();
                 Pair<String, Integer> deadlineIdxPair = formSubSection(
-                        splitDescription, taskDescriptionIdxPair.getValue() + 1, "");
-                String deadline = deadlineIdxPair.getKey();
+                        splitDescription, taskDescriptionIdxPair.getSecond() + 1, "");
+                String deadline = deadlineIdxPair.getFirst();
                 task = new Deadline(taskDescription, deadline);
                 break;
             case EVENT_STRING:
                 taskDescriptionIdxPair = formSubSection(splitDescription, 1, EVENT_FROM_SEPARATOR);
-                taskDescription = taskDescriptionIdxPair.getKey();
+                taskDescription = taskDescriptionIdxPair.getFirst();
                 Pair<String, Integer> fromIdxPair = formSubSection(
-                        splitDescription, taskDescriptionIdxPair.getValue() + 1, EVENT_TO_SEPARATOR);
+                        splitDescription, taskDescriptionIdxPair.getSecond() + 1, EVENT_TO_SEPARATOR);
                 Pair<String, Integer> toIdxPair = formSubSection(
-                        splitDescription, fromIdxPair.getValue() + 1, "");
-                String from = fromIdxPair.getKey();
-                String to = toIdxPair.getKey();
+                        splitDescription, fromIdxPair.getSecond() + 1, "");
+                String from = fromIdxPair.getFirst();
+                String to = toIdxPair.getFirst();
                 task = new Event(taskDescription, from, to);
                 break;
             default:
@@ -73,21 +71,20 @@ public class TaskList {
         if (taskDescription.isEmpty()) {
             throw new EmptyDescriptionException();
         }
-        this.items[this.numItems] = task;
-        this.numItems++;
+        this.items.add(task);
         String message = "     Got it. I've added this task:\n" +
                 String.format("       %s\n", task.toString()) +
                 String.format("     Now you have %d %s in the list.",
-                        this.numItems, (this.numItems == 1 ? "task" : "tasks"));
+                        this.items.size(), (this.items.size() == 1 ? "task" : "tasks"));
         return message;
     }
 
     public String list() {
         String message = "     Here are the tasks in your list:\n";
-        for (int i = 1; i <= this.numItems; i++) {
+        for (int i = 1; i <= this.items.size(); i++) {
             message += String.format(
-                "     %d.%s" + (i == this.numItems ? "" : "\n"),
-                i, this.items[i - 1]
+                "     %d.%s" + (i == this.items.size() ? "" : "\n"),
+                i, this.items.get(i - 1)
             );
         }
         return message;
@@ -95,25 +92,34 @@ public class TaskList {
 
     public String mark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     Nice! I've marked this task as done:\n";
-        if (itemIdx >= this.numItems) {
+        if (itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
-        this.items[itemIdx - 1].markAsDone();
-        message += String.format("       %s", this.items[itemIdx - 1]);
+        this.items.get(itemIdx - 1).markAsDone();
+        message += String.format("       %s", this.items.get(itemIdx - 1));
         return message;
     }
 
     public String unmark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     OK, I've marked this task as not done yet:\n";
-        if (itemIdx >= this.numItems) {
+        if (itemIdx > this.items.size()) {
             throw new IndexOutOfBoundsException();
         }
-        this.items[itemIdx - 1].markAsUndone();
-        message += String.format("       %s", this.items[itemIdx - 1]);
+        this.items.get(itemIdx - 1).markAsUndone();
+        message += String.format("       %s", this.items.get(itemIdx - 1));
+        return message;
+    }
+
+    public String delete(int itemIdx) throws IndexOutOfBoundsException {
+        Task deletedTask = this.items.remove(itemIdx - 1);
+        String message = "     Noted. I've removed this task:\n" +
+                String.format("       %s\n", deletedTask.toString()) +
+                String.format("     Now you have %d %s in the list.",
+                    this.items.size(), (this.items.size() == 1 ? "task" : "tasks"));
         return message;
     }
 
     public int getNumItems() {
-        return this.numItems;
+        return this.items.size();
     }
 }
