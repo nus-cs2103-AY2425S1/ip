@@ -22,4 +22,7 @@ unmark 3
 unmark 2
 unmark one thousand
 list
+delete 7
+delete 7
+list
 bye

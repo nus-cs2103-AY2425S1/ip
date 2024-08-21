@@ -24,6 +24,8 @@ public class Ollie {
                     Ollie.unmark(input);
                 } else if (input.matches("^(deadline|event|todo).*")) {
                     Ollie.add(input);
+                } else if (input.matches("^delete.*")) {
+                    Ollie.delete(input);
                 } else {
                     throw new OllieException("I'm sorry, but I don't know what that means :-(");
                 }
@@ -122,15 +124,7 @@ public class Ollie {
     }
 
     private static void mark(String input) throws OllieException{
-        if (!input.matches("mark \\d+")) {
-            throw new OllieException("Missing a serial number after mark.");
-        }
-        int index = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
-
-        if (index < 0 || index >= tasks.size()) {
-            throw new OllieException("Invalid Serial Number!");
-        }
-
+        int index = Ollie.getIndex(input);
         Task task = tasks.get(index);
         task.markAsDone();
 
@@ -138,24 +132,37 @@ public class Ollie {
     }
 
     private static void unmark(String input) throws OllieException{
-        if (!input.matches("unmark \\d+")) {
-            throw new OllieException("Missing a serial number after unmark.");
-        }
-        int index = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
-
-        if (index < 0 || index >= tasks.size()) {
-            throw new OllieException("Invalid Serial Number!");
-        }
-
+        int index = Ollie.getIndex(input);
         Task task = tasks.get(index);
         task.markAsUndone();
 
         Ollie.printResponse("OK, I've marked this task as not done yet:\n  " + task.toString());
     }
 
+    private static void delete(String input) throws OllieException {
+        int index = Ollie.getIndex(input);
+        Task task = tasks.get(index);
+        tasks.remove(index);
+
+        Ollie.printResponse("Noted. I've removed this task:\n  "
+                + task.toString()
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
+    }
 
     private static void echo(String s) {
         Ollie.printResponse(s);
+    }
+
+    private static int getIndex(String s) throws OllieException {
+        if (!s.matches(".* \\d+")) {
+            throw new OllieException("Missing Serial Number after command.");
+        }
+        int index = Integer.parseInt(s.replaceAll("\\D+", "")) - 1;
+
+        if (index < 0 || index >= tasks.size()) {
+            throw new OllieException("Invalid Serial Number!");
+        }
+        return index;
     }
 
     private static void printResponse(String s) {
