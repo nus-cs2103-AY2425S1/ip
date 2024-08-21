@@ -1,14 +1,32 @@
+import java.util.Scanner;  // Import the Scanner class
+
 public class KukiShinobu {
     private final String name = "Kuki Shinobu";
 
     public static void main(String[] args) {
         KukiShinobu kuki = new KukiShinobu();
-        kuki.greet();
-        kuki.goodbye();
+        kuki.listen();
+
     }
 
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public void listen() {
+        this.greet();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();  // Read user input
+            KukiShinobu.printHorizontalLine();
+            if (input.equals("bye")) {
+                break;
+            }
+            System.out.println(input);
+            KukiShinobu.printHorizontalLine();
+        }
+        this.goodbye();
+
     }
 
     public void greet() {
