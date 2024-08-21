@@ -10,7 +10,7 @@ public class Task {
     /**
      * Returns whether the task is done or not
      *
-     * @return status of task
+     * @return status of task using symbol
      */
     public String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
@@ -37,6 +37,15 @@ public class Task {
      */
     public void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns whether the task is done or not
+     *
+     * @return the status of the task
+     */
+    public boolean isDone() {
+        return this.isDone;
     }
 
     public String toString() {
