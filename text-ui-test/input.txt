@@ -1,0 +1,11 @@
+todo sleep
+event conference /from Monday 4pm /to 5pm
+deadline math assignment /by Tuesday 2pm
+list
+mark 2
+mark 4
+mark 101
+mark 1
+unmark 1
+list
+bye
