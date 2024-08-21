@@ -9,7 +9,7 @@ public class Llama {
         String hr = "____________________________________________________________" ;
         Scanner sc = new Scanner(System.in);
         // Assume less than 100 tasks
-        String[] taskArray = new String[100];
+        Task[] taskArray = new Task[100];
         int last = 0;
 
         // Initializing message
@@ -37,7 +37,7 @@ public class Llama {
                 }
             } else {
                 // Add text into a list
-                taskArray[last] = input;
+                taskArray[last] = new Task(input);
                 last++;
                 displayString("Added: " + input);
             }
