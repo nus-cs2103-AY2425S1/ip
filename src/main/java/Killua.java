@@ -79,7 +79,7 @@ public class Killua {
                     case "mark", "unmark" -> {
                         try {
                             int taskNumber = Integer.parseInt(argument);
-                            if ("mark".equals(command.toLowerCase())) {
+                            if ("mark".equalsIgnoreCase(command)) {
                                 markTaskDone(tasks, taskNumber - 1);
                             } else {
                                 unmarkTask(tasks, taskNumber - 1);
