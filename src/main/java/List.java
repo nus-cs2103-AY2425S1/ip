@@ -78,4 +78,19 @@ public class List {
     public int size() {
         return tasks.size();
     }
+
+    /**
+     * Deletes a task from the list.
+     *
+     * @param index Index of the task to be deleted.
+     * @return True if the task is successfully deleted, false otherwise.
+     */
+    public boolean delete(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.remove(index);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

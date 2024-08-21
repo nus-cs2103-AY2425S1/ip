@@ -75,6 +75,11 @@ public class Megamind {
                     continue;
                 }
 
+                // Delete a task
+                if (command.startsWith("delete ")) {
+                    deleteTask(command);
+                    continue;
+                }
 
                 // If the command is not recognized, print an error message
                 throw new InvalidCommandException("I'm sorry, but I don't know what that means. Use command 'help'" +
@@ -104,14 +109,15 @@ public class Megamind {
      * Prints the help message.
      */
     public static void help () {
-        System.out.println("Here are the commands you can use:\n" +
-                "1. list - List all tasks\n" +
-                "2. todo <description> - Add a to-do task\n" +
-                "3. deadline <description> /by <deadline> - Add a deadline task\n" +
-                "4. event <description> /from <start time> /to <end time> - Add an event task\n" +
-                "5. mark <task number> - Mark a task as done\n" +
-                "6. unmark <task number> - Mark a task as not done\n" +
-                "7. bye - Exit the program");
+        System.out.println("""
+                Here are the commands you can use:
+                1. list - List all tasks
+                2. todo <description> - Add a to-do task
+                3. deadline <description> /by <deadline> - Add a deadline task
+                4. event <description> /from <start time> /to <end time> - Add an event task
+                5. mark <task number> - Mark a task as done
+                6. unmark <task number> - Mark a task as not done
+                7. bye - Exit the program""");
     }
 
     /**
@@ -252,5 +258,35 @@ public class Megamind {
         taskList.add(new Event(description, start, end));
         System.out.println("Got it. I've added this task:\n" + taskList.get(taskList.size() - 1) + "\n" +
                 "Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    /**
+     * Deletes a task from the list.
+     * If the task number is not specified, print an error message.
+     *
+     * @param command Command entered by the user.
+     * @throws InvalidCommandException If the command is invalid (task number is missing).
+     * @throws TaskNotFoundException   If the task is not found.
+     */
+    public static void deleteTask(String command) throws InvalidCommandException, TaskNotFoundException {
+        String[] words = command.split(" ");
+        if (words.length < 2) {
+            throw new InvalidCommandException("Task number is missing, please include it.");
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(words[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Invalid task number format.");
+        }
+
+        String task = taskList.get(index);
+        boolean success = taskList.delete(index);
+        if (!success) {
+            throw new TaskNotFoundException("Task number does not exist.");
+        }
+
+        System.out.println("Task has been deleted successfully:\n" + task);
     }
 }
