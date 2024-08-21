@@ -2,19 +2,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Delta {
-    private static ArrayList<Task> list = new ArrayList<Task>();
+    private static ArrayList<Task> list = new ArrayList<>();
 
     public static String sayHello() {
-        return "\t____________________________________________________________\n" +
-                "\t Hello! I'm Delta\n" +
-                "\t What can I do for you?\n" +
-                "\t____________________________________________________________";
+        return """
+                \t____________________________________________________________
+                \t Hello! I'm Delta
+                \t What can I do for you?
+                \t____________________________________________________________
+                """;
     }
 
     public static String sayBye() {
-        return "\t____________________________________________________________\n" +
-                "\t Bye. Hope to see you again soon!\n" +
-                "\t____________________________________________________________";
+        return """
+                \t____________________________________________________________
+                \t Bye. Hope to see you again soon!
+                \t____________________________________________________________
+                """;
     }
 
     public static String addTask(Task task) {
@@ -163,9 +167,11 @@ public class Delta {
                 } else if (task.length() >= 9 && task.substring(0, 9).equalsIgnoreCase("deadline ")) {
                     String[] details = task.substring(9).split(" /by ");
                     if (details.length != 2) {
-                        throw new DeltaException("OOPS!!! The format for deadline is wrong!\n" +
-                                "\t Please follow the proper format:\n" +
-                                "\t * deadline [description] /by [date/time]");
+                        throw new DeltaException("""
+                                OOPS!!! The format for deadline is wrong!
+                                \t Please follow the proper format:
+                                \t * deadline [description] /by [date/time]
+                                """);
                     }
                     output = addTask(new Deadline(details[0], details[1]));
 
@@ -181,9 +187,11 @@ public class Delta {
                         timings = details[1].split(" /to ");
                     }
                     if (details.length != 2 || timings.length != 2) {
-                        throw new DeltaException("OOPS!!! The format for event is wrong!\n" +
-                                "\t Please follow the proper format:\n" +
-                                "\t * event [description] /from [start] /to [end]");
+                        throw new DeltaException("""
+                                OOPS!!! The format for event is wrong!
+                                \t Please follow the proper format:
+                                \t * event [description] /from [start] /to [end]
+                                """);
                     }
                     output = addTask(new Event(details[0], timings[0], timings[1]));
 
@@ -204,11 +212,13 @@ public class Delta {
 
                 // Unknown Action
                 } else {
-                    throw new DeltaException("OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
-                            "\t Please follow the proper formats:\n" +
-                            "\t * todo [description]\n" +
-                            "\t * deadline [description] /by [date/time]\n" +
-                            "\t * event [description] /from [start] /to [end]");
+                    throw new DeltaException("""
+                            OOPS!!! I'm sorry, but I don't know what that means :-(
+                            \t Please follow the proper formats:
+                            \t * todo [description]
+                            \t * deadline [description] /by [date/time]
+                            \t * event [description] /from [start] /to [end]
+                            """);
                 }
             }
             catch (DeltaException e) {
