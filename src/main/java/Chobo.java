@@ -9,23 +9,14 @@ public class Chobo {
         System.out.println(line);
         while (true) {
             String input = scanner.nextLine();
-            System.out.println(line);
-            System.out.println(input);
-            System.out.println(line);
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                listTask();
+            } else {
+                addTask(input);
             }
         }
-//        while (true) {
-//            String input = scanner.nextLine();
-//            if (input.equals("bye")) {
-//                break;
-//            } else if (input.equals("list")) {
-//                listTask();
-//            } else {
-//                addTask(input);
-//            }
-//        }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
 
