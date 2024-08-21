@@ -66,7 +66,45 @@ public class Gopher {
 
             taskList[currentTaskNumber] = new Deadline(taskName.toString(),
                     dueDate.toString());
-        } 
+        } else if (taskType.equalsIgnoreCase("event")) {
+            StringBuilder startDate = new StringBuilder();
+            StringBuilder endDate = new StringBuilder();
+
+            int fromTokenIndex = -1;
+            int toTokenIndex = -1;
+            for (int i = 1; i < tokens.length; i++) {
+                if (tokens[i].equalsIgnoreCase("/from")) {
+                    fromTokenIndex = i;
+                }
+                if (tokens[i].equalsIgnoreCase("/to")) {
+                    toTokenIndex = i;
+                }
+            }
+
+            for (int i = 1; i < fromTokenIndex; i++) {
+                taskName.append(tokens[i]);
+                if (i < fromTokenIndex - 1) {
+                    taskName.append(" ");
+                }
+            }
+
+            for (int i = fromTokenIndex + 1; i < toTokenIndex; i++) {
+                startDate.append(tokens[i]);
+                if (i < toTokenIndex - 1) {
+                    startDate.append(" ");
+                }
+            }
+
+            for (int i = toTokenIndex + 1; i < tokens.length; i++) {
+                endDate.append(tokens[i]);
+                if (i < tokens.length - 1) {
+                    endDate.append(" ");
+                }
+            }
+            taskList[currentTaskNumber] = new Event(taskName.toString(),
+                    startDate.toString(),
+                    endDate.toString());
+        }
 
         Task addedTask = taskList[currentTaskNumber];
         currentTaskNumber++;
