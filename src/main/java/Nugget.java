@@ -16,6 +16,7 @@ public class Nugget {
                     break;
                 } else if (text.equals("list")) {
                     int len = tasks.size();
+                    System.out.println("________________________________________");
                     for (int i = 0; i < len; i++) {
                         String formattedMessage = String.format("%d.%s", i + 1, tasks.get(i));
                         System.out.println(formattedMessage);
@@ -55,7 +56,7 @@ public class Nugget {
                 tasks.add(deadline);
                 int numOfTasks = tasks.size();
                 System.out.println("________________________________________");
-                System.out.println("Got it. I've addeed this task:");
+                System.out.println("Got it. I've added this task:");
                 System.out.println(deadline);
                 System.out.println("Now you have " + numOfTasks + " tasks in the list.");
                 System.out.println("________________________________________");
@@ -67,7 +68,7 @@ public class Nugget {
                 tasks.add(event);
                 int numOfTasks = tasks.size();
                 System.out.println("________________________________________");
-                System.out.println("Got it. I've addeed this task:");
+                System.out.println("Got it. I've added this task:");
                 System.out.println(event);
                 System.out.println("Now you have " + numOfTasks + " tasks in the list.");
                 System.out.println("________________________________________");

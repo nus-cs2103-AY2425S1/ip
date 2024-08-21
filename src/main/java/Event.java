@@ -14,7 +14,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String format = String.format("%s %s (from: %s to: %s)", this.getTaskType()
+        String format = String.format("%s%s (from: %s to: %s)", this.getTaskType()
                                     , super.toString(), this.start, this.end);
         return format;
     }
