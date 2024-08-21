@@ -36,11 +36,10 @@ public class GreetBot {
                 int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
                 list.get(index - 1).unmark();
             } else {
-                
 
-                String type = currentCommand.substring(0, currentCommand.indexOf(" "));
-                String rest = currentCommand.substring(currentCommand.indexOf(" ") + 1);
-                list.add(Task.decideTask(type, rest));
+
+
+                list.add(Task.decideTask(currentCommand));
 
 
                 System.out.println("Got it. I've added this task:");

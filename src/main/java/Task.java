@@ -2,13 +2,17 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public static Task decideTask(String type, String rest) {
-        if (type.equals("deadline")) {
+    public static Task decideTask(String currentCommand) {
+
+        if (currentCommand.startsWith("deadline ")) {
+            String rest = currentCommand.substring(9);
             String[] parse = rest.split("/");
             return new Deadline(parse[0], parse[1]);
-        } else if (type.equals("todo")) {
+        } else if (currentCommand.startsWith("todo ")) {
+            String rest = currentCommand.substring(5);
             return new Todo(rest);
         } else {
+            String rest = currentCommand.substring(6);
             String[] parse = rest.split("/");
             return new Event(parse[0], parse[1], parse[2]);
         }
