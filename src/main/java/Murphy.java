@@ -26,7 +26,7 @@ public class Murphy {
             }
             if (input.equals("list")) {
                 Murphy.list();
-            } else if (input.startsWith("mark ")){
+            } else if (input.startsWith("mark ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
                     Murphy.addItem(input);
@@ -43,9 +43,25 @@ public class Murphy {
                     System.out.println("Out of the range of tasks!");
                     continue;
                 }
-                Murphy.tasks[index - 1].mark();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(Murphy.tasks[index - 1]);
+                Murphy.markItem(index);
+            } else if (input.startsWith("unmark ")){
+                String[] split = input.split(" ");
+                if (split.length > 2) {
+                    Murphy.addItem(input);
+                    continue;
+                }
+                int index;
+                try {
+                    index = Integer.parseInt(split[1]);
+                } catch (NumberFormatException e) {
+                    Murphy.addItem(input);
+                    continue;
+                }
+                if (index > Murphy.numOfTasks || index <= 0) {
+                    System.out.println("Out of the range of tasks!");
+                    continue;
+                }
+                Murphy.unmarkItem(index);
             } else {
                 Murphy.addItem(input);
             }
@@ -66,5 +82,17 @@ public class Murphy {
     private static void addItem(String item) {
         System.out.println("added: " + item);
         Murphy.tasks[Murphy.numOfTasks++] = new Task(item);
+    }
+
+    private static void markItem(int index) {
+        Murphy.tasks[index - 1].mark();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(Murphy.tasks[index - 1]);
+    }
+
+    private static void unmarkItem(int index) {
+        Murphy.tasks[index - 1].unmark();
+        System.out.println("Guess Murphy struck:");
+        System.out.println(Murphy.tasks[index - 1]);
     }
 }
