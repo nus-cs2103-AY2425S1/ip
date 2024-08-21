@@ -15,7 +15,7 @@ public class Azir {
         while (!(input = obj.nextLine()).equals("bye")) {
             System.out.println("----------------------------------");
             if (input.equals("list")) {
-                System.out.println("Here are the tasks in your list");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.size(); i++) {
                     System.out.printf("%d. %s\n", i + 1, taskList.get(i));
                 }
