@@ -118,6 +118,16 @@ public class Katheryne {
                             "Farewell, Adventurer, and thank you for supporting the Adventurers' Guild.");
                     System.out.println("✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧✦✧");
                     sc.close();
+                } else if (userInput.startsWith("delete")) {
+                    String[] input = userInput.split(" ");
+                    if (input.length < 2) {
+                        throw new MissingInformationException("You need to specify the task number to delete.");
+                    }
+                    int id = Integer.parseInt(input[1]) - 1;
+                    Task target = list.get(id);
+                    list.remove(id);
+                    String str = String.format("Katheryne: OK, I've deleted this task from your list:\n%s\nNow you have %d tasks in the list.",target.toString(),list.size());
+                    System.out.println(str);
                 } else {
                     throw new InvalidInputException("Katheryne: " + "I'm sorry, Katheryne is unable to comprehend your request.");
                 }
