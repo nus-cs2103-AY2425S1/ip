@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class NoDateException extends Exception {
     public NoDateException() {
         super("I don't see the correct format of dates given to me. " +
