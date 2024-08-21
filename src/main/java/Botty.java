@@ -51,9 +51,13 @@ public class Botty {
                     exitFlag = true;
                     break;
                 case "list":
-                    System.out.println(bottySymbol + "Here you go!");
-                    for (int i = 1; i < currentIndex + 1; i++) {
-                        System.out.println(bottyIndentation + "  " + i + ". " + taskList[i - 1]);
+                    if (currentIndex == 0) {
+                        System.out.println(bottySymbol + "Your list is empty!");
+                    } else {
+                        System.out.println(bottySymbol + "Here you go!");
+                        for (int i = 1; i < currentIndex + 1; i++) {
+                            System.out.println(bottyIndentation + "  " + i + ". " + taskList[i - 1]);
+                        }
                     }
                     break;
                 case "mark":
