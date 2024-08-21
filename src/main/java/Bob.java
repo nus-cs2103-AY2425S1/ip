@@ -12,6 +12,9 @@ public class Bob {
             if (i != -1) {
                 String s1 = s.substring(0, i);
                 String s2 = s.substring(i+1);
+                if (s2.trim().isEmpty()) {
+                    System.out.println("Description empty");
+                }
                 switch (s1) {
                     case "mark", "unmark" -> {
                         int a = Integer.parseInt(s2) - 1;
@@ -46,7 +49,7 @@ public class Bob {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else{
-                continue;
+                System.out.println("I don't know how to do that.");
             }
 
         }
