@@ -10,3 +10,11 @@ mark 3
 mark 5
 unmark 5
 list
+????
+mark 1
+unmark 2
+todo
+deadline do some work/
+event
+event do some work/
+event dd some work/from Tues

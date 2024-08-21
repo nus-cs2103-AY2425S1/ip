@@ -17,19 +17,39 @@ public class Kotori {
                 printList(list);
             } else if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
+                if (list.size() < index || index <= 0 ) {
+                   printMessage("Sorry~ can not mark that task because it does not exist");
+                }
                 Task task = list.get(index - 1);
-                task.mark();
-                printMessage(String.format("Nice Job, Job %s has been marked as done!\n    %s",index,task));
+                try {
+                    task.mark();
+                    printMessage(String.format("Nice Job, Job %s has been marked as done!\n    %s",index,task));
+                } catch (IncorrectStateException e) {
+                    printMessage(e.getMessage());
+                }
             } else if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
+                if (list.size() < index || index <= 0 ) {
+                    printMessage("Sorry~ can not unmark that task because it does not exist");
+                }
                 Task task = list.get(index - 1);
-                task.unmark();
-                printMessage(String.format("Alright, Job %s has been marked as not done!\n    %s",index,task));
+                try {
+                    task.unmark();
+                    printMessage(String.format("Alright, Job %s has been marked as not done!\n    %s",index,task));
+                } catch (IncorrectStateException e) {
+                    printMessage(e.getMessage());
+                }
             } else {
-                Task task = Task.of(input);
-                list.add(task);
-                printMessages(new String[]{"Got it. I've added this task:",task.toString(),
-                String.format("Now you have %s tasks in the list",list.size())});
+                try {
+                    Task task = Task.of(input);
+                    list.add(task);
+                    printMessages(new String[]{"Got it. I've added this task:",task.toString(),
+                    String.format("Now you have %s tasks in the list",list.size())});
+                } catch (MissingInformationException e) {
+                    printMessage(e.getMessage());
+                } catch (InvalidInputException e) {
+                    printMessage(e.getMessage());
+                }
             }
         }
 
