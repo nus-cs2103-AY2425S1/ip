@@ -47,6 +47,10 @@ public class TodoList {
         return this.todoList.size();
     }
 
+    public Task removeTask(int taskIndex) {
+        return this.todoList.remove(taskIndex);
+    }
+
     /**
      * Checks if task index provided by user is valid
      * A valid task id means the task exists

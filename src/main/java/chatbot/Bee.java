@@ -84,10 +84,27 @@ public class Bee {
                         throw new TaskIndexException();
                     }
 
-                    // Add todo
-                } else if (next.matches("todo(.*)")) {
+                // Parse input from user to get task number
+                } else if (next.matches("delete .*")) {
+                    String[] taskIndex = next.split(" ");
+                    int index = Integer.parseInt(taskIndex[1]);
+
+                    // Mark task as incomplete
+                    if (todoList.isTaskExist(index)) {
+                        Task deletedTask = todoList.removeTask(index);
+
+                        ChatbotOutput.deleteTaskResponse(
+                                deletedTask.toString(), todoList.getTotalNumOfTasks());
+
+                    // Warn user of invalid task specified
+                    } else {
+                        throw new TaskIndexException();
+                    }
+
+                // Add todo
+                } else if (next.matches("todo (.*)")) {
                     // Regular expression to capture todo name
-                    Pattern pattern = Pattern.compile("todo (\\S+)");
+                    Pattern pattern = Pattern.compile("todo (\\S.*)");
                     Matcher matcher = pattern.matcher(next);
 
                     // If match succeeds, obtain parameters
@@ -95,7 +112,8 @@ public class Bee {
                         String name = matcher.group(1);
                         Todo todo = new Todo(name);
                         todoList.addTask(todo);
-                        ChatbotOutput.addTaskResponse(todo.toString(), todoList.getTotalNumOfTasks());
+                        ChatbotOutput.addTaskResponse(
+                                todo.toString(), todoList.getTotalNumOfTasks());
 
                     //Throw exception for invalid input
                     } else {
@@ -103,9 +121,9 @@ public class Bee {
                     }
 
                     // Add deadline
-                } else if (next.matches("deadline(.*)")) {
+                } else if (next.matches("deadline (.*)")) {
                     // Regular expression to capture deadline name and /by parameter
-                    Pattern pattern = Pattern.compile("deadline (\\S+) /by (\\S+)");
+                    Pattern pattern = Pattern.compile("deadline (\\S.*) /by (\\S.*)");
                     Matcher matcher = pattern.matcher(next);
 
                     // If match succeeds, obtain parameters
@@ -124,9 +142,9 @@ public class Bee {
                     }
 
                     // Add event
-                } else if (next.matches("event(.*)")) {
+                } else if (next.matches("event (.*)")) {
                     // Regular expression to capture event name, /from and /to parameters
-                    Pattern pattern = Pattern.compile("event (\\S+) /from (\\S+) /to (\\S+)");
+                    Pattern pattern = Pattern.compile("event (\\S.*) /from (\\S.*) /to (\\S.*)");
                     Matcher matcher = pattern.matcher(next);
 
                     // If match succeeds, obtain parameters
@@ -146,7 +164,7 @@ public class Bee {
                     }
 
                 // TODO: display list of commands
-                } else if (next.matches("help(.*)")) {
+                } else if (next.matches("help")) {
                     ChatbotOutput.printBtnLines("This function is still under development.");
                 } else {
                     // Throw exception when nothing, whitespaces, or no name is provided

@@ -55,4 +55,17 @@ public class ChatbotOutput {
                 "Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.",
                 added, numOfTasks));
     }
+
+    /**
+     * Format chatbot response after deleting a task
+     * Inform user of total number of tasks in todolist
+     *
+     * @param deleted string representation of task deleted
+     * @param numOfTasks total number of tasks added
+     */
+    public static void deleteTaskResponse(String deleted, int numOfTasks) {
+        printBtnLines(String.format(
+                "Noted. I've removed this task:\n   %s\nNow you have %d tasks in the list.",
+                deleted, numOfTasks));
+    }
 }
