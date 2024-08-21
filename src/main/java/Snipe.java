@@ -30,40 +30,79 @@ public class Snipe {
             handleSpecialInputs(userInput, scanner);
         }
     }
-    private void handleSpecialInputs(String userInput, Scanner scanner) {
-        if (userInput.equalsIgnoreCase("list")) {
-            returnList();
-        } else if(userInput.startsWith("mark")) {
-            String[] split = userInput.split(" ");
-            int index = Integer.valueOf(split[1]) - 1;
-            if (list.get(index).getStatus()) {
-                printWithLines("This task is already marked done!");
-            } else {
-                list.get(index).changeStatus();
-                printWithLines("Nice! I've marked this task as done:\n" +
-                        "[X] " + list.get(index).getDescription());
+    private boolean isValidInput(String userInput) {
+        String[] validInputs = {
+                "list",
+                "mark",
+                "unmark",
+                "todo",
+                "deadline",
+                "event"
+        };
+        for (String validInput : validInputs) {
+            if (userInput.startsWith(validInput)) {
+                return true;
             }
-        } else if(userInput.startsWith("unmark")) {
-            String[] split = userInput.split(" ");
-            int index = Integer.valueOf(split[1]) - 1;
-            if (!list.get(index).getStatus()) {
-                printWithLines("This task is currently not done yet!");
+        }
+        return false;
+    }
+    private void handleSpecialInputs(String userInput, Scanner scanner) {
+        if (isValidInput(userInput)) {
+            if (userInput.equalsIgnoreCase("list")) {
+                returnList();
+            } else if (userInput.startsWith("mark")) {
+                String[] split = userInput.split(" ");
+                int index = Integer.valueOf(split[1]) - 1;
+                if (list.get(index).getStatus()) {
+                    printWithLines("This task is already marked done!");
+                } else {
+                    list.get(index).changeStatus();
+                    printWithLines("Nice! I've marked this task as done:\n" +
+                            "[X] " + list.get(index).getDescription());
+                }
+            } else if (userInput.startsWith("unmark")) {
+                String[] split = userInput.split(" ");
+                int index = Integer.valueOf(split[1]) - 1;
+                if (!list.get(index).getStatus()) {
+                    printWithLines("This task is currently not done yet!");
+                } else {
+                    list.get(index).changeStatus();
+                    printWithLines("OK, I've marked this task as not done yet:\n" +
+                            "[ ] " + list.get(index).getDescription());
+                }
             } else {
-                list.get(index).changeStatus();
-                printWithLines("OK, I've marked this task as not done yet:\n" +
-                        "[ ] " + list.get(index).getDescription());
+                Task newTask = null;
+                String[] split = userInput.split(" ", 2);
+                if (userInput.startsWith("todo")) {
+                    newTask = new ToDo(split[1]);
+                } else if (userInput.startsWith("deadline")) {
+                    String[] toSplit = split[1].split(" /by ", 2);
+                    String description = toSplit[0];
+                    String deadline = toSplit[1];
+                    newTask = new Deadline(description, deadline);
+                } else if (userInput.startsWith("event")) {
+                    String[] toSplit = split[1].split(" /from | /to ");
+                    String description = toSplit[0];
+                    String start = toSplit[1];
+                    String end = toSplit[2];
+                    newTask = new Event(description, start, end);
+                }
+                list.add(newTask);
+                int listSize = list.size();
+                String message = " Got it. I've added this task:\n  "
+                        + newTask.toString()
+                        + String.format("\n Now you have %d %s in the list.", listSize, listSize == 1 ? "task" : "tasks");
+                printWithLines(message);
             }
         } else {
-            list.add(new Task(userInput));
-            String message = "added: " + userInput;
-            printWithLines(message);
+            printWithLines("That is not a valid input! Try again!");
         }
     }
     private void returnList() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < list.size(); i++) {
-            String item = String.format("%d.", i + 1) + "[" + list.get(i).stringStatus() + "] " + list.get(i).getDescription();
+            String item = String.format("%d. ", i + 1) + list.get(i).toString();
             System.out.println(item);
         }
         System.out.println(HORIZONTAL_LINE);
