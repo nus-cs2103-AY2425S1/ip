@@ -130,6 +130,10 @@ public class Maxine {
                 } catch (Exception e) {
                     System.out.println("Please follow this format: event [enter event] /from [start date] /to [end date]");
                 }
+            } else if (arr[0].equals("delete")) {
+                int mark = Integer.parseInt(arr[1]) - 1;
+                Task curr = list.get(mark);
+                list.remove(curr);
             } else {
                 System.out.println("please type in a command starting with todo, deadline, event, mark, unmark or list");
             }
