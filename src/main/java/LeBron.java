@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LeBron {
@@ -6,7 +7,7 @@ public class LeBron {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<>();
         int taskCount = 0;
 
         String name = "LeBron";
@@ -29,7 +30,7 @@ public class LeBron {
                     break;
                 } else if (input.equals("list")) {
                     for (int i = 1; i <= taskCount; i++) {
-                        Task task = (Task) taskList[i - 1];
+                        Task task = taskList.get(i - 1);
                         System.out.println(String.format("%d. %s", i, task.toString()));
                     }
                     System.out.println("------------------------");
@@ -37,7 +38,7 @@ public class LeBron {
                     if (parts.length > 1 && isNumeric(parts[1])) {
                         int taskNumber = Integer.parseInt(parts[1]);
                         if (taskCount >= taskNumber) {
-                            Task task = (Task) taskList[taskNumber - 1];
+                            Task task = taskList.get(taskNumber - 1);
                             task.markAsDone();
                             System.out.println("Alright bro, great work");
                             System.out.println(task.toString());
@@ -48,11 +49,26 @@ public class LeBron {
                     } else {
                         throw new LeBronException("Mark command needs a number bro");
                     }
+                } else if (parts[0].equals("delete")) {
+                    if (parts.length > 1 && isNumeric(parts[1])) {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        if (taskCount >= taskNumber) {
+                            Task task = taskList.remove(taskNumber - 1);
+                            taskCount--;
+                            System.out.println("Alright bro, I've deleted that task.");
+                            System.out.println(task.toString());
+                            System.out.println("------------------------");
+                        } else {
+                            throw new LeBronException("I can't delete that bro");
+                        }
+                    } else {
+                        throw new LeBronException("Mark command needs a number bro");
+                    }
                 } else if (parts[0].equals("unmark")) {
                     if (parts.length > 1 && isNumeric(parts[1])) {
                         int taskNumber = Integer.parseInt(parts[1]);
                         if (taskCount >= taskNumber) {
-                            Task task = (Task) taskList[taskNumber - 1];
+                            Task task = taskList.get(taskNumber - 1);
                             task.markAsUndone();
                             System.out.println("Let's get it done soon!");
                             System.out.println(task.toString());
@@ -66,7 +82,7 @@ public class LeBron {
                 } else if (parts[0].equals("todo")) {
                     if (parts.length > 1) {
                         ToDos todo = new ToDos(parts[1].trim());
-                        taskList[taskCount] = todo;
+                        taskList.add(todo);
                         taskCount++;
                         System.out.println("Gotchu, I added the task: ");
                         System.out.println(todo.toString());
@@ -79,7 +95,7 @@ public class LeBron {
                     if (parts.length > 1) {
                         String[] splStr = parts[1].split("/by ", 2);
                         Deadlines deadline = new Deadlines(splStr[0].trim(), splStr[1]);
-                        taskList[taskCount] = deadline;
+                        taskList.add(deadline);
                         taskCount++;
                         System.out.println("Gotchu, I added the task: ");
                         System.out.println(deadline.toString());
@@ -103,7 +119,7 @@ public class LeBron {
                                 throw new LeBronException("Your event has to end bro!");
                             }
                             Event event = new Event(taskDescription, start, end);
-                            taskList[taskCount] = event;
+                            taskList.add(event);
                             taskCount++;
                             System.out.println("Gotchu, I added the task: ");
                             System.out.println(event.toString());
