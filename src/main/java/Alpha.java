@@ -15,7 +15,10 @@ public class Alpha {
         
             // Check if the user input is "bye"
             if (s1.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                String echoResponse = "____________________________________________________________ \n"
+                        + "Bye. Hope to see you again soon!" +"\n"
+                        + "____________________________________________________________ \n";
+                System.out.println(echoResponse);
                 break;  // Exit the loop
             }
     
