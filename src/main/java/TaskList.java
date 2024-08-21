@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
+    private final String lineBreak = "-------------------------------------";
     public TaskList(){
         this.taskList = new ArrayList<>();
     }
@@ -8,65 +9,70 @@ public class TaskList {
         return this.taskList.get(index);
     }
     public void listAllTask() {
-        System.out.println("-------------------------------------");
-        System.out.println("Here are the tasks in your list:");
+        System.out.println(lineBreak + "\nHere are the tasks in your list:");
         for(int i = 0; i < this.taskList.size(); i ++) {
             System.out.println((i + 1) + "." + this.getTask(i).toString());
         }
-        System.out.println("-------------------------------------");
+        System.out.println(lineBreak);
     }
 
-    public void addTask(Task userTask) {
-        String description = userTask.getDescription();
-        String[] replyArray = description.split(" ");
-        String typeOfTask = replyArray[0];
-        int numOfTask = this.taskList.size() + 1;
+    public void addTask(Task userTask) throws EchoException {
+        try {
+            String description = userTask.getDescription();
+            String[] replyArray = description.split(" ");
+            String typeOfTask = replyArray[0];
+            int numOfTask = this.taskList.size() + 1;
 
-        if (typeOfTask.equals("todo")) {
-            String taskDescription = description.replaceFirst("todo ", "");
-            ToDos toDoTask = new ToDos(taskDescription);
-            this.taskList.add(toDoTask);
+            if (replyArray.length == 1) {
+                throw new EchoException(lineBreak + "\nSorry! Please include a " +
+                        "description of what to do.\n" + lineBreak);
+            }
 
-            System.out.println("-------------------------------------");
-            System.out.println("Got it. I've added this task:\n" + toDoTask.toString());
-            System.out.println("Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("-------------------------------------");
+            if (typeOfTask.equals("todo")) {
 
-        } else if (typeOfTask.equals("deadline")) {
-            String[] deadlineArray = description.split(" /");
-            String deadlineDescription = deadlineArray[0].replaceFirst("deadline ", "");
-            String deadlineDate = deadlineArray[1];
-            Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
-            this.taskList.add(deadlineTask);
+                String taskDescription = description.replaceFirst("todo ", "");
+                ToDos toDoTask = new ToDos(taskDescription);
+                this.taskList.add(toDoTask);
 
-            System.out.println("-------------------------------------");
-            System.out.println("Got it. I've added this task:\n" + deadlineTask.toString());
-            System.out.println("Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("-------------------------------------");
+                System.out.println(lineBreak + "\nGot it. I've added this task:\n" + toDoTask.toString());
+                System.out.println("Now you have " + numOfTask + " tasks in the list.\n" + lineBreak);
 
-        } else if (typeOfTask.equals("event")) {
-            String[] eventArray = description.split(" /");
-            String eventDescription = eventArray[0].replaceFirst("event ", "");
-            String eventStart = eventArray[1];
-            String eventEnd = eventArray[2];
-            Events eventTask = new Events(eventDescription, eventStart, eventEnd);
-            this.taskList.add(eventTask);
+            } else if (typeOfTask.equals("deadline")) {
+                String[] deadlineArray = description.split(" /");
 
-            System.out.println("-------------------------------------");
-            System.out.println("Got it. I've added this task:\n" + eventTask.toString());
-            System.out.println("Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("-------------------------------------");
+                if (deadlineArray.length == 1) {
+                    throw new EchoException(lineBreak + "\nSorry! Please include a " +
+                            "deadline for the task.\n" + lineBreak);
+                }
 
-        } else {
-            this.taskList.add(userTask);
+                String deadlineDescription = deadlineArray[0].replaceFirst("deadline ", "");
+                String deadlineDate = deadlineArray[1];
+                Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
+                this.taskList.add(deadlineTask);
 
-            System.out.println("-------------------------------------");
-            System.out.println("Got it. I've added this task:\n" + userTask.toString());
-            System.out.println("Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("-------------------------------------");
+                System.out.println(lineBreak + "\nGot it. I've added this task:\n" + deadlineTask.toString());
+                System.out.println("Now you have " + numOfTask + " tasks in the list.\n" + lineBreak);
+
+            } else if (typeOfTask.equals("event")) {
+                String[] eventArray = description.split(" /");
+
+                if (eventArray.length < 3) {
+                    throw new EchoException(lineBreak + "\nSorry! Please include a start and " +
+                            "end time for the event.\n" + lineBreak);
+                }
+
+                String eventDescription = eventArray[0].replaceFirst("event ", "");
+                String eventStart = eventArray[1];
+                String eventEnd = eventArray[2];
+                Events eventTask = new Events(eventDescription, eventStart, eventEnd);
+                this.taskList.add(eventTask);
+
+                System.out.println(lineBreak + "\nGot it. I've added this task:\n" + eventTask.toString());
+                System.out.println("Now you have " + numOfTask + " tasks in the list.\n" + lineBreak);
+
+            }
+        } catch (EchoException e) {
+            System.err.println(e.getMessage());
         }
-
     }
-
-
 }
