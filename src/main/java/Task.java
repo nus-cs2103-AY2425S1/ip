@@ -33,6 +33,10 @@ public class Task {
         System.out.println("    OK, I've marked this task as not done yet:");
     }
 
+    public void delete() {
+        System.out.println("    Noted. I've removed this task:");
+    }
+
     @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.getDescription();
