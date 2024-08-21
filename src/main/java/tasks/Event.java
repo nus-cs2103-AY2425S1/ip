@@ -20,6 +20,6 @@ public class Event extends Task {
 
     @Override
     public String saveFormat() {
-        return "E | " + super.saveFormat() + " | " + this.from + " | " + this.to;
+        return "E | " + super.saveFormat() + " | " + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | " + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }
