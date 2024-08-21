@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hoshi {
-
-
+    
 
     public static void main(String[] args) {
 
