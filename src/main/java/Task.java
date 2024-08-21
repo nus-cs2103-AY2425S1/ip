@@ -1,10 +1,14 @@
-public abstract class Task {
+public class Task {
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
     public boolean mark(boolean marking) {
@@ -20,7 +24,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String done = isDone ? "X" : " ";
-        return "[" + done + "] " + this.description;
+        return this.description;
     }
 }
