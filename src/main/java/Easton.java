@@ -46,10 +46,10 @@ public class Easton {
                 printList();
                 break;
             case MARK:
-                changeTaskStatus(getTextFromInput(input), true, "Nice! I've marked this task as done:");
+                changeTaskStatus(input, true, "Nice! I've marked this task as done:");
                 break;
             case UNMARK:
-                changeTaskStatus(getTextFromInput(input), false, "OK, I've marked this task as not done yet:");
+                changeTaskStatus(input, false, "OK, I've marked this task as not done yet:");
                 break;
             case TODO:
                 try {
@@ -79,19 +79,36 @@ public class Easton {
         }
     }
 
-    private static void changeTaskStatus(String text, boolean isDone, String message) {
+    private static void changeTaskStatus(String input, boolean isDone, String message) {
         try {
-            int index = Integer.parseInt(text);
-            if (0 < index && index <= taskArraySize) {
-                Task task = taskArray[index - 1];
-                task.setDone(isDone);
-                System.out.println(message);
-                System.out.println(task);
-            } else {
-                System.out.println(index + " is not a valid index!");
-            }
+            int index = getIndexFromInput(input);
+            Task task = taskArray[index - 1];
+            task.setDone(isDone);
+            System.out.println(message);
+            System.out.println(task);
+
+        } catch (InvalidIndexException | EmptyDescriptionException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
+        int index;
+        String[] splitInput = input.split(" ", 2);
+        if (splitInput.length != 2) {
+            throw new EmptyDescriptionException();
+        }
+
+        try {
+            index = Integer.parseInt(splitInput[1]);
         } catch (NumberFormatException e) {
-            System.out.println(text + " is not an integer!");
+            throw new InvalidIndexException(splitInput[1]);
+        }
+
+        if (0 < index && index <= taskArraySize) {
+            return index;
+        } else {
+            throw new InvalidIndexException(splitInput[1]);
         }
     }
 
