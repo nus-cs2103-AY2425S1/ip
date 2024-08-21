@@ -9,11 +9,12 @@ public class Deez {
                 /_____/_____/_____/  /____/
                                           \s
                 """;
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo2);
+        System.out.println(logo);
+        System.out.println(seperator);
+        System.out.println("Hello! I'm Deez!");
+        System.out.println("What can I do you for?");
+        System.out.println(seperator);
+        System.out.println("Bye. Hope to see you soon!");
+        System.out.println(seperator);
     }
 }
