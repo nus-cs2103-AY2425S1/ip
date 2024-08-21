@@ -19,6 +19,14 @@ public class Items {
         this.items.get(i-1).markAsUndone();
     }
 
+    public String getLastAdded() {
+        return this.items.get(this.items.size() - 1).toString();
+    }
+
+    public int getSize() {
+        return this.items.size();
+    }
+
 
     @Override
     public String toString() {
