@@ -32,6 +32,16 @@ public class Atlas {
                 case "bye":
                     Atlas.exit();
                     return;
+                case "list":
+                    StringBuilder listOutput = new StringBuilder();
+                    for (int i = 0; i < list.size(); i++) {
+                        listOutput.append(String.format("%d: ", i + 1)).append(list.get(i));
+                        if (i < list.size() - 1) {
+                            listOutput.append('\n');
+                        }
+                    }
+                    Atlas.print(listOutput.toString());
+                    break;
                 default:
                     list.add(command);
                     Atlas.print(String.format("added: %s", command));
