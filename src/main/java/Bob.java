@@ -14,6 +14,7 @@ public class Bob {
                 String s2 = s.substring(i+1);
                 if (s2.trim().isEmpty()) {
                     System.out.println("Description empty");
+                    continue;
                 }
                 switch (s1) {
                     case "mark", "unmark" -> {
@@ -39,6 +40,10 @@ public class Bob {
                         String s5 = s4.substring(0, b);
                         String s6 = s4.substring(b+5);
                         new Event(s3, s5, s6);
+                    }
+                    case "delete" -> {
+                        int a = Integer.parseInt(s2);
+                        Task.deleteTask(a);
                     }
                 }
                 s = "list";

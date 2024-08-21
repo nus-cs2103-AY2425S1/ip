@@ -33,6 +33,10 @@ public abstract class Task {
         t.undone();
     }
 
+    public static void deleteTask(int i) {
+        Task.list.remove(i-1);
+    }
+
     private void done() {
         this.completed = true;
     }
