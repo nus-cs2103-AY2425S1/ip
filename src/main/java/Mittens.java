@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Mittens {
     private final static String GREETING_MESSAGE = """
             
@@ -72,8 +74,21 @@ public class Mittens {
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         greet();
+
+        while (true) {
+            System.out.print("> ");
+            String input = scanner.nextLine();
+
+            if (input.equals("bye")) {
+                break;
+            } else {
+                echo(input);
+            }
+        }
+
         exit();
-        echo("Testing");
     }
 }
