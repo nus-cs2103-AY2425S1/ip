@@ -22,12 +22,18 @@ public class Delta {
         return "\t____________________________________________________________\n" +
                 "\t Got it. I've added this task:\n" +
                 "\t   " + task.toString() + "\n" +
-                "\t Now you have " + list.size() + " tasks in the list.\n" +
+                "\t Now you have " + list.size() + " task" + (list.size() > 1 ? "s" : "") + " in the list.\n" +
                 "\t____________________________________________________________";
     }
 
-    public static String markTask(int i) {
+    public static String markTask(int i) throws DeltaException{
+        if (i < 1 || i > list.size()) {
+            throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to mark.");
+        }
         Task task = list.get(i - 1);
+        if (task.getStatusIcon().equals("X")) {
+            throw new DeltaException("OOPS!!! Task is already marked as done.");
+        }
         task.markAsDone();
         list.set(i - 1, task);
         return "\t____________________________________________________________\n" +
@@ -36,8 +42,14 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
-    public static String unmarkTask(int i) {
+    public static String unmarkTask(int i) throws DeltaException {
+        if (i < 1 || i > list.size()) {
+            throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to unmark.");
+        }
         Task task = list.get(i - 1);
+        if (task.getStatusIcon().equals(" ")) {
+            throw new DeltaException("OOPS!!! Task is already marked as not done.");
+        }
         task.markAsNotDone();
         list.set(i - 1, task);
         return "\t____________________________________________________________\n" +
