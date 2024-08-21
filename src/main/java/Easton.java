@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Easton {
 
     public static final String CHATBOT_NAME = "Easton";
-    public static Task[] taskArray = new Task[100];
-    public static int taskArraySize = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = " _______  _______  _______  _______  _______  __    _\n"
@@ -79,15 +79,15 @@ public class Easton {
     }
 
     private static void printList() {
-        for (int i = 0; i < taskArraySize; i ++) {
-            System.out.println((i + 1) + "." + taskArray[i]);
+        for (int i = 0; i < tasks.size(); i ++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
 
     private static void changeTaskStatus(String input, boolean isDone, String message) {
         try {
             int index = getIndexFromInput(input);
-            Task task = taskArray[index - 1];
+            Task task = tasks.get(index - 1);
             task.setDone(isDone);
             System.out.println(message);
             System.out.println(task);
@@ -110,7 +110,7 @@ public class Easton {
             throw new InvalidIndexException(splitInput[1]);
         }
 
-        if (0 < index && index <= taskArraySize) {
+        if (0 < index && index <= tasks.size()) {
             return index;
         } else {
             throw new InvalidIndexException(splitInput[1]);
@@ -164,11 +164,10 @@ public class Easton {
     }
 
     private static void addTask(Task task) {
-        taskArray[taskArraySize] = task;
-        taskArraySize++;
+        tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + taskArraySize + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void printDivider() {
