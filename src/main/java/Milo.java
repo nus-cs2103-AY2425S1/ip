@@ -1,5 +1,9 @@
 import java.util.Scanner;
+
+import TaskObj.Deadlines;
+import TaskObj.Events;
 import TaskObj.Task;
+import TaskObj.Todos;
 
 public class Milo {
     private static final String hLine = "____________________________________________________________\n";
@@ -32,30 +36,54 @@ public class Milo {
         // Loop for user input
         while (!userInput.toLowerCase().strip().equals("bye")) {
             // Split input on space
-            String[] arrOfInput = userInput.split(" ");
-            switch (arrOfInput[0]) {
-                // show list
+            String[] arrOfInput = userInput.split(" ", 2);
+            String action = arrOfInput[0];
+            switch (action) {
+                // Show list
                 case "list":
                     printList(todoList);
                     userInput = myScanner.nextLine();
                     break;
-                // mark as complete
+                // Mark as complete
                 case "mark":
                     Task curTask = todoList[Integer.parseInt(arrOfInput[1]) - 1];
                     curTask.mark();
                     printMark(curTask);
                     userInput = myScanner.nextLine();
                     break;
-                // mark as incomplete
+                // Mark as incomplete
                 case "unmark":
                     Task currTask = todoList[Integer.parseInt(arrOfInput[1]) - 1];
                     currTask.unmark();
                     printUnmark(currTask);
                     userInput = myScanner.nextLine();
                     break;
+                // Adding tasks
+                // Todos
+                case "todo":
+                    String desc = arrOfInput[1];
+                    Task curTodo = new Todos(desc);
+                    todoList[Task.taskNumber - 1] = curTodo;
+                    printTask(curTodo);
+                    userInput = myScanner.nextLine();
+                    break;
+                // Deadline
+                case "deadline":
+                    String[] deadlineDesc = arrOfInput[1].split("/by", 2);
+                    Task curDeadline = new Deadlines(deadlineDesc[0], deadlineDesc[1]);
+                    todoList[Task.taskNumber - 1] = curDeadline;
+                    printTask(curDeadline);
+                    userInput = myScanner.nextLine();
+                    break;
+                // Event
+                case "event":
+                    String[] eventDesc = arrOfInput[1].split("/from | /to", 3);
+                    Task curEvent = new Events(eventDesc[0], eventDesc[1], eventDesc[2]);
+                    todoList[Task.taskNumber - 1] = curEvent;
+                    printTask(curEvent);
+                    userInput = myScanner.nextLine();
+                    break;
                 default:
-                    todoList[Task.taskNumber] = new Task(userInput);
-                    System.out.println(hLine + "added: " + userInput + "\n" + hLine);
                     userInput = myScanner.nextLine();
             }
         }
@@ -87,4 +115,18 @@ public class Milo {
         System.out.println("  " + curTask.toString());
         System.out.print(hLine);
     }
+
+    private static void printTask(Task curTask) {
+        System.out.print(hLine);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + curTask.toString());
+        int curTaskNumber = Task.taskNumber;
+        if (curTaskNumber == 1) {
+            System.out.println("Now you have " + curTaskNumber + " task in the list.");
+        } else {
+            System.out.println("Now you have " + curTaskNumber + " tasks in the list.");
+        }
+        System.out.print(hLine);
+    }
+
 }
