@@ -5,6 +5,8 @@ public class Ekud {
             "_____________________________________________________________";
     public static final String END_COMMAND = "bye";
     public static final String LIST_COMMAND = "list";
+    public static final String MARK_COMMNAD = "mark";
+    public static final String UNMARK_COMMAND = "unmark";
     public static final int MAX_LIST_SIZE = 100;
 
     private final Task[] tasks = new Task[MAX_LIST_SIZE];
@@ -46,9 +48,28 @@ public class Ekud {
     }
 
     public void echoList() {
+        echo("Look at all these tasks:");
         for (int i = 0; i < currListSize; i++) {
             echo(String.format("%d. %s", i+1, tasks[i]));
         }
+        echo(LINE_SEPARATOR);
+    }
+
+    public void markList(int listIndex) {
+        // assumes valid index is given
+        echo("Wowie!! You've completed your task!");
+        echo("I shall mark it as complete in celebration!");
+        tasks[listIndex].markAsDone();
+        echo("  " + tasks[listIndex].toString());
+        echo(LINE_SEPARATOR);
+    }
+
+    public void unmarkList(int listIndex) {
+        // assumes valid index is given
+        echo("Oh ho ho, did you forget something?");
+        echo("It's OK, I will take note of your incompetence...");
+        tasks[listIndex].markAsUndone();
+        echo("  " + tasks[listIndex].toString());
         echo(LINE_SEPARATOR);
     }
 
@@ -60,9 +81,11 @@ public class Ekud {
         ekud.greet();
         while (ekud.isRunning()) {
             // get user command
+            // assumes user puts correct format
             System.out.println();
-            command = sc.nextLine();
+            command = sc.next();
             ekud.echo(LINE_SEPARATOR);
+
             // handle command
             switch (command) {
             case END_COMMAND:
@@ -71,8 +94,14 @@ public class Ekud {
             case LIST_COMMAND:
                 ekud.echoList();
                 break;
+            case MARK_COMMNAD:
+                ekud.markList(sc.nextInt()-1);
+                break;
+            case UNMARK_COMMAND:
+                ekud.unmarkList(sc.nextInt()-1);
+                break;
             default:
-                ekud.addToList(command);
+                ekud.addToList(command + sc.nextLine());
             }
         }
         ekud.sayGoodbye();
