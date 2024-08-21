@@ -8,7 +8,8 @@ public class Chatterbox {
                  What can I do for you?
                 ____________________________________________________________
                 """;
-        printMessage(welcomeMessage);
+        System.out.println(welcomeMessage);
+        StoredList l1 = new StoredList(100);
         boolean done = false;
         while (!done) {
             String command = echo();
@@ -18,18 +19,24 @@ public class Chatterbox {
                 Bye. Hope to see you again soon!
                 ____________________________________________________________
                 """;
-                printMessage(byeMessage);
+                System.out.println(byeMessage);
                 done = true;
+            } else if (command.equals("list")) {
+                System.out.println("____________________________________________________________");
+                int len = l1.getSize();
+                for (int i = 0; i < len; i++) {
+                    System.out.println(i + ". " + l1.getItem(i));
+                }
+                System.out.println("______________________________________________________________");
             } else {
                 String echoMessage = "____________________________________________________________\n"
+                        + "added: "
                         + command
-                        +"\n____________________________________________________________\n";
-                printMessage(echoMessage);
+                        +"\n____________________________________________________________";
+                System.out.println(echoMessage);
+                l1.addItem(command);
             }
         }
-    }
-    public static void printMessage(String message) {
-        System.out.println(message);
     }
 
     public static String echo() {
