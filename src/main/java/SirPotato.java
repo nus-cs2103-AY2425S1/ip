@@ -1,4 +1,5 @@
 import java.util.Scanner;  // For user inputs
+import java.util.ArrayList; //To create the to-do list
 
 public class SirPotato {
 
@@ -6,9 +7,11 @@ public class SirPotato {
     private String logo = "Sir Potato";
     private String horizontal_line = "___________________________ \n";
     private String indent = "   ";
+    private ArrayList<String> toDoList;
 
     public SirPotato() {
         this.scanner = new Scanner(System.in);
+        this.toDoList = new ArrayList<String>();
     }
 
     public void displayWelcomeMessage() {
@@ -28,8 +31,17 @@ public class SirPotato {
             if (userInput.equals("bye")) {
                 System.out.println(horizontal_line + "\n" + indent + "Bye. Thanks mate." + "\n" + horizontal_line + "\n");
                 return;
+            } else if (userInput.equals("list")) {
+                System.out.println(horizontal_line + "\n");
+                System.out.println(indent + "List: ");
+                for (int i = 0; i < toDoList.size(); i++) {
+                    System.out.println(indent + (i+1) + ". " + toDoList.get(i));
+                }
+                System.out.println(horizontal_line + "\n");
             } else {
-                System.out.println(horizontal_line + "\n" + indent + userInput + "\n" + horizontal_line + "\n");
+                toDoList.add(userInput);
+                System.out.println(horizontal_line + "\n" + indent + 
+                            "Added to list: " + userInput + "\n" + horizontal_line + "\n");
             }
         }
     }
