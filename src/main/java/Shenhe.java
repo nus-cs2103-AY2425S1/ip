@@ -111,12 +111,31 @@ public class Shenhe {
                     System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
                     System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                } else if (userInput.startsWith("delete")) {
+                    if (userInput.trim().length() == 6) {
+                        throw new EmptyTaskDescriptionException();
+                    }
+                    int length = userInput.length();
+                    char lastChar = userInput.charAt(length - 1);
+                    int lastDigit = -1;
+                    if (Character.isDigit(lastChar)) {
+                        lastDigit = lastChar - '0';
+                    }
+                    if (lastDigit >= 1 && lastDigit <= length) {
+
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(tasks.get(lastDigit - 1).toString());
+                        tasks.remove(lastDigit - 1);
+                        totalNumberOfTasks--;
+                        System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    }
                 } else if (!userInput.startsWith("list")) {
                     throw new UnknownTaskException();
                 } else if (userInput.startsWith("list") && userInput.trim().length() != 4) {
                     throw new InvalidListEnquiry();
-                }
-                else {
+                } else {
                     int length = tasks.size();
                     System.out.println("____________________________________________________________");
                     System.out.println("Here are the tasks in your list:");
@@ -127,7 +146,7 @@ public class Shenhe {
                 }
             } catch (EmptyTaskDescriptionException | UnknownTaskException | InvalidDeadlineDescription |
                      InvalidEventDescription | InvalidListEnquiry e) {
-                System.out.println(e.toString());
+                System.out.println(e);
             }
         }
 
