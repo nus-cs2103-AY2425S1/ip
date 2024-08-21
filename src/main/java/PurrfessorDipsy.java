@@ -20,8 +20,12 @@ public class PurrfessorDipsy {
         Scanner inputScanner = new Scanner(System.in);
         printWelcomeMessage();
         while (isRunning) {
-            String userInput = inputScanner.nextLine().trim();
-            processCommand(userInput);
+            try {
+                String userInput = inputScanner.nextLine().trim();
+                processCommand(userInput);
+            } catch (PurrfessorDipsyException e) {
+                printErrorMessage(e.getMessage());
+            }
         }
         inputScanner.close();
     }
@@ -37,7 +41,7 @@ public class PurrfessorDipsy {
         return Command.UNKNOWN;
     }
 
-    private static void processCommand(String userInput) {
+    private static void processCommand(String userInput) throws PurrfessorDipsyException {
         Command command = parseCommand(userInput);
         switch (command) {
             case MARK:
@@ -57,7 +61,7 @@ public class PurrfessorDipsy {
                 break;
             case UNKNOWN:
             default:
-                printErrorMessage("Unrecognized command.\n\n" + getUsage());
+                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.UNKNOWN_COMMAND);
         }
     }
 
@@ -84,7 +88,7 @@ public class PurrfessorDipsy {
     }
 
     // HANDLE COMMANDS
-    private static void handleMarkCommand(String userInput) {
+    private static void handleMarkCommand(String userInput) throws PurrfessorDipsyException {
         Matcher markMatcher = MARK_PATTERN.matcher(userInput);
         if (markMatcher.matches()) {
             String action = markMatcher.group(1);
@@ -96,14 +100,14 @@ public class PurrfessorDipsy {
                     markTaskAsUndone(index);
                 }
             } else {
-                printErrorMessage("Index given lies outside of the table's valid range.");
+                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_MARK_INDEX);
             }
         } else {
-            printErrorMessage("'mark' or 'unmark' command requires an index.\nUsage: mark <index> or unmark <index>");
+            throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_MARK);
         }
     }
 
-    private static void handleTaskCreation(String userInput, Command command) {
+    private static void handleTaskCreation(String userInput, Command command) throws PurrfessorDipsyException {
         Matcher matcher;
         String description, by, start, end;
 
@@ -114,7 +118,7 @@ public class PurrfessorDipsy {
                     description = matcher.group(1);
                     saveToMemory(new ToDo(description));
                 } else {
-                    printErrorMessage(getUsage("todo"));
+                    throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_TODO);
                 }
                 break;
 
@@ -125,7 +129,7 @@ public class PurrfessorDipsy {
                     by = matcher.group(2);
                     saveToMemory(new Deadline(description, by));
                 } else {
-                    printErrorMessage(getUsage("deadline"));
+                    throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DEADLINE);
                 }
                 break;
 
@@ -137,12 +141,12 @@ public class PurrfessorDipsy {
                     end = matcher.group(3);
                     saveToMemory(new Event(description, start, end));
                 } else {
-                    printErrorMessage(getUsage("event"));
+                    throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_EVENT);
                 }
                 break;
 
             default:
-                printErrorMessage("Unrecognized task command.\n" + getUsage());
+                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.UNKNOWN_COMMAND);
         }
     }
 
@@ -185,39 +189,5 @@ public class PurrfessorDipsy {
     private static void exitProgram() {
         printExitMessage();
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
-    }
-
-    private static String getUsage() {
-        return getUsage(null);
-    }
-
-    private static String getUsage(String command) {
-        switch (command != null ? command : "") {
-            case "todo":
-                return "'todo' command requires a description.\nUsage: todo <description>";
-
-            case "deadline":
-                return "'deadline' command requires a 'by' date.\nUsage: deadline <description> /by <day/date/time>";
-
-            case "event":
-                return "'event' command requires a description, a '/from' time, and a '/to' time.\n" +
-                        "Usage: event <description> /from <day/date/time> /to <day/date/time>";
-
-            default:
-                return "Usage: <command> [options]\n" +
-                        "\nCommands:\n" +
-                        "  todo <description>                            Create a new todo item\n" +
-                        "  deadline <description> /by <date>             Create a new task with a deadline\n" +
-                        "  event <description> /from <start> /to <end>   Create a new event with start and end times\n" +
-                        "  mark <index>                                  Mark the task at the specified index as done\n" +
-                        "  unmark <index>                                Unmark the task at the specified index\n" +
-                        "  list                                          List all tasks\n" +
-                        "  bye                                           Exit the program\n" +
-                        "\nExamples:\n" +
-                        "  todo Buy Ciao Churru for Dipsy\n" +
-                        "  deadline Submit Dipsy's food order /by 21-08-2024\n" +
-                        "  event Play with Dipsy /from 21-08-2024 10:00 /to 21-08-2024 12:00\n" +
-                        "  mark 1";
-        }
     }
 }
