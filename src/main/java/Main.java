@@ -59,23 +59,44 @@ public class Main {
      * @throws JanetException a custom exception class specific to Janet
      */
     public static void validateCommand(String[] commandDetails) throws JanetException {
+        // when mark/unmark/delete X, where X is too big OR <= 0 OR when the list is empty.
         if ((commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete")) && commandDetails.length > 1) {
             // when the command is mark/unmark X OR delete, where X is an invalid num (too big or <= 0)
-            int taskNumber = Integer.parseInt(commandDetails[1]);
+            System.out.println("validateCommand outer is being run");
+            int taskNumber = Integer.parseInt(commandDetails[1]);   // commandDetails[1] could be a string
             if (taskNumber <= 0) {
                 // still need to handle case when taskNumber >= taskIndex + 1 (unable to access janet.getTaskIndex())
+                System.out.println("validateCommand inner is being run");
                 throw new JanetException("WHOOPS! You don't have a task of this number!");
             }
-        } else if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event"))) {
-            // when the command is gibberish and NOT one of the commands (todo, deadline, event)
-            throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
-        } else if (commandDetails.length == 1) {
-            // when the command is either (todo, deadline, todo), BUT there is no task description
-            throw new JanetException("WHOOPS! You can't leave out the task's description!");
         }
     }
 
-    public static void main(String[] args) {
+
+    /**
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @throws JanetException a custom exception class specific to Janet
+     */
+    public static void checkInaccurateCommand(String[] commandDetails) throws JanetException {
+        // checks for inaccurate commands 1. rubbish, 2. without any task description, 3. no number for mark/unmark/delete.
+        if (!(commandDetails[0].equals("todo") || commandDetails[0].equals("deadline") || commandDetails[0].equals("event") || commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete"))) {
+            // when the command is gibberish and NOT one of the commands (todo, deadline, event, mark, unmark, delete)
+            System.out.println("checkInaccurateCommand 1 is being run");
+            throw new JanetException("WHOOPS! I'm only a chatbot, so I don't know what that means...");
+        } else if (commandDetails.length == 1) {
+            if (commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete")) {
+                // when the command is either (mark, unmark, delete), BUT there is no task specified
+                System.out.println("checkInaccurateCommand 2 is being run");
+                throw new JanetException("WHOOPS! I don't know which task you are referring to...");
+            } else {
+                // when the command is either (todo, deadline, todo), BUT there is no task description
+                System.out.println("checkInaccurateCommand 3 is being run");
+                throw new JanetException("WHOOPS! You can't leave out the task's description!");
+            }
+        }
+    }
+
+    public static void main(String[] args) throws JanetException {
         Janet janet = new Janet();
         System.out.println(janet.greet());
 
@@ -96,8 +117,11 @@ public class Main {
                 String[] commandDetails = command.split(" ");   // an array containing each word of the command
                 // handle exceptions
                 try {
+                    // validateCommand will throw out a JanetException
                     validateCommand(commandDetails);
+                    checkInaccurateCommand(commandDetails);
                 } catch (JanetException e) {
+                    // print the error message and allow the program to continue (don't exit the program)
                     System.out.println(e.getMessage());
                     continue;
                 }
