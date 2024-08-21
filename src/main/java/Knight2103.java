@@ -15,7 +15,7 @@ public class Knight2103 {
         String botName = "Knight2103";
         String horiLine = "_____________";
         String intro = horiLine + "\n"
-                + "Hello! I'm " + botName + " \n"
+                + "Hello! I'm " + botName + "\n"
                 + "What can I do for you?\n"
                 + horiLine + "\n";
         System.out.println(intro);
