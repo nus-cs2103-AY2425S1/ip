@@ -113,8 +113,10 @@ public class PurrfessorDipsy {
                     printMemory();
                     break;
                 default:
-                    echoUserInput(userInput);
-                    saveToMemory(new Task(userInput));
+                    printTerminalLine();
+                    System.out.println("Error: Unrecognized command.");
+                    printUsage();
+                    printTerminalLine();
                     break;
             }
         }
@@ -170,4 +172,24 @@ public class PurrfessorDipsy {
         printExitMessage();
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
     }
+
+    private static void printUsage() {
+        System.out.println("Usage: <command> [options]");
+        System.out.println();
+        System.out.println("Commands:");
+        System.out.println("  todo <description>                            Create a new todo item");
+        System.out.println("  deadline <description> /by <date>             Create a new task with a deadline");
+        System.out.println("  event <description> /from <start> /to <end>   Create a new event with start and end times");
+        System.out.println("  mark <index>                                  Mark the task at the specified index as done");
+        System.out.println("  unmark <index>                                Unmark the task at the specified index");
+        System.out.println("  list                                          List all tasks");
+        System.out.println("  bye                                           Exit the program");
+        System.out.println();
+        System.out.println("Examples:");
+        System.out.println("  todo Buy Ciao Churru for Dipsy");
+        System.out.println("  deadline Submit Dipsy's food order /by 21-08-2024");
+        System.out.println("  event Play with Dipsy /from 21-08-2024 10:00 /to 21-08-2024 12:00");
+        System.out.println("  mark 1");
+    }
+
 }
