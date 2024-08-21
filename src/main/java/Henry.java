@@ -28,7 +28,8 @@ public class Henry {
      * @param tasks array of tasks recorded
      * @param index number of tasks recorded
      */
-    public static void printList(ArrayList<Task> tasks, int index) throws HenryException {
+    public static void printList(ArrayList<Task> tasks, int index)
+            throws HenryException {
         //check if there is any task to print
         if (index == 0) {
             throw new HenryException("You do not have any tasks!");
@@ -49,7 +50,8 @@ public class Henry {
      * @param index number of tasks recorded
      * @param input name of task
      */
-    public static void addTask(ArrayList<Task> tasks, int index, String input) throws HenryException  {
+    public static void addTask(ArrayList<Task> tasks,int index, String input)
+            throws HenryException  {
         String[] words = input.split(" ");
         String task = words[0].toLowerCase();
         String activityAndTime = input.replaceFirst(words[0] + " ", "");
@@ -67,7 +69,8 @@ public class Henry {
             //check if deadline description is valid
             if (activityAndTimeList.length != 2 ) {
                 throw new HenryException("The deadline description is wrong!! " +
-                        "Ensure that you have included the activity, followed by the deadline. " +
+                        "Ensure that you have included the activity, " +
+                        "followed by the deadline. " +
                         "Example: deadline return book /by Sunday");
             }
             String time = activityAndTimeList[1]
@@ -108,7 +111,8 @@ public class Henry {
      * @param tasks array of tasks recorded
      * @param words user input
      */
-    public static void changeTaskStatus(ArrayList<Task> tasks, String[] words, int index) throws HenryException {
+    public static void changeTaskStatus(ArrayList<Task> tasks, String[] words, int index)
+            throws HenryException {
         //check for invalid number
         try {
             int number = Integer.parseInt(words[1]);
@@ -140,6 +144,34 @@ public class Henry {
         }
     }
 
+    /**
+     * Deletes task into the array of tasks recorded
+     *
+     * @param tasks array of tasks recorded
+     * @param num task number to be deleted
+     * @param index number of tasks recorded
+     */
+    public static void deleteTask(ArrayList<Task> tasks, String num, int index)
+            throws HenryException {
+        //check for invalid number
+        try {
+            int number = Integer.parseInt(num);
+            //check if number is out of range
+            if (number <= 0 || number > index) {
+                throw new HenryException("The number is wrong!");
+            }
+            System.out.println("\nNoted. I've removed this task:\n"
+                    + tasks.get(number - 1).toString()
+                    + "\nNow you have "
+                    + (index - 1)
+                    + (index - 1 <= 1 ? " task" : " tasks")
+                    + " in the list.\n");
+            tasks.remove(number - 1);
+        } catch(NumberFormatException e) {
+            throw new HenryException("This is not a number!!");
+        }
+    }
+
     public static void main(String[] args) {
         greetings();
 
@@ -148,33 +180,29 @@ public class Henry {
         Scanner scanner = new Scanner(System.in);
         int index = 0;
         do {
-            String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                System.out.println();
-                bye();
-                break;
-            } else if (input.equals("list")) {
-                try{
-                    printList(tasks, index);
-                } catch (HenryException e) {
-                    System.out.println("\nSorry! " + e.getMessage() + "\n");
-                }
-            } else {
-                String[] words = input.split(" ");
-                if (words[0].equals("mark") || words[0].equals("unmark")) {
-                    try {
-                        changeTaskStatus(tasks, words, index);
-                    } catch (HenryException e) {
-                        System.out.println("\nSorry! " + e.getMessage() + "\n");
-                    }
+            try {
+                String input = scanner.nextLine();
+                if (input.equals("bye")) {
+                    System.out.println();
+                    bye();
+                    break;
+                } else if (input.equals("list")) {
+                        printList(tasks, index);
                 } else {
-                    try {
-                        addTask(tasks, index, input);
-                        index++;
-                    } catch (HenryException e) {
-                        System.out.println("\nSorry! " + e.getMessage() + "\n");
+                    String[] words = input.split(" ");
+                    String command = words[0].toLowerCase();
+                    if (command.equals("mark") || command.equals("unmark")) {
+                            changeTaskStatus(tasks, words, index);
+                    } else if (command.equals("delete")) {
+                            deleteTask(tasks, words[1], index);
+                            index--;
+                    } else {
+                            addTask(tasks, index, input);
+                            index++;
                     }
                 }
+            } catch (HenryException e) {
+                System.out.println("\nSorry! " + e.getMessage() + "\n");
             }
         } while (true);
     }
