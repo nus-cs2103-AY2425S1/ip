@@ -1,20 +1,38 @@
-public class Event extends Task {
-    private String at;
-    private String to;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String at, String to) {
+public class Event extends Task {
+    private String atString;
+    private LocalDate atDate;
+    private String toString;
+    private LocalDate toDate;
+
+    public Event(String description, String atString, String toString) {
         super(description);
-        this.at = at;
-        this.to = to;
+        this.atString = atString;
+        this.atDate = DateTimeParser.parseDate(atString);
+        this.toString = toString;
+        this.toDate = DateTimeParser.parseDate(toString);
+
     }
 
     public String toSaveString() {
-        return "E" + Barney.SAVE_FILE_DELIMITER + super.toSaveString() + Barney.SAVE_FILE_DELIMITER + at
-                + Barney.SAVE_FILE_DELIMITER + to;
+
+        return "E" + Constants.SAVE_FILE_DELIMITER + super.toSaveString() + Constants.SAVE_FILE_DELIMITER
+                + this.atString
+                + Constants.SAVE_FILE_DELIMITER + this.toString;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + " to: " + to + ")";
+        String rtrAtString = (this.atDate != null)
+                ? this.atDate.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_RETURN_FORMAT))
+                : this.atString;
+
+        String rtrToString = (this.toDate != null)
+                ? this.toDate.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_RETURN_FORMAT))
+                : this.toString;
+
+        return "[E]" + super.toString() + " (at: " + rtrAtString + " to: " + rtrToString + ")";
     }
 }

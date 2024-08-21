@@ -4,7 +4,7 @@ public class Todo extends Task {
     }
 
     public String toSaveString() {
-        return "T" + Barney.SAVE_FILE_DELIMITER + super.toSaveString();
+        return "T" + Constants.SAVE_FILE_DELIMITER + super.toSaveString();
     }
 
     @Override

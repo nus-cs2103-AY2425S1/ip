@@ -24,7 +24,7 @@ public class Task {
     }
 
     public String toSaveString() {
-        return (this.isMarked ? "1" : "0") + Barney.SAVE_FILE_DELIMITER + this.description;
+        return (this.isMarked ? "1" : "0") + Constants.SAVE_FILE_DELIMITER + this.description;
     }
 
     @Override
