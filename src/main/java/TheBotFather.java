@@ -11,6 +11,7 @@ public class TheBotFather {
 
         printLine();
         printGreeting();
+        printHorse();
         printLine();
 
         while (true) {
@@ -23,7 +24,7 @@ public class TheBotFather {
 
             switch (taskDec[0]) {
                 case "list":
-                    print("Here are the tasks in your list:");
+                    print("You never even called me Don once.");
                     printList(taskList);
                     printLine();
                     break;
@@ -31,7 +32,7 @@ public class TheBotFather {
                 case "todo":
                     task = new Todo(taskDec[1]);
                     taskList.add(task);
-                    print("Got it. I've added this task:");
+                    print("Leave the gun, take the cannoli.");
                     print("    " + task.toString());
                     print(Task.getCOUNT());
                     printLine();
@@ -41,7 +42,7 @@ public class TheBotFather {
                     String[] deadlineInfo = taskDec[1].split(" /by ");
                     task = new Deadline(deadlineInfo[0], deadlineInfo[1]);
                     taskList.add(task);
-                    print("Got it. I've added this task:");
+                    print("Look how they massacred my boy.");
                     print("    " + task.toString());
                     print(Task.getCOUNT());
                     printLine();
@@ -52,7 +53,7 @@ public class TheBotFather {
                     if (eventInfo.length != 3) break;
                     task = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
                     taskList.add(task);
-                    print("Got it. I've added this task:");
+                    print("That's my family, Kay, that's not me.");
                     print("    " + task.toString());
                     print(Task.getCOUNT());
                     printLine();
@@ -62,7 +63,7 @@ public class TheBotFather {
                     index = Integer.parseInt(String.valueOf(taskDec[1])) - 1;
                     task = taskList.get(index);
                     task.markAsDone();
-                    print("Nice! I've marked this task as done:");
+                    print("It will be done");
                     print("    " + task.toString());
                     printLine();
                     break;
@@ -71,7 +72,7 @@ public class TheBotFather {
                     index = Integer.parseInt(String.valueOf(taskDec[1])) - 1;
                     task = taskList.get(index);
                     task.unmark();
-                    print("OK, I've marked this task as not done yet:");
+                    print("A man who doesn't spend time with his family can never be a real man.");
                     print("    " + task.toString());
                     printLine();
                     break;
@@ -83,7 +84,9 @@ public class TheBotFather {
         }
 
         printGoodBye();
+        sc.close();
         printLine();
+
     }
 
 
@@ -99,14 +102,36 @@ public class TheBotFather {
 
     public static void printGreeting() {
         System.out.println("    Hello! I'm The BotFather");
-        System.out.println("    What can I do for you?");
+        System.out.println("    I’m gonna make you an offer you can’t refuse.");
     }
 
     public static void printGoodBye() {
-        System.out.println("    Bye. Hope to see you again soon!");
+        System.out.println("    What are you worried about, if I wanted to kill you, you'd be dead already.");
     }
 
     public static void printLine() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println("    —————————————————————————————————————————————————————————————————");
+    }
+
+    public static void printHorse() {
+        System.out.println("\t                                 |\\    /|");
+        System.out.println("\t                              ___| \\,,/_/");
+        System.out.println("\t                           ---__/ \\/    \\");
+        System.out.println("\t                          __--/     (D)  \\");
+        System.out.println("\t                          _ -/    (_      \\");
+        System.out.println("\t                         // /       \\_ /  -\\");
+        System.out.println("\t   __-------_____--___--/           / \\_ O o)");
+        System.out.println("\t  /                                 /   \\__/");
+        System.out.println("\t /                                 /");
+        System.out.println("\t||          )                   \\_/\\");
+        System.out.println("\t||         /              _      /  |");
+        System.out.println("\t| |      /--______      ___\\    /\\  :");
+        System.out.println("\t| /   __-  - _/   ------    |  |   \\ \\");
+        System.out.println("\t |   -  -   /                | |     \\ )");
+        System.out.println("\t |  |   -  |                 | )     | |");
+        System.out.println("\t  | |    | |                 | |    | |");
+        System.out.println("\t  | |    < |                 | |   |_/");
+        System.out.println("\t  < |    /__\\                <  \\");
+        System.out.println("\t  /__\\                       /___\\");
     }
 }

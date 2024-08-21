@@ -1,0 +1,11 @@
+todo read book
+todo buy book
+deadline return book /by Sunday
+event CS2103T ip /from Monday /to Friday
+list
+mark 3
+mark 2
+todo finish assignments
+unmark 2
+list
+bye
