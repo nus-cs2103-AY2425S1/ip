@@ -6,8 +6,19 @@ public class Bob {
     private static final String hLine = "____________________________________________________________\n";
 
     public static void main(String[] args) {
-        String greeting = "Hello! I'm Bob\nWhat can I do for you?\n";
-        String bye = "Bye. Hope to see you again soon!\n";
+        String cat0 = """
+                  ╱|、
+                (˚ˎ 。7 \s
+                 |、˜〵         \s
+                 じしˍ,)ノ
+                """;
+        String cat1 = """
+                 ∧,,,∧
+                ( ̳• · •̳)
+                /    づ♡
+                """;
+        String greeting = "Hello! I'm Bob\nWhat can I do for you?\n" + cat0;
+        String bye = "Bye. Hope to see you again soon!\n" + cat1;
         Scanner myScanner = new Scanner(System.in);
         String greetingMessage = hLine + greeting + hLine;
         String byeMessage = hLine + bye + hLine;
@@ -19,7 +30,7 @@ public class Bob {
         // Await user input
         String userInput = myScanner.nextLine();
         // Loop for user input
-        do {
+        while (!userInput.toLowerCase().strip().equals("bye")) {
             switch (userInput) {
                 case "list":
                     printList(todoList);
@@ -30,7 +41,8 @@ public class Bob {
                     System.out.println(hLine + "added: " + userInput + "\n" + hLine);
                     userInput = myScanner.nextLine();
             }
-        } while (!userInput.toLowerCase().strip().equals("bye"));
+        }
+
 
         // User input == "bye"
         System.out.print(byeMessage);
