@@ -1,3 +1,7 @@
+package tina.task;
+
+import tina.TinaException;
+
 public abstract class Task {
     protected final String des;
     protected boolean isMark = false;

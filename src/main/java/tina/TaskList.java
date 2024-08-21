@@ -1,3 +1,7 @@
+package tina;
+
+import tina.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

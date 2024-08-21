@@ -1,3 +1,10 @@
+package tina;
+
+import tina.task.Deadline;
+import tina.task.Event;
+import tina.task.Task;
+import tina.task.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

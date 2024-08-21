@@ -1,3 +1,5 @@
+package tina;
+
 import java.util.Scanner;
 
 public class Ui {

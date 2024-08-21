@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package tina;
 
 public class Tina {
     private Storage storage;
