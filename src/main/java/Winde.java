@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Winde {
     public static void main(String[] args) {
@@ -16,12 +16,30 @@ public class Winde {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!(input.equals("bye"))) {
-            System.out.println("    " + input);
+            if (input.equals("list")) {
+                list();
+            } else {
+                add(input);
+            }
             input = scanner.nextLine();
         }
 
         exit();
     }
+
+    private static List<String> reminder = new ArrayList<String>();
+
+    public static void add(String action) {
+        reminder.add(action);
+        System.out.println("added: " + action);
+    }
+
+    public static void list() {
+        for (int i = 1; i <= reminder.size(); i++) {
+            System.out.println(i + ". " + reminder.get(i - 1));
+        }
+    }
+
     public static void greet() {
         System.out.println("Hello! I'm Winde\n" + "What can I do for you?");
     }
