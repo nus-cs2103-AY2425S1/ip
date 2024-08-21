@@ -72,6 +72,9 @@ public class Easton {
                     System.out.println(e.getMessage());
                 }
                 break;
+            case DELETE:
+                deleteTask(input);
+                break;
             }
 
             printDivider();
@@ -91,6 +94,19 @@ public class Easton {
             task.setDone(isDone);
             System.out.println(message);
             System.out.println(task);
+
+        } catch (InvalidIndexException | EmptyDescriptionException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void deleteTask(String input) {
+        try {
+            int index = getIndexFromInput(input);
+            Task task = tasks.remove(index - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
         } catch (InvalidIndexException | EmptyDescriptionException e) {
             System.out.println(e.getMessage());
