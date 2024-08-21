@@ -16,7 +16,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String marked = this.isDone ? "X" : "";
+        String marked = this.isDone ? "X" : " ";
         return String.format("[%s] %s", marked, this.name);
     }
 }
