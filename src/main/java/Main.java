@@ -58,8 +58,8 @@ public class Main {
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @throws JanetException a custom exception class specific to Janet
      */
-    public static void validateCommand(String[] commandDetails) throws JanetException {
-        // when mark/unmark/delete X, where X is too big OR <= 0 OR when the list is empty.
+    public static void validateCommand(String[] commandDetails, int numOfTasksInList) throws JanetException {
+        // when mark/unmark/delete X, where X is too big (out or bounds) OR <= 0 OR when the list is empty.
         if ((commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete")) && commandDetails.length > 1) {
             // when the command is mark/unmark X OR delete, where X is an invalid num (too big or <= 0)
             System.out.println("validateCommand outer is being run");
@@ -67,6 +67,8 @@ public class Main {
             if (taskNumber <= 0) {
                 // still need to handle case when taskNumber >= taskIndex + 1 (unable to access janet.getTaskIndex())
                 System.out.println("validateCommand inner is being run");
+                throw new JanetException("WHOOPS! Your task number cannot be negative or 0!");
+            } else if (taskNumber > numOfTasksInList) {
                 throw new JanetException("WHOOPS! You don't have a task of this number!");
             }
         }
@@ -117,8 +119,8 @@ public class Main {
                 String[] commandDetails = command.split(" ");   // an array containing each word of the command
                 // handle exceptions
                 try {
-                    // validateCommand will throw out a JanetException
-                    validateCommand(commandDetails);
+                    // validateCommand and checkInaccurateCommand will throw out a JanetException
+                    validateCommand(commandDetails, janet.getTaskIndex());
                     checkInaccurateCommand(commandDetails);
                 } catch (JanetException e) {
                     // print the error message and allow the program to continue (don't exit the program)
