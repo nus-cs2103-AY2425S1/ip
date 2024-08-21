@@ -60,6 +60,15 @@ public class Chatsy {
         }
     }
 
+    public static void deleteTask(int index) throws InvalidTaskNumberException {
+        if (index >= 1 && index <= tasks.size()) {
+            Task removedTask = tasks.remove(index - 1);
+            output("\tNoted. I've removed this task:\n\t  " + removedTask + "\n\tNow you have " + tasks.size() + " tasks in the list.");
+        } else {
+            throw new InvalidTaskNumberException();
+        }
+    }
+
     public static void nextCommand() {
         try {
             String command = scanner.nextLine();
@@ -87,6 +96,14 @@ public class Chatsy {
                         unmarkTask(taskNumber);
                     } else {
                         output("\tPlease specify the task number to unmark.");
+                    }
+                    break;
+                case "delete":
+                    if (parts.length > 1) {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        deleteTask(taskNumber);
+                    } else {
+                        output("\tPlease specify the task number to delete.");
                     }
                     break;
                 case "todo":
@@ -139,7 +156,6 @@ public class Chatsy {
         nextCommand();
     }
 }
-
 
 class ChatsyException extends Exception {
     public ChatsyException(String message) {
