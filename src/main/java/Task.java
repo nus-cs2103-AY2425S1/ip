@@ -7,7 +7,7 @@ public class Task {
         if (currentCommand.startsWith("deadline ") || currentCommand.startsWith("deadline")) {
             //special case
             if (currentCommand.equals("deadline") || currentCommand.equals("deadline ")) {
-                throw new EmptyDescriptionException("OOPS!!! The description of a event cannot be empty.");
+                throw new EmptyDescriptionException("OOPS!!! The description of a deadline cannot be empty.");
             }
 
             String rest = currentCommand.substring(9);
@@ -17,7 +17,7 @@ public class Task {
         } else if (currentCommand.startsWith("todo ") || currentCommand.startsWith("todo")) {
             //special case
             if (currentCommand.equals("todo") || currentCommand.equals("todo ")) {
-                throw new EmptyDescriptionException("OOPS!!! The description of a event cannot be empty.");
+                throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
             }
 
             String rest = currentCommand.substring(5);
