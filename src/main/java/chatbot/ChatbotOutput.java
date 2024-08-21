@@ -7,7 +7,6 @@ import todo.Task;
  * output format
  *
  * @author celeschai
- * @version 1.0 20 Aug 2023
  */
 public class ChatbotOutput {
     /**
@@ -38,9 +37,10 @@ public class ChatbotOutput {
      * @param content text to be included between 2 lines
      */
     public static void printBtnLines(String content) {
-        System.out.println("    __________________________________________________\n" +
-                multiLineIndent(content) +
-                "    __________________________________________________\n");
+        String line = "______________________________________" +
+                "_______________________________________\n";
+
+        System.out.println(line + multiLineIndent(content) + line);
     }
 
     /**

@@ -5,7 +5,6 @@ package todo;
  * with a deadline
  *
  * @author celeschai
- * @version 1.0 22 Aug 2023
  */
 public class Deadline extends Task{
     private String deadline;

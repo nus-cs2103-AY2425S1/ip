@@ -8,7 +8,6 @@ import java.util.Arrays;
  * with a list of tasks
  *
  * @author celeschai
- * @version 1.0 20 Aug 2023
  */
 public class TodoList {
     private ArrayList<Task> todoList = new ArrayList<>();

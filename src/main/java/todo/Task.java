@@ -5,7 +5,6 @@ package todo;
  * Declared as abstract to prevent instantiation
  *
  * @author celeschai
- * @version 1.0 20 Aug 2023
  */
 public abstract class Task {
     private String name = "new task";

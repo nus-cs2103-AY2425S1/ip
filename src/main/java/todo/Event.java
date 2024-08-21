@@ -6,7 +6,6 @@ package todo;
  * [from, to]
  *
  * @author celeschai
- * @version 1.0 22 Aug 2023
  */
 public class Event extends Task{
     private String from;
