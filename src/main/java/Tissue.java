@@ -31,9 +31,12 @@ public class Tissue {
 
             } else if (in.equals("mark")) {
 
+
+
                 Task task = textArray.get(scanner.nextInt() - 1).markTask();
                 System.out.println(INDENT + "Nice! I've marked this task as done:");
                 System.out.println(INDENT + "  " + task);
+
 
             } else if (in.equals("unmark")) {
 
@@ -55,17 +58,26 @@ public class Tissue {
         System.out.print(INDENT);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
+
     }
+
+
 
     private static void storeTask(String in) {
         if (in.equals("todo")) {
 
             String item = scanner.nextLine();
-            Task task = new ToDo(false, item);
-            textArray.add(task);
-            System.out.println(INDENT + "Got it. I've added this task:");
-            System.out.println(INDENT + "  " + task);
-            System.out.println(INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+            if (item.equals("")) {
+                System.out.println("Decription of TODO cannot be empty.");
+            } else {
+                Task task = new ToDo(false, item);
+                textArray.add(task);
+                System.out.println(INDENT + "Got it. I've added this task:");
+                System.out.println(INDENT + "  " + task);
+                System.out.println(
+                        INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+            }
+
 
 
         } else if (in.equals("deadline")) {
@@ -87,9 +99,10 @@ public class Tissue {
             System.out.println(INDENT + "  " + task);
             System.out.println(INDENT + "Now you have " + textArray.size() + " tasks in the list.");
         } else {
-            String item = in + scanner.nextLine();
-            System.out.println(INDENT + "added: " + item);
-            textArray.add(new Task(false, item));
+
+            System.out.println(
+                    "Invalid input. Possible inputs are deadline, todo, event, list, mark, and unmark.");
+
         }
     }
 
