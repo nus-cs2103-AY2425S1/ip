@@ -19,7 +19,7 @@ public class Chobo {
             } else if (input[0].equals("unmark")) {
                 unmarkTask(tasks[Integer.parseInt(input[1])-1]);
             } else if (input[0].equals("todo")){
-                addTask(new ToDo(String.join(" ", input), false));
+                addTask(new ToDo(input[1], false));
             } else if (input[0].equals("deadline")) {
                 String[] part = input[1].split("/by" ,2);
                 addTask(new Deadline(part[0],false, part[1]));
