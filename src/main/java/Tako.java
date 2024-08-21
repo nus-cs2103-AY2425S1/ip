@@ -14,41 +14,44 @@ public class Tako {
         String command = input.nextLine();
 
         while(!command.equals("bye")) {
-            if (command.equals("list")) {
-                //list command
-                listStorage(listOfTask);
-            } else if (command.length() > 4 && command.substring(0, 5).equals("mark ")) {
-                //mark command
-                int taskNumber = Integer.parseInt(command.substring(5));
-                markTask(listOfTask, taskNumber);
-            } else if (command.length() > 6 && command.substring(0, 7).equals("unmark ")) {
-                //unmark command
-                int taskNumber = Integer.parseInt(command.substring(7));
-                unmarkTask(listOfTask, taskNumber);
-            } else if (command.length() > 4 && command.substring(0, 5).equals("todo ")) {
-                //to-do command
-                String toDoTaskDescription = command.substring(5);
-                addStorage(listOfTask, new ToDo(toDoTaskDescription));
-            } else if (command.length() > 8 && command.substring(0, 9).equals("deadline ")) {
-                //deadline command
-                int markerOfBy = command.indexOf("/by");
-                String deadlineDescription = command.substring(9, markerOfBy - 1);
-                String by = command.substring(markerOfBy + 4);
-                addStorage(listOfTask, new Deadline(deadlineDescription, by));
-            } else if (command.length() > 5 && command.substring(0, 6).equals("event ")) {
-                //event command
-                int markerOfFrom = command.indexOf("/from");
-                int markerOfTo = command.indexOf("/to");
-                String eventDescription = command.substring(6, markerOfFrom - 1);
-                String from = command.substring(markerOfFrom + 6, markerOfTo - 1);
-                String to = command.substring(markerOfTo + 4);
-                addStorage(listOfTask, new Event(eventDescription, from, to));
-            } else {
-                System.out.println("added: " + command);
-                Task newTask = new Task(command);
-                addStorage(listOfTask, newTask);
+            try {
+                if (command.equals("list")) {
+                    //list command
+                    listStorage(listOfTask);
+                } else if (command.length() > 4 && command.substring(0, 5).equals("mark ")) {
+                    //mark command
+                    int taskNumber = Integer.parseInt(command.substring(5));
+                    markTask(listOfTask, taskNumber);
+                } else if (command.length() > 6 && command.substring(0, 7).equals("unmark ")) {
+                    //unmark command
+                    int taskNumber = Integer.parseInt(command.substring(7));
+                    unmarkTask(listOfTask, taskNumber);
+                } else if (command.length() > 4 && command.substring(0, 5).equals("todo ")) {
+                    //to-do command
+                    String toDoTaskDescription = command.substring(5);
+                    addStorage(listOfTask, new ToDo(toDoTaskDescription));
+                } else if (command.length() > 8 && command.substring(0, 9).equals("deadline ")) {
+                    //deadline command
+                    int markerOfBy = command.indexOf("/by");
+                    String deadlineDescription = command.substring(9, markerOfBy - 1);
+                    String by = command.substring(markerOfBy + 4);
+                    addStorage(listOfTask, new Deadline(deadlineDescription, by));
+                } else if (command.length() > 5 && command.substring(0, 6).equals("event ")) {
+                    //event command
+                    int markerOfFrom = command.indexOf("/from");
+                    int markerOfTo = command.indexOf("/to");
+                    String eventDescription = command.substring(6, markerOfFrom - 1);
+                    String from = command.substring(markerOfFrom + 6, markerOfTo - 1);
+                    String to = command.substring(markerOfTo + 4);
+                    addStorage(listOfTask, new Event(eventDescription, from, to));
+                } else {
+                    throw new InvalidCommandException(command);
+                }
+            } catch (InvalidCommandException e) {
+                System.out.println(e.message());
+            } finally {
+                command = input.nextLine();
             }
-            command = input.nextLine();
         }
 
         //bye command
