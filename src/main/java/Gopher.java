@@ -11,12 +11,12 @@ public class Gopher {
 
     // Common Interface elements for easy reuse
     private final static String gopherLogo = """
-              ____             _              \s
-             / ___| ___  _ __ | |__   ___ _ __\s
+              ____             _
+             / ___| ___  _ __ | |__   ___ _ __
             | |  _ / _ \\| '_ \\| '_ \\ / _ \\ '__|
-            | |_| | (_) | |_) | | | |  __/ |  \s
-             \\____|\\___/| .__/|_| |_|\\___|_|  \s
-                        |_|                   \s
+            | |_| | (_) | |_) | | | |  __/ |
+             \\____|\\___/| .__/|_| |_|\\___|_|
+                        |_|
             """;
     private final static String horizontalSeparator = "==================================================";
 

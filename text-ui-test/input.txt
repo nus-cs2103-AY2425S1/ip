@@ -1,0 +1,17 @@
+todo Wash Clothes
+deadline Watch CS2100 Week 2 Pre-Recordings /by 2024-08-23 Friday
+event Orientation Week /from 2024-08-19 Monday /to 2024-08-23 Friday
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 1
+list
+unmark 2
+list
+unmark 3
+list
+bye
