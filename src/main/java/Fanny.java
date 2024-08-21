@@ -17,26 +17,36 @@ public class Fanny {
         while (true) {
             System.out.println("User: ");
             String cmd = scanner.nextLine();
+            String[] cmdParts =   cmd.split(" ");
+            String action = cmdParts[0];
 
             //condition to exit when cmd is bye
-            if (cmd.equals("bye")) {
+            if (action.equals("bye")) {
                 System.out.println("_____________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("_____________________________________________");
                 break;
-            } else if (cmd.equals("list")) {
+            } else if (action.equals("list")) {
                 System.out.println("Fanny: ");
                 list.printList();
-            } else if (cmd.equals("mark")) {
-                int taskId = scanner.nextInt();
-                System.out.println("Fanny: ");
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(list.markAsDone(taskId - 1));
-            } else if (cmd.equals("unmark")) {
-                int taskId = scanner.nextInt();
-                System.out.println("Fanny: ");
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(list.markAsNotDone(taskId - 1));
+            } else if (action.equals("mark")) {
+                System.out.println("_____________________________________________");
+                if (cmdParts.length > 1) {
+                    int taskId = Integer.parseInt(cmdParts[1]);
+                    System.out.println("Fanny: ");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(list.markAsDone(taskId - 1));
+                }
+                System.out.println("_____________________________________________");
+            } else if (action.equals("unmark")) {
+                System.out.println("_____________________________________________");
+                if (cmdParts.length > 1) {
+                    int taskId = Integer.parseInt(cmdParts[1]);
+                    System.out.println("Fanny: ");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(list.markAsNotDone(taskId - 1));
+                }
+                System.out.println("_____________________________________________");
             } else {
                 System.out.println("_____________________________________________");
                 System.out.println("Fanny: ");
