@@ -6,8 +6,8 @@ public class TaskList {
         listOfTasks = new ArrayList<>();
     }
 
-    public void add(String task) {
-        listOfTasks.add(new Task(task));
+    public void add(Task task) {
+        listOfTasks.add(task);
     }
 
     public boolean mark(int i) {
