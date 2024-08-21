@@ -32,29 +32,28 @@ public class Winde {
         exit();
     }
 
-    private final static List<String> reminder = new ArrayList<String>();
-    private final static List<Boolean> complete = new ArrayList<Boolean>();
+    private final static List<Task> reminder = new ArrayList<Task>();
 
     public static void mark(int i) {
         System.out.print("Nice! I've marked this task as done:\n" + "    ");
-        complete.set(i - 1, true);
+        reminder.get(i - 1).mark();
         task(i);
         System.out.println();
     }
 
     public static void unmark(int i) {
         System.out.print("OK, I've marked this task as not done yet:\n" + "    ");
-        complete.set(i - 1, false);
+        reminder.get(i - 1).unmark();
         task(i);
         System.out.println();
     }
 
     public static void task(int i) {
-        System.out.print((complete.get(i - 1) ? "[X] " : "[ ] ") + reminder.get(i - 1));
+        System.out.print(reminder.get(i - 1).toString());
     }
     public static void add(String action) {
-        reminder.add(action);
-        complete.add(false);
+        Task t = new Task(action);
+        reminder.add(t);
         System.out.println("added: " + action);
     }
 
@@ -73,5 +72,32 @@ public class Winde {
 
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!\n");
+    }
+}
+
+class Task {
+    protected String action;
+    protected boolean complete;
+
+    public Task(String action) {
+        this.action = action;
+        this.complete = false;
+    }
+
+    public String isCompleted() {
+        return (complete ? "[X]" : "[ ]"); // mark done task with X
+    }
+
+    public void mark() {
+        complete = true;
+    }
+
+    public void unmark() {
+        complete = false;
+    }
+
+    @Override
+    public String toString() {
+        return (complete ? "[X]" : "[ ]") + " " + action;
     }
 }
