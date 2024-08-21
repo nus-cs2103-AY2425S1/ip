@@ -1,6 +1,6 @@
 package task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType taskType; // Add the task type field
@@ -18,6 +18,8 @@ public class Task {
     public void markAsDone() {
         isDone = true;
     }
+
+    public abstract String toSaveFormat();
 
     public void markAsNotDone() {
         isDone = false;

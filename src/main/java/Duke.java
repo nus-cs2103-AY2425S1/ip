@@ -1,17 +1,30 @@
-import exception.EmptyDescriptionException;
-import exception.UnknownCommandException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import task.Deadline;
-import task.Event;
 import task.Task;
 import task.ToDo;
-
+import task.Deadline;
+import task.Event;
+import exception.EmptyDescriptionException;
+import exception.UnknownCommandException;
 
 public class Duke {
-    public static void main(String[] args) {
+    private static final String FILE_PATH = "./data/duke.txt";
+    private Storage storage;
+    private ArrayList<Task> tasks;
+
+    public Duke() {
+        storage = new Storage(FILE_PATH);
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Duke");
@@ -41,6 +54,7 @@ public class Duke {
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println(" " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks); // Save the updated tasks list
                 } else if (input.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                     tasks.get(taskNumber).markAsNotDone();
@@ -48,6 +62,7 @@ public class Duke {
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println(" " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks); // Save the updated tasks list
                 } else if (input.startsWith("delete ")) {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
@@ -59,6 +74,7 @@ public class Duke {
                     System.out.println("   " + removedTask);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks); // Save the updated tasks list
                 } else if (input.startsWith("todo ")) {
                     String taskDescription = input.substring(5).trim();
                     if (taskDescription.isEmpty()) {
@@ -70,6 +86,7 @@ public class Duke {
                     System.out.println("   [T][ ] " + taskDescription);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks); // Save the updated tasks list
                 } else if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(9).split(" /by ");
                     if (parts.length < 2 || parts[0].trim().isEmpty()) {
@@ -83,6 +100,7 @@ public class Duke {
                     System.out.println("   [D][ ] " + taskDescription + " (by: " + by + ")");
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks); // Save the updated tasks list
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
                     if (parts.length < 3 || parts[0].trim().isEmpty()) {
@@ -97,6 +115,7 @@ public class Duke {
                     System.out.println("   [E][ ] " + taskDescription + " (from: " + from + " to: " + to + ")");
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks); // Save the updated tasks list
                 } else {
                     throw new UnknownCommandException(input);
                 }
@@ -112,9 +131,17 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("OOPS!!! The task number is out of range.");
                 System.out.println("____________________________________________________________");
+            } catch (IOException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println("An error occurred while saving your tasks.");
+                System.out.println("____________________________________________________________");
             }
         }
 
         scanner.close();
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
