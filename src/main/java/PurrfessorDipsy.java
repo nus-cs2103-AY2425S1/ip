@@ -6,6 +6,10 @@ public class PurrfessorDipsy {
     private static final Task[] taskTable = new Task[100];
     private static int taskTableRowCount = 0;
     private static boolean isRunning = true; // to allow for a more graceful exit
+    private static final Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
+    private static final Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
+    private static final Pattern EVENT_PATTERN = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
@@ -37,12 +41,6 @@ public class PurrfessorDipsy {
 
     private static void doAction(String userInput) {
         String trimmedInput = userInput.trim();
-
-        // Patterns can be moved to class field to reduce overhead of initialization.
-        Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
-        Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
-        Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
-        Pattern EVENT_PATTERN = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
         Matcher markMatcher = MARK_PATTERN.matcher(trimmedInput);
         Matcher todoMatcher = TODO_PATTERN.matcher(trimmedInput);
         Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(trimmedInput);
