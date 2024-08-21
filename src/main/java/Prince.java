@@ -253,7 +253,7 @@ public class Prince {
             int index = getIndex(input);
             Task task = tasksArray.get(index);
             task.delete(); // prints "the noted i removed this task" string
-            tasksArray.remove(index);
+            tasksArray.remove(index); // removes task from arraylist
             System.out.println("      " + task.toString());
             System.out.println("    Now you have " + tasksArray.size() +
                     " tasks in the list.");
