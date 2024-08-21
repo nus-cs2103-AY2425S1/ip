@@ -6,4 +6,13 @@ public class Task {
         this.completed = false;
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        if (completed) {
+            return "[X] " + description;
+        } else {
+            return "[ ] " + description;
+        }
+    }
 }

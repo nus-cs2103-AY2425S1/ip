@@ -4,6 +4,11 @@ public class Llama {
     public static void displayString(String str) {
         System.out.println("\t" + str);
     }
+
+    public static void displayTask(int num, Task task) {
+        System.out.println("\t" + num + ". " + task);
+    }
+
     public static void main(String[] args) {
         String logo = "";
         String hr = "____________________________________________________________" ;
@@ -33,7 +38,7 @@ public class Llama {
                 // List out tasks
                 for (int i = 0; i < last; i++) {
                     int x = i + 1;
-                    displayString(x + ": " + taskArray[i]);
+                    displayTask(x, taskArray[i]);
                 }
             } else {
                 // Add text into a list
