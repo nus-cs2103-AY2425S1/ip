@@ -4,7 +4,6 @@ import java.util.ArrayList; // import the ArrayList class
 
 public class Tuesday {
     private static ArrayList<Task> tasksArray = new ArrayList<>();
-    private static int count = 0;
 
     private static void Msg_welcome() {
         System.out.println("_______________________________\n"
@@ -19,8 +18,8 @@ public class Tuesday {
     }
     private static void Msg_list() {
         String message = "Here are the tasks in your list:\n";
-        for (int n = 0; n < count; n++) {
-            message += (n+1) + "." +tasksArray.get(n).toString() + "\n";
+        for (int n = 0; n < Task.count; n++) {
+            message += (n+1) + "." + tasksArray.get(n).toString() + "\n";
         }
         System.out.println("_______________________________\n"
                 + message
@@ -47,13 +46,36 @@ public class Tuesday {
                 + "\n_______________________________");
     }
 
-    private static void add_stuff(String item) {
-        Task taskItem = new Task(item);
+    private static void comm_todo(String title) {
+        ToDo taskItem = new ToDo(title);
         tasksArray.add(taskItem);
-        count++;
 
         System.out.println("_______________________________\n"
-                + "added: " + item
+                + "Got it. I've added this task:\n  "
+                + tasksArray.get(Task.count - 1).toString()
+                + "\nNow you have " + Task.count + " task(s) in the list."
+                + "\n_______________________________");
+    }
+
+    private static void comm_deadline(String title, String by_msg) {
+        Deadline deadlineItem = new Deadline(title, by_msg);
+        tasksArray.add(deadlineItem);
+
+        System.out.println("_______________________________\n"
+                + "Got it. I've added this task:\n  "
+                + tasksArray.get(Task.count - 1).toString()
+                + "\nNow you have " + Task.count + " task(s) in the list."
+                + "\n_______________________________");
+    }
+
+    private static void comm_event(String title, String from_msg, String to_msg) {
+        Event eventItem = new Event(title, from_msg, to_msg);
+        tasksArray.add(eventItem);
+
+        System.out.println("_______________________________\n"
+                + "Got it. I've added this task:\n  "
+                + tasksArray.get(Task.count - 1).toString()
+                + "\nNow you have " + Task.count + " task(s) in the list."
                 + "\n_______________________________");
     }
 
@@ -85,9 +107,29 @@ public class Tuesday {
                 } catch(Exception e){
                     continue;
                 }
-            }
-            else {
-                add_stuff(userInput);
+            } else if (userInputArr[0].equals("todo")) {
+                try {
+                    comm_todo(userInputArr[1]);
+                } catch(Exception e){
+                    continue;
+                }
+            } else if (userInputArr[0].equals("deadline")) {
+                try {
+                    String[] msg_split_by = userInputArr[1].split("/by ", 2);
+                    comm_deadline(msg_split_by[0], msg_split_by[1]);
+                } catch(Exception e){
+                    continue;
+                }
+            } else if (userInputArr[0].equals("event")) {
+                try {
+                    String[] msg_split_from = userInputArr[1].split("/from ", 2);
+                    String[] msg_split_to = msg_split_from[1].split(" /to ", 2);
+                    comm_event(msg_split_from[0], msg_split_to[0], msg_split_to[1]);
+                } catch(Exception e){
+                    continue;
+                }
+            } else {
+                comm_todo(userInput);
             }
         }
         Msg_bye();

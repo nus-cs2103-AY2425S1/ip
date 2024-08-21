@@ -1,10 +1,12 @@
 public class Task {
     private String task;
     private boolean done;
+    protected static int count = 0;
 
     public Task(String task) {
         this.task = task;
         this.done = false;
+        count++;
     }
 
     public String getDone() {
