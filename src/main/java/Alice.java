@@ -31,7 +31,9 @@ public class Alice {
                      Todo toDo = new Todo(parts[1]);
                      list.addToList(toDo);
                  } catch (Exception e) {
+                     System.out.println(line);
                      System.out.println("Command Format: todo [description]");
+                     System.out.println(line);
                  }
              } else if (verb.equals("event")) {
                  try {
@@ -43,7 +45,9 @@ public class Alice {
                      Event event = new Event(description, start, end);
                      list.addToList(event);
                  } catch (Exception e) {
+                     System.out.println(line);
                      System.out.println("Command Format: event [description] /from [time] /to [time]");
+                     System.out.println(line);
                  }
              } else if (verb.equals("deadline")) {
                  try {
@@ -53,7 +57,9 @@ public class Alice {
                      Deadline deadline = new Deadline(description, time);
                      list.addToList(deadline);
                  } catch (Exception e) {
+                     System.out.println(line);
                      System.out.println("Command Format: deadline [description] /by [time]");
+                     System.out.println(line);
                  }
              } else {
                  System.out.println(line);
