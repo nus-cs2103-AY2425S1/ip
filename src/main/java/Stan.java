@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Stan {
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = "Stan";
@@ -9,90 +10,61 @@ public class Stan {
         System.out.println(" Hello! I'm " + logo);
         System.out.println(" What can I do for you today?");
         System.out.println("____________________________________________________________");
+
         Scanner scanner = new Scanner(System.in);
         String input;
+
         while (true) {
             input = scanner.nextLine();
             String[] words = input.split(" ", 2);
-            ;
             System.out.println(" " + input);
             System.out.println("____________________________________________________________");
+
             try {
-                if (input.equalsIgnoreCase("bye")) {
-                    System.out.println(" Bye. Hope to see you again soon!");
-                    System.out.println("____________________________________________________________");
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println(" " + (i + 1) + ". " + tasks[i]);
-                    }
-                    System.out.println("_____________________________________________________________");
-                } else if (words[0].equalsIgnoreCase("mark")) {
-                    if (words.length < 2) {
-                        throw new StanException("You need to specify the task number to mark.");
-                    }
-                    int taskNumber = Integer.parseInt(words[1]) - 1;
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
-                        throw new StanException("The task number is out of range.");
-                    }
-                    tasks[taskNumber].markAsDone();
-                    System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println("   " + tasks[taskNumber]);
-                    System.out.println("____________________________________________________________");
-                } else if (words[0].equalsIgnoreCase("unmark")) {
-                    if (words.length < 2) {
-                        throw new StanException("You need to specify the task number to unmark.");
-                    }
-                    int taskNumber = Integer.parseInt(words[1]) - 1;
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
-                        throw new StanException("The task number is out of range.");
-                    }
-                    System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println("   " + tasks[taskNumber]);
-                    System.out.println("____________________________________________________________");
-                } else if (words[0].equalsIgnoreCase("todo")) {
-                    if (words.length < 2 || words[1].trim().isEmpty()) {
-                        throw new StanException("The description of a todo cannot be empty.");
-                    }
-                    tasks[taskCount] = new Todo(words[1]);
-                    taskCount++;
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskCount - 1]);
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                } else if (words[0].equalsIgnoreCase("deadline")) {
-                    if (words.length < 2 || !words[1].contains("/by")) {
-                        throw new StanException("The description of a deadline must include a '/by' clause.");
-                    }
-                    String[] parts = words[1].split(" /by ");
-                    if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-                        throw new StanException("The deadline description or time cannot be empty.");
-                    }
-                    tasks[taskCount] = new Deadline(parts[0], parts[1]);
-                    taskCount++;
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskCount - 1]);
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                } else if (words[0].equalsIgnoreCase("event")) {
-                    if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
-                        throw new StanException("The description of an event must include '/from' and '/to' clauses.");
-                    }
-                    String[] parts = words[1].split(" /from ");
-                    String[] times = parts[1].split(" /to ");
-                    if (parts.length < 2 || parts[0].trim().isEmpty() || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
-                        throw new StanException("The event description, start, or end time cannot be empty.");
-                    }
-                    tasks[taskCount] = new Event(parts[0], times[0], times[1]);
-                    taskCount++;
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskCount - 1]);
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                } else {
-                    throw new StanException("I'm sorry, but I don't understand that command.");
+                CommandType commandType = getCommandType(words[0]);
+
+                switch (commandType) {
+                    case BYE:
+                        System.out.println(" Bye. Hope to see you again soon!");
+                        System.out.println("____________________________________________________________");
+                        return;
+
+                    case LIST:
+                        System.out.println("Here are the tasks in your list:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+                        }
+                        System.out.println("_____________________________________________________________");
+                        break;
+
+                    case MARK:
+                        handleMarkUnmark(words, true);
+                        break;
+
+                    case UNMARK:
+                        handleMarkUnmark(words, false);
+                        break;
+
+                    case TODO:
+                        handleTodoCommand(words);
+                        break;
+
+                    case DEADLINE:
+                        handleDeadlineCommand(words);
+                        break;
+
+                    case EVENT:
+                        handleEventCommand(words);
+                        break;
+
+                    case DELETE:
+                        handleDeleteCommand(words);
+                        break;
+
+                    default:
+                        throw new StanException("I'm sorry, but I don't understand that command.");
                 }
+
             } catch (StanException e) {
                 System.out.println(" OOPS!!! " + e.getMessage());
                 System.out.println("____________________________________________________________");
@@ -101,6 +73,90 @@ public class Stan {
                 System.out.println("____________________________________________________________");
             }
         }
-        scanner.close();
+    }
+
+    private static CommandType getCommandType(String command) throws StanException {
+        try {
+            return CommandType.valueOf(command.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new StanException("I'm sorry, but I don't understand that command.");
+        }
+    }
+
+    private static void handleMarkUnmark(String[] words, boolean isMark) throws StanException {
+        if (words.length < 2) {
+            throw new StanException("You need to specify the task number to " + (isMark ? "mark" : "unmark") + ".");
+        }
+        int taskNumber = Integer.parseInt(words[1]) - 1;
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+            throw new StanException("The task number is out of range.");
+        }
+        Task task = tasks.get(taskNumber);
+        if (isMark) {
+            task.markAsDone();
+            System.out.println(" Nice! I've marked this task as done:");
+        } else {
+            task.markAsNotDone();
+            System.out.println(" OK, I've marked this task as not done yet:");
+        }
+        System.out.println("   " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleTodoCommand(String[] words) throws StanException {
+        if (words.length < 2 || words[1].trim().isEmpty()) {
+            throw new StanException("The description of a todo cannot be empty.");
+        }
+        tasks.add(new Todo(words[1]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleDeadlineCommand(String[] words) throws StanException {
+        if (words.length < 2 || !words[1].contains("/by")) {
+            throw new StanException("The description of a deadline must include a '/by' clause.");
+        }
+        String[] parts = words[1].split(" /by ");
+        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+            throw new StanException("The deadline description or time cannot be empty.");
+        }
+        tasks.add(new Deadline(parts[0], parts[1]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleEventCommand(String[] words) throws StanException {
+        if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
+            throw new StanException("The description of an event must include '/from' and '/to' clauses.");
+        }
+        String[] parts = words[1].split(" /from ");
+        String[] times = parts[1].split(" /to ");
+        if (parts.length < 2 || parts[0].trim().isEmpty() || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
+            throw new StanException("The event description, start, or end time cannot be empty.");
+        }
+        tasks.add(new Event(parts[0], times[0], times[1]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleDeleteCommand(String[] words) throws StanException {
+        if (words.length < 2) {
+            throw new StanException("You need to specify the task number to delete.");
+        }
+        int taskNumber = Integer.parseInt(words[1]) - 1;
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+            throw new StanException("The task number is out of range.");
+        }
+        Task removedTask = tasks.remove(taskNumber);
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + removedTask);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
 }
