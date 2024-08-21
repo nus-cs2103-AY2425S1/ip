@@ -3,16 +3,17 @@ public class LuToDo {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print(Utility.greeting());
+        Utility.greeting();
         while (true) {
             String message = sc.nextLine();
+            System.out.print(Utility.LINE);
             if (message.equals("bye")) {
-                System.out.print(Utility.bye());
+                Utility.bye();
+                System.out.print(Utility.LINE);
                 break;
             }
-            System.out.print(Utility.line + message + "\n" + Utility.line);
+            Utility.handleMessage(message);
+            System.out.print(Utility.LINE);
         }
-
-
     }
 }
