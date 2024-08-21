@@ -26,6 +26,13 @@ public class TaskList {
         return true;
     }
 
+    public String getTask(int i) {
+        if (i > listOfTasks.size() || i < 1) {
+            return "";
+        }
+        return listOfTasks.get(i - 1).toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
