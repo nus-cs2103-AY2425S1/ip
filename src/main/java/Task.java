@@ -1,16 +1,18 @@
 import java.util.ArrayList;
-public class Task {
+public abstract class Task {
 
     private static final ArrayList<Task> list = new ArrayList<Task>();
     private final String task;
+    public String type;
     private boolean completed;
 
 
 
     public Task(String t) {
         this.task = t;
-        Task.list.add(this);
+        this.type = "[ ]";
         this.completed = false;
+        Task.list.add(this);
     }
 
     public static void printList() {
@@ -47,6 +49,6 @@ public class Task {
         } else {
             done = "[ ]";
         }
-        return done + " " + this.task;
+        return this.type + " " + done + " " + this.task;
     }
 }
