@@ -103,7 +103,13 @@ public class Delta {
 
                 // Mark Task
                 } else if (task.length() >= 5 && task.substring(0, 5).equalsIgnoreCase("mark ")) {
-                    int taskIdx = Integer.parseInt(task.substring(5));
+                    int taskIdx = 0;
+                    try {
+                        taskIdx = Integer.parseInt(task.substring(5));
+                    }
+                    catch (NumberFormatException e) {
+                        throw new DeltaException("OOPS!!! Index of the task must be an integer.");
+                    }
                     output = markTask(taskIdx);
 
                 // Catch Invalid Unmark
@@ -112,7 +118,13 @@ public class Delta {
 
                 // Unmark Task
                 } else if (task.length() >= 7 && task.substring(0, 7).equalsIgnoreCase("unmark ")) {
-                    int taskIdx = Integer.parseInt(task.substring(7));
+                    int taskIdx = 0;
+                    try {
+                        taskIdx = Integer.parseInt(task.substring(7));
+                    }
+                    catch (NumberFormatException e) {
+                        throw new DeltaException("OOPS!!! Index of the task must be an integer.");
+                    }
                     output = unmarkTask(taskIdx);
 
                 // Catch Empty Todo
