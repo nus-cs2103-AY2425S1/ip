@@ -43,7 +43,12 @@ public class Derek implements Bot {
             Scanner name = new Scanner(System.in);
             this.user = name.nextLine();
             System.out.println("\n" + "Hi! " + this.user + "! So, I guess as a friend I just become your little slave!\n"
-                    + "What do you want me to do?\n");
+                    + "What do you want me to do?\n"
+                    +"----------------------------------------------------------------------\n"
+                    + "Please enter your commands correctly for Derek (he's a little slow):\n"
+                    + "todo (task)\n"
+                    + "event (task) /from (start time) /to (end time) \n"
+                    + "deadline (task) /by (date) \n");
             acceptCommands();
         } else {
             System.out.println(leavingMessage);
@@ -67,7 +72,7 @@ public class Derek implements Bot {
             String[] words = name.split("\\s+");
             markIncomplete(Integer.valueOf(words[1]));
         } else {
-            addTask(name);
+            addTask(command);
         }
     }
 
@@ -86,13 +91,43 @@ public class Derek implements Bot {
         acceptCommands();
     }
 
-    public void addTask(String name) {
-        String celebration = generateRandomCelebration();
-        System.out.println(celebration + " " +  name + "\n");
-        Task task = new Task(name);
-        taskList.add(task);
-        System.out.println("anything else?");
-        acceptCommands();
+    public void addTask(Command command) {
+        try {
+            String name = command.getTask();
+            Task task;
+            if (command.isDeadlineTask()) {
+                String[] information = name.split("/");
+                if (information.length == 1) {
+                    throw new IncorrectCommandException(String.format("Please enter your commands correctly for Derek (deadline (task) /by (date))"));
+                }
+                task = Task.deadlineTask(information[0], information[1]);
+            } else if (command.isEventTask()) {
+                String[] information = name.split("/");
+                if (information.length < 3) {
+                    throw new IncorrectCommandException(String.format("Please enter your commands correctly for Derek (event (task) /from (time) /to (time)"));
+                }
+                task = Task.eventTask(information[0], information[1], information[2]);
+            } else if (command.isToDoTask()) {
+                task = Task.toDoTask(name);
+            } else {
+                throw new IncorrectCommandException(String.format("Is it a todo, event, or deadline?\n"
+                                                                    + "Please enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums"));
+            }
+            taskList.add(task);
+            String celebration = generateRandomCelebration();
+            System.out.println(celebration + "\n" + task + "\n");
+
+            System.out.println("anything else?");
+            acceptCommands();
+        } catch (IncorrectCommandException e) {
+            System.out.println("C'mon, I can't understand what you're saying! Help me out here!\n"
+                    + sadLogo
+                    + "\n"
+                    + e.getMessage());
+
+            acceptCommands();
+        }
+
     }
 
     public String generateRandomCelebration() {

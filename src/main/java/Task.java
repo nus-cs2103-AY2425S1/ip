@@ -16,7 +16,15 @@ public class Task {
     public void markIncomplete() {
         this.isCompleted = false;
     }
-
+    public static Task deadlineTask(String name, String deadline) {
+        return new DeadlineTask(name, deadline);
+    }
+    public static Task eventTask(String name, String startTime, String endTime) {
+        return new EventTask(name, startTime, endTime);
+    }
+    public static Task toDoTask(String name) {
+        return new ToDoTask(name);
+    }
 
     @Override
     public String toString() {
