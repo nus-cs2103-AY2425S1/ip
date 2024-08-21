@@ -32,6 +32,18 @@ public class Rasputin {
             if (input.equals("bye")) {
                 break;
             }
+
+            if (input.equals("list")) {
+                int index = 1;
+                System.out.println(lineBreak);
+                for (String item: ls) {
+                    System.out.println(index + ". " + item);
+                    index++;
+                }
+
+                System.out.println(lineBreak + "\n");
+                continue;
+            }
             ls.add(input);
             printText("added: " + input);
 
