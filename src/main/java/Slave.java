@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Slave {
     private static String user;
     private static boolean hasMoreInputs = true;
-    private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         welcome();
@@ -31,6 +30,7 @@ public class Slave {
     }
 
     private static void goodbye() {
+        Scanner sc = new Scanner(System.in);
         pageBreakLine();
         System.out.println("Good riddance " + user + ", try not to bother me in the future...");
         pageBreakLine();
@@ -38,9 +38,11 @@ public class Slave {
     }
 
     private static void getUserInput() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("What do you want from me? Say it now, I don't have all day...");
         String input = sc.nextLine();
         String[] inputArr = input.split(" ");
+        echo(input);
         inputArr[0] = inputArr[0].toLowerCase();
         printArr(inputArr);
         switch (inputArr[0]) {
@@ -58,12 +60,20 @@ public class Slave {
     }
 
     private static void printArr(String[] arr) {
+        // for testing only
         System.out.print("[");
         for (String s : arr) {
             System.out.print(s + ", ");
         }
         System.out.print("]\n");
     }
+
+    private static void echo(String s) {
+        pageBreakLine();
+        System.out.println(s);
+        pageBreakLine();
+    }
+
 
 
     private static void deleteUser() {
@@ -89,6 +99,7 @@ public class Slave {
         } catch (IOException | NoUserDataException e) { // FileNotFoundException is a subclass of IOException
             boolean confirmed = false;
             do {
+                Scanner sc = new Scanner(System.in);
                 System.out.println("What do I call you, dear slave driver?");
                 user = sc.nextLine();
                 if (user.isEmpty()) {
