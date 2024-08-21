@@ -41,6 +41,32 @@ public class Mittens {
         System.out.println(GREETING_MESSAGE);
     }
 
+    public static void echo(String command) {
+        int len = command.length();
+        String message = """
+                
+                    ██          ██                %s
+                  ██░░██      ██░░██             ( %s )
+                  ██░░░░██████░░░░██              %s
+                ██░░░░░░░░░░░░░░░░░░██
+                ██░░░░░░░░░░░░░░░░░░██
+                ██░░██░░░░░░░░██░░░░██
+                ██░░██░░░░░░░░██░░░░██    ████
+                ██░░░░░░░░░░░░░░░░░░██  ██    ██
+                  ████▒▒▒▒▒▒▒▒▒▒████    ██    ██
+                      ██░░▒▒▒▒░░░░░░██    ██    ██
+                      ██░░██░░████░░░░██  ██░░░░██
+                      ██░░████░░░░██░░██  ██░░░░██
+                      ██  ████░░░░░░░░████▒▒▒▒▒▒██
+                      ██  ██    ░░░░░░██▒▒▒▒████
+                      ██████████████████████
+                """
+                .formatted("_".repeat(len + 2),
+                        command, "-".repeat(len + 2));
+
+        System.out.println(message);
+    }
+
     public static void exit() {
         System.out.println(EXIT_MESSAGE);
     }
@@ -48,5 +74,6 @@ public class Mittens {
     public static void main(String[] args) {
         greet();
         exit();
+        echo("Testing");
     }
 }
