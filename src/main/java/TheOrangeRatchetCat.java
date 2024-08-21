@@ -5,6 +5,7 @@ import java.util.List;
 public class TheOrangeRatchetCat {
 
     public static void main(String[] args) {
+        // The ChatBot named OrangeRatchetCat
         ratchetCatBot();
     }
 
