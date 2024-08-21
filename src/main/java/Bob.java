@@ -1,30 +1,26 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Bob {
     private static final String line = "____________________________________________________________\n";
-    private static ArrayList<String> commands = new ArrayList<>();
+    private static TaskList taskList = new TaskList();
 
     private static String greeting() {
         return Bob.lineFormat(" Hello! I'm Bob\n" +
-                " What can I do for you?");
+                " What can I do for you?\n");
     }
     private static String farewell() {
-        return  Bob.lineFormat(" Bye. Hope to see you again soon!");
+        return  Bob.lineFormat(" Bye. Hope to see you again soon!\n");
     }
     private static String lineFormat(String input) {
-        return Bob.line + input + "\n" + Bob.line;
+        return Bob.line + input + Bob.line;
     }
-    private static void addCommand(String command) {
-        Bob.commands.add(command);
-        System.out.println(Bob.lineFormat("Added: " + command));
+    private static void addTask(String command) {
+        Bob.taskList.addTask(command);
+        System.out.println(Bob.lineFormat("Added: " + command + "\n"));
     }
     private static void listCommands() {
-        System.out.print(Bob.line);
-        for (int i = 0; i < Bob.commands.size(); i++) {
-            System.out.println(String.valueOf(i) + ". " + commands.get(i));
-        }
-        System.out.print(Bob.line);
+        System.out.print(Bob.lineFormat(Bob.taskList.toString()));
     }
 
     public static void main(String[] args) {
@@ -45,7 +41,7 @@ public class Bob {
                 continue;
             }
 
-            Bob.addCommand(input);
+            Bob.addTask(input);
         }
     }
 }
