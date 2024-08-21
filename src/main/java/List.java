@@ -20,6 +20,10 @@ public class List {
     @Override
     public String toString() {
         StringBuilder list = new StringBuilder();
+        if (tasks.isEmpty()) {
+            return "There are no tasks in your list.";
+        }
+
         for (int i = 0; i < tasks.size(); i++) {
             list.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
         }
