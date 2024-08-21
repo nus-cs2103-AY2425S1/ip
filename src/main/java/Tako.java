@@ -1,6 +1,6 @@
-public class Speed {
+public class Tako {
     public static void main(String[] args) {
-        String name = "Speed";
+        String name = "Tako";
 
         System.out.println("Hello! I'm " + name + "\n" +
                            "What can I do for you?\n" +
