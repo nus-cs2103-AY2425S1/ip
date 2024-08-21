@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.stream.IntStream;
 
 public class Duke {
-    public static void main(String[] args) throws LightException {
+    public static void main(String[] args) {
         String lineBreak = "____________________________________________________________\n";
         String intro = lineBreak + "Hello! I'm Light\nWhat can I do for you?\n" + lineBreak;
         String exit = lineBreak + " Bye. Hope to see you again soon!\n" + lineBreak;
@@ -26,7 +26,7 @@ public class Duke {
                     return;
                 case "mark":
                     try {
-                        Integer itemNumber = Integer.parseInt(splitedBySpace[1]);
+                        int itemNumber = Integer.parseInt(splitedBySpace[1]);
                         list.get(itemNumber - 1).markAsDone();
                         System.out.println("Nice! I've marked this task as done:\n" + list.get(itemNumber - 1));
                     } catch (NumberFormatException e) {
@@ -35,7 +35,7 @@ public class Duke {
                     break;
                 case "unmark":
                     try {
-                        Integer itemNumber = Integer.parseInt(splitedBySpace[1]);
+                        int itemNumber = Integer.parseInt(splitedBySpace[1]);
                         list.get(itemNumber - 1).markAsUndone();
                         System.out.println("Nice! I've marked this task as undone:\n" + list.get(itemNumber - 1));
                     } catch (NumberFormatException e) {
@@ -46,6 +46,15 @@ public class Duke {
                     System.out.print(lineBreak);
                     IntStream.range(0, list.size()).mapToObj(number -> number + 1 + ". " + list.get(number)).forEach(System.out::println);
                     System.out.print(lineBreak);
+                    break;
+                case "delete":
+                    try {
+                        int itemNumber = Integer.parseInt(splitedBySpace[1]);
+                        list.remove(itemNumber - 1);
+                        System.out.println(lineBreak + "Noted. I've removed this task:\n" + list.get(itemNumber - 1) + "\nNow you have " + list.size() + " tasks in the list.\n" + lineBreak);
+                    } catch (NumberFormatException e) {
+                        System.out.println(e);
+                    }
                     break;
                 default:
                     switch (splitedBySpace[0]) {
@@ -63,8 +72,7 @@ public class Duke {
                                 event = new Deadline(splitedBySlash[0], splitedBySlash[1].replace("by", ""));
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 System.out.println("Not enough arguments");
-                            }
-                            catch (LightException e) {
+                            } catch (LightException e) {
                                 System.out.println(e);
                             }
 
@@ -85,9 +93,9 @@ public class Duke {
                             System.out.println(new LightException("Please key in a valid input"));
                     }
                     if (event != null && list.add(event)) {
-                        System.out.println("Got it. I've added this task:\n" +
+                        System.out.println(lineBreak + "Got it. I've added this task:\n" +
                                 event +
-                                "\nNow you have " + list.size() + " tasks in the list.");
+                                "\nNow you have " + list.size() + " tasks in the list.\n" + lineBreak);
                     }
 
             }
