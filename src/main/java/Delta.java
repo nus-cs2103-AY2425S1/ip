@@ -60,20 +60,32 @@ public class Delta {
         System.out.println(sayHello());
 
         while (sc.hasNextLine()) {
-            Task task = new Task(sc.nextLine());
-            String taskName = task.getDescription();
-            if (taskName.equals("bye")) {
-                System.out.println(sayBye());
+            String task = sc.nextLine();
+            String output = "";
+
+            if (task.equals("bye")) {
+                output = sayBye();
                 break;
-            } else if (taskName.equals("list")) {
-                System.out.println(printTasks());
-            } else if (taskName.substring(0, 4).equals("mark")) {
-                System.out.println(markTask(Integer.parseInt(taskName.substring(5))));
-            } else if (taskName.substring(0, 6).equals("unmark")) {
-                System.out.println(unmarkTask(Integer.parseInt(taskName.substring(7))));
-            } else {
-                System.out.println(addTask(task));
+            } else if (task.equals("list")) {
+                output = printTasks();
+            } else if (task.substring(0, 4).equals("mark")) {
+                int taskIdx = Integer.parseInt(task.substring(5));
+                output = markTask(taskIdx);
+            } else if (task.substring(0, 6).equals("unmark")) {
+                int taskIdx = Integer.parseInt(task.substring(7));
+                output = unmarkTask(taskIdx);
+            } else if (task.substring(0, 4).equals("todo")) {
+                String description = task.substring(5);
+                output = addTask(new Todo(description));
+            } else if (task.substring(0, 8).equals("deadline")) {
+                String[] details = task.substring(9).split(" /by ");
+                output = addTask(new Deadline(details[0], details[1]));
+            } else if (task.substring(0, 5).equals("event")) {
+                String[] details = task.substring(6).split(" /from ");
+                String[] timings = details[1].split(" /to ");
+                output = addTask(new Event(details[0], timings[0], timings[1]));
             }
+            System.out.println(output);
         }
 
         sc.close();
