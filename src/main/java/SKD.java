@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class SKD {
     private static final String LINE = "    ____________________________________________________________";
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public SKD() {
         tasks = new ArrayList<>();
@@ -14,28 +15,40 @@ public class SKD {
 
         while (true) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                System.out.println(input);
-                bye();
-                break;
-            } else if (input.equals("list")) {
-                System.out.println(input);
-                returnList();
-            } else if (input.startsWith("mark ")) {
-                System.out.println(input);
-                executeMark(input);
-            } else if (input.startsWith("unmark ")) {
-                System.out.println(input);
-                executeUnmark(input);
-            } else if (input.startsWith("todo ")) {
-                System.out.println(input);
-                executeToDo(input);
-            } else if (input.startsWith("deadline ")) {
-                System.out.println(input);
-                executeDeadline(input);
-            } else if (input.startsWith("event ")) {
-                System.out.println(input);
-                executeEvent(input);
+            try {
+                if (input.equals("bye")) {
+                    bye();
+                    break;
+                } else if (input.equals("list")) {
+                    System.out.println(input);
+                    returnList();
+                } else if (input.startsWith("mark")) {
+                    System.out.println(input);
+                    executeMark(input);
+                } else if (input.startsWith("unmark")) {
+                    System.out.println(input);
+                    executeUnmark(input);
+                } else if (input.startsWith("todo")) {
+                    System.out.println(input);
+                    executeToDo(input);
+                } else if (input.startsWith("deadline")) {
+                    System.out.println(input);
+                    executeDeadline(input);
+                } else if (input.startsWith("event")) {
+                    System.out.println(input);
+                    executeEvent(input);
+                } else if (input.startsWith("delete")){
+                    System.out.println(input);
+                    executeDelete(input);
+                } else {
+                    System.out.println(input);
+                    throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(LINE);
+                System.out.println("     " + e.getMessage());
+                System.out.println(LINE);
+                System.out.println();
             }
         }
         scanner.close();
@@ -63,50 +76,102 @@ public class SKD {
             System.out.println("     " + (i + 1) + "." + tasks.get(i));
         }
         System.out.println(LINE);
+        System.out.println();
     }
 
     private void executeMark(String input) {
         System.out.println(LINE);
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        tasks.get(index).markAsDone();
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new IllegalArgumentException("OOPS!!! The task number is invalid.");
+            }
+            tasks.get(index).markAsDone();
+        } catch (IllegalArgumentException e) {
+            System.out.println("     " + e.getMessage());
+        }
         System.out.println(LINE);
         System.out.println();
     }
 
     private void executeUnmark(String input) {
         System.out.println(LINE);
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        tasks.get(index).unmark();
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new IllegalArgumentException("OOPS!!! The task number is invalid.");
+            }
+            tasks.get(index).unmark();
+        } catch (IllegalArgumentException e) {
+            System.out.println("     " + e.getMessage());
+        }
         System.out.println(LINE);
         System.out.println();
     }
 
     private void executeToDo(String input) {
         System.out.println(LINE);
-        String description = input.substring(5);
-        ToDo task = new ToDo(description);
-        tasks.add(task);
-        printAddedMessage(task);
+        try {
+            String description = input.length() > 5 ? input.substring(5).trim() : "";
+            if (description.isEmpty()) {
+                throw new IllegalArgumentException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            ToDo task = new ToDo(description);
+            tasks.add(task);
+            printAddedMessage(task);
+        } catch (IllegalArgumentException e) {
+            System.out.println("     " + e.getMessage());
+        }
         System.out.println(LINE);
         System.out.println();
     }
 
     private void executeDeadline(String input) {
         System.out.println(LINE);
-        String[] parts = input.substring(9).split(" /by ");
-        Deadline task = new Deadline(parts[0], parts[1]);
-        tasks.add(task);
-        printAddedMessage(task);
+        try {
+            String[] parts = input.length() > 9 ? input.substring(9).split(" /by ") : new String[]{""};
+            if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                throw new IllegalArgumentException("OOPS!!! The description or deadline cannot be empty.");
+            }
+            Deadline task = new Deadline(parts[0].trim(), parts[1].trim());
+            tasks.add(task);
+            printAddedMessage(task);
+        } catch (IllegalArgumentException e) {
+            System.out.println("     " + e.getMessage());
+        }
         System.out.println(LINE);
         System.out.println();
     }
 
     private void executeEvent(String input) {
         System.out.println(LINE);
-        String[] parts = input.substring(6).split(" /from | /to ");
-        Event task = new Event(parts[0], parts[1], parts[2]);
-        tasks.add(task);
-        printAddedMessage(task);
+        try {
+            String[] parts = input.length() > 6 ? input.substring(6).split(" /from | /to ") : new String[]{"", "", ""};
+            if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+                throw new IllegalArgumentException("OOPS!!! The description, start time, or end time cannot be empty.");
+            }
+            Event task = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+            tasks.add(task);
+            printAddedMessage(task);
+        } catch (IllegalArgumentException e) {
+            System.out.println("     " + e.getMessage());
+        }
+        System.out.println(LINE);
+        System.out.println();
+    }
+
+    private void executeDelete(String input) {
+        System.out.println(LINE);
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new IllegalArgumentException("OOPS!!! The task number is invalid.");
+            }
+            Task removedTask = tasks.remove(index);
+            removedTask.printTaskRemovedMessage(tasks.size());
+        } catch (IllegalArgumentException e) {
+            System.out.println("     " + e.getMessage());
+        }
         System.out.println(LINE);
         System.out.println();
     }
@@ -114,7 +179,6 @@ public class SKD {
     private void printAddedMessage(Task task) {
         task.printTaskAddedMessage(tasks.size());
     }
-
 
     public static void main(String[] args) {
         new SKD().run();

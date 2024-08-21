@@ -2,3 +2,14 @@ todo read book
 deadline submit report /by Friday
 event team meeting /from Monday 10am /to Monday 12pm
 list
+mark 2
+unmark 2
+todo
+deadline
+event
+delete 3
+list
+delete 5
+delete 1
+list
+bye

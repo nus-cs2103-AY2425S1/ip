@@ -8,6 +8,7 @@ public class Event extends Task {
         this.to = to;
     }
 
+
     @Override
     public String getType() {
         return "[E]";
