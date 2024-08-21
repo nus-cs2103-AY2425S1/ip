@@ -1,10 +1,12 @@
 import java.util.Scanner;
 public class Mentos
 {
+    private String[] tasks = new String[100];
+    private int noTasks = 0;
     public static void main(String[] args) {
         Mentos mentos = new Mentos();
         mentos.startConversation();
-        mentos.echoBack();
+        mentos.addTasks();
         mentos.endConversation();
     }
 
@@ -32,5 +34,29 @@ public class Mentos
             System.out.println("____________________________");
         }
     }
+
+    public void addTasks(){
+        while(true) {
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            if (input.equals("bye")){
+                displayTasks();
+                return;
+            }
+            System.out.println("____________________________");
+            noTasks++;
+            tasks[noTasks-1] = input;
+            System.out.println("added: "+ input );
+            System.out.println("____________________________");
+        }
+    }
+
+    public void displayTasks(){
+        for (int i = 0; i < noTasks; i++) {
+            String task_out = String.format("%d. %s",i+1,tasks[i]);
+            System.out.println(task_out);
+        }
+    }
+
 }
 
