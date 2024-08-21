@@ -9,12 +9,9 @@ public class NextGPT {
     public static void addToDo(String name) {
         Todo task = new Todo(name);
         todo_list.add(task);
-        System.out.println("_______________________________________________________\n"
-                        + "  Got it. I've added this task:\n"
-                        + "     " + task + "\n"
-                        + "Now you have " + todo_list.size() + " tasks in the list.\n"
-                        + "_______________________________________________________\n"
-        );
+        System.out.println("_______________________________________________________\n added: " +
+                task + "\n Now you have " + todo_list.size() + " tasks in the list\n" +
+                "_______________________________________________________\n");
     }
     private static void addDeadline(String name, String by) {
         Deadline deadline = new Deadline(name, by);
@@ -47,9 +44,9 @@ public class NextGPT {
                 "_______________________________________________________\n";
 
         System.out.println(greeting);
-
+        Scanner sc = new Scanner(System.in);
         while(true) {
-            Scanner sc = new Scanner(System.in);
+
 
             String input = sc.next();
             if (input.equals("bye")) break;
@@ -60,7 +57,7 @@ public class NextGPT {
                 Task task = todo_list.get(index - 1);
                 task.mark();
                 System.out.println("_______________________________________________________\n " +
-                        "Nice! I've marked this task as done:\n   " + "[" + task.getStatusIcon() + "]" + " "+ task.description +
+                        "Nice! I've marked this task as done:\n " + task +
                         "\n_______________________________________________________\n");
             }
             else if (input.equals("unmark")) {
@@ -68,7 +65,7 @@ public class NextGPT {
                 Task task = todo_list.get(index - 1);
                 task.unmark();
                 System.out.println("_______________________________________________________\n " +
-                        "Ok, I've marked this task as not done yet:\n   " + "[" + task.getStatusIcon() + "]" + " " + task.description +
+                        "Ok, I've marked this task as not done yet:\n " + task +
                         "\n_______________________________________________________\n");
             } else if (input.equals("deadline")) {
                 String line = sc.nextLine();
