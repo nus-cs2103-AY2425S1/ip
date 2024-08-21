@@ -5,14 +5,16 @@ import java.util.regex.Pattern;
 public class PurrfessorDipsy {
     private static final Task[] taskTable = new Task[100];
     private static int taskTableRowCount = 0;
+    private static boolean isRunning = true; // to allow for a more graceful exit
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
         printWelcomeMessage();
-        while (true) {
+        while (isRunning) {
             String userInput = inputScanner.nextLine();
             doAction(userInput);
         }
+        inputScanner.close();
     }
 
     private static void printTerminalLine() {
@@ -75,7 +77,7 @@ public class PurrfessorDipsy {
                     // do nothing
                     break;
                 case "bye":
-                    printExitMessage();
+                    exitProgram();
                     System.exit(0);
                     break;
                 case "list":
@@ -98,9 +100,11 @@ public class PurrfessorDipsy {
     private static void saveToMemory(Task t) {
         taskTable[taskTableRowCount] = t;
         taskTableRowCount++;
+        printTerminalLine();
         System.out.println("Got it! I've added this task: ");
         System.out.println(t.toString());
         System.out.println("You now have " + taskTableRowCount + " tasks in your list.");
+        printTerminalLine();
     }
 
     private static void markTaskAsDone(int index) {
@@ -133,5 +137,8 @@ public class PurrfessorDipsy {
         printTerminalLine();
     }
 
-
+    private static void exitProgram() {
+        printExitMessage();
+        isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
+    }
 }
