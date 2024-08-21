@@ -24,6 +24,10 @@ public abstract class Task {
         System.out.println("You have " + taskCount + " tasks pending.");
     }
 
+    public void deleteTask() {
+        taskCount--;
+    }
+
     @Override
     public String toString() {
         if (isCompleted) {

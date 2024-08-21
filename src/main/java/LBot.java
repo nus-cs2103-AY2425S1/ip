@@ -97,6 +97,19 @@ public class LBot {
                         System.out.println("Specify a task to mark.");
                     }
                     break;
+                case "$del":
+                    try {
+                        int taskNo = Integer.parseInt(userInput.substring(command.length() + 1)) - 1;
+                        Task task = taskList.get(taskNo);
+                        taskList.remove(taskNo);
+                        task.deleteTask();
+                        System.out.println("Successfully marked task: " + task);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Task does not exist");
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Specify a task to delete.");
+                    }
+                    break;
                 case "$help":
                     System.out.println("""
                             Welcome to LBot. Here are the commands supported!
