@@ -1,0 +1,18 @@
+list
+deadline hw1 /by 1200Hrs
+deadline hw2 /by Sunday 2pm
+deadline Math hw /by Tuesday
+todo run 10km
+todo gym
+event birthday party /from 12 o'clock /to 5 o'clock
+event prank friend /from Sunday 3pm /to Sunday 5pm
+event carnival friend /from Monday /to Tuesday
+list
+mark 2
+mark 3
+mark 7
+mark 9
+unmark 3
+unmark 2
+list
+bye
