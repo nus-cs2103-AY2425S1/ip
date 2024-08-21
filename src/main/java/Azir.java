@@ -45,10 +45,23 @@ public class Azir {
                         taskList.add(currTask);
                         System.out.println(currTask);
                     } else if (input.startsWith("deadline")) {
-                        System.out.println("Got it. I've added this task:");
                         int byIndex = input.indexOf("/by");
+                        if (byIndex == -1) {
+                            throw new AzirException("deadline needs a /by date. " +
+                                    "Format: deadline [description] /by [date]");
+                        }
+                        if (input.substring(8, byIndex).trim().isEmpty()) {
+                            throw new AzirException("deadline needs a description. " +
+                                    "Format: deadline [description] /by [date]");
+                        }
+                        if (input.trim().endsWith("/by")) {
+                            throw new AzirException("You need a deadline day. " +
+                                    "Format: deadline [description] /by [date]");
+                        }
                         String description = input.substring(9, byIndex - 1);
                         String day = input.substring(byIndex + 4);
+                        System.out.println("Got it. I've added this task:");
+
                         Task currTask = new Deadline(description, day);
                         taskList.add(currTask);
                         System.out.println(currTask);
