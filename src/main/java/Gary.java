@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Gary {
     public static void main(String[] args) {
         Scanner detector = new Scanner(System.in);
+        List<String> taskList = new ArrayList<>();
         String greeting = """
                 ────────────────────────────────────────────
                  Hello! I'm Gary
@@ -17,7 +20,17 @@ public class Gary {
                 System.out.println("\tBye. Hope to see you again soon!");
                 break;
             }
-            System.out.println("\t" + userInput);
+
+            if (userInput.equalsIgnoreCase("list")) {
+                int count = 1;
+                for (String task : taskList) {
+                    System.out.println("\t" + count + ". " + task);
+                    count++;
+                }
+                continue;
+            }
+            System.out.println("\tadded: " + userInput);
+            taskList.add(userInput);
         }
         detector.close();
     }
