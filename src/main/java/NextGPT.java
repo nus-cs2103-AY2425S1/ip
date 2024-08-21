@@ -46,42 +46,68 @@ public class NextGPT {
         System.out.println(greeting);
         Scanner sc = new Scanner(System.in);
         while(true) {
+            try {
+                String input = sc.next();
+                if (input.equals("bye")) break;
+                else if (input.equals("list")) {
+                    displayList();
+                } else if (input.equals("mark")) {
+                    int index = sc.nextInt();
+                    if (index > todo_list.size() || index <= 0)
+                        throw new Exception("Task is not within the saved list! Please double check");
+                    Task task = todo_list.get(index - 1);
+                    task.mark();
+                    System.out.println("_______________________________________________________\n " +
+                            "Nice! I've marked this task as done:\n " + task +
+                            "\n_______________________________________________________\n");
+                } else if (input.equals("unmark")) {
+                    int index = sc.nextInt();
+                    if (index > todo_list.size() || index <= 0)
+                        throw new Exception("Task is not within the saved list! Please double check");
+                    Task task = todo_list.get(index - 1);
+                    task.unmark();
+                    System.out.println("_______________________________________________________\n " +
+                            "Ok, I've marked this task as not done yet:\n " + task +
+                            "\n_______________________________________________________\n");
+                } else if (input.equals("deadline")) {
 
+                    String line = sc.nextLine();
+                    if (line.split("/by").length != 2) {
+                        throw new Exception("The bot does not support the given format. Please give it in this format:\n" +
+                                "Deadline <description> /by <description>");
+                    }
+                    String name = line.split("/by")[0].trim();
+                    String by = line.split("/by")[1].trim();
+                    if (name.length() == 0 || by.length() == 0 ) {
+                        throw new Exception(("Event names/to/from must not be empty please!"));
+                    }
+                    addDeadline(name, by);
+                } else if (input.equals("event")) {
+                    String line = sc.nextLine();
+                    String[] split = line.split("/from");
+                    if (split.length != 2) {
+                        throw new Exception("Please provide your event task in the following format:\n" +
+                                "Event <description> /from <description> /to <description>");
+                    }
+                    String name = split[0].trim();
+                    String start = split[1].split("/to")[0].trim();
+                    String end = split[1].split("/to")[1].trim();
+                    if (name.length() == 0 || start.length() == 0 || end.length() == 0) {
+                        throw new Exception(("Event names/start/end must not be empty please!"));
+                    }
 
-            String input = sc.next();
-            if (input.equals("bye")) break;
-            else if (input.equals("list")) {
-                displayList();
-            } else if (input.equals("mark")) {
-                int index = sc.nextInt();
-                Task task = todo_list.get(index - 1);
-                task.mark();
-                System.out.println("_______________________________________________________\n " +
-                        "Nice! I've marked this task as done:\n " + task +
-                        "\n_______________________________________________________\n");
-            }
-            else if (input.equals("unmark")) {
-                int index = sc.nextInt();
-                Task task = todo_list.get(index - 1);
-                task.unmark();
-                System.out.println("_______________________________________________________\n " +
-                        "Ok, I've marked this task as not done yet:\n " + task +
-                        "\n_______________________________________________________\n");
-            } else if (input.equals("deadline")) {
-                String line = sc.nextLine();
-                String name = line.split("/by")[0].trim();
-                String by = line.split("/by")[1].trim();
-                addDeadline(name, by);
-            } else if (input.equals("event")) {
-                String line = sc.nextLine();
-                String[] split = line.split("/from");
-                String name = split[0].trim();
-                String start = split[1].split("/to")[0].trim();
-                String end = split[1].split("/to")[1].trim();
-                addEvent(name, start, end);
-            } else if (input.equals("todo")) {
-                String line = sc.nextLine().trim();
-                addToDo(line);
+                    addEvent(name, start, end);
+                } else if (input.equals("todo")) {
+                    String line = sc.nextLine().trim();
+                    if (line.length() == 0) throw new Exception("Todo task cannot be empty!");
+                    addToDo(line);
+                } else {
+                    throw new Exception(":( I am unable to understand what that means! Please do try again in the available formats!");
+                }
+            } catch (Exception e) {
+                System.out.println("_______________________________________________________\n " + e.getMessage() +
+                        "\n_______________________________________________________\n ");
+
             }
         }
 
