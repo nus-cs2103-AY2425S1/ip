@@ -3,11 +3,15 @@
     How can I help you?
     ___________________________________________________
     ___________________________________________________
+    You currently have no tasks.
+    ___________________________________________________
+    ___________________________________________________
     Ok, I've added this task:
         [T][ ] read book
     Now you have 1 tasks in the list.
     ___________________________________________________
     ___________________________________________________
+    Here is a list of all your tasks:
     1. [T][ ] read book
     ___________________________________________________
     ___________________________________________________
@@ -15,7 +19,21 @@
     [T][X] read book
     ___________________________________________________
     ___________________________________________________
-    1. [T][X] read book
+    UH OH! Index out of bounds! Try calling the command 'list' to verify the index of the desired task.
+    ___________________________________________________
+    ___________________________________________________
+    Ok, I've marked this task as not done:
+    [T][ ] read book
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! Index out of bounds! Try calling the command 'list' to verify the index of the desired task.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The description of a 'todo' cannot be empty! Try adding a description like 'todo read book'.
+    ___________________________________________________
+    ___________________________________________________
+    Here is a list of all your tasks:
+    1. [T][ ] read book
     ___________________________________________________
     ___________________________________________________
     Ok, I've added this task:
@@ -23,8 +41,18 @@
     Now you have 2 tasks in the list.
     ___________________________________________________
     ___________________________________________________
-    1. [T][X] read book
+    Here is a list of all your tasks:
+    1. [T][ ] read book
     2. [D][ ] return book (by: June 6th)
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The command given is missing the '/by' input for deadline.Try updating the command like 'deadline finish homework /by Mon 2359'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The description of a 'deadline' cannot be empty! Try adding a description like 'deadline finish homework /by Mon 2359'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The deadline time/date of a 'deadline' cannot be empty! Try adding a valid deadline like 'deadline finish homework /by Mon 2359'.
     ___________________________________________________
     ___________________________________________________
     Ok, I've added this task:
@@ -32,16 +60,36 @@
     Now you have 3 tasks in the list.
     ___________________________________________________
     ___________________________________________________
-    1. [T][X] read book
+    Here is a list of all your tasks:
+    1. [T][ ] read book
     2. [D][ ] return book (by: June 6th)
     3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The command given is missing the '/from' input for event.Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The command given is missing the '/to' input for event.Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The description of an 'event' cannot be empty! Try adding a description like 'event project meeting /from Mon 2pm /to 5pm'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The from time/date of an 'event' cannot be empty! Try adding a valid from time/date like 'event project meeting /from Mon 2pm /to 5pm'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The to time/date of an 'event' cannot be empty! Try adding a valid to time/date like 'event project meeting /from Mon 2pm /to 5pm'.
+    ___________________________________________________
+    ___________________________________________________
+    UH OH! The from time/date of an 'event' cannot be empty! Try adding a valid from time/date like 'event project meeting /from Mon 2pm /to 5pm'.
     ___________________________________________________
     ___________________________________________________
     Nice! I've marked this task as done:
     [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
     ___________________________________________________
-    1. [T][X] read book
+    Here is a list of all your tasks:
+    1. [T][ ] read book
     2. [D][ ] return book (by: June 6th)
     3. [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
@@ -50,7 +98,8 @@
     [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
     ___________________________________________________
-    1. [T][X] read book
+    Here is a list of all your tasks:
+    1. [T][ ] read book
     2. [D][ ] return book (by: June 6th)
     3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________

@@ -1,11 +1,25 @@
+list
 todo read book
 list
 mark 1
+mark 2
+unmark 1
+unmark 2
+todo
 list
 deadline return book /by June 6th
 list
+deadline
+deadline /by
+deadline return book /by
 event project meeting /from Aug 6th 2pm /to 4pm
 list
+event
+event /from
+event /from /to
+event project meeting /from /to
+event project meeting /from Aug 6th 2pm /to
+event project meeting /from /to 4pm
 mark 3
 list
 unmark 3

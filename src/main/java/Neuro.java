@@ -133,15 +133,14 @@ public class Neuro {
                 // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
                 String[] inputComponents = input.split("[\s]");
 
+                System.out.println("    ___________________________________________________");
                 try {
                     int taskIndex = Integer.valueOf(inputComponents[1]);
                     Task task = taskList.get(taskIndex - 1);
                     task.markDone();
 
-                    System.out.println("    ___________________________________________________");
                     System.out.println("    Nice! I've marked this task as done:");
                     System.out.println("    " + task);
-                    System.out.println("    ___________________________________________________");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("    UH OH! Missing index for 'mark' command! Add a valid index for a task" +
                             " to mark, like 'mark 2'.");
@@ -149,20 +148,20 @@ public class Neuro {
                     System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
                             " index of the desired task.");
                 }
+                System.out.println("    ___________________________________________________");
 
             } else if (input.startsWith("unmark")) {
                 // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
                 String[] inputComponents = input.split("[\s]");
 
+                System.out.println("    ___________________________________________________");
                 try {
                     int taskIndex = Integer.valueOf(inputComponents[1]);
                     Task task = taskList.get(taskIndex - 1);
                     task.markUndone();
 
-                    System.out.println("    ___________________________________________________");
                     System.out.println("    Ok, I've marked this task as not done:");
                     System.out.println("    " + task);
-                    System.out.println("    ___________________________________________________");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("    UH OH! Missing index for 'unmark' command! Add a valid index for a task" +
                             " to unmark, like 'unmark 2'.");
@@ -170,6 +169,7 @@ public class Neuro {
                     System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
                             " index of the desired task.");
                 }
+                System.out.println("    ___________________________________________________");
             } else {
                 try {
                     Task task = getTask(input);
