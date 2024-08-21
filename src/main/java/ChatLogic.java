@@ -106,20 +106,28 @@ public class ChatLogic {
         this.taskCount++;
     }
 
-    private void addDeadline(String input) {
+    private void addDeadline(String input) throws TaskException {
         String noCommandInput = input.replace(DEADLINE_COMMAND, "").strip();
         String taskName = noCommandInput.split("/by")[0].strip();
+        if (taskName.isEmpty()) {
+            throw new DeadlineNoDescriptionException();
+        }
         String date = noCommandInput.split("/by")[1].strip();
+
         taskArray[taskCount] = new Deadline(taskName, date);
         this.taskCount++;
     }
 
-    private void addEvent(String input) {
+    private void addEvent(String input) throws TaskException {
         String noCommandInput = input.replace(EVENT_COMMAND, "").strip();
         String taskName = noCommandInput.split("/from")[0].strip();
+        if (taskName.isEmpty()) {
+            throw new EventNoDescriptionException();
+        }
         String fromAndTo = noCommandInput.split("/from")[1].strip();
         String fromDate = fromAndTo.split("/to")[0].strip();
         String toDate = fromAndTo.split("/to")[1].strip();
+
         taskArray[taskCount] = new Event(taskName, fromDate, toDate);
         this.taskCount++;
     }
