@@ -1,24 +1,32 @@
-public class Task {
-    private boolean done = false;
-    private String task = "";
+public abstract class Task {
+    protected static int COUNT = 0;
+    protected boolean done = false;
+    protected String task;
 
     public Task(String task) {
         this.task = task;
+        COUNT++;
     }
 
     public void markAsDone() {
         this.done = true;
-        System.out.println("        " + this);
     }
 
     public void unmark() {
         this.done = false;
-        System.out.println("        " + this);
+    }
+
+    public String getStatusIcon() {
+        return (done ? "X" : " "); // mark done task with X
+    }
+
+    public static String getCOUNT() {
+        return "Now you have " + COUNT + " tasks in the list.";
     }
 
     @Override
-    public String toString() {
-        if (done) return "[X] " + this.task;
-        else return "[ ] " + this.task;
+    public String toString(){
+        return "[" + this.getStatusIcon() + "] " + this.task;
     }
+
 }
