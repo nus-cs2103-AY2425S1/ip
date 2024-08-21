@@ -10,6 +10,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + (isDone ? "[X]" : "[ ]") + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + (isDone ? "[X]" : "[ ]") + desc +" (from: " + this.from + " to: " + this.to + ")";
     }
 }

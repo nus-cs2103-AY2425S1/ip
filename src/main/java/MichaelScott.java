@@ -1,33 +1,21 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class MichaelScott {
+    public static void printLine() {
+        System.out.println("____________________________________________________________");
+    }
+
     public static void main(String[] args) throws MichaelScottException{
         Scanner myScanner = new Scanner(System.in);
         boolean flag = true;
         ArrayList<Task> todo = new ArrayList<Task>();
 
-//        String logo = " __  __ _      _                _   ____            _   _  \n"
-//                + "|  \\/  (_) ___| |__   __ _  ___| | / ___|  ___ ___ | |_| |_ \n"
-//                + "| |\\/| | |/ __| '_ \\ / _` |/ _ \\ | \\___ \\ / __/ _ \\| __| __|\n"
-//                + "| |  | | | (__| | | | (_| |  __/ |  ___) | (_| (_) | |_| |_ \n"
-//                + "|_|  |_|_|\\___|_| |_|\\__,_|\\___|_| |____/ \\___\\___/ \\__|\\__|\n";
 
-        String logo = ".___  ___.  __    ______  __    __       ___       _______  __          _______.  ______   ______   .___________.___________.\n"
-                    + "|   \\/   | |  |  /      ||  |  |  |     /   \\     |   ____||  |        /       | /      | /  __  \\  |           |           |\n"
-                    + "|  \\  /  | |  | |  ,----'|  |__|  |    /  ^  \\    |  |__   |  |       |   (----`|  ,----'|  |  |  | `---|  |----`---|  |----`\n"
-                    + "|  |\\/|  | |  | |  |     |   __   |   /  /_\\  \\   |   __|  |  |        \\   \\    |  |     |  |  |  |     |  |        |  |\n"
-                    + "|  |  |  | |  | |  `----.|  |  |  |  /  _____  \\  |  |____ |  `----.----)   |   |  `----.|  `--'  |     |  |        |  | \n"
-                    + "|__|  |__| |__|  \\______||__|  |__| /__/     \\__\\ |_______||_______|_______/     \\______| \\______/      |__|        |__|\n";
-
-
-
-
-//        System.out.println(logo);
-        System.out.println("Running Micheal Scott.exe");
-        System.out.println("____________________________________________________________");
+        System.out.println("Running MichaelScott.exe");
+        printLine();
         System.out.println("Hello! I'm Michael Scott");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        printLine();
 
         while(flag) {
             String command = myScanner.nextLine();
@@ -35,111 +23,152 @@ public class MichaelScott {
             String action = parts[0];
             switch (action) {
                 case "list" -> {
-                    System.out.println("____________________________________________________________");
+                    printLine();
                     for (int i = 0; i < todo.size(); i++) {
                         System.out.println(i + 1 + ". " + todo.get(i).toString());
                     }
-                    System.out.println("____________________________________________________________");
+                    printLine();
                 }
                 case "bye" -> {
-                    System.out.println("____________________________________________________________");
+                    printLine();
                     System.out.println("Catch you on the flippity flip! ");
-                    System.out.println("____________________________________________________________");
+                    printLine();
                     flag = false;
                 }
                 case "mark" -> {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    Task task = todo.get(index);
-                    task.completeTask();
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println(task.toString());
-                    System.out.println("____________________________________________________________");
+                    try {
+                        if (parts.length < 2 || parts[1].isBlank()) {
+                            throw new MichaelScottException("Please provide the number of task to be marked as completed");
+                        }
+                        int index = Integer.parseInt(parts[1]) - 1;
+                        if (index > todo.size()) {
+                            throw new MichaelScottException("Please provide a task in range");
+                        }
+                        Task task = todo.get(index);
+                        task.completeTask();
+                        printLine();
+                        System.out.println("Nice! I've marked this task as done: ");
+                        System.out.println(task.toString());
+                        printLine();
+                    } catch (MichaelScottException e) {
+                        printLine();
+                        System.out.println(e.getMessage());
+                        printLine();
+                    }
                 }
                 case "unmark" -> {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    Task task = todo.get(index);
-                    task.undoTask();
-                    System.out.println("____________________________________________________________");
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(task.toString());
-                    System.out.println("____________________________________________________________");
+                    try {
+                        if (parts.length < 2 || parts[1].isBlank()) {
+                            throw new MichaelScottException("Please provide the number of task to be marked as not completed");
+                        }
+                        int index = Integer.parseInt(parts[1]) - 1;
+                        if (index > todo.size()) {
+                            throw new MichaelScottException("Please provide a task in range");
+                        }
+                        Task task = todo.get(index);
+                        task.undoTask();
+                        printLine();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(task.toString());
+                        printLine();
+                    } catch (MichaelScottException e) {
+                        printLine();
+                        System.out.println(e.getMessage());
+                        printLine();
+                    }
                 }
                 case "delete" -> {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    Task task = todo.get(index);
-                    todo.remove(index);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(task.toString());
-                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task")) + " in the list.");
-                    System.out.println("____________________________________________________________");
+                    try {
+                        if (parts.length < 2 || parts[1].isBlank()) {
+                            throw new MichaelScottException("Please provide the number of task to be deleted");
+                        }
+
+                        int index = Integer.parseInt(parts[1]) - 1;
+                        Task task = todo.get(index);
+                        todo.remove(index);
+                        printLine();
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(task.toString());
+                        System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task")) + " in the list.");
+                        printLine();
+                    } catch (MichaelScottException e) {
+                        printLine();
+                        System.out.println(e.getMessage());
+                        printLine();
+                    }
                 }
                 case "todo" -> {
                     try {
-                        if (parts.length < 2) {
+                        if (parts.length < 2 || parts[1].isBlank()) {
                             throw new MichaelScottException("Please specify the task you intend to do.");
                         }
 
                         todo.add(new Todo(parts[1]));
-                        System.out.println("____________________________________________________________");
+                        printLine();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("    " + todo.get(todo.size() - 1).toString());
                         System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task")) + " in the list.");
-                        System.out.println("____________________________________________________________");
-
+                        printLine();
                     } catch (MichaelScottException e) {
-                        System.out.println("____________________________________________________________");
+                        printLine();
                         System.out.println(e.getMessage());
-                        System.out.println("____________________________________________________________");
+                        printLine();
                     }
                 }
                 case "deadline" -> {
 
                     try {
+                        if (parts.length < 2 || parts[1].isBlank()) {
+                            throw new MichaelScottException("Please specify the task and its deadline after the command");
+                        }
                         String[] deadlineParts = parts[1].split(" /by ");
                         if (deadlineParts.length < 2) {
-                            throw new MichaelScottException("Please specify the deadline as well.");
+                            throw new MichaelScottException("Please specify the deadline");
                         }
 
                         todo.add(new Deadline(deadlineParts[0], deadlineParts[1]));
-                        System.out.println("____________________________________________________________");
+                        printLine();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("    " + todo.get(todo.size() - 1).toString());
                         System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
-                        System.out.println("____________________________________________________________");
+                        printLine();
                     } catch (MichaelScottException e) {
-                        System.out.println("____________________________________________________________");
+                        printLine();
                         System.out.println(e.getMessage());
-                        System.out.println("____________________________________________________________");
+                        printLine();
                     }
                 }
                 case "event" -> {
                     try {
-
+                        if (parts.length < 2 || parts[1].isBlank()) {
+                            throw new MichaelScottException("Please specify the event and its to-form after the command");
+                        }
                         String[] eventParts = parts[1].split(" /from | /to ");
                         if (eventParts.length != 3) {
-                            throw new MichaelScottException("Please specify description, from and to");
+                            throw new MichaelScottException("Please specify description, start-time and end-time");
                         }
+                        System.out.println(eventParts[0]);
+                        System.out.println(eventParts[1]);
+                        System.out.println(eventParts[2]);
                         todo.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
-                        System.out.println("____________________________________________________________");
+                        printLine();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("    " + todo.get(todo.size() - 1).toString());
                         System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
-                        System.out.println("____________________________________________________________");
+                        printLine();
                     } catch (MichaelScottException e) {
-                        System.out.println("____________________________________________________________");
+                        printLine();
                         System.out.println(e.getMessage());
-                        System.out.println("____________________________________________________________");
+                        printLine();
                     }
                 }
                 default -> {
                     try {
                         throw new MichaelScottException("I don't understand what you mean to say!");
                     } catch (MichaelScottException e){
-                        System.out.println("____________________________________________________________");
+                        printLine();
                         System.out.println(e.getMessage());
-                        System.out.println("____________________________________________________________");
+                        printLine();
                     }
                 }
             }
