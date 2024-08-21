@@ -35,6 +35,7 @@ public class Quack {
      * Constructor to create a Quack chatbot object.
      */
     Quack() {
+
         this.isRunning = true;
         this.toDoList = new TaskList();
     }
@@ -43,6 +44,7 @@ public class Quack {
      * Prints the logo of Quack.
      */
     private void printLogo() {
+
         System.out.println(logo + "\n" + spacer);
     }
 
@@ -50,6 +52,7 @@ public class Quack {
      * Prints the greeting message for Quack.
      */
     private void Printgreeting() {
+
         System.out.println("Hello! I'm " + botName + "\nWhat can I do for you?\n" + spacer);
     }
 
@@ -57,6 +60,7 @@ public class Quack {
      * Prints the farewell message for Quack.
      */
     private void printFarewell() {
+        
         this.isRunning = false;
         System.out.println("Bye. Hope to see you again soon!");
     }

@@ -34,7 +34,7 @@ public class TaskList {
         if (command.equals("mark")) {
             this.toDo.get(idx).mark();
         } else {
-            this.toDo.get(idx).unMark();
+            this.toDo.get(idx).unmark();
         }
     }
     

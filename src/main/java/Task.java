@@ -39,7 +39,7 @@ public abstract class Task {
      * This function updates the task to be unmarked.
      * It checks if the task has been unmarked already.
      */
-    public void unMark() {
+    public void unmark() {
 
         // Check if the task is already unmarked
         if (isChecked) {
