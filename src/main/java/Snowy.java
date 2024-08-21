@@ -43,6 +43,18 @@ public class Snowy {
                     }
                     break;
 
+                case "mark":
+                    try {
+                        int index = Integer.parseInt(words[1]);
+                        tasks[index - 1].markComplete();
+                        System.out.println("Nice! I've marked this task as done:\n  "
+                                + tasks[index - 1].toString());
+                    }catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Invalid index provided. Please try again");
+                    }
+                    break;
+
+
                 default:
                     tasks[numOfTasks] = new Task(lastInput);
                     numOfTasks++;
