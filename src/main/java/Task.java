@@ -15,8 +15,14 @@ public class Task {
         } else if (identifier.equals("deadline")) {
             String[] details = splitUserInput[1].split("/by ", 2);
             return new Deadline(details[0], details[1]);
+        } else if (identifier.equals("event")) {
+            String[] details = splitUserInput[1].split("/from ", 2);
+            String info = details[0];
+            String[] dates = details[1].split("/to ", 2);
+            return new Events(info, dates[0], dates[1]);
         } else {
             //task not recognised
+            System.out.print("Task not recognised");
             return null;
         }
     }
