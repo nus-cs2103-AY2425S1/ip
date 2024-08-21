@@ -5,6 +5,16 @@ public class ChatLogic {
     static final String MARK_COMMAND = "mark";
     static final String UNMARK_COMMAND = "unmark";
 
+    static final String TODO_COMMAND = "todo";
+    static final String DEADLINE_COMMAND = "deadline";
+    static final String EVENT_COMMAND = "event";
+
+    enum TASK_TYPE {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     private final String name;
     private Task[] taskArray = new Task[100];
     private int taskCount = 0;
@@ -14,20 +24,15 @@ public class ChatLogic {
     }
 
     public void processInput(String input) {
-        if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
+        if (input.equals(BYE_COMMAND)) {
+            printBye();
+            System.exit(0);
+        } else if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
             processMarkUnmarkInput(input);
+        } else if (input.equals(LIST_COMMAND)) {
+            listTasks();
         } else {
-            switch (input) {
-                case BYE_COMMAND:
-                    printBye();
-                    System.exit(0);
-                    break;
-                case LIST_COMMAND:
-                    listTasks();
-                    break;
-                default:
-                    addTask(input);
-            }
+            processAddTaskInput(input);
         }
     }
 
@@ -48,7 +53,7 @@ public class ChatLogic {
         }
     }
 
-    private void addTask(String input) {
+    private void processAddTaskInput(String input) {
         if (input.isEmpty()) {
             System.out.println(HORIZONTAL_LINE);
             System.out.println("Please specify a task name!");
@@ -56,13 +61,60 @@ public class ChatLogic {
             return;
         }
 
-        Task newTask = new Task(input);
-        taskArray[taskCount] = newTask;
-        this.taskCount++;
+        TASK_TYPE taskType;
+        if (input.contains(TODO_COMMAND)) {
+            taskType = TASK_TYPE.TODO;
+        } else if (input.contains(DEADLINE_COMMAND)) {
+            taskType = TASK_TYPE.DEADLINE;
+        } else if (input.contains(EVENT_COMMAND)) {
+            taskType = TASK_TYPE.EVENT;
+        } else {
+            return;
+        }
+
+        switch (taskType) {
+            case TODO:
+                addToDo(input);
+                break;
+            case DEADLINE:
+                addDeadline(input);
+                break;
+            case EVENT:
+                addEvent(input);
+                break;
+            default:
+                break;
+        }
 
         System.out.println(HORIZONTAL_LINE);
-        System.out.println(" added: " + input);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(this.taskArray[this.taskCount - 1].toString());
+        System.out.println("Now you have " + this.taskCount + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void addToDo(String input) {
+        String taskName = input.replace(TODO_COMMAND, "").strip();
+        taskArray[taskCount] = new ToDo(taskName);
+        this.taskCount++;
+    }
+
+    private void addDeadline(String input) {
+        String noCommandInput = input.replace(DEADLINE_COMMAND, "").strip();
+        String taskName = noCommandInput.split("/by")[0].strip();
+        String date = noCommandInput.split("/by")[1].strip();
+        taskArray[taskCount] = new Deadline(taskName, date);
+        this.taskCount++;
+    }
+
+    private void addEvent(String input) {
+        String noCommandInput = input.replace(EVENT_COMMAND, "").strip();
+        String taskName = noCommandInput.split("/from")[0].strip();
+        String fromAndTo = noCommandInput.split("/from")[1].strip();
+        String fromDate = fromAndTo.split("/to")[0].strip();
+        String toDate = fromAndTo.split("/to")[1].strip();
+        taskArray[taskCount] = new Event(taskName, fromDate, toDate);
+        this.taskCount++;
     }
 
     private void markTask(int taskNum) {
@@ -99,6 +151,7 @@ public class ChatLogic {
 
     private void listTasks() {
         System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < this.taskCount; i++) {
             String output = " " + (i + 1) + ". " + this.taskArray[i].toString();
             System.out.println(output);
