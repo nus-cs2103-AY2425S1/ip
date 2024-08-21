@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lict {
     private final static String name = "Lict";
     private final static String horizontal_line = "__________________________________";
+    private final static ArrayList<String> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -15,7 +17,16 @@ public class Lict {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             System.out.println(horizontal_line);
-            System.out.println(input);
+            if (input.equals("list")) {
+                int counter = 1;
+                for (String task : tasks) {
+                    System.out.println(counter + ". " + task);
+                    counter+=1;
+                }
+            } else {
+                tasks.add(input);
+                System.out.println("added: " + input);
+            }
             System.out.println(horizontal_line);
             input = sc.nextLine();
         }
