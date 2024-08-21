@@ -15,23 +15,38 @@ public class Arts {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        String input;
+        String[] tasks = new String[100];
+        int taskCount = 0;
 
         while (true) {
-            input = scanner.nextLine();
+            String input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Bye! Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else {
+            } else if (input.equalsIgnoreCase("list")){
                 System.out.println("____________________________________________________________");
-                System.out.println(input);
+                if (taskCount == 0) {
+                    System.out.println("No tasks yet! Why not add some?");
+                } else {
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                tasks[taskCount] = input;
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Added: " + input);
                 System.out.println("Wow, that's interesting! Tell me more!");
                 System.out.println("____________________________________________________________");
             }
         }
+
+        scanner.close();
     }
 }
 
