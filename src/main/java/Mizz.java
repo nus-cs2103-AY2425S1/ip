@@ -4,7 +4,6 @@ import util.*;
 public class Mizz {
   /** Name of the chat bot */
   private static final String NAME = "Mizz";
-  /** Constant len(13) line to be used for prettier printing */
 
   /** Stores the past commands entered */
   private final CommandHist usrCmds;
@@ -51,16 +50,31 @@ public class Mizz {
    * @return The input cmd without whitespaces.
    */
   private String commandHandler(String cmd) {
-    this.cmd = cmd.strip();
+    String[] parts = cmd.split("\\s+");
+    String cleanedString = String.join(" ", parts);
+    System.out.println(parts.length);
+    this.cmd = parts[0];
     switch (this.cmd) {
       case "bye":
         break;
       case "list":
         this.usrCmds.prettyPrint();
         break;
+      case "mark": {
+        // look at second arg ignore the rest
+        int idx = Integer.parseInt(parts[1]);
+        this.usrCmds.markAsDone(idx);
+        break;
+      }
+      case "unmark": {
+        // look at second arg ignore the rest
+        int idx = Integer.parseInt(parts[1]);
+        this.usrCmds.markAsUndone(idx);
+        break;
+      }
       default:
-        this.usrCmds.addCmd(this.cmd);
-        Mizz.prettyPrint(String.format("added: %s", this.cmd));
+        this.usrCmds.addCmd(cleanedString);
+        Mizz.prettyPrint(String.format("added: %s", cleanedString));
         break;
     }
     return this.cmd;
