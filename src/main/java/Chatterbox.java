@@ -24,9 +24,10 @@ ____________________________________________________________
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(greeting());
+        System.out.println(goodBye());
         String input = "";
         Boolean done = false;
-        scanner = new Scanner(System.in);
+//        scanner = new Scanner(System.in);
 
     }
 }
