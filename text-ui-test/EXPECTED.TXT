@@ -1,7 +1,120 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	___________________________________________
+	Hello! I'm Snah
+	What can I do for you?
+	___________________________________________
 
+	___________________________________________
+	Added todo to list
+	  [ ] (Task) Do laundry when it is ready
+	___________________________________________
+
+	___________________________________________
+	Added todo to list
+	  [ ] (Task) Eat dinner
+	___________________________________________
+
+	___________________________________________
+	Added deadline to list
+	  [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	___________________________________________
+
+	___________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	___________________________________________
+
+	___________________________________________
+	Added deadline to list
+	  [ ] (Deadline: by tomorrow) CS2100 quizzes
+	___________________________________________
+
+	___________________________________________
+	Added event to list
+	  [ ] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	___________________________________________
+
+	___________________________________________
+	Added event to list
+	  [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	___________________________________________
+
+	___________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	4. [ ] (Deadline: by tomorrow) CS2100 quizzes
+	5. [ ] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	___________________________________________
+
+	___________________________________________
+	Alright, I will mark the task as done
+	  [X] (Task) Do laundry when it is ready
+	___________________________________________
+
+	___________________________________________
+	Alright, I will mark the task as done
+	  [X] (Task) Eat dinner
+	___________________________________________
+
+	___________________________________________
+	Alright, I will mark the task as done
+	  [X] (Deadline: by tomorrow) CS2100 quizzes
+	___________________________________________
+
+	___________________________________________
+	Alright, I will mark the task as done
+	  [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	___________________________________________
+
+	___________________________________________
+	Here are the tasks in your list:
+	1. [X] (Task) Do laundry when it is ready
+	2. [X] (Task) Eat dinner
+	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	4. [X] (Deadline: by tomorrow) CS2100 quizzes
+	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	___________________________________________
+
+	___________________________________________
+	Walao, why you press wrong; Will mark the task as NOT done
+	  [ ] (Task) Do laundry when it is ready
+	___________________________________________
+
+	___________________________________________
+	Walao, why you press wrong; Will mark the task as NOT done
+	  [ ] (Task) Eat dinner
+	___________________________________________
+
+	___________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	4. [X] (Deadline: by tomorrow) CS2100 quizzes
+	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	___________________________________________
+
+	___________________________________________
+	Added event to list
+	  [ ] (Event: from now to later) Test CS2103 bot thingy
+	___________________________________________
+
+	___________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Task) Eat dinner
+	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	4. [X] (Deadline: by tomorrow) CS2100 quizzes
+	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	7. [ ] (Event: from now to later) Test CS2103 bot thingy
+	___________________________________________
+
+	___________________________________________
+	Goodbye! See you sooooonnn!

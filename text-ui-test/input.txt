@@ -1,0 +1,19 @@
+todo Do laundry when it is ready
+todo Eat dinner
+deadline CS2109S homework /by tonight 2359 (or when I'm ready)
+list
+deadline CS2100 quizzes /by tomorrow
+event Dinner with friendos /from 6pm tonight /to whenever they want to end
+event Game night with gf /from 9pm every night /to whenever she wants to sleep
+list
+mark 1
+mark 2
+mark 4
+mark 5
+list
+unmark 1
+unmark 2
+list
+event Test CS2103 bot thingy /from now /to later
+list
+bye
