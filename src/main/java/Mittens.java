@@ -86,6 +86,18 @@ public class Mittens {
         System.out.print("\n");
     }
 
+    public static void markTaskAsDone(int index) {
+        Task task = tasks.get(index - 1);
+        task.markAsDone();
+        System.out.printf("\nMeow, I scratched the check box for you:\n%s\n\n", task.toString());
+    }
+
+    public static void markTaskAsNotDone(int index) {
+        Task task = tasks.get(index - 1);
+        task.markAsNotDone();
+        System.out.printf("\nMeow, I unscratched the check box for you:\n%s\n\n", task.toString());
+    }
+
     public static void exit() {
         System.out.println(EXIT_MESSAGE);
     }
@@ -103,6 +115,12 @@ public class Mittens {
                 break;
             } else if (input.equals("list")) {
                 listTasks();
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                markTaskAsDone(index);
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                markTaskAsNotDone(index);
             } else {
                 Task newTask = new Task(input);
                 addTask(newTask);
