@@ -83,10 +83,6 @@ public class PurrfessorDipsy {
         printWithTerminalLines("Fur-well friend, stay paw-sitive!");
     }
 
-    private static void printSuccessMessage(String message) {
-        printWithTerminalLines(message);
-    }
-
     private static void printErrorMessage(String message) {
         printWithTerminalLines("Error: " + message);
     }
@@ -149,7 +145,7 @@ public class PurrfessorDipsy {
     private static void saveToMemory(Task task) {
         taskTable[taskTableRowCount] = task;
         taskTableRowCount++;
-        printSuccessMessage("Got it! I've added this task:\n" + task +
+        printWithTerminalLines("Got it! I've added this task:\n" + task +
                 "\nYou now have " + taskTableRowCount + " tasks in your list.");
     }
 
@@ -188,7 +184,7 @@ public class PurrfessorDipsy {
     }
 
     private static String getUsage() {
-        String usageHint = "Usage: <command> [options]\n" +
+        return "Usage: <command> [options]\n" +
                 "\nCommands:\n" +
                 "  todo <description>                            Create a new todo item\n" +
                 "  deadline <description> /by <date>             Create a new task with a deadline\n" +
@@ -202,6 +198,5 @@ public class PurrfessorDipsy {
                 "  deadline Submit Dipsy's food order /by 21-08-2024\n" +
                 "  event Play with Dipsy /from 21-08-2024 10:00 /to 21-08-2024 12:00\n" +
                 "  mark 1";
-        return usageHint;
     }
 }
