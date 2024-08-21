@@ -30,7 +30,7 @@ public class Delta {
         list.set(i - 1, task);
         return "\t____________________________________________________________\n"
                 + "\t Nice! I've marked this task as done:\n"
-                + "\t   [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + "\t   " + task + "\n"
                 + "\t_____________________________________________________________";
     }
 
@@ -40,7 +40,7 @@ public class Delta {
         list.set(i - 1, task);
         return "\t____________________________________________________________\n"
                 + "\t Ok, I've marked this task as not done yet:\n"
-                + "\t   [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + "\t   " + task + "\n"
                 + "\t_____________________________________________________________";
     }
 
@@ -48,7 +48,7 @@ public class Delta {
         String output = "\t____________________________________________________________\n"
                 + "\t Here are the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
-            output += String.format("\t %d.[%s] %s\n", i + 1, list.get(i).getStatusIcon(), list.get(i).getDescription());
+            output += String.format("\t %d.%s\n", i + 1, list.get(i));
         }
         output += "\t_____________________________________________________________";
         return output;
