@@ -1,0 +1,8 @@
+todo work
+deadline homework /by Monday
+event party /from now /to 12/12/2025
+list
+mark 2
+unmark 3
+list
+bye
