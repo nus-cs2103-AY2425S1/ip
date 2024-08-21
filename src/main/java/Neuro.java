@@ -170,6 +170,26 @@ public class Neuro {
                             " index of the desired task.");
                 }
                 System.out.println("    ___________________________________________________");
+            } else if (input.startsWith("delete")) {
+                // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
+                String[] inputComponents = input.split("[\s]");
+
+                System.out.println("    ___________________________________________________");
+                try {
+                    int taskIndex = Integer.valueOf(inputComponents[1]);
+                    Task task = taskList.remove(taskIndex - 1);
+
+                    System.out.println("    Ok, I've removed this task:");
+                    System.out.println("    " + task);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list.");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("    UH OH! Missing index for 'delete' command! Add a valid index for a task" +
+                            " to delete, like 'delete 2'.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
+                            " index of the desired task.");
+                }
+                System.out.println("    ___________________________________________________");
             } else {
                 try {
                     Task task = getTask(input);
