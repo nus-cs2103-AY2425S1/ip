@@ -22,12 +22,24 @@ public class Azir {
                     }
                 } else if (input.startsWith("mark")) {
                     String[] result = input.split(" ");
+                    if (result.length == 1) {
+                        throw new AzirException("Input the task number you would like to mark.");
+                    }
+                    if (Integer.valueOf(result[1]) < 1 || (Integer.valueOf(result[1]) > taskList.size())) {
+                        throw new AzirException("Invalid value");
+                    }
                     Task chosenTask = taskList.get(Integer.valueOf(result[1]) - 1);
                     chosenTask.setDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(chosenTask);
                 } else if (input.startsWith("unmark")) {
                     String[] result = input.split(" ");
+                    if (result.length == 1) {
+                        throw new AzirException("Input the task number you would like to unmark.");
+                    }
+                    if (Integer.valueOf(result[1]) < 1 || (Integer.valueOf(result[1]) > taskList.size())) {
+                        throw new AzirException("Invalid value");
+                    }
                     Task chosenTask = taskList.get(Integer.valueOf(result[1]) - 1);
                     chosenTask.setNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
