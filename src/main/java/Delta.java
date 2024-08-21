@@ -73,21 +73,21 @@ public class Delta {
 
             try {
                 // Bye
-                if (task.equals("bye")) {
+                if (task.equalsIgnoreCase("bye")) {
                     output = sayBye();
                     break;
 
                 // Print Entire List
-                } else if (task.equals("list")) {
+                } else if (task.equalsIgnoreCase("list")) {
                     output = printTasks();
 
                 // Mark Task
-                } else if (task.length() >= 4 && task.substring(0, 4).equals("mark")) {
+                } else if (task.length() >= 4 && task.substring(0, 4).equalsIgnoreCase("mark")) {
                     int taskIdx = Integer.parseInt(task.substring(5));
                     output = markTask(taskIdx);
 
                 // Unmark Task
-                } else if (task.length() >= 6 && task.substring(0, 6).equals("unmark")) {
+                } else if (task.length() >= 6 && task.substring(0, 6).equalsIgnoreCase("unmark")) {
                     int taskIdx = Integer.parseInt(task.substring(7));
                     output = unmarkTask(taskIdx);
 
@@ -108,7 +108,7 @@ public class Delta {
                 } else if (task.length() >= 9 && task.substring(0, 9).equalsIgnoreCase("deadline ")) {
                     String[] details = task.substring(9).split(" /by ");
                     if (details.length != 2) {
-                        throw new DeltaException("OOPS!!! The description of deadline is wrong!\n" +
+                        throw new DeltaException("OOPS!!! The format for deadline is wrong!\n" +
                                 "\t Please follow the proper format:\n" +
                                 "\t * deadline [description] /by [date/time]");
                     }
@@ -126,7 +126,7 @@ public class Delta {
                         timings = details[1].split(" /to ");
                     }
                     if (details.length != 2 || timings.length != 2) {
-                        throw new DeltaException("OOPS!!! The description of event is wrong!\n" +
+                        throw new DeltaException("OOPS!!! The format for event is wrong!\n" +
                                 "\t Please follow the proper format:\n" +
                                 "\t * event [description] /from [start] /to [end]");
                     }
