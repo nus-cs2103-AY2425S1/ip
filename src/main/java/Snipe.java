@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Snipe {
     private static final String NAME = "Snipe";
@@ -8,6 +9,7 @@ public class Snipe {
             + "/_______  /___|  /__|   __/ \\___  >\n"
             + "        \\/     \\/   |__|        \\/ \n";
     private static final String HORIZONTAL_LINE = "_".repeat(60);
+    private static ArrayList<String> list = new ArrayList<String>();
     public void initChat() {
         greetUser();
         handleUserInput();
@@ -25,8 +27,25 @@ public class Snipe {
                 exitChat(scanner);
                 break;
             }
-            printWithLines(userInput);
+            handleSpecialInputs(userInput, scanner);
         }
+    }
+    private void handleSpecialInputs(String userInput, Scanner scanner) {
+        if (userInput.equalsIgnoreCase("list")) {
+            returnList();
+        } else {
+            list.add(userInput);
+            String message = "added: " + userInput;
+            printWithLines(message);
+        }
+    }
+    private void returnList() {
+        System.out.println(HORIZONTAL_LINE);
+        for(int i = 0; i < list.size(); i++) {
+            String item = String.format("%d. ", i + 1) + list.get(i);
+            System.out.println(item);
+        }
+        System.out.println(HORIZONTAL_LINE);
     }
     private void printWithLines(String message) {
         System.out.println(HORIZONTAL_LINE);
