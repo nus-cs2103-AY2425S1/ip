@@ -17,7 +17,7 @@ public class Task {
 
     public void mark() {
         if (this.isDone == true) {
-            System.out.println("Task is already marked as done!")
+            System.out.println("Task is already marked as done!");
         } else {
             this.isDone = true;
         }
@@ -25,7 +25,7 @@ public class Task {
 
     public void unmark() {
         if (this.isDone == false) {
-            System.out.println("Task is still undone!")
+            System.out.println("Task is still undone!");
         } else {
             this.isDone = false;
         }
