@@ -5,14 +5,18 @@
 	____________________________________________________________
 	____________________________________________________________
 	Added: [T][ ] borrow book
+	You now have 1 tasks.
 	____________________________________________________________
 	____________________________________________________________
 	Added: [D][ ] return book (by: Tuesday)
+	You now have 2 tasks.
 	____________________________________________________________
 	____________________________________________________________
 	Added: [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
+	You now have 3 tasks.
 	____________________________________________________________
 	____________________________________________________________
+	You currently have 3 tasks.
 	1. [T][ ] borrow book
 	2. [D][ ] return book (by: Tuesday)
 	3. [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
@@ -22,6 +26,7 @@
 	Marked task: [T][X] borrow book
 	____________________________________________________________
 	____________________________________________________________
+	You currently have 3 tasks.
 	1. [T][X] borrow book
 	2. [D][ ] return book (by: Tuesday)
 	3. [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
@@ -35,6 +40,7 @@
 	Unmarked task: [T][ ] borrow book
 	____________________________________________________________
 	____________________________________________________________
+	You currently have 3 tasks.
 	1. [T][ ] borrow book
 	2. [D][X] return book (by: Tuesday)
 	3. [E][ ] hang out with da boys (from: 26 August 2pm |to: 8pm)
