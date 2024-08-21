@@ -7,10 +7,19 @@ public class Slave {
 
     public static void main(String[] args) {
         welcome();
-
+        do {
+            getUserInput();
+        } while (hasMoreInputs);
         goodbye();
 
     }
+
+    /**
+     * Tries to query the user's name from username.txt if it exists
+     * if it does not / user has not specified their name, set user's name as "slave driver"
+     *
+     * Prints the greeting message
+     */
     private static void welcome() {
         tryGetUser();
         pageBreakLine();
@@ -25,25 +34,32 @@ public class Slave {
         pageBreakLine();
     }
 
+    /**
+     * used to separate the different print statements
+     */
     private static void pageBreakLine() {
         System.out.println("_______________________________________________________________________________________");
     }
 
+    /**
+     *  Prints the goodbye message in response to the user inputting "bye"
+     */
     private static void goodbye() {
-        Scanner sc = new Scanner(System.in);
         pageBreakLine();
         System.out.println("Good riddance " + user + ", try not to bother me in the future...");
         pageBreakLine();
-        sc.close();
     }
 
+    /**
+     * Creates a new scanner object to get the user's input
+     * Slave will echo the user's input, and respond accordingly
+     */
     private static void getUserInput() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        String[] inputArr = input.split(" ");
         echo(input);
+        String[] inputArr = input.split(" ");
         inputArr[0] = inputArr[0].toLowerCase();
-        printArr(inputArr);
         switch (inputArr[0]) {
             case "forgetme":
                 deleteUser();
@@ -61,6 +77,11 @@ public class Slave {
         }
     }
 
+    /**
+     * Prints the contents in the array, used for testing purposes
+     *
+     * @param arr the target array to be printed
+     */
     private static void printArr(String[] arr) {
         // for testing only
         System.out.print("[");
@@ -70,14 +91,21 @@ public class Slave {
         System.out.print("]\n");
     }
 
+    /**
+     * Prints the user's input
+     *
+     * @param s is the user's input
+     */
     private static void echo(String s) {
         pageBreakLine();
         System.out.println(s);
         pageBreakLine();
     }
 
-
-
+    /**
+     * Clears the user's saved name from username.txt
+     * user's name will now revert to the default "slave driver"
+     */
     private static void deleteUser() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("username.txt"));
@@ -88,6 +116,9 @@ public class Slave {
         }
     }
 
+    /**
+     * used to check if the user has specified their name previously at the start of the program
+     */
     private static void tryGetUser() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("username.txt"));
@@ -101,7 +132,10 @@ public class Slave {
         }
     }
 
-
+    /**
+     * used to save the user's name if the user has not already defined it
+     * will not allow the user to change their name otherwise
+     */
     private static void getUser() {
         if (!user.equals("slave driver")) {
             System.out.println("I already know your name, " + user + ", quit wasting my time...");
