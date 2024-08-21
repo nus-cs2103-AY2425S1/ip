@@ -1,10 +1,11 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class PurrfessorDipsy {
-    private static final Task[] taskTable = new Task[100];
-    private static int taskTableRowCount = 0;
+    private static final ArrayList<Task> taskTable = new ArrayList<>();
     private static boolean isRunning = true; // to allow for a more graceful exit
 
     private static final Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
@@ -93,7 +94,7 @@ public class PurrfessorDipsy {
         if (markMatcher.matches()) {
             String action = markMatcher.group(1);
             int index = Integer.parseInt(markMatcher.group(2));
-            if (index >= 1 && index < taskTableRowCount) {
+            if (index >= 1 && index < taskTable.size()) {
                 if (action.equals("mark")) {
                     markTaskAsDone(index);
                 } else {
@@ -152,33 +153,33 @@ public class PurrfessorDipsy {
 
     // Other util methods used for performing commands.
     private static void saveToMemory(Task task) {
-        taskTable[taskTableRowCount] = task;
-        taskTableRowCount++;
+        taskTable.add(task);
         printWithTerminalLines("Got it! I've added this task:\n" + task +
-                "\nYou now have " + taskTableRowCount + " tasks in your list.");
+                "\nYou now have " + taskTable.size() + " tasks in your list.");
     }
 
     private static void markTaskAsDone(int index) {
-        Task task = taskTable[index - 1]; // table is 0-indexed
+        Task task = taskTable.get(index - 1);
         task.markAsDone();
         printWithTerminalLines("Meow! I’ve scratched this task off the list!\n" + task);
     }
 
     private static void markTaskAsUndone(int index) {
-        Task task = taskTable[index - 1]; // table is 0-indexed
+        Task task = taskTable.get(index - 1);
         task.markAsUndone();
         printWithTerminalLines("Mrrreow! I’ve batted this task back onto the list.\n" + task);
     }
 
     private static void printMemory() {
-        if (taskTableRowCount == 0) {
+        int taskTableSize = taskTable.size();
+        if (taskTableSize == 0) {
             printWithTerminalLines("You have no tasks in your list.");
         } else {
             StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
-            for (int i = 0; i < taskTableRowCount; i++) {
+            for (int i = 0; i < taskTableSize; i++) {
                 int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
-                result.append(printedIndex).append(".").append(taskTable[i]);
-                if (i < taskTableRowCount - 1) { // Don't append a newline after the last task
+                result.append(printedIndex).append(".").append(taskTable.get(i));
+                if (i < taskTableSize - 1) { // Don't append a newline after the last task
                     result.append("\n");
                 }
             }
