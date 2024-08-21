@@ -19,3 +19,5 @@ deadline do some work/
 event
 event do some work/
 event dd some work/from Tues
+delete 1
+list

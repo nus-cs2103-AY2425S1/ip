@@ -10,35 +10,48 @@ public class Kotori {
         Scanner s = new Scanner(System.in);
         while (s.hasNext()){
             String input = s.nextLine();
-            if (input.equals("bye")) {
+            if (input.equals("bye ")) {
                 printExit();
                 break;
             } else if (input.equals("list")) {
                 printList(list);
-            } else if (input.startsWith("mark")) {
+            } else if (input.startsWith("mark ")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
                 if (list.size() < index || index <= 0 ) {
                    printMessage("Sorry~ can not mark that task because it does not exist");
+                } else {
+                    Task task = list.get(index - 1);
+                    try {
+                        task.mark();
+                        printMessage(String.format("Nice Job, Job %s has been marked as done!\n    %s",index,task));
+                    } catch (IncorrectStateException e) {
+                        printMessage(e.getMessage());
+                    }
                 }
-                Task task = list.get(index - 1);
-                try {
-                    task.mark();
-                    printMessage(String.format("Nice Job, Job %s has been marked as done!\n    %s",index,task));
-                } catch (IncorrectStateException e) {
-                    printMessage(e.getMessage());
-                }
-            } else if (input.startsWith("unmark")) {
+
+            } else if (input.startsWith("unmark ")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
                 if (list.size() < index || index <= 0 ) {
                     printMessage("Sorry~ can not unmark that task because it does not exist");
+                } else {
+                    Task task = list.get(index - 1);
+                    try {
+                        task.unmark();
+                        printMessage(String.format("Alright, Job %s has been marked as not done!\n    %s",index,task));
+                    } catch (IncorrectStateException e) {
+                        printMessage(e.getMessage());
+                    }
                 }
-                Task task = list.get(index - 1);
-                try {
-                    task.unmark();
-                    printMessage(String.format("Alright, Job %s has been marked as not done!\n    %s",index,task));
-                } catch (IncorrectStateException e) {
-                    printMessage(e.getMessage());
+            } else if (input.startsWith("delete ")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                if (list.size() < index || index <= 0) {
+                    printMessage("Sorry~ Can not delete this task as such task does not exist.");
+                } else {
+                    Task task = list.remove(index - 1);
+                    printMessages(new String[]{"OK~. I've deleted this task:",task.toString(),
+                            String.format("Now you have %s tasks in the list",list.size())});
                 }
+
             } else {
                 try {
                     Task task = Task.of(input);
