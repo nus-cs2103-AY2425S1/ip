@@ -29,6 +29,7 @@ public class Llama {
             String input = sc.nextLine();
             displayString(hr);
 
+            // Split input into command and remaining
             String command = input;
             String remaining = "";
             if (input.contains(" ")) {
@@ -50,6 +51,8 @@ public class Llama {
             } else {                                                // add other tasks
                 if (command.equals("todo")) {
                     tasks.addTask(new Todo(remaining));
+                } else if (command.equals("deadline")) {
+                    tasks.addTask(new Deadline(remaining));
                 }
             }
         }
