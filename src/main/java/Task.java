@@ -1,13 +1,22 @@
 public class Task {
     private String description;
-    private boolean isDone;
+    private boolean done;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.done = false;
     }
 
     public void setDone() {
-        isDone = true;
+        done = true;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }
