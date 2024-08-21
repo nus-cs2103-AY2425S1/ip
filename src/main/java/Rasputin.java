@@ -86,6 +86,7 @@ public class Rasputin {
                 Todo task = new Todo(desc);
                 ls.add(task);
                 String output = "Added Todo task:\n" + task.toString();
+                output += "\nYou currently have " + ls.size() + " task/s in your list";
                 printText(output);
                 continue;
             }
@@ -98,6 +99,7 @@ public class Rasputin {
                 Deadline task = new Deadline(desc, deadline);
                 ls.add(task);
                 String output = "Added Deadline task:\n" + task.toString();
+                output += "\nYou currently have " + ls.size() + " task/s in your list";
                 printText(output);
                 continue;
             }
@@ -113,6 +115,7 @@ public class Rasputin {
                 Event task = new Event(desc, from, to);
                 ls.add(task);
                 String output = "Added Event task:\n" + task.toString();
+                output += "\nYou currently have " + ls.size() + " task/s in your list";
                 printText(output);
                 continue;
             }
