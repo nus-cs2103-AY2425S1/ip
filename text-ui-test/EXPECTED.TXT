@@ -47,6 +47,16 @@ Here are the tasks in your list:
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Purrr, I've swatted this task away:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+You now have 2 tasks in your list.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 Error: 'todo' command requires a description.
 Usage: todo <description>
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
