@@ -12,45 +12,71 @@ public class Orion {
 
     public static final String INDENT = "    ";
 
-    public static void printBar() {
+    private static boolean isOnline;
+    private static String[] tasks;
+    private static int noTasks;
+
+    private static void printBar() {
         System.out.println(Orion.BAR);
     }
 
-    public static void greet() {
+    private static void printIndent(String message) {
+        System.out.println(Orion.INDENT + message);
+    }
+
+    private static void greet() {
         Orion.printBar();
         System.out.println(Orion.LOGO);
         Orion.printBar();
 
-        System.out.println(Orion.INDENT + "Hello from Orion!");
-        System.out.println(Orion.INDENT + "What do you want to talk about today?");
+        Orion.printIndent("Hello from Orion!");
+        Orion.printIndent("What do you want to talk about today?");
         Orion.printBar();
     }
 
-    public static void echo(String command) {
-        System.out.println(Orion.INDENT + command);
+    private static void sayGoodbye() {
+        Orion.printIndent("Bye! Hope to see you again soon!");
         Orion.printBar();
     }
 
-    public static void sayGoodbye() {
-        System.out.println(Orion.INDENT + "Bye! Hope to see you again soon!");
-        Orion.printBar();
+    private static void list() {
+        for (int i = 0; i < Orion.noTasks; i++) {
+            String task = String.format("%d. %s", i + 1, Orion.tasks[i]);
+            Orion.printIndent(task);
+        }
+    }
+
+    private static void obey(String command) {
+        switch (command) {
+            case "bye":
+                Orion.isOnline = false;
+                break;
+            case "list":
+                Orion.list();
+                Orion.printBar();
+                break;
+            default:
+                Orion.tasks[Orion.noTasks] = command;
+                Orion.noTasks++;
+                Orion.printIndent("added: " + command);
+                Orion.printBar();
+        }
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Orion.isOnline = true;
+        Orion.tasks = new String[100];
+        Orion.noTasks = 0;
         Orion.greet();
 
-        while (true) {
+        while (Orion.isOnline) {
             String command = sc.nextLine();
             Orion.printBar();
-            if (command.equals("bye")) {
-                sc.close();
-                break;
-            } else {
-                Orion.echo(command);
-            }
+            Orion.obey(command);
         }
 
+        sc.close();
         Orion.sayGoodbye();
     }
 }
