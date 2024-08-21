@@ -6,12 +6,24 @@ public class MichaelScott {
         boolean flag = true;
         ArrayList<Task> todo = new ArrayList<Task>();
 
-        String logo = " __  __ _      _                _   ____            _   _  \n"
-                + "|  \\/  (_) ___| |__   __ _  ___| | / ___|  ___ ___ | |_| |_ \n"
-                + "| |\\/| | |/ __| '_ \\ / _` |/ _ \\ | \\___ \\ / __/ _ \\| __| __|\n"
-                + "| |  | | | (__| | | | (_| |  __/ |  ___) | (_| (_) | |_| |_ \n"
-                + "|_|  |_|_|\\___|_| |_|\\__,_|\\___|_| |____/ \\___\\___/ \\__|\\__|\n";
+//        String logo = " __  __ _      _                _   ____            _   _  \n"
+//                + "|  \\/  (_) ___| |__   __ _  ___| | / ___|  ___ ___ | |_| |_ \n"
+//                + "| |\\/| | |/ __| '_ \\ / _` |/ _ \\ | \\___ \\ / __/ _ \\| __| __|\n"
+//                + "| |  | | | (__| | | | (_| |  __/ |  ___) | (_| (_) | |_| |_ \n"
+//                + "|_|  |_|_|\\___|_| |_|\\__,_|\\___|_| |____/ \\___\\___/ \\__|\\__|\n";
 
+        String logo = ".___  ___.  __    ______  __    __       ___       _______  __          _______.  ______   ______   .___________.___________.\n"
+                    + "|   \\/   | |  |  /      ||  |  |  |     /   \\     |   ____||  |        /       | /      | /  __  \\  |           |           |\n"
+                    + "|  \\  /  | |  | |  ,----'|  |__|  |    /  ^  \\    |  |__   |  |       |   (----`|  ,----'|  |  |  | `---|  |----`---|  |----`\n"
+                    + "|  |\\/|  | |  | |  |     |   __   |   /  /_\\  \\   |   __|  |  |        \\   \\    |  |     |  |  |  |     |  |        |  |\n"
+                    + "|  |  |  | |  | |  `----.|  |  |  |  /  _____  \\  |  |____ |  `----.----)   |   |  `----.|  `--'  |     |  |        |  | \n"
+                    + "|__|  |__| |__|  \\______||__|  |__| /__/     \\__\\ |_______||_______|_______/     \\______| \\______/      |__|        |__|\n";
+
+
+
+
+//        System.out.println(logo);
+        System.out.println("Running Micheal Scott.exe");
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Michael Scott");
         System.out.println("What can I do for you?");
@@ -63,7 +75,7 @@ public class MichaelScott {
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("    " + todo.get(todo.size() - 1).toString());
-                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? "tasks " : ("task" )) + " in the list.");
+                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
                     System.out.println("____________________________________________________________");
                 }
                 case "deadline" -> {
@@ -72,7 +84,7 @@ public class MichaelScott {
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("    " + todo.get(todo.size() - 1).toString());
-                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks " : (" task" )) + " in the list.");
+                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
                     System.out.println("____________________________________________________________");
                 }
                 case "event" -> {
@@ -81,7 +93,7 @@ public class MichaelScott {
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("    " + todo.get(todo.size() - 1).toString());
-                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks " : (" task" )) + " in the list.");
+                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
                     System.out.println("____________________________________________________________");
                 }
             }
