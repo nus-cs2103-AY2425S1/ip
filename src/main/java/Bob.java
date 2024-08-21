@@ -20,17 +20,19 @@ public class Bob {
         System.out.println(Bob.lineFormat("Added: " + command + "\n"));
     }
     private static void listCommands() {
-        System.out.print(Bob.lineFormat(Bob.taskList.toString()));
+        System.out.print(Bob.lineFormat("Here are the tasks in your list:\n" + Bob.taskList.toString()));
     }
 
     public static void main(String[] args) {
-        System.out.println(Bob.greeting());
+        System.out.print(Bob.greeting());
         String input = "";
+        String[] arguments;
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("Enter your command: ");
+            System.out.println("\nEnter your command: ");
             input = scanner.nextLine();
+            arguments = input.split(" ");
 
             if (input.compareTo("bye") == 0) {
                 System.out.println(Bob.farewell());
@@ -38,6 +40,23 @@ public class Bob {
             }
             if (input.compareTo("list") == 0) {
                 Bob.listCommands();
+                continue;
+            }
+
+            if (arguments.length == 2 && arguments[0].compareTo("mark") == 0) {
+                int idx = Integer.parseInt(arguments[1]);
+                Bob.taskList.mark(idx);
+                String temp = "Nice! I've marked this task as done:\n"
+                        + Bob.taskList.describeTask(idx) + "\n";
+                System.out.println(Bob.lineFormat(temp));
+                continue;
+            }
+            if (arguments.length == 2 && arguments[0].compareTo("unmark") == 0) {
+                int idx = Integer.parseInt(arguments[1]);
+                Bob.taskList.unmark(idx);
+                String temp = "OK, I've marked this task as not done yet:\n"
+                        + Bob.taskList.describeTask(idx) + "\n";
+                System.out.println(Bob.lineFormat(temp));
                 continue;
             }
 

@@ -10,12 +10,13 @@ public class Task {
         this.completed = true;
     }
 
-    public boolean isComplete() {
-        return this.completed;
+    public void uncomplete() {
+        this.completed = false;
     }
 
     @Override
     public String toString() {
-        return this.name;
+        String completedBox = this.completed ? "[X] " : "[ ] ";
+        return completedBox + this.name;
     }
 }
