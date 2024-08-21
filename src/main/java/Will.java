@@ -153,7 +153,6 @@ public class Will {
 
         while (true) {
             String userInput = scanner.nextLine();
-            System.out.println("_____________________________________");
 
             if (Objects.equals(userInput, "bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
