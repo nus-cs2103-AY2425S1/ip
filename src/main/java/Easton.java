@@ -59,13 +59,18 @@ public class Easton {
                 }
                 break;
             case DEADLINE:
-                String[] text = getTextFromInput(input).split(" /by ", 2);
-                addTask(new Deadline(text[0], text[1]));
+                try {
+                    addTask(createDeadline(input));
+                } catch (EmptyDescriptionException | InvalidFormatException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case EVENT:
-                String[] strings = getTextFromInput(input).split(" /from ", 2);
-                String[] timings = strings[1].split(" /to ", 2);
-                addTask(new Event(strings[0], timings[0], timings[1]));
+                try {
+                    addTask(createEvent(input));
+                } catch (EmptyDescriptionException | InvalidFormatException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             }
 
@@ -121,8 +126,32 @@ public class Easton {
         }
     }
 
-    private static String getTextFromInput(String input) {
-        return input.split(" ", 2)[1];
+    private static Deadline createDeadline(String input) throws EmptyDescriptionException, InvalidFormatException {
+        String[] splitInput = input.split(" ", 2);
+        if (splitInput.length != 2) {
+            throw new EmptyDescriptionException();
+        }
+
+        if (!splitInput[1].contains(" /by ")) {
+            throw new InvalidFormatException();
+        }
+
+        String[] content = splitInput[1].split(" /by ", 2);
+        return new Deadline(content[0], content[1]);
+    }
+
+    private static Event createEvent(String input) throws EmptyDescriptionException, InvalidFormatException {
+        String[] splitInput = input.split(" ", 2);
+        if (splitInput.length != 2) {
+            throw new EmptyDescriptionException();
+        }
+
+        if (!(splitInput[1].contains(" /from ") && splitInput[1].contains(" /to "))) {
+            throw new InvalidFormatException();
+        }
+
+        String[] content = splitInput[1].split(" /from | /to ", 3);
+        return new Event(content[0], content[1], content[2]);
     }
 
     private static Action getActionFromInput(String input) throws IllegalActionException {
