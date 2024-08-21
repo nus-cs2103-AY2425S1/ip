@@ -6,17 +6,36 @@ import java.util.NoSuchElementException;
 
 public class Mahesh {
 
+    /**
+     * The logo to be displayed when the application starts.
+     */
     private static String LOGO = 
-    "#     #                                       ######                               ###### \n"
-  + "##   ##   ##   #    # ######  ####  #    #    #     #   ##   #      #              #      \n"
-  + "# # # #  #  #  #    # #      #      #    #    #     #  #  #  #      #              #      \n"
-  + "#  #  # #    # ###### #####   ####  ######    #     # #    # #      #      #####   #####  \n"
-  + "#     # ###### #    # #           # #    #    #     # ###### #      #              #      \n"
-  + "#     # #    # #    # #      #    # #    #    #     # #    # #      #              #      \n"
-  + "#     # #    # #    # ######  ####  #    #    ######  #    # ###### ######         ###### \n";
+      "#     #                                       ######                               ###### \n"
+    + "##   ##   ##   #    # ######  ####  #    #    #     #   ##   #      #              #      \n"
+    + "# # # #  #  #  #    # #      #      #    #    #     #  #  #  #      #              #      \n"
+    + "#  #  # #    # ###### #####   ####  ######    #     # #    # #      #      #####   #####  \n"
+    + "#     # ###### #    # #           # #    #    #     # ###### #      #              #      \n"
+    + "#     # #    # #    # #      #    # #    #    #     # #    # #      #              #      \n"
+    + "#     # #    # #    # ######  ####  #    #    ######  #    # ###### ######         ###### \n";
+
+    /**
+     * Divider line used for separating sections in the console output.
+     */
     private static String DIVIDER = "-------------------------------------------------------";
+
+    /**
+     * Error message for incomplete or incorrect commands.
+     */
     private static String INCOMPLETE_COMMAND_ERR = "The command is incomplete/incorrect. Please refer to the below usage for this command.";
+
+    /**
+     * List to store tasks.
+     */
     private static ArrayList<Task> list = new ArrayList<>();
+
+    /**
+     * Counter to keep track of the number of tasks.
+     */
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -115,6 +134,11 @@ public class Mahesh {
         scan.close();
     }
 
+    /**
+     * Adds a task to the list and increments the task count.
+     *
+     * @param task The task to be added to the list.
+     */
     private static void addToList(Task task) {
         Mahesh.list.add(task);
         Mahesh.taskCount++;
@@ -122,7 +146,13 @@ public class Mahesh {
         System.out.println("  " + task);
         System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
     }
-
+    
+    /**
+     * Deletes a task from the list at the specified index and decrements the task count.
+     *
+     * @param index The index of the task to be removed from the list.
+     * @throws IndexOutOfBoundsException If the index is out of range (index < 0 || index >= size()).
+     */
     private static void deleteFromList(int index) throws IndexOutOfBoundsException {
         Task task = list.get(index);
         Mahesh.list.remove(index);
@@ -131,10 +161,15 @@ public class Mahesh {
         System.out.println("  " + task);
         System.out.println("Now you have " + Mahesh.taskCount + " tasks in the list.");
     }
-
+    
+    /**
+     * Prints all tasks in the list. Throws an exception if the list is empty.
+     *
+     * @throws MaheshException If there are no tasks in the list.
+     */
     private static void printList() throws MaheshException {
         if (Mahesh.taskCount == 0) {
-            throw new MaheshException("You have no tasks! Add a few tasks (todo, deadine or event)");
+            throw new MaheshException("You have no tasks! Add a few tasks (todo, deadline or event)");
         }
         System.out.println("Here are the tasks in your list:");
         int count = 1;
