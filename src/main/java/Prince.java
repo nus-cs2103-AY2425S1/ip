@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Prince {
 
@@ -18,7 +19,7 @@ public class Prince {
         Scanner sc = new Scanner(System.in);
 
         // initialise array for input storage
-        Task[] tasksArray = new Task[100];
+        ArrayList<Task> tasksArray = new ArrayList<Task>();
 
         printline();
         System.out.println("    Hello! I'm Prince");
@@ -36,38 +37,17 @@ public class Prince {
 
             printline();
 
-            // input equals bye
-            // input equals list
-            // input contains unmark
-            // input contains mark
-            // all other event inputs
-
             try {
                 if (input.equals("bye")) {
                     break;
                 } else if (input.equals("list")) {
                     printList(tasksArray);
-                    printline();
                 } else if (input.contains("unmark")) {
-                    // extra check to make sure the start of input is "unmark"
-                    String checkMark = input.substring(0, 6);
-                    if (checkMark.equals("unmark")) {
-                        int index = getIndex(input);
-                        Task task = tasksArray[index];
-                        task.markAsNotDone();
-                        System.out.println("      " + task.toString());
-                    }
-                    printline();
+                    unmark(input, tasksArray);
                 } else if (input.contains("mark")) {
-                    // extra check to make sure the start of input is "mark"
-                    String checkMark = input.substring(0, 4);
-                    if (checkMark.equals("mark")) {
-                        int index = getIndex(input);
-                        Task task = tasksArray[index];
-                        task.markAsDone();
-                        System.out.println("      " + task.toString());
-                    }
-                    printline();
+                    mark(input, tasksArray);
+                } else if (input.contains("delete")) {
+                    delete(input, tasksArray);
                 } else if (input.equals("todo") || input.equals("deadline") ||
                         input.equals("event")) {
                     throw new PrinceException("    Please describe your '" + input + "' task in more detail!");
@@ -107,56 +87,22 @@ public class Prince {
         System.out.println(LINE);
     }
 
-    // method to get the integer when inputting mark or unmark
-    private static int getIndex(String input) {
-        if (input.contains("unmark")) {
-            // get character value of index in the input
-            String indexAsString = input.substring(7);
-            // convert to arr index
-            int index = Integer.valueOf(indexAsString) - 1;
-            return index;
-        } else if (input.contains("mark")) {
-            // get character value of index in input
-            String indexAsString = input.substring(5);
-            // convert to arr index
-            int index = Integer.valueOf(indexAsString) - 1;
-            return index;
-        } else {
-            // should not reach here
-            return -1;
-        }
-    }
-
     /*
      * Methods related to printing out list format of tasks
      */
 
-    // get length of task array
-    private static int getTaskArrayLength(Task[] arr) {
-        int x = 0;
-        for (int i = 0; i < 100; i++) {
-            if (arr[i] != null) {
-                x++;
-            }
-        }
-        return x;
-    }
-
-    private static void printList(Task[] tasksArray) {
+    private static void printList(ArrayList<Task> tasksArray) {
         System.out.println("    Here are the tasks in your list:");
-
-        int length = tasksArray.length;
+        int length = tasksArray.size();
         // print the list of inputs
         for (int i = 0; i < length; i++) {
-            if (tasksArray[i] != null) {
-                Task task = tasksArray[i];
-                // formatting for numbering of list
-                int listNum = i + 1;
-                String numDot = listNum + ".";
-
-                System.out.println("    " + numDot + task.toString());
-            }
+            Task task = tasksArray.get(i);
+            // formatting for numbering of list
+            int listNum = i + 1;
+            String numDot = listNum + ".";
+            System.out.println("    " + numDot + task.toString());
         }
+        printline();
     }
 
     /*
@@ -170,14 +116,13 @@ public class Prince {
         return todo;
     }
 
-    private static void handleTodo(String input, Task[] tasksArray) {
+    private static void handleTodo(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getTodo(input);
         Todo todo = new Todo(desc);
-        int todoID = todo.getTaskID();
-        tasksArray[todoID] = todo;
+        tasksArray.add(todo);
         System.out.println("      " + todo.toString());
-        System.out.println("    Now you have " + getTaskArrayLength(tasksArray) +
+        System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
     }
 
@@ -199,15 +144,14 @@ public class Prince {
         return by;
     }
 
-    private static void handleDeadline(String input, Task[] tasksArray) {
+    private static void handleDeadline(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getDeadline(input);
         String by = getBy(input);
         Deadline deadlineTask = new Deadline(desc, by);
-        int deadlineID = deadlineTask.getTaskID();
-        tasksArray[deadlineID] = deadlineTask;
+        tasksArray.add(deadlineTask);
         System.out.println("      " + deadlineTask.toString());
-        System.out.println("    Now you have " + getTaskArrayLength(tasksArray) +
+        System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
     }
 
@@ -236,16 +180,84 @@ public class Prince {
         return to;
     }
 
-    private static void handleEvent(String input, Task[] tasksArray) {
+    private static void handleEvent(String input, ArrayList<Task> tasksArray) {
         System.out.println("    Got it. I've added this task:");
         String desc = getEvent(input);
         String from = getFrom(input);
         String to = getTo(input);
         Event event = new Event(desc, from, to);
-        int eventID = event.getTaskID();
-        tasksArray[eventID] = event;
+        tasksArray.add(event);
         System.out.println("      " + event.toString());
-        System.out.println("    Now you have " + getTaskArrayLength(tasksArray) +
+        System.out.println("    Now you have " + tasksArray.size() +
                 " tasks in the list.");
+    }
+
+    /*
+     * Methods related to UNMARK, MARK and DELETE
+     */
+
+    // method to get the integer when inputting unmark, mark or delete
+    private static int getIndex(String input) {
+        if (input.contains("unmark")) {
+            // get character value of index in the input
+            String indexAsString = input.substring(7);
+            // convert to arr index
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else if (input.contains("mark")) {
+            // get character value of index in input
+            String indexAsString = input.substring(5);
+            // convert to arr index
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else if (input.contains("delete")) {
+            // get character value of index in the input
+            String indexAsString = input.substring(7);
+            // convert to arr index
+            int index = Integer.valueOf(indexAsString) - 1;
+            return index;
+        } else {
+            // should not reach here
+            return -1;
+        }
+    }
+
+    private static void unmark(String input, ArrayList<Task> tasksArray) {
+        // extra check to make sure the start of input is "unmark"
+        String checkUnmark = input.substring(0, 6);
+        if (checkUnmark.equals("unmark")) {
+            int index = getIndex(input);
+            Task task = tasksArray.get(index);
+            task.markAsNotDone();
+            System.out.println("      " + task.toString());
+        }
+        printline();
+    }
+
+    private static void mark(String input, ArrayList<Task> tasksArray) {
+        // extra check to make sure the start of input is "mark"
+        String checkMark = input.substring(0, 4);
+        if (checkMark.equals("mark")) {
+            int index = getIndex(input);
+            Task task = tasksArray.get(index);
+            task.markAsDone();
+            System.out.println("      " + task.toString());
+        }
+        printline();
+    }
+
+    private static void delete(String input, ArrayList<Task> tasksArray) {
+        // extra check to make sure the start of input is "delete"
+        String checkDelete = input.substring(0, 6);
+        if (checkDelete.equals("delete")) {
+            int index = getIndex(input);
+            Task task = tasksArray.get(index);
+            task.delete(); // prints "the noted i removed this task" string
+            tasksArray.remove(index);
+            System.out.println("      " + task.toString());
+            System.out.println("    Now you have " + tasksArray.size() +
+                    " tasks in the list.");
+        }
+        printline();
     }
 }
