@@ -85,27 +85,30 @@ public class Delta {
                     int taskIdx = Integer.parseInt(task.substring(7));
                     output = unmarkTask(taskIdx);
 
+                // Catch Empty Todo
+                } else if (task.strip().equalsIgnoreCase("todo")) {
+                    throw new DeltaException("OOPS!!! The description of a todo cannot be empty.");
+
                 // Add Todo
-                } else if (task.length() >= 4 && task.substring(0, 4).equals("todo")) {
-                    if (task.stripTrailing().equals("todo")) {
-                        throw new DeltaException("OOPS!!! The description of a todo cannot be empty.");
-                    }
+                } else if (task.length() >= 5 && task.substring(0, 5).equalsIgnoreCase("todo ")) {
                     String description = task.substring(5);
                     output = addTask(new Todo(description));
 
+                // Catch Empty Deadline
+                } else if (task.strip().equalsIgnoreCase("deadline")) {
+                    throw new DeltaException("OOPS!!! The description of a deadline cannot be empty.");
+
                 // Add Deadline
-                } else if (task.length() >= 8 && task.substring(0, 8).equals("deadline")) {
-                    if (task.stripTrailing().equals("deadline")) {
-                        throw new DeltaException("OOPS!!! The description of a deadline cannot be empty.");
-                    }
+                } else if (task.length() >= 9 && task.substring(0, 9).equalsIgnoreCase("deadline ")) {
                     String[] details = task.substring(9).split(" /by ");
                     output = addTask(new Deadline(details[0], details[1]));
 
+                // Catch Empty Event
+                } else if (task.strip().equalsIgnoreCase("event")) {
+                    throw new DeltaException("OOPS!!! The description of a event cannot be empty.");
+
                 // Add Event
-                } else if (task.length() >= 5 && task.substring(0, 5).equals("event")) {
-                    if (task.stripTrailing().equals("event")) {
-                        throw new DeltaException("OOPS!!! The description of a event cannot be empty.");
-                    }
+                } else if (task.length() >= 6 && task.substring(0, 6).equalsIgnoreCase("event ")) {
                     String[] details = task.substring(6).split(" /from ");
                     String[] timings = details[1].split(" /to ");
                     output = addTask(new Event(details[0], timings[0], timings[1]));
