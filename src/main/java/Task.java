@@ -1,17 +1,17 @@
-public class Task {
-    private Boolean isDone;
-    private String Desc;
+abstract class Task {
+    protected Boolean isDone;
+    protected String desc;
 
-    Task(String Desc) {
+    public Task(String Desc) {
         this.isDone = false ;
-        this.Desc = Desc;
+        this.desc = Desc;
     }
 
     public Boolean isDone() {
         return this.isDone;
     }
     public String getDesc() {
-        return this.Desc;
+        return this.desc;
     }
 
     public void completeTask() {
@@ -22,12 +22,5 @@ public class Task {
         this.isDone = false;
     }
 
-    @Override
-    public String toString() {
-        if (this.isDone) {
-            return "[x] " + this.Desc;
-        } else {
-            return "[] " + this.Desc;
-        }
-    }
+    public abstract String toString();
 }
