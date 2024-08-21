@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Stelle {
+    static final String HORIZONTAL_LINE = "____________________________________________________________";
     static final String NAME = "Stelle";
 
     public static void main(String[] args) {
@@ -11,7 +12,13 @@ public class Stelle {
 
         while (true) {
             String input = scanner.nextLine();
-            chatLogic.processInput(input);
+            try {
+                chatLogic.processInput(input);
+            } catch (StelleException e) {
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println(e.getMessage());
+                System.out.println(HORIZONTAL_LINE);
+            }
         }
     }
 }

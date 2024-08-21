@@ -23,7 +23,7 @@ public class ChatLogic {
         this.name = name;
     }
 
-    public void processInput(String input) {
+    public void processInput(String input) throws StelleException {
         if (input.equals(BYE_COMMAND)) {
             printBye();
             System.exit(0);
@@ -31,8 +31,10 @@ public class ChatLogic {
             processMarkUnmarkInput(input);
         } else if (input.equals(LIST_COMMAND)) {
             listTasks();
-        } else {
+        } else if (input.contains(TODO_COMMAND) || input.contains(DEADLINE_COMMAND) || input.contains(EVENT_COMMAND)) {
             processAddTaskInput(input);
+        } else {
+            throw new WrongCommandException();
         }
     }
 
@@ -93,8 +95,13 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private void addToDo(String input) {
+    private void addToDo(String input) throws TaskException {
         String taskName = input.replace(TODO_COMMAND, "").strip();
+
+        if (taskName.isEmpty()) {
+            throw new ToDoNoDescriptionException();
+        }
+
         taskArray[taskCount] = new ToDo(taskName);
         this.taskCount++;
     }
