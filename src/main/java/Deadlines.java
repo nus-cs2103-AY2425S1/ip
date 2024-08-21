@@ -12,9 +12,25 @@ public class Deadlines extends Tasks {
         return "[D]";
     }
 
+    protected static Deadlines createDeadline(String text) throws NoDescriptionException, InvalidDateException{
+        int descriptionEnd = text.indexOf('/');
+        String description = text.substring(9, descriptionEnd).trim();
+
+        if (descriptionEnd == -1 || description.isEmpty()) {
+            throw new NoDescriptionException("No description");
+        }
+
+        String dateCommand = text.substring(descriptionEnd + 1).trim();
+        if (!dateCommand.startsWith("by")) {
+            throw new InvalidDateException(text);
+        }
+        String date = dateCommand.substring(2).trim();
+        return new Deadlines(description, date);
+    }
+
     @Override
     public String toString() {
-        return typeIcon() + super.toString() + "(" + date + ")";
+        return typeIcon() + super.toString() + "(by:" + date + ")";
     }
 
 }

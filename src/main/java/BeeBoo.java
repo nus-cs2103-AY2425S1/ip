@@ -64,36 +64,17 @@ public class BeeBoo {
 
     //To create ToDos
     private void createToDo(String text) throws NoDescriptionException {
-        String description = text.substring(4).trim();
-        if (description.isEmpty()) {
-            throw new NoDescriptionException("No description");
-        }
-        chatBox(addList(new ToDos(description)));
+        chatBox(addList(ToDos.createToDo(text)));
     }
 
     //To create Deadlines
-    private void createDeadlines(String text) throws NoDescriptionException {
-        int descriptionEnd = text.indexOf('/');
-        String description = text.substring(9, descriptionEnd - 1).trim();
-        if (descriptionEnd == -1 || description.isEmpty()) {
-            throw new NoDescriptionException("No description");
-        }
-        String date = text.substring(descriptionEnd + 1);
-        chatBox(addList(new Deadlines(description, date)));
+    private void createDeadlines(String text) throws NoDescriptionException, InvalidDateException {
+        chatBox(addList(Deadlines.createDeadline(text)));
     }
 
     //Creates events
-    private void createEvent(String text) throws NoDescriptionException {
-        int descriptionEnd = text.indexOf('/');
-        String description = text.substring(6, descriptionEnd - 1);
-        if (descriptionEnd == -1 || description.isEmpty()) {
-            throw new NoDescriptionException("No description");
-        }
-        String dateSubstring = text.substring(descriptionEnd + 6);
-        int startDateEnd = dateSubstring.indexOf('/');
-        String startDate = dateSubstring.substring(0, startDateEnd - 1);
-        String endDate = dateSubstring.substring(startDateEnd + 4);
-        chatBox(addList(new Events(description, startDate, endDate)));
+    private void createEvent(String text) throws NoDescriptionException, InvalidDateException {
+        chatBox(addList(Events.CreateEvent(text)));
     }
 
     //Checks the command the user uses and returns a number for chatbot to check against
@@ -114,7 +95,7 @@ public class BeeBoo {
     }
 
     //Creates the tasks
-    private void createTasks(String text) throws NoDescriptionException {
+    private void createTasks(String text) throws NoDescriptionException, InvalidDateException {
         if (text.startsWith("deadline")) {
             createDeadlines(text);
         } else if (text.startsWith("event")) {
@@ -125,24 +106,22 @@ public class BeeBoo {
     }
 
     //Handles the command the user uses
-    private void handleCommands(String text) throws InvalidCommandException, NoDescriptionException {
+    private void handleCommands(String text) throws InvalidCommandException, BeeBooExceptions{
         int commandCheck = checkCommand(text);
-        if (commandCheck == 1) {
+        if (commandCheck == 1 || commandCheck == 2) {
             //Command is mark so chatbot marks the indexed item
             String number = "";
             for (int i = 5; i < text.length(); i++) {
                 number = number + text.charAt(i);
             }
             int index = Integer.parseInt(number);
-            markDone(index - 1);
-        } else if (commandCheck == 2) {
-            //Command is unmark so the chatbot unmarks the indexed item
-            String number = "";
-            for (int i = 7; i < text.length(); i++) {
-                number += text.charAt(i);
+            if (index < 0 || index > list.size()) {
+                throw new InvalidIndexException(text);
+            } else if (commandCheck == 1) {
+                markDone(index - 1);
+            } else {
+                unmarkDone(index - 1);
             }
-            int index = Integer.parseInt(number);
-            unmarkDone(index - 1);
         } else if (commandCheck == 3) {
             //Command is list so the chatbot lists out the items
             chatBox(produceList());
@@ -176,8 +155,8 @@ public class BeeBoo {
                 beeBoo.handleCommands(text);
             } catch (InvalidCommandException e) {
                 beeBoo.chatBox("Invalid Command!Me no understand");
-            } catch (NoDescriptionException e) {
-                beeBoo.chatBox("No description silly");
+            } catch (BeeBooExceptions e) {
+                beeBoo.chatBox(e.toString());
             }
 
             text = input.nextLine().trim().toLowerCase();
