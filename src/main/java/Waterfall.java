@@ -1,4 +1,5 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -15,7 +16,7 @@ public class Waterfall {
             ("____________________________________________________________\n"
             + "Shhhhhhhhhhhh. Hope to see you again soon!\n"
             + "____________________________________________________________\n").indent(indentSpace);
-        Task[] taskList = new Task[100];
+        List<Task> taskList = new ArrayList<>();
         int num = 0;
         System.out.println(welcomeMessage);
         Scanner userInput = new Scanner(System.in);
@@ -31,7 +32,7 @@ public class Waterfall {
                     System.out.println(" ".repeat(indentSpace) + "___________________________________________________________");
                     System.out.println(" ".repeat(indentSpace) + "Here's the tasks in your waterfall hualalala");
                     for (int i = 0; i < num; i++) {
-                        Task task = taskList[i];
+                        Task task = taskList.get(i);
                         if (task != null) {
                             String taskString = " ".repeat(indentSpace + 1) +
                                     Integer.toString(i + 1) + "."
@@ -47,15 +48,10 @@ public class Waterfall {
                     try {
                         if (nextInput.startsWith("mark ") && (nextInput.substring(5).matches("\\d+"))) {
                             int index = Integer.parseInt(nextInput.substring(5)) - 1;
-                            if (index >= 100 || index < 0) {
-                                System.out.println("Only range from 1 to 100 is possible!");
-                                break;
+                            Task task = taskList.get(index);
+                            if (task == null) {
+                                throw new WaterfallException("Why are you trying to edit a waterfall task that does not exist?");
                             }
-                            if (taskList[index] == null) {
-                                System.out.println("Oops, this task does not exist");
-                                break;
-                            }
-                            Task task = taskList[index];
                             task.setDone(true);
                             String markResponse = ("____________________________________________________________\n"
                                     + "Huluhuluhulu, I've marked this task as done:\n  "
@@ -64,16 +60,26 @@ public class Waterfall {
                             System.out.println(markResponse);
                         } else if (nextInput.startsWith("unmark ") && (nextInput.substring(7).matches("\\d+"))) {
                             int index = Integer.parseInt(nextInput.substring(7)) - 1;
-                            if (index >= 100 || index < 0) {
-                                throw new WaterfallException("Only range from 1 to 100 is possible!");
+                            Task task = taskList.get(index);
+                            if (task == null) {
+                                throw new WaterfallException("Why are you trying to edit a waterfall task that does not exist?");
                             }
-                            if (taskList[index] == null) {
-                                throw new WaterfallException("Oops, this task does not exist");
-                            }
-                            Task task = taskList[index];
                             task.setDone(false);
                             String unmarkResponse = ("____________________________________________________________\n"
                                     + "Hohohohohoho, I've marked this task as not done yet:\n  "
+                                    + task.toString() + "\n"
+                                    + "____________________________________________________________\n").indent(indentSpace + 1);
+                            System.out.println(unmarkResponse);
+                        } else if (nextInput.startsWith("delete ") && (nextInput.substring(7).matches("\\d+"))) {
+                            int index = Integer.parseInt(nextInput.substring(7)) - 1;
+                            Task task = taskList.get(index);
+                            if (task == null) {
+                                throw new WaterfallException("Why are you trying to edit a waterfall task that does not exist?");
+                            }
+                            taskList.remove(index);
+                            num--;
+                            String unmarkResponse = ("____________________________________________________________\n"
+                                    + "Hohohohohoho, I've deleted this task:\n  "
                                     + task.toString() + "\n"
                                     + "____________________________________________________________\n").indent(indentSpace + 1);
                             System.out.println(unmarkResponse);
@@ -134,7 +140,7 @@ public class Waterfall {
                             } else {
                                 throw new WaterfallException("Sorry man whatchu yapping!");
                             }
-                            taskList[num] = newTask;
+                            taskList.add(newTask);
                             num++;
                             String echoString = ("____________________________________________________________\n"
                                     + "Nice man, I have added the following task: \n" + newTask.toString() + "\n"
