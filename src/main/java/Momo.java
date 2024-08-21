@@ -82,7 +82,7 @@ public class Momo {
             }
 
             System.out.println(horizontalLine);
-            System.out.println("Noted. I've added this task: \n " + list[count]);
+            System.out.println("Noted. I've added this task:\n " + list[count]);
             System.out.println(String.format("Now you have %d task(s) in the list", count + 1));
             System.out.println(horizontalLine);
             input = sc.nextLine();
