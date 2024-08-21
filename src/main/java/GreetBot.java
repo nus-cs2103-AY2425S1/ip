@@ -47,6 +47,8 @@ public class GreetBot {
                     System.out.println(String.format("Now you have %s tasks in the list.", counter));
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getMessage());
+                } catch (RandomInputException e) {
+                    System.out.println(e.getMessage());
                 }
             }
 
