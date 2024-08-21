@@ -1,9 +1,11 @@
 import java.io.*;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Slave {
     private static String user;
     private static boolean hasMoreInputs = true;
+    private static LinkedList<String> list = new LinkedList<>();
 
     public static void main(String[] args) {
         welcome();
@@ -45,7 +47,6 @@ public class Slave {
      *  Prints the goodbye message in response to the user inputting "bye"
      */
     private static void goodbye() {
-        pageBreakLine();
         System.out.println("Good riddance " + user + ", try not to bother me in the future...");
         pageBreakLine();
     }
@@ -61,20 +62,30 @@ public class Slave {
         String[] inputArr = input.split(" ");
         inputArr[0] = inputArr[0].toLowerCase();
         switch (inputArr[0]) {
-            case "forgetme":
-                deleteUser();
-                hasMoreInputs = false;
-                break;
             case "bye":
                 hasMoreInputs = false;
                 break;
-            case "rememberme":
-                getUser();
+            case "list":
+                listItems();
                 break;
             default:
-                System.out.println("I don't know what you are trying to get me to do.. be more specific or I'll quit");
+                addToList(input);
                 break;
         }
+        pageBreakLine();
+    }
+
+    private static void listItems() {
+        System.out.println("Can you not even remember the things you need to do? That should be your job, not mine!");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + ". " + list.get(i));
+        }
+    }
+
+    private static void addToList(String s) {
+        System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
+        list.add(s);
+        System.out.println("added: " + s);
     }
 
     /**
@@ -97,7 +108,6 @@ public class Slave {
      * @param s is the user's input
      */
     private static void echo(String s) {
-        pageBreakLine();
         System.out.println(s);
         pageBreakLine();
     }
