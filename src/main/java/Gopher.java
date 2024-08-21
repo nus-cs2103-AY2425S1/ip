@@ -110,7 +110,9 @@ public class Gopher {
         currentTaskNumber++;
         System.out.println(horizontalSeparator);
         System.out.println("Got it! I have added this task:\n" + addedTask);
-        System.out.println("Now you have " + currentTaskNumber + " tasks in the list");
+        System.out.println(String.format("Now you have %d %s in the list",
+                currentTaskNumber,
+                currentTaskNumber == 1 ? "task" : "tasks"));
         System.out.println(horizontalSeparator + "\n");
     }
 
