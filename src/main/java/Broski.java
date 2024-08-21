@@ -24,17 +24,17 @@ public class Broski {
         } else if (reply.equals("bye")) {
             System.out.println(line);
             this.exit();
-        } else if (reply.length() > 5 && reply.substring(0, 4).equals("mark")) {
+        } else if (reply.length() > 5 && reply.startsWith("mark")) {
             System.out.println(line);
-            int i = Integer.valueOf(reply.split("[ ]")[1]);
+            int i = Integer.parseInt(reply.split(" ")[1]);
             list.get(i).mark();
             System.out.println("Solid! Marked as done for you:");
             System.out.println(list.get(i));
             System.out.println(line);
             this.chatbot();
-        } else if (reply.length() > 7 && reply.substring(0, 6).equals("unmark")) {
+        } else if (reply.length() > 7 && reply.startsWith("unmark")) {
             System.out.println(line);
-            int i = Integer.valueOf(reply.split("[ ]")[1]);
+            int i = Integer.parseInt(reply.split(" ")[1]);
             list.get(i).unmark();
             System.out.println("Alright, I've marked the task as undone:");
             System.out.println(list.get(i));
@@ -42,8 +42,31 @@ public class Broski {
             this.chatbot();
         } else {
             System.out.println(line);
-            list.add(new Task(reply));
-            System.out.println("added: " + reply);
+            if (reply.length() > 5 && reply.startsWith("todo")) {
+                Todo todo = new Todo(reply.replaceFirst("todo ", ""));
+                list.add(todo);
+                System.out.println("Gotcha! I've added this task:");
+                System.out.println("  " + todo);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else if (reply.length() > 9 && reply.startsWith("deadline")) {
+                Deadline deadline = new Deadline(
+                        reply.replaceFirst("deadline ", "").split(" /")[0],
+                        reply.split(" /")[1]);
+                list.add(deadline);
+                System.out.println("Gotcha! I've added this task:");
+                System.out.println("  " + deadline);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else {
+                String[] splitter = reply.split(" /");
+                Event event = new Event(
+                        splitter[0].replaceFirst("event ", ""),
+                        splitter[1],
+                        splitter[2]);
+                list.add(event);
+                System.out.println("Gotcha! I've added this task:");
+                System.out.println("  " + event);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            }
             System.out.println(line);
             this.chatbot();
         }
