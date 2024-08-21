@@ -11,37 +11,61 @@ public class Knight2103 {
     }
 
     public static void main(String[] args) {
-        Task[] taskList = new Task[100];
-        int totalTaskNumber = 0;
+        // Starting of bot programme
         String botName = "Knight2103";
         String horiLine = "_____________";
         String intro = horiLine + "\n"
                 + "Hello! I'm " + botName + " \n"
                 + "What can I do for you?\n"
                 + horiLine + "\n";
-
         System.out.println(intro);
+
+        // Initialise Task list
+        Task[] taskList = new Task[100];
+        int totalTaskNumber = 0;
+
+        // Enable Input
         Scanner scanObject = new Scanner(System.in);
         String input = scanObject.nextLine();
+
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                String listContents = printList(taskList, totalTaskNumber);
-                System.out.println(horiLine + "\n" + listContents + horiLine);
-            } else {
-                String[] inputArray = input.split("\\s+");
-                if (inputArray[0].equals("mark")) {
-                    int taskNumberIndex = Integer.parseInt(inputArray[1]) - 1; // can try
-                    taskList[taskNumberIndex].markDone(); // need to check if it works
-                    System.out.println(horiLine + "\nNice! I've marked this task as done:\n" + taskList[taskNumberIndex] + "\n" + horiLine);
-                } else if (inputArray[0].equals("unmark")) {
-                    int taskNumberIndex = Integer.parseInt(inputArray[1]) - 1; // can try
-                    taskList[taskNumberIndex].unmarkDone();
-                    System.out.println(horiLine + "\nOK, I've marked this task as not done yet:\n" + taskList[taskNumberIndex] + "\n" + horiLine);
-                } else {
-                    taskList[totalTaskNumber] = new Task(input);
+            String[] inputArray = input.split(" ", 2);
+            Task taskToAdd;
+            switch(inputArray[0]) {
+                case "list":
+                    String listContents = printList(taskList, totalTaskNumber);
+                    System.out.println(horiLine + "\n" + listContents + horiLine);
+                    break;
+                case "todo":
+                    taskToAdd = new Todo(inputArray[1]);
+                    taskList[totalTaskNumber] = taskToAdd;
                     totalTaskNumber++;
-                    System.out.println(horiLine + "\n added: " + input + "\n" + horiLine);
-                }
+                    System.out.println(horiLine + "\n Got it. I've added this task:\n" + taskToAdd + "\n Now you have " + totalTaskNumber + " tasks in the list.\n" + horiLine);
+                    break;
+                case "deadline":
+                    String[] deadlineArray = inputArray[1].split(" /by ");
+                    taskToAdd = new Deadline(deadlineArray[0], deadlineArray[1]);
+                    taskList[totalTaskNumber] = taskToAdd;
+                    totalTaskNumber++;
+                    System.out.println(horiLine + "\n Got it. I've added this task:\n" + taskToAdd + "\n Now you have " + totalTaskNumber + " tasks in the list.\n" + horiLine);
+                    break;
+                case "event":
+                    String[] eventArray = inputArray[1].split(" /from | /to ");
+                    taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
+                    taskList[totalTaskNumber] = taskToAdd;
+                    totalTaskNumber++;
+                    System.out.println(horiLine + "\n Got it. I've added this task:\n" + taskToAdd + "\n Now you have " + totalTaskNumber + " tasks in the list.\n" + horiLine);
+                    break;
+                case "mark":
+                    int taskMarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
+                    taskList[taskMarkIndex].markDone(); // need to check if it works
+                    System.out.println(horiLine + "\nNice! I've marked this task as done:\n" + taskList[taskMarkIndex] + "\n" + horiLine);
+                    break;
+                case "unmark":
+                    int taskUnmarkIndex = Integer.parseInt(inputArray[1]) - 1; // can try
+                    taskList[taskUnmarkIndex].unmarkDone();
+                    System.out.println(horiLine + "\nOK, I've marked this task as not done yet:\n" + taskList[taskUnmarkIndex] + "\n" + horiLine);
+                    break;
             }
             input = scanObject.nextLine();
         }
