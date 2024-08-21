@@ -7,7 +7,7 @@ public class Easton {
     public static int taskArraySize = 0;
 
     public static void main(String[] args) {
-        String logo = " _______  _______  _______  _______  _______  __    _ \n"
+        String logo = " _______  _______  _______  _______  _______  __    _\n"
                 + "|       ||   _   ||       ||       ||       ||  |  | |\n"
                 + "|    ___||  |_|  ||  _____||_     _||   _   ||   |_| |\n"
                 + "|   |___ |       || |_____   |   |  |  | |  ||       |\n"
@@ -62,7 +62,7 @@ public class Easton {
 
     private static void printList() {
         for (int i = 0; i < taskArraySize; i ++) {
-            System.out.println((i + 1) + ". " + taskArray[i]);
+            System.out.println((i + 1) + "." + taskArray[i]);
         }
     }
 
