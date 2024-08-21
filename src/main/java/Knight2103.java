@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Knight2103 {
-    public static String printList(String[] list, int length) {
+    public static String printList(Task[] list, int length) {
         String stringToPrint = "";
         for (int i = 0; i < length; i++) {
             int bulletPoint = i + 1;
@@ -11,7 +11,7 @@ public class Knight2103 {
     }
 
     public static void main(String[] args) {
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int totalTaskNumber = 0;
         String botName = "Knight2103";
         String horiLine = "_____________";
@@ -28,9 +28,20 @@ public class Knight2103 {
                 String listContents = printList(taskList, totalTaskNumber);
                 System.out.println(horiLine + "\n" + listContents + horiLine);
             } else {
-                taskList[totalTaskNumber] = input;
-                totalTaskNumber++;
-                System.out.println(horiLine + "\n added: " + input + "\n" + horiLine);
+                String[] inputArray = input.split("\\s+");
+                if (inputArray[0].equals("mark")) {
+                    int taskNumberIndex = Integer.parseInt(inputArray[1]) - 1; // can try
+                    taskList[taskNumberIndex].markDone(); // need to check if it works
+                    System.out.println(horiLine + "\nNice! I've marked this task as done:\n" + taskList[taskNumberIndex] + "\n" + horiLine);
+                } else if (inputArray[0].equals("unmark")) {
+                    int taskNumberIndex = Integer.parseInt(inputArray[1]) - 1; // can try
+                    taskList[taskNumberIndex].unmarkDone();
+                    System.out.println(horiLine + "\nOK, I've marked this task as not done yet:\n" + taskList[taskNumberIndex] + "\n" + horiLine);
+                } else {
+                    taskList[totalTaskNumber] = new Task(input);
+                    totalTaskNumber++;
+                    System.out.println(horiLine + "\n added: " + input + "\n" + horiLine);
+                }
             }
             input = scanObject.nextLine();
         }
