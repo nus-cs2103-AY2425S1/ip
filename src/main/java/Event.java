@@ -8,6 +8,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public String toSaveString() {
+        return "E" + Barney.SAVE_FILE_DELIMITER + super.toSaveString() + Barney.SAVE_FILE_DELIMITER + at
+                + Barney.SAVE_FILE_DELIMITER + to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + " to: " + to + ")";

@@ -1,8 +1,87 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Barney {
     private static String LONG_LINE = "____________________________________________________________";
+    private static String SAVE_FILE_PATH = "list.txt";
+    static String SAVE_FILE_DELIMITER = "###";
+
+    // File I/O
+    private static ArrayList<Task> readFile() throws FileNotFoundException, InvalidSaveFormatException {
+        ArrayList<Task> taskList = new ArrayList<Task>();
+        File listFile = new File(SAVE_FILE_PATH);
+        Scanner FILE_IN = new Scanner(listFile);
+        while (FILE_IN.hasNext()) {
+            String line = FILE_IN.nextLine();
+            String[] taskData = line.split(SAVE_FILE_DELIMITER);
+            Task newTask;
+            switch (taskData[0]) {
+                case "T":
+                    newTask = new Todo(taskData[2]);
+                    break;
+                case "D":
+                    newTask = new Deadline(taskData[2], taskData[3]);
+                case "E":
+                    newTask = new Event(taskData[2], taskData[3], taskData[4]);
+                    break;
+                default:
+                    throw new InvalidSaveFormatException("Invalid task type in the file: " + taskData[0]);
+            }
+
+            switch (taskData[1]) {
+                case "1":
+                    newTask.mark();
+                    break;
+                case "0":
+                    newTask.unmark();
+                    break;
+                default:
+                    throw new InvalidSaveFormatException("Invalid task status in the file: " + taskData[1]);
+            }
+
+            taskList.add(newTask);
+        }
+        FILE_IN.close();
+        return taskList;
+    }
+
+    private static ArrayList<Task> loadData() {
+        ArrayList<Task> taskList = new ArrayList<Task>();
+        try {
+            taskList = readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("No save file found, starting with an empty list.");
+        } catch (InvalidSaveFormatException e) {
+            System.out.println("Invalid save file format: " + e.getMessage() + "\n" + "Starting with an empty list.");
+        } catch (Exception e) {
+            System.out.println("Error reading save file: " + e.getMessage() + "\n" + "Starting with an empty list.");
+        }
+        return taskList;
+    }
+
+    private static void writeFile(ArrayList<Task> taskList) throws FileNotFoundException, IOException {
+        FileWriter FILE_OUT = new FileWriter(SAVE_FILE_PATH);
+        for (Task task : taskList) {
+            FILE_OUT.write(task.toSaveString() + "\n");
+        }
+        FILE_OUT.close();
+    }
+
+    private static boolean writeData(ArrayList<Task> taskList) {
+        try {
+            writeFile(taskList);
+            return true;
+        } catch (FileNotFoundException e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         // Welcome text
@@ -10,18 +89,16 @@ public class Barney {
         System.out.println(welcomeText);
         System.out.println(LONG_LINE);
 
-        Scanner SCANNER = new Scanner(System.in);
+        ArrayList<Task> taskList = loadData();
+
+        Scanner STD_IN = new Scanner(System.in);
         String command;
 
         String taskDescription;
-
         Boolean isChatting = true;
-
-        ArrayList<Task> taskList = new ArrayList<Task>();
-
         while (isChatting) {
             System.out.println(">>>");
-            command = SCANNER.next();
+            command = STD_IN.next();
             System.out.println("<<<");
 
             switch (command) {
@@ -33,7 +110,7 @@ public class Barney {
                     System.out.println(LONG_LINE);
                     break;
                 case "mark":
-                    String markStr = SCANNER.nextLine().trim();
+                    String markStr = STD_IN.nextLine().trim();
                     if (!markStr.matches("\\d+")) {
                         System.out.println("Invalid task number: Please add in a number from 1 to " + taskList.size());
                         System.out.println(markStr);
@@ -52,10 +129,10 @@ public class Barney {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(taskList.get(markIndex).toString());
 
-                    SCANNER.nextLine();
+                    STD_IN.nextLine();
                     break;
                 case "unmark":
-                    String unmarkStr = SCANNER.nextLine().trim();
+                    String unmarkStr = STD_IN.nextLine().trim();
                     if (!unmarkStr.matches("\\d+")) {
                         System.out.println("Invalid task number: Please add in a number from 1 to " + taskList.size());
                         break;
@@ -74,7 +151,7 @@ public class Barney {
                     System.out.println(taskList.get(unmarkIndex).toString());
                     break;
                 case "todo":
-                    taskDescription = SCANNER.nextLine().trim();
+                    taskDescription = STD_IN.nextLine().trim();
                     if (taskDescription.equals("")) {
                         System.out.println("Empty task description: Please add in a task description");
                         System.out.println(LONG_LINE);
@@ -91,10 +168,10 @@ public class Barney {
                 case "deadline":
                     String deadlineDescription = "";
                     String deadlineBy = "";
-                    String upcoming = SCANNER.next();
+                    String upcoming = STD_IN.next();
                     while (!upcoming.equals("/by")) {
                         deadlineDescription += " " + upcoming;
-                        upcoming = SCANNER.next();
+                        upcoming = STD_IN.next();
                     }
 
                     deadlineDescription = deadlineDescription.trim();
@@ -104,7 +181,7 @@ public class Barney {
                         break;
                     }
 
-                    deadlineBy = SCANNER.nextLine().trim();
+                    deadlineBy = STD_IN.nextLine().trim();
                     if (deadlineBy.equals("")) {
                         System.out.println("Empty deadline: Please add in a deadline");
                         System.out.println(LONG_LINE);
@@ -121,17 +198,17 @@ public class Barney {
                 case "event":
                     String eventDescription = "";
                     String eventAtStr = "";
-                    String n = SCANNER.next();
+                    String n = STD_IN.next();
                     while (!n.equals("/from")) {
                         eventDescription += " " + n;
-                        n = SCANNER.next();
+                        n = STD_IN.next();
                     }
-                    n = SCANNER.next();
+                    n = STD_IN.next();
                     while (!n.equals("/to")) {
                         eventAtStr += " " + n;
-                        n = SCANNER.next();
+                        n = STD_IN.next();
                     }
-                    String eventToStr = SCANNER.nextLine();
+                    String eventToStr = STD_IN.nextLine();
 
                     eventDescription = eventDescription.trim();
                     if (eventDescription.equals("")) {
@@ -163,7 +240,7 @@ public class Barney {
 
                     break;
                 case "delete":
-                    String deleteStr = SCANNER.nextLine().trim();
+                    String deleteStr = STD_IN.nextLine().trim();
                     if (!deleteStr.matches("\\d+")) {
                         System.out.println("Invalid task number: Please add in a number from 1 to " + taskList.size());
                         break;
@@ -190,6 +267,14 @@ public class Barney {
                 default:
                     System.out.println("invalid command");
             }
+
+            boolean saveSuccess = writeData(taskList);
+            if (saveSuccess) {
+                System.out.println("Data saved successfully.");
+            } else {
+                System.out.println("Error saving data.");
+                break;
+            }
         }
 
         // Ending text
@@ -197,6 +282,6 @@ public class Barney {
         System.out.println(endingText);
         System.out.println(LONG_LINE);
 
-        SCANNER.close();
+        STD_IN.close();
     }
 }

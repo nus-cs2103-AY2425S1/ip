@@ -23,6 +23,10 @@ public class Task {
         return this.description;
     }
 
+    public String toSaveString() {
+        return (this.isMarked ? "1" : "0") + Barney.SAVE_FILE_DELIMITER + this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
