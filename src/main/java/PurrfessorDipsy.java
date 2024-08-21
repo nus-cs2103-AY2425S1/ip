@@ -6,188 +6,202 @@ public class PurrfessorDipsy {
     private static final Task[] taskTable = new Task[100];
     private static int taskTableRowCount = 0;
     private static boolean isRunning = true; // to allow for a more graceful exit
+
     private static final Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
     private static final Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
     private static final Pattern EVENT_PATTERN = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
 
+    private enum Command {
+        MARK, UNMARK, TODO, DEADLINE, EVENT, LIST, BYE, UNKNOWN
+    }
+
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
         printWelcomeMessage();
         while (isRunning) {
-            String userInput = inputScanner.nextLine();
-            doAction(userInput);
+            String userInput = inputScanner.nextLine().trim();
+            processCommand(userInput);
         }
         inputScanner.close();
     }
 
-    private static void printTerminalLine() {
+    private static Command parseCommand(String userInput) {
+        if (userInput.startsWith("mark")) return Command.MARK;
+        if (userInput.startsWith("unmark")) return Command.UNMARK;
+        if (userInput.startsWith("todo")) return Command.TODO;
+        if (userInput.startsWith("deadline")) return Command.DEADLINE;
+        if (userInput.startsWith("event")) return Command.EVENT;
+        if (userInput.equals("list")) return Command.LIST;
+        if (userInput.equals("bye")) return Command.BYE;
+        return Command.UNKNOWN;
+    }
+
+    private static void processCommand(String userInput) {
+        Command command = parseCommand(userInput);
+        switch (command) {
+            case MARK:
+            case UNMARK:
+                handleMarkCommand(userInput);
+                break;
+            case TODO:
+                handleTodoCommand(userInput);
+                break;
+            case DEADLINE:
+                handleDeadlineCommand(userInput);
+                break;
+            case EVENT:
+                handleEventCommand(userInput);
+                break;
+            case LIST:
+                printMemory();
+                break;
+            case BYE:
+                exitProgram();
+                break;
+            case UNKNOWN:
+            default:
+                printErrorMessage("Unrecognized command.\n\n" + getUsage());
+        }
+    }
+
+    // GENERIC PRINT STATEMENTS (Can be reused)
+    private static void printWithTerminalLines(String message) {
         String TERMINAL_LINE = "―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――";
+        System.out.println(TERMINAL_LINE);
+        System.out.println(message);
         System.out.println(TERMINAL_LINE);
     }
 
     private static void printWelcomeMessage() {
-        printTerminalLine();
-        System.out.println("Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam " +
+        printWithTerminalLines("Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam " +
                 "and Purrtector of the Realm of Naps.\nHow can I purrvide assistance? " +
                 "Purrhaps I can lend a paw!");
-        printTerminalLine();
     }
 
     private static void printExitMessage() {
-        System.out.println("Fur-well friend, stay paw-sitive!");
-        printTerminalLine();
+        printWithTerminalLines("Fur-well friend, stay paw-sitive!");
     }
 
-    private static void doAction(String userInput) {
-        String trimmedInput = userInput.trim();
-        Matcher markMatcher = MARK_PATTERN.matcher(trimmedInput);
-        Matcher todoMatcher = TODO_PATTERN.matcher(trimmedInput);
-        Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(trimmedInput);
-        Matcher eventMatcher = EVENT_PATTERN.matcher(trimmedInput);
+    private static void printSuccessMessage(String message) {
+        printWithTerminalLines(message);
+    }
 
-        if (trimmedInput.startsWith("mark") || trimmedInput.startsWith("unmark")) {
-            if (markMatcher.matches()) {
-                String command = markMatcher.group(1);
-                int index = Integer.parseInt(markMatcher.group(2));
+    private static void printErrorMessage(String message) {
+        printWithTerminalLines("Error: " + message);
+    }
 
-                if (index >= taskTableRowCount || index < 1) {
-                    System.out.println("Error: index given lies outside of the table's valid range.");
-                }
-                if (command.equals("mark")) {
+    // HANDLE COMMANDS
+    private static void handleMarkCommand(String userInput) {
+        Matcher markMatcher = MARK_PATTERN.matcher(userInput);
+        if (markMatcher.matches()) {
+            String action = markMatcher.group(1);
+            int index = Integer.parseInt(markMatcher.group(2));
+            if (index >= 1 && index < taskTableRowCount) {
+                if (action.equals("mark")) {
                     markTaskAsDone(index);
-                } else if (command.equals("unmark")) {
+                } else {
                     markTaskAsUndone(index);
                 }
             } else {
-                printTerminalLine();
-                System.out.println("Error: 'mark' command requires an index to be given.");
-                System.out.println("Usage: mark <index> or unmark <index>");
-                printTerminalLine();
-            }
-        } else if (trimmedInput.startsWith("todo")){
-            if (todoMatcher.matches()) {
-                String description = todoMatcher.group(1);
-                saveToMemory(new ToDo(description));
-            } else {
-                printTerminalLine();
-                System.out.println("Error: 'todo' command requires a description.");
-                System.out.println("Usage: todo <description>");
-                printTerminalLine();
-            }
-        } else if (trimmedInput.startsWith("deadline")) {
-            if (deadlineMatcher.matches()) {
-                String description = deadlineMatcher.group(1);
-                String by = deadlineMatcher.group(2);
-                saveToMemory(new Deadline(description, by));
-            } else {
-                printTerminalLine();
-                System.out.println("Error: 'deadline' command requires a 'by' date.");
-                System.out.println("Usage: deadline <description> /by <day/date/time>");
-                printTerminalLine();
-            }
-        } else if (trimmedInput.startsWith("event")) {
-            if (eventMatcher.matches()) {
-                String description = eventMatcher.group(1);
-                String start = eventMatcher.group(2);
-                String end = eventMatcher.group(3);
-                saveToMemory(new Event(description, start, end));
-            } else {
-                printTerminalLine();
-                System.out.println("Error: 'event' command requires a description, a '/from' time, and a '/to' time.");
-                System.out.println("Usage: event <description> /from <day/date/time> /to <day/date/time>");
-                printTerminalLine();
+                printErrorMessage("Index given lies outside of the table's valid range.");
             }
         } else {
-            switch (trimmedInput) {
-                case "":
-                    // do nothing
-                    break;
-                case "bye":
-                    exitProgram();
-                    System.exit(0);
-                    break;
-                case "list":
-                    printMemory();
-                    break;
-                default:
-                    printTerminalLine();
-                    System.out.println("Error: Unrecognized command.");
-                    printUsage();
-                    printTerminalLine();
-                    break;
-            }
+            printErrorMessage("'mark' or 'unmark' command requires an index.\nUsage: mark <index> or unmark <index>");
         }
     }
 
-    private static void echoUserInput(String userInput) {
-        printTerminalLine();
-        System.out.println(userInput);
-        printTerminalLine();
+    private static void handleTodoCommand(String userInput) {
+        Matcher todoMatcher = TODO_PATTERN.matcher(userInput);
+        if (todoMatcher.matches()) {
+            String description = todoMatcher.group(1);
+            saveToMemory(new ToDo(description));
+        } else {
+            printErrorMessage("'todo' command requires a description.\nUsage: todo <description>");
+        }
     }
 
-    private static void saveToMemory(Task t) {
-        taskTable[taskTableRowCount] = t;
+    private static void handleDeadlineCommand(String userInput) {
+        Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(userInput);
+        if (deadlineMatcher.matches()) {
+            String description = deadlineMatcher.group(1);
+            String by = deadlineMatcher.group(2);
+            saveToMemory(new Deadline(description, by));
+        } else {
+            printErrorMessage("'deadline' command requires a 'by' date.\nUsage: deadline <description> /by <day/date/time>");
+        }
+    }
+
+    private static void handleEventCommand(String userInput) {
+        Matcher eventMatcher = EVENT_PATTERN.matcher(userInput);
+        if (eventMatcher.matches()) {
+            String description = eventMatcher.group(1);
+            String start = eventMatcher.group(2);
+            String end = eventMatcher.group(3);
+            saveToMemory(new Event(description, start, end));
+        } else {
+            printErrorMessage("Error: 'event' command requires a description, a '/from' time, and a '/to' time." +
+                    "\nUsage: event <description> /from <day/date/time> /to <day/date/time>");
+        }
+    }
+
+    // Other util methods used for performing commands.
+    private static void saveToMemory(Task task) {
+        taskTable[taskTableRowCount] = task;
         taskTableRowCount++;
-        printTerminalLine();
-        System.out.println("Got it! I've added this task:");
-        System.out.println(t.toString());
-        System.out.println("You now have " + taskTableRowCount + " tasks in your list.");
-        printTerminalLine();
+        printSuccessMessage("Got it! I've added this task:\n" + task +
+                "\nYou now have " + taskTableRowCount + " tasks in your list.");
     }
 
     private static void markTaskAsDone(int index) {
-        Task currTask = taskTable[index - 1]; // table is 0-indexed
-        currTask.markAsDone();
-
-        printTerminalLine();
-        System.out.println("Meow! I’ve scratched this task off the list!");
-        System.out.println(currTask.toString());
-        printTerminalLine();
+        Task task = taskTable[index - 1]; // table is 0-indexed
+        task.markAsDone();
+        printWithTerminalLines("Meow! I’ve scratched this task off the list!\n" + task);
     }
 
     private static void markTaskAsUndone(int index) {
-        Task currTask = taskTable[index - 1]; // table is 0-indexed
-        currTask.markAsUndone();
-
-        printTerminalLine();
-        System.out.println("Mrrreow! I’ve batted this task back onto the list.");
-        System.out.println(currTask.toString());
-        printTerminalLine();
+        Task task = taskTable[index - 1]; // table is 0-indexed
+        task.markAsUndone();
+        printWithTerminalLines("Mrrreow! I’ve batted this task back onto the list.\n" + task);
     }
 
     private static void printMemory() {
-        printTerminalLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskTableRowCount; i++) {
-            int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
-            System.out.println(printedIndex + "." + taskTable[i].toString());
+        if (taskTableRowCount == 0) {
+            printWithTerminalLines("You have no tasks in your list.");
+        } else {
+            StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
+            for (int i = 0; i < taskTableRowCount; i++) {
+                int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
+                result.append(printedIndex).append(".").append(taskTable[i]);
+                if (i < taskTableRowCount - 1) { // Don't append a newline after the last task
+                    result.append("\n");
+                }
+            }
+            printWithTerminalLines(result.toString());
         }
-        printTerminalLine();
     }
 
     private static void exitProgram() {
         printExitMessage();
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
+        System.exit(0);
     }
 
-    private static void printUsage() {
-        System.out.println("Usage: <command> [options]");
-        System.out.println();
-        System.out.println("Commands:");
-        System.out.println("  todo <description>                            Create a new todo item");
-        System.out.println("  deadline <description> /by <date>             Create a new task with a deadline");
-        System.out.println("  event <description> /from <start> /to <end>   Create a new event with start and end times");
-        System.out.println("  mark <index>                                  Mark the task at the specified index as done");
-        System.out.println("  unmark <index>                                Unmark the task at the specified index");
-        System.out.println("  list                                          List all tasks");
-        System.out.println("  bye                                           Exit the program");
-        System.out.println();
-        System.out.println("Examples:");
-        System.out.println("  todo Buy Ciao Churru for Dipsy");
-        System.out.println("  deadline Submit Dipsy's food order /by 21-08-2024");
-        System.out.println("  event Play with Dipsy /from 21-08-2024 10:00 /to 21-08-2024 12:00");
-        System.out.println("  mark 1");
+    private static String getUsage() {
+        String usageHint = "Usage: <command> [options]\n" +
+                "\nCommands:\n" +
+                "  todo <description>                            Create a new todo item\n" +
+                "  deadline <description> /by <date>             Create a new task with a deadline\n" +
+                "  event <description> /from <start> /to <end>   Create a new event with start and end times\n" +
+                "  mark <index>                                  Mark the task at the specified index as done\n" +
+                "  unmark <index>                                Unmark the task at the specified index\n" +
+                "  list                                          List all tasks\n" +
+                "  bye                                           Exit the program\n" +
+                "\nExamples:\n" +
+                "  todo Buy Ciao Churru for Dipsy\n" +
+                "  deadline Submit Dipsy's food order /by 21-08-2024\n" +
+                "  event Play with Dipsy /from 21-08-2024 10:00 /to 21-08-2024 12:00\n" +
+                "  mark 1";
+        return usageHint;
     }
-
 }
