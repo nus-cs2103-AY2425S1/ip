@@ -20,7 +20,7 @@ public class Rasputin {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         String name = "Rasputin";
-        ArrayList<String> ls = new ArrayList<>();
+        ArrayList<Task> ls = new ArrayList<>();
 
 
 
@@ -34,17 +34,49 @@ public class Rasputin {
             }
 
             if (input.equals("list")) {
+                if (ls.isEmpty()) {
+                    printText("No tasks in list!");
+                    continue;
+                }
                 int index = 1;
                 System.out.println(lineBreak);
-                for (String item: ls) {
-                    System.out.println(index + ". " + item);
+                for (Task item: ls) {
+                    System.out.println(index + "." + item.toString());
                     index++;
                 }
-
                 System.out.println(lineBreak + "\n");
                 continue;
             }
-            ls.add(input);
+
+            if (input.contains("unmark")) {
+                if (ls.isEmpty()) {
+                    printText("No tasks in list!");
+                    continue;
+                }
+                int index = (input.charAt(7) - '0' - 1);
+                System.out.println(index);
+                ls.get(index).markAsNotDone();
+                String output = "Unmarked that as done for you. \n " +
+                        ls.get(index).toString();
+                printText(output);
+                continue;
+            }
+
+            if (input.contains("mark")) {
+                if (ls.isEmpty()) {
+                    printText("No tasks in list!");
+                    continue;
+                }
+                int index = (input.charAt(5) - '0' - 1);
+                System.out.println(index);
+                ls.get(index).markAsDone();
+                String output = "Marked that as done for you. \n " +
+                        ls.get(index).toString();
+                printText(output);
+                continue;
+            }
+
+            ls.add(new Task(input));
             printText("added: " + input);
 
         }
