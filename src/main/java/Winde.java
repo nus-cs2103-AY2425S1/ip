@@ -16,13 +16,21 @@ public class Winde {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!(input.equals("bye"))) {
-            String[] command = input.split(" ");
+            String[] order = input.split("/");
+            String[] command = order[0].split(" ");
             if (command[0].equals("list")) {
                 list();
-            } else if (command [0].equals("mark")) {
+            } else if (command[0].equals("mark")) {
                 mark(Integer.parseInt(command[1]));
             } else if (command[0].equals("unmark")) {
                 unmark(Integer.parseInt(command[1]));
+            } else if (command[0].equals("todo")) {
+                todo(input.split("todo ")[1]);
+            } else if (command[0].equals("deadline")) {
+                deadline(order[0].split("deadline ")[1], order[1].split("by ")[1]);
+            } else if (command[0].equals("event")) {
+                event(order[0].split("event ")[1], order[1].split("from ")[1],
+                        order[2].split("to ")[1]);
             } else {
                 add(input);
             }
@@ -34,6 +42,27 @@ public class Winde {
 
     private final static List<Task> reminder = new ArrayList<Task>();
 
+    public static void todo(String action) {
+        Todos td = new Todos(action);
+        reminder.add(td);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + td.toString());
+        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
+    }
+    public static void deadline(String action, String date) {
+        Deadline d = new Deadline(action, date);
+        reminder.add(d);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + d.toString());
+        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
+    }
+    public static void event(String action, String start, String end) {
+        Event e = new Event(action, start, end);
+        reminder.add(e);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("    " + e.toString());
+        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
+    }
     public static void mark(int i) {
         System.out.print("Nice! I've marked this task as done:\n" + "    ");
         reminder.get(i - 1).mark();
@@ -99,5 +128,49 @@ class Task {
     @Override
     public String toString() {
         return (complete ? "[X]" : "[ ]") + " " + action;
+    }
+}
+
+class Todos extends Task {
+
+    public Todos(String action) {
+        super(action);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+
+    protected String date;
+
+    public Deadline(String action, String date) {
+        super(action);
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + date + ")";
+    }
+}
+
+class Event extends Task {
+
+    protected String start;
+    protected String end;
+
+    public Event(String action, String start, String end) {
+        super(action);
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + start + "to: " + end + ")";
     }
 }
