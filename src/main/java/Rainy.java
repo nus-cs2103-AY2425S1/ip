@@ -9,6 +9,10 @@ public class Rainy {
         System.out.println("\n");
         Scanner sc = new Scanner(System.in);
         String message = sc.nextLine();
+        while(!message.equals("bye")) {
+            System.out.println(message);
+            message = sc.nextLine();
+        }
         System.out.println("Goodbye! Have a nice day ahead!!");
     }
 }
