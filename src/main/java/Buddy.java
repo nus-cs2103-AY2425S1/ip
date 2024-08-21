@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Buddy {
+    private static final ArrayList<String> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         // Welcome message
         System.out.println("Hello! I'm Buddy");
@@ -18,8 +21,16 @@ public class Buddy {
                 break;
             }
 
-            // Print user input
-            System.out.println(input);
+            if (input.equals("list")) {
+                // List all tasks if user types "list"
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
+                }
+            } else {
+                // Store input text
+                tasks.add(input);
+                System.out.println("added: " + input);
+            }
         }
 
         scanner.close();
