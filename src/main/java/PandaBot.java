@@ -18,11 +18,9 @@ public class PandaBot {
         System.out.println("What can I do for you?");
         printLine();
 
-        // Echo user input until the user inputs "bye"
         while (true) {
             String input = scanner.nextLine();
 
-            // if user has said "bye", stop echo and exit
             if (input.equalsIgnoreCase("bye")) {
                 printLine();
                 System.out.println("Bye. Hope to see you again soon!");
@@ -59,8 +57,6 @@ public class PandaBot {
             } else {
                 taskList[taskCount] = new Task(input);
                 taskCount++;
-
-                // echo user input
                 printLine();
                 System.out.println("added: " + input);
                 printLine();
