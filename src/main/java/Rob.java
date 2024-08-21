@@ -18,6 +18,11 @@ public class Rob {
         while (true) {
             String input = scanner.nextLine();
 
+            if (input.isEmpty()) {
+                System.out.println("Invalid input! Please enter a task.");
+                continue;
+            }
+
             // exit
             if (Objects.equals(input, "bye")) {
                 System.out.println(exit);
@@ -60,35 +65,57 @@ public class Rob {
                     System.out.println("Invalid task number... Try another?");
                 }
             } else {
-                if (input.startsWith("deadline")) {
-                    String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
-                    String desc = rem.split(" /by")[0].trim();
-                    String day = rem.split(" /by")[1].trim();
-                    tasks[taskCount] = new Deadline(desc, day);
-                    taskCount++;
+                try {
+                    if (input.startsWith("deadline")) {
+                        if (input.split(" ", 2).length < 2) {
+                            throw new DukeException("Invalid format... What deadline would you like to add?");
+                        }
 
-                } else if (input.startsWith("event")) {
-                    String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
-                    String desc = rem.split(" /from")[0].trim();
-                    String from = rem.split(" /from")[1].split(" /to")[0].trim();
-                    String to = rem.split(" /from")[1].split(" /to")[1].trim();
-                    tasks[taskCount] = new Event(desc, from, to);
-                    taskCount++;
+                        if (!input.contains(" /by")) {
+                            throw new DukeException("Missing '/by' in deadline command.");
+                        }
+                        String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
+                        String desc = rem.split(" /by")[0].trim();
+                        String day = rem.split(" /by")[1].trim();
+                        tasks[taskCount] = new Deadline(desc, day);
+                        taskCount++;
 
-                } else if (input.startsWith("todo")) {
-                    String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
-                    tasks[taskCount] = new Todo(rem);
-                    taskCount++;
-                } else {
-                    tasks[taskCount] = new Task(input);
-                    taskCount++;
+                    } else if (input.startsWith("event")) {
+                        if (input.split(" ", 2).length < 2) {
+                            throw new DukeException("Invalid format... What event would you like to add?");
+                        }
+
+                        if (!input.contains(" /from") || !input.contains(" /to")) {
+                            throw new DukeException("Missing '/from' or '/to' in event command.");
+                        }
+
+                        String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
+                        String desc = rem.split(" /from")[0].trim();
+                        String from = rem.split(" /from")[1].split(" /to")[0].trim();
+                        String to = rem.split(" /from")[1].split(" /to")[1].trim();
+                        tasks[taskCount] = new Event(desc, from, to);
+                        taskCount++;
+
+                    } else if (input.startsWith("todo")) {
+                        if (input.split(" ", 2).length < 2) {
+                            throw new DukeException("Invalid format... What todo would you like to add?");
+                        }
+
+                        String rem = input.split(" ", 2)[1].trim(); // ignore first keyword of input
+                        tasks[taskCount] = new Todo(rem);
+                        taskCount++;
+                    } else {
+                        throw new DukeException("I'm sorry... I don't seem to understand.");
+                    }
+                    // echo
+                    String echo = "____________________________________________________________\n" +
+                            "added: " + tasks[taskCount - 1] + "\n" +
+                            "____________________________________________________________\n";
+                    String numTaskInList = "Now you have " + taskCount + " task(s) in the list.\n";
+                    System.out.println(echo + numTaskInList);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
                 }
-                // echo
-                String echo = "____________________________________________________________\n" +
-                        "added: " + tasks[taskCount - 1] + "\n" +
-                        "____________________________________________________________\n";
-                String numTaskInList = "Now you have " + taskCount + " task(s) in the list.\n";
-                System.out.println(echo + numTaskInList);
             }
         }
         scanner.close();
