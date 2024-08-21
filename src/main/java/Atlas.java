@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Atlas {
     // @@author patorjk.com
     // Reused from https://patorjk.com/software/taag/#p=display&f=Isometric1&t=Atlas
@@ -19,15 +21,27 @@ public class Atlas {
                 """;
 
         System.out.println("Hello from\n" + logo);
-        System.out.println(Atlas.LINE);
         Atlas.greet();
-        Atlas.exit();
+
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            String command = scanner.nextLine();
+            switch (command) {
+                case "bye":
+                    Atlas.exit();
+                    return;
+                default:
+                    Atlas.print(command);
+                    break;
+            }
+        }
     }
 
     // Prints messages with lines underneath them
     public static void print(String message) {
+        System.out.println('\n' + Atlas.LINE);
         System.out.println(message);
-        System.out.println(Atlas.LINE);
+        System.out.println(Atlas.LINE + '\n');
     }
 
     public static void greet() {
