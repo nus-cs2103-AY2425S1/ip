@@ -34,6 +34,18 @@ public class ZBot {
                     input.startsWith("deadline") ||
                     input.startsWith("event")) {
                 storeTask(input);
+            } else if (input.startsWith("delete")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(tasks.get(taskNumber - 1));
+                    tasks.remove(taskNumber - 1);
+                    System.out.println(String.format("Now you have %d tasks in the list.\n", tasks.size()));
+                } catch (NullPointerException e) {
+                    System.out.println("Task not found!\n");
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid task number!\n");
+                }
             } else {
                 System.out.println("Invalid command.\n");
             }
