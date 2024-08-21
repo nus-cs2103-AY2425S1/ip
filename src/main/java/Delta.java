@@ -103,7 +103,7 @@ public class Delta {
 
                 // Mark Task
                 } else if (task.length() >= 5 && task.substring(0, 5).equalsIgnoreCase("mark ")) {
-                    int taskIdx = 0;
+                    int taskIdx;
                     try {
                         taskIdx = Integer.parseInt(task.substring(5));
                     }
@@ -118,7 +118,7 @@ public class Delta {
 
                 // Unmark Task
                 } else if (task.length() >= 7 && task.substring(0, 7).equalsIgnoreCase("unmark ")) {
-                    int taskIdx = 0;
+                    int taskIdx;
                     try {
                         taskIdx = Integer.parseInt(task.substring(7));
                     }
