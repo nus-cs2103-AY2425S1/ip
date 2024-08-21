@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class MichaelScott {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MichaelScottException{
         Scanner myScanner = new Scanner(System.in);
         boolean flag = true;
         ArrayList<Task> todo = new ArrayList<Task>();
@@ -71,30 +71,71 @@ public class MichaelScott {
                     System.out.println("____________________________________________________________");
                 }
                 case "todo" -> {
-                    todo.add(new Todo(parts[1]));
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("    " + todo.get(todo.size() - 1).toString());
-                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
-                    System.out.println("____________________________________________________________");
+                    try {
+                        if (parts.length < 2) {
+                            throw new MichaelScottException("Please specify the task you intend to do.");
+                        }
+
+                        todo.add(new Todo(parts[1]));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("    " + todo.get(todo.size() - 1).toString());
+                        System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task")) + " in the list.");
+                        System.out.println("____________________________________________________________");
+
+                    } catch (MichaelScottException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(e.getMessage());
+                        System.out.println("____________________________________________________________");
+                    }
                 }
                 case "deadline" -> {
-                    String[] deadlineParts = parts[1].split(" /by ");
-                    todo.add(new Deadline(deadlineParts[0], deadlineParts[1]));
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("    " + todo.get(todo.size() - 1).toString());
-                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
-                    System.out.println("____________________________________________________________");
+
+                    try {
+                        String[] deadlineParts = parts[1].split(" /by ");
+                        if (deadlineParts.length < 2) {
+                            throw new MichaelScottException("Please specify the deadline as well.");
+                        }
+
+                        todo.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("    " + todo.get(todo.size() - 1).toString());
+                        System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
+                        System.out.println("____________________________________________________________");
+                    } catch (MichaelScottException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(e.getMessage());
+                        System.out.println("____________________________________________________________");
+                    }
                 }
                 case "event" -> {
-                    String[] eventParts = parts[1].split(" /from | /to ");
-                    todo.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("    " + todo.get(todo.size() - 1).toString());
-                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
-                    System.out.println("____________________________________________________________");
+                    try {
+
+                        String[] eventParts = parts[1].split(" /from | /to ");
+                        if (eventParts.length != 3) {
+                            throw new MichaelScottException("Please specify description, from and to");
+                        }
+                        todo.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("    " + todo.get(todo.size() - 1).toString());
+                        System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task" )) + " in the list.");
+                        System.out.println("____________________________________________________________");
+                    } catch (MichaelScottException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(e.getMessage());
+                        System.out.println("____________________________________________________________");
+                    }
+                }
+                default -> {
+                    try {
+                        throw new MichaelScottException("I don't understand what you mean to say!");
+                    } catch (MichaelScottException e){
+                        System.out.println("____________________________________________________________");
+                        System.out.println(e.getMessage());
+                        System.out.println("____________________________________________________________");
+                    }
                 }
             }
 
