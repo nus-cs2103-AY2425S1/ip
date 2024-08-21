@@ -40,11 +40,11 @@ public class Darwin {
             if (in.equals(Darwin.END)) {
                 Darwin.reply(endMsg);
                 break;
-            }
-            if (in.equals(Darwin.CHECK_LIST)) {
+            } else if (in.equals(Darwin.CHECK_LIST)) {
                 this.getTaskList();
+            } else {
+                this.addTask(in);
             }
-            this.addTask(in);
         }
         scanner.close();
     }
