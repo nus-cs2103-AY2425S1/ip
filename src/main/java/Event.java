@@ -5,8 +5,8 @@ public class Event extends Task{
     private final LocalDateTime end;
     public Event(String des, String start, String end) {
         super(des);
-        this.end = Parse.parseDate(end);
-        this.start = Parse.parseDate(start);
+        this.end = Parser.parseDate(end);
+        this.start = Parser.parseDate(start);
     }
 
     public Event(String des, boolean isMark, String start, String end) {
@@ -18,7 +18,7 @@ public class Event extends Task{
 
     @Override
     public String getDes() {
-        return "[E]" + super.getDes() + " (from: " + Parse.formatDate(start) + " to: " + Parse.formatDate(end) + ")";
+        return "[E]" + super.getDes() + " (from: " + Parser.formatDate(start) + " to: " + Parser.formatDate(end) + ")";
     }
 
     @Override

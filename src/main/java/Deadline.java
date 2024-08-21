@@ -4,7 +4,7 @@ public class Deadline extends Task{
     private final LocalDateTime end;
     public Deadline(String des, String end) {
         super(des);
-        this.end = Parse.parseDate(end);
+        this.end = Parser.parseDate(end);
     }
 
     public Deadline(String des, boolean isMark, String end) {
@@ -15,7 +15,7 @@ public class Deadline extends Task{
 
     @Override
     public String getDes() {
-        return "[D]" + super.getDes() + " (by: " + Parse.formatDate(end) + ")";
+        return "[D]" + super.getDes() + " (by: " + Parser.formatDate(end) + ")";
     }
 
     @Override

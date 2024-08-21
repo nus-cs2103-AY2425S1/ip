@@ -1,39 +1,20 @@
 import java.util.Scanner;
 
 public class Tina {
-    public static void greet() {
-        System.out.println("Hello! I'm Tina");
-        System.out.println("What can I do for you?");
+    private Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
+    public Tina(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
     }
-
-    public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public void run() {
+        ui.greet();
+        tasks = new TaskList(storage);
+        ui.doTask(tasks);
+        ui.exit();
     }
-
-    public static void doTask() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        while (!input.equals("bye")) {
-            try {
-                Parse.parseInput(input);
-            } catch (TinaException e) {
-                System.out.println(e.getMessage());
-            }
-            input = sc.nextLine();
-        }
-        sc.close();
-    }
-
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        greet();
-        TaskList.init();
-        doTask();
-        exit();
+        new Tina("./src/main/java/tina.txt").run();
     }
 }

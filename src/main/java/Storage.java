@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
-public class Data {
-    private static final String filename = "./src/main/java/tina.txt";
-    public static void write(ArrayList<Task> list) throws TinaException{
+public class Storage {
+    private final String filename;
+
+    public Storage(String filename) {
+        this.filename = filename;
+    }
+
+    public void write(ArrayList<Task> list) throws TinaException{
         try {
             FileWriter writer = new FileWriter(filename);
             for (Task task : list) {
@@ -18,7 +23,7 @@ public class Data {
         }
     }
 
-    public static ArrayList<Task> read() {
+    public ArrayList<Task> read() {
         ArrayList<Task> list = new ArrayList<>();
         try {
             File file = new File(filename);
@@ -29,7 +34,7 @@ public class Data {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = Parse.parseLine(line);
+                Task task = Parser.parseLine(line);
                 list.add(task);
             }
             reader.close();
