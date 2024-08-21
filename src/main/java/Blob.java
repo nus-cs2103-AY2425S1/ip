@@ -8,16 +8,16 @@ public class Blob {
     private static int noOfTasks = 0;
     private static HashMap<Integer, Task> db = new HashMap<>();
 
+    //TASK CLASS
     public static class Task {
-        private String name;
-        private boolean isDone;
-        private int taskNumber;
+        protected String name;
+        protected boolean isDone;
+        protected int taskNumber;
 
         public Task(String name, int taskNumber, boolean isDone) {
             this.name = name;
             this.isDone = isDone;
             this.taskNumber = taskNumber;
-            System.out.println(String.format("added: %s", name));
         }
 
         public void complete() {
@@ -38,8 +38,53 @@ public class Blob {
         }
     }
 
+    //TODO CLASS
+    public static class Todo extends Task {
+        public Todo(String name, int taskNumber, boolean isDone) {
+            super(name,taskNumber,isDone);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + "[" + this.check() + "] " + this.name;
+        }
+    }
+
+    //DEADLINE CLASS
+    public static class Deadline extends Task {
+        private String deadline;
+        public Deadline(String name, int taskNumber, boolean isDone, String deadline) {
+            super(name,taskNumber,isDone);
+            this.deadline = deadline;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + "[" + this.check() + "] " + this.name + " (by: " + deadline + ")";
+        }
+    }
+
+    //EVENT CLASS
+    public static class Event extends Task {
+
+        private String start;
+        private String end;
+
+        public Event(String name, int taskNumber, boolean isDone, String start, String end) {
+            super(name,taskNumber,isDone);
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + "[" + this.check() + "] " + this.name + " (from: " + start + " to: " + end + ")";
+        }
+    }
+
     public static void evaluateAction(String action) {
         String[] arr = action.split(" ");
+
         for (int i = 0; i < arr.length; i++) {
             String act = arr[i].toLowerCase();
             if (Objects.equals(act, "bye")) {
@@ -79,12 +124,91 @@ public class Blob {
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid Command!");
                 }
-
                 break;
-            } else {
+
+            } else if (Objects.equals(act, "todo")) {
                 noOfTasks++;
-                Task t = new Task(action, noOfTasks, false);
+                // for task name string
+                StringBuilder a = new StringBuilder(arr[i + 1]);
+                for (int j = i + 2; j < arr.length; j++) {
+                    StringBuilder str = new StringBuilder(" " + arr[j]);
+                    a = a.append(str);
+                }
+                Todo t = new Todo(a.toString(), noOfTasks, false);
                 db.put(t.taskNumber, t);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(t);
+                System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+                System.out.println("______________________________________________");
+                break;
+
+            } else if (Objects.equals(act, "deadline")) {
+                noOfTasks++;
+                int by = 0;
+                for (int j = 0; j < arr.length; j++) {
+                    if (Objects.equals(arr[j], "/by")) {
+                        by = j;
+                    }
+                }
+                // for task name string
+                StringBuilder a = new StringBuilder(arr[i + 1]);
+                for (int l = i + 2; l < by; l++) {
+                    StringBuilder str = new StringBuilder(" " + arr[l]);
+                    a = a.append(str);
+                }
+                // for task deadline string
+                StringBuilder s = new StringBuilder(arr[by + 1]);
+                for (int k = by + 2; k < arr.length; k++) {
+                    StringBuilder str = new StringBuilder(" " + arr[k]);
+                    s = s.append(str);
+                }
+                Deadline d = new Deadline(a.toString(), noOfTasks, false, s.toString());
+                db.put(d.taskNumber, d);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(d);
+                System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+                System.out.println("______________________________________________");
+                break;
+
+            } else if (Objects.equals(act, "event")) {
+                noOfTasks++;
+                int start = 0;
+                int end = 0;
+                for (int j = 0; j < arr.length; j++) {
+                    if (Objects.equals(arr[j], "/from")) {
+                        start = j;
+                    } else if (Objects.equals(arr[j], "/to")) {
+                        end = j;
+                    }
+                }
+                //for task name string
+                StringBuilder a = new StringBuilder(arr[i + 1]);
+                for (int l = i + 2; l < start; l++) {
+                    StringBuilder str = new StringBuilder(" " + arr[l]);
+                    a = a.append(str);
+                }
+                //for start string
+                StringBuilder st = new StringBuilder(arr[start + 1]);
+                for (int k = start + 2; k < end; k++) {
+                    StringBuilder str = new StringBuilder(" " + arr[k]);
+                    st = st.append(str);
+                }
+                //for end string
+                StringBuilder en = new StringBuilder(arr[end + 1]);
+                for (int k = end + 2; k < arr.length; k++) {
+                    StringBuilder str = new StringBuilder(" " + arr[k]);
+                    en = en.append(str);
+                }
+                Event e = new Event(a.toString(), noOfTasks, false, st.toString(), en.toString());
+                db.put(e.taskNumber, e);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e);
+                System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+                System.out.println("______________________________________________");
+                break;
+
+            } else {
+                System.out.println("ERROR! Unknown Command!");
                 System.out.println("______________________________________________");
                 break;
             }
