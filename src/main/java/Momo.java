@@ -2,6 +2,8 @@ import java.util.*;
 
 public class Momo {
 
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -22,6 +24,7 @@ public class Momo {
         String input = sc.nextLine();
         Task[] list = new Task[100];
         int count = 0;
+
 
         while (!Objects.equals(input, "bye")) {
 
@@ -55,17 +58,39 @@ public class Momo {
                 continue;
             }
 
+            String taskType = input.split(" ")[0];
 
-            list[count] = new Task(input);
+            switch (taskType) {
+                case "todo" -> {
+                    String task = input.split(" ",2)[1];
+                    list[count] = new Todo(task);
+                }
+                case "deadline" -> {
+                    String desc = input.split(" ",2)[1];
+                    String task =  desc.split("/",2)[0];
+                    String by = desc.split("/",2)[1];
+                    list[count] = new Deadline(task, by);
+                }
+                case "event" -> {
+                    String desc = input.split(" ",2)[1];
+                    String task =  desc.split("/",2)[0];
+                    String from = desc.split("/",3)[1];
+                    String to = desc.split("/",3)[2];
+
+                    list[count] = new Event(task, from, to);
+                }
+            }
+
             System.out.println(horizontalLine);
-            System.out.println("added: " + input);
+            System.out.println("Noted. I've added this task: \n " + list[count]);
+            System.out.println(String.format("Now you have %d task(s) in the list", count + 1));
             System.out.println(horizontalLine);
             input = sc.nextLine();
             count++;
         }
 
         System.out.println(horizontalLine);
-        System.out.println("Farewell... for now. I'll be waiting for your return, taking refuge in your shadows. Rest well... while you still can.\n" + logo);
+        System.out.println("Farewell... for now. I'll be waiting for your return, taking refuge in your shadows. Rest well.... wħɨłɇ ɏøᵾ sŧɨłł ȼȺn\n" + logo);
         System.out.println(horizontalLine);
     }
 }
