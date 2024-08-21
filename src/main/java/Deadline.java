@@ -2,7 +2,7 @@ public class Deadline extends Task {
     private String due;
 
     public Deadline(String description, String due) {
-        super(description);
+        super(description.strip());
         StringBuilder str = new StringBuilder(due.strip());
         str.insert(str.indexOf(" "), ':');
         this.due = str.toString();
