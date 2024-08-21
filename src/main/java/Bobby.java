@@ -11,12 +11,19 @@ public class Bobby {
         while (true) {
             System.out.println();
             String input = scanner.nextLine();
+
             if (input.equals("bye")) {
                 bye();
                 System.out.println();
                 break;
             }
-            repeat(input);
+
+            if (input.equals("list")) {
+                listOutTasks();
+                System.out.println();
+            } else {
+                addToList(input);
+            }
         }
     }
 
@@ -52,7 +59,19 @@ public class Bobby {
     public static void addToList(String s) {
         Bobby.storage.add(s);
         horizontalLine(35);
+        System.out.println();
         System.out.println("added: " + s);
+        horizontalLine(35);
+    }
+
+    public static void listOutTasks() {
+        horizontalLine(35);
+        int n = Bobby.storage.size();
+        System.out.println();
+        for (int i = 0; i < n; i++) {
+            int number = i + 1;
+            System.out.println(number + ". " + Bobby.storage.get(i));
+        }
         horizontalLine(35);
     }
 }
