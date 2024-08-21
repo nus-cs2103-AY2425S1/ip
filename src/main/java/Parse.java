@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parse {
     private static void parseTask(String input) throws TinaException {
         try {
@@ -69,5 +73,19 @@ public class Parse {
             default:
                 throw new TinaException("Invalid task type: " + type);
         }
+    }
+
+    public static LocalDateTime parseDate(String input) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        try {
+            return LocalDateTime.parse(input, inputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new TinaException("Invalid date and time format");
+        }
+    }
+
+    public static String formatDate(LocalDateTime input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return input.format(formatter);
     }
 }
