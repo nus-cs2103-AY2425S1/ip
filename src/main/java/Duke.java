@@ -11,43 +11,64 @@ public class Duke {
         String command;
 
         Scanner scanner = new Scanner(System.in);
-        command = scanner.nextLine();
-
+        String[] splitedBySpace;
+        String[] splitedBySlash;
         ArrayList<Task> list = new ArrayList<>();
-
-        while (!command.equals("bye")) {
-            if (command.startsWith("mark")) {
-                String[] splitedString = command.split("\\s+");
-                try {
-                    Integer itemNumber = Integer.parseInt(splitedString[1]);
-                    list.get(itemNumber-1).markAsDone();
-                    System.out.println("Nice! I've marked this task as done:\n"+list.get(itemNumber-1));
-                } catch (NumberFormatException e) {
-                    System.out.println(e);
-                }
-            } else if (command.startsWith("unmark")) {
-                String[] splitedString = command.split("\\s+");
-                try {
-                    Integer itemNumber = Integer.parseInt(splitedString[1]);
-                    list.get(itemNumber - 1).markAsUndone();
-                    System.out.println("Nice! I've marked this task as done:\n"+list.get(itemNumber - 1));
-                } catch (NumberFormatException e) {
-                    System.out.println(e);
-                }
-            }
-            else if (!command.equals("list")) {
-                list.add(new Task(command));
-                System.out.println(lineBreak + "added:" + command +"\n" + lineBreak);
-            } else {
-                //'list command'
-                System.out.print(lineBreak);
-                IntStream.range(0, list.size()).mapToObj(number -> number + 1 + ". " + list.get(number)).forEach(System.out::println);
-                System.out.print(lineBreak);
-            }
-
+        Task event = null;
+        while (true) {
             command = scanner.nextLine();
+            splitedBySpace = command.split("\\s+", 2);
+            switch (splitedBySpace[0]) {
+                case "bye":
+                    System.out.println(exit);
+                    return;
+                case "mark":
+                    try {
+                        Integer itemNumber = Integer.parseInt(splitedBySpace[1]);
+                        list.get(itemNumber - 1).markAsDone();
+                        System.out.println("Nice! I've marked this task as done:\n" + list.get(itemNumber - 1));
+                    } catch (NumberFormatException e) {
+                        System.out.println(e);
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        Integer itemNumber = Integer.parseInt(splitedBySpace[1]);
+                        list.get(itemNumber - 1).markAsUndone();
+                        System.out.println("Nice! I've marked this task as undone:\n" + list.get(itemNumber - 1));
+                    } catch (NumberFormatException e) {
+                        System.out.println(e);
+                    }
+                    break;
+                case "list":
+                    System.out.print(lineBreak);
+                    IntStream.range(0, list.size()).mapToObj(number -> number + 1 + ". " + list.get(number)).forEach(System.out::println);
+                    System.out.print(lineBreak);
+                    break;
+                default:
+
+                    switch (splitedBySpace[0]) {
+                        case "todo":
+                            event = new Todo(command);
+                            break;
+                        case "deadline":
+                            splitedBySlash = splitedBySpace[1].split("/");
+                            event = new Deadline(splitedBySlash[0], splitedBySlash[1].replace("by",""));
+                            break;
+                        case "event":
+                            splitedBySlash = splitedBySpace[1].split("/");
+                            event = new Event(splitedBySlash[0], splitedBySlash[1].replace("from",""), splitedBySlash[2].replace("to",""));
+                            break;
+                    }
+                    if (event != null && list.add(event)) {
+                        System.out.println("Got it. I've added this task:\n" +
+                                event.toString() +
+                                "\nNow you have " + list.size() + " tasks in the list.");
+                    }
+
+            }
         }
-        scanner.close();
-        System.out.println(exit);
+
+
     }
 }
