@@ -13,68 +13,98 @@ public class Winde {
         // System.out.println("Hello from\n" + "Winde");
         greet();
 
+
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!(input.equals("bye"))) {
-            String[] order, command;
-            if (input.equals("list")) {
-                list();
-            } else if (input.startsWith("delete")) {
-                try {
-                    handleDeleteException(input);
-                } catch (EmptyDescriptionException e) {
-                    throw new RuntimeException(e);
-                } catch (TooManyParametersException e) {
-                    throw new RuntimeException(e);
+            Commands command = getCommandType(input);
+            switch (command) {
+                case LIST -> list();
+                case DELETE -> {
+                    try {
+                        handleDeleteException(input);
+                    } catch (EmptyDescriptionException | TooManyParametersException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            } else if (input.startsWith("mark")) {
-                try {
-                    handleMarkException(input);
-                } catch (EmptyDescriptionException e) {
-                    throw new RuntimeException(e);
-                } catch (TooManyParametersException e) {
-                    throw new RuntimeException(e);
+                case MARK -> {
+                    try {
+                        handleMarkException(input);
+                    } catch (EmptyDescriptionException | TooManyParametersException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            } else if (input.startsWith("unmark")) {
-                try {
-                    handleUnmarkException(input);
-                } catch (EmptyDescriptionException e) {
-                    throw new RuntimeException(e);
-                } catch (TooManyParametersException e) {
-                    throw new RuntimeException(e);
+                case UNMARK -> {
+                    try {
+                        handleUnmarkException(input);
+                    } catch (EmptyDescriptionException | TooManyParametersException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            } else if (input.startsWith("todo")) {
-                try {
-                    handleTodoCommand(input);
-                } catch (EmptyDescriptionException e) {
-                    throw new RuntimeException(e);
+                case TODO -> {
+                    try {
+                        handleTodoCommand(input);
+                    } catch (EmptyDescriptionException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            } else if (input.startsWith("deadline")) {
-                try {
-                    handleDeadlineCommand(input);
-                } catch (EmptyDescriptionException e) {
-                    throw new RuntimeException(e);
+                case DEADLINE -> {
+                    try {
+                        handleDeadlineCommand(input);
+                    } catch (EmptyDescriptionException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            } else if (input.startsWith("event")) {
-                try {
-                    handleEventCommand(input);
-                } catch (EmptyDescriptionException e) {
-                    throw new RuntimeException(e);
+                case EVENT -> {
+                    try {
+                        handleEventCommand(input);
+                    } catch (EmptyDescriptionException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            } else {
-                try {
-                    throw new UnsupportedCommandException("TYPE /HELP FOR HELP STOOPIDD");
-                } catch (UnsupportedCommandException e) {
-                    throw new RuntimeException(e);
+                default -> {
+                    try {
+                        throw new UnsupportedCommandException("TYPE /HELP FOR HELP STOOPIDD");
+                    } catch (UnsupportedCommandException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
             input = scanner.nextLine();
-        }
 
+        }
         exit();
+
     }
 
+
     private final static List<Task> reminder = new ArrayList<Task>();
+
+    enum Commands {
+        TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, UNKNOWN
+    }
+
+    private static Commands getCommandType(String input) {
+        if (input.startsWith("todo")) {
+            return Commands.TODO;
+        } else if (input.startsWith("deadline")) {
+            return Commands.DEADLINE;
+        } else if (input.startsWith("event")) {
+            return Commands.EVENT;
+        } else if (input.equals("list")) {
+            return Commands.LIST;
+        } else if (input.startsWith("delete")) {
+            return Commands.DELETE;
+        } else if (input.equals("bye")) {
+            return Commands.BYE;
+        } else if (input.startsWith("mark")) {
+            return Commands.MARK;
+        } else if (input.startsWith("unmark")) {
+            return Commands.UNMARK;
+        } else {
+            return Commands.UNKNOWN;
+        }
+    }
 
     public static void handleDeleteException (String input) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
