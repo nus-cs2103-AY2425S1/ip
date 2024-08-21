@@ -1,45 +1,79 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Ekud {
     public static final String LINE_SEPARATOR =
-            "\t_____________________________________________________________";
+            "_____________________________________________________________";
     public static final String END_COMMAND = "bye";
+    public static final String LIST_COMMAND = "list";
+    public static final int MAX_LIST_SIZE = 100;
 
-    public void greet() {
-        String greeting = "\tHeyo! My name is EKuD!! You can call me Eku-chan :)"
-                + "\n\tHow may I be of assistance!";
-        System.out.println(LINE_SEPARATOR);
-        System.out.println(greeting);
-        System.out.println(LINE_SEPARATOR);
+    private final String[] list = new String[MAX_LIST_SIZE];
+    private int currListSize = 0;
+    private boolean isRunning = true;
+
+    public boolean isRunning() {
+        return isRunning;
     }
 
-    public void sayGoodbye() {
-        String goodbye = "\tI hope you enjoyed your stay!\n\tSee you next time!";
-        System.out.println(goodbye);
-        System.out.println(LINE_SEPARATOR);
+    public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
 
     public void echo(String message) {
+        // prints string with a tab
         System.out.println("\t" + message);
-        System.out.println(LINE_SEPARATOR);
+    }
+
+    public void greet() {
+        echo(LINE_SEPARATOR);
+        echo("Heyo! My name is EKuD!! You can call me Eku-chan :)");
+        echo("How may I be of assistance");
+        echo(LINE_SEPARATOR);
+    }
+
+    public void sayGoodbye() {
+        echo("I hope you enjoyed your stay!");
+        echo("See you next time!");
+        echo(LINE_SEPARATOR);
+    }
+
+    public void addToList(String item) {
+        // assume no more than LIST_MAX_SIZE items are added
+        list[currListSize] = item;
+        currListSize++;
+        echo("added: " + item);
+        echo(LINE_SEPARATOR);
+    }
+
+    public void echoList() {
+        for (int i = 0; i < currListSize; i++) {
+            echo(String.format("%d. %s", i+1, list[i]));
+        }
+        echo(LINE_SEPARATOR);
     }
 
     public static void main(String[] args) {
         Ekud ekud = new Ekud();
         Scanner sc = new Scanner(System.in);
-        String command = "";
+        String command;
 
         ekud.greet();
-        while (true) {
+        while (ekud.isRunning()) {
+            // get user command
             System.out.println();
             command = sc.nextLine();
-            System.out.println(LINE_SEPARATOR);
-            // check for user escape
-            if (Objects.equals(command, END_COMMAND)) {
+            ekud.echo(LINE_SEPARATOR);
+            // handle command
+            switch (command) {
+            case END_COMMAND:
+                ekud.setRunning(false);
                 break;
+            case LIST_COMMAND:
+                ekud.echoList();
+                break;
+            default:
+                ekud.addToList(command);
             }
-            ekud.echo(command);
         }
         ekud.sayGoodbye();
     }
