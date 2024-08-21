@@ -51,5 +51,8 @@ public class Bobby {
 
     public static void addToList(String s) {
         Bobby.storage.add(s);
+        horizontalLine(35);
+        System.out.println("added: " + s);
+        horizontalLine(35);
     }
 }
