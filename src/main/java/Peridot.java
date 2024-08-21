@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Peridot {
 
+    private static List list = new List();
     public static void botSay(String string) {
         System.out.println("Peridot: " + string);
     }
@@ -11,7 +12,14 @@ public class Peridot {
         botSay("What's up?");
         String userResponse = scanner.nextLine();
         while (!userResponse.equals("bye")) {
-            botSay(userResponse);
+            switch (userResponse) {
+                case "list":
+                    list.listOut();
+                    break;
+                default:
+                    list.add(userResponse);
+                    botSay("added: " + userResponse);
+            }
             userResponse = scanner.nextLine();
         }
         botSay("Bye!");
