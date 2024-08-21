@@ -66,9 +66,29 @@ public class Azir {
                         taskList.add(currTask);
                         System.out.println(currTask);
                     } else if (input.startsWith("event")){
-                        System.out.println("Got it. I've added this task:");
                         int fromIndex = input.indexOf("/from");
                         int toIndex = input.indexOf("/to");
+                        if (fromIndex == -1) {
+                            throw new AzirException("event needs a /from. " +
+                                    "Format: event [description] /from [date] /to [date]");
+                        }
+                        if (toIndex == -1) {
+                            throw new AzirException("event needs a /to. " +
+                                    "Format: event [description] /from [date] /to [date]");
+                        }
+                        if (input.substring(fromIndex + 5, toIndex).trim().isEmpty()) {
+                            throw new AzirException("event needs a from date. " +
+                                    "Format: event [description] /from [date] /to [date]");
+                        }
+                        if (input.substring(5, fromIndex).trim().isEmpty()) {
+                            throw new AzirException("event needs a description. " +
+                                    "Format: event [description] /from [date] /to [date]");
+                        }
+                        if (input.trim().endsWith("/to")) {
+                            throw new AzirException("You need an ending date. " +
+                                    "Format: event [description] /from [date] /to [date]");
+                        }
+                        System.out.println("Got it. I've added this task:");
                         String description = input.substring(6, fromIndex - 1);
                         String startDay = input.substring(fromIndex + 6, toIndex - 1);
                         String endDay = input.substring(toIndex + 4);
