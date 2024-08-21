@@ -38,6 +38,16 @@ public class Testament {
                                         "You have %d tasks to complete",
                                 taskList.getTask(taskList.getSize()), taskList.getSize())
                 );
+
+            } else if (splitUserInput[0].equals("deadline")) {
+                String[] deadlineInfo = splitUserInput[1].split("/by ", 2);
+                taskList.add(new Deadline(deadlineInfo[0], deadlineInfo[1]));
+                printDialogue(
+                        String.format("I've added the following task to your schedule:\n%s\n" +
+                                        "You have %d tasks to complete",
+                                taskList.getTask(taskList.getSize()), taskList.getSize())
+                );
+
             } else {
                 printDialogue(userInput + " has been added to your schedule.");
                 taskList.add(new Task(userInput));
