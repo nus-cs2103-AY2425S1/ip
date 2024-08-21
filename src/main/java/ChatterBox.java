@@ -1,9 +1,7 @@
 
 import java.util.Scanner;
 public class ChatterBox {
-
     public static void main(String[] args) {
-
 
         Task[] taskList = new Task[100];
         int counter = 0;
