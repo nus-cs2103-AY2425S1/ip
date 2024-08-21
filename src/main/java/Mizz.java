@@ -38,7 +38,6 @@ public class Mizz {
 
     while (!bot.isExited()) {
       bot.commandHandler(scanner.nextLine());
-      bot.usrCmds.addCmd(bot.cmd);
     }
     bot.exit();
 
@@ -60,6 +59,7 @@ public class Mizz {
         this.usrCmds.prettyPrint();
         break;
       default:
+        this.usrCmds.addCmd(this.cmd);
         Mizz.prettyPrint(String.format("added: %s", this.cmd));
         break;
     }
