@@ -25,6 +25,7 @@ public class LBot {
                     1. To do $t
                     2. Event $e
                     3. Deadline $d
+                    4. Delete $del
                 2. List tasks $l
                 3. Mark tasks as complete $m
              */
@@ -116,9 +117,11 @@ public class LBot {
                             $t (description) - Add a todo
                                 $t Create a Todo
                             $d (description) $(Date)- Add a deadline
-                                $d Finish LBot $20/08/2024 $22/08/2024
+                                $d Finish LBot $20/08/2024
                             $e (description) $(start) $(end) - Add an event
-                                $e Go Shopping $24/08/2024
+                                $e Go Shopping $3pm $5pm
+                            $del (task no.) - Deletes a task
+                                $del 1
                             $l - Lists all tasks
                                 $l
                             $m (task no.) - Mark a task as complete

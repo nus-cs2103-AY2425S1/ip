@@ -17,6 +17,6 @@ public class Deadline extends Task {
         if (isCompleted) {
             return this.type + "[x] - " + this.description + "(due on " + this.dueDate + ")";
         }
-        return this.type + "[ ] - " + this.description + " (due on" + this.dueDate + ")";
+        return this.type + "[ ] - " + this.description + " (due on " + this.dueDate + ")";
     }
 }
