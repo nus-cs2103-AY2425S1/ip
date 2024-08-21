@@ -23,60 +23,72 @@ public class Ekud {
         this.isRunning = isRunning;
     }
 
-    public void echo(String message) {
-        // prints string with a tab
-        System.out.println("\t" + message);
-    }
-
     public void greet() {
-        echo(LINE_SEPARATOR);
-        echo("Heyo! My name is EKuD!! You can call me Eku-chan :)");
-        echo("How may I be of assistance");
-        echo(LINE_SEPARATOR);
+        System.out.printf("""
+                        \t%s
+                        \t Hey! My name is EKuD!! You can call me Eku-chan!
+                        \t How may I be of assistance?
+                        \t%s%n""",
+                LINE_SEPARATOR,
+                LINE_SEPARATOR);
     }
 
     public void sayGoodbye() {
-        echo("I hope you enjoyed your stay!");
-        echo("See you next time!");
-        echo(LINE_SEPARATOR);
+        System.out.printf("""
+                        \t I hope you enjoyed your stay!
+                        \t See you next time!
+                        \t%s""",
+                LINE_SEPARATOR);
     }
 
     public void addToList(Task task) {
         // assume no more than LIST_MAX_SIZE items are added
         tasks.addTask(task);
-        echo("added: " + task);
-        echo("And another one... " + tasks.getIncompleteCount() + " tasks to complete.");
-        echo(LINE_SEPARATOR);
+        System.out.printf("""
+                        \t added: %s
+                        \t And another one; %s tasks to complete...
+                        \t%s%n""",
+                task,
+                tasks.getIncompleteCount(),
+                LINE_SEPARATOR);
     }
 
     public void echoList() {
-        echo("Look at all these tasks:");
+        System.out.println("\t Look at all these tasks:");
         int i = 1;
         for (Task task: tasks) {
-            echo(String.format("%d. %s", i, task));
+            System.out.printf("\t %d. %s\n", i, task);
             i++;
         }
-        echo(LINE_SEPARATOR);
+        System.out.println("\t" + LINE_SEPARATOR);
     }
 
     public void markList(int listIndex) {
         // assumes valid index is given
-        echo("Wowie!! You've completed your task!");
-        echo("I shall mark it as complete in celebration!");
         tasks.markComplete(listIndex);
-        echo("   " + tasks.getTask(listIndex));
-        echo("Woohoo!! Only " + tasks.getIncompleteCount() + " more to go!");
-        echo(LINE_SEPARATOR);
+        System.out.printf("""
+                        \t Wowie!! You've completed your task!
+                        \t I shall mark it as complete in celebration!
+                        \t   %s
+                        \t Woohoo!! Only %d more to go!
+                        \t%s%n""",
+                tasks.getTask(listIndex),
+                tasks.getIncompleteCount(),
+                LINE_SEPARATOR);
     }
 
     public void unmarkList(int listIndex) {
         // assumes valid index is given
-        echo("Oh ho ho, did you forget something?");
-        echo("It's OK, I will take note of your incompetence...");
         tasks.markIncomplete(listIndex);
-        echo("   " + tasks.getTask(listIndex));
-        echo("OOPSIES! We back to " + tasks.getIncompleteCount() + " tasks left to complete.");
-        echo(LINE_SEPARATOR);
+        System.out.printf("""
+                        \t Oh ho ho, did you perhaps forget something?
+                        \t It's OK, I already noted down your incompetence...
+                        \t   %s
+                        \t Tsk Tsk... Back to %d incomplete tasks you go!
+                        \t%s%n""",
+                tasks.getTask(listIndex),
+                tasks.getIncompleteCount(),
+                LINE_SEPARATOR);
     }
 
     public static HashMap<String, String> parseTokens(String[] tokens) {
@@ -119,7 +131,7 @@ public class Ekud {
             HashMap<String, String> tokenMap = parseTokens(tokens);
             String command = tokenMap.get("command");
             String argument = tokenMap.get("argument");
-            ekud.echo(LINE_SEPARATOR);
+            System.out.println("\t" + LINE_SEPARATOR);
 
             // handle command
             switch (command) {
@@ -145,8 +157,8 @@ public class Ekud {
                 ekud.addToList(new EventTask(argument, tokenMap.get("/from"), tokenMap.get("/to")));
                 break;
             default:
-                ekud.echo(input);
-                ekud.echo(LINE_SEPARATOR);
+                System.out.println(input);
+                System.out.println(LINE_SEPARATOR);
             }
         }
         ekud.sayGoodbye();
