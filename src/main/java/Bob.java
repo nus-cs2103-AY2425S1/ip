@@ -2,16 +2,16 @@ import java.util.Scanner;
 
 public class Bob {
     private static final String line = "____________________________________________________________\n";
+
     private static String greeting() {
-        return Bob.line +
-                " Hello! I'm [YOUR CHATBOT NAME]\n" +
-                " What can I do for you?\n" +
-                Bob.line;
+        return Bob.lineFormat(" Hello! I'm Bob\n" +
+                " What can I do for you?");
     }
     private static String farewell() {
-        return  Bob.line +
-                " Bye. Hope to see you again soon!\n" +
-                Bob.line;
+        return  Bob.lineFormat(" Bye. Hope to see you again soon!");
+    }
+    private static String lineFormat(String input) {
+        return Bob.line + input + "\n" + Bob.line;
     }
     public static void main(String[] args) {
         System.out.println(Bob.greeting());
@@ -25,9 +25,7 @@ public class Bob {
                 System.out.println(Bob.farewell());
                 break;
             }
-            System.out.println(line);
-            System.out.println(input);
-            System.out.println(line);
+            System.out.println(Bob.lineFormat(input));
         }
     }
 }
