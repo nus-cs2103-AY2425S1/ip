@@ -12,9 +12,7 @@ public class Snowy {
     private static final String ENDING = "Bye! Hope to see you again soon! \n"
             + LINE;
 
-    private static String lastCommand;
-
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
 
     private static int numOfTasks;
 
@@ -24,7 +22,15 @@ public class Snowy {
         Scanner scanner = new Scanner(System.in);
         System.out.print(GREETING);
         while (isRunning) {
-            lastCommand = scanner.nextLine();
+            String lastInput = scanner.nextLine();
+
+            String[] words = lastInput.split(" ");
+
+            if (words.length == 0) {
+                continue;
+            }
+
+            String lastCommand = words[0];
 
             switch (lastCommand.toLowerCase()) {
                 case "bye":
@@ -38,9 +44,9 @@ public class Snowy {
                     break;
 
                 default:
-                    tasks[numOfTasks] = lastCommand;
+                    tasks[numOfTasks] = new Task(lastInput);
                     numOfTasks++;
-                    System.out.println("added: " + lastCommand);
+                    System.out.println("added: " + lastInput);
                     break;
             }
 
