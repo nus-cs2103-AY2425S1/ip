@@ -1,5 +1,3 @@
-import utils.EventParser;
-import utils.ParseException;
 import java.util.ArrayList;
 
 public class KorolevList {
@@ -19,36 +17,36 @@ public class KorolevList {
             case "event" -> {
                 try {
 
-                    name = EventParser.parseName("event", "/from", event);
-                    date = EventParser.parseDate(event);
+                    name = DukeException.EventParser.parseName("event", "/from", event);
+                    date = DukeException.EventParser.parseDate(event);
                     e = new KorolevEvent(name, date);
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
-                } catch (ParseException exp) {
+                } catch (DukeKorolev.ParseException exp) {
                     System.out.println(exp.getMessage());
                 }
             }
             case "todo" -> {
                 try {
-                    name = EventParser.parseName("todo", "", event);
+                    name = DukeException.EventParser.parseName("todo", "", event);
                     e = new KorolevTodo(name);
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
-                } catch (ParseException exp) {
+                } catch (DukeKorolev.ParseException exp) {
                     System.out.println(exp.getMessage());
                 }
             }
             case "deadline" -> {
                 try {
-                    name = EventParser.parseName("deadline", "/by", event);
-                    date = EventParser.parseDate(event);
+                    name = DukeException.EventParser.parseName("deadline", "/by", event);
+                    date = DukeException.EventParser.parseDate(event);
                     e = new KorolevDeadline(name, date);
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
-                } catch (ParseException exp) {
+                } catch (DukeKorolev.ParseException exp) {
                     System.out.println(exp.getMessage());
                 }
             }

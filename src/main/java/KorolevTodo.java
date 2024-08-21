@@ -1,5 +1,3 @@
-import utils.EventParser;
-
 public class KorolevTodo extends KorolevTask {
     private String tag;
 

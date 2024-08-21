@@ -1,4 +1,3 @@
-import utils.EventParser;
 public class KorolevEvent extends KorolevTask{
     private String deadline;
     private String tag;

@@ -63,4 +63,11 @@ public class DukeKorolev {
         }
         System.out.println(end);
     }
+
+    public static class ParseException extends Exception{
+
+        public ParseException(String msg) {
+            super("Fail to extract information: " + msg);
+        }
+    }
 }
