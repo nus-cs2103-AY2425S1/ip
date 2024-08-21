@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Mittens {
@@ -39,6 +40,8 @@ public class Mittens {
                   ██████████████████████
             """;
 
+    private static ArrayList<String> tasks = new ArrayList<>();
+
     public static void greet() {
         System.out.println(GREETING_MESSAGE);
     }
@@ -69,6 +72,19 @@ public class Mittens {
         System.out.println(message);
     }
 
+    public static void addTask(String task) {
+        tasks.add(task);
+        System.out.printf("\nI've added \"%s\" to your list :3\n\n", task);
+    }
+
+    public static void listTasks() {
+        System.out.println("\nHere are the tasks in your list :3");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+        }
+        System.out.print("\n");
+    }
+
     public static void exit() {
         System.out.println(EXIT_MESSAGE);
     }
@@ -84,8 +100,10 @@ public class Mittens {
 
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                listTasks();
             } else {
-                echo(input);
+                addTask(input);
             }
         }
 
