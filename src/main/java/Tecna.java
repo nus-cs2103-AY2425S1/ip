@@ -48,7 +48,7 @@ public class Tecna {
         String[] input_words = input.split(" ");
         while (!input.equalsIgnoreCase("bye")) {
             System.out.println("----------------------------------------------");
-            if (input.equalsIgnoreCase("list")) {
+            if (input_words[0].equalsIgnoreCase("list")) {
                 this.listItems();
             } else if (input_words[0].equalsIgnoreCase("mark")) {
                 int index = Integer.parseInt(input_words[1]);
@@ -61,7 +61,11 @@ public class Tecna {
                 System.out.println("I've mark this as undone. Keep going, my friend!");
                 System.out.println(taskList[index - 1]);
             } else {
-                this.addItem(input);
+                try {
+                    this.addItem(input);
+                } catch (InvalidRequestException ive) {
+                    System.out.println("Oops! Your request sounds strange for me. Please enter a valid request ^^");
+                }
             }
 
             System.out.println("----------------------------------------------");
@@ -77,7 +81,7 @@ public class Tecna {
      * Adds new item to the list of tasks
      * @param item extracted from the user input
      */
-    public void addItem(String item) {
+    public void addItem(String item) throws InvalidRequestException {
         Task task = getTask(item);
         this.taskList[this.todoSize] = task;
         ++this.todoSize;
@@ -92,17 +96,24 @@ public class Tecna {
      * @param input including type of task and task description
      * @return the corresponding task with correct type
      */
-    private Task getTask(String input) {
+    private Task getTask(String input) throws InvalidRequestException {
         int boundary = input.indexOf(" ");
-        String category = input.substring(0, boundary);
+        String category;
+        try {
+            category = input.substring(0, boundary);
+        } catch (StringIndexOutOfBoundsException e) {
+            category = input;
+        }
         if (category.equalsIgnoreCase("todo")) {
             return new ToDo(input.substring(boundary + 1));
         } else if (category.equalsIgnoreCase("deadline")) {
             String[] description = input.substring(boundary + 1).split("/by");
             return new Deadline(description[0].trim(), description[1].trim());
-        } else {
+        } else if (category.equalsIgnoreCase("event")) {
             String[] description = input.substring(boundary + 1).split("/from | /to ");
             return new Event(description[0].trim(), description[1].trim(), description[2].trim());
+        } else {
+            throw new InvalidRequestException();
         }
     }
 
