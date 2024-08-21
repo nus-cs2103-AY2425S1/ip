@@ -9,17 +9,32 @@ public class Testament {
         taskList = new TaskList();
         Scanner scanner = new Scanner(System.in);
 
-        printDialogue(" Morning!\n Nice day for a stroll, don't you think?");
+        printDialogue("Morning!\n Nice day for a stroll, don't you think?");
         while (powerOn) {
             String userInput = scanner.nextLine();
-            if (userInput.equals("bye")) {
-                printDialogue(" I'd say it's time for a tea break. Milk and sugar for you?");
+            String[] splitUserInput = userInput.split(" ", 2);
+
+            if (splitUserInput[0].equals("bye")) {
+                printDialogue("I'd say it's time for a tea break. Milk and sugar for you?");
                 powerOn = false;
-            } else if (userInput.equals("schedule")) {
+
+            } else if (splitUserInput[0].equals("schedule")) {
                 printDialogue(taskList.toString());
+
+            } else if (splitUserInput[0].equals("mark")) {
+                int taskNumber = Integer.parseInt(splitUserInput[1]);
+                taskList.mark(taskNumber);
+                printDialogue("Congratulations on completing your task:\n" + taskList.getTask(taskNumber));
+
+            } else if (splitUserInput[0].equals("unmark")) {
+                int taskNumber = Integer.parseInt(splitUserInput[1]);
+                taskList.unMark(taskNumber);
+                printDialogue("This task has been unmarked:\n" + taskList.getTask(taskNumber));
+
             } else {
                 printDialogue(userInput + " has been added to your schedule.");
                 taskList.add(userInput);
+
             }
         }
     }
