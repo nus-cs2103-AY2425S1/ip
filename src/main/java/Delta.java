@@ -46,9 +46,13 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
-    public static String printTasks() {
-        String output = "\t____________________________________________________________\n" +
-                "\t Here are the tasks in your list:\n";
+    public static String printTasks() throws DeltaException {
+        String output = "\t____________________________________________________________\n";
+        if (list.isEmpty()) {
+            throw new DeltaException("There are no tasks in your list.");
+        } else {
+            output += "\t Here are the tasks in your list:\n";
+        }
         for (int i = 0; i < list.size(); i++) {
             output += String.format("\t %d.%s\n", i + 1, list.get(i));
         }
@@ -81,13 +85,21 @@ public class Delta {
                 } else if (task.equalsIgnoreCase("list")) {
                     output = printTasks();
 
+                // Catch Invalid Mark
+                } else if (task.strip().equalsIgnoreCase("mark")) {
+                    throw new DeltaException("OOPS!!! Please indicate which task to be marked done.");
+
                 // Mark Task
-                } else if (task.length() >= 4 && task.substring(0, 4).equalsIgnoreCase("mark")) {
+                } else if (task.length() >= 5 && task.substring(0, 5).equalsIgnoreCase("mark ")) {
                     int taskIdx = Integer.parseInt(task.substring(5));
                     output = markTask(taskIdx);
 
+                // Catch Invalid Unmark
+                } else if (task.strip().equalsIgnoreCase("unmark")) {
+                    throw new DeltaException("OOPS!!! Please indicate which task to be marked as not done.");
+
                 // Unmark Task
-                } else if (task.length() >= 6 && task.substring(0, 6).equalsIgnoreCase("unmark")) {
+                } else if (task.length() >= 7 && task.substring(0, 7).equalsIgnoreCase("unmark ")) {
                     int taskIdx = Integer.parseInt(task.substring(7));
                     output = unmarkTask(taskIdx);
 
