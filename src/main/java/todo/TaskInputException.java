@@ -8,7 +8,7 @@ import chatbot.BeeException;
  *
  * @author celeschai
  */
-public class TaskException extends BeeException {
+public class TaskInputException extends BeeException {
 
     /**
      * Formats error message for different tasks
@@ -16,7 +16,7 @@ public class TaskException extends BeeException {
      * @param missingItems parameters required for task creation
      * @param taskType task type name
      */
-    public TaskException(String missingItems, String taskType) {
+    public TaskInputException(String missingItems, String taskType) {
         super(String.format(
                     "Where is the %s of your %s?\n",
                     missingItems, taskType));

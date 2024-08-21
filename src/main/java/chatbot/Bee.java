@@ -62,9 +62,7 @@ public class Bee {
 
                     // Warn user of invalid task specified
                     } else {
-                        ChatbotOutput.printBtnLines(
-                                "Hey! This task does not exist.\n" +
-                                        "Type 'list' to see what tasks you have");
+                        throw new TaskIndexException();
                     }
 
                 // Parse input from user to get task number
@@ -83,9 +81,7 @@ public class Bee {
 
                     // Warn user of invalid task specified
                     } else {
-                        ChatbotOutput.printBtnLines(
-                                "Hey! This task does not exist.\n" +
-                                        "Type 'list' to see what tasks you have.");
+                        throw new TaskIndexException();
                     }
 
                     // Add todo
@@ -103,7 +99,7 @@ public class Bee {
 
                     //Throw exception for invalid input
                     } else {
-                        throw new TaskException("name", "todo");
+                        throw new TaskInputException("name", "todo");
                     }
 
                     // Add deadline
@@ -124,7 +120,7 @@ public class Bee {
 
                     //Throw exception for invalid input
                     } else {
-                        throw new TaskException("name, and due date", "deadline");
+                        throw new TaskInputException("name, and due date", "deadline");
                     }
 
                     // Add event
@@ -146,7 +142,7 @@ public class Bee {
 
                         //Throw exception for invalid input
                     } else {
-                        throw new TaskException("name, start, and end time", "event");
+                        throw new TaskInputException("name, start, and end time", "event");
                     }
 
                 // TODO: display list of commands
