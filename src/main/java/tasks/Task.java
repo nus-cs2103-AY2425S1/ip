@@ -1,4 +1,4 @@
-package util;
+package tasks;
 
 public class Task {
   private String description;
@@ -39,6 +39,6 @@ public class Task {
 
   @Override
   public String toString() {
-    return (this.isDone ? "[x] " : "[ ] ") + this.description;
+    return (this.isDone ? "[X] " : "[ ] ") + this.description;
   }
 }

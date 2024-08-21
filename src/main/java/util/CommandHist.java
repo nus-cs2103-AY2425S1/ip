@@ -1,6 +1,10 @@
 package util;
 
 import java.util.List;
+
+import tasks.Task;
+import tasks.ToDos;
+
 import java.util.ArrayList;
 
 public class CommandHist {
@@ -13,18 +17,33 @@ public class CommandHist {
   /**
    * Method to add into the running list of commands entered.
    * 
-   * @param cmd
+   * @param taskType    Can be one of todo | deadline | event
+   * @param taskDetails The info in the task
    * @return
    */
-  public boolean addCmd(String cmd) {
-    Task newTask = new Task(cmd);
+  public boolean addTask(String taskType, String taskDetails) {
+    Task newTask;
+    System.out.println(Utility.INDENTED_LINE);
+    System.out.println(String.format("%sGot it I've added this task:", Utility.INDENT));
+    switch (taskType) {
+      case "todo":
+        newTask = new ToDos(taskDetails);
+        break;
+      default:
+        newTask = new Task("Hm whats this?");
+        break;
+    }
+    System.out.println(String.format("%s%s", Utility.INDENT, newTask.toString()));
+    System.out.println(String.format(
+        "%sNow you have %d tasks in the list", Utility.INDENT, this.commands.size() + 1));
+    System.out.println(Utility.INDENTED_LINE);
     return this.commands.add(newTask);
   }
 
   /**
    * Prints the items in the hist
    */
-  public void prettyPrint() {
+  public void prettyPrintAll() {
     int no = 1;
     System.out.println(Utility.INDENTED_LINE);
     System.out.println(String.format("%sHere are tasks in your list:", Utility.INDENT));

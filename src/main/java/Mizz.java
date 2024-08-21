@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import util.*;
 
@@ -47,37 +48,36 @@ public class Mizz {
    * Static method to parse and handle commands input by the user.
    * 
    * @param cmd The command read by scanner.
-   * @return The input cmd without whitespaces.
    */
-  private String commandHandler(String cmd) {
+  private void commandHandler(String cmd) {
     String[] parts = cmd.split("\\s+");
-    String cleanedString = String.join(" ", parts);
-    System.out.println(parts.length);
+    // String cleanedString = String.join(" ", parts);
     this.cmd = parts[0];
     switch (this.cmd) {
       case "bye":
         break;
       case "list":
-        this.usrCmds.prettyPrint();
+        this.usrCmds.prettyPrintAll();
         break;
-      case "mark": {
-        // look at second arg ignore the rest
-        int idx = Integer.parseInt(parts[1]);
-        this.usrCmds.markAsDone(idx);
-        break;
-      }
+      case "mark":
       case "unmark": {
         // look at second arg ignore the rest
         int idx = Integer.parseInt(parts[1]);
-        this.usrCmds.markAsUndone(idx);
+        this.handleMark(this.cmd, idx);
+        break;
+      }
+      case "todo":
+      case "deadline":
+      case "event": {
+        this.handleCreate(this.cmd, Arrays.copyOfRange(parts, 1, parts.length));
         break;
       }
       default:
-        this.usrCmds.addCmd(cleanedString);
-        Mizz.prettyPrint(String.format("added: %s", cleanedString));
+        // this.usrCmds.addCmd(cleanedString);
+        // Mizz.prettyPrint(String.format("added: %s", cleanedString));
+        Mizz.prettyPrint("Invalid command!");
         break;
     }
-    return this.cmd;
   }
 
   /**
@@ -101,6 +101,29 @@ public class Mizz {
    */
   private boolean isExited() {
     return this.cmd.equals("bye");
+  }
+
+  /**
+   * Utility method to update the done status of a task.
+   * 
+   * @param mark The command which can be mark or unmark.
+   * @param idx  The idx of the task in the list starting from 1.
+   */
+  private void handleMark(String mark, int idx) {
+    if (mark.equals("mark")) {
+      this.usrCmds.markAsDone(idx);
+    } else {
+      this.usrCmds.markAsUndone(idx);
+    }
+  }
+
+  /**
+   * 
+   * @param msg
+   */
+  private void handleCreate(String taskType, String[] taskInfo) {
+    String cleanedString = String.join(" ", taskInfo);
+    this.usrCmds.addTask(taskType, cleanedString);
   }
 
   /**
