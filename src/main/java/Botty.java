@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Botty {
     public static void main(String[] args) {
         String logo = " ________  ________  _________  _________    ___    ___                 \n" +
@@ -17,15 +19,15 @@ public class Botty {
                 "       \\ \\__\\ \\ \\__\\ \\__\\ \\_______\\       \\ \\_______\\ \\_______\\   \\ \\__\\\n" +
                 "        \\|__|  \\|__|\\|__|\\|_______|        \\|_______|\\|_______|    \\|__|";
 
-        String lineBreak = "____________________________________________________________";
+        String bottySymbol = "|┐∵|┘: ";
 
         System.out.println(logo);
 
-        System.out.println(lineBreak);
-        System.out.println("Hello, I am Botty the Bot.\nHow may I be of service today?");
+        System.out.println();
+        System.out.println(bottySymbol + "Hello, I am Botty the Bot, how may I be of service today?");
 
-        System.out.println(lineBreak);
+        System.out.println();
 
-        System.out.println("Thank you for your continued patronage. Goodbye!");
+        System.out.println(bottySymbol + "Thank you for your continued patronage. Goodbye!");
     }
 }
