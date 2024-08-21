@@ -6,17 +6,31 @@ public class Mizz {
   /** Constant len(13) line to be used for prettier printing */
   private static final String LINE = "-------------";
 
+  /** Greeting to be printed */
+  private final String greeting;
+  /** ByeBye to be printed */
+  private final String exitMsg;
+  /** Last command entered by the user */
+  private String cmd;
+
+  public Mizz(String greeting, String exitMsg) {
+    this.greeting = greeting;
+    this.exitMsg = exitMsg;
+    this.cmd = "";
+  }
+
   public static void main(String[] args) {
     String greeting = String.format("Hello! I'm %s\n    What can I do for you?", NAME);
-    String cmd = "";
-    Mizz.greet(greeting);
-
+    String exitMsg = "Bye. Hope to see you again soon!";
+    Mizz bot = new Mizz(greeting, exitMsg);
     Scanner scanner = new Scanner(System.in);
 
-    while (!cmd.equals("bye")) {
-      cmd = Mizz.commandHandler(scanner.nextLine());
+    bot.greet();
+
+    while (!bot.isExited()) {
+      bot.commandHandler(scanner.nextLine());
     }
-    Mizz.exit();
+    bot.exit();
 
     scanner.close();
   }
@@ -27,32 +41,39 @@ public class Mizz {
    * @param cmd The command read by scanner.
    * @return The input cmd without whitespaces.
    */
-  private static String commandHandler(String cmd) {
-    cmd = cmd.strip();
-    switch (cmd) {
+  private String commandHandler(String cmd) {
+    this.cmd = cmd.strip();
+    switch (this.cmd) {
       case "bye":
         break;
       default:
-        Mizz.prettyPrint(cmd);
+        Mizz.prettyPrint(this.cmd);
         break;
     }
-    return cmd;
+    return this.cmd;
   }
 
   /**
    * Static method to print greeting.
-   * 
-   * @param greeting The custom greeting to print when method is invoked.
    */
-  private static void greet(String greeting) {
-    Mizz.prettyPrint(greeting);
+  private void greet() {
+    Mizz.prettyPrint(this.greeting);
   }
 
   /**
    * Static method to exit from the chatbot, prints a default exit message.
    */
-  private static void exit() {
-    Mizz.prettyPrint("Bye. Hope to see you again soon!");
+  private void exit() {
+    Mizz.prettyPrint(this.exitMsg);
+  }
+
+  /**
+   * Utility method to check if the bot should be exited.
+   * 
+   * @return true if cmd == "bye" else false
+   */
+  private boolean isExited() {
+    return this.cmd.equals("bye");
   }
 
   /**
