@@ -1,9 +1,7 @@
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 import TaskObj.Task;
 
-public class Bob {
+public class Milo {
     private static final String hLine = "____________________________________________________________\n";
 
     public static void main(String[] args) {
@@ -18,7 +16,7 @@ public class Bob {
                 ( ̳• · •̳)
                 /    づ♡
                 """;
-        String greeting = "Hello! I'm Bob\nWhat can I do for you?\n" + cat0;
+        String greeting = "Hello! I'm Milo\nWhat can I do for you?\n" + cat0;
         String bye = "Bye. Hope to see you again soon!\n" + cat1;
         Scanner myScanner = new Scanner(System.in);
         String greetingMessage = hLine + greeting + hLine;
@@ -53,6 +51,7 @@ public class Bob {
     // Method to print todolist
     private static void printList(Task[] todoList) {
         System.out.print(hLine);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Task.taskNumber; i++) {
             System.out.println(i+1 + "." + todoList[i].toString());
         }
