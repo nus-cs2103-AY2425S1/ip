@@ -22,6 +22,8 @@ public class Sentinel {
         commands.put("todo", new addTodo());
         commands.put("deadline", new addDeadline());
         commands.put("event", new addEvent());
+
+        commands.put("delete", new deleteTask());
     }
 
     // Commands
@@ -60,6 +62,10 @@ public class Sentinel {
 
     public void addDeadline(String description, String endTime) {
         say("Added the following deadline: \n" + taskList.addDeadline(description, endTime));
+    }
+
+    public void deleteTask(int taskNumber) {
+        say("Deleted the following task: \n" + taskList.deleteTask(taskNumber));
     }
 
     // Sentinel methods

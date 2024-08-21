@@ -96,4 +96,22 @@ class addDeadline implements Commands {
     }
 }
 
+class deleteTask implements Commands {
+    @Override
+    public void run(Sentinel sentinel, String args) throws SentinelException {
+        String[] parsedArgs = args.split("\\s+", 2);
+
+        if (parsedArgs.length < 2) {
+            throw new SentinelException("You didn't put in a valid number!");
+        }
+
+        try {
+            int taskNumber = Integer.parseInt(parsedArgs[1]);
+            sentinel.deleteTask(taskNumber);
+        } catch (NumberFormatException e) {
+            throw new SentinelException("Invalid number!");
+        }
+    }
+}
+
 

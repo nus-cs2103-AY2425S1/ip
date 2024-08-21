@@ -59,6 +59,15 @@ public class TaskList {
     }
 
     /**
+     * Deletes the task on the list.
+     *
+     * @param taskNumber Number of the task.
+     */
+    public Task deleteTask(int taskNumber) {
+        return this.tasks.remove(taskNumber - 1);
+    }
+
+    /**
      * Returns the string representation of the task list.
      *
      * @return List of tasks.
