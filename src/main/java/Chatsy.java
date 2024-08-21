@@ -5,7 +5,6 @@ public class Chatsy {
     static final String name = "Chatsy";
     static final String line = "\t____________________________________________________________";
     static final Scanner scanner = new Scanner(System.in);
-
     static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void greet() {
@@ -43,98 +42,125 @@ public class Chatsy {
         }
     }
 
-    public static void markTask(int index) {
+    public static void markTask(int index) throws InvalidTaskNumberException {
         if (index >= 1 && index <= tasks.size()) {
             tasks.get(index - 1).markAsDone();
             output("\tNice! I've marked this task as done:\n\t  " + tasks.get(index - 1));
         } else {
-            output("\tInvalid task number.");
+            throw new InvalidTaskNumberException();
         }
     }
 
-    public static void unmarkTask(int index) {
+    public static void unmarkTask(int index) throws InvalidTaskNumberException {
         if (index >= 1 && index <= tasks.size()) {
             tasks.get(index - 1).markAsNotDone();
             output("\tOK, I've marked this task as not done yet:\n\t  " + tasks.get(index - 1));
         } else {
-            output("\tInvalid task number.");
+            throw new InvalidTaskNumberException();
         }
     }
 
     public static void nextCommand() {
-        String command = scanner.nextLine();
-        String[] parts = command.split(" ", 2);
-        String action = parts[0];
+        try {
+            String command = scanner.nextLine();
+            String[] parts = command.split(" ", 2);
+            String action = parts[0];
 
-        switch (action) {
-            case "bye":
-                exit();
-                break;
-            case "list":
-                listTasks();
-                nextCommand();
-                break;
-            case "mark":
-                if (parts.length > 1) {
-                    int taskNumber = Integer.parseInt(parts[1]);
-                    markTask(taskNumber);
-                } else {
-                    output("\tPlease specify the task number to mark.");
-                }
-                nextCommand();
-                break;
-            case "unmark":
-                if (parts.length > 1) {
-                    int taskNumber = Integer.parseInt(parts[1]);
-                    unmarkTask(taskNumber);
-                } else {
-                    output("\tPlease specify the task number to unmark.");
-                }
-                nextCommand();
-                break;
-            case "todo":
-                if (parts.length > 1) {
-                    addTask(new Todo(parts[1]));
-                } else {
-                    output("\tThe description of a todo cannot be empty.");
-                }
-                nextCommand();
-                break;
-            case "deadline":
-                if (parts.length > 1) {
-                    String[] deadlineParts = parts[1].split(" /by ", 2);
-                    if (deadlineParts.length > 1) {
-                        addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            switch (action) {
+                case "bye":
+                    exit();
+                    break;
+                case "list":
+                    listTasks();
+                    break;
+                case "mark":
+                    if (parts.length > 1) {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        markTask(taskNumber);
                     } else {
-                        output("\tPlease specify the deadline in the format: description /by deadline");
+                        output("\tPlease specify the task number to mark.");
                     }
-                } else {
-                    output("\tThe description of a deadline cannot be empty.");
-                }
-                nextCommand();
-                break;
-            case "event":
-                if (parts.length > 1) {
-                    String[] eventParts = parts[1].split(" /from | /to ", 3);
-                    if (eventParts.length == 3) {
-                        addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                    break;
+                case "unmark":
+                    if (parts.length > 1) {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        unmarkTask(taskNumber);
                     } else {
-                        output("\tPlease specify the event in the format: description /from start_time /to end_time");
+                        output("\tPlease specify the task number to unmark.");
                     }
-                } else {
-                    output("\tThe description of an event cannot be empty.");
-                }
-                nextCommand();
-                break;
-            default:
-                output("\tInvalid command.");
-                nextCommand();
-                break;
+                    break;
+                case "todo":
+                    if (parts.length > 1) {
+                        addTask(new Todo(parts[1]));
+                    } else {
+                        throw new EmptyDescriptionException("todo");
+                    }
+                    break;
+                case "deadline":
+                    if (parts.length > 1) {
+                        String[] deadlineParts = parts[1].split(" /by ", 2);
+                        if (deadlineParts.length > 1) {
+                            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                        } else {
+                            output("\tPlease specify the deadline in the format: description /by deadline");
+                        }
+                    } else {
+                        throw new EmptyDescriptionException("deadline");
+                    }
+                    break;
+                case "event":
+                    if (parts.length > 1) {
+                        String[] eventParts = parts[1].split(" /from | /to ", 3);
+                        if (eventParts.length == 3) {
+                            addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                        } else {
+                            output("\tPlease specify the event in the format: description /from start_time /to end_time");
+                        }
+                    } else {
+                        throw new EmptyDescriptionException("event");
+                    }
+                    break;
+                default:
+                    throw new InvalidCommandException();
+            }
+        } catch (ChatsyException e) {
+            output("\tOOPS!!! " + e.getMessage());
+        } catch (NumberFormatException e) {
+            output("\tPlease enter a valid number for task selection.");
+        } catch (Exception e) {
+            output("\tAn unexpected error occurred: " + e.getMessage());
+        } finally {
+            nextCommand();
         }
     }
 
     public static void main(String[] args) {
         greet();
         nextCommand();
+    }
+}
+
+
+class ChatsyException extends Exception {
+    public ChatsyException(String message) {
+        super(message);
+    }
+}
+
+class EmptyDescriptionException extends ChatsyException {
+    public EmptyDescriptionException(String taskType) {
+        super("The description of a " + taskType + " cannot be empty.");
+    }
+}
+
+class InvalidCommandException extends ChatsyException {
+    public InvalidCommandException() {
+        super("I'm sorry, but I don't know what that means :-(");
+    }
+}
+
+class InvalidTaskNumberException extends ChatsyException {
+    public InvalidTaskNumberException() {
+        super("The task number you provided is invalid.");
     }
 }
