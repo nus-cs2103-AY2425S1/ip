@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Joe {
     private static final String line =
             "____________________________________________________________";
-    private static String[] userInputs = new String[100];
+    private static Task[] userInputs = new Task[100];
     private static int inputs = 0;
     private static void bye() {
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
@@ -52,8 +52,9 @@ public class Joe {
     public static void add(String s) {
         System.out.println(line);
         if (inputs < 100) {
-            userInputs[inputs++] = s;
-            System.out.printf("added: %s\n", s);
+            Task newTask = new Task(s);
+            userInputs[inputs++] = newTask;
+            System.out.printf("added: %s\n", newTask);
         } else {
             System.out.println("Input has reached max capacity!");
         }
@@ -63,7 +64,9 @@ public class Joe {
     public static void list() {
         System.out.println(line);
         for (int i = 0; i < inputs; i++) {
-            System.out.printf("%d. %s\n", i+1, userInputs[i]);
+            Task currTask = userInputs[i];
+            char mark = currTask.isDone() ? 'X' : ' ';
+            System.out.printf("%d.[%c] %s\n", i+1, mark, currTask);
         }
         System.out.println(line);
     }
