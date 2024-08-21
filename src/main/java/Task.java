@@ -1,7 +1,7 @@
 /**
  * Represents a task with a description and a completion status.
  */
-public class Task {
+public abstract class Task {
     /**
      * The description of the task.
      */
