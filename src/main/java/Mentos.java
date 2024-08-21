@@ -3,6 +3,9 @@ public class Mentos
 {
     private String MARKED = "mark";
     private String UNMARKED = "unmark";
+    private String TODO = "todo";
+    private String DEADLINE = "deadline";
+    private String EVENT = "event";
     private Task[] tasks = new Task[100];
     private int noTasks = 0;
     public static void main(String[] args) {
@@ -59,6 +62,35 @@ public class Mentos
                 tasks[index-1].markAsNotDone();
                 System.out.println("Holdup this task is not done!");
                 System.out.println(tasks[index-1].toString());
+                System.out.println("____________________________");
+                continue;
+            } else if (input.startsWith(TODO)){
+                noTasks++;
+                String todo_desc = input.substring(TODO.length()+1);
+                tasks[noTasks-1] = new ToDo(todo_desc);
+                System.out.println("____________________________");
+                System.out.printf(TODO+" Added\n %s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
+                System.out.println("____________________________");
+                continue;
+            } else if (input.startsWith(DEADLINE)){
+                noTasks++;
+                String[] deadline_details = input.split("/by");
+                String deadline_desc = deadline_details[0].trim();
+                String by = deadline_details[1].trim();
+                tasks[noTasks-1] = new Deadline(deadline_desc,by);
+                System.out.println("____________________________");
+                System.out.printf(DEADLINE+" Added\n %s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
+                System.out.println("____________________________");
+                continue;
+            } else if (input.startsWith(EVENT)){
+                noTasks++;
+                String[] parts = input.split(" /from | /to ");
+                String eventDesc = parts[0].replace("event ", "");  // Remove the "event " prefix
+                String from = parts[1];  // Start time is the second part
+                String to = parts[2];    // End time is the third part
+                tasks[noTasks-1] = new Event(eventDesc,from,to);
+                System.out.println("____________________________");
+                System.out.printf(EVENT+" Added\n %s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
                 System.out.println("____________________________");
                 continue;
             }
