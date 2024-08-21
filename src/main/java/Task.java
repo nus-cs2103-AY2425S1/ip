@@ -20,6 +20,10 @@ public class Task {
         this.done = state;
     }
 
+    public static void deleteTask() {
+        count--;
+    }
+
     @Override
     public String toString() {
         return "["+ this.getDone()+"] "+ this.task;
