@@ -18,6 +18,7 @@ public class Bob {
                 input = scanner.nextLine();
                 continue;
             }
+
             if(input.contains("unmark")) {
                 String[] parts = input.split(" ");
                 int index = Integer.parseInt(parts[1]) - 1;
@@ -34,9 +35,24 @@ public class Bob {
                 input = scanner.nextLine();
                 continue;
             }
+            Task t = null;
 
-            Task t = new Task(input);
-            System.out.println("added: " + input);
+            if(input.startsWith("todo")) {
+                String[] parts = input.split(" ");
+                StringBuilder description = new StringBuilder();
+                for (int i = 1; i < parts.length; i++) {
+                    description.append(parts[i]).append(" ");
+                }
+                t = new Todo(description.toString());
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.split(" ");
+                t = new Deadline(parts[1], parts[2]);
+            } else if (input.startsWith("event")) {
+                String[] parts = input.split(" ");
+                t = new Event(parts[1], parts[2], parts[3]);
+            }
+            System.out.println("Got it. I've added this task:\n" + t);
+            System.out.println("Now you have " + (count + 1) + (count == 0 ? " task in the list." : " tasks in the list."));
             list[count] = t;
             count++;
             input = scanner.nextLine();
