@@ -52,9 +52,10 @@ public class Ekud {
 
     public void echoList() {
         echo("Look at all these tasks:");
-        int i = 0;
+        int i = 1;
         for (Task task: tasks) {
-            echo(String.format("%d. %s", i+1, task));
+            echo(String.format("%d. %s", i, task));
+            i++;
         }
         echo(LINE_SEPARATOR);
     }
