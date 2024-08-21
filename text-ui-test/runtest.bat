@@ -18,7 +18,7 @@ REM run the program, feed commands from input.txt file and redirect the output t
 REM change Duke to Knight2103
 java -classpath ..\bin Knight2103 < input.txt > ACTUAL.TXT
 
-REM compare the output to the expected output
+REM compare the output to the expected output, and output ONLY THE DIFFERENCES
 FC ACTUAL.TXT EXPECTED.TXT
 
 
