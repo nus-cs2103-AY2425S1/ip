@@ -88,10 +88,13 @@ public class Delta {
                     String[] timings = details[1].split(" /to ");
                     output = addTask(new Event(details[0], timings[0], timings[1]));
                 } else {
-                    throw new DeltaException();
+                    throw new DeltaException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
-            catch (DeltaException | StringIndexOutOfBoundsException e) {
+            catch (DeltaException e) {
+                System.out.println(e.getMessage());
+            }
+            catch (StringIndexOutOfBoundsException e) {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
