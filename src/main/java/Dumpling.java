@@ -4,7 +4,7 @@ public class Dumpling {
 
     private static final String DIVIDER = "    ____________________________________________________________";
 
-    private Todo todoList;
+    private TaskList todoList;
 
     private static final String TERMINATE_STRING = "bye";
     private static final String LIST_COMMAND_STRING = "list";
@@ -12,7 +12,7 @@ public class Dumpling {
     private static final String UNMARK_COMMAND_STRING = "unmark";
 
     public Dumpling(){
-        this.todoList = new Todo();
+        this.todoList = new TaskList();
     }
 
     private boolean commandRouter(String userInput) {
