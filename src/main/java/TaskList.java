@@ -1,40 +1,41 @@
+import java.util.*;
+
 public class TaskList {
 
-    private Task[] list;
-    private int index;
+    private List<Task> list;
 
     public TaskList() {
-        this.list = new Task[100];
-        this.index = 0;
+        this.list = new ArrayList<>();
     }
 
     public void add(Task item) {
-        if (index < list.length) {
-            list[index] = item;
-            index++;
-        }
+        this.list.add(item);
+    }
+
+    public String delete(int index) {
+        String taskToBeRemoved = list.get(index - 1).toString();
+        this.list.remove(index - 1);
+        return taskToBeRemoved;
     }
 
     public int getLength() {
-        return this.index;
+        return this.list.size();
     }
 
     public void printList() {
-        System.out.println("_____________________________________________");
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < index; i++) {
-            System.out.println(i+1 + "." + list[i].toString());
+        for (int i = 0; i < this.list.size(); i++) {
+            System.out.println(i+1 + "." + list.get(i).toString());
         }
-        System.out.println("_____________________________________________");
     }
 
     public String markAsDone(int index) {
-        list[index].markAsDone();
-        return list[index].toString();
+        list.get(index).markAsDone();
+        return list.get(index).toString();
     }
 
     public String markAsNotDone(int index) {
-        list[index].markAsNotDone();
-        return list[index].toString();
+        list.get(index).markAsNotDone();
+        return list.get(index).toString();
     }
 }

@@ -37,12 +37,16 @@ public class Fanny {
                     case "event":
                         addEventTask(cmdParts);
                         break;
+                    case "delete":
+                        removeTask(cmdParts);
+                        break;
+                    default:
+                        addUnknownTask(cmd);
+                        break;
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-            } finally {
-                System.out.println("Sorry! I'm confused. Please try again.");
-            }
+            } finally {}
         }
     }
 
@@ -62,8 +66,10 @@ public class Fanny {
     }
 
     private static void printList() {
+        System.out.println(horizontalLine);
         System.out.println("Fanny:");
         list.printList();
+        System.out.println(horizontalLine);
     }
 
     private static void markTask(String[] cmdParts) {
@@ -92,9 +98,7 @@ public class Fanny {
             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Task description cannot be empty");
-        } finally {
-            System.out.println("Please enter a valid task description!");
-        }
+        } finally {}
         System.out.println(horizontalLine);
     }
 
@@ -111,9 +115,7 @@ public class Fanny {
             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Task description and deadline cannot be empty");
-        } finally {
-            System.out.println("Please enter a valid task description with deadline!");
-        }
+        } finally {}
         System.out.println(horizontalLine);
     }
 
@@ -132,14 +134,21 @@ public class Fanny {
             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Event description and duration cannot be empty");
-        } finally {
-            System.out.println("Please enter a valid event description and duration!");
-        }
+        } finally {}
+        System.out.println(horizontalLine);
+    }
+
+    private static void removeTask(String[] cmdParts) {
+        System.out.println(horizontalLine);
+        int taskId = Integer.parseInt(cmdParts[1]);
+        System.out.println("Fanny:\nNoted. I've removed this task:");
+        System.out.println(list.delete(taskId));
+        System.out.println("Now you have " + list.getLength() + " tasks in the list.");
         System.out.println(horizontalLine);
     }
 
     private static void addUnknownTask(String cmd) throws IllegalArgumentException{
-        throw new IllegalArgumentException("Sorry, I'm confused!");
+        throw new IllegalArgumentException("Sorry, I'm confused! Please try again!");
     }
 }
 
