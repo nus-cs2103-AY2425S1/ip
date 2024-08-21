@@ -7,15 +7,15 @@ import tasks.ToDos;
 
 import java.util.ArrayList;
 
-public class CommandHist {
-  private List<Task> commands;
+public class TaskHist {
+  private List<Task> tasks;
 
-  public CommandHist() {
-    this.commands = new ArrayList<>(100);
+  public TaskHist() {
+    this.tasks = new ArrayList<>(100);
   }
 
   /**
-   * Method to add into the running list of commands entered.
+   * Method to add into the running list of tasks entered.
    * 
    * @param taskType    Can be one of todo | deadline | event
    * @param taskDetails The info in the task
@@ -23,8 +23,6 @@ public class CommandHist {
    */
   public boolean addTask(String taskType, String taskDetails) {
     Task newTask;
-    System.out.println(Utility.INDENTED_LINE);
-    System.out.println(String.format("%sGot it I've added this task:", Utility.INDENT));
     switch (taskType) {
       case "todo":
         newTask = new ToDos(taskDetails);
@@ -33,11 +31,14 @@ public class CommandHist {
         newTask = new Task("Hm whats this?");
         break;
     }
-    System.out.println(String.format("%s%s", Utility.INDENT, newTask.toString()));
-    System.out.println(String.format(
-        "%sNow you have %d tasks in the list", Utility.INDENT, this.commands.size() + 1));
-    System.out.println(Utility.INDENTED_LINE);
-    return this.commands.add(newTask);
+    // create the message to be printed
+    StringBuilder sb = new StringBuilder(String.format(
+        "%sGot it I've added this task:\n", Utility.INDENT));
+    sb.append(String.format("%s%s\n", Utility.INDENT, newTask.toString()));
+    sb.append(String.format(
+        "%sNow you have %d tasks in your list.", Utility.INDENT, this.tasks.size() + 1));
+    TaskHist.prettyPrint(sb.toString());
+    return this.tasks.add(newTask);
   }
 
   /**
@@ -47,8 +48,8 @@ public class CommandHist {
     int no = 1;
     System.out.println(Utility.INDENTED_LINE);
     System.out.println(String.format("%sHere are tasks in your list:", Utility.INDENT));
-    for (Task cmd : this.commands) {
-      System.out.println(String.format("%s%d. %s", Utility.INDENT, no++, cmd));
+    for (Task task : this.tasks) {
+      System.out.println(String.format("%s%d. %s", Utility.INDENT, no++, task));
     }
     System.out.println(Utility.INDENTED_LINE);
   }
@@ -59,17 +60,16 @@ public class CommandHist {
    * @param idx Idx to be edited. Starting from 1.
    */
   public void markAsDone(int idx) {
-    Task entry = this.commands.get(--idx);
-    System.out.println(Utility.INDENTED_LINE);
+    Task entry = this.tasks.get(--idx);
+    StringBuilder sb = new StringBuilder(Utility.INDENT);
     if (!entry.isDone()) {
       entry.markDone();
-      System.out.println(
-          String.format("%sNice! I've marked this task as done:", Utility.INDENT));
+      sb.append("Nice! I've marked this task as done:\n");
     } else {
-      System.out.println(String.format("%sTask has already been completed!", Utility.INDENT));
+      sb.append("Task has already been completed!\n");
     }
-    System.out.println(String.format("  %s%s", Utility.INDENT, entry.toString()));
-    System.out.println(Utility.INDENTED_LINE);
+    sb.append(String.format("%s%s", Utility.INDENT, entry.toString()));
+    TaskHist.prettyPrint(sb.toString());
   }
 
   /**
@@ -78,7 +78,7 @@ public class CommandHist {
    * @param idx Idx to be edited. Starting from 1.
    */
   public void markAsUndone(int idx) {
-    Task entry = this.commands.get(--idx);
+    Task entry = this.tasks.get(--idx);
     System.out.println(String.format("%s", Utility.INDENTED_LINE));
     if (entry.isDone()) {
       entry.markUndone();
@@ -96,9 +96,15 @@ public class CommandHist {
     StringBuilder sb = new StringBuilder();
     int itemNo = 1;
 
-    for (Task cmd : this.commands) {
-      sb.append(String.format("%d. %s\n", itemNo++, cmd));
+    for (Task task : this.tasks) {
+      sb.append(String.format("%d. %s\n", itemNo++, task));
     }
     return sb.toString();
+  }
+
+  private static void prettyPrint(String msg) {
+    System.out.println(Utility.INDENTED_LINE);
+    System.out.println(msg);
+    System.out.println(Utility.INDENTED_LINE);
   }
 }

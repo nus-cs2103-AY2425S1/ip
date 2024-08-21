@@ -7,7 +7,7 @@ public class Mizz {
   private static final String NAME = "Mizz";
 
   /** Stores the past commands entered */
-  private final CommandHist usrCmds;
+  private final TaskHist usrCmds;
   /** Greeting to be printed */
   private final String greeting;
   /** ByeBye to be printed */
@@ -24,7 +24,7 @@ public class Mizz {
   public Mizz(String greeting, String exitMsg) {
     this.greeting = greeting;
     this.exitMsg = exitMsg;
-    this.usrCmds = new CommandHist();
+    this.usrCmds = new TaskHist();
     this.cmd = "";
   }
 
@@ -51,7 +51,6 @@ public class Mizz {
    */
   private void commandHandler(String cmd) {
     String[] parts = cmd.split("\\s+");
-    // String cleanedString = String.join(" ", parts);
     this.cmd = parts[0];
     switch (this.cmd) {
       case "bye":
@@ -73,8 +72,6 @@ public class Mizz {
         break;
       }
       default:
-        // this.usrCmds.addCmd(cleanedString);
-        // Mizz.prettyPrint(String.format("added: %s", cleanedString));
         Mizz.prettyPrint("Invalid command!");
         break;
     }
