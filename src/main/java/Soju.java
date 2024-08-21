@@ -43,6 +43,14 @@ public class Soju {
                 .forEach(System.out::println); // Print each task
         runWithHorizontalLine();
     }
+    public static void deleteTask(int taskNumber) {
+        Task task = tasks.remove(taskNumber - 1);
+        runWithHorizontalLine(() -> {
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        });
+    }
     public static void echo() {
         Scanner scanner = new Scanner(System.in);
 
@@ -70,6 +78,10 @@ public class Soju {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(taskIndex));
                     runWithHorizontalLine();
+                } else if (userInput.startsWith("delete")) {
+                    String[] parts = userInput.split(" ");
+                    int taskNumber = Integer.parseInt(parts[1]);
+                    deleteTask(taskNumber);
                 } else if (userInput.startsWith("todo")){
                     if (!userInput.startsWith("todo ")) {
                         throw new SojuException("The description of a todo cannot be empty.");
