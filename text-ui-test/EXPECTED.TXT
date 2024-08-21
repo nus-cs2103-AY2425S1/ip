@@ -104,6 +104,28 @@
     3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
     ___________________________________________________
     ___________________________________________________
+    UH OH! Missing index for 'delete' command! Add a valid index for a task to delete, like 'delete 2'.
+    ___________________________________________________
+    ___________________________________________________
+    Ok, I've removed this task:
+    [T][ ] read book
+    Now you have 2 tasks in the list.
+    ___________________________________________________
+    ___________________________________________________
+    Here is a list of all your tasks:
+    1. [D][ ] return book (by: June 6th)
+    2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+    ___________________________________________________
+    ___________________________________________________
+    Ok, I've removed this task:
+    [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+    Now you have 1 tasks in the list.
+    ___________________________________________________
+    ___________________________________________________
+    Here is a list of all your tasks:
+    1. [D][ ] return book (by: June 6th)
+    ___________________________________________________
+    ___________________________________________________
     Goodbyeee!
 
 
