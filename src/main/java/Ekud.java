@@ -11,9 +11,8 @@ public class Ekud {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
-    public static final int MAX_LIST_SIZE = 100;
 
-    private final TaskList tasks = new TaskList(MAX_LIST_SIZE);
+    private final TaskList tasks = new TaskList();
     private boolean isRunning = true;
 
     public boolean isRunning() {

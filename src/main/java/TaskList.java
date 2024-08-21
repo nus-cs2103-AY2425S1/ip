@@ -1,20 +1,17 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class TaskList implements Iterable<Task> {
-    private Task[] tasks;
-    private int maxSize;
-    private int currSize;
+    private ArrayList<Task> tasks;
 
-    public TaskList(int maxSize) {
-        this.maxSize = maxSize;
-        tasks = new Task[maxSize];
-        currSize = 0;
+    public TaskList() {
+        tasks = new ArrayList<>();
     }
 
     public int getIncompleteCount() {
         int count = 0;
-        for (int i = 0; i < currSize; i++) {
-            if (!tasks[i].isDone()) {
+        for (Task task: tasks) {
+            if (!task.isDone()) {
                 count++;
             }
         }
@@ -23,39 +20,25 @@ public class TaskList implements Iterable<Task> {
 
     @Override
     public Iterator<Task> iterator() {
-        return new Iterator<Task>() {
-            private int curr = 0;
-
-            @Override
-            public boolean hasNext() {
-                return curr < currSize;
-            }
-
-            @Override
-            public Task next() {
-                return tasks[curr++];
-            }
-        };
+        return tasks.iterator();
     }
 
     public void addTask(Task task) {
-        // assumes we do not exceed max size
-        tasks[currSize] = task;
-        currSize++;
+        tasks.add(task);
     }
 
     public Task getTask(int index) {
         // assumes valid index
-        return tasks[index];
+        return tasks.get(index);
     }
 
     public void markComplete(int index) {
         // assumes valid index
-        tasks[index].markAsDone();
+        tasks.get(index).markAsDone();
     }
 
     public void markIncomplete(int index) {
         // assumes valid index
-        tasks[index].markAsUndone();
+        tasks.get(index).markAsUndone();
     }
 }
