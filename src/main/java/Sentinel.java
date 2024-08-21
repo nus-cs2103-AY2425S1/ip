@@ -4,11 +4,18 @@ import java.util.Scanner;
 
 /**
  * Sentinel chatbot system.
+ *
+ * @author isaactodo (Isaac Lim Tzee Zac)
  */
 public class Sentinel {
     private final TaskList taskList;
     private final Map<String, Commands> commands;
 
+    /**
+     * Constructs a new Sentinel and initializes it with commands and
+     * a task list.
+     * The task list is initially empty.
+     */
     public Sentinel() {
         this.taskList = new TaskList();
         this.commands = new HashMap<>();
@@ -26,9 +33,9 @@ public class Sentinel {
         commands.put("delete", new deleteTask());
     }
 
-    // Commands
+    ////////////// COMMANDS FOR SENTINEL START //////////////
     /**
-     * Makes Sentinel say the list of tasks.
+     * Makes Sentinel output the list of tasks.
      */
     public void outputTaskList() {
         say("Here are the list of your tasks \n" + this.taskList.toString());
@@ -52,23 +59,45 @@ public class Sentinel {
         say("Unmarked the following task: \n " + taskList.markAsUndone(taskNumber));
     }
 
+    /**
+     * Makes Sentinel add the given todo to the task list.
+     *
+     * @param description Description of the todo to be added.
+     */
     public void addTodo(String description) {
         say("Added the following todo: \n" + taskList.addTodo(description));
     }
 
+    /**
+     * Makes Sentinel add the given event to the task list.
+     *
+     * @param description Description of the event to be added.
+     */
     public void addEvent(String description, String startTime, String endTime) {
         say("Added the following event: \n" + taskList.addEvent(description, startTime, endTime));
     }
 
+    /**
+     * Makes Sentinel add the given deadline to the task list.
+     *
+     * @param description Description of the deadline to be added.
+     */
     public void addDeadline(String description, String endTime) {
         say("Added the following deadline: \n" + taskList.addDeadline(description, endTime));
     }
 
+    /**
+     * Makes Sentinel delete the given task.
+     *
+     * @param taskNumber Task to be deleted.
+     * @throws SentinelException if task does not exist.
+     */
     public void deleteTask(int taskNumber) throws SentinelException {
         say("Deleted the following task: \n" + taskList.deleteTask(taskNumber));
     }
+    ////////////// COMMANDS FOR SENTINEL END //////////////
 
-    // Sentinel methods
+    ////////////// SENTINEL METHODS START //////////////
     /**
      * Makes Sentinel say a greeting message.
      */
@@ -107,10 +136,6 @@ public class Sentinel {
         }
     }
 
-    public TaskList getTaskList() {
-        return this.taskList;
-    }
-
     /**
      * Makes Sentinel listen for tasks.
      */
@@ -121,11 +146,13 @@ public class Sentinel {
         while (!userInput.equals("bye")) {
             String[] parsedCommands = userInput.split("\\s+");
 
+            // Check for empty inputs
             if (parsedCommands.length == 0) {
                 userInput = scanner.nextLine();
                 continue;
             }
 
+            // Check if command exists, if so, run the command
             if (this.commands.get(parsedCommands[0]) == null) {
                 say("Invalid command broski");
             } else {
@@ -136,6 +163,7 @@ public class Sentinel {
                 }
             }
 
+            // Check if there is a next line (for file inputs)
             if (scanner.hasNextLine()) {
                 userInput = scanner.nextLine();
             } else {
@@ -143,6 +171,7 @@ public class Sentinel {
             }
         }
     }
+    ////////////// SENTINEL METHODS END //////////////
 
     public static void main(String[] args) {
         Sentinel mySentinel = new Sentinel();

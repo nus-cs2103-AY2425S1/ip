@@ -1,7 +1,15 @@
+/**
+ * Interface for Sentinel's commands. The classes contain the
+ * bulk of the code that parses input and handles commands.
+ * The file is structured this way to help modularize the code.
+ */
 interface Commands {
     void run(Sentinel sentinel, String args) throws SentinelException;
 }
 
+/**
+ * Command for listing all tasks.
+ */
 class ListTasks implements Commands {
     @Override
     public void run(Sentinel sentinel, String args) {
@@ -9,6 +17,9 @@ class ListTasks implements Commands {
     }
 }
 
+/**
+ * Command for marking tasks as done.
+ */
 class markDone implements Commands {
     @Override
     public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -27,6 +38,9 @@ class markDone implements Commands {
     }
 }
 
+/**
+ * Command for marking tasks as undone.
+ */
 class markUndone implements Commands {
     @Override
     public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -45,6 +59,9 @@ class markUndone implements Commands {
     }
 }
 
+/**
+ * Command for adding todos.
+ */
 class addTodo implements Commands {
     @Override
     public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -58,6 +75,9 @@ class addTodo implements Commands {
     }
 }
 
+/**
+ * Command for adding events.
+ */
 class addEvent implements Commands {
     @Override
     public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -77,6 +97,9 @@ class addEvent implements Commands {
     }
 }
 
+/**
+ * Command for adding deadlines.
+ */
 class addDeadline implements Commands {
     @Override
     public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -96,6 +119,9 @@ class addDeadline implements Commands {
     }
 }
 
+/**
+ * Command for deleting tasks.
+ */
 class deleteTask implements Commands {
     @Override
     public void run(Sentinel sentinel, String args) throws SentinelException {
