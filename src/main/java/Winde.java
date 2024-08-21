@@ -16,23 +16,49 @@ public class Winde {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!(input.equals("bye"))) {
-            String[] order = input.split("/");
-            String[] command = order[0].split(" ");
-            if (command[0].equals("list")) {
+            String[] order, command;
+            if (input.equals("list")) {
                 list();
-            } else if (command[0].equals("mark")) {
-                mark(Integer.parseInt(command[1]));
-            } else if (command[0].equals("unmark")) {
-                unmark(Integer.parseInt(command[1]));
-            } else if (command[0].equals("todo")) {
-                todo(input.split("todo ")[1]);
-            } else if (command[0].equals("deadline")) {
-                deadline(order[0].split("deadline ")[1], order[1].split("by ")[1]);
-            } else if (command[0].equals("event")) {
-                event(order[0].split("event ")[1], order[1].split("from ")[1],
-                        order[2].split("to ")[1]);
+            } else if (input.startsWith("mark")) {
+                try {
+                    handleMarkException(input);
+                } catch (EmptyDescriptionException e) {
+                    throw new RuntimeException(e);
+                } catch (TooManyParametersException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (input.startsWith("unmark")) {
+                try {
+                    handleUnmarkException(input);
+                } catch (EmptyDescriptionException e) {
+                    throw new RuntimeException(e);
+                } catch (TooManyParametersException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (input.startsWith("todo")) {
+                try {
+                    handleTodoCommand(input);
+                } catch (EmptyDescriptionException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (input.startsWith("deadline")) {
+                try {
+                    handleDeadlineCommand(input);
+                } catch (EmptyDescriptionException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (input.startsWith("event")) {
+                try {
+                    handleEventCommand(input);
+                } catch (EmptyDescriptionException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
-                add(input);
+                try {
+                    throw new UnsupportedCommandException("TYPE /HELP FOR HELP STOOPIDD");
+                } catch (UnsupportedCommandException e) {
+                    throw new RuntimeException(e);
+                }
             }
             input = scanner.nextLine();
         }
@@ -42,6 +68,61 @@ public class Winde {
 
     private final static List<Task> reminder = new ArrayList<Task>();
 
+    private static void handleEventCommand(String input) throws EmptyDescriptionException {
+        String[] command = input.split(" ", 2);
+        if (command.length == 2) {
+            String[] order = command[1].split(" /from ");
+            if (order.length == 2) {
+                String[] fillerName = order[1].split(" /to ");
+                event(order[0], fillerName[0], fillerName[1]);
+            } else {
+                throw new EmptyDescriptionException("WHEN EVENT DATE!");
+            }
+        } else {
+            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M EVENT-ING!");
+        }
+    }
+    private static void handleDeadlineCommand (String input) throws EmptyDescriptionException {
+        String[] command = input.split(" ", 2);
+        if (command.length == 2) {
+            String[] order = command[1].split(" /by ");
+            if (order.length == 2) {
+                deadline(order[0], order[1]);
+            } else {
+                throw new EmptyDescriptionException("WHEN DEADLINE END!");
+            }
+        } else {
+            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M DEADLINING!");
+        }
+    }
+    private static void handleTodoCommand (String input) throws EmptyDescriptionException {
+        String[] command = input.split(" ", 2);
+        if (command.length == 2) {
+            todo(command[1]);
+        } else {
+            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M TODO-ING!");
+        }
+    }
+    private static void handleUnmarkException (String input) throws EmptyDescriptionException, TooManyParametersException {
+        String[] command = input.split(" ");
+        if (command.length == 2) {
+            unmark(Integer.parseInt(command[1]));
+        } else if (command.length < 2) {
+            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M MARKING!");
+        } else {
+            throw new TooManyParametersException("ONE AT A TIME!");
+        }
+    }
+    public static void handleMarkException (String input) throws EmptyDescriptionException, TooManyParametersException {
+        String[] command = input.split(" ");
+        if (command.length == 2) {
+            mark(Integer.parseInt(command[1]));
+        } else if (command.length < 2) {
+            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M MARKING!");
+        } else {
+            throw new TooManyParametersException("ONE AT A TIME!");
+        }
+    }
     public static void todo(String action) {
         Todos td = new Todos(action);
         reminder.add(td);
@@ -101,6 +182,21 @@ public class Winde {
 
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+    static class EmptyDescriptionException extends Exception {
+        public EmptyDescriptionException(String message) {
+            super(message);
+        }
+    }
+    static class TooManyParametersException extends Exception {
+        public TooManyParametersException(String message) {
+            super(message);
+        }
+    }
+    static class UnsupportedCommandException extends Exception {
+        public UnsupportedCommandException(String message) {
+            super(message);
+        }
     }
 }
 
@@ -171,6 +267,6 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + "to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }
