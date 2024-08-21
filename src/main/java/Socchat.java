@@ -1,24 +1,33 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Socchat {
 
     public static void main(String[] args) {
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         greet();
         while (true) {
-            String input = scanner.nextLine();
+            String input = scanner.next();
             System.out.print("> ");
             if (input.equals("bye")) {
                 exit();
                 break;
             } else if (input.equals("list")) {
                 list(tasks);
+            } else if (input.equals("mark")) {
+                int taskIndex = scanner.nextInt();
+                tasks.get(taskIndex - 1).mark();
+            } else if (input.equals("unmark")) {
+                int taskIndex = scanner.nextInt();
+                tasks.get(taskIndex - 1).unmark();
             } else {
-                tasks.add(input);
+                String str = input + scanner.nextLine();
+                Task task = new Task(str);
+                tasks.add(task);
                 System.out.print("added: ");
-                System.out.println(input);
+                System.out.println(str);
             }
 
         }
@@ -28,12 +37,14 @@ public class Socchat {
         System.out.println("What can I do for you?");
     }
     public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!    ");
+        System.out.println("Bye. Hope to see you again soon! ");
     }
-    public static void list(ArrayList<String> tasks) {
+    public static void list(ArrayList<Task> tasks) {
         for(int i = 0; i < tasks.size(); i++) {
+            Task curr = tasks.get(i);
             System.out.print((i + 1) + ": ");
-            System.out.println(tasks.get(i));
+            System.out.print(curr.getStatusIcon() + " ");
+            System.out.println(tasks.get(i).getDescription());
         }
     }
 }
