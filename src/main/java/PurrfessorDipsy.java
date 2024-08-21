@@ -45,13 +45,9 @@ public class PurrfessorDipsy {
                 handleMarkCommand(userInput);
                 break;
             case TODO:
-                handleTodoCommand(userInput);
-                break;
             case DEADLINE:
-                handleDeadlineCommand(userInput);
-                break;
             case EVENT:
-                handleEventCommand(userInput);
+                handleTaskCreation(userInput, command);
                 break;
             case LIST:
                 printMemory();
@@ -107,37 +103,46 @@ public class PurrfessorDipsy {
         }
     }
 
-    private static void handleTodoCommand(String userInput) {
-        Matcher todoMatcher = TODO_PATTERN.matcher(userInput);
-        if (todoMatcher.matches()) {
-            String description = todoMatcher.group(1);
-            saveToMemory(new ToDo(description));
-        } else {
-            printErrorMessage("'todo' command requires a description.\nUsage: todo <description>");
-        }
-    }
+    private static void handleTaskCreation(String userInput, Command command) {
+        Matcher matcher;
+        String description, by, start, end;
 
-    private static void handleDeadlineCommand(String userInput) {
-        Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(userInput);
-        if (deadlineMatcher.matches()) {
-            String description = deadlineMatcher.group(1);
-            String by = deadlineMatcher.group(2);
-            saveToMemory(new Deadline(description, by));
-        } else {
-            printErrorMessage("'deadline' command requires a 'by' date.\nUsage: deadline <description> /by <day/date/time>");
-        }
-    }
+        switch (command) {
+            case TODO:
+                matcher = TODO_PATTERN.matcher(userInput);
+                if (matcher.matches()) {
+                    description = matcher.group(1);
+                    saveToMemory(new ToDo(description));
+                } else {
+                    printErrorMessage(getUsage("todo"));
+                }
+                break;
 
-    private static void handleEventCommand(String userInput) {
-        Matcher eventMatcher = EVENT_PATTERN.matcher(userInput);
-        if (eventMatcher.matches()) {
-            String description = eventMatcher.group(1);
-            String start = eventMatcher.group(2);
-            String end = eventMatcher.group(3);
-            saveToMemory(new Event(description, start, end));
-        } else {
-            printErrorMessage("Error: 'event' command requires a description, a '/from' time, and a '/to' time." +
-                    "\nUsage: event <description> /from <day/date/time> /to <day/date/time>");
+            case DEADLINE:
+                matcher = DEADLINE_PATTERN.matcher(userInput);
+                if (matcher.matches()) {
+                    description = matcher.group(1);
+                    by = matcher.group(2);
+                    saveToMemory(new Deadline(description, by));
+                } else {
+                    printErrorMessage(getUsage("deadline"));
+                }
+                break;
+
+            case EVENT:
+                matcher = EVENT_PATTERN.matcher(userInput);
+                if (matcher.matches()) {
+                    description = matcher.group(1);
+                    start = matcher.group(2);
+                    end = matcher.group(3);
+                    saveToMemory(new Event(description, start, end));
+                } else {
+                    printErrorMessage(getUsage("event"));
+                }
+                break;
+
+            default:
+                printErrorMessage("Unrecognized task command.\n" + getUsage());
         }
     }
 
@@ -180,23 +185,39 @@ public class PurrfessorDipsy {
     private static void exitProgram() {
         printExitMessage();
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
-        System.exit(0);
     }
 
     private static String getUsage() {
-        return "Usage: <command> [options]\n" +
-                "\nCommands:\n" +
-                "  todo <description>                            Create a new todo item\n" +
-                "  deadline <description> /by <date>             Create a new task with a deadline\n" +
-                "  event <description> /from <start> /to <end>   Create a new event with start and end times\n" +
-                "  mark <index>                                  Mark the task at the specified index as done\n" +
-                "  unmark <index>                                Unmark the task at the specified index\n" +
-                "  list                                          List all tasks\n" +
-                "  bye                                           Exit the program\n" +
-                "\nExamples:\n" +
-                "  todo Buy Ciao Churru for Dipsy\n" +
-                "  deadline Submit Dipsy's food order /by 21-08-2024\n" +
-                "  event Play with Dipsy /from 21-08-2024 10:00 /to 21-08-2024 12:00\n" +
-                "  mark 1";
+        return getUsage(null);
+    }
+
+    private static String getUsage(String command) {
+        switch (command != null ? command : "") {
+            case "todo":
+                return "'todo' command requires a description.\nUsage: todo <description>";
+
+            case "deadline":
+                return "'deadline' command requires a 'by' date.\nUsage: deadline <description> /by <day/date/time>";
+
+            case "event":
+                return "'event' command requires a description, a '/from' time, and a '/to' time.\n" +
+                        "Usage: event <description> /from <day/date/time> /to <day/date/time>";
+
+            default:
+                return "Usage: <command> [options]\n" +
+                        "\nCommands:\n" +
+                        "  todo <description>                            Create a new todo item\n" +
+                        "  deadline <description> /by <date>             Create a new task with a deadline\n" +
+                        "  event <description> /from <start> /to <end>   Create a new event with start and end times\n" +
+                        "  mark <index>                                  Mark the task at the specified index as done\n" +
+                        "  unmark <index>                                Unmark the task at the specified index\n" +
+                        "  list                                          List all tasks\n" +
+                        "  bye                                           Exit the program\n" +
+                        "\nExamples:\n" +
+                        "  todo Buy Ciao Churru for Dipsy\n" +
+                        "  deadline Submit Dipsy's food order /by 21-08-2024\n" +
+                        "  event Play with Dipsy /from 21-08-2024 10:00 /to 21-08-2024 12:00\n" +
+                        "  mark 1";
+        }
     }
 }
