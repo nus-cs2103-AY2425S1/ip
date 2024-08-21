@@ -12,9 +12,10 @@ public class PurrfessorDipsy {
     private static final Pattern TODO_PATTERN = Pattern.compile("^todo (.+)$");
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");
     private static final Pattern EVENT_PATTERN = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
+    private static final Pattern DELETE_PATTERN = Pattern.compile("^delete (\\d+)");
 
     private enum Command {
-        MARK, UNMARK, TODO, DEADLINE, EVENT, LIST, BYE, UNKNOWN
+        MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, LIST, BYE, UNKNOWN,
     }
 
     public static void main(String[] args) {
@@ -37,6 +38,7 @@ public class PurrfessorDipsy {
         if (userInput.startsWith("todo")) return Command.TODO;
         if (userInput.startsWith("deadline")) return Command.DEADLINE;
         if (userInput.startsWith("event")) return Command.EVENT;
+        if (userInput.startsWith("delete")) return Command.DELETE;
         if (userInput.equals("list")) return Command.LIST;
         if (userInput.equals("bye")) return Command.BYE;
         return Command.UNKNOWN;
@@ -53,6 +55,9 @@ public class PurrfessorDipsy {
             case DEADLINE:
             case EVENT:
                 handleTaskCreation(userInput, command);
+                break;
+            case DELETE:
+                deleteFromMemory(userInput);
                 break;
             case LIST:
                 printMemory();
@@ -104,7 +109,7 @@ public class PurrfessorDipsy {
                 throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_MARK_INDEX);
             }
         } else {
-            throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_MARK);
+            throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_MARK_COMMAND);
         }
     }
 
@@ -158,16 +163,20 @@ public class PurrfessorDipsy {
                 "\nYou now have " + taskTable.size() + " tasks in your list.");
     }
 
-    private static void markTaskAsDone(int index) {
-        Task task = taskTable.get(index - 1);
-        task.markAsDone();
-        printWithTerminalLines("Meow! I’ve scratched this task off the list!\n" + task);
-    }
-
-    private static void markTaskAsUndone(int index) {
-        Task task = taskTable.get(index - 1);
-        task.markAsUndone();
-        printWithTerminalLines("Mrrreow! I’ve batted this task back onto the list.\n" + task);
+    private static void deleteFromMemory(String userInput) throws PurrfessorDipsyException {
+        Matcher matcher = DELETE_PATTERN.matcher(userInput);
+        if (matcher.matches()) {
+            int index = Integer.parseInt(matcher.group(1));
+            if (index >= 1 && index <= taskTable.size()) {
+                Task removedTask = taskTable.remove(index);
+                printWithTerminalLines("Purrr, I've swatted this task away:\n" + removedTask +
+                        "\nYou now have " + taskTable.size() + " tasks in your list.");
+            } else {
+                throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DELETE_INDEX);
+            }
+        } else {
+            throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DELETE_COMMAND);
+        }
     }
 
     private static void printMemory() {
@@ -185,6 +194,18 @@ public class PurrfessorDipsy {
             }
             printWithTerminalLines(result.toString());
         }
+    }
+
+    private static void markTaskAsDone(int index) {
+        Task task = taskTable.get(index - 1);
+        task.markAsDone();
+        printWithTerminalLines("Meow! I’ve scratched this task off the list!\n" + task);
+    }
+
+    private static void markTaskAsUndone(int index) {
+        Task task = taskTable.get(index - 1);
+        task.markAsUndone();
+        printWithTerminalLines("Mrrreow! I’ve batted this task back onto the list.\n" + task);
     }
 
     private static void exitProgram() {
