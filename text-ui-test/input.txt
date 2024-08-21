@@ -12,4 +12,8 @@ todo
 deadline
 event
 list
+delete 4
+delete 3
+delete a
+delete
 bye
