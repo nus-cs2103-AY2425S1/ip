@@ -35,6 +35,12 @@ public class Molly {
         while (!userInput.toLowerCase().equals("bye")) {
             if (userInput.substring(0, userInput.length() - 2).equals("mark") || userInput.substring(0, userInput.length() - 2).equals("unmark")) {
                 botMemory.get(Integer.parseInt(userInput.substring(userInput.length() - 1)) - 1).toggleTaskDone();
+            } else if (userInput.startsWith("delete")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(" " + botMemory.get(Integer.parseInt(userInput.substring(userInput.length() - 1)) - 1).toString());
+                botMemory.remove(Integer.parseInt(userInput.substring(userInput.length() - 1)) - 1);
+                System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
             }
              else if (!userInput.toLowerCase().equals("list")) {
                 if (userInput.startsWith("todo")) {
@@ -52,35 +58,35 @@ public class Molly {
                         System.out.println("____________________________________________________________");
                     }
                 } else if (userInput.startsWith("deadline")) {
-                    if (userInput.equals("deadline")) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Yikes! Sorry, the description of a deadline cannot be empty.");
-                        System.out.println("____________________________________________________________");
-                    } else {
-                        Deadline newDeadline = new Deadline(userInput.substring(9, userInput.indexOf("/") - 1), userInput.substring(userInput.indexOf("/") + 1));
-                        botMemory.add(newDeadline);
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task: ");
-                        System.out.println(" " + newDeadline.toString());
-                        System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
-                    }
+                        if (userInput.equals("deadline")) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Yikes! Sorry, the description of a deadline cannot be empty.");
+                            System.out.println("____________________________________________________________");
+                        } else {
+                            Deadline newDeadline = new Deadline(userInput.substring(9, userInput.indexOf("/") - 1), userInput.substring(userInput.indexOf("/") + 1));
+                            botMemory.add(newDeadline);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Got it. I've added this task: ");
+                            System.out.println(" " + newDeadline.toString());
+                            System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
+                            System.out.println("____________________________________________________________");
+                        }
                     } else if (userInput.startsWith("event")) {
-                    if (userInput.equals("event")) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Yikes! Sorry, the description of an event cannot be empty.");
-                        System.out.println("____________________________________________________________");
-                    } else {
-                        Event newEvent = new Event(userInput.substring(6, userInput.indexOf("/") - 1),
-                                userInput.substring(userInput.indexOf("/") + 6, userInput.lastIndexOf("/") - 1),
-                                userInput.substring(userInput.lastIndexOf("/") + 4));
-                        botMemory.add(newEvent);
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task: ");
-                        System.out.println(" " + newEvent.toString());
-                        System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
-                    }
+                        if (userInput.equals("event")) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Yikes! Sorry, the description of an event cannot be empty.");
+                            System.out.println("____________________________________________________________");
+                        } else {
+                            Event newEvent = new Event(userInput.substring(6, userInput.indexOf("/") - 1),
+                                    userInput.substring(userInput.indexOf("/") + 6, userInput.lastIndexOf("/") - 1),
+                                    userInput.substring(userInput.lastIndexOf("/") + 4));
+                            botMemory.add(newEvent);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Got it. I've added this task: ");
+                            System.out.println(" " + newEvent.toString());
+                            System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
+                            System.out.println("____________________________________________________________");
+                        }
                 } else {
                     System.out.println("I'm sorry, I do not know how to respond to that. Please enter commands allowed by the software.");
                 }
