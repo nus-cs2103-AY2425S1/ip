@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Slave {
     private static String user;
     private static boolean hasMoreInputs = true;
-    private static LinkedList<String> list = new LinkedList<>();
+    private static LinkedList<Task> list = new LinkedList<>();
 
     public static void main(String[] args) {
         welcome();
@@ -68,6 +68,12 @@ public class Slave {
             case "list":
                 listItems();
                 break;
+            case "mark":
+                markAsDone(Integer.parseInt(inputArr[1]));
+                break;
+            case "unmark":
+                markAsIncomplete(Integer.parseInt(inputArr[1]));
+                break;
             default:
                 addToList(input);
                 break;
@@ -75,31 +81,39 @@ public class Slave {
         pageBreakLine();
     }
 
+    /**
+     * Prints out the items in the list of items provided by the user
+     */
     private static void listItems() {
         System.out.println("Can you not even remember the things you need to do? That should be your job, not mine!");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i));
+            System.out.println(i + 1 + "." + list.get(i).toString());
         }
-    }
-
-    private static void addToList(String s) {
-        System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
-        list.add(s);
-        System.out.println("added: " + s);
     }
 
     /**
-     * Prints the contents in the array, used for testing purposes
+     * adds the item specified by the user to the list
      *
-     * @param arr the target array to be printed
+     * @param s is te item to be added
      */
-    private static void printArr(String[] arr) {
-        // for testing only
-        System.out.print("[");
-        for (String s : arr) {
-            System.out.print(s + ", ");
-        }
-        System.out.print("]\n");
+    private static void addToList(String s) {
+        System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
+        list.add(new Task(s));
+        System.out.println("added: " + s);
+    }
+
+    private static void markAsDone(int i) {
+        Task t = list.get(i - 1);
+        t.completed();
+        System.out.println("Finally doing something useful with your life eh...");
+        System.out.println(t);
+    }
+
+    private static void markAsIncomplete(int i) {
+        Task t = list.get(i - 1);
+        t.incomplete();
+        System.out.println("Slacking off now, are you?");
+        System.out.println(t);
     }
 
     /**
