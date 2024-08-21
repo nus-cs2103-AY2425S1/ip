@@ -107,6 +107,11 @@ public class Delta {
                 // Add Deadline
                 } else if (task.length() >= 9 && task.substring(0, 9).equalsIgnoreCase("deadline ")) {
                     String[] details = task.substring(9).split(" /by ");
+                    if (details.length != 2) {
+                        throw new DeltaException("OOPS!!! The description of deadline is wrong!\n" +
+                                "\t Please follow the proper format:\n" +
+                                "\t * deadline [description] /by [date/time]\n");
+                    }
                     output = addTask(new Deadline(details[0], details[1]));
 
                 // Catch Empty Event
@@ -124,8 +129,8 @@ public class Delta {
                     throw new DeltaException("OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
                             "\t Please follow the proper formats:\n" +
                             "\t * todo [description]\n" +
-                            "\t * deadline [description] /by[date/time]\n" +
-                            "\t * event [description] /from[start] /to[end]");
+                            "\t * deadline [description] /by [date/time]\n" +
+                            "\t * event [description] /from [start] /to [end]");
                 }
             }
             catch (DeltaException e) {
