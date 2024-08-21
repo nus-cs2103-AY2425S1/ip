@@ -35,7 +35,7 @@ public class TaskList {
         return new Pair<>(formedSection, currIdx);
     }
 
-    public String add(String description) {
+    public String add(String description) throws EmptyDescriptionException {
         String[] splitDescription = description.split(" ");
         String taskType = splitDescription[0];
         String taskDescription;
@@ -67,13 +67,17 @@ public class TaskList {
                 task = new Event(taskDescription, from, to);
                 break;
             default:
+                taskDescription = description;
                 task = new Task(description);
+        }
+        if (taskDescription.isEmpty()) {
+            throw new EmptyDescriptionException();
         }
         this.items[this.numItems] = task;
         this.numItems++;
         String message = "     Got it. I've added this task:\n" +
                 String.format("       %s\n", task.toString()) +
-                String.format("     Now you have %d %s in the list.\n",
+                String.format("     Now you have %d %s in the list.",
                         this.numItems, (this.numItems == 1 ? "task" : "tasks"));
         return message;
     }
@@ -81,22 +85,35 @@ public class TaskList {
     public String list() {
         String message = "     Here are the tasks in your list:\n";
         for (int i = 1; i <= this.numItems; i++) {
-            message += String.format("     %d.%s\n", i, this.items[i - 1]);
+            message += String.format(
+                "     %d.%s" + (i == this.numItems ? "" : "\n"),
+                i, this.items[i - 1]
+            );
         }
         return message;
     }
 
-    public String mark(int itemIdx) {
+    public String mark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     Nice! I've marked this task as done:\n";
+        if (itemIdx >= this.numItems) {
+            throw new IndexOutOfBoundsException();
+        }
         this.items[itemIdx - 1].markAsDone();
-        message += String.format("       %s\n", this.items[itemIdx - 1]);
+        message += String.format("       %s", this.items[itemIdx - 1]);
         return message;
     }
 
-    public String unmark(int itemIdx) {
+    public String unmark(int itemIdx) throws IndexOutOfBoundsException {
         String message = "     OK, I've marked this task as not done yet:\n";
+        if (itemIdx >= this.numItems) {
+            throw new IndexOutOfBoundsException();
+        }
         this.items[itemIdx - 1].markAsUndone();
-        message += String.format("       %s\n", this.items[itemIdx - 1]);
+        message += String.format("       %s", this.items[itemIdx - 1]);
         return message;
+    }
+
+    public int getNumItems() {
+        return this.numItems;
     }
 }
