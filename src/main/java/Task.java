@@ -1,18 +1,16 @@
 public class Task {
     private String task;
     private boolean done;
+    protected static int count = 0;
 
     public Task(String task) {
         this.task = task;
         this.done = false;
-    }
-
-    public String getTask() {
-        return task;
+        count++;
     }
 
     public String getDone() {
-        if (done)
+        if (this.done)
             return "X";
         else
             return " ";
@@ -20,5 +18,10 @@ public class Task {
 
     public void changeDone(boolean state) {
         this.done = state;
+    }
+
+    @Override
+    public String toString() {
+        return "["+ this.getDone()+"] "+ this.task;
     }
 }
