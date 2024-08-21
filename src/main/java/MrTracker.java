@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class MrTracker {
 
-    public static void printLine() {
+    public static void printLine () {
         int length = 75;
         for (int i = 0; i < length; i++) {
             System.out.print('-');
@@ -25,13 +25,7 @@ public class MrTracker {
         }
     }
 
-    public static void addTask (ArrayList<Task> taskList, String taskName) {
-        ToDo newTask = new ToDo(taskName);
-        taskList.add(newTask);
-        System.out.println("added: " + taskName);
-    }
-
-    public static boolean checkValidIndex(String command, int start) {
+    public static boolean checkValidIndex (String command, int start) {
         String trimmed = command.substring(start);
         try {
             int res = Integer.parseInt(trimmed);
@@ -42,7 +36,7 @@ public class MrTracker {
         }
     }
 
-    public static int checkIndex(String command, int start) {
+    public static int checkIndex (String command, int start) {
         String trimmed = command.substring(start);
         try {
             int res = Integer.parseInt(trimmed);
@@ -72,6 +66,22 @@ public class MrTracker {
         }
     }
 
+    public static void addTodo (ArrayList<Task> taskList, String arg) {
+        ToDo newTask = new ToDo(arg);
+        taskList.add(newTask);
+        System.out.println("added: " + arg);
+    }
+
+    public static void addDeadLine (ArrayList<Task> taskList, String arg) {
+        if (arg.contains("/by ")) {
+
+        }
+    }
+
+    public static void addEvent (ArrayList<Task> taskList, String arg) {
+
+    }
+
 
     public static void main(String[] args) {
         String name = "Mr Tracker";
@@ -88,34 +98,45 @@ public class MrTracker {
             if (lowerInput.equals("bye")) {
                 sc.close();
                 break;
+
             } else if (lowerInput.equals("list")) {
                 MrTracker.printTaskList(taskList);
-            } else {
-                if (input.startsWith("mark ")) {
-                    // if an int is passed
-                    if (MrTracker.checkValidIndex(input, 5)) {
-                        int index = MrTracker.checkIndex(input, 5);
-                        // if index is outside of acceptable range,
-                        markAndUnmark(taskList, input, index, true);
-                    } else {
-                        MrTracker.addTask(taskList, input);
-                    }
 
-                } else if (input.startsWith("unmark ")) {
-
-                    if (MrTracker.checkValidIndex(input, 7)) {
-                        int index = MrTracker.checkIndex(input, 7);
-                        // if index is outside of acceptable range,
-                        markAndUnmark(taskList, input, index, false);
-                    } else {
-                        MrTracker.addTask(taskList, input);
-                    }
-
+            } else if (input.startsWith("mark ")) {
+                // if an int is passed
+                if (MrTracker.checkValidIndex(input, 5)) {
+                    int index = MrTracker.checkIndex(input, 5);
+                    // if index is outside of acceptable range,
+                    markAndUnmark(taskList, input, index, true);
                 } else {
-                    MrTracker.addTask(taskList, input);
+                    // MrTracker.addTask(taskList, input);
+                    System.out.println(input.substring(5) + " is not a valid index");
                 }
 
+            } else if (input.startsWith("unmark ")) {
+
+                if (MrTracker.checkValidIndex(input, 7)) {
+                    int index = MrTracker.checkIndex(input, 7);
+                    // if index is outside of acceptable range,
+                    markAndUnmark(taskList, input, index, false);
+                } else {
+                    // MrTracker.addTask(taskList, input);
+                    System.out.println(input.substring(7) + " is not a valid index");
+                }
+
+            } else if (input.startsWith("todo ")) {
+                MrTracker.addTodo(taskList, input.substring(5));
+            } else if (input.startsWith("deadline ")) {
+                MrTracker.addDeadLine(taskList, input.substring(9));
+            } else if (input.startsWith("event ")) {
+                MrTracker.addEvent(taskList, input.substring(6));
+
+            } else {
+                // MrTracker.addTask(taskList, input);
+                System.out.println(input + " is not a valid command!");
             }
+
+
             MrTracker.printLine();
         }
         System.out.println("Bye. Hope to see you again soon! \n");
