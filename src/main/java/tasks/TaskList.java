@@ -62,7 +62,6 @@ public class TaskList {
     public void createTask(String type, String input) throws DukeException {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            Storage file = Storage.getInstance();
             if (input.isEmpty()) throw new DukeException("Empty Task description provided.");
             System.out.println("Got it. I've added this task:");
             Task task;

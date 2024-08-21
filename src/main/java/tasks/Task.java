@@ -3,9 +3,12 @@ package tasks;
 public class Task {
     protected String description;
     protected boolean isDone;
-    public Task(String description) {
+    protected TaskType taskType;
+
+    public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
     }
 
     public String getStatusIcon() {
