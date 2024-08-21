@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Phenex {
     public static void main(String[] args) {
@@ -19,15 +20,31 @@ public class Phenex {
 
         System.out.println(greetMsg);
 
-        // begin echoing
+        // list feature
         Scanner scanner = new Scanner(System.in);
         String terminatingStr = "bye";
-        String userInput = scanner.next();
+        ArrayList<String> lst = new ArrayList<>();
+        String userInput = scanner.nextLine();
 
         while (!userInput.equals(terminatingStr)) {
-            String echoMsg = line + "\t" + userInput + " \n" + line;
-            System.out.println(echoMsg);
-            userInput = scanner.next();
+            System.out.println("\t" + line);
+            if (userInput.equals("list")) {
+                int size = lst.size();
+                for (int i = 0; i < size; i++) {
+                    String row = (i + 1)
+                            + ". "
+                            + lst.get(i);
+                    System.out.println(row);
+                }
+            } else {
+                lst.add(userInput);
+                String taskAddedMsg = "added: " + userInput;
+                System.out.println(taskAddedMsg);
+            }
+
+            System.out.println("\t" + line);
+
+            userInput = scanner.nextLine();
         }
 
         scanner.close();
