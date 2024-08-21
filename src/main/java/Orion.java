@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 public class Orion {
 
@@ -24,6 +25,10 @@ public class Orion {
         System.out.println(Orion.INDENT + message);
     }
 
+    private static String removeFirstWordFromString(String str) {
+        return str.split(" ", 2)[1];
+    }
+
     private static void greet() {
         Orion.printBar();
         System.out.println(Orion.LOGO);
@@ -46,12 +51,27 @@ public class Orion {
         }
     }
 
-    private static void addTask(String input) {
-        Task task = new Task(input);
+    private static void addTask(Task task) {
         Orion.tasks[Orion.noTasks] = task;
         Orion.noTasks++;
         Orion.printIndent("Sure! I've added the following task to your list:");
         Orion.printIndent(task.toString());
+        Orion.printIndent("Now you have " + Orion.noTasks + " tasks in your list.");
+    }
+
+    private static void addTodo(String input) {
+        Task task = new Todo(input);
+        Orion.addTask(task);
+    }
+
+    private static void addDeadline(String name, String deadline) {
+        Task task = new Deadline(name, deadline);
+        Orion.addTask(task);
+    }
+
+    private static void addEvent(String name, String from, String to) {
+        Task task = new Event(name, from, to);
+        Orion.addTask(task);
     }
 
     // taskNo is 0 indexed
@@ -73,6 +93,8 @@ public class Orion {
     private static void obey(String input) {
         String[] inputArray = input.split(" ");
         String command = inputArray[0].toLowerCase();
+        // For use by deadline and event commands
+        String[] parsed = input.split("/");
         switch (command) {
             case "bye":
                 Orion.isOnline = false;
@@ -82,7 +104,7 @@ public class Orion {
                 Orion.list();
                 break;
             case "mark":
-                if (inputArray[1] == null) {
+                if (inputArray.length != 2) {
                     Orion.printIndent("Correct syntax: mark <task number>");
                     break;
                 } else if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
@@ -96,7 +118,7 @@ public class Orion {
                     break;
                 }
             case "unmark":
-                if (inputArray[1] == null) {
+                if (inputArray.length != 2) {
                     Orion.printIndent("Correct syntax: unmark <task number>");
                     break;
                 } else if (Integer.parseInt(inputArray[1]) > Orion.noTasks) {
@@ -109,8 +131,40 @@ public class Orion {
                     Orion.unmarkTask(taskNo - 1);
                     break;
                 }
+            case "todo":
+                if (inputArray.length != 2) {
+                    Orion.printIndent("Correct syntax: todo <task>");
+                    break;
+                } else {
+                    Orion.addTodo(inputArray[1]);
+                    break;
+                }
+            case "deadline":
+                if (parsed.length != 2 || !parsed[1].matches("^by.*$")) {
+                    Orion.printIndent("Correct syntax: deadline <task> /by <deadline>");
+                    break;
+                } else {
+                    // Removes "deadline" and "by" keywords from input
+                    String[] mapped = Arrays.stream(parsed)
+                                            .map(Orion::removeFirstWordFromString)
+                                            .toArray(String[]::new);
+                    Orion.addDeadline(mapped[0].trim(), mapped[1].trim());
+                    break;
+                }
+            case "event":
+                if (parsed.length != 3 || !parsed[1].matches("^from.*$") || !parsed[2].matches("^to.*$")) {
+                    Orion.printIndent("Correct syntax: event <task> /from <start> /to <end>");
+                    break;
+                } else {
+                    // Removes "event", "from" and "to" keywords from input
+                    String[] mapped = Arrays.stream(parsed)
+                            .map(Orion::removeFirstWordFromString)
+                            .toArray(String[]::new);
+                    Orion.addEvent(mapped[0].trim(), mapped[1].trim(), mapped[2].trim());
+                    break;
+                }
             default:
-                Orion.addTask(input);
+                Orion.printIndent("Please provide a supported command!");
         }
         Orion.printBar();
     }
