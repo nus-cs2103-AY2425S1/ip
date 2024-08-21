@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class UnknownCommandException {
+public class UnknownCommandException extends NuggetException {
+    public UnknownCommandException() {
+        super("OOPS!!! Please enter valid commands!");
+    }
 }

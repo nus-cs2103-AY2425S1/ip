@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class InvalidTaskNumberException {
+public class InvalidTaskNumberException extends NuggetException {
+    public InvalidTaskNumberException() {
+        super("OOPS!!! The task number you provided is invalid.");
+    }
 }
