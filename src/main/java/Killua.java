@@ -17,9 +17,18 @@ public class Killua {
         printLine();
     }
 
+    private static void delete(ArrayList<Task> tasks, int taskNumber) {
+        Task task = tasks.get(taskNumber);
+        tasks.remove(taskNumber);
+        printLine();
+        System.out.println("OK, I've deleted this task:");
+        System.out.println("  " + task);
+        printLine();
+    }
+
     private static void bye(){
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye!");
         printLine();
     }
 
@@ -76,13 +85,15 @@ public class Killua {
                         flag = false;
                     }
                     case "list" -> list(tasks);
-                    case "mark", "unmark" -> {
+                    case "mark", "unmark", "delete" -> {
                         try {
                             int taskNumber = Integer.parseInt(argument);
                             if ("mark".equalsIgnoreCase(command)) {
                                 markTaskDone(tasks, taskNumber - 1);
-                            } else {
+                            } else if ("unmark".equalsIgnoreCase(command)) {
                                 unmarkTask(tasks, taskNumber - 1);
+                            } else {
+                                delete(tasks, taskNumber - 1);
                             }
                         } catch (NumberFormatException e) {
                             throw new KilluaException("Please provide a valid number! e.g., " + command + " 1");
