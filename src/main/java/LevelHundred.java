@@ -153,7 +153,7 @@ public class LevelHundred {
                 case "delete":
                     this.handleDeleteTask(words);
                 default:
-
+                    this.ui.printException(new InvalidCommandException());
             }
         }
 
