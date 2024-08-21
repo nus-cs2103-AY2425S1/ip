@@ -10,8 +10,14 @@ public class TaskTracker {
         if (this.counter == 0) {
             System.out.println("No tasks currently!");
         } else {
+            System.out.println("Here are your tasks!!! Remember to complete them!!!");
             for (int i = 0; i < this.counter; i++) {
-                System.out.println("" + (i + 1) + ". " + this.taskList[i]);
+                if (this.taskList[i].getIsDone() == false) {
+                    System.out.println("" + (i + 1) + ". [ ] " + this.taskList[i].getName());
+                } else {
+                    System.out.println("" + (i + 1) + ". [X] " + this.taskList[i].getIsDone());
+                }
+
             }
         }
     }
