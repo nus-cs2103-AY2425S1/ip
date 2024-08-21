@@ -9,7 +9,7 @@ public class Snipe {
             + "/_______  /___|  /__|   __/ \\___  >\n"
             + "        \\/     \\/   |__|        \\/ \n";
     private static final String HORIZONTAL_LINE = "_".repeat(60);
-    private static ArrayList<String[]> list = new ArrayList<String[]>();
+    private static ArrayList<Task> list = new ArrayList<Task>();
     public void initChat() {
         greetUser();
         handleUserInput();
@@ -36,26 +36,25 @@ public class Snipe {
         } else if(userInput.startsWith("mark")) {
             String[] split = userInput.split(" ");
             int index = Integer.valueOf(split[1]) - 1;
-            if (list.get(index)[1] == "X") {
+            if (list.get(index).getStatus()) {
                 printWithLines("This task is already marked done!");
             } else {
-                list.get(index)[1] = "X";
+                list.get(index).changeStatus();
                 printWithLines("Nice! I've marked this task as done:\n" +
-                        "[X] " + list.get(index)[0]);
+                        "[X] " + list.get(index).getDescription());
             }
         } else if(userInput.startsWith("unmark")) {
             String[] split = userInput.split(" ");
             int index = Integer.valueOf(split[1]) - 1;
-            if (list.get(index)[1] == " ") {
+            if (!list.get(index).getStatus()) {
                 printWithLines("This task is currently not done yet!");
             } else {
-                list.get(index)[1] = " ";
+                list.get(index).changeStatus();
                 printWithLines("OK, I've marked this task as not done yet:\n" +
-                        "[ ] " + list.get(index)[0]);
+                        "[ ] " + list.get(index).getDescription());
             }
         } else {
-            String[] input = new String[]{userInput, " "};
-            list.add(input);
+            list.add(new Task(userInput));
             String message = "added: " + userInput;
             printWithLines(message);
         }
@@ -64,7 +63,7 @@ public class Snipe {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < list.size(); i++) {
-            String item = String.format("%d.", i + 1) + "[" + list.get(i)[1] + "] " + list.get(i)[0];
+            String item = String.format("%d.", i + 1) + "[" + list.get(i).stringStatus() + "] " + list.get(i).getDescription();
             System.out.println(item);
         }
         System.out.println(HORIZONTAL_LINE);
