@@ -8,8 +8,7 @@ public class Storage {
     }
 
     //Adds the input task to the storage array
-    public void addTask(String description) {
-        Task task = new Task(description);
+    public void addTask(Task task) {
         this.storage[this.size] = task;
         this.size++;
     }
@@ -26,5 +25,15 @@ public class Storage {
     //Return a specific task from the storage array based on the index
     public Task getTask(int index) {
         return this.storage[index];
+    }
+
+    //Returns the size of the storage array
+    public int getSize() {
+        return this.size;
+    }
+
+    //Returns a string with the number of tasks remaining
+    public String getNumOfTasks() {
+        return "Now you have " + this.size + " tasks in the list.";
     }
 }
