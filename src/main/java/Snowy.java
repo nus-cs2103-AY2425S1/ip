@@ -14,15 +14,36 @@ public class Snowy {
 
     private static String lastCommand;
 
+    private static String[] tasks = new String[100];
+
+    private static int numOfTasks;
+
+    private static boolean isRunning = true;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(GREETING);
-        while (true) {
+        while (isRunning) {
             lastCommand = scanner.nextLine();
-            if (lastCommand.equalsIgnoreCase("bye")) {
-                break;
+
+            switch (lastCommand.toLowerCase()) {
+                case "bye":
+                    isRunning = false;
+                    break;
+
+                case "list":
+                    for (int i = 0; i < numOfTasks; i++) {
+                        System.out.printf("%d. %s\n", i + 1, tasks[i]);
+                    }
+                    break;
+
+                default:
+                    tasks[numOfTasks] = lastCommand;
+                    numOfTasks++;
+                    System.out.println("added: " + lastCommand);
+                    break;
             }
-            System.out.println(lastCommand);
+
             System.out.print(LINE);
 
         }
