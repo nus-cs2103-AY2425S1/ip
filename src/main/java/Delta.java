@@ -5,50 +5,50 @@ public class Delta {
     private static ArrayList<Task> list = new ArrayList<Task>();
 
     public static String sayHello() {
-        return "\t____________________________________________________________\n"
-                + "\t Hello! I'm Delta\n"
-                + "\t What can I do for you?\n"
-                + "\t____________________________________________________________";
+        return "\t____________________________________________________________\n" +
+                "\t Hello! I'm Delta\n" +
+                "\t What can I do for you?\n" +
+                "\t____________________________________________________________";
     }
 
     public static String sayBye() {
-        return "\t____________________________________________________________\n"
-                + "\t Bye. Hope to see you again soon!\n"
-                + "\t____________________________________________________________";
+        return "\t____________________________________________________________\n" +
+                "\t Bye. Hope to see you again soon!\n" +
+                "\t____________________________________________________________";
     }
 
     public static String addTask(Task task) {
         list.add(task);
-        return "\t____________________________________________________________\n"
-                + "\t Got it. I've added this task:\n"
-                + "\t   " + task.toString() + "\n"
-                + "\t Now you have " + list.size() + " tasks in the list.\n"
-                + "\t____________________________________________________________";
+        return "\t____________________________________________________________\n" +
+                "\t Got it. I've added this task:\n" +
+                "\t   " + task.toString() + "\n" +
+                "\t Now you have " + list.size() + " tasks in the list.\n" +
+                "\t____________________________________________________________";
     }
 
     public static String markTask(int i) {
         Task task = list.get(i - 1);
         task.markAsDone();
         list.set(i - 1, task);
-        return "\t____________________________________________________________\n"
-                + "\t Nice! I've marked this task as done:\n"
-                + "\t   " + task + "\n"
-                + "\t____________________________________________________________";
+        return "\t____________________________________________________________\n" +
+                "\t Nice! I've marked this task as done:\n" +
+                "\t   " + task + "\n" +
+                "\t____________________________________________________________";
     }
 
     public static String unmarkTask(int i) {
         Task task = list.get(i - 1);
         task.markAsNotDone();
         list.set(i - 1, task);
-        return "\t____________________________________________________________\n"
-                + "\t Ok, I've marked this task as not done yet:\n"
-                + "\t   " + task + "\n"
-                + "\t____________________________________________________________";
+        return "\t____________________________________________________________\n" +
+                "\t Ok, I've marked this task as not done yet:\n" +
+                "\t   " + task + "\n" +
+                "\t____________________________________________________________";
     }
 
     public static String printTasks() {
-        String output = "\t____________________________________________________________\n"
-                + "\t Here are the tasks in your list:\n";
+        String output = "\t____________________________________________________________\n" +
+                "\t Here are the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             output += String.format("\t %d.%s\n", i + 1, list.get(i));
         }
@@ -57,9 +57,9 @@ public class Delta {
     }
 
     public static String printError(String message) {
-        return "\t____________________________________________________________\n"
-                + "\t " + message + "\n"
-                + "\t____________________________________________________________";
+        return "\t____________________________________________________________\n" +
+                "\t " + message + "\n" +
+                "\t____________________________________________________________";
     }
 
     public static void main(String[] args) {
