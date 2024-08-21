@@ -78,7 +78,14 @@ public class Simon {
                     System.out.println(prMsg);
                     continue;
                 }
+                else if (input.startsWith("delete")) {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    Task deleted = taskList.remove(index);
+                    taskCount--;
+                    String prMsg = printMessage("Noted. I've removed this task:\n" + "\t" + deleted.toString()) + "\tNow you have " + taskCount + " tasks in the list.";
+                    System.out.println(prMsg);
 
+                }
 
                 else {
                     throw new UnsupportedOperationException("I'm sorry, but I don't know what that means :-(");
