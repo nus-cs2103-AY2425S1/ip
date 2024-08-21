@@ -56,6 +56,12 @@ public class Delta {
         return output;
     }
 
+    public static String printError(String message) {
+        return "\t____________________________________________________________\n"
+                + "\t " + message + "\n"
+                + "\t____________________________________________________________";
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -119,7 +125,7 @@ public class Delta {
                 }
             }
             catch (DeltaException e) {
-                System.out.println(e.getMessage());
+                System.out.println(printError(e.getMessage()));
             }
 
             System.out.println(output);
