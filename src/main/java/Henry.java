@@ -103,6 +103,7 @@ public class Henry {
      * @param words user input
      */
     public static void changeTaskStatus(Task[] tasks, String[] words, int index) throws HenryException {
+        try {
             int number = Integer.parseInt(words[1]);
             if (number <= 0 || number > index) {
                 throw new HenryException("The number is wrong!");
@@ -124,6 +125,9 @@ public class Henry {
                         + tasks[number - 1].toString()
                         + "\n");
             }
+        } catch(NumberFormatException e) {
+            throw new HenryException("This is not a number!!");
+        }
     }
 
     public static void main(String[] args) {
