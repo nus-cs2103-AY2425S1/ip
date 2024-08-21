@@ -5,7 +5,7 @@ public class Darkpool {
     public static void main(String[] args) {
         final String greeting = "it’s darkpool. what twisted reason dragged me into your misery?";
         final String bye = "contact me again and you'll regret it.";
-        ArrayList<Task> todoList = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
         output(greeting);
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -20,30 +20,53 @@ public class Darkpool {
 
                 case "mark" -> {
                     int num = Integer.parseInt(scanner.next()) - 1;
-                    todoList.get(num).markDone();
-                    output("why do i have to wipe this mess\n\t" + todoList.get(num).toString());
+                    taskList.get(num).markDone();
+                    output("why do i have to wipe this mess\n\t" + taskList.get(num).toString());
                 }
 
                 case "unmark" -> {
                     int num = Integer.parseInt(scanner.next()) - 1;
-                    todoList.get(num).markUndone();
-                    output("perfect! i have undone this crap\n\t" + todoList.get(num).toString());
+                    taskList.get(num).markUndone();
+                    output("perfect! i have undone this crap\n\t" + taskList.get(num).toString());
                 }
 
                 case "list" -> {
-                    StringBuilder temp = new StringBuilder("why am i stuck here\n\t");
-                    for (int i = 0; i < todoList.size(); i++) {
-                        temp.append((i + 1)).append(". ").append(todoList.get(i).toString()).append("\n\t");
+                    StringBuilder temp = new StringBuilder("why am i here\n\t");
+                    for (int i = 0; i < taskList.size(); i++) {
+                        temp.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n\t");
                     }
                     temp.setLength(temp.length() - 2);
                     output(String.valueOf(temp));
                 }
 
-                default -> {
-                    String desc = userInput + scanner.nextLine();
-                    todoList.add(new Task(desc));
-                    output("added: " + desc);
+                case "todo" -> {
+                    String desc = scanner.nextLine();
+                    taskList.add(new Todo(desc));
+                    int size = taskList.size();
+                    output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + size + " goddamn tasks");
                 }
+
+                case "deadline" -> {
+                    String[] array = scanner.nextLine().split("/by");
+                    String desc = userInput + array[0];
+                    String by = array[1];
+                    taskList.add(new Deadline(desc, by));
+                    int size = taskList.size();
+                    output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + size + " goddamn tasks");
+                }
+
+                case "event" -> {
+                    String[] fromParts = scanner.nextLine().split("/from ");
+                    String[] toParts = fromParts[1].split("/to ");
+                    String desc = fromParts[0];
+                    String from = toParts[0];
+                    String to = toParts[1];
+                    taskList.add(new Event(desc, from, to));
+                    int size = taskList.size();
+                    output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + size + " goddamn tasks");
+                }
+
+                default -> output("wtf is this?");
             }
         }
     }
