@@ -66,36 +66,57 @@ public class Delta {
             String output = "";
 
             try {
+                // Bye
                 if (task.equals("bye")) {
                     output = sayBye();
                     break;
+
+                // Print Entire List
                 } else if (task.equals("list")) {
                     output = printTasks();
-                } else if (task.substring(0, 4).equals("mark")) {
+
+                // Mark Task
+                } else if (task.length() >= 4 && task.substring(0, 4).equals("mark")) {
                     int taskIdx = Integer.parseInt(task.substring(5));
                     output = markTask(taskIdx);
-                } else if (task.substring(0, 6).equals("unmark")) {
+
+                // Unmark Task
+                } else if (task.length() >= 6 && task.substring(0, 6).equals("unmark")) {
                     int taskIdx = Integer.parseInt(task.substring(7));
                     output = unmarkTask(taskIdx);
-                } else if (task.substring(0, 4).equals("todo")) {
+
+                // Add Todo
+                } else if (task.length() >= 4 && task.substring(0, 4).equals("todo")) {
+                    if (task.stripTrailing().equals("todo")) {
+                        throw new DeltaException("OOPS!!! The description of a todo cannot be empty.");
+                    }
                     String description = task.substring(5);
                     output = addTask(new Todo(description));
-                } else if (task.substring(0, 8).equals("deadline")) {
+
+                // Add Deadline
+                } else if (task.length() >= 8 && task.substring(0, 8).equals("deadline")) {
+                    if (task.stripTrailing().equals("deadline")) {
+                        throw new DeltaException("OOPS!!! The description of a deadline cannot be empty.");
+                    }
                     String[] details = task.substring(9).split(" /by ");
                     output = addTask(new Deadline(details[0], details[1]));
-                } else if (task.substring(0, 5).equals("event")) {
+
+                // Add Event
+                } else if (task.length() >= 5 && task.substring(0, 5).equals("event")) {
+                    if (task.stripTrailing().equals("event")) {
+                        throw new DeltaException("OOPS!!! The description of a event cannot be empty.");
+                    }
                     String[] details = task.substring(6).split(" /from ");
                     String[] timings = details[1].split(" /to ");
                     output = addTask(new Event(details[0], timings[0], timings[1]));
+
+                // Unknown Action
                 } else {
                     throw new DeltaException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
             catch (DeltaException e) {
                 System.out.println(e.getMessage());
-            }
-            catch (StringIndexOutOfBoundsException e) {
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
             System.out.println(output);
