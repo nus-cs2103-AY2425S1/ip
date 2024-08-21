@@ -13,15 +13,20 @@ public class Ollie {
         Ollie.greet();
 
         String input = scanner.nextLine();
-        while(!input.equals("bye")) {
+        while(!input.matches("bye")) {
 
-            if(input.equals("list")) {
-                // List
+            // Input parser
+
+            if(input.matches("list")) {
                 Ollie.list();
+            } else if (input.matches("mark [0-9]")){
+                int i = Integer.parseInt(input.replaceAll("\\D+",""));
+                Ollie.mark(i);
+            } else if (input.matches("unmark [0-9]")) {
+                int i = Integer.parseInt(input.replaceAll("\\D+",""));
+                Ollie.unmark(i);
             } else {
-                // add
                 Ollie.add(input);
-
             }
             input = scanner.nextLine();
         }
@@ -45,14 +50,37 @@ public class Ollie {
         Ollie.printResponse("added: " + s);
     }
     private static void list() {
-        String listItem = "";
+        ArrayList<String> list = new ArrayList<>();
         for(int i = 0; i < tasks.size(); i++) {
-            listItem += String.format("%d. %s", i + 1,tasks.get(i));
-            if (i != tasks.size() - 1) {
-                listItem += "\n"; // List indentation
-            }
+            list.add(String.format("%d.%s%s", i + 1,tasks.get(i),i == tasks.size() - 1 ? "": "\n"));
         }
-        Ollie.printResponse(listItem);
+        Ollie.printResponse(String.join("",list));
+    }
+
+    private static void mark(int i) {
+        int index = i - 1;
+        if (index < 0 || index >= tasks.size()) {
+            Ollie.printResponse("Invalid Serial Number!");
+            return;
+        }
+
+        Task task = tasks.get(i - 1);
+        task.markAsDone();
+
+        Ollie.printResponse("Nice! I've marked this task as done:\n  " + task.toString());
+    }
+
+    private static void unmark(int i) {
+        int index = i - 1;
+        if (index < 0 || index >= tasks.size()) {
+            Ollie.printResponse("Invalid Serial Number!");
+            return;
+        }
+
+        Task task = tasks.get(i - 1);
+        task.markAsUndone();
+
+        Ollie.printResponse("OK, I've marked this task as not done yet:\n  " + task.toString());
     }
 
 
