@@ -34,77 +34,79 @@ public class Mahesh {
             String originalInput = scan.nextLine();
             StringTokenizer tokenizedInput = new StringTokenizer(originalInput);
             System.out.println(DIVIDER);
-            String command = tokenizedInput.nextToken();
+            String commandString = tokenizedInput.nextToken();
             Task task;
-            switch (command) {
-                case "list":
-                    try {
-                        Mahesh.printList();
-                    } catch (MaheshException err) {
-                        System.out.println(err.getMessage());
+            try {
+                Command command = Command.fromString(commandString);
+                switch (command) {
+                    case LIST:
+                        try {
+                            Mahesh.printList();
+                        } catch (MaheshException err) {
+                            System.out.println(err.getMessage());
+                        }
+                        break;
+                    case BYE:
+                        exit = true;
+                        break;
+                    case MARK:
+                        try {
+                            task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
+                            task.markAsDone();
+                            System.out.println("Nice! I've marked this task as done:");
+                            System.out.println("  " + task);
+                        } catch (IndexOutOfBoundsException err) {
+                            System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
+                            System.out.println("Use the \"list\" command to view all your tasks.");
+                        }
+                        break;
+                    case UNMARK:
+                        try {
+                            task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
+                            task.unmarkAsDone();
+                            System.out.println("OK, I've marked this task as not done yet:");
+                            System.out.println("  " + task);
+                        } catch (IndexOutOfBoundsException err) {
+                            System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
+                            System.out.println("Use the \"list\" command to view all your tasks.");
+                        }
+                        break;
+                    case TODO:
+                        try {
+                            Mahesh.addToList(Todo.parseTodo(tokenizedInput));
+                        } catch (NoSuchElementException err) {
+                            System.out.println(INCOMPLETE_COMMAND_ERR);
+                            System.out.println("todo task_description");
+                        }
+                        break;
+                    case DEADLINE:
+                        try { 
+                            Mahesh.addToList(Deadline.parseDeadline(tokenizedInput));
+                        } catch (NoSuchElementException err) {
+                            System.out.println(INCOMPLETE_COMMAND_ERR);
+                            System.out.println("deadline task_description /by task_deadline");
+                        }
+                        break;
+                    case EVENT: 
+                        try {
+                            Mahesh.addToList((Event.parseEvent(tokenizedInput)));
+                        } catch (NoSuchElementException err) {
+                            System.out.println(INCOMPLETE_COMMAND_ERR);
+                            System.out.println("event task_description /from event_start /to event_end");
+                        }
+                        break;
+                    case DELETE:
+                        try {
+                            Mahesh.deleteFromList(Integer.parseInt(tokenizedInput.nextToken()) - 1);
+                        } catch (IndexOutOfBoundsException err) {
+                            System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
+                            System.out.println("Use the \"list\" command to view all your tasks.");
+                        }
+                        break;
                     }
-                    break;
-                case "bye":
-                    exit = true;
-                    break;
-                case "mark":
-                    try {
-                        task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                        task.markAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  " + task);
-                    } catch (IndexOutOfBoundsException err) {
-                        System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
-                        System.out.println("Use the \"list\" command to view all your tasks.");
-                    }
-                    break;
-                case "unmark":
-                    try {
-                        task = list.get(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                        task.unmarkAsDone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("  " + task);
-                    } catch (IndexOutOfBoundsException err) {
-                        System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
-                        System.out.println("Use the \"list\" command to view all your tasks.");
-                    }
-                    break;
-                case "todo":
-                    try {
-                        Mahesh.addToList(Mahesh.parseTodo(tokenizedInput));
-                    } catch (NoSuchElementException err) {
-                        System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println("todo task_description");
-                    }
-                    break;
-                case "deadline":
-                    try { 
-                        Mahesh.addToList(Mahesh.parseDeadline(tokenizedInput));
-                    } catch (NoSuchElementException err) {
-                        System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println("deadline task_description /by task_deadline");
-                    }
-                    break;
-                case "event": 
-                    try {
-                        Mahesh.addToList((Mahesh.parseEvent(tokenizedInput)));
-                    } catch (NoSuchElementException err) {
-                        System.out.println(INCOMPLETE_COMMAND_ERR);
-                        System.out.println("event task_description /from event_start /to event_end");
-                    }
-                    break;
-                case "delete":
-                    try {
-                        Mahesh.deleteFromList(Integer.parseInt(tokenizedInput.nextToken()) - 1);
-                    } catch (IndexOutOfBoundsException err) {
-                        System.out.println("There is no such task. You currently have " + Mahesh.taskCount + " tasks.");
-                        System.out.println("Use the \"list\" command to view all your tasks.");
-                    }
-                    break;
-                default:
-                    System.out.println("That is not a valid command. Use the \"bye\" command if you wish to exit the bot.");
-                    break;
-            }
+                } catch (MaheshException err) {
+                    System.out.println(err.getMessage());
+                }
             System.out.println(DIVIDER);
         }
 
