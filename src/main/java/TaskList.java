@@ -13,14 +13,17 @@ public class TaskList {
             list[index] = item;
             index++;
         }
+    }
 
+    public int getLength() {
+        return this.index;
     }
 
     public void printList() {
         System.out.println("_____________________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
-            System.out.println(i+1 + ".[" + list[i].getStatusIcon() + "] " + list[i].getDescription());
+            System.out.println(i+1 + "." + list[i].toString());
         }
         System.out.println("_____________________________________________");
     }

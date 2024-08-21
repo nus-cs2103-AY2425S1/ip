@@ -17,7 +17,7 @@ public class Fanny {
         while (true) {
             System.out.println("User: ");
             String cmd = scanner.nextLine();
-            String[] cmdParts =   cmd.split(" ");
+            String[] cmdParts = cmd.split(" ");
             String action = cmdParts[0];
 
             //condition to exit when cmd is bye
@@ -47,7 +47,18 @@ public class Fanny {
                     System.out.println(list.markAsNotDone(taskId - 1));
                 }
                 System.out.println("_____________________________________________");
-            } else {
+            } else if (action.equals("todo")) {
+                System.out.println("_____________________________________________");
+                if (cmdParts.length > 1) {
+                    Task task = new ToDo(cmdParts[1]);
+                    list.add(task);
+                    System.out.println("Fanny: ");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task.toString());
+                    System.out.println("Now you have " + list.getLength() + " tasks in the list.");
+                }
+                System.out.println("_____________________________________________");
+            }else {
                 System.out.println("_____________________________________________");
                 System.out.println("Fanny: ");
                 System.out.println("Added: " + cmd);
