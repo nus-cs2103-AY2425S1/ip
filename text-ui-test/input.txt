@@ -1,0 +1,12 @@
+hello botty!
+todo say hi to botty tomorrow as well
+deadline upgrade botty by tomorrow
+deadline upgrade botty /by tomorrow
+event celebrate botty's new upgrade /from tomorrow /to the end of time
+mark 1
+mark 3
+mark 6
+unmark 3
+unmark 0
+list
+bye

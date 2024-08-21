@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ________  ________  _________  _________    ___    ___                 
+|\   __  \|\   __  \|\___   ___\\___   ___\ |\  \  /  /|                
+\ \  \|\ /\ \  \|\  \|___ \  \_\|___ \  \_| \ \  \/  / /                
+ \ \   __  \ \  \\\  \   \ \  \     \ \  \   \ \    / /                 
+  \ \  \|\  \ \  \\\  \   \ \  \     \ \  \   \/  /  /                  
+   \ \_______\ \_______\   \ \__\     \ \__\__/  / /                    
+    \|_______|\|_______|    \|__|      \|__|\___/ /                     
+                                           \|___|/                      
+                                                                        
+ _________  ___  ___  _______           ________  ________  _________   
+|\___   ___\\  \|\  \|\  ___ \         |\   __  \|\   __  \|\___   ___\ 
+\|___ \  \_\ \  \\\  \ \   __/|        \ \  \|\ /\ \  \|\  \|___ \  \_| 
+     \ \  \ \ \   __  \ \  \_|/__       \ \   __  \ \  \\\  \   \ \  \  
+      \ \  \ \ \  \ \  \ \  \_|\ \       \ \  \|\  \ \  \\\  \   \ \  \ 
+       \ \__\ \ \__\ \__\ \_______\       \ \_______\ \_______\   \ \__\
+        \|__|  \|__|\|__|\|_______|        \|_______|\|_______|    \|__|
 
+Botty: Hello, I am Botty the Bot, how may I be of service today?
+
+Botty: I'm sorry, that is not a command I am familiar with.
+
+Botty: I have added the following task to the list!
+       [T] [ ] say hi to botty tomorrow as well
+       You now have 1 tasks.
+
+Botty: I am unable to add that deadline! Please provide details in the following format: [description] /by [deadline]
+
+Botty: I have added the following task to the list!
+       [D] [ ] upgrade botty (by: tomorrow)
+       You now have 2 tasks.
+
+Botty: I have added the following task to the list!
+       [E] [ ] celebrate botty's new upgrade (from: tomorrow to: the end of time)
+       You now have 3 tasks.
+
+Botty: Congrats on completing that! Let me just mark that as done for you.
+         [T] [X] say hi to botty tomorrow as well
+
+Botty: Congrats on completing that! Let me just mark that as done for you.
+         [E] [X] celebrate botty's new upgrade (from: tomorrow to: the end of time)
+
+Botty: I don't see a task with that number! Try a number from 1 to 3
+
+Botty: It's okay, we can get that done later. I'll mark that as undone for you.
+         [E] [ ] celebrate botty's new upgrade (from: tomorrow to: the end of time)
+
+Botty: I don't see a task with that number! Try a number from 1 to 3
+
+Botty: Here you go!
+         1. [T] [X] say hi to botty tomorrow as well
+         2. [D] [ ] upgrade botty (by: tomorrow)
+         3. [E] [ ] celebrate botty's new upgrade (from: tomorrow to: the end of time)
+
+Botty: Thank you for your continued patronage. Goodbye!
