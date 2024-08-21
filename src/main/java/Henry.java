@@ -49,18 +49,18 @@ public class Henry {
      */
     public static void addTask(Task[] tasks, int index, String input) throws HenryException  {
         String[] words = input.split(" ");
-        String task = words[0];
-        String activityAndTime = input.replaceFirst(task + " ", "");
+        String task = words[0].toLowerCase();
+        String activityAndTime = input.replaceFirst(words[0] + " ", "");
         String[] activityAndTimeList = activityAndTime.split(" /");
         String activity = activityAndTimeList[0];
-        if (words[0].equals("todo")) {
+        if (task.equals("todo")) {
             if (words.length == 1 ) {
                 throw new HenryException("The todo description is wrong!! " +
                         "Ensure that you have included the activity. " +
                         "Example: todo read book");
             }
             tasks[index] = new Todo(activity);
-        } else if (words[0].equals("deadline")) {
+        } else if (task.equals("deadline")) {
             if (activityAndTimeList.length != 2 ) {
                 throw new HenryException("The deadline description is wrong!! " +
                         "Ensure that you have included the activity, followed by the deadline. " +
@@ -69,7 +69,7 @@ public class Henry {
             String time = activityAndTimeList[1]
                     .replaceFirst("by ", "");
             tasks[index] = new Deadline(activity, time);
-        } else if (words[0].equals("event")) {
+        } else if (task.equals("event")) {
             if (activityAndTimeList.length != 3 ) {
                 throw new HenryException("The event description is wrong!! " +
                         "Ensure that you have included the activity, " +
