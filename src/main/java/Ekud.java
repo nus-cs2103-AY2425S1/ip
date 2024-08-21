@@ -8,6 +8,9 @@ public class Ekud {
     public static final String LIST_COMMAND = "list";
     public static final String MARK_COMMNAD = "mark";
     public static final String UNMARK_COMMAND = "unmark";
+    public static final String TODO_COMMAND = "todo";
+    public static final String DEADLINE_COMMAND = "deadline";
+    public static final String EVENT_COMMAND = "event";
     public static final int MAX_LIST_SIZE = 100;
 
     private final Task[] tasks = new Task[MAX_LIST_SIZE];
@@ -40,11 +43,11 @@ public class Ekud {
         echo(LINE_SEPARATOR);
     }
 
-    public void addToList(String item) {
+    public void addToList(Task task) {
         // assume no more than LIST_MAX_SIZE items are added
-        tasks[currListSize] = new Task(item);
+        tasks[currListSize] = task;
         currListSize++;
-        echo("added: " + item);
+        echo("added: " + task);
         echo(LINE_SEPARATOR);
     }
 
@@ -103,20 +106,17 @@ public class Ekud {
     public static void main(String[] args) {
         Ekud ekud = new Ekud();
         Scanner sc = new Scanner(System.in);
-        String command;
-        String argument;
-        String[] tokens;
-        HashMap<String, String> tokenMap;
 
         ekud.greet();
         while (ekud.isRunning()) {
             // get user command
             // assumes user puts correct format
             System.out.println();
-            tokens = sc.nextLine().split("\\s"); // delimits input by space into array of String
-            tokenMap = parseTokens(tokens);
-            command = tokenMap.get("command");
-            argument = tokenMap.get("argument");
+            String input = sc.nextLine();
+            String[] tokens = input.split("\\s"); // delimits input by space into array of String
+            HashMap<String, String> tokenMap = parseTokens(tokens);
+            String command = tokenMap.get("command");
+            String argument = tokenMap.get("argument");
             ekud.echo(LINE_SEPARATOR);
 
             // handle command
@@ -133,8 +133,18 @@ public class Ekud {
             case UNMARK_COMMAND:
                 ekud.unmarkList(Integer.parseInt(argument) - 1);
                 break;
+            case TODO_COMMAND:
+                ekud.addToList(new TodoTask(argument));
+                break;
+            case DEADLINE_COMMAND:
+                ekud.addToList(new DeadlineTask(argument, tokenMap.get("/by")));
+                break;
+            case EVENT_COMMAND:
+                ekud.addToList(new EventTask(argument, tokenMap.get("/from"), tokenMap.get("/to")));
+                break;
             default:
-                ekud.addToList(command + " " + argument);
+                ekud.echo(input);
+                ekud.echo(LINE_SEPARATOR);
             }
         }
         ekud.sayGoodbye();
