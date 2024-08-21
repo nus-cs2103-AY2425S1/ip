@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Tissue {
-    private static ArrayList<Task> textArray = new ArrayList<>();
+    private static ArrayList<Task> taskArray = new ArrayList<>();
     private static final String LINE =
             "--------------------------------------------------------------";
     private static final String INDENT = "       ";
@@ -30,20 +30,17 @@ public class Tissue {
                 System.out.println(listTask());
 
             } else if (in.equals("mark")) {
-
-
-
-                Task task = textArray.get(scanner.nextInt() - 1).markTask();
+                Task task = taskArray.get(scanner.nextInt() - 1).markTask();
                 System.out.println(INDENT + "Nice! I've marked this task as done:");
                 System.out.println(INDENT + "  " + task);
-
-
             } else if (in.equals("unmark")) {
 
-                Task task = textArray.get(scanner.nextInt() - 1).unmarkTask();
+                Task task = taskArray.get(scanner.nextInt() - 1).unmarkTask();
                 System.out.println(INDENT + "OK, I've marked this task as not done yet:");
                 System.out.println(INDENT + "  " + task);
 
+            } else if (in.equals("delete")) {
+                deleteTask(scanner.nextInt());
             } else {
                 storeTask(in);
             }
@@ -62,6 +59,12 @@ public class Tissue {
     }
 
 
+    private static void deleteTask(int number) {
+        Task task = taskArray.remove(number - 1);
+        System.out.println(INDENT + "Noted. I've removed this task:");
+        System.out.println(INDENT + "  " + task);
+        System.out.println(INDENT + "Now you have " + taskArray.size() + " tasks in the list.");
+    }
 
     private static void storeTask(String in) {
         if (in.equals("todo")) {
@@ -71,11 +74,11 @@ public class Tissue {
                 System.out.println("Decription of TODO cannot be empty.");
             } else {
                 Task task = new ToDo(false, item);
-                textArray.add(task);
+                taskArray.add(task);
                 System.out.println(INDENT + "Got it. I've added this task:");
                 System.out.println(INDENT + "  " + task);
                 System.out.println(
-                        INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+                        INDENT + "Now you have " + taskArray.size() + " tasks in the list.");
             }
 
 
@@ -84,20 +87,20 @@ public class Tissue {
             String item = scanUntil("/by");
             String by = scanner.nextLine().strip();
             Task task = new Deadline(false, item, by);
-            textArray.add(task);
+            taskArray.add(task);
             System.out.println(INDENT + "Got it. I've added this task:");
             System.out.println(INDENT + "  " + task);
-            System.out.println(INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+            System.out.println(INDENT + "Now you have " + taskArray.size() + " tasks in the list.");
 
         } else if (in.equals("event")) {
             String item = scanUntil("/from");
             String from = scanUntil("/to");
             String to = scanner.nextLine().strip();
             Task task = new Event(false, item, from, to);
-            textArray.add(task);
+            taskArray.add(task);
             System.out.println(INDENT + "Got it. I've added this task:");
             System.out.println(INDENT + "  " + task);
-            System.out.println(INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+            System.out.println(INDENT + "Now you have " + taskArray.size() + " tasks in the list.");
         } else {
 
             System.out.println(
@@ -118,8 +121,8 @@ public class Tissue {
 
     private static String listTask() {
         String parsedText = "";
-        for (int i = 0; i < textArray.size(); i++) {
-            Task task = textArray.get(i);
+        for (int i = 0; i < taskArray.size(); i++) {
+            Task task = taskArray.get(i);
             parsedText += INDENT + String.valueOf(i + 1) + "." + " " + task + "\n";
         }
         return parsedText;
