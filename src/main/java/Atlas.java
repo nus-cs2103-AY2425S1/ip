@@ -27,7 +27,8 @@ public class Atlas {
         ArrayList<Task> taskList = new ArrayList<Task>();
         while (true) {
             Scanner scanner = new Scanner(System.in);
-            String command = scanner.nextLine();
+            String command = scanner.next();
+            System.out.println(command);
             switch (command) {
                 case "bye":
                     Atlas.exit();
@@ -41,6 +42,10 @@ public class Atlas {
                         }
                     }
                     Atlas.print(listOutput.toString());
+                    break;
+                case "mark":
+                    int index = Integer.parseInt(scanner.next()) - 1;
+                    Task task = taskList.get(index);
                     break;
                 default:
                     taskList.add(new Task(command));
