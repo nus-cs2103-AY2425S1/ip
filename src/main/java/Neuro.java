@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Neuro {
     public static void main(String[] args) {
+        ArrayList<String> taskList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("    ___________________________________________________");
         System.out.println("    Hii, I'm Neuro, your chatbot assistant!");
@@ -12,9 +14,16 @@ public class Neuro {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 break;
-            } else {
+            } else if (input.equals("list")) {
                 System.out.println("    ___________________________________________________");
-                System.out.println("    " + input);
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println("    " + (i + 1) + ". " + taskList.get(i));
+                }
+                System.out.println("    ___________________________________________________");
+            } else {
+                taskList.add(input);
+                System.out.println("    ___________________________________________________");
+                System.out.println("    added: " + input);
                 System.out.println("    ___________________________________________________");
             }
         }
