@@ -62,16 +62,20 @@ public class PurrfessorDipsy {
                     markTaskAsUndone(index);
                 }
             } else {
+                printTerminalLine();
                 System.out.println("Error: 'mark' command requires an index to be given.");
                 System.out.println("Usage: mark <index> or unmark <index>");
+                printTerminalLine();
             }
         } else if (trimmedInput.startsWith("todo")){
             if (todoMatcher.matches()) {
                 String description = todoMatcher.group(1);
                 saveToMemory(new ToDo(description));
             } else {
+                printTerminalLine();
                 System.out.println("Error: 'todo' command requires a description.");
                 System.out.println("Usage: todo <description>");
+                printTerminalLine();
             }
         } else if (trimmedInput.startsWith("deadline")) {
             if (deadlineMatcher.matches()) {
@@ -79,8 +83,10 @@ public class PurrfessorDipsy {
                 String by = deadlineMatcher.group(2);
                 saveToMemory(new Deadline(description, by));
             } else {
+                printTerminalLine();
                 System.out.println("Error: 'deadline' command requires a 'by' date.");
                 System.out.println("Usage: deadline <description> /by <day/date/time>");
+                printTerminalLine();
             }
         } else if (trimmedInput.startsWith("event")) {
             if (eventMatcher.matches()) {
@@ -89,8 +95,10 @@ public class PurrfessorDipsy {
                 String end = eventMatcher.group(3);
                 saveToMemory(new Event(description, start, end));
             } else {
+                printTerminalLine();
                 System.out.println("Error: 'event' command requires a description, a '/from' time, and a '/to' time.");
                 System.out.println("Usage: event <description> /from <day/date/time> /to <day/date/time>");
+                printTerminalLine();
             }
         } else {
             switch (trimmedInput) {
