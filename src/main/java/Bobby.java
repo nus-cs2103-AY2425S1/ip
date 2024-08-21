@@ -5,6 +5,16 @@ public class Bobby {
         Scanner scanner = new Scanner(System.in);
 
         greet();
+        while (true) {
+            System.out.println();
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                bye();
+                System.out.println();
+                break;
+            }
+            repeat(input);
+        }
     }
 
     // Make a horizontal line of x dashes
@@ -19,6 +29,7 @@ public class Bobby {
         System.out.println();
         System.out.println("Hello! I'm Bobby");
         System.out.println("What can I do for you?");
+        horizontalLine(35);
     }
 
     public static void bye() {
