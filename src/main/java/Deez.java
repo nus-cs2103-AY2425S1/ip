@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.security.spec.ECField;
 import java.util.ArrayList;
 
 public class Deez {
@@ -60,7 +59,7 @@ public class Deez {
                 int cnt = 1;
                 System.out.println("____________________________________________________________");
                 for (Task t: tasks) {
-                    System.out.println(cnt + ". " + t.getDescription());
+                    System.out.println(cnt + ". " + t.toString());
                     cnt+=1;
                 }
                 System.out.println("____________________________________________________________");
@@ -83,7 +82,7 @@ public class Deez {
                             } else if (cmd.equals(CMD_unmarkDone) && t.isDone()) {
                                 t.toggleDone();
                             }
-                            say("Updated task:", t.getDescription());
+                            say("Updated task:", t.toString());
                         } catch (Exception e) {
                             say("No task at index " + param, "Please try again.");
                         }
