@@ -13,7 +13,7 @@ public class Orion {
     public static final String INDENT = "    ";
 
     private static boolean isOnline;
-    private static String[] tasks;
+    private static Task[] tasks;
     private static int noTasks;
 
     private static void printBar() {
@@ -56,7 +56,7 @@ public class Orion {
                 Orion.printBar();
                 break;
             default:
-                Orion.tasks[Orion.noTasks] = command;
+                Orion.tasks[Orion.noTasks] = new Task(command);
                 Orion.noTasks++;
                 Orion.printIndent("added: " + command);
                 Orion.printBar();
@@ -66,7 +66,7 @@ public class Orion {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Orion.isOnline = true;
-        Orion.tasks = new String[100];
+        Orion.tasks = new Task[100];
         Orion.noTasks = 0;
         Orion.greet();
 
