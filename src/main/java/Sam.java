@@ -6,17 +6,22 @@ public class Sam {
         System.out.println(getHorizontalLine());
         System.out.println("Hello! I'm Sam\nWhat can I do for you?");
         System.out.println(getHorizontalLine());
-
+        Items items = new Items();
         while (true) {
             String input = scanner.nextLine();
             System.out.println(getHorizontalLine());
 
             if (input.equals("bye")) {
-                System.out.println("    Bye. Hope to see you again soon!");
+                System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(getHorizontalLine());
                 break;
+            } else if (input.equals("list")){
+                System.out.println(items.toString());
+                System.out.println(getHorizontalLine());
             } else {
-                System.out.println("   "+input);
+                Item newItem = new Item(input);
+                items.addItem(newItem);
+                System.out.println("added: "+newItem.toString());
                 System.out.println(getHorizontalLine());
             }
         }
