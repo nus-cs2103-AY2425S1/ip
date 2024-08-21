@@ -16,8 +16,31 @@ public class Zenith {
         while (true) {
 
             String input = scanner.nextLine();
-            String[] inputSplit = input.split(" ");
+            String[] inputSplit = input.split(" ", 2);
             switch (inputSplit[0]) {
+                case "todo":
+                    Task todo = new Todo(inputSplit[1].trim());
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(todo.toString());
+                    user.addList(todo);
+                    System.out.println("Now you have " + User.getCount() + " tasks in the list.\n");
+                    break;
+                case "deadline":
+                    String[] deadlineSplit = inputSplit[1].split("/by");
+                    Task deadline = new Deadline(deadlineSplit[0].trim(),deadlineSplit[1].trim());
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(deadline.toString());
+                    user.addList(deadline);
+                    System.out.println("Now you have " + User.getCount() + " tasks in the list.\n");
+                    break;
+                case "event":
+                    String[] eventSplit = inputSplit[1].split("/from | /to");
+                    Task event = new Event(eventSplit[0].trim(),eventSplit[1].trim(),eventSplit[2].trim());
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(event.toString());
+                    user.addList(event);
+                    System.out.println("Now you have " + User.getCount() + " tasks in the list.\n");
+                    break;
                 case "mark":
                     System.out.println("Nice! I've marked this task as done:");
                     list = user.getList();
@@ -43,10 +66,6 @@ public class Zenith {
                     break;
                 case "bye":
                     System.out.println(Message.getExit());
-                    break;
-                default:
-                    System.out.println("added: " + input + "\n");
-                    user.addList(input);
                     break;
             }
 

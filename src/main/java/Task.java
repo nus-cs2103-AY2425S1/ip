@@ -8,6 +8,8 @@ public class Task {
         this.status = false;
     }
 
+    public Task() {}
+
     public boolean getStatus() {
         return this.status;
     }
@@ -18,11 +20,6 @@ public class Task {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + (this.status ? "X" : " ") + "] " + this.description;
     }
 
 }
