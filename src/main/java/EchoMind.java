@@ -45,14 +45,21 @@ public class EchoMind {
                 t.markAsNotDone();
                 sendMessage("OK, I've marked this task as not done yet:");
                 sendMessage(t.toString());
-            } else if (message.matches("^todo.?+")) {
+            } else if (message.matches("^delete \\d+$")) {
+                int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
+                Task t = this.TaskList.get(num - 1);
+                sendMessage("Noted. I've removed this task:");
+                sendMessage(t.toString());
+                this.TaskList.remove(num - 1);
+                sendMessage("Now you have " + this.TaskList.size() + " tasks in the list.");
+            } else if (message.matches("^todo.*")) {
                 String x = message.replaceFirst("todo", "");
                 if (x.isEmpty()) {
                     throw new EchoMIndException("OOPS!!! The description of a todo cannot be empty.");
                 }
                 Task t = new ToDo(x);
                 this.addTask(t);
-            } else if (message.matches("^deadline.?+")) {
+            } else if (message.matches("^deadline.*")) {
                 String x = message.replaceFirst("deadline", "");
                 String[] parts = x.split(" /");
                 if (x.isEmpty()) {
@@ -60,7 +67,7 @@ public class EchoMind {
                 }
                 Task t = new Deadline(parts[0].trim(), parts[1].trim());
                 this.addTask(t);
-            } else if (message.matches("^event.?+")) {
+            } else if (message.matches("^event.*")) {
                 String x = message.replaceFirst("event", "");
                 String[] parts = x.split(" /");
                 if (x.isEmpty()) {
