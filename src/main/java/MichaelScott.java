@@ -4,7 +4,7 @@ public class MichaelScott {
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
         boolean flag = true;
-        ArrayList<String> todo = new ArrayList<String>();
+        ArrayList<Task> todo = new ArrayList<Task>();
 
         String logo = " __  __ _      _                _   ____            _   _  \n"
                 + "|  \\/  (_) ___| |__   __ _  ___| | / ___|  ___ ___ | |_| |_ \n"
@@ -19,25 +19,41 @@ public class MichaelScott {
 
         while(flag) {
             String command = myScanner.nextLine();
-
-            if (command.equals("list")) {
+            String[] parts = command.split(" ");
+            if (parts[0].equals("list")) {
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < todo.size(); i++) {
-                    System.out.println(i + 1 + ". " + todo.get(i));
+                    System.out.println(i + 1 + ". " + todo.get(i).toString());
                 }
                 System.out.println("____________________________________________________________");
 
-            } else if (command.equals("blah")) {
+            } else if (parts[0].equals("blah")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("blah");
                 System.out.println("____________________________________________________________");
-            } else if (command.equals("bye")) {
+            } else if (parts[0].equals("bye")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Catch you on the flippity flip! ");
                 System.out.println("____________________________________________________________");
                 flag = false;
+            } else if (parts[0].equals("mark")) {
+                int index = Integer.parseInt(parts[1]) - 1;
+                Task task = todo.get(index);
+                task.completeTask();
+                System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(task.toString());
+                System.out.println("____________________________________________________________");
+            } else if (parts[0].equals("unmark")) {
+                int index = Integer.parseInt(parts[1]) - 1;
+                Task task = todo.get(index);
+                task.undoTask();
+                System.out.println("____________________________________________________________");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(task.toString());
+                System.out.println("____________________________________________________________");
             } else {
-                todo.add(command);
+                todo.add(new Task(command));
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + command);
                 System.out.println("____________________________________________________________");
