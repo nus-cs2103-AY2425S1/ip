@@ -1,11 +1,13 @@
-import java.util.ArrayList;
+
 import java.util.Scanner;
 public class ChatterBox {
 
 
     public static void main(String[] args) {
 
-        ArrayList<Task> taskList = new ArrayList<>();
+        
+        Task[] taskList = new Task[100];
+        int counter = 0;
 
         Scanner sc = new Scanner(System.in);
         //Greeting the user
@@ -24,18 +26,18 @@ public class ChatterBox {
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("\t\t" + "_".repeat(50));
                 System.out.println("\t\t Here's what you've got on your to-do list so far:");
-                for(int i = 0; i < taskList.size(); i++) {
-                    System.out.println("\t\t\t- " + taskList.get(i));
+                for(int i = 0; i < counter; i++) {
+                    System.out.println("\t\t\t- " + taskList[i]);
                 }
                 System.out.println("\t\t" + "_".repeat(50));
             } else if (input.startsWith("mark")) {
                 int indexSpace = input.indexOf(" ");
                 int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
-                if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                if (taskIndex >= 0 && taskIndex < counter) {
                     taskList.get(taskIndex).markAsDone();
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t Super! Task marked as done:");
-                    System.out.println("\t\t\t" + taskList.get(taskIndex));
+                    System.out.println("\t\t\t" + taskList[taskIndex]);
                     System.out.println("\t\t" + "_".repeat(50));
                 } else {
                     System.out.println("\t\t" + "_".repeat(50));
@@ -45,11 +47,11 @@ public class ChatterBox {
             } else if (input.startsWith("unmark")) {
                 int indexSpace = input.indexOf(" ");
                 int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
-                if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                if (taskIndex >= 0 && taskIndex < counter) {
                     taskList.get(taskIndex).markAsNotDone();
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t Sure, task has been marked as not done:");
-                    System.out.println("\t\t\t" + taskList.get(taskIndex));
+                    System.out.println("\t\t\t" + taskList[taskIndex]);
                     System.out.println("\t\t" + "_".repeat(50));
                 } else {
                     System.out.println("\t\t" + "_".repeat(50));
@@ -57,7 +59,8 @@ public class ChatterBox {
                     System.out.println("\t\t" + "_".repeat(50));
                 }
             }else {
-                taskList.add(new Task(input));
+                taskList[counter] = new taskList(input); 
+                counter++; 
                 System.out.println("\t\t" + "_".repeat(50));
                 System.out.println("\t\t" + input + " is added to your list");
                 System.out.println("\t\t" + "_".repeat(50));
