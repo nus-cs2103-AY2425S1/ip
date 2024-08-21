@@ -122,11 +122,11 @@ public class Mummy {
     // length of "todo " is 5
     try {
       String description = input.strip().substring(5);
-      Task task = new ToDo(description);
-      STORE.add(task);
+      ToDo toDo = new ToDo(description);
+      STORE.add(toDo);
       new Echo(String.format(
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                task, STORE.getCount()
+                toDo, STORE.getCount()
               ))
               .execute();
     } catch (IndexOutOfBoundsException exception) {
@@ -141,11 +141,11 @@ public class Mummy {
       String description = tokens[0];
       String dueBy = tokens[1];
 
-      Task task = new Deadline(description, dueBy);
-      STORE.add(task);
+      Deadline deadline = new Deadline(description, dueBy);
+      STORE.add(deadline);
       new Echo(String.format(
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                task, STORE.getCount()
+                deadline, STORE.getCount()
               ))
               .execute();
     } catch (IndexOutOfBoundsException exception) {
@@ -162,11 +162,11 @@ public class Mummy {
       String from = argumentTokens[0];
       String to = argumentTokens[1];
 
-      Task task = new Event(description, from, to);
-      STORE.add(task);
+      Event event = new Event(description, from, to);
+      STORE.add(event);
       new Echo(String.format(
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                task, STORE.getCount()
+                event, STORE.getCount()
               ))
               .execute();
     } catch (IndexOutOfBoundsException exception) {
