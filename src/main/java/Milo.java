@@ -31,9 +31,26 @@ public class Milo {
         String userInput = myScanner.nextLine();
         // Loop for user input
         while (!userInput.toLowerCase().strip().equals("bye")) {
-            switch (userInput) {
+            // Split input on space
+            String[] arrOfInput = userInput.split(" ");
+            switch (arrOfInput[0]) {
+                // show list
                 case "list":
                     printList(todoList);
+                    userInput = myScanner.nextLine();
+                    break;
+                // mark as complete
+                case "mark":
+                    Task curTask = todoList[Integer.parseInt(arrOfInput[1]) - 1];
+                    curTask.mark();
+                    printMark(curTask);
+                    userInput = myScanner.nextLine();
+                    break;
+                // mark as incomplete
+                case "unmark":
+                    Task currTask = todoList[Integer.parseInt(arrOfInput[1]) - 1];
+                    currTask.unmark();
+                    printUnmark(currTask);
                     userInput = myScanner.nextLine();
                     break;
                 default:
@@ -42,7 +59,6 @@ public class Milo {
                     userInput = myScanner.nextLine();
             }
         }
-
 
         // User input == "bye"
         System.out.print(byeMessage);
@@ -56,5 +72,19 @@ public class Milo {
             System.out.println(i+1 + "." + todoList[i].toString());
         }
         System.out.println(hLine);
+    }
+
+    private static void printMark(Task curTask) {
+        System.out.print(hLine);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + curTask.toString());
+        System.out.print(hLine);
+    }
+
+    private static void printUnmark(Task curTask) {
+        System.out.print(hLine);
+        System.out.println("Ok, I've marked this as not done yet:");
+        System.out.println("  " + curTask.toString());
+        System.out.print(hLine);
     }
 }
