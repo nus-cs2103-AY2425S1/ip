@@ -6,12 +6,15 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
     public String getStatusInfo() {
         return (isDone ? "X" : " ");
     }
+
     public void markAsDone() {
         this.isDone = true;
     }
+
     public void markNotDone() {
         this.isDone = false;
     }
@@ -22,7 +25,5 @@ public class Task {
         return "[" + mark + "] " + description;
     }
 
-
-
-
 }
+

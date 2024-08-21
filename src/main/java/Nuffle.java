@@ -56,6 +56,15 @@ public class Nuffle {
         }
     }
 
+    private static void addTaskToList(Task task) {
+        inputList.add(task);
+        printLine();
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + inputList.size() + " tasks in the list.");
+        printLine();
+    }
+
     public static void main(String[] args) {
         // This will be starting point of the application
 
@@ -103,6 +112,31 @@ public class Nuffle {
                 int index = Integer.parseInt(userInput.substring(7)) - 1;
                 // Unmark the task by calling the function
                 unMarkTask(index);
+            } else if (userInput.startsWith("todo")) {
+                // Program will add a To-do task to the list
+
+                // Get the description of the to-do task first
+                String desc = userInput.substring(5);
+                // add the task to the list
+                Task newTask = new Todo(desc);
+                addTaskToList(newTask);
+            } else if (userInput.startsWith("deadline")) {
+                // Program will add a deadline task to the list
+
+                // Get the description of the deadline task as well as the day, split by the "by"
+                String[] desc = userInput.substring(9).split(" /by ");
+                // add the task to the list
+                Task newTask = new Deadline(desc[0], desc[1]);
+                addTaskToList(newTask);
+
+            } else if (userInput.startsWith("event")) {
+                // Program will add a event task to the list
+
+                // Get the description of the event task first
+                String[] desc = userInput.substring(6).split(" /from | /to ");
+                // add the task to the list
+                Task newTask = new Event(desc[0], desc[1], desc[2]);
+                addTaskToList(newTask);
             }
             else {
                 // Echo the user command
