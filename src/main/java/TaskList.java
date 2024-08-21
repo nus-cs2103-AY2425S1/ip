@@ -22,7 +22,7 @@ public class TaskList {
         }
         @Override
         public String toString() {
-            return this.name;
+            return "[" + this.getStatusIcon() + "] " + this.name;
         }
     }
 
@@ -48,7 +48,7 @@ public class TaskList {
     }
     public void printTasks() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + ".[" + tasks.get(i).getStatusIcon() + "] " + tasks.get(i).toString());
+            System.out.println("    " + (i + 1) + "." + tasks.get(i).toString());
         }
     }
 }

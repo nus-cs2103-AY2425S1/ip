@@ -27,11 +27,13 @@ public class Delphi {
             if (checkStringPrefix(input, 4, "mark")) {
                 t.markTaskAsDone(Integer.parseInt(String.valueOf(input.charAt(5))));
                 System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      [X] " + t.getTask(Integer.parseInt(String.valueOf(input.charAt(5)))));
+                System.out.println("      " + t.getTask(Integer.parseInt(String.valueOf(input.charAt(5)))));
             } else if (checkStringPrefix(input, 6, "unmark")) {
                 t.markTaskAsUndone(Integer.parseInt(String.valueOf(input.charAt(7))));
                 System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("      [ ] " + t.getTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
+                System.out.println("      " + t.getTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
+            } else if (checkStringPrefix(input, 4, "todo")) {
+                    // to fill
             }
             else {
                 t.addTask(input);
