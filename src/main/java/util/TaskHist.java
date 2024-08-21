@@ -102,6 +102,16 @@ public class TaskHist {
     return sb.toString();
   }
 
+  /**
+   * Utility method to check if idx is valid.
+   * 
+   * @param idx The idx to be checked.
+   * @return true if is within range else false.
+   */
+  public boolean isValidIdx(int idx) {
+    return idx < this.tasks.size() && idx >= 0;
+  }
+
   private static void prettyPrint(String msg) {
     System.out.println(Utility.INDENTED_LINE);
     System.out.println(msg);

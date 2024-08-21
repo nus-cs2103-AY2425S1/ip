@@ -7,7 +7,7 @@ public class Mizz {
   private static final String NAME = "Mizz";
 
   /** Stores the past commands entered */
-  private final TaskHist usrCmds;
+  private final TaskHist usrTasks;
   /** Greeting to be printed */
   private final String greeting;
   /** ByeBye to be printed */
@@ -24,7 +24,7 @@ public class Mizz {
   public Mizz(String greeting, String exitMsg) {
     this.greeting = greeting;
     this.exitMsg = exitMsg;
-    this.usrCmds = new TaskHist();
+    this.usrTasks = new TaskHist();
     this.cmd = "";
   }
 
@@ -56,7 +56,7 @@ public class Mizz {
       case "bye":
         break;
       case "list":
-        this.usrCmds.prettyPrintAll();
+        this.usrTasks.prettyPrintAll();
         break;
       case "mark":
       case "unmark": {
@@ -107,10 +107,16 @@ public class Mizz {
    * @param idx  The idx of the task in the list starting from 1.
    */
   private void handleMark(String mark, int idx) {
+    // if invalid return after printing help text
+    if (!this.usrTasks.isValidIdx(idx)) {
+      Mizz.prettyPrint(String.format(
+          "Someones tryna be funny, idx: %d is out of range!", idx));
+      return;
+    }
     if (mark.equals("mark")) {
-      this.usrCmds.markAsDone(idx);
+      this.usrTasks.markAsDone(idx);
     } else {
-      this.usrCmds.markAsUndone(idx);
+      this.usrTasks.markAsUndone(idx);
     }
   }
 
@@ -120,7 +126,7 @@ public class Mizz {
    */
   private void handleCreate(String taskType, String[] taskInfo) {
     String cleanedString = String.join(" ", taskInfo);
-    this.usrCmds.addTask(taskType, cleanedString);
+    this.usrTasks.addTask(taskType, cleanedString);
   }
 
   /**
