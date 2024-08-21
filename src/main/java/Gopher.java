@@ -4,6 +4,10 @@ public class Gopher {
     // Initialize the input reader
     private final static Scanner inputReader = new Scanner(System.in);
 
+    // Tasks List Data to handle user input tasks
+    private final static String[] taskList = new String[100];
+    private static int currentTaskNumber = 0;
+
     // Common Interface elements for easy reuse
     private final static String gopherLogo = """
               ____             _              \s
@@ -21,9 +25,11 @@ public class Gopher {
         System.out.println("Hello! I am Gopher.\nWhat can I do for you?\n");
     }
 
-    private static void echo (String input) {
+    private static void addTask (String input) {
+        taskList[currentTaskNumber] = input;
+        currentTaskNumber++;
         System.out.println(horizontalSeparator);
-        System.out.println(input);
+        System.out.println("added: " + input);
         System.out.println(horizontalSeparator + "\n");
     }
 
@@ -45,7 +51,7 @@ public class Gopher {
             if (userInput.equalsIgnoreCase("Bye")) {
                 isRunning = false;
             } else {
-                echo(userInput);
+                addTask(userInput);
             }
         }
 
