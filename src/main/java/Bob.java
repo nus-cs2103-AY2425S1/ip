@@ -13,67 +13,69 @@ public class Bob {
 
         while (!input.equals("bye")) {
             input = scanner.nextLine();
+            String[] inputParts = input.split(" ", 2); // split input and store into array
+            String command = inputParts[0].toLowerCase();
+            String taskDescription = (inputParts.length > 1) ? inputParts[1] : "";
 
-            // add task to tasks array
-            if (!input.equals("bye") && !input.equals("list") && !input.startsWith("mark") && !input.startsWith("unmark")) {
-                tasks[taskCounter] = new Task(input); // input as task description
-                taskCounter++;
-
-                System.out.println("\t------------------------------------------");
-                System.out.println("\tadded: " + input);
-                System.out.println("\t------------------------------------------");
-            }
-
-
-            // print tasks
-            if (input.equals("list")) {
-                System.out.println("\t------------------------------------------");
-                System.out.println("Here are the tasks in your list: ");
-                for (int i = 0; i < taskCounter; i++) {
-                    int j = i + 1;
-                    System.out.println(j + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
-                }
-                System.out.println("\t------------------------------------------");
-            }
-            
-            // mark
-            if (input.startsWith("mark ")) {
-                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                // split the input into array "mark" "2", convert to int, -1
-
-                if (taskIndex < taskCounter && taskIndex >= 0) {
-                    tasks[taskIndex].mark();
-
+            switch (command) {
+                case "list":
+                    // print tasks
                     System.out.println("\t------------------------------------------");
-                    System.out.println("\tNice! I've marked this task as done:");
-                    System.out.println("\t\t[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
+                    System.out.println("\tHere are the tasks in your list:");
+                    for (int i = 0; i < taskCounter; i++) {
+                        int j = i + 1;
+                        System.out.println("\t" + j + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    }
                     System.out.println("\t------------------------------------------");
-                } else {
-                    System.out.println("Invalid index..");
-                }
-            }
+                    break;
 
-            // unmark
-            if (input.startsWith("unmark ")) {
-                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                case "mark":
+                    int taskIndexMark = Integer.parseInt(taskDescription) - 1;
+                    if (taskIndexMark < taskCounter && taskIndexMark >= 0) {
+                        tasks[taskIndexMark].mark();
+                        System.out.println("\t------------------------------------------");
+                        System.out.println("\tNice! I've marked this task as done:");
+                        System.out.println("\t\t[" + tasks[taskIndexMark].getStatusIcon() + "] " + tasks[taskIndexMark].getDescription());
+                        System.out.println("\t------------------------------------------");
+                    } else {
+                        System.out.println("\tInvalid index..");
+                    }
+                    break;
 
-                if (taskIndex < taskCounter && taskIndex >= 0) {
-                    tasks[taskIndex].unmark();
+                case "unmark":
+                    int taskIndexUnmark = Integer.parseInt(taskDescription) - 1;
+                    if (taskIndexUnmark < taskCounter && taskIndexUnmark >= 0) {
+                        tasks[taskIndexUnmark].unmark();
+                        System.out.println("\t------------------------------------------");
+                        System.out.println("\tOk, I've marked this task as not done yet:");
+                        System.out.println("\t\t[" + tasks[taskIndexUnmark].getStatusIcon() + "] " + tasks[taskIndexUnmark].getDescription());
+                        System.out.println("\t------------------------------------------");
+                    } else {
+                        System.out.println("\tInvalid index..");
+                    }
+                    break;
 
+                case "bye":
+                    // exit
                     System.out.println("\t------------------------------------------");
-                    System.out.println("\tOk, I've marked this task as not done yet:");
-                    System.out.println("\t\t[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
+                    System.out.println("\tBye, see you again :)");
                     System.out.println("\t------------------------------------------");
+                    scanner.close();
+                    return;
 
-                } else {
-                    System.out.println("Invalid index..");
-                }
+                default:
+                    // add task to tasks array
+                    if (!input.isEmpty()) {
+                        tasks[taskCounter] = new Task(input);
+                        taskCounter++;
+
+                        System.out.println("\t------------------------------------------");
+                        System.out.println("\tadded: " + input);
+                        System.out.println("\t------------------------------------------");
+                    }
+                    break;
             }
         }
-
-        System.out.println("\t------------------------------------------");
-        System.out.println("\tBye, see you again!");
-        System.out.println("\t------------------------------------------");
     }
 }
 
