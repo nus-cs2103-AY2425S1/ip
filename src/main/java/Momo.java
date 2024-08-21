@@ -1,96 +1,224 @@
 import java.util.*;
 
+import static java.lang.System.exit;
+import java.util.regex.*;
+
 public class Momo {
 
+    public static String horizontalLine = "____________________________________________________________";
 
+    public enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT
+    }
 
-    public static void main(String[] args) {
+    static Task[] list = new Task[100];
+    static int count = 0;
+
+    public static void main(String[] args) throws MomoException {
         Scanner sc = new Scanner(System.in);
-
-        String horizontalLine = "____________________________________________________________";
-        String logo = "⣿⣿⣿⡉⢀⣾⣿⡟⣩⣭⣭⡈⠙⢿⣿⣿⣿⣿⣿⡿⣻⣿⣿⣿⣿⣿⣿⣿⡇⠄\n" +
-                "⣿⣿⡗⠄⣼⣿⣿⢸⡿⠉⠉⢻⡆⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢠⠄\n" +
-                "⣿⡻⠁⢠⣿⣿⣿⣦⡛⠢⠴⠛⠁⣸⣿⣿⣿⣿⡿⠛⢉⣉⣉⡙⢻⣿⣿⣗⠄⠄\n" +
-                "⠷⠁⠄⢰⣿⣿⣿⣷⣬⣭⣼⣷⣿⣿⣿⣿⣿⡏⢀⣾⠟⠛⢿⣿⣄⣿⣿⡏⠄⠄\n" +
-                "⠄⠄⠄⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠄⠳⢀⣀⡼⢟⣼⣿⡟⠄⠄⠄\n" +
-                "⠄⠄⠄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣒⣲⣶⣾⣿⣿⠏⠄⠄⠄⢠\n" +
-                "⠄⠄⠄⠸⣿⣽⣿⣿⣿⣿⣉⣿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠄⠄⠄⢠⣷\n" +
-                "⠄⠄⠄⠄⢻⣷⢻⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⠏⠄⠄⠄⠄⠄⢀⣾⣿\n" +
-                "⠄⠄⠄⠄⠄⢻⣧⡙⢿⣿⣿⣿⣿⣿⡿⣿⣿⣿⠿⠛⠁⠄⠄⠄⠄⠄⢠⣿⣿⣿\n" +
-                "⠄⠄⠄⡀⠄⠈⣿⣿⣶⣭⣭⣭⣿⣾⡿⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⢠⣿⣿⣿⣿\n" +
-                "⠄⠄⠎⠄⠄⣨⣿⣿⣿⣿⣿⣿⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡲⣿⣿⣿⣿";
 
         System.out.println("Hello! I'm Momo\nWhat can I do for you?");
         String input = sc.nextLine();
-        Task[] list = new Task[100];
-        int count = 0;
 
-
-        while (!Objects.equals(input, "bye")) {
-
-            if (Objects.equals(input, "list")) {
-                System.out.println(horizontalLine);
-                for (int i = 0; list[i] != null; i++) {
-                    System.out.println(i + 1 + ". " + list[i]);
+        while (true) {
+            try {
+                Command command = checkValidInput(input);
+                if (command == Command.BYE) {
+                    MomoBye();
                 }
-                System.out.println(horizontalLine);
-                input = sc.nextLine();
-                continue;
-            }
+                else if (command == Command.LIST) {
+                    printList();
+                }
+                else if (command == Command.MARK) {
+                    changeCompletion(Integer.parseInt(input.split(" ")[1]) - 1, Command.MARK);
+                }
+                else if (command == Command.UNMARK) {
+                    changeCompletion(Integer.parseInt(input.split(" ")[1]) - 1, Command.UNMARK);
+                }
+                else {
+                    if (command == Command.TODO) {
+                        addToDo(input);
+                    }
+                    else if (command == Command.DEADLINE) {
+                        addDeadline(input);
 
-            if (input.startsWith("mark")) {
-                System.out.println(horizontalLine);
-                int index =  Integer.parseInt(input.split(" ")[1]) - 1;
-                Task task = list[index];
-                task.markComplete();
-                System.out.println(horizontalLine);
-                input = sc.nextLine();
-                continue;
-            }
+                    }
 
-            if (input.startsWith("unmark")) {
-                System.out.println(horizontalLine);
+                    else if (command == Command.EVENT) {
+                        addEvent(input);
+                    }
+
+                    printTaskAdded();
+                    count++;
+
+                }
+
+            }
+            catch (MomoException e){
+                System.out.println(e.getMessage());
+            }
+            input = sc.nextLine();
+        }
+    }
+
+    public static Command checkValidInput(String input) throws MomoException {
+
+        // Check if input is empty
+        if (Objects.equals(input, "")) {
+            throw new MomoException("I dare you to send an empty command again...");
+        }
+
+        // Check if input is bye
+        if (Objects.equals(input, "bye")) {
+            return Command.BYE;
+        }
+
+        // Check if input is list
+        if (Objects.equals(input, "list")) {
+            return Command.LIST;
+        }
+
+        // Checking for mark and unmark input
+        if (input.startsWith("mark") || input.startsWith("unmark")) {
+            // Check if input has format "mark x" or "unmark x"
+            if (Pattern.matches("mark\\s\\d", input)) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                Task task = list[index];
-                task.unmark();
-                System.out.println(horizontalLine);
-                input = sc.nextLine();
-                continue;
+
+                if (index >= count || index < 0) {
+                    throw new MomoException("You can only mark a number your task list contains");
+                }
+                return Command.MARK;
             }
 
-            String taskType = input.split(" ")[0];
+            else if (Pattern.matches("unmark\\s\\d", input)) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
 
-            switch (taskType) {
-                case "todo" -> {
-                    String task = input.split(" ",2)[1];
-                    list[count] = new Todo(task);
+                if (index >= count || index < 0) {
+                    throw new MomoException("You can only unmark a number your task list contains");
                 }
-                case "deadline" -> {
-                    String desc = input.split(" ",2)[1];
-                    String task =  desc.split("/",2)[0];
-                    String by = desc.split("/",2)[1];
-                    list[count] = new Deadline(task, by);
+                return Command.UNMARK;
+            }
+
+            throw new MomoException("Mark my words - You must enter a number x next to mark or unmark in the exact format `mark x`.");
+        }
+
+        // Checking for proper task input
+        String taskType = input.split(" ")[0];
+
+        switch (taskType) {
+            case "todo" -> {
+                if (input.split(" ").length < 2) {
+                    throw new MomoException("Where's the description of your task??");
                 }
-                case "event" -> {
+                return Command.TODO;
+            }
+            case "deadline" -> {
+
+                try {
+                    String desc = input.split(" ", 2)[1];
+                    String task = desc.split("/", 2)[0];
+                    String by = desc.split("/", 2)[1];
+                    return Command.DEADLINE;
+                }
+                catch (Exception e) {
+                    throw new MomoException("You likely did not format your deadline properly\nIt should be in the format `deadline task /by date`");
+                }
+            }
+            case "event" -> {
+                try {
                     String desc = input.split(" ",2)[1];
                     String task =  desc.split("/",2)[0];
                     String from = desc.split("/",3)[1];
                     String to = desc.split("/",3)[2];
-
-                    list[count] = new Event(task, from, to);
+                    return Command.EVENT;
+                }
+                catch (Exception e) {
+                    throw new MomoException("You likely did not format your event properly\nIt should be in the format `event task /from date time /to time`");
                 }
             }
-
-            System.out.println(horizontalLine);
-            System.out.println("Noted. I've added this task:\n " + list[count]);
-            System.out.println(String.format("Now you have %d task(s) in the list", count + 1));
-            System.out.println(horizontalLine);
-            input = sc.nextLine();
-            count++;
+            default -> {
+                throw new MomoException("You did not properly specify the type of task (todo/deadline/event) or command (bye/list)");
+            }
         }
+    }
+
+    public static void MomoBye() {
+        String logo =
+                        "⣿⣿⣿⡉⢀⣾⣿⡟⣩⣭⣭⡈⠙⢿⣿⣿⣿⣿⣿⡿⣻⣿⣿⣿⣿⣿⣿⣿⡇⠄\n" +
+                        "⣿⣿⡗⠄⣼⣿⣿⢸⡿⠉⠉⢻⡆⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢠⠄\n" +
+                        "⣿⡻⠁⢠⣿⣿⣿⣦⡛⠢⠴⠛⠁⣸⣿⣿⣿⣿⡿⠛⢉⣉⣉⡙⢻⣿⣿⣗⠄⠄\n" +
+                        "⠷⠁⠄⢰⣿⣿⣿⣷⣬⣭⣼⣷⣿⣿⣿⣿⣿⡏⢀⣾⠟⠛⢿⣿⣄⣿⣿⡏⠄⠄\n" +
+                        "⠄⠄⠄⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠄⠳⢀⣀⡼⢟⣼⣿⡟⠄⠄⠄\n" +
+                        "⠄⠄⠄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣒⣲⣶⣾⣿⣿⠏⠄⠄⠄⢠\n" +
+                        "⠄⠄⠄⠸⣿⣽⣿⣿⣿⣿⣉⣿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠄⠄⠄⢠⣷\n" +
+                        "⠄⠄⠄⠄⢻⣷⢻⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⠏⠄⠄⠄⠄⠄⢀⣾⣿\n" +
+                        "⠄⠄⠄⠄⠄⢻⣧⡙⢿⣿⣿⣿⣿⣿⡿⣿⣿⣿⠿⠛⠁⠄⠄⠄⠄⠄⢠⣿⣿⣿\n" +
+                        "⠄⠄⠄⡀⠄⠈⣿⣿⣶⣭⣭⣭⣿⣾⡿⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⢠⣿⣿⣿⣿\n" +
+                        "⠄⠄⠎⠄⠄⣨⣿⣿⣿⣿⣿⣿⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡲⣿⣿⣿⣿";
 
         System.out.println(horizontalLine);
         System.out.println("Farewell... for now. I'll be waiting for your return, taking refuge in your shadows. Rest well.... wħɨłɇ ɏøᵾ sŧɨłł ȼȺn\n" + logo);
         System.out.println(horizontalLine);
+        System.exit(0);
+    }
+
+    public static void printList() {
+        System.out.println(horizontalLine);
+        for (int i = 0; list[i] != null; i++) {
+            System.out.println(i + 1 + ". " + list[i]);
+        }
+        System.out.println(horizontalLine);
+    }
+
+    public static void changeCompletion(int index, Command command) {
+        System.out.println(horizontalLine);
+        Task task = list[index];
+
+        if (command == Command.MARK) {
+            task.markComplete();
+            return;
+        }
+        task.unmark();
+        System.out.println(horizontalLine);
+
+    }
+
+    public static void addToDo(String input) {
+        String task = input.split(" ",2)[1];
+        list[count] = new Todo(task);
+    }
+
+    public static void addDeadline(String input) {
+        String desc = input.split(" ",2)[1];
+        String task =  desc.split("/",2)[0];
+        String by = desc.split("/",2)[1];
+        list[count] = new Deadline(task, by);
+
+    }
+
+    public static void addEvent(String input) {
+        String desc = input.split(" ",2)[1];
+        String task =  desc.split("/",2)[0];
+        String from = desc.split("/",3)[1];
+        String to = desc.split("/",3)[2];
+        list[count] = new Event(task, from, to);
+
+
+    }
+    public static void printTaskAdded() {
+        System.out.println(horizontalLine);
+        System.out.println("Noted. I've added this task:\n " + list[count]);
+        System.out.println(String.format("Now you have %d task(s) in the list", count + 1));
+        System.out.println(horizontalLine);
     }
 }
+
+
+
+
