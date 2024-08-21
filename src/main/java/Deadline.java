@@ -14,8 +14,9 @@ public class Deadline extends Todo{
         this.by = by;
     }
 
-    public String type(){
-        return "D";
+    @Override
+    public TaskType type() {
+        return TaskType.DEADLINE;
     }
 
     @Override

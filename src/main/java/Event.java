@@ -14,8 +14,9 @@ public class Event extends Deadline{
         this.from = from;
     }
 
-    public String type(){
-        return "E";
+    @Override
+    public TaskType type() {
+        return TaskType.EVENT;
     }
 
     @Override

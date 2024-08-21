@@ -2,7 +2,7 @@ class Todo extends Task {
     private boolean isDone;
 
     public Todo(String todo){
-        super(todo);
+        super(todo, TaskType.TODO);
     }
 
     public boolean isDone(){
@@ -18,13 +18,21 @@ class Todo extends Task {
     public void markAsDone(){
         this.isDone = true;
     }
+
+    public String getDescription(){
+        return this.description;
+    }
+
     public void unmarkTask(){
         this.isDone = false;
     }
-
-    public String type(){
-        return "T";
+    // Method to return TaskType
+    @Override
+    public TaskType type() {
+        return TaskType.TODO;
     }
+
+
     @Override
     public String toString(){
         return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription();

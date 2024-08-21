@@ -1,21 +1,11 @@
-public class Task {
+public abstract class Task {
     protected String description;
-
-    public Task(String description){
+    protected TaskType type;
+    public Task(String description, TaskType type){
         this.description = description;
+        this.type = type;
     }
+    // method to return TaskType
+    protected abstract TaskType type();
 
-    public String getDescription(){
-        return this.description;
-    }
-
-    public String type(){
-        return " ";
-    }
-
-
-    @Override
-    public String toString() {
-        return " ["+this.type()+"][ ] " + description;
-    }
 }
