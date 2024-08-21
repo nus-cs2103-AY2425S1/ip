@@ -55,7 +55,7 @@ Error: 'deadline' command requires a 'by' date.
 Usage: deadline <description> /by <day/date/time>
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Error: Error: 'event' command requires a description, a '/from' time, and a '/to' time.
+Error: 'event' command requires a description, a '/from' time, and a '/to' time.
 Usage: event <description> /from <day/date/time> /to <day/date/time>
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
