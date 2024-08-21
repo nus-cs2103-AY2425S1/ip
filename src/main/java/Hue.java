@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Hue {
 
     public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Hue {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String name = "Hue";
 
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
 
         System.out.println("____________________________________________________________" );
@@ -33,19 +34,18 @@ public class Hue {
                 if (input.equalsIgnoreCase("list")) {
                     listTasks(tasks, taskCount);
                 } else if (input.startsWith("mark")) {
-                   markTaskAsDone(input, tasks, taskCount);
+                   markTaskAsDone(input, tasks);
                 } else if (input.startsWith("unmark")) {
-                  unmarkTask(input, tasks, taskCount);
+                  unmarkTask(input, tasks);
                 } else if (input.startsWith("todo")) {
-                   addTodoTask(input, tasks, taskCount);
-                   taskCount++;
+                   addTodoTask(input, tasks);
                 } else if (input.startsWith("deadline")) {
-                   addDeadlineTask(input, tasks, taskCount);
-                   taskCount++;
+                   addDeadlineTask(input, tasks);
                 } else if (input.startsWith("event")) {
-                    addEventTask(input, tasks, taskCount);
-                    taskCount++;
-                } else if (!input.equalsIgnoreCase("bye")) {
+                    addEventTask(input, tasks);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input, tasks);
+                }else if (!input.equalsIgnoreCase("bye")) {
                    throw new HueException("I'm sorry, but I don't know what that means. Womp Womp :(");
                 }
             } catch (HueException e) {
@@ -61,20 +61,20 @@ public class Hue {
 
     }
 
-    private static void listTasks(Task[] tasks, int taskCount) {
+    private static void listTasks(ArrayList<Task> tasks, int taskCount) {
         System.out.println("Here are the tasks in your list: ");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
 
-    private static void markTaskAsDone(String input, Task[] tasks, int taskCount) throws HueException {
+    private static void markTaskAsDone(String input, ArrayList<Task> tasks) throws HueException {
         try {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markDone();
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(" " + tasks[taskIndex]);
+                System.out.println(" " + tasks.get(taskIndex));
             } else {
                 throw new HueException("Task Number is out of range.");
             }
@@ -83,13 +83,13 @@ public class Hue {
         }
     }
 
-    private static void unmarkTask(String input, Task[] tasks, int taskCount) throws HueException {
+    private static void unmarkTask(String input, ArrayList<Task> tasks) throws HueException {
         try {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].unmarkDone();
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).unmarkDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(" " + tasks[taskIndex]);
+                System.out.println(" " + tasks.get(taskIndex));
             } else {
                 throw new HueException("Task Number is out of range.");
             }
@@ -98,23 +98,22 @@ public class Hue {
         }
     }
 
-    private static void addTodoTask(String input, Task[] tasks, int taskCount) throws HueException {
+    private static void addTodoTask(String input, ArrayList<Task> tasks) throws HueException {
         try {
             String description = input.substring(5).trim();
             if (description.isEmpty()) {
                 throw new HueException("The description of a todo cannot be empty.");
             }
-            tasks[taskCount] = new Todo(description);
-            taskCount++;
+            tasks.add(new Todo(description));
             System.out.println("Got it. I've added this task");
-            System.out.println(" " + tasks[taskCount - 1]);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println(" " + tasks.get(tasks.size() - 1));
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             throw new HueException("The description of a todo cannot be empty." );
         }
     }
 
-    private static void addDeadlineTask(String input, Task[] tasks, int taskCount) throws HueException {
+    private static void addDeadlineTask(String input, ArrayList<Task> tasks) throws HueException {
         try {
             String[] parts = input.split("/by");
             String description = parts[0].substring(9).trim();
@@ -122,17 +121,16 @@ public class Hue {
             if (description.isEmpty() || by.isEmpty()) {
                 throw new HueException("The description and deadline of a task cannot be empty.");
             }
-            tasks[taskCount] = new Deadline(description, by);
-            taskCount++;
+            tasks.add(new Deadline(description, by));
             System.out.println("Got it. I've added this task");
-            System.out.println(" " + tasks[taskCount - 1]);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println(" " + tasks.get(tasks.size() - 1));
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             throw new HueException("Please provide both a description and a deadline for the task");
         }
     }
 
-    private static void addEventTask(String input, Task[] tasks, int taskCount) throws HueException {
+    private static void addEventTask(String input, ArrayList<Task> tasks) throws HueException {
         try {
             String[] parts = input.split ("/from|/to");
             String description = parts[0].substring(6).trim();
@@ -141,13 +139,28 @@ public class Hue {
             if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                 throw new HueException("The description, start time and end time of an event cannot be empty.");
             }
-            tasks[taskCount] = new Event(description, from, to);
-            taskCount++;
+            tasks.add(new Event(description, from, to));
             System.out.println("Got it. I've added this task");
-            System.out.println(" " + tasks[taskCount - 1]);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println(" " + tasks.get(tasks.size() - 1));
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         }  catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             throw new HueException("Pleae provide a description, start time and end time for the event.");
+        }
+    }
+
+    private static void deleteTask(String input, ArrayList<Task> tasks) throws HueException {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task removedTask = tasks.remove(taskIndex);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(removedTask);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list");
+            } else {
+                throw new HueException("Task number is out of range.");
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new HueException("Please provide a valid task number to delete");
         }
     }
 
