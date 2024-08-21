@@ -100,7 +100,7 @@ public class Botty {
                     }
                     break;
                 default:
-                    System.out.println(bottySymbol + "I'm sorry, I am unable to do that for you.");
+                    System.out.println(bottySymbol + "I'm sorry, that is not a command I am familiar with.");
 
             }
 
