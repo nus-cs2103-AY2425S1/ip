@@ -10,7 +10,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return taskIsDone ? "[X] " + this.description : "[ ] " + this.description;
+        return taskIsDone ? "[T][X] " + this.description : "[T][ ] " + this.description;
     }
 
 
