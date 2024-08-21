@@ -8,9 +8,9 @@ public class TalkieUnknownCommandException extends TalkieException {
 
    @Override
    public String toString() {
-       return "------------------------------------------------------------\n"
+       return "-------------------------------------------------------------------\n"
                + super.toString() + " I do not recognise the command, " + this.command +  ".\n"
                + "Please try again! :D\n"
-               + "------------------------------------------------------------\n";
+               + "-------------------------------------------------------------------\n";
    }
 }

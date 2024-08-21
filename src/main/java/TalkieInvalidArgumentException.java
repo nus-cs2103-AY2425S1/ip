@@ -10,10 +10,10 @@ public class TalkieInvalidArgumentException extends TalkieException {
 
     @Override
     public String toString() {
-        return "------------------------------------------------------------\n"
+        return "-------------------------------------------------------------------\n"
                 + super.toString() + " Your " + this.command + " has invalid arguments!\n"
                 + "Hint: " + hint +"\n"
                 + "Please try again! :D\n"
-                + "------------------------------------------------------------\n";
+                + "-------------------------------------------------------------------\n";
     }
 }

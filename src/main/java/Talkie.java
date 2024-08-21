@@ -78,12 +78,42 @@ public class Talkie {
     // The message displayed whenever a task is created
     public static String addMessage(Task t) {
         String taskWord = (taskList.size() > 1) ? "tasks" : "task";
-
         return horizontalLine + "\n"
                 + "Got it. I've added this task:\n"
                 + "  " + t + "\n"
                 + "Now you have " + taskList.size() + " " + taskWord + " in the list.\n"
                 + horizontalLine + "\n";
+    }
+
+    // Deletes a task
+    public static void deleteTask(String input)
+            throws TalkieMissingArgumentException, TalkieNoTaskFoundException, TalkieInvalidArgumentException{
+        String[] temp = input.split(" ");
+
+        // Check if user included an argument
+        if (temp.length == 1) {
+            throw new TalkieMissingArgumentException(temp[0], "The 'delete' command requires an integer as argument");
+
+        // Check if user included the correct int argument
+        } else if (Talkie.isInteger(temp[1])) {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+
+            // Check if the task is in the list
+            if (index <= taskList.size() - 1) {
+                Task task = taskList.remove(index);
+                String taskWord = (taskList.size() > 1) ? "tasks" : "task";
+                String doneMessage = horizontalLine + "\n"
+                        + "Noted! I've removed this task:\n"
+                        + "  " + task + "\n"
+                        + "Now you have " + taskList.size() + " " + taskWord + " in the list.\n"
+                        + horizontalLine + "\n";
+                System.out.println(doneMessage);
+            } else {
+                throw new TalkieNoTaskFoundException();
+            }
+        } else {
+            throw new TalkieInvalidArgumentException(temp[0], "The 'delete' command requires an integer as argument");
+        }
     }
 
     // Display the list of tasks
@@ -107,7 +137,7 @@ public class Talkie {
             throws TalkieInvalidArgumentException, TalkieMissingArgumentException, TalkieNoTaskFoundException {
         String[] temp = input.split(" ");
 
-        // Check if the user included an int argument
+        // Check if the user included an argument
         if (temp.length == 1) {
             throw new TalkieMissingArgumentException(temp[0], "The 'mark' command requires an integer as argument");
 
@@ -115,7 +145,7 @@ public class Talkie {
         } else if (Talkie.isInteger(temp[1])) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
 
-            // Check if the task index is valid in the task list
+            // Check if the task is in the list
             if (index <= taskList.size() - 1) {
                 Task task = taskList.get(index);
                 task.markAsDone();
@@ -138,7 +168,7 @@ public class Talkie {
             throws TalkieInvalidArgumentException, TalkieMissingArgumentException, TalkieNoTaskFoundException {
         String[] temp = input.split(" ");
 
-        // Check if the user included an int argument
+        // Check if the user included an argument
         if (temp.length == 1) {
             throw new TalkieMissingArgumentException(temp[0], "The 'unmark' command requires an integer as argument");
 
@@ -189,6 +219,9 @@ public class Talkie {
 
                 } else if (input.equalsIgnoreCase("list")) {
                     Talkie.listTasks();
+
+                } else if (input.startsWith("delete")) {
+                    Talkie.deleteTask(input);
 
                 } else if (input.startsWith("mark")) {
                     Talkie.markTask(input);
