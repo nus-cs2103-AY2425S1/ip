@@ -1,7 +1,7 @@
 @ECHO OFF
 
 REM Move up to the project root directory
-cd ..\..\..\text-ui-test
+cd ..\..\text-ui-test
 
 REM Debugging output: Show current directory
 echo START directory is %cd%
