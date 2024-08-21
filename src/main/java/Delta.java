@@ -27,7 +27,9 @@ public class Delta {
     }
 
     public static String markTask(int i) throws DeltaException{
-        if (i < 1 || i > list.size()) {
+        if (list.isEmpty()) {
+            throw new DeltaException("OOPS!!! List is empty, there is no task to mark.");
+        } else if (i < 1 || i > list.size()) {
             throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to mark.");
         }
         Task task = list.get(i - 1);
@@ -43,7 +45,9 @@ public class Delta {
     }
 
     public static String unmarkTask(int i) throws DeltaException {
-        if (i < 1 || i > list.size()) {
+        if (list.isEmpty()) {
+            throw new DeltaException("OOPS!!! List is empty, there is no task to unmark.");
+        } else if (i < 1 || i > list.size()) {
             throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to unmark.");
         }
         Task task = list.get(i - 1);
@@ -59,7 +63,9 @@ public class Delta {
     }
 
     public static String deleteTask(int i) throws DeltaException {
-        if (i < 1 || i > list.size()) {
+        if (list.isEmpty()) {
+            throw new DeltaException("OOPS!!! List is empty, there is no task to delete.");
+        } else if (i < 1 || i > list.size()) {
             throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to delete.");
         }
         Task task = list.get(i - 1);
