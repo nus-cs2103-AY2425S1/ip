@@ -16,9 +16,9 @@ public class Bee {
      * Print out "Bee" logo in ASCII art
      */
     private static final String logo = " ____\n"
-            + "|  _ \\  ___   ___ \n"
+            + "|  _ \\  ___   ___\n"
             + "| |_/  / _ \\ / _ \\\n"
-            + "| |_\\ |  __/|  __/ \n"
+            + "| |_\\ |  __/|  __/\n"
             + "|____/ \\___| \\___|\n";
 
     public static void main(String[] args) {

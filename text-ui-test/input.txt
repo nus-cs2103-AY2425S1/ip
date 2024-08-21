@@ -1,0 +1,16 @@
+todo
+todo task 1
+deadline
+deadline task 2 /by today
+list
+event task 2 /from today /to tmr
+list
+mark 4
+mark 0
+mark 1
+unmark 0
+list
+delete 0
+list
+blah
+bye!
