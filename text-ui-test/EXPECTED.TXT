@@ -77,22 +77,13 @@
     Sorry~ Please enter the description for todo
     ___________________________________________
     ___________________________________________
-    Sorry~ I can not understand what you said just now.
-    ___________________________________________
-    ___________________________________________
-    Sorry~ This task has already be marked.
-    ___________________________________________
-    ___________________________________________
-    Sorry~ This take is not marked yet
-    ___________________________________________
-    ___________________________________________
-    Sorry~ Please enter the description for todo
+    Sorry~ Please enter the description for deadline
     ___________________________________________
     ___________________________________________
     Sorry~ Please enter the by time for deadline
     ___________________________________________
     ___________________________________________
-    Sorry~ Please enter the decription for event
+    Sorry~ Please enter the description for event
     ___________________________________________
     ___________________________________________
     Sorry~ Please enter the from time for event
