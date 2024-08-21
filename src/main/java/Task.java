@@ -24,6 +24,11 @@ public class Task {
         this.completed = false;
     }
     public String toString() {
-        return this.name;
+        if (this.completed) {
+            return "[X] " + this.name;
+        }
+        else {
+            return "[ ] " + this.name;
+        }
     }
 }
