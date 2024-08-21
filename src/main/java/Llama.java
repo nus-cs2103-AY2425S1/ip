@@ -59,9 +59,11 @@ public class Llama {
                 displayString("Alright, the task is marked as not done: ");
                 displayString("Unmarked task: " + task.toString());
             } else {                                                // add other tasks
-                taskArray[last] = new Task(input);
-                last++;
-                displayString("Added: " + input);
+                if (command.equals("todo")) {
+                    taskArray[last] = new Todo(remaining);
+                    last++;
+                    displayString("Added: " + remaining);
+                }
             }
         }
 
