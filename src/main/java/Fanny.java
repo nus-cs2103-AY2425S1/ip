@@ -17,7 +17,7 @@ public class Fanny {
         while (true) {
             System.out.println("User: ");
             String cmd = scanner.nextLine();
-            String[] cmdParts = cmd.split(" ");
+            String[] cmdParts = cmd.split(" ", 2);
             String action = cmdParts[0];
 
             //condition to exit when cmd is bye
@@ -49,13 +49,7 @@ public class Fanny {
                 System.out.println("_____________________________________________");
             } else if (action.equals("todo")) {
                 System.out.println("_____________________________________________");
-                String description = "";
-                if (cmdParts.length > 1) {
-                    for (int i = 1; i < cmdParts.length; i++) {
-                        description += cmdParts[i] + " ";
-                    }
-                }
-                Task todo = new ToDo(description);
+                Task todo = new ToDo(cmdParts[1]);
                 list.add(todo);
                 System.out.println("Fanny: ");
                 System.out.println("Got it. I've added this task:");
@@ -64,14 +58,28 @@ public class Fanny {
                 System.out.println("_____________________________________________");
             } else if (action.equals("deadline")) {
                 System.out.println("_____________________________________________");
-                String[] cmdDeadline = cmd.split("/by ");
+                String[] cmdDeadline = cmdParts[1].split("/by ", 2);
                 String time = cmdDeadline[1];
-                String description = cmdDeadline[0].split("deadline")[1];
+                String description = cmdDeadline[0];
                 Task deadline = new Deadline(description, time);
                 list.add(deadline);
                 System.out.println("Fanny: ");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(deadline.toString());
+                System.out.println("Now you have " + list.getLength() + " tasks in the list.");
+                System.out.println("_____________________________________________");
+            } else if (action.equals("event")) {
+                System.out.println("_____________________________________________");
+                String[] cmdEvent = cmdParts[1].split("/from ", 2);
+                String description = cmdEvent[0];
+                String[] time = cmdEvent[1].split("/to ", 2);
+                String from = time[0];
+                String to = time[1];
+                Task event = new Event(description, from, to);
+                list.add(event);
+                System.out.println("Fanny: ");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(event.toString());
                 System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                 System.out.println("_____________________________________________");
             } else {
