@@ -3,22 +3,31 @@
      What can I do for you?
     ____________________________________________________________
 
-read book
+todo read book
     ____________________________________________________________
-     added: read book
+     Got it. I've added this task:
+       [T][ ] read book
+     Now you have 1 task in the list.
     ____________________________________________________________
 
-return book
+deadline submit report /by Friday
     ____________________________________________________________
-     added: return book
+     Got it. I've added this task:
+       [D][ ] submit report (by: Friday)
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+
+event team meeting /from Monday 10am /to Monday 12pm
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] team meeting (from: Monday 10am to: Monday 12pm)
+     Now you have 3 tasks in the list.
     ____________________________________________________________
 
 list
     ____________________________________________________________
-     1. read book
-     2. return book
-    ____________________________________________________________
-bye
-    ____________________________________________________________
-     Bye. Hope to see you again soon!
+     Here are the tasks in your list:
+     1.[T][ ] read book
+     2.[D][ ] submit report (by: Friday)
+     3.[E][ ] team meeting (from: Monday 10am to: Monday 12pm)
     ____________________________________________________________

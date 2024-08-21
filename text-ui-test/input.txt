@@ -1,4 +1,4 @@
-read book
-return book
+todo read book
+deadline submit report /by Friday
+event team meeting /from Monday 10am /to Monday 12pm
 list
-bye
