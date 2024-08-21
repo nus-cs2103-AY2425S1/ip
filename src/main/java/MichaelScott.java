@@ -41,11 +41,6 @@ public class MichaelScott {
                     }
                     System.out.println("____________________________________________________________");
                 }
-                case "blah" -> {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("blah");
-                    System.out.println("____________________________________________________________");
-                }
                 case "bye" -> {
                     System.out.println("____________________________________________________________");
                     System.out.println("Catch you on the flippity flip! ");
@@ -68,6 +63,16 @@ public class MichaelScott {
                     System.out.println("____________________________________________________________");
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(task.toString());
+                    System.out.println("____________________________________________________________");
+                }
+                case "delete" -> {
+                    int index = Integer.parseInt(parts[1]) - 1;
+                    Task task = todo.get(index);
+                    todo.remove(index);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(task.toString());
+                    System.out.println("Now you have " + todo.size() + (todo.size() > 1 ? " tasks" : (" task")) + " in the list.");
                     System.out.println("____________________________________________________________");
                 }
                 case "todo" -> {
