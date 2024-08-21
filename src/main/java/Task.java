@@ -2,15 +2,16 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public static Task of(String descriptions) {
-        if (descriptions.startsWith("todo")) {
-            return new ToDo(descriptions.substring(4));
-        } else if (descriptions.startsWith("deadline")) {
-            String[] strings = descriptions.substring(8).split("/");
+
+    public static Task of(String descriptions) throws MissingInformationException{
+        if (descriptions.startsWith("todo ")) {
+            return new ToDo(descriptions.substring(5));
+        } else if (descriptions.startsWith("deadline ")) {
+            String[] strings = descriptions.substring(9).split("/");
             return new DeadLine(strings[0],strings[1].substring(3));
-        } else if (descriptions.startsWith("event")) {
-            String[] strings = descriptions.substring(5).split("/");
-            return new Event(strings[0],strings[1].substring(5),strings[2].substring(3));
+        } else if (descriptions.startsWith("event ")) {
+            String[] strings = descriptions.substring(6).split("/");
+            return new Event(strings[0],strings[1].substring(6),strings[2].substring(3));
         } else {
             return null;
         }

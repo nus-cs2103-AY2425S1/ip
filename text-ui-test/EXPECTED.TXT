@@ -4,63 +4,63 @@
     ___________________________________________
     ___________________________________________
     Got it. I've added this task:
-    [T][ ]  borrow book
+    [T][ ] borrow book
     Now you have 1 tasks in the list
     ___________________________________________
     ___________________________________________
     Got it. I've added this task:
-    [D][ ]  return book  (by: Sunday)
+    [D][ ] return book  (by: Sunday)
     Now you have 2 tasks in the list
     ___________________________________________
     ___________________________________________
     Got it. I've added this task:
-    [E][ ]  project meeting  (from: Mon 2pm to: 4pm)
+    [E][ ] project meeting  (from: Mon 2pm to: 4pm)
     Now you have 3 tasks in the list
     ___________________________________________
     ___________________________________________
     Got it. I've added this task:
-    [T][ ]  wash clothes
+    [T][ ] wash clothes
     Now you have 4 tasks in the list
     ___________________________________________
     ___________________________________________
     Got it. I've added this task:
-    [D][ ]  CS2104 Assignment 1 (by: Friday)
+    [D][ ] CS2104 Assignment 1 (by: Friday)
     Now you have 5 tasks in the list
     ___________________________________________
     ___________________________________________
     Got it. I've added this task:
-    [E][ ]  LAJ1201 Lecture  (from: Tue 6pm to: 8pm)
+    [E][ ] LAJ1201 Lecture  (from: Tue 6pm to: 8pm)
     Now you have 6 tasks in the list
     ___________________________________________
     ___________________________________________
-    1. [T][ ]  borrow book
-    2. [D][ ]  return book  (by: Sunday)
-    3. [E][ ]  project meeting  (from: Mon 2pm to: 4pm)
-    4. [T][ ]  wash clothes
-    5. [D][ ]  CS2104 Assignment 1 (by: Friday)
-    6. [E][ ]  LAJ1201 Lecture  (from: Tue 6pm to: 8pm)
+    1. [T][ ] borrow book
+    2. [D][ ] return book  (by: Sunday)
+    3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash clothes
+    5. [D][ ] CS2104 Assignment 1 (by: Friday)
+    6. [E][ ] LAJ1201 Lecture  (from: Tue 6pm to: 8pm)
     ___________________________________________
     ___________________________________________
     Nice Job, Job 1 has been marked as done!
-    [T][X]  borrow book
+    [T][X] borrow book
     ___________________________________________
     ___________________________________________
     Nice Job, Job 3 has been marked as done!
-    [E][X]  project meeting  (from: Mon 2pm to: 4pm)
+    [E][X] project meeting  (from: Mon 2pm to: 4pm)
     ___________________________________________
     ___________________________________________
     Nice Job, Job 5 has been marked as done!
-    [D][X]  CS2104 Assignment 1 (by: Friday)
+    [D][X] CS2104 Assignment 1 (by: Friday)
     ___________________________________________
     ___________________________________________
     Alright, Job 5 has been marked as not done!
-    [D][ ]  CS2104 Assignment 1 (by: Friday)
+    [D][ ] CS2104 Assignment 1 (by: Friday)
     ___________________________________________
     ___________________________________________
-    1. [T][X]  borrow book
-    2. [D][ ]  return book  (by: Sunday)
-    3. [E][X]  project meeting  (from: Mon 2pm to: 4pm)
-    4. [T][ ]  wash clothes
-    5. [D][ ]  CS2104 Assignment 1 (by: Friday)
-    6. [E][ ]  LAJ1201 Lecture  (from: Tue 6pm to: 8pm)
+    1. [T][X] borrow book
+    2. [D][ ] return book  (by: Sunday)
+    3. [E][X] project meeting  (from: Mon 2pm to: 4pm)
+    4. [T][ ] wash clothes
+    5. [D][ ] CS2104 Assignment 1 (by: Friday)
+    6. [E][ ] LAJ1201 Lecture  (from: Tue 6pm to: 8pm)
     ___________________________________________
