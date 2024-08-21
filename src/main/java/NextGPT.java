@@ -101,7 +101,16 @@ public class NextGPT {
                     String line = sc.nextLine().trim();
                     if (line.length() == 0) throw new Exception("Todo task cannot be empty!");
                     addToDo(line);
-                } else {
+                } else if (input.toLowerCase().equals("delete")) {
+                    int index = sc.nextInt();
+                    if (index > todo_list.size() || index <= 0) throw new Exception("Task is not within the saved list! Please double check");
+                    Task task = todo_list.remove(index - 1);
+                    System.out.println("_______________________________________________________\n " +
+                            "Noted. I've removed this task:\n " + task + "\n" +
+                            "Now you have " + todo_list.size() + " tasks in the list." + "\n" +
+                            "_______________________________________________________\n");
+                }
+                else {
                     throw new Exception(":( I am unable to understand what that means! Please do try again in the available formats!");
                 }
             } catch (Exception e) {
