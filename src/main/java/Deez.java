@@ -37,6 +37,10 @@ public class Deez {
                 break;
             }
             if (str.equals(CMD_list)) {
+                if (items.isEmpty()) {
+                    Deez.say("<No items in list>");
+                    continue;
+                }
                 // Print list
                 int cnt = 1;
                 System.out.println("____________________________________________________________");
