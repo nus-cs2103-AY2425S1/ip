@@ -41,7 +41,7 @@ public class Botty {
 
             String userInput = inputScanner.nextLine();
 
-            String[] splitInput = userInput.split(" ");
+            String[] splitInput = userInput.split(" ", 2);
             String command = splitInput[0];
 
             boolean hasIntegerArgument = splitInput.length > 1 && isNumber(splitInput[1]);
@@ -74,15 +74,30 @@ public class Botty {
                                 "Do indicate which task to unmark with its number!");
                     }
                     break;
-                default:
-                    if (currentIndex < taskList.length) {
-                        taskList[currentIndex] = new Task(userInput);
-                        currentIndex++;
-                        System.out.println(bottySymbol + "I have added \"" + userInput + "\" to the list!");
+                case "todo":
+                    addToTasklist(new Todo(splitInput[1]));
+                    break;
+                case "event":
+                    Event event = Event.generateFromString(splitInput[1]);
+                    if (event == null) {
+                        System.out.println(bottySymbol + "I am unable to add that event! Please provide details in " +
+                                "the following format: [description] /from [start] /to [end]");
                     } else {
-                        System.out.println(bottySymbol +
-                                "I have run out of space, sorry! Here's a cookie \uD83C\uDF6A");
+                        addToTasklist(event);
                     }
+                    break;
+                case "deadline":
+                    Deadline deadline = Deadline.generateFromString(splitInput[1]);
+                    if (deadline == null) {
+                        System.out.println(bottySymbol + "I am unable to add that deadline! Please provide details " +
+                                "in the following format: [description] /by [deadline]");
+                    } else {
+                        addToTasklist(deadline);
+                    }
+                    break;
+                default:
+                    System.out.println(bottySymbol + "I'm sorry, I am unable to do that for you.");
+
             }
 
         }
@@ -90,7 +105,20 @@ public class Botty {
         inputScanner.close();
         System.out.println(bottySymbol + "Thank you for your continued patronage. Goodbye!");
     }
+    private static void addToTasklist(Task task) {
+        if (currentIndex < taskList.length) {
+            taskList[currentIndex] = task;
+            currentIndex++;
 
+            System.out.println(bottySymbol + "I have added the following task to the list!");
+            System.out.println(bottyIndentation + task);
+
+            System.out.println(bottyIndentation + "You now have " + currentIndex + " tasks.");
+        } else {
+            System.out.println(bottySymbol +
+                    "I have run out of space, sorry! Here's a cookie \uD83C\uDF6A");
+        }
+    }
     private static boolean isNumber(String string) {
         try {
             Integer.parseInt(string);
