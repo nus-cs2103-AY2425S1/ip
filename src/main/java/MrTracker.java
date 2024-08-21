@@ -19,7 +19,9 @@ public class MrTracker {
 
     public static void printTaskList(ArrayList<Task> taskList) {
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i+1 + ". " + taskList.get(i).name);
+            Task currTask = taskList.get(i);
+            String prefix = currTask.isDone ? "[X] " : "[ ] ";
+            System.out.println(i+1 + "." + prefix + taskList.get(i).name);
         }
     }
 
@@ -28,6 +30,20 @@ public class MrTracker {
         taskList.add(newTask);
         System.out.println("added: " + taskName);
     }
+
+    public static int checkMarkIndex(String command) {
+        // start at 5 because thats where the number should be
+        String trimmed = command.substring(5);
+        try {
+            int res = Integer.parseInt(trimmed);
+            return res;
+        } catch (Exception ex) {
+            // if the string after "mark " are not numbers, return an invalid index
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    public static void markTask()
 
     public static void main(String[] args) {
         String name = "Mr Tracker";
@@ -47,7 +63,23 @@ public class MrTracker {
             } else if (lowerInput.equals("list")) {
                 MrTracker.printTaskList(taskList);
             } else {
-                MrTracker.addTask(taskList, input);
+                if (input.startsWith("mark ")) {
+                    int index = MrTracker.checkMarkIndex(input);
+                    // if index is outside of acceptable range,
+                    if (index == Integer.MAX_VALUE) {
+                        MrTracker.addTask(taskList, input);
+                    } else if (index < 1 || index > taskList.size()) {
+                        System.out.println("task " + index + " does not exist");
+                    } else {
+                        index--;
+                        Task curr = taskList.get(index);
+                        curr.mark();
+                        System.out.println("task " + ++index + " is marked!");
+                    }
+                } else {
+                    MrTracker.addTask(taskList, input);
+                }
+
             }
             MrTracker.printLine();
         }
