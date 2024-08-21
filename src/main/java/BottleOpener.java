@@ -16,7 +16,7 @@ public class BottleOpener {
 
         String userInput = "";
         int index = 0;
-        ArrayList<String> tasks = new ArrayList<String>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         while (true) {
             try {
@@ -24,22 +24,23 @@ public class BottleOpener {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
 
-                String taskOutput = "";
+                String output = "";
                 for (int i = 0; i < tasks.size(); i++) {
-                    String eachTask = String.format("%d. %s",i+1, tasks.get(i));
-                    taskOutput = taskOutput + eachTask + "\n";
+                    output = output + String.format("%d. %s%n", i+1, tasks.get(i));
                 }
-                System.out.println(spacer + taskOutput + spacer);
+                System.out.println(spacer + output + spacer);
 
             } else {
                 System.out.println(spacer + "added: " +
                         userInput + "\n" + spacer);
 
-                tasks.add(index, userInput);
+                Task userTask = new Task(userInput);
+                tasks.add(index, userTask);
                 index += 1;
             }
         }
