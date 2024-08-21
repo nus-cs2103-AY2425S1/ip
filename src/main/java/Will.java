@@ -98,6 +98,7 @@ public class Will {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + tasks.get(index - 1));
         } else {
+            System.out.println("_____________________________________");
             System.out.println("No Task Found");
         }
         System.out.println("_____________________________________");
@@ -110,6 +111,7 @@ public class Will {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + tasks.get(index - 1));
         } else {
+            System.out.println("_____________________________________");
             System.out.println("No Task Found");
         }
         System.out.println("_____________________________________");
@@ -142,20 +144,52 @@ public class Will {
         System.out.println("_____________________________________");
     }
 
+    static void defaultMsg(){
+        System.out.println("_____________________________________");
+        System.out.println("I'm sorry, but I don't know what that means");
+        System.out.println("_____________________________________");
+    }
+    
+    static void endMsg(){
+        System.out.println("_____________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("_____________________________________");
+    }
+    
+    static void greetMsg(String logo){
+        System.out.println("Hello! I'm " + logo);
+        System.out.println("What can I do for you?");
+        System.out.println("_____________________________________");
+    }
+
+    static void blankMsg(String type){
+        System.out.println("_____________________________________");
+        switch (type){
+            case "todo":
+                System.out.println("The description of a " + type + " cannot be empty.");
+                break;
+            case "number":
+                System.out.println("The task number cannot be empty.");
+                break;
+            default:
+                System.out.println("The description and date of a " + type + " cannot be empty.");
+                break;
+        }
+        System.out.println("_____________________________________");
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         String logo = "WILL";
-        System.out.println("Hello! I'm " + logo);
-        System.out.println("What can I do for you?");
-        System.out.println("_____________________________________");
+        greetMsg(logo);
 
         while (true) {
             String userInput = scanner.nextLine();
 
             if (Objects.equals(userInput, "bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                endMsg();
                 break;
             }
 
@@ -164,44 +198,75 @@ public class Will {
                 continue;
             }
 
-            if (userInput.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(userInput.substring(5).trim());
-                markTask(tasks, taskNumber);
+            if (userInput.startsWith("mark")) {
+                try{
+                    int taskNumber = Integer.parseInt(userInput.substring(5).trim());
+                    markTask(tasks, taskNumber);
+                }catch(StringIndexOutOfBoundsException e){
+                    blankMsg("number");
+                }
                 continue;
             }
 
-            if (userInput.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(userInput.substring(7).trim());
-                unmarkTask(tasks, taskNumber);
+            if (userInput.startsWith("unmark")) {
+                try{
+                    int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                    unmarkTask(tasks, taskNumber);
+                }catch(StringIndexOutOfBoundsException e){
+                    blankMsg("number");
+                }
                 continue;
             }
 
-            if (userInput.startsWith("todo ")) {
-                String desc = userInput.substring(5).trim();
-                todoTask(tasks, desc);
+            if (userInput.startsWith("todo")) {
+                try{
+                    String desc = userInput.substring(5).trim();
+                    if(!desc.isEmpty()){
+                        todoTask(tasks, desc);
+                    }else{
+                        blankMsg("todo");
+                    }
+                }catch(StringIndexOutOfBoundsException e){
+                    blankMsg("todo");
+                }
+
                 continue;
             }
 
-            if (userInput.startsWith("deadline ")) {
-                String[] parts = userInput.substring(9).split(" /by ");
-                String desc = parts[0].trim();
-                String by = parts[1].trim();
-                deadTask(tasks, desc, by);
+            if (userInput.startsWith("deadline")) {
+                try {
+                    String[] parts = userInput.substring(9).split(" /by ");
+                    String desc = parts[0].trim();
+                    String by = parts[1].trim();
+                    if(!desc.isEmpty()){
+                        deadTask(tasks, desc, by);
+                    }else{
+                        blankMsg("deadline");
+                    }
+                }catch(StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e){
+                    blankMsg("deadline");
+                }
                 continue;
             }
 
-            if (userInput.startsWith("event ")) {
-                String[] parts = userInput.substring(6).split(" /from | /to ");
-                String desc = parts[0].trim();
-                String from = parts[1].trim();
-                String to = parts[2].trim();
-                eventTask(tasks, desc, from, to);
+            if (userInput.startsWith("event")) {
+                try{
+                    String[] parts = userInput.substring(6).split(" /from | /to ");
+                    String desc = parts[0].trim();
+                    String from = parts[1].trim();
+                    String to = parts[2].trim();
+                    if(!desc.isEmpty()){
+                        eventTask(tasks, desc, from, to);
+                    }else{
+                        blankMsg("event");
+                    }
+                }catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e){
+                    blankMsg("event");
+                }
                 continue;
             }
 
-            tasks.add(new Task(userInput));
-            System.out.println("added: " + userInput);
-            System.out.println("_____________________________________");
+            defaultMsg();
         }
     }
 }
