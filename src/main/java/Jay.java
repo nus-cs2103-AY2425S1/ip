@@ -7,9 +7,13 @@ public class Jay {
     }
 
     private final String name;
+    private String[] tasks;
+    private int taskCount;
 
     public Jay(String name) {
         this.name = name;
+        this.tasks = new String[100];
+        this.taskCount = 0;
     }
 
     public void start() {
@@ -39,7 +43,31 @@ public class Jay {
     }
 
     private String processCommand(String command) {
-        return formatCommand(command);
+        if (command.equals("list")) {
+            return this.showTasks();
+        } else {
+            return this.addTask(command);
+        }
+    }
+
+    private String showTasks() {
+        StringBuilder tasks = new StringBuilder();
+
+        for (int i = 0; i < this.taskCount; i++) {
+            if (i == this.taskCount - 1) {
+                tasks.append((i + 1)).append(". ").append(this.tasks[i]);
+            } else {
+                tasks.append((i + 1)).append(". ").append(this.tasks[i]).append("\n");
+            }
+        }
+
+        return formatCommand(tasks.toString());
+    }
+
+    private String addTask(String task) {
+        this.tasks[this.taskCount] = task;
+        this.taskCount++;
+        return formatCommand("added: " + task);
     }
 
     private String formatCommand(String command) {
