@@ -8,8 +8,8 @@ public class Luke {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     ArrayList<Task> l = new ArrayList<>();
     String logo =
-      " __                \n"
-      + "| |    _   _ _  _____ \n"
+      " __\n"
+      + "| |    _   _ _  _____\n"
       + "| |   | | | | |/ / _ \\\n"
       + "| |__ | |_| |   <  __/\n"
       + "|____| \\__,_|_|\\_\\___|\n";
