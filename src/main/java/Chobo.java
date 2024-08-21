@@ -8,8 +8,7 @@ public class Chobo {
         System.out.println("Hello! I'm Chobo\nWhat can I do for you?");
         System.out.println(line);
         while (true) {
-            String original = scanner.nextLine();
-            String[] input = original.split(" ",2);
+            String[] input = scanner.nextLine().split(" ");
             if (input[0].equals("bye")) {
                 break;
             } else if (input[0].equals("list")) {
@@ -18,16 +17,8 @@ public class Chobo {
                 markTask(tasks[Integer.parseInt(input[1])-1]);
             } else if (input[0].equals("unmark")) {
                 unmarkTask(tasks[Integer.parseInt(input[1])-1]);
-            } else if (input[0].equals("todo")){
-                addTask(new ToDo(String.join(" ", input), false));
-            } else if (input[0].equals("deadline")) {
-                String[] part = input[1].split("/by" ,2);
-                addTask(new Deadline(part[0],false, part[1]));
-            } else if (input[0].equals("event")){
-                String[] part = input[1].split("/from", 2);
-                String[] dates = part[1].split("/to", 2);
-                addTask(new Event(part[0],false, dates[0], dates[1]));
-
+            } else {
+                addTask(String.join(" ", input));
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
@@ -56,13 +47,12 @@ public class Chobo {
         System.out.println(line);
     }
 
-    private static void addTask(Task newTask) {
-        //Task newTask =  newToDo(newTaskName,false);
+    private static void addTask(String newTaskName) {
+        Task newTask = new Task(newTaskName,false);
         tasks[totalTask] = newTask;
         System.out.println(line);
-        System.out.println("added: " + newTask  );
+        System.out.println("added: " + newTaskName);
         totalTask++;
-        System.out.println(totalTask + " task(s) in the list");
         System.out.println(line);
     }
 }
