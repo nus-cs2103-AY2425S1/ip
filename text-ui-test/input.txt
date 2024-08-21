@@ -1,0 +1,12 @@
+todo borrow book
+deadline return book /by Sunday
+deadline selling seashells by the seashore /by Monday
+event Helix Board Games /from 7pm Wed /to 9pm
+todo Advance Readings
+list
+mark 1
+unmark 1
+list
+delete 1
+list
+bye
