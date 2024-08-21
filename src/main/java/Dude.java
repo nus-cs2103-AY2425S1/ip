@@ -5,13 +5,29 @@ public class Dude {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
 
+    public enum TaskType {
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event");
+
+        private final String type;
+
+        TaskType(String type) {
+            this.type = type;
+        }
+
+        public String getType() {
+            return this.type;
+        }
+    }
+
     public static void addTask(String input) throws DudeException{
-        if (input.startsWith("todo ")) {
+        if (input.startsWith(TaskType.TODO.getType() + " ")) {
             if (input.substring(5).isEmpty()) {
                 throw new DudeException("The description of a todo cannot be empty!");
             }
             taskList.add(new Todo(input.substring(5)));
-        } else if (input.startsWith("deadline ")) {
+        } else if (input.startsWith(TaskType.DEADLINE.getType() + " ")) {
             String[] arr = input.substring(9).split(" /by ");
             if (arr[0].isEmpty()) {
                 throw new DudeException("The description of a deadline cannot be empty!");
@@ -19,7 +35,7 @@ public class Dude {
                 throw new DudeException("The deadline of a deadline cannot be empty!");
             }
             taskList.add(new Deadline(arr[0], arr[1]));
-        } else if (input.startsWith("event ")) {
+        } else if (input.startsWith(TaskType.EVENT.getType() + " ")) {
             String[] arr = input.substring(6).split(" /");
             if (arr[0].isEmpty()) {
                 throw new DudeException("The description of an event cannot be empty!");
