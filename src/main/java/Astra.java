@@ -10,6 +10,16 @@ public class Astra {
                 "____________________________________________________________\n";
     }
 
+    private static int getIndex(String text) throws AstraException {
+        int index;
+        try {
+            index = Integer.parseInt(text.split(" ")[1]);
+        } catch (Exception e) {
+            throw new AstraException("Invalid index.");
+        }
+        return index;
+    }
+
     private static HashMap<String, String> getArgs(String text) {
         String[] words = text.split(" ");
         HashMap<String, String> args = new HashMap<>();
@@ -41,6 +51,10 @@ public class Astra {
         System.out.println(formatMsg(msg));
     }
 
+    public static void listItems() {
+        System.out.println(formatMsg(tasks.toString()));
+    }
+
     public static void add(String type, String text) throws AstraException {
         String argText;
 
@@ -57,7 +71,6 @@ public class Astra {
         // build args map
         HashMap<String, String> args = getArgs(argText);
 
-        // validate args existence
         Task t = null;
             switch (type) {
                 case "todo" -> t = new Todo(args.get("main"));
@@ -75,8 +88,11 @@ public class Astra {
         System.out.println(formatMsg(msg));
     }
 
-    public static void listItems() {
-        System.out.println(formatMsg(tasks.toString()));
+    public static void delete(int index) throws AstraException {
+        Task t = tasks.get(index);
+        tasks.delete(index);
+        String msg = " Noted. I've removed this task: \n  " + t + "\n";
+        System.out.println(formatMsg(msg));
     }
 
     public static void mark(int index) throws AstraException {
@@ -107,22 +123,12 @@ public class Astra {
                     listItems();
                 } else if (command.equals("bye")) {
                     loop = false;
+                } else if (command.equals("delete")) {
+                    delete(getIndex(text));
                 } else if (command.equals("mark")) {
-                    int index;
-                    try {
-                        index = Integer.parseInt(text.split(" ")[1]);
-                    } catch (Exception e) {
-                        throw new AstraException("Invalid index.");
-                    }
-                    mark(index);
+                    mark(getIndex(text));
                 } else if (command.equals("unmark")) {
-                    int index;
-                    try {
-                        index = Integer.parseInt(text.split(" ")[1]);
-                    } catch (Exception e) {
-                        throw new AstraException("Invalid index.");
-                    }
-                    unmark(index);
+                    unmark(getIndex(text));
                 } else if (command.equals("todo")) {
                     add("todo", text);
                 } else if (command.equals("deadline")) {
