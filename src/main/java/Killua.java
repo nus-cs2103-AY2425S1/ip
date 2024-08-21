@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 
 public class Killua {
-    private static final String LINE = "____________________________________________________________";
+    private static final String LINE = "______________________________________________________________________________";
 
     public enum Command {
         BYE("bye"), LIST("list"), MARK("mark"), UNMARK("unmark"), DELETE("delete"), TODO("todo"), DEADLINE("deadline"), EVENT("event");
@@ -22,6 +22,21 @@ public class Killua {
             }
             throw new KilluaException("Invalid input: " + command);
         }
+    }
+
+    private static void showUserPage() {
+        printLine();
+        System.out.println("Welcome to Killua Task Manager!");
+        System.out.println("Here are some commands you can use:");
+        System.out.println("  bye - Exit the application");
+        System.out.println("  list - List all tasks");
+        System.out.println("  mark <task number> - Mark a task as done");
+        System.out.println("  unmark <task number> - Mark a task as not done yet");
+        System.out.println("  delete <task number> - Delete a task");
+        System.out.println("  todo <description> - Add a new todo task");
+        System.out.println("  deadline <description> /by <date> - Add a new deadline task");
+        System.out.println("  event <description> /from <start time> /to <end time> - Add a new event task");
+        printLine();
     }
 
     private static void printLine() {
@@ -81,11 +96,8 @@ public class Killua {
         printLine();
     }
 
-    public static void main(String[] args) throws KilluaException {
-        printLine();
-        System.out.println("Hello! I'm Killua");
-        System.out.println("What can I do for you?");
-        printLine();
+    public static void main(String[] args) {
+        showUserPage();
 
         boolean flag = true;
         Scanner scanner = new Scanner(System.in);
@@ -108,9 +120,9 @@ public class Killua {
                     case MARK, UNMARK, DELETE -> {
                         try {
                             int taskNumber = Integer.parseInt(argument);
-                            if (command == command.MARK) {
+                            if (command == Command.MARK) {
                                 markTaskDone(tasks, taskNumber - 1);
-                            } else if (command == command.UNMARK) {
+                            } else if (command == Command.UNMARK) {
                                 unmarkTask(tasks, taskNumber - 1);
                             } else {
                                 delete(tasks, taskNumber - 1);
@@ -118,7 +130,7 @@ public class Killua {
                         } catch (NumberFormatException e) {
                             throw new KilluaException("Please provide a valid number! e.g., " + command + " 1");
                         } catch (IndexOutOfBoundsException e) {
-                            throw new KilluaException("Task not found!");
+                            throw new KilluaException("Task not found: Task " + argument);
                         }
                     }
                     case TODO -> {
