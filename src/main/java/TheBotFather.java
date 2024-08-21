@@ -10,7 +10,7 @@ public class TheBotFather {
         printGreeting();
         printLine();
 
-        ArrayList<String> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -19,20 +19,31 @@ public class TheBotFather {
             if (Objects.equals(input, "bye")) break;
             if (Objects.equals(input, "list")) printList(taskList);
             else {
-                print("added: " + input);
-                taskList.add(input);
+
+                if (input.startsWith("mark ")) {
+                    int index = Integer.parseInt(String.valueOf(input.split(" ")[1])) - 1;
+                    print("Nice! I've marked this task as done:");
+                    taskList.get(index).markAsDone();
+                } else if (input.startsWith("unmark ")) {
+                    int index = Integer.parseInt(String.valueOf(input.split(" ")[1])) - 1;
+                    print("OK, I've marked this task as not done yet:");
+                    taskList.get(index).unmark();
+                } else {
+                    Task task = new Task(input);
+                    print("added: " + task);
+                    taskList.add(task);
+                }
+
             }
             printLine();
         }
-
         printGoodBye();
         printLine();
-
-
-
     }
 
-    public static void printList(ArrayList<String> taskList) {
+
+    public static void printList(ArrayList<Task> taskList) {
+        print("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             print(i + 1 + ". " + taskList.get(i));
         }
