@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Cloud {
 
+    private static final TaskList tasks = new TaskList();
     private static final String EXIT_COMMAND = "bye";
 
     private static void greet() {
@@ -25,50 +26,83 @@ public class Cloud {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    // manage the task adding logic for all task types
+    private static void addTask(Query query) {
+        String command = query.getCommand().strip();
+        String[] details;
+        switch (command) {
+            case "todo":
+                Todo todo = new Todo(query.getDetails());
+                tasks.add(todo);
+                break;
+            case "deadline":
+                details = query.getDetails().split("/by");
+                Deadline dl = new Deadline(details[0].strip(), details[1].strip());
+                tasks.add(dl);
+                break;
+            case "event":
+                details = query.getDetails().split("/from|/to");
+                Event event = new Event(
+                        details[0].strip(),
+                        details[1].strip(),
+                        details[2].strip()
+                );
+                tasks.add(event);
+                break;
+            default:
+                break;
+        }
+        System.out.printf(
+                "Added the following task:\n\t%s\nNow you have %d task%s in the list\n",
+                tasks.getLatestTask(),
+                tasks.getTaskCount(),
+                tasks.getTaskCount() != 1 ? "s" : ""
+        );
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        TaskList tasks = new TaskList();
         printHorizLine();
         greet();
         while (true) {
             printHorizLine();
+            System.out.print(">> ");
             String userInput = sc.nextLine().strip();
             // exit chat if user enters exit command
             if (userInput.equals(EXIT_COMMAND)) {
                 break;
             }
-            // print out the task list
-            if (userInput.equals("list")) {
-                System.out.println(tasks);
-                continue;
-            }
-            // check the first word in the command
-            String[] commandString = userInput.split(" ", 1);
-            String command = commandString[0];
+            // parse the user input to a Query object
+            Query query = Parser.parse(userInput);
+            String command = query.getCommand();
+
             int taskNum;
             switch (command) {
+                case "list":
+                    System.out.println(tasks);
+                    break;
                 case "mark":
-                    taskNum = Integer.parseInt(commandString[1]);
+                    taskNum = Integer.parseInt(query.getDetails());
                     tasks.mark(taskNum);
                     System.out.println("Task marked as done!");
                     System.out.println(tasks.getTaskStatus(taskNum));
                     break;
                 case "unmark":
-                    taskNum = Integer.parseInt(commandString[1]);
+                    taskNum = Integer.parseInt(query.getDetails());
                     tasks.unmark(taskNum);
                     System.out.println("Task marked as not done");
                     System.out.println(tasks.getTaskStatus(taskNum));
                     break;
-                case "todo":
-                    Todo todo = new Todo(commandString[1].strip());
-                    tasks.add(todo);
-                    System.out.println("added: " + userInput);
-
+                // case fallthrough for tasks
+                case ("event"):
+                case ("deadline"):
+                case ("todo"):
+                    addTask(query);
+                    break;
+                default:
+                    break;
             }
-            // save each input to the task list
-            tasks.add(userInput);
-
         }
         exit();
         printHorizLine();
