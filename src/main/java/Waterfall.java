@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class Waterfall {
     public static void main(String[] args) {
         String chatBotName = "Waterfall";
@@ -14,30 +15,26 @@ public class Waterfall {
             ("____________________________________________________________\n"
             + "Shhhhhhhhhhhh. Hope to see you again soon!\n"
             + "____________________________________________________________\n").indent(indentSpace);
-        String[] taskList = new String[100];
-        Boolean[] doneList = new Boolean[100];
-        Arrays.fill(doneList, false);
+        Task[] taskList = new Task[100];
         int num = 0;
         System.out.println(welcomeMessage);
         Scanner userInput = new Scanner(System.in);
-        boolean completed = false;
-        while (!completed) {
+        boolean exit = false;
+        while (!exit) {
             String nextInput = userInput.nextLine();
             switch (nextInput) {
                 case "bye":
                     System.out.println(byeMessage);
-                    completed = true;
+                    exit = true;
                     break;
                 case "list":
                     System.out.println(" ".repeat(indentSpace) + "___________________________________________________________");
                     for (int i = 0; i < num; i++) {
-                        if (taskList[i] != null) {
+                        Task task = taskList[i];
+                        if (task != null) {
                             String taskString = " ".repeat(indentSpace + 1) +
-                                    Integer.toString(i + 1)
-                                    + ".["
-                                    + (doneList[i] ? "X" : " ")
-                                    + "] " +
-                                    taskList[i];
+                                    Integer.toString(i + 1) + "."
+                                    + task.toString();
                             System.out.println(taskString);
                         } else {
                             break;
@@ -56,10 +53,11 @@ public class Waterfall {
                             System.out.println("Oops, this task does not exist");
                             break;
                         }
-                        doneList[index] = true;
+                        Task task = taskList[index];
+                        task.setDone(true);
                         String markResponse = ("____________________________________________________________\n"
-                                + "Huluhuluhulu, I've marked this task as done:\n"
-                                + "  [X] " + taskList[index] + "\n"
+                                + "Huluhuluhulu, I've marked this task as done:\n  "
+                                + task.toString() + "\n"
                                 + "____________________________________________________________\n").indent(indentSpace + 1);
                         System.out.println(markResponse);
                     } else if (nextInput.startsWith("unmark ") && (nextInput.substring(7).matches("\\d+"))) {
@@ -72,17 +70,18 @@ public class Waterfall {
                             System.out.println("Oops, this task does not exist");
                             break;
                         }
-                        doneList[index] = false;
+                        Task task = taskList[index];
+                        task.setDone(false);
                         String unmarkResponse = ("____________________________________________________________\n"
-                                + "Huluhuluhulu, I've marked this task as not done yet:\n"
-                                + "  [ ] " + taskList[index] + "\n"
+                                + "Hohohohohoho, I've marked this task as not done yet:\n  "
+                                + task.toString() + "\n"
                                 + "____________________________________________________________\n").indent(indentSpace + 1);
                         System.out.println(unmarkResponse);
                     } else {
                         String echoString = ("____________________________________________________________\n"
                                 + "added: " + nextInput + "\n"
                                 + "____________________________________________________________\n").indent(indentSpace);
-                        taskList[num] = nextInput;
+                        taskList[num] = new Task(nextInput);
                         num++;
                         System.out.println(echoString);
                     }

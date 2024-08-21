@@ -1,14 +1,26 @@
 public class Task {
-    boolean done;
-    String title;
+    private boolean isDone;
+    private String title;
 
     public Task(String title) {
-        this.done = false;
+        this.isDone = false;
         this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     @Override
     public String toString() {
-        return (done ? " [X] " : " [ ] ") + title;
+        return (isDone ? "[X] " : "[ ] ") + title;
     }
 }
