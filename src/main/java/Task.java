@@ -6,11 +6,11 @@ public class Task {
         this.name = name;
     }
 
-    private void setIsDone() {
+    public void setIsDone() {
         this.isDone = true;
     }
 
-    private void setIsNotDone() {
+    public void setIsNotDone() {
         this.isDone = false;
     }
 
