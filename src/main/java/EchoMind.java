@@ -25,6 +25,18 @@ public class EchoMind {
             for (int i = 0; i < this.toDoList.size(); i++) {
                 sendMessage((i + 1) + ". " + this.toDoList.get(i));
             }
+        } else if (message.matches("^mark \\d+$")) {
+            int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
+            Task t = this.toDoList.get(num - 1);
+            t.markAsDone();
+            sendMessage("Nice! I've marked this task as done:");
+            sendMessage(t.toString());
+        } else if (message.matches("^unmark \\d+$")) {
+            int num = Integer.parseInt(message.replaceAll("[^0-9]", ""));
+            Task t = this.toDoList.get(num - 1);
+            t.markAsNotDone();
+            sendMessage("OK, I've marked this task as not done yet:");
+            sendMessage(t.toString());
         } else {
             this.toDoList.add(new Task(message));
             sendMessage("added: " + message);
@@ -35,12 +47,9 @@ public class EchoMind {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         String message = "";
-        while (true) {
+        do {
             message = scanner.nextLine().trim();
-            if (!receiveMessage(message)) {
-                break;
-            }
-        }
+        } while (receiveMessage(message));
     }
 
     public static void main(String[] args) {
