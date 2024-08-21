@@ -32,8 +32,12 @@ public class Testament {
                 printDialogue("This task has been unmarked:\n" + taskList.getTask(taskNumber));
 
             } else if (splitUserInput[0].equals("todo")) {
-                printDialogue(splitUserInput[1] + " has been added to your schedule.");
                 taskList.add(new ToDo(splitUserInput[1]));
+                printDialogue(
+                        String.format("I've added the following task to your schedule:\n%s\n" +
+                                        "You have %d tasks to complete",
+                                taskList.getTask(taskList.getSize()), taskList.getSize())
+                );
             } else {
                 printDialogue(userInput + " has been added to your schedule.");
                 taskList.add(new Task(userInput));
