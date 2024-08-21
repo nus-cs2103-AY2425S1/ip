@@ -7,13 +7,12 @@ public class Slave {
 
     public static void main(String[] args) {
         welcome();
-        while (hasMoreInputs) {
-            getUserInput();
-        }
+
         goodbye();
 
     }
     private static void welcome() {
+        tryGetUser();
         pageBreakLine();
         // @@author Fluffykan-reused
         // logo sourced from: https://www.askapache.com/online-tools/figlet-ascii/
@@ -22,7 +21,8 @@ public class Slave {
                 + "|______ |      |_____|  \\  /  |______\n"
                 + "______| |_____ |     |   \\/   |______\n";
         System.out.println("Ugh... why did you wake me up...\nGuess I am now your personal\n" + logo);
-        getUser();
+        System.out.println("What do you want from me? Say it now, I don't have all day...");
+        pageBreakLine();
     }
 
     private static void pageBreakLine() {
@@ -39,7 +39,6 @@ public class Slave {
 
     private static void getUserInput() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("What do you want from me? Say it now, I don't have all day...");
         String input = sc.nextLine();
         String[] inputArr = input.split(" ");
         echo(input);
@@ -50,8 +49,11 @@ public class Slave {
                 deleteUser();
                 hasMoreInputs = false;
                 break;
-            case "nothing":
+            case "bye":
                 hasMoreInputs = false;
+                break;
+            case "rememberme":
+                getUser();
                 break;
             default:
                 System.out.println("I don't know what you are trying to get me to do.. be more specific or I'll quit");
@@ -86,9 +88,7 @@ public class Slave {
         }
     }
 
-
-
-    private static void getUser() {
+    private static void tryGetUser() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("username.txt"));
             user = reader.readLine();
@@ -96,7 +96,16 @@ public class Slave {
             if (user == null) {
                 throw new NoUserDataException("No username found");
             }
-        } catch (IOException | NoUserDataException e) { // FileNotFoundException is a subclass of IOException
+        } catch (IOException | NoUserDataException e) {
+            user = "slave driver";
+        }
+    }
+
+
+    private static void getUser() {
+        if (!user.equals("slave driver")) {
+            System.out.println("I already know your name, " + user + ", quit wasting my time...");
+        } else { // FileNotFoundException is a subclass of IOException
             boolean confirmed = false;
             do {
                 Scanner sc = new Scanner(System.in);
@@ -118,8 +127,6 @@ public class Slave {
                 System.out.println("Something went wrong, seems like the world doesn't want me to remember your name... Hope to see you never...");
                 System.exit(1);
             }
-        } finally {
-            System.out.println("Alright " + user + ", hopefully you won't work me to the bone this time");
         }
     }
 
