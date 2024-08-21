@@ -43,7 +43,7 @@ public class LBot {
                         Task todo = new Todo(taskDescription);
                         taskList.add(todo);
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Please specify task name.");
+                        System.out.println("Please specify your task.");
                     }
                     break;
                 case "$d":
@@ -57,7 +57,7 @@ public class LBot {
                         Task deadline = new Deadline(task, dueDate);
                         taskList.add(deadline);
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Please specify task name.");
+                        System.out.println("Please check that your command is in the correct format. Type $help for information :)");
                     }
                     break;
                 case "$e":
@@ -74,7 +74,7 @@ public class LBot {
                         Task event = new Event(taskDescription, startEvent, endEvent);
                         taskList.add(event);
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Please specify task name.");
+                        System.out.println("Please check that your command is in the correct format. Type $help for information :)");
                     }
                     break;
                 case "$l":
@@ -106,7 +106,7 @@ public class LBot {
                         task.deleteTask();
                         System.out.println("Successfully marked task: " + task);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Task does not exist");
+                        System.out.println("Task does not exist!");
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Specify a task to delete.");
                     }
