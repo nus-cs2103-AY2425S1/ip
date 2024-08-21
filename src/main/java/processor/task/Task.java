@@ -1,5 +1,7 @@
 package processor.task;
 
+import exceptions.deadline.DeadlineInvalidArgsException;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,12 +19,16 @@ public abstract class Task {
     this.state = state;
   }
 
-  public static Task of(String type, String arg) {
+  public static Task of(String type, String arg) throws DeadlineInvalidArgsException {
     switch (type) {
       case "todo":
         return new Todo(arg);
       case "deadline":
         final List<String> deadlineArgs = Arrays.asList(arg.split("/by "));
+        if (deadlineArgs.size() != 2 || deadlineArgs.get(1).replaceAll("\\s+", "").isEmpty()) {
+          throw new DeadlineInvalidArgsException();
+        }
+
         return new Deadline(deadlineArgs.get(0), deadlineArgs.get(1));
       case "event":
         final List<String> eventArgs = Arrays.asList(arg.split("/"));

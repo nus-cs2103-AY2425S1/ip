@@ -1,5 +1,7 @@
 package processor.task;
 
+import exceptions.deadline.DeadlineEmptyNameException;
+import exceptions.deadline.DeadlineInvalidArgsException;
 import exceptions.todo.TodoEmptyNameException;
 import response.Response;
 
@@ -12,7 +14,7 @@ public class Add {
     return new Response(java.util.List.of("Got it! I have added:\n  " + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"));
   }
 
-  public static Response todo(String prompt) throws TodoEmptyNameException {
+  public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException {
     final List<String> prompts = Arrays.asList(prompt.split("todo "));
     if (prompt.replaceAll("\\s+", "").length() == 4) {
       throw new TodoEmptyNameException();
@@ -21,13 +23,16 @@ public class Add {
     return Add.process(newTask);
   }
 
-  public static Response deadline(String prompt) {
+  public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException {
     final List<String> prompts = Arrays.asList(prompt.split("deadline "));
+    if (prompt.replaceAll("\\s+", "").length() == 8) {
+      throw new DeadlineEmptyNameException();
+    }
     final Task newTask = Task.of("deadline", prompts.get(1));
     return Add.process(newTask);
   }
 
-  public static Response event(String prompt) {
+  public static Response event(String prompt) throws DeadlineInvalidArgsException {
     final List<String> prompts = Arrays.asList(prompt.split("event "));
     final Task newTask = Task.of("event", prompts.get(1));
     return Add.process(newTask);
