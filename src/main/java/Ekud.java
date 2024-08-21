@@ -7,7 +7,7 @@ public class Ekud {
     public static final String LIST_COMMAND = "list";
     public static final int MAX_LIST_SIZE = 100;
 
-    private final String[] list = new String[MAX_LIST_SIZE];
+    private final Task[] tasks = new Task[MAX_LIST_SIZE];
     private int currListSize = 0;
     private boolean isRunning = true;
 
@@ -39,7 +39,7 @@ public class Ekud {
 
     public void addToList(String item) {
         // assume no more than LIST_MAX_SIZE items are added
-        list[currListSize] = item;
+        tasks[currListSize] = new Task(item);
         currListSize++;
         echo("added: " + item);
         echo(LINE_SEPARATOR);
@@ -47,7 +47,7 @@ public class Ekud {
 
     public void echoList() {
         for (int i = 0; i < currListSize; i++) {
-            echo(String.format("%d. %s", i+1, list[i]));
+            echo(String.format("%d. %s", i+1, tasks[i]));
         }
         echo(LINE_SEPARATOR);
     }
