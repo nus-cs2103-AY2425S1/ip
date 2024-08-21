@@ -2,7 +2,7 @@ import java.util.*;
 public class TaskList {
     private List<Task> tasks;
 
-    private class Task {
+    private abstract class Task {
         protected String name;
         protected boolean isDone;
 
@@ -26,12 +26,28 @@ public class TaskList {
         }
     }
 
+    private class Todo extends Task {
+        public Todo(String description) {
+            super(description);
+        }
+        @Override
+        public String toString() {
+            return "[T]" + "[" + this.getStatusIcon() + "] " + this.name;
+        }
+    }
+
+
+
+
+
+
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
     public void addTask(String task) {
         if (!task.equals("list")) {
-            tasks.add(new Task(task));
+            //tasks.add(new Task(task));
             System.out.println("    added: " + task);
         }
         else printTasks();
