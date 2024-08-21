@@ -73,7 +73,7 @@ public class Bibi {
                     if (!(cmd = scanner.nextLine()).matches(".+")) {
                         System.out.println("Invalid todo syntax: Please use \"todo <description>\"");
                     } else {
-                        ToDo td = new ToDo(cmd);
+                        ToDo td = new ToDo(cmd.stripIndent());
                         addToTaskList(tasks, td);
 
                         // Console
@@ -89,7 +89,7 @@ public class Bibi {
                         System.out.println("Invalid deadline syntax: Please use \"deadline <description> /by <deadline>\"");
                     } else {
                         String[] input = cmd.split(" /by ");
-                        Deadline dl = new Deadline(input[0], input[1]);
+                        Deadline dl = new Deadline(input[0].stripIndent(), input[1]);
                         addToTaskList(tasks, dl);
 
                         // Console
@@ -106,7 +106,7 @@ public class Bibi {
                     } else {
                         String[] input = cmd.split(" /from ");
                         String[] interval = input[1].split(" /to ");
-                        Event e = new Event(input[0], interval[0], interval[1]);
+                        Event e = new Event(input[0].stripIndent(), interval[0], interval[1]);
                         tasks.add(e);
 
                         // Console
