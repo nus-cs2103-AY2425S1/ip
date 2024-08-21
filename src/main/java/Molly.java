@@ -20,20 +20,24 @@ public class Molly {
         System.out.println("____________________________________________________________");
     }
 
-    public static void listToString(ArrayList<String> botMemory) {
+    public static void listToString(ArrayList<Task> botMemory) {
+        System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < botMemory.size(); i++) {
-            System.out.println((i + 1) + ". " + botMemory.get(i));
+            System.out.println((i + 1) + ". " + botMemory.get(i).toString());
         }
     }
 
     public static void assistUser() {
-        ArrayList<String> botMemory = new ArrayList<>();
+        ArrayList<Task> botMemory = new ArrayList<>();
         Scanner botScanner = new Scanner(System.in);
         System.out.println("____________________________________________________________");
         String userInput = botScanner.nextLine();
         while (!userInput.toLowerCase().equals("bye")) {
-            if (!userInput.toLowerCase().equals("list")) {
-                botMemory.add(userInput);
+            if (userInput.substring(0, userInput.length() - 2).equals("mark") || userInput.substring(0, userInput.length() - 2).equals("unmark")) {
+                botMemory.get(Integer.parseInt(userInput.substring(userInput.length() - 1)) - 1).toggleTaskDone();
+            }
+             else if (!userInput.toLowerCase().equals("list")) {
+                botMemory.add(new Task(userInput));
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
