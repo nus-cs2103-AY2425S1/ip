@@ -29,6 +29,14 @@ public class Ui {
         this.printHorizontalLine();
     }
 
+    public void printDeleteTask(Task t, int size) {
+        this.printHorizontalLine();
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t\t" + t);
+        System.out.println("\t Now your have " + size + " tasks in the list.");
+        this.printHorizontalLine();
+    }
+
     public void printTasks(ArrayList<Task> tasks) {
         this.printHorizontalLine();
         if (tasks.size() == 0) {

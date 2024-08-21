@@ -98,6 +98,20 @@ public class LevelHundred {
         }
     }
 
+    private void handleDeleteTask(String[] words) {
+        if (words.length == 1) {
+            this.ui.printException(new MissingArgumentException("delete", "task index"));
+            return;
+        }
+        try {
+            int idx = Integer.parseInt(words[1]) - 1;
+            Task t = this.storage.removeTask(idx);
+            this.ui.printDeleteTask(t, this.storage.size());
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            this.ui.printException(new InvalidArgumentException("task index", words[1]));
+        }
+    }
+
     private void run() {
         this.ui.greet(this.name);
 
@@ -124,6 +138,8 @@ public class LevelHundred {
                 case "todo": case "deadline": case "event":
                     this.handleAddTask(words, command);
                     break;
+                case "delete":
+                    this.handleDeleteTask(words);
                 default:
 
             }

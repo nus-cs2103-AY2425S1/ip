@@ -15,6 +15,10 @@ public class Storage {
         return this.taskList.get(idx);
     }
 
+    public Task removeTask(int idx) throws IndexOutOfBoundsException {
+        return this.taskList.remove(idx);
+    }
+
     public void addTask(Task t) {
         this.taskList.add(t);
     }
