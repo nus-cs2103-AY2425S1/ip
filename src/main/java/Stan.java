@@ -5,12 +5,7 @@ public class Stan {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
-        String logo = "Stan";
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm " + logo);
-        System.out.println(" What can I do for you today?");
-        System.out.println("____________________________________________________________");
-
+        greet();
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -30,11 +25,7 @@ public class Stan {
                         return;
 
                     case LIST:
-                        System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println(" " + (i + 1) + ". " + tasks.get(i));
-                        }
-                        System.out.println("_____________________________________________________________");
+                        getList();
                         break;
 
                     case MARK:
@@ -74,7 +65,20 @@ public class Stan {
             }
         }
     }
-
+    private static void greet() {
+        String logo = "Stan";
+        System.out.println("____________________________________________________________");
+        System.out.println(" Hello! I'm " + logo);
+        System.out.println(" What can I do for you today?");
+        System.out.println("____________________________________________________________");
+    }
+    private static void getList() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+        }
+        System.out.println("_____________________________________________________________");
+    }
     private static CommandType getCommandType(String command) throws StanException {
         try {
             return CommandType.valueOf(command.toUpperCase());
