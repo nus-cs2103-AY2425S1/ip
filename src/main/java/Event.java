@@ -14,6 +14,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)", super.toString(), description, from, to);
+        return String.format("[E][%s] %s (from: %s to: %s)", super.completedStringRepresentation(), description, from, to);
     }
 }

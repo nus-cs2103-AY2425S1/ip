@@ -5,7 +5,7 @@ public class Deadline extends Task {
   public Deadline(String line) {
     super(line);
     int slashIndex = line.indexOf("/");
-    this.description = line.substring(slashIndex - 1);
+    this.description = line.substring(0, slashIndex - 1);
     this.time = line.substring(slashIndex + 4);
   }
 
