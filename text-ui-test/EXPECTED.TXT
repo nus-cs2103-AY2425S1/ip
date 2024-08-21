@@ -56,5 +56,10 @@ Oops! Wrong format of todo: todo description cannot be empty!
 Oops! Wrong format of todo: todo description cannot be empty!
 ----------------------------------------------
 ----------------------------------------------
+Sure! I've deleted this task:
+[T][X] borrow book
+>> Now you have 2 tasks in the list.
+----------------------------------------------
+----------------------------------------------
 Pleased to help you! See you again ^_^
 ----------------------------------------------

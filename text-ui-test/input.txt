@@ -7,4 +7,5 @@ mark 1
 unmark 2
 todo
 todo
+delete 1
 bye
