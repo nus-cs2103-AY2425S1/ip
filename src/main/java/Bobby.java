@@ -24,4 +24,11 @@ public class Bobby {
         System.out.println("Bye. Hope to see you again soon!");
         horizontalLine(35);
     }
+
+    public static void repeat(String s) {
+        horizontalLine(35);
+        System.out.println();
+        System.out.println(s);
+        horizontalLine(35);
+    }
 }
