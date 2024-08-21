@@ -6,68 +6,84 @@ public class Talkie {
 
     protected static List<Task> taskList = new ArrayList<>();
     protected static Scanner scanner = new Scanner(System.in);
+    protected static String horizontalLine = "-------------------------------------------------------------------";
 
-    protected static String welcomeMessage = """
-                -----------------------------------------------
-                Hello! I'm Talkie, your friendly ChatBot.
-                What can I do for you?
-                -----------------------------------------------
-                """;
+    protected static String welcomeMessage = horizontalLine + "\n"
+            + "Hello! I'm Talkie, your friendly ChatBot.\n"
+            + "What can I do for you?\n"
+            + horizontalLine + "\n";
 
-    protected static String byeMessage = """ 
-                -----------------------------------------------
-                Bye. Hope to see you again soon!
-                -----------------------------------------------
-                """;
+    protected static String byeMessage = horizontalLine + "\n"
+            + "Bye. Hope to see you again soon!\n"
+            + horizontalLine + "\n";
 
     // Creates Deadline Task
-    public static void createDeadline(String input) {
+    public static void createDeadline(String input) throws TalkieMissingArgumentException {
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
-        String details = parts[1]; // rest of the input (eg. from, to details)
-        String[] deadlineParts = details.split("/by ");
-        String description = deadlineParts[0].trim();
-        String by = deadlineParts[1].trim();
 
-        Task newDeadline = new Deadline(description, by);
-        taskList.add(newDeadline);
-        String message = Talkie.addMessage(newDeadline);
-        System.out.println(message);
+        if (parts.length == 2) {
+            String details = parts[1]; // rest of the input (eg. from, to details)
+            String[] deadlineParts = details.split("/by ");
+            String description = deadlineParts[0].trim();
+            String by = deadlineParts[1].trim();
+
+            Task newDeadline = new Deadline(description, by);
+            taskList.add(newDeadline);
+            String message = Talkie.addMessage(newDeadline);
+            System.out.println(message);
+        } else {
+            throw new TalkieMissingArgumentException(parts[0],
+                    "The 'description' and 'by' of deadline cannot be empty.");
+        }
+
     }
 
     // Creates Event Task
-    public static void createEvent(String input) {
+    public static void createEvent(String input) throws TalkieMissingArgumentException {
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
-        String details = parts[1]; // rest of the input (eg. from, to details)
-        String[] eventParts = details.split("/from | /to ");
-        String description = eventParts[0].trim();
-        String from = eventParts[1].trim();
-        String to = eventParts[2].trim();
 
-        Task newEvent = new Event(description, from, to);
-        taskList.add(newEvent);
-        String message = Talkie.addMessage(newEvent);
-        System.out.println(message);
+        if (parts.length == 2) {
+            String details = parts[1]; // rest of the input (eg. from, to details)
+            String[] eventParts = details.split("/from | /to ");
+
+            String description = eventParts[0].trim();
+            String from = eventParts[1].trim();
+            String to = eventParts[2].trim();
+
+            Task newEvent = new Event(description, from, to);
+            taskList.add(newEvent);
+            String message = Talkie.addMessage(newEvent);
+            System.out.println(message);
+        } else {
+            throw new TalkieMissingArgumentException(parts[0],
+                    "The 'description', 'from' and 'to' of event cannot be empty.");
+        }
     }
 
     // Creates ToDo Task
-    public static void createToDo(String input) {
+    public static void createToDo(String input) throws TalkieMissingArgumentException{
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
-        String details = parts[1]; // rest of the input (eg. from, to details)
-        Task newToDo = new ToDo(details.trim());
-        taskList.add(newToDo);
-        String message = Talkie.addMessage(newToDo);
-        System.out.println(message);
+
+        if (parts.length == 2) {
+            String details = parts[1]; // rest of the input (eg. from, to details)
+            Task newToDo = new ToDo(details.trim());
+            taskList.add(newToDo);
+            String message = Talkie.addMessage(newToDo);
+            System.out.println(message);
+        } else {
+            throw new TalkieMissingArgumentException(parts[0], "The 'description' of todo cannot be empty.");
+        }
     }
 
     // The message displayed whenever a task is created
     public static String addMessage(Task t) {
         String taskWord = (taskList.size() > 1) ? "tasks" : "task";
 
-        return "-----------------------------------------------\n"
+        return horizontalLine + "\n"
                 + "Got it. I've added this task:\n"
                 + "  " + t + "\n"
                 + "Now you have " + taskList.size() + " " + taskWord + " in the list.\n"
-                + "-----------------------------------------------\n";
+                + horizontalLine + "\n";
     }
 
     // Display the list of tasks
@@ -79,39 +95,86 @@ public class Talkie {
             listMessage += description;
         }
 
-        String finalListMessage = "-----------------------------------------------\n"
+        String finalListMessage = horizontalLine + "\n"
                 + "Here are the tasks in your list:\n"
                 +  listMessage
-                + "-----------------------------------------------\n";
+                + horizontalLine + "\n";
         System.out.println(finalListMessage);
     }
 
     // Marks a task
-    public static void markTask(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        Task task = taskList.get(index);
-        task.markAsDone();
-        String doneMessage = "______________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
-                + " " + task + "\n"
-                + "______________________________________________\n";
-        System.out.println(doneMessage);
+    public static void markTask(String input)
+            throws TalkieInvalidArgumentException, TalkieMissingArgumentException, TalkieNoTaskFoundException {
+        String[] temp = input.split(" ");
+
+        // Check if the user included an int argument
+        if (temp.length == 1) {
+            throw new TalkieMissingArgumentException(temp[0], "The 'mark' command requires an integer as argument");
+
+        // Check if user included the correct int argument
+        } else if (Talkie.isInteger(temp[1])) {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+
+            // Check if the task index is valid in the task list
+            if (index <= taskList.size() - 1) {
+                Task task = taskList.get(index);
+                task.markAsDone();
+                String doneMessage = horizontalLine + "\n"
+                        + "Nice! I've marked this task as done:\n"
+                        + " " + task + "\n"
+                        + horizontalLine + "\n";
+                System.out.println(doneMessage);
+            } else {
+                throw new TalkieNoTaskFoundException();
+            }
+
+        } else {
+            throw new TalkieInvalidArgumentException(temp[0], "The 'mark' command requires an integer as argument");
+        }
     }
 
     // Unmarks a Task
-    public static void unmarkTask(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        Task task = taskList.get(index);
-        task.markAsNotDone();
-        String undoneMessage = "______________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n"
-                + " " + task + "\n"
-                + "______________________________________________\n";
-        System.out.println(undoneMessage);
+    public static void unmarkTask(String input)
+            throws TalkieInvalidArgumentException, TalkieMissingArgumentException, TalkieNoTaskFoundException {
+        String[] temp = input.split(" ");
 
+        // Check if the user included an int argument
+        if (temp.length == 1) {
+            throw new TalkieMissingArgumentException(temp[0], "The 'unmark' command requires an integer as argument");
+
+        // Check if the user included the correct int argument
+        } else if (Talkie.isInteger(temp[1])) {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+
+            // Check if the task index is valid in the task list
+            if (index <= taskList.size() - 1) {
+                Task task = taskList.get(index);
+                task.markAsNotDone();
+                String undoneMessage = horizontalLine + "\n"
+                        + "OK, I've marked this task as not done yet:\n"
+                        + " " + task + "\n"
+                        + horizontalLine + "\n";
+                System.out.println(undoneMessage);
+            } else {
+                throw new TalkieNoTaskFoundException();
+            }
+
+        } else {
+            throw new TalkieInvalidArgumentException(temp[0], "The 'unmark' command requires an integer as argument");
+        }
     }
 
-    // Main program
+    // Check if the input string is a number (Helper method for unmark and mark)
+    public static boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // Runs the main program
     public static void runTalkie() {
         System.out.println(Talkie.welcomeMessage);
 
@@ -119,34 +182,36 @@ public class Talkie {
         while (!isFinished) {
             String input = scanner.nextLine();
 
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println(byeMessage);
-                isFinished = true;
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println(byeMessage);
+                    isFinished = true;
+
+                } else if (input.equalsIgnoreCase("list")) {
+                    Talkie.listTasks();
+
+                } else if (input.startsWith("mark")) {
+                    Talkie.markTask(input);
+
+                } else if (input.startsWith("unmark")) {
+                    Talkie.unmarkTask(input);
+
+                } else if (input.startsWith("todo")) {
+                    Talkie.createToDo(input);
+
+                } else if (input.startsWith("deadline")) {
+                    Talkie.createDeadline(input);
+
+                } else if (input.startsWith("event")) {
+                    Talkie.createEvent(input);
+
+                } else {
+                    throw new TalkieUnknownCommandException(input);
+                }
+            } catch (TalkieException e) {
+                System.out.println(e);
             }
 
-            if (input.equalsIgnoreCase("list")) {
-                Talkie.listTasks();
-            }
-
-            if (input.startsWith("mark")) {
-                Talkie.markTask(input);
-            }
-
-            if (input.startsWith("unmark")) {
-                Talkie.unmarkTask(input);
-            }
-
-            if (input.startsWith("todo")) {
-                Talkie.createToDo(input);
-            }
-
-            if (input.startsWith("deadline")) {
-                Talkie.createDeadline(input);
-            }
-
-            if (input.startsWith("event")) {
-                Talkie.createEvent(input);
-            }
         }
     }
 
