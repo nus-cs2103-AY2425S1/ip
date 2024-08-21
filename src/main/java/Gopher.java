@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.StringBuilder;
 
 public class Gopher {
     // Initialize the input reader
@@ -26,10 +27,26 @@ public class Gopher {
     }
 
     private static void addTask (String input) {
-        taskList[currentTaskNumber] = new Task(input);
+        String[] tokens = input.split(" ");
+
+        String taskType = tokens[0];
+        StringBuilder taskName = new StringBuilder();
+
+        if (taskType.equalsIgnoreCase("todo")) {
+            for (int i = 1; i < tokens.length; i++) {
+                taskName.append(tokens[i]);
+                if (i < tokens.length - 1) {
+                    taskName.append(" ");
+                }
+            }
+            taskList[currentTaskNumber] = new ToDo(taskName.toString());
+        } 
+
+        Task addedTask = taskList[currentTaskNumber];
         currentTaskNumber++;
         System.out.println(horizontalSeparator);
-        System.out.println("added: " + input);
+        System.out.println("Got it! I have added this task:\n" + addedTask);
+        System.out.println("Now you have " + currentTaskNumber + " tasks in the list");
         System.out.println(horizontalSeparator + "\n");
     }
 
@@ -77,19 +94,26 @@ public class Gopher {
         boolean isRunning = true;
         String userInput;
         while (isRunning) {
+            // Getting User Input
             userInput = inputReader.nextLine();
+
+            // Handle Exit Logic
             if (userInput.equalsIgnoreCase("Bye")) {
                 isRunning = false;
+            // Handle List Task Logic
             } else if (userInput.equalsIgnoreCase("List")) {
                 listTasks();
+            // Handle Mark Task as Done Logic
             } else if (userInput.toLowerCase().startsWith("mark")){
                 String[] tokens = userInput.split(" ");
                 int taskNumber = Integer.parseInt(tokens[1]);
                 markTaskAsDone(taskNumber);
+            // Handle Mark Task as Not Done Logic
             } else if (userInput.toLowerCase().startsWith("unmark")) {
                 String [] tokens = userInput.split(" ");
                 int taskNumber = Integer.parseInt(tokens[1]);
                 markTaskAsNotDone(taskNumber);
+            // Handle Add Task Logic
             } else {
                 addTask(userInput);
             }
