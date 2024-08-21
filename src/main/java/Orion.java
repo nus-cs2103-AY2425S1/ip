@@ -132,11 +132,11 @@ public class Orion {
                     break;
                 }
             case "todo":
-                if (inputArray.length != 2) {
+                if (inputArray.length < 2) {
                     Orion.printIndent("Correct syntax: todo <task>");
                     break;
                 } else {
-                    Orion.addTodo(inputArray[1]);
+                    Orion.addTodo(Orion.removeFirstWordFromString(input).trim());
                     break;
                 }
             case "deadline":

@@ -1,0 +1,14 @@
+todo feed the dog
+deadline feed the dog again /by tomorrow please
+event national dog feeding day /from tomorrow's tomorrow /to the next day after that
+list
+mark 2
+list
+unmark 2
+list
+bad command
+todo
+deadline i didn't give a deadline
+event i didn't give a start
+event i didn't give an end
+bye
