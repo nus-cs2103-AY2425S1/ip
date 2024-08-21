@@ -5,8 +5,8 @@ public class Event extends Task {
 
     public Event(String line) {
         super(line);
-        int firstSlashIndex = line.indexOf("/");
-        int secondSlashIndex = line.indexOf("/", firstSlashIndex + 1);
+        int firstSlashIndex = line.indexOf("/from");
+        int secondSlashIndex = line.indexOf("/to");
         description = line.substring(0, firstSlashIndex).trim();
         from = line.substring(firstSlashIndex + 5, secondSlashIndex).trim();
         to = line.substring(secondSlashIndex + 3).trim();
