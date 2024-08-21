@@ -54,12 +54,48 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist");
                 }
-            } else {
-                taskList[taskCount] = new Task(input);
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5).trim();
+                taskList[taskCount] = new ToDo(description);
                 taskCount++;
                 printLine();
-                System.out.println("added: " + input);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(taskList[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 printLine();
+            } else if (input.startsWith("deadline ")) {
+                String[] details = input.substring(9).split(" /by ");
+                if (details.length == 2) {
+                    String description = details[0].trim();
+                    String by = details[1].trim();
+                    taskList[taskCount] = new Deadline(description, by);
+                    taskCount++;
+                    printLine();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskList[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    printLine();
+                } else {
+                    System.out.println("Invalid format. Use: deadline <description> /by <date>");
+                }
+            } else if (input.startsWith("event ")){
+                String[] details = input.substring(6).split(" /from | /to ");
+                if (details.length == 3) {
+                    String description = details[0].trim();
+                    String from = details[1].trim();
+                    String to = details[2].trim();
+                    taskList[taskCount] = new Event(description, from, to);
+                    taskCount++;
+                    printLine();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskList[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    printLine();
+                } else {
+                    System.out.println("Invalid format. Use: event <description> /from <start> /to <end>");
+                }
+            } else {
+                System.out.println("Invalid command. Type '/help' for assistance.");
             }
         }
         scanner.close();
