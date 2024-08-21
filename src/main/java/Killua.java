@@ -2,8 +2,27 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+
 public class Killua {
     private static final String LINE = "____________________________________________________________";
+
+    public enum Command {
+        BYE("bye"), LIST("list"), MARK("mark"), UNMARK("unmark"), DELETE("delete"), TODO("todo"), DEADLINE("deadline"), EVENT("event");
+        private final String command;
+
+        Command(String command) {
+            this.command = command;
+        }
+
+        public static Command fromString(String command) throws KilluaException {
+            for (Command cmd : Command.values()) {
+                if (cmd.command.equalsIgnoreCase(command)) {
+                    return cmd;
+                }
+            }
+            throw new KilluaException("Invalid input: " + command);
+        }
+    }
 
     private static void printLine() {
         System.out.println(LINE);
@@ -75,22 +94,23 @@ public class Killua {
         while (flag) {
             String input = scanner.nextLine().trim();
             String[] parts = input.split(" ", 2);
-            String command = parts[0];
+            String commandStr = parts[0];
             String argument = (parts.length > 1) ? parts[1] : "";
 
             try {
-                switch (command.toLowerCase()) {
-                    case "bye" -> {
+                Command command = Command.fromString(commandStr);
+                switch (command) {
+                    case BYE -> {
                         bye();
                         flag = false;
                     }
-                    case "list" -> list(tasks);
-                    case "mark", "unmark", "delete" -> {
+                    case LIST -> list(tasks);
+                    case MARK, UNMARK, DELETE -> {
                         try {
                             int taskNumber = Integer.parseInt(argument);
-                            if ("mark".equalsIgnoreCase(command)) {
+                            if (command == command.MARK) {
                                 markTaskDone(tasks, taskNumber - 1);
-                            } else if ("unmark".equalsIgnoreCase(command)) {
+                            } else if (command == command.UNMARK) {
                                 unmarkTask(tasks, taskNumber - 1);
                             } else {
                                 delete(tasks, taskNumber - 1);
@@ -101,7 +121,7 @@ public class Killua {
                             throw new KilluaException("Task not found!");
                         }
                     }
-                    case "todo" -> {
+                    case TODO -> {
                         if (Objects.equals(argument, "")) {
                             throw new KilluaException("Todo description cannot be empty!");
                         }
@@ -109,7 +129,7 @@ public class Killua {
                         tasks.add(todo);
                         add(tasks, todo);
                     }
-                    case "deadline" -> {
+                    case DEADLINE -> {
                         if (Objects.equals(argument, "")) {
                             throw new KilluaException("Deadline description cannot be empty!");
                         }
@@ -123,7 +143,7 @@ public class Killua {
                             throw new KilluaException("Please use the correct format for deadlines: deadline <description> /by <date>");
                         }
                     }
-                    case "event" -> {
+                    case EVENT -> {
                         if (Objects.equals(argument, "")) {
                             throw new KilluaException("Event description cannot be empty!");
                         }
@@ -138,7 +158,6 @@ public class Killua {
                             throw new KilluaException("Please use the correct format for events: event <description> /from <start time> /to <end time>");
                         }
                     }
-                    default -> throw new KilluaException("Invalid input! Try again.");
                 }
             } catch (KilluaException e) {
                 printLine();
