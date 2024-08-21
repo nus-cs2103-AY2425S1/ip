@@ -13,9 +13,8 @@ public class Llama {
         String logo = "";
         String hr = "____________________________________________________________" ;
         Scanner sc = new Scanner(System.in);
-        // Assume less than 100 tasks
-        Task[] taskArray = new Task[100];
-        int last = 0;
+
+        TaskStorage tasks = new TaskStorage(100);
 
         // Initializing message
         displayString(hr);
@@ -37,32 +36,20 @@ public class Llama {
                 remaining = input.substring(input.indexOf(" ") + 1);
             }
 
-
             if (command.equals("bye")) {                            // end program
                 shouldContinue = false;
                 sc.close();
             } else if (command.equals("list")) {                    // list out tasks
-                for (int i = 0; i < last; i++) {
-                    int x = i + 1;
-                    displayTask(x, taskArray[i]);
-                }
+                tasks.listAllTasks();
             } else if (command.equals("mark")) {                    // mark task
-                int index = Integer.parseInt(remaining) - 1;
-                Task task = taskArray[index];
-                task.markDone();
-                displayString("Good Job! The task is now marked as done: ");
-                displayString("Marked task: " + task.toString());
+                int index = Integer.parseInt(remaining);
+                tasks.markTask(index);
             } else if (command.equals("unmark")) {                  // unmark task
-                int index = Integer.parseInt(remaining) - 1;
-                Task task = taskArray[index];
-                task.markNotDone();
-                displayString("Alright, the task is marked as not done: ");
-                displayString("Unmarked task: " + task.toString());
+                int index = Integer.parseInt(remaining);
+                tasks.unmarkTask(index);
             } else {                                                // add other tasks
                 if (command.equals("todo")) {
-                    taskArray[last] = new Todo(remaining);
-                    last++;
-                    displayString("Added: " + remaining);
+                    tasks.addTask(new Todo(remaining));
                 }
             }
         }
