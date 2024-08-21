@@ -117,6 +117,20 @@ public class Will {
         System.out.println("_____________________________________");
     }
 
+    static void deleteTask(ArrayList<Task> tasks, int index) {
+        if (index >= 1 && index <= tasks.size()) {
+            Task removedTask = tasks.remove(index - 1);
+            System.out.println("_____________________________________");
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            System.out.println("_____________________________________");
+            System.out.println("No Task Found");
+        }
+        System.out.println("_____________________________________");
+    }
+
     static void todoTask(ArrayList<Task> tasks, String desc){
         tasks.add(new ToDo(desc));
         System.out.println("_____________________________________");
@@ -202,7 +216,7 @@ public class Will {
                 try{
                     int taskNumber = Integer.parseInt(userInput.substring(5).trim());
                     markTask(tasks, taskNumber);
-                }catch(StringIndexOutOfBoundsException e){
+                }catch(StringIndexOutOfBoundsException | NumberFormatException e){
                     blankMsg("number");
                 }
                 continue;
@@ -212,7 +226,17 @@ public class Will {
                 try{
                     int taskNumber = Integer.parseInt(userInput.substring(7).trim());
                     unmarkTask(tasks, taskNumber);
-                }catch(StringIndexOutOfBoundsException e){
+                }catch(StringIndexOutOfBoundsException | NumberFormatException e){
+                    blankMsg("number");
+                }
+                continue;
+            }
+
+            if (userInput.startsWith("delete")) {
+                try{
+                    int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                    deleteTask(tasks, taskNumber);
+                }catch(StringIndexOutOfBoundsException | NumberFormatException e){
                     blankMsg("number");
                 }
                 continue;
