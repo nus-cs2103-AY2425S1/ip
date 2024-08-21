@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GreetBot {
@@ -13,7 +14,7 @@ public class GreetBot {
         System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
 
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<>();
         int counter = 0;
 
         while (scanner.hasNext()) {
@@ -26,22 +27,24 @@ public class GreetBot {
             } else if (currentCommand.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < counter; i++) {
-                    System.out.println(String.format("%d.%s", i + 1, list[i]));
+                    System.out.println(String.format("%d.%s", i + 1, list.get(i)));
                 }
             } else if (currentCommand.startsWith("mark")) {
                 int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
-                list[index - 1].mark();
+                list.get(index - 1).mark();
             } else if (currentCommand.startsWith("unmark")) {
                 int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
-                list[index - 1].unmark();
+                list.get(index - 1).unmark();
             } else {
+                
+
                 String type = currentCommand.substring(0, currentCommand.indexOf(" "));
                 String rest = currentCommand.substring(currentCommand.indexOf(" ") + 1);
-                list[counter] = Task.decideTask(type, rest);
+                list.add(Task.decideTask(type, rest));
 
 
                 System.out.println("Got it. I've added this task:");
-                System.out.println(list[counter]);
+                System.out.println(list.get(counter));
                 counter += 1;
                 System.out.println(String.format("Now you have %s tasks in the list.", counter));
             }
