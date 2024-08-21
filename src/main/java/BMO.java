@@ -5,14 +5,23 @@ public class BMO {
         String line = "____________________________________________________________\n";
         System.out.println("Hello! I'm BMO!\nWhat can I do for you?\n" + line);
 
+        Storage storage = new Storage();
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
 
         while (!command.equals("bye")) {
-            System.out.println(command + "\n");
+            switch (command) {
+                case "list":
+                    System.out.println(storage.getTasks() + line);
+                    break;
+                default:
+                    storage.addTask(command);
+                    System.out.println("added: " + command + "\n" + line);
+                    break;
+            }
             command = sc.nextLine();
         }
-
+        sc.close();
         System.out.println("Bye. Hope to see you again soon!\n" + line);
     }
 }
