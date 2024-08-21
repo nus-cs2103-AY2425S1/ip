@@ -65,27 +65,34 @@ public class Delta {
             String task = sc.nextLine();
             String output = "";
 
-            if (task.equals("bye")) {
-                output = sayBye();
-                break;
-            } else if (task.equals("list")) {
-                output = printTasks();
-            } else if (task.substring(0, 4).equals("mark")) {
-                int taskIdx = Integer.parseInt(task.substring(5));
-                output = markTask(taskIdx);
-            } else if (task.substring(0, 6).equals("unmark")) {
-                int taskIdx = Integer.parseInt(task.substring(7));
-                output = unmarkTask(taskIdx);
-            } else if (task.substring(0, 4).equals("todo")) {
-                String description = task.substring(5);
-                output = addTask(new Todo(description));
-            } else if (task.substring(0, 8).equals("deadline")) {
-                String[] details = task.substring(9).split(" /by ");
-                output = addTask(new Deadline(details[0], details[1]));
-            } else if (task.substring(0, 5).equals("event")) {
-                String[] details = task.substring(6).split(" /from ");
-                String[] timings = details[1].split(" /to ");
-                output = addTask(new Event(details[0], timings[0], timings[1]));
+            try {
+                if (task.equals("bye")) {
+                    output = sayBye();
+                    break;
+                } else if (task.equals("list")) {
+                    output = printTasks();
+                } else if (task.substring(0, 4).equals("mark")) {
+                    int taskIdx = Integer.parseInt(task.substring(5));
+                    output = markTask(taskIdx);
+                } else if (task.substring(0, 6).equals("unmark")) {
+                    int taskIdx = Integer.parseInt(task.substring(7));
+                    output = unmarkTask(taskIdx);
+                } else if (task.substring(0, 4).equals("todo")) {
+                    String description = task.substring(5);
+                    output = addTask(new Todo(description));
+                } else if (task.substring(0, 8).equals("deadline")) {
+                    String[] details = task.substring(9).split(" /by ");
+                    output = addTask(new Deadline(details[0], details[1]));
+                } else if (task.substring(0, 5).equals("event")) {
+                    String[] details = task.substring(6).split(" /from ");
+                    String[] timings = details[1].split(" /to ");
+                    output = addTask(new Event(details[0], timings[0], timings[1]));
+                } else {
+                    throw new DeltaException();
+                }
+            }
+            catch (DeltaException | StringIndexOutOfBoundsException e) {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
             System.out.println(output);
