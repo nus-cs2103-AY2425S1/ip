@@ -85,7 +85,7 @@ public class LevelHundred {
         }
         try {
             int idx = Integer.parseInt(words[1]) - 1;
-            Task t = this.storage.get(idx);
+            Task t = this.storage.getTaskList().get(idx);
             if (command.equals("mark")) {
                 t.mark();
                 this.ui.printSuccessfulMark(t);
