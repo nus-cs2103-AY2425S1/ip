@@ -9,6 +9,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public static void showUsage() {
+        System.out.println("To add an Event task, use the following format:");
+        System.out.println("event <task description> /from <start time> /to <end time>");
+    }
+
     @Override
     public Task createTask(String input) {
         String[] details = input.substring(6).split(" /from | /to ");

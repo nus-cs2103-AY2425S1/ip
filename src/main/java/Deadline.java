@@ -7,6 +7,11 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    public static void showUsage() {
+        System.out.println("To add a Deadline task, use the following format:");
+        System.out.println("deadline <task description> /by <date/time>");
+    }
+
     @Override
     public Task createTask(String input) {
         String[] details = input.substring(9).split(" /by ");

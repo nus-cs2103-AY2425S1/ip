@@ -10,6 +10,11 @@ public class ToDo extends Task{
         return new ToDo(description);
     }
 
+    public static void showUsage() {
+        System.out.println("To add a ToDo task, use the following format:");
+        System.out.println("todo <task description>");
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

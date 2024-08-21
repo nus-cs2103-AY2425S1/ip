@@ -54,6 +54,18 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist");
                 }
+            } else if (input.equalsIgnoreCase("todo")) {
+                printLine();
+                ToDo.showUsage();
+                printLine();
+            } else if (input.equalsIgnoreCase("deadline")) {
+                printLine();
+                Deadline.showUsage();
+                printLine();
+            } else if (input.equalsIgnoreCase("event")) {
+                printLine();
+                Event.showUsage();
+                printLine();
             } else {
                 Task task = null;
                 try {
