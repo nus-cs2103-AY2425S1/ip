@@ -17,10 +17,35 @@ public class DGPT {
         list = new ArrayList<>();
     }
 
-    private void addToList(String text) {
-        this.list.add(new Task(text));
+    private void addToDoToList(String text) {
+        Task newTask = new ToDo(text);
+        this.list.add(newTask);
         System.out.println("-----------------------");
-        System.out.println("DGPT> added :" + text);
+        System.out.println("DGPT> Got it. I've added this task:");
+        System.out.println(newTask.toString());
+        System.out.printf("Now you have %d tasks in the list.%n", this.list.size());
+        System.out.println("-----------------------");
+    }
+
+    private void addDeadlineToList(String text) {
+        String[] parts = text.split(" /by ");
+        Task newTask = new Deadline(parts[0], parts[1]);
+        this.list.add(newTask);
+        System.out.println("-----------------------");
+        System.out.println("DGPT> Got it. I've added this task:");
+        System.out.println(newTask.toString());
+        System.out.printf("Now you have %d tasks in the list.%n", this.list.size());
+        System.out.println("-----------------------");
+    }
+
+    private void addEventToList(String text) {
+        String[] parts = text.split(" /");
+        Task newTask = new Event(parts[0],parts[1].substring(5), parts[2].substring(3));
+        this.list.add(newTask);
+        System.out.println("-----------------------");
+        System.out.println("DGPT> Got it. I've added this task:");
+        System.out.println(newTask.toString());
+        System.out.printf("Now you have %d tasks in the list.%n", this.list.size());
         System.out.println("-----------------------");
     }
 
@@ -30,7 +55,7 @@ public class DGPT {
         System.out.println("DGPT> Here are the tasks in your list:");
         for (int i = 1; i <= numOfItems; i++) {
             Task currTask = this.list.get(i - 1);
-            System.out.println(i + "." + currTask.getTaskString());
+            System.out.println(i + "." + currTask.toString());
         }
         System.out.println("-----------------------");
     }
@@ -39,7 +64,7 @@ public class DGPT {
         this.list.get(index).mark();
         System.out.println("-----------------------");
         System.out.println("DGPT> Nice! I've marked this task as done: ");
-        System.out.println(this.list.get(index).getTaskString());
+        System.out.println(this.list.get(index).toString());
         System.out.println("-----------------------");
     }
 
@@ -47,7 +72,7 @@ public class DGPT {
         this.list.get(index).unmark();
         System.out.println("-----------------------");
         System.out.println("DGPT> OK, I've marked this task as not done yet:");
-        System.out.println(this.list.get(index).getTaskString());
+        System.out.println(this.list.get(index).toString());
         System.out.println("-----------------------");
     }
 
@@ -70,7 +95,8 @@ public class DGPT {
         do {
             System.out.print("User> ");
             input = scanner.nextLine();
-            String[] parts = input.split(" ");
+            String[] parts = input.split(" ", 2);
+
 
             if (input.equals("list")) {
                 dgpt.showList();
@@ -78,8 +104,12 @@ public class DGPT {
                 dgpt.markTask(Integer.parseInt(parts[1]) - 1);
             } else if (parts[0].equals("unmark")) {
                 dgpt.unmarkTask(Integer.parseInt(parts[1]) - 1);
-            } else if (!input.equals("bye")) {
-                dgpt.addToList(input);
+            } else if (parts[0].equals("todo")) {
+                dgpt.addToDoToList(parts[1]);
+            } else if (parts[0].equals("deadline")) {
+                dgpt.addDeadlineToList(parts[1]);
+            } else if (parts[0].equals("event")) {
+                dgpt.addEventToList(parts[1]);
             }
         } while (!input.equals("bye"));
 

@@ -1,7 +1,7 @@
 /**
  * The Task class keeps track of whether a specific action has been completed or not.
  */
-public class Task {
+abstract public class Task {
 
     protected String description;
     protected boolean isDone;
@@ -37,12 +37,9 @@ public class Task {
         return this.description;
     }
 
-    /**
-     * Returns the String representation of how the task would appear when displayed in a list.
-     *
-     * @return the String representation of the entire task.
-     */
-    public String getTaskString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
 }
