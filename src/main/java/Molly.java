@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Molly bot class containing static methods that help Molly interact with user.
+ */
 public class Molly {
     public static String name = "Molly";
 
@@ -8,18 +11,28 @@ public class Molly {
 
     }
 
+    /**
+     * This is a public static method that makes Molly greet the user.
+     */
     public static void greetUser() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + Molly.name);
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * This is a public static method that makes Molly say bye.
+     */
     public static void sayBye() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * @param botMemory
+     * This is a public static method that converts the task list to a string to present to the user.
+     */
     public static void listToString(ArrayList<Task> botMemory) {
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < botMemory.size(); i++) {
@@ -27,6 +40,9 @@ public class Molly {
         }
     }
 
+    /**
+     * This is a static method for the Molly bot that processes user inputs and manipulates the task array accordingly.
+     */
     public static void assistUser() {
         ArrayList<Task> botMemory = new ArrayList<>();
         Scanner botScanner = new Scanner(System.in);
