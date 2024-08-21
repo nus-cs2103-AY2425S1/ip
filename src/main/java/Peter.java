@@ -1,6 +1,17 @@
 import java.util.Scanner;
 
 public class Peter {
+    // Helper functions
+    static Task compressTaskArray(int startingIndex, int lastIndex, Task[] arr) {
+        Task t = arr[startingIndex];
+        arr[startingIndex] = null;
+        for (int i = startingIndex; i < lastIndex; i++) {
+            arr[i] = arr[i + 1];
+        }
+
+        return t;
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm Peter!\nWhat can I do for you?\n");
 
@@ -36,6 +47,15 @@ public class Peter {
                 t.markAsDone();
 
                 System.out.println("Good job! I've marked this task as done: ");
+                System.out.println(t.toString());
+            } else if (command.contains("delete")) {
+                // extract integer value
+                String intValue = command.replaceAll("[^0-9]", "");
+                int index = Integer.parseInt(intValue);
+
+                Task t = compressTaskArray(index - 1, lastIndex, tasks);
+                lastIndex--;
+                System.out.println("Noted! I've removed this task:");
                 System.out.println(t.toString());
             } else {
                 String name = "";
