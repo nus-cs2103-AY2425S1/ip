@@ -35,7 +35,9 @@ public class Deez {
                                           \s
                 """;
         System.out.println(logo);
-        ArrayList<String> items = new ArrayList<String>();
+
+        ArrayList<Task> tasks = new ArrayList<>();
+
         say("Hello! I'm Deez!", "What can I do you for?");
         while (1 == 1) {
             String inputStr = br.readLine();
@@ -50,15 +52,15 @@ public class Deez {
                 break;
             }
             if (inputStr.equals(CMD_list)) {
-                if (items.isEmpty()) {
+                if (tasks.isEmpty()) {
                     say("<No items in list>");
                     continue;
                 }
                 // Print list
                 int cnt = 1;
                 System.out.println("____________________________________________________________");
-                for (String s: items) {
-                    System.out.println(cnt + ". " + s);
+                for (Task t: tasks) {
+                    System.out.println(cnt + ". " + t.getDescription());
                     cnt+=1;
                 }
                 System.out.println("____________________________________________________________");
@@ -75,7 +77,13 @@ public class Deez {
                     int taskIdx = parseInt(param);
                     if (taskIdx > 0) {
                         try {
-                            items.get(taskIdx-1);
+                            Task t = tasks.get(taskIdx-1);
+                            if (cmd.equals(CMD_markDone) && !t.isDone()) {
+                                t.toggleDone();
+                            } else if (cmd.equals(CMD_unmarkDone) && t.isDone()) {
+                                t.toggleDone();
+                            }
+                            say("Updated task:", t.getDescription());
                         } catch (Exception e) {
                             say("No task at index " + param, "Please try again.");
                         }
@@ -88,7 +96,7 @@ public class Deez {
             }
 
             // Add item to items list
-            items.add(inputStr);
+            tasks.add(new Task(inputStr));
             say("Added " + inputStr);
         }
         say("Bye. Hope to see you soon!");
