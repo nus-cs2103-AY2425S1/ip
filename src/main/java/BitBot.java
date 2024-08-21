@@ -106,7 +106,6 @@ public class BitBot {
             inputData = sc.nextLine();
 
             String[] partsOfInput = inputData.split(" ");
-            System.out.println(Arrays.toString(partsOfInput));
 
             /* this is to check if there is any number in the input.
              * I am splitting the input into parts, and then
@@ -252,7 +251,6 @@ public class BitBot {
                     break;
 
                 case "event":
-
                     Task event = new Events(textPart, from.toString().trim(), to.toString().trim());
                     arrayList.add(event);
                     System.out.println("          ____________________________________\n          Got it. I've added this task: \n"
