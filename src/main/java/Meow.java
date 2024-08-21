@@ -14,6 +14,7 @@ public class Meow {
         Scanner scanner = new Scanner(System.in);
         Meow MEOW = new Meow();
 
+
         System.out.println("_____________________________________________________________\n" +
                 " Hello! I'm " + MEOW.name + "\n" +
                 " What can I do for you?\n" +
@@ -33,7 +34,7 @@ public class Meow {
                 }
                 MEOW.line();
             } else if (input.startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5).trim()) - 1;
+                int index = Integer.parseInt(input.substring(5).trim()) - 1; // chop off the first few letters to get index
                 if (index >= 0 && index < MEOW.taskCount) {
                     MEOW.tasks[index].mark();
                     System.out.println("Nice! I've marked this task as done:");
@@ -43,7 +44,7 @@ public class Meow {
                 }
                 MEOW.line();
             } else if (input.startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7).trim()) - 1;
+                int index = Integer.parseInt(input.substring(7).trim()) - 1; // chop off the first few letters to get index
                 if (index >= 0 && index < MEOW.taskCount) {
                     MEOW.tasks[index].unMark();
                     System.out.println("OK, I've marked this task as not done yet:");
@@ -52,11 +53,40 @@ public class Meow {
                     System.out.println("Invalid task number.");
                 }
                 MEOW.line();
-            } else {
-                MEOW.tasks[MEOW.taskCount] = new Task(input);
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by "); // chop off the first few letters to get deadline
+                if (parts.length == 2) {
+                    MEOW.tasks[MEOW.taskCount] = new Deadline(parts[0], parts[1]);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(MEOW.tasks[MEOW.taskCount]);
+                    MEOW.taskCount++;
+                    System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
+                            : "Now you have " + MEOW.taskCount + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid deadline format.");
+                }
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to "); // chop off the first few letters to get duration
+                if (parts.length == 3) {
+                    MEOW.tasks[MEOW.taskCount] = new Event(parts[0], parts[1], parts[2]);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(MEOW.tasks[MEOW.taskCount]);
+                    MEOW.taskCount++;
+                    System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
+                            : "Now you have " + MEOW.taskCount + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid event format.");
+                }
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5).trim(); // chop off the first few letters to get task
+                MEOW.tasks[MEOW.taskCount] = new ToDo(description);
+                System.out.println("added: " + MEOW.tasks[MEOW.taskCount]);
                 MEOW.taskCount++;
-                System.out.println("added: " + input);
+                System.out.println(MEOW.taskCount <= 1 ? "Now you have " + MEOW.taskCount + " task in the list."
+                        : "Now you have " + MEOW.taskCount + " tasks in the list.");
                 MEOW.line();
+            } else {
+                System.out.println("error");
             }
 
         }
