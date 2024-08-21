@@ -40,7 +40,7 @@ public class Mittens {
                   ██████████████████████
             """;
 
-    private static ArrayList<String> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void greet() {
         System.out.println(GREETING_MESSAGE);
@@ -72,15 +72,16 @@ public class Mittens {
         System.out.println(message);
     }
 
-    public static void addTask(String task) {
+    public static void addTask(Task task) {
         tasks.add(task);
-        System.out.printf("\nI've added \"%s\" to your list :3\n\n", task);
+        System.out.printf("\nI've added \"%s\" to your list :3\n\n", task.getDescription());
     }
 
     public static void listTasks() {
         System.out.println("\nHere are the tasks in your list :3");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+            Task task = tasks.get(i);
+            System.out.printf("%d. %s\n", i + 1, task.toString());
         }
         System.out.print("\n");
     }
@@ -103,7 +104,8 @@ public class Mittens {
             } else if (input.equals("list")) {
                 listTasks();
             } else {
-                addTask(input);
+                Task newTask = new Task(input);
+                addTask(newTask);
             }
         }
 
