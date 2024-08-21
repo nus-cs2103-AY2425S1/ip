@@ -1,0 +1,11 @@
+todo read book
+deadline homework /by Fri 4pm
+event movie night /from Sat 6pm /to 9pm
+todo gym
+todo project meeting
+list
+mark 4
+mark 5
+unmark 4
+list
+bye
