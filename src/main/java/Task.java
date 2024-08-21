@@ -16,7 +16,6 @@ public class Task {
     }
 
     public String toString() {
-        return (isDone ? "[X]" : "[ ]");
+        return (isDone ? "[X] " : "[ ] " + this.description);
     }
-
 }
