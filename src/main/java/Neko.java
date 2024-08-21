@@ -8,10 +8,11 @@ public class Neko {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
     private static final String GREETING_MESSAGE = "  ∧,,,∧\n( ̳̳• · ̳• )\n づ Meow! I'm Neko\nWhat can I do for you?";
     private static final String EXIT_MESSAGE = "Bye! Hope to see you again soon meow ฅ ฅ";
     private static int numOfTask = 0;
-    private static final Task[] taskList = new Task[100];
+    private static final ArrayList<Task> taskList = new ArrayList<>(100);
 
     public static void main(String[] args) {
 
@@ -41,6 +42,8 @@ public class Neko {
             unmarkTask(input);
         } else if (input.startsWith(TODO_COMMAND) || input.startsWith(DEADLINE_COMMAND) || input.startsWith(EVENT_COMMAND)) {
             addTask(input);
+        } else if (input.startsWith(DELETE_COMMAND)) {
+            deleteTask(input);
         } else {
             throw new NekoException("Gomenasai! Neko doesn't know what that means :(");
         }
@@ -92,27 +95,32 @@ public class Neko {
             }
             task = new Event(taskName, start, end);
         }
-        taskList[numOfTask++] = task;
+        taskList.add(task);
+        numOfTask++;
         System.out.println("Got it meow. I've added this task ฅ/ᐠᓀ ﻌ ᓂマ\n "
                 + task + "\nNow you have " + numOfTask + " tasks in your list meow");
     }
     private static void listTask() {
+        if (numOfTask == 0) {
+            System.out.println("You don't have any tasks yet meow!");
+            return;
+        }
         System.out.println("Here are the task in your list meow:");
         for (int i = 0; i < numOfTask; i++) {
-            Task task = taskList[i];
+            Task task = taskList.get(i);
             System.out.println(i + 1 + "." + task);
         }
     }
 
     private static void markTask(String input) throws NekoException {
-        int index = Integer.parseInt(input.substring(5).trim()) - 1;
+        int index = Integer.parseInt(input.substring(MARK_COMMAND.length()).trim()) - 1;
         if (index >= numOfTask) {
             throw new NekoException("You only have " + numOfTask + " tasks now!");
         }
         if (index < 0 || index >= 100) {
             throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
         }
-        Task task = taskList[index];
+        Task task = taskList.get(index);
         if (task.markAsDone()) {
             System.out.println("Nice meow! I've marked this task as done:\n " + task);
         } else {
@@ -121,19 +129,32 @@ public class Neko {
     }
 
     private static void unmarkTask(String input) throws NekoException {
-        int index = Integer.parseInt(input.substring(7).trim()) - 1;
+        int index = Integer.parseInt(input.substring(UNMARK_COMMAND.length()).trim()) - 1;
         if (index >= numOfTask) {
             throw new NekoException("You only have " + numOfTask + " tasks now!");
         }
         if (index < 0 || index >= 100) {
             throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
         }
-        Task task = taskList[index];
+        Task task = taskList.get(index);
         if (task.markAsNotDone()) {
             System.out.println("Ok meow, I've marked this task as not done yet:\n " + task);
         } else {
             throw new NekoException("The task is not marked as done yet!");
         }
+    }
+
+    private static void deleteTask(String input) throws NekoException {
+        int index = Integer.parseInt(input.substring(DELETE_COMMAND.length()).trim()) - 1;
+        if (index >= numOfTask) {
+            throw new NekoException("You only have " + numOfTask + " tasks now!");
+        }
+        if (index < 0 || index >= 100) {
+            throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
+        }
+        Task task = taskList.get(index);
+        taskList.remove(index);
+        System.out.println("Noted meow. I've removed this task\n " + task +"\nNow you have " + --numOfTask + " tasks in the list.");
     }
 
 
