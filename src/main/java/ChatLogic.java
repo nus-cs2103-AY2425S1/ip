@@ -1,18 +1,21 @@
 public class ChatLogic {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
+    static final String BYE_COMMAND = "bye";
+    static final String LIST_COMMAND = "list";
 
-    private String name;
+    private final String name;
 
     public ChatLogic(String name) {
         this.name = name;
     }
 
     public void processInput(String input) {
-        if (input.equals("bye")) {
-            printBye();
-            System.exit(0);
-        } else {
-            printInputEcho(input);
+        switch (input) {
+            case BYE_COMMAND:
+                printBye();
+                System.exit(0);
+            default:
+                printInputEcho(input);
         }
     }
 
