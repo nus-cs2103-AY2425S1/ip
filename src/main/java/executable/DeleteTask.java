@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import task.Task;
 
+import exception.InvalidArgumentException;
+
 /**
  * An executable for deleting tasks.
  *
@@ -38,9 +40,10 @@ public class DeleteTask extends TaskModifier {
      * Delete the task from list.
      *
      * @return NORMAL normally, ERROR if tasks == null.
+     * @throws InvalidArgumentException when given index is out of bounds of ArrayList.
      */
     @Override
-    public Executable.exitCode execute() {
+    public exitCode execute() throws InvalidArgumentException {
         if (super.tasks == null) {
             output = "Task list cannot be null.";
             return Executable.exitCode.ERROR;
@@ -52,9 +55,10 @@ public class DeleteTask extends TaskModifier {
             output = "Noted. I've removed this task:\n" + task.toString()
                     + "\nNow you have " + tasks.size() + " task(s) in your list.";
         } catch (IndexOutOfBoundsException e) {
-            output = idx + " index out bounds of task list of size " + super.tasks.size() + ".";
+            String message = idx + " index out bounds of task list of size " + super.tasks.size() + ".";
+            throw new InvalidArgumentException(message);
         }
-        return Executable.exitCode.NORMAL;
+        return exitCode.NORMAL;
     }
 
     /**

@@ -2,9 +2,13 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import executable.Executable;
 import executable.Greet;
 import executable.Executable;
+import executable.Executable.exitCode;
 import executable.TaskModifier;
 
 import task.Task;
@@ -25,13 +29,13 @@ public class YihuiBot {
 
     public static void main(String[] args) {
         reset();
-
         greetings();
 
         Scanner userInput = new Scanner(System.in);
         Parser parser = new Parser();
-        try {
-            while (true) {
+        boolean isExit = false;
+        while (!isExit) {
+            try {
                 String input = userInput.nextLine();
 
                 // Returns an Executable based on what was parsed into the parser.
@@ -43,19 +47,21 @@ public class YihuiBot {
                     exec = taskModifier;
                 }
 
-                Executable.exitCode exitCode = exec.execute();
+                exitCode code = exec.execute();
 
                 prettyPrint(exec.getOutput());
 
-                if (exitCode != Executable.exitCode.NORMAL){
-                    break;
+                if (code != exitCode.NORMAL){
+                    isExit = true;
                 }
+            } catch (IllegalStateException | NoSuchElementException | NullPointerException e) {
+                prettyPrint("An error occured. " + e.getMessage());
+                isExit = true;
+            } catch (BotException e) {
+                prettyPrint(e.getMessage());
             }
-        } catch (IllegalStateException | NoSuchElementException | NullPointerException e) {
-            prettyPrint("An error occured. " + e.getMessage());
-        } finally {
-            userInput.close();
         }
+        userInput.close();
     }
 
     private static void reset() {

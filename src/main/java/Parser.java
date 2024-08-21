@@ -7,7 +7,6 @@ import executable.Exit;
 import executable.ListTask;
 import executable.MarkTask;
 import executable.UnmarkTask;
-import executable.Warning;
 
 import task.Deadline;
 import task.Event;
@@ -32,8 +31,10 @@ public class Parser {
      *
      * @param input the user's input.
      * @return the appropriate executable instantiated with the arguments.
+     * @throws NullPointerException when input is null.
+     * @throws BotException when error occurred during parsing (e.g. incorrect arguments).
      */
-    public Executable parse(String input) throws NullPointerException {
+    public Executable parse(String input) throws NullPointerException, BotException {
         if (input == null) {
             throw new NullPointerException("User's input cannot be null.");
         }
@@ -44,29 +45,25 @@ public class Parser {
                 ? null
                 : Arrays.copyOfRange(inputArray, 1, inputArray.length);
 
-        try {
-            switch (command) {
-            case "bye":
-                return bye(arguments);
-            case "list":
-                return list(arguments);
-            case "mark":
-                return mark(arguments);
-            case "unmark":
-                return unmark(arguments);
-            case "todo":
-                return todo(arguments);
-            case "deadline":
-                return deadline(arguments);
-            case "event":
-                return event(arguments);
-            case "delete":
-                return delete(arguments);
-            default:
-                throw new CommandNotFoundException(input);
-            }
-        } catch (BotException e) {
-            return new Warning(e.getMessage());
+        switch (command) {
+        case "bye":
+            return bye(arguments);
+        case "list":
+            return list(arguments);
+        case "mark":
+            return mark(arguments);
+        case "unmark":
+            return unmark(arguments);
+        case "todo":
+            return todo(arguments);
+        case "deadline":
+            return deadline(arguments);
+        case "event":
+            return event(arguments);
+        case "delete":
+            return delete(arguments);
+        default:
+            throw new CommandNotFoundException(input);
         }
     }
 

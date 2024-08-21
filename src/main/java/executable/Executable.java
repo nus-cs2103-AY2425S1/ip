@@ -1,5 +1,7 @@
 package executable;
 
+import exception.BotException;
+
 /**
  * A class for all executables by YihuiBot.
  *
@@ -16,7 +18,7 @@ public interface Executable {
      *         TERMINATE if the bot should be terminated (e.g. after a terminating executable).
      *         ERROR if there are any unexpected errors encountered when executing.
      */
-    public abstract exitCode execute();
+    public abstract exitCode execute() throws BotException;
 
     /**
      * Return the output of the executable.
