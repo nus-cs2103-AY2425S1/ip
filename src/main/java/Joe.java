@@ -3,8 +3,9 @@ import java.util.Scanner;
 public class Joe {
     private static final String line =
             "____________________________________________________________";
-
-    public static void bye() {
+    private static String[] userInputs = new String[100];
+    private static int inputs = 0;
+    private static void bye() {
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
     }
 
@@ -48,9 +49,39 @@ public class Joe {
         bye();
     }
 
+    public static void add(String s) {
+        System.out.println(line);
+        if (inputs < 100) {
+            userInputs[inputs++] = s;
+            System.out.printf("added: %s\n", s);
+        } else {
+            System.out.println("Input has reached max capacity!");
+        }
+        System.out.println(line);
+    }
+
+    public static void list() {
+        System.out.println(line);
+        for (int i = 0; i < inputs; i++) {
+            System.out.printf("%d. %s\n", i+1, userInputs[i]);
+        }
+        System.out.println(line);
+    }
+
     public static void main(String[] args) {
         System.out.printf("%s\nHello! I'm Joe\nWhat can I do for you?\n%s\n",
                 line, line);
-        echo();
+        Scanner reader = new Scanner(System.in);
+        String userIn = reader.nextLine();
+        while (!userIn.equalsIgnoreCase("bye")) {
+            if (userIn.equalsIgnoreCase("list")) {
+                list();
+            } else {
+                add(userIn);
+            }
+            userIn = reader.nextLine();
+        }
+
+        bye();
     }
 }
