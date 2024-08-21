@@ -3,14 +3,14 @@ public class Task {
     protected boolean isDone;
     protected String description;
 
-    public Task(String name){
-        this.description = name;
+    public Task(String description){
+        this.description = description;
         this.isDone = false;
     }
 
     @Override
     public String toString() {
-        return this.description;
+        return this.getStatusIcon() + " " + this.description;
     }
 
     public String getStatusIcon() {
