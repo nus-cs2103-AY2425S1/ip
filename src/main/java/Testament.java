@@ -31,26 +31,13 @@ public class Testament {
                 taskList.unMark(taskNumber);
                 printDialogue("This task has been unmarked:\n" + taskList.getTask(taskNumber));
 
-            } else if (splitUserInput[0].equals("todo")) {
-                taskList.add(new ToDo(splitUserInput[1]));
-                printDialogue(
-                        String.format("I've added the following task to your schedule:\n%s\n" +
-                                        "You have %d tasks to complete",
-                                taskList.getTask(taskList.getSize()), taskList.getSize())
-                );
-
-            } else if (splitUserInput[0].equals("deadline")) {
-                String[] deadlineInfo = splitUserInput[1].split("/by ", 2);
-                taskList.add(new Deadline(deadlineInfo[0], deadlineInfo[1]));
-                printDialogue(
-                        String.format("I've added the following task to your schedule:\n%s\n" +
-                                        "You have %d tasks to complete",
-                                taskList.getTask(taskList.getSize()), taskList.getSize())
-                );
-
             } else {
-                printDialogue("Apologies, but I don't know what that means.");
-
+                taskList.add(Task.of(userInput));
+                printDialogue(
+                        String.format("I've added the following task to your schedule:\n%s\n" +
+                                        "You have %d tasks to complete",
+                                taskList.getTask(taskList.getSize()), taskList.getSize())
+                );
             }
         }
     }
