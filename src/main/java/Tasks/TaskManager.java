@@ -16,6 +16,11 @@ public class TaskManager {
     private void print(String str) {
         System.out.println("         " + str);
     }
+    private void printStatus() {
+        String taskStr = tasks.size() > 1 ? "tasks" : "task";
+        String message = String.format("Now you have %d %s in the list", tasks.size(), taskStr);
+        print(message);
+    }
     public void listTasks() {
         print("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -37,9 +42,13 @@ public class TaskManager {
     public void addTask(Task task) {
         print("Got it. I've added this task:");
         tasks.add(task);
-        String taskStr = tasks.size() > 1 ? "tasks" : "task";
-        String message = String.format("Now you have %d %s in the list", tasks.size(), taskStr);
-        print(message);
+        printStatus();
         print(getItem(tasks.size() - 1));
+    }
+    public void deleteTask(int index) {
+        Task task = tasks.remove(index);
+        print("Noted. I've removed this task:");
+        print(task.toString());
+        printStatus();
     }
 }

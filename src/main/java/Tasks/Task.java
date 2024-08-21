@@ -7,11 +7,9 @@ public abstract class Task {
           this.name = name;
           isCompleted = false;
      }
-
      public void complete() {
           isCompleted  = true;
      }
-
      public void unComplete() {
           isCompleted = false;
      }
