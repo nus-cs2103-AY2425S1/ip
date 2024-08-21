@@ -1,25 +1,6 @@
 import java.util.Scanner;
 
 public class Botty {
-    private static class Task {
-        private boolean completed;
-        private final String description;
-        public Task(String description) {
-            this.completed = false;
-            this.description = description;
-        }
-        public void setCompleted(boolean completed) {
-            this.completed = completed;
-        }
-        public boolean getCompleted() {
-            return completed;
-        }
-        @Override
-        public String toString() {
-            return String.format("[%s] %s", completed ? "X" : " ", description);
-        }
-    }
-
     private static final String logo = " ________  ________  _________  _________    ___    ___                 \n" +
             "|\\   __  \\|\\   __  \\|\\___   ___\\\\___   ___\\ |\\  \\  /  /|                \n" +
             "\\ \\  \\|\\ /\\ \\  \\|\\  \\|___ \\  \\_\\|___ \\  \\_| \\ \\  \\/  / /                \n" +
