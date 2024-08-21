@@ -18,4 +18,25 @@ mark 4
 list
 unmark 1
 list
+delete 3
+list
+delete 2
+list
+mark invalid
+mark 1 invalid
+mark
+unmark invalid
+mark 1 invalid
+unmark
+list invalid
+todo
+deadline
+deadline invalid
+deadline invalid /by
+event
+event invalid
+event invalid /from
+event invalid /from /to
+event invalid /from invalid /to
+event invalid /from /to invalid
 bye
