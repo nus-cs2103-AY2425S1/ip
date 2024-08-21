@@ -8,6 +8,7 @@ public class JackBean {
     public static ArrayList<Task> taskList = new ArrayList<Task>();
 
     // Partial solution reused from course website
+    // extra comment here to aid with tagging A-Classes
     public static class Task {
         protected String description;
         protected boolean isDone;
