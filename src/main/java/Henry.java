@@ -27,7 +27,10 @@ public class Henry {
      * @param tasks array of tasks recorded
      * @param index number of tasks recorded
      */
-    public static void printList(Task[] tasks, int index) {
+    public static void printList(Task[] tasks, int index) throws HenryException {
+        if (index == 0) {
+            throw new HenryException("You do not have any tasks!");
+        }
         System.out.println("\nHere are the tasks in your list:");
         for (int i = 0; i < index; i++) {
             System.out.println(i + 1
@@ -128,7 +131,11 @@ public class Henry {
                 bye();
                 break;
             } else if (input.equals("list")) {
-                printList(tasks, index);
+                try{
+                    printList(tasks, index);
+                } catch (HenryException e) {
+                    System.out.println("\nSorry! " + e.getMessage() + "\n");
+                }
             } else {
                 String[] words = input.split(" ");
                 if (words[0].equals("mark") || words[0].equals("unmark")) {
