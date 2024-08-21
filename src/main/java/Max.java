@@ -32,6 +32,23 @@ public class Max {
             } else if (text.startsWith("unmark")) {
                 int index = Integer.parseInt(text.replace("unmark ", ""));
                 markNotDone(index);
+            } else if (text.startsWith("deadline")) {
+                String[] temp = text.replace("deadline ", "").split(" /by ");
+                Deadline deadline = new Deadline(temp[0], temp[1]);
+                this.storedTasks[this.storedTasksIndex] = deadline;
+                this.storedTasksIndex++;
+                printTaskTypeAdded(deadline);
+            } else if (text.startsWith("todo")) {
+                Todo todo = new Todo(text.replace("todo ", ""));
+                this.storedTasks[this.storedTasksIndex] = todo;
+                this.storedTasksIndex++;
+                printTaskTypeAdded(todo);
+            } else if (text.startsWith("event")) {
+                String[] temp = text.replace("event ", "").split(" /from ");
+                Event event = new Event(temp[0], temp[1]);
+                this.storedTasks[this.storedTasksIndex] = event;
+                this.storedTasksIndex++;
+                printTaskTypeAdded(event);
             } else {
                 this.storedTasks[this.storedTasksIndex] = new Task(text);
                 this.storedTasksIndex++;
@@ -39,6 +56,13 @@ public class Max {
             }
         }
         printBye();
+    }
+    public void printTaskTypeAdded(Task task) {
+        printLine();
+        System.out.println("\t Got it. I've added this task:");
+        System.out.println("\t  " + task.toString());
+        System.out.println("\t Now you have " + storedTasksIndex + " tasks in the list.");
+        printLine();
     }
 
     public void printMessage(String message) {
@@ -69,8 +93,7 @@ public class Max {
         printLine();
         for (int i = 0; i < this.storedTasksIndex; i++) {
             int count = i + 1;
-            System.out.println("\t " + count + ".[" + this.storedTasks[i].getStatusIcon() + "] "
-                    + this.storedTasks[i].getDescription());
+            System.out.println("\t " + count + "." + this.storedTasks[i].toString());
         }
         printLine();
     }
@@ -80,8 +103,7 @@ public class Max {
         storedTasks[arrayIndex].markDone();
         printLine();
         System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t   [" + storedTasks[arrayIndex].getStatusIcon() + "] "
-                + storedTasks[arrayIndex].getDescription());
+        System.out.println("\t   " + storedTasks[arrayIndex].toString());
         printLine();
     }
 
@@ -90,8 +112,7 @@ public class Max {
         storedTasks[arrayIndex].markNotDone();
         printLine();
         System.out.println("\t OK, I've marked this task as not done yet:");
-        System.out.println("\t   [" + storedTasks[arrayIndex].getStatusIcon() + "] "
-                + storedTasks[arrayIndex].getDescription());
+        System.out.println("\t   " + storedTasks[arrayIndex].toString());
         printLine();
     }
 }
