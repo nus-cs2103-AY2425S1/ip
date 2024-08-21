@@ -127,13 +127,20 @@ public class Blob {
                 break;
 
             } else if (Objects.equals(act, "todo")) {
-                noOfTasks++;
+                // task name error handling
+                if (arr.length == 1) {
+                    System.out.println("Sorry, I am unable to generate an empty 'todo' task!");
+                    System.out.println("______________________________________________");
+                    break;
+                }
                 // for task name string
                 StringBuilder a = new StringBuilder(arr[i + 1]);
                 for (int j = i + 2; j < arr.length; j++) {
                     StringBuilder str = new StringBuilder(" " + arr[j]);
                     a = a.append(str);
                 }
+
+                noOfTasks++;
                 Todo t = new Todo(a.toString(), noOfTasks, false);
                 db.put(t.taskNumber, t);
                 System.out.println("Got it. I've added this task:");
@@ -143,12 +150,23 @@ public class Blob {
                 break;
 
             } else if (Objects.equals(act, "deadline")) {
-                noOfTasks++;
                 int by = 0;
                 for (int j = 0; j < arr.length; j++) {
                     if (Objects.equals(arr[j], "/by")) {
                         by = j;
                     }
+                }
+                // task name error handling
+                if (by <= 1) {
+                    System.out.println("I require a description for your 'deadline' task 😅!");
+                    System.out.println("______________________________________________");
+                    break;
+                }
+                // task deadline error handling
+                if (by == arr.length - 1) {
+                    System.out.println("Your deadline task can't not have a deadline! Please enter your task again!");
+                    System.out.println("______________________________________________");
+                    break;
                 }
                 // for task name string
                 StringBuilder a = new StringBuilder(arr[i + 1]);
@@ -162,6 +180,8 @@ public class Blob {
                     StringBuilder str = new StringBuilder(" " + arr[k]);
                     s = s.append(str);
                 }
+
+                noOfTasks++;
                 Deadline d = new Deadline(a.toString(), noOfTasks, false, s.toString());
                 db.put(d.taskNumber, d);
                 System.out.println("Got it. I've added this task:");
@@ -171,7 +191,6 @@ public class Blob {
                 break;
 
             } else if (Objects.equals(act, "event")) {
-                noOfTasks++;
                 int start = 0;
                 int end = 0;
                 for (int j = 0; j < arr.length; j++) {
@@ -180,6 +199,24 @@ public class Blob {
                     } else if (Objects.equals(arr[j], "/to")) {
                         end = j;
                     }
+                }
+                // task name error handling
+                if (start <= 1) {
+                    System.out.println("What's the name of your event? Please add it 😅!");
+                    System.out.println("______________________________________________");
+                    break;
+                }
+                // start string error handling
+                if (end - start <= 1) {
+                    System.out.println("When does your event begin? Please add it 😅!");
+                    System.out.println("______________________________________________");
+                    break;
+                }
+                // end string error handling
+                if (end == arr.length - 1) {
+                    System.out.println("What time does your event end? Please let me know 😅!");
+                    System.out.println("______________________________________________");
+                    break;
                 }
                 //for task name string
                 StringBuilder a = new StringBuilder(arr[i + 1]);
@@ -199,6 +236,8 @@ public class Blob {
                     StringBuilder str = new StringBuilder(" " + arr[k]);
                     en = en.append(str);
                 }
+
+                noOfTasks++;
                 Event e = new Event(a.toString(), noOfTasks, false, st.toString(), en.toString());
                 db.put(e.taskNumber, e);
                 System.out.println("Got it. I've added this task:");
