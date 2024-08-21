@@ -10,6 +10,22 @@ public class TaskList {
         listOfTasks.add(new Task(task));
     }
 
+    public boolean mark(int i) {
+        if (i > listOfTasks.size() || i < 1) {
+            return false;
+        }
+        listOfTasks.get(i - 1).done();
+        return true;
+    }
+
+    public boolean unMark(int i) {
+        if (i > listOfTasks.size() || i < 1) {
+            return false;
+        }
+        listOfTasks.get(i - 1).undone();
+        return true;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
