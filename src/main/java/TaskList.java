@@ -33,6 +33,10 @@ public class TaskList {
         return listOfTasks.get(i - 1).toString();
     }
 
+    public int getSize() {
+        return listOfTasks.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
