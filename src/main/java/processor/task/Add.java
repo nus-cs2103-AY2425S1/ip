@@ -2,6 +2,8 @@ package processor.task;
 
 import exceptions.deadline.DeadlineEmptyNameException;
 import exceptions.deadline.DeadlineInvalidArgsException;
+import exceptions.event.EventEmptyNameException;
+import exceptions.event.EventInvalidArgsException;
 import exceptions.todo.TodoEmptyNameException;
 import response.Response;
 
@@ -14,7 +16,7 @@ public class Add {
     return new Response(java.util.List.of("Got it! I have added:\n  " + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"));
   }
 
-  public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException, DeadlineEmptyNameException {
+  public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException {
     final List<String> prompts = Arrays.asList(prompt.split("todo "));
     if (prompts.size() < 2) {
       throw new TodoEmptyNameException();
@@ -23,7 +25,7 @@ public class Add {
     return Add.process(newTask);
   }
 
-  public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException {
+  public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException {
     final List<String> prompts = Arrays.asList(prompt.split("deadline "));
     if (prompts.size() < 2) {
       throw new DeadlineEmptyNameException();
@@ -32,8 +34,11 @@ public class Add {
     return Add.process(newTask);
   }
 
-  public static Response event(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException {
+  public static Response event(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException {
     final List<String> prompts = Arrays.asList(prompt.split("event "));
+    if (prompts.size() < 2) {
+      throw new EventEmptyNameException();
+    }
     final Task newTask = Task.of("event", prompts.get(1));
     return Add.process(newTask);
   }
