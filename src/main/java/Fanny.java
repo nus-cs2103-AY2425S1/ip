@@ -15,7 +15,7 @@ public class Fanny {
 
         //while ensure continuous reading of user inputs
         while (true) {
-            System.out.println("User: ");
+            System.out.println("User:");
             String cmd = scanner.nextLine();
             String[] cmdParts = cmd.split(" ", 2);
             String action = cmdParts[0];
@@ -27,13 +27,13 @@ public class Fanny {
                 System.out.println("_____________________________________________");
                 break;
             } else if (action.equals("list")) {
-                System.out.println("Fanny: ");
+                System.out.println("Fanny:");
                 list.printList();
             } else if (action.equals("mark")) {
                 System.out.println("_____________________________________________");
                 if (cmdParts.length > 1) {
                     int taskId = Integer.parseInt(cmdParts[1]);
-                    System.out.println("Fanny: ");
+                    System.out.println("Fanny:");
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(list.markAsDone(taskId - 1));
                 }
@@ -42,7 +42,7 @@ public class Fanny {
                 System.out.println("_____________________________________________");
                 if (cmdParts.length > 1) {
                     int taskId = Integer.parseInt(cmdParts[1]);
-                    System.out.println("Fanny: ");
+                    System.out.println("Fanny:");
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(list.markAsNotDone(taskId - 1));
                 }
@@ -51,7 +51,7 @@ public class Fanny {
                 System.out.println("_____________________________________________");
                 Task todo = new ToDo(cmdParts[1]);
                 list.add(todo);
-                System.out.println("Fanny: ");
+                System.out.println("Fanny:");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(todo.toString());
                 System.out.println("Now you have " + list.getLength() + " tasks in the list.");
@@ -63,7 +63,7 @@ public class Fanny {
                 String description = cmdDeadline[0];
                 Task deadline = new Deadline(description, time);
                 list.add(deadline);
-                System.out.println("Fanny: ");
+                System.out.println("Fanny:");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(deadline.toString());
                 System.out.println("Now you have " + list.getLength() + " tasks in the list.");
@@ -77,14 +77,14 @@ public class Fanny {
                 String to = time[1];
                 Task event = new Event(description, from, to);
                 list.add(event);
-                System.out.println("Fanny: ");
+                System.out.println("Fanny:");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(event.toString());
                 System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                 System.out.println("_____________________________________________");
             } else {
                 System.out.println("_____________________________________________");
-                System.out.println("Fanny: ");
+                System.out.println("Fanny:");
                 System.out.println("Added: " + cmd);
                 System.out.println("_____________________________________________");
                 list.add(new Task(cmd));
