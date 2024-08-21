@@ -1,14 +1,15 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Tecna {
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
     private int todoSize;
 
     /**
      * A constructor of Tecna chatbot
      */
     public Tecna() {
-        this.taskList = new Task[100];
+        this.taskList = new ArrayList<>();
         this.todoSize = 0;
     }
 
@@ -52,14 +53,14 @@ public class Tecna {
                 this.listItems();
             } else if (input_words[0].equalsIgnoreCase("mark")) {
                 int index = Integer.parseInt(input_words[1]);
-                taskList[index - 1].markAsDone();
+                taskList.get(index - 1).markAsDone();
                 System.out.println("Nice job! I've mark this as done. You deserve a short break <3");
-                System.out.println(taskList[index - 1]);
+                System.out.println(taskList.get(index - 1));
             } else if (input_words[0].equalsIgnoreCase("unmark")) {
                 int index = Integer.parseInt(input_words[1]);
-                taskList[index - 1].unMarkAsDone();
+                taskList.get(index - 1).unMarkAsDone();
                 System.out.println("I've mark this as undone. Keep going, my friend!");
-                System.out.println(taskList[index - 1]);
+                System.out.println(taskList.get(index - 1));
             } else if (input_words[0].equalsIgnoreCase("delete")) {
                 int index = Integer.parseInt(input_words[1]);
                 this.deleteItem(index - 1);
@@ -88,7 +89,7 @@ public class Tecna {
      */
     public void addItem(String item) throws InvalidRequestException, TodoWrongFormatException {
         Task task = getTask(item);
-        this.taskList[this.todoSize] = task;
+        this.taskList.add(task);
         ++this.todoSize;
         System.out.println("Sure! I've added this task:");
         System.out.println(task);
@@ -135,15 +136,13 @@ public class Tecna {
     public void listItems() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.todoSize; ++i) {
-            System.out.println(i + 1 + ". " + this.taskList[i]);
+            System.out.println(i + 1 + ". " + this.taskList.get(i));
         }
     }
 
     public void deleteItem(int index) {
-        String item = this.taskList[index].toString();
-        for (int i = index; i < this.todoSize; ++i) {
-            taskList[i] = taskList[i + 1];
-        }
+        String item = this.taskList.get(index).toString();
+        this.taskList.remove(index);
         this.todoSize--;
         System.out.println("Sure! I've deleted this task:");
         System.out.println(item);
