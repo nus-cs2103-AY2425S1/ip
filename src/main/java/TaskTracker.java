@@ -7,17 +7,17 @@ public class TaskTracker {
         this.counter = 0;
     }
     public void getList() {
-        if (this.tracker == 0) {
+        if (this.counter == 0) {
             System.out.println("No tasks currently!");
         } else {
-            for (int i = 0; i < this.tracker; i++) {
+            for (int i = 0; i < this.counter; i++) {
                 System.out.println("" + (i + 1) + ". " + this.taskList[i]);
             }
         }
     }
 
     public void updateList(String s) {
-        taskList[this.tracker] = s;
-        this.tracker++;
+        taskList[this.counter] = s;
+        this.counter++;
     }
 }
