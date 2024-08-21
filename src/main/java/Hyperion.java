@@ -15,9 +15,10 @@ public class Hyperion {
         String input = "";
         do {
             Scanner scannerObj = new Scanner(System.in);
-            input = scannerObj.nextLine().toLowerCase();
+            input = scannerObj.nextLine();
             System.out.print(solidLine);
             if (input.equals("list")) {
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < count; i++) {
                     String index = String.format("%d. ", i + 1);
                     System.out.println(index + allUserInputs[i].toString());
@@ -58,12 +59,48 @@ public class Hyperion {
                     System.out.print(solidLine);
                 }
             } else {
-                if (!input.equals("bye")) {
-                    System.out.println("added: " + input);
-                    allUserInputs[count] = new Task(input);
+                String str1 = "Got it. I've added this task:\n ";
+                String str2 = String.format("Now you have %d tasks in the list", count + 1);
+                if (input.startsWith("todo")) {
+                    String task = input.substring(4).trim();
+                    ToDos current = new ToDos(task);
+                    allUserInputs[count] = current;
                     count++;
-                    System.out.print(solidLine);
+                    System.out.println(str1 + current.toString() + "\n" + str2);
+                } else if (input.startsWith("deadline")) {
+                    String removeHead = input.substring(8);
+                    String[] inputArray = removeHead.split("/by");
+                    if (inputArray.length == 2) {
+                        Deadlines current = new Deadlines(inputArray[0].trim(), inputArray[1].trim());
+                        allUserInputs[count] = current;
+                        count++;
+                        System.out.println(str1 + current.toString() + "\n" + str2);
+                    } else {
+                        System.out.println("Invalid Input");
+                    }
+                } else if (input.startsWith("event")) {
+                    String removeHead = input.substring(5);
+                    String[] firstSplit = removeHead.split("/from", 2);
+                    if (firstSplit.length == 2) {
+                        String[] secondSplit = firstSplit[1].split("/to", 2);
+                        if (secondSplit.length == 2) {
+                            String desc = firstSplit[0].trim();
+                            String start = secondSplit[0].trim();
+                            String end = secondSplit[1].trim();
+                            Events current = new Events(desc, start, end);
+                            allUserInputs[count] = current;
+                            count++;
+                            System.out.println(str1 + current.toString() + "\n" + str2);
+                        } else {
+                            System.out.println("Invalid Input");
+                        }
+                    } else {
+                        System.out.println("Invalid Input");
+                    }
+                } else {
+                    System.out.println("Invalid Input");
                 }
+                System.out.print(solidLine);
             }
         } while (!input.equals("bye"));
         System.out.println(exit + "\n" + solidLine);
