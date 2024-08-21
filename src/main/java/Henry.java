@@ -51,12 +51,21 @@ public class Henry {
         String[] activityAndTimeList = activityAndTime.split(" /");
         String activity = activityAndTimeList[0];
         if (words[0].equals("todo")) {
+            if (words.length == 1 ) {
+                throw new HenryException("The todo description is wrong!!");
+            }
             tasks[index] = new Todo(activity);
         } else if (words[0].equals("deadline")) {
+            if (activityAndTimeList.length != 2 ) {
+                throw new HenryException("The deadline description is wrong!!");
+            }
             String time = activityAndTimeList[1]
                     .replaceFirst("by ", "");
             tasks[index] = new Deadline(activity, time);
         } else if (words[0].equals("event")) {
+            if (activityAndTimeList.length != 3 ) {
+                throw new HenryException("The event description is wrong!!");
+            }
             String startTime = activityAndTimeList[1]
                     .replaceFirst("from ", "");
             String endTime = activityAndTimeList[2]
