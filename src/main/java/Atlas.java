@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Atlas {
-    // @@author patorjk.com
-    // Reused from https://patorjk.com/software/taag/#p=display&f=Isometric1&t=Atlas
-    // with minor modifications
     public static final String LINE = "____________________________________________________________";
     public static void main(String[] args) {
+        // @@author patorjk.com
+        // Reused from https://patorjk.com/software/taag/#p=display&f=Isometric1&t=Atlas
+        // with minor modifications
         String logo = """
                       ___           ___           ___       ___           ___    \s
                      /\\  \\         /\\  \\         /\\__\\     /\\  \\         /\\  \\   \s
