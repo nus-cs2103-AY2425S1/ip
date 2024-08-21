@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bob {
-    private static final List<String> userInputHistory = new ArrayList<>();
-    private static int numUserInputs = 0;
+    private static final List<Task> taskList = new ArrayList<>();
+    private static int numTasks = 0;
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm Bob the chatbot!\nHow can I help you?");
@@ -14,7 +14,9 @@ public class Bob {
         while (true) {
             String userInput = scanner.nextLine();
             String endKeyword = "bye";
-            String historyKeyword = "list";
+            String listKeyword = "list";
+            String markKeyword = "mark";
+            String unmarkKeyword = "unmark";
 
             if (userInput.equalsIgnoreCase(endKeyword)) {
                 System.out.println("Bye! Hope to see you again :)");
@@ -22,33 +24,60 @@ public class Bob {
             }
 
             // Get input history
-            if (userInput.equalsIgnoreCase(historyKeyword)) {
-                String history = getHistory();
-                System.out.println(history);
+            if (userInput.equalsIgnoreCase(listKeyword)) {
+                System.out.println(generateResponse(userInput) + getTaskList());
+
+            } else if (userInput.startsWith(markKeyword)) {
+                String[] parts = userInput.split(" ");
+                int taskNum = Integer.parseInt(parts[1]);
+                Task currTask = taskList.get(taskNum - 1);
+                currTask.markAsDone();
+                System.out.println(generateResponse(parts[0]) + currTask.getStatusOutput());
+
+            } else if (userInput.startsWith(unmarkKeyword)) {
+                String[] parts = userInput.split(" ");
+                int taskNum = Integer.parseInt(parts[1]);
+                Task currTask = taskList.get(taskNum - 1);
+                currTask.markAsUndone();
+                System.out.println(generateResponse(parts[0]) + currTask.getStatusOutput());
+
             } else {
-                System.out.println(addUserInput(userInput));
+                Task task = new Task(userInput);
+                addTask(task);
+                System.out.println(generateResponse(userInput) + userInput);
             }
         }
 
         scanner.close();
     }
 
-    public static String addUserInput(String userInput) {
-        userInputHistory.add(userInput);
-        numUserInputs++;
-        return "added: " + userInput;
+    public static void addTask(Task task) {
+        taskList.add(task);
+        numTasks++;
     }
 
-    public static String getHistory() {
-        StringBuilder history = new StringBuilder();
-        for (int i = 1; i <= numUserInputs; i++) {
-            String userInput = userInputHistory.get(i - 1);
-            if (i == numUserInputs) {
-                history.append(i).append(". ").append(userInput);
+    public static String generateResponse(String command) {
+        if (command.equalsIgnoreCase("list")) {
+            return "Your list of tasks:\n";
+        } else if (command.equalsIgnoreCase("mark")) {
+            return "Good Job! Marking this task as done:\n";
+        } else if (command.equalsIgnoreCase("unmark")) {
+            return "Okay, marking this task as not done yet:\n";
+        } else {
+            return "task added: ";
+        }
+    }
+
+    public static String getTaskList() {
+        StringBuilder tasks = new StringBuilder();
+        for (int i = 1; i <= numTasks; i++) {
+            Task currTask = taskList.get(i - 1);
+            if (i == numTasks) {
+                tasks.append(i).append(". ").append(currTask.getStatusOutput());
                 continue;
             }
-            history.append(i).append(". ").append(userInput).append("\n");
+            tasks.append(i).append(". ").append(currTask.getStatusOutput()).append("\n");
         }
-        return history.toString();
+        return tasks.toString();
     }
 }
