@@ -36,21 +36,27 @@ public class Azir {
                 System.out.println("Got it. I've added this task:");
                 if (input.startsWith("todo")) {
                     String description = input.substring(5);
-                    taskList.add(new Todo(description));
+                    Task currTask = new Todo(description);
+                    taskList.add(currTask);
+                    System.out.println(currTask);
                 } else if (input.startsWith("deadline")) {
                     int byIndex = input.indexOf("/by");
                     String description = input.substring(9, byIndex - 1);
                     String day = input.substring(byIndex + 4);
-                    taskList.add(new Deadline(description, day));
+                    Task currTask = new Deadline(description, day);
+                    taskList.add(currTask);
+                    System.out.println(currTask);
                 } else {
                     int fromIndex = input.indexOf("/from");
                     int toIndex = input.indexOf("/to");
                     String description = input.substring(6, fromIndex - 1);
                     String startDay = input.substring(fromIndex + 6, toIndex - 1);
                     String endDay = input.substring(toIndex + 4);
-                    taskList.add(new Event(description, startDay, endDay));
+                    Task currTask = new Event(description, startDay, endDay);
+                    taskList.add(currTask);
+                    System.out.println(currTask);
                 }
-                System.out.printf("Now you have %d tasks in the list\n", taskList.size());
+                System.out.printf("Now you have %d %s in the list\n", taskList.size(), taskList.size() == 1 ? "task" : "tasks");
             }
             System.out.println("----------------------------------");
         }
