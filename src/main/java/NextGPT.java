@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.List;
+
 public class NextGPT {
     public static void main(String[] args) {
         String greeting = "_______________________________________________________\n" +
@@ -8,21 +12,34 @@ public class NextGPT {
                 "_______________________________________________________\n";
 
         System.out.println(greeting);
-
+        List<String> todo_list = new ArrayList<>();
         while(true) {
             Scanner sc = new Scanner(System.in);
 
-            String echo = sc.nextLine();
-            if (echo.equals("bye")) break;
-            else System.out.println("_______________________________________________________\n" +
-                    echo + "\n" +
-                    "_______________________________________________________\n");
+            String todo = sc.nextLine();
+            if (todo.equals("bye")) break;
+            else if (todo.equals("list")) {
+                System.out.println("_______________________________________________________\n");
+                for (int i = 0; i <todo_list.size() ; i++) {
+                    System.out.println(i+1 + "." + " " + todo_list.get(i));
+                }
+                System.out.println("_______________________________________________________\n");
+            } else {
+                todo_list.add(todo);
+                System.out.println(
+                        todo + "\n" +
+                                "_______________________________________________________\n"
+                                + "added: " + todo + "\n"
+                                + "_______________________________________________________\n"
+                );
+            }
         }
 
         String exit = "_______________________________________________________\n" +
                 "Bye. Hope to see you soon!\n" +
                 "_______________________________________________________\n";
         System.out.println(exit);
+
     }
 
 }
