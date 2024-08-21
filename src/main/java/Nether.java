@@ -1,18 +1,18 @@
 /**
- * Produces greetings for users and initializes chat.
+ * Produces greetings for users and initializes chatbot.
  */
 
-import java.util.Arrays;
+import java.sql.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Nether {
-    private static final int MAX_TASKS = 100;
-
     private static final String EXIT_COMMAND = "bye";
 
     private static final String LIST_COMMAND = "list";
     private static final String MARK_DONE_COMMAND = "mark";
     private static final String MARK_NOT_DONE_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
 
     private static final String TODO_TASK_COMMAND = "todo";
     private static final String DEADLINE_TASK_COMMAND = "deadline";
@@ -30,7 +30,7 @@ public class Nether {
                 + "|  \\| |/ _ \\ __| '_ \\/ _ \\ '__|\n"
                 + "| |\\  |  __/ |_| | | ||__/ |  \n"
                 + "|_| \\_|\\___|\\__|_| |_\\___|_|\n";
-        Task[] tasks = new Task[MAX_TASKS];
+        ArrayList<Task> tasks = new ArrayList<>();
         int counter = 0;
 
         System.out.println("Hello from\n" + logo);
@@ -43,7 +43,7 @@ public class Nether {
         System.out.print("");
         while (scanner.hasNextLine()) {
             try {
-                String userInput = scanner.nextLine();
+                String userInput = scanner.nextLine().trim();
                 if (userInput.equalsIgnoreCase(EXIT_COMMAND)) {
                     break;
                 }
@@ -56,57 +56,60 @@ public class Nether {
                 }
 
                 if (userInput.toLowerCase().startsWith(MARK_DONE_COMMAND)
-                        || userInput.toLowerCase().startsWith(MARK_NOT_DONE_COMMAND)) {
+                        || userInput.toLowerCase().startsWith(MARK_NOT_DONE_COMMAND)
+                        || userInput.toLowerCase().startsWith(DELETE_COMMAND)) {
+                    printHorizontalLine();
                     int taskNumber = extractTaskNumber(userInput);
                     if (taskNumber != -1 && taskNumber <= counter) {
-                        Task taskToMark = tasks[taskNumber - 1];
+                        Task taskToMark = tasks.get(taskNumber - 1);
                         if (userInput.toLowerCase().startsWith(MARK_DONE_COMMAND)) {
                             taskToMark.markAsDone();
                             System.out.println("Well done! I've marked this task as done:");
-                        } else {
+                            System.out.println("  " + taskToMark);
+                        } else if (userInput.toLowerCase().startsWith(MARK_NOT_DONE_COMMAND)) {
                             taskToMark.markAsNotDone();
                             System.out.println("Understood, I've marked this task as not done:");
+                            System.out.println("  " + taskToMark);
+                        } else {
+                            tasks.remove(taskToMark);
+                            counter--;
+                            System.out.println("Noted, I've removed this task from the list:");
+                            System.out.println("  " + taskToMark);
+                            System.out.println("Now you have " + counter + " task" + (counter > 1 ? "s" : "")
+                                    + " in the list.");
                         }
-                        System.out.println("  " + taskToMark);
+
+                    } else {
+                        throw new NetherException("you inputted an invalid task index.");
                     }
                     printHorizontalLine();
                     continue;
                 }
 
-                // if none of the special command above are input, run the code below:
+                // If none of the special command above are input, run the code below:
                 printHorizontalLine();
 
                 String[] processedInput;
                 if (userInput.toLowerCase().startsWith(TODO_TASK_COMMAND)) {
                     processedInput = extractInputDetails(userInput, TODO_TASK_COMMAND);
-//                    if (processedInput[0].trim().isEmpty()) {
-//                        throw new NetherException("the description field of a todo cannot be empty.");
-//                    }
                     System.out.println("Got it. I've added this task:");
-                    tasks[counter] = new TodoTask(processedInput[0]);
+                    tasks.add(new TodoTask(processedInput[0]));
                 } else if (userInput.toLowerCase().startsWith(DEADLINE_TASK_COMMAND)) {
                     processedInput = extractInputDetails(userInput, DEADLINE_TASK_COMMAND);
-//                    if (processedInput[0].trim().isEmpty() || processedInput[1].trim().isEmpty()) {
-//                        throw new NetherException("the description or by field of a deadline cannot be empty.");
-//                    }
                     System.out.println("Got it. I've added this task:");
-                    tasks[counter] = new DeadlineTask(processedInput[0], processedInput[1]);
+                    tasks.add(new DeadlineTask(processedInput[0], processedInput[1]));
                 } else if (userInput.toLowerCase().startsWith(EVENT_TASK_COMMAND)) {
                     processedInput = extractInputDetails(userInput, EVENT_TASK_COMMAND);
-//                    if (processedInput[0].trim().isEmpty() || processedInput[1].trim().isEmpty()
-//                            || processedInput[2].trim().isEmpty()) {
-//                        throw new NetherException("the description, start time, or end time of an event cannot be " +
-//                                "empty.");
-//                    }
                     System.out.println("Got it. I've added this task:");
-                    tasks[counter] = new EventTask(processedInput[0], processedInput[1], processedInput[2]);
+                    tasks.add(new EventTask(processedInput[0], processedInput[1], processedInput[2]));
                 } else {
                     extractInputDetails(userInput, userInput);
                 }
 
-                System.out.println("  " + tasks[counter].toString());
+                System.out.println("  " + tasks.get(tasks.size() - 1).toString());
                 counter++;
-                System.out.println("Now you have " + counter + " tasks in the list.");
+                // distinguishing singular and plural
+                System.out.println("Now you have " + counter + " task" + (counter > 1 ? "s" : "") + " in the list.");
                 printHorizontalLine();
             } catch (NetherException e) {
                 System.out.println("Sir, " + e.getMessage());
@@ -132,10 +135,12 @@ public class Nether {
      *
      * @param tasks array that holds the task list
      */
-    private static void printList(Task[] tasks) {
+    private static void printList(ArrayList<Task> tasks) {
+        int listIndex = 1;
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; tasks[i] != null; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+        for (Task task: tasks) {
+            System.out.println(listIndex + ". " + task.toString());
+            listIndex++;
         }
     }
 
@@ -167,7 +172,7 @@ public class Nether {
         String[] resultArray = new String[]{};
         switch (taskType) {
         case "todo":
-            preprocessArray = userInput.split("todo ", 2);
+            preprocessArray = userInput.split("(?i)todo ", 2);
             if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
                 throw new NetherException("The description of a todo cannot be empty.");
             }
@@ -175,7 +180,7 @@ public class Nether {
             break;
 
         case "deadline":
-            preprocessArray = userInput.split("deadline ", 2);
+            preprocessArray = userInput.split("(?i)deadline ", 2);
             if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
                 throw new NetherException("The description of a deadline cannot be empty.");
             }
@@ -187,7 +192,7 @@ public class Nether {
             break;
 
         case "event":
-            preprocessArray = userInput.split("event ", 2);
+            preprocessArray = userInput.split("(?i)event ", 2);
             if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
                 throw new NetherException("The description of an event cannot be empty.");
             }
