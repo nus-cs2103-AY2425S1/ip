@@ -1,4 +1,4 @@
-
+//https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +32,7 @@ public class Xizi {
             Matcher todoMatcher = TODO_PATTERN.matcher(userInput);
             Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(userInput);
             Matcher eventMatcher = EVENT_PATTERN.matcher(userInput);
-            try{
+            try {
                 if (deleteMatcher.matches()) {
                     int taskNumber = Integer.parseInt(deleteMatcher.group(1)) - 1;
                     if (taskNumber < 0 || taskNumber >= actions.getSize()) {
@@ -47,78 +47,77 @@ public class Xizi {
                     continue;
 
                 }
-            if (markMatcher.matches()) {
-                int taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
-                if (taskNumber < 0 || taskNumber >= actions.getSize()) {
-                    throw new XiziException("The task number does not exist.");
+                if (markMatcher.matches()) {
+                    int taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
+                    if (taskNumber < 0 || taskNumber >= actions.getSize()) {
+                        throw new XiziException("The task number does not exist.");
+                    }
+                    System.out.println(DIVIDER);
+                    System.out.println("Nice! I've marked this task as done: ");
+                    System.out.println(actions.markTask(taskNumber));
+                    System.out.println(DIVIDER);
+                    continue;
                 }
-                System.out.println(DIVIDER);
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(actions.markTask(taskNumber));
-                System.out.println(DIVIDER);
-                continue;
-            }
 
-            if (unmarkMatcher.matches()) {
-                int taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
-                if (taskNumber < 0 || taskNumber >= actions.getSize()) {
-                    throw new XiziException("The task number does not exist.");
+                if (unmarkMatcher.matches()) {
+                    int taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
+                    if (taskNumber < 0 || taskNumber >= actions.getSize()) {
+                        throw new XiziException("The task number does not exist.");
+                    }
+                    System.out.println(DIVIDER);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(actions.unmarkTask(taskNumber));
+                    System.out.println(DIVIDER);
+                    continue;
                 }
-                System.out.println(DIVIDER);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(actions.unmarkTask(taskNumber));
-                System.out.println(DIVIDER);
-                continue;
-            }
-            if (todoMatcher.matches()) {
-                String taskDescription = todoMatcher.group(1).trim();
-                if (taskDescription.isEmpty()) {
-                    throw new XiziException("The description of a todo cannot be empty.Type help to see the formats required.");
+                if (todoMatcher.matches()) {
+                    String taskDescription = todoMatcher.group(1).trim();
+                    if (taskDescription.isEmpty()) {
+                        throw new XiziException("The description of a todo cannot be empty. Type help to see the formats required.");
+                    }
+                    actions.addTask(new Todo(taskDescription));
+                    System.out.println(DIVIDER);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  [T][ ] " + taskDescription);
+                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+                    System.out.println(DIVIDER);
+                    continue;
                 }
-                actions.addTask(new Todo(taskDescription));
-                System.out.println(DIVIDER);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  [T][ ] " + taskDescription);
-                System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-                System.out.println(DIVIDER);
-                continue;
-            }
 
-            if (deadlineMatcher.matches()) {
-                String taskDescription = deadlineMatcher.group(1).trim();;
-                String deadline = deadlineMatcher.group(2).trim();
-                if (taskDescription.isEmpty() || deadline.isEmpty()) {
-                    throw new XiziException("The description or time of a deadline cannot be empty.Type help to see the formats required.");
+                if (deadlineMatcher.matches()) {
+                    String taskDescription = deadlineMatcher.group(1).trim();;
+                    String deadline = deadlineMatcher.group(2).trim();
+                    if (taskDescription.isEmpty() || deadline.isEmpty()) {
+                        throw new XiziException("The description or time of a deadline cannot be empty.Type help to see the formats required.");
+                    }
+                    actions.addTask(new Deadline(taskDescription, deadline));
+                    System.out.println(DIVIDER);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  [D][ ] " + taskDescription + " (by: " + deadline + ")");
+                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+                    System.out.println(DIVIDER);
+                    continue;
                 }
-                actions.addTask(new Deadline(taskDescription, deadline));
-                System.out.println(DIVIDER);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  [D][ ] " + taskDescription + " (by: " + deadline + ")");
-                System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-                System.out.println(DIVIDER);
-                continue;
-            }
 
-            if (eventMatcher.matches()) {
-                String taskDescription = eventMatcher.group(1).trim();
-                String fromTime = eventMatcher.group(2).trim();
-                String toTime = eventMatcher.group(3).trim();
-                if (taskDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
-                    throw new XiziException("The description, from or to time of an event cannot be empty.Type help to see the formats required.");
+                if (eventMatcher.matches()) {
+                    String taskDescription = eventMatcher.group(1).trim();
+                    String fromTime = eventMatcher.group(2).trim();
+                    String toTime = eventMatcher.group(3).trim();
+                    if (taskDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
+                        throw new XiziException("The description, from or to time of an event cannot be empty.Type help to see the formats required.");
+                    }
+                    actions.addTask(new Event(taskDescription, fromTime, toTime));
+                    System.out.println(DIVIDER);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  [E][ ] " + taskDescription + " (from: " + fromTime + " to: " + toTime + ")");
+                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+                    System.out.println(DIVIDER);
+                    continue;
                 }
-                actions.addTask(new Event(taskDescription, fromTime, toTime));
-                System.out.println(DIVIDER);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  [E][ ] " + taskDescription + " (from: " + fromTime + " to: " + toTime + ")");
-                System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-                System.out.println(DIVIDER);
-                continue;
-            }
 
 
 
-            switch (userInput) {
-
+                switch (userInput) {
                 case "list":
                     System.out.println(DIVIDER);
                     System.out.println("Here are the tasks in your list:");
