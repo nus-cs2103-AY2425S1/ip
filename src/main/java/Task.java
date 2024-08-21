@@ -1,6 +1,6 @@
 package main.java;
 
-abstract class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone = false;
 

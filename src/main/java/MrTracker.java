@@ -1,3 +1,7 @@
+package main.java;
+import main.java.Task;
+import main.java.ToDo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,21 +17,22 @@ public class MrTracker {
         }
     }
 
-    public static void printTaskList(ArrayList<String> taskList) {
+    public static void printTaskList(ArrayList<Task> taskList) {
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i+1 + ". " + taskList.get(i));
+            System.out.println(i+1 + ". " + taskList.get(i).name);
         }
     }
 
-    public static void addTask (ArrayList<String> taskList, String task) {
-        taskList.add(task);
-        System.out.println("added: " + task);
+    public static void addTask (ArrayList<Task> taskList, String taskName) {
+        ToDo newTask = new ToDo(taskName);
+        taskList.add(newTask);
+        System.out.println("added: " + taskName);
     }
 
     public static void main(String[] args) {
         String name = "Mr Tracker";
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> taskList = new ArrayList<String>();
+        ArrayList<Task> taskList = new ArrayList<Task>();
         MrTracker.printLine();
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you? \n");
