@@ -39,7 +39,7 @@ public class Sentinel {
      *
      * @param taskNumber Task number to be marked.
      */
-    public void markDone(int taskNumber) {
+    public void markDone(int taskNumber) throws SentinelException {
         say("Marked the following task as done: \n " + taskList.markAsDone(taskNumber));
     }
 
@@ -48,7 +48,7 @@ public class Sentinel {
      *
      * @param taskNumber Task number to be unmarked.
      */
-    public void markUndone(int taskNumber) {
+    public void markUndone(int taskNumber) throws SentinelException {
         say("Unmarked the following task: \n " + taskList.markAsUndone(taskNumber));
     }
 
@@ -64,7 +64,7 @@ public class Sentinel {
         say("Added the following deadline: \n" + taskList.addDeadline(description, endTime));
     }
 
-    public void deleteTask(int taskNumber) {
+    public void deleteTask(int taskNumber) throws SentinelException {
         say("Deleted the following task: \n" + taskList.deleteTask(taskNumber));
     }
 

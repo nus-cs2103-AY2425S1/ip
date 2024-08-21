@@ -41,7 +41,11 @@ public class TaskList {
      *
      * @param taskNumber Number of the task.
      */
-    public Task markAsDone(int taskNumber) {
+    public Task markAsDone(int taskNumber) throws SentinelException {
+        if (taskNumber > this.tasks.size() || taskNumber <= 0) {
+            throw new SentinelException("That task number does not exist!");
+        }
+
         this.tasks.get(taskNumber - 1).markAsDone();
 
         return this.tasks.get(taskNumber - 1);
@@ -52,7 +56,11 @@ public class TaskList {
      *
      * @param taskNumber Number of the task.
      */
-    public Task markAsUndone(int taskNumber) {
+    public Task markAsUndone(int taskNumber) throws SentinelException {
+        if (taskNumber > this.tasks.size() || taskNumber <= 0) {
+            throw new SentinelException("That task number does not exist!");
+        }
+
         this.tasks.get(taskNumber - 1).markAsUndone();
 
         return this.tasks.get(taskNumber - 1);
@@ -63,7 +71,11 @@ public class TaskList {
      *
      * @param taskNumber Number of the task.
      */
-    public Task deleteTask(int taskNumber) {
+    public Task deleteTask(int taskNumber) throws SentinelException {
+        if (taskNumber > this.tasks.size() || taskNumber <= 0) {
+            throw new SentinelException("That task number does not exist!");
+        }
+
         return this.tasks.remove(taskNumber - 1);
     }
 
