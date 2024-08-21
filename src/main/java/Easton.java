@@ -23,37 +23,46 @@ public class Easton {
         Scanner scanner = new Scanner(System.in);
         boolean isFinished = false;
         String input;
+        Action action;
 
         while (!isFinished) {
             input = prompt(scanner);
             printDivider();
 
-            if (input.equalsIgnoreCase("bye")) {
+            try {
+                action = getActionFromInput(input);
+            } catch (IllegalActionException e) {
+                System.out.println(e.getMessage());
+                action = Action.INVALID;
+            }
+
+            switch (action) {
+            case BYE:
                 System.out.println("Bye. Hope to see you again soon!");
                 isFinished = true;
-            } else if (input.equalsIgnoreCase("list")) {
+                break;
+            case LIST:
                 System.out.println("Here are the tasks in your list:");
                 printList();
-            } else if (input.toLowerCase().startsWith("mark")) {
-                changeTaskStatus(getTextFromInput(input),
-                        true,
-                        "Nice! I've marked this task as done:");
-            } else if (input.toLowerCase().startsWith("unmark")) {
-                changeTaskStatus(getTextFromInput(input),
-                        false,
-                        "OK, I've marked this task as not done yet:");
-            } else if (input.toLowerCase().startsWith("todo")) {
+                break;
+            case MARK:
+                changeTaskStatus(getTextFromInput(input), true, "Nice! I've marked this task as done:");
+                break;
+            case UNMARK:
+                changeTaskStatus(getTextFromInput(input), false, "OK, I've marked this task as not done yet:");
+                break;
+            case TODO:
                 addTask(new ToDo(getTextFromInput(input)));
-            } else if (input.toLowerCase().startsWith("deadline")) {
+                break;
+            case DEADLINE:
                 String[] text = getTextFromInput(input).split(" /by ", 2);
                 addTask(new Deadline(text[0], text[1]));
-
-            } else if (input.toLowerCase().startsWith("event")) {
-                String[] text = getTextFromInput(input).split(" /from ", 2);
-                String[] timings = text[1].split(" /to ", 2);
-                addTask(new Event(text[0], timings[0], timings[1]));
-            } else {
-                System.out.println(input);
+                break;
+            case EVENT:
+                String[] strings = getTextFromInput(input).split(" /from ", 2);
+                String[] timings = strings[1].split(" /to ", 2);
+                addTask(new Event(strings[0], timings[0], timings[1]));
+                break;
             }
 
             printDivider();
@@ -84,6 +93,15 @@ public class Easton {
 
     private static String getTextFromInput(String input) {
         return input.split(" ", 2)[1];
+    }
+
+    private static Action getActionFromInput(String input) throws IllegalActionException {
+        String action = input.split(" ", 2)[0];
+        try {
+            return Action.valueOf(action.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalActionException();
+        }
     }
 
     private static void addTask(Task task) {
