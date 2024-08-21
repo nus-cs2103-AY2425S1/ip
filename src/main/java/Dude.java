@@ -33,6 +33,17 @@ public class Dude {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    public static void deleteTask(int index) throws DudeException {
+        if (index > taskList.size() || index < 1) {
+            throw new DudeException("This task does not exist!");
+        } else {
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(taskList.get(index - 1));
+            taskList.remove(index - 1);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        }
+    }
+
     public static void markTaskAsDone(int index) throws DudeException {
         if (index > taskList.size() || index < 1) {
             throw new DudeException("This task does not exist!");
@@ -70,9 +81,23 @@ public class Dude {
 
     public static void action(String input) throws DudeException {
         if (input.startsWith("mark ")) {
-            markTaskAsDone(Integer.parseInt(input.substring(5)));
+            try {
+                markTaskAsDone(Integer.parseInt(input.substring(5)));
+            } catch (NumberFormatException e) {
+                throw new DudeException("Please enter a valid number!");
+            }
         } else if (input.startsWith("unmark ")) {
-            markTaskAsUndone(Integer.parseInt(input.substring(7)));
+            try {
+                markTaskAsUndone(Integer.parseInt(input.substring(7)));
+            } catch (NumberFormatException e) {
+                throw new DudeException("Please enter a valid number!");
+            }
+        } else if (input.startsWith("delete ")) {
+            try {
+                deleteTask(Integer.parseInt(input.substring(7)));
+            } catch (NumberFormatException e) {
+                throw new DudeException("Please enter a valid number!");
+            }
         } else if (input.equals("list")) {
             printList();
         } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
