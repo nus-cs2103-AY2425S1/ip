@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Ollie {
     // Private Types
-    private static final String DIVIDER = "____________________________________________________________";
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -15,21 +14,24 @@ public class Ollie {
 
         String input = scanner.nextLine();
         while(!input.matches("bye")) {
-
-            // Input parser
-
-            if(input.matches("list")) {
-                Ollie.list();
-            } else if (input.matches("^mark \\d+$")){
-                int i = Integer.parseInt(input.replaceAll("\\D+",""));
-                Ollie.mark(i);
-            } else if (input.matches("^unmark \\d+$")) {
-                int i = Integer.parseInt(input.replaceAll("\\D+",""));
-                Ollie.unmark(i);
-            }  else if (input.matches("^(deadline|event|todo) .+$")) {
-                Ollie.add(input);
+            try {
+                // Input parser
+                if (input.matches("list")) {
+                    Ollie.list();
+                } else if (input.matches("^mark.*")) {
+                    Ollie.mark(input);
+                } else if (input.matches("^unmark.*")) {
+                    Ollie.unmark(input);
+                } else if (input.matches("^(deadline|event|todo).*")) {
+                    Ollie.add(input);
+                } else {
+                    throw new OllieException("I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (OllieException e) {
+                Ollie.printResponse(e.getMessage());
+            } finally {
+                input = scanner.nextLine();
             }
-            input = scanner.nextLine();
         }
 
         // Exit
@@ -46,25 +48,72 @@ public class Ollie {
         Ollie.printResponse("Bye. Hope to see you again soon!");
     }
 
-    private static void add(String s) {
+    private static void add(String s) throws OllieException {
         Task task;
 
         // Input parser:
-        if (s.matches("^deadline .+ /by .+$")){
+        if (s.matches("^deadline.*$")){
+            if (!s.contains("/by")) {
+                throw new OllieException("Use deadline with a \"/by\" keyword and a date/time.");
+            }
             String[] splitString = s.split("/by", 2);
-            task = new Deadline(splitString[0].replaceFirst("deadline","").trim(), splitString[1].trim());
-        } else if(s.matches("^event .+ /from .+ /to .+$")) {
+
+            String desc = splitString[0].replaceFirst("deadline","").trim();
+            if (desc.isEmpty()) {
+                throw new OllieException("Description of deadline cannot be empty!");
+            }
+
+            String by = splitString[1].trim();
+            if (by.isEmpty()) {
+                throw new OllieException("Date/Time of deadline cannot be empty!");
+            }
+
+            task = new Deadline(desc, by);
+        } else if(s.matches("^event.*")) {
+            if (!s.contains("/from")) {
+                throw new OllieException("Use deadline with a \"/from\" keyword and a date/time.");
+            }
+            if (!s.contains("/to")) {
+                throw new OllieException("Use deadline with a \"/to\" keyword and a date/time.");
+            }
+            if (!s.matches(".*/from.*/to.*")) {
+                throw new OllieException("\"/from\" keyword must come before \"/to\" keyword.");
+            }
             String[] splitString = s.split("/from|/to", 3);
-            task = new Event(splitString[0].replaceFirst("event","").trim(), splitString[1].trim(), splitString[2].trim());
+
+            String desc = splitString[0].replaceFirst("event","").trim();
+            if (desc.isEmpty()) {
+                throw new OllieException("Description of event cannot be empty!");
+            }
+
+            String from = splitString[1].trim();
+            if (from.isEmpty()) {
+                throw new OllieException("Date/Time after /from cannot be empty!");
+            }
+
+            String to = splitString[2].trim();
+            if (to.isEmpty()) {
+                throw new OllieException("Date/Time after /to cannot be empty!");
+            }
+
+            task = new Event(desc, from, to);
         } else {
-            task = new Todo(s.replaceFirst("todo","").trim());
+            String desc = s.replaceFirst("todo","").trim();
+            if (desc.isEmpty()) {
+                throw new OllieException("Description of todo cannot be empty!");
+            }
+
+            task = new Todo(desc);
         }
         tasks.add(task);
         Ollie.printResponse("Got it. I've added this task:\n  "
                 + task.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
-    private static void list() {
+    private static void list() throws OllieException {
+        if (tasks.isEmpty()) {
+            throw new OllieException("Your list is empty!");
+        }
         ArrayList<String> list = new ArrayList<>();
         for(int i = 0; i < tasks.size(); i++) {
             list.add(String.format("%d.%s%s", i + 1,tasks.get(i),i == tasks.size() - 1 ? "": "\n"));
@@ -72,27 +121,33 @@ public class Ollie {
         Ollie.printResponse(String.join("",list));
     }
 
-    private static void mark(int i) {
-        int index = i - 1;
+    private static void mark(String input) throws OllieException{
+        if (!input.matches("mark \\d+")) {
+            throw new OllieException("Missing a serial number after mark.");
+        }
+        int index = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
+
         if (index < 0 || index >= tasks.size()) {
-            Ollie.printResponse("Invalid Serial Number!");
-            return;
+            throw new OllieException("Invalid Serial Number!");
         }
 
-        Task task = tasks.get(i - 1);
+        Task task = tasks.get(index);
         task.markAsDone();
 
         Ollie.printResponse("Nice! I've marked this task as done:\n  " + task.toString());
     }
 
-    private static void unmark(int i) {
-        int index = i - 1;
+    private static void unmark(String input) throws OllieException{
+        if (!input.matches("unmark \\d+")) {
+            throw new OllieException("Missing a serial number after unmark.");
+        }
+        int index = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
+
         if (index < 0 || index >= tasks.size()) {
-            Ollie.printResponse("Invalid Serial Number!");
-            return;
+            throw new OllieException("Invalid Serial Number!");
         }
 
-        Task task = tasks.get(i - 1);
+        Task task = tasks.get(index);
         task.markAsUndone();
 
         Ollie.printResponse("OK, I've marked this task as not done yet:\n  " + task.toString());
@@ -104,8 +159,8 @@ public class Ollie {
     }
 
     private static void printResponse(String s) {
-        System.out.println( Ollie.DIVIDER + "\n" + s + "\n" + Ollie.DIVIDER);
+        System.out.println("____________________________________________________________\n"
+                + s
+                + "\n____________________________________________________________");
     }
-
-
 }
