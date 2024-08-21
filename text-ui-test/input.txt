@@ -1,0 +1,7 @@
+todo borrow book
+deadline return book /by Sunday
+event CCA /from Wed 7pm /to Wed 9pm
+list
+mark 1
+unmark 1
+bye
