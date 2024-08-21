@@ -102,14 +102,20 @@ public class Henry {
      * @param tasks array of tasks recorded
      * @param words user input
      */
-    public static void changeTaskStatus(Task[] tasks, String[] words){
+    public static void changeTaskStatus(Task[] tasks, String[] words) throws HenryException {
         int number = Integer.parseInt(words[1]);
         if (words[0].equals("mark")) {
+            if (tasks[number - 1].isDone()) {
+                throw new HenryException("The task is already marked!");
+            }
             tasks[number - 1].mark();
             System.out.println("\nNice! I've marked this task as done:\n"
                     + tasks[number - 1].toString()
                     + "\n");
         } else {
+            if (!tasks[number - 1].isDone()) {
+                throw new HenryException("The task is already unmarked!");
+            }
             tasks[number - 1].unmark();
             System.out.println("\nOK, I've marked this task as not done yet:\n"
                     + tasks[number - 1].toString()
@@ -139,7 +145,11 @@ public class Henry {
             } else {
                 String[] words = input.split(" ");
                 if (words[0].equals("mark") || words[0].equals("unmark")) {
-                    changeTaskStatus(tasks, words);
+                    try {
+                        changeTaskStatus(tasks, words);
+                    } catch (HenryException e) {
+                        System.out.println("\nSorry! " + e.getMessage() + "\n");
+                    }
                 } else {
                     try {
                         addTask(tasks, index, input);
