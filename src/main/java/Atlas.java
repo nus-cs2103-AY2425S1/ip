@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Atlas {
@@ -23,6 +24,7 @@ public class Atlas {
         System.out.println("Hello from\n" + logo);
         Atlas.greet();
 
+        ArrayList<String> list = new ArrayList<>();
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine();
@@ -31,7 +33,8 @@ public class Atlas {
                     Atlas.exit();
                     return;
                 default:
-                    Atlas.print(command);
+                    list.add(command);
+                    Atlas.print(String.format("added: %s", command));
                     break;
             }
         }
