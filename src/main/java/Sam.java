@@ -18,6 +18,12 @@ public class Sam {
             } else if (input.equals("list")){
                 System.out.println(items.toString());
                 System.out.println(getHorizontalLine());
+            }else if (input.startsWith("mark")) {
+                String[] parts = input.split(" ");
+                items.markItemDone(Integer.parseInt(parts[1]));
+            } else if (input.startsWith("unmark")){
+                String[] parts = input.split(" ");
+                items.markItemUndone(Integer.parseInt(parts[1]));
             } else {
                 Item newItem = new Item(input);
                 items.addItem(newItem);

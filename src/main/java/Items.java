@@ -11,6 +11,15 @@ public class Items {
         this.items.add(item);
     }
 
+    public void  markItemDone(int i) {
+        this.items.get(i-1).markAsDone();
+    }
+
+    public void  markItemUndone(int i) {
+        this.items.get(i-1).markAsUndone();
+    }
+
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
