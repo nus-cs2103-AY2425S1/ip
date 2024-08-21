@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Assistinator {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int count = 0;
         String command = "";
 
@@ -20,10 +20,26 @@ public class Assistinator {
                 System.out.println("Bye. Hope to see you again soon!");
             } else if (Objects.equals(command, "list")) {
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1)+ ". " + tasks[i]);
+                    System.out.println((i + 1)+ "." + tasks[i].toString());
+                }
+            } else if (command.startsWith("mark")) {
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                if (index >= 0 && index < count) {
+                    tasks[index].markAsDone();
+                    for (int i = 0; i < count; i++) {
+                        System.out.println((i + 1)+ "." + tasks[i].toString());
+                    }
+                }
+            } else if (command.startsWith("unmark")) {
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                if (index >= 0 && index < count) {
+                    tasks[index].markAsUndone();
+                    for (int i = 0; i < count; i++) {
+                        System.out.println((i + 1)+ "." + tasks[i].toString());
+                    }
                 }
             } else {
-                tasks[count] = command;
+                tasks[count] = new Task(command);
                 System.out.println("added: " + command);
                 count++;
             }
