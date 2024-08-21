@@ -83,6 +83,12 @@ public class LevelHundred {
             this.ui.printException(new MissingArgumentException(command, "task index"));
             return;
         }
+        if (words.length > 2) {
+            String invalidString = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+            this.ui.printException(new InvalidArgumentException(command, invalidString));
+            return;
+        }
+
         try {
             int idx = Integer.parseInt(words[1]) - 1;
             Task t = this.storage.getTaskList().get(idx);
@@ -103,6 +109,12 @@ public class LevelHundred {
             this.ui.printException(new MissingArgumentException("delete", "task index"));
             return;
         }
+        if (words.length > 2) {
+            String invalidString = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+            this.ui.printException(new InvalidArgumentException("delete", invalidString));
+            return;
+        }
+
         try {
             int idx = Integer.parseInt(words[1]) - 1;
             Task t = this.storage.removeTask(idx);
