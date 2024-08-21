@@ -49,8 +49,7 @@ public class Testament {
                 );
 
             } else {
-                printDialogue(userInput + " has been added to your schedule.");
-                taskList.add(new Task(userInput));
+                printDialogue("Apologies, but I don't know what that means.");
 
             }
         }
