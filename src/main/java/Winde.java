@@ -19,6 +19,14 @@ public class Winde {
             String[] order, command;
             if (input.equals("list")) {
                 list();
+            } else if (input.startsWith("delete")) {
+                try {
+                    handleDeleteException(input);
+                } catch (EmptyDescriptionException e) {
+                    throw new RuntimeException(e);
+                } catch (TooManyParametersException e) {
+                    throw new RuntimeException(e);
+                }
             } else if (input.startsWith("mark")) {
                 try {
                     handleMarkException(input);
@@ -68,6 +76,21 @@ public class Winde {
 
     private final static List<Task> reminder = new ArrayList<Task>();
 
+    public static void handleDeleteException (String input) throws EmptyDescriptionException, TooManyParametersException {
+        String[] command = input.split(" ");
+        if (command.length == 2) {
+            delete(Integer.parseInt(command[1]));
+        } else if (command.length < 2) {
+            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M DELETING!");
+        } else {
+            throw new TooManyParametersException("ONE AT A TIME!");
+        }
+    }
+    public static void delete(int i) {
+        Task deleted = reminder.remove(i - 1);
+        System.out.print("Noted. I've removed this task:\n" + "    " + deleted.toString() + "\n");
+        System.out.println("Now you have " + reminder.size() + " tasks in the list.");
+    }
     private static void handleEventCommand(String input) throws EmptyDescriptionException {
         String[] command = input.split(" ", 2);
         if (command.length == 2) {
@@ -169,10 +192,14 @@ public class Winde {
 
     public static void list() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= reminder.size(); i++) {
-            System.out.print(i + ".");
-            task(i);
-            System.out.println();
+        if (reminder.size() == 0) {
+            System.out.println("Hurray you got nothing to do!");
+        } else {
+            for (int i = 1; i <= reminder.size(); i++) {
+                System.out.print(i + ".");
+                task(i);
+                System.out.println();
+            }
         }
     }
 
