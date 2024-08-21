@@ -112,7 +112,7 @@ public class Gopher {
             }
 
             if (toTokenIndex == -1) {
-                throw new MissingTokenException(taskType, "/from");
+                throw new MissingTokenException(taskType, "/to");
             }
 
             for (int i = 1; i < fromTokenIndex; i++) {
