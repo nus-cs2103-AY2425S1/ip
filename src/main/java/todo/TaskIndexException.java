@@ -14,7 +14,9 @@ public class TaskIndexException extends BeeException {
      * Formats missing task message for different tasks
      */
     public TaskIndexException() {
-        super("This task does not exist.\n" +
-                "Type 'list' to see what tasks you have.");
+        super("""
+                This task does not exist.
+                Remember to use the task's index number.
+                Type 'list' to see what tasks you have.""");
     }
 }

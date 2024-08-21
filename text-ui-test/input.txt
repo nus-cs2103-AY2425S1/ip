@@ -13,4 +13,6 @@ list
 delete 0
 list
 blah
+mark y
+help
 bye!

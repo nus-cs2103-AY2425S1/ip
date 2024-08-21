@@ -10,6 +10,30 @@ import todo.Task;
  */
 public class ChatbotOutput {
     /**
+     * Print out "Bee" logo in ASCII art
+     */
+    public static final String logo = " ____\n"
+            + "|  _ \\  ___   ___\n"
+            + "| |_/  / _ \\ / _ \\\n"
+            + "| |_\\ |  __/|  __/\n"
+            + "|____/ \\___| \\___|\n";
+
+    public static final String help = """
+            There are three types of task, you can add them by typing:
+                todo <task name>
+                deadline <task name> /by <time>
+                event <task name> /from <time> /by <time>
+               
+            You can view all your tasks and their respective indices by:
+                list
+               
+            You edit your tasks by:
+                mark <task index>
+                unmark <task index>
+                delete <task index>
+            """;
+
+    /**
      * Ensure correct indentation for any text
      * Indent single and multiline strings
      *

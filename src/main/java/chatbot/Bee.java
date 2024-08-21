@@ -6,27 +6,19 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * Main entrypoint to the chatbot "Bee"
  *
  * @author celeschai
  */
 public class Bee {
-    /**
-     * Print out "Bee" logo in ASCII art
-     */
-    private static final String logo = " ____\n"
-            + "|  _ \\  ___   ___\n"
-            + "| |_/  / _ \\ / _ \\\n"
-            + "| |_\\ |  __/|  __/\n"
-            + "|____/ \\___| \\___|\n";
-
     public static void main(String[] args) {
         // Instantiates a todolist
         TodoList todoList = new TodoList();
 
         // Welcome user
-        System.out.println(logo);
+        System.out.println(ChatbotOutput.logo);
         ChatbotOutput.printBtnLines("Hello, I'm Bee! What can I do for you?");
 
         // Scan for user input
@@ -46,56 +38,76 @@ public class Bee {
                     ChatbotOutput.printBtnLines(
                             "Here are the tasks in your list:\n".concat(todoList.toString()));
 
-                // Parse input from user to get task number
-                } else if (next.matches("mark .*")) {
-                    String[] taskIndex = next.split(" ");
-                    int index = Integer.parseInt(taskIndex[1]);
+                // Parse input from user to get task index
+                } else if (next.matches("mark (.+)")) {
+                    // Regular expression to capture task index
+                    Pattern pattern = Pattern.compile("mark (\\d+)");
+                    Matcher matcher = pattern.matcher(next);
 
-                    // Mark task as done
-                    if (todoList.isTaskExist(index)) {
-                        todoList.markTaskAsDone(index);
+                    // If match succeeds, obtain task index
+                    if (matcher.matches()) {
+                        String num = matcher.group(1);
+                        int index = Integer.parseInt(num);
 
-                        ChatbotOutput.printBtnLines(
-                                String.format(
-                                        "Nice! I've marked this task as done:\n    %s",
-                                        todoList.getTask(index)));
+                        // Mark task as done
+                        if (todoList.isTaskExist(index)) {
+                            todoList.markTaskAsDone(index);
 
-                    // Warn user of invalid task specified
-                    } else {
-                        throw new TaskIndexException();
-                    }
-
-                // Parse input from user to get task number
-                } else if (next.matches("unmark .*")) {
-                    String[] taskIndex = next.split(" ");
-                    int index = Integer.parseInt(taskIndex[1]);
-
-                    // Mark task as incomplete
-                    if (todoList.isTaskExist(index)) {
-                        todoList.markTaskAsIncomplete(index);
-
-                        ChatbotOutput.printBtnLines(
-                                String.format(
-                                        "OK, I've marked this task as not done yet:\n    %s",
-                                        todoList.getTask(index)));
+                            ChatbotOutput.printBtnLines(
+                                    String.format(
+                                            "Nice! I've marked this task as done:\n    %s",
+                                            todoList.getTask(index)));
+                        }
 
                     // Warn user of invalid task specified
                     } else {
                         throw new TaskIndexException();
                     }
 
-                // Parse input from user to get task number
-                } else if (next.matches("delete .*")) {
-                    String[] taskIndex = next.split(" ");
-                    int index = Integer.parseInt(taskIndex[1]);
+                // Parse input from user to get task index
+                } else if (next.matches("unmark (.+)")) {
+                    // Regular expression to capture task index
+                    Pattern pattern = Pattern.compile("mark (\\d+)");
+                    Matcher matcher = pattern.matcher(next);
 
-                    // Mark task as incomplete
-                    if (todoList.isTaskExist(index)) {
-                        Task deletedTask = todoList.removeTask(index);
+                    // If match succeeds, obtain task index
+                    if (matcher.matches()) {
+                        String num = matcher.group(1);
+                        int index = Integer.parseInt(num);
 
-                        ChatbotOutput.deleteTaskResponse(
-                                deletedTask.toString(), todoList.getTotalNumOfTasks());
+                        // Mark task as incomplete
+                        if (todoList.isTaskExist(index)) {
+                            todoList.markTaskAsIncomplete(index);
 
+                            ChatbotOutput.printBtnLines(
+                                    String.format(
+                                            "OK, I've marked this task as not done yet:\n    %s",
+                                            todoList.getTask(index)));
+                        }
+
+                    // Warn user of invalid task specified
+                    } else {
+                        throw new TaskIndexException();
+                    }
+
+                    // Parse input from user to get task index
+                } else if (next.matches("delete (.+)")) {
+                    // Regular expression to capture task index
+                    Pattern pattern = Pattern.compile("mark (\\d+)");
+                    Matcher matcher = pattern.matcher(next);
+
+                    // If match succeeds, obtain task index
+                    if (matcher.matches()) {
+                        String num = matcher.group(1);
+                        int index = Integer.parseInt(num);
+
+                        // Delete task
+                        if (todoList.isTaskExist(index)) {
+                            Task deletedTask = todoList.removeTask(index);
+
+                            ChatbotOutput.deleteTaskResponse(
+                                    deletedTask.toString(), todoList.getTotalNumOfTasks());
+                    }
                     // Warn user of invalid task specified
                     } else {
                         throw new TaskIndexException();
@@ -165,7 +177,8 @@ public class Bee {
 
                 // TODO: display list of commands
                 } else if (next.matches("help")) {
-                    ChatbotOutput.printBtnLines("This function is still under development.");
+                    ChatbotOutput.printBtnLines(ChatbotOutput.help);
+
                 } else {
                     // Throw exception when nothing, whitespaces, or no name is provided
                     throw new BeeException("Say something helpful.");
