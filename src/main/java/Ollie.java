@@ -3,9 +3,8 @@ import java.util.ArrayList;
 
 public class Ollie {
     // Private Types
-    private static final String NAME = "Ollie";
     private static final String DIVIDER = "____________________________________________________________";
-    private static final ArrayList<String> userInputs = new ArrayList<String>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -20,11 +19,8 @@ public class Ollie {
                 // List
                 Ollie.list();
             } else {
-                // Remember
-                Ollie.remember(input);
-
-                // Echo
-                Ollie.echo(input);
+                // add
+                Ollie.add(input);
 
             }
             input = scanner.nextLine();
@@ -36,34 +32,36 @@ public class Ollie {
 
     // Private Methods
     private static void greet() {
-        // Skeletal Beginning
-        System.out.println(Ollie.DIVIDER);
-
-        // Greet
-        String greet = String.format("Hello! I'm %s!\nWhat can I do for you?\n%s", Ollie.NAME, Ollie.DIVIDER);
-        System.out.println(greet);
+        Ollie.printResponse("Hello! I'm Ollie!\nWhat can I do for you?");
     }
 
     private static void exit() {
         // Exit
-        String exit = String.format("Bye. Hope to see you again soon!\n%s",Ollie.DIVIDER);
-        System.out.println(exit);
+        Ollie.printResponse("Bye. Hope to see you again soon!");
     }
 
-    private static void remember(String s) {
-        userInputs.add(s);
+    private static void add(String s) {
+        tasks.add(new Task(s));
+        Ollie.printResponse("added: " + s);
     }
     private static void list() {
-        for(int i = 0; i < userInputs.size(); i++) {
-            String listItem = String.format("%d. %s", i + 1, userInputs.get(i));
-            System.out.println(listItem);
+        String listItem = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            listItem += String.format("%d. %s", i + 1,tasks.get(i));
+            if (i != tasks.size() - 1) {
+                listItem += "\n"; // List indentation
+            }
         }
-        System.out.println(Ollie.DIVIDER);
+        Ollie.printResponse(listItem);
     }
 
+
     private static void echo(String s) {
-        String echo = String.format("%s\n%s",s, Ollie.DIVIDER);
-        System.out.println(echo);
+        Ollie.printResponse(s);
+    }
+
+    private static void printResponse(String s) {
+        System.out.println( Ollie.DIVIDER + "\n" + s + "\n" + Ollie.DIVIDER);
     }
 
 
