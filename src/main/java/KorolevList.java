@@ -3,8 +3,13 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class KorolevList {
+    private static String home = System.getProperty("user.dir");
+    private static java.nio.file.Path path = java.nio.file.Paths.get(
+            home, "src", "main", "java", "data", "korolev.txt");
     private static String outOfIndexError = "Error! The index is out of bound!";
     private static String listNotice = "Here are the tasks in your list:\n";
     private static String markNotice = "Nice! I've marked this task as done:";
@@ -113,31 +118,50 @@ public class KorolevList {
         return t.toString();
     }
 
-    public void saveEvent(String msg) {
-        String home = System.getProperty("user.dir");
-        java.nio.file.Path path = java.nio.file.Paths.get(home, "src", "main", "java", "data", "korolev.txt");
+    public void saveEvent() {
 
         //Create new file
         if (!java.nio.file.Files.exists(path)) {
             try {
+                java.nio.file.Files.createDirectories(java.nio.file.Paths.get(
+                                home, "src", "main", "java", "data"));
+                java.nio.file.Files.createFile(path);
                 File record = new File(String.valueOf(path));
-                record.createNewFile();
+                boolean test = record.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("IOException: " + e.getMessage());
             }
+        }
+        StringBuilder msg = new StringBuilder();
+        for (KorolevTask event : this.events) {
+            msg.append(event + ("\n"));
         }
 
         //Write to the file (appending lines to the documents)
         try {
             FileWriter writer = new FileWriter(String.valueOf(path));
-            writer.write(msg);
+            writer.write(msg.toString());
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IOException: " + e.getMessage());
         }
     }
 
-    public void loadEvent() {
+    private KorolevTask parseStorage(String msg) {
 
+        return new KorolevTask("");
+    }
+
+    public void loadEvent() {
+        try {
+            BufferedReader bfr = new BufferedReader(new FileReader(String.valueOf(path)));
+            String line = bfr.readLine();
+            while(line != null) {
+                this.events.add(parseStorage(line));
+                line = bfr.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.toString());
+        }
     }
 }

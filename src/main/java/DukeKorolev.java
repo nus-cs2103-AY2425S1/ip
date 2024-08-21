@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+
+
 public class DukeKorolev {
     private static int findIndex(String input) {
         String regex = "\\d+";
@@ -59,7 +61,7 @@ public class DukeKorolev {
                     System.out.println(e.getMessage());
                 }
             }
-            repo.saveEvent(repo.toString());
+            repo.saveEvent();
             System.out.println(divider);
         }
         System.out.println(end);
