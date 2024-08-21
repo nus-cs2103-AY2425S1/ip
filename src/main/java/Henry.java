@@ -17,7 +17,7 @@ public class Henry {
      *
      */
     public static void bye() {
-        String bye = "Bye. Hope to see you again soon!\n";
+        String bye = "Bye. Hope to see you again soon!";
         System.out.println(bye);
     }
 
@@ -44,24 +44,26 @@ public class Henry {
      * @param index number of tasks recorded
      * @param input name of task
      */
-    public static void addTask(Task[] tasks, int index, String input) {
+    public static void addTask(Task[] tasks, int index, String input) throws HenryException  {
         String[] words = input.split(" ");
         String task = words[0];
-        String activityAndTime = input.replaceFirst(task
-                + " ", "");
+        String activityAndTime = input.replaceFirst(task + " ", "");
         String[] activityAndTimeList = activityAndTime.split(" /");
+        String activity = activityAndTimeList[0];
         if (words[0].equals("todo")) {
-            tasks[index] = new Todo(activityAndTime);
+            tasks[index] = new Todo(activity);
         } else if (words[0].equals("deadline")) {
             String time = activityAndTimeList[1]
                     .replaceFirst("by ", "");
-            tasks[index] = new Deadline(activityAndTimeList[0], time);
+            tasks[index] = new Deadline(activity, time);
         } else if (words[0].equals("event")) {
             String startTime = activityAndTimeList[1]
                     .replaceFirst("from ", "");
             String endTime = activityAndTimeList[2]
                     .replaceFirst("to ", "");
-            tasks[index] = new Event(activityAndTimeList[0], startTime, endTime);
+            tasks[index] = new Event(activity, startTime, endTime);
+        } else {
+            throw new HenryException("This is not a task!!");
         }
         System.out.println("\nGot it. I've added this task:\n"
                 + tasks[index].toString()
@@ -112,8 +114,12 @@ public class Henry {
                 if (words[0].equals("mark") || words[0].equals("unmark")) {
                     changeTaskStatus(tasks, words);
                 } else {
-                    addTask(tasks, index, input);
-                    index++;
+                    try {
+                        addTask(tasks, index, input);
+                        index++;
+                    } catch (HenryException e) {
+                        System.out.println("\nSorry! " + e.getMessage() + "\n");
+                    }
                 }
             }
         } while (true);
