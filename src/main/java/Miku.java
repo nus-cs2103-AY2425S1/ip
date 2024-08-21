@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -8,7 +9,9 @@ public class Miku {
     public static String regexToDo = "todo .*";
     public static String regexDeadline = "deadline .* /by .*";
     public static String regexEvent = "event .* /.* /.*";
+    public static String regexRemove = "delete \\d+";
     public static ArrayList<Task> itemList = new ArrayList<>();
+    public static ArrayList<String> validCommands = new ArrayList<>(Arrays.asList("list", "deadline", "todo", "event", "delete", "bye", "mark", "unmark"));
     public static String sectionBreak = "\n_______________________________________________";
 
     public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class Miku {
                 + "|  \\/  | |  | | | / / | |  | |\n"
                 + "| |\\/| | |  | | |/ /  | |  | |\n"
                 + "| |  | | |  | | |\\ \\  | |__| |\n"
-                + "|_|  |_| |__| |_| \\_\\  \\____/ \n";
+                + "|_|  |_| |__| |_| \\_\\  \\____/";
 
         System.out.println("Hello from\n" + logo);
 
@@ -49,7 +52,7 @@ public class Miku {
 
 
 
-//        System.out.println(mikuFace);
+        //System.out.println(mikuFace);
 
         System.out.println(sectionBreak);
 
@@ -61,6 +64,8 @@ public class Miku {
         //Variables End
 
         while (!input.equals("bye")){
+            //Check if the input is a String
+
             input = scanner.nextLine();
             System.out.println(sectionBreak);
 
@@ -80,6 +85,19 @@ public class Miku {
             } else if (input.matches(regexEvent)){
                 String[] strs = input.split("/");
                 Miku.addItem(new Event(strs[0].substring(6),strs[1].substring(5),strs[2].substring(3)));
+            } else if (input.matches(regexRemove)){
+                //Check if removable
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]);
+                    if (index < 1 || index > itemList.size()){
+                        throw new RemoveNullException(String.valueOf(index));
+                    }
+                    Miku.deleteItem(index);
+                } catch (RemoveNullException e){
+                    e.print();
+                    System.out.println(sectionBreak);
+                }
+
             } else {
                 System.out.println("すみません、わかりません！\nEnter a valid command please, 39!");
             }
@@ -90,9 +108,16 @@ public class Miku {
 
     }
 
+    public static void deleteItem(int num){
+        System.out.println("はい、わかりました\nI have removed the following task: " + itemList.get(num - 1).stringValue());
+        itemList.remove(num - 1);
+        System.out.println("いまは " + itemList.size() + " tasks in the list");
+        System.out.println(sectionBreak);
+    }
+
     public static void addItem(Task task){
         itemList.add(task);
-        System.out.println("Got it . I've added this task: \n" + task.stringValue());
+        System.out.println("Got it . I've added this task:\n" + task.stringValue());
         System.out.println("いまは " + itemList.size() + " tasks in the list");
         System.out.println(sectionBreak);
     }
