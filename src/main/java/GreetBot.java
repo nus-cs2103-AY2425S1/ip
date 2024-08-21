@@ -43,7 +43,7 @@ public class GreetBot {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(list[counter]);
                 counter += 1;
-                System.out.println(String.format("Now you have %s tasks in the list", counter));
+                System.out.println(String.format("Now you have %s tasks in the list.", counter));
             }
 
 
