@@ -1,12 +1,15 @@
 public class Megamind {
     private static final String horizontalLine = "____________________________________________________________";
+
     public static void main(String[] args) {
-        String logo = "  _____   \n"
-                + " /     \\  \n"
-                + "| () () | \n"
-                + " \\  ^  /  \n"
-                + "  |||||   \n"
-                + "  |||||   ";
+        String logo = """
+                  _____  \s
+                 /     \\ \s
+                | () () |\s
+                 \\  ^  / \s
+                  |||||  \s
+                  |||||  \s
+                """;
         System.out.println(horizontalLine);
         System.out.println("Hello from\n" + logo);
         greet();
