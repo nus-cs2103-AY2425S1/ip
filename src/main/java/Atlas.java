@@ -42,6 +42,19 @@ public class Atlas {
                     }
                     Atlas.print(listOutput.toString());
                     break;
+                case "mark":
+                    int markIndex = Integer.parseInt(scanner.next()) - 1;
+                    Task taskToBeMarked = taskList.get(markIndex);
+                    taskToBeMarked.setIsDone();
+                    Atlas.print(String.format("Nice! I've marked this task as done:\n\t %s", taskToBeMarked));
+                    break;
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(scanner.next()) - 1;
+                    Task taskToBeUnmarked = taskList.get(unmarkIndex);
+                    taskToBeUnmarked.setIsDone();
+                    taskList.get(unmarkIndex).setIsNotDone();
+                    Atlas.print(String.format("OK, I've marked this task as not done yet:\n\t %s", taskToBeUnmarked));
+                    break;
                 default:
                     taskList.add(new Task(command));
                     Atlas.print(String.format("added: %s", command));
