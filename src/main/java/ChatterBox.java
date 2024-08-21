@@ -1,10 +1,10 @@
-
+import java.util.ArrayList;
 import java.util.Scanner;
 public class ChatterBox {
     public static void main(String[] args) {
-
-        Task[] taskList = new Task[100];
-        int counter = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
+//        Task[] taskList = new Task[100];
+//        int counter = 0;
 
         Scanner sc = new Scanner(System.in);
         //Greeting the user
@@ -23,8 +23,8 @@ public class ChatterBox {
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("\t\t" + "_".repeat(50));
                 System.out.println("\t\t Here's what you've got on your to-do list so far:");
-                for(int i = 0; i < counter; i++) {
-                    System.out.println("\t\t\t- " + taskList[i]);
+                for(int i = 0; i < taskList.size(); i++) {
+                    System.out.println("\t\t\t- " + taskList.get(i));
                 }
                 System.out.println("\t\t" + "_".repeat(50));
             } else if (input.startsWith("mark")) {
@@ -35,11 +35,11 @@ public class ChatterBox {
                 }
                 int indexSpace = input.indexOf(" ");
                 int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
-                if (taskIndex >= 0 && taskIndex < counter) {
-                    taskList[taskIndex].markAsDone();
+                if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                    taskList.get(taskIndex).markAsDone();
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t Super! Task marked as done:");
-                    System.out.println("\t\t\t" + taskList[taskIndex]);
+                    System.out.println("\t\t\t" + taskList.get(taskIndex));
                     System.out.println("\t\t" + "_".repeat(50));
                 } else {
                     System.out.println("\t\t" + "_".repeat(50));
@@ -47,18 +47,18 @@ public class ChatterBox {
                     System.out.println("\t\t" + "_".repeat(50));
                 }
             } else if (input.startsWith("unmark")) {
-                if(input.length() < 6 || !Character.isDigit(input.charAt(5))) {
+                if(input.length() < 8 || !Character.isDigit(input.charAt(7))) {
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t Command must be followed by a specific task number");
                     System.out.println("\t\t" + "_".repeat(50));
                 }
                 int indexSpace = input.indexOf(" ");
                 int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
-                if (taskIndex >= 0 && taskIndex < counter) {
-                    taskList[taskIndex].markAsNotDone();
+                if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                    taskList.get(taskIndex).markAsNotDone();
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t Sure, task has been marked as not done:");
-                    System.out.println("\t\t\t" + taskList[taskIndex]);
+                    System.out.println("\t\t\t" + taskList.get(taskIndex));
                     System.out.println("\t\t" + "_".repeat(50));
                 } else {
                     System.out.println("\t\t" + "_".repeat(50));
@@ -72,12 +72,11 @@ public class ChatterBox {
                     System.out.println("\t\t" + "_".repeat(50));
                 } else {
                     String description = input.substring(5);
-                    taskList[counter] = new ToDo(description);
-                    counter++;
+                    taskList.add(new ToDo(description));
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t" + description + " is added to your list");
-                    System.out.println("\t\t" + taskList[counter - 1]);
-                    System.out.println("\t\t" + "Now you have " + counter + " tasks in your list.");
+                    System.out.println("\t\t" + taskList.getLast());
+                    System.out.println("\t\t" + "Now you have " + taskList.size() + " tasks in your list.");
                     System.out.println("\t\t" + "_".repeat(50));
                 }
             } else if(input.startsWith("deadline")) {
@@ -97,12 +96,11 @@ public class ChatterBox {
                     int tempIndex = input.indexOf("y");
                     String deadline = input.substring(tempIndex + 2);
                     String description = input.substring(9, index);
-                    taskList[counter] = new Deadline(description, deadline);
-                    counter++;
+                    taskList.add(new Deadline(description, deadline));
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t" + description + " is added to your list");
-                    System.out.println("\t\t" + taskList[counter - 1]);
-                    System.out.println("\t\t" + "Now you have " + counter + " tasks in your list.");
+                    System.out.println("\t\t" + taskList.getLast());
+                    System.out.println("\t\t" + "Now you have " + taskList.size() + " tasks in your list.");
                     System.out.println("\t\t" + "_".repeat(50));
                 }
             }  else if(input.startsWith("event")) {
@@ -124,12 +122,32 @@ public class ChatterBox {
                     int index_m = temp.indexOf("m");
                     String dateStart = temp.substring(index_m + 1, index_2);
                     String dateEnd = temp.substring(index_2 + 4);
-                    taskList[counter] = new Event(description, dateStart, dateEnd);
-                    counter++;
+                    taskList.add(new Event(description, dateStart, dateEnd));
                     System.out.println("\t\t" + "_".repeat(50));
                     System.out.println("\t\t" + description + " is added to your list");
-                    System.out.println("\t\t" +taskList[counter - 1]);
-                    System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
+                    System.out.println("\t\t" +taskList.getLast());
+                    System.out.println("\t\t" +"Now you have " + taskList.size() + " tasks in your list.");
+                    System.out.println("\t\t" + "_".repeat(50));
+                }
+            } else if (input.startsWith("delete")) {
+                if (input.length() < 8 || !Character.isDigit(input.charAt(7))) {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t Command must be followed by a specific task number");
+                    System.out.println("\t\t" + "_".repeat(50));
+                }
+                int indexSpace = input.indexOf(" ");
+                int taskIndex = Integer.parseInt(input.substring(indexSpace + 1)) - 1;
+                if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                    taskList.get(taskIndex).markAsNotDone();
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t Noted. I've removed this task:");
+                    System.out.println("\t\t\t" + taskList.get(taskIndex));
+                    taskList.remove(taskIndex);
+                    System.out.println("\t\t Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println("\t\t" + "_".repeat(50));
+                } else {
+                    System.out.println("\t\t" + "_".repeat(50));
+                    System.out.println("\t\t Invalid task number.");
                     System.out.println("\t\t" + "_".repeat(50));
                 }
             } else {
@@ -140,4 +158,3 @@ public class ChatterBox {
         }
     }
 }
-
