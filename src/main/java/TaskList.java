@@ -21,8 +21,12 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public Task get(int index) {
-        return tasks.get(index - 1);
+    public Task get(int index) throws AstraException {
+        try {
+            return tasks.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new AstraException("Invalid index.");
+        }
     }
 
     public int length() {

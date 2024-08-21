@@ -41,14 +41,29 @@ public class Astra {
         System.out.println(formatMsg(msg));
     }
 
-    public static void add(String type, String text) {
-        HashMap<String, String> args = getArgs(text);
-        Task t = null;
-        switch (type) {
-            case "todo" -> t = new Todo(args.get("main"));
-            case "deadline" -> t = new Deadline(args.get("main"), args.get("by"));
-            case "event" -> t = new Event(args.get("main"), args.get("from"), args.get("to"));
+    public static void add(String type, String text) throws AstraException {
+        String argText;
+
+        // validate args length
+        if (text.length() > type.length() + 1) {
+            argText = text.substring(type.length() + 1).strip();
+            if (argText.isEmpty()) {
+                throw new AstraException("The description of a task cannot be empty.");
+            }
+        } else {
+            throw new AstraException("The description of a task cannot be empty.");
         }
+
+        // build args map
+        HashMap<String, String> args = getArgs(argText);
+
+        // validate args existence
+        Task t = null;
+            switch (type) {
+                case "todo" -> t = new Todo(args.get("main"));
+                case "deadline" -> t = new Deadline(args.get("main"), args.get("by"));
+                case "event" -> t = new Event(args.get("main"), args.get("from"), args.get("to"));
+            }
         if (t == null) {
             return;
         }
@@ -64,14 +79,14 @@ public class Astra {
         System.out.println(formatMsg(tasks.toString()));
     }
 
-    public static void mark(int index) {
+    public static void mark(int index) throws AstraException {
         Task t = tasks.get(index);
         t.setDone(true);
         String msg = " Nice! I've marked this task as done: \n  " + t + "\n";
         System.out.println(formatMsg(msg));
     }
 
-    public static void unmark(int index) {
+    public static void unmark(int index) throws AstraException {
         Task t = tasks.get(index);
         t.setDone(false);
         String msg = " OK, I've marked this task as not done yet: \n  " + t + "\n";
@@ -87,31 +102,38 @@ public class Astra {
         while (loop) {
             text = inp.nextLine();
             String command = text.split(" ")[0];
-            switch (command) {
-                case "list":
+            try {
+                if (command.equals("list")) {
                     listItems();
-                    break;
-                case "bye":
+                } else if (command.equals("bye")) {
                     loop = false;
-                    break;
-                case "mark":
-                    mark(Integer.parseInt(text.split(" ")[1]));
-                    break;
-                case "unmark":
-                    unmark(Integer.parseInt(text.split(" ")[1]));
-                    break;
-                case "todo":
-                    add("todo", text.substring(command.length() + 1));
-                    break;
-                case "deadline":
-                    add("deadline", text.substring(command.length() + 1));
-                    break;
-                case "event":
-                    add("event", text.substring(command.length() + 1));
-                    break;
-                default:
-                    System.out.println("unknown command");
-                    break;
+                } else if (command.equals("mark")) {
+                    int index;
+                    try {
+                        index = Integer.parseInt(text.split(" ")[1]);
+                    } catch (Exception e) {
+                        throw new AstraException("Invalid index.");
+                    }
+                    mark(index);
+                } else if (command.equals("unmark")) {
+                    int index;
+                    try {
+                        index = Integer.parseInt(text.split(" ")[1]);
+                    } catch (Exception e) {
+                        throw new AstraException("Invalid index.");
+                    }
+                    unmark(index);
+                } else if (command.equals("todo")) {
+                    add("todo", text);
+                } else if (command.equals("deadline")) {
+                    add("deadline", text);
+                } else if (command.equals("event")) {
+                    add("event", text);
+                } else {
+                    throw new AstraException("Unknown command.");
+                }
+            } catch (AstraException e) {
+                System.out.println(formatMsg(e.getMessage() + "\n"));
             }
         }
         goodbye();
