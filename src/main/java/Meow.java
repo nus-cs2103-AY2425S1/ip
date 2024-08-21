@@ -2,7 +2,7 @@ public class Meow {
     private static String name = "Meow";
     public static void main(String[] args) {
 
-        System.out.println("____________________________________________________________\n" +
+        System.out.println("_____________________________________________________________\n" +
                 " Hello! I'm " + name + "\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n" +
