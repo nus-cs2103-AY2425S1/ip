@@ -38,24 +38,27 @@ public class Llama {
             }
 
 
-            if (command.equals("bye")) {
-                // End program
+            if (command.equals("bye")) {                            // end program
                 shouldContinue = false;
                 sc.close();
-            } else if (command.equals("list")) {
-                // List out tasks
+            } else if (command.equals("list")) {                    // list out tasks
                 for (int i = 0; i < last; i++) {
                     int x = i + 1;
                     displayTask(x, taskArray[i]);
                 }
-            } else if (command.equals("mark")) {
+            } else if (command.equals("mark")) {                    // mark task
                 int index = Integer.parseInt(remaining) - 1;
-                taskArray[index].markDone();
-            } else if (command.equals("unmark")) {
+                Task task = taskArray[index];
+                task.markDone();
+                displayString("Good Job! The task is now marked as done: ");
+                displayString("Marked task: " + task.toString());
+            } else if (command.equals("unmark")) {                  // unmark task
                 int index = Integer.parseInt(remaining) - 1;
-                taskArray[index].markNotDone();
-            } else {
-                // Add text into a list
+                Task task = taskArray[index];
+                task.markNotDone();
+                displayString("Alright, the task is marked as not done: ");
+                displayString("Unmarked task: " + task.toString());
+            } else {                                                // add other tasks
                 taskArray[last] = new Task(input);
                 last++;
                 displayString("Added: " + input);
