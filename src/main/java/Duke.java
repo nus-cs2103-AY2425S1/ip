@@ -13,13 +13,33 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         command = scanner.nextLine();
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
 
         while (!command.equals("bye")) {
-            if (!command.equals("list")) {
-                list.add(command);
+            if (command.startsWith("mark")) {
+                String[] splitedString = command.split("\\s+");
+                try {
+                    Integer itemNumber = Integer.parseInt(splitedString[1]);
+                    list.get(itemNumber-1).markAsDone();
+                    System.out.println("Nice! I've marked this task as done:\n"+list.get(itemNumber-1));
+                } catch (NumberFormatException e) {
+                    System.out.println(e);
+                }
+            } else if (command.startsWith("unmark")) {
+                String[] splitedString = command.split("\\s+");
+                try {
+                    Integer itemNumber = Integer.parseInt(splitedString[1]);
+                    list.get(itemNumber - 1).markAsUndone();
+                    System.out.println("Nice! I've marked this task as done:\n"+list.get(itemNumber - 1));
+                } catch (NumberFormatException e) {
+                    System.out.println(e);
+                }
+            }
+            else if (!command.equals("list")) {
+                list.add(new Task(command));
                 System.out.println(lineBreak + "added:" + command +"\n" + lineBreak);
             } else {
+                //'list command'
                 System.out.print(lineBreak);
                 IntStream.range(0, list.size()).mapToObj(number -> number + 1 + ". " + list.get(number)).forEach(System.out::println);
                 System.out.print(lineBreak);
