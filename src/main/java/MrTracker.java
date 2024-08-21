@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MrTracker {
@@ -12,9 +13,21 @@ public class MrTracker {
         }
     }
 
+    public static void printTaskList(ArrayList<String> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(i+1 + ". " + taskList.get(i));
+        }
+    }
+
+    public static void addTask (ArrayList<String> taskList, String task) {
+        taskList.add(task);
+        System.out.println("added: " + task);
+    }
+
     public static void main(String[] args) {
         String name = "Mr Tracker";
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> taskList = new ArrayList<String>();
         MrTracker.printLine();
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you? \n");
@@ -26,10 +39,12 @@ public class MrTracker {
             if (lowerInput.equals("bye")) {
                 sc.close();
                 break;
+            } else if (lowerInput.equals("list")) {
+                MrTracker.printTaskList(taskList);
             } else {
-                System.out.println(input);
-                MrTracker.printLine();
+                MrTracker.addTask(taskList, input);
             }
+            MrTracker.printLine();
         }
         System.out.println("Bye. Hope to see you again soon! \n");
         MrTracker.printLine();
