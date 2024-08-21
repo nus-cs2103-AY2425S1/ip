@@ -55,13 +55,45 @@ public class ChatterBox {
                     System.out.println("\t\t Invalid task number.");
                     System.out.println("\t\t" + "_".repeat(50));
                 }
-            }else {
-                taskList[counter] = new Task(input);
+            } else if(input.startsWith("todo")) {
+                String description = input.substring(5);
+                taskList[counter] = new ToDo(description);
                 counter++;
                 System.out.println("\t\t" + "_".repeat(50));
-                System.out.println("\t\t" + input + " is added to your list");
+                System.out.println("\t\t" + description + " is added to your list");
+                System.out.println("\t\t" +taskList[counter - 1]);
+                System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
+                System.out.println("\t\t" + "_".repeat(50));
+            } else if(input.startsWith("deadline")) {
+                int index = input.indexOf("/");
+                String temp = input.substring(index + 1);
+                int tempIndex = input.indexOf("y");
+                String deadline = input.substring(tempIndex + 2);
+                String description = input.substring(9, index);
+                taskList[counter] = new Deadline(description, deadline);
+                counter++;
+                System.out.println("\t\t" + "_".repeat(50));
+                System.out.println("\t\t" + description + " is added to your list");
+                System.out.println("\t\t" +taskList[counter - 1]);
+                System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
+                System.out.println("\t\t" + "_".repeat(50));
+            }  else {
+                int index = input.indexOf("/");
+                String description = input.substring(6, index);
+                String temp = input.substring(index + 1);
+                int index_2 = temp.indexOf("/");
+                int index_m = temp.indexOf("m");
+                String dateStart = temp.substring(index_m + 1, index_2);
+                String dateEnd = temp.substring(index_2 + 3);
+                taskList[counter] = new Event(description, dateStart, dateEnd);
+                counter++;
+                System.out.println("\t\t" + "_".repeat(50));
+                System.out.println("\t\t" + description + " is added to your list");
+                System.out.println("\t\t" +taskList[counter - 1]);
+                System.out.println("\t\t" +"Now you have " + counter + " tasks in your list.");
                 System.out.println("\t\t" + "_".repeat(50));
             }
         }
     }
 }
+
