@@ -13,8 +13,7 @@ public class Ekud {
     public static final String EVENT_COMMAND = "event";
     public static final int MAX_LIST_SIZE = 100;
 
-    private final Task[] tasks = new Task[MAX_LIST_SIZE];
-    private int currListSize = 0;
+    private final TaskList tasks = new TaskList(MAX_LIST_SIZE);
     private boolean isRunning = true;
 
     public boolean isRunning() {
@@ -45,16 +44,17 @@ public class Ekud {
 
     public void addToList(Task task) {
         // assume no more than LIST_MAX_SIZE items are added
-        tasks[currListSize] = task;
-        currListSize++;
+        tasks.addTask(task);
         echo("added: " + task);
+        echo("And another one... " + tasks.getIncompleteCount() + " tasks to complete.");
         echo(LINE_SEPARATOR);
     }
 
     public void echoList() {
         echo("Look at all these tasks:");
-        for (int i = 0; i < currListSize; i++) {
-            echo(String.format("%d. %s", i+1, tasks[i]));
+        int i = 0;
+        for (Task task: tasks) {
+            echo(String.format("%d. %s", i+1, task));
         }
         echo(LINE_SEPARATOR);
     }
@@ -63,8 +63,9 @@ public class Ekud {
         // assumes valid index is given
         echo("Wowie!! You've completed your task!");
         echo("I shall mark it as complete in celebration!");
-        tasks[listIndex].markAsDone();
-        echo("  " + tasks[listIndex].toString());
+        tasks.markComplete(listIndex);
+        echo("   " + tasks.getTask(listIndex));
+        echo("Woohoo!! Only " + tasks.getIncompleteCount() + " more to go!");
         echo(LINE_SEPARATOR);
     }
 
@@ -72,8 +73,9 @@ public class Ekud {
         // assumes valid index is given
         echo("Oh ho ho, did you forget something?");
         echo("It's OK, I will take note of your incompetence...");
-        tasks[listIndex].markAsUndone();
-        echo("   " + tasks[listIndex].toString());
+        tasks.markIncomplete(listIndex);
+        echo("   " + tasks.getTask(listIndex));
+        echo("OOPSIES! We back to " + tasks.getIncompleteCount() + " tasks left to complete.");
         echo(LINE_SEPARATOR);
     }
 
