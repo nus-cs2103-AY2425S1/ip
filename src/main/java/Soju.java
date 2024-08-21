@@ -4,8 +4,12 @@ import java.util.Scanner;
 public class Soju {
     private static final List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
-        runWithHorizontalLine(Soju::greet);
-        echo();
+        try {
+            runWithHorizontalLine(Soju::greet);
+            echo();
+        } catch (SojuException sojuException) {
+            runWithHorizontalLine(sojuException.toString());
+        }
     }
 
     public static void greet() {
@@ -30,8 +34,11 @@ public class Soju {
     }
     public static void addToList(Task task) {
         tasks.add(task);
-        System.out.println("added: " + task.description);
-        runWithHorizontalLine();
+        runWithHorizontalLine(() -> {
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        });
     }
     public static void displayList() {
         System.out.println("Here are the tasks in your list:");
@@ -73,14 +80,7 @@ public class Soju {
                 Todo todoTask = new Todo(description);
 
                 // Add the task to your tasks list
-                tasks.add(todoTask);
-
-                // Print the confirmation message
-                runWithHorizontalLine(() -> {
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todoTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                });
+                addToList(todoTask);
             } else if (userInput.startsWith("deadline")) {
                 // Extract the part after "deadline "
                 String[] parts = userInput.substring(9).split(" /by ", 2);
@@ -95,14 +95,7 @@ public class Soju {
                 Deadline deadlineTask = new Deadline(description, by);
 
                 // Add the task to your tasks list
-                tasks.add(deadlineTask);
-
-                // Print the confirmation message
-                runWithHorizontalLine(() -> {
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + deadlineTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                });
+                addToList(deadlineTask);
             } else if (userInput.startsWith("event")) {
                 // Extract the part after "event"
                 String[] parts = userInput.substring(6).split(" /from ", 2);
@@ -115,14 +108,7 @@ public class Soju {
                 Event eventTask = new Event(descriptionPart, from, to);
 
                 // Add the task to your tasks list
-                tasks.add(eventTask);
-
-                // Print the confirmation message
-                runWithHorizontalLine(() -> {
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + eventTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                });
+                addToList(eventTask);
                 } else {
                 runWithHorizontalLine(() -> System.out.println("Invalid command"));
             }
