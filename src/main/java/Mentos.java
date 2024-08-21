@@ -11,7 +11,8 @@ public class Mentos
     public static void main(String[] args) {
         Mentos mentos = new Mentos();
         mentos.startConversation();
-        mentos.taskHandler();
+        Scanner scanner = new Scanner(System.in);
+        mentos.taskHandler(scanner);
         mentos.endConversation();
     }
 
@@ -40,9 +41,8 @@ public class Mentos
         }
     }
 
-    public void taskHandler(){
+    public void taskHandler(Scanner scanner){
         while(true) {
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             if (input.equals("bye")){
                 return;
@@ -69,7 +69,7 @@ public class Mentos
                 String todo_desc = input.substring(TODO.length()+1);
                 tasks[noTasks-1] = new ToDo(todo_desc);
                 System.out.println("____________________________");
-                System.out.printf(TODO+" Added\n %s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
+                System.out.printf(TODO+" Added\n%s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
                 System.out.println("____________________________");
                 continue;
             } else if (input.startsWith(DEADLINE)){
@@ -79,7 +79,7 @@ public class Mentos
                 String by = deadline_details[1].trim();
                 tasks[noTasks-1] = new Deadline(deadline_desc,by);
                 System.out.println("____________________________");
-                System.out.printf(DEADLINE+" Added\n %s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
+                System.out.printf(DEADLINE+" Added\n%s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
                 System.out.println("____________________________");
                 continue;
             } else if (input.startsWith(EVENT)){
@@ -90,7 +90,7 @@ public class Mentos
                 String to = parts[2];    // End time is the third part
                 tasks[noTasks-1] = new Event(eventDesc,from,to);
                 System.out.println("____________________________");
-                System.out.printf(EVENT+" Added\n %s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
+                System.out.printf(EVENT+" Added\n%s\n%d remaining tasks%n",tasks[noTasks-1].toString(),noTasks);
                 System.out.println("____________________________");
                 continue;
             }

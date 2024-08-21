@@ -1,7 +1,43 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________
+Hello! I'm Mentos
+What can I do to help you?
+____________________________
+____________________________
+todo Added
+[T] [ ] CS2103T Individual Project
+1 remaining tasks
+____________________________
+____________________________
+deadline Added
+[D] [ ] deadline CS2103T Quiz (by: Sunday)
+2 remaining tasks
+____________________________
+____________________________
+event Added
+[E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
+3 remaining tasks
+____________________________
+Nicely done! This task is marked as done!
+[T] [X] CS2103T Individual Project
+____________________________
+1. [T] [X] CS2103T Individual Project
+2. [D] [ ] deadline CS2103T Quiz (by: Sunday)
+3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
+____________________________
+Nicely done! This task is marked as done!
+[D] [X] deadline CS2103T Quiz (by: Sunday)
+____________________________
+1. [T] [X] CS2103T Individual Project
+2. [D] [X] deadline CS2103T Quiz (by: Sunday)
+3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
+____________________________
+Holdup this task is not done!
+[T] [ ] CS2103T Individual Project
+____________________________
+1. [T] [ ] CS2103T Individual Project
+2. [D] [X] deadline CS2103T Quiz (by: Sunday)
+3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
+____________________________
+____________________________
+Pop a Mentos, stay fresh! See you next time!
+____________________________
