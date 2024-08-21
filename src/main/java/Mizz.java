@@ -1,11 +1,10 @@
 import java.util.Scanner;
-import util.CommandHist;
+import util.*;
 
 public class Mizz {
   /** Name of the chat bot */
   private static final String NAME = "Mizz";
   /** Constant len(13) line to be used for prettier printing */
-  private static final String LINE = "-------------";
 
   /** Stores the past commands entered */
   private final CommandHist usrCmds;
@@ -57,6 +56,9 @@ public class Mizz {
     switch (this.cmd) {
       case "bye":
         break;
+      case "list":
+        this.usrCmds.prettyPrint();
+        break;
       default:
         Mizz.prettyPrint(String.format("added: %s", this.cmd));
         break;
@@ -93,8 +95,8 @@ public class Mizz {
    * @param msg The msg to be pretty printed.
    */
   private static void prettyPrint(String msg) {
-    System.out.println(String.format("    %s", Mizz.LINE));
-    System.out.println(String.format("    %s", msg));
-    System.out.println(String.format("    %s", Mizz.LINE));
+    System.out.println(Utility.INDENTED_LINE);
+    System.out.println(String.format("%s%s", Utility.INDENT, msg));
+    System.out.println(Utility.INDENTED_LINE);
   }
 }
