@@ -24,30 +24,50 @@ public class Command {
         return words[0].equals("unmark");
     }
 
-    public boolean isDeadlineTask() {
+    public boolean isDeleteCommand() {
         String[] words = command.split("\\s+");
-        return words[0].equals("deadline");
+        return words[0].equals("delete");
+    }
+    public boolean isDeadlineTask() throws IncorrectCommandException{
+        String[] words = command.split("\\s+");
+        if (words[0].equals("deadline")) {
+            String[] parts = command.split("/");
+            if (parts.length != 2) {
+                throw new IncorrectCommandException("Please enter your commands correctly for Derek (deadline (task) /by (date))");
+            }
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
-    public boolean isToDoTask() {
+    public boolean isToDoTask() throws IncorrectCommandException{
         String[] words = command.split("\\s+");
+        if (words.length == 1) {
+            throw new IncorrectCommandException("Please enter task after the command. Derek needs to everything or he feels left out...");
+        }
         return words[0].equals("todo");
     }
 
-    public boolean isEventTask() {
+    public boolean isEventTask() throws IncorrectCommandException {
         String[] words = command.split("\\s+");
-        return words[0].equals("event");
+        if (words[0].equals("event")) {
+            String[] parts = command.split("/");
+            if (parts.length != 3) {
+                throw new IncorrectCommandException("Please enter your commands correctly for Derek (event (task) /from (time) /to (time)");
+            }
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
-    public String getTask() throws IncorrectCommandException{
-        String[] words = command.split("\\s+");
-        if (words.length == 1) {
-            throw new IncorrectCommandException("Please add your task after the command. Derek needs to know everything... or he feels left out");
-        }
+    public String getTask(){
         int firstWord = command.indexOf(" ");
-        String result;
-        result = command.substring(firstWord + 1);
-        return result;
+        String task = command.substring(firstWord + 1);
+        return task;
 
     }
 

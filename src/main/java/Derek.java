@@ -71,11 +71,20 @@ public class Derek implements Bot {
         } else if (command.isIncompleteCommand()) {
             String[] words = name.split("\\s+");
             markIncomplete(Integer.valueOf(words[1]));
+        } else if (command.isDeleteCommand()) {
+            String[] words = name.split("\\s+");
+            deleteTask(Integer.valueOf(words[1]));
         } else {
             addTask(command);
         }
     }
 
+    public void deleteTask(Integer number) {
+        Task task = taskList.get(number);
+        taskList.remove(number);
+        System.out.println( "phew! that list was looooonngggg... i was getting tired of remembering it!" + "\n" + task.toString());
+        acceptCommands();
+    }
     public void markCompleted(Integer number) {
         Task task = taskList.get(number - 1);
         task.markCompleted();
@@ -97,18 +106,12 @@ public class Derek implements Bot {
             Task task;
             if (command.isDeadlineTask()) {
                 String[] information = name.split("/");
-                if (information.length == 1) {
-                    throw new IncorrectCommandException(String.format("Please enter your commands correctly for Derek (deadline (task) /by (date))"));
-                }
                 task = Task.deadlineTask(information[0], information[1]);
             } else if (command.isEventTask()) {
                 String[] information = name.split("/");
-                if (information.length < 3) {
-                    throw new IncorrectCommandException(String.format("Please enter your commands correctly for Derek (event (task) /from (time) /to (time)"));
-                }
                 task = Task.eventTask(information[0], information[1], information[2]);
             } else if (command.isToDoTask()) {
-                task = Task.toDoTask(name);
+                task = Task.toDoTask(String.join(" ", name));
             } else {
                 throw new IncorrectCommandException(String.format("Is it a todo, event, or deadline?\n"
                                                                     + "Please enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums"));
@@ -131,10 +134,10 @@ public class Derek implements Bot {
     }
 
     public String generateRandomCelebration() {
-        String[] celebrationMessages = new String[]{"yay!", "woohoo!", "let's go!!!!"};
+        String[] celebrationMessages = new String[]{"yay!", "woohoo!", "let's go!!!!", "great job :)"};
         Random random = new Random();
         int min = 0;
-        int max = 2;
+        int max = celebrationMessages.length;
         int randomNumber = random.nextInt((max - min) + 1) + min;
         String celebration = celebrationMessages[randomNumber];
         return celebration;
