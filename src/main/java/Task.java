@@ -12,7 +12,8 @@ public class Task {
             "todo",
             "deadline",
             "event",
-            "bye"
+            "bye",
+            "delete"
     );
 
     public Task(String description) {
@@ -58,6 +59,9 @@ public class Task {
                 int index = Integer.parseInt(replyArray[1]) - 1;
                 Task currTask = commands.getTask(index);
                 currTask.unmark();
+            } else if (firstCommand.equals("delete")) { //delete the task from the task list
+                    int index = Integer.parseInt(replyArray[1]) - 1;
+                    commands.deleteTask(index);
             } else { //Add the input provided into the String array and return a message "added:   "
                 commands.addTask(this);
             }

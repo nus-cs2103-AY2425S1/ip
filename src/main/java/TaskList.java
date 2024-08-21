@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 public class TaskList {
     private ArrayList<Task> taskList;
     private final String lineBreak = "-------------------------------------";
@@ -14,6 +15,27 @@ public class TaskList {
             System.out.println((i + 1) + "." + this.getTask(i).toString());
         }
         System.out.println(lineBreak);
+    }
+
+    public void deleteTask(int index) throws EchoException {
+        try {
+            int numOfTask = this.taskList.size() - 1;
+            if (index > numOfTask) {
+                throw new EchoException(lineBreak + "\nThere is not enough task. " +
+                        "\nPlease add more task or change another index\n" + lineBreak);
+            }
+
+            System.out.println(lineBreak + "\nNoted. I've removed this task:\n" +
+                    this.getTask(index).toString());
+            System.out.println("Now you have " + numOfTask + " tasks in the list.\n" + lineBreak);
+
+            this.taskList.remove(index);
+            Collections.rotate(this.taskList.subList(index, this.taskList.size()), -1);
+            this.taskList.trimToSize();
+
+        } catch (EchoException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void addTask(Task userTask) throws EchoException {
