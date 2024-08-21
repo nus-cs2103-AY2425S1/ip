@@ -1,7 +1,7 @@
 @ECHO OFF
 
-REM Move up to the text-ui-text directory
-cd text-ui-test
+REM Move up to the project root directory
+cd ..\..\..\text-ui-test
 
 REM Debugging output: Show current directory
 echo START directory is %cd%
@@ -21,7 +21,7 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Prince debug < input.txt > ACTUAL.TXT
+java -classpath ..\bin Prince < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
