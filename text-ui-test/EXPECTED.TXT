@@ -1,7 +1,27 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+[EchoMind] Hello! I'm EchoMind!
+[EchoMind] What can I do for you?
+[EchoMind] Got it. I've added this task:
+[EchoMind] [T][ ] borrow book
+[EchoMind] Now you have 1 tasks in the list.
+[EchoMind] Got it. I've added this task:
+[EchoMind] [D][ ] return book (by: by Sunday)
+[EchoMind] Now you have 2 tasks in the list.
+[EchoMind] Got it. I've added this task:
+[EchoMind] [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
+[EchoMind] Now you have 3 tasks in the list.
+[EchoMind] 1. [T][ ] borrow book
+[EchoMind] 2. [D][ ] return book (by: by Sunday)
+[EchoMind] 3. [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
+[EchoMind] Nice! I've marked this task as done:
+[EchoMind] [D][X] return book (by: by Sunday)
+[EchoMind] Nice! I've marked this task as done:
+[EchoMind] [E][X] project meeting (from: from Mon 2pm to: to 4pm)
+[EchoMind] 1. [T][ ] borrow book
+[EchoMind] 2. [D][X] return book (by: by Sunday)
+[EchoMind] 3. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
+[EchoMind] OK, I've marked this task as not done yet:
+[EchoMind] [D][ ] return book (by: by Sunday)
+[EchoMind] 1. [T][ ] borrow book
+[EchoMind] 2. [D][ ] return book (by: by Sunday)
+[EchoMind] 3. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
+[EchoMind] Bye. Hope to see you again soon!
