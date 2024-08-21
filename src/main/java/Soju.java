@@ -84,8 +84,7 @@ public class Soju {
                     // Add the task to your tasks list
                     addToList(todoTask);
                 } else if (userInput.startsWith("deadline")) {
-                    userInput = userInput.substring(8);
-                    if (!userInput.startsWith(" ")) {
+                    if (!userInput.startsWith("deadline ")) {
                         throw new SojuException("Deadlines must have a description!");
                     }
 
