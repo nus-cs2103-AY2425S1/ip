@@ -23,4 +23,14 @@ event Event with no from and to
 event Event with no to /from today 
 event Event with no to string /from today /to
 deadline Deadline with no by /by
+mark 0
+mark 10
+unmark 0
+unmark 10
+delete 2
+delete 4
+list
+delete 0 
+delete 10
+list
 bye

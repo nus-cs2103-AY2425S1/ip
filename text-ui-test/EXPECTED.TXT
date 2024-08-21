@@ -145,4 +145,44 @@
 	Format as such:
 	  deadline <description> /by <deadline>
 	___________________________________________
+	Oi, you're trying to mark a task that doesn't exist
+	___________________________________________
+	Oi, you're trying to mark a task that doesn't exist
+	___________________________________________
+	Oi, you're trying to unmark a task that doesn't exist
+	___________________________________________
+	Oi, you're trying to unmark a task that doesn't exist
+	___________________________________________
+	Alright, task is removed
+	  [ ] (Task) Eat dinner
+	___________________________________________
+
+	___________________________________________
+	Alright, task is removed
+	  [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
+	___________________________________________
+
+	___________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	3. [X] (Deadline: by tomorrow) CS2100 quizzes
+	4. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	5. [ ] (Event: from now to later) Test CS2103 bot thingy
+	___________________________________________
+
+	___________________________________________
+	Oi, you're trying to delete a task that doesn't exist
+	___________________________________________
+	Oi, you're trying to delete a task that doesn't exist
+	___________________________________________
+	Here are the tasks in your list:
+	1. [ ] (Task) Do laundry when it is ready
+	2. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	3. [X] (Deadline: by tomorrow) CS2100 quizzes
+	4. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
+	5. [ ] (Event: from now to later) Test CS2103 bot thingy
+	___________________________________________
+
+	___________________________________________
 	Goodbye! See you sooooonnn!
