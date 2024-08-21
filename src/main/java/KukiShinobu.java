@@ -3,11 +3,11 @@ import java.util.Scanner;  // Import the Scanner class
 
 public class KukiShinobu {
     private final String name = "Kuki Shinobu";
-    private final ArrayList<String> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
-        KukiShinobu kuki = new KukiShinobu();
-        kuki.listen();
+        KukiShinobu shinobu = new KukiShinobu();
+        shinobu.listen();
     }
 
     public static void printHorizontalLine() {
@@ -18,8 +18,14 @@ public class KukiShinobu {
         this.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String command = scanner.nextLine();  // Read user input
+            String input = scanner.nextLine();  // Read user input
             KukiShinobu.printHorizontalLine();
+
+            // split user input into commands and argument (if applicable)
+            String[] parts = input.split(" ", 2);
+            String command = parts[0];
+            String argument = parts.length > 1 ? parts[1] : "";
+
             // break out of while loop if user issues "bye" command
             if (command.equals("bye")) {
                 break;
@@ -30,8 +36,16 @@ public class KukiShinobu {
                 case "list":
                     this.listTasks();
                     break;
+                case "mark":
+                    // argument is task index
+                    this.markAsDone(Integer.parseInt(argument));
+                    break;
+                case "unmark":
+                    // argument is task index
+                    this.unmarkAsDone(Integer.parseInt(argument));
+                    break;
                 default:
-                    this.addTask(command);
+                    this.addTask(input);
             }
             KukiShinobu.printHorizontalLine();
         }
@@ -40,14 +54,22 @@ public class KukiShinobu {
 
     private void listTasks() {
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasks.get(i));
-
+            System.out.println((i + 1) + "." + this.tasks.get(i));
         }
     }
 
-    private void addTask(String task) {
-        this.tasks.add(task);
-        System.out.println("added: " + task);
+    private void markAsDone(int i) {
+        this.tasks.get(i - 1).markAsDone();
+    }
+
+    private void unmarkAsDone(int i) {
+        this.tasks.get(i - 1).unmarkAsDone();
+    }
+
+    private void addTask(String taskDescription) {
+        Task newTask = new Task(taskDescription);
+        this.tasks.add(newTask);
+        System.out.println("added: " + taskDescription);
     }
 
     public void greet() {
