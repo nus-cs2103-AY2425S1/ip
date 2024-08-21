@@ -14,9 +14,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        if (isCompleted) {
-            return this.type + "[x] - " + this.description + "(due on " + this.dueDate + ")";
-        }
-        return this.type + "[ ] - " + this.description + " (due on " + this.dueDate + ")";
+        return this.type + "[" + this.status + "] - " + this.description + "(due on " + this.dueDate + ")";
     }
 }

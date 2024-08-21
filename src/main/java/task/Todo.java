@@ -11,9 +11,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        if (isCompleted) {
-            return this.type + "[x] - " + this.description;
-        }
-        return this.type + "[ ] - " + this.description;
+            return this.type + "[" + this.status + "] - " + this.description;
     }
 }

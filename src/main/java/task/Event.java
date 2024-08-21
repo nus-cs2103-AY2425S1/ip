@@ -15,9 +15,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        if (isCompleted) {
-            return this.type + "[x] - " + this.description + "(" + this.startDate + "to" + this.endDate + ")";
-        }
-        return this.type + "[ ] - " + this.description + " (" + this.startDate + " to " + this.endDate + ")";
+        return this.type + "[" + this.status + "] - " + this.description + "(" + this.startDate + " to " + this.endDate + ")";
     }
 }
