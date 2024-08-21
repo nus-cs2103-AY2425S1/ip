@@ -25,15 +25,23 @@ public class PandaBot {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(line);
                 break;
+            } else if (input.equalsIgnoreCase("list")){
+                System.out.println(line);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + taskList[i]);
+                }
+                System.out.println(line);
+            } else {
+                taskList[taskCount] = input;
+                taskCount++;
+
+                // echo user input
+                System.out.println(line);
+                System.out.println("added: " + input);
+                System.out.println(line);
             }
 
-            taskList[taskCount] = input;
-            taskCount++;
 
-            // echo user input
-            System.out.println(line);
-            System.out.println("added: " + input);
-            System.out.println(line);
         }
 
         scanner.close();
