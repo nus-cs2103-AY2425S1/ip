@@ -7,13 +7,15 @@ public class Tissue {
             "--------------------------------------------------------------";
     private static final String INDENT = "       ";
 
+    private static Scanner scanner;
+
     public static void main(String[] args) {
         chatFunction();
     }
 
     private static void chatFunction() {
         System.out.println(LINE);
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         System.out.println("Hello! I'm Tissue");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
@@ -24,7 +26,9 @@ public class Tissue {
             System.out.println(LINE);
 
             if (in.equals("list")) {
-                System.out.println(listText());
+                System.out.println(INDENT + "Here are the tasks in your list:");
+                System.out.println(listTask());
+
             } else if (in.equals("mark")) {
 
                 Task task = textArray.get(scanner.nextInt() - 1).markTask();
@@ -38,8 +42,7 @@ public class Tissue {
                 System.out.println(INDENT + "  " + task);
 
             } else {
-                System.out.println(INDENT + "added: " + in);
-                storeText(in);
+                storeTask(in);
             }
 
             System.out.println(LINE);
@@ -54,52 +57,58 @@ public class Tissue {
         System.out.println(LINE);
     }
 
-    private static void storeText(String value) {
-        textArray.add(new Task(false, value));
+    private static void storeTask(String in) {
+        if (in.equals("todo")) {
+
+            String item = scanner.nextLine();
+            Task task = new ToDo(false, item);
+            textArray.add(task);
+            System.out.println(INDENT + "Got it. I've added this task:");
+            System.out.println(INDENT + "  " + task);
+            System.out.println(INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+
+
+        } else if (in.equals("deadline")) {
+            String item = scanUntil("/by");
+            String by = scanner.nextLine().strip();
+            Task task = new Deadline(false, item, by);
+            textArray.add(task);
+            System.out.println(INDENT + "Got it. I've added this task:");
+            System.out.println(INDENT + "  " + task);
+            System.out.println(INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+
+        } else if (in.equals("event")) {
+            String item = scanUntil("/from");
+            String from = scanUntil("/to");
+            String to = scanner.nextLine().strip();
+            Task task = new Event(false, item, from, to);
+            textArray.add(task);
+            System.out.println(INDENT + "Got it. I've added this task:");
+            System.out.println(INDENT + "  " + task);
+            System.out.println(INDENT + "Now you have " + textArray.size() + " tasks in the list.");
+        } else {
+            String item = in + scanner.nextLine();
+            System.out.println(INDENT + "added: " + item);
+            textArray.add(new Task(false, item));
+        }
     }
 
-    private static String listText() {
+    private static String scanUntil(String pattern) {
+        String item = "";
+        String temp = scanner.next();
+        while (!temp.equals(pattern)) {
+            item += temp + " ";
+            temp = scanner.next();
+        }
+        return item;
+    }
+
+    private static String listTask() {
         String parsedText = "";
         for (int i = 0; i < textArray.size(); i++) {
             Task task = textArray.get(i);
             parsedText += INDENT + String.valueOf(i + 1) + "." + " " + task + "\n";
-
-
         }
         return parsedText;
-    }
-
-    private static class Task {
-        private boolean done;
-        private String task;
-
-        public Task(boolean done, String task) {
-            this.done = done;
-            this.task = task;
-        }
-
-        private Task markTask() {
-            done = true;
-            return this;
-        }
-
-        private Task unmarkTask() {
-            done = false;
-            return this;
-        }
-
-        public boolean getDone() {
-            return done;
-        }
-
-        public String getTask() {
-            return task;
-        }
-
-        @Override
-        public String toString() {
-            return done ? "[X] " + task : "[ ] " + task;
-        }
-
     }
 }
