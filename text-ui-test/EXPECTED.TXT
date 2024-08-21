@@ -42,8 +42,38 @@ Nice! I've marked this task as done:
   [T][X] Setup a meeting with CS2103T Project team 
 -------------------------------------------------------
 -------------------------------------------------------
+Noted. I've removed this task:
+  [T][X] Setup a meeting with CS2103T Project team 
+Now you have 2 tasks in the list.
+-------------------------------------------------------
+-------------------------------------------------------
 OK, I've marked this task as not done yet:
-  [T][ ] Setup a meeting with CS2103T Project team 
+  [E][ ] Lunch with friends (from: Sat, Aug 24th 1200 to:  Sat, Aug 24th 1500 )
+-------------------------------------------------------
+-------------------------------------------------------
+OK, I've marked this task as not done yet:
+  [D][ ] CS2103T Week 2 IP tasks  (by: Fri, Aug 23rd 1600 )
+-------------------------------------------------------
+-------------------------------------------------------
+Noted. I've removed this task:
+  [D][ ] CS2103T Week 2 IP tasks  (by: Fri, Aug 23rd 1600 )
+Now you have 1 tasks in the list.
+-------------------------------------------------------
+-------------------------------------------------------
+Here are the tasks in your list:
+1.[E][ ] Lunch with friends (from: Sat, Aug 24th 1200 to:  Sat, Aug 24th 1500 )
+-------------------------------------------------------
+-------------------------------------------------------
+Noted. I've removed this task:
+  [E][ ] Lunch with friends (from: Sat, Aug 24th 1200 to:  Sat, Aug 24th 1500 )
+Now you have 0 tasks in the list.
+-------------------------------------------------------
+-------------------------------------------------------
+There is no such task. You currently have 0 tasks.
+Use the "list" command to view all your tasks.
+-------------------------------------------------------
+-------------------------------------------------------
+You have no tasks! Add a few tasks (todo, deadine or event)
 -------------------------------------------------------
 -------------------------------------------------------
 -------------------------------------------------------

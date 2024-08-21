@@ -4,5 +4,12 @@ event Lunch with friends /from Sat, Aug 24th 1200 /to Sat, Aug 24th 1500
 list
 mark 1
 mark 2
+delete 2
 unmark 2
+unmark 1
+delete 1
+list
+delete 1
+mark 1
+list
 bye
