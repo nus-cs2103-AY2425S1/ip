@@ -23,6 +23,7 @@ Here are the tasks in your list:
 1.[ ] read book
 2.[ ] buy bread
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: index given lies outside of the table's valid range.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 Meow! I’ve scratched this task off the list!
 [X] buy bread
@@ -32,6 +33,7 @@ Here are the tasks in your list:
 1.[ ] read book
 2.[X] buy bread
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: index given lies outside of the table's valid range.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 Mrrreow! I’ve batted this task back onto the list.
 [ ] buy bread
@@ -64,6 +66,7 @@ Here are the tasks in your list:
 4.[D][ ] return book (by: Sunday)
 5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: index given lies outside of the table's valid range.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 Meow! I’ve scratched this task off the list!
 [E][X] project meeting (from: Mon 2pm to: 4pm)
@@ -75,6 +78,18 @@ Here are the tasks in your list:
 3.[T][ ] borrow book
 4.[D][ ] return book (by: Sunday)
 5.[E][X] project meeting (from: Mon 2pm to: 4pm)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: 'todo' command requires a description.
+Usage: todo <description>
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: 'deadline' command requires a 'by' date.
+Usage: deadline <description> /by <day/date/time>
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: 'event' command requires a description, a '/from' time, and a '/to' time.
+Usage: event <description> /from <day/date/time> /to <day/date/time>
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 Fur-well friend, stay paw-sitive!
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
