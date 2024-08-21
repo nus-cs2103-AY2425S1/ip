@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EchoMind {
-    private ArrayList<String> toDoList = new ArrayList<>();
+    private ArrayList<Task> toDoList = new ArrayList<>();
 
     public EchoMind() {
         sendMessage("Hello! I'm EchoMind!");
@@ -18,15 +18,15 @@ public class EchoMind {
             sendMessage("Bye. Hope to see you again soon!");
             return false;
         } else if (message.equalsIgnoreCase("list")) {
-            if (toDoList.size() == 0) {
-                sendMessage("No todo items yet!");
+            if (this.toDoList.isEmpty()) {
+                sendMessage("No items yet!");
                 return true;
             }
-            for (int i = 0; i < toDoList.size(); i++) {
-                sendMessage((i + 1) + ". " + toDoList.get(i));
+            for (int i = 0; i < this.toDoList.size(); i++) {
+                sendMessage((i + 1) + ". " + this.toDoList.get(i));
             }
         } else {
-            toDoList.add(message);
+            this.toDoList.add(new Task(message));
             sendMessage("added: " + message);
         }
         return true;
