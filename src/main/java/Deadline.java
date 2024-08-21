@@ -7,9 +7,8 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by %s)",
-                getStatusIcon(),
-                this.name,
+        return String.format("[D]%s (by %s)",
+                super.toString(),
                 this.dueDate);
     }
 }

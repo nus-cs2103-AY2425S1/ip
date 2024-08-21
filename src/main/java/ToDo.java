@@ -5,8 +5,7 @@ public class ToDo extends Task{
 
     @Override
     public String toString() {
-        return String.format("[T][%s] %s",
-                getStatusIcon(),
-                this.name);
+        return String.format("[T]%s",
+                super.toString());
     }
 }
