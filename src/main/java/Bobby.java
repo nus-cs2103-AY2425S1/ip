@@ -20,10 +20,21 @@ public class Bobby {
 
             if (input.equals("list")) {
                 listOutTasks();
-                System.out.println();
             } else {
-                Task t = new Task(input);
-                addToList(t);
+                if (input.contains(" ")) {
+                    String[] splitString = input.split(" ");
+                    if (splitString[0].equals("mark")) {
+                        mark(Integer.valueOf(splitString[1]));
+                    } else if (splitString[0].equals("unmark")) {
+                        unmark(Integer.valueOf(splitString[1]));
+                    } else {
+                        Task t = new Task(input);
+                        addToList(t);
+                    }
+                } else {
+                    Task t = new Task(input);
+                    addToList(t);
+                }
             }
         }
     }
@@ -73,6 +84,26 @@ public class Bobby {
             int number = i + 1;
             System.out.println(number + ". " + Bobby.storage.get(i));
         }
+        horizontalLine(35);
+    }
+
+    public static void mark(int x) {
+        Task t = storage.get(x);
+        t.indComplete();
+        horizontalLine(35);
+        System.out.println();
+        System.out.println("Nice! I have marked this task as done:");
+        System.out.println(t);
+        horizontalLine(35);
+    }
+
+    public static void unmark(int x) {
+        Task t = storage.get(x);
+        t.indIncomplete();
+        horizontalLine(35);
+        System.out.println();
+        System.out.println("OK, I have marked this task as not done yet:");
+        System.out.println(t);
         horizontalLine(35);
     }
 }
