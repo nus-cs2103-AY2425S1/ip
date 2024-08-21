@@ -29,7 +29,7 @@ public class Hue {
             }
 
             if (input.equalsIgnoreCase("list")) {
-                System.out.println("Here aer the tasks in your list: ");
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + "." + tasks[i]);
                 }
@@ -51,6 +51,35 @@ public class Hue {
                 } else {
                     System.out.println("Invalid task number");
                 }
+
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5).trim();
+                tasks[taskCount] = new Todo(description);
+                taskCount++;
+                System.out.println("Got it. I've added this task");
+                System.out.println(" " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.split("/by");
+                String description = parts[0].substring(9).trim();
+                String by = parts[1].trim();
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println("Got it. I've added this task");
+                System.out.println(" " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+            } else if (input.startsWith("event")) {
+                String[] parts = input.split ("/from|/to");
+                String description = parts[0].substring(6).trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println("Got it. I've added this task");
+                System.out.println(" " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+
             } else if (!input.equalsIgnoreCase("bye")) {
                 tasks[taskCount] = new Task(input);
                 taskCount++;
