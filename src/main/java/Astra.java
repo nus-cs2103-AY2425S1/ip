@@ -2,6 +2,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Astra {
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT,
+    }
     private static final TaskList tasks = new TaskList();
 
     private static String formatMsg(String msg) {
@@ -55,12 +60,13 @@ public class Astra {
         System.out.println(formatMsg(tasks.toString()));
     }
 
-    public static void add(String type, String text) throws AstraException {
+    public static void add(TaskType type, String text) throws AstraException {
         String argText;
 
         // validate args length
-        if (text.length() > type.length() + 1) {
-            argText = text.substring(type.length() + 1).strip();
+        String typeArg = text.split(" ")[0];
+        if (text.length() > typeArg.length() + 1) {
+            argText = text.substring(typeArg.length() + 1).strip();
             if (argText.isEmpty()) {
                 throw new AstraException("The description of a task cannot be empty.");
             }
@@ -73,9 +79,9 @@ public class Astra {
 
         Task t = null;
             switch (type) {
-                case "todo" -> t = new Todo(args.get("main"));
-                case "deadline" -> t = new Deadline(args.get("main"), args.get("by"));
-                case "event" -> t = new Event(args.get("main"), args.get("from"), args.get("to"));
+                case TODO -> t = new Todo(args.get("main"));
+                case DEADLINE -> t = new Deadline(args.get("main"), args.get("by"));
+                case EVENT -> t = new Event(args.get("main"), args.get("from"), args.get("to"));
             }
         if (t == null) {
             return;
@@ -130,11 +136,11 @@ public class Astra {
                 } else if (command.equals("unmark")) {
                     unmark(getIndex(text));
                 } else if (command.equals("todo")) {
-                    add("todo", text);
+                    add(TaskType.TODO, text);
                 } else if (command.equals("deadline")) {
-                    add("deadline", text);
+                    add(TaskType.DEADLINE, text);
                 } else if (command.equals("event")) {
-                    add("event", text);
+                    add(TaskType.EVENT, text);
                 } else {
                     throw new AstraException("Unknown command.");
                 }
