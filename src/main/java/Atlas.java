@@ -24,7 +24,7 @@ public class Atlas {
         System.out.println("Hello from\n" + logo);
         Atlas.greet();
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<Task>();
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine();
@@ -34,16 +34,16 @@ public class Atlas {
                     return;
                 case "list":
                     StringBuilder listOutput = new StringBuilder();
-                    for (int i = 0; i < list.size(); i++) {
-                        listOutput.append(String.format("%d: ", i + 1)).append(list.get(i));
-                        if (i < list.size() - 1) {
+                    for (int i = 0; i < taskList.size(); i++) {
+                        listOutput.append(String.format("%d: ", i + 1)).append(taskList.get(i));
+                        if (i < taskList.size() - 1) {
                             listOutput.append('\n');
                         }
                     }
                     Atlas.print(listOutput.toString());
                     break;
                 default:
-                    list.add(command);
+                    taskList.add(new Task(command));
                     Atlas.print(String.format("added: %s", command));
                     break;
             }
