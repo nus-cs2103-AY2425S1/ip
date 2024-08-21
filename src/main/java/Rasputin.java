@@ -19,19 +19,24 @@ public class Rasputin {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         String name = "Rasputin";
+
+        // initialize task list
         ArrayList<Task> ls = new ArrayList<>();
 
-
-
+        // scanner to read user input
         Scanner scanner = new Scanner(System.in);
+
+        // greeting
         printText("Hello, I'm " + name + "!\nWhat can I do for you?");
 
         while (true) {
             String input = scanner.nextLine();
+            // if user types "bye", bid farewell to user and return
             if (input.equals("bye")) {
                 break;
             }
 
+            // display current list of tasks
             if (input.equals("list")) {
                 if (ls.isEmpty()) {
                     printText("No tasks in list!");
@@ -47,6 +52,7 @@ public class Rasputin {
                 continue;
             }
 
+            // unmark task
             if (input.contains("unmark")) {
                 if (ls.isEmpty()) {
                     printText("No tasks in list!");
@@ -60,6 +66,7 @@ public class Rasputin {
                 continue;
             }
 
+            // mark task as done
             if (input.contains("mark")) {
                 if (ls.isEmpty()) {
                     printText("No tasks in list!");
@@ -73,18 +80,26 @@ public class Rasputin {
                 continue;
             }
 
+            // create todo task
             if (input.contains("todo")) {
-                String desc = input.split(" ")[1];
-                System.out.println(desc);
+                String desc = input.substring(5);
                 Todo task = new Todo(desc);
                 ls.add(task);
-                String output = "Added task:\n" + task.toString();
+                String output = "Added Todo task:\n" + task.toString();
                 printText(output);
                 continue;
             }
 
-            ls.add(new Task(input));
-            printText("added: " + input);
+            if (input.contains("deadline")) {
+                String str = input.substring(9);
+                String desc = str.split(" /by ")[0];
+                String deadline = str.split(" /by ")[1];
+                Deadline task = new Deadline(desc, deadline);
+                ls.add(task);
+                String output = "Added Deadline task:\n" + task.toString();
+                printText(output);
+                continue;
+            }
 
         }
 
