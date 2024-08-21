@@ -4,6 +4,8 @@ public class ChatLogic {
     static final String LIST_COMMAND = "list";
 
     private final String name;
+    private Task[] taskArray = new Task[100];
+    private int taskCount = 0;
 
     public ChatLogic(String name) {
         this.name = name;
@@ -14,12 +16,35 @@ public class ChatLogic {
             case BYE_COMMAND:
                 printBye();
                 System.exit(0);
+                break;
+            case LIST_COMMAND:
+                listTasks();
+                break;
             default:
-                printInputEcho(input);
+                addTask(input);
         }
     }
 
-    public void printInputEcho(String input) {
+    private void addTask(String input) {
+        Task newTask = new Task(input);
+        taskArray[taskCount] = newTask;
+        this.taskCount++;
+
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(" added: " + input);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void listTasks() {
+        System.out.println(HORIZONTAL_LINE);
+        for (int i = 0; i < this.taskCount; i++) {
+            String output = " " + (i + 1) + ". " + this.taskArray[i].toString();
+            System.out.println(output);
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void printInputEcho(String input) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(" " + input);
         System.out.println(HORIZONTAL_LINE);
@@ -32,7 +57,7 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void printBye() {
+    private void printBye() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
