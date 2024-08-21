@@ -53,11 +53,15 @@ public class TaskList {
      * @param taskNum int to indicate which task to mark as complete.
      */
     public void markDoneTask(int taskNum) {
-        Task reqTask = this.taskList[taskNum - 1];
-        reqTask.complete();
-        UI.response("Oki, I'll mark the task as done *w*! Good job finishing the task!!");
-        String res = String.format("%s", reqTask);
-        UI.response(res);
+        if (taskNum <= 0 || taskNum > this.numOfTasks) {
+            UI.response(String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
+        } else {
+            Task reqTask = this.taskList[taskNum - 1];
+            reqTask.complete();
+            UI.response("Oki, I'll mark the task as done *w*! Good job finishing the task!!");
+            String res = String.format("%s", reqTask);
+            UI.response(res);
+        }
     }
 
 }

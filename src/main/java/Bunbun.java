@@ -19,58 +19,25 @@ public class Bunbun {
             } else {
                 System.out.println(msg);
                 ArrayList<String> tokens = Parser.getTokens();
-                if (tokens.get(0).equals("list")) {
+                String firstWord = tokens.get(0);
+                int len = tokens.size();
+                if (firstWord.equals("list")) {
                     list.displayList();
-                } else if (tokens.get(0).equals("mark") && (tokens.size() == 2)) {
-                    String val = tokens.get(1);
-                    list.markDoneTask(Integer.parseInt(val));
+                } else if (firstWord.equals("mark")) {
+                    if (len == 2) {
+                        String val = tokens.get(1);
+                        list.markDoneTask(Integer.parseInt(val));
+                    } else {
+                        UI.response("Specify 1! positive integer to mark as complete D:");
+                    }
                 } else if (tokens.get(0).equals("todo")) {
-                    String taskDescription = "";
-                    int len = tokens.size();
-                    for (int i = 1; i < len; i++) {
-                        taskDescription += tokens.get(i) + " ";
-                    }
-                    ToDo todo = new ToDo(taskDescription);
-                    list.addTask(todo);
+                    ToDo.addToDo(list, tokens);
                 } else if (tokens.get(0).equals("deadline")) {
-                    String taskDescription = "";
-                    String deadline = "";
-                    int len = tokens.size();
-                    for (int i = 1; i < len; i++) {
-                        if (tokens.get(i).equals("/by")) {
-                            i += 1;
-                            while (i < len) {
-                                deadline += tokens.get(i) + " ";
-                                i += 1;
-                            }
-                        } else {
-                            taskDescription += tokens.get(i) + " ";
-                        }
-                    }
-                    Deadline deadlineTask = new Deadline(taskDescription, deadline);
-                    list.addTask(deadlineTask);
+                    Deadline.addDeadline(list, tokens);
                 } else if (tokens.get(0).equals("event")) {
-                    String taskDescription = "";
-                    String start = "";
-                    String end = "";
-                    int len = tokens.size();
-                    int i = 1;
-                    while (i < len && !(tokens.get(i).equals("/from"))) {
-                        taskDescription += tokens.get(i) + " ";
-                        i += 1;
-                    }
-                    i += 1;
-                    while (i < len && !(tokens.get(i).equals("/to"))) {
-                        start += tokens.get(i) + " ";
-                        i += 1;
-                    }
-                    i += 1;
-                    while (i < len) {
-                        end += tokens.get(i) + " ";
-                        i += 1;
-                    }
-                    Event event = new Event(taskDescription, start, end);
-                    list.addTask(event);
+                    Event.addEvent(list, tokens);
+                } else {
+                    UI.response("Sorry, I don't understand ><");
                 }
             }
         }
