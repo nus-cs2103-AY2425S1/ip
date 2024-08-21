@@ -7,6 +7,21 @@ public class ChatLogic {
         this.name = name;
     }
 
+    public void processInput(String input) {
+        if (input.equals("bye")) {
+            printBye();
+            System.exit(0);
+        } else {
+            printInputEcho(input);
+        }
+    }
+
+    public void printInputEcho(String input) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(" " + input);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public void printGreeting() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(" Hello! I'm " + name + ".");
