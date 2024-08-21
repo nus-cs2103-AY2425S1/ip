@@ -4,12 +4,8 @@ import java.util.Scanner;
 public class Soju {
     private static final List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
-        try {
-            runWithHorizontalLine(Soju::greet);
-            echo();
-        } catch (SojuException sojuException) {
-            runWithHorizontalLine(sojuException.toString());
-        }
+         runWithHorizontalLine(Soju::greet);
+         echo();
     }
 
     public static void greet() {
@@ -53,64 +49,85 @@ public class Soju {
         while (true) {
             String userInput = scanner.nextLine();
             runWithHorizontalLine();
-            if (userInput.equals("bye")) {
-                runWithHorizontalLine(Soju::exit);
-                break;
-            } else if (userInput.equals("list")) {
-                displayList();
-            } else if (userInput.startsWith("mark")) {
-                String[] parts = userInput.split(" ");
-                int taskIndex = Integer.parseInt(parts[1]) - 1;
-                tasks.get(taskIndex).markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks.get(taskIndex));
-                runWithHorizontalLine();
-            } else if (userInput.startsWith("unmark")) {
-                String[] parts = userInput.split(" ");
-                int taskIndex = Integer.parseInt(parts[1]) - 1;
-                tasks.get(taskIndex).unmark();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + tasks.get(taskIndex));
-                runWithHorizontalLine();
-            } else if (userInput.startsWith("todo")){
-                // Extract the task description by removing the "todo " prefix
-                String description = userInput.substring(5).trim();
 
-                // Create a new Todo task with the extracted description
-                Todo todoTask = new Todo(description);
+            try {
+                if (userInput.equals("bye")) {
+                    runWithHorizontalLine(Soju::exit);
+                    break;
+                } else if (userInput.equals("list")) {
+                    displayList();
+                } else if (userInput.startsWith("mark")) {
+                    String[] parts = userInput.split(" ");
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    tasks.get(taskIndex).markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + tasks.get(taskIndex));
+                    runWithHorizontalLine();
+                } else if (userInput.startsWith("unmark")) {
+                    String[] parts = userInput.split(" ");
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    tasks.get(taskIndex).unmark();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  " + tasks.get(taskIndex));
+                    runWithHorizontalLine();
+                } else if (userInput.startsWith("todo")){
+                    if (!userInput.startsWith("todo ")) {
+                        throw new SojuException("The description of a todo cannot be empty.");
+                    }
+                    String description = userInput.substring(5).trim();
+                    if (description.isEmpty()) {
+                        throw new SojuException("The description of a todo cannot be empty.");
+                    }
+                    // Create a new Todo task with the extracted description
+                    Todo todoTask = new Todo(description);
 
-                // Add the task to your tasks list
-                addToList(todoTask);
-            } else if (userInput.startsWith("deadline")) {
-                // Extract the part after "deadline "
-                String[] parts = userInput.substring(9).split(" /by ", 2);
+                    // Add the task to your tasks list
+                    addToList(todoTask);
+                } else if (userInput.startsWith("deadline")) {
+                    userInput = userInput.substring(8);
+                    if (!userInput.startsWith(" ")) {
+                        throw new SojuException("Deadlines must have a description!");
+                    }
 
-                // The description is before the "/by"
-                String description = parts[0].trim();
+                    // Extract the part after "deadline "
+                    String[] parts = userInput.substring(9).split(" /by ", 2);
 
-                // The due date is after the "/by"
-                String by = parts[1].trim();
+                    // The description is before the "/by"
+                    String description = parts[0].trim();
+                    if (description.isEmpty()) {
+                        throw new SojuException("The description of a todo cannot be empty.");
+                    }
 
-                // Create a new Deadline task
-                Deadline deadlineTask = new Deadline(description, by);
+                    // The due date is after the "/by"
+                    String by = parts[1].trim();
 
-                // Add the task to your tasks list
-                addToList(deadlineTask);
-            } else if (userInput.startsWith("event")) {
-                // Extract the part after "event"
-                String[] parts = userInput.substring(6).split(" /from ", 2);
-                String descriptionPart = parts[0].trim(); // This is the task description
-                String[] timeParts = parts[1].split(" /to ", 2);
-                String from = timeParts[0].trim(); // Start time
-                String to = timeParts[1].trim(); // End time
 
-                // Create a new Event task
-                Event eventTask = new Event(descriptionPart, from, to);
+                    // Create a new Deadline task
+                    Deadline deadlineTask = new Deadline(description, by);
 
-                // Add the task to your tasks list
-                addToList(eventTask);
+                    // Add the task to your tasks list
+                    addToList(deadlineTask);
+                } else if (userInput.startsWith("event")) {
+                    // Extract the part after "event"
+                    String[] parts = userInput.substring(6).split(" /from ", 2);
+                    String description = parts[0].trim(); // This is the task description
+                    if (description.isEmpty()) {
+                        throw new SojuException("The description of a todo cannot be empty.");
+                    }
+                    String[] timeParts = parts[1].split(" /to ", 2);
+                    String from = timeParts[0].trim(); // Start time
+                    String to = timeParts[1].trim(); // End time
+
+                    // Create a new Event task
+                    Event eventTask = new Event(description, from, to);
+
+                    // Add the task to your tasks list
+                    addToList(eventTask);
                 } else {
-                runWithHorizontalLine(() -> System.out.println("Invalid command"));
+                    throw new SojuException("I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (SojuException sojuException) {
+                runWithHorizontalLine(sojuException.getMessage());
             }
         }
         scanner.close();
