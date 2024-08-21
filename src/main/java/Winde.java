@@ -100,7 +100,7 @@ public class Winde {
     }
 
     public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
 
