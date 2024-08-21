@@ -7,8 +7,8 @@ public class Task {
         this.done = false;
     }
 
-    public void setDone() {
-        done = true;
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public boolean isDone() {
@@ -17,6 +17,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return description;
+        String mark = done ? "X" : " ";
+        return String.format("[%s] %s", mark, description);
     }
 }
