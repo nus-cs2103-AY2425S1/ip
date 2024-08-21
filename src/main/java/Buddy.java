@@ -58,6 +58,7 @@ public class Buddy {
 
     /**
      * Adds a new task to the task list.
+     *
      * @param description Description of the task.
      */
     private static void addTask(String description) {
@@ -67,6 +68,7 @@ public class Buddy {
 
     /**
      * Marks a task as done.
+     *
      * @param input User input.
      */
     private static void markTaskAsDone(String input) {
@@ -94,6 +96,7 @@ public class Buddy {
 
     /**
      * Marks a task as not done.
+     *
      * @param input User input.
      */
     private static void markTaskAsNotDone(String input) {

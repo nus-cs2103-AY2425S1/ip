@@ -2,24 +2,17 @@
  * Task class represents a task with a description and a boolean to indicate if it is done.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private final String description;
+    private boolean isDone;
 
     /**
      * Constructor for Task class.
+     *
      * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-    }
-
-    /**
-     * Returns the status icon of the task.
-     * @return Status icon of the task.
-     */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
@@ -38,6 +31,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return String representation of the task.
      */
     @Override
