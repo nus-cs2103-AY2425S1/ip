@@ -12,6 +12,5 @@ public class Bob {
             input = scanner.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
-        return;
     }
 }
