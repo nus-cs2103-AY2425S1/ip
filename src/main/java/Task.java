@@ -28,7 +28,7 @@ public class Task {
         String firstCommand = replyArray[0];
         if (this.isTerminate()) {   //Terminate chatbot if user types in "bye"
             System.out.println("-------------------------------------");
-            System.out.println("\tBye. Hope to see you again soon!");
+            System.out.println("Bye. Hope to see you again soon!");
             System.out.println("-------------------------------------");
         } else if (firstCommand.equals("list")){ //Iterate through the String array and list out the commands
             commands.listAllTask();
@@ -47,14 +47,14 @@ public class Task {
     public void mark() {
         this.isCompleted = true;
         System.out.println("-------------------------------------");
-        System.out.println("\tNice! I've marked this task as done:\n\t  " + this.toString());
+        System.out.println("Nice! I've marked this task as done:\n" + this.toString());
         System.out.println("-------------------------------------");
     }
 
     public void unmark() {
         this.isCompleted = false;
         System.out.println("-------------------------------------");
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + this.toString());
+        System.out.println("OK, I've marked this task as not done yet:\n" + this.toString());
         System.out.println("-------------------------------------");
     }
 }

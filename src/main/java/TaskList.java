@@ -9,9 +9,9 @@ public class TaskList {
     }
     public void listAllTask() {
         System.out.println("-------------------------------------");
-        System.out.println("\tHere are the tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < this.taskList.size(); i ++) {
-            System.out.println("\t" + (i + 1) + "." + this.getTask(i).toString());
+            System.out.println((i + 1) + "." + this.getTask(i).toString());
         }
         System.out.println("-------------------------------------");
     }
@@ -28,8 +28,8 @@ public class TaskList {
             this.taskList.add(toDoTask);
 
             System.out.println("-------------------------------------");
-            System.out.println("\tGot it. I've added this task: \n\t  " + toDoTask.toString());
-            System.out.println("\tNow you have " + numOfTask + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + toDoTask.toString());
+            System.out.println("Now you have " + numOfTask + " tasks in the list.");
             System.out.println("-------------------------------------");
 
         } else if (typeOfTask.equals("deadline")) {
@@ -40,8 +40,8 @@ public class TaskList {
             this.taskList.add(deadlineTask);
 
             System.out.println("-------------------------------------");
-            System.out.println("\tGot it. I've added this task: \n\t  " + deadlineTask.toString());
-            System.out.println("\tNow you have " + numOfTask + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + deadlineTask.toString());
+            System.out.println("Now you have " + numOfTask + " tasks in the list.");
             System.out.println("-------------------------------------");
 
         } else if (typeOfTask.equals("event")) {
@@ -53,16 +53,16 @@ public class TaskList {
             this.taskList.add(eventTask);
 
             System.out.println("-------------------------------------");
-            System.out.println("\tGot it. I've added this task: \n\t  " + eventTask.toString());
-            System.out.println("\tNow you have " + numOfTask + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + eventTask.toString());
+            System.out.println("Now you have " + numOfTask + " tasks in the list.");
             System.out.println("-------------------------------------");
 
         } else {
             this.taskList.add(userTask);
 
             System.out.println("-------------------------------------");
-            System.out.println("\tGot it. I've added this task: \n\t  " + userTask.toString());
-            System.out.println("\tNow you have " + numOfTask + " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + userTask.toString());
+            System.out.println("Now you have " + numOfTask + " tasks in the list.");
             System.out.println("-------------------------------------");
         }
 
