@@ -1,12 +1,13 @@
+import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
 
 public class KukiShinobu {
     private final String name = "Kuki Shinobu";
+    private final ArrayList<String> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         KukiShinobu kuki = new KukiShinobu();
         kuki.listen();
-
     }
 
     public static void printHorizontalLine() {
@@ -17,16 +18,36 @@ public class KukiShinobu {
         this.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String input = scanner.nextLine();  // Read user input
+            String command = scanner.nextLine();  // Read user input
             KukiShinobu.printHorizontalLine();
-            if (input.equals("bye")) {
+            // break out of while loop if user issues "bye" command
+            if (command.equals("bye")) {
                 break;
             }
-            System.out.println(input);
+
+            // otherwise, handle all other commands as appropriate
+            switch(command) {
+                case "list":
+                    this.listTasks();
+                    break;
+                default:
+                    this.addTask(command);
+            }
             KukiShinobu.printHorizontalLine();
         }
         this.goodbye();
+    }
 
+    private void listTasks() {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + this.tasks.get(i));
+
+        }
+    }
+
+    private void addTask(String task) {
+        this.tasks.add(task);
+        System.out.println("added: " + task);
     }
 
     public void greet() {
