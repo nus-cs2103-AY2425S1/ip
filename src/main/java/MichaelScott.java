@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class MichaelScott {
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
         boolean flag = true;
+        ArrayList<String> todo = new ArrayList<String>();
 
         String logo = " __  __ _      _                _   ____            _   _  \n"
                 + "|  \\/  (_) ___| |__   __ _  ___| | / ___|  ___ ___ | |_| |_ \n"
@@ -20,7 +22,9 @@ public class MichaelScott {
 
             if (command.equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println("list");
+                for (int i = 0; i < todo.size(); i++) {
+                    System.out.println(i + 1 + ". " + todo.get(i));
+                }
                 System.out.println("____________________________________________________________");
 
             } else if (command.equals("blah")) {
@@ -32,6 +36,11 @@ public class MichaelScott {
                 System.out.println("Catch you on the flippity flip! ");
                 System.out.println("____________________________________________________________");
                 flag = false;
+            } else {
+                todo.add(command);
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + command);
+                System.out.println("____________________________________________________________");
             }
 
         }
