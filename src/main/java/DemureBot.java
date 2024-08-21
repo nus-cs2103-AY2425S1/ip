@@ -2,97 +2,119 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class DemureBot {
-    public static void check(String command, ArrayList<Task> list) {
-        String[] parts = command.split(" ");
+    public static void check(String command, ArrayList<Task> list) throws DemureBotException {
+//        String[] parts = command.split(" ");
 
-        if (parts.length >= 2) {
-            if (parts[0].equals("mark") || parts[0].equals("unmark")) {
-                try {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    Task task = list.get(index);
-
-                    if (parts[0].equals("mark")) {
-                        // mark a task as done
-                        task.markAsDone();
-                        System.out.println("____________________________________________________________\n" +
-                                " Nice! I've marked this task as done:\n" +
-                                "   [" + task.getStatusIcon() + "] " + task + "\n" +
-                                "____________________________________________________________\n" +
-                                "\n"
-                        );
-                    } else {
-                        // unmark a task
-                        task.unmark();
-                        System.out.println("____________________________________________________________\n" +
-                                " OK, I've marked this task as not done yet:\n" +
-                                "   [" + task.getStatusIcon() + "] " + task + "\n" +
-                                "____________________________________________________________\n" +
-                                "\n"
-                        );
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid number format: " + parts[1]);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Invalid index: " + (Integer.parseInt(parts[1])));
-                }
-            } else if (parts[0].equals("todo") || parts[0].equals("deadline") || parts[0].equals("event")) {
-                StringBuilder remainingString = new StringBuilder();
-                for (int i = 1; i < parts.length; i++) {
-                    if (i > 1) {
-                        remainingString.append(" ");
-                    }
-                    remainingString.append(parts[i]);
-                }
-                String result = remainingString.toString();
-                if (parts[0].equals("todo")) {
-                    Todo todo = new Todo(result);
-                    list.add(todo);
-                    System.out.println("____________________________________________________________\n" +
-                            "Got it. I've added this task:\n  " +
-                            todo + "\n" +
-                            "Now you have " + list.size() + " tasks in the list.\n" +
-                            "____________________________________________________________\n" +
-                            "\n"
-                    );
-                } else if (parts[0].equals("deadline")) {
-                    String[] descriptionBy = result.split("/by");
-                    String description = descriptionBy[0];
-                    String by = descriptionBy[1];
-                    Deadline deadline = new Deadline(description, by);
-                    list.add(deadline);
-                    System.out.println("____________________________________________________________\n" +
-                            "Got it. I've added this task:\n  " +
-                            deadline + "\n" +
-                            "Now you have " + list.size() + " tasks in the list.\n" +
-                            "____________________________________________________________\n" +
-                            "\n"
-                    );
-                } else if (parts[0].equals("event")) {
-                    String[] splitByFrom = result.split("/from");
-                    String description = splitByFrom[0];
-                    String[] splitByTo = splitByFrom[1].split("/to");
-                    String from = splitByTo[0];
-                    String to = splitByTo[1];
-                    Event event = new Event(description, from, to);
-                    list.add(event);
-                    System.out.println("____________________________________________________________\n" +
-                            "Got it. I've added this task:\n  " +
-                            event + "\n" +
-                            "Now you have " + list.size() + " tasks in the list.\n" +
-                            "____________________________________________________________\n" +
-                            "\n"
-                    );
-                }
-            } else {
-                // add a new task
-                list.add(new Task(command));
+        if (command.startsWith("mark")) {
+            String remainder = command.substring(4).trim();
+            try {
+                int index = Integer.parseInt(remainder) - 1;
+                Task task = list.get(index);
+                task.markAsDone();
                 System.out.println("____________________________________________________________\n" +
-                        "added: " + command +
-                        "\n" +
-                        "____________________________________________________________\n" +
-                        "\n"
+                    " Nice! I've marked this task as done:\n   " +
+                    task + "\n" +
+                    "____________________________________________________________\n" +
+                    "\n"
+                );
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format: " + remainder);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid index: " + (Integer.parseInt(remainder)));
+            }
+        } else if (command.startsWith("unmark")) {
+            String remainder = command.substring(6).trim();
+            try {
+                int index = Integer.parseInt(remainder) - 1;
+                Task task = list.get(index);
+                task.unmark();
+                System.out.println("____________________________________________________________\n" +
+                    " OK, I've marked this task as not done yet:\n   " +
+                    task + "\n" +
+                    "____________________________________________________________\n" +
+                    "\n"
+                );
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format: " +
+                    remainder +
+                    "\n" +
+                    "Please enter a valid number.\n"
+                );
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid index: " +
+                    (Integer.parseInt(remainder)) +
+                    "\n" +
+                    "Please enter a positive number with a max value of number of current tasks.\n"
                 );
             }
+        } else if (command.startsWith("todo")) {
+            String description = command.substring(4).trim();
+            // check that there is a task description
+            if (description.isEmpty()) {
+                throw new DemureBotException("The description of a todo cannot be empty.\nAdd description after todo.\n");
+            }
+            Todo todo = new Todo(description);
+            list.add(todo);
+            System.out.println("____________________________________________________________\n" +
+                "Got it. I've added this task:\n  " +
+                todo + "\n" +
+                "Now you have " + list.size() + " tasks in the list.\n" +
+                "____________________________________________________________\n" +
+                "\n"
+            );
+        } else if (command.startsWith("deadline")) {
+            String remainder = command.substring(8).trim();
+            // check that there is a task description
+            if (remainder.isEmpty() || remainder.startsWith("/by")) {
+                throw new DemureBotException("The description of a deadline cannot be empty.\nAdd description after deadline.\n");
+            }
+            String[] splitBy = remainder.split("/by");
+            // check that there is a deadline
+            if (splitBy.length == 1) {
+                throw new DemureBotException("The deadline of a deadline cannot be empty.\nAdd deadline after /by.\n");
+            }
+            String description = splitBy[0].trim();
+            String by = splitBy[1].trim();
+            Deadline deadline = new Deadline(description, by);
+            list.add(deadline);
+            System.out.println("____________________________________________________________\n" +
+                "Got it. I've added this task:\n  " +
+                deadline + "\n" +
+                "Now you have " + list.size() + " tasks in the list.\n" +
+                "____________________________________________________________\n" +
+                "\n"
+            );
+        } else if (command.startsWith("event")) {
+            String remainder = command.substring(5).trim();
+            // check that there is a task description
+            if (remainder.isEmpty() || remainder.startsWith("/from")) {
+                throw new DemureBotException("The description of an event cannot be empty.\nAdd description after event.\n");
+            }
+            String[] splitFrom = remainder.split("/from");
+            // check that there is a start time
+            if (splitFrom.length == 1) {
+                throw new DemureBotException("The start time of an event cannot be empty.\nAdd start time after /from.\n");
+            }
+            String description = splitFrom[0].trim();
+            String[] splitTo = splitFrom[1].split("/to");
+            // check that there is an end time
+            if (splitTo.length == 1) {
+                throw new DemureBotException("The end time of an event cannot be empty.\nAdd end time after /to.\n");
+            }
+            String from = splitTo[0].trim();
+            String to = splitTo[1].trim();
+            Event event = new Event(description, from, to);
+            list.add(event);
+            System.out.println("____________________________________________________________\n" +
+                "Got it. I've added this task:\n  " +
+                event + "\n" +
+                "Now you have " + list.size() + " tasks in the list.\n" +
+                "____________________________________________________________\n" +
+                "\n"
+            );
+        } else {
+            // throw invalid command exception
+            throw new DemureBotException("Invalid command\nCreate a new task starting with the command todo, deadline or event.\n");
         }
     }
     public static void main(String[] args) {
@@ -127,7 +149,11 @@ public class DemureBot {
                     System.out.println((i + 1) + "." + task);
                 }
             } else {
-                DemureBot.check(command, list);
+                try {
+                    DemureBot.check(command, list);
+                } catch (DemureBotException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
 
