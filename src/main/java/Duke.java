@@ -1,3 +1,6 @@
+import TaskType.TaskBuilder;
+
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -16,6 +19,7 @@ public class Duke {
             String command = scanner.nextLine();
             String commandLowerCase = command.toLowerCase();
             String[] parts = command.split(" ");
+            String firstWord = parts[0];
 
             if (commandLowerCase.equals("bye")) {
                 System.out.println("See you loser");
@@ -44,8 +48,41 @@ public class Duke {
                      System.out.println("You didnt even type a number !!.");
                  }
 
+            } else if (Objects.equals(firstWord, "deadline")) {
+                // Remove the word 'deadline' and split by '/by'
+                String[] part = command.replaceFirst("deadline ", "").split("/by", 2);
+                // Get description part
+                String description = part[0].trim();
+                // Get 'by' part
+                String by = part.length > 1 ? part[1].trim() : "";
+
+                TaskBuilder taskBuilder = new TaskBuilder(description, "deadline");
+                DukeManager.createItem(taskBuilder.by(by));
+
+            } else if (Objects.equals(firstWord, "todo")) {
+                String description = command.substring("todo ".length()).trim();
+
+                TaskBuilder taskBuilder = new TaskBuilder(description, "todo");
+                DukeManager.createItem(taskBuilder);
+
+            } else if (Objects.equals(firstWord, "event")) {
+                // Remove the word 'event' and split by '/from'
+                String[] part = command.replaceFirst("event ", "").split("/from", 2);
+                // The description part
+                String description = part[0].trim();
+                // The remaining part
+                String remaining = part.length > 1 ? part[1].trim() : "";
+                // Split the remaining part by '/to'
+                String[] dateParts = remaining.split("/to", 2);
+                // The 'from' part
+                String from = dateParts[0].trim();
+                // The 'to' part
+                String to = dateParts.length > 1 ? dateParts[1].trim() : "";
+
+                TaskBuilder taskBuilder = new TaskBuilder(description, "event");
+                DukeManager.createItem(taskBuilder.from(from).to(to));
+
             } else {
-                DukeManager.createItem(command);
                 System.out.println("added " + command);
             }
         }

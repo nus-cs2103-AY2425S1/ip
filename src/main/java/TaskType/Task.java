@@ -1,3 +1,5 @@
+package TaskType;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -18,5 +20,8 @@ public class Task {
     public void setDone(boolean done) {
         this.isDone = done;
     }
-
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + description;
+    }
 }
