@@ -88,13 +88,15 @@ public class Jay {
             }
         } else {
             try {
-                Task task = this.parseTask(command);
+                Task.TYPE taskType = switch (commands[0]) {
+                    case "todo" -> Task.TYPE.TODO;
+                    case "deadline" -> Task.TYPE.DEADLINE;
+                    case "event" -> Task.TYPE.EVENT;
+                    default ->
+                            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                };
 
-                if (task == null) {
-                    throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
-
-                return this.addTask(task);
+                return this.addTask(this.parseTask(taskType, command));
             } catch (InvalidTaskException | InvalidCommandException e) {
                 return formattedCommand(e.getMessage());
             }
@@ -119,11 +121,9 @@ public class Jay {
         }
     }
 
-    private Task parseTask(String command) throws InvalidTaskException {
-        String taskType = command.split(" ")[0];
-
+    private Task parseTask(Task.TYPE taskType, String command) throws InvalidTaskException {
         switch (taskType) {
-            case "todo": {
+            case TODO: {
                 try {
                     String description = command.split(" ", 2)[1].trim();
                     return new ToDoTask(description);
@@ -131,7 +131,7 @@ public class Jay {
                     throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
                 }
             }
-            case "deadline": {
+            case DEADLINE: {
                 try {
                     String description = command.split("/")[0].split(" ", 2)[1].trim();
                     String by = command.split("/")[1].split(" ", 2)[1].trim();
@@ -140,7 +140,7 @@ public class Jay {
                     throw new InvalidTaskException("OOPS!!! The description or by of a deadline cannot be empty.");
                 }
             }
-            case "event": {
+            case EVENT: {
                 try {
                     String[] commands = command.split("/");
                     String description = commands[0].split(" ", 2)[1].trim();
@@ -153,7 +153,7 @@ public class Jay {
                 }
             }
             default:
-                return null;
+                throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't what task is this. :-(");
         }
     }
 
