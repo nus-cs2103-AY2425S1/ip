@@ -110,7 +110,7 @@ public class Delta {
                     if (details.length != 2) {
                         throw new DeltaException("OOPS!!! The description of deadline is wrong!\n" +
                                 "\t Please follow the proper format:\n" +
-                                "\t * deadline [description] /by [date/time]\n");
+                                "\t * deadline [description] /by [date/time]");
                     }
                     output = addTask(new Deadline(details[0], details[1]));
 
@@ -121,7 +121,15 @@ public class Delta {
                 // Add Event
                 } else if (task.length() >= 6 && task.substring(0, 6).equalsIgnoreCase("event ")) {
                     String[] details = task.substring(6).split(" /from ");
-                    String[] timings = details[1].split(" /to ");
+                    String[] timings = new String[task.length() - 6];
+                    if (details.length > 1) {
+                        timings = details[1].split(" /to ");
+                    }
+                    if (details.length != 2 || timings.length != 2) {
+                        throw new DeltaException("OOPS!!! The description of event is wrong!\n" +
+                                "\t Please follow the proper format:\n" +
+                                "\t * event [description] /from [start] /to [end]");
+                    }
                     output = addTask(new Event(details[0], timings[0], timings[1]));
 
                 // Unknown Action
