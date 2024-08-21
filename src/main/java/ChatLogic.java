@@ -6,6 +6,7 @@ public class ChatLogic {
     static final String LIST_COMMAND = "list";
     static final String MARK_COMMAND = "mark";
     static final String UNMARK_COMMAND = "unmark";
+    static final String DELETE_COMMAND = "delete";
 
     static final String TODO_COMMAND = "todo";
     static final String DEADLINE_COMMAND = "deadline";
@@ -34,18 +35,24 @@ public class ChatLogic {
             listTasks();
         } else if (input.contains(TODO_COMMAND) || input.contains(DEADLINE_COMMAND) || input.contains(EVENT_COMMAND)) {
             processAddTaskInput(input);
+        } else if (input.contains(DELETE_COMMAND)) {
+            processDeleteTaskInput(input);
         } else {
             throw new WrongCommandException();
         }
     }
 
-    private void processMarkUnmarkInput(String input) {
+    private void processDeleteTaskInput(String input) throws TaskException {
         String possibleTaskNumString = input.replaceAll("[^\\d.]", "");
         if (possibleTaskNumString.isEmpty()) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("Please specify a task number!");
-            System.out.println(HORIZONTAL_LINE);
-            return;
+            throw new DeletionNotSpecifiedException();
+        }
+    }
+
+    private void processMarkUnmarkInput(String input) throws TaskException {
+        String possibleTaskNumString = input.replaceAll("[^\\d.]", "");
+        if (possibleTaskNumString.isEmpty()) {
+            throw new MarkNotSpecifiedException();
         }
 
         int possibleTaskNum = Integer.valueOf(possibleTaskNumString);
