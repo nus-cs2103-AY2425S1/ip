@@ -1,4 +1,6 @@
+import java.sql.Array;
 import java.util.Scanner;
+import  java.util.ArrayList;
 
 public class Rasputin {
 
@@ -18,6 +20,8 @@ public class Rasputin {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         String name = "Rasputin";
+        ArrayList<String> ls = new ArrayList<>();
+
 
 
         Scanner scanner = new Scanner(System.in);
@@ -28,7 +32,9 @@ public class Rasputin {
             if (input.equals("bye")) {
                 break;
             }
-            printText(input);
+            ls.add(input);
+            printText("added: " + input);
+
         }
 
         printText("Bye. Hope to see you soon!");
