@@ -17,11 +17,15 @@ public class TaskList {
         return text.toString();
     }
 
-    public void add(String task) {
-        tasks.add(new Task(task));
+    public void add(Task task) {
+        tasks.add(task);
     }
 
     public Task get(int index) {
         return tasks.get(index - 1);
+    }
+
+    public int length() {
+        return tasks.size();
     }
 }
