@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Taskon {
+
+    /**
+     * The main method runs the Taskon application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
         greet();
@@ -76,6 +82,9 @@ public class Taskon {
         }
     }
 
+    /**
+     * Enumeration for the different types of tasks that can be created.
+     */
     public enum TaskType {
         TODO, DEADLINE, EVENT, UNKNOWN;
 
@@ -98,6 +107,13 @@ public class Taskon {
         }
     }
 
+    /**
+     * Parses a task creation command and returns the corresponding Task object.
+     *
+     * @param description The task creation command.
+     * @return The created Task object.
+     * @throws TaskonException If the command is invalid or incomplete.
+     */
     private static Task getTask(String description) throws TaskonException {
         TaskType taskType = TaskType.fromString(description);
         Task t;
@@ -141,26 +157,47 @@ public class Taskon {
         return t;
     }
 
+    /**
+     * Prints a greeting message when the application starts.
+     */
     public static void greet() {
         String greeting = "Hello! I'm Taskon\nWhat can I do for you?\n";
         System.out.println(greeting);
     }
 
+    /**
+     * Prints an exit message when the application terminates.
+     */
     public static void exit() {
         String exiting = "Bye. Hope to see you again soon!\n";
         System.out.println(exiting);
     }
 
+    /**
+     * Prints a message indicating that a task has been marked as completed.
+     *
+     * @param task The completed task.
+     */
     public static void completed(Task task) {
         String complete = "Woohoo! Task complete! \nI've marked this as done:\n";
         System.out.println(complete + task.toString() + "\n");
     }
 
+    /**
+     * Prints a message indicating that a task has been marked as not completed.
+     *
+     * @param task The task marked as not done.
+     */
     public static void uncompleted(Task task) {
         String uncompleted = "Got it! No rush, I've marked it as not done yet:\n";
         System.out.println(uncompleted + task.toString() + "\n");
     }
 
+    /**
+     * Prints the list of tasks.
+     *
+     * @param tasks The list of tasks to be printed.
+     */
     public static void listItems(ArrayList<Task> tasks) {
         System.out.println("Here's what we've got on your to-do list:");
         for (int i = 0; i < tasks.size(); i++) {
