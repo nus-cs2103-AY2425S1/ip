@@ -13,12 +13,4 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
-
-    public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        tasks[0] = new Event("return book", "Monday 2pm", "Tuesday 3pm");
-        System.out.println(tasks[0]);
-        tasks[0].markAsDone();
-        System.out.println(tasks[0]);
-    }
 }
