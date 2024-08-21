@@ -1,4 +1,2 @@
-package PACKAGE_NAME;
-
-public class TwilightExceptions {
+public class TwilightExceptions extends Exception {
 }
