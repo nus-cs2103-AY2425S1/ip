@@ -1,0 +1,6 @@
+todo testing program
+event games night /from Mon 2pm /to 4pm
+deadline return book /by Fri
+list
+bye
+
