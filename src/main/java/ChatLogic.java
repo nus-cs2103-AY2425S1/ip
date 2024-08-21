@@ -132,12 +132,9 @@ public class ChatLogic {
         this.taskCount++;
     }
 
-    private void markTask(int taskNum) {
-        if (taskNum < 0 || taskNum >= this.taskCount) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("No such task in task list!");
-            System.out.println(HORIZONTAL_LINE);
-            return;
+    private void markTask(int taskNum) throws TaskException {
+        if (taskNum <= 0 || taskNum > this.taskCount) {
+            throw new NoSuchTaskException();
         }
 
         Task task = this.taskArray[taskNum - 1];
@@ -148,12 +145,9 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private void unmarkTask(int taskNum) {
-        if (taskNum < 0 || taskNum >= this.taskCount) {
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("No such task in task list!");
-            System.out.println(HORIZONTAL_LINE);
-            return;
+    private void unmarkTask(int taskNum) throws TaskException {
+        if (taskNum <= 0 || taskNum > this.taskCount) {
+            throw new NoSuchTaskException();
         }
 
         Task task = this.taskArray[taskNum - 1];

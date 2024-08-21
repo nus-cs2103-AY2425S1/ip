@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
-
-public class NoSuchTaskException {
+public class NoSuchTaskException extends TaskException{
+    public NoSuchTaskException() {
+        super("No such task exists.");
+    }
 }
