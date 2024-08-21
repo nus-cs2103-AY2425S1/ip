@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected boolean isDeleted;
     protected int num;
     private static int count;
 
@@ -28,6 +29,11 @@ public class Task {
             System.out.println("Skill issue...");
             System.out.println(this);
         }
+    }
+
+    public void delete() {
+        this.isDeleted = true;
+        System.out.println("Deleting this task: " + this);
     }
 
     public String getStatusIcon() {

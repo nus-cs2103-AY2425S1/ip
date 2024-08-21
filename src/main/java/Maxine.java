@@ -133,11 +133,11 @@ public class Maxine {
             } else if (arr[0].equals("delete")) {
                 int mark = Integer.parseInt(arr[1]) - 1;
                 Task curr = list.get(mark);
+                curr.delete();
                 list.remove(curr);
             } else {
                 System.out.println("please type in a command starting with todo, deadline, event, mark, unmark or list");
             }
-
         }
 
         scanner.close();
