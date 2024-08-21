@@ -33,37 +33,11 @@ public class Easton {
                 System.out.println("Bye. Hope to see you again soon!");
                 isFinished = true;
             } else if (input.equalsIgnoreCase("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskArraySize; i ++) {
-                    System.out.println((i + 1) + ". " + taskArray[i]);
-                }
-            } else if (splitString[0].equalsIgnoreCase("mark") &&
-                    splitString.length == 2) {
-                Integer index = getIndexFromInput(splitString);
-                if (index != null &&
-                        0 < index &&
-                        index <= taskArraySize) {
-                    Task task = taskArray[index - 1];
-                    task.setDone(true);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(task);
-                } else if (index != null) {
-                    System.out.println(index + " is not a valid index!");
-                }
-            } else if (splitString[0].equalsIgnoreCase("unmark") &&
-                    splitString.length == 2) {
-                Integer index = getIndexFromInput(splitString);
-
-                if (index != null &&
-                        0 < index &&
-                        index <= taskArraySize) {
-                    Task task = taskArray[index - 1];
-                    task.setDone(false);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(task);
-                } else if (index != null) {
-                    System.out.println(index + " is not a valid index!");
-                }
+                printList();
+            } else if (splitString[0].equalsIgnoreCase("mark") && splitString.length == 2) {
+                changeTaskStatus(splitString, true, "Nice! I've marked this task as done:");
+            } else if (splitString[0].equalsIgnoreCase("unmark") && splitString.length == 2) {
+                changeTaskStatus(splitString, false, "OK, I've marked this task as not done yet:");
             } else {
                 taskArray[taskArraySize] = new Task(input);
                 taskArraySize++;
@@ -74,20 +48,34 @@ public class Easton {
         }
     }
 
+    private static void printList() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < taskArraySize; i ++) {
+            System.out.println((i + 1) + ". " + taskArray[i]);
+        }
+    }
+
+    private static void changeTaskStatus(String[] splitString, boolean isDone, String message) {
+        try {
+            int index = Integer.parseInt(splitString[1]);
+            if (0 < index && index <= taskArraySize) {
+                Task task = taskArray[index - 1];
+                task.setDone(isDone);
+                System.out.println(message);
+                System.out.println(task);
+            } else {
+                System.out.println(index + " is not a valid index!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(splitString[1] + " is not an integer!");
+        }
+    }
+
     private static void printDivider() {
         System.out.println("____________________________________________________________");
     }
 
     private static String prompt(Scanner scanner) {
         return scanner.nextLine();
-    }
-
-    private static Integer getIndexFromInput(String[] splitString) {
-        try {
-            return Integer.valueOf(splitString[1]);
-        } catch (NumberFormatException e) {
-            System.out.println(splitString[1] + " is not an Integer!");
-        }
-        return null;
     }
 }
