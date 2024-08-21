@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class SilverWolf {
     // using arraylist
-    private static ArrayList<Todo> list = new ArrayList<>();
+    private static ArrayList<Task> list = new ArrayList<>();
     // prints the line
     private static void printDivider() {
         System.out.println("____________________________________________________________");
@@ -11,7 +11,7 @@ public class SilverWolf {
     // output the list
     private static void outputList(){
         int index = 1;
-        for(Todo t : list){
+        for(Task t : list){
             System.out.println(index + t.toString());
             index++;
         }
@@ -126,7 +126,7 @@ public class SilverWolf {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             // retrieve the specific task from the arraylist
-            Todo specificTask = list.get(index);
+            Task specificTask = list.get(index);
             // mark the task as done
             specificTask.markAsDone();
             printDivider();
@@ -144,7 +144,7 @@ public class SilverWolf {
         try {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         // retrieve the specific task from the arraylist
-        Todo specificTask = list.get(index);
+            Task specificTask = list.get(index);
         // mark the task as undone
         specificTask.unmarkTask();
         printDivider();
@@ -176,7 +176,7 @@ public class SilverWolf {
         //taking in the input
         try {
             String[] parts = input.substring(9).split(" /by ");
-            Todo newDeadline = new Deadline(parts[0], parts[1]);
+            Task newDeadline = new Deadline(parts[0], parts[1]);
             list.add(newDeadline);
             showConfirmation();
         } catch (StringIndexOutOfBoundsException e){
@@ -191,7 +191,7 @@ public class SilverWolf {
         //taking in the input
         String[] parts = input.substring(6).split(" /from ");
         String[] to = parts[1].split(" /to ");
-        Todo newEvent = new Event(parts[0],to[0],to[1]);
+            Task newEvent = new Event(parts[0],to[0],to[1]);
         list.add(newEvent);
         showConfirmation();
     } catch (StringIndexOutOfBoundsException e){
