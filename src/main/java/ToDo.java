@@ -3,10 +3,11 @@ package main.java;
 public class ToDo extends Task{
 
     public ToDo(String inputStr) throws InvalidTaskNameException {
-        String name = inputStr.substring(5);
+        String name = inputStr;
         if (name.length() == 0) {
-            throw new InvalidTaskNameException(name);
+            throw new InvalidTaskNameException();
         }
+        this.name = name;
     }
 
     @Override

@@ -152,11 +152,11 @@ public class MrTracker {
                 }
 
             } else if (input.startsWith("todo ")) {
-                MrTracker.addTodo(taskList, input);
+                MrTracker.addTodo(taskList, input.substring(5));
             } else if (input.startsWith("deadline ")) {
-                MrTracker.addDeadLine(taskList, input);
+                MrTracker.addDeadLine(taskList, input.substring(9));
             } else if (input.startsWith("event ")) {
-                MrTracker.addEvent(taskList, input);
+                MrTracker.addEvent(taskList, input.substring(6));
 
             } else {
                 // MrTracker.addTask(taskList, input);
