@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -6,35 +7,75 @@ public class Neon {
     private static final String NAME = "Neon";
     private static final String DASH_BREAK = "-----------------------------------";
     private static Task[] list = new Task[100];
-    private static int lastListIndex = 0;
+    private static int lastListIndex = 1;
     private static void greetingLine() {
         System.out.println(DASH_BREAK);
-        String greeting = "Hello I'm " + NAME + "!\n"
-                + "What can I help you with?\n";
+        String greeting = "hello I'm " + NAME + "!\n"
+                + "what can I help you with?\n";
         System.out.println(greeting);
         System.out.println(DASH_BREAK);
     }
 
     private static void closingLine() {
         System.out.println(DASH_BREAK);
-        String closing = "Byeee! Nice to meet you :)\n";
+        String closing = "byeee! nice to meet you :)\n";
         System.out.println(closing);
         System.out.println(DASH_BREAK);
     }
 
     private static void mainChat(String answer) {
         System.out.println(DASH_BREAK);
-        System.out.println("adding to list : " + answer);
-        System.out.println(DASH_BREAK);
 
-        Task newTask = new Task(answer, false, lastListIndex);
-        list[lastListIndex] = newTask;
-        lastListIndex++;
+        Scanner ansObj = new Scanner(answer);
+        String first = ansObj.next();
+
+        switch (first) {
+            case "todo":
+                String taskTodo = answer.replace("todo ", "");
+                Todo newTodo = new Todo(taskTodo, false, lastListIndex);
+                list[lastListIndex] = newTodo;
+                lastListIndex++;
+                System.out.println("adding todo to list : " + taskTodo);
+                break;
+            case "deadline":
+                String taskDeadline = answer.replace("deadline ", "");
+                String[] partsDeadline = taskDeadline.split("\\s*/by\\s*");
+                Deadline newDeadline = new Deadline(partsDeadline[0], false, lastListIndex,
+                        partsDeadline[1].replaceAll(" ", ""));
+                list[lastListIndex] = newDeadline;
+                lastListIndex++;
+                System.out.println("adding deadline to list : " + partsDeadline[0]);
+                break;
+            case "event":
+                String taskEvent = answer.replace("event ", "");
+                String[] partsEvent = taskEvent.split("\\s*/from\\s*|\\s*/to\\s*");
+                Event newEvent = new Event(partsEvent[0], false, lastListIndex,
+                        partsEvent[1].replaceAll(" ", ""), partsEvent[2].replaceAll(" ", ""));
+                list[lastListIndex] = newEvent;
+                lastListIndex++;
+                System.out.println("adding event to list : " + partsEvent[0]);
+                break;
+            default:
+                System.out.println("cannot read : " + first);
+                break;
+        }
+
+        System.out.println(DASH_BREAK);
     }
 
     private static void printList() {
         System.out.println(DASH_BREAK);
-        for(int i = 0; i < lastListIndex; i++) {
+
+        String message = "";
+        if (lastListIndex == 1) {
+            message = "nothing in the list!";
+        } else {
+            message = "printing list:";
+        }
+
+        System.out.println(message);
+
+        for(int i = 1; i < lastListIndex; i++) {
             System.out.println(list[i].toString());
         }
         System.out.println(DASH_BREAK);
@@ -45,7 +86,7 @@ public class Neon {
         currTask.check();
 
         System.out.println(DASH_BREAK);
-        System.out.println("checking task number :" + taskNumber);
+        System.out.println("checking task number : " + taskNumber);
         System.out.println(DASH_BREAK);
     }
 

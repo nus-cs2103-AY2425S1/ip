@@ -1,7 +1,8 @@
-public class Task {
+public abstract class Task {
     private String name;
     private boolean completed;
     private int index;
+    private String taskType;
 
     public Task(String name, boolean completed, int index) {
         this.name = name;
@@ -9,7 +10,7 @@ public class Task {
         this.index = index;
     }
 
-    private String checkMark() {
+    public String checkMark() {
         if (completed) {
             return "X";
         } else {
@@ -25,8 +26,14 @@ public class Task {
         this.completed = false;
     }
 
-    @Override
-    public String toString() {
-        return this.index + ". [" + this.checkMark() + "] " + this.name;
+    public String getName() {
+        return this.name;
     }
+
+    public int getIndex() {
+        return this.index;
+    }
+
+    @Override
+    public abstract String toString();
 }
