@@ -8,7 +8,7 @@ public class Peridot {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        botSay("Hello I'm Peridot!");
+        botSay("Hello I'm Peridot!!");
         botSay("What's up?");
         String userResponse = scanner.nextLine();
         while (!userResponse.equals("bye")) {
