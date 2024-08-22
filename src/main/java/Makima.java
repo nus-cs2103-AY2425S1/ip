@@ -5,9 +5,7 @@ public class Makima {
 
     public static final String LINE_SEPERATOR = "__________________";
     private boolean running = true;
-    private ArrayList<String> lines = new ArrayList<String>();
-    private ArrayList<Boolean> isDone = new ArrayList<>();
-    private String userInput = "";
+    private ArrayList<Task> tasks = new ArrayList<>();
     private Scanner sc;
 
     public void greeting() {
@@ -21,26 +19,24 @@ public class Makima {
         System.out.println(LINE_SEPERATOR);
     }
 
-    public String displayIfDone(int i) {
-        if (isDone.get(i)) {
-            return "[X]";
-        } else {
-            return "[ ]";
+    public void displayList() {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i+1 + ":" + tasks.get(i));
         }
     }
 
-    public void displayList() {
-        for (int i = 0; i < lines.size(); i++) {
-            System.out.println(i+1 + ":" + displayIfDone(i) + " " + lines.get(i));
-        }
+    public int getListIndex(String prompt) {
+        System.out.println(prompt);
+        System.out.println(LINE_SEPERATOR);
+        return getListIndex();
     }
 
     public int getListIndex() {
         while (true) {
-            getInput();
+            String userInput = getInput();
             try {
                 int index = Integer.parseInt(userInput);
-                if (index < 1 || index > lines.size()) {
+                if (index < 1 || index > tasks.size()) {
                     System.out.println("Invalid index");
                 } else {
                     return index-1;
@@ -51,8 +47,20 @@ public class Makima {
         }
     }
 
-    public void getInput() {
-        userInput = sc.nextLine();
+    public String getInput(String prompt) {
+        System.out.println(prompt);
+        System.out.println(LINE_SEPERATOR);
+        return getInput();
+    }
+
+    public String getInput() {
+        String userInput = sc.nextLine();
+        System.out.println(LINE_SEPERATOR);
+        return userInput;
+    }
+
+    public void done() {
+        System.out.println("Done!");
         System.out.println(LINE_SEPERATOR);
     }
 
@@ -65,9 +73,8 @@ public class Makima {
         greeting();
 
         while (running) {
-            getInput();
 
-            switch (userInput) {
+            switch (getInput()) {
                 case "bye":
                     running = false;
                     break;
@@ -79,25 +86,41 @@ public class Makima {
 
                 case "mark":
                     displayList();
-                    System.out.println("Which item would you like to mark?");
-                    isDone.set(getListIndex(), true);
-                    System.out.println("Done!");
-                    System.out.println(LINE_SEPERATOR);
+                    tasks.get(getListIndex("Which item would you like to mark?")).mark();
+                    done();
                     break;
 
                 case "unmark":
                     displayList();
-                    System.out.println("Which item would you like to unmark?");
-                    isDone.set(getListIndex(), false);
-                    System.out.println("Done!");
-                    System.out.println(LINE_SEPERATOR);
+                    tasks.get(getListIndex("Which item would you like to mark?")).unmark();
+                    done();
+                    break;
+
+                case "todo":
+                    tasks.add(new ToDos(getInput("What is the task name?")));
+                    done();
+                    break;
+
+                case "deadline":
+                    tasks.add(new Deadline(
+                            getInput("What is the task name?"),
+                            getInput("When is it due?")
+                    ));
+                    done();
+                    break;
+
+                case "event":
+                    tasks.add(new Event(
+                            getInput("What is the event name?"),
+                            getInput("When does it start?"),
+                            getInput("When does it end?")
+                    ));
+                    done();
                     break;
 
 
                 default:
-                    System.out.println("added: " + userInput);
-                    lines.add(userInput);
-                    isDone.add(false);
+                    System.out.println("Unknown command!");
                     System.out.println(LINE_SEPERATOR);
             }
         }
