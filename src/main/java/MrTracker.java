@@ -67,42 +67,45 @@ public class MrTracker {
     }
 
     public static void addTodo (ArrayList<Task> taskList, String arg) {
-        ToDo newToDo = new ToDo(arg);
-        taskList.add(newToDo);
-        System.out.println("I have added the task " + newToDo.toString());
-        System.out.println("You now have " + taskList.size() + " tasks");
-        return;
+        try {
+            ToDo newToDo = new ToDo(arg);
+            taskList.add(newToDo);
+            System.out.println("I have added the task " + newToDo.toString());
+            System.out.println("You now have " + taskList.size() + " task(s)");
+            return;
+        } catch (InvalidTaskNameException ex) {
+            System.out.println(ex);
+        }
+
     }
 
     public static void addDeadLine (ArrayList<Task> taskList, String arg) {
-        if (arg.contains("/by ")) {
-            int index = arg.indexOf("/by ");
-            String taskName = arg.substring(0, index);
-            String endDate = arg.substring(index+4);
-            Task newDeadLine = new DeadLine(taskName, endDate);
+
+        try {
+            Task newDeadLine = new DeadLine(arg);
             taskList.add(newDeadLine);
             System.out.println("I have added the task " + newDeadLine.toString());
-            System.out.println("You now have " + taskList.size() + " tasks");
+            System.out.println("You now have " + taskList.size() + " task(s)");
             return;
-        } else {
-            //throw error?
+        } catch (InvalidTaskNameException ex) {
+            System.out.println(ex);
+        } catch (NoDateException ex) {
+            System.out.println(ex);
         }
     }
 
     public static void addEvent (ArrayList<Task> taskList, String arg) {
-        if (arg.contains("/from ") && arg.contains("/to ")) {
-            int fromIndex = arg.indexOf("/from ");
-            int toIndex = arg.indexOf("/to ");
-            String taskName = arg.substring(0, fromIndex);
-            String fromDate = arg.substring(fromIndex + 6, toIndex);
-            String toDate = arg.substring(toIndex + 4);
-            Task newEvent = new Event(taskName, fromDate, toDate);
+
+        try {
+            Task newEvent = new Event(arg);
             taskList.add(newEvent);
             System.out.println("I have added the task " + newEvent.toString());
-            System.out.println("You now have " + taskList.size() + " tasks");
+            System.out.println("You now have " + taskList.size() + " task(s)");
             return;
-        } else {
-            //throw error?
+        } catch (InvalidTaskNameException ex) {
+            System.out.println(ex);
+        } catch (NoDateException ex) {
+            System.out.println(ex);
         }
     }
 
@@ -149,11 +152,11 @@ public class MrTracker {
                 }
 
             } else if (input.startsWith("todo ")) {
-                MrTracker.addTodo(taskList, input.substring(5));
+                MrTracker.addTodo(taskList, input);
             } else if (input.startsWith("deadline ")) {
-                MrTracker.addDeadLine(taskList, input.substring(9));
+                MrTracker.addDeadLine(taskList, input);
             } else if (input.startsWith("event ")) {
-                MrTracker.addEvent(taskList, input.substring(6));
+                MrTracker.addEvent(taskList, input);
 
             } else {
                 // MrTracker.addTask(taskList, input);
