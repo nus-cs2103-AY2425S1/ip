@@ -1,7 +1,16 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class IpMan {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final List<String> items = new ArrayList<>();
+
+    private static void printItems() {
+        for (int i = 0; i < items.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, items.get(i));
+        }
+    }
 
     public static void main(String[] args) {
         // Hello
@@ -17,8 +26,11 @@ public class IpMan {
 
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                printItems();
             } else {
                 System.out.println(input);
+                items.add(input);
             }
         }
 
