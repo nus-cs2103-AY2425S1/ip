@@ -3,7 +3,8 @@ import java.util.Scanner;
 
 public class Ekud {
     public static final String LINE_SEPARATOR =
-            "_____________________________________________________________";
+            "\t_____________________________________________________________";
+    public static final String OUTPUT_PREFIX = "\t ";
     public static final String END_COMMAND = "bye";
     public static final String LIST_COMMAND = "list";
     public static final String MARK_COMMNAD = "mark";
@@ -23,34 +24,31 @@ public class Ekud {
         this.isRunning = isRunning;
     }
 
+    public static void printLineSeparator() {
+        System.out.println(LINE_SEPARATOR);
+    }
+
     public void greet() {
-        System.out.printf("""
-                        \t%s
-                        \t Hey! My name is EKuD!! You can call me Eku-chan!
-                        \t How may I be of assistance?
-                        \t%s%n""",
-                LINE_SEPARATOR,
-                LINE_SEPARATOR);
+        String greeting = "Hey! My name is EkuD!!\nYou can call me Eku-Chan!";
+        printLineSeparator();
+        FormatPrinter.printIndent(greeting, OUTPUT_PREFIX);
+        printLineSeparator();
     }
 
     public void sayGoodbye() {
-        System.out.printf("""
-                        \t I hope you enjoyed your stay!
-                        \t See you next time! NOT!!
-                        \t%s""",
-                LINE_SEPARATOR);
+        String goodbye = "I hope you enjoyed your stay!\nSee you next time! NOT!!";
+        FormatPrinter.printIndent(goodbye, OUTPUT_PREFIX);
+        printLineSeparator();
     }
 
     public void addToList(Task task) {
         // assume no more than LIST_MAX_SIZE items are added
         tasks.addTask(task);
-        System.out.printf("""
-                        \t added: %s
-                        \t And another one; %s tasks to complete...
-                        \t%s%n""",
+        String confirmation = String.format("added: %s\nAnd another one; %s tasks to complete...",
                 task,
-                tasks.getIncompleteCount(),
-                LINE_SEPARATOR);
+                tasks.getIncompleteCount());
+        FormatPrinter.printIndent(confirmation, OUTPUT_PREFIX);
+        printLineSeparator();
     }
 
     public void echoList() {
@@ -60,42 +58,40 @@ public class Ekud {
             System.out.printf("\t %d. %s\n", i, task);
             i++;
         }
-        System.out.println("\t" + LINE_SEPARATOR);
+        printLineSeparator();
     }
 
     public void markList(int listIndex) {
         // assumes valid index is given
         tasks.markComplete(listIndex);
-        System.out.printf("""
-                        \t Wowie!! You've completed your task!
-                        \t I shall mark it as complete in celebration!
-                        \t   %s
-                        \t Woohoo!! Only %d more to go!
-                        \t%s%n""",
+        String message = String.format("""
+                        Wowie!! You've completed your task!
+                        I shall mark it as complete in celebration!
+                          %s
+                        Woohoo!! Only %d more to go!""",
                 tasks.getTask(listIndex),
-                tasks.getIncompleteCount(),
-                LINE_SEPARATOR);
+                tasks.getIncompleteCount());
+        FormatPrinter.printIndent(message, OUTPUT_PREFIX);
+        printLineSeparator();
     }
 
     public void unmarkList(int listIndex) {
         // assumes valid index is given
-        tasks.markIncomplete(listIndex);
-        System.out.printf("""
-                        \t Oh ho ho, did you perhaps forget something?
-                        \t It's OK, I already noted down your incompetence...
-                        \t   %s
-                        \t Tsk Tsk... Back to %d incomplete tasks you go!
-                        \t%s%n""",
+        String message = String.format("""
+                        Oh ho ho, did you perhaps forget something?
+                        It's OK, I already noted down your incompetence...
+                          %s
+                        Tsk Tsk... Back to %d incomplete tasks you go!""",
                 tasks.getTask(listIndex),
-                tasks.getIncompleteCount(),
-                LINE_SEPARATOR);
+                tasks.getIncompleteCount());
+        FormatPrinter.printIndent(message, OUTPUT_PREFIX);
+        printLineSeparator();
     }
 
     public void warnUnknownCommand() {
-        System.out.printf("""
-                            \t Stop yapping buddy, I have no clue what ya saying!
-                            \t%s%n""",
-                LINE_SEPARATOR);
+        String warning = "Stop yapping buddy, I have no clue what ya saying!";
+        FormatPrinter.printIndent(warning, OUTPUT_PREFIX);
+        printLineSeparator();
     }
 
     public static HashMap<String, String> parseTokens(String[] tokens) {
@@ -138,7 +134,7 @@ public class Ekud {
             HashMap<String, String> tokenMap = parseTokens(tokens);
             String command = tokenMap.get("command");
             String argument = tokenMap.get("argument");
-            System.out.println("\t" + LINE_SEPARATOR);
+            printLineSeparator();
 
             // handle command
             switch (command) {
