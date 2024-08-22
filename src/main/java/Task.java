@@ -2,7 +2,10 @@ public class Task {
     private final String description;
     private boolean done;
 
-    public Task(String description) {
+    public Task(String description) throws IllegalTaskException {
+        if (description.isEmpty()) {
+            throw new IllegalTaskException("You can't do a non-existent task.");
+        }
         this.description = description;
         this.done = false;
     }
