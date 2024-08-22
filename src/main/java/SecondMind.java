@@ -34,6 +34,24 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static void markAsDone(int taskNumber) {
+        Task curr = taskList[taskNumber-1];
+        curr.markAsDone();
+        printLineSeparator();
+        System.out.println("Well done! You have completed the following task:");
+        System.out.println(curr);
+        printLineSeparator();
+    }
+
+    private static void markAsUndone(int taskNumber) {
+        Task curr = taskList[taskNumber-1];
+        curr.markAsUndone();
+        printLineSeparator();
+        System.out.println("I've marked the following task as incomplete:");
+        System.out.println(curr);
+        printLineSeparator();
+    }
+
     private static boolean processInput(String input) {
         String[] newInput = input.split(" ");
         String command = newInput[0];
