@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Tars {
-    Response res = new Response();
+    private final static Response res = new Response();
 
     public String getResponse(String input) {
         return res.generateResponse(input);
@@ -24,6 +24,8 @@ public class Tars {
 
 
 
+
+
     public static void main(String[] args) {
 
         Tars tars = new Tars();
@@ -34,15 +36,29 @@ public class Tars {
             System.out.print("> ");
             String userInput = scanner.nextLine();
 
+
+            switch (userInput) {
+                case "bye":
+                    System.out.println(tars.outroMessage());
+                    scanner.close();
+                    break;
+
+                case "list":
+                    System.out.println(res.showList());
+                    break;
+
+                default:
+                    System.out.println(tars.getResponse(userInput));
+                    break;
+
+            }
+
             if (userInput.equals("bye")) {
-                System.out.println(tars.outroMessage());
                 break;
             }
-            System.out.println(tars.getResponse(userInput));
 
         }
 
-        scanner.close();
 
 
     }
