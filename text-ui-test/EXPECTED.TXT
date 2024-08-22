@@ -8,38 +8,47 @@ Hello there
 
 What can I do for you?
 --------------------------------------------
-added: [ ] read books
+You must provide a valid task to do!
 --------------------------------------------
-Alrighty, I marked this as done:
-[X] read books
+That is not a valid command!
 --------------------------------------------
-Ok, I marked this as undone:
-[ ] read books
+That is not a valid command!
 --------------------------------------------
-added: [T][ ] buy books
+added: [D][ ] assignment (by: today 4pm)
 --------------------------------------------
-WARNING! The number chosen is outside the range!
+You must provide a valid event task!
 --------------------------------------------
-1. [ ] read books
-2. [T][ ] buy books
+added: [E][ ] dodgeball (from: today 8pm to: 10pm)
 --------------------------------------------
-added: [D][ ] submit test (by: tomorrow 10pm)
---------------------------------------------
-added: [E][ ] dodgeball (from: tomorrow 8pm to: 10pm)
---------------------------------------------
-1. [ ] read books
-2. [T][ ] buy books
-3. [D][ ] submit test (by: tomorrow 10pm)
-4. [E][ ] dodgeball (from: tomorrow 8pm to: 10pm)
---------------------------------------------
-Alrighty, I marked this as done:
-[E][X] dodgeball (from: tomorrow 8pm to: 10pm)
---------------------------------------------
-WARNING! You did not follow the format for providing a deadline!
+You did not follow the format for providing a deadline!
 It should be: task /by date
 --------------------------------------------
-WARNING! You did not follow the format for providing a deadline!
+You did not follow the format for providing a deadline!
 It should be: task /from date /to date
+--------------------------------------------
+1. [D][ ] assignment (by: today 4pm)
+2. [E][ ] dodgeball (from: today 8pm to: 10pm)
+--------------------------------------------
+added: [T][ ] read books
+--------------------------------------------
+Alrighty, I marked this as done:
+[D][X] assignment (by: today 4pm)
+--------------------------------------------
+Alrighty, I marked this as done:
+[T][X] read books
+--------------------------------------------
+The number is outside the range!
+--------------------------------------------
+1. [D][X] assignment (by: today 4pm)
+2. [E][ ] dodgeball (from: today 8pm to: 10pm)
+3. [T][X] read books
+--------------------------------------------
+Ok, I marked this as undone:
+[T][ ] read books
+--------------------------------------------
+1. [D][X] assignment (by: today 4pm)
+2. [E][ ] dodgeball (from: today 8pm to: 10pm)
+3. [T][ ] read books
 --------------------------------------------
 --------------------------------------------
 Bye for now!
