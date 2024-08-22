@@ -6,10 +6,17 @@ public class Joe {
     private static final String line =
             "____________________________________________________________";
     private static final List<Task> userTasks = new ArrayList<>();
+
+    /**
+     * Prints a goodbye message.
+     */
     private static void bye() {
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
     }
 
+    /**
+     * Repeats the user's input until the user types "bye".
+     */
     public static void echo() {
         Scanner reader = new Scanner(System.in);
         int count = 0;
@@ -50,6 +57,11 @@ public class Joe {
         bye();
     }
 
+    /**
+     * Adds a task to the user's list of tasks.
+     * @param s
+     * @throws InvalidCommandException
+     */
     public static void add(String s) throws InvalidCommandException {
         System.out.println(line);
         int taskCount = userTasks.size();
@@ -81,6 +93,9 @@ public class Joe {
         System.out.println(line);
     }
 
+    /**
+     * Lists all the tasks in the user's list.
+     */
     public static void list() {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
@@ -92,6 +107,10 @@ public class Joe {
         System.out.println(line);
     }
 
+    /**
+     * Marks a task as done.
+     * @param idx
+     */
     public static void mark(int idx) {
         System.out.println(line);
         int taskCount = userTasks.size();
@@ -109,6 +128,10 @@ public class Joe {
         System.out.println(line);
     }
 
+    /**
+     * Unmarks a task.
+     * @param idx
+     */
     public static void unmark(int idx) {
         System.out.println(line);
         int taskCount = userTasks.size();
@@ -126,6 +149,9 @@ public class Joe {
         System.out.println(line);
     }
 
+    /**
+     * Prints a list of commands.
+     */
     public static void help() {
         System.out.println(line);
         System.out.println("bye: ends our interaction :-(");
@@ -139,6 +165,10 @@ public class Joe {
         System.out.println(line);
     }
 
+    /**
+     * Deletes a task at a specific index.
+     * @param idx
+     */
     public static void delete(int idx) {
         System.out.println(line);
         int taskCount = userTasks.size();
@@ -184,6 +214,11 @@ public class Joe {
         bye();
     }
 
+    /**
+     * Extracts the first contiguous numerical substring from a string.
+     * @param userIn
+     * @return the numerical substring as an integer
+     */
     private static int getDigits(String userIn) {
         int idx = -1;
         int n = userIn.length();

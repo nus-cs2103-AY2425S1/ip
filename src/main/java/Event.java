@@ -2,6 +2,11 @@ public class Event extends Task {
     private String start;
     private String end;
 
+    /**
+     * Constructor for Event.
+     * @param params
+     * @throws IllegalArgumentException
+     */
     public Event(String... params) throws IllegalArgumentException {
         super(params[0].strip());
         if (params.length < 2) {
