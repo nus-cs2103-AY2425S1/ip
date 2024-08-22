@@ -20,6 +20,9 @@ public class JBot {
         commandMap.put("bye", ByeCommand.getInstance());
         commandMap.put("mark", MarkCommand.getInstance());
         commandMap.put("unmark", UnmarkCommand.getInstance());
+        commandMap.put("todo", ToDoCommand.getInstance());
+        commandMap.put("deadline", DeadlineCommand.getInstance());
+        commandMap.put("event", EventCommand.getInstance());
     }
     private static void greetUser() {
         hLine();
@@ -36,7 +39,7 @@ public class JBot {
         while (JBot.isRunning) {
             String userInput = sc.nextLine();
             String inputCommand = userInput.split(" ")[0];
-            JBotCommand command = commandMap.getOrDefault(inputCommand, AddCommand.getInstance());
+            JBotCommand command = commandMap.get(inputCommand);
 
             hLine();
             command.run(userInput, taskList);

@@ -1,11 +1,8 @@
-public class Task {
+public abstract class Task {
 
-    private String name;
+    protected String name;
     private boolean done = false;
-
-    public Task(String name) {
-        this.name = name;
-    }
+    protected String taskTypeSymbol;
 
     public boolean isDone() {
         return this.done;
@@ -21,7 +18,7 @@ public class Task {
     @Override
     public String toString() {
         String doneString = done ? "X" : " ";
-        return String.format("[%1$s] %2$s", doneString, this.name);
+        return String.format("[%1$s] [%2$s]  %3$s", this.taskTypeSymbol, doneString, this.name);
     }
 
 }
