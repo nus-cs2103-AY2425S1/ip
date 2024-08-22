@@ -1,14 +1,11 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.ArrayList;
-
 public class Zaibot {
 
     private final TaskList taskList = new TaskList();
     private final Storage storage = new Storage(taskList);
 
+    /**
+     * Runs the bot.
+     */
     public void run() {
         Ui.printGreeting();
         boolean continueLoop = true;

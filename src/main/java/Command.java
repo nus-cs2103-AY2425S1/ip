@@ -2,7 +2,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+/**
+ * This class represents a command by its name (the command itself) and a collection of its objects,
+ * as parsed by the Parser.
+ */
 public class Command {
+
     private final String name;
     private final HashMap<String, String> optionMap;
     private boolean continueLoop;
@@ -13,18 +18,38 @@ public class Command {
         this.continueLoop = true;
     }
 
+    /**
+     * Returns if the command exits the program
+     * @return true if command is "bye", false otherwise.
+     */
     public boolean toContinue() {
         return this.continueLoop;
     }
 
-    private Integer getNumberForTask() throws ZaibotException {
+    /**
+     * Gets the number of the task from the option set while checking for valid arguments
+     * @return The number of the task
+     * @throws ZaibotException if the number option is not a valid integer, or bigger than the tasks list.
+     */
+    private Integer getNumberForTask(TaskList tasks) throws ZaibotException {
         if (!(this.optionMap.containsKey("number") &&
                 this.optionMap.get("number").matches("-?\\d+"))) {
             throw new ZaibotException("The correct syntax for this is: mark NUMBER");
         }
+        Integer number = Integer.parseInt(this.optionMap.get("number"));
+        if (number < 0 || number > tasks.getNumberOfTasks()) {
+            throw new ZaibotException("Invalid number of tasks entered.");
+        }
         return Integer.parseInt(this.optionMap.get("number"));
     }
 
+    /**
+     * Executes the command, having effect on the tasks and storage. Throws exception when there are
+     * errors in the argument inputs.
+     * @param tasks The task list
+     * @param storage The storage object
+     * @throws ZaibotException if there are errors in the argument inputs
+     */
     public void execute(TaskList tasks, Storage storage) throws ZaibotException {
         Task task;
 
@@ -39,15 +64,15 @@ public class Command {
                     Ui.printTaskList(tasks);
                     break;
                 case "mark":
-                    task = tasks.markTask(this.getNumberForTask());
+                    task = tasks.markTask(this.getNumberForTask(tasks));
                     Ui.displayTask(task, "mark", tasks);
                     break;
                 case "unmark":
-                    task = tasks.unmarkTask(this.getNumberForTask());
+                    task = tasks.unmarkTask(this.getNumberForTask(tasks));
                     Ui.displayTask(task, "mark", tasks);
                     break;
                 case "delete":
-                    task = tasks.removeTask(this.getNumberForTask());
+                    tasks.removeTask(this.getNumberForTask(tasks));
                     Ui.displayTasksNumber(tasks);
                     break;
                 case "todo":

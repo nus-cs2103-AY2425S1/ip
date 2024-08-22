@@ -27,6 +27,7 @@ public class Ui {
     }
 
     public static Scanner SCANNER = new Scanner(System.in);
+
     /**
      * Prints a message into the command line.
      * @param msg The message requested to be printed out.
@@ -41,7 +42,7 @@ public class Ui {
 
     /**
      * Prints the task list.
-     * @param taskList
+     * @param taskList The task list
      */
     public static void printTaskList(TaskList taskList) {
         System.out.print(taskList.toString());
@@ -54,10 +55,18 @@ public class Ui {
         System.out.println(Message.GREETING);
     }
 
+    /**
+     * Prints the separator line
+     */
     public static void printSeparator() {
         System.out.println(Message.SEPARATOR);
     }
 
+    /**
+     * Reads a command from the input
+     * @return The command read in
+     * @throws ZaibotException when there is no next line.
+     */
     public static String readCommand() throws ZaibotException {
         if (!SCANNER.hasNextLine()) {
             throw new ZaibotException("No input waiting.");
@@ -65,14 +74,29 @@ public class Ui {
         return SCANNER.nextLine();
     }
 
+    /**
+     * Displays the error message.
+     * @param e The exception
+     */
     public static void displayError(Exception e) {
         System.out.println(e.getMessage());
     }
 
+    /**
+     * Displays the number of tasks.
+     * @param taskList The list of tasks
+     */
     public static void displayTasksNumber(TaskList taskList) {
         System.out.println(String.format(Message.TASKTOTAL.toString(), taskList.getNumberOfTasks()));
     }
 
+    /**
+     * Displays the task, and the type of update that was done to it
+     * @param task The task
+     * @param type Either "mark", "unmark", "add"
+     * @param taskList The list of tasks
+     * @throws ZaibotException If the update task is not part of the values for task above.
+     */
     public static void displayTask(Task task,
                                          String type,
                                          TaskList taskList) throws ZaibotException {
