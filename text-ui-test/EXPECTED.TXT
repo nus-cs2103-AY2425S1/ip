@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Hello! I'm Cloud
+What can I do for you?
+____________________________________________________________
+>> Here are the tasks in your list:
 
+____________________________________________________________
+>> Added the following task:
+	[T][ ] sample todo
+Now you have 1 task in the list
+____________________________________________________________
+>> Added the following task:
+	[D][ ] sample deadline (by: tmr 10pm)
+Now you have 2 tasks in the list
+____________________________________________________________
+>> Added the following task:
+	[E][ ] sample event (from: monday 2am to: sunday 7pm)
+Now you have 3 tasks in the list
+____________________________________________________________
+>> Here are the tasks in your list:
+1: [T][ ] sample todo
+2: [D][ ] sample deadline (by: tmr 10pm)
+3: [E][ ] sample event (from: monday 2am to: sunday 7pm)
+
+____________________________________________________________
+>> Task marked as done!
+[T][X] sample todo
+____________________________________________________________
+>> Here are the tasks in your list:
+1: [T][X] sample todo
+2: [D][ ] sample deadline (by: tmr 10pm)
+3: [E][ ] sample event (from: monday 2am to: sunday 7pm)
+
+____________________________________________________________
+>> Task marked as done!
+[D][X] sample deadline (by: tmr 10pm)
+____________________________________________________________
+>> Here are the tasks in your list:
+1: [T][X] sample todo
+2: [D][X] sample deadline (by: tmr 10pm)
+3: [E][ ] sample event (from: monday 2am to: sunday 7pm)
+
+____________________________________________________________
+>> Task marked as not done
+[T][ ] sample todo
+____________________________________________________________
+>> Here are the tasks in your list:
+1: [T][ ] sample todo
+2: [D][X] sample deadline (by: tmr 10pm)
+3: [E][ ] sample event (from: monday 2am to: sunday 7pm)
+
+____________________________________________________________
+>> Bye. Hope to see you again soon!
+____________________________________________________________
