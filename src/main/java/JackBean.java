@@ -100,7 +100,7 @@ public class JackBean {
                 if (input.equalsIgnoreCase("bye")) { // I added equalsIgnoreCase() by myself
                     break;
                 } else if (input.equalsIgnoreCase("help")) {
-                    // GitHub copilot helped mostly with the help message
+                    // GitHub copilot helped mostly with the response to help message
                     System.out.println(horizontalLine);
                     System.out.println("Yo homie! Here are the commands you can use:");
                     System.out.println("1. list - to list all tasks");
