@@ -82,7 +82,6 @@ public class FileOperations {
             while (s.hasNext()) {
                 String line = s.nextLine();
                 if (i != lineCount) {
-                    System.out.println(line);
                     tw.write(line + System.lineSeparator());
                 }
                 lineCount ++;
