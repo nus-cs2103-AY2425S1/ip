@@ -10,6 +10,6 @@ public class MessageBuilder {
     }
 
     public void sendGoodbyeMessage() {
-        buildMessage("*BYE!!! *UWAGHhhHH* !!! see Ya *uWahghgh*");
+        buildMessage("BYE!!! *UWAGHhhHH* !!! see Ya *uWahghgh*");
     }
 }
