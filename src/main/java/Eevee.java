@@ -34,19 +34,26 @@ public class Eevee {
                     // response to command 'mark'
                     int taskNumber = scanner.nextInt();
                     Task t = tasks.get(taskNumber - 1);
+                    if (t.isDone) {
+                        throw new EeveeException("Task has already been marked as done.");
+                    }
                     t.markAsDone();
                     System.out.println("Congratulations! I've marked the following task as done:\n  " + t);
                 } else if (input.equals("unmark")) {
                     // response to command 'unmark'
                     int taskNumber = scanner.nextInt();
                     Task t = tasks.get(taskNumber - 1);
+                    if (!t.isDone) {
+                        throw new EeveeException("Task is not marked as done. "
+                                + "Needs to be marked done in order to unmark it.");
+                    }
                     t.unmarkAsDone();
                     System.out.println("Ok! Task no longer marked as done:\n  " + t);
                 } else {
                     String s = scanner.nextLine().trim();
 
                     if (s.isEmpty()) {
-                        throw new EeveeException("No task description found :( Please input the task details");
+                        throw new EeveeException("No task found :( Please input the task details and description correctly");
                     }
 
                     if (input.equals("todo")) {
@@ -59,6 +66,10 @@ public class Eevee {
                     if (input.equals("deadline")) {
                         // response to command for D task
                         String[] info = s.split("/", 2);
+                        if (info.length < 2) {
+                            throw new EeveeException("Deadline not given for task type 'deadline'. "
+                                    + "Please input a deadline denoted by '/by' or use task type 'todo' instead.");
+                        }
                         Deadline d = new Deadline(info[0], info[1]);
                         tasks.add(d);
                         System.out.println("Added the following task to your list:\n" + d);
@@ -67,12 +78,16 @@ public class Eevee {
                     if (input.equals("event")) {
                         // response to command for E task
                         String[] info = s.split("/", 3);
+                        if (info.length < 3) {
+                            throw new EeveeException("Event start and/or end timings not provided."
+                                    + "Please input a start time denoted by '/from' "
+                                    + "and an end time denoted by '/to' when using task type Event");
+                        }
                         Event e = new Event(info[0], info[1], info[2]);
                         tasks.add(e);
                         System.out.println("Added the following task to your list:\n" + e);
                     }
                     System.out.println("You now have " + tasks.size() + " task(s).");
-
                 }
             } catch (EeveeException e) {
                 System.out.println(e.getMessage());
