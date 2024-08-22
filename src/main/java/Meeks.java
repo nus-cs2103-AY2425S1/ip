@@ -7,19 +7,20 @@ public class Meeks {
                          + "Hello! I'm Meeks! Your friendly chatbot!\n"
                          + "What can I do for you?\n");
 
+        Echo echo = new Echo();
+
+
         while (true) {
             String command = scanner.nextLine();
-            Echo echo = new Echo(command);
+            echo.setWord(command);
+
 
             if (command.isEmpty()) {
                 System.out.println("Input cannot be empty. Please try again.");
                 continue; // Skip to the next iteration of the loop
             }
-
-            // Use the Echo class to process the command
             echo.echoOut();
 
-            // Exit the loop if the command is "bye"
             if (command.equalsIgnoreCase("bye")) {
                 break; // Exit the loop
             }
