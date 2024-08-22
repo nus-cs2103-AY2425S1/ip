@@ -1,4 +1,7 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Gumball {
     public static void main(String[] args) {
@@ -8,10 +11,13 @@ public class Gumball {
     }
 
     public String command;
-    public Scanner input = new Scanner(System.in);
+    public Scanner input;
+    public List list;
+
 
     public Gumball() {
-
+        input = new Scanner(System.in);
+        list = new List();
     }
 
     public void start() {
@@ -19,9 +25,27 @@ public class Gumball {
         while (true){
             command = input.nextLine();
             if(command.equals("bye")) break;
-            print(command);
+            execute(command);
         }
         outro();
+    }
+
+    public void execute(String command) {
+        if (command.equals("bye")) {
+
+        } else if (command.equals("list")) {
+            getList();
+        } else {
+            addToList(command);
+        }
+    }
+
+    public void addToList(String str) {
+        print("added: " + list.add(str));
+    }
+
+    public void getList() {
+        print(list.get());
     }
 
 
@@ -36,7 +60,7 @@ public class Gumball {
         print(str);
     }
 
-    public void print(String out) {
+    public static void print(String out) {
         String str ="____________________________________________________________";
         System.out.println(str);
         System.out.println(out);
