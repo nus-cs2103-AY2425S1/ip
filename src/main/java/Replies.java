@@ -18,6 +18,7 @@ public class Replies {
     }
 
     public String reply(String message) {
+        String m1 = message.split(" ", 2)[0];
         if (Objects.equals(message,"bye")) {
             return line + "\n" + goodbye;
         } else if (Objects.equals(message,"list")){
@@ -28,6 +29,16 @@ public class Replies {
             return line + "\n" + s + "\n" + line;
         } else if(Objects.equals(message,"")) {
             return line;
+        } else if(Objects.equals(m1, "mark")) {
+             String m2 = message.split(" ", 2)[1];
+             int i2 = Integer.parseInt(m2);
+             ls.get(i2 - 1).setter(true);
+             return "     Marked the task as done! \n     " + ls.get(i2 - 1);
+        } else if(Objects.equals(m1, "unmark")) {
+            String m2 = message.split(" ", 2)[1];
+            int i2 = Integer.parseInt(m2);
+            ls.get(i2 - 1).setter(false);
+            return "     Task undone \n     " + ls.get(i2 - 1);
         } else {
             Tasks t = new Tasks(message);
             ls.add(t);
