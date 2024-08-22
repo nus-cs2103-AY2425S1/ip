@@ -42,7 +42,7 @@ public class Victor {
             System.out.println("============================================================");
             userInput = inp.nextLine();
         }
-
+        System.out.println("============================================================");
         System.out.println("Goodbye! Hope to see you again soon!");
         System.out.println("============================================================");
     }
