@@ -34,7 +34,7 @@ public class TaskList {
 
         break;
         case "deadline":
-                nameAndType = parts[0].substring(6);
+                nameAndType = parts[0].substring(9);
                 String end = parts[1].replace("by ", "by: ");
                 Task deadline = new Deadline(nameAndType, end);
                 list.add(deadline);
@@ -67,6 +67,15 @@ public class TaskList {
         String end = String.format("\nnow you have %d task(s) in the list", this.list.size());
         String result = "Got it. I've added this task:\n" + task.toString() + end;
         return result;
+    }
+
+    public void handleDelete(int i){
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.printf(" %s", this.list.get(i-1));
+        System.out.printf("Now you have %d tasks in the list.\n", this.list.size() -1);
+        System.out.println("____________________________________________________________");
+        this.list.remove(i-1);
     }
 
 }

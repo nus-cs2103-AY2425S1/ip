@@ -21,11 +21,13 @@ public class Jarvis {
 
         // Keep reading input until "bye" is entered
         while (!input.equals("bye")) {
+
             input = scanner.nextLine();
             if (input.equals("list")) {
                 tasklist.list();
             } else if (!input.equals("bye")) { // Only print if it's not "bye"
-                if (input.startsWith("mark") || input.startsWith("unmark")) {
+                if (input.startsWith("mark") || input.startsWith("unmark" )||
+                        input.startsWith("delete")) {
                     String[] parts = input.split(" ");
                     try {
                         if (parts.length == 2) {
@@ -34,11 +36,8 @@ public class Jarvis {
                                 tasklist.mark(taskIndex);
                             } else if (input.startsWith("unmark")) {
                                 tasklist.unmark(taskIndex);
-                            } else {
-                                tasklist.add(input);
-                                String result = tasklist.acknowledge();
-                                System.out.println("__________________________________\n" + result + "\n" +
-                                        "__________________________________");
+                            } else if(input.startsWith("delete")){
+                                tasklist.handleDelete(taskIndex);
                             }
                         }
                     } catch (IndexOutOfBoundsException e) {
