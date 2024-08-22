@@ -8,15 +8,6 @@ public class Donna {
         System.out.println("____________________________________________________________");
     }
 
-    private static int addTask(String desc) {
-        tasks[taskNum] = new Task(desc);
-        taskNum++;
-        printDashedLine();
-        System.out.println("added: " + desc);
-        printDashedLine();
-        return taskNum;
-    }
-
     static private void printDonnaLogo() {
         System.out.println(" ____      ");
         System.out.println("|  _ \\  ___  _ __  _ __   __ _ ");
@@ -26,16 +17,103 @@ public class Donna {
         System.out.println();
     }
 
+    private static void addTask(String desc) {
+        String[] descWords = desc.split(" ", 2); // first word specifies type, the rest= description
+        String taskType = descWords[0];
+        String taskDescription = descWords.length == 2 ? descWords[1] : " ";
+
+        Task newTask;
+        if (taskType.equals("todo")) {
+            newTask = new ToDo(taskDescription);
+
+        } else if (taskType.equals("deadline")) {
+            String[] taskDescriptionWords = taskDescription.split(" /by ", 2);
+            String deadlineTime = taskDescriptionWords.length == 2 ? taskDescriptionWords[1] : "no information :/";
+            newTask = new Deadline(taskDescriptionWords[0], deadlineTime);
+
+        } else if (taskType.equals("event")) {
+            String[] taskDescriptionWords = taskDescription.split(" /from ", 2); //task description but split into words
+            String[] taskTimes;
+            String toTime;
+            String fromTime;
+            String eventDesc;
+
+            if (taskDescriptionWords.length != 2) { // no /from found, so look for /to
+                fromTime = "no information!";
+
+                taskTimes = taskDescriptionWords[0].split(" /to ", 2); // if /to exists, divided.
+                if (taskTimes.length != 2) { // /to not found either;
+                    toTime = "no information!";
+                    eventDesc = taskTimes[0];
+                } else {
+                    toTime = taskTimes[1];
+                    eventDesc = taskTimes[0];
+                }
+            } else { // /from exists
+                eventDesc = taskDescriptionWords[0];
+
+                taskTimes = taskDescriptionWords[1].split(" /to ", 2); // /from exists so check for /to
+                if (taskTimes.length != 2) {
+                    fromTime = taskTimes[0];
+                    toTime = "no information!";
+                } else {
+                    fromTime = taskTimes[0];
+                    toTime = taskTimes[1];
+                }
+
+            }
+            newTask = new Event(eventDesc, fromTime, toTime);
+        } else {
+            System.out.println("Invalid task type!");
+            System.out.println("Task type received: " + taskType + "    Expected: todo / deadline / event !");
+            return;
+        }
+
+        tasks[taskNum] =  newTask;
+        taskNum++;
+        printDashedLine();
+        System.out.println("Got it. I've added this task: " );
+        System.out.println("    " + newTask);
+        if (taskNum == 1) {
+            System.out.println("This is the first task in the list. ");
+        } else {
+            System.out.println("You now have " + taskNum + " tasks in the list. ");
+        }
+        printDashedLine();
+    }
+
+    private static void updateTaskStatus(int taskToMark, boolean toBeMarked) {
+        if (taskToMark > 0 && (taskToMark - 1) < taskNum) { //if task to mark is a valid task
+            if (toBeMarked) {
+                tasks[taskToMark - 1].markDone();
+                printDashedLine();
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println("    " + tasks[taskToMark - 1]);
+                printDashedLine();
+            } else {
+                tasks[taskToMark - 1].markNotDone();
+                printDashedLine();
+                System.out.println("OK, I have marked this task as not done yet: ");
+                System.out.println("    " + tasks[taskToMark - 1]);
+                printDashedLine();
+            }
+        } else {
+            printDashedLine();
+            System.out.println("Invalid task number :(");
+            System.out.println("No task assigned to this number yet. Retry with a valid task number!");
+            printDashedLine();
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        printDonnaLogo();
-
         //greeting
-        System.out.println("____________________________________________________________");
+        printDashedLine();
+        printDonnaLogo();
         System.out.println("Hello! I'm Donna");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        printDashedLine();
 
         //constant inputs from the user
         while (true) {
@@ -56,39 +134,19 @@ public class Donna {
             } else if (inputWords[0].equals("mark") && inputWords.length == 2) { //request to mark a task as done
                 try {
                     int taskToMark = Integer.parseInt(inputWords[1]); //not index
-                    if ((taskToMark - 1) <= taskNum) { //if task to mark is a valid task
-                        tasks[taskToMark - 1].markDone();
-                        printDashedLine();
-                        System.out.println("Nice! I've marked this task as done: ");
-                        System.out.println("    " + tasks[taskToMark - 1]);
-                        printDashedLine();
-                    } else {
-                        printDashedLine();
-                        System.out.println("Invalid task number :(");
-                        printDashedLine();
-                    }
+                    updateTaskStatus(taskToMark, true);
                 } catch (NumberFormatException e) { //if the phrase isnt "mark INTEGER" it's a task instead of a request
-                    taskNum = addTask(input);
+                    addTask(input);
                 }
             } else if (inputWords[0].equals("unmark") && inputWords.length == 2) { //request to unmark
                 try {
                     int taskToMark = Integer.parseInt(inputWords[1]);
-                    if ((taskToMark - 1) <= taskNum) { //if task to mark is a valid task
-                        tasks[taskToMark - 1].markNotDone();
-                        printDashedLine();
-                        System.out.println("OK, I have marked this task as not done yet: ");
-                        System.out.println("    " + tasks[taskToMark - 1]);
-                        printDashedLine();
-                    } else {
-                        printDashedLine();
-                        System.out.println("Invalid task number :(");
-                        printDashedLine();
-                    }
+                    updateTaskStatus(taskToMark, false);
                 } catch (NumberFormatException e) { //if the phrase isnt "unmark INTEGER" it's a task instead of a request
-                    taskNum = addTask(input);
+                    addTask(input);
                 }
             } else { //not a request
-                taskNum = addTask(input);
+                addTask(input);
             }
         }
 
