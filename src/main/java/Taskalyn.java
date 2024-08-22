@@ -9,7 +9,7 @@ public class Taskalyn {
         // Greeting user
         System.out.println("    ____________________________________________________________");
         System.out.println("    Hey! I'm Taskalyn, your personal Task Manager :)\n" +
-                "    What can I do for you?\n");
+                "    What can I do for you?");
         System.out.println("    ____________________________________________________________\n");
 
         // Conditions
@@ -23,7 +23,7 @@ public class Taskalyn {
             }
             else {
                 System.out.println("    ____________________________________________________________");
-                System.out.println("    " + input + "\n");
+                System.out.println("    " + input);
                 System.out.println("    ____________________________________________________________\n");
             }
         }
