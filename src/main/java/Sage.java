@@ -81,6 +81,7 @@ public class Sage {
                 textBox("Invalid command");
             }
         }
+        scanner.close();
     }
 
     public static void textBox(String text) {
@@ -91,6 +92,6 @@ public class Sage {
 
     public static void addedTextBox() {
         int noOfTasks = tasksList.size();
-        textBox(String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", tasksList.get(noOfTasks - 1), noOfTasks));
+        textBox(String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", tasksList.get(noOfTasks - 1), noOfTasks));
     }
 }
