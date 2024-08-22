@@ -10,9 +10,9 @@ public class Task {
     @Override
     public String toString() {
         if (this.completed) {
-            return "[X] " + this.description;
+            return String.format("[X] %s", this.description);
         } else {
-            return "[ ] " + this.description;
+            return String.format("[ ] %s", this.description);
         }
     }
 
