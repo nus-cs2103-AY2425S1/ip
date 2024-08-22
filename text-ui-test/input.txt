@@ -1,3 +1,13 @@
+todo 1
+todo 2
+todo 3
+delete 2
+delete 12
+delete -12390
+delete 9f3
+delete 1
+delete 1
+list
 todo borrow book
 list
 deadline return book /by Sunday
@@ -21,4 +31,5 @@ event /from /by
 event /from f /by
 deadline /by ff
 yapyapyap
+
 bye

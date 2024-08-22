@@ -65,6 +65,16 @@ public class YapMeister {
                         tasks.add(task);
                         System.out.println(String.format("You have %d tasks", tasks.size()));
                         break;
+                    case "delete":
+                        int dindex = parseInt(command[1]) - 1;
+                        if (dindex >= tasks.size() || dindex < 0) {
+                            throw new InvalidMarkException("No task at that index");
+                        }
+                        Task removedTask = tasks.remove(dindex);
+                        System.out.println("Removed this task");
+                        System.out.println(removedTask.toString());
+                        System.out.println(String.format("You have %d tasks", tasks.size()));
+                        break;
                     default:
                         System.out.println("Invalid input please yap yapology");
                 }

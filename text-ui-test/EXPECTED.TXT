@@ -5,6 +5,34 @@ YAPYAPYAPYAP
 Added:
 You have 1 tasks
 
+Added:
+You have 2 tasks
+
+Added:
+You have 3 tasks
+
+Removed this task
+[T][ ] 2
+You have 2 tasks
+
+No task at that index
+
+No task at that index
+
+Invalid number format
+
+Removed this task
+[T][ ] 1
+You have 1 tasks
+
+Removed this task
+[T][ ] 3
+You have 0 tasks
+
+
+Added:
+You have 1 tasks
+
 1. [T][ ] borrow book
 
 Added:
@@ -56,6 +84,8 @@ Invalid Task description
 Invalid Task description
 
 Invalid Task description
+
+Invalid input please yap yapology
 
 Invalid input please yap yapology
 
