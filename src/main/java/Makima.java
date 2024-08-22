@@ -123,6 +123,10 @@ public class Makima {
                     done();
                     break;
 
+                case "delete":
+                    tasks.remove(getListIndex("Which item would you like to delete?"));
+                    done();
+                    break;
 
                 default:
                     System.out.println("Unknown command!");
