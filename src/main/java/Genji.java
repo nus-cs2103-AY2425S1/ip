@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Genji {
     private static String NAME = "Genji";
-    private static String LINE = "__________________________";
+    private static String LINE = "________________________________________________________________";
     private static Scanner scanner = new Scanner(System.in);
     private static boolean flag = true;
 
