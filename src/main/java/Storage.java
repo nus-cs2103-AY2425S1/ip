@@ -45,6 +45,14 @@ public class Storage {
         return result.toString();
     }
     
+    public String deleteOperation(int index) {
+        int normalizedIndex = index -1;
+        StringBuilder result = new StringBuilder();
+        result.append(this.TaskLists.get(normalizedIndex).toString());
+        this.TaskLists.remove(normalizedIndex);
+        return result.toString();
+    }
+    
     public String getLength() {
         return "Now you have " + String.valueOf(this.TaskLists.size())+ " tasks in the list.";
     }

@@ -51,6 +51,17 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
+            else if (s1.split(" ")[0].equals("delete")) {
+                Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
+                String modifiedRecord = storage.deleteOperation(indexInvolved);
+                String echoResponse = "____________________________________________________________\n"
+                        +"Noted. I've removed this task:\n "
+                        + modifiedRecord +"\n"
+                        + storage.getLength() + "\n"
+                        + "____________________________________________________________\n";
+                System.out.println(echoResponse);
+            }
+            
             else if (s1.split(" ")[0].equals("todo")) {
                 try {
                     ToDo NewToDo = new ToDo(s1.split(" ")[1]);
