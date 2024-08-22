@@ -53,7 +53,7 @@ public class Atlas {
                         addEvent(taskList, nextCommandLine);
                         break;
                     default:
-                        break;
+                        throw new AtlasException("Unknown command.");
                 }
             } catch (AtlasException e) {
                 Atlas.print(e.getMessage());
