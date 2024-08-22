@@ -9,7 +9,7 @@ todo Added
 ____________________________
 ____________________________
 deadline Added
-[D] [ ] deadline CS2103T Quiz (by: Sunday)
+[D] [ ] CS2103T Quiz (by: Sunday)
 2 remaining tasks
 ____________________________
 ____________________________
@@ -21,21 +21,21 @@ Nicely done! This task is marked as done!
 [T] [X] CS2103T Individual Project
 ____________________________
 1. [T] [X] CS2103T Individual Project
-2. [D] [ ] deadline CS2103T Quiz (by: Sunday)
+2. [D] [ ] CS2103T Quiz (by: Sunday)
 3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
 ____________________________
 Nicely done! This task is marked as done!
-[D] [X] deadline CS2103T Quiz (by: Sunday)
+[D] [X] CS2103T Quiz (by: Sunday)
 ____________________________
 1. [T] [X] CS2103T Individual Project
-2. [D] [X] deadline CS2103T Quiz (by: Sunday)
+2. [D] [X] CS2103T Quiz (by: Sunday)
 3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
 ____________________________
 Holdup this task is not done!
 [T] [ ] CS2103T Individual Project
 ____________________________
 1. [T] [ ] CS2103T Individual Project
-2. [D] [X] deadline CS2103T Quiz (by: Sunday)
+2. [D] [X] CS2103T Quiz (by: Sunday)
 3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
 ____________________________
 ____________________________
