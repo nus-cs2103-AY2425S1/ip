@@ -4,8 +4,20 @@ import java.util.Scanner;
 public class Topaz {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         greetUser();
-        goodbyeUser();
+
+        while (true) {
+            String prompt = scanner.nextLine();
+            if (prompt.contains("bye")) {
+                goodbyeUser();
+                break;
+            } else {
+                echo(prompt);
+            }
+        }
+
+        scanner.close();
     }
 
     private static void greetUser() {
@@ -18,6 +30,12 @@ public class Topaz {
     private static void goodbyeUser() {
         System.out.println(" Ugh, why do they have to call me for such a trivial matter... Sorry, something just came up at work, I've got to get going!");
         System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void echo(String input) {
+        System.out.println("____________________________________________________________");
+        System.out.println(input);
         System.out.println("____________________________________________________________");
     }
 }
