@@ -16,9 +16,9 @@ public class TaskTracker {
             System.out.println("Here are your tasks!!! Remember to complete them!!!");
             for (int i = 0; i < this.counter; i++) {
                 if (this.taskList[i].getIsDone() == false) {
-                    System.out.println("" + (i + 1) + ". [ ] " + this.taskList[i].getName());
+                    System.out.println("" + (i + 1) + ". [ ] " + this.taskList[i]);
                 } else {
-                    System.out.println("" + (i + 1) + ". [X] " + this.taskList[i].getName());
+                    System.out.println("" + (i + 1) + ". [X] " + this.taskList[i]);
                 }
 
             }
@@ -47,9 +47,24 @@ public class TaskTracker {
         }
     }
 
-    public void updateList(String s) {
-        taskList[this.counter] = new Task(s);
+    public void updateListToDo(String s) {
+        taskList[this.counter] = new ToDo(s);
         this.counter++;
-        System.out.println("added " + s);
+        System.out.println("Gotcha!! Added this task to your list:");
+        System.out.println(taskList[this.counter - 1]);
+    }
+
+    public void updateListDeadline(String s, String t) {
+        taskList[this.counter] = new Deadline(s, t);
+        this.counter++;
+        System.out.println("Gotcha!! Added this task to your list:");
+        System.out.println(taskList[this.counter - 1]);
+    }
+
+    public void updateListEvent(String s, String t, String u) {
+        taskList[this.counter] = new Event(s, t, u);
+        this.counter++;
+        System.out.println("Gotcha!! Added this task to your list:");
+        System.out.println(taskList[this.counter - 1]);
     }
 }
