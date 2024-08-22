@@ -193,6 +193,53 @@ Meep: Here are the tasks in your list:
 6. [E][ ] say hi (from: 2pm to: 3pm)
 -----------------------------------------
 You: -----------------------------------------
+Meep: Noted. I've removed this task:
+[T][X] borrow book
+
+Now you have 5 tasks in the list
+-----------------------------------------
+You: -----------------------------------------
+Meep: Noted. I've removed this task:
+[E][X] project meeting (from: Mon 2pm to: 4pm)
+
+Now you have 4 tasks in the list
+-----------------------------------------
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your delete command.
+Delete command should be in the format: delete <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your delete command.
+Delete command should be in the format: delete <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your delete command.
+Delete command should be in the format: delete <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Nice! I've marked this task as done:
+[T][X] read book
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Noted. I've removed this task:
+[T][X] read book
+
+Now you have 3 tasks in the list
+-----------------------------------------
+You: -----------------------------------------
+Meep: Here are the tasks in your list:
+1. [D][X] return book (by: Sunday)
+2. [T][ ] jump 20 times
+3. [E][ ] say hi (from: 2pm to: 3pm)
+-----------------------------------------
+You: -----------------------------------------
 Meep: Bye! Have a great day!
 -----------------------------------------
 

@@ -32,4 +32,12 @@ mark 8
 unmark 8
 mark 1
 list
+delete 1
+delete 2
+delete
+delete a
+delete 0
+mark 2
+delete 2
+list
 bye
