@@ -50,3 +50,50 @@ I've marked the following task as done!
 [T][X] return book
 ____________________________________________________________
 
+____________________________________________________________
+I'm sorry, I can't add a task without knowing what to add!
+Please try again, and enter the intended task after the task type
+____________________________________________________________
+
+____________________________________________________________
+I'm sorry, I can't add a task without knowing what to add!
+Please try again, and enter the intended task after the task type
+____________________________________________________________
+
+____________________________________________________________
+I'm sorry, I can't identify the date.
+Please try again and add a slash (/) after the task.
+____________________________________________________________
+
+____________________________________________________________
+Sorry, I couldn't find a date.
+Try again with the date after the slash (/)
+____________________________________________________________
+
+____________________________________________________________
+I'm sorry, I can't add a task without knowing what to add!
+Please try again, and enter the intended task after the task type
+____________________________________________________________
+
+____________________________________________________________
+I'm sorry, I can't identify the date.
+Please try again and add a slash (/) after the task.
+____________________________________________________________
+
+____________________________________________________________
+Sorry, I couldn't find a date.
+Try again with the date after the slash (/)
+____________________________________________________________
+
+____________________________________________________________
+Hi! How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Hi! How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Hi! How can I help you?
+____________________________________________________________
+
