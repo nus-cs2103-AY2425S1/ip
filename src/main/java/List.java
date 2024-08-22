@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Echo {
+public class List {
     public static void run() {
 
         String initialise = """
                 -----------------------------------------------
-                Initialising Echo Bot...
+                Initialising List Bot...
+                'View List' to show list
                 -----------------------------------------------
                 """;
 
@@ -13,14 +15,25 @@ public class Echo {
 
         Scanner scanner = new Scanner(System.in);
         String input = "";
+        ArrayList<String> list = new ArrayList<String>();
 
         while (true) {
-            System.out.print("You: ");
+            System.out.print("Add item: ");
             input = scanner.nextLine();
             if (!input.equalsIgnoreCase("Bye")) {
-                System.out.println("-----------------------------------------------");
-                System.out.printf("RapGod: %s, yo!\n", input);
-                System.out.println("-----------------------------------------------");
+                if (input.equalsIgnoreCase("View List")) {
+                    System.out.println("-----------------------------------------------");
+                    System.out.println("Displaying List:");
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.printf("%d. %s\n", i + 1, list.get(i));
+                    }
+                    System.out.println("-----------------------------------------------");
+                } else {
+                    System.out.println("-----------------------------------------------");
+                    System.out.printf("Added: %s\n", input);
+                    System.out.println("-----------------------------------------------");
+                    list.add(input);
+                }
 
             } else {
                 break;
