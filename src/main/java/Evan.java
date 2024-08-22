@@ -92,6 +92,10 @@ public class Evan {
                     }
                     addEvent(taskName, start, end);
                     System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
+                } else if (input.matches("(?i)delete \\d+")) {
+                    int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    deleteTask(TASKS.get(taskIndex));
+                    System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
                 } else {
                     throw new EvanException("You have entered an invalid command: " + input);
                 }
@@ -138,6 +142,12 @@ public class Evan {
     private static void markTaskAsUndone(Task task) {
         task.markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
+    }
+
+    private static void deleteTask(Task task) {
+        TASKS.remove(task);
+        System.out.println("Noted. I've removed this task:");
         System.out.println(task);
     }
 
