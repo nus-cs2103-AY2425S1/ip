@@ -21,46 +21,48 @@ public class Asura {
 
         System.out.println(formatResponse(introduction));
         String[] input = scanner.nextLine().split(" ");
+        String prefix = input[0];
 
-        while (!input[0].equals("bye")) {
-            if (input[0].equals("list")) {
-                StringBuilder output = new StringBuilder();
-                output.append("Here are the tasks in your list:\n");
-                for (int i=0; i<tasks.size(); i++) {
-                    output.append(i + 1).append(".").append(tasks.get(i).getStatusIcon()).append(tasks.get(i).description).append("\n");
-                }
-                System.out.println(formatResponse(output.toString()));
-            }
-            else if (input[0].equals("mark")) {
-                if (1 >= input.length) {
-                    // if user inputted mark by itself
-                    System.out.println(formatResponse("Oops! Something is wrong."));
-                } else {
-                    StringBuilder output = new StringBuilder();
-                    int selection = Integer.parseInt(input[1]) - 1;
-                    tasks.get(selection).markAsDone();
-                    output.append("Nice! I've marked this task as done:").append("\n").append(tasks.get(selection).getStatusIcon()).append(tasks.get(selection).description);
+        while (!prefix.equals("bye")) {
+            StringBuilder output = new StringBuilder();
+            switch (prefix) {
+                case "list":
+                    output.append("Here are the tasks in your list:\n");
+                    for (int i=0; i<tasks.size(); i++) {
+                        output.append(i + 1).append(".").append(tasks.get(i).getStatusIcon()).append(tasks.get(i).description).append("\n");
+                    }
                     System.out.println(formatResponse(output.toString()));
-                }
+                    break;
+                case "mark":
+                    if (1 >= input.length) {
+                        // if user inputted mark by itself
+                        System.out.println(formatResponse("Oops! Something is wrong."));
+                    } else {
+                        int selection = Integer.parseInt(input[1]) - 1;
+                        tasks.get(selection).markAsDone();
+                        output.append("Nice! I've marked this task as done:").append("\n").append(tasks.get(selection).getStatusIcon()).append(tasks.get(selection).description);
+                        System.out.println(formatResponse(output.toString()));
+                    }
+                    break;
+                case "unmark":
+                    if (1 >= input.length) {
+                        // if user inputted mark by itself
+                        System.out.println(formatResponse("Oops! Something is wrong."));
+                    } else {
+                        int selection = Integer.parseInt(input[1]) - 1;
+                        tasks.get(selection).markAsNotDone();
+                        output.append("OK, I've marked this task as not done yet:").append("\n").append(tasks.get(selection).getStatusIcon()).append(tasks.get(selection).description);
+                        System.out.println(formatResponse(output.toString()));
+                    }
+                    break;
+                default:
+                    String taskString = String.join(" ", input);
+                    tasks.add(new Task(taskString));
+                    System.out.println(formatResponse("added: " + taskString));
             }
-            else if (input[0].equals("unmark")) {
-                if (1 >= input.length) {
-                    // if user inputted mark by itself
-                    System.out.println(formatResponse("Oops! Something is wrong."));
-                } else {
-                    StringBuilder output = new StringBuilder();
-                    int selection = Integer.parseInt(input[1]) - 1;
-                    tasks.get(selection).markAsNotDone();
-                    output.append("OK, I've marked this task as not done yet:").append("\n").append(tasks.get(selection).getStatusIcon()).append(tasks.get(selection).description);
-                    System.out.println(formatResponse(output.toString()));
-                }
-            }
-            else {
-                String taskString = String.join(" ", input);
-                tasks.add(new Task(taskString));
-                System.out.println(formatResponse("added: " + taskString));
-            }
+
             input = scanner.nextLine().split(" ");
+            prefix = input[0];
         }
         System.out.println(formatResponse(goodbye));
     }
