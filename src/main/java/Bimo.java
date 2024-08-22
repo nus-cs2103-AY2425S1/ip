@@ -10,124 +10,118 @@ public class Bimo {
         System.out.println("    " + String.format("Hello! I'm %s", name));
         System.out.println("    " + "What can I do for you?");
         System.out.println(line);
-        String command = scanner.nextLine();
+        String input = scanner.nextLine();
+        boolean botIsActive = true;
 
-        while (!command.toLowerCase().equals("bye")) {
+        while (botIsActive) {
+            Command command = null;
+            String action = input.split(" ")[0].toLowerCase();
+            try {
+                command = getCommand(action);
+            } catch (InvalidCommandException e) {
+                System.out.println(line);
+                System.out.println(e.getMessage());
+                System.out.println(line);
+                input = scanner.nextLine();
+                continue;
+            }
             System.out.println(line);
-            String action = command.split(" ")[0].toLowerCase();
-            if (action.equals("list") && list.size() > 0) {
-                System.out.println("    Here are the tasks in your list:");
-                for (int i = 0; i < list.size(); i++) {
-                    String message = String.format("    %d. %s", i + 1, list.get(i).toString());
-                    System.out.println(message);
-                }
-
-            } else if (action.equals("list")) {
-                System.out.println("    No tasks added");
-
-            } else if (action.equals("mark")) {
-                int index = Integer.valueOf(command.toLowerCase().split(" ")[1]) - 1;
-                try {
-                    updateList(true, index);
-                    System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println("       " + list.get(index).toString());
-                } catch(IllegalArgumentException e) {
-                    System.out.println("    Task selected not in list");
-                }
-
-            } else if (action.equals("unmark")) {
-                int index = Integer.valueOf(command.toLowerCase().split(" ")[1]) - 1;
-                try {
-                    updateList(false, index);
-                    System.out.println("    OK, I've marked this task as not done yet:");
-                    System.out.println("       " + list.get(index).toString());
-                } catch (IllegalArgumentException e) {
-                    System.out.println("    Task selected not in list");
-                }
-
-
-            } else if (action.equals("todo") ||
-                        action.equals("deadline") ||
-                        action.equals("event") ) {
-                if (action.equals("todo")) {
+            switch (command) {
+                case LIST:
+                    System.out.println("    Here are the tasks in your list:");
+                    for (int i = 0; i < list.size(); i++) {
+                        String message = String.format("    %d. %s", i + 1, list.get(i).toString());
+                        System.out.println(message);
+                    }
+                    break;
+                case MARK:
+                    //need to handle if no index given
+                    //need to handle if already marked
                     try {
-                        Task task = new ToDo(getDetails(command));
-                        System.out.println("    Got it. I've added this task:");
-                        Bimo.list.add(task);
-                        System.out.println("        " + task.toString());
-                        String word = list.size() == 1 ? "task" : "tasks";
-                        System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
-
+                        int index1 = updateList(true, input);
+                        System.out.println("    Good job! I've marked this task as done:");
+                        System.out.println("       " + list.get(index1).toString());
+                    } catch(IllegalArgumentException e) {
+                        System.out.println("    Task selected not found in list");
+                    }
+                    break;
+                case UNMARK:
+                    try {
+                        int index2 = updateList(false, input);
+                        System.out.println("    OK, I've marked this task as not done yet:");
+                        System.out.println("       " + list.get(index2).toString());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("    Task selected not found in list");
+                    }
+                    break;
+                case TODO:
+                    try {
+                        Task task = new ToDo(getDetails(input));
+                        printTaskInfo(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     }
-
-                } else if (action.equals("deadline")) {
-                    String[] temp = command.split("/");
+                    break;
+                case DEADLINE:
+                    String[] temp = input.split("/");
                     try {
                         String details = getDetails(temp[0]);
                         String dueDate = processDate(true, temp);
                         Task task = new Deadline(details, dueDate);
-                        System.out.println("    Got it. I've added this task:");
-                        System.out.println("        " + task.toString());
-                        Bimo.list.add(task);
-                        String word = list.size() == 1 ? "task" : "tasks";
-                        System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
+                        printTaskInfo(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
                         System.out.println(e.getMessage());
                     }
-
-                } else {
+                    break;
+                case EVENT:
                     try {
-                        String[] temp = command.split("/");
-                        String details = getDetails(temp[0]);
-                        String start = processDate(true, temp);
-                        String end = processDate(false, temp);
+                        String[] temp2 = input.split("/");
+                        String details = getDetails(temp2[0]);
+                        String start = processDate(true, temp2);
+                        String end = processDate(false, temp2);
                         Task task = new Event(details, start, end);
-                        System.out.println("    Got it. I've added this task:");
-                        Bimo.list.add(task);
-                        System.out.println("        " + task.toString());
-                        String word = list.size() == 1 ? "task" : "tasks";
-                        System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
+                        printTaskInfo(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
                         System.out.println(e.getMessage());
                     }
-                }
-            } else if (action.equals("delete")) {
-                int index = Integer.valueOf(command.split(" ")[1]) - 1;
-                try {
-                    Task task = delete(index);
-                    System.out.println("    Noted. I've removed this task:");
-                    System.out.println("        " + task.toString());
-                    String word = list.size() == 1 ? "task" : "tasks";
-                    System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
+                    break;
+                case DELETE:
+                    int index3 = Integer.valueOf(input.split(" ")[1]) - 1;
+                    try {
+                        Task task = delete(index3);
+                        System.out.println("    Noted. I've removed this task:");
+                        System.out.println("        " + task.toString());
+                        String word = list.size() == 1 ? "task" : "tasks";
+                        System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
 
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-
-            } else {
-                System.out.println("    Invalid command, please try another command");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case BYE:
+                    botIsActive = false;
+                    System.out.println("    " +"Bye!!! Thanks for chatting!");
+                    break;
             }
             System.out.println(line);
-            command = scanner.nextLine();
+            if (botIsActive) {
+                input = scanner.nextLine();
+            }
         }
-
-        System.out.println("    " +"Bye. Hope to see you again soon!");
-        System.out.println(line);
     }
 
     /**
      *
      * @param complete boolean value that represents whether task is completed
-     * @param index position of task in list to change status
+     * @param input String value of input typed by user
      * @throws IllegalArgumentException
      */
-    public static void updateList(boolean complete, int index) throws IllegalArgumentException {
+    public static int updateList(boolean complete, String input) throws IllegalArgumentException {
+        int index = Integer.valueOf(input.toLowerCase().split(" ")[1]) - 1;
         if (index < 0 || index >= list.size()) {
             throw new IllegalArgumentException();
         } else if(complete) {
@@ -135,6 +129,7 @@ public class Bimo {
         } else {
             list.get(index).markUnCompleted();
         }
+        return index;
     }
     /**
      *
@@ -183,5 +178,47 @@ public class Bimo {
         }
         Task task = list.remove(index);
         return task;
+    }
+
+    /**
+     *
+     * @param action String representation of commands
+     * @return A command enum object
+     * @throws InvalidCommandException
+     */
+    public static Command getCommand(String action) throws InvalidCommandException {
+        String cmd = action.toLowerCase();
+        if (cmd.equals("list")) {
+            return Command.LIST;
+        } else if (cmd.equals("mark")) {
+            return Command.MARK;
+        } else if (cmd.equals("unmark")) {
+            return Command.UNMARK;
+        } else if (cmd.equals("todo")) {
+            return Command.TODO;
+        } else if (cmd.equals("event")) {
+            return Command.EVENT;
+        } else if (cmd.equals("deadline")) {
+            return Command.DEADLINE;
+        } else if (cmd.equals("delete")) {
+            return Command.DELETE;
+        } else if (cmd.equals("bye")){
+            return Command.BYE;
+        } else {
+            throw new InvalidCommandException("    Sorry, I do not understand you \n" +
+                    "    as this is not a valid command");
+        }
+    }
+
+    /**
+     * Abstraction to remove duplicated code
+     * @param task Task to be added into list
+     */
+    public static void printTaskInfo(Task task) {
+        System.out.println("    Got it. I've added this task:");
+        Bimo.list.add(task);
+        System.out.println("        " + task.toString());
+        String word = list.size() == 1 ? "task" : "tasks";
+        System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
     }
 }
