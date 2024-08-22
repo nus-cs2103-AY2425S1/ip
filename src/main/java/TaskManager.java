@@ -2,13 +2,23 @@ public class TaskManager {
     private Task[] tasks = new Task[100];
     private int counter = 0;
 
-    public String addTask(String taskDescription) {
-        if (counter < tasks.length) {
-            tasks[counter] = new Task(taskDescription);
-            counter++;
-            return "added: " + taskDescription;
+    public String addTask(String type, String description, String... timeInfo) {
+        if (counter >= tasks.length) {
+            return "Task list is full, unfortunately ~";
         }
-        return "Task list is full, unfortunately ~";
+        switch (type) {
+            case "todo":
+                tasks[counter] = new Todo(description);
+                break;
+            case "deadline":
+                tasks[counter] = new Deadline(description, timeInfo[0]);
+                break;
+            case "event":
+                tasks[counter] = new Event(description, timeInfo[0], timeInfo[1]);
+                break;
+        }
+        counter++;
+        return "Roger that! I've added in this task:\n  " + tasks[counter - 1].toString() + "\nNow you have " + counter + " tasks in the list ~ !";
     }
 
     public String listTasks() {
