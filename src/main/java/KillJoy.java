@@ -30,7 +30,13 @@ public class KillJoy {
 
         while(true) {
             String input = user.nextLine();
-            int taskNum;
+            if (input.equals("")) {
+                this.printLine();
+                System.out.println("    WHHHAHAHAHHA!! You didn't enter anything siaaa!!!");
+                this.printLine();
+                continue;
+            }
+
             String[] inputAsList = input.split(" ");
 
             if (inputAsList[0].equals("bye")) {
@@ -38,20 +44,9 @@ public class KillJoy {
                 break;
             } else if (inputAsList[0].equals("list")){
                 this.printTaskList();
-            } else if (inputAsList[0].equals("mark")) {
-                taskNum = Integer.parseInt(inputAsList[1]) - 1;
-                this.taskList.get(taskNum).changeStatus();
-                this.printLine();
-                System.out.println("    " + markString + "\n        " + this.taskList.get(taskNum));
-                this.printLine();
-            } else if (inputAsList[0].equals("unmark")) {
-                taskNum = Integer.parseInt(inputAsList[1]) - 1;
-                this.taskList.get(taskNum).changeStatus();
-                this.printLine();
-                System.out.println("    " + unmarkString + "\n        " + this.taskList.get(taskNum));
-                this.printLine();
-            }
-            else {
+            } else if (inputAsList[0].equals("mark") || inputAsList[0].equals("unmark")) {
+                this.markOrUnmarkTask(inputAsList);
+            } else {
                 this.processUserInput(input);
             }
         }
@@ -61,6 +56,19 @@ public class KillJoy {
         String[] inputSplit = input.split("/");
         String[] inputSplitBySpace = inputSplit[0].split(" ");
         String typeOfTask = inputSplitBySpace[0];
+        if (!Arrays.asList("todo", "deadline", "event").contains(typeOfTask) ) {
+            this.printLine();
+            System.out.println("    AGWHAHH!!! What'ya sayin' dawgg??");
+            this.printLine();
+            return;
+        }
+        if (inputSplitBySpace.length == 1) {
+            this.printLine();
+            System.out.println("    What siaaa!! Description cannot be empty");
+            this.printLine();
+            return;
+        }
+
 
         this.printLine();
         if (typeOfTask.equals("todo")) {
@@ -77,7 +85,7 @@ public class KillJoy {
             taskList.add(new Event(description, from, to));
         }
         taskCount++;
-        System.out.println("    What siaaa!! Added this task:");
+        System.out.println("    Yo Dawgg!! Added this task:");
         System.out.println("    " + this.taskList.get(taskCount - 1));
         if (taskCount == 1) {
             System.out.println("    Now you have " + taskCount + " task in the list.");
@@ -87,6 +95,37 @@ public class KillJoy {
         this.printLine();
     }
 
+    private void markOrUnmarkTask(String[] inputAsList) {
+        int taskNum = Integer.MAX_VALUE;
+
+        if (inputAsList.length == 1) {
+            this.printLine();
+            System.out.println("    MAOHWAHAWK !! Enter the task number too!!!");
+            this.printLine();
+            return;
+        }
+
+        taskNum = Integer.parseInt(inputAsList[1]) - 1;
+        if (taskNum + 1 > taskCount || taskNum < 0) {
+            this.printLine();
+            System.out.println("    DANGER !! Task does not exist");
+            this.printLine();
+            return;
+        }
+
+        if (inputAsList[0].equals("mark")) {
+            this.taskList.get(taskNum).changeStatus();
+            this.printLine();
+            System.out.println("    " + markString + "\n        " + this.taskList.get(taskNum));
+            this.printLine();
+        } else if (inputAsList[0].equals("unmark")) {
+            taskNum = Integer.parseInt(inputAsList[1]) - 1;
+            this.taskList.get(taskNum).changeStatus();
+            this.printLine();
+            System.out.println("    " + unmarkString + "\n        " + this.taskList.get(taskNum));
+            this.printLine();
+        }
+    }
 
     private void printLine() {
         System.out.println("    ------------------------------------");
