@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class HypeBot {
     private static final String bufferLine = "______________________________________________________________________\n";
     public static void greet() {
@@ -27,6 +29,22 @@ public class HypeBot {
 
     public static void main(String[] args) {
         greet();
+
+        Scanner sc = new Scanner(System.in);
+        boolean canExit = false;
+        while (!canExit) {
+            String command = sc.nextLine().toLowerCase();
+            if (command.contains("bye")) {
+                canExit = true;
+                continue;
+            }
+            System.out.println(bufferLine
+                    + "HECK YEAH, "
+                    + command
+                    + "!\n"
+                    + bufferLine);
+        }
+
         exit();
     }
 }
