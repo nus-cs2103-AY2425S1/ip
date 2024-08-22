@@ -157,19 +157,34 @@ public class Snowy {
 
                 }
             } else if (input.startsWith("todo")){
-                String description = input.substring(4);
+                String description = input.substring(4).trim();
                 System.out.println(line);
-                if (description.equals(" ")) {
+                if (description.isEmpty()) {
                     System.out.println("Please provide a description");
                 } else {
                     ToDo todo = new ToDo(description);
-                    System.out.println("Added to do to your list of tasks");
+                    System.out.println("Added a to do to your list of tasks");
                     taskList.addTask(todo);
 
                 }
             } else if (input.startsWith("deadline")) {
-                String description = input.substring(4);
+                String after = input.substring(8);
+                boolean hasDate = input.contains("/by");
                 System.out.println(line);
+
+                if (after.isEmpty()) {
+                    System.out.println("Please provide a description");
+                } else {
+                    if (!hasDate) {
+                        System.out.println("Please provide a deadline");
+                        continue;
+                    }
+                    String description = after.split(" /by ", 2)[0];
+                    String date = after.split(" /by ", 2)[1];
+                    Deadline deadline = new Deadline(description, date);
+                    System.out.println("Added a task with deadline to your list of tasks");
+                    taskList.addTask(deadline);
+                }
             }
         }
         System.out.println("Bye. See you next time!");
