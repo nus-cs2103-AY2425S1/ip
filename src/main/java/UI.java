@@ -23,16 +23,20 @@ public class UI {
         String command = sc.nextLine();
 
         while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                displayTaskList();
-            } else if (command.startsWith("mark ")) {
-                handleMarkCommand(command, true);
-            } else if (command.startsWith("unmark ")) {
-                handleMarkCommand(command, false);
-            } else if (isTaskCommand(command)) {
-                handleTaskCommand(command);
-            } else {
-                displayInvalidCommandMessage();
+            try {
+                if (command.equals("list")) {
+                    displayTaskList();
+                } else if (command.startsWith("mark ")) {
+                    handleMarkCommand(command, true);
+                } else if (command.startsWith("unmark ")) {
+                    handleMarkCommand(command, false);
+                } else if (isTaskCommand(command)) {
+                    handleTaskCommand(command);
+                } else {
+                    throw new JadeException("Please specify the type of task: todo, deadline, or event.");
+                }
+            } catch (JadeException e) {
+                displayErrorMessage(e.getMessage());
             }
             command = sc.nextLine();
         }
@@ -54,22 +58,26 @@ public class UI {
     }
 
     private void handleMarkCommand(String command, boolean isDone) {
-        int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
-        if (taskManager.isValidTaskIndex(taskIndex)) {
-            taskManager.markTask(taskIndex, isDone);
-            String status = isDone
-                    ? "Nice! I've marked this task as done:"
-                    : "OK, I've marked this task as not done yet:";
-            message = INDENT + status + "\n"
-                    + INDENT + "  " + taskManager.getTask(taskIndex);
-        } else {
-            message = INDENT + "Hmm, no such task. Try again.";
+        try {
+            int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+            if (taskManager.isValidTaskIndex(taskIndex)) {
+                taskManager.markTask(taskIndex, isDone);
+                String status = isDone
+                        ? "Nice! I've marked this task as done:"
+                        : "OK, I've marked this task as not done yet:";
+                message = INDENT + status + "\n"
+                        + INDENT + "  " + taskManager.getTask(taskIndex);
+                System.out.println(TOP_LINE + message + BOT_LINE);
+            } else {
+                throw new JadeException("Hmm, no such task. Try again.");
+            }
+        } catch (JadeException e) {
+            displayErrorMessage(e.getMessage());
         }
-        System.out.println(TOP_LINE + message + BOT_LINE);
     }
 
     private boolean isTaskCommand(String command) {
-        String[] taskTypes = {"todo ", "deadline ", "event "};
+        String[] taskTypes = {"todo", "deadline", "event"};
         return Arrays.stream(taskTypes).anyMatch(command::startsWith);
     }
 
@@ -82,45 +90,49 @@ public class UI {
     }
 
     private Task parseTask(String command) {
-        if (command.startsWith("todo ")) {
-            return new Todo(command.substring(5));
-        } else if (command.startsWith("deadline ")) {
-            return parseDeadline(command);
-        } else if (command.startsWith("event ")) {
-            return parseEvent(command);
+        try {
+            if (command.startsWith("todo")) {
+                if (command.substring(4).trim().isEmpty()) {
+                    throw new JadeException("The todo task cannot be empty!");
+                }
+                return new Todo(command.substring(5));
+            } else if (command.startsWith("deadline")) {
+                if (command.substring(8).trim().isEmpty()) {
+                    throw new JadeException("The deadline task cannot be empty!");
+                }
+                return parseDeadline(command);
+            } else if (command.startsWith("event")) {
+                if (command.substring(5).trim().isEmpty()) {
+                    throw new JadeException("The event task cannot be empty!");
+                }
+                return parseEvent(command);
+            }
+        } catch (JadeException e) {
+            displayErrorMessage(e.getMessage());
         }
         return null;
     }
 
-    private Task parseDeadline(String command) {
+    private Task parseDeadline(String command) throws JadeException {
         String[] parts = command.substring(9).split(" /by ", 2);
         if (parts.length < 2) {
-            message = INDENT + "Please provide a deadline in the format:\n"
-                    + INDENT + "  " + "deadline <task> /by <time>";
-
-            System.out.println(TOP_LINE + message + BOT_LINE);
-            return null;
+            throw new JadeException("Please provide a deadline in the format:\n"
+                    + INDENT + "  " + "deadline <task> /by <time>");
         } else {
             return new Deadline(parts[0], parts[1]);
         }
     }
 
-    private Task parseEvent(String command) {
+    private Task parseEvent(String command) throws JadeException {
         String[] parts = command.substring(6).split(" /from ", 2);
         if (parts.length < 2) {
-            message = INDENT + "Please provide an event in the format:\n"
-                    + INDENT + "  " + "event <task> /from <start time> /to <end time>";
-
-            System.out.println(TOP_LINE + message + BOT_LINE);
-            return null;
+            throw new JadeException("Please provide an event in the format:\n"
+                    + INDENT + "  " + "event <task> /from <start time> /to <end time>");
         } else {
             String[] timeParts = parts[1].split(" /to ", 2);
             if (timeParts.length < 2) {
-                message = INDENT + "Please provide an end time in the format:\n"
-                        + INDENT + "  " + "event <task> /from <start time> /to <end time>";
-
-                System.out.println(TOP_LINE + message + BOT_LINE);
-                return null;
+                throw new JadeException("Please provide an end time in the format:\n"
+                        + INDENT + "  " + "event <task> /from <start time> /to <end time>");
             } else {
                 return new Event(parts[0], timeParts[0], timeParts[1]);
             }
@@ -141,8 +153,7 @@ public class UI {
         System.out.println(TOP_LINE + message + BOT_LINE);
     }
 
-    private void displayInvalidCommandMessage() {
-        message = INDENT + "Please specify the type of task: todo, deadline, or event.";
-        System.out.println(TOP_LINE + message + BOT_LINE);
+    private void displayErrorMessage(String errorMessage) {
+        System.out.println(TOP_LINE + INDENT + errorMessage + BOT_LINE);
     }
 }
