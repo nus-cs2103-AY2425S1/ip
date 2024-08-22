@@ -47,6 +47,17 @@ public class Bobby {
                         horizontalLine(35);
                     }
                     break;
+                case "delete":
+                    try {
+                        delete(Integer.valueOf(splitInput[1]));
+                    } catch (IndexOutOfBoundsException e) {
+                        horizontalLine(35);
+                        System.out.println();
+                        System.out.println("Item cannot be accessed in list.");
+                        System.out.println("Check the number of items again.");
+                        horizontalLine(35);
+                    }
+                    break;
                 case "todo":
                     try {
                         Todo td = Todo.createTodo(input);
@@ -124,7 +135,7 @@ public class Bobby {
         System.out.println();
         System.out.println("Plus one more thing to do:");
         System.out.println(t.toString());
-        System.out.println(String.format("Now you have %d tasks.", storage.size()));
+        System.out.printf("Now you have %d tasks.%n", storage.size());
         horizontalLine(35);
     }
 
@@ -156,6 +167,15 @@ public class Bobby {
         System.out.println();
         System.out.println("OK, I have marked this task as not done yet:");
         System.out.println(t);
+        horizontalLine(35);
+    }
+
+    public static void delete(int x) {
+        horizontalLine(35);
+        System.out.println();
+        System.out.printf("I have removed this task: %s%n", storage.get(x).toString());
+        storage.remove(x);
+        System.out.printf("Now you have %d tasks left.%n", storage.size());
         horizontalLine(35);
     }
 }
