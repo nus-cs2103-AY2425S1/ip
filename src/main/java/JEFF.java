@@ -1,11 +1,10 @@
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class JEFF {
     private static final String LINE = "--------------------------------------------";
     private static final Scanner sc = new Scanner(System.in); // Scanner object to detect user input
-    private static ArrayList<String> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         // Init sequence
@@ -28,42 +27,97 @@ public class JEFF {
         while (chatCont) {
             chatCont = chatEvent();
         }
-        exitEvent();
+        exitChat();
     }
 
     private static boolean chatEvent() {
         System.out.println(LINE);
-        String input = sc.nextLine();
-        if (Objects.equals(input, "bye")) {
-            return false;
-        } else if (Objects.equals(input, "list")) {
-            printList(input);
-        } else {
-            // Add input to task list
-            taskList.add("input");
-            System.out.printf("added: %s\n", input);
+        String input = sc.nextLine().trim();
+        String[] parts = input.split(" ", 2);
+        switch (parts[0].toLowerCase()) {
+            case "bye":
+                return false;
+            case "list":
+                printList();
+                break;
+            case "mark":
+                if (parts.length == 2 && isNumeric(parts[1])) {
+                    markDone(Integer.parseInt(parts[1]));
+                } else {
+                    chatWarning("You must provide only one number after mark!");
+                }
+                break;
+            case "unmark":
+                if (parts.length == 2 && isNumeric(parts[1])) {
+                    markNotDone(Integer.parseInt(parts[1]));
+                } else {
+                    chatWarning("You must provide only one number after unmark!");
+                }
+                break;
+            case "todo":
+                addTask(parts[1], "todo");
+                break;
+            default:
+                addTask(input);
         }
+
         return true;
     }
 
-    private static void printList(String input) {
+    private static void markNotDone(int i) {
+        if (i <= 0 || i > taskList.size()) {
+            chatWarning("The number chosen is outside the range!");
+            return;
+        }
+        taskList.get(i - 1).markNotDone();
+        System.out.println("Ok, I marked this as undone:");
+        System.out.printf("%s\n", taskList.get(i - 1));
+    }
+
+    private static void markDone(int i) {
+        if (i <= 0 || i > taskList.size()) {
+            chatWarning("The number chosen is outside the range!");
+            return;
+        }
+        taskList.get(i - 1).markDone();
+        System.out.println("Alrighty, I marked this as done:");
+        System.out.printf("%s\n", taskList.get(i - 1));
+    }
+
+    private static void addTask(String input) {
+        taskList.add(new Task(input));
+        System.out.printf("added: %s\n", input);
+    }
+
+    // Overloaded `addTask` to have more functionality
+    private static void addTask(String input, String task) {
+        switch (task.toLowerCase()) {
+            case "todo":
+                taskList.add(new ToDo(input));
+                break;
+            case "deadline", "event":
+                break;
+        }
+        System.out.printf("added: %s\n", input);
+    }
+
+    private static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal
+    }
+
+    private static void chatWarning(String warning) {
+        System.out.println("WARNING! " + warning);
+    }
+
+    private static void printList() {
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.printf("%d. %s\n", i, input);
+            System.out.printf("%d. %s\n", i + 1, taskList.get(i));
         }
     }
 
-    public static void exitEvent() {
+    public static void exitChat() {
         System.out.println(LINE);
         System.out.println("Bye for now!");
-    }
-
-    public static boolean promptEvent(String prompt) {
-        System.out.println(LINE);
-        System.out.println(prompt);
-        String input = sc.nextLine();
-        if (Objects.equals(input, "bye")) {
-            return false;
-        }
-        return true;
+        sc.close();
     }
 }
