@@ -45,7 +45,7 @@ public class TaskHist {
     sb.append(String.format("%s%s%s\n", Utility.INDENT, Utility.INDENT, newTask.toString()));
     sb.append(String.format(
         "%sNow you have %d tasks in your list.", Utility.INDENT, this.tasks.size() + 1));
-    TaskHist.prettyPrint(sb.toString());
+    Utility.prettyPrint(sb.toString());
     return this.tasks.add(newTask);
   }
 
@@ -77,7 +77,7 @@ public class TaskHist {
       sb.append("Task has already been completed!\n");
     }
     sb.append(String.format("%s%s%s", Utility.INDENT, Utility.INDENT, entry.toString()));
-    TaskHist.prettyPrint(sb.toString());
+    Utility.prettyPrint(sb.toString());
   }
 
   /**
@@ -95,7 +95,7 @@ public class TaskHist {
       sb.append(String.format("%sTask is already unmarked!\n", Utility.INDENT));
     }
     sb.append(String.format("%s%s%s", Utility.INDENT, Utility.INDENT, entry.toString()));
-    TaskHist.prettyPrint(sb.toString());
+    Utility.prettyPrint(sb.toString());
   }
 
   @Override
@@ -118,11 +118,5 @@ public class TaskHist {
   public boolean isValidIdx(int idx) {
     idx--;
     return idx < this.tasks.size() && idx >= 0;
-  }
-
-  private static void prettyPrint(String msg) {
-    System.out.println(Utility.INDENTED_LINE);
-    System.out.println(msg);
-    System.out.println(Utility.INDENTED_LINE);
   }
 }

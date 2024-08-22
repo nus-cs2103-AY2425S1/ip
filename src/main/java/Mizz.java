@@ -72,7 +72,7 @@ public class Mizz {
         break;
       }
       default:
-        Mizz.prettyPrint("Invalid command!");
+        Utility.prettyPrint(String.format("%sInvalid command!", Utility.INDENT));
         break;
     }
   }
@@ -81,14 +81,14 @@ public class Mizz {
    * Static method to print greeting.
    */
   private void greet() {
-    Mizz.prettyPrint(this.greeting);
+    Utility.prettyPrint(String.format("%s%s", Utility.INDENT, this.greeting));
   }
 
   /**
    * Static method to exit from the chatbot, prints a default exit message.
    */
   private void exit() {
-    Mizz.prettyPrint(this.exitMsg);
+    Utility.prettyPrint(String.format("%s%s", Utility.INDENT, this.exitMsg));
   }
 
   /**
@@ -109,8 +109,8 @@ public class Mizz {
   private void handleMark(String mark, int idx) {
     // if invalid return after printing help text
     if (!this.usrTasks.isValidIdx(idx)) {
-      Mizz.prettyPrint(String.format(
-          "Someones tryna be funny, idx: %d is out of range!", idx));
+      Utility.prettyPrint(String.format(
+          "%sSomeones tryna be funny, idx: %d is out of range!", Utility.INDENT, idx));
       return;
     }
     if (mark.equals("mark")) {
@@ -128,17 +128,6 @@ public class Mizz {
    */
   private void handleCreate(String taskType, String[] taskInfo) {
     this.usrTasks.addTask(taskType, taskInfo);
-  }
-
-  /**
-   * Utility method to print a msg nicely within two horizontal lines.
-   * 
-   * @param msg The msg to be pretty printed.
-   */
-  private static void prettyPrint(String msg) {
-    System.out.println(Utility.INDENTED_LINE);
-    System.out.println(String.format("%s%s", Utility.INDENT, msg));
-    System.out.println(Utility.INDENTED_LINE);
   }
 
   /**
