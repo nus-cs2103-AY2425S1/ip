@@ -22,6 +22,19 @@ public class Task {
         r.list_task_message(task_list);
     }
 
+    public static void mark_task(int index) {
+        Task temp = task_list.get(index-1);
+        temp.setStatus(true);
+        r.mark_message(temp.getName());
+    }
+
+    public static void unmark_task(int index) {
+        Task temp = task_list.get(index-1);
+        temp.setStatus(false);
+        r.unmark_message(temp.getName());
+
+    }
+
     public String getName() {
         return name;
     }
