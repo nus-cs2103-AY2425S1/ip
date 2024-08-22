@@ -18,8 +18,13 @@ public class Eevee {
             if (input.equals("bye")) {
                 System.out.println(exit);
                 break;
+            } else if (input.equals("list")) {
+                tasks.forEach((task) -> {
+                    System.out.println((tasks.indexOf(task) + 1) + ". " + task);
+                });
             } else {
-                System.out.println(input);
+                tasks.add(input);
+                System.out.println("added: " + input);
             }
 
             System.out.println(divider);
