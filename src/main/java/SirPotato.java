@@ -1,3 +1,10 @@
+/**
+* SirPotato is the name of the chatbot 
+* that we will be using in this project
+* @author Rahul Agarwal
+*/
+
+
 import java.util.Scanner;  // For user inputs
 import java.util.ArrayList; //To create the to-do list
 
