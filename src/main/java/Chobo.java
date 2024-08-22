@@ -8,26 +8,50 @@ public class Chobo {
         System.out.println("Hello! I'm Chobo\nWhat can I do for you?");
         System.out.println(line);
         while (true) {
-            String original = scanner.nextLine();
-            String[] input = original.split(" ",2);
-            if (input[0].equals("bye")) {
-                break;
-            } else if (input[0].equals("list")) {
-                listTask();
-            } else if (input[0].equals("mark")){
-                markTask(tasks[Integer.parseInt(input[1])-1]);
-            } else if (input[0].equals("unmark")) {
-                unmarkTask(tasks[Integer.parseInt(input[1])-1]);
-            } else if (input[0].equals("todo")){
-                addTask(new ToDo(input[1], false));
-            } else if (input[0].equals("deadline")) {
-                String[] part = input[1].split("/by" ,2);
-                addTask(new Deadline(part[0],false, part[1]));
-            } else if (input[0].equals("event")){
-                String[] part = input[1].split("/from", 2);
-                String[] dates = part[1].split("/to", 2);
-                addTask(new Event(part[0],false, dates[0], dates[1]));
-
+            try {
+                String original = scanner.nextLine();
+                String[] input = original.split(" ", 2);
+                if (input[0].equals("bye")) {
+                    break;
+                } else if (input[0].equals("list")) {
+                    listTask();
+                } else if (input[0].equals("mark")) {
+                    markTask(tasks[Integer.parseInt(input[1]) - 1]);
+                } else if (input[0].equals("unmark")) {
+                    unmarkTask(tasks[Integer.parseInt(input[1]) - 1]);
+                } else if (input[0].equals("todo")) {
+                    if(input.length<2){
+                        throw new InputException("todo");
+                    }
+                    addTask(new ToDo(input[1], false));
+                } else if (input[0].equals("deadline")){
+                    if(input.length<2){
+                        throw new InputException("deadline");
+                    }
+                    String[] part = input[1].split("/by", 2);
+                    if(part.length<2){
+                        throw new InputException("deadline");
+                    }
+                    addTask(new Deadline(part[0], false, part[1]));
+                } else if (input[0].equals("event")) {
+                    if(input.length<2){
+                        throw new InputException("event");
+                    }
+                    String[] part = input[1].split("/from", 2);
+                    if(part.length<2){
+                        throw new InputException("event");
+                    }
+                    String[] dates = part[1].split("/to", 2);
+                    if(dates.length<2){
+                        throw new InputException("event");
+                    }
+                    addTask(new Event(part[0], false, dates[0], dates[1]));
+                } else {
+                    throw new InputException("Invalid");
+                }
+            }
+            catch (InputException e) {
+                System.out.println(e.getMessage());
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
@@ -57,7 +81,6 @@ public class Chobo {
     }
 
     private static void addTask(Task newTask) {
-        //Task newTask =  newToDo(newTaskName,false);
         tasks[totalTask] = newTask;
         System.out.println(line);
         System.out.println("added: " + newTask  );
