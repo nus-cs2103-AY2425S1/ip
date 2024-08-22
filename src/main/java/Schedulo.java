@@ -26,3 +26,8 @@ public class Schedulo {
         sc.close();
     }
 }
+
+// Todo
+// testing
+// add enums
+// use custom exceptions
