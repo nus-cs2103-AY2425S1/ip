@@ -1,10 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CancelGPT {
     private final String CHATBOT_NAME;
+    private List<String> textList;
 
     public CancelGPT() {
         this.CHATBOT_NAME = "CancelGPT";
+        this.textList = new ArrayList<>();
     }
     public static void main(String[] args) {
         CancelGPT cancelGPT = new CancelGPT();
@@ -22,7 +26,7 @@ public class CancelGPT {
         String command = sc.nextLine();
         while (!command.equals("bye")) {
             System.out.println(horizontalLine);
-            System.out.println(command);
+            handleCommand(command);
             System.out.println(horizontalLine);
             command = sc.nextLine();
         }
@@ -40,5 +44,25 @@ public class CancelGPT {
 
     public void exit() {
         System.out.println("Good bye. Hope to see you again soon!");
+    }
+
+    public void handleCommand(String command) {
+        if (command.equals("list")) {
+            displayTextList();
+        } else {
+            String text = addToTextList(command);
+            System.out.println("added: " + text);
+        }
+    }
+
+    public String addToTextList(String text) {
+        this.textList.add(text);
+        return text;
+    }
+
+    public void displayTextList() {
+        for (int i = 0; i < textList.size(); i++) {
+            System.out.println(i + 1 + ". " + textList.get(i));
+        }
     }
 }
