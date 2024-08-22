@@ -89,7 +89,7 @@ public class MrTracker {
             return;
         } catch (InvalidTaskNameException ex) {
             System.out.println(ex.getMessage());
-        } catch (NoDateException ex) {
+        } catch (InvalidDateException ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -104,7 +104,7 @@ public class MrTracker {
             return;
         } catch (InvalidTaskNameException ex) {
             System.out.println(ex.getMessage());
-        } catch (NoDateException ex) {
+        } catch (InvalidDateException ex) {
             System.out.println(ex.getMessage());
         }
     }

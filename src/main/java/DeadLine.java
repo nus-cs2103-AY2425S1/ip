@@ -4,7 +4,7 @@ public class DeadLine extends Task {
 
     protected String endDate;
 
-    public DeadLine (String inputString) throws InvalidTaskNameException, NoDateException {
+    public DeadLine (String inputString) throws InvalidTaskNameException, InvalidDateException {
         if (inputString.contains("/by ")) {
             int index = inputString.indexOf("/by ");
             String taskName = inputString.substring(0, index);
@@ -14,14 +14,14 @@ public class DeadLine extends Task {
             }
 
             if (byDate.length() == 0) {
-                throw new NoDateException();
+                throw new InvalidDateException();
             }
 
             this.name = taskName;
             this.endDate = byDate;
 
         }
-        throw new NoDateException();
+        throw new InvalidDateException();
     }
 
     @Override

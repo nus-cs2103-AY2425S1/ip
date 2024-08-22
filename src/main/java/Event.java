@@ -5,21 +5,22 @@ public class Event extends Task {
     protected String fromDate;
     protected String toDate;
 
-    public Event (String inputString) throws InvalidTaskNameException, NoDateException {
+    public Event (String inputString) throws InvalidTaskNameException, InvalidDateException {
 
         if (inputString.contains("/from ")) {
             int fromIndex = inputString.indexOf("/from ");
             String taskName = inputString.substring(0, fromIndex);
             if (taskName.length() == 0) {
-                throw new InvalidTaskNameException(taskName);
+                throw new InvalidTaskNameException();
             }
 
             if (inputString.contains("/to ")) {
                 int toIndex = inputString.indexOf("/to ");
+
                 String fromDate = inputString.substring(fromIndex + 6, toIndex);
                 String toDate = inputString.substring(toIndex + 4);
                 if (fromDate.length() == 0 || toDate.length() == 0) {
-                    throw new NoDateException();
+                    throw new InvalidDateException();
                 }
             }
 
@@ -29,7 +30,7 @@ public class Event extends Task {
             this.toDate = toDate;
 
         }
-        throw new NoDateException();
+        throw new InvalidDateException();
     }
 
     @Override
