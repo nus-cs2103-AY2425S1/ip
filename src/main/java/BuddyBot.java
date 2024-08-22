@@ -10,19 +10,33 @@ public class BuddyBot {
         System.out.println(" Hello! I'm BuddyBot");
         System.out.println(" What can I do for you?");
 
-        String[] myList = new String[100];
+        Task[] myList = new Task[100];
         //taking in user input
         String input = myObj.nextLine();
 
         for (int i = 0; i < 100; i++) {
             if (input.equals("bye")) {
                 break;
-            } else if (input.equals("list")) {
+            } else if (input.equals("list")) { //LIST command
+                System.out.println("Here are the tasks in your list:");
                 read(myList);
                 i--;
                 input = myObj.nextLine();
+            } else if (input.startsWith("mark")) { //MARK command
+                String last = input.substring(input.replaceAll("[0-9]+$","").length());
+                try {
+                    int num = Integer.parseInt(last);
+                    myList[num - 1].isDone = true;
+                    System.out.println("Nice! I've marked this task as done:");
+                    read(myList);
+                } catch (NumberFormatException e) {
+                    System.out.println("This is an invalid input!");
+                } finally {
+                    i--;
+                    input = myObj.nextLine();
+                }
             } else {
-                myList[i] = input;
+                myList[i] = new Task(input);
                 System.out.println("added: " + input);
                 input = myObj.nextLine();
             }
@@ -30,12 +44,12 @@ public class BuddyBot {
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
-    public static void read(String[] arr) {
+    public static void read(Task[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null) {
                 break;
             } else {
-                System.out.println(i+ 1 + ". " + arr[i] + "\n");
+                System.out.println(i+ 1 + ".[" + arr[i].getStatusIcon() + "] "  + arr[i].description + "\n");
             }
         }
     }
