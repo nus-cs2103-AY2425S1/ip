@@ -15,7 +15,7 @@ public class Yoda {
 
         while (true) {
             String input = scanner.nextLine().trim();
-            String[] splitInput = input.split(" ");
+            String[] splitInput = input.split(" ", 2);
 
 
             if (Objects.equals(splitInput[0], "bye")) {
@@ -42,6 +42,32 @@ public class Yoda {
                 currentTask.markNotDone();
                 System.out.println(line + "Marked this as not done, I have");
                 System.out.printf("%s\n" + line, tasks.get(index - 1));
+            } else if (Objects.equals(splitInput[0], "todo")) {
+                String task = splitInput[1];
+                ToDo newTask = new ToDo(task);
+                tasks.add(newTask);
+                System.out.println(line + "Added task:\n" + newTask + "\n"
+                        + String.format("Now you have %d tasks in the list", tasks.size())
+                        + "\n" + line);
+
+            } else if (Objects.equals(splitInput[0], "deadline")) {
+                String task = splitInput[1];
+                String splitTask[] = task.split("/by ", 2);
+                Deadline newTask = new Deadline(splitTask[0], splitTask[1]);
+                tasks.add(newTask);
+                System.out.println(line + "Added task:\n" + newTask + "\n"
+                        + String.format("Now you have %d tasks in the list", tasks.size())
+                        + "\n" + line);
+            } else if (Objects.equals(splitInput[0], "event")) {
+                String task = splitInput[1];
+                String splitTask[] = task.split("/from ", 2);
+                String times[] = splitTask[1].split("/to ", 2);
+
+                Event newTask = new Event(splitTask[0], times[0], times[1]);
+                tasks.add(newTask);
+                System.out.println(line + "Added task:\n" + newTask + "\n"
+                        + String.format("Now you have %d tasks in the list", tasks.size())
+                        + "\n" + line);
             }
             else {
                 tasks.add(new Task(input));
