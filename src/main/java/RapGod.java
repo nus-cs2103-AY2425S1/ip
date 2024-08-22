@@ -22,7 +22,10 @@ public class RapGod {
                 -----------------------------------------------
                 Hello. I'm RapGod
                 What can I do for you today?
-                Type 'Bye' to exit.
+                Type:
+                'Echo' to echo
+                'List' to create a list
+                'Bye' to exit
                 -----------------------------------------------
                 """;
 
@@ -31,26 +34,21 @@ public class RapGod {
         System.out.print(introduction);
 
         Scanner scanner = new Scanner(System.in);
-        String input = "";
-        int count = 1;
 
-        while (true) {
-            System.out.print("You: ");
-            input = scanner.nextLine();
-            if (!input.equalsIgnoreCase("Bye")) {
-                System.out.println("-----------------------------------------------");
-                System.out.printf("RapGod: %s, yo!\n", input);
-                System.out.println("-----------------------------------------------");
-
-                count++;
-            } else {
+        while(true) {
+            System.out.print("Option: ");
+            String option = scanner.nextLine();
+            if (option.equalsIgnoreCase("echo")) {
+                Echo.run();
                 break;
+            } else if (option.equalsIgnoreCase("Bye")) {
+                System.out.println("-----------------------------------------------");
+                System.out.println("Bye! Hope to see you again soon!");
+                System.out.println("-----------------------------------------------");
+            } else {
+                System.out.println("Option does not exist. Try again.");
             }
-
         }
 
-        System.out.println("-----------------------------------------------");
-        System.out.println("Bye! Hope to see you again soon!");
-        System.out.println("-----------------------------------------------");
     }
 }
