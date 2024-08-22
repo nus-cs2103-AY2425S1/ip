@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Kat {
+
   private static final String LOGO = """
        _         _  \s
       | | __ ___| |_\s
@@ -10,6 +11,8 @@ public class Kat {
       """;
 
   private static final Scanner scanner = new Scanner(System.in);
+
+  private static final TaskStorage storage = new TaskStorage();
 
   public static void main(String[] args) {
     System.out.println("Hello from\n" + LOGO);
@@ -24,7 +27,13 @@ public class Kat {
         break;
       }
 
-      respond(inputMsg);
+      if (inputMsg.equalsIgnoreCase("list")) {
+        respond(storage.toString());
+        continue;
+      }
+
+      storage.addTask(new Task(inputMsg));
+      respond("added: " + inputMsg);
     }
 
     respond("See you!");
@@ -36,4 +45,5 @@ public class Kat {
     System.out.println(responseMsg);
     System.out.println("~".repeat(50));
   }
+
 }
