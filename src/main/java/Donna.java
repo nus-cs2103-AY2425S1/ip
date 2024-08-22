@@ -12,6 +12,8 @@ public class Donna {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        String[] tasks = new String[100];
+        int taskNum = 0;
 
         printDonnaLogo();
         System.out.println("____________________________________________________________");
@@ -22,19 +24,24 @@ public class Donna {
         while (true) {
             String input = sc.nextLine();
 
-
-            //exit
-            if (input.equals("bye")) {
+            if (input.equals("bye")) { //exit
                 System.out.println("____________________________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
+            } else if (input.equals("list")) { //display list
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < taskNum; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else { //add tasks to the array
+                tasks[taskNum] = input;
+                taskNum++;
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + input);
+                System.out.println("____________________________________________________________");
             }
-
-            //echo
-            System.out.println("____________________________________________________________");
-            System.out.println(input);
-            System.out.println("____________________________________________________________");
 
         }
 
