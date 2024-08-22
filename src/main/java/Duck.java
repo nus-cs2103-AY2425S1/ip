@@ -10,6 +10,9 @@ public class Duck {
             + "What can I do for you?";
     private static final String GOODBYE = "Bye. Hope to see you again soon!";
 
+    // List to store user inputs
+    private static final List STORED_TEXT = new List();
+
     private static String addSeparators(String text) {
         return TEXT_SEPARATOR_WITH_NEWLINE
                 + text + "\n"
@@ -52,8 +55,13 @@ public class Duck {
             if (line.equals("bye")) {
                 printAsResponse(GOODBYE);
                 break;
+            } else if (line.equals("list")) {
+                printAsResponse(STORED_TEXT.toString());
             } else {
-                printAsResponse(line);
+                STORED_TEXT.addItem(line);
+
+                String response = "added: " + line;
+                printAsResponse(response);
             }
         }
 
