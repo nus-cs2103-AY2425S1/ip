@@ -1,24 +1,62 @@
-# Duke project template
+# Sentinel Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Sentinel is a personal chatbot inspired by the Duke project. It helps you manage tasks, events, and deadlines efficiently, all from the command line. This project is configured to use **JDK 17**.
 
-## Setting up in Intellij
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [Features](#features)
+- [Usage](#usage)
+- [Credits](#credits)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Prerequisites
+Ensure that your system is set up with the following:
+- **JDK 17**: Sentinel requires JDK 17 to compile and run. Follow the instructions [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk) to configure your project correctly.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Setup
+
+### 1. Configure the Project to Use JDK 17
+1. Open your IDE (e.g., IntelliJ IDEA).
+2. Configure the project to use **JDK 17** by following [these steps](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).
+3. In the same dialog, set the **Project language level** field to the `SDK default` option.
+
+### 2. Run the Program
+1. Locate the `src/main/java/Sentinel.java` file in your project directory.
+2. Right-click on `Sentinel.java` and choose `Run Sentinel.main()`.
+3. If the setup is correct, you should see the following output in your console:
+
+```
+Hello from
+               _____                                                                                      _____\s
+              ( ___ )                                                                                    ( ___ )
+               |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   |\s
+               |   |                                                                                      |   |\s
+               |   |   ________  _______   ________   _________  ___  ________   _______   ___            |   |\s
+               |   |  |\\   ____\\|\\  ___ \\ |\\   ___  \\|\\___   ___\\\\  \\|\\   ___  \\|\\  ___ \\ |\\  \\           |   |\s
+               |   |  \\ \\  \\___|\\ \\   __/|\\ \\  \\\\ \\  \\|___ \\  \\_\\ \\  \\ \\  \\\\ \\  \\ \\   __/|\\ \\  \\          |   |\s
+               |   |   \\ \\_____  \\ \\  \\_|/_\\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_|/_\\ \\  \\         |   |\s
+               |   |    \\|____|\\  \\ \\  \\_|\\ \\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_|\\ \\ \\  \\____    |   |\s
+               |   |      ____\\_\\  \\ \\_______\\ \\__\\  \\__\\   \\ \\__\\ \\ \\__\\ \\__\\\\ \\__\\ \\_______\\ \\_______\\  |   |\s
+               |   |     |\\_________\\|_______|\\|__| \\|__|    \\|__|  \\|__|\\|__| \\|__|\\|_______\\|_______|   |   |\s
+               |   |     \\|_________|                                                                     |   |\s
+               |   |                                                                                      |   |\s
+               |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___|\s
+              (_____)                                                                                    (_____)
+```
+
+## Features
+- **Task Management**: Add, list, and mark tasks as done.
+- **Event Management**: Schedule events with start and end times.
+- **Deadline Tracking**: Set deadlines.
+
+## Usage
+These are some commands Sentinel has:
+1. `todo <task>`
+2. `deadline <task> /by <date>`
+3. `event <event> /from <date> /to <date>`
+4. `list`
+5. `mark <index>`
+6. `bye`
+
+## Credits
+Sentinel is based on the Duke project template. Special thanks to the original creators and the Java community for their contributions.

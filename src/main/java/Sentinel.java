@@ -29,7 +29,7 @@ public class Sentinel {
             String input = "";
             while (!input.equals("bye")) {
                 System.out.println("____________________________________________________________\n");
-                input = sc.next();
+                input = sc.next().toLowerCase();
                 System.out.println("____________________________________________________________\n");
                 switch (input) {
                     case "mark" -> {
@@ -64,8 +64,8 @@ public class Sentinel {
                                 String taskName = "", from = "", to = "";
                                 boolean task = true, fr = false;
                                 for (String word: stringArr){
-                                    if (word.contains("/by") || word.contains("/to")) {task = false; fr = false;}
-                                    else if (word.contains("/from")) {task = false; fr = true;}
+                                    if (word.toLowerCase().contains("/by") || word.toLowerCase().contains("/to")) {task = false; fr = false;}
+                                    else if (word.toLowerCase().contains("/from")) {task = false; fr = true;}
 
                                     else if (task && !fr) taskName = taskName.concat(word + " ");
                                     else if (!task && fr) from = from.concat(word + " ");
