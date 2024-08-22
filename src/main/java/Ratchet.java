@@ -1,3 +1,6 @@
+import exception.InvalidCommandArgumentException;
+import exception.InvalidCommandException;
+import exception.RatchetException;
 import task.DeadlineTask;
 import task.EventTask;
 import task.Task;
@@ -13,20 +16,29 @@ public class Ratchet {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greet();
-        String input = "";
-        while (!input.equalsIgnoreCase("bye")) {
+        String input;
+        String command = "";
+        while (!command.equals("bye")) {
             input = scanner.nextLine();
-
-            if (input.equalsIgnoreCase("list")) {
-                displayList();
-            } else if (input.equalsIgnoreCase("bye")) {
-                exit();
-            } else if (input.toLowerCase().startsWith("mark")) {
-                mark(input);
-            } else if (input.toLowerCase().startsWith("unmark")) {
-                unmark(input);
-            } else {
-                addTask(input);
+            command = input.split(" ")[0].toLowerCase();
+            try {
+                if (command.equals("list")) {
+                    displayList();
+                } else if (command.equals("mark")) {
+                    mark(input);
+                } else if (command.equals("unmark")) {
+                    unmark(input);
+                } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+                    addTask(input);
+                } else if (command.equals("bye")) {
+                    exit();
+                } else {
+                    throw new InvalidCommandException("Ratchet is unable to execute " + command + "!");
+                }
+            } catch (RatchetException e) {
+                lineBreak();
+                System.out.println(INDENT + e.getMessage());
+                lineBreak();
             }
         }
     }
@@ -48,11 +60,15 @@ public class Ratchet {
         lineBreak();
     }
 
-    private static void addTask(String text) {
+    private static void addTask(String text) throws InvalidCommandArgumentException {
         Task task = null;
         if (text.startsWith("todo")) {
-            String description = text.split("todo ")[1];
-            task = new TodoTask(description);
+            try {
+                String description = text.split("todo ")[1];
+                task = new TodoTask(description);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidCommandArgumentException("The description of a todo cannot be empty!");
+            }
         } else if (text.startsWith("deadline")) {
             String[] split = text.split(" /by ");
             String deadline = split[1];
