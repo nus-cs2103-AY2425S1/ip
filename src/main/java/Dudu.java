@@ -43,11 +43,7 @@ public class Dudu {
                     String output = LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", tasks[pos]));
                     System.out.println(output);
                 } else if (input.matches("^todo.*")) {
-                    String[] details = input.split("todo ");
-                    if (details.length <= 1) {
-                        throw new MissingDescriptionException("Please key in an exception");
-                    }
-                    String description = details[1];
+                    String description = getDetails(input, "todo");
                     ToDo task = new ToDo(description);
                     tasks[count] = task;
                     count++;
@@ -79,5 +75,13 @@ public class Dudu {
         }
 
         System.out.println(goodbyeMessage);
+    }
+
+    public static String getDetails(String input, String task) throws MissingDescriptionException {
+        String[] details = input.split(task + " ");
+        if (details.length <= 1) {
+            throw new MissingDescriptionException(String.format("Please key in a description after %s", task));
+        }
+        return details[1];
     }
 }
