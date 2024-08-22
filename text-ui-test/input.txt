@@ -9,4 +9,10 @@ mark 2
 list
 mark 2
 list
+help
+deadline hOmIeEE im testing /by tomorrow /extra extratext
+event hello there my bro im testing /lesser words less
+todo
+deadline not enough words
+event hello there my bro im testing /from yesterday /to tOdAy /extra extratext
 bye
