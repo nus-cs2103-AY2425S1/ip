@@ -6,4 +6,5 @@ list
 mark 2
 unmark 2
 abcd
+delete 1
 bye

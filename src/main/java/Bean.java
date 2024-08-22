@@ -26,9 +26,20 @@ public class Bean {
                 } else if (command.equals("list")) {
                     printList();
                 } else if (command.equals("mark")) {
+                    if (details.isEmpty()) {
+                        throw new EmptyDescriptionException("Please key in a task number.");
+                    }
                     markTask(Integer.parseInt(details));
                 } else if (command.equals("unmark")) {
+                    if (details.isEmpty()) {
+                        throw new EmptyDescriptionException("Please key in a task number.");
+                    }
                     unmarkTask(Integer.parseInt(details));
+                } else if (command.equals("delete")) {
+                    if (details.isEmpty()) {
+                        throw new EmptyDescriptionException("Please key in a task number.");
+                    }
+                    deleteTask(Integer.parseInt(details));
                 } else if (command.equals("todo")) {
                     if (details.isEmpty()) {
                         throw new EmptyDescriptionException();
@@ -117,10 +128,20 @@ public class Bean {
     private void unmarkTask(int taskNumber) {
         int taskIndex = taskNumber - 1;
         tasks.get(taskIndex).undoTask();
-
         System.out.println("______________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks.get(taskIndex));
+        System.out.println("______________________________");
+    }
+
+    private void deleteTask(int taskNumber) {
+        int taskIndex = taskNumber - 1;
+        Task removedTask = tasks.remove(taskIndex);
+        numOfTasks--;
+        System.out.println("______________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(removedTask);
+        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
         System.out.println("______________________________");
     }
 

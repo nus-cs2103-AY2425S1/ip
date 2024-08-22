@@ -38,5 +38,10 @@ ______________________________
 I don't get it. Did you type in the wrong command??
 ______________________________
 ______________________________
+Noted. I've removed this task:
+[T][ ] read book
+Now you have 2 tasks in the list.
+______________________________
+______________________________
 Bye. Hope to see you again.
 ______________________________
