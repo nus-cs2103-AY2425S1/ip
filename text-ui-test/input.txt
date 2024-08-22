@@ -1,0 +1,12 @@
+todo CS2103T iP
+mark 1
+mark 2
+event CS2101 Meeting /from 28 Aug 2024 2pm /to 28 Aug 2024 5pm
+event YSC4231 Assignment /to 2pm
+deadline YSC4231 Assignment /by 2pm
+list
+mark 3
+mark 1
+unmark 1
+unmark 2
+bye

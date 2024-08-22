@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class Sentinel {
 
     public static int index = 0;
@@ -39,7 +38,7 @@ public class Sentinel {
                         else if (items[num-1].isDone()) {System.out.println(items[num-1] + " has already been marked as done."); break;}
                         items[num - 1].setDone();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("\t" + items[num - 1].getStatusIcon() + items[num - 1]);
+                        System.out.println("\t" + items[num - 1].getStatusIcon() + " " + items[num - 1]);
                     }
                     case "unmark" -> {
                         int num = sc.nextInt();
