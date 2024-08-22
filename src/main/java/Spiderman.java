@@ -5,7 +5,7 @@ public class Spiderman {
     public static void main(String[] args) {
         // Initialise scanner
         Scanner scan = new Scanner(System.in);  // Create a Scanner object
-        ArrayList<String> tasks = new ArrayList<String>(); // Create an ArrayList object
+        ArrayList<String> tasks = new ArrayList<>(); // Create an ArrayList object
 
         // Greeting users
         System.out.println("Hello! This is your friendly neighbourhood Spiderman.");
