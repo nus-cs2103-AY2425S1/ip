@@ -14,4 +14,17 @@ mark 2
 list
 unmark 2
 list
+
+mark
+mark a
+unmark
+unmark a
+todo
+deadline
+deadline a
+deadline a /by
+event
+event a
+event a /from b
+event a /from b /to
 bye
