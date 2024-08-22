@@ -1,4 +1,4 @@
-public class Echo {
+public class Fred {
     public static void main(String[] args) {
         String line = "____________________________________________________________";
         String name = "Echo";
