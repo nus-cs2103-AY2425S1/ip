@@ -27,6 +27,10 @@ public class PandaBot {
                 printLine();
                 break;
             } else if (input.equalsIgnoreCase("list")){
+                if (taskCount == 0) {
+                    System.out.println("There are currently no items in the list.");
+                    continue;
+                }
                 printLine();
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + ". " + taskList[i]);
