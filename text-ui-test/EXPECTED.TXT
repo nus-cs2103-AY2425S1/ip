@@ -37,19 +37,70 @@ Error: fromDate of deadlines cannot be empty.
 Please try again.
 -----------------------------------
 New Event task added:
- [E][ ] project   (from Mon 2pm  to: 4pm)
+ [E][ ]   (from Mon 2pm  to: 4pm)
 -----------------------------------
-New Event task added:
- [E][ ] project  (from Mon 2pm  to: 4pm)
------------------------------------
-Error: incorrect styling.
-Please include name, /from, fromDate, /to, toDate separated by space
+Error: eventName of deadlines cannot be empty.
+Please try again.
 -----------------------------------
 Error: incorrect styling.
 Please include name, /from, fromDate, /to, toDate separated by space
 -----------------------------------
 Error: incorrect styling.
 Please include name, /from, fromDate, /to, toDate separated by space
+-----------------------------------
+1. [T][ ] Borrow book
+2. [T][ ] Read Book
+3. [D][ ] Return book  (by Sunday )
+4. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
+5. [E][ ] project meeting  (from   to: 4pm)
+6. [E][ ]   (from Mon 2pm  to: 4pm)
+-----------------------------------
+Nice! I've marked this task as done:
+[T][X] Borrow book
+-----------------------------------
+Invalid index provided. Please try again
+-----------------------------------
+Invalid index provided. Please try again
+-----------------------------------
+Invalid index format. Please try again
+-----------------------------------
+1. [T][X] Borrow book
+2. [T][ ] Read Book
+3. [D][ ] Return book  (by Sunday )
+4. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
+5. [E][ ] project meeting  (from   to: 4pm)
+6. [E][ ]   (from Mon 2pm  to: 4pm)
+-----------------------------------
+Ok, I've marked this task as not done yet:
+[T][ ] Borrow book
+-----------------------------------
+Invalid index provided. Please try again
+-----------------------------------
+Invalid index provided. Please try again
+-----------------------------------
+Invalid index format. Please try again
+-----------------------------------
+1. [T][ ] Borrow book
+2. [T][ ] Read Book
+3. [D][ ] Return book  (by Sunday )
+4. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
+5. [E][ ] project meeting  (from   to: 4pm)
+6. [E][ ]   (from Mon 2pm  to: 4pm)
+-----------------------------------
+Ok, I've removed this task:
+[T][ ] Borrow book
+-----------------------------------
+Invalid index provided. Please try again
+-----------------------------------
+Invalid index provided. Please try again
+-----------------------------------
+Invalid index format. Please try again
+-----------------------------------
+1. [T][ ] Read Book
+2. [D][ ] Return book  (by Sunday )
+3. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
+4. [E][ ] project meeting  (from   to: 4pm)
+5. [E][ ]   (from Mon 2pm  to: 4pm)
 -----------------------------------
 Command not recognized. Please try again
 -----------------------------------

@@ -47,8 +47,10 @@ public class Snowy {
                         tasks.get(index - 1).markComplete();
                         System.out.println("Nice! I've marked this task as done:\n"
                                 + tasks.get(index - 1).toString());
-                    }catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                    }catch (IndexOutOfBoundsException e) {
                         System.out.println("Invalid index provided. Please try again");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid index format. Please try again");
                     }
                     break;
 
@@ -58,8 +60,10 @@ public class Snowy {
                         tasks.get(index - 1).markIncomplete();
                         System.out.println("Ok, I've marked this task as not done yet:\n"
                                 + tasks.get(index - 1).toString());
-                    }catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                    }catch (IndexOutOfBoundsException e) {
                         System.out.println("Invalid index provided. Please try again");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid index format. Please try again");
                     }
                     break;
 
@@ -144,6 +148,18 @@ public class Snowy {
                     System.out.println("New Event task added:\n " + newTask);
                     break;
 
+                case "delete":
+                    try {
+                        int index = Integer.parseInt(description);
+                        Task removed = tasks.remove(index - 1);
+                        System.out.println("Ok, I've removed this task:\n"
+                                + removed.toString());
+                    }catch (IndexOutOfBoundsException e) {
+                        System.out.println("Invalid index provided. Please try again");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid index format. Please try again");
+                    }
+                    break;
 
                 default:
                     System.out.println("Command not recognized. Please try again");
