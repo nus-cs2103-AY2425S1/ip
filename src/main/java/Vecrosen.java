@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,7 +21,14 @@ public class Vecrosen {
             Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
             if (input.equals("bye")) break;
-            else if (input.equals("list")) {
+            else if (input.matches("mark \\d+")) {
+                int itemNo = Integer.parseInt(input.substring(5));
+                if (itemNo < 1 || itemNo > list.size()) speak("Invalid task number!","");
+                else {
+                    done.set(itemNo-1, true);
+                    speak("Task marked as complete: " , list.get(itemNo-1));
+                }
+            } else if (input.equals("list")) {
                 for (int i = 0; i < list.size(); ++i) {
                     char isDone = ' ';
                     if (done.get(i)) isDone = 'X';
@@ -28,7 +36,7 @@ public class Vecrosen {
                 }
             } else {
                 list.add(input);
-                done.add(list.size() % 2 == 0);
+                done.add(false);
                 speak("added: ", input);
             }
         }
