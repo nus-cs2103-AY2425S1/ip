@@ -5,6 +5,17 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String chatBotName = "Carine";
+        String horizontalLine = "____________________________________________________________";
+
+        // Greeting message
+        System.out.println(horizontalLine);
+        System.out.println(" Hello! I'm " + chatBotName);
+        System.out.println(" What can I do for you?");
+        System.out.println(horizontalLine);
+
+        // Goodbye message
+        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(horizontalLine);
     }
 }
