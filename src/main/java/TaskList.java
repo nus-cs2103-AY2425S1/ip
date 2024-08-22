@@ -234,13 +234,13 @@ public class TaskList {
      * @param i The index of the task to be removed.
      * @return The removed task, or null if the index is invalid.
      */
-    public Task removeTask(int i) {
+    public Task removeTask(int i) throws InvalidListItemException {
         if (i <= tasks.size()) {
             Task t = tasks.get(i - 1);
             tasks.remove(i - 1);
             return t;
         } else {
-            return null; //may want to add error handling for invalid indexes here
+            throw new InvalidListItemException(i);
         }
     }
 
