@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class KillJoy {
@@ -25,7 +26,6 @@ public class KillJoy {
     public void start() {
         System.out.println(this.logoString);
         System.out.println(this.welcomeString);
-
         Scanner user = new Scanner(System.in);
 
         while(true) {
@@ -37,7 +37,7 @@ public class KillJoy {
                 System.out.println(this.exitString);
                 break;
             } else if (inputAsList[0].equals("list")){
-                this.printTasks();
+                this.printTaskList();
             } else if (inputAsList[0].equals("mark")) {
                 taskNum = Integer.parseInt(inputAsList[1]) - 1;
                 this.taskList.get(taskNum).changeStatus();
@@ -54,28 +54,49 @@ public class KillJoy {
     }
 
     private void processUserInput(String input) {
-        System.out.println("    ------------------------------------");
-        taskList.add(new Task(input));
+        int taskNum;
+        String[] inputSplit = input.split("/");
+        String[] inputSplitBySpace = inputSplit[0].split(" ");
+        String typeOfTask = inputSplitBySpace[0];
+        String description = inputSplitBySpace[1];
+
+        System.out.println("   ------------------------------------");
+        if (typeOfTask.equals("todo")) {
+            taskList.add(new Todo(description));
+        } else if (typeOfTask.equals("deadline")) {
+            String by = inputSplit[1].replaceFirst("by ", "");
+            taskList.add(new Deadline(description, by));
+        } else if (typeOfTask.equals("event")) {
+            String from = inputSplit[1].replaceFirst("from ", "");
+            String to = inputSplit[2].replaceFirst("to ", "");
+            taskList.add(new Event(description, from, to));
+        }
         taskCount++;
-        System.out.println("    added: " + input);
-        System.out.println("    ------------------------------------");
+        System.out.println("    What siaaa!! Added this task:");
+        System.out.println("    " + this.taskList.get(taskCount - 1));
+        if (taskCount == 1) {
+            System.out.println("    Now you have " + taskCount + " task in the list.");
+        } else {
+            System.out.println("    Now you have " + taskCount + " tasks in the list.");
+        }
+        System.out.println("   ------------------------------------");
     }
+
 
     private void printTask(Task task) {
-        System.out.println("    ------------------------------------");
-        System.out.println("    " + markString + "\n        [" + task.getStatusIcon() + "] " + task);
-        System.out.println("    ------------------------------------");
+        System.out.println("   ------------------------------------");
+        System.out.println("    " + markString + "\n        " + task);
+        System.out.println("   ------------------------------------");
     }
 
-    private void printTasks() {
+    private void printTaskList() {
         System.out.println("    ------------------------------------");
+        System.out.println("    Here are your tasks lah!! Don't die:");
         for (int i = 0; i < this.taskCount; i++) {
-            System.out.println("    " + (i + 1) + ". [" + this.taskList.get(i).getStatusIcon() + "] "
-                    + this.taskList.get(i));
+            System.out.println("    " + (i + 1) + ". " + this.taskList.get(i));
         }
-        System.out.println("    ------------------------------------");
+        System.out.println("   ------------------------------------");
     }
-
 
     public static void main(String[] args) {
         KillJoy kj = new KillJoy();
