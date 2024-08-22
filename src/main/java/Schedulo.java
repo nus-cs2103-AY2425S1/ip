@@ -30,4 +30,3 @@ public class Schedulo {
 // Todo
 // testing
 // add enums
-// use custom exceptions
