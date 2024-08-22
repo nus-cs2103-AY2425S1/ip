@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Will {
 
+    enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
     static class Task {
         final String desc;
         boolean isDone;
@@ -131,30 +135,17 @@ public class Will {
         System.out.println("_____________________________________");
     }
 
-    static void todoTask(ArrayList<Task> tasks, String desc){
-        tasks.add(new ToDo(desc));
+    static void addTask(ArrayList<Task> tasks, TaskType type, String desc, String... args) {
+        Task newTask = switch (type) {
+            case TODO -> new ToDo(desc);
+            case DEADLINE -> new Deadline(desc, args[0]);
+            case EVENT -> new Event(desc, args[0], args[1]);
+        };
+        tasks.add(newTask);
         System.out.println("_____________________________________");
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.get(tasks.size() - 1));
-        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("_____________________________________");
-    }
-
-    static void deadTask(ArrayList<Task> tasks, String desc, String by){
-        tasks.add(new Deadline(desc, by));
-        System.out.println("_____________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.get(tasks.size() - 1));
-        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("_____________________________________");
-    }
-
-    static void eventTask(ArrayList<Task> tasks, String desc, String from, String to){
-        tasks.add(new Event(desc, from, to));
-        System.out.println("_____________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.get(tasks.size() - 1));
-        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("  " + newTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("_____________________________________");
     }
 
@@ -163,13 +154,13 @@ public class Will {
         System.out.println("I'm sorry, but I don't know what that means");
         System.out.println("_____________________________________");
     }
-    
+
     static void endMsg(){
         System.out.println("_____________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("_____________________________________");
     }
-    
+
     static void greetMsg(String logo){
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
@@ -246,7 +237,7 @@ public class Will {
                 try{
                     String desc = userInput.substring(5).trim();
                     if(!desc.isEmpty()){
-                        todoTask(tasks, desc);
+                        addTask(tasks, TaskType.TODO, desc);
                     }else{
                         blankMsg("todo");
                     }
@@ -263,7 +254,7 @@ public class Will {
                     String desc = parts[0].trim();
                     String by = parts[1].trim();
                     if(!desc.isEmpty()){
-                        deadTask(tasks, desc, by);
+                        addTask(tasks, TaskType.DEADLINE, desc, by);
                     }else{
                         blankMsg("deadline");
                     }
@@ -280,7 +271,7 @@ public class Will {
                     String from = parts[1].trim();
                     String to = parts[2].trim();
                     if(!desc.isEmpty()){
-                        eventTask(tasks, desc, from, to);
+                        addTask(tasks, TaskType.EVENT, desc, from, to);
                     }else{
                         blankMsg("event");
                     }
