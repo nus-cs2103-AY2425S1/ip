@@ -1,7 +1,6 @@
-import jdk.jfr.Event;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class WenJigglyBot {
@@ -12,32 +11,55 @@ public class WenJigglyBot {
         String name = "WenJigglyBot";
         System.out.println("Sup im " + name);
         System.out.println("What can I do for you?");
-        String task = "";
-
-        while (true) {
+        String task;
+        boolean flag = true;
+        while (flag) {
             task = scanner.nextLine();
             task = task.trim();
+            Command command = null;
             try {
-                if (task.equals("list")) {
+                command = parseCommand(task);
+            } catch (InvalidCommandException e) {
+                System.out.println(e);
+                continue;
+            }
+
+            String[] strings;
+            String action;
+            int idx;
+            String taskName;
+
+            switch (Objects.requireNonNull(command)) {
+                case LIST:
                     displayTasks();
-                } else if (task.contains("mark") || task.contains("unmark")) {
-                    String[] strings = task.split(" ");
-                    String action = strings[0].trim();
-                    int idx = Integer.parseInt(strings[1].trim()) - 1;
+                    break;
+                case MARK:
+                    strings = task.split(" ");
+                    action = "mark";
+                    idx = Integer.parseInt(strings[1].trim()) - 1;
                     toggleTask(action, idx);
-                } else if (task.contains("todo")) {
-                    String taskName = task.replaceFirst("todo", "").trim();
+                    break;
+                case UNMARK:
+                    action = "unmark";
+                    strings = task.split(" ");
+                    idx = Integer.parseInt(strings[1].trim()) - 1;
+                    toggleTask(action, idx);
+                    break;
+                case TODO:
+                    taskName = task.replaceFirst("todo", "").trim();
                     addTask(new ToDoTask(taskName));
-                } else if (task.contains("deadline")) {
+                    break;
+                case DEADLINE:
                     try {
                         String[] parts = processDeadlineTask(task);
-                        String taskName = parts[0].trim();
+                        taskName = parts[0].trim();
                         String deadline = parts[1].trim();
                         addTask(new DeadlineTask(taskName, deadline));
                     } catch (DeadlineException deadlineException) {
                         System.out.println(deadlineException);
                     }
-                } else if (task.contains("event")) {
+                    break;
+                case EVENT:
                     // Split the string by "/from" and "/to"
                     try {
                         String[] processedEvent = processEventTask(task);
@@ -45,20 +67,28 @@ public class WenJigglyBot {
                     } catch (EventException eventException) {
                         System.out.println(eventException);
                     }
-                } else if (task.equals("bye")) {
                     break;
-                } else if (task.contains("delete")) {
-                    String[] strings = task.split(" ");
-                    int idx = Integer.parseInt(strings[1].trim()) - 1;
+                case DELETE:
+                    strings = task.split(" ");
+                    idx = Integer.parseInt(strings[1].trim()) - 1;
                     deleteTask(idx);
-                } else {
-                    throw new InvalidCommandException();
-                }
-            } catch (InvalidCommandException invalidCommandException) {
-                System.out.println(invalidCommandException);
+                    break;
+                case BYE:
+                    flag = false;
+                    break;
+
             }
         }
         System.out.println("Goodbye!");
+    }
+
+    private static Command parseCommand(String command) throws InvalidCommandException {
+        for (Command cmd : Command.values()) {
+            if (command.startsWith(cmd.name().toLowerCase())) {
+                return cmd;
+            }
+        }
+        throw new InvalidCommandException();
     }
 
     private static String[] processEventTask(String task) throws EventException {

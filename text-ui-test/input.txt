@@ -24,4 +24,7 @@ unmark 4
 list
 wrongcommand
 mark 6
+delete 2
+delete 3
+list
 bye
