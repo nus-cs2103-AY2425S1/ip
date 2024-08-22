@@ -24,6 +24,15 @@ public class Parser {
                 FormattedPrint.invalidUnmarkCommand();
             }
 
+        } else if (Command.checkCommand(input, "delete")) {
+            try {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                FormattedPrint.deleteTask(taskList.getTask(index), taskList.getSize());
+                taskList.deleteItem(index);
+            } catch (Exception e) {
+                FormattedPrint.invalidDeleteCommand();
+            }
+
         } else if (Command.checkCommand(input, "deadline")) {
             try {
                 // GitHub Copilot suggested the following code snippet

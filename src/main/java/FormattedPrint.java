@@ -45,6 +45,16 @@ public class FormattedPrint {
         );
     }
 
+    public static void deleteTask(String task, int size) {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Noted. I've removed this task:
+                """ + task + "\n" +
+                "Now you have " + (size - 1) + " tasks in the list\n" +
+                "-----------------------------------------"
+        );
+    }
+
     public static void listTasks(String tasks) {
         System.out.println("""
                 -----------------------------------------
@@ -104,6 +114,16 @@ public class FormattedPrint {
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with your unmark command.
                 Unmark command should be in the format: unmark <index>
+                The index should be a number within the range of the list
+                -----------------------------------------
+                """);
+    }
+
+    public static void invalidDeleteCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with your delete command.
+                Delete command should be in the format: delete <index>
                 The index should be a number within the range of the list
                 -----------------------------------------
                 """);
