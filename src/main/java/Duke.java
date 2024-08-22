@@ -23,7 +23,7 @@ public class Duke {
         }
     }
 
-    private static void mark(int index) {
+    private static void mark(int index) throws {
         Task task = toDoList.get(index-1);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
@@ -37,7 +37,7 @@ public class Duke {
         System.out.println(task.toString());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         greet();
         Scanner sc = new Scanner(System.in);
         String command;
@@ -56,30 +56,71 @@ public class Duke {
             } else if (instr.equals("bye")) {
                 break;
             } else if (instr.equals("todo")) {
-                Task task = new Todo(getInstr[1]);
-                toDoList.add(task);
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(task.toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-                counter += 1;
+                try {
+                    Task task;
+                    if (getInstr.length <= 1) {
+                        task = new Todo(null);
+                    } else {
+                        task = new Todo(getInstr[1]);
+                    }
+                    toDoList.add(task);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(task.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    counter += 1;
+                } catch (EmptyDescriptionException e) {
+                    System.out.println(e.toString());
+                }
             } else if (instr.equals("deadline")) {
-                String[] getBy = getInstr[1].split(" /by ", 2);
-                Task task = new Deadline(getBy[0], getBy[1]);
-                toDoList.add(task);
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(task.toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-                counter += 1;
+                try {
+                    Task task;
+                    if (getInstr.length <= 1) {
+                        task = new Deadline(null, null);
+                    } else {
+                        String[] getBy = getInstr[1].split(" /by ", 2);
+                        if (getBy.length <= 1) {
+                            task = new Deadline(getBy[0], null);
+                        } else {
+                            task = new Deadline(getBy[0], getBy[1]);
+                        }
+                    }
+                    toDoList.add(task);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(task.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    counter += 1;
+                } catch (EmptyDescriptionException e) {
+                    System.out.println(e.toString());
+                } catch (EmptyDeadlineException e) {
+                    System.out.println(e.toString());
+                }
             } else if (instr.equals("event")) {
-                String[] getTime = getInstr[1].split(" /", 3);
-                String[] from = getTime[1].split(" ",2);
-                String[] to = getTime[2].split(" ",2);
-                Task task = new Event(getTime[0], from[1], to[1]);
-                toDoList.add(task);
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(task.toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-                counter += 1;
+                try {
+                    Task task;
+                    if (getInstr.length <= 1) {
+                        task = new Event(null, null, null);
+                    } else {
+                        String[] getTime = getInstr[1].split(" /", 3);
+                        if (getTime.length == 3) {
+                            String[] from = getTime[1].split(" ", 2);
+                            String[] to = getTime[2].split(" ", 2);
+                            task = new Event(getTime[0], from[1], to[1]);
+                        } else {
+                            task = new Event(getTime[0], null, null);
+                        }
+                    }
+                    toDoList.add(task);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(task.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    counter += 1;
+                } catch (EmptyDescriptionException e) {
+                    System.out.println(e.toString());
+                } catch (EmptyTimeException e) {
+                    System.out.println(e.toString());
+                }
+            } else {
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
         }
