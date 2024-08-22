@@ -13,6 +13,7 @@ public class Todo extends Task {
         return "T";
     }
 
+    @Override
     public String changeFormat() {
         return "T | " + (this.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description;
     }
