@@ -6,7 +6,7 @@ public class Sage {
     public static final String NAME = "Sage";
     public static List<Task> tasksList = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SageException {
         Scanner scanner = new Scanner(System.in);
         textBox(String.format("Hello! I'm %s\nWhat can i do for you?", NAME));
 
@@ -35,50 +35,56 @@ public class Sage {
                 boolean doneStatus = command.equals("mark");
                 StringBuilder confirmationMessage = new StringBuilder(doneStatus ? "Nice! I've marked this task as done:\n"
                         : "OK, I've marked this task as not done yet:\n");
-                try {
-                    int index = Integer.parseInt(fullCommand[1].replaceAll("\\s+","")) - 1;
-                    Task task = tasksList.get(index);
 
-                    task.setDone(doneStatus);
-                    confirmationMessage.append(task);
-                    textBox(String.valueOf(confirmationMessage));
+                int index;
+                try {
+                    index = Integer.parseInt(fullCommand[1].trim()) - 1;
                 } catch (NumberFormatException e) {
-                    textBox("Invalid command");
-                } catch (IndexOutOfBoundsException e) {
-                    textBox("Invalid index");
+                    throw new SageException("Invalid mark/unmark command. Index must be a number.");
                 }
 
+                if (index < 0 || index >= tasksList.size()) {
+                    throw new SageException("Invalid index. Please try again.");
+                }
+
+                Task task = tasksList.get(index);
+                task.setDone(doneStatus);
+                confirmationMessage.append(task);
+                textBox(String.valueOf(confirmationMessage));
+
             } else if (command.equals("todo") && fullCommand.length > 1) {
-                tasksList.add(new ToDo(fullCommand[1]));
+                String description = fullCommand[1].trim();
+                if (description.isEmpty())
+                    throw new SageException("Invalid todo command. Please include a description.");
+                
+                tasksList.add(new ToDo(description));
                 addedTextBox();
 
             } else if (command.equals("deadline") && fullCommand.length > 1) {
-                try {
-                    String[] deadlineCommand = fullCommand[1].split(" /by ", 2);
-                    String description = deadlineCommand[0];
-                    String by = deadlineCommand[1].replaceAll("\\s+","");
+                String[] deadlineCommand = fullCommand[1].split(" /by ", 2);
+                if (deadlineCommand.length < 2)
+                    throw new SageException("Invalid deadline command. Please include a description and /by.");
 
-                    tasksList.add(new Deadline(description, by));
-                    addedTextBox();
-                } catch (IndexOutOfBoundsException e) {
-                    textBox("Invalid command. Do include description and /by");
-                }
+                String description = deadlineCommand[0].trim();;
+                String by = deadlineCommand[1].trim();;
+
+                tasksList.add(new Deadline(description, by));
+                addedTextBox();
 
             } else if (command.equals("event") && fullCommand.length > 1) {
-                try {
-                    String[] eventCommand = fullCommand[1].split(" /from | /to ", 3);
-                    String description = eventCommand[0];
-                    String from = eventCommand[1];
-                    String to = eventCommand[2];
+                String[] eventCommand = fullCommand[1].split(" /from | /to ", 3);
+                if (eventCommand.length < 3)
+                    throw new SageException("Invalid event command. Please include description, /from, and /to.");
 
-                    tasksList.add(new Event(description, from, to));
-                    addedTextBox();
-                } catch (IndexOutOfBoundsException e) {
-                    textBox("Invalid command. Do include description, /from and /to");
-                }
+                String description = eventCommand[0].trim();
+                String from = eventCommand[1].trim();
+                String to = eventCommand[2].trim();
+
+                tasksList.add(new Event(description, from, to));
+                addedTextBox();
 
             } else {
-                textBox("Invalid command");
+                throw new SageException("Invalid command.");
             }
         }
         scanner.close();
