@@ -3,6 +3,9 @@ import java.util.ArrayList;
 
 public class Bill {
     private ArrayList<Task> userList;
+    private enum Route {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+    }
 
     public Bill() {
         userList = new ArrayList<>();
@@ -137,6 +140,15 @@ public class Bill {
         System.out.println("Now you have " + userList.size() + " tasks in the list.");
     }
 
+    private Route getRouteEnum(String route) {
+        String routeValue = route.toUpperCase();
+        try {
+            return Route.valueOf(routeValue);
+        } catch (IllegalArgumentException ex) {
+            return Route.INVALID;
+        }
+    }
+
     public void start() {
         introduce();
         Scanner userScanner = new Scanner(System.in);
@@ -145,37 +157,35 @@ public class Bill {
 
         while (!userCommand.equals("bye")) {
             String[] parsedInput = userCommand.split(" ");
-            String route = parsedInput[0];
+            Route route = getRouteEnum(parsedInput[0]);
 
             try {
                 switch (route) {
-                    case "list":
+                    case LIST:
                         showList();
                         break;
-                    case "mark":
-                    case "unmark":
+                    case MARK:
+                    case UNMARK:
                         handleMarkOfTask(parsedInput);
                         break;
-                    case "todo":
+                    case TODO:
                         handleToDo(userCommand);
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         handleDeadline(userCommand);
                         break;
-                    case "event":
+                    case EVENT:
                         handleEvent(userCommand);
                         break;
-                    case "delete":
+                    case DELETE:
                         handleDelete(parsedInput);
                         break;
                     default:
-                        System.out.println("Not a recognised command, please try again");
-                        break;
+                        throw new BillException("Not a recognised command, please try again");
                 }
             } catch (BillException ex) {
                 System.out.println(ex.getMessage());
             }
-
             userCommand = userScanner.nextLine();
         }
         conclude();
