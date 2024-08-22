@@ -61,8 +61,21 @@ public class Blue {
             }
 
             //print out added... and add the item to the myList field in the Note object
-            System.out.println("--------------------------------------------");
-            note.addToList(input);
+            try {
+                note.addToList(input);
+            } catch (EmptyDescriptionException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(e.getMessage());
+                System.out.println("____________________________________________________________");
+            } catch (InputErrorException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(e.getMessage());
+                System.out.println("____________________________________________________________");
+            } catch (Exception e) {
+                // This block is optional and catches any other exceptions that aren't explicitly caught above
+                System.out.println("An unexpected error occurred: " + e.getMessage());
+            }
+
             String temp = "Now you have " + note.getNumberOfTask() + " tasks in the list.";
             System.out.println(temp);
             System.out.println("--------------------------------------------");

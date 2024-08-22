@@ -10,16 +10,23 @@ public class Note {
         this.noOfTask = 0;
     }
 
-    public void addToList(String input) {
+    public void addToList(String input) throws EmptyDescriptionException, InputErrorException {
         Task task;
-        if (input.startsWith("todo ")) {
+        if (input.startsWith("todo")) {
+            String description = input.substring(4).trim();
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException("You can't leave the descriptions empty!.");
+            }
+            System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:");
-            task = new ToDo(input.substring(5));
+            task = new ToDo(description);
         } else if (input.startsWith("deadline ")) {
+            System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:");
             String[] parts = input.substring(9).split(" /by ");
             task = new Deadline(parts[0], parts[1]);
         } else if (input.startsWith("event ")) {
+            System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:");
             String[] parts = input.substring(6).split(" /from ");
             String description = parts[0];
@@ -28,14 +35,12 @@ public class Note {
             String to = eventDetails[1];
             task = new Event(description, from, to);
         } else {
-            System.out.println("Unknown task type!");
-            return;
+            throw new InputErrorException();
         }
         myList[noOfTask] = task;
         noOfTask++;
         System.out.println(task.toString());
     }
-
 
 
     public void mark(int number) {
