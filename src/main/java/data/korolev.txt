@@ -1,5 +1,0 @@
-[T][ ] t1
-[E][ ] d1234 test  (from: d1  to: d3)
-[E][ ] e1  (from: d1  to: d2)
-[T][ ] complete 2103 assignment
-[T][ ] complete 2104 assignment
