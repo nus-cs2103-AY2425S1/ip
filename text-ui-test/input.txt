@@ -1,0 +1,8 @@
+todo Read book
+deadline Submit assignment /by 2023-12-01
+event Meeting /from 2023-12-01 10:00 /to 2023-12-01 12:00
+list
+mark 1
+unmark 1
+bye
+
