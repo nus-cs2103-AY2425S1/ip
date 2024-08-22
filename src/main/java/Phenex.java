@@ -55,9 +55,9 @@ public class Phenex {
         }
     }
 
-    public void markTaskCompleted(int idx) {
+    public void markTaskCompleted(int idx) throws PhenexException {
         if (idx >= this.tasks.size()) {
-            System.out.println("\t Invalid input, no such mission!");
+            throw new PhenexException("\t Invalid input, no such mission!");
         } else {
             System.out.println("\t Mission marked as complete. Good job, soldier!");
             Task taskToMark = this.tasks.get(idx);
@@ -66,9 +66,9 @@ public class Phenex {
         }
     }
 
-    public void markTaskIncomplete(int idx) {
+    public void markTaskIncomplete(int idx) throws PhenexException {
         if (idx >= this.tasks.size()) {
-            System.out.println("\t Invalid input, no such mission!");
+            throw new PhenexException("\t Invalid input, no such mission!");
         } else {
             System.out.println("\t Mission marked as incomplete.");
             Task taskToUnmark = this.tasks.get(idx);
@@ -77,7 +77,7 @@ public class Phenex {
         }
     }
 
-    public void addTask(Matcher matcher, TaskType tt) {
+    public void addTask(Matcher matcher, TaskType tt) throws PhenexException {
         String taskName = matcher.group(1);
         String emptyNameRegex = "\\s*";
         Pattern emptyNamePattern = Pattern.compile(emptyNameRegex);
@@ -86,8 +86,7 @@ public class Phenex {
         switch (tt) {
             case TODO:
                 if (emptyNameMatcher.matches()) {
-                    System.out.println("Error, invalid todo name");
-                    break;
+                    throw new PhenexException("Error, invalid todo name");
                 }
                 ToDo toDo = new ToDo(taskName);
                 this.tasks.add(toDo);
@@ -95,8 +94,7 @@ public class Phenex {
                 break;
             case DEADLINE:
                 if (emptyNameMatcher.matches()) {
-                    System.out.println("Error, invalid deadline name");
-                    break;
+                    throw new PhenexException("Error, invalid deadline name");
                 }
                 String deadlineBy = matcher.group(2);
                 Deadline deadline = new Deadline(taskName, deadlineBy);
@@ -105,8 +103,7 @@ public class Phenex {
                 break;
             case EVENT:
                 if (emptyNameMatcher.matches()) {
-                    System.out.println("Error, invalid event name");
-                    break;
+                    throw new PhenexException("Error, invalid event name");
                 }
                 String eventFrom = matcher.group(2);
                 String eventTo = matcher.group(3);
@@ -187,21 +184,38 @@ public class Phenex {
                 // mark task as done
                 int taskNumber = Integer.parseInt(markMatcher.group().substring(5));
                 int idx = taskNumber - 1;
-                p.markTaskCompleted(idx);
+                try {
+                    p.markTaskCompleted(idx);
+                } catch (PhenexException e) {
+                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                }
             } else if (unmarkMatcher.find()) {
                 // unmark task as done
                 int taskNumber = Integer.parseInt(unmarkMatcher.group().substring(7));
                 int idx = taskNumber - 1;
-                p.markTaskIncomplete(idx);
+                try {
+                    p.markTaskIncomplete(idx);
+                } catch (PhenexException e) {
+                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                }
             } else if (todoMatcher.matches()) {
-                // add ToDo
-                p.addTask(todoMatcher, TaskType.TODO);
+                try {
+                    p.addTask(todoMatcher, TaskType.TODO);
+                } catch (PhenexException e) {
+                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                }
             } else if (deadlineMatcher.matches()) {
-                // add Deadline
-                p.addTask(deadlineMatcher, TaskType.DEADLINE);
+                try {
+                    p.addTask(deadlineMatcher, TaskType.DEADLINE);
+                } catch (PhenexException e) {
+                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                }
             } else if (eventMatcher.matches()) {
-                // add Event
-                p.addTask(eventMatcher, TaskType.EVENT);
+                try {
+                    p.addTask(eventMatcher, TaskType.EVENT);
+                } catch (PhenexException e) {
+                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                }
             } else {
                 System.out.println("\tError, invalid input.");
             }
