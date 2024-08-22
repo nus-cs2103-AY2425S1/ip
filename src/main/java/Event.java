@@ -9,6 +9,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getFormatted() {
+        return "E|" + super.getStatusIcon() + "|" + super.description + "|" + this.from + "|" + this.to;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
