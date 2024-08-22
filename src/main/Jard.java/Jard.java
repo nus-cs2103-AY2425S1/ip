@@ -4,6 +4,12 @@ import java.util.List;
 
 public class Jard {
 
+    public static class JardException extends RuntimeException {
+        public JardException(String message) {
+            super(message);
+        }
+    }
+
     public static class Task {
         protected String description;
         protected boolean isDone;
@@ -94,73 +100,71 @@ public class Jard {
             input = scanner.nextLine().trim();
             String[] inputParts = input.split(" ", 2);
             String command = inputParts[0];
-
-            if (command.equals("bye")) {
-                System.out.println("____________________________________________________________");
-                System.out.println(" Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
-                break;
-            } else if (command.equals("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println(" Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(" " + (i + 1) + ". " + tasks.get(i));
-                }
-                System.out.println("____________________________________________________________");
-            } else if (command.equals("mark") || command.equals("unmark")) {
-                if (inputParts.length < 2) {
-                    System.out.println(" Invalid command. Please specify the task number.");
-                } else {
-                    try {
-                        int taskIndex = Integer.parseInt(inputParts[1]) - 1;
-                        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                            Task task = tasks.get(taskIndex);
-                            if (command.equals("mark")) {
-                                task.markAsDone();
-                                System.out.println("____________________________________________________________");
-                                System.out.println(" Nice! I've marked this task as done:");
-                            } else {
-                                task.markAsNotDone();
-                                System.out.println("____________________________________________________________");
-                                System.out.println(" OK, I've marked this task as not done yet:");
-                            }
-                            System.out.println("   " + task);
-                            System.out.println("____________________________________________________________");
-                        } else {
-                            System.out.println("____________________________________________________________");
-                            System.out.println(" Task number does not exist.");
-                            System.out.println("____________________________________________________________");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Invalid task number format.");
-                        System.out.println("____________________________________________________________");
+            try{
+                if (command.equals("bye")) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    System.out.println("____________________________________________________________");
+                    break;
+                } else if (command.equals("list")) {
+                    if (tasks.isEmpty()) {
+                        throw new JardException("The task list is empty!");
                     }
-                }
-            } else if (command.equals("todo") && inputParts.length > 1) {
-                tasks.add(new Todo(inputParts[1]));
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks.get(tasks.size() - 1));
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
-            } else if (command.equals("deadline") && inputParts.length > 1) {
-                String[] details = inputParts[1].split("/by", 2);
-                if (details.length > 1) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+                    }
+                    System.out.println("____________________________________________________________");
+                } else if (command.equals("mark") || command.equals("unmark")) {
+                    if (inputParts.length < 2) {
+                        throw new JardException("Invalid command! Please specify the task number.");
+                    }
+                    int taskIndex;
+                    try {
+                        taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                    } catch (NumberFormatException e) {
+                        throw new JardException("Invalid task number format!");
+                    }
+                    if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                        throw new JardException("Task number does not exist!");
+                    }
+                    Task task = tasks.get(taskIndex);
+                    if (command.equals("mark")) {
+                        task.markAsDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Nice! I've marked this task as done:");
+                    } else {
+                        task.markAsNotDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" OK, I've marked this task as not done yet:");
+                    }
+                    System.out.println("   " + task);
+                    System.out.println("____________________________________________________________");
+                } else if (command.equals("todo") && inputParts.length > 1) {
+                    tasks.add(new Todo(inputParts[1]));
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } else if (command.equals("deadline") && inputParts.length > 1) {
+                    String[] details = inputParts[1].split("/by", 2);
+                    if (details.length < 2) {
+                        throw new JardException("Invalid format! Please specify the deadline with /by.");
+                    }
                     tasks.add(new Deadline(details[0].trim(), details[1].trim()));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                } else {
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Invalid format. Please specify the deadline with /by.");
-                    System.out.println("____________________________________________________________");
-                }
-            } else if (command.equals("event") && inputParts.length > 1) {
-                String[] details = inputParts[1].split("/from|/to");
-                if (details.length == 3) {
+                } else if (command.equals("event") && inputParts.length > 1) {
+                    String[] details = inputParts[1].split("/from|/to");
+                    if (details.length != 3) {
+                        throw new JardException("Invalid format! Please specify the event with /from and /to.");
+                    }
+
                     tasks.add(new Event(details[0].trim(), details[1].trim(), details[2].trim()));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
@@ -168,13 +172,11 @@ public class Jard {
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else {
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Invalid format. Please specify the event with /from and /to.");
-                    System.out.println("____________________________________________________________");
+                    throw new JardException("Invalid command.");
                 }
-            } else {
+            } catch (JardException e) {
                 System.out.println("____________________________________________________________");
-                System.out.println(" Invalid command.");
+                System.out.println(" Error: Jard! " + e.getMessage());
                 System.out.println("____________________________________________________________");
             }
         }
