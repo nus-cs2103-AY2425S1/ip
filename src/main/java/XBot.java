@@ -48,12 +48,30 @@ public class XBot {
     }
 
     public static void markDone(String rest) {
-        int taskNumber = Integer.parseInt(rest.trim());
-        list[taskNumber - 1].markAsDone();
+        try {
+            int taskNumber = Integer.parseInt(rest.trim());
+            if (taskNumber > 0 && taskNumber <= taskCount) {
+                list[taskNumber - 1].markAsDone();
+            } else {
+                System.out.println("Invalid task number!");
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number!");
+        }
     }
 
     public static void markUndone(String rest) {
-        int taskNumber = Integer.parseInt(rest.trim());
-        list[taskNumber - 1].markAsUndone();
+        try {
+            int taskNumber = Integer.parseInt(rest.trim());
+            if (taskNumber > 0 && taskNumber <= taskCount) {
+                list[taskNumber - 1].markAsUndone();
+            } else {
+                System.out.println("Invalid task number!");
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number!");
+        }
     }
 }
