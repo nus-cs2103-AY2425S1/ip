@@ -5,9 +5,16 @@ import java.util.ArrayList;
 public class Alex {
 
     public static void main(String[] args) {
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+        // Create a Scanner object
+        Scanner myObj = new Scanner(System.in);
+
+        //Create the separation line variable
         String line = "____________________________________________________________";
+
+        //Create an arrayList to store all the Task objects
         ArrayList<Task> list = new ArrayList<>();
+
+        //Greet user
         String greeting =
                 """
                         ____________________________________________________________
@@ -19,9 +26,13 @@ public class Alex {
 
         while(true) {
             String response = myObj.nextLine();
+            System.out.println(response);
+
+            //Exit on bye
             if (response.equals("bye")) {
                 break;
             } else if (response.equals("list")) {
+                //list out all tasks
                 System.out.println(line + "\nHere are the tasks in your list: ");
                 for (int i = 1; i <= list.size(); i++) {
                     System.out.println(list.get(i - 1));
@@ -30,7 +41,12 @@ public class Alex {
            } else {
                 String[] arrOfStr = response.split(" ");
 
-                if ((arrOfStr[0].equals("mark") || arrOfStr[0].equals("unmark")
+                if (arrOfStr[0].equals("todo")) {
+                    list.add(new Todo(list.size() + 1, response, false));
+                }
+
+                //Handle marking and unmarking of tasks
+                else if ((arrOfStr[0].equals("mark") || arrOfStr[0].equals("unmark")
                 ) && arrOfStr.length == 2) {
                     try {
                         int taskNumber = Integer.valueOf(arrOfStr[1]);
@@ -54,6 +70,7 @@ public class Alex {
             }
         }
 
+        //Print farewell message
         String farewell =
                 """
                         ____________________________________________________________
