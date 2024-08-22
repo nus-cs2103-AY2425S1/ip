@@ -12,12 +12,12 @@ public class Gumball {
 
     public String command;
     public Scanner input;
-    public List list;
+    public TaskList list;
 
 
     public Gumball() {
         input = new Scanner(System.in);
-        list = new List();
+        list = new TaskList();
     }
 
     public void start() {
@@ -35,7 +35,12 @@ public class Gumball {
 
         } else if (command.equals("list")) {
             getList();
-        } else {
+        } else if (command.startsWith("mark ")) {
+            int num = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+            list.mark(num);
+            print("Nice! I've marked this task as done:\n" + list.getSpecific(num));
+        }
+        else {
             addToList(command);
         }
     }
