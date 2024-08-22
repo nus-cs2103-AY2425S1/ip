@@ -62,7 +62,24 @@ public class Froggy {
                     System.out.println("Please enter a valid number after 'unmark'.");
                     System.out.println(line);
                 }
-            } else {
+            } else if (input.toLowerCase().startsWith("delete ")) {
+                try {
+                    int index = Integer.parseInt(input.substring(7)) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        System.out.println("Removed the following task:");
+                        System.out.println(tasks.get(index).toString());
+                        System.out.println(line);
+                        tasks.remove(index);
+                    } else {
+                        System.out.println("Invalid index");
+                        System.out.println(line);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid number after 'delete'.");
+                    System.out.println(line);
+                }
+            }
+            else {
                 //Handle Task input
                 if (input.toLowerCase().startsWith("todo ")) {
                     if (input.length() == 5) {
