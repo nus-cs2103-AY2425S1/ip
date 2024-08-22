@@ -1,5 +1,19 @@
 import java.util.Scanner;
 public class Blue {
+
+    public static void farewell() {
+        System.out.println("Bye Bye! Hope to see you again soon!");
+        System.out.println("_     /)---(\\          /~~~\\");
+        System.out.println("\\\\   (/ . . \\)        /  .. \\");
+        System.out.println(" \\\\__)-\\(*)/         (_,\\  |_)");
+        System.out.println(" \\_       (_         /   \\@/    /^^^\\");
+        System.out.println(" (___/-(____) _     /      \\   / . . \\");
+        System.out.println("              \\\\   /  `    |   V\\ Y /V");
+        System.out.println("               \\\\/  \\   | _\\    / - \\");
+        System.out.println("                \\   /__'|| \\\\_  |    \\");
+        System.out.println("                 \\_____)|_).\\_).||(__V");
+        System.out.println("--------------------------------------------");
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Note note = new Note();
@@ -13,20 +27,40 @@ public class Blue {
 
         String input = "";
 
-        // Keep echoing user input until "bye" is typed
         while (true) {
             input = scanner.nextLine();
 
+            //if bye is typed, break out of loop
             if (input.equalsIgnoreCase("bye")) {
                 break;
             }
+
+            //if list is typed, print out corresponding list of tasks
             if (input.equalsIgnoreCase("list")) {
-                //print the notes
-                System.out.println("--------------------------------------------");
                 note.printList();
-                System.out.println("--------------------------------------------");
                 continue;
             }
+
+            if (input.startsWith("mark ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+                    note.mark(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                }
+                continue;
+            }
+
+            if (input.startsWith("unmark ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    note.unmark(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                }
+                continue;
+            }
+
             //print out added... and add the item to the myList field in the Note object
             note.addToList(input);
             System.out.println("--------------------------------------------");
@@ -35,18 +69,7 @@ public class Blue {
         }
 
         // Farewell message
-        System.out.println("I'm sorry I was mimicking you! Bye Bye! Hope to see you again soon!");
-        System.out.println("_     /)---(\\          /~~~\\");
-        System.out.println("\\\\   (/ . . \\)        /  .. \\");
-        System.out.println(" \\\\__)-\\(*)/         (_,\\  |_)");
-        System.out.println(" \\_       (_         /   \\@/    /^^^\\");
-        System.out.println(" (___/-(____) _     /      \\   / . . \\");
-        System.out.println("              \\\\   /  `    |   V\\ Y /V");
-        System.out.println("               \\\\/  \\   | _\\    / - \\");
-        System.out.println("                \\   /__'|| \\\\_  |    \\");
-        System.out.println("                 \\_____)|_).\\_).||(__V");
-        System.out.println("--------------------------------------------");
-
+        Blue.farewell();
         // Close the scanner
         scanner.close();
     }
