@@ -5,6 +5,11 @@ public class Boss {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
 
+        enum Types {
+            TODO, DEADLINE, EVENT, NONE;
+        };
+
+
         System.out.println("Hello! I'm the boss.");
         System.out.println("What can I do for you?");
         Scanner myObj = new Scanner(System.in);
@@ -58,8 +63,7 @@ public class Boss {
                 } catch (BossException e) {
                     System.out.println(e.getMessage());
                 }
-            }
-            else if (task.contains("delete")) {
+            } else if (task.contains("delete")) {
                 try {
                     String taskNum = task.replaceAll("[^0-9]", "");
                     if (taskNum.equals("")) {
@@ -76,61 +80,75 @@ public class Boss {
                 } catch (BossException e) {
                     System.out.println(e.getMessage());
                 }
-
             }
-            else if (task.contains("todo")) {
-                try {
-                    String[] string = task.split(" ");
-                    if (string.length == 1) {
-                        throw new BossException("The description of todo cannot be empty!");
-                    }
-                    tasks.add(new Todo(task));
-                    printabstraction(tasks);
-                } catch (BossException e) {
-                    System.out.println(e.getMessage());
-                }
-
-            } else if (task.contains("deadline")) {
-                try {
-                    String[] string = task.split("/by");
-                    if (string.length == 1) {
-                        throw new BossException("Please specify a deadline date!");
-                    }
-                    tasks.add(new Deadline(string[0], string[1]));
-                    printabstraction(tasks);
-                } catch (BossException e) {
-                    System.out.println(e.getMessage());
-                }
-
-            } else if (task.contains("event")) {
-                try {
-                    String[] string = task.split("/");
-                    if (!(string.length == 3 && string[1].contains("from") && string[2].contains("to"))) {
-                        throw new BossException("Wrong input! You must specify a description, start and end date for an event!");
-                    }
-                    String[] description = string[0].split(" ");
-                    String from = string[1].split("from")[1];
-                    String to = string[2].split("to")[1];
-                    if (description.length == 1 || from.length() == 1 || to.length() == 1) {
-                        throw new BossException("Invalid input!");
-                    }
-                    tasks.add(new Event(string[0], from, to));
-                    printabstraction(tasks);
-                } catch (BossException e) {
-                    System.out.println(e.getMessage());
-                }
-
-            }
+            // it must be a command to create a task (of some type)
             else {
-                System.out.println("added: " + task);
-                tasks.add(new Task(task));
+                Types taskType;
+                if (task.contains("todo")) {
+                    taskType = Types.TODO;
+                } else if (task.contains("deadline")) {
+                    taskType = Types.DEADLINE;
+                } else if (task.contains("event")) {
+                    taskType = Types.EVENT;
+                } else {
+                    taskType = Types.NONE;
+                }
+
+                switch(taskType) {
+                    case TODO:
+                        try {
+                            String[] string = task.split(" ");
+                            if (string.length == 1) {
+                                throw new BossException("The description of todo cannot be empty!");
+                            }
+                            tasks.add(new Todo(task));
+                            printabstraction(tasks);
+                        } catch (BossException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+
+                    case DEADLINE:
+                        try {
+                            String[] string = task.split("/by");
+                            if (string.length == 1) {
+                                throw new BossException("Please specify a deadline date!");
+                            }
+                            tasks.add(new Deadline(string[0], string[1]));
+                            printabstraction(tasks);
+                        } catch (BossException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case EVENT:
+                        try {
+                            String[] string = task.split("/");
+                            if (!(string.length == 3 && string[1].contains("from") && string[2].contains("to"))) {
+                                throw new BossException("Wrong input! You must specify a description, start and end date for an event!");
+                            }
+                            String[] description = string[0].split(" ");
+                            String from = string[1].split("from")[1];
+                            String to = string[2].split("to")[1];
+                            if (description.length == 1 || from.length() == 1 || to.length() == 1) {
+                                throw new BossException("Invalid input!");
+                            }
+                            tasks.add(new Event(string[0], from, to));
+                            printabstraction(tasks);
+                        } catch (BossException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    default:
+                        System.out.println("added: " + task);
+                        tasks.add(new Task(task));
+                        break;
+                }
             }
             task = myObj.nextLine();
         }
 
         System.out.println("Bye. Hope to see you again soon!");
     }
-
 
 
 
