@@ -43,9 +43,34 @@ public class Kobe {
                 tasks.get(taskNumber).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks.get(taskNumber));
+            } else if (userInput.startsWith("todo ")) {
+                String name = userInput.substring(5).trim();
+                Todo todo = new Todo(name);
+                tasks.add(todo);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + todo);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (userInput.startsWith("deadline ")) {
+                String[] parts = userInput.substring(9).split("/by ");
+                String name = parts[0].trim();
+                String by = parts[1].trim();
+                Deadline deadline = new Deadline(name, by);
+                tasks.add(deadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + deadline);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (userInput.startsWith("event ")) {
+                String[] parts = userInput.substring(6).split("/from |/to ");
+                String name = parts[0].trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                Event event = new Event(name, from, to);
+                tasks.add(event);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + event);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else {
-                tasks.add(new Task(userInput));
-                System.out.println("added: " + userInput);
+                System.out.println("Enter the right command, Sir.");
             }
             System.out.println("____________________________________________________________");
         }
