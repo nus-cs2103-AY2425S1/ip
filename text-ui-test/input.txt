@@ -1,4 +1,6 @@
 hello botty!
+mark 0
+list
 todo say hi to botty tomorrow as well
 deadline upgrade botty by tomorrow
 deadline upgrade botty /by tomorrow

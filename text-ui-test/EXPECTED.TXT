@@ -19,6 +19,10 @@ Botty: Hello, I am Botty the Bot, how may I be of service today?
 
 Botty: I'm sorry, that is not a command I am familiar with.
 
+Botty: Your list is empty! Add a task with the todo, deadline or event command.
+
+Botty: Your list is empty! Add a task with the todo, deadline or event command.
+
 Botty: I have added the following task to the list!
        [T] [ ] say hi to botty tomorrow as well
        You now have 1 tasks.
