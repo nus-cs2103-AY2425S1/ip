@@ -74,7 +74,7 @@ public class MrTracker {
             System.out.println("You now have " + taskList.size() + " task(s)");
             return;
         } catch (InvalidTaskNameException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -88,9 +88,9 @@ public class MrTracker {
             System.out.println("You now have " + taskList.size() + " task(s)");
             return;
         } catch (InvalidTaskNameException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         } catch (NoDateException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -103,9 +103,9 @@ public class MrTracker {
             System.out.println("You now have " + taskList.size() + " task(s)");
             return;
         } catch (InvalidTaskNameException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         } catch (NoDateException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
     }
 
