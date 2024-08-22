@@ -1,9 +1,11 @@
 package duke.tasks;
 
+import duke.DailyTasks;
 import duke.exceptions.EmptyTodoDescriptionException;
 import duke.exceptions.UnknownMessageException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The {@code TaskManager} class is responsible for managing a collection of tasks.
@@ -20,7 +22,7 @@ public class TaskManager {
     /**
      * The list of tasks being managed by the {@code TaskManager}.
      */
-    private final ArrayList<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Constructs a new {@code TaskManager} with an empty task list.
@@ -34,7 +36,7 @@ public class TaskManager {
      *
      * @return an {@code ArrayList} of tasks.
      */
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
@@ -65,6 +67,10 @@ public class TaskManager {
         return tasks.get(tasks.size() - 1);
     }
 
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     /**
      * Deletes the task at the specified index from the task list.
      *
@@ -91,30 +97,30 @@ public class TaskManager {
         TaskEnum taskType = determineTaskType(userInput);
 
         switch (taskType) {
-            case TODOS:
-                try {
-                    String todoDescription = userInput.split(" ", 2)[1];
-                    tasks.add(new ToDos(todoDescription));
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new EmptyTodoDescriptionException("Please include a description of your todo task!");
-                }
-            case DEADLINE:
-                String[] deadlineInfo = userInput.split("/by");
-                String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
-                String deadlineDate = deadlineInfo[1].trim();
-                tasks.add(new Deadline(deadlineDescription, deadlineDate));
+        case TODOS:
+            try {
+                String todoDescription = userInput.split(" ", 2)[1];
+                tasks.add(new ToDos(todoDescription));
                 break;
-            case EVENT:
-                String[] eventInfo = userInput.split("/from");
-                String eventDescription = eventInfo[0].replace("event", "").trim();
-                String[] eventTime = eventInfo[1].split("/to");
-                String start = eventTime[0].trim();
-                String end = eventTime[1].trim();
-                tasks.add(new Event(eventDescription, start, end));
-                break;
-            default:
-                throw new UnknownMessageException("Unknown task type.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new EmptyTodoDescriptionException("Please include a description of your todo task!");
+            }
+        case DEADLINE:
+            String[] deadlineInfo = userInput.split("/by");
+            String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
+            String deadlineDate = deadlineInfo[1].trim();
+            tasks.add(new Deadline(deadlineDescription, deadlineDate));
+            break;
+        case EVENT:
+            String[] eventInfo = userInput.split("/from");
+            String eventDescription = eventInfo[0].replace("event", "").trim();
+            String[] eventTime = eventInfo[1].split("/to");
+            String start = eventTime[0].trim();
+            String end = eventTime[1].trim();
+            tasks.add(new Event(eventDescription, start, end));
+            break;
+        default:
+            throw new UnknownMessageException("Unknown task type.");
         }
     }
 
