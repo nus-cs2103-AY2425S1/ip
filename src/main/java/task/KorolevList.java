@@ -90,7 +90,7 @@ public class KorolevList {
     }
 
     public String markEvent(int index) throws DukeException {
-        if (index >= this.events.size()) {
+        if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
         KorolevTask t = this.events.get(index);
@@ -101,7 +101,7 @@ public class KorolevList {
     }
 
     public String removeEvent(int index) throws DukeException {
-        if (index >= this.events.size()) {
+        if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
         KorolevTask t = this.events.remove(index);
@@ -112,7 +112,7 @@ public class KorolevList {
     }
 
     public String unmarkEvent(int index) throws DukeException {
-        if (index >= this.events.size()) {
+        if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
         KorolevTask t = this.events.get(index);
