@@ -3,11 +3,23 @@ import java.util.Scanner;
 public class XBot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String input = "";
+        String[] list = new String[100];
+        int taskCount = 0;
 
         System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
+        String input = scanner.nextLine();
         while(!input.equalsIgnoreCase("bye")) {
-            System.out.println(input);
+            if (input.equalsIgnoreCase("list")) {
+                //display list
+                for (int i = 0; i < taskCount; i++) {
+                    int index = i + 1;
+                    System.out.println(index + ". " + list[i]);
+                }
+            } else {
+                //store input in list
+                list[taskCount] = input;
+                taskCount++;
+            }
             input = scanner.nextLine();
         }
 
