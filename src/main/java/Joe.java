@@ -49,19 +49,26 @@ public class Joe {
         bye();
     }
 
-    public static void add(String s) {
+    public static void add(String s) throws InvalidCommandException {
         System.out.println(line);
         if (taskCount < 100) {
-            Task newTask = new Task(s);
-            if (s.startsWith("todo")) {
-                s = s.substring(4);
-                newTask = new ToDo(s);
-            } else if (s.startsWith("deadline")) {
-                String[] parems = s.substring(8).split("/");
-                newTask = new Deadline(parems[0], parems[1]);
-            } else if (s.startsWith("event")) {
-                String[] parems = s.substring(5).split("/");
-                newTask = new Event(parems[0], parems[1], parems[2]);
+            Task newTask;
+            try {
+                if (s.startsWith("todo")) {
+                    s = s.substring(4);
+                    newTask = new ToDo(s);
+                } else if (s.startsWith("deadline")) {
+                    String[] parems = s.substring(8).split("/");
+                    newTask = new Deadline(parems[0], parems[1]);
+                } else if (s.startsWith("event")) {
+                    String[] parems = s.substring(5).split("/");
+                    newTask = new Event(parems[0], parems[1], parems[2]);
+                } else {
+                    throw new InvalidCommandException(s);
+                }
+            } catch (IllegalTaskException e) {
+                System.out.println(e.getMessage() + "\n" + line);
+                return;
             }
             userTasks[taskCount++] = newTask;
             System.out.printf("Got it. I've added this task:\n  %s\n", newTask);
@@ -114,6 +121,18 @@ public class Joe {
         System.out.println(line);
     }
 
+    public static void help() {
+        System.out.println(line);
+        System.out.println("list: Displays your current tasks");
+        System.out.println("mark <idx>: Marks the task at your chosen index");
+        System.out.println("unmark <idx>: Unmarks the task at your chosen index");
+        System.out.println("todo <description>: Creates a ToDo task");
+        System.out.println("deadline <description> /<due date/time>: Creates a Deadline task");
+        System.out.println("event <description> /<start date/time> /<end date/time>: Creates an Event task");
+        System.out.println("bye: ends our interaction :-(");
+        System.out.println(line);
+    }
+
     public static void main(String[] args) {
         System.out.printf("%s\nHello! I'm Joe\nWhat can I do for you?\n%s\n",
                 line, line);
@@ -122,14 +141,21 @@ public class Joe {
         Scanner reader = new Scanner(System.in);
         String userIn = reader.nextLine().strip();
         while (!userIn.equalsIgnoreCase("bye")) {
-            if (userIn.equalsIgnoreCase("list")) {
+            if (userIn.equalsIgnoreCase("/help")) {
+                help();
+            } else if (userIn.equalsIgnoreCase("list")) {
                 list();
             } else if (userIn.startsWith("mark")) {
                 mark(getDigits(userIn));
             } else if (userIn.startsWith("unmark")) {
                 unmark(getDigits(userIn));
             } else {
-                add(userIn);
+                try {
+                    add(userIn);
+                } catch (InvalidCommandException e) {
+                    System.out.println(e);
+                    System.out.println(line);
+                }
             }
             userIn = reader.nextLine();
         }
