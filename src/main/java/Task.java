@@ -10,18 +10,21 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[]"); // mark done task with X
     }
-    public String getDescription() {
-        return description;
-    }
+
     public void mark() {
         this.isDone = true;
         System.out.println("Marked "  + "\"" + description + "\"" + " as done");
-        System.out.println(this.getStatusIcon() + " " + this.getDescription());
+        System.out.println(this.toString());
     }
     public void unmark() {
         this.isDone = false;
         System.out.println("Marked "  + "\"" + description + "\"" + " as not done");
-        System.out.println(this.getStatusIcon() + " " + this.getDescription());
+        System.out.println(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + this.description;
     }
 
     //...
