@@ -1,13 +1,13 @@
-public class Task {
+abstract class Task {
     private final String description;
     private boolean isDone;
 
-    Task(String description) {
+    Task(char type, String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public String getDescription() {
+    private String getDescription() {
         return description;
     }
 

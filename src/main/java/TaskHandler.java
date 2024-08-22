@@ -18,19 +18,35 @@ public class TaskHandler {
      */
 
     public void handleCommand(String command, String desc) {
+        desc = desc.stripLeading();
         if (command.equals("mark")) {
-            Task t = this.tasks.get(Integer.parseInt(desc.stripLeading()) - 1).markAsDone();
+            Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsDone();
             System.out.println("I've marked as done:\n" + t);
         } else if (command.equals("unmark")) {
-            Task t = this.tasks.get(Integer.parseInt(desc.stripLeading()) - 1).markAsNotDone();
+            Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsNotDone();
             System.out.println("I've marked as not done:\n" + t);
         } else if (command.equals("list")) {
             System.out.println(this.getTasksString());
-        } else {
-            String taskdesc = command + desc;
-            Task t = new Task(taskdesc);
+        } else if (command.equals("todo")) {
+            Task t = new ToDoTask(desc);
             this.tasks.add(t);
-            System.out.println("added: " + taskdesc);
+            System.out.println("added:\n" + t);
+            System.out.println("You have " + this.tasks.size() + " tasks in list");
+        } else if (command.equals("deadline")) {
+            String[] arr = desc.split("/by");
+            Task t = new Deadline(arr[0].strip(), arr[1].strip());
+            this.tasks.add(t);
+            System.out.println("added:\n" + t);
+            System.out.println("You have " + this.tasks.size() + " tasks in list");
+        } else if (command.equals("event")) {
+            String[] arr = desc.split("/from");
+            String[] arr2 = arr[1].split("/to");
+            Task t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
+            this.tasks.add(t);
+            System.out.println("added:\n" + t);
+            System.out.println("You have " + this.tasks.size() + " tasks in list");
+        } else {
+            System.out.println("Unknown command: " + command);
         }
     }
 
