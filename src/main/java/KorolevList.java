@@ -10,12 +10,14 @@ public class KorolevList {
     private static String home = System.getProperty("user.dir");
     private static java.nio.file.Path path = java.nio.file.Paths.get(
             home, "src", "main", "java", "data", "korolev.txt");
-    private static String outOfIndexError = "Error! The index is out of bound!";
+    private static String outOfIndexError = "The index is out of bound!";
     private static String listNotice = "Here are the tasks in your list:\n";
     private static String markNotice = "Nice! I've marked this task as done:";
     private static String unmarkNotice = "OK, I've marked this task as not done yet:";
     private static String deleteNotice = "Noted. I've removed this task:";
     private ArrayList<KorolevTask> events;
+
+    private static final KorolevStorage storage = new KorolevStorage();
 
     public KorolevList() {
         this.events = new ArrayList<>();
@@ -44,7 +46,7 @@ public class KorolevList {
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
-                } catch (DukeKorolev.ParseException exp) {
+                } catch (ParseException exp) {
                     System.out.println(exp.getMessage());
                 }
             }
@@ -55,7 +57,7 @@ public class KorolevList {
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
-                } catch (DukeKorolev.ParseException exp) {
+                } catch (ParseException exp) {
                     System.out.println(exp.getMessage());
                 }
             }
@@ -67,7 +69,7 @@ public class KorolevList {
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
-                } catch (DukeKorolev.ParseException exp) {
+                } catch (ParseException exp) {
                     System.out.println(exp.getMessage());
                 }
             }
@@ -118,52 +120,23 @@ public class KorolevList {
         return t.toString();
     }
 
-    public void saveEvent() {
-
-        //Create new file
-        if (!java.nio.file.Files.exists(path)) {
-            try {
-                java.nio.file.Files.createDirectories(java.nio.file.Paths.get(
-                                home, "src", "main", "java", "data"));
-                java.nio.file.Files.createFile(path);
-                File record = new File(String.valueOf(path));
-                boolean test = record.createNewFile();
-            } catch (IOException e) {
-                System.out.println("IOException: " + e.getMessage());
-            }
-        }
+    private String createSaveInfo() {
         StringBuilder msg = new StringBuilder();
         for (KorolevTask event : this.events) {
-            msg.append(event + ("\n"));
+            msg.append(event).append("\n");
         }
 
-        //Write to the file (appending lines to the documents)
-        try {
-            FileWriter writer = new FileWriter(String.valueOf(path));
-            writer.write(msg.toString());
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());
-        }
+        return msg.toString();
     }
 
-    private KorolevTask parseStorage(String msg) throws DukeException{
-
-        return EventParser.parseLoadedRecord(msg);
+    public void saveEvent() {
+        //Write to the file
+        String msg = this.createSaveInfo();
+        storage.writeToFile(msg);
     }
+
 
     public void loadEvent() {
-        try {
-            BufferedReader bfr = new BufferedReader(new FileReader(String.valueOf(path)));
-            String line = bfr.readLine();
-            while(line != null) {
-                this.events.add(parseStorage(line));
-                line = bfr.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println("IOException: " + e.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+        storage.readLines(this.events);
     }
 }
