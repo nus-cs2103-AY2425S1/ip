@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Chappy {
     public static void main(String[] args) {
         String logo = """            
@@ -28,6 +30,20 @@ public class Chappy {
  """;
         System.out.println("Good day sir! \n" + logo + "\nat your service!");
         System.out.println("I shall await your next request.");
+        System.out.println("____________________________________________________________");
+
+        while(true) {
+            Scanner scannerObj = new Scanner(System.in); 
+            String userInput = scannerObj.nextLine();
+            if (userInput.equalsIgnoreCase("bye")) {
+                break;
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println(userInput);
+                System.out.println("____________________________________________________________");
+            }
+            
+        }
         System.out.println("____________________________________________________________");
         System.out.println("It's been a pleasure serving you! Farewell sir.");
         System.out.println("____________________________________________________________");
