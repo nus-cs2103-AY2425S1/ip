@@ -13,7 +13,6 @@ import sigma.task.TaskList;
  * showing information related to tasks.
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String LOGO =
             "   _____ _                       \n"
                     + "  / ____(_)                      \n"
@@ -52,12 +51,8 @@ public class Ui {
     /**
      * Displays the welcome message when the application starts.
      */
-    public void showWelcome() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Greetings, I'm Sigma!");
-        System.out.println(LOGO);
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+    public String showWelcome() {
+        return "Greetings, I'm Sigma!\n" + LOGO + "\nWhat can I do for you?";
     }
 
     /**
@@ -65,19 +60,15 @@ public class Ui {
      *
      * @param e The exception containing the error message.
      */
-    public void showErrorMessage(SigmaException e) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(e);
-        System.out.println(HORIZONTAL_LINE);
+    public String showErrorMessage(SigmaException e) {
+        return e.toString();
     }
 
     /**
      * Displays a goodbye message when the application is about to exit.
      */
-    public void showGoodbye() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Catch ya on the flip side, my dude! See ya soon!");
-        System.out.println(HORIZONTAL_LINE);
+    public String showGoodbye() {
+        return "Catch ya on the flip side, my dude! See ya soon!";
     }
 
     /**
@@ -85,13 +76,16 @@ public class Ui {
      *
      * @param tasks The list of tasks to display.
      */
-    public void showList(TaskList tasks) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + "." + tasks.getTask(i + 1));
+    public String showList(TaskList tasks) {
+        if (tasks.getSize() == 0) {
+            return "There are no tasks in your list.";
         }
-        System.out.println(HORIZONTAL_LINE);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.getSize(); i++) {
+            sb.append(String.format("%d. %s\n", i + 1, tasks.getTask(i + 1)));
+        }
+        return "Here are the tasks in your list:\n" + sb;
     }
 
     /**
@@ -99,11 +93,8 @@ public class Ui {
      *
      * @param task The task that has been marked as done.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
-        System.out.println(HORIZONTAL_LINE);
+    public String showMarkedTask(Task task) {
+        return "Nice! I've marked this task as done:\n" + String.format("  %s", task);
     }
 
     /**
@@ -111,11 +102,8 @@ public class Ui {
      *
      * @param task The task that has been marked as not done.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
-        System.out.println(HORIZONTAL_LINE);
+    public String showUnmarkedTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + String.format("  %s", task);
     }
 
     /**
@@ -124,12 +112,9 @@ public class Ui {
      * @param task The task that has been added.
      * @param numberOfTasks The current number of tasks in the list.
      */
-    public void showAddedTask(Task task, int numberOfTasks) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
+    public String showAddedTask(Task task, int numberOfTasks) {
+        return "Got it. I've added this task:\n" + String.format("  %s\n", task)
+            + "Now you have " + numberOfTasks + " tasks in the list.";
     }
 
     /**
@@ -138,12 +123,9 @@ public class Ui {
      * @param task The task that has been removed.
      * @param numberOfTasks The current number of tasks in the list.
      */
-    public void showDeletedTask(Task task, int numberOfTasks) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
+    public String showDeletedTask(Task task, int numberOfTasks) {
+        return "Noted. I've removed this task:\n" + String.format("  %s\n", task)
+                + "Now you have " + numberOfTasks + " tasks in the list.";
     }
 
     /**
@@ -151,18 +133,15 @@ public class Ui {
      *
      * @param tasks The list of matching tasks.
      */
-    public void showSearchedTasks(TaskList tasks) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Here are the matching tasks in your list:");
-
+    public String showSearchedTasks(TaskList tasks) {
         if (tasks.getSize() == 0) {
-            System.out.println("  No matching tasks found.");
-        } else {
-            for (int i = 0; i < tasks.getSize(); i++) {
-                System.out.println((i + 1) + "." + tasks.getTask(i + 1));
-            }
+            return "  No matching tasks found.";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.getSize(); i++) {
+            sb.append(String.format("%d. %s", i + 1, tasks.getTask(i + 1)));
         }
 
-        System.out.println(HORIZONTAL_LINE);
+        return "Here are the matching tasks in your list:\n" + sb;
     }
 }

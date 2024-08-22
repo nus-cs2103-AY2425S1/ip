@@ -34,6 +34,7 @@ public class Sigma {
     private TaskList taskList;
     private Ui ui;
     private boolean isRunning;
+    private CommandType commandType;
 
     /**
      * Constructs a {@code Sigma} object and initializes the required components.
@@ -55,9 +56,9 @@ public class Sigma {
      * the command-processing loop.
      */
     private void run() {
-        this.ui.showWelcome();
+        System.out.println(this.ui.showWelcome());
         while (this.isRunning) {
-            handleCommand(this.ui.getInput());
+            getResponse(this.ui.getInput());
         }
     }
 
@@ -84,42 +85,34 @@ public class Sigma {
      *
      * @param userInput The user's input command.
      */
-    private void handleCommand(String userInput) {
+    public String getResponse(String userInput) {
         try {
-            switch (Parser.parseCommand(userInput)) {
+            commandType = Parser.parseCommand(userInput);
+            switch (commandType) {
             case BYE:
                 this.exit();
-                this.ui.showGoodbye();
-                return;
+                return this.ui.showGoodbye();
             case LIST:
-                this.ui.showList(taskList);
-                break;
+                return this.ui.showList(taskList);
             case MARK:
-                handleMarkCommand(Parser.parseArgs(CommandType.MARK, userInput));
-                break;
+                return handleMarkCommand(Parser.parseArgs(CommandType.MARK, userInput));
             case UNMARK:
-                handleUnmarkCommand(Parser.parseArgs(CommandType.UNMARK, userInput));
-                break;
+                return handleUnmarkCommand(Parser.parseArgs(CommandType.UNMARK, userInput));
             case TODO:
-                handleTodoCommand(Parser.parseArgs(CommandType.TODO, userInput));
-                break;
+                return handleTodoCommand(Parser.parseArgs(CommandType.TODO, userInput));
             case DEADLINE:
-                handleDeadlineCommand(Parser.parseArgs(CommandType.DEADLINE, userInput));
-                break;
+                return handleDeadlineCommand(Parser.parseArgs(CommandType.DEADLINE, userInput));
             case EVENT:
-                handleEventCommand(Parser.parseArgs(CommandType.EVENT, userInput));
-                break;
+                return handleEventCommand(Parser.parseArgs(CommandType.EVENT, userInput));
             case DELETE:
-                handleDeleteCommand(Parser.parseArgs(CommandType.DELETE, userInput));
-                break;
+                return handleDeleteCommand(Parser.parseArgs(CommandType.DELETE, userInput));
             case FIND:
-                handleFindCommand(Parser.parseArgs(CommandType.FIND, userInput));
-                break;
+                return handleFindCommand(Parser.parseArgs(CommandType.FIND, userInput));
             default:
                 throw new SigmaUnknownCommandException(userInput);
             }
         } catch (SigmaException e) {
-            this.ui.showErrorMessage(e);
+            return this.ui.showErrorMessage(e);
         }
     }
 
@@ -129,14 +122,14 @@ public class Sigma {
      * @param userInput The task number to mark as done.
      * @throws SigmaException If the task number is invalid.
      */
-    private void handleMarkCommand(String userInput) throws SigmaException {
+    private String handleMarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
             if (taskNumber < 1 || taskNumber > taskList.getSize()) {
                 throw new SigmaInvalidTaskException(taskNumber);
             }
             taskList.getTask(taskNumber).markAsDone();
-            this.ui.showMarkedTask(taskList.getTask(taskNumber));
+            return this.ui.showMarkedTask(taskList.getTask(taskNumber));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.MARK);
         } catch (NumberFormatException e) {
@@ -150,14 +143,14 @@ public class Sigma {
      * @param userInput The task number to mark as not done.
      * @throws SigmaException If the task number is invalid.
      */
-    private void handleUnmarkCommand(String userInput) throws SigmaException {
+    private String handleUnmarkCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
             if (taskNumber < 1 || taskNumber > taskList.getSize()) {
                 throw new SigmaInvalidTaskException(taskNumber);
             }
             taskList.getTask(taskNumber).markAsNotDone();
-            this.ui.showUnmarkedTask(taskList.getTask(taskNumber));
+            return this.ui.showUnmarkedTask(taskList.getTask(taskNumber));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.UNMARK);
         } catch (NumberFormatException e) {
@@ -171,11 +164,11 @@ public class Sigma {
      * @param userInput The description of the to-do task.
      * @throws SigmaException If the description is missing or invalid.
      */
-    private void handleTodoCommand(String userInput) throws SigmaException {
+    private String handleTodoCommand(String userInput) throws SigmaException {
         try {
             Task todo = new Todo(userInput);
             taskList.addTask(todo);
-            this.ui.showAddedTask(todo, taskList.getSize());
+            return this.ui.showAddedTask(todo, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
             throw new SigmaMissingArgException(CommandType.TODO);
         }
@@ -187,7 +180,7 @@ public class Sigma {
      * @param userInput The description and due date of the deadline task.
      * @throws SigmaException If the description or due date is missing or invalid.
      */
-    private void handleDeadlineCommand(String userInput) throws SigmaException {
+    private String handleDeadlineCommand(String userInput) throws SigmaException {
         try {
             String[] parts = userInput.split(" /by ");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
@@ -198,7 +191,7 @@ public class Sigma {
             LocalDateTime by = LocalDateTime.parse(parts[1], formatter);
             Task deadline = new Deadline(description, by);
             taskList.addTask(deadline);
-            this.ui.showAddedTask(deadline, taskList.getSize());
+            return this.ui.showAddedTask(deadline, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.DEADLINE);
         } catch (DateTimeParseException e) {
@@ -212,7 +205,7 @@ public class Sigma {
      * @param userInput The description, start time, and end time of the event task.
      * @throws SigmaException If the description, start time, or end time is missing or invalid.
      */
-    private void handleEventCommand(String userInput) throws SigmaException {
+    private String handleEventCommand(String userInput) throws SigmaException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
             String[] parts = userInput.split(" /from ");
@@ -234,7 +227,7 @@ public class Sigma {
             }
             Task event = new Event(description, from, to);
             taskList.addTask(event);
-            this.ui.showAddedTask(event, taskList.getSize());
+            return this.ui.showAddedTask(event, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.EVENT);
         } catch (DateTimeParseException e) {
@@ -248,14 +241,15 @@ public class Sigma {
      * @param userInput The task number to delete.
      * @throws SigmaException If the task number is invalid.
      */
-    private void handleDeleteCommand(String userInput) throws SigmaException {
+    private String handleDeleteCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
             if (taskNumber < 1 || taskNumber > taskList.getSize()) {
                 throw new SigmaInvalidTaskException(taskNumber);
             }
-            this.ui.showDeletedTask(taskList.getTask(taskNumber), taskList.getSize() - 1);
+            String s = this.ui.showDeletedTask(taskList.getTask(taskNumber), taskList.getSize() - 1);
             taskList.deleteTask(taskNumber);
+            return s;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.DELETE);
         } catch (NumberFormatException e) {
@@ -269,7 +263,7 @@ public class Sigma {
      * @param userInput The keyword to search for in tasks.
      * @throws SigmaException If the keyword is missing or invalid.
      */
-    public void handleFindCommand(String userInput) throws SigmaException {
+    public String handleFindCommand(String userInput) throws SigmaException {
         if (taskList.getSize() == 0) {
             throw new SigmaEmptyTaskListException();
         }
@@ -278,7 +272,11 @@ public class Sigma {
             throw new SigmaInvalidArgException(CommandType.FIND);
         }
 
-        this.ui.showSearchedTasks(this.taskList.search(userInput));
+        return this.ui.showSearchedTasks(this.taskList.search(userInput));
+    }
+
+    public CommandType getCommandType() {
+        return commandType;
     }
 
     /**
