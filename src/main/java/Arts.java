@@ -20,7 +20,7 @@ public class Arts {
         int taskCount = 0;
 
         while (true) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             String[] parts = input.split(" ", 2);
 
             if (parts[0].equalsIgnoreCase("bye")) {
