@@ -3,28 +3,61 @@ import java.util.ArrayList;
 
 public class MonoBot {
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         MonoBot.printGreeting();
 
         Scanner sc = new Scanner(System.in);
-        while (true) {
-            String command = sc.nextLine();
-            String[] task = command.split(" ");
-            if (command.equals("bye")) {
-                break;
-            } else if (command.equals("list")) {
-                printTasks();
-            } else if ((task[0].equals("mark")) && (task.length == 2)) {
-                MonoBot.markTask(Integer.parseInt(task[1]) - 1);
-            } else if ((task[0].equals("unmark")) && (task.length == 2)) {
-                MonoBot.unmarkTask(Integer.parseInt(task[1]) - 1);
-            } else {
-                MonoBot.addTask(command);
+        Boolean keepAlive = true;
+
+        while (keepAlive) {
+            String input = sc.nextLine();
+            String[] task = input.split(" ", 2);
+            Command command = getCommand(task[0]);
+
+            switch (command) {
+                case LIST:
+                    MonoBot.printTasks();
+                    break;
+
+                case TODO:
+                    Task todo = new Todo(task[1]);
+                    MonoBot.addTask(todo);
+                    break;
+
+                case DEADLINE:
+                    String[] deadlineDetails = task[1].split("/by", 2);
+                    Task deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                    MonoBot.addTask(deadline);
+                    break;
+
+                case EVENT:
+                    String[] eventDetails = task[1].split("/from|/to ", 3);
+                    Task event = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
+                    MonoBot.addTask(event);
+                    break;
+
+                case MARK:
+                    int indexToMark = Integer.parseInt(task[1]) - 1;
+                    MonoBot.markTask(indexToMark);
+                    break;
+
+                case UNMARK:
+                    int indexToUnmark = Integer.parseInt(task[1]) - 1;
+                    MonoBot.unmarkTask(indexToUnmark);
+                    break;
+
+                case INVALID:
+                    System.out.println("Invalid Command");
+                    break;
+
+                case BYE:
+                    sc.close();
+                    keepAlive = false;
+                    break;
             }
         }
-
         MonoBot.printFarewell();
     }
 
@@ -45,29 +78,43 @@ public class MonoBot {
         MonoBot.hLine();
     }
 
-    private static void addTask(String str) {
-        Task curr = new Task(str);
-        MonoBot.tasks.add(curr);
+    public static Command getCommand(String str) {
+        String command = str.toLowerCase();
+        return switch (command) {
+            case "list" -> Command.LIST;
+            case "mark" -> Command.MARK;
+            case "unmark" -> Command.UNMARK;
+            case "todo" -> Command.TODO;
+            case "deadline" -> Command.DEADLINE;
+            case "event" -> Command.EVENT;
+            case "bye" -> Command.BYE;
+            default -> Command.INVALID;
+        };
+    }
+
+    private static void addTask(Task task) {
+        MonoBot.taskList.add(task);
         MonoBot.hLine();
-        System.out.println("Added: " + str);
+        System.out.println("Added: " + task);
+        System.out.println("Now you have " + MonoBot.taskList.size() + " task(s) in the list");
         MonoBot.hLine();
     }
 
     private static void printTasks() {
         MonoBot.hLine();
-        if (MonoBot.tasks.isEmpty()) {
+        if (MonoBot.taskList.isEmpty()) {
             System.out.println("No tasks added yet");
         } else {
             System.out.println("Here are the tasks in your list");
-            for (int i = 0; i < MonoBot.tasks.size(); i++) {
-                System.out.printf("%d. %s%n", i + 1, MonoBot.tasks.get(i));
+            for (int i = 0; i < MonoBot.taskList.size(); i++) {
+                System.out.printf("%d. %s%n", i + 1, MonoBot.taskList.get(i));
             }
         }
         MonoBot.hLine();
     }
 
     private static void markTask(int i) {
-        Task curr = MonoBot.tasks.get(i);
+        Task curr = MonoBot.taskList.get(i);
         curr.markTask();
         MonoBot.hLine();
         System.out.println("Nice! I have marked this task as completed: \n" + curr);
@@ -75,7 +122,7 @@ public class MonoBot {
     }
 
     private static void unmarkTask(int i) {
-        Task curr = MonoBot.tasks.get(i);
+        Task curr = MonoBot.taskList.get(i);
         curr.unmarkTask();
         MonoBot.hLine();
         System.out.println("Ok! I have marked this task as incomplete: \n" + curr);
