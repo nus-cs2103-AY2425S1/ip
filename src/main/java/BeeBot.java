@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class BeeBot {
@@ -27,7 +26,8 @@ public class BeeBot {
                     int size = taskList.size();
                     String listStr = "";
                     for (int i = 0; i < size; i++) {
-                        listStr += taskList.get(i).stringify();
+                        int num = i + 1;
+                        listStr += (num + "." + taskList.get(i).stringify());
                     }
                     speak(listStr);
                     break;
@@ -43,11 +43,92 @@ public class BeeBot {
                     curr.markAsUndone();
                     speak("Nice! I've marked this task as not done yet:\n" + curr.stringify());
                     break;
-                default:
-                    int num = taskList.size() + 1;
-                    Task newTask = new Task(num, input);
-                    taskList.add(newTask);
-                    speak("added: " + input + "\n");
+                case "todo":
+                    int sizeOfTodo = parts.length;
+                    String name = "";
+                    for (int i = 1; i < sizeOfTodo; i++) {
+                        name += (parts[i] + " ");
+                    }
+
+                    ToDo newToDo = new ToDo(name);
+                    taskList.add(newToDo);
+                    int currSize = taskList.size();
+
+                    if (currSize == 1) {
+                        speak("Got it. I've added this task:\n"
+                                + newToDo.stringify()
+                                + "Now you have "
+                                + currSize + " task in the list.\n");
+                    } else {
+                        speak("Got it. I've added this task:\n"
+                                + newToDo.stringify()
+                                + "Now you have "
+                                + currSize + " tasks in the list.\n");
+                    }
+                    break;
+                case "deadline":
+                    String deadlineName = "";
+                    int d = 1;
+
+                    while (!parts[d].equals("/by")) {
+                        deadlineName += (parts[d] + " ");
+                        d++;
+                    }
+                    d++;
+                    String deadlineDate = "";
+                    for (; d < parts.length - 1; d++) {
+                        deadlineDate += (parts[d] + " ");
+                    }
+                    deadlineDate += parts[d];
+                    Deadline newDeadline = new Deadline(deadlineName, deadlineDate);
+                    taskList.add(newDeadline);
+                    int currSize2 = taskList.size();
+                    if (currSize2 == 1) {
+                        speak("Got it. I've added this task:\n"
+                                + newDeadline.stringify()
+                                + "Now you have "
+                                + currSize2 + " task in the list.\n");
+                    } else {
+                        speak("Got it. I've added this task:\n"
+                                + newDeadline.stringify()
+                                + "Now you have "
+                                + currSize2 + " tasks in the list.\n");
+                    }
+                    break;
+                case "event":
+                    String eventName = "";
+                    int e = 1;
+                    while (!parts[e].equals("/from")) {
+                        eventName += (parts[e] + " ");
+                        e++;
+                    }
+                    e++;
+                    String startTime = "";
+                    while (!parts[e].equals("/to")) {
+                        startTime += (parts[e] + " ");
+                        e++;
+                    }
+                    e++;
+                    String endTime = "";
+                    for (; e < parts.length - 1; e++) {
+                        endTime += (parts[e] + " ");
+                    }
+                    endTime += parts[e];
+                    Event newEvent = new Event(eventName, startTime, endTime);
+                    taskList.add(newEvent);
+                    int currSize3 = taskList.size();
+
+                    if (currSize3 == 1) {
+                        speak("Got it. I've added this task:\n"
+                                + newEvent.stringify()
+                                + "Now you have "
+                                + currSize3 + " task in the list.\n");
+                    } else {
+                        speak("Got it. I've added this task:\n"
+                                + newEvent.stringify()
+                                + "Now you have "
+                                + currSize3 + " tasks in the list.\n");
+                    }
                     break;
             }
         }

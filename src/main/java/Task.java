@@ -1,16 +1,16 @@
 public class Task {
-    private int num;
     private boolean done = false;
     private String name;
 
-    public Task(int num, String name) {
-        this.num = num;
+    public Task() {
+    }
+
+    public Task(String name) {
         this.name = name;
     }
 
     public String stringify() {
         String str = "";
-        str += (this.num + ".");
         if (done) {
             str += "[X]";
         } else {
@@ -26,5 +26,13 @@ public class Task {
 
     public void markAsUndone() {
         this.done = false;
+    }
+
+    public Boolean isDone() {
+        return this.done;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
