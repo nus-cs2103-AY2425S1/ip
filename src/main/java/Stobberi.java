@@ -16,7 +16,7 @@ public class Stobberi {
                 + "\n___________________________________________\n";
     }
 
-    private static void Echo() {
+    private static void echo() {
         Scanner scanner = new Scanner(System.in);
         String temp = scanner.nextLine();
 
@@ -26,7 +26,7 @@ public class Stobberi {
         }
     }
 
-    private static void AddList() {
+    private static void addList() {
         Scanner scanner = new Scanner(System.in);
         String temp = scanner.nextLine();
 
@@ -45,10 +45,9 @@ public class Stobberi {
         }
     }
 
-
     public static void main(String[] args) {
         System.out.println(displayForm(helloGreeting));
-        AddList();
+        addList();
         System.out.println(displayForm(goodByeGreeting));
     }
 }
