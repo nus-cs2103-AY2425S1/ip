@@ -33,6 +33,9 @@ public class Eevee {
                 } else if (input.equals("mark")) {
                     // response to command 'mark'
                     int taskNumber = scanner.nextInt();
+                    if (taskNumber > tasks.size()) {
+                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                    }
                     Task t = tasks.get(taskNumber - 1);
                     if (t.isDone) {
                         throw new EeveeException("Task has already been marked as done.");
@@ -42,6 +45,9 @@ public class Eevee {
                 } else if (input.equals("unmark")) {
                     // response to command 'unmark'
                     int taskNumber = scanner.nextInt();
+                    if (taskNumber > tasks.size()) {
+                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                    }
                     Task t = tasks.get(taskNumber - 1);
                     if (!t.isDone) {
                         throw new EeveeException("Task is not marked as done. "
@@ -49,6 +55,15 @@ public class Eevee {
                     }
                     t.unmarkAsDone();
                     System.out.println("Ok! Task no longer marked as done:\n  " + t);
+                } else if (input.equals("delete")) {
+                    // response to command 'delete'
+                    int taskNumber = scanner.nextInt();
+                    if (taskNumber > tasks.size()) {
+                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                    }
+                    Task t = tasks.get(taskNumber - 1);
+                    tasks.remove(taskNumber - 1);
+                    System.out.println("As you wish, this task has been removed:\n " + t + "\nYou now have " + tasks.size() + " task(s).");
                 } else {
                     String s = scanner.nextLine().trim();
 
@@ -61,9 +76,7 @@ public class Eevee {
                         Todo t = new Todo(s);
                         tasks.add(t);
                         System.out.println("Added the following task to your list:\n" + t);
-                    }
-
-                    if (input.equals("deadline")) {
+                    } else if (input.equals("deadline")) {
                         // response to command for D task
                         String[] info = s.split("/", 2);
                         if (info.length < 2) {
@@ -73,9 +86,7 @@ public class Eevee {
                         Deadline d = new Deadline(info[0], info[1]);
                         tasks.add(d);
                         System.out.println("Added the following task to your list:\n" + d);
-                    }
-
-                    if (input.equals("event")) {
+                    } else if (input.equals("event")) {
                         // response to command for E task
                         String[] info = s.split("/", 3);
                         if (info.length < 3) {
@@ -86,6 +97,8 @@ public class Eevee {
                         Event e = new Event(info[0], info[1], info[2]);
                         tasks.add(e);
                         System.out.println("Added the following task to your list:\n" + e);
+                    } else {
+                        throw new EeveeException("You seemed to have typed wrong. This is not a valid command.");
                     }
                     System.out.println("You now have " + tasks.size() + " task(s).");
                 }
