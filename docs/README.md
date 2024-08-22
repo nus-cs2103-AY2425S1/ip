@@ -8,11 +8,9 @@
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+To add a deadline task, use the deadline command. This action creates a new task with a specific deadline that Xizi will keep track of.
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
+Example: deadline <task_description> /by <due_date>
 
 // A description of the expected outcome goes here
 
