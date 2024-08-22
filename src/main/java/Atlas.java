@@ -115,7 +115,7 @@ public class Atlas {
         }
 
         int markIndex = Integer.parseInt(commandsArray[1]) - 1;
-        if (markIndex <= 0 || markIndex >= taskList.size()) {
+        if (markIndex < 0 || markIndex >= taskList.size()) {
             throw new AtlasException("Task number does not exist.");
         }
 
@@ -135,7 +135,7 @@ public class Atlas {
         }
 
         int unmarkIndex = Integer.parseInt(commandsArray[1]) - 1;
-        if (unmarkIndex <= 0 || unmarkIndex >= taskList.size()) {
+        if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
             throw new AtlasException("Task number does not exist.");
         }
 
@@ -162,6 +162,10 @@ public class Atlas {
         }
 
         int deleteIndex = Integer.parseInt(commandsArray[1]) - 1;
+        if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
+            throw new AtlasException("Task number does not exist.");
+        }
+
         Task task = taskList.get(deleteIndex);
         taskList.remove(deleteIndex);
         String addMessage = String.format("Noted. I've removed this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
