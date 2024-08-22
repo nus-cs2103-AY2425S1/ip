@@ -70,7 +70,7 @@ public class NathanBot {
                 System.out.println(LINE + "OK, I've marked this task as not done yet:\n  " + TaskList.getTask(index - 1) + "\n" + LINE);
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println(LINE + "Invalid task number.\n" + LINE);
+            System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
         }
     }
 
