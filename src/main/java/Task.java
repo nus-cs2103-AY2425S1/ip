@@ -1,10 +1,16 @@
 public class Task {
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
     protected String description;
     protected boolean isDone;
+    protected TaskType type;
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false;
+        this.type = type;
     }
 
     public String getStatusIcon() {
@@ -19,20 +25,32 @@ public class Task {
         this.isDone = false;
     }
 
+    public TaskType getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getTypeIcon() + "][" + getStatusIcon() + "] " + description;
+    }
+
+    public String getTypeIcon() {
+        switch (type) {
+            case TODO:
+                return "T";
+            case DEADLINE:
+                return "D";
+            case EVENT:
+                return "E";
+            default:
+                return " ";
+        }
     }
 }
 
 class Todo extends Task {
     public Todo(String description) {
-        super(description);
-    }
-
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
+        super(description, TaskType.TODO);
     }
 }
 
@@ -40,13 +58,13 @@ class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, TaskType.DEADLINE);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + by + ")";
     }
 }
 
@@ -55,13 +73,13 @@ class Event extends Task {
     protected String to;
 
     public Event(String description, String from, String to) {
-        super(description);
+        super(description, TaskType.EVENT);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
