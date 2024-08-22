@@ -1,7 +1,8 @@
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Chatterbox {
 
@@ -93,6 +94,11 @@ ____________________________________________________________
             this.status = stat;
         }
         public String getTaskSymbol() { return "";}
+
+        @Override
+        public String toString() {
+            return this.getDescription();
+        }
     }
 
     protected static String parseTODO(String desc) {
@@ -224,7 +230,7 @@ ____________________________________________________________
 //                + "|____/ \\__,_|_|\\_\\___|\n";
         Scanner scanner = new Scanner(System.in);
         System.out.println(greeting());
-        Task[] userList = new Task[100];
+        ArrayList<Task> userList = new ArrayList<Task>();
         int current  = 0;
         try {
             while (true) {
@@ -234,49 +240,58 @@ ____________________________________________________________
                 } else if (response.equals("list")) {
                     System.out.println(Chatterbox.LINESEPERATOR);
                     System.out.println("Current Tasks in List: ");
-                    for (int i = 0; i < current; i++) {
-                        System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", userList[i].getTaskSymbol(), userList[i].getStatus() ? "X" : " ", userList[i].getDescription()));
+                    for (int i = 0; i < userList.size(); i++) {
+                        System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", userList.get(i).getTaskSymbol(), userList.get(i).getStatus() ? "X" : " ", userList.get(i).getDescription()));
                     }
 
                 } else if (response.startsWith("mark")){
                     response = response.trim();
                     int index = Chatterbox.extractNum(response) - 1; // -1 as the display  start from 1
-                    userList[index].setStatus(true);
+                    userList.get(index).setStatus(true);
                     System.out.println(Chatterbox.LINESEPERATOR);
                     System.out.println("Marked task as done");
-                    System.out.println(String.format("[X] %s", userList[index].getDescription()));
+                    System.out.println(String.format("[X] %s", userList.get(index).getDescription()));
 
 
                 } else if (response.startsWith("unmark")) {
                     response = response.trim();
                     int index = Chatterbox.extractNum(response) - 1; // -1 as the display  start from 1
-                    userList[index].setStatus(false);
+                    userList.get(index).setStatus(false);
                     System.out.println(Chatterbox.LINESEPERATOR);
                     System.out.println("Marked task as undone");
-                    System.out.println(String.format("[ ] %s", userList[index].getDescription()));
+                    System.out.println(String.format("[ ] %s", userList.get(index).getDescription()));
                 } else if (response.startsWith("todo")) {
-                    userList[current] = new Todo(response);
+                    userList.add(new Todo(response));
                     current++;
                     System.out.println(Chatterbox.LINESEPERATOR);
                     System.out.println("Added Task to Todo");
-                    System.out.println(String.format("Currently %d tasks in list", current));
+                    System.out.println(String.format("Currently %d tasks in list", userList.size()));
                 } else if (response.startsWith("deadline")) {
                     String[] parsed = parseDeadline(response);
-                    userList[current] = new Deadline(parsed[0], parsed[1]);
+                    userList.add(new Deadline(parsed[0], parsed[1]));
                     current++;
                     System.out.println(Chatterbox.LINESEPERATOR);
 
                     System.out.println("Added Deadline to Todo");
-                    System.out.println(String.format("Currently %d tasks in list", current));
+                    System.out.println(String.format("Currently %d tasks in list", userList.size()));
                 }else if (response.startsWith("event")) {
                     String[] parsed = parseEvent(response);
-                    userList[current] = new Event(parsed[0], parsed[1], parsed[2]);
+                    userList.add(new Event(parsed[0], parsed[1], parsed[2]));
                     current++;
                     System.out.println(Chatterbox.LINESEPERATOR);
 
                     System.out.println("Added Event to Todo");
-                    System.out.println(String.format("Currently %d tasks in list", current));
-                } else {
+                    System.out.println(String.format("Currently %d tasks in list", userList.size()));
+                } else if (response.startsWith("delete")) {
+                    response = response.trim();
+                    int index = Chatterbox.extractNum(response) - 1;
+
+                    System.out.println(LINESEPERATOR);
+                    System.out.println("Removing Task: ");
+                    System.out.println(userList.get(index).toString());
+                    userList.remove(index);
+                    System.out.println(String.format("List has %d tasks", userList.size()));
+                }else {
 //                    userList[current] = new Task(response);
 //                    current++;
 //                    System.out.println(Chatterbox.LINESEPERATOR);
