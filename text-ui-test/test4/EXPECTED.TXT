@@ -1,0 +1,20 @@
+---------------
+Hello I am Schedulo!
+What can I do for you?
+---------------
+---------------
+Invalid command, please try again.
+---------------
+---------------
+The description of a todo cannot be empty.
+---------------
+---------------
+The description of a deadline or the /by cannot be empty.
+---------------
+---------------
+Here are the tasks in your list: 
+
+---------------
+---------------
+Bye. Hope to see you again soon!
+---------------

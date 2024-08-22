@@ -1,0 +1,26 @@
+---------------
+Hello I am Schedulo!
+What can I do for you?
+---------------
+---------------
+Got it. I've added this task: 
+[T] [ ] study
+Now you have 1 tasks in the list.
+---------------
+---------------
+Invalid task number given. Type 'list' to find out the task number.
+---------------
+---------------
+Invalid task number given. Type 'list' to find out the task number.
+---------------
+---------------
+Invalid task number given. Type 'list' to find out the task number.
+---------------
+---------------
+Here are the tasks in your list: 
+1. [T] [ ] study
+
+---------------
+---------------
+Bye. Hope to see you again soon!
+---------------

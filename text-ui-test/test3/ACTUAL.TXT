@@ -1,0 +1,40 @@
+---------------
+Hello I am Schedulo!
+What can I do for you?
+---------------
+---------------
+Got it. I've added this task: 
+[T] [ ] watch movie
+Now you have 1 tasks in the list.
+---------------
+---------------
+Got it. I've added this task: 
+[D] [ ] complete project (by: Wednesday)
+Now you have 2 tasks in the list.
+---------------
+---------------
+Got it. I've added this task: 
+[E] [ ] conference (from: Friday 10am to: Friday 3pm)
+Now you have 3 tasks in the list.
+---------------
+---------------
+Here are the tasks in your list: 
+1. [T] [ ] watch movie
+2. [D] [ ] complete project (by: Wednesday)
+3. [E] [ ] conference (from: Friday 10am to: Friday 3pm)
+
+---------------
+---------------
+ Noted. I've removed this task: 
+[D] [ ] complete project (by: Wednesday)
+Now you have 2 tasks in the list.
+---------------
+---------------
+Here are the tasks in your list: 
+1. [T] [ ] watch movie
+2. [E] [ ] conference (from: Friday 10am to: Friday 3pm)
+
+---------------
+---------------
+Bye. Hope to see you again soon!
+---------------

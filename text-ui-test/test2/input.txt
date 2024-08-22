@@ -1,0 +1,7 @@
+todo finish assignment
+deadline submit report /by Friday
+list
+mark 1
+unmark 1
+list
+bye

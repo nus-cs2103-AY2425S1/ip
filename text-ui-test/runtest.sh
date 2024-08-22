@@ -6,12 +6,6 @@ then
     mkdir ../bin
 fi
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
-fi
-
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
 then
@@ -19,20 +13,30 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# Loop through each test folder
+for test_dir in ./test*; do
+    echo "Running test in $test_dir"
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+    # delete output from previous run
+    if [ -e "$test_dir/ACTUAL.TXT" ]
+    then
+        rm "$test_dir/ACTUAL.TXT"
+    fi
 
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
-    echo "Test result: PASSED"
-    exit 0
-else
-    echo "Test result: FAILED"
-    exit 1
-fi
+    # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+    java -classpath ../bin Schedulo < "$test_dir/input.txt" > "$test_dir/ACTUAL.TXT"
+
+    # convert to UNIX format
+    cp "$test_dir/EXPECTED.TXT" "$test_dir/EXPECTED-UNIX.TXT"
+    dos2unix "$test_dir/ACTUAL.TXT" "$test_dir/EXPECTED-UNIX.TXT"
+
+    # compare the output to the expected output
+    diff "$test_dir/ACTUAL.TXT" "$test_dir/EXPECTED-UNIX.TXT"
+    if [ $? -eq 0 ]
+    then
+        echo "Test result in $test_dir: PASSED"
+    else
+        echo "Test result in $test_dir: FAILED"
+        exit 1
+    fi
+done

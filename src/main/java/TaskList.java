@@ -138,35 +138,54 @@ public class TaskList {
         }
         try {
             int index = Integer.parseInt(splitWords[1]);
+    
+            // Check if the index is within bounds
+            if (index < 1 || index > tasklist.size()) {
+                throw new InvalidTaskNumberException();
+            }
+    
             this.markTask(index);
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException();
         }
     }
-
+    
     private void handleUnmarkCommand(String[] splitWords) throws ScheduloException {
         if (splitWords.length < 2) {
             throw new InvalidTaskNumberException();
         }
         try {
             int index = Integer.parseInt(splitWords[1]);
+    
+            // Check if the index is within bounds
+            if (index < 1 || index > tasklist.size()) {
+                throw new InvalidTaskNumberException();
+            }
+    
             this.unmarkTask(index);
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException();
         }
     }
-
+    
     private void handleDeleteCommand(String[] splitWords) throws ScheduloException {
         if (splitWords.length < 2) {
             throw new InvalidTaskNumberException();
         }
         try {
             int index = Integer.parseInt(splitWords[1]);
+    
+            // Check if the index is within bounds
+            if (index < 1 || index > tasklist.size()) {
+                throw new InvalidTaskNumberException();
+            }
+    
             this.deleteTask(index);
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException();
         }
     }
+    
 
     private void handleDeadlineCommand(String[] splitWords) throws ScheduloException {
         if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
