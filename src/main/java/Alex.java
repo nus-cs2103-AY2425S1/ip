@@ -54,11 +54,43 @@ public class Alex {
                 System.out.println(LINE);
             }
             scan();
+        } else if (userInput.startsWith("todo")) {
+            String description = userInput.substring(5);
+            Todo todo = new Todo(description);
+            list.add(todo);
+            System.out.println(LINE);
+            System.out.println("Got it. I've added this task: \n" + todo.toString()
+            + "\n Now you have " + list.size() + " tasks in the list.");
+            System.out.println(LINE);
+            scan();
+        } else if (userInput.startsWith("deadline")) {
+            String description = userInput.substring(9);
+            String[] details = description.split("/");
+            String task = details[0];
+            String dueDate = details[1].substring(3);
+            Deadline deadline = new Deadline(task, dueDate);
+            list.add(deadline);
+            System.out.println(LINE);
+            System.out.println("Got it. I've added this task: \n" + deadline.toString()
+                    + "\n Now you have " + list.size() + " tasks in the list.");
+            System.out.println(LINE);
+            scan();
+        } else if (userInput.startsWith("event")) {
+            String description = userInput.substring(6);
+            String[] details = description.split("/");
+            String task = details[0];
+            String startDate = details[1].substring(5);
+            String endDate = details[2].substring(3);
+            Event event = new Event(task, startDate, endDate);
+            list.add(event);
+            System.out.println(LINE);
+            System.out.println("Got it. I've added this task: \n" + event.toString()
+                    + "\n Now you have " + list.size() + " tasks in the list.");
+            System.out.println(LINE);
+            scan();
         } else {
             System.out.println(LINE);
-            System.out.println("added: " + userInput);
-            Task task = new Task(userInput);
-            list.add(task);
+            System.out.println("Invalid input. Please try again");
             System.out.println(LINE);
             scan();
         }
