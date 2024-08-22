@@ -11,8 +11,8 @@ public class Task {
     return description;
   }
 
-  public boolean getIsDone() {
-    return isDone;
+  public String getStatusIcon() {
+    return (isDone ? "X" : " "); // mark done task with X
   }
 
   public void markAsDone() {
