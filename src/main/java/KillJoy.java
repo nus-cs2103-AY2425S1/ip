@@ -20,6 +20,7 @@ public class KillJoy {
                                 "    ------------------------------------";
     private String markString = "Ayee Yooo! I've marked this task okaayyyyy:";
     private String unmarkString = "Yo big guy! I've unmarked this for you:";
+    private String deleteString = "Okay! I'll remove this task:";
     private ArrayList<Task> taskList = new ArrayList<>();
     private int taskCount = 0;
 
@@ -46,6 +47,8 @@ public class KillJoy {
                 this.printTaskList();
             } else if (inputAsList[0].equals("mark") || inputAsList[0].equals("unmark")) {
                 this.markOrUnmarkTask(inputAsList);
+            } else if (inputAsList[0].equals("delete")) {
+                this.deleteTask(inputAsList);
             } else {
                 this.processUserInput(input);
             }
@@ -125,6 +128,37 @@ public class KillJoy {
             System.out.println("    " + unmarkString + "\n        " + this.taskList.get(taskNum));
             this.printLine();
         }
+    }
+
+    private void deleteTask(String[] inputAsList) {
+        int taskNum = Integer.MAX_VALUE;
+
+        if (inputAsList.length == 1) {
+            this.printLine();
+            System.out.println("    MAOHWAHAWK !! Enter the task number too!!!");
+            this.printLine();
+            return;
+        }
+
+        taskNum = Integer.parseInt(inputAsList[1]) - 1;
+        if (taskNum + 1 > taskCount || taskNum < 0) {
+            this.printLine();
+            System.out.println("    DANGER !! Task does not exist");
+            this.printLine();
+            return;
+        }
+
+        Task t = this.taskList.get(taskNum);
+        this.taskList.remove(taskNum);
+        this.taskCount--;
+        this.printLine();
+        System.out.println("    " + deleteString + "\n        " + t );
+        if (taskCount == 1) {
+            System.out.println("    Now you have " + taskCount + " task in the list.");
+        } else {
+            System.out.println("    Now you have " + taskCount + " tasks in the list.");
+        }
+        this.printLine();
     }
 
     private void printLine() {
