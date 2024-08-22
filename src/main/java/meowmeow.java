@@ -1,17 +1,14 @@
 import java.util.LinkedList;
 import java.util.Scanner;
+
 public class meowmeow {
     public static void main(String[] args) {
-       /* String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);*/
         System.out.println("Hello! I'm meowmeow\n" + "What can I do for you?\n");
+
         LinkedList<Task> list = new LinkedList<>();
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
+
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 // Print all tasks
@@ -38,11 +35,37 @@ public class meowmeow {
                 } else {
                     System.out.println("Invalid task number.");
                 }
+            } else if (input.startsWith("todo ")) {
+                // Add a ToDo task
+                String description = input.substring(5);
+                ToDo todo = new ToDo(description);
+                list.add(todo);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + todo);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline ")) {
+                // Add a Deadline task
+                String[] parts = input.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                Deadline deadline = new Deadline(description, by);
+                list.add(deadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + deadline);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else if (input.startsWith("event ")) {
+                // Add an Event task
+                String[] parts = input.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                Event event = new Event(description, from, to);
+                list.add(event);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + event);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else {
-                // Add a new task to the list
-                Task t = new Task(input);
-                list.add(t);
-                System.out.println("added: " + input);
+                System.out.println("Sorry, I don't know what that means.");
             }
             input = s.nextLine();
         }
