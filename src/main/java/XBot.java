@@ -15,10 +15,13 @@ public class XBot {
                     int index = i + 1;
                     System.out.println(index + ". " + list[i]);
                 }
-            } else {
+            } else if (!input.isEmpty()) {
                 //store input in list
                 list[taskCount] = input;
+                System.out.println("added: " + input);
                 taskCount++;
+            } else {
+                //do nothing when input is empty
             }
             input = scanner.nextLine();
         }
