@@ -36,7 +36,7 @@ public class TaskStorage {
             stringBuilder.append(index).append(". ").append(task.toString()).append("\n");
             index++;
         }
-        return stringBuilder.toString();
+        return stringBuilder.toString().trim();
     }
 
 }

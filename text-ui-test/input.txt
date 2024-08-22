@@ -1,0 +1,17 @@
+list
+todo read textbook
+deadline cs2103t ip /by Fri 1600
+event sleep /from 12am /to 12pm
+todo read storybook
+list
+mark 3
+list
+mark 3
+list
+unmark 2
+list
+mark 2
+list
+unmark 2
+list
+bye

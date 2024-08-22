@@ -3,10 +3,10 @@ import java.util.Scanner;
 public class Kat {
 
     private static final String LOGO = """
-             _         _  \s
-            | | __ ___| |_\s
+             _         _
+            | | __ ___| |_
             | |/ / _  | __|
-            |   < (_| | |_\s
+            |   < (_| | |_
             |_|\\_\\____|\\__|
             """;
 
@@ -37,7 +37,7 @@ public class Kat {
             if (inputMsg.startsWith("mark")) {
                 int taskIdx = Integer.parseInt(inputMsg.split(" ")[1]) - 1;
                 storage.setTaskAsDone(taskIdx);
-                respond("Nice! Done:\n" + storage.getTask(taskIdx).toString() + "\n");
+                respond("Nice! Done:\n" + storage.getTask(taskIdx).toString());
                 continue;
             }
 
@@ -66,7 +66,7 @@ public class Kat {
             }
 
             if (inputMsg.startsWith("event")) {
-                String inputMsgWithoutPrefix = inputMsg.replaceFirst("deadline ", "");
+                String inputMsgWithoutPrefix = inputMsg.replaceFirst("event ", "");
                 String[] splitInputMsg = inputMsgWithoutPrefix.split("/from|/to");
                 Task task = new EventTask(splitInputMsg[0].trim(), splitInputMsg[1].trim(), splitInputMsg[2].trim());
                 storage.addTask(task);
