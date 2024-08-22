@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Him {
 
+    private static HimList list = new HimList();
+
     private static void greet() {
         System.out.println("Him: Hello! I'm Him\n     What can I do for you?\n");
     }
@@ -16,7 +18,12 @@ public class Him {
         System.out.print("User: ");
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
-            System.out.println("\nHim: " + input + "\n");
+            if (input.equals("list")) {
+                System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
+            } else {
+                list.add(input);
+                System.out.println("\nHim: added \"" + input + "\" to list\n");
+            }
             System.out.print("User: ");
             input = scanner.nextLine();
         }
