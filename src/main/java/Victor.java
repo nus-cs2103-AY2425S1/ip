@@ -17,7 +17,8 @@ public class Victor {
 + "   `---`     '---'    `._____.'    '---'      '-----'    ''-'   `'-'\n";
         Scanner inp = new Scanner(System.in);
         ArrayList<Task> inputs = new ArrayList<Task>();
-        String[] exclamations = new String[]{"Wonderful", "Cool", "Magnificent", "Splendid", "Great", "Fantastic", "Marvellous"};
+        String[] exclamations = new String[]{"Wonderful", "Cool", "Magnificent", "Splendid", "Great", "Fantastic",
+                "Marvellous"};
         Random Random = new Random();
 
         System.out.println(logo);
@@ -55,7 +56,8 @@ public class Victor {
                     System.out.println("  ~  Deleting the task below now!");
                     System.out.println("  ~  " + removed);
                 } catch (NumberFormatException e) {
-                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to mark as done!");
+                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to mark" +
+                            " as done!");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  ~  I don't think there's a task with that number!");
                 }
@@ -67,7 +69,8 @@ public class Victor {
                     System.out.println("  ~  You finished a task! Well done! I marked this task as done:");
                     System.out.println("  ~  " + inputs.get(num));
                 } catch (NumberFormatException e) {
-                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to mark as done!");
+                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to mark" +
+                            " as done!");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  ~  I don't think there's a task with that number!");
                 }
@@ -79,7 +82,8 @@ public class Victor {
                     System.out.println("  ~  Oops, I guess you didn't finish the task! I marked this task as undone:");
                     System.out.println("  ~  " + inputs.get(num));
                 } catch (NumberFormatException e) {
-                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to mark as not done!");
+                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to " +
+                            "mark as not done!");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  ~  I don't think there's a task with that number!");
                 }
@@ -92,13 +96,16 @@ public class Victor {
                 // trim so that blank space cannot be counted as name for task
                 taskName = taskName.trim();
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the To Do. The format should be \"todo (description)\"");
+                    System.out.println("  ~  Please give a name for the To Do. The format should be \"todo " +
+                            "(description)\"");
                 } else {
                     ToDo task = new ToDo(taskName);
                     inputs.add(task);
-                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this To Do:");
+                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this" +
+                            " To Do:");
                     System.out.println("  ~    " + task);
-                    System.out.println("  ~  You now have " + inputs.size() + ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
+                    System.out.println("  ~  You now have " + inputs.size() +
+                            ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
             } else if (userInput.trim().toLowerCase().startsWith("deadline")) {
                 String[] parsed = userInput.trim().split(" ");
@@ -122,15 +129,19 @@ public class Victor {
                 taskName = taskName.trim();
                 deadline = deadline.trim();
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the Deadline. The format should be \"deadline (description) /by (deadline)\"");
+                    System.out.println("  ~  Please give a name for the Deadline. The format should be \"deadline" +
+                            " (description) /by (deadline)\"");
                 } else if (deadline.isEmpty()) {
-                    System.out.println("  ~  Please give a deadline for the Deadline. The format should be \"deadline (description) /by (deadline)\"");
+                    System.out.println("  ~  Please give a deadline for the Deadline. The format should be \"deadline" +
+                            " (description) /by (deadline)\"");
                 } else {
                     Deadline task = new Deadline(taskName, deadline);
                     inputs.add(task);
-                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this Deadline:");
+                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added " +
+                            "this Deadline:");
                     System.out.println("  ~    " + task);
-                    System.out.println("  ~  You now have " + inputs.size() + ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
+                    System.out.println("  ~  You now have " + inputs.size() +
+                            ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
             } else if (userInput.trim().toLowerCase().startsWith("event")) {
                 String[] parsed = userInput.trim().split(" ");
@@ -163,21 +174,27 @@ public class Victor {
                 start = start.trim();
                 end = end.trim();
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the Event. The format should be \"event (description) /from (start) /to (end)\"");
+                    System.out.println("  ~  Please give a name for the Event. The format should be \"event" +
+                            " (description) /from (start) /to (end)\"");
                 } else if (start.isEmpty()) {
-                    System.out.println("  ~  Please give a start time for the Event. The format should be \"event (description) /from (start) /to (end)\"");
+                    System.out.println("  ~  Please give a start time for the Event. The format should be \"event" +
+                            " (description) /from (start) /to (end)\"");
                 } else if (end.isEmpty()) {
-                    System.out.println("  ~  Please give an end time for the Event. The format should be \"event (description) /from (start) /to (end)\"");
+                    System.out.println("  ~  Please give an end time for the Event. The format should be \"event" +
+                            " (description) /from (start) /to (end)\"");
                 } else {
                     Event task = new Event(taskName, start, end);
                     inputs.add(task);
-                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this Event:");
+                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added" +
+                            " this Event:");
                     System.out.println("  ~    " + task);
-                    System.out.println("  ~  You now have " + inputs.size() + ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
+                    System.out.println("  ~  You now have " + inputs.size() +
+                            ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
             } else {
                 // user input does not match any specified command
-                System.out.println("  ~  Sorry, that's not something I know how to do :( Please specify either a To Do, a Deadline or an Event!");
+                System.out.println("  ~  Sorry, that's not something I know how to do :( Please specify either a " +
+                        "To Do, a Deadline or an Event!");
             }
             System.out.println("============================================================");
             userInput = inp.nextLine();
