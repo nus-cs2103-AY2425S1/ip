@@ -22,10 +22,14 @@ public class Eevee {
                     break;
                 } else if (input.equals("list")) {
                     // response to command 'list'
-                    System.out.println("Here are your tasks:");
-                    tasks.forEach((task) ->
-                            System.out.println((tasks.indexOf(task) + 1) + ". " + task)
-                    );
+                    if (tasks.isEmpty()) {
+                        System.out.println("No tasks yet! Start adding tasks :)");
+                    } else {
+                        System.out.println("Here are your tasks:");
+                        tasks.forEach((task) ->
+                                System.out.println((tasks.indexOf(task) + 1) + ". " + task)
+                        );
+                    }
                 } else if (input.equals("mark")) {
                     // response to command 'mark'
                     int taskNumber = scanner.nextInt();
