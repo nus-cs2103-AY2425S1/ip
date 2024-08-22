@@ -1,80 +1,82 @@
 	____________________________________________________________
-	Welcome Back! I'm Friday
+	Welcome Back! I'm Friday.
 	What can I do for you today?
-	____________________________________________________________
-	____________________________________________________________
-	added: read book
-	____________________________________________________________
-	____________________________________________________________
-	added: return book
-	____________________________________________________________
-	____________________________________________________________
-	added: buy bread
-	____________________________________________________________
-	____________________________________________________________
-	Nice! I've marked this task as done:
-	  [X] read book
+	To view the list of commands that I support, type 'help' for more information.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
 	  [T][ ] read book
-	Now you have 4 tasks in the list.
+	Now you have 1 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
 	  [D][ ] return book (by: June 6th)
-	Now you have 5 tasks in the list.
+	Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
 	  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	Now you have 6 tasks in the list.
+	Now you have 3 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
 	  [T][ ] join sports club
-	Now you have 7 tasks in the list.
+	Now you have 4 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
 	  [T][ ] borrow book
-	Now you have 8 tasks in the list.
-	____________________________________________________________
-	____________________________________________________________
-	Nice! I've marked this task as done:
-	  [T][X] join sports club
+	Now you have 5 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Nice! I've marked this task as done:
 	  [T][X] read book
 	____________________________________________________________
 	____________________________________________________________
-	Here are the tasks in your list:
-	1.[X] read book
-	2.[ ] return book
-	3.[ ] buy bread
-	4.[T][X] read book
-	5.[D][ ] return book (by: June 6th)
-	6.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	7.[T][X] join sports club
-	8.[T][ ] borrow book
+	Nice! I've marked this task as done:
+	  [D][X] return book (by: June 6th)
 	____________________________________________________________
 	____________________________________________________________
-	Got it. I've added this task:
-	  [D][ ] do homework (by: no idea :-p)
-	Now you have 9 tasks in the list.
+	Nice! I've marked this task as done:
+	  [T][X] join sports club
 	____________________________________________________________
 	____________________________________________________________
 	Here are the tasks in your list:
-	1.[X] read book
-	2.[ ] return book
-	3.[ ] buy bread
-	4.[T][X] read book
-	5.[D][ ] return book (by: June 6th)
-	6.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	7.[T][X] join sports club
-	8.[T][ ] borrow book
-	9.[D][ ] do homework (by: no idea :-p)
+	1.[T][X] read book
+	2.[D][X] return book (by: June 6th)
+	3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	4.[T][X] join sports club
+	5.[T][ ] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
+	Check 'help' for more information.
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Where would you like to mark?
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
+	Check 'help' for more information.
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Where would you like to unmark?
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
+	Check 'help' for more information.
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
+	Check 'help' for more information.
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
+	Check 'help' for more information.
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
+	Check 'help' for more information.
 	____________________________________________________________
 	____________________________________________________________
 	Good Bye. Hope to see you again soon!
