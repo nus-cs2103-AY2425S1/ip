@@ -15,6 +15,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
     @Override
     public String toString() {
         String str = this.isDone ? "[X]" : "[ ]";

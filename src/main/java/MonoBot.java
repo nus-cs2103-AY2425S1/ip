@@ -9,60 +9,105 @@ public class MonoBot {
         MonoBot.printGreeting();
 
         Scanner sc = new Scanner(System.in);
-        Boolean keepAlive = true;
+        boolean keepAlive = true;
 
         while (keepAlive) {
-            String input = sc.nextLine();
-            String[] task = input.split(" ", 2);
-            Command command = getCommand(task[0]);
+            try {
+                String input = sc.nextLine();
 
-            switch (command) {
-                case LIST:
-                    MonoBot.printTasks();
-                    break;
+                String[] task = input.split(" ", 2);
+                Command command = getCommand(task[0]);
 
-                case TODO:
-                    Task todo = new Todo(task[1]);
-                    MonoBot.addTask(todo);
-                    break;
+                switch (command) {
+                    case LIST:
+                        MonoBot.printTasks();
+                        break;
 
-                case DEADLINE:
-                    String[] deadlineDetails = task[1].split("/by", 2);
-                    Task deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
-                    MonoBot.addTask(deadline);
-                    break;
+                    case TODO:
+                        if (task.length != 2 || task[1].trim().isEmpty()) {
+                            throw new MonoBotException("Details of task is missing");
+                        }
+                        Task todo = new Todo(task[1]);
+                        MonoBot.addTask(todo);
+                        break;
 
-                case EVENT:
-                    String[] eventDetails = task[1].split("/from|/to ", 3);
-                    Task event = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
-                    MonoBot.addTask(event);
-                    break;
+                    case DEADLINE:
+                        if (task.length != 2 || task[1].trim().isEmpty()) {
+                            throw new MonoBotException("Details of deadline is missing");
+                        }
+                        String[] deadlineDetails = task[1].split("/by", 2);
+                        if (deadlineDetails.length != 2 || deadlineDetails[1].trim().isEmpty()) {
+                            throw new MonoBotException("Due date/time of task is missing. " +
+                                    "Note that format for adding a DEADLINE task is \n" +
+                                    "deadline <task description> /by <due date/time>");
+                        }
+                        Task deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                        MonoBot.addTask(deadline);
+                        break;
 
-                case MARK:
-                    int indexToMark = Integer.parseInt(task[1]) - 1;
-                    MonoBot.markTask(indexToMark);
-                    break;
+                    case EVENT:
+                        if (task.length != 2 || task[1].trim().isEmpty()) {
+                            throw new MonoBotException("Details of event is missing");
+                        }
+                        String[] eventDetails = task[1].split("/from|/to ", 3);
+                        if (eventDetails.length != 3 || eventDetails[1].trim().isEmpty()
+                                || eventDetails[2].trim().isEmpty()) {
+                            throw new MonoBotException("Start and/or end time of event is missing. " +
+                                    "Note that format for adding an event is \n" +
+                                    "event <task description> /from <start date/time> /to <end date/time>");
+                        }
+                        Task event = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
+                        MonoBot.addTask(event);
+                        break;
 
-                case UNMARK:
-                    int indexToUnmark = Integer.parseInt(task[1]) - 1;
-                    MonoBot.unmarkTask(indexToUnmark);
-                    break;
+                    case MARK:
+                        int indexToMark = Integer.parseInt(task[1]) - 1;
+                        if (MonoBot.taskList.get(indexToMark).getIsDone()) {
+                            throw new MonoBotException("Task has already been marked as completed");
+                        }
+                        MonoBot.markTask(indexToMark);
+                        break;
 
-                case INVALID:
-                    System.out.println("Invalid Command");
-                    break;
+                    case UNMARK:
+                        int indexToUnmark = Integer.parseInt(task[1]) - 1;
+                        if (!MonoBot.taskList.get(indexToUnmark).getIsDone()) {
+                            throw new MonoBotException("Task was not marked as completed");
+                        }
+                        MonoBot.unmarkTask(indexToUnmark);
+                        break;
 
-                case BYE:
-                    sc.close();
-                    keepAlive = false;
-                    break;
+                    case INVALID:
+                        MonoBot.hLine();
+                        System.out.println("Invalid Command. Valid commands are: \n" +
+                                "list, todo, deadline, event, mark, unmark, bye");
+                        MonoBot.hLine();
+                        break;
+
+                    case BYE:
+                        sc.close();
+                        keepAlive = false;
+                        break;
+                }
+            } catch (MonoBotException e) {
+                MonoBot.hLine();
+                System.out.println(e);
+                MonoBot.hLine();
+            } catch (IndexOutOfBoundsException e) {
+                MonoBot.hLine();
+                int len = MonoBot.taskList.size();
+                if (len > 0) {
+                    System.out.println("Please provide an integer between 1 and " + (MonoBot.taskList.size()));
+                } else {
+                    System.out.println("No tasks added yet");
+                }
+                MonoBot.hLine();
             }
         }
         MonoBot.printFarewell();
     }
 
     private static void hLine() {
-        System.out.println("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+        System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
     }
 
     private static void printGreeting() {
@@ -129,16 +174,3 @@ public class MonoBot {
         MonoBot.hLine();
     }
 }
-
-/**
- * todo sleep
- * event 2101 tutorial /from 9am /to 12pm
- * deadline ip week 2 /by friday 4pm
- * list
- * mark 3
- * mark 2
- * list
- * unmark 2
- * list
- * bye
- */
