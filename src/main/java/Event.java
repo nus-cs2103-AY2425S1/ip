@@ -5,10 +5,31 @@ public class Event extends Task {
     protected String fromDate;
     protected String toDate;
 
-    public Event (String name, String fromDate, String toDate) {
-        super(name);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+    public Event (String inputString) throws InvalidTaskNameException, NoDateException {
+
+        if (inputString.contains("/from ")) {
+            int fromIndex = inputString.indexOf("/from ");
+            String taskName = inputString.substring(0, fromIndex);
+            if (taskName.length() == 0) {
+                throw new InvalidTaskNameException(taskName);
+            }
+
+            if (inputString.contains("/to ")) {
+                int toIndex = inputString.indexOf("/to ");
+                String fromDate = inputString.substring(fromIndex + 6, toIndex);
+                String toDate = inputString.substring(toIndex + 4);
+                if (fromDate.length() == 0 || toDate.length() == 0) {
+                    throw new NoDateException();
+                }
+            }
+
+
+            this.name = taskName;
+            this.fromDate = fromDate;
+            this.toDate = toDate;
+
+        }
+        throw new NoDateException();
     }
 
     @Override
