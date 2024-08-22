@@ -5,7 +5,7 @@ public class EventTask extends Task {
 
     public EventTask(String input) {
 
-        this.taskTypeSymbol = "D";
+        this.taskTypeSymbol = "E";
 
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");

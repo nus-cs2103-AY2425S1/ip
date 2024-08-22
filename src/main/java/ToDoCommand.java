@@ -9,10 +9,14 @@ public class ToDoCommand extends AddCommand {
     }
     @Override
     public void run(String input, ArrayList<Task> taskList) {
-        Task task = new ToDoTask(input);
-        taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.printf("  %1$s \n", task);
-        super.run(input, taskList);
+        try {
+            Task task = new ToDoTask(input);
+            taskList.add(task);
+            System.out.println("Got it. I've added this task:");
+            System.out.printf("  %1$s\n", task);
+            super.run(input, taskList);
+        } catch (EmptyToDoDescriptionException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -12,7 +12,7 @@ public class DeadlineCommand extends AddCommand {
         Task task = new DeadlineTask(input);
         taskList.add(task);
         System.out.println("Got it. I've added this task:");
-        System.out.printf("  %1$s \n", task);
+        System.out.printf("  %1$s\n", task);
         super.run(input, taskList);
     }
 }

@@ -23,6 +23,7 @@ public class JBot {
         commandMap.put("todo", ToDoCommand.getInstance());
         commandMap.put("deadline", DeadlineCommand.getInstance());
         commandMap.put("event", EventCommand.getInstance());
+        commandMap.put("delete", DeleteCommand.getInstance());
     }
     private static void greetUser() {
         hLine();
@@ -41,13 +42,24 @@ public class JBot {
             String inputCommand = userInput.split(" ")[0];
             JBotCommand command = commandMap.get(inputCommand);
 
-            hLine();
-            command.run(userInput, taskList);
-            hLine();
+            try {
+                if (command == null) {
+                    throw new InvalidCommandException("Invalid command: " + inputCommand);
+                }
 
-            if (command.equals(ByeCommand.getInstance())) {
-                sc.close();
-                JBot.isRunning = false;
+                hLine();
+                command.run(userInput, taskList);
+                hLine();
+
+                if (command.equals(ByeCommand.getInstance())) {
+                    sc.close();
+                    JBot.isRunning = false;
+                }
+
+            } catch (InvalidCommandException e) {
+                hLine();
+                System.out.println(e.getMessage());
+                hLine();
             }
         }
     }

@@ -15,6 +15,6 @@ public class MarkCommand implements JBotCommand {
         task.markAsDone();
 
         System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("  %1$s \n", task);
+        System.out.printf("  %1$s\n", task);
     }
 }

@@ -15,6 +15,6 @@ public class UnmarkCommand implements JBotCommand {
         task.unmarkAsDone();
 
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.printf("  %1$s \n", task);
+        System.out.printf("  %1$s\n", task);
     }
 }

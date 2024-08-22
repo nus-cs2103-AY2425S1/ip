@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class JBotException {
+public class JBotException extends Exception {
+    public JBotException(String message) {
+        super(message);
+    }
 }

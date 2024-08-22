@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class EmptyToDoDescriptionException {
+public class EmptyToDoDescriptionException extends JBotException {
+    public EmptyToDoDescriptionException(String message) {
+        super(message);
+    }
 }
