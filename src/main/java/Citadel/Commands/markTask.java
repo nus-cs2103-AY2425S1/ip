@@ -1,9 +1,9 @@
-package Commands;
+package Citadel.Commands;
 
-import Task.TaskList;
-import exception.CitadelException;
-import exception.CitadelInvalidArgException;
-import ui.TextUI;
+import Citadel.Task.TaskList;
+import Citadel.exception.CitadelException;
+import Citadel.exception.CitadelInvalidArgException;
+import Citadel.ui.TextUI;
 
 
 public class markTask extends Command {

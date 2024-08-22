@@ -1,10 +1,10 @@
-package Commands;
+package Citadel.Commands;
 
-import Task.Task;
-import Task.TaskList;
-import exception.CitadelInvalidArgException;
-import exception.CitadelException;
-import ui.TextUI;
+import Citadel.Task.Task;
+import Citadel.Task.TaskList;
+import Citadel.exception.CitadelInvalidArgException;
+import Citadel.exception.CitadelException;
+import Citadel.ui.TextUI;
 
 public class deleteTask extends Command {
     public deleteTask(String input, TaskList tasks) {

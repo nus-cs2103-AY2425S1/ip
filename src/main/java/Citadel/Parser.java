@@ -1,6 +1,8 @@
-import exception.CitadelException;
-import Commands.Commands;
-import exception.CitadelInvalidCommandException;
+package Citadel;
+
+import Citadel.exception.CitadelException;
+import Citadel.Commands.Commands;
+import Citadel.exception.CitadelInvalidCommandException;
 
 public class Parser {
     public static Commands parseCommand(String input) throws CitadelException {

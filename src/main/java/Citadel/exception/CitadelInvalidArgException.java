@@ -1,4 +1,4 @@
-package exception;
+package Citadel.exception;
 
 public class CitadelInvalidArgException extends CitadelException {
     @Override

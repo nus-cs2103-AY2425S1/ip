@@ -1,4 +1,4 @@
-package exception;
+package Citadel.exception;
 
 public class CitadelTaskNoInput extends CitadelException {
     @Override

@@ -1,9 +1,9 @@
-package Commands;
+package Citadel.Commands;
 
-import Task.TaskList;
-import exception.CitadelInvalidArgException;
-import exception.CitadelException;
-import ui.TextUI;
+import Citadel.Task.TaskList;
+import Citadel.exception.CitadelInvalidArgException;
+import Citadel.exception.CitadelException;
+import Citadel.ui.TextUI;
 
 public class unmarkTask extends Command {
     public unmarkTask(String input, TaskList tasks) {

@@ -1,19 +1,21 @@
+package Citadel;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
-import Commands.Commands;
-import Commands.deleteTask;
-import Commands.handleDeadline;
-import Commands.handleEvent;
-import Commands.handleTodo;
-import Commands.markTask;
-import Commands.unmarkTask;
+import Citadel.Commands.Commands;
+import Citadel.Commands.deleteTask;
+import Citadel.Commands.handleDeadline;
+import Citadel.Commands.handleEvent;
+import Citadel.Commands.handleTodo;
+import Citadel.Commands.markTask;
+import Citadel.Commands.unmarkTask;
 
-import Task.TaskList;
+import Citadel.Task.TaskList;
 
-import exception.CitadelException;
-import exception.CitadelInvalidCommandException;
-import ui.TextUI;
+import Citadel.exception.CitadelException;
+import Citadel.exception.CitadelInvalidCommandException;
+import Citadel.ui.TextUI;
 
 public class Citadel {
     public static TaskList items = new TaskList();
@@ -68,32 +70,6 @@ public class Citadel {
         db.saveData(items);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

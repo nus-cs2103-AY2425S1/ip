@@ -1,6 +1,6 @@
-package Commands;
-import exception.CitadelException;
-import Task.TaskList;
+package Citadel.Commands;
+import Citadel.exception.CitadelException;
+import Citadel.Task.TaskList;
 
 public abstract class Command {
 
