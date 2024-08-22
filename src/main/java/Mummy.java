@@ -22,15 +22,17 @@ public class Mummy {
   }
 
   public static void main(String[] args) {
-    new Echo("Hello from\n"
-            + LOGO + "\n"
-            + "What can I do for you?\n")
-            .execute();
-
     Scanner scanner = new Scanner(System.in);
 
+    greet();
     listen(scanner);
     scanner.close();
+  }
+
+  private static void greet() {
+    echo("Hello from\n"
+            + LOGO + "\n"
+            + "What can I do for you?\n");
   }
 
   private static void listen(Scanner scanner) {
@@ -76,17 +78,17 @@ public class Mummy {
             throw new MummyException("I'm sorry, but I don't know what that means :-(");
         }
       } catch (MummyException exception) {
-        new Echo("OOPS!!!! " + exception.getMessage()).execute();
+        echo("OOPS!!!! " + exception.getMessage());
       }
     }
   }
 
   private static void onBye() {
-    new Echo("Bye. Hope to see you again soon!\n").execute();
+    echo("Bye. Hope to see you again soon!\n");
   }
 
   private static void onList() {
-    new Echo(STORE.toString()).execute();
+    echo(STORE.toString());
   }
 
   private static void onMark(String input) throws MummyException {
@@ -97,8 +99,7 @@ public class Mummy {
     try {
       Task task = STORE.get(taskIndex);
       task.setAsDone();
-      new Echo("Nice! I've marked this task as done:\n\t" + task)
-              .execute();
+      echo("Nice! I've marked this task as done:\n\t" + task);
     } catch (StoreException exception) {
       throw new MummyException(exception.getMessage());
     }
@@ -111,8 +112,7 @@ public class Mummy {
     try {
       Task task = STORE.get(taskIndex);
       task.setAsUndone();
-      new Echo("OK, I've marked this task as not done yet::\n\t" + task)
-              .execute();
+      echo("OK, I've marked this task as not done yet::\n\t" + task);
     } catch (StoreException exception) {
       throw new MummyException(exception.getMessage());
     }
@@ -122,13 +122,7 @@ public class Mummy {
     // length of "todo " is 5
     try {
       String description = input.strip().substring(5);
-      ToDo toDo = new ToDo(description);
-      STORE.add(toDo);
-      new Echo(String.format(
-                "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                toDo, STORE.getCount()
-              ))
-              .execute();
+      addTaskToStore(new ToDo(description));
     } catch (IndexOutOfBoundsException exception) {
       throw new MummyException("description cannot be empty");
     }
@@ -141,13 +135,7 @@ public class Mummy {
       String description = tokens[0];
       String dueBy = tokens[1];
 
-      Deadline deadline = new Deadline(description, dueBy);
-      STORE.add(deadline);
-      new Echo(String.format(
-                "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                deadline, STORE.getCount()
-              ))
-              .execute();
+      addTaskToStore(new Deadline(description, dueBy));
     } catch (IndexOutOfBoundsException exception) {
       throw new MummyException("Invalid argument: /by is required");
     }
@@ -162,13 +150,7 @@ public class Mummy {
       String from = argumentTokens[0];
       String to = argumentTokens[1];
 
-      Event event = new Event(description, from, to);
-      STORE.add(event);
-      new Echo(String.format(
-                "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                event, STORE.getCount()
-              ))
-              .execute();
+      addTaskToStore(new Event(description, from, to));
     } catch (IndexOutOfBoundsException exception) {
       throw new MummyException("Invalid argument: /from and /to are required");
     }
@@ -181,14 +163,25 @@ public class Mummy {
 
     try {
       Task task = STORE.remove(taskIndex);
-      new Echo(String.format(
+      echo(String.format(
               "Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.\n",
               task, STORE.getCount()
-              ))
-              .execute();
+              ));
     } catch (StoreException exception) {
       throw new MummyException(exception.getMessage());
     }
+  }
+
+  private static void addTaskToStore(Task task) {
+    STORE.add(task);
+    echo(String.format(
+            "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
+            task, STORE.getCount()
+            ));
+  }
+
+  private static void echo(String message) {
+    new Echo(message).execute();
   }
 
   private static int parseIntOrDefault(String s, int defaultValue) {

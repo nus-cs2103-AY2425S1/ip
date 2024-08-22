@@ -1,6 +1,6 @@
 package task;
 
-public class Task {
+public abstract class Task {
     private String description;
 
     private boolean isDone = false;
@@ -23,6 +23,10 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
