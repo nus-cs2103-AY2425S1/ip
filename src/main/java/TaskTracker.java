@@ -6,6 +6,9 @@ public class TaskTracker {
         this.taskList = new Task[100];
         this.counter = 0;
     }
+    public int getCounter() {
+        return this.counter;
+    }
     public void getList() {
         if (this.counter == 0) {
             System.out.println("No tasks currently!");
@@ -23,11 +26,25 @@ public class TaskTracker {
     }
 
     public void markDone(int z) {
-        this.taskList[z].mark();
+        if (this.counter == 0) {
+            System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
+        } else if (z < 0 || z >= this.counter) {
+            System.out.println("You have entered an invalid task number! Please try again.");
+        }
+        else {
+            this.taskList[z].mark();
+        }
     }
 
     public void unmarkDone(int q) {
-        this.taskList[q].unmark();
+        if (this.counter == 0) {
+            System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
+        } else if (q < 0 || q >= this.counter) {
+            System.out.println("You have entered an invalid task number! Please try again.");
+        }
+        else {
+            this.taskList[q].unmark();
+        }
     }
 
     public void updateList(String s) {
