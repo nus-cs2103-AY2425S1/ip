@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Blitz {
     private static ArrayList<Task> db = new ArrayList<>();
     private enum commandList {
-        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT;
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
 
         private static boolean contains(String command) {
             for (commandList c : commandList.values()) {
@@ -60,6 +60,7 @@ public class Blitz {
                         case "todo" -> commandTodo(cont[1]);
                         case "deadline" -> commandDeadline(cont[1]);
                         case "event" -> commandEvent(cont[1]);
+                        case "delete" -> commandDelete(cont[1]);
                         default -> throw new BlitzCommandDoesNotExistException();
                     }
                 } catch (BlitzException e) {
@@ -200,5 +201,30 @@ public class Blitz {
 
         db.add(temp);
         printTaskAddedWithDivider("E", db.size(), temp);
+    }
+
+    private static void commandDelete(String command) throws BlitzException {
+        String[] param = command.split(" ");
+        if (param.length > 1) {
+            throw new BlitzInvalidParameterMoreThanOneException("Delete [Integer]");
+        }
+
+        try {
+            int ind = Integer.parseInt(param[0]) - 1;
+
+            if (db.isEmpty()) {
+                throw new BlitzEmptyTaskListException();
+            }
+
+            Task task = db.remove(ind);
+
+            String toPrint = TAB + "Noted. I've removed this task:\n" +
+                    TAB + "  [" + task.getType() + "]" + "[" + (task.getStatus() ? "X" : " ") + "] " + task + "\n";
+            printInDivider(toPrint);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BlitzIndexOutOfBoundsException();
+        } catch (NumberFormatException e) {
+            throw new BlitzNumberFormatException();
+        }
     }
 }
