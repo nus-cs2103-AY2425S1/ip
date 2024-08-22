@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -35,7 +36,7 @@ public class BMO {
                 //Parses the second word as the index of the task to mark
                 int index = Integer.parseInt(words[1]) - 1;
 
-                if (index >= storage.getSize()) {
+                if (index >= storage.getSize() || index <= 0) {
                     throw new BMOException("\nOh no! The task number you specified does not exist!");
                 }
                 Task taskToMark = storage.getTask(index);
@@ -50,7 +51,7 @@ public class BMO {
                 //Parses the second word as the index of the task to unmark
                 int index2 = Integer.parseInt(words[1]) - 1;
 
-                if (index2 >= storage.getSize()) {
+                if (index2 >= storage.getSize() || index2 <= 0) {
                     throw new BMOException("\nOh no! The task number you specified does not exist!");
                 }
                 Task taskToUnmark = storage.getTask(index2);
@@ -91,11 +92,25 @@ public class BMO {
                 storage.addTask(event);
                 return "\nGot it. I've added this task:\n" + event.toString() + "\n" + storage.getNumOfTasks() + "\n" + line;
 
+            //Deletes a task from the list
+            case "delete":
+                if (words.length < 2) {
+                    throw new BMOException("\nOh no! Please specify the task number you want to delete!");
+                }
+                //Parses the second word as the index of the task to delete
+                int index3 = Integer.parseInt(words[1]) - 1;
+
+                if (index3 >= storage.getSize() || index3 <= 0) {
+                    throw new BMOException("\nOh no! The task number you specified does not exist!");
+                }
+                Task taskToDelete = storage.getTask(index3);
+                storage.deleteTask(index3);
+                return "\nNoted. I've removed this task:\n" + taskToDelete.toString() + "\n" + storage.getNumOfTasks() + "\n" + line;
+
             //Catches unknown commands
             default:
                 throw new BMOException("\nOh no! I do not recognise that command, please try again!");
         }
-
     }
 
     public String welcomeMessage() {
