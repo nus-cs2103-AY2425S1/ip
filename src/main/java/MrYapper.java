@@ -19,6 +19,10 @@ public class MrYapper {
             isDone = true;
         }
 
+        public void markAsNotDone() {
+            isDone = false;
+        }
+
         public String getStatusIcon() {
             return (isDone ? "X" : " ");
         }
@@ -64,19 +68,32 @@ public class MrYapper {
             String[] processedInput = userInput.trim().split("\\s+");
             String command = processedInput[0];
 
-            if (command.equals("bye")) {
+            switch (command) {
+            case "bye":
                 conversationIsOngoing = false;
                 userInputReader.close();
                 say(GOODBYE_MESSAGE);
-            } else if (command.equals("list")) {
+                break;
+            case "list":
                 listTask();
-            } else if (command.equals("mark")) {
+                break;
+            case "mark":
+            case "unmark":
                 try {
                     if (processedInput.length > 1) {
                         int taskNumber = Integer.parseInt(processedInput[1]);
                         Task task = taskList.get(taskNumber - 1);
-                        task.markAsDone();
-                        say("OK! I have marked this task as done:\n   " + task);
+
+                        switch (command) {
+                        case "mark":
+                            task.markAsDone();
+                            say("Nice! I have marked this task as done:\n   " + task);
+                            break;
+                        case "unmark":
+                            task.markAsNotDone();
+                            say("OK, I've marked this task as not done yet:\n   " + task);
+                            break;
+                        }
                     } else {
                         say(" You have to give me a valid task number!\n e.g. mark 2");
                     }
@@ -88,7 +105,8 @@ public class MrYapper {
                             + "You currently have %d tasks", taskList.size());
                     say(errorMessage);
                 }
-            } else {
+                break;
+            default:
                 addTask(userInput);
             }
         } while (conversationIsOngoing);
