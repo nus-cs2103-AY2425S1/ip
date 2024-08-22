@@ -10,6 +10,7 @@ public class Bro {
 
     public static void main(String[] args) {
         reply(GREETING_MESSAGE);
+        TaskList taskList = new TaskList();
         // Start conversation
         Scanner sc = new Scanner(System.in);
         boolean isConversing = true;
@@ -20,8 +21,11 @@ public class Bro {
                     isConversing = false;
                     break;
                 case LIST_COMMAND:
+                    taskList.printAllTasks();
+                    break;
                 default:
-
+                    taskList.addTask(input);
+                    reply("added: " + input);
             }
         }
         reply(GOODBYE_MESSAGE);
@@ -31,7 +35,8 @@ public class Bro {
     public static void reply(String content) {
         String replyStr = String.format("""
                 ____________________________________________________________
-                %s. Bro
+                %s
+                Bro
                 ____________________________________________________________
                 """, content);
         System.out.print(replyStr);

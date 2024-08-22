@@ -14,7 +14,7 @@ public class TaskList {
 
     public void printAllTasks() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print((i + 1) + tasks.get(i));
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 }
