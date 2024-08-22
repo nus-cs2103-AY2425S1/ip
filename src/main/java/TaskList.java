@@ -1,9 +1,9 @@
 public class TaskList {
-    private String[] listItems;
+    private Task[] listItems;
     private int size;
 
     public TaskList() {
-        listItems = new String[100];
+        listItems = new Task[100];
         size = 0;
     }
 
@@ -14,7 +14,7 @@ public class TaskList {
     }
 
     public void addItem(String item) {
-        listItems[size] = item;
+        listItems[size] = new Task(item);
         size++;
         System.out.println("added: " + item);
     }
