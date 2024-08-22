@@ -39,6 +39,8 @@ public class SecondMind {
             String command = reader.nextLine();
             if (command.equals("bye")) {
                 break;
+            } else if (command.equals("list")) {
+                printTaskList();
             } else {
                 addToTaskList(command);
             }
