@@ -16,15 +16,15 @@ public class FileOperations {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File dir = new File("./data");
-//            if (!dir.exists()) {
-//                dir.mkdir();
-//                System.out.println("Created new directory to store data.");
-//            }
+            if (!dir.exists()) {
+                dir.mkdir();
+                System.out.println("Created new directory to store data.");
+            }
             File f = new File("./data/reo.txt");
-//            if (f.createNewFile()) {
-//                System.out.println("Created new file to store list.");
-//                return tasks;
-//            }
+            if (f.createNewFile()) {
+                System.out.println("Created new file to store list.");
+                return tasks;
+            }
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String line = s.nextLine();
