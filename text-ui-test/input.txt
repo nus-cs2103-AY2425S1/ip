@@ -17,4 +17,7 @@ event
 event kurt tay's party
 mark 30
 mark THISISNOTANUMBER
+delete 2
+list
+delete 100
 bye
