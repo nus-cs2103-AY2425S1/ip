@@ -6,7 +6,7 @@ public class Froggy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
-        List<String> tasks = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
 
         String greeting = "Hello! I'm Froggy!\n"
                 + "Enter tasks and I will store it.\n"
@@ -26,11 +26,11 @@ public class Froggy {
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("Task List:");
                 for (int i = 1; i <= tasks.size(); i++) {
-                    System.out.println(i + "." + tasks.get(i - 1));
+                    System.out.println(i + "." + tasks.get(i - 1).description);
                 }
                 System.out.println("_______________________________");
             } else {
-                tasks.add(input);
+                tasks.add(new Task(input));
                 System.out.println("Added: " + input + "\n"
                         + "_______________________________");
             }
