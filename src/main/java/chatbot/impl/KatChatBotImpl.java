@@ -2,6 +2,7 @@ package chatbot.impl;
 
 import chatbot.ChatBot;
 import chatbot.MessageParser;
+import chatbot.exceptions.InvalidMessageException;
 
 import java.util.Scanner;
 
@@ -37,8 +38,12 @@ public class KatChatBotImpl implements ChatBot {
                 break;
             }
 
-            String response = messageParser.handleMessage(input);
-            respond(response);
+            try {
+                String response = messageParser.handleMessage(input);
+                respond(response);
+            } catch (InvalidMessageException e) {
+                respond(e.getMessage());
+            }
         }
 
         respond("See you!");
