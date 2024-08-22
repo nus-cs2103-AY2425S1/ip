@@ -6,4 +6,9 @@ mark 1
 mark 2
 unmark 2
 list
+todo
+deadline return assignment
+event team lunch /from
+list
+mark 5
 bye
