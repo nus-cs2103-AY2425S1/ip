@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Fence {
+
+    private ArrayList<String> items = new ArrayList<>();
 
     public void greet() {
         System.out.println("nihao! I'm Fence |=|=|=|=|=|");
@@ -10,8 +13,15 @@ public class Fence {
         System.out.println("have good day :)");
     }
 
-    public void echo(String command) {
-        System.out.println(command);
+    public void add(String command) {
+        System.out.println("added: " + command);
+        items.add(command);
+    }
+
+    public void list() {
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println(i + 1 + ". " + items.get(i));
+        }
     }
 
     public static void main(String[] args) {
@@ -24,7 +34,11 @@ public class Fence {
                 fence.exit();
                 break;
             }
-            fence.echo(command);
+            if (command.equals("list")) {
+                fence.list();
+                continue;
+            }
+            fence.add(command);
         }
     }
 }
