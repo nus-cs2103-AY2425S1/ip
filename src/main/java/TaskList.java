@@ -112,7 +112,7 @@ public class TaskList {
                 System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
             } else if (Parser.checkStringPrefix(task, 8, "deadline")) {
                 Task tsk;
-                if (task.length() > 8) tsk = new Todo(task.substring(9));
+                if (task.length() > 8) tsk = new Deadline(task.substring(9));
                 else tsk = new Todo("");
                 tasks.add(tsk);
                 System.out.println("    Got it. I've added this task:");
@@ -120,8 +120,8 @@ public class TaskList {
                 System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
             } else if (Parser.checkStringPrefix(task, 5, "event")){
                 Task tsk;
-                if (task.length() > 5) tsk = new Todo(task.substring(6));
-                else tsk = new Todo("");
+                if (task.length() > 5) tsk = new Event(task.substring(6));
+                else tsk = new Event("");
                 tasks.add(tsk);
                 System.out.println("    Got it. I've added this task:");
                 System.out.println("      " + tsk);
