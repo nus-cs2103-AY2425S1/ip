@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class SecondMind {
     private static final String line = "____________________________________________________________";
     private static final String logo = "SecondMind";
+    private static String[] taskList = new String[100];
 
     private static void printLineSeparator() {
         System.out.println(line);
