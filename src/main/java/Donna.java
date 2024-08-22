@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Donna {
@@ -17,21 +18,46 @@ public class Donna {
         System.out.println();
     }
 
-    private static void addTask(String desc) {
+    private static void addTask(String desc) throws DonnaException {
         String[] descWords = desc.split(" ", 2); // first word specifies type, the rest= description
         String taskType = descWords[0];
-        String taskDescription = descWords.length == 2 ? descWords[1] : " ";
+        String taskDescription;
 
         Task newTask;
         if (taskType.equals("todo")) {
+            if (descWords.length != 2) {
+                throw DonnaException.emptyDescription(taskType);
+            }
+            taskDescription = descWords[1];
+
             newTask = new ToDo(taskDescription);
 
         } else if (taskType.equals("deadline")) {
+            if (descWords.length != 2) {
+                throw DonnaException.emptyDescription(taskType);
+            }
+            taskDescription = descWords[1];
+
+            if (taskDescription.trim().equals("/by") || taskDescription.isBlank()) {
+                throw DonnaException.emptyDescription(taskType);
+            }
+
             String[] taskDescriptionWords = taskDescription.split(" /by ", 2);
-            String deadlineTime = taskDescriptionWords.length == 2 ? taskDescriptionWords[1] : "no information :/";
+            if (taskDescriptionWords.length != 2) {
+                throw DonnaException.emptyDeadline();
+            }
+            if (taskDescriptionWords[0].isBlank()) {
+                throw DonnaException.emptyDescription(taskType);
+            }
+            String deadlineTime = taskDescriptionWords[1];
             newTask = new Deadline(taskDescriptionWords[0], deadlineTime);
 
         } else if (taskType.equals("event")) {
+            if (descWords.length != 2) {
+                throw DonnaException.emptyDescription(taskType);
+            }
+            taskDescription = descWords[1];
+
             String[] taskDescriptionWords = taskDescription.split(" /from ", 2); //task description but split into words
             String[] taskTimes;
             String toTime;
@@ -43,12 +69,11 @@ public class Donna {
 
                 taskTimes = taskDescriptionWords[0].split(" /to ", 2); // if /to exists, divided.
                 if (taskTimes.length != 2) { // /to not found either;
-                    toTime = "no information!";
-                    eventDesc = taskTimes[0];
+                    throw DonnaException.emptyEventTime(); // only thrown when both /from and /to are not given by the user. The user however is still permitted to provide either (or both)
                 } else {
                     toTime = taskTimes[1];
                     eventDesc = taskTimes[0];
-                }
+                };
             } else { // /from exists
                 eventDesc = taskDescriptionWords[0];
 
@@ -62,11 +87,14 @@ public class Donna {
                 }
 
             }
+
+            if (eventDesc.isBlank() || eventDesc.startsWith("/from") || eventDesc.startsWith("/to")) {
+                throw DonnaException.emptyDescription(taskType);
+            }
+
             newTask = new Event(eventDesc, fromTime, toTime);
         } else {
-            System.out.println("Invalid task type!");
-            System.out.println("Task type received: " + taskType + "    Expected: todo / deadline / event !");
-            return;
+            throw DonnaException.invalidTaskType(taskType);
         }
 
         tasks[taskNum] =  newTask;
@@ -120,33 +148,39 @@ public class Donna {
             String input = sc.nextLine();
             String[] inputWords = input.split(" ");
 
-            if (input.equals("bye")) { //exit
-                printDashedLine();
-                System.out.println("Bye. Hope to see you again soon!");
-                printDashedLine();
-                break;
-            } else if (input.equals("list")) { //display list
-                printDashedLine();
-                for (int i = 0; i < taskNum; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
-                }
-                printDashedLine();
-            } else if (inputWords[0].equals("mark") && inputWords.length == 2) { //request to mark a task as done
-                try {
-                    int taskToMark = Integer.parseInt(inputWords[1]); //not index
-                    updateTaskStatus(taskToMark, true);
-                } catch (NumberFormatException e) { //if the phrase isnt "mark INTEGER" it's a task instead of a request
+            try {
+                if (input.equals("bye")) { //exit
+                    printDashedLine();
+                    System.out.println("Bye. Hope to see you again soon!");
+                    printDashedLine();
+                    break;
+                } else if (input.equals("list")) { //display list
+                    printDashedLine();
+                    for (int i = 0; i < taskNum; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                    printDashedLine();
+                } else if (inputWords[0].equals("mark") && inputWords.length == 2) { //request to mark a task as done
+                    try {
+                        int taskToMark = Integer.parseInt(inputWords[1]); //not index
+                        updateTaskStatus(taskToMark, true);
+                    } catch (NumberFormatException e) { //if the phrase isnt "mark INTEGER" it's a task instead of a request
+                        addTask(input);
+                    }
+                } else if (inputWords[0].equals("unmark") && inputWords.length == 2) { //request to unmark
+                    try {
+                        int taskToMark = Integer.parseInt(inputWords[1]);
+                        updateTaskStatus(taskToMark, false);
+                    } catch (NumberFormatException e) { //if the phrase isnt "unmark INTEGER" it's a task instead of a request
+                        addTask(input);
+                    }
+                } else { //not a request
                     addTask(input);
                 }
-            } else if (inputWords[0].equals("unmark") && inputWords.length == 2) { //request to unmark
-                try {
-                    int taskToMark = Integer.parseInt(inputWords[1]);
-                    updateTaskStatus(taskToMark, false);
-                } catch (NumberFormatException e) { //if the phrase isnt "unmark INTEGER" it's a task instead of a request
-                    addTask(input);
-                }
-            } else { //not a request
-                addTask(input);
+            } catch (DonnaException e) {
+                printDashedLine();
+                System.out.println(e.getMessage());
+                printDashedLine();
             }
         }
 

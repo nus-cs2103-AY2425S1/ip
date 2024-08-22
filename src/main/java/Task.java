@@ -2,7 +2,11 @@ public abstract class Task {
     private final String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws DonnaException {
+        if (description.trim().isEmpty()) {
+            throw DonnaException.emptyDescription(this.getClass().getSimpleName()); //this error is universal to all types of tasks
+        }
+
         this.description = description;
         this.isDone = false;
     }

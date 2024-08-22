@@ -1,8 +1,11 @@
 public class Deadline extends Task {
-    private String by;
+    private final String by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DonnaException {
         super(description);
+        if (by.trim().isEmpty()) {
+            throw DonnaException.emptyDeadline();
+        }
         this.by = by;
     }
 
