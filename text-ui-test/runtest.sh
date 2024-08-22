@@ -12,6 +12,16 @@ then
     rm ACTUAL.TXT
 fi
 
+if [ -e "./src/main/java/data/korolev.txt" ]
+then
+    rm  "./src/main/java/data/korolev.txt"
+fi
+
+if [ -e "./src/main/java/data/korolev.txt" ]
+then
+    rm  "./src/main/java/data/korolev.txt"
+fi
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
 then
