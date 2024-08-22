@@ -34,6 +34,18 @@ public class TaskManager {
         );
     }
 
+    public void deleteTask(int taskNumber) {
+        if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
+            throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to delete does not exist.", taskNumber));
+        }
+        Task task = tasks.remove(taskNumber - 1);
+        PrintUtility.wrapPrintWithHorizontalLines(
+            "Noted. I've removed this task:",
+            "  " + task,
+            String.format("Now you have %s tasks in the list.", this.getTaskCount())
+        );
+    }
+
     public void listTasks() {
         int taskCount = this.getTaskCount();
         for (int i = 0; i < taskCount; i++) {

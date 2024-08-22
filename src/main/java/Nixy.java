@@ -52,6 +52,23 @@ public class Nixy {
                 }
                 continue;
             }
+            if (input.startsWith("delete")) {
+                final int DELETE_PREFIX_LENGTH = 6;
+                String taskNumberStr = input.substring(DELETE_PREFIX_LENGTH).trim();
+                if (taskNumberStr.isEmpty()) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to delete cannot be empty.");
+                    continue;
+                }
+                try {
+                    int taskNumber = Integer.parseInt(taskNumberStr);
+                    taskManager.deleteTask(taskNumber);
+                } catch (NumberFormatException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to delete must be an integer.");
+                } catch (TaskNotExistException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
+                }
+                continue;
+            }
             if (input.startsWith("todo")) {
                 final int TODO_PREFIX_LENGTH = 4;
                 String taskName = input.substring(TODO_PREFIX_LENGTH).trim();
