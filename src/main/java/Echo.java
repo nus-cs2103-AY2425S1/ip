@@ -14,9 +14,10 @@ public class Echo {
     }
     //update the todo, deadline and event
     public void echoOut() {
-        String description = word;
-        String[] parts = description.split(" ", 2);
-        String command = parts[0];
+
+            String description = word;
+            String[] parts = description.split(" ", 2);
+            String command = parts[0];
 
         switch (command) {
             case "list":
@@ -79,10 +80,14 @@ public class Echo {
                 break;
 
             case "todo":
-                Task toDoTask = new ToDoTask(parts[1]);
-                list.add(toDoTask);
-                System.out.print("Got it. I've added this task: \n" + toDoTask.getDescription() +
-                        String.format("Now you have %d tasks in the list\n", list.size()));
+                try {
+                    Task toDoTask = new ToDoTask(parts[1]);
+                    list.add(toDoTask);
+                    System.out.print("Got it. I've added this task: \n" + toDoTask.getDescription() +
+                            String.format("Now you have %d tasks in the list\n", list.size()));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.print("Oh no! Please input a ToDo description!");
+                }
                 break;
 
             case "deadline":
@@ -120,9 +125,7 @@ public class Echo {
                                 +  "____________________________________________________________\n");
                 break;
             default:
-                list.add(new Task(word));
-                System.out.println("\n____________________________________________________________\n"
-                        + "added: " + word + "\n____________________________________________________________\n");
+                System.out.println("Oh no! You have input an unknown command!");
                 break;
         }
     }
