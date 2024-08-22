@@ -1,6 +1,6 @@
 public class Deadline extends Task{
     private String deadline;
-    public Deadline(String desc, Boolean mark, String deadline) {
+    public Deadline(String desc, Boolean mark, String deadline) throws MissingDescriptionException{
         super(desc, mark);
         this.deadline = deadline;
     }

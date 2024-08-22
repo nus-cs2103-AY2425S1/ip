@@ -1,5 +1,5 @@
 public class Todo extends Task{
-    public Todo(String desc, Boolean mark) {
+    public Todo(String desc, Boolean mark) throws MissingDescriptionException{
         super(desc, mark);
     }
 

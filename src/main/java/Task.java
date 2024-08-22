@@ -2,8 +2,11 @@ public class Task {
     private String description;
     private Boolean marked;
 
-    public Task(String desc, Boolean mark) {
-        this.description = desc;
+    public Task(String desc, Boolean mark) throws MissingDescriptionException{
+        if (desc.isEmpty()) {
+            throw new MissingDescriptionException("Looks like you left out description of the task, please try again.");
+        }
+        this.description = desc.substring(1);
         this.marked = mark;
     }
 

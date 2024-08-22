@@ -1,7 +1,7 @@
 public class Event extends Task{
     private String start;
     private String end;
-    public Event(String desc, Boolean mark, String start, String end) {
+    public Event(String desc, Boolean mark, String start, String end) throws MissingDescriptionException{
         super(desc, mark);
         this.start = start;
         this.end = end;
