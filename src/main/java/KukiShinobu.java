@@ -32,39 +32,47 @@ public class KukiShinobu {
                 break;
             }
 
-            // otherwise, handle all other commands as appropriate
-            switch(command) {
-                case "list":
-                    this.listTasks();
-                    break;
-                case "mark":
-                    // argument is task index
-                    this.markAsDone(arguments);
-                    break;
-                case "unmark":
-                    // argument is task index
-                    this.unmarkAsDone(arguments);
-                    break;
-                // TODO: Add cases for todo, deadline and event
-                case "todo":
-                    // argument is desc, pass desc in
-                    this.addTodo(arguments);
-                    break;
-                case "deadline":
-                    // Break arguments into desc + by
-                    this.addDeadline(arguments);
-                    break;
-                case "event":
-                    // break arguments into desc, start and end
-                    this.addEvent(arguments);
-                    break;
-                default:
+            try {
+                // otherwise, handle all other commands as appropriate
+                switch(command) {
+                    case "list":
+                        this.listTasks();
+                        break;
+                    case "mark":
+                        // argument is task index
+                        this.markAsDone(arguments);
+                        break;
+                    case "unmark":
+                        // argument is task index
+                        this.unmarkAsDone(arguments);
+                        break;
+                    // TODO: Add cases for todo, deadline and event
+                    case "todo":
+                        // argument is desc, pass desc in
+                        this.addTodo(arguments);
+                        break;
+                    case "deadline":
+                        // Break arguments into desc + by
+                        this.addDeadline(arguments);
+                        break;
+                    case "event":
+                        // break arguments into desc, start and end
+                        this.addEvent(arguments);
+                        break;
+                    default:
+                        this.handleUnknownCommand();
+                }
+            } catch (KukiShinobuException e) {
+                System.out.println(e.getMessage());
             }
+
             KukiShinobu.printHorizontalLine();
         }
         this.goodbye();
     }
-
+    private void handleUnknownCommand() throws KukiShinobuException {
+        throw new KukiShinobuException("Hmm... I don't quite understand what you mean!");
+    }
     private void listTasks() {
         for (int i = 0; i < this.tasks.size(); i++) {
             System.out.println((i + 1) + "." + this.tasks.get(i));
@@ -87,15 +95,31 @@ public class KukiShinobu {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
-    private void addTodo(String arguments) {
-        // arguments is taskDescription
+    private void addTodo(String arguments) throws KukiShinobuException {
+        // TODO: Check for missing description
+        if (arguments.isEmpty()) {
+            throw new KukiShinobuException("Todo is missing description!");
+        }
+        // argument is taskDescription
         Task newTodo = new Todo(arguments);
         this.tasks.add(newTodo);
         this.printAddedTaskSummary(newTodo);
+
     }
 
-    private void addDeadline(String arguments) {
+    private void addDeadline(String arguments) throws KukiShinobuException {
+        // TODO: Check for missing description or /by
         String[] parts = arguments.split(" /by ", 2);
+
+        // Checks for missing arguments
+        if (parts.length != 2) {
+            if (!arguments.contains("/by")) {
+                throw new KukiShinobuException("You're missing the /by flag and argument!");
+            } else {
+                throw new KukiShinobuException("Deadline is missing the description!");
+            }
+        }
+
         String taskDescription = parts[0];
         String by = parts[1];
         Task newDeadline = new Deadline(taskDescription, by);
@@ -103,8 +127,17 @@ public class KukiShinobu {
         this.printAddedTaskSummary(newDeadline);
     }
 
-    private void addEvent(String arguments) {
+    private void addEvent(String arguments) throws KukiShinobuException {
+        //TODO: Check for missing desc, /from or /to
+        //TODO: Modify the logic to split based on "/" instead to accommodate flipped order of flags
+//        String[] parts = arguments.split("/", 3);
+
+
         String[] parts = arguments.split("\\s+/from\\s+|\\s+/to\\s+", 3);
+        if (parts.length != 3) {
+            throw new KukiShinobuException("Event is missing description, from or to.");
+        }
+
         String taskDescription = parts[0];
         String start = parts[1];
         String end = parts[2];
@@ -121,8 +154,8 @@ public class KukiShinobu {
 
     public void greet() {
         KukiShinobu.printHorizontalLine();
-        System.out.println("Hello! I'm " + this.name + "!");
-        System.out.println("What can I do for you?");
+        System.out.println("Hey Traveller! I'm " + this.name + ", deputy leader of the Arataki Gang.");
+        System.out.println("Just let me know if you ever find yourself in a pinch. I can help you out.");
         KukiShinobu.printHorizontalLine();
     }
 
