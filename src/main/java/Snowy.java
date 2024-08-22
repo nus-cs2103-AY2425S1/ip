@@ -24,15 +24,13 @@ public class Snowy {
         while (isRunning) {
             String lastInput = scanner.nextLine();
 
-            String[] words = lastInput.split(" ");
+            int spaceIndex = lastInput.indexOf(" ");
 
-            if (words.length == 0) {
-                continue;
-            }
+            String command = (spaceIndex == -1 ? lastInput: lastInput.substring(0, spaceIndex)).toLowerCase();
 
-            String lastCommand = words[0];
+            String description = spaceIndex == -1 ? "": lastInput.substring(spaceIndex + 1);
 
-            switch (lastCommand.toLowerCase()) {
+            switch (command) {
                 case "bye":
                     isRunning = false;
                     break;
@@ -45,7 +43,7 @@ public class Snowy {
 
                 case "mark":
                     try {
-                        int index = Integer.parseInt(words[1]);
+                        int index = Integer.parseInt(description);
                         tasks[index - 1].markComplete();
                         System.out.println("Nice! I've marked this task as done:\n  "
                                 + tasks[index - 1].toString());
@@ -56,7 +54,7 @@ public class Snowy {
 
                 case "unmark":
                     try {
-                        int index = Integer.parseInt(words[1]);
+                        int index = Integer.parseInt(description);
                         tasks[index - 1].markIncomplete();
                         System.out.println("Ok, I've marked this task as not done yet:\n  "
                                 + tasks[index - 1].toString());
@@ -64,10 +62,37 @@ public class Snowy {
                         System.out.println("Invalid index provided. Please try again");
                     }
                     break;
-                default:
-                    tasks[numOfTasks] = new Task(lastInput);
+
+                case "todo":
+                    tasks[numOfTasks] = new ToDo(description);
+                    System.out.println("New todo task added:\n " + tasks[numOfTasks]);
                     numOfTasks++;
-                    System.out.println("added: " + lastInput);
+                    break;
+
+                case "deadline":
+                    int byIndex = description.indexOf(" /by ");
+                    String deadlineName = description.substring(0, byIndex);
+                    String date = description.substring(byIndex + 5);
+                    tasks[numOfTasks] = new Deadline(deadlineName, date);
+                    System.out.println("New Deadline task added:\n " + tasks[numOfTasks]);
+                    numOfTasks++;
+                    break;
+
+                case "event":
+                    int fromIndex = description.indexOf(" /from ");
+                    int toIndex = description.indexOf(" /to ");
+
+                    String eventName = description.substring(0, fromIndex);
+                    String fromDate = description.substring(fromIndex + 7, toIndex);
+                    String toDate = description.substring(toIndex + 5);
+                    tasks[numOfTasks] = new Event(eventName, fromDate, toDate);
+                    System.out.println("New Event task added:\n " + tasks[numOfTasks]);
+                    numOfTasks++;
+                    break;
+
+
+                default:
+                    System.out.println("Command not recognized. Please try again");
                     break;
             }
 
