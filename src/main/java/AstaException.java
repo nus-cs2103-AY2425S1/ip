@@ -30,4 +30,8 @@ public class AstaException extends Exception {
     public static void handleInvalidTaskNumberFormat(String command) throws AstaException {
         throw new AstaException("Unfortunately, Asta needs a valid task number to " + command + "...");
     }
+
+    public static void handleInvalidDeleteTaskNumber() throws AstaException {
+        throw new AstaException("Unfortunately, the task number provided doesn't seem valid for deletion...");
+    }
 }

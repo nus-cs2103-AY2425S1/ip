@@ -33,6 +33,8 @@ public class Asta {
                     handleDeadlineCommand(input, tasks);
                 } else if (input.startsWith("event ")) {
                     handleEventCommand(input, tasks);
+                } else if (input.startsWith("delete ")) {
+                    handleDeleteCommand(input, tasks);
                 } else {
                     AstaException.handleInvalidCommand();
                 }
@@ -105,5 +107,21 @@ public class Asta {
         System.out.println("Got it. I've added this task:");
         System.out.println("[E][ ] " + parts[0] + " (from: " + parts[1] + " to: " + parts[2] + ")");
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void handleDeleteCommand(String input, ArrayList<Task> tasks) throws AstaException {
+        try {
+            int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+            if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                Task removedTask = tasks.remove(taskNumber);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(removedTask);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                AstaException.handleInvalidDeleteTaskNumber();
+            }
+        } catch (NumberFormatException e) {
+            AstaException.handleInvalidTaskNumberFormat("delete");
+        }
     }
 }
