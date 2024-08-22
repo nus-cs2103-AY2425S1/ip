@@ -136,55 +136,82 @@ public class Snowy {
 
             } else if (input.split(" ")[0].equalsIgnoreCase("mark")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
-
-                if (!taskList.isTaskDone(index - 1)) {
-                    System.out.println(line + "\nMarked as done\n");
-                    taskList.toggleTask(index - 1);
-
-                } else {
+                if (taskList.isTaskDone(index - 1)) {
                     System.out.println("Task is already done");
+                    continue;
 
                 }
+                System.out.println(line + "\nMarked as done\n");
+                taskList.toggleTask(index - 1);
+
+
             } else if (input.split(" ")[0].equalsIgnoreCase("unmark")){
                 int index = Integer.parseInt(input.split(" ")[1]);
-
-                if (taskList.isTaskDone(index - 1)) {
-                    System.out.println(line + "\nUnmarked task\n");
-                    taskList.toggleTask(index - 1);
-
-                } else {
+                if (!taskList.isTaskDone(index - 1)) {
                     System.out.println("Cannot unmark task as it is not done");
+                    continue;
 
                 }
+                System.out.println(line + "\nUnmarked task\n");
+                taskList.toggleTask(index - 1);
+
             } else if (input.startsWith("todo")){
                 String description = input.substring(4).trim();
                 System.out.println(line);
-                if (description.isEmpty()) {
+                if (description.isEmpty() || description.equals(" ")) {
                     System.out.println("Please provide a description");
-                } else {
-                    ToDo todo = new ToDo(description);
-                    System.out.println("Added a to do to your list of tasks");
-                    taskList.addTask(todo);
-
+                    continue;
                 }
-            } else if (input.startsWith("deadline")) {
+                ToDo todo = new ToDo(description);
+                System.out.println("Added a to do to your list of tasks");
+                taskList.addTask(todo);
+
+            }  else if (input.startsWith("deadline")) {
                 String after = input.substring(8);
                 boolean hasDate = input.contains("/by");
                 System.out.println(line);
 
-                if (after.isEmpty()) {
+                if (after.isEmpty() || after.equals(" ")) {
                     System.out.println("Please provide a description");
-                } else {
-                    if (!hasDate) {
-                        System.out.println("Please provide a deadline");
-                        continue;
-                    }
-                    String description = after.split(" /by ", 2)[0];
-                    String date = after.split(" /by ", 2)[1];
-                    Deadline deadline = new Deadline(description, date);
-                    System.out.println("Added a task with deadline to your list of tasks");
-                    taskList.addTask(deadline);
+                    continue;
                 }
+                if (!hasDate) {
+                    System.out.println("Please provide a deadline");
+                    continue;
+                }
+
+                String description = after.split(" /by ", 2)[0];
+                String date = after.split(" /by ", 2)[1];
+                Deadline deadline = new Deadline(description, date);
+                System.out.println("Added a task with deadline to your list of tasks");
+                taskList.addTask(deadline);
+
+            } else if (input.startsWith("event")) {
+                String after = input.substring(5);
+                boolean hasFrom = input.contains("/from");
+                boolean hasTo = input.contains("/to");
+
+                System.out.println(line);
+
+                if (after.isEmpty() || after.equals(" ")) {
+                    System.out.println("Please provide a description");
+                    continue;
+                }
+                if (!hasFrom || !hasTo) {
+                    System.out.println("Please provide both from and to");
+                    continue;
+                }
+
+                String description = after.split(" /from ", 2)[0];
+                String afterDesc = after.split(" /from ", 2)[1];
+
+                String from = afterDesc.split("/to", 2)[0].trim();
+                String to = afterDesc.split("/to", 2)[1].trim();
+
+                Event event = new Event(description, from, to);
+                System.out.println("Added an event to your list of tasks");
+                taskList.addTask(event);
+
             }
         }
         System.out.println("Bye. See you next time!");
