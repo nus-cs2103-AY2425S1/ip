@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Rainy {
-    public static void main(String[] args) throws InvalidIndexException {
+    public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         System.out.println("Hello! I am RAINY - Responsive, Automated, Intelligence Network for You.");
         System.out.println("I am a digital assistant designed to help you keep track of your day.");
         System.out.println("So, what can I do for you today?");
