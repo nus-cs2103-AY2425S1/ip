@@ -13,7 +13,13 @@ public class Eevee {
         while (true) {
             String input = scanner.nextLine();
             System.out.println(divider);
-            System.out.println(input);
+
+            if (input.equals("bye")) {
+                System.out.println(exit);
+            } else {
+                System.out.println(input);
+            }
+
             System.out.println(divider);
         }
     }
