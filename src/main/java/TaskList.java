@@ -7,8 +7,26 @@ public class TaskList {
         this.tasklist = new ArrayList<>();
     }
 
-    public void addTask(String name) {
-        this.tasklist.add(new Task(name));
+//    public void addTask(String name) {
+//        this.tasklist.add(new Task(name));
+//    }
+
+    public ToDo todo(String name) {
+        ToDo todo = new ToDo(name);
+        this.tasklist.add(todo);
+        return todo;
+    }
+
+    public Deadline deadline(String name, String by) {
+        Deadline deadline = new Deadline(name, by);
+        this.tasklist.add(deadline);
+        return deadline;
+    }
+
+    public Event event(String name, String from, String to) {
+        Event event = new Event(name, from, to);
+        this.tasklist.add(event);
+        return event;
     }
 
     public void mark(int idx) {
