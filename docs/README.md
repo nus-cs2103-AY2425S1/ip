@@ -1,4 +1,4 @@
-# Neko User Guide
+# Yoda User Guide
 
 // Update the title above to match the actual product name
 
