@@ -25,6 +25,8 @@ public class ChatBot {
                 if (input.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
+                } else if (input.startsWith("delete")) {
+                    deleteTask(Integer.parseInt(input.substring(7)) - 1);
                 } else if (input.startsWith("todo")) {
                     addTodoTask(input);
                 } else if (input.startsWith("deadline")) {
@@ -49,9 +51,18 @@ public class ChatBot {
         }
         scanner.close();
     }
+
+    private static void deleteTask(int id) {
+        System.out.println("     Noted. I've removed this task:\n" +
+                tasks.get(id) + "\n" +
+                "     Now you have 4 tasks in the list.!");
+        tasks.remove(id);
+    }
+
     private static void listTasks() {
-        for (Task task : tasks) {
-            System.out.println(task);
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i+1;
+            System.out.println(index + " , " + tasks.get(i).toString());
         }
     }
 
