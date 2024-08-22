@@ -1,32 +1,50 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * PandaBot is a simple task management bot that allows users to add, list, mark, unmark,
+ * and delete tasks. It supports different types of tasks including ToDos, Deadlines, and Events.
+ */
 public class PandaBot {
+
+    /**
+     * Prints a line separator for visual clarity in the console output.
+     */
     private static void printLine() {
         String line = "_________________________________________";
         System.out.println(line);
     }
+
+    /**
+     * The main method to run the PandaBot application.
+     * This method continuously reads user input, processes commands, and manages the task list
+     * until the user inputs "bye" to exit the program.
+     *
+     * @param args command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // statically storing tasks
         ArrayList<Task> taskList = new ArrayList<>();
 
-        // Simple greeting to the user by PandaBot
+        // Greet the user
         printLine();
         System.out.println("Hello! I'm PandaBot.");
         System.out.println("What can I do for you?");
         printLine();
 
+        // Main Loop
         while (true) {
             String input = scanner.nextLine();
 
+            // Exit command
             if (input.equalsIgnoreCase("bye")) {
                 printLine();
                 System.out.println("Bye. Hope to see you again soon!");
                 printLine();
                 break;
-            } else if (input.equalsIgnoreCase("list")){
+            }
+            // List tasks
+            else if (input.equalsIgnoreCase("list")){
                 if (taskList.isEmpty()) {
                     System.out.println("There are currently no items in the list.");
                     continue;
@@ -36,7 +54,9 @@ public class PandaBot {
                     System.out.println((i + 1) + ". " + taskList.get(i));
                 }
                 printLine();
-            } else if (input.startsWith("mark")) {
+            }
+            // Mark a task as done
+            else if (input.startsWith("mark")) {
                 if (input.equalsIgnoreCase("mark")) {
                     System.out.println("Please specify which Task number to mark.");
                     continue;
@@ -51,7 +71,9 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist.");
                 }
-            } else if (input.startsWith("unmark")) {
+            }
+            // Unmark a task
+            else if (input.startsWith("unmark")) {
                 if (input.equalsIgnoreCase("unmark")) {
                     System.out.println("Please specify which Task number to unmark.");
                     continue;
@@ -66,7 +88,9 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist.");
                 }
-            } else if (input.startsWith("delete")) {
+            }
+            // Delete a task
+            else if (input.startsWith("delete")) {
                 if (input.equalsIgnoreCase("delete")) {
                     System.out.println("Please specify which Task number to delete.");
                     continue;
@@ -81,7 +105,9 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist.");
                 }
-            } else if (input.equalsIgnoreCase("help")) {
+            }
+            // Display help
+            else if (input.equalsIgnoreCase("help")) {
                 printLine();
                 System.out.println("PandaBot Commands:");
                 System.out.println("1. todo <description> : Adds a new Todo task.");
@@ -94,7 +120,9 @@ public class PandaBot {
                 System.out.println("8. help : Displays this help message.");
                 System.out.println("9. bye : Exits the PandaBot.");
                 printLine();
-            } else {
+            }
+            // Add a new task (ToDo. Deadline, or Event)
+            else {
                 Task task = null;
                 try {
                     if (input.startsWith("todo")) {
@@ -104,7 +132,7 @@ public class PandaBot {
                     } else if (input.startsWith("event")) {
                         task = new Event("", "", "").createTask(input);
                     } else {
-                        System.out.println("Invalid command. Type '/help' for assistance.");
+                        System.out.println("Invalid command. Type 'help' for assistance.");
                         continue;
                     }
                     taskList.add(task);
