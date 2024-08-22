@@ -1,7 +1,5 @@
-import java.util.Objects;
-
 public class Fishman {
-    private Ui ui;
+    private final Ui ui;
 
     public Fishman(Ui ui) {
         this.ui = ui;

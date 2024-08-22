@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         scanner = new Scanner(System.in);
@@ -12,11 +12,13 @@ public class Ui {
 
     public void displayLogo() {
         String logo =
-                "  _____ _     _                           \n"
-                        + " |  ___(_)___| |__  _ __ ___   __ _ _ __  \n"
-                        + " | |_  | / __| '_ \\| '_ ` _ \\ / _` | '_ \\ \n"
-                        + " |  _| | \\__ \\ | | | | | | | | (_| | | | |\n"
-                        + " |_|   |_|___/_| |_|_| |_| |_|\\__,_|_| |_|\n";
+                """
+                          _____ _     _                          \s
+                         |  ___(_)___| |__  _ __ ___   __ _ _ __ \s
+                         | |_  | / __| '_ \\| '_ ` _ \\ / _` | '_ \\\s
+                         |  _| | \\__ \\ | | | | | | | | (_| | | | |
+                         |_|   |_|___/_| |_|_| |_| |_|\\__,_|_| |_|
+                        """;
         System.out.println("Hello from\n" + logo);
     }
 
