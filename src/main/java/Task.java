@@ -15,7 +15,9 @@ public class Task {
     @Override
     public String toString() {
         String status = this.status ? "X": " ";
-        return String.format("[%s] %s ", status, this.details);
+        //need to compensate one space here because we set first word to ""
+
+        return String.format("[%s]%s ", status, this.details);
     }
 
     public String getDetails() {

@@ -15,34 +15,52 @@ public class Bimo {
 
         while (!command.toLowerCase().equals("bye")) {
             System.out.println(line);
-            if (command.toLowerCase().equals("list") && length > 0) {
+            String action = command.split(" ")[0].toLowerCase();
+            if (action.equals("list") && length > 0) {
                 System.out.println("    Here are the tasks in your list:");
                 for (int i = 0; i < length; i++) {
                     String message = String.format("    %d. %s", i + 1, list[i].toString());
                     System.out.println(message);
                 }
 
-            } else if (command.toLowerCase().equals("list")) {
+            } else if (action.equals("list")) {
                 System.out.println("    No tasks added");
 
-            } else if (command.toLowerCase().split(" ")[0].equals("mark")) {
+            } else if (action.equals("mark")) {
                 int index = Integer.valueOf(command.toLowerCase().split(" ")[1]) - 1;
                 updateList(true, index);
                 System.out.println("    Nice! I've marked this task as done:");
                 System.out.println("       " + list[index].toString());
 
-            } else if (command.toLowerCase().split(" ")[0].equals("unmark")) {
+            } else if (action.equals("unmark")) {
                 int index = Integer.valueOf(command.toLowerCase().split(" ")[1]) - 1;
                 updateList(false, index);
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("       " + list[index].toString());
 
-            } else  {
-                Task task = new Task(command);
-                Bimo.list[length] = task;
-                length += 1;
-                System.out.println("    added: " + task.getDetails());
+            } else if (action.equals("todo") ||
+                        action.equals("deadline") ||
+                        action.equals("event") ) {
+                System.out.println("    Got it. I've added this task:");
+                if (action.equals("todo")) {
+                    String[] temp = command.split(" ");
+                    temp[0] = "";
+                    Task task = new ToDo(String.join(" ", temp));
+                    Bimo.list[length] = task;
+                    length += 1;
+                    System.out.println("        "+ task.toString());
+                } else if (action.equals("deadline")) {
+
+                } else {
+
+                }
+                String word = length == 1 ? "task" : "tasks";
+                System.out.println(String.format("    Now you have %d %s in the list.", length, word));
+            } else {
+
             }
+
+
 
             System.out.println(line + "\n");
             command = scanner.nextLine();
@@ -60,8 +78,9 @@ public class Bimo {
         } else {
             list[index].markUnCompleted();
         }
-
     }
+
+
 
 
 }
