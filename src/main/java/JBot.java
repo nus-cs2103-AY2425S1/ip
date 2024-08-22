@@ -1,10 +1,20 @@
 public class JBot {
+
+    private static void hLine() {
+        System.out.println("___________________________________________");
+    }
+    private static void greetUser() {
+        hLine();
+        System.out.println("Hello! I'm JBot");
+        System.out.println("What can I do for you?");
+    }
+    private static void endSession() {
+        hLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        hLine();
+    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        greetUser();
+        endSession();
     }
 }
