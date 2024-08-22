@@ -36,7 +36,7 @@ public class GavinChatBot{
                     if (tasks[i] == null) {
                         break;
                     }
-                    System.out.println(i+1 + ". " + "[" + tasks[i].getStatusIcon() + "]" + tasks[i].description);
+                    System.out.println(i+1 + ". " + "[" + tasks[i].getStatusIcon() + "]" + " " + tasks[i].description);
                 }
                 System.out.println(horizontalLine);
                 continue;
@@ -55,16 +55,50 @@ public class GavinChatBot{
                 tasks[taskNumber].markAsNotDone();
                 System.out.println(horizontalLine);
                 System.out.println("OK, I've marked this task as not done yet!");
-                System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + tasks[taskNumber].description);
+                System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + " " + tasks[taskNumber].description);
                 System.out.println(horizontalLine);
+                continue;
+            } else if (input.startsWith("todo")) {
+                String[] inputParts = input.split(" ", 2);
+                String taskDescription = inputParts[1];
+                tasks[taskCount] = new ToDos(taskDescription);
+                taskCount++;
+                printAddTaskMessage(tasks[taskCount - 1], taskCount);
+                continue;
+            } else if (input.startsWith("deadline")) {
+                String[] inputParts = input.split("/by", 2); // ["deadline return book" , "Sunday"]
+                String taskDescription = inputParts[0].substring(9); // skip first 9 chars, which is "deadline "
+                String deadlineDay = inputParts[1];
+                tasks[taskCount] = new Deadline(taskDescription, deadlineDay);
+                taskCount++;
+                printAddTaskMessage(tasks[taskCount - 1], taskCount);
+                continue;
+            } else if (input.startsWith("event")) {
+                String[] inputParts = input.split("/from", 2); //["event project meeting" , "Mon 2pm /to 4pm"]
+                String taskDescription = inputParts[0].substring(6);
+                String[] timeParts = inputParts[1].split("/to", 2); //["Mon 2pm" , "4pm"]
+                String fromTime = timeParts[0];
+                String toTime = timeParts[1];
+                tasks[taskCount] = new Event(taskDescription, fromTime, toTime);
+                taskCount++;
+                printAddTaskMessage(tasks[taskCount - 1], taskCount);
                 continue;
             }
 
             System.out.println(horizontalLine);
             tasks[taskCount] = new Task(input);
             taskCount++;
-            System.out.println("added:" + input);
+            System.out.println("added: " + input);
             System.out.println(horizontalLine);
         }
+    }
+    private static void printAddTaskMessage(Task task, int taskCount) {
+        String horizontalLine = "_________________________________\n";
+        System.out.println(horizontalLine);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println(horizontalLine);
+
     }
 }

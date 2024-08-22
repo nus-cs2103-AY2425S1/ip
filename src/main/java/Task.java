@@ -18,5 +18,9 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
 }
 
