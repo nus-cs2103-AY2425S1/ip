@@ -6,8 +6,8 @@ public class Jia {
         //Create a scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
-        //Create an array list to store user inputs
-        ArrayList<String> inputs = new ArrayList<>();
+        //Create an array list to store tasks
+        ArrayList<Task> tasks = new ArrayList<>();
         String input;
 
         //Greet the user
@@ -22,12 +22,13 @@ public class Jia {
 
             if (input.equalsIgnoreCase("list")) {
                 System.out.println("______________________________________________________");
-                for (int i = 0; i < inputs.size(); i++) {
-                    System.out.println(" " + (i + 1) + ". " + inputs.get(i));
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks.get(i));
                 }
                 System.out.println("______________________________________________________");
             } else if (!input.equalsIgnoreCase("bye")) {
-                inputs.add(input);
+                tasks.add(new Task(input));
                 System.out.println("______________________________________________________");
                 System.out.println(" " + "added: " + input);
                 System.out.println("______________________________________________________");
