@@ -8,8 +8,7 @@ public class Bigmouth {
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
         Scanner scanner = new Scanner(System.in);
-        String userInput;
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         // Introduction
@@ -19,7 +18,7 @@ public class Bigmouth {
 
         // Main loop to handle user input
         while (true) {
-            userInput = scanner.nextLine();
+            String userInput = scanner.nextLine();
 
             // Exit the program if the user types "bye"
             if (userInput.equals("bye")) {
@@ -32,13 +31,33 @@ public class Bigmouth {
             // List all stored tasks if the user types "list"
             if (userInput.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println(" Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                    System.out.println(" " + (i + 1) + "." + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
-            } else {
-                // Store the task and acknowledge it
-                tasks[taskCount] = userInput;
+            }
+            // Mark a task as done
+            else if (userInput.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                tasks[taskNumber].markAsDone();
+                System.out.println("____________________________________________________________");
+                System.out.println(" Nice! I've marked this task as done:");
+                System.out.println("   " + tasks[taskNumber]);
+                System.out.println("____________________________________________________________");
+            }
+            // Unmark a task as not done
+            else if (userInput.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                tasks[taskNumber].markAsNotDone();
+                System.out.println("____________________________________________________________");
+                System.out.println(" OK, I've marked this task as not done yet:");
+                System.out.println("   " + tasks[taskNumber]);
+                System.out.println("____________________________________________________________");
+            }
+            // Store a new task
+            else {
+                tasks[taskCount] = new Task(userInput);
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println(" added: " + userInput);
