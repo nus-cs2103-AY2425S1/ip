@@ -63,23 +63,26 @@ public class CancelGPT {
         }
     }
 
-    public boolean markTaskNumber(int taskNumber) {
+    public void markTaskNumber(int taskNumber) {
         this.TASKS_LIST.get(taskNumber - 1).mark();
-        return true;
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
 
-    public boolean unmarkTaskNumber(int taskNumber) {
+    public void unmarkTaskNumber(int taskNumber) {
         this.TASKS_LIST.get(taskNumber - 1).unmark();
-        return true;
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
 
     public String addToTaskList(String text) {
         Task task = new Task(text);
         this.TASKS_LIST.add(task);
-        return task.toString();
+        return task.getDescription();
     }
 
     public void displayTasksList() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.TASKS_LIST.size(); i++) {
             System.out.println(i + 1 + ". " + this.TASKS_LIST.get(i));
         }
