@@ -20,10 +20,9 @@ public class TaskList {
     System.out.println("Now you have " + this.taskCount + " " + this.taskWord() + " in the list.");
   }
 
-  public void displayTasks() {
+  public void displayTasks() throws EmptyListException {
     if (this.length() == 0) {
-      System.err.println("You have no tasks in your list.");
-      return;
+      throw new EmptyListException();
     }
 
     for (int i = 0; i < this.taskCount; i++) {
@@ -32,21 +31,25 @@ public class TaskList {
     }
   }
 
-  public void markTask(int taskNumber, boolean done) {
+  public void markTask(int taskNumber, boolean done)
+      throws RedundantMarkException, RedundantUnmarkException, IndexOutOfBoundsException {
     if (taskNumber >= this.taskCount || taskNumber < 0) {
-      System.out.println("Invalid task number. There are " + " " + this.taskWord() + " in your list.");
-      return;
+      throw new IndexOutOfBoundsException("Invalid task number. There are " + " " + this.taskWord() + " in your list.");
     }
 
     if (done) {
       boolean success = this.tasks[taskNumber].markAsDone();
-      System.out.println(success ? "Nice! I've marked this task as done:" : "This task is already done:");
+      if (!success) {
+        throw new RedundantMarkException(this.tasks[taskNumber]);
+      }
+      System.out.println("Nice! I've marked this task as done:");
     } else {
       boolean success = this.tasks[taskNumber].markAsUndone();
-      System.out.println(
-          success ? "OK, I've marked this task as not done yet:" : "This task is already marked as not done:");
+      if (!success) {
+        throw new RedundantUnmarkException(this.tasks[taskNumber]);
+      }
+      System.out.println("OK, I've marked this task as not done yet:");
     }
-
     System.out.println("  " + this.tasks[taskNumber].toString());
   }
 
