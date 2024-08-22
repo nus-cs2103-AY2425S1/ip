@@ -1,15 +1,32 @@
 import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Friday {
     private String name;
     private boolean isRunning;
     private ArrayList<Task> tasks;
+    private Storage storage;
 
-    public Friday() {
+    public Friday(String filePath) {
         this.name = "Friday";
         this.isRunning = true;
-        this.tasks = new ArrayList<>();
+        this.storage = new Storage(filePath);
+
+        try {
+            this.tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("Unable to load tasks from file.");
+            this.tasks = new ArrayList<>();
+        }
+    }
+
+    private void saveTasks() {
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Unable to save tasks to file.");
+        }
     }
 
     public void greet() {
@@ -39,6 +56,7 @@ public class Friday {
 
     public void addTask(Task task) {
         tasks.add(task);
+        saveTasks();
         System.out.println(
                 "    ____________________________________________________________\n" +
                         "     Got it. I've added this task:\n" +
@@ -64,6 +82,7 @@ public class Friday {
     public void deleteTask(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task removedTask = tasks.remove(taskIndex);
+            saveTasks();
             System.out.println(
                     "    ____________________________________________________________\n" +
                             "     Noted. I've removed this task:\n" +
@@ -83,6 +102,7 @@ public class Friday {
     public void markTaskAsDone(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).markAsDone();
+            saveTasks();
             System.out.println(
                     "    ____________________________________________________________\n" +
                             "     Nice! I've marked this task as done:\n" +
@@ -101,6 +121,7 @@ public class Friday {
     public void unmarkTaskAsDone(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).unmarkAsDone();
+            saveTasks();
             System.out.println(
                     "    ____________________________________________________________\n" +
                             "     OK, I've marked this task as not done yet:\n" +
@@ -135,7 +156,7 @@ public class Friday {
     }
 
     public static void main(String[] args) {
-        Friday friday = new Friday();
+        Friday friday = new Friday("./data/friday.txt");
         friday.run();
     }
 }
