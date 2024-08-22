@@ -13,6 +13,15 @@ public class Genji {
         System.out.println("added: " + s);
         System.out.println(LINE);
     }
+
+    public static void showList() {
+        int index = 1;
+        for(String task : list) {
+            System.out.println(String.format("%d. ", index)+ task);
+            index++;
+        }
+        System.out.println(LINE);
+    }
     public static void bye() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
@@ -32,8 +41,9 @@ public class Genji {
             System.out.println(LINE);
             if (input.equals("bye")) {
                 flag = false;
-            }
-            else {
+            } else if (input.equals("list")) {
+                showList();
+            } else {
                 addList(input);
             }
         }
