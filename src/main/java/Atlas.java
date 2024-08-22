@@ -24,7 +24,7 @@ public class Atlas {
         System.out.println("Hello from\n" + logo);
         Atlas.greet();
 
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String nextCommandLine = scanner.nextLine();
