@@ -37,29 +37,21 @@ public class MiluTrock {
 
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks.get(i));
-            } else if (words[0].equals("todo")){
-                // Add todo task
-                String taskName = input.substring(5);
-                ToDo task = new ToDo(taskName);
-                tasks.add(task);
-                
-                System.out.println("Got it. I've added this task:\n  " + task);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (words[0].equals("deadline")){
-                // Add deadline task
-                String taskInput = input.substring(9);
-                String[] parts = taskInput.split(" /by ");
-                Deadline task = new Deadline(parts[0], parts[1]);
-                tasks.add(task);
-                
-                System.out.println("Got it. I've added this task:\n  " + task);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (words[0].equals("event")){
-                // Add event task
-                String taskInput = input.substring(6);
-                String[] parts = taskInput.split(" /from ");
-                String[] dates = parts[1].split(" /to ");
-                Event task = new Event(parts[0], dates[0], dates[1]);
+            } else if (
+                words[0].equals("todo") || 
+                words[0].equals("deadline") || 
+                words[0].equals("event")
+            ){
+                // Add ToDo, Deadline or Event Task
+                Task task;
+                if (words[0].equals("todo")) {
+                    task = ToDo.getToDoFromInput(input);
+                } else if (words[0].equals("deadline")) {
+                    task = Deadline.getDeadlineFromInput(input);
+                } else {
+                    // words[0] is guaranteed to be "event" here
+                    task = Event.getEventFromInput(input);
+                }
                 tasks.add(task);
                 
                 System.out.println("Got it. I've added this task:\n  " + task);
