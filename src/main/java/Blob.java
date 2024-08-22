@@ -1,23 +1,17 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Blob {
     private static boolean active = true;
-    private static int noOfTasks = 0;
-    private static HashMap<Integer, Task> db = new HashMap<>();
+    private static ArrayList<Task> db = new ArrayList<>();
 
     //TASK CLASS
     public static class Task {
         protected String name;
         protected boolean isDone;
-        protected int taskNumber;
 
-        public Task(String name, int taskNumber, boolean isDone) {
+        public Task(String name, boolean isDone) {
             this.name = name;
             this.isDone = isDone;
-            this.taskNumber = taskNumber;
         }
 
         public void complete() {
@@ -40,8 +34,8 @@ public class Blob {
 
     //TODO CLASS
     public static class Todo extends Task {
-        public Todo(String name, int taskNumber, boolean isDone) {
-            super(name,taskNumber,isDone);
+        public Todo(String name, boolean isDone) {
+            super(name,isDone);
         }
 
         @Override
@@ -53,8 +47,8 @@ public class Blob {
     //DEADLINE CLASS
     public static class Deadline extends Task {
         private String deadline;
-        public Deadline(String name, int taskNumber, boolean isDone, String deadline) {
-            super(name,taskNumber,isDone);
+        public Deadline(String name, boolean isDone, String deadline) {
+            super(name,isDone);
             this.deadline = deadline;
         }
 
@@ -70,8 +64,8 @@ public class Blob {
         private String start;
         private String end;
 
-        public Event(String name, int taskNumber, boolean isDone, String start, String end) {
-            super(name,taskNumber,isDone);
+        public Event(String name, boolean isDone, String start, String end) {
+            super(name,isDone);
             this.start = start;
             this.end = end;
         }
@@ -94,16 +88,16 @@ public class Blob {
                 break;
             } else if (Objects.equals(act, "list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (Map.Entry<Integer, Task> entry : db.entrySet()) {
-                    Task t = entry.getValue();
-                    System.out.println(String.format("%d. %s", t.taskNumber, t));
+                for (int j = 0; j < db.size(); j++) {
+                    Task t = db.get(j);
+                    System.out.println(String.format("%d. %s", j + 1, t));
                 }
                 System.out.println("______________________________________________");
                 break;
             } else if (Objects.equals(act, "mark")) {
                 try {
-                    Integer index = Integer.valueOf(arr[i + 1]);
-                    Task t = db.get(index);
+                    int index = Integer.parseInt(arr[i + 1]);
+                    Task t = db.get(index - 1);
                     t.complete();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(t);
@@ -115,8 +109,8 @@ public class Blob {
                 break;
             } else if (Objects.equals(act, "unmark")) {
                 try {
-                    Integer index = Integer.valueOf(arr[i + 1]);
-                    Task t = db.get(index);
+                    int index = Integer.parseInt(arr[i + 1]);
+                    Task t = db.get(index - 1);
                     t.undo();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(t);
@@ -126,6 +120,19 @@ public class Blob {
                 }
                 break;
 
+            } else if (Objects.equals(act, "delete")) {
+                try {
+                    int index = Integer.parseInt(arr[i + 1]);
+                    Task t = db.get(index - 1);
+                    db.remove(t);
+                    System.out.println("Noted, I've removed this task:");
+                    System.out.println(t);
+                    System.out.println("Now you have " + db.size() + " tasks in the list.");
+                    System.out.println("______________________________________________");
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Command!");
+                }
+                break;
             } else if (Objects.equals(act, "todo")) {
                 // task name error handling
                 if (arr.length == 1) {
@@ -140,12 +147,11 @@ public class Blob {
                     a = a.append(str);
                 }
 
-                noOfTasks++;
-                Todo t = new Todo(a.toString(), noOfTasks, false);
-                db.put(t.taskNumber, t);
+                Todo t = new Todo(a.toString(), false);
+                db.add(t);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t);
-                System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+                System.out.println("Now you have " + db.size() + " tasks in the list.");
                 System.out.println("______________________________________________");
                 break;
 
@@ -181,12 +187,11 @@ public class Blob {
                     s = s.append(str);
                 }
 
-                noOfTasks++;
-                Deadline d = new Deadline(a.toString(), noOfTasks, false, s.toString());
-                db.put(d.taskNumber, d);
+                Deadline d = new Deadline(a.toString(), false, s.toString());
+                db.add(d);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(d);
-                System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+                System.out.println("Now you have " + db.size() + " tasks in the list.");
                 System.out.println("______________________________________________");
                 break;
 
@@ -237,12 +242,11 @@ public class Blob {
                     en = en.append(str);
                 }
 
-                noOfTasks++;
-                Event e = new Event(a.toString(), noOfTasks, false, st.toString(), en.toString());
-                db.put(e.taskNumber, e);
+                Event e = new Event(a.toString(), false, st.toString(), en.toString());
+                db.add(e);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(e);
-                System.out.println("Now you have " + noOfTasks + " tasks in the list.");
+                System.out.println("Now you have " + db.size() + " tasks in the list.");
                 System.out.println("______________________________________________");
                 break;
 
