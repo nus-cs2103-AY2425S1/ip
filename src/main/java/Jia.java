@@ -27,11 +27,25 @@ public class Jia {
                     System.out.println(" " + (i + 1) + ". " + tasks.get(i));
                 }
                 System.out.println("______________________________________________________");
+            } else if (input.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+                tasks.get(taskNumber).markAsDone();
+                System.out.println("______________________________________________________");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(" " + tasks.get(taskNumber));
+                System.out.println("______________________________________________________");
+            } else if (input.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                tasks.get(taskNumber).markAsNotDone();
+                System.out.println("______________________________________________________");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(" " + tasks.get(taskNumber));
+                System.out.println("______________________________________________________");
             } else if (!input.equalsIgnoreCase("bye")) {
-                tasks.add(new Task(input));
-                System.out.println("______________________________________________________");
-                System.out.println(" " + "added: " + input);
-                System.out.println("______________________________________________________");
+                    tasks.add(new Task(input));
+                    System.out.println("______________________________________________________");
+                    System.out.println(" " + "added: " + input);
+                    System.out.println("______________________________________________________");
             }
         } while (!input.equalsIgnoreCase("bye"));
 
