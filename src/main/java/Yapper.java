@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Yapper {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Yapper");
@@ -27,8 +27,8 @@ public class Yapper {
                     case "list":
                         System.out.println("____________________________________________________________");
                         System.out.println(" Here are the tasks in your list:");
-                        for (int i = 0; i < taskCount; i++) {
-                            System.out.println(" " + (i + 1) + "." + tasks[i]);
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println(" " + (i + 1) + "." + tasks.get(i));
                         }
                         System.out.println("____________________________________________________________");
                         break;
@@ -38,10 +38,10 @@ public class Yapper {
                             throw new Exception("OOPS!!! The description of a mark command cannot be empty.");
                         }
                         int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-                        tasks[taskNumber].markAsDone();
+                        tasks.get(taskNumber).markAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println(" Nice! I've marked this task as done:");
-                        System.out.println("   " + tasks[taskNumber]);
+                        System.out.println("   " + tasks.get(taskNumber));
                         System.out.println("____________________________________________________________");
                         break;
 
@@ -50,10 +50,10 @@ public class Yapper {
                             throw new Exception("OOPS!!! The description of an unmark command cannot be empty.");
                         }
                         taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-                        tasks[taskNumber].markAsNotDone();
+                        tasks.get(taskNumber).markAsNotDone();
                         System.out.println("____________________________________________________________");
                         System.out.println(" OK, I've marked this task as not done yet:");
-                        System.out.println("   " + tasks[taskNumber]);
+                        System.out.println("   " + tasks.get(taskNumber));
                         System.out.println("____________________________________________________________");
                         break;
 
@@ -62,12 +62,11 @@ public class Yapper {
                             throw new Exception("OOPS!!! The description of a todo cannot be empty.");
                         }
                         Task task = new Todo(userInputParts[1]);
-                        tasks[taskCount] = task;
-                        taskCount++;
+                        tasks.add(task);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Got it. I've added this task:");
                         System.out.println("   " + task);
-                        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                         break;
 
@@ -80,12 +79,11 @@ public class Yapper {
                             throw new Exception("OOPS!!! The deadline format should be: deadline [task] /by [date/time]");
                         }
                         task = new Deadline(details[0], details[1]);
-                        tasks[taskCount] = task;
-                        taskCount++;
+                        tasks.add(task);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Got it. I've added this task:");
                         System.out.println("   " + task);
-                        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                         break;
 
@@ -102,12 +100,27 @@ public class Yapper {
                             throw new Exception("OOPS!!! The event format should be: event [task] /from [start time] /to [end time]");
                         }
                         task = new Event(details[0], fromTo[0], fromTo[1]);
-                        tasks[taskCount] = task;
-                        taskCount++;
+                        tasks.add(task);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Got it. I've added this task:");
                         System.out.println("   " + task);
-                        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                        break;
+
+                    case "delete":
+                        if (userInputParts.length < 2) {
+                            throw new Exception("OOPS!!! The task number to delete cannot be empty.");
+                        }
+                        taskNumber = Integer.parseInt(userInputParts[1]) - 1;
+                        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                            throw new Exception("OOPS!!! The task number is invalid.");
+                        }
+                        Task removedTask = tasks.remove(taskNumber);
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + removedTask);
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                         break;
 
