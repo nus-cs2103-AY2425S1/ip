@@ -50,6 +50,7 @@ public class SecondMind {
         taskCount++;
         printLineSeparator();
         System.out.println("Got it. I have added the following task:\n\t" + curr);
+        System.out.println("You have a grand total of " + taskCount + " task(s)");
         printLineSeparator();
     }
 
