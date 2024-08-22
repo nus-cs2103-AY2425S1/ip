@@ -20,10 +20,10 @@ public class GreetBot {
 
             String currentCommand = scanner.nextLine();
 
-            if (currentCommand.equals("bye")) {
+            if (currentCommand.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
-            } else if (currentCommand.equals("list")) {
+            } else if (currentCommand.equalsIgnoreCase("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(String.format("%d.%s", i + 1, list.get(i)));
@@ -38,8 +38,6 @@ public class GreetBot {
 
                 try {
                     Task.decideTask(currentCommand, list);
-                    //System.out.println("Got it. I've added this task:");
-                    //System.out.println(list.get(c));
 
                     System.out.println(String.format("Now you have %s tasks in the list.", list.size()));
                 } catch (EmptyDescriptionException e) {
