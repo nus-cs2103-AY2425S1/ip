@@ -11,14 +11,15 @@ public class TrackBot {
         while (true) {
             String userInput = scanner.nextLine();
             if (userInput.equalsIgnoreCase("list")) {
-                String listString = toDoList.listToString();
-                System.out.println(listString);
+                toDoList.listToString();
+                //System.out.println(listString);
             } else if (userInput.equalsIgnoreCase("how are you?")) {
                 System.out.println("TrackBot: I'm good, thank you. How about you?");
             } else if (userInput.equalsIgnoreCase("bye")) {
                 break;
             } else {
-                System.out.println("TrackBot: Sorry, I didn't understand that.");
+                String msg = toDoList.addToList(userInput);
+                System.out.println(msg);
             }
         }
         // Reused code until here

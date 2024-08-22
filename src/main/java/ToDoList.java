@@ -2,25 +2,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ToDoList {
-    List<String> list = new ArrayList<String>(){{
-        add("first item in list");
-    }};
+    List<String> list = new ArrayList<String>();
 
-    private String addToList(String str) {
+    public String addToList(String str) {
         list.add(str);
-        return "Successfully added to list.";
+        return "Successfully added " + str + " to list.";
     }
 
-    private String deleteFromList(String str) {
+    public String deleteFromList(String str) {
         if (list.contains(str)) {
             list.remove(str);
-            return "Successfully deleted from list.";
+            return "Successfully deleted " + str + " from list.";
         } else {
-            return "failed to delete " + str;
+            return "Failed to delete " + str + " from list.";
         }
     }
 
-    public String listToString() {
-        return "List:\n" + list.toString();
+    public void listToString() {
+        System.out.println("`````\n" + "List:");
+        int i = 1;
+        for (String item : list) {
+            System.out.print(i + ". " + item + "\n");
+            i++;
+        }
+        System.out.println("`````\n");
     }
 }
