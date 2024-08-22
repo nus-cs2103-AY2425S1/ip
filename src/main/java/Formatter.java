@@ -5,7 +5,7 @@ public class Formatter {
     public static String formatBotMessage(String msg) {
         return (DIVIDER + msg + "\n" + DIVIDER).indent(4);
     }
-    public static String formatList(List<String> list) {
+    public static String formatList(List<Task> list) {
         StringBuilder sb = new StringBuilder();
         int n = list.size();
         for (int i = 0; i < n; i++) {
