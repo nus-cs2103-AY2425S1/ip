@@ -52,6 +52,45 @@ public class Repsmax {
                     System.out.println("  ____________________________________________________________\n");
                     break;
 
+                case "todo":
+                    String description = splitInput[1];
+                    tasks[taskcount] = new Todo(description);
+                    taskcount++;
+                    System.out.println("  ____________________________________________________________");
+                    System.out.println("  Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskcount - 1]);
+                    System.out.println("  Now you have " + taskcount + " tasks in the list.");
+                    System.out.println("  ____________________________________________________________");
+                    break;
+
+                case "deadline":
+                    String[] parts = splitInput[1].split("/by ", 2);
+                    String deaddescription = parts[0];
+                    String by = parts[1];
+                    tasks[taskcount] = new Deadline(deaddescription, by);
+                    taskcount++;
+                    System.out.println("  ____________________________________________________________");
+                    System.out.println("  Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskcount - 1]);
+                    System.out.println("  Now you have " + taskcount + " tasks in the list.");
+                    System.out.println("  ____________________________________________________________");
+                    break;
+
+                case "event":
+                    String[] Eventparts = splitInput[1].split("/from ", 2);
+                    String[] fromTo = Eventparts[1].split("/to ", 2);
+                    String Eventdescription = Eventparts[0];
+                    String from = fromTo[0];
+                    String to = fromTo[1];
+                    tasks[taskcount] = new Event(Eventdescription, from, to);
+                    taskcount++;
+                    System.out.println("  ____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskcount - 1]);
+                    System.out.println(" Now you have " + taskcount + " tasks in the list.");
+                    System.out.println("  ____________________________________________________________");
+                    break;
+
                 default:
                     tasks[taskcount] = new Task(userInput);
                     taskcount++;
