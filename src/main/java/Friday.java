@@ -36,7 +36,7 @@ public class Friday {
                         System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
                         System.out.println("    _______________________________________________________");
                     } else if(Objects.equals(toDo.split(" ")[0], "deadline")) {
-                        if (toDo.split(" ").length <= 2 || !toDo.contains("/by")) {
+                        if (toDo.split(" ").length <= 3 || !toDo.contains("/by")) {
                             throw new InvalidDeadlineArgument();
                         }
                         System.out.println("    _______________________________________________________");
@@ -47,7 +47,7 @@ public class Friday {
                         System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
                         System.out.println("    _______________________________________________________");
                     } else if(Objects.equals(toDo.split(" ")[0], "event")) {
-                        if (toDo.split(" ").length <= 3 ||
+                        if (toDo.split(" ").length <= 5 ||
                                 !toDo.contains("/from") || !toDo.contains("/to")) {
                             throw new InvalidEventArgument();
                         }
@@ -81,8 +81,19 @@ public class Friday {
                         toDoList.get(taskNumber-1).markAsUncompleted();
                         System.out.println("      " + toDoList.get(taskNumber-1));
                         System.out.println("    _______________________________________________________");
-                    }
-                    else {
+                    } else if (Objects.equals(toDo.split(" ")[0], "delete")) {
+                        if (toDo.split(" ").length == 1 ||
+                                Integer.parseInt(toDo.split(" ")[1]) > toDoList.size()) {
+                            throw new InvalidDeleteArgument();
+                        }
+                        System.out.println("    _______________________________________________________");
+                        System.out.println("     Noted. I've removed this task:");
+                        int taskNumber = Integer.parseInt(toDo.split(" ")[1]);
+                        System.out.println("       " + toDoList.get(taskNumber-1));
+                        toDoList.remove(taskNumber-1);
+                        System.out.println("     Now you have " + toDoList.size() + " tasks in the list.");
+                        System.out.println("    _______________________________________________________");
+                    } else {
 //                        Task newTask = new Task(toDo);
 //                        String returnString = "added: " + toDo;
 //                        toDoList.add(newTask);
