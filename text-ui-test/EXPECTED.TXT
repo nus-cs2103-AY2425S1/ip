@@ -32,10 +32,7 @@
     WHHHAHAHAHHA!! You didn't enter anything siaaa!!!
     ------------------------------------
     ------------------------------------
-    What siaaa!! Description cannot be empty
-    ------------------------------------
-    ------------------------------------
-    What siaaa!! Description cannot be empty
+    AGWHAHH!!! What'ya sayin' dawgg??
     ------------------------------------
     ------------------------------------
     What siaaa!! Description cannot be empty
@@ -92,20 +89,20 @@
     6. [T] [ ] mix songs
     ------------------------------------
     ------------------------------------
-    AGWHAHH!!! What'ya sayin' dawgg??
+    Okay! I'll remove this task:
+        [T] [ ] read book
+    Now you have 5 tasks in the list.
     ------------------------------------
     ------------------------------------
-    Ayee Yooo! I've marked this task okaayyyyy:
-        [T] [X] mix songs
+    DANGER !! Task does not exist
     ------------------------------------
     ------------------------------------
     Here are your tasks lah!! Don't die:
     1. [T] [X] workout
-    2. [T] [ ] read book
-    3. [D] [ ] 2103T ip  (by: Friday)
-    4. [D] [X] EML Session  (from: Mon 2pm  to: 4pm)
-    5. [D] [ ] quiz  (by: 10p.m.)
-    6. [T] [X] mix songs
+    2. [D] [ ] 2103T ip  (by: Friday)
+    3. [D] [X] EML Session  (from: Mon 2pm  to: 4pm)
+    4. [D] [ ] quiz  (by: 10p.m.)
+    5. [T] [ ] mix songs
     ------------------------------------
     ------------------------------------
     Bubyyeee & Don't Stwesszz. Time to hide now!!

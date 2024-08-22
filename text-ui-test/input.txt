@@ -3,8 +3,7 @@ todo read book
 mark 0
 mark 10
 
-todo
-deadline
+dance
 event
 
 deadline 2103T ip /by Friday
@@ -17,7 +16,7 @@ mark 4
 todo mix songs
 unmark 3
 list
-dance
-mark 6
+delete 2
+delete 9
 list
 bye
