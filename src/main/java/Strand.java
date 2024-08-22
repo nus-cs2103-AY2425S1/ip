@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class Strand {
     private static boolean running = false;
     private static final String horizontalLine = "----------------------------------------><>";
