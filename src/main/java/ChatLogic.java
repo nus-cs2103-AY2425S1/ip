@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/** This class encapsulates chatbot parsing and logic.
+ * @author Lee Ze Hao (A0276123J)
+ */
+
 public class ChatLogic {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
     static final String BYE_COMMAND = "bye";
@@ -21,10 +25,18 @@ public class ChatLogic {
     private final String name;
     private ArrayList<Task> taskList = new ArrayList<Task>();
 
+    /** Constructor for a ChatLogic class.
+     * @param name The name used by the chatbot.
+     */
     public ChatLogic(String name) {
         this.name = name;
     }
 
+    /** Processes text strings inputted by the user, and calls other functions
+     * when appropriate.
+     * @param input The text string entered by the user.
+     * @throws StelleException Throws certain exceptions related to the chatbot.
+     */
     public void processInput(String input) throws StelleException {
         if (input.equals(BYE_COMMAND)) {
             printBye();
@@ -148,6 +160,10 @@ public class ChatLogic {
         taskList.add(new Event(taskName, fromDate, toDate));
     }
 
+    /** Marks a certain task (makes it done).
+     * @param taskNum The number of the task (ArrayList index + 1) to be marked as done.
+     * @throws TaskException Throws exceptions related to tasks.
+     */
     private void markTask(int taskNum) throws TaskException {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
@@ -161,6 +177,10 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /** Unmarks a certain task (makes it not done).
+     * @param taskNum The number of the task (ArrayList index + 1) to be marked as not done.
+     * @throws TaskException Throws exceptions related to tasks.
+     */
     private void unmarkTask(int taskNum) throws TaskException {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
@@ -174,6 +194,8 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /** Lists all Tasks currently stored, with added list numbers.
+     */
     private void listTasks() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
@@ -184,6 +206,8 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /** Prints a greeting message for the chatbot.
+     */
     public void printGreeting() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(" Hello! I'm " + name + ".");
@@ -191,6 +215,8 @@ public class ChatLogic {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /** Prints a goodbye / ending message for the chatbot.
+     */
     private void printBye() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(" Bye. Hope to see you again soon!");

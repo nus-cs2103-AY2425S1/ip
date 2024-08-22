@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/** Represents the main chatbot class.
+ * @author Lee Ze Hao (A0276123J)
+ */
+
 public class Stelle {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
     static final String NAME = "Stelle";
