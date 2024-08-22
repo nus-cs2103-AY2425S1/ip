@@ -12,7 +12,7 @@ public class TaskHandler {
      *
      * @param task Task to be added.
      */
-    private void addTask(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 
@@ -39,10 +39,10 @@ public class TaskHandler {
         StringBuilder taskListString = new StringBuilder();
 
         for (int i = 0; i < taskList.size(); i++) {
-            String itemized = String.format("%d. %s", i+1, taskList.get(i));
+            String itemized = String.format("%d. %s\n", i+1, taskList.get(i));
             taskListString.append(itemized);
         }
 
-        return taskListString.toString();
+        return taskListString.toString().trim();
     }
 }
