@@ -1,11 +1,13 @@
 import java.util.Scanner;
 
 public class Fred {
-    static String line = "li____________________________________________________________";
+    static String line = "____________________________________________________________";
     static String name = "Fred";
+    static String[] taskList = new String[100];
     public static void main(String[] args) {
         greet();
-        echo();
+        //echo();
+        addToTaskList();
         sayFarewell();
         exit();
     }
@@ -43,5 +45,46 @@ public class Fred {
         }
         sayFarewell();
         exit();
+    }
+
+    private static void addToTaskList() {
+        int index = 0;
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+            if (input.equals("bye")){
+                break;
+            } else if (input.equals("list")){
+                printTaskList();
+                continue;
+            }
+            if (index < taskList.length) {
+                taskList[index] = input;
+                System.out.println(line);
+                System.out.println("added: " + input);
+                System.out.println(line);
+                index++;
+            } else {
+                System.out.println(line);
+                System.out.println("Unable to add to task list");
+                System.out.println(line);
+            }
+        }
+        sayFarewell();
+        exit();
+    }
+
+    private static void printTaskList() {
+        int index = 1;
+        System.out.println(line);
+        while (taskList[index - 1] != null) {
+            System.out.println(index + ". " + taskList[index - 1]);
+            index++;
+            if (index > taskList.length) {
+                break;
+            }
+        }
+        System.out.println(line);
     }
 }
