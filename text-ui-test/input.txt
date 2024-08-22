@@ -1,4 +1,9 @@
 todo t1
 event e1 /from d1 /to d2
 deadline t2 /by d3
+mark 1
+mark 2
+unmark 2
+delete 3
+list
 bye
