@@ -23,6 +23,18 @@ public class TaskList {
         return tasks.remove(number - 1);
     }
 
+    public Task markTask(int number) {
+        Task task = this.getTask(number);
+        task.setCompletionStatus(true);
+        return task;
+    }
+
+    public Task unmarkTask(int number) {
+        Task task = this.getTask(number);
+        task.setCompletionStatus(false);
+        return task;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
