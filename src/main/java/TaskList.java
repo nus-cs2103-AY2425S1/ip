@@ -1,8 +1,8 @@
-public class List {
+public class TaskList {
     private String[] listItems;
     private int size;
 
-    public List() {
+    public TaskList() {
         listItems = new String[100];
         size = 0;
     }

@@ -9,7 +9,7 @@ public class Mediell {
         printLine();
         Scanner scanner = new Scanner(System.in);
         String message = "";
-        List items = new List();
+        TaskList items = new TaskList();
         while (true) {
             System.out.println("");
             message = scanner.next();
