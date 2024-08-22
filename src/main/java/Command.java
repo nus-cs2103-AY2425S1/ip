@@ -2,6 +2,7 @@ public enum Command {
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),
+    DELETE("delete"),
     BYE("bye"),
     TODO("todo"),
     DEADLINE("deadline"),

@@ -99,6 +99,18 @@ public class Duck {
                     printAsResponse(response);
                 }
 
+                // Delete
+                else if (Command.DELETE.equalsName(command)) {
+                    int taskLabel = lineBuffer.getInt();
+                    Task task = TASKS.getItem(taskLabel);
+                    TASKS.removeItem(taskLabel);
+
+                    String response = "Noted. I've removed this task:\n"
+                            + indentText(task.toString(), 2) + "\n"
+                            + String.format("Now you have %s tasks in the list.", TASKS.getTaskCount());
+                    printAsResponse(response);
+                }
+
                 // Tasks
                 // TODO: Reduce duplicate code
                 else if (Command.TODO.equalsName(command)) {
