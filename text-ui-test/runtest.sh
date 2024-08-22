@@ -20,7 +20,7 @@ then
 fi
 
 # loop through each input file
-for testNo in {1..2}
+for testNo in {1..3}
 do
     # run the program, feed commands from input file and redirect the output to the ACTUAL.TXT
     java -classpath ../bin Revir < "testcases/TEST-$testNo.txt" > ACTUAL.txt
