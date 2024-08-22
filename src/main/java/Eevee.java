@@ -38,10 +38,31 @@ public class Eevee {
                 t.unmarkAsDone();
                 System.out.println("Ok! Task no longer marked as done:\n  " + t);
             } else {
-                // response to a task
-                Task t = new Task(input);
-                tasks.add(t);
-                System.out.println("Added the following task to your list:\n" + t + "\nYou now have " + tasks.size() + " task(s).");
+                String s = scanner.nextLine();
+                if (input.equals("todo")) {
+                    // response to command for T task
+                    Todo t = new Todo(s);
+                    tasks.add(t);
+                    System.out.println("Added the following task to your list:\n" + t);
+                }
+
+                if (input.equals("deadline")) {
+                    // response to command for D task
+                    String[] info = s.split("/", 2);
+                    Deadline d = new Deadline(info[0], info[1]);
+                    tasks.add(d);
+                    System.out.println("Added the following task to your list:\n" + d);
+                }
+
+                if (input.equals("event")) {
+                    // response to command for E task
+                    String[] info = s.split("/", 3);
+                    Event e = new Event(info[0], info[1], info[2]);
+                    tasks.add(e);
+                    System.out.println("Added the following task to your list:\n" + e);
+                }
+                System.out.println("You now have " + tasks.size() + " task(s).");
+
             }
 
             System.out.print(divider);
