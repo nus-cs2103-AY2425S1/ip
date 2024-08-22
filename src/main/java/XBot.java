@@ -52,6 +52,12 @@ public class XBot {
                 }
                 addDeadline(rest);
                 break;
+            case "delete":
+                if (rest.isEmpty()) {
+                    throw new XBotException("The task number to be deleted cannot be empty!");
+                }
+                deleteTask(rest);
+                break;
             default:
                 throw new XBotException("I'm sorry, but I don't know what that means :-(");
         }
@@ -62,6 +68,22 @@ public class XBot {
         for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
             System.out.println(index + ". " + list.get(i).toString());
+        }
+    }
+
+    public static void deleteTask(String rest) throws XBotException {
+        try {
+            int taskNumber = Integer.parseInt(rest.trim());
+            if (taskNumber > 0 && taskNumber <= list.size()) {
+                System.out.println("Noted. I've removed this task:");
+                System.out.print(list.get(taskNumber).toString() + "\n");
+                list.remove(taskNumber);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else {
+                throw new XBotException("This task number do not exist.");
+            }
+        } catch (NumberFormatException e) {
+            throw new XBotException("Invalid task number!");
         }
     }
 
