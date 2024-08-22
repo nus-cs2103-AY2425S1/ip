@@ -117,6 +117,17 @@ public class Phenex {
         }
     }
 
+    public void deleteTask(int idx) throws PhenexException {
+        if (idx >= this.tasks.size()) {
+            throw new PhenexException("Error, no such mission exists");
+        }
+        Task t = this.tasks.get(idx);
+        this.tasks.remove(idx);
+        System.out.println("\t OK. Mission aborted, retreat!");
+        System.out.println("\t  " + t);
+        System.out.println("\t " + this.tasks.size() + " missions remaining. Destroy the enemy!");
+    }
+
     public void printTaskAdded(Task task) {
         System.out.println("\t Mission " + task.name + " added:");
         System.out.println("\t   " + task);
@@ -135,6 +146,7 @@ public class Phenex {
         String listRegex = "(?i)list\\s*$";
         String markRegex = "^mark \\d+\\s*$";
         String unmarkRegex = "^unmark \\d+\\s*$";
+        String deleteRegex = "^delete \\d+\\s*$";
 
         // regex's for commands which tell Phenex to add Task
         String todoRegex = "^(?i)todo (.+)";
@@ -149,6 +161,7 @@ public class Phenex {
         Pattern todoPattern = Pattern.compile(todoRegex);
         Pattern deadlinePattern = Pattern.compile(deadlineRegex);
         Pattern eventPattern = Pattern.compile(eventRegex);
+        Pattern deletePattern = Pattern.compile(deleteRegex);
 
         Matcher terminatingMatcher;
         Matcher listMatcher;
@@ -157,6 +170,7 @@ public class Phenex {
         Matcher todoMatcher;
         Matcher deadlineMatcher;
         Matcher eventMatcher;
+        Matcher deleteMatcher;
 
         while (true) {
             // scan inputs
@@ -175,6 +189,7 @@ public class Phenex {
             todoMatcher = todoPattern.matcher(userInput);
             deadlineMatcher = deadlinePattern.matcher(userInput);
             eventMatcher = eventPattern.matcher(userInput);
+            deleteMatcher = deletePattern.matcher(userInput);
 
             p.printLine();
 
@@ -213,6 +228,13 @@ public class Phenex {
             } else if (eventMatcher.matches()) {
                 try {
                     p.addTask(eventMatcher, TaskType.EVENT);
+                } catch (PhenexException e) {
+                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                }
+            } else if (deleteMatcher.matches()) {
+                int idx = Integer.parseInt(deleteMatcher.group().substring(7)) - 1;
+                try {
+                    p.deleteTask(idx);
                 } catch (PhenexException e) {
                     System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
                 }
