@@ -18,6 +18,10 @@ public class Phenex {
             + line;
     private final String farewellMsg = "\t Goodbye. Extinguish the Zeon forces on your way out!\n" + line;
 
+    public enum TaskType {
+        TODO, DEADLINE, EVENT;
+    }
+
     public Phenex() {
         this.tasks = new ArrayList<>();
     }
@@ -70,6 +74,49 @@ public class Phenex {
             Task taskToUnmark = this.tasks.get(idx);
             taskToUnmark.markUncomplete();
             System.out.println("\t\t" + taskToUnmark);
+        }
+    }
+
+    public void addTask(Matcher matcher, TaskType tt) {
+        String taskName = matcher.group(1);
+        String emptyNameRegex = "\\s*";
+        Pattern emptyNamePattern = Pattern.compile(emptyNameRegex);
+        Matcher emptyNameMatcher = emptyNamePattern.matcher(taskName);
+
+        switch (tt) {
+            case TODO:
+                if (emptyNameMatcher.matches()) {
+                    System.out.println("Error, invalid todo name");
+                    break;
+                }
+                ToDo toDo = new ToDo(taskName);
+                this.tasks.add(toDo);
+                this.printTaskAdded(toDo);
+                break;
+            case DEADLINE:
+                if (emptyNameMatcher.matches()) {
+                    System.out.println("Error, invalid deadline name");
+                    break;
+                }
+                String deadlineBy = matcher.group(2);
+                Deadline deadline = new Deadline(taskName, deadlineBy);
+                this.tasks.add(deadline);
+                this.printTaskAdded(deadline);
+                break;
+            case EVENT:
+                if (emptyNameMatcher.matches()) {
+                    System.out.println("Error, invalid event name");
+                    break;
+                }
+                String eventFrom = matcher.group(2);
+                String eventTo = matcher.group(3);
+                Event event = new Event(taskName, eventFrom, eventTo);
+                this.tasks.add(event);
+                this.printTaskAdded(event);
+                break;
+            default:
+                System.out.println("Unknown input");
+                break;
         }
     }
 
@@ -148,25 +195,13 @@ public class Phenex {
                 p.markTaskIncomplete(idx);
             } else if (todoMatcher.matches()) {
                 // add ToDo
-                String todoName = todoMatcher.group(1);
-                ToDo toDo = new ToDo(todoName);
-                p.tasks.add(toDo);
-                p.printTaskAdded(toDo);
+                p.addTask(todoMatcher, TaskType.TODO);
             } else if (deadlineMatcher.matches()) {
                 // add Deadline
-                String deadlineName = deadlineMatcher.group(1);
-                String deadlineBy = deadlineMatcher.group(2);
-                Deadline deadline = new Deadline(deadlineName, deadlineBy);
-                p.tasks.add(deadline);
-                p.printTaskAdded(deadline);
+                p.addTask(deadlineMatcher, TaskType.DEADLINE);
             } else if (eventMatcher.matches()) {
                 // add Event
-                String eventName = eventMatcher.group(1);
-                String eventFrom = eventMatcher.group(2);
-                String eventTo = eventMatcher.group(3);
-                Event event = new Event(eventName, eventFrom, eventTo);
-                p.tasks.add(event);
-                p.printTaskAdded(event);
+                p.addTask(eventMatcher, TaskType.EVENT);
             } else {
                 System.out.println("\tError, invalid input.");
             }
