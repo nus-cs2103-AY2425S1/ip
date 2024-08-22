@@ -10,10 +10,10 @@ public class DeadLine extends Task {
             String taskName = inputString.substring(0, index);
             String byDate = inputString.substring(index+4);
             if (taskName.length() == 0) {
-                throw new InvalidTaskNameException(taskName);
+                throw new InvalidTaskNameException();
             }
 
-            if (endDate.length() == 0) {
+            if (byDate.length() == 0) {
                 throw new NoDateException();
             }
 
