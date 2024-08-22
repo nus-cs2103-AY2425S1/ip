@@ -1,5 +1,5 @@
 public class Task {
-    private String name;
+    private final String name;
     private boolean isDone;
 
     public Task(String name) {
@@ -15,12 +15,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public String showDoneONot() {
+    public String showDoneOrNot() {
         return (isDone ? "[X]" : "[ ]"); // Return X or space depending on isDone
     }
 
     @Override
     public String toString() {
-        return showDoneONot() + " " + name;
+        return showDoneOrNot() + " " + name;
     }
 }

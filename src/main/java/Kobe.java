@@ -59,6 +59,20 @@ public class Kobe {
                 } catch (NumberFormatException e) {
                     System.out.println("OOPS!!! Please provide a valid task number.");
                 }
+            } else if (userInput.startsWith("delete ")) {
+                try {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                        Task removedTask = tasks.remove(taskNumber);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + removedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    } else {
+                        System.out.println("OOPS!!! The task number you provided is not valid.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("OOPS!!! Please provide a valid task number.");
+                }
             } else if (userInput.startsWith("todo ")) {
                 String name = userInput.substring(5).trim();
                 if (name.isEmpty()) {
