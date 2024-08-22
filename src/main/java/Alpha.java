@@ -22,16 +22,35 @@ public class Alpha {
                 break;  // Exit the loop
             }
     
-            if (s1.equals("list")) {
-                String echoResponse = "____________________________________________________________ \n"
+            else if (s1.equals("list")) {
+                String echoResponse = "____________________________________________________________ \nHere are the tasks in your list: \n"
                         + storage.listWord() +"\n"
                         + "____________________________________________________________ \n";
                 System.out.println(echoResponse);
             }
             
+            else if (s1.split(" ")[0].equals("mark")) {
+                Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
+                String modifiedRecord = storage.modifyOperation(indexInvolved, true);
+                String echoResponse = "____________________________________________________________ \nNice! I've marked this task as done: \n"
+                        + modifiedRecord +"\n"
+                        + "____________________________________________________________ \n";
+                System.out.println(echoResponse);
+            }
+    
+            else if (s1.split(" ")[0].equals("unmark")) {
+                Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
+                String modifiedRecord = storage.modifyOperation(indexInvolved, false);
+                String echoResponse = "____________________________________________________________ \nOK, I've marked this task as not done yet:\n "
+                        + modifiedRecord +"\n"
+                        + "____________________________________________________________ \n";
+                System.out.println(echoResponse);
+            }
+            
             else {
-                storage.storeWord(s1);
-                String userInput = storage.lastWord();
+                Task TaskOne = new Task(s1);
+                storage.storeTask(TaskOne);
+                String userInput = storage.lastTask();
                 String echoResponse = "____________________________________________________________ \n"
                         + "added: " + userInput + "\n"
                         + "____________________________________________________________ \n";
