@@ -52,6 +52,9 @@ public class Atlas {
                     case "event":
                         addEvent(taskList, nextCommandLine);
                         break;
+                    case "delete":
+                        deleteTask(taskList, nextCommandLine);
+                        break;
                     default:
                         throw new AtlasException("Unknown command.");
                 }
@@ -145,6 +148,23 @@ public class Atlas {
     public static void addTask(ArrayList<Task> taskList, Task task) {
         taskList.add(task);
         String addMessage = String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
+        Atlas.print(addMessage);
+    }
+
+    public static void deleteTask(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+        String[] commandsArray = nextCommandLine.split(" ");
+        if (commandsArray.length == 1) {
+            throw new AtlasException("Deleting a task as undone requires the task number.");
+        } else if (!isNumber(commandsArray[1])) {
+            throw new AtlasException("Task number provided is not a number.");
+        } else if (commandsArray.length > 2) {
+            throw new AtlasException("Deleting a task only requires the task number without any additional arguments.");
+        }
+
+        int deleteIndex = Integer.parseInt(commandsArray[1]) - 1;
+        Task task = taskList.get(deleteIndex);
+        taskList.remove(deleteIndex);
+        String addMessage = String.format("Noted. I've removed this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
         Atlas.print(addMessage);
     }
 
