@@ -9,7 +9,7 @@ public class Bopes {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        ArrayList<String> inputs = new ArrayList<String>();
+        ArrayList<Task> inputs = new ArrayList<Task>();
 
         while (true) {
             System.out.println("What can I do for you?");
@@ -21,17 +21,22 @@ public class Bopes {
                 break;
             }
 
-            // Display inputs
+            // Input special commands
             if (input.equals("list")) {
-                System.out.println("Here are the inputs in your list:");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < inputs.size(); i++) {
-                    System.out.println((i + 1) + ". " + inputs.get(i));
+                    System.out.println(inputs.get(i).toString());
                 }
+            } else if (input.split(" ")[0].equals("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                inputs.get(index).markAsDone();
+            } else if (input.split(" ")[0].equals("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                inputs.get(index).markAsUndone();
             } else {
-                inputs.add(input);
+                inputs.add(new Task(input));
                 System.out.println("added: " + input);
             }
-
         }
 
         scanner.close();
