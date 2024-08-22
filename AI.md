@@ -1,3 +1,2 @@
-i used chatgpt for:
-
-a small part in Task 3
+i used chatgpt a bit for guidance 
+in tasks 3,4,6

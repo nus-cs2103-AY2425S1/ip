@@ -1,11 +1,11 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class meowmeow {
     public static void main(String[] args) {
         System.out.println("Hello! I'm meowmeow\n" + "What can I do for you?\n");
 
-        LinkedList<Task> list = new LinkedList<>();
+        ArrayList<Task> list = new ArrayList<>();
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
 
@@ -71,6 +71,17 @@ public class meowmeow {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + event);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
+                }
+            } else if (input.startsWith("delete ")) {
+                // Delete a task
+                int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                if (taskNumber >= 0 && taskNumber < list.size()) {
+                    Task removedTask = list.remove(taskNumber);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removedTask);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid task number.");
                 }
             } else {
                 System.out.println("Sorry, I don't know what that means.");
