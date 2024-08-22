@@ -59,7 +59,7 @@ public class Botty {
                         content[0] = "Here you go!";
 
                         for (int i = 1; i < currentIndex + 1; i++) {
-                            content[i] = "  " + i + ". " + taskList[i - 1];
+                            content[i] = i + ". " + taskList[i - 1];
                         }
 
                         reply(content);
@@ -136,7 +136,7 @@ public class Botty {
             reply(completion
                     ? "Congrats on completing that! Let me just mark that as done for you."
                     : "It's okay, we can get that done later. I'll mark that as undone for you.",
-                    "  " + taskList[taskIndex].toString());
+                    taskList[taskIndex].toString());
         } else {
             reply("I don't see a task with that number! Try a number from 1 to " +
                     currentIndex);

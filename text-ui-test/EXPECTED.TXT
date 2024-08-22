@@ -34,21 +34,21 @@ Botty: I have added the following task to the list!
        You now have 3 tasks.
 
 Botty: Congrats on completing that! Let me just mark that as done for you.
-         [T] [X] say hi to botty tomorrow as well
+       [T] [X] say hi to botty tomorrow as well
 
 Botty: Congrats on completing that! Let me just mark that as done for you.
-         [E] [X] celebrate botty's new upgrade (from: tomorrow to: the end of time)
+       [E] [X] celebrate botty's new upgrade (from: tomorrow to: the end of time)
 
 Botty: I don't see a task with that number! Try a number from 1 to 3
 
 Botty: It's okay, we can get that done later. I'll mark that as undone for you.
-         [E] [ ] celebrate botty's new upgrade (from: tomorrow to: the end of time)
+       [E] [ ] celebrate botty's new upgrade (from: tomorrow to: the end of time)
 
 Botty: I don't see a task with that number! Try a number from 1 to 3
 
 Botty: Here you go!
-         1. [T] [X] say hi to botty tomorrow as well
-         2. [D] [ ] upgrade botty (by: tomorrow)
-         3. [E] [ ] celebrate botty's new upgrade (from: tomorrow to: the end of time)
+       1. [T] [X] say hi to botty tomorrow as well
+       2. [D] [ ] upgrade botty (by: tomorrow)
+       3. [E] [ ] celebrate botty's new upgrade (from: tomorrow to: the end of time)
 
 Botty: Thank you for your continued patronage. Goodbye!
