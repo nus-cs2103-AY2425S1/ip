@@ -73,7 +73,7 @@ public class Peter {
                     if (command.startsWith("todo")) {
                         name = command.substring(4).strip();
                         if (name.isEmpty()) {
-                            throw new BadDescriptionException("todo");
+                            throw new BadDescriptionException(TaskTypes.TODO);
                         }
                         tasks[lastIndex++] = new ToDos(name);
                         updateUser(name, lastIndex);
@@ -81,7 +81,7 @@ public class Peter {
                         String[] splits = command.split("/");
                         name = splits[0].substring(8).strip();
                         if (splits.length != 2 || name.isEmpty()) {
-                            throw new BadDescriptionException("deadline");
+                            throw new BadDescriptionException(TaskTypes.DEADLINE);
                         }
                         // specific to deadlines
                         String details = splits[1].replace("by", "by:");
@@ -91,7 +91,7 @@ public class Peter {
                         String[] splits = command.split("/");
                         name = splits[0].substring(5).strip();
                         if (splits.length != 3 || name.isEmpty()) {
-                            throw new BadDescriptionException("event");
+                            throw new BadDescriptionException(TaskTypes.EVENT);
                         }
                         // specific to events
                         String details = splits[1].replace("from", "from:") + splits[2].replace("to", "to:");
