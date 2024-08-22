@@ -20,6 +20,7 @@ public class NathanBot {
     private static final String TODO_COMMAND = "todo ";
     private static final String DEADLINE_COMMAND = "deadline ";
     private static final String EVENT_COMMAND = "event ";
+    private static final String DELETE_COMMAND = "delete ";
 
     public static void main(String[] args) {
         TaskList TaskList = new TaskList();
@@ -43,6 +44,8 @@ public class NathanBot {
                     handleDeadlineCommand(input, TaskList);
                 } else if (input.startsWith(EVENT_COMMAND)) {
                     handleEventCommand(input, TaskList);
+                } else if (input.startsWith(DELETE_COMMAND)) {
+                    handleDeleteCommand(input, TaskList);
                 } else {
                     handleUnknownCommand();
                 }
@@ -74,6 +77,18 @@ public class NathanBot {
         }
     }
 
+    private static void handleDeleteCommand(String input, TaskList TaskList) {
+        // Assisted by Copilot
+        try {
+            int index = Integer.parseInt(input.substring(DELETE_COMMAND.length()));
+            Task task = TaskList.getTask(index - 1);
+            TaskList.deleteTask(index - 1);
+            System.out.println(LINE + "Noted. I've removed this task:\n  " + task + "\nNow you have " + TaskList.listLength() + " tasks in the list.\n" + LINE);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
+        }
+    }
+
     private static void handleTodoCommand(String input, TaskList TaskList) {
         input = input.substring(TODO_COMMAND.length());
         if (input.length() == 0) {
@@ -88,13 +103,13 @@ public class NathanBot {
     private static void handleDeadlineCommand(String input, TaskList TaskList) {
         // Logic input by me, syntax suggested by Copilot
         input = input.substring(DEADLINE_COMMAND.length()).trim();
-        
+
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
             System.out.println(LINE + "Invalid deadline format. Use: deadline <description> /by <date>\n" + LINE);
             return;
         }
-        
+
         String description = parts[0].trim();
         String by = parts[1].trim();
         Deadline task = new Deadline(description, by);
@@ -106,21 +121,21 @@ public class NathanBot {
     private static void handleEventCommand(String input, TaskList TaskList) {
         // Logic input by me, syntax suggested by Copilot
         input = input.substring(EVENT_COMMAND.length()).trim();
-        
+
         String[] parts = input.split(" /from | /to ");
         if (parts.length < 3) {
             System.out.println(LINE + "Invalid event format. Use: event <description> /from <start time> /to <end time>\n" + LINE);
             return;
         }
-        
+
         String description = parts[0].trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
-        
+
         Event task = new Event(description, from, to);
-        
+
         TaskList.addTask(task);
-        
+
         printAddTaskLine(task, TaskList);
     }
 
