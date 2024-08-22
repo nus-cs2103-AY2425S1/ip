@@ -35,15 +35,17 @@ public class Jarvis {
                         } else if (input.startsWith("unmark")) {
                             tasklist.unmark(taskIndex);
                         } else {
-                            System.out.println("__________________________________\n" + input+ "\n" +
-                                    "__________________________________");
                             tasklist.add(input);
+                            String result = tasklist.acknowledge();
+                            System.out.println("__________________________________\n" + result + "\n" +
+                                    "__________________________________");
                         }
                     }
                 } else {
-                    System.out.println("__________________________________\n" + input + "\n" +
-                            "__________________________________");
                     tasklist.add(input);
+                    String result = tasklist.acknowledge();
+                    System.out.println("__________________________________\n" + result + "\n" +
+                            "__________________________________");
                 }
             } else {
                 System.out.println("error");
