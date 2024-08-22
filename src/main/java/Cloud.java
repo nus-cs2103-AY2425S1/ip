@@ -73,10 +73,16 @@ public class Cloud {
             if (userInput.equals(EXIT_COMMAND)) {
                 break;
             }
-            // parse the user input to a Query object
-            Query query = Parser.parse(userInput);
-            String command = query.getCommand();
 
+            Query query = null;
+            String command = "";
+            // parse the user input to a Query object
+            try {
+                query = Parser.parse(userInput);
+                command = query.getCommand();
+            } catch (CloudException e) {
+                System.out.println(e.getMessage());
+            }
             int taskNum;
             switch (command) {
                 case "list":
