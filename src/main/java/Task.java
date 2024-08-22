@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Task {
@@ -14,6 +17,19 @@ public class Task {
         if (data.length < 3) throw new CheeseException("Incorrect data format");
         done = Objects.equals(data[1], "1");
         name = data[2];
+    }
+
+    public static LocalDate parseDate(String dateStr) throws CheeseException {
+        LocalDate d;
+        dateStr = dateStr.strip();
+        try {
+            d = LocalDate.parse(dateStr);
+            System.out.println(LocalDate.now());
+        } catch (DateTimeParseException e) {
+            System.out.println(dateStr);
+            throw new CheeseException("Wrong format for date. YYYY-MM-DD");
+        }
+        return d;
     }
 
     public void setDone(boolean done) {

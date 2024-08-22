@@ -1,8 +1,13 @@
-public class Event extends Task{
-    private String startDate;
-    private String endDate;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-    private Event(String name, String startDate, String endDate) throws CheeseException {
+public class Event extends Task{
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    private Event(String name, LocalDate startDate, LocalDate endDate) throws CheeseException {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -11,8 +16,8 @@ public class Event extends Task{
     Event(String[] data) throws CheeseException {
         super(data);
         if(data.length != 5) throw new CheeseException("Incorrect data format");
-        startDate = data[3];
-        endDate = data[4];
+        startDate = Task.parseDate(data[3]);
+        endDate = Task.parseDate(data[4]);
     }
 
     /**
@@ -26,22 +31,30 @@ public class Event extends Task{
         if (words.length < 2) throw new CheeseException("Event needs /from .... /to");
         String[] dates = words[1].split("/to");
         if (dates.length < 2) throw new CheeseException("Event needs also needs a /to");
-        return new Event(words[0], dates[0].strip(), dates[1].strip());
+        return new Event(words[0], parseDate(dates[0].strip()), parseDate(dates[1].strip()));
+    }
+
+    public long daysLeft() {
+        return LocalDate.now().until(startDate, ChronoUnit.DAYS);
     }
 
     @Override
     public String toString() {
         return "[E]" +
                super.toString() +
-               "(" + startDate + "-" + endDate +")";
+               " in " + daysLeft() + " days." +
+               "(" +
+                   startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "-" +
+                   endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+               ")";
     }
 
     @Override
     public String dataString() {
         String s = super.dataString();
         s = s.replace("T,", "E,");
-        s += "," + startDate;
-        s += "," + endDate;
+        s += "," + startDate.toString();
+        s += "," + endDate.toString();
         return s;
     }
 }
