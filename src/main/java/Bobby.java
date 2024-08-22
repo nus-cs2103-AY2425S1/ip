@@ -25,18 +25,41 @@ public class Bobby {
     private static void echo(String input) {
         System.out.println(input);
     }
+
+    private static String[] tasks = new String[100];
+    private static int count = 0;
+
+    private static void add_task(String task) {
+        if (count < tasks.length) {
+            tasks[count] = task;
+            count++;
+            System.out.println("added: " + task);
+        } else {
+            System.out.println("Task list is full! Cannot add more tasks.");
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greet();
         while (true) {
             // Ask the user for input
-            System.out.print("Enter something (or type 'bye' to quit): ");
+            System.out.print("Enter something (type 'bye' to quit): ");
             String userInput = scanner.nextLine();
             if (userInput.equalsIgnoreCase("bye")) {
                 exit();
                 break;
+            } else if (userInput.equalsIgnoreCase("list")) {
+                if (count == 0) {
+                    System.out.println("No tasks added to the list yet.");
+                } else {
+                    for (int i = 0; i < count; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                }
+            } else {
+                add_task(userInput);
             }
-            echo(userInput);
         }
 
 
