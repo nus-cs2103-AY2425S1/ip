@@ -1,4 +1,6 @@
-public class KorolevEvent extends KorolevTask{
+package task;
+
+public class KorolevEvent extends KorolevTask {
     private String deadline;
     private String tag;
 

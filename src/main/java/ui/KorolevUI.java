@@ -1,3 +1,7 @@
+package ui;
+
+import task.KorolevList;
+
 import java.util.Scanner;
 
 public class KorolevUI {

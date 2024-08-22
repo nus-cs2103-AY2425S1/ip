@@ -1,3 +1,5 @@
+package task;
+
 public class KorolevTask {
     private boolean status = false;
     private String name;

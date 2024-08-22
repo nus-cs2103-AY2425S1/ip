@@ -1,3 +1,8 @@
+package ui;
+
+import exception.DukeException;
+import task.KorolevList;
+
 public class KorolevCommand {
     private String[] target;
     private String input;
@@ -42,6 +47,7 @@ public class KorolevCommand {
             }
         }
         System.out.println(divider);
+        repo.saveEvent();
         return true;
     }
 }

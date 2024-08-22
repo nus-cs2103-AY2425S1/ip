@@ -1,3 +1,7 @@
+package task;
+
+import task.KorolevTask;
+
 public class KorolevTodo extends KorolevTask {
     private String tag;
 
