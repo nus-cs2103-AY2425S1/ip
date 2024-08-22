@@ -1,8 +1,20 @@
+import java.util.Scanner;
+
 public class Park {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("""
                 Hello! I'm Park
-                What can I do for you?
-                Bye. Hope to see you again soon!""");
+                What can I do for you?""");
+        while (sc.hasNext()) {
+            String s = sc.next();
+            if (s.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                sc.close();
+                System.exit(0);
+            } else {
+                System.out.println(s);
+            }
+        }
     }
 }
