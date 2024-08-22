@@ -14,12 +14,22 @@ public class MrYapper {
                 + "\n____________________________________________________________");
     }
 
-    private static void addTask(String type, String description) {
+    private static void addTask(String type, String parameter) {
         Task newTask;
         switch (type) {
         case "todo":
-            newTask = new Todo(description);
+            newTask = new Todo(parameter);
             break;
+        case "deadline":
+            String[] parameters = parameter.split("\\s*/by\\s*");
+            if (parameters.length == 2 && !parameters[0].isEmpty()) {
+                newTask = new Deadline(parameters[0], parameters[1]);
+                break;
+            } else {
+                say(" You need to give me a description and a deadline using \"/by\"\n"
+                        + "e.g. deadline CS2103T project /by Dec 31st");
+                return;
+            }
         default:
             say(" The type of task is invalid! Something went wrong :(");
             return;
@@ -92,7 +102,12 @@ public class MrYapper {
                 }
                 break;
             case "todo":
-                addTask(command, processedInput[1]);
+            case "deadline":
+                if (processedInput.length > 1) {
+                    addTask(command, processedInput[1]);
+                } else {
+                    say(" You need to give a description when adding tasks!");
+                }
                 break;
             default:
                 say("Hmm... I'm not sure what you're trying to do :(");
