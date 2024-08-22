@@ -25,6 +25,11 @@ public class Torne {
      * @param input string input by the user
      */
     private void parseCommand(String input) {
+        // empty command - do nothing
+        if (input.isBlank()) {
+            return;
+        }
+
         // Split input by spaces
         String[] parts = input.split("\\s+");
 
@@ -64,7 +69,7 @@ public class Torne {
             // the arg array is always nonEmpty, so, to determine the existence of a default arg,
             // we check if the first arg is nonEmpty does not start with a '\'
             argMap.put("", args[0]);
-            System.out.println("Default arg added! - " + args[0]);
+            // System.out.println("Default arg added! - " + args[0]);
         }
         
         // go through the args list and add the other args
@@ -96,6 +101,13 @@ public class Torne {
         switch (command) {
         case "list":
             listTasks();
+            break;
+        case "mark":
+            mark(argMap.get(""));
+            break;
+        case "unmark":
+            unmark(argMap.get(""));
+            break;
         default:
         }
     }
@@ -145,6 +157,62 @@ Aww, bye to you as well :c""";
      */
     private void listTasks() {
         OUTPUT.writeText(TASK_HANDLER.getTaskListString());
+    }
+
+    private void mark(String indexStr) {
+        if (indexStr == null) {
+            OUTPUT.error("No task index specified.");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(indexStr.trim()) - 1;
+
+            if (index < 0 || index >= TASK_HANDLER.getTaskCount()) {
+                // TODO I'm guessing task handler should be the one raising this exception!
+                OUTPUT.error("Invalid task index. Out of range.");
+                return;
+            }
+
+            if (TASK_HANDLER.getTask(index).getIsDone()) {
+                OUTPUT.writeText("This task is already done, stop wasting my time.");
+            } else {
+                TASK_HANDLER.getTask(index).markAsDone();
+                OUTPUT.writeText("Marking this task as done :)\n    " + TASK_HANDLER.getTask(index));
+            }
+
+        } catch (NumberFormatException e) {
+            OUTPUT.error("Invalid task index. It is not an integer.");
+        }
+
+    }
+
+    private void unmark(String indexStr) {
+        if (indexStr == null) {
+            OUTPUT.error("No task index specified.");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(indexStr.trim()) - 1;
+
+            if (index < 0 || index >= TASK_HANDLER.getTaskCount()) {
+                // TODO I'm guessing task handler should be the one raising this exception!
+                OUTPUT.error("Invalid task index. Out of range");
+                return;
+            }
+
+            if (!TASK_HANDLER.getTask(index).getIsDone()) {
+                OUTPUT.writeText("Excuse me, this task is already not done. I can't make it even less done.");
+            } else {
+                TASK_HANDLER.getTask(index).markAsNotDone();
+                OUTPUT.writeText("Unmarking this task :(\n    " + TASK_HANDLER.getTask(index));
+            }
+
+        } catch (NumberFormatException e) {
+            OUTPUT.error("Invalid task index. It is not an integer.");
+        }
+
     }
 
     // =================== MAIN ===================================

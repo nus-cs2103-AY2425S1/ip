@@ -3,14 +3,28 @@
  */
 public class Task {
     private final String name;
-    private boolean isComplete;
+    private boolean isDone;
 
     Task(String name) {
         this.name = name;
     }
 
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    public void markAsNotDone() {
+        isDone = false;
+    }
+
+    public Boolean getIsDone() {
+        return isDone;
+    }
+
     @Override
     public String toString() {
-        return name;
+        String status = isDone ? "X" : " ";
+
+        return String.format("[%s] %s", status, name);
     }
 }
