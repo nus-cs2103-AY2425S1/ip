@@ -16,7 +16,7 @@ public class Snipe {
     }
 
     private void greetUser() {
-        String OPENING_MESSAGE = "Hello! I'm\n" + LOGO +"\nWhat can I do for you?";
+        String OPENING_MESSAGE = "Hello! I'm\n" + NAME +"\nWhat can I do for you?";
         printWithLines(OPENING_MESSAGE);
     }
     private void handleUserInput() {
