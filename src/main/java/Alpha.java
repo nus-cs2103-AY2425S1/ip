@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 public class Alpha {
     public static void main(String[] args) {
+        
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
         String initialResponse = "____________________________________________________________\n"
@@ -15,7 +16,7 @@ public class Alpha {
             String s1 = scanner.nextLine();
         
             // Check if the user input is "bye"
-            if (s1.equals("bye")) {
+            if (s1.equalsIgnoreCase(Commands.BYE.getDescription())) {
                 String echoResponse = "____________________________________________________________\n"
                         + "Bye. Hope to see you again soon!" +"\n"
                         + "____________________________________________________________\n";
@@ -23,7 +24,7 @@ public class Alpha {
                 break;  // Exit the loop
             }
     
-            else if (s1.equals("list")) {
+            else if (s1.equalsIgnoreCase(Commands.LIST.getDescription())) {
                 String echoResponse = "____________________________________________________________\n"
                         +"Here are the tasks in your list:\n"
                         + storage.listWord() +"\n"
@@ -31,7 +32,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
-            else if (s1.split(" ")[0].equals("mark")) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.MARK.getDescription())) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.modifyOperation(indexInvolved, true);
                 String echoResponse = "____________________________________________________________\n"
@@ -41,7 +42,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
     
-            else if (s1.split(" ")[0].equals("unmark")) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.UNMARK.getDescription())) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.modifyOperation(indexInvolved, false);
                 String echoResponse = "____________________________________________________________\n"
@@ -51,7 +52,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
-            else if (s1.split(" ")[0].equals("delete")) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DELETE.getDescription())) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.deleteOperation(indexInvolved);
                 String echoResponse = "____________________________________________________________\n"
@@ -62,7 +63,7 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
-            else if (s1.split(" ")[0].equals("todo")) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.TODO.getDescription())) {
                 try {
                     ToDo NewToDo = new ToDo(s1.split(" ")[1]);
                     storage.storeTask(NewToDo);
@@ -78,7 +79,7 @@ public class Alpha {
                 }
             }
 
-            else if (s1.split(" ")[0].equals("deadline")) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.DEADLINE.getDescription())) {
                 try {
                     String[] splitArray = s1.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
@@ -104,7 +105,7 @@ public class Alpha {
                 }
             }
 
-            else if (s1.split(" ")[0].equals("event")) {
+            else if (s1.split(" ")[0].equalsIgnoreCase(Commands.EVENT.getDescription())) {
                 try {
                     String[] splitArray = s1.split(" ");
                     String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
