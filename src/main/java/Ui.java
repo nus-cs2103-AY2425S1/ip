@@ -14,6 +14,13 @@ public class Ui {
      * Returns goodbye message
      */
     public String goodbye() {
-        return GOODBYE + "\n" + DIVIDER;
+        return DIVIDER + "\n" + GOODBYE + "\n" + DIVIDER;
+    }
+
+    /**
+     * Returns a copy of the message typed by the user
+     */
+    public String echo(String echoMessage) {
+        return DIVIDER + "\n" + echoMessage + "\n" + DIVIDER;
     }
 }
