@@ -2,9 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Broski {
-    private String line = "_________________________________________";
-    private Scanner scanner = new Scanner(System.in);
-    private ArrayList<Task> list = new ArrayList<>(100);
+    private final static String line = "_________________________________________";
+    private final Scanner scanner = new Scanner(System.in);
+    private final ArrayList<Task> list = new ArrayList<>(100);
+
+    /**
+     * Starts the chatbot with the initial prompts.
+     */
     public void start() {
         System.out.println(line);
         System.out.println("Wassup! I'm Broski!");
@@ -12,7 +16,11 @@ public class Broski {
         System.out.println(line);
     }
 
-    public void chatbot() {
+    /**
+     * The main content of the chatbot and all its possible responses.
+     */
+    public void chatbot() throws TodoException, DeadlineException,
+            EventException, WrongInputException {
         String reply = scanner.nextLine();
         if (reply.equals("list")) {
             System.out.println(line);
@@ -42,6 +50,21 @@ public class Broski {
             this.chatbot();
         } else {
             System.out.println(line);
+            if (reply.length() == 4 && reply.startsWith("todo")) {
+                throw new TodoException();
+            }
+            if ((reply.length() == 8 && reply.startsWith("deadline")) ||
+                    (reply.startsWith("deadline") && reply.split(" /").length != 2)) {
+                throw new DeadlineException();
+            }
+            if ((reply.length() == 5 && reply.startsWith("event")) ||
+                    (reply.startsWith("event") && reply.split(" /").length != 3)) {
+                throw new EventException();
+            }
+            if (!(reply.startsWith("todo") || reply.startsWith("deadline") ||
+                    reply.startsWith("event"))) {
+                throw new WrongInputException();
+            }
             if (reply.length() > 5 && reply.startsWith("todo")) {
                 Todo todo = new Todo(reply.replaceFirst("todo ", ""));
                 list.add(todo);
@@ -72,14 +95,34 @@ public class Broski {
         }
     }
 
+    /**
+     * Exits the chatbot and closes the system.
+     */
     public void exit() {
         System.out.println("Bye, bro. See ya around!");
         System.out.println(line);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TodoException, DeadlineException,
+            EventException, WrongInputException {
         Broski bot = new Broski();
         bot.start();
-        bot.chatbot();
+        try {
+            bot.chatbot();
+        } catch (TodoException e) {
+            System.out.println("Hey, your task description is empty bro.");
+            System.out.println(line);
+        } catch (DeadlineException e) {
+            System.out.println("Hey, your task description" +
+                    " is either empty or missing a deadline bro.");
+            System.out.println(line);
+        } catch (EventException e) {
+            System.out.println("Hey, your task description" +
+                    " is either empty or missing a duration bro.");
+            System.out.println(line);
+        } catch (WrongInputException e) {
+            System.out.println("I'm sorry but I can't understand you bro." +
+                    " Use task, deadline or event please!");
+        }
     }
 }
