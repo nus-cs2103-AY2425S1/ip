@@ -54,10 +54,19 @@ public class List {
             } else if (input.equalsIgnoreCase("Bye")) {
                 break;
             } else {
+                if (input.toLowerCase().contains("/by")) {
+                    list.add(new Deadline(input, "from", "to"));
+                } else if (input.toLowerCase().contains("/from") && input.toLowerCase().contains("/to")) {
+                    list.add(new Event(input, "due"));
+                } else {
+                    list.add(new ToDo(input));
+                }
+
                 System.out.println("-----------------------------------------------");
-                System.out.printf("Added: %s\n", input);
+                System.out.printf("Got it. I've added this task: %s\n", input);
+                System.out.printf("Now you have %d tasks in the list\n", list.size());
                 System.out.println("-----------------------------------------------");
-                list.add(new Task(input));
+
             }
 
 
