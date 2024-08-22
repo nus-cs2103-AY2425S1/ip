@@ -1,12 +1,12 @@
-import java.util.Objects;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Donna {
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskNum = 0;
 
     static private void printDashedLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("____________________________________________________________________");
     }
 
     static private void printDonnaLogo() {
@@ -97,7 +97,7 @@ public class Donna {
             throw DonnaException.invalidTaskType(taskType);
         }
 
-        tasks[taskNum] =  newTask;
+        tasks.add(newTask);
         taskNum++;
         printDashedLine();
         System.out.println("Got it. I've added this task: " );
@@ -110,26 +110,43 @@ public class Donna {
         printDashedLine();
     }
 
-    private static void updateTaskStatus(int taskToMark, boolean toBeMarked) {
+    private static void updateTaskStatus(int taskToMark, boolean toBeMarked) throws DonnaException {
         if (taskToMark > 0 && (taskToMark - 1) < taskNum) { //if task to mark is a valid task
             if (toBeMarked) {
-                tasks[taskToMark - 1].markDone();
+//                tasks[taskToMark - 1].markDone();
+                tasks.get(taskToMark - 1).markDone();
                 printDashedLine();
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("    " + tasks[taskToMark - 1]);
+                System.out.println("    " + tasks.get(taskToMark - 1));
                 printDashedLine();
             } else {
-                tasks[taskToMark - 1].markNotDone();
+//                tasks[taskToMark - 1].markNotDone();
+                tasks.get(taskToMark - 1).markNotDone();
                 printDashedLine();
                 System.out.println("OK, I have marked this task as not done yet: ");
-                System.out.println("    " + tasks[taskToMark - 1]);
+                System.out.println("    " + tasks.get(taskToMark - 1));
                 printDashedLine();
             }
         } else {
+            throw DonnaException.invalidTaskNumber();
+        }
+    }
+
+    private static void deleteTask(int taskToDelete) throws DonnaException {
+        if (taskToDelete > 0  && (taskToDelete - 1) < taskNum) { //if task to delete is a valid task
+            Task deletedTask = tasks.remove(taskToDelete - 1);
+            taskNum--;
             printDashedLine();
-            System.out.println("Invalid task number :(");
-            System.out.println("No task assigned to this number yet. Retry with a valid task number!");
+            System.out.println("Alright. The following task has been deleted: ");
+            System.out.println("    " + deletedTask);
+            if (taskNum != 1){
+                System.out.println("You now have " + taskNum + " tasks in the list.");
+            } else {
+                System.out.println("You now have 1 task left in the list.");
+            }
             printDashedLine();
+        } else {
+            throw DonnaException.invalidTaskNumber();
         }
     }
 
@@ -156,8 +173,15 @@ public class Donna {
                     break;
                 } else if (input.equals("list")) { //display list
                     printDashedLine();
-                    for (int i = 0; i < taskNum; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    if (taskNum == 0) {
+                        System.out.println("No tasks added to the list yet."+ "\n"
+                                + "use todo / deadline / event to add tasks to the list!");
+
+                    } else {
+                        System.out.println("There are " + taskNum + " task(s) in the list: ");
+                        for (int i = 0; i < taskNum; i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i));
+                        }
                     }
                     printDashedLine();
                 } else if (inputWords[0].equals("mark") && inputWords.length == 2) { //request to mark a task as done
@@ -173,6 +197,16 @@ public class Donna {
                         updateTaskStatus(taskToMark, false);
                     } catch (NumberFormatException e) { //if the phrase isnt "unmark INTEGER" it's a task instead of a request
                         addTask(input);
+                    }
+                } else if (inputWords[0].equals("delete") && inputWords.length == 2) {
+                    try {
+                        int taskToDelete = Integer.parseInt(inputWords[1]);
+                        deleteTask(taskToDelete);
+                    } catch (NumberFormatException e) {
+                        printDashedLine();
+                        System.out.println("Use a number with delete to delete a task." + "\n"
+                                + "For example, use: delete 2 to delete the second task.");
+                        printDashedLine();
                     }
                 } else { //not a request
                     addTask(input);
