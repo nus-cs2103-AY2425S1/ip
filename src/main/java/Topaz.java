@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Topaz {
 
+    private static ArrayList<String> todoList = new ArrayList<>(100);
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greetUser();
@@ -12,8 +14,10 @@ public class Topaz {
             if (prompt.contains("bye")) {
                 goodbyeUser();
                 break;
+            } else if (prompt.equals("list")) {
+                listTodos();
             } else {
-                echo(prompt);
+                addTodos(prompt);
             }
         }
 
@@ -36,6 +40,23 @@ public class Topaz {
     private static void echo(String input) {
         System.out.println("____________________________________________________________");
         System.out.println(input);
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void addTodos(String input) {
+        todoList.add(input);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Recorded! Hard work pays off~");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void listTodos() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Who works for money these days? Money is a means, not an end. Work should make you happy... That's the most fundamental principle.");
+        System.out.println(" Don't forget your work~");
+        for (int i = 0; i < todoList.size(); i++) {
+            System.out.println((i + 1) + ". " + todoList.get(i));
+        }
         System.out.println("____________________________________________________________");
     }
 }
