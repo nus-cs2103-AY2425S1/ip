@@ -1,6 +1,7 @@
 package botmanager;
 
 import action.Action;
+import task.TaskList;
 import util.Parser;
 import util.Ui;
 
@@ -12,10 +13,12 @@ import util.Ui;
 public class BotManager {
     private final Ui ui;
     private final Parser parser;
+    private final TaskList taskList;
 
     public BotManager() {
         ui = new Ui();
         parser = new Parser();
+        taskList = new TaskList();
     }
 
     public void run() {
@@ -27,7 +30,7 @@ public class BotManager {
                break;
            }
            Action action = parser.parseInput(input);
-           String output = action.execute();
+           String output = action.execute(taskList);
            ui.printMessage(output);
        }
 

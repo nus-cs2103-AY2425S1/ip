@@ -1,6 +1,6 @@
 package action;
 
-import util.Ui;
+import task.TaskList;
 
 /**
  * An action to be executed by BotManager.
@@ -8,5 +8,5 @@ import util.Ui;
  * @author dwsc37
  */
 public abstract class Action {
-    public abstract String execute();
+    public abstract String execute(TaskList taskList);
 }

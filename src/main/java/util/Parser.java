@@ -1,7 +1,9 @@
 package util;
 
 import action.Action;
-import action.EchoAction;
+import action.AddTaskAction;
+import action.ListTasksAction;
+import task.Task;
 
 /**
  * Handles parsing of user input
@@ -10,6 +12,11 @@ import action.EchoAction;
  */
 public class Parser {
     public Action parseInput(String input) {
-        return new EchoAction(input);
+        switch (input) {
+        case "list":
+            return new ListTasksAction();
+        default:
+            return new AddTaskAction(new Task(input));
+        }
     }
 }

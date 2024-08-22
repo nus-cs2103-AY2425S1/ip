@@ -13,7 +13,7 @@ public class Ui {
     private void printMessageWithDividers(String message) {
         String line = "____________________________________________________________";
         System.out.println(line);
-        System.out.println(message);
+        System.out.print(message.indent(2));
         System.out.println(line);
     }
 
