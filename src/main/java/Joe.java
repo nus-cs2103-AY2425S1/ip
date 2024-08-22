@@ -1,10 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Joe {
     private static final String line =
             "____________________________________________________________";
-    private static final Task[] userTasks = new Task[100];
-    private static int taskCount = 0;
+    private static final List<Task> userTasks = new ArrayList<>();
     private static void bye() {
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
     }
@@ -51,6 +52,7 @@ public class Joe {
 
     public static void add(String s) throws InvalidCommandException {
         System.out.println(line);
+        int taskCount = userTasks.size();
         if (taskCount < 100) {
             Task newTask;
             try {
@@ -58,11 +60,11 @@ public class Joe {
                     s = s.substring(4);
                     newTask = new ToDo(s);
                 } else if (s.startsWith("deadline")) {
-                    String[] parems = s.substring(8).split("/");
-                    newTask = new Deadline(parems);
+                    String[] params = s.substring(8).split("/");
+                    newTask = new Deadline(params);
                 } else if (s.startsWith("event")) {
-                    String[] parems = s.substring(5).split("/");
-                    newTask = new Event(parems);
+                    String[] params = s.substring(5).split("/");
+                    newTask = new Event(params);
                 } else {
                     throw new InvalidCommandException(s);
                 }
@@ -70,11 +72,11 @@ public class Joe {
                 System.out.println(e.getMessage() + "\n" + line);
                 return;
             }
-            userTasks[taskCount++] = newTask;
+            userTasks.add(newTask);
             System.out.printf("Got it. I've added this task:\n  %s\n", newTask);
-            System.out.printf("Now you have %d tasks in the list.\n", taskCount);
+            System.out.printf("Now you have %d tasks in the list.\n", taskCount + 1);
         } else {
-            System.out.println("Input has reached max capacity!");
+            System.out.println("Max number of tasks reached.\nYou currently have 100 tasks.");
         }
         System.out.println(line);
     }
@@ -82,8 +84,9 @@ public class Joe {
     public static void list() {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
+        int taskCount = userTasks.size();
         for (int i = 0; i < taskCount; i++) {
-            Task currTask = userTasks[i];
+            Task currTask = userTasks.get(i);
             System.out.printf("%d.%s\n", i+1, currTask);
         }
         System.out.println(line);
@@ -91,8 +94,9 @@ public class Joe {
 
     public static void mark(int idx) {
         System.out.println(line);
+        int taskCount = userTasks.size();
         if (idx > 0 && idx-1 < taskCount) {
-            Task toBeMarked = userTasks[idx-1];
+            Task toBeMarked = userTasks.get(idx-1);
             if (!toBeMarked.isDone()) {
                 toBeMarked.setDone(true);
                 System.out.printf("Nice! I've marked this task as done:\n  %s\n", toBeMarked);
@@ -107,8 +111,9 @@ public class Joe {
 
     public static void unmark(int idx) {
         System.out.println(line);
+        int taskCount = userTasks.size();
         if (idx > 0 && idx-1 < taskCount) {
-            Task toBeUnmarked = userTasks[idx-1];
+            Task toBeUnmarked = userTasks.get(idx-1);
             if (toBeUnmarked.isDone()) {
                 toBeUnmarked.setDone(false);
                 System.out.printf("OK, I've marked this task as not done yet:\n  %s\n", toBeUnmarked);
