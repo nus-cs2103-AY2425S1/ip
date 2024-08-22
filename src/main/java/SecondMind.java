@@ -57,6 +57,10 @@ public class SecondMind {
         String command = newInput[0];
         if (command.equals("bye")) {
             return true;
+        } else if (command.equals("mark")) {
+            markAsDone(Integer.parseInt(newInput[1]));
+        } else if (command.equals("unmark")) {
+            markAsUndone(Integer.parseInt(newInput[1]));
         } else if (command.equals("list")) {
             printTaskList();
         } else {
