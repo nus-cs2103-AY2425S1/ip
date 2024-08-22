@@ -2,14 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Yapper {
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
 
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Yapper");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        printWelcomeMessage();
 
         while (true) {
             try {
@@ -19,119 +17,162 @@ public class Yapper {
 
                 switch (command) {
                     case "bye":
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Bye. Hope to see you again soon!");
-                        System.out.println("____________________________________________________________");
+                        handleBye();
                         return;
 
                     case "list":
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println(" " + (i + 1) + "." + tasks.get(i));
-                        }
-                        System.out.println("____________________________________________________________");
+                        handleList();
                         break;
 
                     case "mark":
-                        if (userInputParts.length < 2) {
-                            throw new Exception("OOPS!!! The description of a mark command cannot be empty.");
-                        }
-                        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-                        tasks.get(taskNumber).markAsDone();
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Nice! I've marked this task as done:");
-                        System.out.println("   " + tasks.get(taskNumber));
-                        System.out.println("____________________________________________________________");
+                        handleMark(userInputParts);
                         break;
 
                     case "unmark":
-                        if (userInputParts.length < 2) {
-                            throw new Exception("OOPS!!! The description of an unmark command cannot be empty.");
-                        }
-                        taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-                        tasks.get(taskNumber).markAsNotDone();
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" OK, I've marked this task as not done yet:");
-                        System.out.println("   " + tasks.get(taskNumber));
-                        System.out.println("____________________________________________________________");
+                        handleUnmark(userInputParts);
                         break;
 
                     case "todo":
-                        if (userInputParts.length < 2) {
-                            throw new Exception("OOPS!!! The description of a todo cannot be empty.");
-                        }
-                        Task task = new Todo(userInputParts[1]);
-                        tasks.add(task);
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Got it. I've added this task:");
-                        System.out.println("   " + task);
-                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
+                        handleTodo(userInputParts);
                         break;
 
                     case "deadline":
-                        if (userInputParts.length < 2) {
-                            throw new Exception("OOPS!!! The description of a deadline cannot be empty.");
-                        }
-                        String[] details = userInputParts[1].split(" /by ");
-                        if (details.length < 2) {
-                            throw new Exception("OOPS!!! The deadline format should be: deadline [task] /by [date/time]");
-                        }
-                        task = new Deadline(details[0], details[1]);
-                        tasks.add(task);
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Got it. I've added this task:");
-                        System.out.println("   " + task);
-                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
+                        handleDeadline(userInputParts);
                         break;
 
                     case "event":
-                        if (userInputParts.length < 2) {
-                            throw new Exception("OOPS!!! The description of an event cannot be empty.");
-                        }
-                        details = userInputParts[1].split(" /from ");
-                        if (details.length < 2) {
-                            throw new Exception("OOPS!!! The event format should be: event [task] /from [start time] /to [end time]");
-                        }
-                        String[] fromTo = details[1].split(" /to ");
-                        if (fromTo.length < 2) {
-                            throw new Exception("OOPS!!! The event format should be: event [task] /from [start time] /to [end time]");
-                        }
-                        task = new Event(details[0], fromTo[0], fromTo[1]);
-                        tasks.add(task);
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Got it. I've added this task:");
-                        System.out.println("   " + task);
-                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
+                        handleEvent(userInputParts);
                         break;
 
                     case "delete":
-                        if (userInputParts.length < 2) {
-                            throw new Exception("OOPS!!! The task number to delete cannot be empty.");
-                        }
-                        taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-                        if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                            throw new Exception("OOPS!!! The task number is invalid.");
-                        }
-                        Task removedTask = tasks.remove(taskNumber);
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Noted. I've removed this task:");
-                        System.out.println("   " + removedTask);
-                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
+                        handleDelete(userInputParts);
                         break;
 
                     default:
                         throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (Exception e) {
-                System.out.println("____________________________________________________________");
-                System.out.println(" " + e.getMessage());
-                System.out.println("____________________________________________________________");
+                printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    private static void printWelcomeMessage() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Hello! I'm Yapper");
+        System.out.println(" What can I do for you?");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printErrorMessage(String message) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" " + message);
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleBye() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleList() {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleMark(String[] userInputParts) throws Exception {
+        if (userInputParts.length < 2) {
+            throw new Exception("OOPS!!! The description of a mark command cannot be empty.");
+        }
+        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
+        tasks.get(taskNumber).markAsDone();
+        System.out.println("____________________________________________________________");
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println("   " + tasks.get(taskNumber));
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleUnmark(String[] userInputParts) throws Exception {
+        if (userInputParts.length < 2) {
+            throw new Exception("OOPS!!! The description of an unmark command cannot be empty.");
+        }
+        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
+        tasks.get(taskNumber).markAsNotDone();
+        System.out.println("____________________________________________________________");
+        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println("   " + tasks.get(taskNumber));
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleTodo(String[] userInputParts) throws Exception {
+        if (userInputParts.length < 2) {
+            throw new Exception("OOPS!!! The description of a todo cannot be empty.");
+        }
+        Task task = new Todo(userInputParts[1]);
+        tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleDeadline(String[] userInputParts) throws Exception {
+        if (userInputParts.length < 2) {
+            throw new Exception("OOPS!!! The description of a deadline cannot be empty.");
+        }
+        String[] details = userInputParts[1].split(" /by ");
+        if (details.length < 2) {
+            throw new Exception("OOPS!!! The deadline format should be: deadline [task] /by [date/time]");
+        }
+        Task task = new Deadline(details[0], details[1]);
+        tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleEvent(String[] userInputParts) throws Exception {
+        if (userInputParts.length < 2) {
+            throw new Exception("OOPS!!! The description of an event cannot be empty.");
+        }
+        String[] details = userInputParts[1].split(" /from ");
+        if (details.length < 2) {
+            throw new Exception("OOPS!!! The event format should be: event [task] /from [start time] /to [end time]");
+        }
+        String[] fromTo = details[1].split(" /to ");
+        if (fromTo.length < 2) {
+            throw new Exception("OOPS!!! The event format should be: event [task] /from [start time] /to [end time]");
+        }
+        Task task = new Event(details[0], fromTo[0], fromTo[1]);
+        tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void handleDelete(String[] userInputParts) throws Exception {
+        if (userInputParts.length < 2) {
+            throw new Exception("OOPS!!! The task number to delete cannot be empty.");
+        }
+        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+            throw new Exception("OOPS!!! The task number is invalid.");
+        }
+        Task removedTask = tasks.remove(taskNumber);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + removedTask);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
 }
