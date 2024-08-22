@@ -45,6 +45,8 @@ public class WenJigglyBot {
 
                 addTask(new EventTask(event, startTime, endTime));
 
+            } else if (task.equals("bye")) {
+                break;
             } else {
                 addTask(new Task(task));
             }
