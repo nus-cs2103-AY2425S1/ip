@@ -18,4 +18,12 @@ public class Task {
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getFullDescription() {
+        return String.format("[%s] %s", getStatusIcon(), getDescription());
+    }
 }
