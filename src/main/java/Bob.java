@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -18,13 +20,25 @@ public class Bob {
 
     public static void chatBot() {
         Scanner scanner = new Scanner(System.in);
+        List<String> myTasks = new ArrayList<>();
+        while (true) {
+            String input = scanner.nextLine();
+            switch (input) {
+                case "bye":
+                    System.out.print(DIVIDER);
+                    return;
+                case "list":
+                    System.out.print(DIVIDER);
+                    for (int i = 1; i < myTasks.size() + 1; i++) {
+                        System.out.print(i + ". " + myTasks.get(i-1) + "\n");
+                    }
+                    System.out.print(DIVIDER);
+                    break;
+                default:
+                    myTasks.add(input);
+                    System.out.print(DIVIDER + "added: " + input + "\n" + DIVIDER);
 
-        String input = scanner.nextLine();
-        if (Objects.equals(input, "bye")) {
-            System.out.print(DIVIDER);
-            return;
+            }
         }
-        System.out.print(DIVIDER + input + "\n" + DIVIDER);
-        chatBot();
     }
 }
