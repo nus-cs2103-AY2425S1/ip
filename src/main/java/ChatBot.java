@@ -44,6 +44,10 @@ public class ChatBot {
         }
     }
 
+    public Task delete(int i) {
+        return lst.remove(i-1);
+    }
+
     public void run() throws InvalidCommandError, EmptyDescriptionError {
         greet();
         while (true){
@@ -68,6 +72,12 @@ public class ChatBot {
                     task.markUndone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(task.getDesc());
+                } else if (parts.length == 2 && parts[0].equals("delete")) {
+                    int numToDelete = Integer.parseInt(parts[1]);
+                    Task removed = delete(numToDelete);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(removed.getDesc());
+                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
                 } else {
                     String command = parts[0];
 
