@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * This is the main class for `Torne`.
  * All the main commands are here.
@@ -9,7 +11,7 @@ public class Torne {
     /**
      * Shows a greeting message, to be shown when user initialises Torne.
      */
-    private void greet() {
+    private void showGreeting() {
         String greetingText = """
 Hello! I am
   _______ ____  _____  _   _ ______\s
@@ -26,9 +28,9 @@ How may I help you today?""";
     }
 
     /**
-     * Prints a standard exit message and quits the bot.
+     * Prints a standard exit message.
      */
-    private void exit() {
+    private void showExitMessage() {
         String exitText = """
 Aww, bye to you as well :c""";
         OUTPUT.writeText(exitText);
@@ -36,9 +38,25 @@ Aww, bye to you as well :c""";
 
     public static void main(String[] args) {
         Torne torne = new Torne();
+        Scanner scanner = new Scanner(System.in);
+        String input;
 
-        // Level 0: Greet user and exit.
-        torne.greet();
-        torne.exit();
+        // greet user
+        torne.showGreeting();
+
+        while (true) {
+            // Read input from user
+            input = scanner.nextLine().trim();
+
+            // first check if it's an exit (`bye`) command
+            if (input.equals("bye")) {
+                torne.showExitMessage();
+                break;
+            }
+
+            // else, echo the input
+            OUTPUT.writeText(input);
+        }
+
     }
 }
