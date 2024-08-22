@@ -17,7 +17,7 @@ public class Lama {
 
         while(scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            String[] words = input.split(" ");
+            String[] words = input.split(" ", 2);
 
             if (words[0].equals("bye")) {
                 System.out.println(bar);
@@ -48,17 +48,35 @@ public class Lama {
 //                System.out.println("  [" + list[n].getStatusIcon() + "] " + list[n]);
                 System.out.println("  " + list[n]);
                 System.out.println(bar);
-            }
-
-            else {
-                Task task = new Task(input);
-                list[count] = task;
+            } else if (words[0].equals("todo")) {
+                list[count] = new Todo(words[1]);
                 count++;
                 System.out.println(bar);
-                System.out.println("added: " + input);
-                System.out.println(bar + "\n");
-            }
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + list[count - 1]);
+                System.out.println("Now you have " + count +" tasks in the list.");
+                System.out.println(bar);
 
+            } else if (words[0].equals("deadline")) {
+                String[] half = words[1].split(" /by ");
+                list[count] = new Deadline(half[0], half[1]);
+                count++;
+                System.out.println(bar);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + list[count - 1]);
+                System.out.println("Now you have " + count +" tasks in the list.");
+                System.out.println(bar);
+            } else if (words[0].equals("event")) {
+                String[] first = words[1].split(" /from ");
+                String[] time = first[1].split(" /to ");
+                list[count] = new Event(first[0], time[0], time[1]);
+                count++;
+                System.out.println(bar);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + list[count - 1]);
+                System.out.println("Now you have " + count +" tasks in the list.");
+                System.out.println(bar);
+            }
 
         }
 
