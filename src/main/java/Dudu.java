@@ -1,3 +1,4 @@
+import javax.sound.sampled.Line;
 import java.util.Scanner;
 import java.lang.StringBuilder;
 
@@ -27,6 +28,9 @@ public class Dudu {
                 }
             } else if (input.equals("bye")) {
                 break;
+            } else if (input.equals("help")) {
+                String output = LineWrapper.wrap("hehe not done");
+                System.out.println(output);
             } else if (input.matches("mark\\s\\d+")) {
                 int pos = Integer.parseInt(input.replaceAll("\\D+","")) - 1;
                 tasks[pos].markCompleted();
@@ -60,10 +64,7 @@ public class Dudu {
                 String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, count));
                 System.out.println(output);
             } else {
-                Task task = new Task(input);
-                tasks[count] = task;
-                count++;
-                String output = LineWrapper.wrap(String.format("added: %s", input));
+                String output = LineWrapper.wrap("Please use \"help\" to get the list of commands");
                 System.out.println(output);
             }
         }
