@@ -17,6 +17,70 @@ public class DGPT {
         list = new ArrayList<>();
     }
 
+    private void parseInput(String input) throws IncorrectInputException, TaskNotFoundException{
+        String[] parts = input.split(" ", 2);
+
+        switch (parts[0]) {
+            case "list" -> {
+                if (parts.length == 1) {
+                    showList();
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should not have anything after your request. " +
+                            "(e.g. \"list\")");
+                }
+            }
+            case "mark" -> {
+                if (parts.length == 2) {
+                    markTask(Integer.parseInt(parts[1]) - 1);
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
+                            "(e.g. \"mark 1\")");
+                }
+            }
+            case "unmark" -> {
+                if (parts.length == 2) {
+                    unmarkTask(Integer.parseInt(parts[1]) - 1);
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
+                            "(e.g. \"unmark 1\")");
+                }
+            }
+            case "todo" -> {
+                if (parts.length == 2) {
+                    addToDoToList(parts[1]);
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                            "(e.g. \"todo your_description\")");
+                }
+            }
+            case "deadline" -> {
+                if (parts.length == 2) {
+                    addDeadlineToList(parts[1]);
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                            "(e.g. \"todo your_description /by your_deadline\")");
+                }
+            }
+            case "event" -> {
+                if (parts.length == 2) {
+                    addEventToList(parts[1]);
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                            "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
+                }
+            }
+            default -> throw new TaskNotFoundException("OOPS!!! I do not recognise that request. These are the " +
+                    "following requests that are supported:\n" +
+                    "-list\n" +
+                    "-mark\n" +
+                    "-unmark\n" +
+                    "-todo\n" +
+                    "-deadline\n" +
+                    "-event\n" +
+                    "-bye");
+        }
+    }
+
     private void addToDoToList(String text) {
         Task newTask = new ToDo(text);
         this.list.add(newTask);
@@ -91,27 +155,23 @@ public class DGPT {
         System.out.println("DGPT> What can I do for you?");
         System.out.println("-----------------------");
 
+        boolean isActive = true;
         String input;
-        do {
+        while (isActive) {
             System.out.print("User> ");
             input = scanner.nextLine();
-            String[] parts = input.split(" ", 2);
-
-
-            if (input.equals("list")) {
-                dgpt.showList();
-            } else if (parts[0].equals("mark")) {
-                dgpt.markTask(Integer.parseInt(parts[1]) - 1);
-            } else if (parts[0].equals("unmark")) {
-                dgpt.unmarkTask(Integer.parseInt(parts[1]) - 1);
-            } else if (parts[0].equals("todo")) {
-                dgpt.addToDoToList(parts[1]);
-            } else if (parts[0].equals("deadline")) {
-                dgpt.addDeadlineToList(parts[1]);
-            } else if (parts[0].equals("event")) {
-                dgpt.addEventToList(parts[1]);
+            if (input.equals("bye")) {
+                isActive = false;
+            } else {
+                try {
+                    dgpt.parseInput(input);
+                } catch (TaskNotFoundException | IncorrectInputException e) {
+                    System.out.println("-----------------------");
+                    System.out.println(e.getMessage());
+                    System.out.println("-----------------------");
+                }
             }
-        } while (!input.equals("bye"));
+        }
 
         scanner.close();
 
