@@ -109,14 +109,16 @@ public class Bellroy {
                     }
                     break;
 
-
-//                default:
-//                    Task temp = new Task(userInput);
-//                    toDoList.add(temp);
-//                    System.out.println("____________________________________________________________\n" +
-//                            "     added: " + userInput + "\n" +
-//                            "____________________________________________________________\n");
-//                    break;
+                case "delete":
+                    int target = Integer.parseInt(userInput.split(" ")[1]);
+                    Task temp = toDoList.get(target - 1);
+                    toDoList.remove(target - 1);
+                    String response3 = String.format("    ____________________________________________________________\n" +
+                            "     Got it. I've added this task:\n" +
+                            "       " + temp + "\n" +
+                            "     Now you have %d tasks in the list.\n" +
+                            "    ____________________________________________________________", toDoList.size());
+                    System.out.println(response3);
             }
         }
 
