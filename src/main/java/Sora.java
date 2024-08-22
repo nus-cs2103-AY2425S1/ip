@@ -9,26 +9,32 @@ public class Sora {
         System.out.println(horizontalLine + "\n" + greeting);
 
         Scanner commandScanner = new Scanner(System.in);
-        ArrayList<String> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
         while (true) {
-            String command = commandScanner.nextLine();
-            if (command.equalsIgnoreCase("bye")) {
+            String[] command = commandScanner.nextLine().trim().split(" ", 2);
+            if (command[0].equalsIgnoreCase("bye") && command.length == 1) {
                 break;
-            } else if (command.equalsIgnoreCase("list")) {
+            } else if (command[0].equalsIgnoreCase("list") && command.length == 1) {
                 displayList(taskList);
+            } else if (command[0].equalsIgnoreCase("mark") && command.length == 2) {
+                taskList.get(Integer.parseInt(command[1]) - 1).setDone(true);
+            } else if (command[0].equalsIgnoreCase("unmark")) {
+                taskList.get(Integer.parseInt(command[1]) - 1).setDone(false);
             } else {
-                taskList.add(command);
-                System.out.println("\t added: " + command + "\n" + horizontalLine);
+                String description = command[0] + (command.length == 2 ? " " + command[1] : "");
+                taskList.add(new Task(description));
+                System.out.println("\t added: " + description);
             }
+            System.out.println(horizontalLine);
         }
 
         String exit = "\tBye. Hope to see you again soon!";
         System.out.println(exit + "\n" + horizontalLine);
     }
 
-    public static void displayList(List<String> list) {
+    public static void displayList(List<Task> list) {
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + list.get(i));
+            System.out.println("\t" + (i + 1) + "." + list.get(i));
         }
     }
 }
