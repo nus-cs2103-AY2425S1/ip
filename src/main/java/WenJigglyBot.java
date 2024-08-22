@@ -11,7 +11,7 @@ public class WenJigglyBot {
         System.out.println("What can I do for you?");
         String task = "";
         while (!task.equals("bye")) {
-            task = scanner.nextLine();
+                task = scanner.nextLine();
             if (task.equals("list")) {
                 displayTasks();
             } else if (task.contains("mark") || task.contains("unmark")) {
