@@ -31,7 +31,7 @@ public class Neon {
 
         switch (first) {
             case "todo":
-                String taskTodo = answer.replace("todo ", "");
+                String taskTodo = removeSpace(answer.replace("todo ", ""));
                 Todo newTodo = new Todo(taskTodo, false, lastListIndex);
                 list[lastListIndex] = newTodo;
                 lastListIndex++;
@@ -40,20 +40,22 @@ public class Neon {
             case "deadline":
                 String taskDeadline = answer.replace("deadline ", "");
                 String[] partsDeadline = taskDeadline.split("\\s*/by\\s*");
-                Deadline newDeadline = new Deadline(partsDeadline[0], false, lastListIndex,
-                        partsDeadline[1].replaceAll(" ", ""));
+                Deadline newDeadline = new Deadline(partsDeadline[0],
+                        false, lastListIndex,
+                        removeSpace(partsDeadline[1]));
                 list[lastListIndex] = newDeadline;
                 lastListIndex++;
-                System.out.println("adding deadline to list : " + partsDeadline[0]);
+                System.out.println("adding deadline to list : " + newDeadline.getName());
                 break;
             case "event":
                 String taskEvent = answer.replace("event ", "");
                 String[] partsEvent = taskEvent.split("\\s*/from\\s*|\\s*/to\\s*");
+
                 Event newEvent = new Event(partsEvent[0], false, lastListIndex,
-                        partsEvent[1].replaceAll(" ", ""), partsEvent[2].replaceAll(" ", ""));
+                        partsEvent[1], removeSpace(partsEvent[2]));
                 list[lastListIndex] = newEvent;
                 lastListIndex++;
-                System.out.println("adding event to list : " + partsEvent[0]);
+                System.out.println("adding event to list : " + newEvent.getName());
                 break;
             default:
                 System.out.println("cannot read : " + first);
@@ -63,6 +65,9 @@ public class Neon {
         System.out.println(DASH_BREAK);
     }
 
+    private static String removeSpace(String line) {
+        return line.substring(0, line.length() - 1);
+    }
     private static void printList() {
         System.out.println(DASH_BREAK);
 
@@ -105,10 +110,10 @@ public class Neon {
         StringBuilder answer = new StringBuilder();
         int number = -1;
 
-        while (chatting) {
-            Scanner ansObj = new Scanner(System.in);
-            String line = ansObj.nextLine();
-
+        Scanner ansObj = new Scanner(System.in);
+        String allInput = ansObj.useDelimiter("\\Z").next(); // Reads until end of input (CTRL+D or an equivalent)
+        String[] lines = allInput.split("\\r?\\n");
+        for (String line : lines) {
             Scanner lineSc = new Scanner(line);
             while (lineSc.hasNext()) {
                 if (lineSc.hasNextInt()) {
