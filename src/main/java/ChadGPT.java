@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ChadGPT {
+    private static List<String> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         printBotMessage("Hello! I'm ChadGPT. What can I do for you?");
 
@@ -12,10 +16,17 @@ public class ChadGPT {
             if (input.startsWith("bye")) {
                 printBotMessage("Bye. Hope to see you again soon!");
                 break;
+            } else if (input.startsWith("list")) {
+                printBotMessage(Formatter.formatList(tasks));
             } else {
-                printBotMessage(input);
+                addTaskToList(input);
+                printBotMessage("added: " + input);
             }
         }
+    }
+
+    private static void addTaskToList(String task) {
+        tasks.add(task);
     }
 
     /**
@@ -23,7 +34,7 @@ public class ChadGPT {
      *
      * @param msg the string message to be printed
      */
-    public static void printBotMessage(String msg) {
+    private static void printBotMessage(String msg) {
         System.out.println(Formatter.formatBotMessage(msg));
     }
 }
