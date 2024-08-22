@@ -43,11 +43,15 @@ public class Nen2 {
                 printList();
                 break;
             default:
-                Task t = Task.of(input);
-                listOfTasks[amountOfTask] = t;
-                amountOfTask++;
-                System.out.println("Got it. I've added this task: \n" + t);
-                System.out.println("Now you have " + amountOfTask + " tasks in the list.");
+                try {
+                    Task t = Task.of(input);
+                    listOfTasks[amountOfTask] = t;
+                    amountOfTask++;
+                    System.out.println("Got it. I've added this task: \n" + t);
+                    System.out.println("Now you have " + amountOfTask + " tasks in the list.");
+                } catch (InvalidInputException | ArgumentMissingException | EmptyDescriptionException e){
+                    System.out.println(e.getMessage());
+                }
         }
 
         System.out.println(separator);
