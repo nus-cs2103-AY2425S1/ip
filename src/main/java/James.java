@@ -30,9 +30,27 @@ public class James {
             } else if (command.toUpperCase().startsWith("UNMARK")) {
                 int taskNum = Integer.parseInt(command.substring(command.length() - 1));
                 tasks.get(taskNum - 1).unMark();
-            } else {
-                tasks.add(new Task(command, false));
-                System.out.println("Task added:" + command + "\n");
+            } else if (command.toUpperCase().startsWith("TODO")){
+                String description = command.substring(5);
+                Task task = new Todo(description, false);
+                tasks.add(task);
+                System.out.println("Task added:" + "\n" + task.printTask());
+                System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+            } else if (command.toUpperCase().startsWith("DEADLINE")){
+                String description = command.substring(9, command.lastIndexOf("/by")).trim();
+                String deadline = command.substring(command.lastIndexOf("/by") + 4).trim();
+                Task task = new Deadline(description, false, deadline);
+                tasks.add(task);
+                System.out.println("Task added:" + "\n" + task.printTask());
+                System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+            } else if (command.toUpperCase().startsWith("EVENT")){
+                String description = command.substring(6, command.lastIndexOf("/from")).trim();
+                String start = command.substring(command.lastIndexOf("/from") + 6, command.lastIndexOf("/to")).trim();
+                String end = command.substring(command.lastIndexOf("/to") + 4).trim();
+                Task task = new Event(description, false, start, end);
+                tasks.add(task);
+                System.out.println("Task added:" + "\n" + task.printTask());
+                System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
             }
         }
 
