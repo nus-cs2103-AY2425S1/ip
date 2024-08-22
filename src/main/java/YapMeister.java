@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class YapMeister {
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -6,10 +8,17 @@ public class YapMeister {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("""
                                Hello I'm YapMeister
                                YAPYAPYAPYAP
-                               Bye
                                """);
+        String input = "";
+        while (!input.equals("bye")) {
+            System.out.print("\n");
+            input = scanner.nextLine();
+            System.out.print(input);
+        }
+        System.out.println(" Leave and never return");
     }
 }
