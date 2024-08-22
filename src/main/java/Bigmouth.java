@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Bigmouth {
     public static void main(String[] args) {
@@ -8,8 +9,7 @@ public class Bigmouth {
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         // Introduction
         System.out.println("____________________________________________________________");
@@ -31,38 +31,38 @@ public class Bigmouth {
 
                 // List all stored tasks if the user types "list"
                 if (userInput.equals("list")) {
-                    if (taskCount == 0) {
+                    if (tasks.isEmpty()) {
                         throw new BigmouthException("Your task list is empty!");
                     }
                     System.out.println("____________________________________________________________");
                     System.out.println(" Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println(" " + (i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(" " + (i + 1) + "." + tasks.get(i));
                     }
                     System.out.println("____________________________________________________________");
                 }
                 // Mark a task as done
                 else if (userInput.startsWith("mark ")) {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
                         throw new BigmouthException("Invalid task number. Please enter a valid task number.");
                     }
-                    tasks[taskNumber].markAsDone();
+                    tasks.get(taskNumber).markAsDone();
                     System.out.println("____________________________________________________________");
                     System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println("   " + tasks[taskNumber]);
+                    System.out.println("   " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
                 }
                 // Unmark a task as not done
                 else if (userInput.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
                         throw new BigmouthException("Invalid task number. Please enter a valid task number.");
                     }
-                    tasks[taskNumber].markAsNotDone();
+                    tasks.get(taskNumber).markAsNotDone();
                     System.out.println("____________________________________________________________");
                     System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println("   " + tasks[taskNumber]);
+                    System.out.println("   " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
                 }
                 // Add a Todo task
@@ -71,12 +71,11 @@ public class Bigmouth {
                     if (description.isEmpty()) {
                         throw new BigmouthException("OOPS! The description of a todo cannot be empty.");
                     }
-                    tasks[taskCount] = new Todo(description);
-                    taskCount++;
+                    tasks.add(new Todo(description));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskCount - 1]);
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
                 // Add a Deadline task
@@ -90,12 +89,11 @@ public class Bigmouth {
                     if (description.isEmpty()) {
                         throw new BigmouthException("OOPS! The description of a deadline cannot be empty.");
                     }
-                    tasks[taskCount] = new Deadline(description, by);
-                    taskCount++;
+                    tasks.add(new Deadline(description, by));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskCount - 1]);
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
                 // Add an Event task
@@ -110,12 +108,24 @@ public class Bigmouth {
                     if (description.isEmpty()) {
                         throw new BigmouthException("OOPS! The description of an event cannot be empty.");
                     }
-                    tasks[taskCount] = new Event(description, from, to);
-                    taskCount++;
+                    tasks.add(new Event(description, from, to));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskCount - 1]);
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                }
+                // Delete a task
+                else if (userInput.startsWith("delete ")) {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new BigmouthException("Invalid task number. Please enter a valid task number.");
+                    }
+                    Task removedTask = tasks.remove(taskNumber);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Noted. I've removed this task:");
+                    System.out.println("   " + removedTask);
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
                 // Handle unknown commands
