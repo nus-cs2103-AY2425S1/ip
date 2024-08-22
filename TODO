@@ -3,3 +3,6 @@
 - Remove reader class if it is not needed
 - Add tests for exceptions
 - Handle more exceptions
+- Have separate classes for different commands for better exception handling
+- Check that /from (should?) appear before /to for deadlines
+- Exceptions for mark and unmark (must have second argument, second argument must be a number and number must be in range)
