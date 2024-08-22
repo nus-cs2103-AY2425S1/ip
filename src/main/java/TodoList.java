@@ -11,8 +11,20 @@ public class TodoList {
         tasks.add(new Task(item));
     }
 
+    public void mark(int index) {
+        tasks.get(index).mark();
+    }
+
+    public void unmark(int index) {
+        tasks.get(index).unmark();
+    }
+
     public boolean isEmpty() {
         return tasks.isEmpty();
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
     }
 
     public ArrayList<Task> getItems() {

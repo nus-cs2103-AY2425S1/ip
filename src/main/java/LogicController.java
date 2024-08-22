@@ -10,6 +10,8 @@ public class LogicController {
     private boolean isRunning = false;
     private boolean isAwaitingInput = false;
 
+    private Scanner inputScanner = new Scanner(System.in);
+
     private static final TodoList todoList = new TodoList();
 
     public void begin() {
@@ -28,9 +30,7 @@ public class LogicController {
 
         isAwaitingInput = true;
 
-        Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-        String input = scanner.nextLine();
+        String input = inputScanner.nextLine();
 
         isAwaitingInput = false;
 
@@ -38,9 +38,10 @@ public class LogicController {
     }
 
     private void parseInput(String input) {
-        String trimmed = input.toLowerCase().trim();
+        Scanner scanner = new Scanner(input);
+        String command = scanner.next().toLowerCase();
 
-        switch (trimmed) {
+        switch (command) {
             case "bye":
                 display.output("See you again! " + Oyster.CHATBOT_EMOJI);
                 isRunning = false;
@@ -56,14 +57,20 @@ public class LogicController {
                 }
                 break;
             case "mark":
-                if (todoList.isEmpty()) {
-                    display.output("Oops, nothing to see here!");
-                } else {
-                    display.output(new String[]{
-                            "Here is your current list!",
-                            todoList.toString()
-                    });
-                }
+                int markIndex = scanner.nextInt() - 1;
+                todoList.mark(markIndex);
+                display.output(new String[]{
+                        "Well done on completing the task!",
+                        todoList.getTask(markIndex).toString()
+                });
+                break;
+            case "unmark":
+                int unmarkIndex = scanner.nextInt() - 1;
+                todoList.unmark(unmarkIndex);
+                display.output(new String[]{
+                        "I have unmarked the task!",
+                        todoList.getTask(unmarkIndex).toString()
+                });
                 break;
             default:
                 todoList.insert(input);
@@ -71,6 +78,7 @@ public class LogicController {
                 // display.output("Oh no! I'm afraid I don't understand...");
         }
 
+        scanner.close();
         awaitInput();
     }
 }
