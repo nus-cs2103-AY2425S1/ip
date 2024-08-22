@@ -15,10 +15,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles reading from and writing to the file system.
+ * It follows the Singleton pattern to ensure only one instance exists.
+ */
 public class Storage {
 
     private static Storage storage;
 
+    /**
+     * Gets the singleton instance of the Storage class.
+     *
+     * @return The Storage instance
+     */
     public static Storage getInstance() {
         if (storage == null) {
             storage = new Storage();
@@ -26,6 +35,10 @@ public class Storage {
         return storage;
     }
 
+    /**
+     * Reads data from the file system and loads it into the TaskList.
+     * Creates necessary directories and files if they don't exist.
+     */
     public void readData() {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -49,6 +62,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the current TaskList data to the file system.
+     */
     public void writeData() {
         try {
             FileWriter filewriter = new FileWriter("data/duke.txt");
@@ -62,6 +78,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Static method to save data to the file system using the singleton instance.
+     */
     public static void saveData() {
         Storage file = Storage.getInstance();
         file.writeData();
