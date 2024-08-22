@@ -1,14 +1,12 @@
 public class Deadline extends Task{
-    protected String from;
-    protected String to;
-    public Deadline(String description, String from, String to) {
+    protected String due;
+    public Deadline(String description, String due) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.due = due;
     }
     @Override
     public String toString() {
         String mark = isDone ? "X" : " ";
-        return String.format("[T] [%s] %s (from: %s to: %s)", mark, super.description, this.from, this.to);
+        return String.format("[D] [%s] %s (by: %s)", mark, super.description, this.due);
     }
 }

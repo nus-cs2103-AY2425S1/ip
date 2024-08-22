@@ -19,7 +19,7 @@ public class List {
         ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
-            System.out.print("Add item: ");
+            System.out.print("Add task: ");
             input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("List")) {
@@ -43,7 +43,7 @@ public class List {
             } else if (input.length() > 7 && input.substring(0, 7).equalsIgnoreCase("unmark ")) {
                 try {
                     int index = Integer.parseInt(input.substring(7));
-                    list.get(index - 1).setIsDone(true);
+                    list.get(index - 1).setIsDone(false);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(list.get(index - 1));
                 } catch (NumberFormatException exc) {
@@ -51,19 +51,28 @@ public class List {
                 } catch (IndexOutOfBoundsException exc) {
                 System.out.println("No such task exists.");
                 }
+            } else if (input.toLowerCase().contains("/from") ^ input.toLowerCase().contains("/to")) {
+                System.out.println("Please add both /from and /to.");
             } else if (input.equalsIgnoreCase("Bye")) {
                 break;
             } else {
-                if (input.toLowerCase().contains("/by")) {
-                    list.add(new Deadline(input, "from", "to"));
-                } else if (input.toLowerCase().contains("/from") && input.toLowerCase().contains("/to")) {
-                    list.add(new Event(input, "due"));
+
+                if (input.toLowerCase().contains("/from") && input.toLowerCase().contains("/to")) {
+                    String description  = input.substring(0, input.toLowerCase().indexOf("/from"));
+                    String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to"));
+                    String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
+                    list.add(new Event(description, from, to));
+                } else if (input.toLowerCase().contains("/by")) {
+                    String description = input.substring(0, input.toLowerCase().indexOf("/by"));
+                    String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
+                    list.add(new Deadline(description, due));
                 } else {
-                    list.add(new ToDo(input));
+                    String description = input;
+                    list.add(new ToDo(description));
                 }
 
                 System.out.println("-----------------------------------------------");
-                System.out.printf("Got it. I've added this task: %s\n", input);
+                System.out.printf("Got it. I've added this task: \n%s\n", list.get(list.size() - 1));
                 System.out.printf("Now you have %d tasks in the list\n", list.size());
                 System.out.println("-----------------------------------------------");
 
