@@ -1,8 +1,6 @@
 import java.util.*;
 public class TaskList {
-    private List<Task> tasks;
-    private Parser p = new Parser();
-
+    private final List<Task> tasks;
     private abstract class Task {
         protected String name;
         protected boolean isDone;
@@ -46,9 +44,7 @@ public class TaskList {
             super(description);
             int slashIndex = description.indexOf("/");
 
-            // Extract the substring before the slash
-            String beforeSlash = description.substring(0, slashIndex).trim();
-            this.name = beforeSlash;
+            this.name = description.substring(0, slashIndex).trim();
 
             // Extract the substring after the slash and trim it
             String temp = description.substring(slashIndex + 1).trim();
@@ -71,9 +67,7 @@ public class TaskList {
 
             String[] parts = description.split("/");
 
-            // Extract the event description before the first backslash
-            String eventDescription = parts[0].trim();
-            this.name = eventDescription;
+            this.name = parts[0].trim();
 
             // Extract the first and second parts after the backslashes, if they exist
             String fromPart = parts.length > 1 ? parts[1].trim() : "";
@@ -104,24 +98,36 @@ public class TaskList {
         if (!task.equals("list")) {
             if (Parser.checkStringPrefix(task, 4, "todo")) {
                 Task tsk;
-                if (task.length() > 4) tsk = new Todo(task.substring(5));
-                else tsk = new Todo("");
+                if (task.length() > 4) {
+                    tsk = new Todo(task.substring(5));
+                }
+                else {
+                    tsk = new Todo("");
+                }
                 tasks.add(tsk);
                 System.out.println("    Got it. I've added this task:");
                 System.out.println("      " + tsk);
                 System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
             } else if (Parser.checkStringPrefix(task, 8, "deadline")) {
                 Task tsk;
-                if (task.length() > 8) tsk = new Deadline(task.substring(9));
-                else tsk = new Todo("");
+                if (task.length() > 8) {
+                    tsk = new Deadline(task.substring(9));
+                }
+                else {
+                    tsk = new Todo("");
+                }
                 tasks.add(tsk);
                 System.out.println("    Got it. I've added this task:");
                 System.out.println("      " + tsk);
                 System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
             } else if (Parser.checkStringPrefix(task, 5, "event")){
                 Task tsk;
-                if (task.length() > 5) tsk = new Event(task.substring(6));
-                else tsk = new Event("");
+                if (task.length() > 5) {
+                    tsk = new Event(task.substring(6));
+                }
+                else {
+                    tsk = new Event("");
+                }
                 tasks.add(tsk);
                 System.out.println("    Got it. I've added this task:");
                 System.out.println("      " + tsk);
@@ -134,8 +140,8 @@ public class TaskList {
     }
     public Task removeTask(int i) {
         if (i <= tasks.size()) {
-            Task t = tasks.get(i-1);
-            tasks.remove(i-1);
+            Task t = tasks.get(i - 1);
+            tasks.remove(i - 1);
             return t;
         } else {
             return null; //may want to add error handling for invalid indexes here
@@ -145,16 +151,24 @@ public class TaskList {
         return tasks.size();
     }
     public void markTaskAsDone(int i) {
-        if (i <= tasks.size()) tasks.get(i-1).complete();
+        if (i <= tasks.size()) {
+            tasks.get(i - 1).complete();
+        }
         //may want to add error handling for invalid indexes here
     }
     public void markTaskAsUndone(int i) {
-        if (i <= tasks.size()) tasks.get(i-1).uncomplete();
+        if (i <= tasks.size()) {
+            tasks.get(i - 1).uncomplete();
+        }
         //may want to add error handling for invalid indexes here
     }
     public String getTask(int i) {
-        if (i <= tasks.size()) return tasks.get(i-1).toString();
-        else return "";
+        if (i <= tasks.size()) {
+            return tasks.get(i - 1).toString();
+        }
+        else {
+            return "";
+        }
     }
     public void printTasks() {
         for (int i = 0; i < tasks.size(); i++) {

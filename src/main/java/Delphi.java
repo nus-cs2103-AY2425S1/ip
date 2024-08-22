@@ -10,7 +10,9 @@ public class Delphi {
 
         while (true) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) break;
+            if (input.equals("bye")) {
+                break;
+            }
             if (Parser.checkStringPrefix(input, 4, "mark")) {
                 t.markTaskAsDone(Integer.parseInt(String.valueOf(input.charAt(5))));
                 System.out.println("    Nice! I've marked this task as done:");
@@ -20,7 +22,6 @@ public class Delphi {
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("      " + t.getTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
             } else if (Parser.checkStringPrefix(input, 6, "delete")) {
-                //t.removeTask(Integer.parseInt(String.valueOf(input.charAt(7))));
                 System.out.println("    Noted. I've removed this task:");
                 System.out.println("      " + t.removeTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
                 System.out.println("    Now you have " + t.getSize() + " tasks in the list");
