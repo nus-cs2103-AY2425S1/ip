@@ -61,6 +61,9 @@ public class MonoBot {
                         break;
 
                     case MARK:
+                        if (task.length != 2 || task[1].trim().isEmpty()) {
+                            throw new MonoBotException("Please specify which task to mark");
+                        }
                         int indexToMark = Integer.parseInt(task[1]) - 1;
                         if (MonoBot.taskList.get(indexToMark).getIsDone()) {
                             throw new MonoBotException("Task has already been marked as completed");
@@ -69,11 +72,22 @@ public class MonoBot {
                         break;
 
                     case UNMARK:
+                        if (task.length != 2 || task[1].trim().isEmpty()) {
+                            throw new MonoBotException("Please specify which task to unmark");
+                        }
                         int indexToUnmark = Integer.parseInt(task[1]) - 1;
                         if (!MonoBot.taskList.get(indexToUnmark).getIsDone()) {
                             throw new MonoBotException("Task was not marked as completed");
                         }
                         MonoBot.unmarkTask(indexToUnmark);
+                        break;
+
+                    case DELETE:
+                        if (task.length != 2 || task[1].trim().isEmpty()) {
+                            throw new MonoBotException("Please specify which task to delete");
+                        }
+                        int indexToDelete = Integer.parseInt(task[1]) - 1;
+                        MonoBot.deleteTask(indexToDelete);
                         break;
 
                     case INVALID:
@@ -101,6 +115,10 @@ public class MonoBot {
                     System.out.println("No tasks added yet");
                 }
                 MonoBot.hLine();
+            } catch (NumberFormatException e) {
+                MonoBot.hLine();
+                System.out.println("You are expected to provide a number after the command");
+                MonoBot.hLine();
             }
         }
         MonoBot.printFarewell();
@@ -112,14 +130,14 @@ public class MonoBot {
 
     private static void printGreeting() {
         MonoBot.hLine();
-        System.out.println(" Hello! I'm MonoBot");
-        System.out.println(" What can I do for you?");
+        System.out.println("Hello! I'm MonoBot");
+        System.out.println("What can I do for you?");
         MonoBot.hLine();
     }
 
     private static void printFarewell() {
         MonoBot.hLine();
-        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");
         MonoBot.hLine();
     }
 
@@ -132,6 +150,7 @@ public class MonoBot {
             case "todo" -> Command.TODO;
             case "deadline" -> Command.DEADLINE;
             case "event" -> Command.EVENT;
+            case "delete" -> Command.DELETE;
             case "bye" -> Command.BYE;
             default -> Command.INVALID;
         };
@@ -141,6 +160,15 @@ public class MonoBot {
         MonoBot.taskList.add(task);
         MonoBot.hLine();
         System.out.println("Added: " + task);
+        System.out.println("Now you have " + MonoBot.taskList.size() + " task(s) in the list");
+        MonoBot.hLine();
+    }
+
+    private static void deleteTask(int i) {
+        MonoBot.hLine();
+        Task taskToDelete = MonoBot.taskList.get(i);
+        MonoBot.taskList.remove(i);
+        System.out.println("Noted! I have removed this task:\n" + taskToDelete);
         System.out.println("Now you have " + MonoBot.taskList.size() + " task(s) in the list");
         MonoBot.hLine();
     }
