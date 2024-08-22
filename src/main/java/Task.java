@@ -1,9 +1,14 @@
 public abstract class Task {
+
+    public enum TaskType{
+        TODO, DEADLINE, EVENT
+    }
     protected String description;
     protected boolean isDone;
+    protected TaskType taskType;
 
 
-    public Task(String description) {
+    public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
     }

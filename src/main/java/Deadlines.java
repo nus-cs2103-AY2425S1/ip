@@ -1,7 +1,9 @@
 public class Deadlines extends Task{
+    protected String deadline;
 
     public Deadlines(String description, String deadline) {
-        super(description + " (by: " + deadline + ")");
+        super(description + " (by: " + deadline + ")", TaskType.DEADLINE);
+        this.deadline = deadline;
     }
 
     @Override
