@@ -81,8 +81,12 @@ public class UI {
     }
 
     private boolean isTaskCommand(String command) {
-        String[] taskTypes = {"todo", "deadline", "event"};
-        return Arrays.stream(taskTypes).anyMatch(command::startsWith);
+        try {
+            TaskType.valueOf(command.split(" ")[0].toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     private void handleTaskCommand(String command) {
