@@ -52,13 +52,47 @@ public class Froggy {
                     System.out.println("Invalid index");
                     System.out.println(line);
                 }
-            }
-            else {
-                Task current = new Task(input);
-                tasks.add(current);
-                System.out.println("Added this task:");
-                System.out.println(current.toString());
-                System.out.println(line);
+            } else {
+                //Handle Task input
+                if (input.toLowerCase().startsWith("todo ")) {
+                    String desc = input.substring(5);
+                    Todo current = new Todo(desc);
+                    tasks.add(current);
+                    System.out.println("Added this task:");
+                    System.out.println(current.toString());
+                    System.out.println(line);
+                } else if (input.toLowerCase().startsWith("deadline ")) {
+                    int index = input.toLowerCase().indexOf("/by ");
+                    if (index != -1) {
+                        String desc = input.substring(9,index - 1);
+                        String by = input.substring(index + 4);
+                        Deadline current = new Deadline(desc, by);
+                        tasks.add(current);
+                        System.out.println("Added this task:");
+                        System.out.println(current.toString());
+                        System.out.println(line);
+                    }
+                } else if (input.toLowerCase().startsWith("event ")) {
+                    int index = input.toLowerCase().indexOf("/from ");
+                    int index2 = input.toLowerCase().indexOf("/to ");
+                    if (index != -1) {
+                        String desc = input.substring(9, index - 1);
+                        String from = input.substring(index + 6, index2 - 1);
+                        String to = input.substring(index2 + 4);
+                        Event current = new Event(desc, from, to);
+                        tasks.add(current);
+                        System.out.println("Added this task:");
+                        System.out.println(current.toString());
+                        System.out.println(line);
+                    }
+                }
+                else {
+                    Task current = new Task(input);
+                    tasks.add(current);
+                    System.out.println("Added this task:");
+                    System.out.println(current.toString());
+                    System.out.println(line);
+                }
             }
         }
 
