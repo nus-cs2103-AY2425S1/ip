@@ -8,16 +8,13 @@ public class Susan {
 
         // Prepare User Input
         Scanner scanner = new Scanner(System.in);
-        String userInput = "";
+        String userInput = scanner.nextLine();
 
         // Initialise Task Arraylist
         List<Task> tasks = new ArrayList<>();
 
         // Add, List
         while (!userInput.equalsIgnoreCase("bye")) {
-            // Read next input
-            userInput = scanner.nextLine();
-
             // Print the list
             if (userInput.equalsIgnoreCase("list")) {
                 System.out.println("Babes. YOU NEED TO");
@@ -38,6 +35,14 @@ public class Susan {
                 tasks.get(n - 1).undoMark();
                 System.out.println("OK. This task is not done yet:");
                 System.out.println(tasks.get(n - 1));
+            }
+            // Delete
+            else if (userInput.startsWith("delete")) {
+                int n = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
+                Task deletedTask = tasks.get(n - 1);
+                tasks.remove(n - 1);
+                System.out.println("OK. This task has been removed:");
+                System.out.println(deletedTask);
             }
             // Add Task to list
             else {
@@ -66,6 +71,8 @@ public class Susan {
                 else {
                     System.out.println("You cry a lot and you are not productive! " +
                             "I do not have this command :-(");
+                    // Skip to next input
+                    userInput = scanner.nextLine();
                     continue;
                 }
                 // Test for Validity (Naive)
@@ -79,6 +86,9 @@ public class Susan {
                     System.out.println("You have " + tasks.size() + " tasks in the list.");
                 }
             }
+
+            // Read next input
+            userInput = scanner.nextLine();
         }
         // Exit
         System.out.println("Good bye, slay the day!");
