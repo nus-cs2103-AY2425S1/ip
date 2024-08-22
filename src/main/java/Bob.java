@@ -21,38 +21,74 @@ public class Bob {
         Scanner scanner = new Scanner(System.in);
         List<Task> myTasks = new ArrayList<>();
         while (true) {
-            String input = scanner.nextLine();
+            String input = scanner.next();
+            System.out.print(DIVIDER);
             switch (input.split(" ")[0]) {
                 case "bye":
-                    System.out.print(DIVIDER);
                     return;
                 case "list":
-                    System.out.print(DIVIDER);
-                    System.out.println(" Here are the tasks in your list:");
-                    for (int i = 1; i < myTasks.size() + 1; i++) {
-                        System.out.print(" " + i + "." + myTasks.get(i-1) + "\n");
-                    }
-                    System.out.print(DIVIDER);
+                    listTasks(myTasks);
                     break;
                 case "mark":
-                    myTasks.get(Integer.parseInt(input.split(" ")[1]) - 1).mark();
-                    System.out.print(DIVIDER);
-                    System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println(" " + myTasks.get(Integer.parseInt(input.split(" ")[1]) - 1));
-                    System.out.print(DIVIDER);
+                    markTask(myTasks.get(scanner.nextInt() - 1));
                     break;
                 case "unmark":
-                    myTasks.get(Integer.parseInt(input.split(" ")[1]) - 1).unmark();
-                    System.out.print(DIVIDER);
-                    System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println(" " + myTasks.get(Integer.parseInt(input.split(" ")[1]) - 1));
-                    System.out.print(DIVIDER);
+                    unmarkTask(myTasks.get(scanner.nextInt() - 1));
+                    break;
+                case "todo":
+                    myTasks.add(newToDo(scanner.nextLine()));
+                    System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
+                    break;
+                case "deadline":
+                    myTasks.add(newDeadline(scanner.nextLine()));
+                    System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
+                    break;
+                case "event":
+                    myTasks.add(newEvent(scanner.nextLine()));
+                    System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
                     break;
                 default:
-                    myTasks.add(new Task(input));
-                    System.out.print(DIVIDER + " added: " + input + "\n" + DIVIDER);
-
+                    System.out.print("Please enter a valid command\n");
             }
+            System.out.print(DIVIDER);
+        }
+    }
+
+    public static Task printAddTask(Task task) {
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("\t" + task);
+        return task;
+    }
+    public static Task newToDo(String input) {
+        return printAddTask(new ToDos(input));
+    }
+
+    public static Task newDeadline(String input) {
+        String[] inputs = input.split("/by");
+        return printAddTask(new Deadlines(inputs[0], inputs[1]));
+    }
+
+    public static Task newEvent(String input) {
+        String[] inputs = input.split("/from");
+        String[] dates = inputs[1].split("/to");
+        return printAddTask(new EventTask(inputs[0], dates[0], dates[1]));
+    }
+
+    public static void markTask(Task task) {
+        task.mark();
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(" " + task);
+    }
+    public static void unmarkTask(Task task) {
+        task.unmark();
+        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println(" " + task);
+    }
+
+    public static void listTasks(List<Task> myTasks) {
+        System.out.println(" Here are the tasks in your list:");
+        for (int i = 1; i < myTasks.size() + 1; i++) {
+            System.out.print(" " + i + "." + myTasks.get(i-1) + "\n");
         }
     }
 }

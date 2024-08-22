@@ -1,8 +1,8 @@
-public class Task {
-    private String taskName;
+public abstract class Task {
+    private final String taskName;
     private boolean status;
     public Task(String taskName) {
-        this.taskName = taskName;
+        this.taskName = taskName.trim();
         this.status = false;
     }
 
