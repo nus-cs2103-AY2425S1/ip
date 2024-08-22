@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.lang.StringBuilder;
+
 public class Dudu {
     public static void main(String[] args) {
         String welcomeMessage = LineWrapper.wrap("Hello! I'm dudu\n"
@@ -11,9 +12,10 @@ public class Dudu {
         Scanner sc = new Scanner(System.in);
         Task[] tasks = new Task[100];
         int count = 0;
+
         while (sc.hasNextLine()) {
-            String message = sc.nextLine();
-            if (message.equals("list")) {
+            String input = sc.nextLine();
+            if (input.equals("list")) {
                 if (count == 0) {
                     System.out.println(LineWrapper.wrap("No tasks"));
                 } else {
@@ -23,25 +25,24 @@ public class Dudu {
                     }
                     System.out.println(LineWrapper.wrap(output.toString()));
                 }
-            } else if (message.equals("bye")) {
+            } else if (input.equals("bye")) {
                 break;
-            } else if (message.matches("mark \\d")) {
-                int pos = Integer.parseInt(message.replaceAll("\\D+","")) - 1;
-                tasks[pos].marked = true;
-                String output = LineWrapper.wrap("Nice! I've marked this task as done:\n"
-                                                + "    " + tasks[pos]);
+            } else if (input.matches("mark \\d")) {
+                int pos = Integer.parseInt(input.replaceAll("\\D+","")) - 1;
+                tasks[pos].markCompleted();
+                String output = LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", tasks[pos]));
                 System.out.println(output);
-            } else if (message.matches("unmark \\d")){
-                int pos = Integer.parseInt(message.replaceAll("\\D+","")) - 1;
-                tasks[pos].marked = false;
-                String output = LineWrapper.wrap("OK, I've marked this task as not done yet:\n"
-                                                + "    " + tasks[pos]);
+            } else if (input.matches("unmark \\d")){
+                int pos = Integer.parseInt(input.replaceAll("\\D+","")) - 1;
+                tasks[pos].markUncompleted();
+                String output = LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", tasks[pos]));
                 System.out.println(output);
             } else {
-                Task task = new Task(message);
+                Task task = new Task(input);
                 tasks[count] = task;
                 count++;
-                System.out.println(LineWrapper.wrap("added: " + message));
+                String output = LineWrapper.wrap(String.format("added: %s", input));
+                System.out.println(output);
             }
         }
 
