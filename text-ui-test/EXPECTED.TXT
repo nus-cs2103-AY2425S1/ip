@@ -14,22 +14,22 @@ ____________________________________________________________
 ____________________________________________________________
 Understood. I've added the following task:
   [T][ ] item 1
-You now have 1 tasks in total.
+You now have 1 task(s) in total.
 ____________________________________________________________
 Understood. I've added the following task:
   [D][ ] item 2 (by: today)
-You now have 2 tasks in total.
+You now have 2 task(s) in total.
 ____________________________________________________________
 Understood. I've added the following task:
   [E][ ] item 3 (from: Mon 2pm to: 4pm)
-You now have 3 tasks in total.
+You now have 3 task(s) in total.
 ____________________________________________________________
 Wow! Congrats on finishing another task!
 I've marked this task as done:
 [D][X] item 2 (by: today)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here are the task(s) in your list:
 1. [T][ ] item 1
 2. [D][X] item 2 (by: today)
 3. [E][ ] item 3 (from: Mon 2pm to: 4pm)
@@ -40,7 +40,7 @@ I've marked this task as undone:
 [D][ ] item 2 (by: today)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here are the task(s) in your list:
 1. [T][ ] item 1
 2. [D][ ] item 2 (by: today)
 3. [E][ ] item 3 (from: Mon 2pm to: 4pm)

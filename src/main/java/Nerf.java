@@ -30,7 +30,7 @@ public class Nerf {
         System.out.println(String.format("You now have %d task(s) in total.",listings.size()));
     }
     private static void printList(){
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here are the task(s) in your list:");
         for (int i = 0; i < listings.size();i++){
             System.out.println(String.format("%d. %s",i+1,listings.get(i)));
         }
