@@ -16,6 +16,8 @@ public class ChoaticBot {
         String lines = "____________________________________________________________\n";
         System.out.println(welcomeMsg);
         Scanner scanner = new Scanner(System.in);
+        String[] taskList = new String[100];
+        int numberOfTasks = 0;
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -24,7 +26,19 @@ public class ChoaticBot {
                 break;
             }
 
-            System.out.println(lines + userInput + "\n" + lines);
+            // Listing out list
+            if (Objects.equals(userInput, "list")) {
+                System.out.println(lines);
+                for (int i = 0; i < numberOfTasks; i++) {
+                    System.out.println( (i + 1) + ". " + taskList[i]);
+                }
+                System.out.println(lines);
+            } else {
+                //Adding task to task list
+                taskList[numberOfTasks] = userInput;
+                numberOfTasks++;
+                System.out.println(lines + "added: " + userInput + "\n" + lines);
+            }
         }
     }
 }
