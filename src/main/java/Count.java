@@ -3,10 +3,12 @@ import java.util.*;
 public class Count {
     private ArrayList<Task> ls;
     private boolean on;
+    private Scanner sc;
 
     public Count() {
         this.ls = new ArrayList<>();
         this.on = true;
+        this.sc = new Scanner(System.in);
     }
     private void reply(String output) {
         String spacer = "\n____________________________________________________________\n";
@@ -18,7 +20,26 @@ public class Count {
 
     private void farewell() {
         this.on = false;
+        this.sc.close();
         reply("Bye. Hope to see you again soon!");
+    }
+
+    private void start() {
+        this.greet();
+
+        while (this.on) {
+            String command = sc.nextLine();
+            multiwordLogic(command);
+        }
+    }
+
+    private void multiwordLogic(String commandFull) {
+        // If more than 1 word, send parser the full command and the first word
+        if (commandFull.indexOf(" ") > -1) {
+            this.parser(commandFull, commandFull.substring(0, commandFull.indexOf(" ")).trim());
+        } else {
+            this.parser(commandFull);
+        }
     }
 
     private void helpTutorial() {
@@ -123,7 +144,7 @@ public class Count {
                 case "event":
                     String commandSplitE[] = rest.split(" /from ", 2);
                     String startEndTime[] = commandSplitE[1].split(" /to ", 2);
-                    addTask(new Events(commandSplitE[0], startEndTime[0], startEndTime[1]));
+                    addTask(new Events(commandSplitE[0], startEndTime[1], startEndTime[0]));
                     break;
                 default:
                     reply("I'm sorry, I did not understand that, could you say that again?");
@@ -137,19 +158,6 @@ public class Count {
 
     public static void main(String[] args) {
         Count c = new Count();
-        Scanner sc = new Scanner(System.in);
-        c.greet();
-
-        while (c.on) {
-            String command = sc.nextLine();
-
-            // If there is more than 1 word,
-            if (command.indexOf(" ") > -1) {
-                c.parser(command, command.substring(0, command.indexOf(" ")).trim());
-            } else {
-                c.parser(command);
-            }
-        }
-
+        c.start();
     }
 }
