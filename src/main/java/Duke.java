@@ -12,10 +12,10 @@ public class Duke {
     }
 
     private void greet() {
-        Boolean endChat = false;
+        boolean endChat = false;
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm " + name + " aka ChatGPT on Crack!\nWhat assistance are you in need of today?");
-        while (!endChat) {
-            Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             String commandLowerCase = command.toLowerCase();
             String[] parts = command.split(" ");
@@ -84,6 +84,7 @@ public class Duke {
 
             } else {
                 System.out.println("added " + command);
+
             }
         }
 
@@ -92,7 +93,6 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke MrDuke = new Duke();
-        MrDuke.exit();
         MrDuke.greet();
 
     }
