@@ -7,7 +7,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public static Task of(String text) throws InvalidInputException, ArgumentMissingException, EmptyDescriptionException{
+    public static Task of(String text) throws InvalidInputException, ArgumentMissingException, EmptyDescriptionException {
         String action = text.split(" ")[0];
         return switch (action) {
             case "todo" -> new Todo(Task.getDescription(text));
