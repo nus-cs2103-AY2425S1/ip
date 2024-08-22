@@ -1,8 +1,9 @@
 todo read book
-deadline submit report /by 11/10/2019 5pm
-event team project meeting /from 2/10/2019 2pm /to 4pm
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
 list
-mark 1
-unmark 1
+mark 2
+unmark 2
+delete 3
 list
 bye
