@@ -20,6 +20,7 @@ public class Donk {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
             String[] inputArray = userInput.split("\\s+");
+            String command = inputArray[0];
             if (userInput.isBlank()) {
                 continue;
             } else if (userInput.equals("bye")) {
@@ -39,9 +40,35 @@ public class Donk {
                 System.out.println("    Aights now it's unmarked again");
                 tasks.get(index).unmarkDone();
                 System.out.println("    " + tasks.get(index).toString());
-            } else {
-                tasks.add(new Task(userInput));
-                System.out.println("    added: " + userInput);
+            } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+
+                Task t;
+                if (inputArray[0].equals("todo")) {
+                    t = new ToDo(userInput.substring(5));
+                    tasks.add(t);
+                } else if (inputArray[0].equals("deadline")) {
+                    String[] split = userInput.split("/by");
+                    if (split.length < 2) {
+                        System.out.println("invalid format, require /by");
+                    }
+                    String bef = split[0].substring(9);
+                    String aft = split[1];
+                    t = new Deadline(bef, aft);
+                    tasks.add(t);
+
+                } else {
+                    String[] split1 = userInput.split("/start");
+                    String[] split2 = split1[1].split("/end");
+                    String start = split2[0];
+                    String end = split2[1];
+                    String description = split1[0].substring(6);
+                    t = new Event(description, start, end);
+                    tasks.add(t);
+
+                }
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("        " + t.toString());
+                System.out.println("    You now have " + tasks.size() + " tasks");
             }
         }
 
