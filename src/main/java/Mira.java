@@ -41,6 +41,10 @@ public class Mira {
                         int index = Integer.parseInt(arguments);
                         this.tasks.unmarkTask(index);
                     }
+                    case "delete" -> {
+                        int index = Integer.parseInt(arguments);
+                        this.tasks.deleteTask(index);
+                    }
                     case "todo" -> this.tasks.addTask(new Todo(arguments));
                     case "deadline" -> {
                         String[] deadlineParts = arguments.split("/by", 2);
@@ -65,8 +69,10 @@ public class Mira {
                 }
             } catch (MiraException e) {
                 this.ui.showMessage(e.getMessage());
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 this.ui.showMessage("Please provide a valid task number.");
+            } catch (Exception e) {
+                this.ui.showMessage("Error: " + e.getMessage());
             }
         }
     }

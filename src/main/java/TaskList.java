@@ -1,9 +1,10 @@
+import java.util.ArrayList;
+
 /**
  * TaskList handles adding and listing of tasks.
  */
 public class TaskList {
-    private final Task[] tasks; // Array to store tasks
-    private int taskCount;        // Number of tasks added
+    private final ArrayList<Task> tasks; // Array to store tasks
     private final UI ui;          // UI for handling user interface interactions
 
     /**
@@ -12,8 +13,7 @@ public class TaskList {
      * @param ui UI class object needed for user interface interactions.
      */
     public TaskList(UI ui) {
-        this.tasks = new Task[100];
-        this.taskCount = 0;
+        this.tasks = new ArrayList<>();
         this.ui = ui;
     }
 
@@ -22,15 +22,21 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) throws MiraException {
-        if (taskCount < tasks.length) {
-            tasks[taskCount] = task;
-            taskCount++;
-            this.ui.showMessage("Got it. I've added this task:\n  " + task +
-                    "\nNow you have " + taskCount + " tasks in the list.");
-        } else {
-            throw new MiraException("Task list is full. Cannot add more tasks.");
-        }
+    public void addTask(Task task) {
+        tasks.add(task);
+        this.ui.showMessage("Got it. I've added this task:\n  " + task +
+                "\nNow you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * Deletes a task from the list by its index.
+     *
+     * @param index The index of the task to delete (1-based).
+     */
+    public void deleteTask(int index) {
+        Task removedTask = tasks.remove(index - 1);
+        this.ui.showMessage("Noted. I've removed this task:\n  " + removedTask +
+                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -38,9 +44,9 @@ public class TaskList {
      */
     public void listTasks() {
         StringBuilder tasksList = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < taskCount; i++) {
-            tasksList.append((i + 1)).append(". ").append(tasks[i]);
-            if (i < taskCount - 1) {
+        for (int i = 0; i < tasks.size(); i++) {
+            tasksList.append((i + 1)).append(". ").append(tasks.get(i));
+            if (i < tasks.size() - 1) {
                 tasksList.append("\n"); // Add newline only if it is not the last task
             }
         }
@@ -52,13 +58,9 @@ public class TaskList {
      *
      * @param index The index of the task to mark as done (1-based index).
      */
-    public void markTask(int index) throws MiraException {
-        if (index <= 0 || index > taskCount) {
-            throw new MiraException("Invalid task number.");
-        }
-
-        tasks[index - 1].setStatus(true);
-        this.ui.showMessage("Nice! I've marked this task as done:\n  " + tasks[index - 1]);
+    public void markTask(int index) {
+        tasks.get(index - 1).setStatus(true);
+        this.ui.showMessage("Nice! I've marked this task as done:\n  " + tasks.get(index - 1));
     }
 
     /**
@@ -66,12 +68,8 @@ public class TaskList {
      *
      * @param index The index of the task to unmark (1-based index).
      */
-    public void unmarkTask(int index) throws MiraException {
-        if (index <= 0 || index > taskCount) {
-            throw new MiraException("Invalid task number.");
-        }
-
-        tasks[index - 1].setStatus(false);
-        this.ui.showMessage("OK, I've marked this task as not done yet:\n  " + tasks[index - 1]);
+    public void unmarkTask(int index) {
+        tasks.get(index - 1).setStatus(false);
+        this.ui.showMessage("OK, I've marked this task as not done yet:\n  " + tasks.get(index - 1));
     }
 }
