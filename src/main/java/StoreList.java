@@ -13,9 +13,10 @@ public class StoreList {
     }
 
     /**
-     * Adds item to list
+     * Adds appropriate task to list
      *
      * @param item task to be added.
+     * @param type tasktype to be created and stores.
      */
     public void addItem(String item, String type) {
 

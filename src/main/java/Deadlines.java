@@ -7,6 +7,7 @@ public class Deadlines extends Task{
 
     @Override
     public String print() {
+        //splits string to get the due date
         String[] parts = super.print().split(" /by ");
         return "[D]" + parts[0] + " (by: " + parts[1] + ")";
     }

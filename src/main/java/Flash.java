@@ -46,18 +46,21 @@ public class Flash {
                 userInput = scanner.nextLine();
             }
 
+            //if user inputs to do, add item of type to do
             else if (words[0].equals("todo")) {
                 System.out.println(line);
                 storeList.addItem(userInput.substring(4), "todo");
                 System.out.println(line);
                 userInput = scanner.nextLine();
 
+            //if user inputs deadline, add item of type deadline
             } else if (words[0].equals("deadline")) {
                 System.out.println(line);
                 storeList.addItem(userInput.substring(8), "deadline");
                 System.out.println(line);
                 userInput = scanner.nextLine();
 
+                //if user inputs event, add item of type event
             } else {
                 System.out.println(line);
                 storeList.addItem(userInput.substring(5), "event");
@@ -67,7 +70,6 @@ public class Flash {
         }
 
         //is user inputs bye, exit
-        System.out.println(line);
         System.out.println("    Bye. Hope to see ya again soon!");
         System.out.println(line);
         scanner.close();
