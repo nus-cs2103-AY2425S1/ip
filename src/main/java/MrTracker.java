@@ -90,7 +90,20 @@ public class MrTracker {
     }
 
     public static void addEvent (ArrayList<Task> taskList, String arg) {
-
+        if (arg.contains("/from ") && arg.contains("/to ")) {
+            int fromIndex = arg.indexOf("/from ");
+            int toIndex = arg.indexOf("/to ");
+            String taskName = arg.substring(0, fromIndex);
+            String fromDate = arg.substring(fromIndex + 6, toIndex);
+            String toDate = arg.substring(toIndex + 4);
+            Task newEvent = new Event(taskName, fromDate, toDate);
+            taskList.add(newEvent);
+            System.out.println("I have added the task " + newEvent.toString());
+            System.out.println("You now have " + taskList.size() + " tasks");
+            return;
+        } else {
+            //throw error?
+        }
     }
 
 
