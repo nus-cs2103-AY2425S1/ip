@@ -1,14 +1,23 @@
 package tasks;
 
 public class Task {
-    private String description;
+    private final String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
     }
 
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    public void unmarkAsDone() {
+        isDone = false;
+    }
+
     @Override
     public String toString() {
-        return description;
+        return (isDone ? "[X] " : "[ ] ") + description;
     }
 }

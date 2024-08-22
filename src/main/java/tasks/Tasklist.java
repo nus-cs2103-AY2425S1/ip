@@ -2,7 +2,7 @@ package tasks;
 import java.util.ArrayList;
 
 public class Tasklist {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
     
     public Tasklist() {
         this.taskList = new ArrayList<>();
@@ -10,6 +10,18 @@ public class Tasklist {
 
     public void addTask(Task task) {
         taskList.add(task);
+    }
+
+    public void markAsDone(int index) {
+        taskList.get(index).markAsDone();
+    }
+
+    public void markAsUndone(int index) {
+        taskList.get(index).unmarkAsDone();
+    }
+
+    public Task getTask(int index) {
+        return taskList.get(index);
     }
 
     @Override
