@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -15,8 +15,8 @@ public class Task {
         return this.description;
     }
 
-    public String getTaskString(int position) {
-        return String.format("%d. [%s] %s", position, this.getStatusIcon(), this.getDescription());
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
     }
 
     public void mark() {
@@ -26,6 +26,4 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
-
-    //...
 }
