@@ -2,3 +2,62 @@ __________________________________
 Hello! I'm Lict
 What can I do for you?
 __________________________________
+__________________________________
+Got it. I've added this task:
+    [T][ ] buy groceries
+Now you have 1 in the list.
+__________________________________
+__________________________________
+Got it. I've added this task:
+    [D][ ] finish assignment (by: tomorrow)
+Now you have 2 in the list.
+__________________________________
+__________________________________
+Got it. I've added this task:
+    [E][ ] project meeting (from: 2pm to: 4pm)
+Now you have 3 in the list.
+__________________________________
+__________________________________
+Here are the tasks in your list:
+1.[T][ ] buy groceries
+2.[D][ ] finish assignment (by: tomorrow)
+3.[E][ ] project meeting (from: 2pm to: 4pm)
+__________________________________
+__________________________________
+Nice! I've marked this task as done:
+    [T][X] buy groceries
+__________________________________
+__________________________________
+OK, I've marked this task as not done yet:
+    [T][ ] buy groceries
+__________________________________
+__________________________________
+Noted. I've removed this task:
+    [D][ ] finish assignment (by: tomorrow)
+Now you have 2 tasks in the list.
+__________________________________
+__________________________________
+Here are the tasks in your list:
+1.[T][ ] buy groceries
+2.[E][ ] project meeting (from: 2pm to: 4pm)
+__________________________________
+__________________________________
+Got it. I've added this task:
+    [T][ ] clean the house
+Now you have 3 in the list.
+__________________________________
+__________________________________
+Got it. I've added this task:
+    [E][ ] friend's wedding (from: 10am to: 1pm)
+Now you have 4 in the list.
+__________________________________
+__________________________________
+Here are the tasks in your list:
+1.[T][ ] buy groceries
+2.[E][ ] project meeting (from: 2pm to: 4pm)
+3.[T][ ] clean the house
+4.[E][ ] friend's wedding (from: 10am to: 1pm)
+__________________________________
+__________________________________
+Bye. Hope to see you again soon!
+__________________________________
