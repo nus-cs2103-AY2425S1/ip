@@ -1,21 +1,22 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Primo {
     private static final Scanner scanner = new Scanner(System.in);
     private static boolean ended = false;
-    private static String[] list;
+    private static ArrayList<String> list = new ArrayList<>();
 
     private static void printList() {
-        int len = list.length;
+        int len = list.size();
         for (int i = 0; i < len; i++) {
-            String output = String.valueOf(i + 1) + " " + list[i] + "\n";
+            String output = String.valueOf(i + 1) + ": " + list.get(i);
             System.out.println(output);
         }
     }
 
     private static void sayBye() {
-        String byeMessage = "El Primo: " +
-                            "Bye. Hope to see you again soon!\n";
+        String byeMessage = "\nEl Primo: \n" +
+                            "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
         ended = true;
     }
@@ -23,22 +24,26 @@ public class Primo {
     public static void assessInput(String input) {
         if (input.equals("bye")) {
             sayBye();
+        } else if (input.equals("list")) {
+            System.out.println("\nEl Primo: ");
+            printList();
         } else {
-            String output = "El Primo: " + input + "\n";
+            list.add(input);
+            String output = "\nEl Primo: \n" + "Added: " + input;
             System.out.println(output);
         }
     }
     public static void readInput() {
-        System.out.println("Me: ");
+        System.out.println("\nMe: ");
         String input = scanner.nextLine();
         assessInput(input);
     }
 
     public static void main(String[] args) {
         System.out.println("""
-                El Primo: Hello! I'm El Primo!!
-                El Primo: What can I do for you?
-                """);
+                El Primo:
+                Hello! I'm El Primo!!
+                What can I do for you?""");
 
         while (!ended) {
             readInput();
