@@ -18,4 +18,16 @@ public class TaskList {
         size++;
         System.out.println("added: " + item);
     }
+
+    public void markItem(int index) {
+        listItems[index].markAsCompleted();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(listItems[index]);
+    }
+
+    public void unMarkItem(int index) {
+        listItems[index].markAsUncompleted();
+        System.out.println("Ok, I've marked this task as not done yet:");
+        System.out.println(listItems[index]);
+    }
 }

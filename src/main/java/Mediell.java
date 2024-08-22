@@ -12,11 +12,17 @@ public class Mediell {
         TaskList items = new TaskList();
         while (true) {
             System.out.println("");
-            message = scanner.next();
-            if (Objects.equals(message, "list")) {
-                items.displayList();
-            } else if (Objects.equals(message, "bye")) {
+            message = scanner.nextLine();
+            if (Objects.equals(message, "bye")) {
                 break;
+            } else if (Objects.equals(message, "list")) {
+                items.displayList();
+            } else if (message.startsWith("mark")) {
+                int index = Integer.parseInt(message.split("\\s")[1]) - 1;
+                items.markItem(index);
+            } else if (message.startsWith("unmark")) {
+                int index = Integer.parseInt(message.split("\\s")[1]) - 1;
+                items.unMarkItem(index);
             } else {
                 items.addItem(message);
             }
