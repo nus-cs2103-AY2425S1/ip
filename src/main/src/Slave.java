@@ -59,9 +59,14 @@ public class Slave {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         echo(input);
-        String[] inputArr = input.split(" ");
-        inputArr[0] = inputArr[0].toLowerCase();
-        switch (inputArr[0]) {
+        Scanner inputScanner = new Scanner(input);
+        String command = inputScanner.next();
+        String body = "";
+        if (inputScanner.hasNextLine()) {
+            body = inputScanner.nextLine().substring(1);
+        }
+        inputScanner.close();
+        switch (command) {
             case "bye":
                 hasMoreInputs = false;
                 break;
@@ -69,13 +74,22 @@ public class Slave {
                 listItems();
                 break;
             case "mark":
-                markAsDone(Integer.parseInt(inputArr[1]));
+                markAsDone(body);
                 break;
             case "unmark":
-                markAsIncomplete(Integer.parseInt(inputArr[1]));
+                markAsIncomplete(body);
+                break;
+            case "todo":
+                addToList(0, body);
+                break;
+            case "deadline":
+                addToList(1, body);
+                break;
+            case "event":
+                addToList(2, body);
                 break;
             default:
-                addToList(input);
+                System.out.println("You're spouting gibberish...");
                 break;
         }
         pageBreakLine();
@@ -86,6 +100,10 @@ public class Slave {
      */
     private static void listItems() {
         System.out.println("Can you not even remember the things you need to do? That should be your job, not mine!");
+        if (list.isEmpty()) {
+            System.out.println("You don't have anything on your list, and you can't even remember that?");
+            return;
+        }
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + "." + list.get(i).toString());
         }
@@ -96,24 +114,87 @@ public class Slave {
      *
      * @param s is te item to be added
      */
-    private static void addToList(String s) {
-        System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
-        list.add(new Task(s));
-        System.out.println("added: " + s);
+    private static void addToList(int i, String s) {
+        /*
+        0 - Todo
+        1 - Deadline
+        2 - Event
+         */
+        boolean insert = true;
+        try {
+            switch (i) {
+                case 0:
+                    // todo
+                    if (s.isEmpty()) {
+                        throw new InvalidTaskFormatException("No task descriptor");
+                    }
+                    list.add(new Todo(s));
+                    break;
+                case 1:
+                    // deadline
+                    String[] arr = s.split(" /by ");
+                    if (arr.length == 1) {
+                        throw new InvalidTaskFormatException("Error with input string format");
+                    }
+                    list.add(new Deadline(arr[0], arr[1]));
+                    break;
+                case 2:
+                    // event
+                    String[] eventArr = s.split(" /from ");
+                    if (eventArr.length == 1) {
+                        throw new InvalidTaskFormatException("Error with input string format");
+                    }
+                    String[] startEndDate = eventArr[1].split(" /to ");
+                    list.add(new Event(eventArr[0], startEndDate[0], startEndDate[1]));
+                    break;
+                default:
+                    System.out.println("invalid Task code");
+                    insert = false;
+                    break;
+            }
+        } catch (InvalidTaskFormatException e) {
+            System.out.println("Can you not even tell me all the details for your event? Do you even want my help?");
+            insert = false;
+        } finally {
+            if (insert) {
+                System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
+                System.out.println("added: " + list.get(list.size() - 1));
+            }
+        }
+
     }
 
-    private static void markAsDone(int i) {
-        Task t = list.get(i - 1);
-        t.completed();
-        System.out.println("Finally doing something useful with your life eh...");
-        System.out.println(t);
+    private static void markAsDone(String s) {
+        try {
+            int i = Integer.parseInt(s);
+
+            if (i < 1 || i > list.size()) {
+                System.out.println("You don't have a task number " + i);
+                return;
+            }
+            Task t = list.get(i - 1);
+            t.completed();
+            System.out.println("Finally doing something useful with your life eh...");
+            System.out.println(t);
+        } catch (NumberFormatException nfe) {
+            System.out.println("That's not a task number");
+        }
     }
 
-    private static void markAsIncomplete(int i) {
-        Task t = list.get(i - 1);
-        t.incomplete();
-        System.out.println("Slacking off now, are you?");
-        System.out.println(t);
+    private static void markAsIncomplete(String s) {
+        try {
+            int i = Integer.parseInt(s);
+            if (i < 1 || i > list.size()) {
+                System.out.println("You don't have a task number " + i);
+                return;
+            }
+            Task t = list.get(i - 1);
+            t.incomplete();
+            System.out.println("Slacking off now, are you?");
+            System.out.println(t);
+        } catch (NumberFormatException nfe) {
+            System.out.println("That's not a task number");
+        }
     }
 
     /**
