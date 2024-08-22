@@ -12,7 +12,6 @@ public class KorolevUI {
             """;
     private final String end = "Bye. Hope to see you again soon!";
 
-
     private KorolevList repo = new KorolevList();
 
     public void run() {
