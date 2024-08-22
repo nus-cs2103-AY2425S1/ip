@@ -6,10 +6,8 @@ public class Gary {
         Scanner detector = new Scanner(System.in);
         List<Task> taskList = new ArrayList<>();
         String greeting = """
-                ────────────────────────────────────────────
                  Hello! I'm Gary
-                 What can I do for you?  
-                ──────────────────────────────────────────── 
+                 What can I do for you?
                 """;
         System.out.println(greeting);
 
@@ -73,7 +71,7 @@ public class Gary {
             if (userInput.startsWith("event ")) {
                 String[] division = userInput.substring(6).trim().split("/from");
                 String[] timeDivision = division[1].trim().split("/to");
-                Task event = new Event(division[0].trim(), timeDivision[0], timeDivision[1]);
+                Task event = new Event(division[0].trim(), timeDivision[0].trim(), timeDivision[1].trim());
                 taskList.add(event);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("\t" + event.toString());
