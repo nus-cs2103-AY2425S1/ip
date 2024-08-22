@@ -5,6 +5,7 @@ import Task.TaskList;
 import Task.Event;
 import exception.CitadelException;
 import exception.CitadelTaskNoInput;
+import ui.TextUI;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,10 +46,7 @@ public class handleEvent extends Command {
         } else {
             t = new Event(task, fromFormatted, toFormatted);
             this.tasks.add(t);
-
-            System.out.println("Got it! I have added: " + t);
-            System.out.println();
-            System.out.println("Now you have " + this.tasks.size() + " tasks in the list");
+            TextUI.printTask(t, tasks);
         }
     };
 }

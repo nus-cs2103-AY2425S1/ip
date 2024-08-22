@@ -4,6 +4,7 @@ import Task.Task;
 import Task.TaskList;
 import exception.CitadelInvalidArgException;
 import exception.CitadelException;
+import ui.TextUI;
 
 public class deleteTask extends Command {
     public deleteTask(String input, TaskList tasks) {
@@ -16,9 +17,7 @@ public class deleteTask extends Command {
             String[] words = input.split(" ");
             int index = Integer.parseInt(words[1]);
             Task t = tasks.remove(index - 1);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(t);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list");
+            TextUI.printDelete(tasks, t);
         } catch (IndexOutOfBoundsException e) {
             throw new CitadelInvalidArgException();
         }

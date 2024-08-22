@@ -3,7 +3,9 @@ package Commands;
 import Task.Task;
 import Task.ToDo;
 import Task.TaskList;
+import ui.TextUI;
 import exception.CitadelTaskNoInput;
+
 
 public class handleTodo extends Command {
     public handleTodo(String input, TaskList tasks) {
@@ -19,7 +21,6 @@ public class handleTodo extends Command {
         }
         t = new ToDo(todo);
         tasks.add(t);
-        System.out.println("Got it! I have added: " + t);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        TextUI.printTask(t, tasks);
     }
 }

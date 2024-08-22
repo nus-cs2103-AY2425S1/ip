@@ -5,6 +5,7 @@ import Task.TaskList;
 import Task.Deadline;
 import exception.CitadelTaskNoInput;
 import exception.CitadelException;
+import ui.TextUI;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,8 +33,6 @@ public class handleDeadline extends Command {
         LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         t = new Deadline(task, deadlineFormatted);
         this.tasks.add(t);
-        System.out.println("Got it! I have added: " + t);
-        System.out.println();
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        TextUI.printTask(t, tasks);
     }
 }
