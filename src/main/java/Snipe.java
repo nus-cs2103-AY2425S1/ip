@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 public class Snipe {
     private static final String NAME = "Snipe";
     private static final String LOGO
@@ -38,7 +41,8 @@ public class Snipe {
                 "unmark",
                 "todo",
                 "deadline",
-                "event"
+                "event",
+                "help"
         };
         for (String validInput : validInputs) {
             if (userInput.startsWith(validInput)) {
@@ -52,9 +56,22 @@ public class Snipe {
             if (isValidInput(userInput)) {
                 if (userInput.equalsIgnoreCase("list")) {
                     returnList();
+                } else if (userInput.equalsIgnoreCase("help")) {
+                    String filePath = "src/main/txt/helpinstructions.txt"; // Instructions manual
+                    try {
+                        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+                        printWithLines(content); // Print the instructions
+                    } catch (IOException e) {
+                        System.out.println("Error reading the file: " + e.getMessage());
+                    }
                 } else if (userInput.startsWith("mark")) {
                     String[] split = userInput.split(" ");
                     int index = Integer.valueOf(split[1]) - 1;
+                    if (index > list.size() - 1) {
+                        throw new SnipeException("This list item does not exist!\n"
+                                + String.format("You currently have %d %s in the list.",
+                                list.size(), list.size() == 1 ? "task" : "tasks"));
+                    }
                     if (list.get(index).getStatus()) {
                         printWithLines("This task is already marked done!");
                     } else {
@@ -65,6 +82,11 @@ public class Snipe {
                 } else if (userInput.startsWith("unmark")) {
                     String[] split = userInput.split(" ");
                     int index = Integer.valueOf(split[1]) - 1;
+                    if (index > list.size() - 1) {
+                        throw new SnipeException("This list item does not exist!\n"
+                                + String.format("You currently have %d %s in the list.",
+                                list.size(), list.size() == 1 ? "task" : "tasks"));
+                    }
                     if (!list.get(index).getStatus()) {
                         printWithLines("This task is currently not done yet!");
                     } else {
@@ -73,22 +95,8 @@ public class Snipe {
                                 list.get(index).toString());
                     }
                 } else {
-                    Task newTask = null;
                     String[] split = userInput.split(" ", 2);
-                    if (userInput.startsWith("todo")) {
-                        newTask = addToDoTask(split);
-                    } else if (userInput.startsWith("deadline")) {
-                        String[] toSplit = split[1].split(" /by ", 2);
-                        String description = toSplit[0];
-                        String deadline = toSplit[1];
-                        newTask = new Deadline(description, deadline);
-                    } else if (userInput.startsWith("event")) {
-                        String[] toSplit = split[1].split(" /from | /to ");
-                        String description = toSplit[0];
-                        String start = toSplit[1];
-                        String end = toSplit[2];
-                        newTask = new Event(description, start, end);
-                    }
+                    Task newTask = addTask(split);
                     list.add(newTask);
                     int listSize = list.size();
                     String message = " Got it. I've added this task:\n  "
@@ -97,17 +105,37 @@ public class Snipe {
                     printWithLines(message);
                 }
             } else {
-                throw new SnipeException("That is not a valid input! Try again!");
+                throw new SnipeException("That is not a valid input!\nTo see list of valid inputs, try the 'help' command");
             }
         } catch(SnipeException e) {
             printWithLines(e.getMessage());
         }
     }
-    private Task addToDoTask(String[] split) throws SnipeException {
-        if (split.length < 2 || split[1].trim().isEmpty()) {
-            throw new SnipeException("NOOOOO!! The description of a todo cannot be empty.");
-        } else {
-            return new ToDo(split[1]);
+    private Task addTask(String[] split) throws SnipeException {
+        try {
+            if (split.length < 2 || split[1].trim().isEmpty()) {
+                throw new SnipeException("NOOOOO!! The description of a task cannot be empty.\n" +
+                        "To see how the commands can be implemented, use 'help'.");
+            } else {
+                String taskType = split[0];
+                if (taskType.equals("todo")) {
+                    return new ToDo(split[1]);
+                } else if (taskType.equals("deadline")) {
+                    String[] toSplit = split[1].split(" /by ", 2);
+                    String description = toSplit[0];
+                    String deadline = toSplit[1];
+                    return new Deadline(description, deadline);
+                } else if (taskType.equals("event")) {
+                    String[] toSplit = split[1].split(" /from | /to ");
+                    String description = toSplit[0];
+                    String start = toSplit[1];
+                    String end = toSplit[2];
+                    return new Event(description, start, end);
+                }
+                throw new SnipeException("Invalid Task given");
+            }
+        } catch (Exception e) {
+            throw new SnipeException("Your task input format is wrong!");
         }
     }
     private void returnList() {
