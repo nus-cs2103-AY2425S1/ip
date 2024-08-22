@@ -19,9 +19,7 @@ public class MrTracker {
 
     public static void printTaskList(ArrayList<Task> taskList) {
         for (int i = 0; i < taskList.size(); i++) {
-            Task currTask = taskList.get(i);
-            String prefix = currTask.isDone ? "[X] " : "[ ] ";
-            System.out.println(i+1 + "." + prefix + taskList.get(i).name);
+            System.out.println(i+1 + "." + taskList.get(i).toString());
         }
     }
 
