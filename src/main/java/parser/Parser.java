@@ -30,6 +30,9 @@ public class Parser {
                     case "unmark":
                         taskList.unmark(args);
                         break;
+                    case "find":
+                        taskList.filter(args);
+                        break;
                     case "delete":
                         taskList.deleteTask(args);
                         break;
