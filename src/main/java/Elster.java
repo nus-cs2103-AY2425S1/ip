@@ -4,7 +4,8 @@ import java.util.Scanner;
 public class Elster {
     public static void main(String[] args) {
         boolean byeSentinel = true;
-        String curr;
+        String input;
+        TaskList taskList = new TaskList();
         ArrayList<String> list = new ArrayList<>();
         Scanner myScanner = new Scanner(System.in);
 
@@ -22,23 +23,21 @@ public class Elster {
         printLine();
 
         while (byeSentinel) {
-            curr = myScanner.nextLine();
-            if (curr.equals("bye")) {
+            input = myScanner.nextLine();
+            if (input.equals("bye")) {
                 byeSentinel = false;
 
-            } else if (curr.equals("list")) {
-                printLine();
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + list.get(i));
-                }
-                printLine();
+            } else if (input.equals("list")) {
+                taskList.printList();
+
+            } else if (input.startsWith("mark")) {
+                taskList.markTaskAsDone(Integer.parseInt(input.substring(5,6)));
+
+            } else if (input.startsWith("unmark")) {
+                taskList.unmarkTaskAsUndone(Integer.parseInt(input.substring(7,8)));
 
             } else {
-                printLine();
-                System.out.println("    added: " + curr);
-                list.add(curr);
-                printLine();
-                System.out.println();
+                taskList.addToList(input);
 
             }
         }
@@ -48,8 +47,9 @@ public class Elster {
         printLine();
     }
 
-    static public void printLine() {
+    static private void printLine() {
         System.out.println("    ____________________________________________________________________________");
-        return;
     }
+
+
 }
