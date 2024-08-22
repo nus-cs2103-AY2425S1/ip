@@ -39,14 +39,20 @@ public class Gumball {
             int num = Integer.parseInt(command.replaceAll("[^0-9]", ""));
             list.mark(num);
             print("Nice! I've marked this task as done:\n" + list.getSpecific(num));
-        }
-        else {
-            addToList(command);
+        } else if (command.startsWith("todo")) {
+            addToList(new ToDos(command));
+        } else if (command.startsWith("deadline")) {
+            addToList(new Deadlines(command));
+        } else if (command.startsWith("event")) {
+            addToList(new Events(command));
+        } else {
+
         }
     }
 
-    public void addToList(String str) {
-        print("added: " + list.add(str));
+    public void addToList(Task task) {
+        print("Got it. I've added this task:\n" + list.add(task) +
+                String.format("\nNow you have %d tasks in the list.",list.getN()));
     }
 
     public void getList() {
