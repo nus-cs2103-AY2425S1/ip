@@ -12,6 +12,13 @@ public class Rose {
                 "\n" + horizontal).indent(4));
     }
 
+    private static void showList() {
+        System.out.println(horizontal.indent(4));
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.print((i + ". " + tasks.get(i - 1)).indent(4));
+        }
+        System.out.println(horizontal.indent(4));
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -24,6 +31,11 @@ public class Rose {
         String command = scanner.nextLine();
 
         while (!command.equals("bye")) {
+            if (command.equals("list")) {
+                showList();
+                command = scanner.nextLine();
+                continue;
+            }
             addTask(command);
             command = scanner.nextLine();
         }
