@@ -65,28 +65,38 @@ public class XBot {
     }
     public static void addDeadline(String rest) {
         String[] parts = rest.split("/by", 2);
-        System.out.println("Got it. I've added this task:");
-        String taskDescription = parts[0].trim();
-        String deadline = parts[1].trim();
-        list[taskCount] = new Deadline(taskDescription, deadline);
-        System.out.println(list[taskCount].toString());
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        if (parts.length == 2) {
+            System.out.println("Got it. I've added this task:");
+            String taskDescription = parts[0].trim();
+            String deadline = parts[1].trim();
+            list[taskCount] = new Deadline(taskDescription, deadline);
+            System.out.println(list[taskCount].toString());
+            taskCount++;
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
+        } else {
+        System.out.println("Invalid input format. Please use the format: 'deadline <task> /by <date>'");
+        }
     }
 
     public static void addEvent(String rest) {
         String[] parts = rest.split("/from", 2);
-        System.out.println("Got it. I've added this task:");
-        String taskDescription = parts[0].trim();
-        String time = parts[1].trim();
-        String[] timeParts = time.split("/to", 2);
-        String from = timeParts[0].trim();
-        String to = timeParts[1].trim();
+        if (parts.length == 2) {
+            System.out.println("Got it. I've added this task:");
+            String taskDescription = parts[0].trim();
+            String time = parts[1].trim();
+            String[] timeParts = time.split("/to", 2);
+            if (timeParts.length == 2) {
+                String from = timeParts[0].trim();
+                String to = timeParts[1].trim();
 
-        list[taskCount] = new Event(taskDescription, from, to);
-        System.out.println(list[taskCount].toString());
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                list[taskCount] = new Event(taskDescription, from, to);
+                System.out.println(list[taskCount].toString());
+                taskCount++;
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            }
+        } else {
+            System.out.println("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
+        }
     }
 
 
