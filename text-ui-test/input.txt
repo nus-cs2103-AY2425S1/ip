@@ -1,0 +1,3 @@
+todo swim
+deadline homework /by 2359
+event birthday party /from 4pm /to 6pm
