@@ -5,6 +5,7 @@ public class Natsbot {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Natsbot\n" + "What can I do for you?\n");
 
+        System.out.println("Type a prompt below or type 'bye' to exit the program.");
         Scanner reader = new Scanner(System.in);
 
         while(true) {
