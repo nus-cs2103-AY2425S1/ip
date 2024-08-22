@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,8 +24,8 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> getTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList getTasks() {
+        TaskList tasks = new TaskList();
         try {
             Scanner scanner = new Scanner(new File(filePath));
             while (scanner.hasNextLine()) {
@@ -49,7 +48,7 @@ public class Storage {
         return tasks;
     }
 
-    public void saveData(ArrayList<Task> tasks) throws IOException {
+    public void saveData(TaskList tasks) throws IOException {
             FileWriter fileWriter = new FileWriter(this.filePath, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < tasks.size(); i++) {

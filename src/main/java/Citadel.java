@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import ui.TextUI;
+
 
 import exception.CitadelException;
 import exception.CitadelInvalidArgException;
@@ -11,8 +13,9 @@ import exception.CitadelInvalidCommandException;
 import exception.CitadelTaskNoInput;
 
 public class Citadel {
-    public static ArrayList<Task> items = new ArrayList<>();
-    public static Storage db =  new Storage("citadel");
+    public static TaskList items = new TaskList();
+    public static Storage db =  new Storage("data/citadel");
+
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
