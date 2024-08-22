@@ -3,6 +3,11 @@ public class Task {
     public Task(String s){
         task = s;
     }
-
+    public String toString() {
+        return task;
+    }
+    public boolean isReal(){
+        return task != "";
+    }
 
 }
