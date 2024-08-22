@@ -14,9 +14,8 @@ public class Fence {
         System.out.println("have good day :)");
     }
 
-    public void add(String command) {
-        System.out.println("added: " + command);
-        Task task = new Task(command);
+    public void add(Task task) {
+        System.out.println("added: " + task);
         items.add(task);
     }
 
@@ -41,6 +40,11 @@ public class Fence {
         System.out.println(task);
     }
 
+    public void count() {
+        System.out.println("Now you have " + items.size() +
+                ((items.size() == 1) ? " item " : " items ") + "in the list.");
+    }
+
     public static void main(String[] args) {
         Fence fence = new Fence();
         fence.greet();
@@ -58,25 +62,71 @@ public class Fence {
                 fence.list();
                 continue;
             }
-            if (firstWord.equals("mark") || firstWord.equals("unmark")) {
-                try {
-                    int i = Integer.parseInt(st.nextToken());
-                    if (!st.hasMoreTokens()) {
-                        if (firstWord.equals("mark")) {
-                            fence.mark(i);
-                        } else {
-                            fence.unmark(i);
-                        }
+            if (firstWord.equals("todo")) {
+                String desc = st.nextToken();
+                while (st.hasMoreTokens()) {
+                    desc = desc + " " + st.nextToken();
+                }
+                fence.add(new Todo(desc));
+                fence.count();
+            }
+            if (firstWord.equals("deadline")) {
+                String desc = st.nextToken();
+                String by = "";
+                boolean descDone = false;
+                while (st.hasMoreTokens()) {
+                    String nextWord = st.nextToken();
+                    if (nextWord.equals("/by")) {
+                        descDone = true;
+                        by = st.nextToken();
+                        continue;
+                    }
+                    if (descDone) {
+                        by = by + " " + nextWord;
                     } else {
-                        fence.add(command);
+                        desc = desc + " " + nextWord;
                     }
                 }
-                catch(NumberFormatException | IndexOutOfBoundsException e) {
-                    fence.add(command);
-                }
-                continue;
+                fence.add(new Deadline(desc, by));
+                fence.count();
             }
-            fence.add(command);
+            if (firstWord.equals("event")) {
+                String desc = st.nextToken();
+                String from = "";
+                String to = "";
+                boolean descDone = false;
+                boolean fromDone = false;
+                while (st.hasMoreTokens()) {
+                    String nextWord = st.nextToken();
+                    if (nextWord.equals("/from")) {
+                        descDone = true;
+                        from = st.nextToken();
+                        continue;
+                    }
+                    if (nextWord.equals("/to")) {
+                        fromDone = true;
+                        to = st.nextToken();
+                        continue;
+                    }
+                    if (fromDone) {
+                        to = to + " " + nextWord;
+                    } else if (descDone) {
+                        from = from + " " + nextWord;
+                    } else {
+                        desc = desc + " " + nextWord;
+                    }
+                }
+                fence.add(new Event(desc, from, to));
+                fence.count();
+            }
+            if (firstWord.equals("mark") || firstWord.equals("unmark")) {
+                int i = Integer.parseInt(st.nextToken());
+                if (firstWord.equals("mark")) {
+                    fence.mark(i);
+                } else {
+                    fence.unmark(i);
+                }
+            }
         }
     }
 }
