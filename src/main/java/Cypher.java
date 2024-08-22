@@ -9,7 +9,7 @@ public class Cypher {
 
     private static void greet() {
         Cypher.lineBreak();
-        System.out.println("Hello! I am Cypher \nWhat can I do for you!\n");
+        System.out.println("Hello! I am Cypher\nWhat can I do for you!");
         Cypher.lineBreak();
     }
 
@@ -28,7 +28,7 @@ public class Cypher {
 
     private static void printTaskList() {
         Cypher.lineBreak();
-        System.out.println("Here are the items in your list: ");
+        System.out.println("Here are the items in your list:");
         for (int i = 0; i < Cypher.taskList.size(); i++) {
             System.out.println((i + 1) + ". " + Cypher.taskList.get(i));
         }
@@ -39,7 +39,7 @@ public class Cypher {
         Task task = Cypher.taskList.get(i);
         task.completeTask();
         Cypher.lineBreak();
-        System.out.println("Nice! I have marked this task as completed: \n" + task);
+        System.out.println("Nice! I have marked this task as completed:\n" + task);
         Cypher.lineBreak();
     }
 
@@ -47,16 +47,15 @@ public class Cypher {
        Task task = Cypher.taskList.get(i);
        task.incompleteTask();
        Cypher.lineBreak();
-       System.out.println("Ok! I have marked this task as incomplete: \n" + task);
+       System.out.println("Ok! I have marked this task as incomplete:\n" + task);
        Cypher.lineBreak();
    }
     public static void main(String[] args) {
         Cypher.greet();
         Cypher.taskList = new ArrayList<>();
-
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter your command: ");
+            // System.out.print("Enter your command: ");
             String input = scanner.nextLine();
             String[] command = input.split(" ", 2);
 
@@ -92,6 +91,7 @@ public class Cypher {
             }
             else {
                 Cypher.lineBreak();
+                scanner.close();
                 break;
             }
         }
