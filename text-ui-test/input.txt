@@ -1,6 +1,19 @@
 todo Borrow book
 todo Read Book
+todo
 deadline Return book /by Sunday
+deadline return book /by
+deadline /by Sunday
+deadline /by
+deadline
 event project meeting /from Mon 2pm /to 4pm
+event project meeting /from Mon 2pm /to
+event project meeting /from  /to 4pm
+event project meeting /from /to 4pm
+event project  /from Mon 2pm /to 4pm
+event project /from Mon 2pm /to 4pm
+event project  /from  /to
+event project /from  /to
+event project  /from /to
 unknowCommand
 BYE

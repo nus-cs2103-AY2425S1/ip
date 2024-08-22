@@ -3,16 +3,53 @@ Hello! My name is Snowy
 What can I do for you?
 -----------------------------------
 New todo task added:
- [T][ ] Borrow book
+[T][ ] Borrow book
 -----------------------------------
 New todo task added:
- [T][ ] Read Book
+[T][ ] Read Book
+-----------------------------------
+Error: Description of todos cannot be empty.
+Please try again.
 -----------------------------------
 New Deadline task added:
- [D][ ] Return book (by Sunday )
+[D][ ] Return book  (by Sunday )
+-----------------------------------
+Error: Please include name, /by and deadline separated by space.
+-----------------------------------
+Error: name of deadlines cannot be empty.
+Please try again.
+-----------------------------------
+Error: Please include name, /by and deadline separated by space.
+-----------------------------------
+Error: Description of deadlines cannot be empty.
+Please try again.
 -----------------------------------
 New Event task added:
- [E][ ] project meeting (from Mon 2pm to: 4pm)
+ [E][ ] project meeting  (from Mon 2pm  to: 4pm)
+-----------------------------------
+Error: incorrect styling.
+Please include name, /from, fromDate, /to, toDate separated by space
+-----------------------------------
+New Event task added:
+ [E][ ] project meeting  (from   to: 4pm)
+-----------------------------------
+Error: fromDate of deadlines cannot be empty.
+Please try again.
+-----------------------------------
+New Event task added:
+ [E][ ] project   (from Mon 2pm  to: 4pm)
+-----------------------------------
+New Event task added:
+ [E][ ] project  (from Mon 2pm  to: 4pm)
+-----------------------------------
+Error: incorrect styling.
+Please include name, /from, fromDate, /to, toDate separated by space
+-----------------------------------
+Error: incorrect styling.
+Please include name, /from, fromDate, /to, toDate separated by space
+-----------------------------------
+Error: incorrect styling.
+Please include name, /from, fromDate, /to, toDate separated by space
 -----------------------------------
 Command not recognized. Please try again
 -----------------------------------
