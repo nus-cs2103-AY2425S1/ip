@@ -36,6 +36,6 @@ public class Winner {
                         "--------------------------------------".indent(10));
             }
         }
-
+        scanner.close();
     }
 }
