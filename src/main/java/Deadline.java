@@ -6,6 +6,12 @@ public class Deadline extends Task{
         this.date = date;
     }
 
+    Deadline(String[] data) throws CheeseException {
+        super(data);
+        if(data.length != 4) throw new CheeseException("Incorrect data format");
+        date = data[3];
+    }
+
     /**
      * Factory method to ensure correct creation of Deadline
      * @param input String
@@ -22,5 +28,13 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by: " + date + ")";
+    }
+
+    @Override
+    public String dataString() {
+        String s = super.dataString();
+        s = s.replace("T,", "D,");
+        s += "," + date;
+        return s;
     }
 }
