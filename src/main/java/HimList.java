@@ -7,9 +7,8 @@ public class HimList {
         this.list = new ArrayList<>();
     }
 
-    public void add(String item) {
-        Task task = new Task(item);
-        list.add(task);
+    public void add(Task item) {
+        list.add(item);
     }
 
     public class TaskDoesNotExistException extends Exception {
@@ -35,7 +34,7 @@ public class HimList {
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            output.append(String.format("%d.[%s] %s\n", i + 1, list.get(i).getStatusIcon(), list.get(i)));
+            output.append(String.format("%d.[%s][%s] %s\n", i + 1, list.get(i).getTypeIcon(), list.get(i).getStatusIcon(), list.get(i)));
         }
         return output.toString();
     }

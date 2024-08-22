@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private boolean isComplete = false;
     private String title;
 
@@ -11,10 +11,6 @@ public class Task {
             throw new AlreadyCompletedException();
         }
         isComplete = true;
-    }
-
-    public boolean isComplete() {
-        return isComplete;
     }
 
     public class AlreadyCompletedException extends Exception {
@@ -31,4 +27,6 @@ public class Task {
     public String toString() {
         return title;
     }
+
+    public abstract String getTypeIcon();
 }

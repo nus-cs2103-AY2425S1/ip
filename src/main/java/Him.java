@@ -25,18 +25,20 @@ public class Him {
         Scanner scanner = new Scanner(System.in);
         greet();
         System.out.print("User: ");
-        String input = scanner.nextLine();
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
+        String[] input = scanner.nextLine().split(" ");
+        String command = input[0];
+        while (!command.equals("bye")) {
+            if (command.equals("list")) {
                 System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
-            } else if (input.startsWith("mark")) {
-                complete(Integer.parseInt(input.substring(5)) - 1);
-            } else {
-                list.add(input);
-                System.out.println("\nHim: added \"" + input + "\" to list\n");
+            } else if (command.equals("mark")) {
+                complete(Integer.parseInt(input[1]) - 1);
+            } else if (command.equals("todo")) {
+                list.add(new ToDo(input[1]));
+                System.out.println("\nHim: added \"" + input[1] + "\" to list\n");
             }
             System.out.print("User: ");
-            input = scanner.nextLine();
+            input = scanner.nextLine().split(" ");
+            command = input[0];
         }
         exit();
     }
