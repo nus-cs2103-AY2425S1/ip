@@ -10,8 +10,8 @@ public class Genji {
 
     public static void addList(Task t) {
         list.add(t);
-        System.out.println("added: " + t);
-        System.out.println(LINE);
+        //System.out.println("added: " + t);
+        //System.out.println(LINE);
     }
 
     public static void showList() {
@@ -71,9 +71,18 @@ public class Genji {
                 System.out.println(ddl);
                 System.out.println("Now you have " + list.size() + " tasks in the list");
                 System.out.println(LINE);
-            }
-            else {
-                addList(new Task(input));
+            } else if (input.startsWith("event")) {
+                String name = input.substring(6, input.indexOf("/from"));
+                String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to"));
+                String to = input.substring(input.indexOf("/to") + 4);
+                Event evt = new Event(name, from, to);
+                addList(evt);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(evt);
+                System.out.println("Now you have " + list.size() + " tasks in the list");
+                System.out.println(LINE);
+            } else {
+                echo(input);
             }
         }
         bye();
