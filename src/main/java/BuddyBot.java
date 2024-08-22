@@ -8,10 +8,11 @@ public class BuddyBot {
         System.out.println(" Hello! I'm BuddyBot");
         System.out.println(" What can I do for you?");
         String input = myObj.nextLine();
-        if (Objects.equals(input, "bye")) {
-            System.out.println(" Bye, Hope to see you again soon1");
-        } else {
+        while(!input.equals("bye")) {
             System.out.println(input);
+            String next = myObj.nextLine();
+            input = next;
         }
+        System.out.println(" Bye, Hope to see you again soon!");
     }
 }
