@@ -1,0 +1,9 @@
+todo todo task
+deadline deadline task /by by date
+event event task /from from date /to to date
+list
+mark 1
+list
+unmark 1
+list
+bye

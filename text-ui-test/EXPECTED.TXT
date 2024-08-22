@@ -1,7 +1,45 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm MiluTrock!
+What can I do for you?
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] todo task
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] deadline task (by: by date)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] event task (from: from date to: to date)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] todo task
+2. [D][ ] deadline task (by: by date)
+3. [E][ ] event task (from: from date to: to date)
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[T][X] todo task
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][X] todo task
+2. [D][ ] deadline task (by: by date)
+3. [E][ ] event task (from: from date to: to date)
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[T][ ] todo task
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] todo task
+2. [D][ ] deadline task (by: by date)
+3. [E][ ] event task (from: from date to: to date)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
