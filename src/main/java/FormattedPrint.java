@@ -88,4 +88,24 @@ public class FormattedPrint {
                 -----------------------------------------
                 """);
     }
+
+    public static void invalidMarkCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with your mark command.
+                Mark command should be in the format: mark <index>
+                The index should be a number within the range of the list
+                -----------------------------------------
+                """);
+    }
+
+    public static void invalidUnmarkCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with your unmark command.
+                Unmark command should be in the format: unmark <index>
+                The index should be a number within the range of the list
+                -----------------------------------------
+                """);
+    }
 }

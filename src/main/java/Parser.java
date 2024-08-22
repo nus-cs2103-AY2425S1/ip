@@ -7,14 +7,22 @@ public class Parser {
             return true;
 
         } else if (input.split(" ")[0].equalsIgnoreCase("mark")) {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            taskList.markAsDone(index);
-            FormattedPrint.doneTask(taskList.getTask(index));
+            try {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                taskList.markAsDone(index);
+                FormattedPrint.doneTask(taskList.getTask(index));
+            } catch (Exception e) {
+                FormattedPrint.invalidMarkCommand();
+            }
 
         } else if (input.split(" ")[0].equalsIgnoreCase("unmark")) {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            taskList.markAsUndone(index);
-            FormattedPrint.undoneTask(taskList.getTask(index));
+            try {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                taskList.markAsUndone(index);
+                FormattedPrint.undoneTask(taskList.getTask(index));
+            } catch (Exception e) {
+                FormattedPrint.invalidUnmarkCommand();
+            }
 
         } else if (input.split(" ")[0].equalsIgnoreCase("deadline")) {
             try {
