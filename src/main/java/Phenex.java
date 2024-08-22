@@ -73,12 +73,18 @@ public class Phenex {
         }
     }
 
+    public void printTaskAdded(Task task) {
+        System.out.println("\t Mission " + task.name + " added:");
+        System.out.println("\t   " + task);
+        System.out.println("\t Total upcoming missions: " + this.tasks.size());
+    }
+
     public static void main(String[] args) {
         Phenex p = new Phenex();
         p.greet();
 
-        // list feature
         Scanner scanner = new Scanner(System.in);
+        String userInput;
 
         // regex's for commands which tell Phenex to do actions
         String terminatingRegex = "(?i)bye\\s*$";
@@ -91,8 +97,7 @@ public class Phenex {
         String deadlineRegex = "^(?i)deadline (.+) /by (.+)";
         String eventRegex = "^(?i)event (.+) /from (.+) /to (.+)$";
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        String userInput;
+        // Patterns and Matchers for each regex
         Pattern terminatingPattern = Pattern.compile(terminatingRegex);
         Pattern listPattern = Pattern.compile(listRegex);
         Pattern markPattern = Pattern.compile(markRegex);
@@ -119,6 +124,7 @@ public class Phenex {
                 break;
             }
 
+            // Matchers to detect which input
             listMatcher = listPattern.matcher(userInput);
             markMatcher = markPattern.matcher(userInput);
             unmarkMatcher = unmarkPattern.matcher(userInput);
@@ -141,33 +147,26 @@ public class Phenex {
                 int idx = taskNumber - 1;
                 p.markTaskIncomplete(idx);
             } else if (todoMatcher.matches()) {
-                // add new tasks
+                // add ToDo
                 String todoName = todoMatcher.group(1);
                 ToDo toDo = new ToDo(todoName);
                 p.tasks.add(toDo);
-                String taskAddedMsg = "\t Mission " + todoName + " added:";
-                System.out.println(taskAddedMsg);
-                System.out.println("\t   " + toDo);
-                System.out.println("\t Total upcoming missions: " + p.tasks.size());
+                p.printTaskAdded(toDo);
             } else if (deadlineMatcher.matches()) {
+                // add Deadline
                 String deadlineName = deadlineMatcher.group(1);
                 String deadlineBy = deadlineMatcher.group(2);
                 Deadline deadline = new Deadline(deadlineName, deadlineBy);
                 p.tasks.add(deadline);
-                String taskAddedMsg = "\t Mission " + deadlineName + " added:";
-                System.out.println(taskAddedMsg);
-                System.out.println("\t   " + deadline);
-                System.out.println("\t Total upcoming missions: " + p.tasks.size());
+                p.printTaskAdded(deadline);
             } else if (eventMatcher.matches()) {
+                // add Event
                 String eventName = eventMatcher.group(1);
                 String eventFrom = eventMatcher.group(2);
                 String eventTo = eventMatcher.group(3);
                 Event event = new Event(eventName, eventFrom, eventTo);
                 p.tasks.add(event);
-                String taskAddedMsg = "\t Mission " + eventName + " added:";
-                System.out.println(taskAddedMsg);
-                System.out.println("\t   " + event);
-                System.out.println("\t Total upcoming missions: " + p.tasks.size());
+                p.printTaskAdded(event);
             } else {
                 System.out.println("Error, invalid input.");
             }
