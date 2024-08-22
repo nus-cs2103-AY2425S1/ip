@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class MiluTrock {
@@ -6,11 +7,13 @@ public class MiluTrock {
         System.out.println("Hello! I'm " + name + "!");
         System.out.println("What can I do for you?");
         
+        Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<Task>();
-        while (true) {
-            String input = System.console().readLine();
+        while (scanner.hasNext()) {
+            String input = scanner.nextLine();
             String[] words = input.split("\\s+");
             
+            System.out.println("____________________________________________________________");
             if (input.equals("bye")) {
                 // Exit if "bye" is entered
                 break;
@@ -40,7 +43,8 @@ public class MiluTrock {
                 ToDo task = new ToDo(taskName);
                 tasks.add(task);
                 
-                System.out.println("Got it. I've added this task:\n" + task);
+                System.out.println("Got it. I've added this task:\n  " + task);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (words[0].equals("deadline")){
                 // Add deadline task
                 String taskInput = input.substring(9);
@@ -48,7 +52,8 @@ public class MiluTrock {
                 Deadline task = new Deadline(parts[0], parts[1]);
                 tasks.add(task);
                 
-                System.out.println("Got it. I've added this task:\n" + task);
+                System.out.println("Got it. I've added this task:\n  " + task);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (words[0].equals("event")){
                 // Add event task
                 String taskInput = input.substring(6);
@@ -57,10 +62,13 @@ public class MiluTrock {
                 Event task = new Event(parts[0], dates[0], dates[1]);
                 tasks.add(task);
                 
-                System.out.println("Got it. I've added this task:\n" + task);
+                System.out.println("Got it. I've added this task:\n  " + task);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             }
+            System.out.println("____________________________________________________________");
         }
-
+        
         System.out.println("Bye. Hope to see you again soon!");
+        scanner.close();
     }
 }
