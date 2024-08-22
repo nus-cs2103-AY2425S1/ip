@@ -1,42 +1,37 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static TodoList todo = new TodoList();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        String chatBotName = "Carine";
-        String horizontalLine = "____________________________________________________________";
 
-        // Greeting message
-        System.out.println(horizontalLine);
-        System.out.println(" Hello! I'm " + chatBotName);
-        System.out.println(" What can I do for you?");
-        System.out.println(horizontalLine);
+        Reply.printGreeting();
 
-        Echo();
+        handleUserInput();
 
-        // Goodbye message
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(horizontalLine);
+        Reply.printGoodbye();
+
     }
 
-    public static void Echo() {
+    public static void handleUserInput() {
         Scanner scanner = new Scanner(System.in);
         String userInput;
         while (true) {
             userInput = scanner.nextLine();
 
-            if (userInput.equals("bye")) {
+            if (userInput.equals("list")){
+                Reply.printMessage(todo.printTodo());
+            }
+            else if (userInput.equals("bye")) {
                 break;
+            } else {
+                todo.addTask(userInput);
             }
 
-            String horizontalLine = "____________________________________________________________";
-            System.out.println(horizontalLine);
-            System.out.println(" " + userInput);
-            System.out.println(horizontalLine);
         }
 
         scanner.close();
