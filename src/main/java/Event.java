@@ -2,12 +2,18 @@ public class Event extends Task {
     private String start;
     private String end;
 
-    public Event(String description, String start, String end) {
-        super(description.strip());
-        StringBuilder str = new StringBuilder(start.strip());
+    public Event(String... parems) throws IllegalArgumentException {
+        super(parems[0].strip());
+        if (parems.length < 2) {
+            throw new IllegalArgumentException("Event: Did not provide start and end date/time");
+        } else if (parems.length < 3) {
+            throw new IllegalArgumentException("Event: Did not provide end date/time");
+        }
+
+        StringBuilder str = new StringBuilder(parems[1].strip());
         str.insert(str.indexOf(" "), ':');
         this.start = str.toString();
-        str = new StringBuilder(end.strip());
+        str = new StringBuilder(parems[2].strip());
         str.insert(str.lastIndexOf(" "), ":");
         this.end = str.toString();
     }
