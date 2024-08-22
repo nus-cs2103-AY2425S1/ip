@@ -16,7 +16,7 @@ public class Parser {
             taskList.markAsUndone(index);
             FormattedPrint.undoneTask(taskList.getTask(index));
 
-        } else if (input.toLowerCase().startsWith("deadline")) {
+        } else if (input.split(" ")[0].equalsIgnoreCase("deadline")) {
 
             // GitHub Copilot suggested the following code snippet
             String description = input.split(" ", 2)[1].split(" /by ")[0];
@@ -24,7 +24,7 @@ public class Parser {
             taskList.addItem(new Deadline(description, by));
             FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
 
-        } else if (input.toLowerCase().startsWith("event")) {
+        } else if (input.split(" ")[0].equalsIgnoreCase("event")) {
 
             // GitHub Copilot suggested the following code snippet
             String description = input.split(" ", 2)[1].split(" /from ")[0];
@@ -34,16 +34,20 @@ public class Parser {
             taskList.addItem(new Event(description, from, to));
             FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
 
-        } else if (input.toLowerCase().startsWith("todo")) {
-            String description = input.split(" ", 2)[1];
-            taskList.addItem(new Todo(description));
-            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+        } else if (input.split(" ")[0].equalsIgnoreCase("todo")) {
+            try {
+                String description = input.split(" ", 2)[1];
+                taskList.addItem(new Todo(description));
+                FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                FormattedPrint.invalidTodoCommand();
+            }
 
         } else if (input.equalsIgnoreCase("list")) {
             FormattedPrint.listTasks(taskList.getList());
         } else {
-            taskList.addItem(input);
-            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+            // Any other command will be considered invalid
+            FormattedPrint.invalidCommand();
         }
         return false;
     }

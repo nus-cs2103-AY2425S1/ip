@@ -53,4 +53,21 @@ public class FormattedPrint {
                 "-----------------------------------------"
         );
     }
+
+    public static void invalidCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, I don't understand that command. Please try again.
+                -----------------------------------------
+                """);
+    }
+
+    public static void invalidTodoCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with your todo command.
+                Todo command should be in the format: todo <description>
+                -----------------------------------------
+                """);
+    }
 }
