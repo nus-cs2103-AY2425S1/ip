@@ -1,19 +1,35 @@
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import Commands.Commands;
+import Commands.deleteTask;
+import Commands.handleDeadline;
+import Commands.handleEvent;
+import Commands.handleTodo;
+import Commands.markTask;
+import Commands.unmarkTask;
+
+import Task.Task;
+import Task.TaskList;
+import Task.ToDo;
+import Task.Event;
+import Task.Deadline;
+
 
 import exception.CitadelException;
 import exception.CitadelInvalidArgException;
 import exception.CitadelInvalidCommandException;
 import exception.CitadelTaskNoInput;
+import ui.TextUI;
 
 public class Citadel {
     public static TaskList items = new TaskList();
     public static Storage db =  new Storage("data/citadel");
 
+    public static TextUI ui = new TextUI();
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
@@ -23,14 +39,11 @@ public class Citadel {
 
         String input;
 
-        String start = intro + question;
-        System.out.println(start);
+        ui.printStart();
 
         items = db.getTasks();
+        ui.printTasks(items);
 
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println(items.get(i).printTask());
-        }
         while (true) {
             try {
                 input = scanner.nextLine();
@@ -38,41 +51,74 @@ public class Citadel {
                 if (Commands.valueOf(command).equals(Commands.BYE)) {
                     break;
                 }
+                // handleInput starts here
                 if (Commands.valueOf(command).equals(Commands.LIST)) {
-                    for (int i = 0; i < items.size(); i++) {
-                        System.out.println((i + 1) + ". " + items.get(i).printTask());
-                    }
+                  ui.printTasks(items);
                 } else if (Commands.valueOf(command).equals(Commands.MARK)) {
-                    mark(input);
+                    new markTask(input, items).run();
                 } else if (Commands.valueOf(command).equals(Commands.UNMARK)) {
-                    unmark(input);
+                    new unmarkTask(input, items).run();
                 } else if (Commands.valueOf(command).equals(Commands.DELETE)) {
-                    delete(input);
+                    new deleteTask(input, items).run();
                 } else {
                     if (Commands.valueOf(command).equals(Commands.DEADLINE)) {
-                        handleDeadline(input);
+                        new handleDeadline(input, items).run();
                     } else if (Commands.valueOf(command).equals(Commands.EVENT)) {
-                        handleEvent(input);
+                        new handleEvent(input, items).run();
                     } else if (Commands.valueOf(command).equals(Commands.TODO)) {
-                        handleTodo(input);
+                        new handleTodo(input, items).run();
                     } else {
                         throw new CitadelInvalidCommandException();
                     }
                 }
+                // handleInput ends here
 
             } catch (CitadelException e) {
-                System.out.println(e.toString());
+                 ui.printCitadelException(e);
             } catch (DateTimeParseException e) {
-                System.out.println("Incorrect Date Format! Please write the date in this format: dd/MM/yyyy HH:mm!");
+                ui.printDateTimeParseException();
             }  catch (Exception e) {
-                System.out.println("Error occurred: " + e.getMessage());
+                 ui.printException(e);
             }
             }
 
-        String goodbye = "Bye. Hope to see you again soon!\n";
-        System.out.println(goodbye);
+        ui.printGoodbye();
         db.saveData(items);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private static void mark(String input) throws CitadelException {
         try {

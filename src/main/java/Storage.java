@@ -3,6 +3,12 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import Task.Task;
+import Task.TaskList;
+import Task.Deadline;
+import Task.Event;
+import Task.ToDo;
+
 import exception.CitadelException;
 import exception.CitadelTaskNoInput;
 
