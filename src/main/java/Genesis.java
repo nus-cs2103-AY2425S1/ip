@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.io.*;
 class Task {
     protected String description;
     protected boolean isComplete;
@@ -9,6 +9,7 @@ class Task {
         this.description = description;
         this.isComplete = false;
     }
+
 
     @Override
     public String toString() {
@@ -28,8 +29,45 @@ class Task {
         this.isComplete = false;
     }
 }
-public class Genesis {
 
+class Todo extends Task {
+    public Todo (String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    protected String deadline;
+    public Deadline (String description, String deadline) {
+        super(description);
+        this.deadline = deadline;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+    }
+}
+
+class Event extends Task {
+    protected String startTime;
+    protected String endTime;
+    public Event (String description, String startTime, String endTime) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+    }
+}
+public class Genesis {
 
     public static void main(String[] args) {
 
@@ -71,10 +109,30 @@ public class Genesis {
                 current.unmark();
                 System.out.println("Ok. I've marked this task as not done yet:\n" +
                         current.description);
-            } else {
-                Task current = new Task(input);
+            } else if (input.startsWith("deadline ")){
+                String[] parts = input.split("/by ");
+                String taskName = parts[0].replaceFirst("deadline ", "").trim();
+                String deadline = parts[1].trim();
+                Deadline current = new Deadline(taskName, deadline);
                 items.add(current);
-                System.out.println("added: " + current.description);
+                System.out.println("Got it. I've added this task:\n" + current.toString()
+                                    + "\nYou now have " + items.size() + " items in the list.");
+            } else if (input.startsWith("todo ")) {
+                String taskName = input.replaceFirst("todo ", "").trim();
+                Todo current = new Todo(taskName);
+                items.add(current);
+                System.out.println("Got it. I've added this task:\n" + current.toString()
+                        + "\nYou now have " + items.size() + " items in the list.");
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.split("/from ");
+                String[] parts2 = parts[1].split("/to ");
+                String taskName = parts[0].replaceFirst("event ", "").trim();
+                String startDate = parts2[0].trim();
+                String endDate = parts2[1].trim();
+                Event current = new Event(taskName, startDate, endDate);
+                items.add(current);
+                System.out.println("Got it. I've added this task:\n" + current.toString()
+                        + "\nYou now have " + items.size() + " items in the list.");
             }
         }
 
