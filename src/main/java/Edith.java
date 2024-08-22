@@ -10,16 +10,27 @@ public class Edith {
         String farewell = " bye!! see you soon love <3";
         String linebreak = "\n";
 
+        ToDo todoList = new ToDo();
+
         System.out.println(horizontal + linebreak +
                 greeting + linebreak +
                 horizontal);
 
-        String line = scanner.nextLine();
+        String task = scanner.nextLine();
 
-        while (!Objects.equals(line, "bye")) {
-            System.out.println(horizontal + linebreak + " " +
-                    line + linebreak + horizontal);
-            line = scanner.nextLine();
+        while (!Objects.equals(task, "bye")) {
+            if (Objects.equals(task, "list")) {
+                System.out.println(horizontal + linebreak +
+                        todoList.toString() +
+                        horizontal);
+                task = scanner.nextLine();
+            } else {
+                todoList.add(task);
+                System.out.println(horizontal + linebreak +
+                        " " + "added: " + task + linebreak +
+                        horizontal);
+                task = scanner.nextLine();
+            }
         }
 
         System.out.println(horizontal + linebreak + farewell + linebreak + horizontal);
