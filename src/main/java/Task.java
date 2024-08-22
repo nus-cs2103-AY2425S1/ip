@@ -7,12 +7,30 @@ abstract public class Task {
         this.status = false;
     }
 
-    public void markAsDone() {
-        this.status = true;
+    public boolean markAsDone() {
+        if (this.status) {
+            System.out.println("    So uh, the task is already done");
+            return false;
+
+        } else {
+            this.status = true;
+            return true;
+        }
     }
 
-    public void unmarkAsUndone() {
-        this.status = false;
+    public boolean unmarkAsUndone() {
+        if (!this.status) {
+            System.out.println("    So uh, the task already is not done");
+            return false;
+
+        } else {
+            this.status = false;
+            return true;
+        }
+    }
+
+    protected static void printLine() {
+        System.out.println("    ____________________________________________________________________________");
     }
 
     @Override

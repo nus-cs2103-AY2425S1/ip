@@ -1,6 +1,11 @@
+mark 2
+unmark 2
 todo borrow book
 deadline return book /by Sat
+todo
 event project meeting /from 2pm /to 4pm
+deadline
+event
 list
 mark 3
 mark 2

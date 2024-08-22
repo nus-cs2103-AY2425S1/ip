@@ -34,14 +34,21 @@ public class Elster {
 
             } else if (input.startsWith("deadline")) {
                 DeadlineTask task = DeadlineTask.of(input);
-                taskList.addToList(task);
+                if (!(task == null)) {
+                    taskList.addToList(task);
+                }
 
             } else if (input.startsWith("event")) {
                 EventTask task = EventTask.of(input);
-                taskList.addToList(task);
+                if (!(task == null)) {
+                    taskList.addToList(task);
+                }
 
             } else if (input.startsWith("todo")) {
-                taskList.addToList(ToDoTask.of(input));
+                ToDoTask task = ToDoTask.of(input);
+                if (!(task == null)) {
+                    taskList.addToList(task);
+                }
 
             } else if (input.startsWith("mark")) {
                 taskList.markTaskAsDone(Integer.parseInt(input.substring(5,6)));
@@ -49,6 +56,10 @@ public class Elster {
             } else if (input.startsWith("unmark")) {
                 taskList.unmarkTaskAsUndone(Integer.parseInt(input.substring(7,8)));
 
+            } else {
+                printLine();
+                System.out.println("    Could you, like, write a sensible command please?");
+                printLine();
             }
         }
 

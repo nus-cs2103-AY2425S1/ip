@@ -6,6 +6,21 @@ public class DeadlineTask extends Task{
     }
 
     public static DeadlineTask of(String input) {
+        String[] splitInput = input.split("\\s+");
+        if (input.strip().equals("deadline")) {
+            printLine();
+            System.out.println("    Elster begs of you to have details for your task");
+            printLine();
+            return null;
+
+        } else if (!input.contains("/by")) {
+            printLine();
+            System.out.println("    Elster begs of you to have a yknow, deadline with /by");
+            printLine();
+            return null;
+
+        }
+
         return new DeadlineTask(
                 input.substring(8, input.indexOf("/by")).strip(),
                 input.substring(input.indexOf("/by") + 4).strip()
