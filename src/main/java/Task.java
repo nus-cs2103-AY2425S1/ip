@@ -6,9 +6,7 @@ public class Task {
         done = false;
     }
 
-    public static Task of(String userInput) throws
-            CommandNotRecognisedException,
-            TaskDescriptionEmptyException {
+    public static Task of(String userInput) throws TestamentException {
         String[] splitUserInput = userInput.split(" ", 2);
         String identifier = splitUserInput[0];
 
@@ -23,6 +21,9 @@ public class Task {
             }
 
             String[] details = splitUserInput[1].split("/by ", 2);
+            if (details.length < 2) {
+                throw new DeadlineNoDateException();
+            }
             return new Deadline(details[0], details[1]);
         } else if (identifier.equals("event")) {
             if (splitUserInput.length < 2) {
