@@ -5,49 +5,49 @@ public class Alpha {
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
         String initialResponse = "____________________________________________________________\n"
-                + "Hello! I'm Alpha \n"
-                + "What can I do for you? \n"
-                + "____________________________________________________________ \n";
+                + "Hello! I'm Alpha\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________\n";
         
-        System.out.println("Hello from\n" + initialResponse);
+        System.out.println(initialResponse);
     
         while (true) {
             String s1 = scanner.nextLine();
         
             // Check if the user input is "bye"
             if (s1.equals("bye")) {
-                String echoResponse = "____________________________________________________________ \n"
+                String echoResponse = "____________________________________________________________\n"
                         + "Bye. Hope to see you again soon!" +"\n"
-                        + "____________________________________________________________ \n";
+                        + "____________________________________________________________\n";
                 System.out.println(echoResponse);
                 break;  // Exit the loop
             }
     
             else if (s1.equals("list")) {
-                String echoResponse = "____________________________________________________________ \n"
-                        +"Here are the tasks in your list: \n"
+                String echoResponse = "____________________________________________________________\n"
+                        +"Here are the tasks in your list:\n"
                         + storage.listWord() +"\n"
-                        + "____________________________________________________________ \n";
+                        + "____________________________________________________________\n";
                 System.out.println(echoResponse);
             }
             
             else if (s1.split(" ")[0].equals("mark")) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.modifyOperation(indexInvolved, true);
-                String echoResponse = "____________________________________________________________ \n"
-                        +"Nice! I've marked this task as done: \n"
+                String echoResponse = "____________________________________________________________\n"
+                        +"Nice! I've marked this task as done:\n"
                         + modifiedRecord +"\n"
-                        + "____________________________________________________________ \n";
+                        + "____________________________________________________________\n";
                 System.out.println(echoResponse);
             }
     
             else if (s1.split(" ")[0].equals("unmark")) {
                 Integer indexInvolved = Integer.valueOf(s1.split(" ")[1]);
                 String modifiedRecord = storage.modifyOperation(indexInvolved, false);
-                String echoResponse = "____________________________________________________________ \n"
+                String echoResponse = "____________________________________________________________\n"
                         +"OK, I've marked this task as not done yet:\n "
                         + modifiedRecord +"\n"
-                        + "____________________________________________________________ \n";
+                        + "____________________________________________________________\n";
                 System.out.println(echoResponse);
             }
             
