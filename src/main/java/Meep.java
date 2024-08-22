@@ -2,12 +2,7 @@ import java.util.Scanner;
 
 public class Meep {
     public static void main(String[] args) {
-        System.out.println("""
-                -----------------------------------------
-                Hello! I'm Meep
-                What can I do for you?
-                -----------------------------------------
-                """);
+        FormattedPrint.greeting();
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
         boolean isDone = false;

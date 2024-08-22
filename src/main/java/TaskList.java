@@ -11,6 +11,10 @@ public class TaskList {
         tasks.add(new Task(item));
     }
 
+    public void addItem(Task item) {
+        tasks.add(item);
+    }
+
     public void markAsDone(int index) {
         tasks.get(index).markAsDone();
     }
@@ -29,5 +33,9 @@ public class TaskList {
             list.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
         return list.toString();
+    }
+
+    public int getSize() {
+        return tasks.size();
     }
 }

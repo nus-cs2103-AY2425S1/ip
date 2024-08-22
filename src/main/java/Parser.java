@@ -1,43 +1,34 @@
 public class Parser {
+
+    // This method will return true if the user wants to exit the program
     public static boolean checkCommand(String input, TaskList taskList) {
         if (input.equalsIgnoreCase("bye")) {
-            System.out.println("""
-                    -----------------------------------------
-                    Meep: Bye! Have a great day!
-                    -----------------------------------------
-                    """);
+            FormattedPrint.bye();
             return true;
+
         } else if (input.split(" ")[0].equalsIgnoreCase("mark")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             taskList.markAsDone(index);
-            System.out.println("""
-                    -----------------------------------------
-                    Meep: Nice! I've marked this task as done:
-                    """ + taskList.getTask(index) + """
-                    -----------------------------------------
-                    """);
+            FormattedPrint.doneTask(taskList.getTask(index));
+
         } else if (input.split(" ")[0].equalsIgnoreCase("unmark")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             taskList.markAsUndone(index);
-            System.out.println("""
-                    -----------------------------------------
-                    Meep: OK, I've marked this task as not done yet:
-                    """ + taskList.getTask(index) + """
-                    -----------------------------------------
-                    """);
+            FormattedPrint.undoneTask(taskList.getTask(index));
+
+        } else if (input.toLowerCase().startsWith("deadline")) {
+
+            // GitHub Copilot suggested the following code snippet
+            String description = input.split(" ", 2)[1].split(" /by ")[0];
+            String by = input.split(" /by ")[1];
+            taskList.addItem(new Deadline(description, by));
+            FormattedPrint.addTask(description, taskList.getSize());
+
         } else if (input.equalsIgnoreCase("list")) {
-            System.out.println("""
-                    -----------------------------------------
-                    Meep: Here are the tasks in your list:
-                    """ + taskList.getList() + """
-                    -----------------------------------------
-                    """);
+            FormattedPrint.listTasks(taskList.getList());
         } else {
-            System.out.println("-----------------------------------------\n" +
-                    "Meep: " +
-                    "added: " + input + "\n" +
-                    "-----------------------------------------");
             taskList.addItem(input);
+            FormattedPrint.addTask(input, taskList.getSize());
         }
         return false;
     }
