@@ -83,8 +83,6 @@ public class Atlas {
                     Atlas.addTask(taskList, event);
                     break;
                 default:
-//                    taskList.add(new Task(nextCommandLine));
-//                    Atlas.print(String.format("added: %s", nextCommandLine));
                     break;
             }
         }
