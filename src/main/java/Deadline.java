@@ -15,6 +15,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    @Override
+    String getType() {
+        return "[D]";
+    }
+
     /**
      * Returns the string representation of the Deadline task
      *
@@ -22,6 +27,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return this.getType() + super.toString() + " (by: " + this.deadline + ")";
     }
 }

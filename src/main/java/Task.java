@@ -16,6 +16,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    private String getStatus() {
+        return "[" + (isDone ? "X" : " ") + "] ";
+    }
+
+    abstract String getType();
+
     /**
      * Returns the string representation of the task
      *
@@ -23,7 +29,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + this.description; // mark done task with X
+        return this.getStatus() + this.description; // mark done task with X
     }
 
     /**

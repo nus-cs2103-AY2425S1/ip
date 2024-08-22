@@ -19,6 +19,11 @@ public class Event extends Task {
         this.endDate = end;
     }
 
+    @Override
+    String getType() {
+        return "[E]";
+    }
+
     /**
      * Returns the string representation of the Event task
      *
@@ -26,6 +31,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
+        return this.getType() + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
     }
 }

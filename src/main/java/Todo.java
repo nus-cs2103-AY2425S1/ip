@@ -12,6 +12,11 @@ public class Todo extends Task {
         super(description);
     }
 
+    @Override
+    String getType() {
+        return "[T]";
+    }
+
     /**
      * Returns the string representation of the Todo task
      *
@@ -19,6 +24,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return this.getType() + super.toString();
     }
 }

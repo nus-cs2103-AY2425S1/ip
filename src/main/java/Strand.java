@@ -35,7 +35,7 @@ public class Strand {
      */
     private static void chatStart() {
         running = true;
-        output("Hello from Strand\nWhat can I do for you?");
+        output("ヾ(⌐■_■)ノ♪ Welcome! I'm Strand\nWhat can I do for you?");
     }
 
     /**
@@ -71,10 +71,10 @@ public class Strand {
                 String str;
                 if (Objects.equals(split[0], "mark")) {
                     t.markAsDone();
-                    str = "Nice! I've marked this task as done:\n";
+                    str = "( ﾟヮﾟ) You finished a task?! Congrats! I've marked this task as done:\n";
                 } else {
                     t.markAsNotDone();
-                    str = "OK, I've marked this task as not done yet:\n";
+                    str = "ಠ_ಠ ...OK, I've marked this task as not done yet:\n";
                 }
                 output(str + t);
 
@@ -96,7 +96,7 @@ public class Strand {
         if (split.length < 2) {
             throw new StrandDescNotFoundException("Description", type);
         }
-        String desc = split[1];
+        String desc = split[1].trim();
         if (desc.isEmpty()) {
             throw new StrandDescNotFoundException("Description", type);
         }
@@ -109,8 +109,8 @@ public class Strand {
                 if (!desc.contains(" /by ")) {
                     throw new StrandDescNotFoundException("Deadline", type);
                 }
-                String description = desc.substring(0, desc.indexOf(" /by "));
-                String deadline = desc.substring(desc.indexOf(" /by ") + 5);
+                String description = desc.substring(0, desc.indexOf(" /by ")).trim();
+                String deadline = desc.substring(desc.indexOf(" /by ") + 5).trim();
                 strandList.add(new Deadline(description, deadline));
                 break;
             }
@@ -121,14 +121,14 @@ public class Strand {
                 if (!desc.contains(" /to ")) {
                     throw new StrandDescNotFoundException("End time", type);
                 }
-                String description = desc.substring(0, desc.indexOf(" /from "));
-                String start = desc.substring(desc.indexOf(" /from ") + 7, desc.indexOf(" /to "));
-                String end = desc.substring(desc.indexOf(" /to ") + 5);
+                String description = desc.substring(0, desc.indexOf(" /from ")).trim();
+                String start = desc.substring(desc.indexOf(" /from ") + 7, desc.indexOf(" /to ") + 1).trim();
+                String end = desc.substring(desc.indexOf(" /to ") + 5).trim();
                 strandList.add(new Event(description, start, end));
                 break;
             }
         }
-        output("Got it. I've added this task:\n  "
+        output("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:\n  "
                 + strandList.get(strandList.size() - 1).toString()
                 + "\nNow you have " + strandList.size() + " tasks in the list.");
     }
@@ -152,7 +152,7 @@ public class Strand {
                 Task t = strandList.get(index - 1);
                 String taskString = t.toString();
                 strandList.remove(index - 1);
-                output("Noted. I've removed this task:\n" + taskString
+                output("(☞ﾟ∀ﾟ)☞ Task removed:\n" + taskString
                         + "\nNow you have " + strandList.size() + " tasks in the list.");
 
             } catch (NumberFormatException e) {
@@ -169,22 +169,37 @@ public class Strand {
      * @throws StrandException If the command is invalid or an error occurs during processing.
      */
     private static void inputs(String input) throws StrandException {
-        if (input.equalsIgnoreCase("bye")) {
-            output("Bye. Hope to see you again soon!");
-            running = false;
-        } else if (input.equalsIgnoreCase("list")) {
-            output(listAll());
-        } else if (input.toLowerCase().startsWith("mark") ||
-                input.toLowerCase().startsWith("unmark")) {
-            mark(input);
-        } else if (input.toLowerCase().startsWith("todo") ||
-                input.toLowerCase().startsWith("deadline") ||
-                input.toLowerCase().startsWith("event")) {
-            addTask(input);
-        } else if (input.toLowerCase().startsWith("delete")) {
-            deleteTask(input);
-        } else {
+        String[] split = input.toLowerCase().split("\\s+");
+        if(split.length == 0) {
             throw new StrandWrongCommandException();
+        }
+        String lowercaseInput = split[0];
+
+        switch (lowercaseInput) {
+            case "todo", "deadline", "event": {
+                addTask(input);
+                break;
+            }
+            case "delete": {
+                deleteTask(input);
+                break;
+            }
+            case "mark", "unmark" : {
+                mark(input);
+                break;
+            }
+            case "bye" : {
+                output("Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)");
+                running = false;
+                break;
+            }
+            case "list" : {
+                output(listAll());
+                break;
+            }
+            default: {
+                throw new StrandWrongCommandException();
+            }
         }
     }
 
