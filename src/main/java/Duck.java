@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duck {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        String[] cmds = new String[100];
+        Task[] cmds = new Task[100];
         int cmdNum = 0;
 
         System.out.println("Hello! I'm DUCK\n What can I do for you?");
@@ -12,19 +12,33 @@ public class Duck {
             if (userCmd.toLowerCase().equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
-            }
-            if (userCmd.toLowerCase().equals("list")) {
-                for (int n = 1; n<=cmdNum; n++) {
-                    System.out.println(n + ". " + cmds[n-1]);
+            } else if (userCmd.toLowerCase().equals("list")) {
+                if (cmdNum==0) {
+                    continue;
                 }
-                cmds[cmdNum] = userCmd;
+                for (int n = 1; n<=cmdNum; n++) {
+                    System.out.println(n + ". " + cmds[n - 1]);
+                }
+            } else if ((userCmd.length() > 3) && (userCmd.substring(0,4).toLowerCase().equals("mark"))) {
+                int num = Integer.valueOf(userCmd.substring(5));
+                if (num < cmdNum + 1) {
+                    cmds[num-1].mark();
+                }
+                System.out.println("Nice! I've marked this task as done:\n "+ cmds[num-1]);
+            } else if ((userCmd.length() > 5) && (userCmd.substring(0,6).toLowerCase().equals("unmark"))) {
+                int num = Integer.valueOf(userCmd.substring(7));
+                if (num < cmdNum + 1) {
+                    cmds[num-1].unmark();
+                }
+                System.out.println("OK, I've marked this task as not done yet:\n "+ cmds[num-1]);
+            } else {
+                System.out.println("added: " + userCmd);
+                cmds[cmdNum] = new Task(userCmd);
                 cmdNum++;
-                continue;
             }
-            System.out.println("added: " + userCmd);
-            cmds[cmdNum] = userCmd;
-            cmdNum++;
         }
         scan.close();
     }
 }
+
+
