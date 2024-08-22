@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Cypher {
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static void lineBreak() {
         System.out.println("-------------------------------------------------------");
     }
@@ -17,12 +18,23 @@ public class Cypher {
         Cypher.lineBreak();
     }
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
         Cypher.greet();
+        String command = "";
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter your command: ");
+            command = scanner.nextLine();
+
+            // Echo
+            if (!command.equalsIgnoreCase("bye")) {
+                Cypher.lineBreak();
+                System.out.println(command);
+                Cypher.lineBreak();
+            } else {
+                Cypher.lineBreak();
+                break;
+            }
+        }
 
         Cypher.goodBye();
     }
