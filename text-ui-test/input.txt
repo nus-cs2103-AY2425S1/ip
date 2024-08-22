@@ -1,0 +1,9 @@
+todo borrow book
+deadline return book /by Monday 2pm
+event book festival /from Thursday 12pm /to 4pm
+mark 1
+mark 2
+list
+unmark 2
+list
+bye
