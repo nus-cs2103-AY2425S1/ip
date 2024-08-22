@@ -106,7 +106,7 @@ public class MessageParserImpl implements MessageParser {
             Task task = storage.getTask(taskIdx);
             storage.deleteTask(taskIdx);
 
-            return String.format("Sure. Task deleted:\n%s\n%d tasks in the lst.", task, storage.getSize());
+            return String.format("Sure. Task deleted:\n%s\n%d tasks in the list.", task, storage.getSize());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidMessageException("Sorry, delete needs a numerical task index. :(");
         }

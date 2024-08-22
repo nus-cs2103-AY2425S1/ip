@@ -14,6 +14,10 @@ mark 2
 list
 unmark 2
 list
+delete 2
+list
+delete 2
+list
 
 mark
 mark a
@@ -27,4 +31,6 @@ event
 event a
 event a /from b
 event a /from b /to
+delete
+delete a
 bye
