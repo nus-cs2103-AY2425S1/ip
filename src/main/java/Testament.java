@@ -46,7 +46,12 @@ public class Testament {
                 printDialogue("This task has been unmarked:\n" + taskDetails);
 
             } else {
-                taskList.add(Task.of(userInput));
+                try {
+                    taskList.add(Task.of(userInput));
+                } catch (CommandNotRecognisedException e) {
+                    printDialogue(e.getMessage());
+                    continue;
+                }
                 String latestTask;
                 try {
                     latestTask = taskList.getTask(taskList.getSize());
