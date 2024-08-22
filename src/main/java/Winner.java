@@ -22,7 +22,6 @@ public class Winner {
                     counter++;
                 }
                 System.out.println(" ".repeat(10) + "--------------------------------------");
-                break;
             } else if (input.equalsIgnoreCase("bye")) {
                 System.out.println("""
                         --------------------------------------
@@ -30,11 +29,12 @@ public class Winner {
                         Thank you and see you again soon :D
                         --------------------------------------""".indent(10));
                 break;
+            } else {
+                tasks.add(input);
+                System.out.println("--------------------------------------".indent(10) +
+                        ("added: " + input).indent(10) +
+                        "--------------------------------------".indent(10));
             }
-            tasks.add(input);
-            System.out.println("--------------------------------------".indent(10) +
-                    ("added: " + input ).indent(10) +
-                    "--------------------------------------".indent(10));
         }
 
     }
