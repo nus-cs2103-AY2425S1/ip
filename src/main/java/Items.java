@@ -11,12 +11,22 @@ public class Items {
         this.items.add(item);
     }
 
-    public void  markItemDone(int i) {
-        this.items.get(i-1).markAsDone();
+    public void  markItemDone(String input) throws SamException {
+        try {
+            String[] parts = input.split(" ");
+            this.items.get(Integer.parseInt(parts[1])-1).markAsDone();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SamException("Please indicate the item number to mark done");
+        }
     }
 
-    public void  markItemUndone(int i) {
-        this.items.get(i-1).markAsUndone();
+    public void  markItemUndone(String input) throws SamException {
+        try {
+            String[] parts = input.split(" ");
+            this.items.get(Integer.parseInt(parts[1])-1).markAsUndone();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SamException("Please indicate the item number to mark undone");
+        }
     }
 
     public String getLastAdded() {
