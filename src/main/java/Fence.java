@@ -20,7 +20,7 @@ public class Fence {
     }
 
     public void list() {
-        System.out.println("!plans: ");
+        System.out.println("!plans:");
         for (int i = 0; i < items.size(); i++) {
             System.out.println(i + 1 + ". " + items.get(i));
         }
