@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class JEFF {
     private static final String LINE = "--------------------------------------------";
     private static final Scanner sc = new Scanner(System.in); // Scanner object to detect user input
+    private static ArrayList<String> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         // Init sequence
@@ -24,19 +26,30 @@ public class JEFF {
         System.out.println("What can I do for you?");
         boolean chatCont = true;
         while (chatCont) {
-            chatCont = echoEvent();
+            chatCont = chatEvent();
         }
         exitEvent();
     }
 
-    private static boolean echoEvent() {
+    private static boolean chatEvent() {
         System.out.println(LINE);
         String input = sc.nextLine();
         if (Objects.equals(input, "bye")) {
             return false;
+        } else if (Objects.equals(input, "list")) {
+            printList(input);
+        } else {
+            // Add input to task list
+            taskList.add("input");
+            System.out.printf("added: %s\n", input);
         }
-        System.out.println(input);
         return true;
+    }
+
+    private static void printList(String input) {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.printf("%d. %s\n", i, input);
+        }
     }
 
     public static void exitEvent() {
