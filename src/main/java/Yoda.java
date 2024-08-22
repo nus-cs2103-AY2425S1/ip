@@ -42,6 +42,9 @@ public class Yoda {
             }
             printLine();
         } else if (Objects.equals(splitInput[0], "mark")) {
+            if (!checkForInt(input)) {
+                throw new InvalidInputException("Mark... which one?");
+            }
             int index = Integer.parseInt(splitInput[1]);
             Task currentTask = tasks.get(index - 1);
             currentTask.markDone();
@@ -51,12 +54,28 @@ public class Yoda {
             printLine();
 
         } else if (Objects.equals(splitInput[0], "unmark")) {
+            if (!checkForInt(input)) {
+                throw new InvalidInputException("Unmark... which one?");
+            }
             int index = Integer.parseInt(splitInput[1]);
             Task currentTask = tasks.get(index - 1);
             currentTask.markNotDone();
             printLine();
             System.out.println("Marked this as not done, I have");
             System.out.printf("%s\n", tasks.get(index - 1));
+            printLine();
+        } else if (Objects.equals(splitInput[0], "delete")) {
+            if (!checkForInt(input)) {
+                throw new InvalidInputException("Delete... which one?");
+            }
+            int index = Integer.parseInt(splitInput[1]);
+            Task currentTask = tasks.get(index - 1);
+            tasks.remove(index - 1);
+
+            printLine();
+            System.out.println("Deleted this, I have.");
+            System.out.printf("%s\n", currentTask);
+            System.out.println(String.format("Now you have %d tasks in the list\n", tasks.size()));
             printLine();
         } else if (Objects.equals(splitInput[0], "todo")) {
             if (!checkValidToDo(input)) {
@@ -128,6 +147,15 @@ public class Yoda {
             return false;
         }
     }
+    public static boolean checkForInt(String input) {
+        String[] splitInput = input.split(" ", 2);
+        if (splitInput.length == 2) {
+            return splitInput[1].matches("\\d+");
+        } else {
+            return false;
+        }
+    }
+
 
     public static void printLine() {
         System.out.println(line);
