@@ -70,6 +70,17 @@ public class Tudee {
                         System.out.println("____________________________________________________________ \n");
                     }
                 }
+                else if (cmd.equalsIgnoreCase("delete")) {
+                    int index = Integer.parseInt(inputArray[1]) - 1;
+                    Task temp = list.get(index);
+                    list.remove(index);
+                    count--;
+                    System.out.println("____________________________________________________________ \n");
+                    System.out.println("Noted. I've removed this task: \n");
+                    System.out.println(temp);
+                    System.out.println("Now you have " + count + " tasks in the list. \n");
+                    System.out.println("____________________________________________________________ \n");
+                }
                 else {
                     throw new TudeeException("Everything has limits, and this is my limit.");
                 }
