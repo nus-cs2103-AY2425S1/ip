@@ -41,7 +41,7 @@ public class Eevee {
                 // response to a task
                 Task t = new Task(input);
                 tasks.add(t);
-                System.out.println("Added '" + input + "' to your task list");
+                System.out.println("Added the following task to your list:\n" + t + "\nYou now have " + tasks.size() + " task(s).");
             }
 
             System.out.print(divider);
