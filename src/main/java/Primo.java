@@ -3,6 +3,15 @@ import java.util.Scanner;
 public class Primo {
     private static final Scanner scanner = new Scanner(System.in);
     private static boolean ended = false;
+    private static String[] list;
+
+    private static void printList() {
+        int len = list.length;
+        for (int i = 0; i < len; i++) {
+            String output = String.valueOf(i + 1) + " " + list[i] + "\n";
+            System.out.println(output);
+        }
+    }
 
     private static void sayBye() {
         String byeMessage = "El Primo: " +
