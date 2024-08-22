@@ -7,8 +7,8 @@ public class TaskList {
         numItems++;
     }
 
-    public void markItem(int label) {
-        LIST[label - 1].markAsDone();
+    public Task getItem(int label) {
+        return LIST[label - 1];
     }
 
     public String toString() {

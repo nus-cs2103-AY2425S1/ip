@@ -53,14 +53,30 @@ public class Duck {
                 printAsResponse(GOODBYE);
                 break;
             } else if (line.equals("list")) {
-                printAsResponse(TASKS.toString());
+                String response = "Here are the tasks in your list:\n"
+                        + TASKS.toString();
+                printAsResponse(response);
             } else {
                 String command = reader.peekToken();
 
                 if (command.equals("mark")) {
                     reader.getWord();
                     int itemLabel = reader.getInt();
-                    TASKS.markItem(itemLabel);
+                    Task task = TASKS.getItem(itemLabel);
+                    task.markAsDone();
+
+                    String response = "Nice! I've marked this task as done:\n"
+                            + indentText(task.toString(), 2);
+                    printAsResponse(response);
+                } else if (command.equals("unmark")) {
+                    reader.getWord();
+                    int itemLabel = reader.getInt();
+                    Task task = TASKS.getItem(itemLabel);
+                    task.markAsNotDone();
+
+                    String response = "OK, I've marked this task as not done yet:\n"
+                            + indentText(task.toString(), 2);
+                    printAsResponse(response);
                 } else {
                     TASKS.addItem(line);
                     String response = "added: " + line;
