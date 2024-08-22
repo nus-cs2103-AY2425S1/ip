@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Rainy {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidIndexException {
         System.out.println("Hello! I am RAINY - Responsive, Automated, Intelligence Network for You.");
         System.out.println("I am a digital assistant designed to help you keep track of your day.");
         System.out.println("So, what can I do for you today?");
@@ -30,9 +30,21 @@ public class Rainy {
             } else if (message.equals("unmark") && count != -1) {
                 tm.unmarkDone(count - 1);
             } else if (message.equals("todo")) {
-                tm.updateListToDo(splitByTask[0].substring(5));
+                if (input.length == 1) {
+                    System.out.println("You neeed to provide a description of your ToDo task, please try again!");
+                } else {
+                    tm.updateListToDo(splitByTask[0].substring(5));
+                }
+
             } else if (message.equals("deadline")) {
-                tm.updateListDeadline(splitByTask[0].substring(9), splitByTask[1]);
+                if (input.length == 1) {
+                    System.out.println("You neeed to provide a description of your Deadline, please try again!");
+                } else if (splitByTask.length == 1) {
+                    System.out.println("Please provide an end date for your Deadline!");
+                } else {
+                    tm.updateListDeadline(splitByTask[0].substring(9), splitByTask[1]);
+                }
+
             }
 
             else {
