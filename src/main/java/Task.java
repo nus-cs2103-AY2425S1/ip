@@ -21,7 +21,7 @@ public class Task {
         String status;
 
         if (completeStatus) {
-            status = "[✓]";
+            status = "[X]";
 
         } else {
             status = "[ ]";

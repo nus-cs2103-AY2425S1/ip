@@ -4,7 +4,8 @@ public class Response {
 
 
     private String formatResponse(String input) {
-        String separator = '\n' + "-".repeat(input.length())+'\n';
+
+        String separator = '\n' + "-".repeat(Math.min(input.length(), 110))+'\n';
         return separator + input + separator;
     }
 
@@ -36,9 +37,9 @@ public class Response {
     }
 
     private String addTask(String input) {
-        taskList.addTask(input);
 
-        return "Added: "+ input + ". Just making sure you stay busy.";
+        return String.format("Added yet another task\n   %s\nYou now have %d tasks. Are you gonna do any of them?", taskList.addTask(input), taskList.noOfTasks());
+
     }
 
     public String showList() {
@@ -49,7 +50,7 @@ public class Response {
         return formatResponse(introMessage);
     }
     public String outro() {
-        String outputMessage = "Well, that's a wrap! If you need anything else, just holler. But let’s be honest, you’re probably better off asking someone else.";
+        String outputMessage = "Well, that's a wrap! If you need anything else, just holler.\nBut let’s be honest, you’re probably better off asking someone else.";
         return formatResponse(outputMessage);
     }
 }
