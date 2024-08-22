@@ -12,26 +12,16 @@ public class Bellroy {
                 "____________________________________________________________\n";
 
         String userInput = "";
-        List<String> toDoList = new ArrayList<>();
+        List<Task> toDoList = new ArrayList<>();
 
         System.out.println(message);
         while (true) {
 
             userInput = scanner.nextLine();
 
-//            if (userInput.equalsIgnoreCase("bye")) {
-//                System.out.println("____________________________________________________________\n" +
-//                        "     Bye. Hope to see you again soon!\n" +
-//                        "    ____________________________________________________________\n");
-//
-//                break;
-//            }
-//
-//            System.out.println("____________________________________________________________\n" +
-//                    userInput + "\n" +
-//                    "    ____________________________________________________________");
 
-            switch (userInput.toLowerCase()) {
+
+            switch (userInput.split(" ")[0]) {
                 case "bye":
                     System.out.println("____________________________________________________________\n" +
                         "     Bye. Hope to see you again soon!\n" +
@@ -47,8 +37,27 @@ public class Bellroy {
                     System.out.println("____________________________________________________________\n");
                     break;
 
+                case "mark":
+                    int position = Integer.parseInt(userInput.split(" ")[1]);
+                    toDoList.get(position - 1).markDone();
+                    System.out.println("    ____________________________________________________________\n" +
+                            "     Nice! I've marked this task as done:\n" +
+                            "     " + toDoList.get(position-1).toString() + "\n" +
+                            "    ____________________________________________________________");
+                    break;
+
+                case "unmark":
+                    int pos = Integer.parseInt(userInput.split(" ")[1]);
+                    toDoList.get(pos - 1).undo();
+                    System.out.println("    ____________________________________________________________\n" +
+                            "     OK, I've marked this task as not done yet:\n" +
+                            "     " + toDoList.get(pos-1).toString() + "\n" +
+                            "    ____________________________________________________________");
+                    break;
+
                 default:
-                    toDoList.add(userInput);
+                    Task temp = new Task(userInput);
+                    toDoList.add(temp);
                     System.out.println("____________________________________________________________\n" +
                             "     added: " + userInput + "\n" +
                             "____________________________________________________________\n");
