@@ -1,15 +1,23 @@
 todo workout
 todo read book
-todo play Valorant
+mark 0
+mark 10
+
+todo
+deadline
+event
+
 deadline 2103T ip /by Friday
 event EML Session /from Mon 2pm /to 4pm
+meow
 deadline quiz /by 10p.m.
 mark 1
-mark 2
+mark 3
 mark 4
 todo mix songs
-unmark 2
+unmark 3
 list
+dance
 mark 6
 list
 bye

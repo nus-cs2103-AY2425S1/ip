@@ -13,34 +13,53 @@
     What can I do for you?
     ------------------------------------
     ------------------------------------
-    What siaaa!! Added this task:
+    Yo Dawgg!! Added this task:
     [T] [ ] workout
     Now you have 1 task in the list.
     ------------------------------------
     ------------------------------------
-    What siaaa!! Added this task:
+    Yo Dawgg!! Added this task:
     [T] [ ] read book
     Now you have 2 tasks in the list.
     ------------------------------------
     ------------------------------------
-    What siaaa!! Added this task:
-    [T] [ ] play Valorant
+    DANGER !! Task does not exist
+    ------------------------------------
+    ------------------------------------
+    DANGER !! Task does not exist
+    ------------------------------------
+    ------------------------------------
+    WHHHAHAHAHHA!! You didn't enter anything siaaa!!!
+    ------------------------------------
+    ------------------------------------
+    What siaaa!! Description cannot be empty
+    ------------------------------------
+    ------------------------------------
+    What siaaa!! Description cannot be empty
+    ------------------------------------
+    ------------------------------------
+    What siaaa!! Description cannot be empty
+    ------------------------------------
+    ------------------------------------
+    WHHHAHAHAHHA!! You didn't enter anything siaaa!!!
+    ------------------------------------
+    ------------------------------------
+    Yo Dawgg!! Added this task:
+    [D] [ ] 2103T ip  (by: Friday)
     Now you have 3 tasks in the list.
     ------------------------------------
     ------------------------------------
-    What siaaa!! Added this task:
-    [D] [ ] 2103T ip  (by: Friday)
+    Yo Dawgg!! Added this task:
+    [D] [ ] EML Session  (from: Mon 2pm  to: 4pm)
     Now you have 4 tasks in the list.
     ------------------------------------
     ------------------------------------
-    What siaaa!! Added this task:
-    [D] [ ] EML Session  (from: Mon 2pm  to: 4pm)
-    Now you have 5 tasks in the list.
+    AGWHAHH!!! What'ya sayin' dawgg??
     ------------------------------------
     ------------------------------------
-    What siaaa!! Added this task:
+    Yo Dawgg!! Added this task:
     [D] [ ] quiz  (by: 10p.m.)
-    Now you have 6 tasks in the list.
+    Now you have 5 tasks in the list.
     ------------------------------------
     ------------------------------------
     Ayee Yooo! I've marked this task okaayyyyy:
@@ -48,44 +67,45 @@
     ------------------------------------
     ------------------------------------
     Ayee Yooo! I've marked this task okaayyyyy:
-        [T] [X] read book
-    ------------------------------------
-    ------------------------------------
-    Ayee Yooo! I've marked this task okaayyyyy:
         [D] [X] 2103T ip  (by: Friday)
     ------------------------------------
     ------------------------------------
-    What siaaa!! Added this task:
+    Ayee Yooo! I've marked this task okaayyyyy:
+        [D] [X] EML Session  (from: Mon 2pm  to: 4pm)
+    ------------------------------------
+    ------------------------------------
+    Yo Dawgg!! Added this task:
     [T] [ ] mix songs
-    Now you have 7 tasks in the list.
+    Now you have 6 tasks in the list.
     ------------------------------------
     ------------------------------------
     Yo big guy! I've unmarked this for you:
-        [T] [ ] read book
+        [D] [ ] 2103T ip  (by: Friday)
     ------------------------------------
     ------------------------------------
     Here are your tasks lah!! Don't die:
     1. [T] [X] workout
     2. [T] [ ] read book
-    3. [T] [ ] play Valorant
-    4. [D] [X] 2103T ip  (by: Friday)
-    5. [D] [ ] EML Session  (from: Mon 2pm  to: 4pm)
-    6. [D] [ ] quiz  (by: 10p.m.)
-    7. [T] [ ] mix songs
+    3. [D] [ ] 2103T ip  (by: Friday)
+    4. [D] [X] EML Session  (from: Mon 2pm  to: 4pm)
+    5. [D] [ ] quiz  (by: 10p.m.)
+    6. [T] [ ] mix songs
+    ------------------------------------
+    ------------------------------------
+    AGWHAHH!!! What'ya sayin' dawgg??
     ------------------------------------
     ------------------------------------
     Ayee Yooo! I've marked this task okaayyyyy:
-        [D] [X] quiz  (by: 10p.m.)
+        [T] [X] mix songs
     ------------------------------------
     ------------------------------------
     Here are your tasks lah!! Don't die:
     1. [T] [X] workout
     2. [T] [ ] read book
-    3. [T] [ ] play Valorant
-    4. [D] [X] 2103T ip  (by: Friday)
-    5. [D] [ ] EML Session  (from: Mon 2pm  to: 4pm)
-    6. [D] [X] quiz  (by: 10p.m.)
-    7. [T] [ ] mix songs
+    3. [D] [ ] 2103T ip  (by: Friday)
+    4. [D] [X] EML Session  (from: Mon 2pm  to: 4pm)
+    5. [D] [ ] quiz  (by: 10p.m.)
+    6. [T] [X] mix songs
     ------------------------------------
     ------------------------------------
     Bubyyeee & Don't Stwesszz. Time to hide now!!
