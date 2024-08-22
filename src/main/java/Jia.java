@@ -78,6 +78,25 @@ public class Jia {
                 } else {
                     System.out.println("Invalid format for deadline task :(");
                 }
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.split(" /from | /to ");
+                if (parts.length == 3) {
+                    String description = parts[0].substring(6);
+                    String from = parts[1];
+                    String to = parts[2];
+                    tasks[taskCount++] = new Event(description, from, to);
+                    System.out.println("______________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + tasks[taskCount - 1]);
+                    if (taskCount > 1) {
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    } else {
+                        System.out.println("Now you have " + taskCount + " task in the list.");
+                    }
+                    System.out.println("______________________________________________________");
+                } else {
+                    System.out.println("Invalid format for event task :(");
+                }
             } else if (!input.equalsIgnoreCase("bye")) {
                     System.out.println("______________________________________________________");
                     System.out.println(" " + "added: " + input);
