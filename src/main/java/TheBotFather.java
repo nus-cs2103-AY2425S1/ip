@@ -41,7 +41,7 @@ public class TheBotFather {
                         task = taskList.get(index);
                         task.markAsDone();
                         print("It will be done");
-                        print("    " + task.toString());
+                        print("    " + task);
                     } catch (NoSuchElementException e) {
                         print("Skill issue: Atleast enter a number");
                     } catch (NumberFormatException e) {
@@ -59,7 +59,7 @@ public class TheBotFather {
                         task = taskList.get(index);
                         task.unmark();
                         print("A man who doesn't spend time with his family can never be a real man.");
-                        print("    " + task.toString());
+                        print("    " + task);
                     } catch (NoSuchElementException e) {
                         print("Skill issue: Atleast enter a number");
                     } catch (NumberFormatException e) {
@@ -72,12 +72,30 @@ public class TheBotFather {
                     break;
 
 
+                case "delete":
+                    try {
+                        index = Integer.parseInt(String.valueOf(tokens.nextToken())) - 1;
+                        task = taskList.get(index);
+                        print("You are sure you wanted to do that right? Anyways... too late");
+                        print("    " + task.toString());
+                        taskList.remove(index);
+                        Task.COUNT--;
+                    } catch (NoSuchElementException e) {
+                        print("Skill issue: Atleast enter a number");
+                    } catch (NumberFormatException e) {
+                        print("How do you not know what a number is, jeez");
+                    } catch (IndexOutOfBoundsException e) {
+                        print("To be a real man you need to know how to count, you don't even have those many tasks son");
+                    } finally {
+                        printLine();
+                    }
+                    break;
                 case "todo":
                     try {
                         task = makeTodo(tokens);
                         taskList.add(task);
                         print("Leave the gun, take the cannoli.");
-                        print("    " + task.toString());
+                        print("    " + task);
                         print(Task.getCOUNT());
                     } catch (NoSuchElementException e) {
                         print("Why do you want to do a todo if there is no todo to do!");
@@ -93,7 +111,7 @@ public class TheBotFather {
                         task = makeDeadline(tokens);
                         taskList.add(task);
                         print("Look how they massacred my boy.");
-                        print("    " + task.toString());
+                        print("    " + task);
                         print(Task.getCOUNT());
                     } catch (NoSuchElementException e) {
                         print("Son, if there is no Deadline.. GO HOME");
@@ -110,7 +128,7 @@ public class TheBotFather {
                         task = makeEvent(tokens);
                         taskList.add(task);
                         print("That's my family, Kay, that's not me.");
-                        print("    " + task.toString());
+                        print("    " + task);
                         print(Task.getCOUNT());
                     } catch (NoSuchElementException e) {
                         print("Kiddo, go sleep, this is not a valid event!");
