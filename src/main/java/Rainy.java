@@ -47,9 +47,18 @@ public class Rainy {
 
             }
 
-            else {
-                tm.updateListEvent(splitByTask[0].substring(6), splitByTask[1], splitByTask[2]);
+            else if (message.equals("event")) {
+                if (input.length == 1) {
+                    System.out.println("You neeed to provide a description of your Event, please try again!");
+                } else if (splitByTask.length < 3) {
+                    System.out.println("Please provide a proper start time and end time for your Event!");
+                } else {
+                    tm.updateListEvent(splitByTask[0].substring(6), splitByTask[1], splitByTask[2]);
+                }
+            } else {
+                System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
             }
+
             messages = sc.nextLine();
             input = messages.split(" ");
             splitByTask = messages.split("/");
