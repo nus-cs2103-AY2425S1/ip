@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Yapper {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[100];
@@ -43,11 +42,39 @@ public class Yapper {
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println("   " + tasks[taskNumber]);
                 System.out.println("____________________________________________________________");
-            } else {
-                tasks[taskCount] = new Task(userInput);
+            } else if (command.equals("todo")) {
+                Task task = new Todo(userInputParts[1]);
+                tasks[taskCount] = task;
                 taskCount++;
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + userInput);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + task);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (command.equals("deadline")) {
+                String[] details = userInputParts[1].split(" /by ");
+                Task task = new Deadline(details[0], details[1]);
+                tasks[taskCount] = task;
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + task);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (command.equals("event")) {
+                String[] details = userInputParts[1].split(" /from ");
+                String[] fromTo = details[1].split(" /to ");
+                Task task = new Event(details[0], fromTo[0], fromTo[1]);
+                tasks[taskCount] = task;
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + task);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println(" Sorry, I don't recognize that command.");
                 System.out.println("____________________________________________________________");
             }
         }
