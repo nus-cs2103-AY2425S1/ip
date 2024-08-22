@@ -5,7 +5,7 @@ public class Nixy {
     static String[] tasks = new String[100];
     public static void main(String[] args) {
         String chatbotName = "Nixy";
-        indentPrint(wrapWithHorizontalLines("Hello! I'm " + chatbotName, "What can I do for you?"));
+        wrapPrintWithHorizontalLines("Hello! I'm " + chatbotName, "What can I do for you?");
         store();
     }
 
@@ -16,7 +16,7 @@ public class Nixy {
             exit();
             return;
         }
-        indentPrint(wrapWithHorizontalLines(input));
+        wrapPrintWithHorizontalLines(input);
         echo();
     }
 
@@ -31,20 +31,18 @@ public class Nixy {
             return;
         }
         tasks[tasks.length - 1] = input;
-        indentPrint(wrapWithHorizontalLines("added: " + input));
+        wrapPrintWithHorizontalLines("added: " + input);
         store();
     }
 
     private static void exit() {
-        indentPrint(wrapWithHorizontalLines("Bye. Hope to see you again soon!"));
+        wrapPrintWithHorizontalLines("Bye. Hope to see you again soon!");
     }
 
-    private static String[] wrapWithHorizontalLines(String... lines) {
-        String[] wrappedLines = new String[lines.length + 2];
-        wrappedLines[0] = HORIZONTAL_LINE;
-        System.arraycopy(lines, 0, wrappedLines, 1, lines.length);
-        wrappedLines[wrappedLines.length - 1] = HORIZONTAL_LINE;
-        return wrappedLines;
+    private static void wrapPrintWithHorizontalLines(String... lines) {
+        indentPrint(HORIZONTAL_LINE);
+        indentPrint(lines);
+        indentPrint(HORIZONTAL_LINE);
     }
 
     private static void indentPrint(String... lines) {
