@@ -9,6 +9,7 @@ public class Meep {
                 -----------------------------------------
                 """);
         Scanner scanner = new Scanner(System.in);
+        Store store = new Store();
         // keep scanning for user input
         while (true) {
             System.out.print("You: ");
@@ -20,11 +21,19 @@ public class Meep {
                         -----------------------------------------
                         """);
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                System.out.println("""
+                        -----------------------------------------
+                        Meep: Here is your list:
+                        """ + store.getList() + """
+                        -----------------------------------------
+                        """);
             } else {
                 System.out.println("-----------------------------------------\n" +
                         "Meep: " +
-                        input + "\n" +
+                        "added: " + input + "\n" +
                         "-----------------------------------------");
+                store.addItem(input);
             }
         }
     }
