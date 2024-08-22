@@ -48,25 +48,33 @@ public class Angel {
                         + " Now you have " + taskCount + " tasks in the list.\n" + logo);
             } else if (userInput.startsWith("deadline ")) {
                 String[] parts = userInput.substring(9).split(" /by ");
-                String description = parts[0];
-                String by = parts[1];
-                tasks[taskCount] = "[D][ ] " + description + " (by: " + by + ")";
-                isDone[taskCount] = false;
-                taskCount++;
-                System.out.println(logo + " Got it. I've added this task:\n"
-                        + "   " + tasks[taskCount - 1] + "\n"
-                        + " Now you have " + taskCount + " tasks in the list.\n" + logo);
+                if (parts.length == 2) {
+                    String description = parts[0];
+                    String by = parts[1];
+                    tasks[taskCount] = "[D][ ] " + description + " (by: " + by + ")";
+                    isDone[taskCount] = false;
+                    taskCount++;
+                    System.out.println(logo + " Got it. I've added this task:\n"
+                            + "   " + tasks[taskCount - 1] + "\n"
+                            + " Now you have " + taskCount + " tasks in the list.\n" + logo);
+                } else {
+                    System.out.println(logo + " Invalid deadline format. Please use the format 'deadline <description> /by <date/time>'.\n" + logo);
+                }
             } else if (userInput.startsWith("event ")) {
                 String[] parts = userInput.substring(6).split(" /from | /to ");
-                String description = parts[0];
-                String from = parts[1];
-                String to = parts[2];
-                tasks[taskCount] = "[E][ ] " + description + " (from: " + from + " to: " + to + ")";
-                isDone[taskCount] = false;
-                taskCount++;
-                System.out.println(logo + " Got it. I've added this task:\n"
-                        + "   " + tasks[taskCount - 1] + "\n"
-                        + " Now you have " + taskCount + " tasks in the list.\n" + logo);
+                if (parts.length == 3) {
+                    String description = parts[0];
+                    String from = parts[1];
+                    String to = parts[2];
+                    tasks[taskCount] = "[E][ ] " + description + " (from: " + from + " to: " + to + ")";
+                    isDone[taskCount] = false;
+                    taskCount++;
+                    System.out.println(logo + " Got it. I've added this task:\n"
+                            + "   " + tasks[taskCount - 1] + "\n"
+                            + " Now you have " + taskCount + " tasks in the list.\n" + logo);
+                } else {
+                    System.out.println(logo + " Invalid event format. Please use the format 'event <description> /from <start> /to <end>'.\n" + logo);
+                }
             } else {
                 System.out.println(logo + " Sorry, I don't recognize that command.\n" + logo);
             }
