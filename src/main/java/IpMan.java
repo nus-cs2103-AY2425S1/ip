@@ -28,6 +28,17 @@ public class IpMan {
                         }
                         break;
                     }
+                    case "delete": {
+                        int idx = Integer.parseInt(line.split(" ")[1]) - 1;
+                        if (idx < 0 || idx >= list.size()) {
+                            throw new CommandException("The item to delete does not exist.");
+                        }
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(list.get(idx));
+                        list.remove(idx);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        break;
+                    }
                     case "unmark": {
                         int idx = Integer.parseInt(line.split(" ")[1]) - 1;
                         if (idx < 0 || idx >= list.size()) {
