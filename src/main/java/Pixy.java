@@ -5,24 +5,22 @@ import java.util.Scanner;
 public class Pixy {
 
     private List<Task> list = new ArrayList<>();
-    private int numOfItems;
     private String inputTask() {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
         return sc.next();
     }
-    private void addToList(String task) {
-        list.add(new Task(task));
-        System.out.println("added: " + task +
+    private void addToList(Task task) {
+        list.add(task);
+        System.out.println("Got it. I've added this task:\n " + task);
+        System.out.println("Now you have " + list.size() + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
     private void printList() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            if (task == null) {
-                break;
-            }
-            System.out.println((i + 1) + ". " + "[" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println((i + 1) + ". " + task.toString());
         }
     }
     private boolean isValidTaskNumber(int index) {
@@ -32,7 +30,7 @@ public class Pixy {
         if (isValidTaskNumber(taskNumber)) {
             Task task = list.get(taskNumber - 1);
             task.markAsDone(done);
-            System.out.println("[" + task.getStatusIcon() + "] " + task.getDescription() +
+            System.out.println( task.toString() +
                     "\n____________________________________________________________\n");
         } else {
             System.out.println("Invalid task number entered!Input again.");
@@ -60,7 +58,19 @@ public class Pixy {
                 System.out.println("OK, I have marked this task as not done yet:");
                 markTask(taskNumber, false);
             } else {
-                addToList(command);
+                if (command.startsWith("todo ")) {
+                    String description = command.substring(5);
+                    Task todo = new ToDos(description);
+                    addToList(todo);
+                } else if (command.startsWith("deadline ")) {
+                    String[] parts = command.substring(9).split(" /by");
+                    Task deadline = new Deadlines(parts[0], parts[1]);
+                    addToList(deadline);
+                } else if (command.startsWith("event ")) {
+                    String[] parts = command.substring(6).split(" /from | /to");
+                    Task event = new Event(parts[0], parts[1], parts[2]);
+                    addToList(event);
+                }
             }
         }
     }
