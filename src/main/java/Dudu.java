@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Dudu {
     public static void main(String[] args) {
         String lineRule = "--------------------------------------------\n";
@@ -7,6 +9,18 @@ public class Dudu {
                               + lineRule;
         String goodbyeMessage = "Bye. Hope to see you again soon!\n"
                               + lineRule;
-        System.out.println(welcomeMessage + goodbyeMessage);
+
+        System.out.println(welcomeMessage);
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            String message = sc.nextLine();
+            System.out.println(lineRule
+                             + message + "\n"
+                             + lineRule);
+            if (message.equals("bye")) {
+                break;
+            }
+        }
+        System.out.println(goodbyeMessage);
     }
 }
