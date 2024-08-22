@@ -25,4 +25,10 @@ public abstract class Task {
     public static int getTotalTasks() {
         return totalTasks;
     }
+
+    public static void deleteTask() {
+        if (totalTasks > 0) {
+            totalTasks -= 1;
+        }
+    }
 }
