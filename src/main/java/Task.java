@@ -19,6 +19,6 @@ public class Task {
     }
     public String getTaskInfo() {
         String check = this.isDone() ? "X" : " ";
-        return String.format("[%s]. %s", check, this.getName());
+        return String.format("[%s] %s", check, this.getName());
     }
 }

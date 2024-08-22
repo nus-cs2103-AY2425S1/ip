@@ -30,7 +30,7 @@ public class Darwin {
         StringBuilder taskList = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.taskList.size(); i++) {
             Task task = this.taskList.get(i);
-            String taskInfo = String.format("%d%s", i + 1, task.getTaskInfo());
+            String taskInfo = String.format("%d.%s", i + 1, task.getTaskInfo());
             taskList.append(taskInfo).append("\n");
         }
         Darwin.reply(String.valueOf(taskList));
