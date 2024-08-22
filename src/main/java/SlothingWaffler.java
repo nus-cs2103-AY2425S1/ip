@@ -27,9 +27,7 @@ public class SlothingWaffler {
                             throw new SlothingWafflerException("The description of a Todo Task cannot be empty!");
                         }
                         tasks.add(new Todo(split[1]));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        addTaskMessage(tasks);
                     }
                     case "deadline" -> {
                         if (split.length < 2 || split[1].isBlank()) {
@@ -40,12 +38,10 @@ public class SlothingWaffler {
                             throw new SlothingWafflerException("The Deadline Task must have a description AND a due date.");
                         }
                         tasks.add(new Deadline(desc[0], desc[1]));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        addTaskMessage(tasks);
                     }
                     case "event" -> {
-                        if (split.length < 2 || split[1].strip().isEmpty()) {
+                        if (split.length < 2 || split[1].isBlank()) {
                             throw new SlothingWafflerException("The description of an Event Task cannot be empty.");
                         }
                         String[] desc = split[1].split(" /from | /to ");
@@ -53,9 +49,7 @@ public class SlothingWaffler {
                             throw new SlothingWafflerException("An event must have a description, start time, and end time.");
                         }
                         tasks.add(new Event(desc[0], desc[1], desc[2]));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        addTaskMessage(tasks);
                     }
                     default -> throw new SlothingWafflerException("The Waffler will continuing slothing!! " +
                             "Please give me instructions that I can understand :(");
@@ -91,6 +85,13 @@ public class SlothingWaffler {
                 Hello! I'm the Slothing Waffler!
                 Let's stop slothing and get cracking!""");
     }
+
+    private static void addTaskMessage(ArrayList<Task> tasks) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     private static void deleteTask(ArrayList<Task> tasks, int taskNum) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + tasks.get(taskNum));
