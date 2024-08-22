@@ -24,6 +24,11 @@ public class Parser {
             taskList.addItem(new Deadline(description, by));
             FormattedPrint.addTask(description, taskList.getSize());
 
+        } else if (input.toLowerCase().startsWith("todo")) {
+            String description = input.split(" ", 2)[1];
+            taskList.addItem(new Todo(description));
+            FormattedPrint.addTask(description, taskList.getSize());
+
         } else if (input.equalsIgnoreCase("list")) {
             FormattedPrint.listTasks(taskList.getList());
         } else {
