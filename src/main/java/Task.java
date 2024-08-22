@@ -7,7 +7,7 @@ public class Task {
         this.completed = false;
     }
 
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(Boolean completed) throws ChatterBoxMarkError {
         if (!this.completed && completed) {
             this.completed = true;
             System.out.println("____________________________________________________________");
