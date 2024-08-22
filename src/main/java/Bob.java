@@ -18,11 +18,6 @@ public class Bob {
         System.out.println(separator);
     }
 
-//    private static void addTask(String desc) {
-//        Bob.taskList.addTask(desc);
-//        Bob.prettyPrint(new String[] { "Added: " + desc });
-//    }
-
     private static void listCommands() {
         String[] desc = { "Here are the tasks in your list:" };
         String[] tasks = Bob.taskList.describeTasks();
