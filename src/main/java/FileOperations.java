@@ -63,7 +63,7 @@ public class FileOperations {
     public static void writeFile(Task t) {
         try {
             FileWriter fw = new FileWriter("./data/reo.txt", true);
-            String text = t.toFileString();
+            String text = t.toFileString() + System.lineSeparator();
             fw.write(text);
             fw.close();
         } catch (IOException e) {
