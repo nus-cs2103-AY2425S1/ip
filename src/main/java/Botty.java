@@ -67,6 +67,9 @@ public class Botty {
                     case "event":
                         handleEvent(argument);
                         break;
+                    case "delete":
+                        handleDelete(argument);
+                        break;
                     default:
                         throw new BottyException("I'm sorry, that is not a command I am familiar with.");
                 }
@@ -167,5 +170,22 @@ public class Botty {
                     "the following format: [description] /from [start] /to [end]");
         }
         addToTaskList(event);
+    }
+    private static void handleDelete(String argument) throws BottyException {
+        if (argument == null || !isNumber(argument)) {
+            throw new BottyException("I don't quite know what you want me to do. " +
+                    "Do indicate which task to mark with its number!");
+        }
+        int taskIndex = Integer.parseInt(argument) - 1;
+        if (taskList.isEmpty()) {
+            throw new BottyException("Your list is empty! Add a task with the todo, deadline or event command.");
+        } else if (taskIndex < 0 || taskIndex > taskList.size() - 1) {
+            throw new BottyException("I don't see a task with that number! Try a number from 1 to " +
+                    taskList.size());
+        }
+        Task task = taskList.remove(taskIndex);
+        reply("Got it! I have removed the following task:",
+                task.toString(),
+                "You have " + taskList.size() + " tasks left!");
     }
 }
