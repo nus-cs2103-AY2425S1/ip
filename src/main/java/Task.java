@@ -6,12 +6,15 @@ public class Task {
         this.details = details;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void markCompleted() {
+        this.status = true;
+    }
+    public void markUnCompleted() {
+        this.status = false;
     }
     @Override
     public String toString() {
-        String status = this.status ? "X": "";
+        String status = this.status ? "X": " ";
         return String.format("[%s] %s ", status, this.details);
     }
 
