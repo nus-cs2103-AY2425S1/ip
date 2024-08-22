@@ -25,6 +25,14 @@ public class TaskManager {
         }
     }
 
+    public void deleteTask(int index) throws JadeException {
+        if (isValidTaskIndex(index)) {
+            tasks.remove(index);
+        } else {
+            throw new JadeException("Hmm, no such task. Try again.");
+        }
+    }
+
     public boolean isValidTaskIndex(int index) {
         return index >= 0 && index < tasks.size();
     }

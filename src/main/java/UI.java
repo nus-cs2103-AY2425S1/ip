@@ -26,12 +26,14 @@ public class UI {
             try {
                 if (command.equals("list")) {
                     displayTaskList();
-                } else if (command.startsWith("mark ")) {
+                } else if (command.startsWith("mark")) {
                     handleMarkCommand(command, true);
-                } else if (command.startsWith("unmark ")) {
+                } else if (command.startsWith("unmark")) {
                     handleMarkCommand(command, false);
                 } else if (isTaskCommand(command)) {
                     handleTaskCommand(command);
+                } else if (command.startsWith("delete")) {
+                    handleDeleteCommand(command);
                 } else {
                     throw new JadeException("Please specify the type of task: todo, deadline, or event.");
                 }
@@ -71,6 +73,8 @@ public class UI {
             } else {
                 throw new JadeException("Hmm, no such task. Try again.");
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            displayErrorMessage("Please specify a valid task number.");
         } catch (JadeException e) {
             displayErrorMessage(e.getMessage());
         }
@@ -151,6 +155,33 @@ public class UI {
         }
 
         System.out.println(TOP_LINE + message + BOT_LINE);
+    }
+
+    private void handleDeleteCommand(String command) {
+        try {
+            int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+            if (taskManager.isValidTaskIndex(taskIndex)) {
+                Task removedTask = taskManager.getTask(taskIndex);
+                taskManager.deleteTask(taskIndex);
+                int taskCount = taskManager.getTaskCount();
+
+                message = INDENT + "Noted. I've removed this task:\n"
+                        + INDENT + "  " + removedTask;
+                if (taskCount <= 1) {
+                    message += "\n" + INDENT + String.format("Now you have %d task in the list.", taskCount);
+                } else {
+                    message += "\n" + INDENT + String.format("Now you have %d tasks in the list.", taskCount);
+                }
+
+                System.out.println(TOP_LINE + message + BOT_LINE);
+            } else {
+                throw new JadeException("Hmm, no such task. Try again.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            displayErrorMessage("Please specify a valid task number.");
+        } catch (JadeException e) {
+            displayErrorMessage(e.getMessage());
+        }
     }
 
     private void displayErrorMessage(String errorMessage) {
