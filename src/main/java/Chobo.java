@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Chobo {
-    private static final Task[] tasks = new Task[100];
+    //private static final Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static String line = "----------------------------------------";
     private static int totalTask = 0;
     public static void main(String[] args) {
@@ -16,10 +18,12 @@ public class Chobo {
                 } else if (input[0].equals("list")) {
                     listTask();
                 } else if (input[0].equals("mark")) {
-                    markTask(tasks[Integer.parseInt(input[1]) - 1]);
+                    markTask(tasks.get(Integer.parseInt(input[1]) - 1));
                 } else if (input[0].equals("unmark")) {
-                    unmarkTask(tasks[Integer.parseInt(input[1]) - 1]);
-                } else if (input[0].equals("todo")) {
+                    unmarkTask(tasks.get(Integer.parseInt(input[1]) - 1));
+                } else if (input[0].equals("delete")) {
+                    deleteTask(Integer.parseInt(input[1])-1);
+                }else if (input[0].equals("todo")) {
                     if(input.length<2){
                         throw new InputException("todo");
                     }
@@ -75,18 +79,26 @@ public class Chobo {
     private static void listTask() {
         System.out.println(line);
         for (int i = 0; i < totalTask; i++) {
-            System.out.println(i+1 + "." + tasks[i]);
+            System.out.println(i+1 + "." + tasks.get(i));
         }
         System.out.println(line);
     }
 
     private static void addTask(Task newTask) {
-        tasks[totalTask] = newTask;
+        tasks.add(newTask);
         System.out.println(line);
         System.out.println("added: " + newTask  );
         totalTask++;
         System.out.println(totalTask + " task(s) in the list");
         System.out.println(line);
+    }
+
+    private static void deleteTask(int taskPos) {
+        Task removedTask = tasks.remove(taskPos);
+        System.out.println(line);
+        System.out.println("deleted: " + removedTask);
+        totalTask--;
+        System.out.println(totalTask + "task(s) left in the list");
     }
 }
 
