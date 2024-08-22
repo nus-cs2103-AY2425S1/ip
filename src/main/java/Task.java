@@ -14,4 +14,16 @@ public class Task {
     public void markAsUndone() {
         this.isdone = false;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if (this.isdone) {
+            sb.append("[X] ");
+        } else {
+            sb.append("[ ] ");
+        }
+        sb.append(this.description);
+        return sb.toString();
+    }
 }
