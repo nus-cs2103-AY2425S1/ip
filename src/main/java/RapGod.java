@@ -41,6 +41,9 @@ public class RapGod {
             if (option.equalsIgnoreCase("echo")) {
                 Echo.run();
                 break;
+            } else if (option.equalsIgnoreCase("list")) {
+                List.run();
+                break;
             } else if (option.equalsIgnoreCase("Bye")) {
                 System.out.println("-----------------------------------------------");
                 System.out.println("Bye! Hope to see you again soon!");
