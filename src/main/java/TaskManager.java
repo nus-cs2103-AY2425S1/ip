@@ -44,4 +44,8 @@ public class TaskManager {
         }
         return "Invalid task number!!!!";
     }
+
+    public int getTaskCount() {
+        return counter;
+    }
 }
