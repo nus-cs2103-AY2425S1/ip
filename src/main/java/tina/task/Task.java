@@ -27,4 +27,8 @@ public abstract class Task {
             return "[ ] " + des;
         }
     }
+
+    public String description() {
+        return des;
+    }
 }

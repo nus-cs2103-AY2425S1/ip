@@ -38,7 +38,10 @@ public class Parser {
     }
     public static void parseInput(String input, TaskList tasks) throws TinaException {
         try {
-            if (input.equals("list")) {
+            if (input.startsWith("find")) {
+                String keyword = input.substring(5);
+                tasks.findTask(keyword);
+            } else if (input.equals("list")) {
                 tasks.listTask();
             } else if (input.startsWith("mark")) {
                 int idx = Integer.parseInt(input.substring(5));

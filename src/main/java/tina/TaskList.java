@@ -50,4 +50,16 @@ public class TaskList {
         System.out.printf("Now you have %d tasks in the list.%n", list.size());
         storage.write(list);
     }
+
+    public void findTask(String input) {
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 1;
+        for (int i = 0; i < list.size(); i++) {
+            Task currTask = list.get(i);
+            if(currTask.description().contains(input)) {
+                System.out.printf("%d.%s%n", count, currTask.getDes());
+                count++;
+            }
+        }
+    }
 }
