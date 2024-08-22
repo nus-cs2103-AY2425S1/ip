@@ -1,0 +1,10 @@
+hi
+deadline work
+deadline work /by Sunday
+mark 1
+unmark 1
+todo read book
+event project meeting /from Monday 2pm
+event project meeting /from Mon 2pm /to Mon 4pm
+list
+bye
