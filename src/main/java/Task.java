@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -28,5 +31,9 @@ public class Task {
 
     public String changeFormat() {
         return this.description;
+    }
+
+    public LocalDate convertDate(String date) {
+        return null;
     }
 }
