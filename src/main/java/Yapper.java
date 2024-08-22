@@ -5,8 +5,8 @@ public class Yapper {
     public static ArrayList<Task> listOfTask = new ArrayList<>();
     public static void main(String[] args) {
         // greeting message
-        System.out.println("Hello! I'm Yapper \n" +
-                "What can I do for you? \n");
+        System.out.println("Hello! I'm Yapper\n" +
+                "What can I do for you?\n");
 
         while (true) {
             Scanner sc = new Scanner(System.in);
@@ -160,7 +160,7 @@ public class Yapper {
     public static void addTask(Task task)
     {
         listOfTask.add(task);
-        System.out.println("Got it. I've added this task: \n" +
+        System.out.println("Got it. I've added this task:\n" +
                 task + "\nNow you have " + listOfTask.size() + " tasks in the list");
     }
 
