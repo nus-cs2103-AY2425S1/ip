@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -17,6 +19,12 @@ public class Task {
 
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        String onlyTask = description.split(" ", 2)[1].split("/")[0];
+        return onlyTask;
     }
 
 }
