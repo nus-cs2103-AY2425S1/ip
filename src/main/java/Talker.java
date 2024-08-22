@@ -11,14 +11,24 @@ public class Talker {
 
         Scanner reader = new Scanner(System.in);
 
+        String[] list = new String[100];
+        int pointer = 0;
+
         while (true) {
-            String input = reader.next();
+            String input = reader.nextLine();
 
             System.out.println(line);
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                for (int i = 0; i < pointer; i++) {
+                    System.out.printf("%d. %s\n", i+1, list[i]);
+                }
+                System.out.println(line);
             } else {
-                System.out.println(input);
+                list[pointer] = input;
+                pointer++;
+                System.out.printf("added: %s\n", input);
                 System.out.println(line);
             }
         }
