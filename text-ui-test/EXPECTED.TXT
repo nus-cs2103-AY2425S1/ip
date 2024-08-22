@@ -1,7 +1,46 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	------------------------------
+	Hello! I'm Sora!
+	What can I do for you?
+	------------------------------
+	Got it. Sora has added this task:
+	[T][ ] borrow book
+	Now, you have 1 tasks in your list
+	------------------------------
+	Got it. Sora has added this task:
+	[D][ ] return book (by: Sunday)
+	Now, you have 2 tasks in your list
+	------------------------------
+	Got it. Sora has added this task:
+	[E][ ] event (from: Mon 2pm to: 4pm)
+	Now, you have 3 tasks in your list
+	------------------------------
+	Got it. Sora has added this task:
+	[D][ ] do homework (by: no idea :-p)
+	Now, you have 4 tasks in your list
+	------------------------------
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: Sunday)
+	3.[E][ ] event (from: Mon 2pm to: 4pm)
+	4.[D][ ] do homework (by: no idea :-p)
+	------------------------------
+	Nice! Sora has marked this task as done:
+	[D][X] return book (by: Sunday)
+	------------------------------
+	Nice! Sora has marked this task as done:
+	[E][X] event (from: Mon 2pm to: 4pm)
+	------------------------------
+	1.[T][ ] borrow book
+	2.[D][X] return book (by: Sunday)
+	3.[E][X] event (from: Mon 2pm to: 4pm)
+	4.[D][ ] do homework (by: no idea :-p)
+	------------------------------
+	Ok, Sora has unmarked this task as not done:
+	[E][ ] event (from: Mon 2pm to: 4pm)
+	------------------------------
+	1.[T][ ] borrow book
+	2.[D][X] return book (by: Sunday)
+	3.[E][ ] event (from: Mon 2pm to: 4pm)
+	4.[D][ ] do homework (by: no idea :-p)
+	------------------------------
+	Bye. Hope to see you again soon!
+	------------------------------
