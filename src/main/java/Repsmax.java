@@ -5,7 +5,7 @@ public class Repsmax {
         //initialise scanner
         Scanner scanner = new Scanner(System.in);
         //initialise string array
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskcount = 0;
         //greet the user
         String greeting = "  ____________________________________________________________\n" +
@@ -18,21 +18,47 @@ public class Repsmax {
         System.out.println(greeting);
         while(true) {
             String userInput = scanner.nextLine();
+            String[] splitInput = userInput.split(" " ,2);
+            String command = splitInput[0];
             if (userInput.equals("bye")) {
                 System.out.println(goodbye);
                 break;
-            } else if (userInput.equals("list")) {
-                System.out.println("  ____________________________________________________________\n");
-                for (int i = 0; i < taskcount; i++) {
-                    System.out.println("   " + (i + 1) + ". " + tasks[i]);
-                }
-                System.out.println("  ____________________________________________________________\n");
-            } else {
-                tasks[taskcount] = userInput;
-                taskcount++;
-                System.out.println("  ____________________________________________________________\n");
-                System.out.println("added: " + userInput);
-                System.out.println("  ____________________________________________________________\n");
+            }
+            switch (command) {
+                case "list":
+                    System.out.println("  ____________________________________________________________\n");
+                    System.out.println("  here are the task in your list:\n");
+                    for (int i = 0; i < taskcount; i++) {
+                        System.out.println("   " + (i + 1) + "." + tasks[i]);
+                    }
+                    System.out.println("  ____________________________________________________________\n");
+                    break;
+
+                case "mark":
+                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                    System.out.println("  ____________________________________________________________\n");
+                    System.out.println("  Nice! I've marked this task as done:\n");
+                    tasks[markIndex].setDone();
+                    System.out.println("  " + tasks[markIndex]);
+                    System.out.println("  ____________________________________________________________\n");
+                    break;
+
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
+                    System.out.println("  ____________________________________________________________\n");
+                    System.out.println("  OK, I've marked this task as not done yet:\n");
+                    tasks[unmarkIndex].setUndone();
+                    System.out.println("  " + tasks[unmarkIndex]);
+                    System.out.println("  ____________________________________________________________\n");
+                    break;
+
+                default:
+                    tasks[taskcount] = new Task(userInput);
+                    taskcount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" added: " + userInput);
+                    System.out.println("____________________________________________________________");
+                    break;
             }
         }
     }
