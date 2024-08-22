@@ -45,7 +45,12 @@ public class Tanjiro {
                 } catch (StringIndexOutOfBoundsException e) {
                     r.empty_event();
                 }
-            } else {
+            } else if (user_input.contains("delete")) {
+                int list_no = Character.getNumericValue(user_input.charAt(user_input.length() - 1));
+                Task.delete_task(list_no);
+
+            }
+            else {
                 r.invalid_input();
 //                Task task = new Task(user_input, "-");
 //                task.add_task(task);

@@ -12,4 +12,21 @@ public class Deadlines extends Task{
         System.out.println("Now you have " + d.get_list_size() +" tasks in the list.");
     }
 
+//    public void delete_task(Deadlines d) {
+//        task_list.remove(d);
+//    }
+
+    public String getDay() {
+        return day;
+    }
+
+    @Override
+    public String getStart() {
+        return null;
+    }
+
+    @Override
+    public String getEnd() {
+        return null;
+    }
 }

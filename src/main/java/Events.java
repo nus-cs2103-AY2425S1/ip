@@ -13,4 +13,19 @@ public class Events extends Task{
         System.out.println("[E][ ] " + e.getName() + "(from: " + this.start + " to: " + this.end + ")");
         System.out.println("Now you have " + e.get_list_size() +" tasks in the list.");
     }
+
+    @Override
+    public String getDay() {
+        return null;
+    }
+
+    @Override
+    public String getStart() {
+        return start;
+    }
+
+    @Override
+    public String getEnd() {
+        return end;
+    }
 }

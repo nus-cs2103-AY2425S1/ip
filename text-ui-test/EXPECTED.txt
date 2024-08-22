@@ -6,47 +6,56 @@ Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
 Got it. I've added this task:
-[T][ ] return book
+[T][ ] eat food
 Now you have 2 tasks in the list.
 Got it. I've added this task:
-[T][ ] eat food
+[T][ ] sleep
 Now you have 3 tasks in the list.
 1.[T][ ] borrow book
-2.[T][ ] return book
-3.[T][ ] eat food
+2.[T][ ] eat food
+3.[T][ ] sleep
 Got it. I've added this task:
 [D][ ] return book (by: sunday)
 Now you have 4 tasks in the list.
+1.[T][ ] borrow book
+2.[T][ ] eat food
+3.[T][ ] sleep
+4.[D][ ] return book (by: sunday)
 Got it. I've added this task:
 [E][ ] project meeting (from: mon 2pm  to: 4pm)
 Now you have 5 tasks in the list.
+1.[T][ ] borrow book
+2.[T][ ] eat food
+3.[T][ ] sleep
+4.[D][ ] return book (by: sunday)
+5.[E][ ] project meeting (from: mon 2pm  to: 4pm)
 Nice! I've marked this task as done:
 [X] eat food
 1.[T][ ] borrow book
-2.[T][ ] return book
-3.[T][X] eat food
-4.[D][ ] return book
-5.[E][ ] project meeting
+2.[T][X] eat food
+3.[T][ ] sleep
+4.[D][ ] return book (by: sunday)
+5.[E][ ] project meeting (from: mon 2pm  to: 4pm)
 Nice! I've marked this task as done:
-[X] return book
+[X] sleep
 1.[T][ ] borrow book
-2.[T][ ] return book
-3.[T][X] eat food
-4.[D][X] return book
-5.[E][ ] project meeting
-Nice! I've marked this task as done:
-[X] project meeting
-1.[T][ ] borrow book
-2.[T][ ] return book
-3.[T][X] eat food
-4.[D][X] return book
-5.[E][X] project meeting
+2.[T][X] eat food
+3.[T][X] sleep
+4.[D][ ] return book (by: sunday)
+5.[E][ ] project meeting (from: mon 2pm  to: 4pm)
 OK, I've marked this task as not done yet:
-[ ] project meeting
+[ ] sleep
 1.[T][ ] borrow book
-2.[T][ ] return book
-3.[T][X] eat food
-4.[D][X] return book
-5.[E][ ] project meeting
+2.[T][X] eat food
+3.[T][ ] sleep
+4.[D][ ] return book (by: sunday)
+5.[E][ ] project meeting (from: mon 2pm  to: 4pm)
+Noted. I've removed this task:
+[E][ ] project meeting (from: mon 2pm  to: 4pm)
+Now you have 5 tasks in the list.
+1.[T][ ] borrow book
+2.[T][X] eat food
+3.[T][ ] sleep
+4.[D][ ] return book (by: sunday)
 Bye! Hope to see you again!
 ========================================

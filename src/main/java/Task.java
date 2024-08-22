@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Task {
+public abstract class Task {
     private String name;
     private Boolean status;
     public static Response r;
@@ -16,10 +16,15 @@ public class Task {
         r = new Response();
     }
 
-    public void add_task(Task temp) {
-        task_list.add(temp);
-        System.out.println("added: " + temp.getName());
+    public static void delete_task(int index) {
+        Task temp = task_list.get(index-1);
+        r.delete_message(temp);
+        task_list.remove(temp);
     }
+//    public void add_task(Task temp) {
+//        task_list.add(temp);
+//        System.out.println("added: " + temp.getName());
+//    }
 
     public static void list_task() {
         r.list_task_message(task_list);
@@ -57,4 +62,9 @@ public class Task {
     public int get_list_size(){
         return task_list.size();
     }
+
+    public abstract String getDay();
+    public abstract String getStart();
+    public abstract String getEnd();
+
 }

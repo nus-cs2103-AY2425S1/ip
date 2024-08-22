@@ -12,4 +12,19 @@ public class ToDos extends Task{
     public void added_task_message(Task t) {
 
     }
+
+    @Override
+    public String getDay() {
+        return null;
+    }
+
+    @Override
+    public String getStart() {
+        return null;
+    }
+
+    @Override
+    public String getEnd() {
+        return null;
+    }
 }
