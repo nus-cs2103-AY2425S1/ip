@@ -13,12 +13,16 @@ public class Task {
 
     public String mark() {
         this.isDone = true;
-        return "Nice! I've marked this task as done:\n" + this.toString();
+        return "Nice! I've marked this task as done:\n  " + this.toString();
     }
 
     public String unmark() {
         this.isDone = false;
-        return "OK, I've marked this task as not done yet:\n" + this.toString();
+        return "OK, I've marked this task as not done yet:\n  " + this.toString();
+    }
+
+    public String delete() {
+        return "Noted. I've removed this task:\n  " + this.toString();
     }
 
     public String toString() {

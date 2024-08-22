@@ -11,4 +11,7 @@ deadline return assignment
 event team lunch /from
 list
 mark 5
+delete 1
+list
+delete 3
 bye

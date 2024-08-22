@@ -53,6 +53,9 @@ public class Bob {
             case "event":
                 Bob.addEvent(phrase);
                 break;
+            case "delete":
+                Bob.deleteTask(tmp);
+                break;
             default:
                 throw new ChatBotException("I'm sorry, but I don't know what that means :-(");
         }
@@ -80,6 +83,17 @@ public class Bob {
             System.out.println(Bob.tasks.get(num).unmark());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new ChatBotException("Invalid task number for unmarking.");
+        }
+    }
+
+    private static void deleteTask(String[] tmp) throws ChatBotException {
+        try {
+            int num = Integer.parseInt(tmp[1]) - 1;
+            System.out.println(Bob.tasks.get(num).delete());
+            Bob.tasks.remove(num);
+            System.out.printf("Now you have %d tasks in the list.\n", Bob.tasks.size());
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new ChatBotException("Invalid task number for deleting.");
         }
     }
 
