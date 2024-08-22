@@ -3,10 +3,17 @@ import TaskType.TaskBuilder;
 
 import java.util.Objects;
 import java.util.Scanner;
+import Duke.TaskType; // Import the enum
 
+//
 public class Duke {
     private static String name = "Duke";
     private ListManager DukeManager = new ListManager();
+    // Possible use of Task
+    public enum TaskType {
+        TODO,EVENT,DEADLINE
+    }
+
 
     private void exit() {
         System.out.println("Bye! Hope to see you again my G");
@@ -57,12 +64,12 @@ public class Duke {
                 // Get 'by' part
                 String by = part.length > 1 ? part[1].trim() : "";
 
-                TaskBuilder taskBuilder = new TaskBuilder(description, "deadline");
+                TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.DEADLINE);
                 DukeManager.createItem(taskBuilder.by(by));
 
             } else if (Objects.equals(firstWord, "todo")) {
                 String description = command.substring("todo".length()).trim();
-                TaskBuilder taskBuilder = new TaskBuilder(description, "todo");
+                TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.TODO);
                 DukeManager.createItem(taskBuilder);
 
             } else if (Objects.equals(firstWord, "event")) {
@@ -79,14 +86,15 @@ public class Duke {
                 // The 'to' part
                 String to = dateParts.length > 1 ? dateParts[1].trim() : "";
 
-                TaskBuilder taskBuilder = new TaskBuilder(description, "event");
+                TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.EVENT);
                 DukeManager.createItem(taskBuilder.from(from).to(to));
 
             } else if (Objects.equals(firstWord, "delete")) {
                 String index = command.substring("delete".length()).trim();
                 String tempTask = DukeManager.getItem(Integer.parseInt(index));
                 DukeManager.delete(Integer.parseInt(index));
-                System.out.println("I have your ass covered! " + tempTask + " is now deleted");
+                System.out.println("I have your ass covered! " + tempTask + " is now deleted. You have"
+                + DukeManager.getItemSize() + " items left todo lazy boy");
 
 
             } else {
