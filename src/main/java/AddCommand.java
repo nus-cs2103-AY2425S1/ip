@@ -2,7 +2,8 @@
  * Represent the command to add a new task to the task list.
  * This command implements the Command interface and is for
  * adding a single task to the task list and displaying the confirmation message
- * that the task has been successfully added to the user.
+ * that the task has been successfully added to the user and displaying the number of
+ * task in the task list.
  */
 public class AddCommand implements Command {
 
@@ -21,7 +22,8 @@ public class AddCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Adds the task to the task list and displays a confirmation message.
+     * Adds the task to the task list and displays a confirmation message alongside the
+     * current number of tasks in the list.
      *
      * @param tasks The TaskList which the new task will be added.
      * @param ui The Ui object used to display the confirmation message.
@@ -29,6 +31,6 @@ public class AddCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui) {
         tasks.addTask(task);
-        ui.displayAddedTask(task);
+        ui.displayAddedTask(task, tasks.size());
     }
 }

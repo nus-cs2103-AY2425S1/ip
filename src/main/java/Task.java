@@ -2,7 +2,7 @@
  * Represents a task for the fishman bot.
  * This class contains the details of a task.
  */
-class Task {
+abstract class Task {
     /** The details of the task. */
     protected String description;
     /** The indicator for whether the task is completed. */
@@ -43,8 +43,10 @@ class Task {
         this.isDone = false;
     }
 
+    public abstract String getTaskType();
+
     @Override
     public String toString() {
-        return description;
+        return "[" + getTaskType() + "][" + (isDone ? "X" : " ") + "] " + description;
     }
 }

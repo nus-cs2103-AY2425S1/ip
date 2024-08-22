@@ -56,10 +56,12 @@ public class Ui {
      * Displays the confirmation message after task addition.
      *
      * @param task The Task object that is added.
+     * @param size The size of the task list.
      */
-    public void displayAddedTask(Task task) {
+    public void displayAddedTask(Task task, int size) {
         System.out.println("Bloop bloop, I have added the following task: ");
-        System.out.println("Added: " + task);
+        System.out.println(task);
+        System.out.println("Now you have " + size + " tasks in the list.");
     }
 
     /**
@@ -70,7 +72,7 @@ public class Ui {
     public void displayTaskList(TaskList tasks) {
         System.out.println("Bloop bloop, here are the tasks in your list: ");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + "[" + tasks.getTask(i).getStatusIcon() + "] " + tasks.getTask(i));
+            System.out.println((i + 1) + ". " + tasks.getTask(i));
         }
     }
 
@@ -85,7 +87,7 @@ public class Ui {
         } else {
             System.out.println("Bloop bloop, I've marked this task as not done yet: ");
         }
-        System.out.println("[" + task.getStatusIcon() + "] " + task);
+        System.out.println(task);
     }
 
 }
