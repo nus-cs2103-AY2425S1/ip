@@ -11,7 +11,7 @@ public class Duck {
     private static final String GOODBYE = "Bye. Hope to see you again soon!";
 
     // List to store user inputs
-    private static final List STORED_TEXT = new List();
+    private static final TaskList STORED_TEXT = new TaskList();
 
     private static String addSeparators(String text) {
         return TEXT_SEPARATOR_WITH_NEWLINE

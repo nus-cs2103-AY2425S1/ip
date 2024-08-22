@@ -1,4 +1,4 @@
-public class List {
+public class TaskList {
     private static final String[] LIST = new String[100];
     private static int numItems = 0;
 
