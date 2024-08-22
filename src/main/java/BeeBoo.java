@@ -1,10 +1,6 @@
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
-
 
 public class BeeBoo {
 
@@ -112,25 +108,28 @@ public class BeeBoo {
     //Handles the command the user uses
     private void handleCommands(String text) throws InvalidCommandException, BeeBooExceptions{
         int commandCheck = checkCommand(text);
-        if (commandCheck == 1 || commandCheck == 2 || commandCheck == 4) {
+        if (commandCheck == 1 || commandCheck == 2) {
             //Command is mark so chatbot marks the indexed item
-            String []splitted = text.split(" ");
-            if (splitted.length > 2) {
-                throw new InvalidCommandException(text);
+            String number = "";
+            for (int i = 5; i < text.length(); i++) {
+                number = number + text.charAt(i);
             }
-            int index = Integer.parseInt(splitted[1]);
+            int index = Integer.parseInt(number);
             if (index < 0 || index > list.size()) {
                 throw new InvalidIndexException(text);
             } else if (commandCheck == 1) {
                 markDone(index - 1);
-            } else if (commandCheck == 2){
-                unmarkDone(index - 1);
             } else {
-                deleteItem(index - 1);
+                unmarkDone(index - 1);
             }
         } else if (commandCheck == 3) {
             //Command is list so the chatbot lists out the items
             chatBox(produceList());
+        } else if (commandCheck == 4) {
+            //Command is delete so chatpot deletes indexed item
+            String number = text.substring(6, text.length()).trim();
+            int index = Integer.parseInt(number);
+            deleteItem(index);
         } else if (commandCheck == 5) {
             //Command is task creation so the chatbot creates tasks
             createTasks(text);
@@ -150,7 +149,6 @@ public class BeeBoo {
         beeBoo.chatBox("Hello! I'm BeeBoo\nWhat can i do for you?");
         text = input.nextLine().trim().toLowerCase();
 
-
         //Prompts user while user doesn't enter bye
         while (!text.equals("bye")) {
             try {
@@ -165,6 +163,5 @@ public class BeeBoo {
         }
         beeBoo.chatBox("Bye. Hope to see you again soon!");
         input.close();
-
     }
 }
