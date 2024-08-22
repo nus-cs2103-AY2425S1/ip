@@ -1,5 +1,5 @@
 public class Task {
-    public static enum TYPE { TODO, DEADLINE, EVENT };
+    public enum TYPE { TODO, DEADLINE, EVENT };
 
     private final String description;
     private boolean isDone;
