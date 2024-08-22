@@ -113,6 +113,10 @@ public class Atlas {
         }
 
         int markIndex = Integer.parseInt(commandsArray[1]) - 1;
+        if (markIndex <= 0 || markIndex >= taskList.size()) {
+            throw new AtlasException("Task number does not exist.");
+        }
+
         Task taskToBeMarked = taskList.get(markIndex);
         taskToBeMarked.setIsDone();
         Atlas.print(String.format("Nice! I've marked this task as done:\n \t%s", taskToBeMarked));
@@ -129,6 +133,10 @@ public class Atlas {
         }
 
         int unmarkIndex = Integer.parseInt(commandsArray[1]) - 1;
+        if (unmarkIndex <= 0 || unmarkIndex >= taskList.size()) {
+            throw new AtlasException("Task number does not exist.");
+        }
+
         Task taskToBeUnmarked = taskList.get(unmarkIndex);
         taskToBeUnmarked.setIsDone();
         taskList.get(unmarkIndex).setIsNotDone();
@@ -142,44 +150,36 @@ public class Atlas {
     }
 
     public static void addToDo(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
-        String[] commandsArray = nextCommandLine.split(" ");
-        if (commandsArray.length == 1) {
+        String[] commandsArray = nextCommandLine.split("todo ");
+        if (commandsArray.length <= 1) {
             throw new AtlasException("The description of a todo cannot be empty.");
         }
 
-        String todoName = String.join(" ", Arrays.copyOfRange(commandsArray, 1, commandsArray.length));
-        ToDo todo = new ToDo(todoName);
+        ToDo todo = new ToDo(commandsArray[1]);
         Atlas.addTask(taskList, todo);
     }
 
     public static void addDeadline(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
-        String[] commandsArray = nextCommandLine.split(" ");
+        String[] commandsArray = nextCommandLine.split("deadline | /by ");
         if (commandsArray.length == 1) {
             throw new AtlasException("The description of a deadline cannot be empty.");
+        } else if (commandsArray.length < 3) {
+            throw new AtlasException("A deadline requires a description and a date, in that order.");
         }
 
-        String deadlineName = String.format("%s %s", commandsArray[1], commandsArray[2]);
-        String deadlineTime = String.join(" ", Arrays.copyOfRange(commandsArray, 4, commandsArray.length));
-        Deadline deadline = new Deadline(deadlineName, deadlineTime);
+        Deadline deadline = new Deadline(commandsArray[1], commandsArray[2]);
         Atlas.addTask(taskList, deadline);
     }
 
     public static void addEvent(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
-        String[] commandsArray = nextCommandLine.split(" ");
+        String[] commandsArray = nextCommandLine.split("event | /from | /to ");
         if (commandsArray.length == 1) {
-            throw new AtlasException("The description of a event cannot be empty.");
+            throw new AtlasException("The description of an event cannot be empty.");
+        } else if (commandsArray.length < 4) {
+            throw new AtlasException("An event requires a description, start time and end time, in that order.");
         }
 
-        String eventName = String.format("%s %s", commandsArray[1], commandsArray[2]);
-        String startTime = "", endTime = "";
-        for (int i = 4; i < commandsArray.length; i++) {
-            if (commandsArray[i].equals("/to")) {
-                startTime = String.join(" ", Arrays.copyOfRange(commandsArray, 4, i));
-                endTime = String.join(" ", Arrays.copyOfRange(commandsArray, i + 1, commandsArray.length));
-            }
-        }
-
-        Event event = new Event(eventName, startTime, endTime);
+        Event event = new Event(commandsArray[1], commandsArray[2], commandsArray[3]);
         Atlas.addTask(taskList, event);
     }
 }
