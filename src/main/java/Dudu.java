@@ -14,7 +14,7 @@ public class Dudu {
         int count = 0;
 
         while (sc.hasNextLine()) {
-            String input = sc.nextLine();
+            String input = sc.nextLine().toLowerCase();
             if (input.equals("list")) {
                 if (count == 0) {
                     System.out.println(LineWrapper.wrap("No tasks"));
@@ -27,30 +27,30 @@ public class Dudu {
                 }
             } else if (input.equals("bye")) {
                 break;
-            } else if (input.matches("mark \\d")) {
+            } else if (input.matches("mark\\s\\d+")) {
                 int pos = Integer.parseInt(input.replaceAll("\\D+","")) - 1;
                 tasks[pos].markCompleted();
                 String output = LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", tasks[pos]));
                 System.out.println(output);
-            } else if (input.matches("unmark \\d")){
+            } else if (input.matches("unmark\\s\\d+")){
                 int pos = Integer.parseInt(input.replaceAll("\\D+","")) - 1;
                 tasks[pos].markUncompleted();
                 String output = LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", tasks[pos]));
                 System.out.println(output);
-            } else if (input.matches("^todo.*")) {
+            } else if (input.matches("^todo.+")) {
                 ToDo task = new ToDo(input.split("todo ")[1]);
                 tasks[count] = task;
                 count++;
                 String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, count));
                 System.out.println(output);
-            } else if (input.matches("^deadline.*")) {
+            } else if (input.matches("^deadline\\s/by\\s.+")) {
                 String[] details = input.split("deadline ")[1].split(" /by ");
                 Deadline task = new Deadline(details[0], details[1]);
                 tasks[count] = task;
                 count++;
                 String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, count));
                 System.out.println(output);
-            } else if (input.matches("^event.*")) {
+            } else if (input.matches("^event\\s/from\\s.+\\sto\\s.+")) {
                 String details = input.split("event ")[1];
                 String description = details.split("/from ")[0];
                 String[] date = details.split("/from ")[1].split(" /to ");
