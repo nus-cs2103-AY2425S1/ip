@@ -1,28 +1,33 @@
 import java.util.Scanner;
 
 public class Bro {
-    public static void main(String[] args) {
-        String GREETING = """
+    final static String GREETING_MESSAGE = """
                  Hello! I'm Bro
                  What can I do for you?""";
-        String GOODBYE = "Goodbye.";
-        String EXIT_COMMAND = "bye";
-        reply(GREETING);
+    final static String GOODBYE_MESSAGE = "Goodbye.";
+    final static String EXIT_COMMAND = "bye";
+    final static String LIST_COMMAND = "list";
+
+    public static void main(String[] args) {
+        reply(GREETING_MESSAGE);
         // Start conversation
         Scanner sc = new Scanner(System.in);
         boolean isConversing = true;
         while (isConversing) {
             String input = sc.nextLine();
-            if (input.equals(EXIT_COMMAND)) {
-                isConversing = false;
-            } else {
-                reply(input);
+            switch (input) {
+                case EXIT_COMMAND:
+                    isConversing = false;
+                    break;
+                case LIST_COMMAND:
+                default:
+
             }
         }
-        reply(GOODBYE);
+        reply(GOODBYE_MESSAGE);
     }
 
-    // Prints a reply on standard output
+    // Prints a adds to list on standard output
     public static void reply(String content) {
         String replyStr = String.format("""
                 ____________________________________________________________
