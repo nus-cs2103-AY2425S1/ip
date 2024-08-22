@@ -2,7 +2,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Cypher {
+    private enum Commands {
+        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE, HELP
+    }
+
     private static ArrayList<Task> taskList;
+
     private static void lineBreak() {
         System.out.println("-------------------------------------------------------");
     }
@@ -43,57 +48,143 @@ public class Cypher {
         Cypher.lineBreak();
     }
 
-   private static void unmarkTask(int i) {
-       Task task = Cypher.taskList.get(i);
-       task.incompleteTask();
-       Cypher.lineBreak();
-       System.out.println("Ok! I have marked this task as incomplete:\n" + task);
-       Cypher.lineBreak();
-   }
+    private static void unmarkTask(int i) {
+        Task task = Cypher.taskList.get(i);
+        task.incompleteTask();
+        Cypher.lineBreak();
+        System.out.println("Ok! I have marked this task as incomplete:\n" + task);
+        Cypher.lineBreak();
+    }
+
     public static void main(String[] args) {
         Cypher.greet();
         Cypher.taskList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        while (true) {
-            // System.out.print("Enter your command: ");
-            String input = scanner.nextLine();
-            String[] command = input.split(" ", 2);
+        Boolean stayIn = true;
+        while (stayIn) {
+            try {
+                String input = scanner.nextLine();
+                String[] command = input.split(" ", 2);
 
-            // Need to use switch cases
-            if (command[0].equalsIgnoreCase("list")) {
-                Cypher.printTaskList();
-            }
-            else if (command[0].equalsIgnoreCase("todo")) {
-                Task task = new ToDo(command[1]);
-                Cypher.addToList(task);
-            }
-            else if (command[0].equalsIgnoreCase("deadline")) {
-                String[] split = command[1].split("/by",2);
-                // Throw error here
-                Task task = new Deadline(split[0],split[1]);
-                Cypher.addToList(task);
-            }
-            else if (command[0].equalsIgnoreCase("event")) {
-                String[] split = command[1].split("/from|/to ",3);
-                Task task = new Event(split[0],split[1], split[2]);
-                Cypher.addToList(task);
-            }
-            else if (command[0].equalsIgnoreCase("mark")) {
-                // Need check if that is number
-                Cypher.markTask(Integer.parseInt(command[1]) - 1);
-            }
-            else if (command[0].equalsIgnoreCase("unmark")) {
-                // Need check if that is number
-                Cypher.unmarkTask(Integer.parseInt(command[1]) - 1);
-            } else if (!command[0].equalsIgnoreCase("bye")) {
-                // Invalid Command
-                System.out.println("Invalid command");
-            }
-            else {
+                // Need to use switch cases
+                switch (Commands.valueOf(command[0].toUpperCase())) {
+                    case LIST:
+                        Cypher.printTaskList();
+                        break;
+                    case TODO:
+                        if (command.length != 2 || command[1].isEmpty()) {
+                            throw new CypherException("No task is given. The format of the todo command is:\n todo <Description of task>");
+                        }
+                        Task todo = new ToDo(command[1]);
+                        Cypher.addToList(todo);
+                        break;
+                    case DEADLINE:
+                        String[] deadlineSplit = command[1].split("/by", 2);
+
+                        if (deadlineSplit[0].isEmpty()) {
+                            throw new CypherException("No task is given. The format of the deadline command is:\n deadline <Description of task> /by <your preferred deadline>");
+                        }
+                        else if (deadlineSplit.length != 2 || deadlineSplit[1].trim().isEmpty()) {
+                            throw new CypherException("No deadline is given. The format of the deadline command is:\n deadline <Description of task> /by <your preferred deadline>");
+                        }
+                        Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                        Cypher.addToList(deadline);
+                        break;
+                    case EVENT:
+                        String[] eventSplit = command[1].split("/from|/to ", 3);
+                        if (eventSplit[0].isEmpty()) {
+                            throw new CypherException("No task is given. The format of the event command is:\n event <Description of task> /from <from time> /to <to time>");
+                        }
+                        else if (eventSplit.length != 3 || eventSplit[1].trim().isEmpty() || eventSplit[2].trim().isEmpty()) {
+                            throw new CypherException("To/from is not given properly. The format of the deadline command is:\n event <Description of task> /from <from time> /to <to time>");
+                        }
+                        Task task = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                        Cypher.addToList(task);
+                        break;
+                    case MARK:
+                        // Need check if that is number
+                        int markVal = Integer.parseInt(command[1]) - 1;
+                        if (markVal >= Cypher.taskList.size()) {
+                            throw new CypherException(String.format("You have %d items in your list. Enter a valid integer or add more items to your list", Cypher.taskList.size()));
+                        } else if (markVal < 0) {
+                            throw new CypherException("Enter a value above 0");
+                        }
+                        Cypher.markTask(markVal);
+                        break;
+                    case UNMARK:
+                        // Need check if that is number
+                        int unmarkVal = Integer.parseInt(command[1]) - 1;
+                        if (unmarkVal >= Cypher.taskList.size()) {
+                            throw new CypherException(String.format("You have %d items in your list. Enter a valid integer or add more items to your list", Cypher.taskList.size()));
+                        } else if (unmarkVal < 0) {
+                            throw new CypherException("Enter a value above 0");
+                        }
+                        Cypher.unmarkTask(unmarkVal);
+                        break;
+                    case BYE:
+                        Cypher.lineBreak();
+                        scanner.close();
+                        stayIn = false;
+                        break;
+                    case HELP:
+                        Cypher.lineBreak();
+                        System.out.println("<<UNDER CONSTRUCTION>>");
+                        Cypher.lineBreak();
+                    default:
+                        System.out.printf("\"%s\" is not a valid command. Type --help in order to see the list of valid commands (This feature is still under construction)\n", command[0]);
+                }
+            } catch (CypherException exp) {
                 Cypher.lineBreak();
-                scanner.close();
-                break;
+                System.out.println(exp);
+                Cypher.lineBreak();
+            } catch (NumberFormatException exp) {
+                Cypher.lineBreak();
+                System.out.println("That is not a valid command. You need to enter a valid integer. Type --help in order to see the list of valid commands (This feature is still under construction)");
+                Cypher.lineBreak();
             }
+            catch (IllegalArgumentException exp) {
+                Cypher.lineBreak();
+                System.out.println("That is not a valid command. Type --help in order to see the list of valid commands (This feature is still under construction)");
+                Cypher.lineBreak();
+            }
+                /*
+                if (command[0].equalsIgnoreCase("list")) {
+                    Cypher.printTaskList();
+                } else if (command[0].equalsIgnoreCase("todo")) {
+                    Task task = new ToDo(command[1]);
+                    Cypher.addToList(task);
+                } else if (command[0].equalsIgnoreCase("deadline")) {
+                    String[] split = command[1].split("/by", 2);
+                    // Throw error here
+                    Task task = new Deadline(split[0], split[1]);
+                    Cypher.addToList(task);
+                } else if (command[0].equalsIgnoreCase("event")) {
+                    String[] split = command[1].split("/from|/to ", 3);
+                    Task task = new Event(split[0], split[1], split[2]);
+                    Cypher.addToList(task);
+                } else if (command[0].equalsIgnoreCase("mark")) {
+                    // Need check if that is number
+                    Cypher.markTask(Integer.parseInt(command[1]) - 1);
+                } else if (command[0].equalsIgnoreCase("unmark")) {
+                    // Need check if that is number
+                    Cypher.unmarkTask(Integer.parseInt(command[1]) - 1);
+                } else if (command[0].equalsIgnoreCase("--help")) {
+                    Cypher.lineBreak();
+                    System.out.println("<< Under construction >>");
+                    Cypher.lineBreak();
+                } else if (command[0].equalsIgnoreCase("bye")) {
+                    Cypher.lineBreak();
+                    scanner.close();
+                    stayIn = false;
+                } else {
+                    System.out.printf("\"%s\" this is not a valid command. Type --help in order to see the list of valid commands (This feature is still under construction)\n", command[0]);
+                }
+            }
+            catch (Exception dukeException) {
+                System.out.println(dukeException.toString());
+            } finally {
+                Cypher.lineBreak();
+            } */
         }
 
         Cypher.goodBye();
