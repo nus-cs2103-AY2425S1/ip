@@ -1,6 +1,8 @@
 ____________________________________________________________
 Hello! I'm your chatbot, Bob.
 How may I assist you?
+
+Key in "I need help." for additional help.
 ____________________________________________________________
 > ____________________________________________________________
 Here's the added task:
@@ -32,6 +34,10 @@ Here's the added task:
 Now you have 5 tasks in the list.
 ____________________________________________________________
 > ____________________________________________________________
+Field(s) may not be blank.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
 Nice! I've marked this task as done:
 	[T][X] borrow book
 ____________________________________________________________
@@ -54,6 +60,116 @@ These are your tasks:
 3:[E][X] project meeting (from: Mon 2pm to: 4pm)
 4:[E][ ] chill (from: Sun 3pm to: 6pm)
 5:[D][ ] Quiz (by: 2pm)
+____________________________________________________________
+> ____________________________________________________________
+Field(s) may not be blank.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+There's no such task!
+____________________________________________________________
+> ____________________________________________________________
+Seems like at least one of the arguments to this command was
+not a number when it should have been.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Oh well, this task has been marked undone:
+	[T][ ] borrow book
+____________________________________________________________
+> ____________________________________________________________
+Seems like the command keyed wasn't appropriately used. You may have
+given insufficient information. Also check that the order in which
+the information was given is correct.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Seems like the command keyed wasn't appropriately used. You may have
+given insufficient information. Also check that the order in which
+the information was given is correct.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Field(s) may not be blank.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Seems like the command keyed wasn't appropriately used. You may have
+given insufficient information. Also check that the order in which
+the information was given is correct.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Field(s) may not be blank.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Seems like the command keyed wasn't appropriately used. You may have
+given insufficient information. Also check that the order in which
+the information was given is correct.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Field(s) may not be blank.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Field(s) may not be blank.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Did you mean 'list'?
+____________________________________________________________
+> ____________________________________________________________
+Field(s) may not be blank.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+Oof. I have removed the requested task:
+	[D][ ] return book (by: Sunday)
+Now you have 4 tasks in the list
+____________________________________________________________
+> ____________________________________________________________
+Hm, you don't seem to have that task
+____________________________________________________________
+> ____________________________________________________________
+Hm, you don't seem to have that task
+____________________________________________________________
+> ____________________________________________________________
+Seems like at least one of the arguments to this command was
+not a number when it should have been.
+Key in "I need help." for additional help.
+____________________________________________________________
+> ____________________________________________________________
+These are your tasks:
+1:[T][ ] borrow book
+2:[E][X] project meeting (from: Mon 2pm to: 4pm)
+3:[E][ ] chill (from: Sun 3pm to: 6pm)
+4:[D][ ] Quiz (by: 2pm)
+____________________________________________________________
+> ____________________________________________________________
+Here are the list of commands:
+1. list
+	- lists tasks
+2. mark <task number>
+	- marks the task as done
+3. unmark <task number>
+	- unmarks the task
+4. deadline <task description> /by <by>
+	- Creates a deadline
+5. todo <task description>
+	- Creates a todo
+6. event <task description> /from <from> /to <to>
+	- Creates an event
+7. delete <task number>
+	- deletes the task
+8. bye
+	- exits the program
+____________________________________________________________
+> ____________________________________________________________
+Here's the added task:
+	[E][ ] projectmeeting (from: 1pm to: 2pm)
+Now you have 5 tasks in the list.
 ____________________________________________________________
 > ____________________________________________________________
 Bye.

@@ -4,9 +4,31 @@ deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 event chill /from Sun 3pm      /to      6pm
 deadline    Quiz     /by  2pm
+mark
 mark 1
 mark 2
 mark 3
 unmark 2
 list
+unmark
+unmark 32
+unmark abc
+unmark1
+deadline
+deadline return book
+deadline /by sometime
+event
+event /from Mon 2pm /to 4pm
+event project meeting /to 4pm
+event project meeting /from /to
+todo
+list 5
+delete
+delete 2
+delete 20
+delete -1
+delete abc
+list
+I need help.
+eventprojectmeeting/from1pm/to2pm
 bye

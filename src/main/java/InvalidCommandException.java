@@ -1,3 +1,3 @@
-public class InvalidCommandException extends DukeException {
+public class InvalidCommandException extends BobException {
 
 }

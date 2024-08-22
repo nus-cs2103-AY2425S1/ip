@@ -14,80 +14,117 @@ public class Bob {
 
         while (!(response = Bob.readUserInput(reader)).equals("bye")) {
             try {
-            if (response.startsWith("list")) {
-                if (response.equals("list")) {
-                    Bob.print(String.format("These are your tasks:\n%s", Bob.memoryToString()));
+                if (response.startsWith("list")) {
+                    if (response.equals("list")) {
+                        Bob.print(String.format("These are your tasks:\n%s", Bob.memoryToString()));
+                    } else {
+                        Bob.print("Did you mean 'list'?");
+                    }
+                    continue;
+                }
+
+                if (response.startsWith("mark")) {
+                    try {
+                        String arg = response.substring("mark".length()).trim();
+                        if (arg.isEmpty()) {
+                            throw new EmptyFieldException();
+                        }
+                        int taskNumber = Integer.parseInt(arg);
+                        Task task = memory.get(taskNumber - 1);
+                        task.mark();
+                        Bob.print(String.format("Nice! I've marked this task as done:\n\t%s", task));
+                    } catch (IndexOutOfBoundsException e) {
+                        Bob.print("Nice try but there's no such task.");
+                    }
+                    continue;
+                }
+
+                if (response.startsWith("unmark")) {
+                    try {
+                        String arg = response.substring("unmark".length()).trim();
+                        if (arg.isEmpty()) {
+                            throw new EmptyFieldException();
+                        }
+                        int taskNumber = Integer.parseInt(arg);
+                        Task task = memory.get(taskNumber - 1);
+                        task.unmark();
+                        Bob.print(String.format("Oh well, this task has been marked undone:\n\t%s", task));
+                    } catch (IndexOutOfBoundsException e) {
+                        Bob.print("There's no such task!");
+                    }
+                    continue;
+                }
+
+                if (response.equals("I need help.")) {
+                    Bob.print("Here are the list of commands:\n" +
+                            "1. list\n\t- lists tasks\n" +
+                            "2. mark <task number>\n\t- marks the task as done\n" +
+                            "3. unmark <task number>\n\t- unmarks the task\n" +
+                            "4. deadline <task description> /by <by>\n\t- Creates a deadline\n" +
+                            "5. todo <task description>\n\t- Creates a todo\n" +
+                            "6. event <task description> /from <from> /to <to>\n\t- Creates an event\n" +
+                            "7. delete <task number>\n\t- deletes the task\n" +
+                            "8. bye\n\t- exits the program");
+                    continue;
+                }
+
+                if (response.startsWith("delete")) {
+                    try {
+                        String arg = response.substring("delete".length()).trim();
+                        if (arg.isEmpty()) {
+                            throw new EmptyFieldException();
+                        }
+                        int taskNumber = Integer.parseInt(arg);
+                        Task task = Bob.memory.remove(taskNumber - 1);
+                        Bob.print(String.format("""
+                                Oof. I have removed the requested task:
+                                \t%s
+                                Now you have %s tasks in the list""", task, Bob.memory.size()));
+                    } catch (IndexOutOfBoundsException e) {
+                        Bob.print("Hm, you don't seem to have that task");
+                    }
+                    continue;
+                }
+
+                Task task;
+                if (response.startsWith("deadline")) {
+                    String by = response.substring(response.indexOf("/by") + "/by".length()).trim();
+                    String description = response.substring(
+                            "deadline".length(),
+                            response.indexOf("/by")).trim();
+                    if (by.isEmpty() || description.isEmpty()) {
+                        throw new EmptyFieldException();
+                    }
+                    task = new Deadline(description, by);
+                } else if (response.startsWith("todo")) {
+                    String description = response.substring(
+                            "todo".length()).trim();
+                    if (description.isEmpty()) {
+                        throw new EmptyFieldException();
+                    }
+                    task = new ToDo(description);
+                } else if (response.startsWith("event")) {
+                    String from = response.substring(
+                            response.indexOf("/from") + "/from".length(),
+                            response.indexOf("/to")).trim();
+                    String to = response.substring(response.indexOf("/to") + "/to".length()).trim();
+                    String description = response.substring(
+                            "event".length(),
+                            response.indexOf("/from")).trim();
+                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        throw new EmptyFieldException();
+                    }
+                    task = new Event(description, from, to);
+
                 } else {
-                    Bob.print("Did you mean 'list'?");
+                    throw new InvalidCommandException();
                 }
-                continue;
-            }
-
-            if (response.startsWith("mark")) {
-                try {
-                    int taskNumber = Integer.parseInt(response.substring(5));
-                    Task task = memory.get(taskNumber - 1);
-                    task.mark();
-                    Bob.print(String.format("Nice! I've marked this task as done:\n\t%s", task));
-                } catch (IndexOutOfBoundsException e) {
-                    Bob.print("Nice try but there's no such task.");
-                }
-                continue;
-            }
-
-            if (response.startsWith("unmark")) {
-                try {
-                    int taskNumber = Integer.parseInt(response.substring(7));
-                    Task task = memory.get(taskNumber - 1);
-                    task.unmark();
-                    Bob.print(String.format("Oh well, this task has been marked undone:\n\t%s", task));
-                } catch (IndexOutOfBoundsException e) {
-                    Bob.print("There's no such task!");
-                }
-                continue;
-            }
-
-            if (response.equals("I need help.")) {
-                Bob.print("Here are the list of commands:\n" +
-                        "1. list\n\t- lists tasks\n" +
-                        "2. mark <task number>\n\t- marks the task as done\n" +
-                        "3. unmark <task number>\n\t- unmarks the task\n" +
-                        "4. deadline <task description> /by <by>\n\t- Creates a deadline\n" +
-                        "5. todo <task description>\n\t- Creates a todo\n" +
-                        "6. event <task description> /from <from> /to <to>\n\t- Creates an event\n" +
-                        "7. bye\n\t- exits the program");
-                continue;
-            }
-
-            Task task;
-            if (response.startsWith("deadline")) {
-                String by = response.substring(response.indexOf("/by") + "/by".length()).trim();
-                String description = response.substring(
-                        "deadline ".length(),
-                        response.indexOf("/by")).trim();
-                task = new Deadline(description, by);
-            } else if (response.startsWith("todo")) {
-                String description = response.substring(
-                        "todo ".length()).trim();
-                task = new ToDo(description);
-            } else if (response.startsWith("event")) {
-                String from = response.substring(
-                        response.indexOf("/from") + "/from".length(),
-                        response.indexOf("/to")).trim();
-                String to = response.substring(response.indexOf("/to") + "/to".length()).trim();
-                String description = response.substring(
-                        "event ".length(),
-                        response.indexOf("/from")).trim();
-                task = new Event(description, from, to);
-            } else {
-                throw new InvalidCommandException();
-            }
-            Bob.memory.add(task);
-            Bob.print(
-                    String.format("Here's the added task:\n" +
-                    "\t%s\n" +
-                    "Now you have %s tasks in the list.", task, Bob.memory.size())
-            );
+                Bob.memory.add(task);
+                Bob.print(
+                        String.format("Here's the added task:\n" +
+                        "\t%s\n" +
+                        "Now you have %s tasks in the list.", task, Bob.memory.size())
+                );
             } catch(InvalidCommandException e) {
                 Bob.print("I don't recognise that command :( Try again.\n" +
                         Bob.HELP_MESSAGE
@@ -99,6 +136,8 @@ public class Bob {
                 Bob.print("Seems like the command keyed wasn't appropriately used. You may have\n" +
                         "given insufficient information. Also check that the order in which\n" +
                         "the information was given is correct.\n" + Bob.HELP_MESSAGE);
+            } catch(EmptyFieldException e) {
+                Bob.print("Field(s) may not be blank." + "\n" + Bob.HELP_MESSAGE);
             }
         }
         Bob.print("Bye.");
@@ -110,9 +149,10 @@ public class Bob {
     }
 
     private static void print(String s) {
-        System.out.println("____________________________________________________________");
-        System.out.println(s);
-        System.out.println("____________________________________________________________");
+        System.out.println("____________________________________________________________\n" +
+                s + "\n____________________________________________________________"
+
+        );
     }
 
     private static String memoryToString() {
