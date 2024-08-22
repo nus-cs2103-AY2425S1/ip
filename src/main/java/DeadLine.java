@@ -8,4 +8,12 @@ public class DeadLine extends Task {
         super(name);
         this.endDate = endDate;
     }
+
+    @Override
+    public String toString() {
+        String res = "[D]";
+        res += super.toString();
+        res += "(by: " + this.endDate + ")";
+        return res;
+    }
 }
