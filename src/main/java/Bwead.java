@@ -21,16 +21,36 @@ public class Bwead {
             } else if (input.startsWith("mark")) {
                 int toadd = Integer.valueOf(input.split(" ")[1]);
                 Task task = texts.get(toadd - 1);
-                task.done = true;
+                task.setDone(true);
                 System.out.println("Nice! I've marked this task as done: " + task.text);
             } else if (input.startsWith("unmark")) {
                 int toadd = Integer.valueOf(input.split(" ")[1]);
                 Task task = texts.get(toadd - 1);
-                task.done = false;
+                task.setDone(false);
                 System.out.println("OK, I've marked this task as not done yet: " + task.text);
-            } else {
-                texts.add(new Task(input));
-                System.out.println("added: " + input);
+            } else if (input.startsWith("todo ")) {
+                input = input.replace("todo ", "");
+                Todo task = new Todo(input);
+                texts.add(task);
+                System.out.println("Got it. I've added this task: " + task.toString());
+                System.out.println("Now you have " + texts.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String input1 = input.replace("deadline ", "");
+                String date = input.split("/")[1];
+                int slash = input1.indexOf("/");
+                Deadline task = new Deadline(input1.substring(0, slash -1), date);
+                texts.add(task);
+                System.out.println("Got it. I've added this task: " + task.toString());
+                System.out.println("Now you have " + texts.size() + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                input = input.replace("event ", "");
+                String name = input.split("/from")[0];
+                String start = input.split("/from")[1].split("/to")[0];
+                String end = input.split("/from")[1].split("/to")[1];
+                Event task = new Event(name, start, end);
+                texts.add(task);
+                System.out.println("Got it. I've added this task: " + task.toString());
+                System.out.println("Now you have " + texts.size() + " tasks in the list.");
             }
         }
     }
