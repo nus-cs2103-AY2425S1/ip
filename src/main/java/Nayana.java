@@ -11,6 +11,7 @@ public class Nayana {
      * It prints a logo and a series of messages to the console.
      * and continues to process user input until the user types "bye"
      * Commands include listing tasks or adding new tasks.
+     * The tasks can be marked as done or not done
      *
      * @param args Command line arguments.
      */
@@ -45,6 +46,12 @@ public class Nayana {
             } else if (command.equals("list")){
                 System.out.println(taskList);
                 System.out.println("____________________________________________________________");
+            } else if (command.startsWith("mark")) {
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                taskList.markAsDone(index);
+            } else if (command.startsWith("unmark")){
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                taskList.markAsNotDone(index);
             } else {
                 Task nextTask = new Task(command);
                 taskList.addTask(nextTask);
