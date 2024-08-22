@@ -3,10 +3,12 @@ public class ToDo extends Task {
         super(name);
     }
 
-    public static ToDo getToDoFromInput(String input) {
-        String name = input.substring(5);;
+    public static ToDo getToDoFromInput(String input) throws InvalidTaskFormatException {
+        if (input.length() < 5) {
+            throw new InvalidTaskFormatException("ToDo");
+        }
 
-        return new ToDo(name);
+        return new ToDo(input.substring(5));
     }
 
 
