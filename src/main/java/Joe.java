@@ -95,7 +95,7 @@ public class Joe {
     public static void mark(int idx) {
         System.out.println(line);
         int taskCount = userTasks.size();
-        if (idx > 0 && idx-1 < taskCount) {
+        if (idx > 0 && idx - 1 < taskCount) {
             Task toBeMarked = userTasks.get(idx-1);
             if (!toBeMarked.isDone()) {
                 toBeMarked.setDone(true);
@@ -104,7 +104,7 @@ public class Joe {
                 System.out.println("This task is already marked.");
             }
         } else {
-            System.out.printf("There is no task %d\n", idx);
+            System.out.printf("There is no task %d\n.", idx);
         }
         System.out.println(line);
     }
@@ -112,7 +112,7 @@ public class Joe {
     public static void unmark(int idx) {
         System.out.println(line);
         int taskCount = userTasks.size();
-        if (idx > 0 && idx-1 < taskCount) {
+        if (idx > 0 && idx - 1 < taskCount) {
             Task toBeUnmarked = userTasks.get(idx-1);
             if (toBeUnmarked.isDone()) {
                 toBeUnmarked.setDone(false);
@@ -121,20 +121,34 @@ public class Joe {
                 System.out.println("This task is already unmarked.");
             }
         } else {
-            System.out.printf("There is no task %d\n", idx);
+            System.out.printf("There is no task %d.\n", idx);
         }
         System.out.println(line);
     }
 
     public static void help() {
         System.out.println(line);
+        System.out.println("bye: ends our interaction :-(");
+        System.out.println("deadline <description> /by <due date/time>: Creates a Deadline task");
+        System.out.println("delete <idx>: Deletes the task at your chosen index");
+        System.out.println("event <description> /from <start date/time> /to <end date/time>: Creates an Event task");
         System.out.println("list: Displays your current tasks");
         System.out.println("mark <idx>: Marks the task at your chosen index");
-        System.out.println("unmark <idx>: Unmarks the task at your chosen index");
         System.out.println("todo <description>: Creates a ToDo task");
-        System.out.println("deadline <description> /by <due date/time>: Creates a Deadline task");
-        System.out.println("event <description> /from <start date/time> /to <end date/time>: Creates an Event task");
-        System.out.println("bye: ends our interaction :-(");
+        System.out.println("unmark <idx>: Unmarks the task at your chosen index");
+        System.out.println(line);
+    }
+
+    public static void delete(int idx) {
+        System.out.println(line);
+        int taskCount = userTasks.size();
+        if (idx > 0 && idx - 1 < taskCount) {
+            Task removedTask = userTasks.remove(idx - 1);
+            System.out.printf("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list\n",
+                    removedTask, taskCount-1);
+        } else {
+            System.out.printf("There is no task %d.\n", idx);
+        }
         System.out.println(line);
     }
 
@@ -150,10 +164,12 @@ public class Joe {
                 help();
             } else if (userIn.equalsIgnoreCase("list")) {
                 list();
-            } else if (userIn.startsWith("mark")) {
+            } else if (userIn.toLowerCase().startsWith("mark")) {
                 mark(getDigits(userIn));
-            } else if (userIn.startsWith("unmark")) {
+            } else if (userIn.toLowerCase().startsWith("unmark")) {
                 unmark(getDigits(userIn));
+            } else if (userIn.toLowerCase().startsWith("delete")) {
+                delete(getDigits(userIn));
             } else {
                 try {
                     add(userIn);
@@ -171,7 +187,7 @@ public class Joe {
     private static int getDigits(String userIn) {
         int idx = -1;
         int n = userIn.length();
-        for (int i = 4; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             while (i < n && Character.isDigit(userIn.charAt(i))) {
                 if (idx < 0) {
                     idx = 0;
