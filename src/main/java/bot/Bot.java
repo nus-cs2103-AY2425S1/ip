@@ -1,9 +1,6 @@
 package bot;
 
-import bot.exceptions.BotException;
-import bot.exceptions.EmptyTodoException;
-import bot.exceptions.InvalidTaskDescriptionException;
-import bot.exceptions.InvalidTaskIdException;
+import bot.exceptions.*;
 import bot.tasks.*;
 import bot.utils.Formatter;
 
@@ -15,6 +12,31 @@ import java.util.regex.Pattern;
 
 public class Bot {
     private static final List<Task> tasks = new ArrayList<>();
+
+    private enum Command {
+        LIST("list"),
+        MARK("mark"),
+        UNMARK("unmark"),
+        DELETE("delete"),
+        BYE("bye"),
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event");
+
+        public final String name;
+        Command(String name) {
+            this.name = name;
+        }
+
+        public static Command fromString(String input) throws UnknownCommandException {
+            for (Command cmd : Command.values()) {
+                if (cmd.name.equals(input)) {
+                    return cmd;
+                }
+            }
+            throw new UnknownCommandException(input);
+        }
+    }
 
     public static void main(String[] args) {
         printBotMessage("Hello! I'm ChadGPT. What can I do for you?");
@@ -33,33 +55,43 @@ public class Bot {
             String cmd = matcher.group(1);
             String args = matcher.group(2);
 
+            Command cmdEnum;
             try {
-                switch (cmd) {
-                    case "list":
+                cmdEnum = Command.fromString(cmd);
+            } catch (UnknownCommandException e) {
+                printBotMessage(e.getMessage());
+                return;
+            }
+
+            try {
+                switch (cmdEnum) {
+                    case LIST:
                         handleList();
                         break;
-                    case "todo", "deadline", "event":
+                    case TODO, DEADLINE, EVENT:
                         handleAddTask(cmd, args);
                         break;
-                    case "mark":
+                    case MARK:
                         handleMarkTask(args);
                         break;
-                    case "unmark":
+                    case UNMARK:
                         handleUnmarkTask(args);
                         break;
-                    case "delete":
+                    case DELETE:
                         handleDeleteTask(args);
                         break;
-                    case "bye":
+                    case BYE:
                         printBotMessage("Bye. Hope to see you again soon!");
                         System.exit(0);
                     default:
+                        // This should never happen
                         printBotMessage("Command not found");
                 }
             } catch (BotException e) {
                 printBotMessage(e.getMessage());
             }
         } else {
+            // This should never happen
             printBotMessage("Command not found");
         }
     }
@@ -69,12 +101,12 @@ public class Bot {
     }
 
     private static void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException {
-        if (cmd.equals("todo")) {
+        if (cmd.equals(Command.TODO.name)) {
             if (args.isEmpty()) {
                 throw new EmptyTodoException();
             }
             tasks.add(new Todo(args));
-        } else if (cmd.equals("deadline")) {
+        } else if (cmd.equals(Command.DEADLINE.name)) {
             Pattern regex = Pattern.compile("(.*)\\s/by\\s(.*)");
             Matcher matcher = regex.matcher(args);
             if (matcher.matches()) {
