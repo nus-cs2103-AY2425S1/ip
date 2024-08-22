@@ -1,79 +1,163 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class Talker {
+
+    private static final String NAME = "Talker";
+    private static final String LINE = "____________________________________________________________";
+
+    private static Task[] list = new Task[100];
+    private static int pointer = 0;
+
     public static void main(String[] args) {
-        String name = "Talker";
-        String line = "____________________________________________________________";
-        System.out.println(line);
-        System.out.printf("Hello! I'm %s\n", name);
+
+        System.out.println(LINE);
+        System.out.printf("Hello! I'm %s\n", NAME);
         System.out.println("What can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
 
         Scanner reader = new Scanner(System.in);
 
-        Task[] list = new Task[100];
-        int pointer = 0;
 
-        while (true) {
-            // read user input
-            String input = reader.nextLine();
+        // read user input
+        String input = reader.nextLine();
+        System.out.println(LINE);
 
-            // parse the input by " "
-            String[] parsed = input.split(" ");
-
-            System.out.println(line);
-
-            // if command "bye" entered, exit
-            if (input.equals("bye")) {
-                break;
-            // if command "list" entered, print all tasks in list
-            } else if (input.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-
-                for (int i = 0; i < pointer; i++) {
-                    System.out.printf("%d.%s\n", i + 1, list[i]);
-                }
-            // if first word is mark, mark task as complete
-            } else if (input.startsWith("mark")) {
-                System.out.println(list[Integer.parseInt(parsed[1]) - 1].mark());
-            // if first word is unmark, mark task as incomplete
-            } else if (input.startsWith("unmark")){
-                System.out.println(list[Integer.parseInt(parsed[1]) - 1].unmark());
-            // Save input as new task
-            } else {
-                System.out.println("Got it. I've added this task:");
-
-                Task newTask;
-
-                if (input.startsWith("todo")) {
-                    String[] split = input.split(" ", 2);
-
-                    newTask = new ToDo(split[1]);
-                } else if (input.startsWith("deadline")) {
-                    String[] split1 = input.split(" ", 2);
-                    String[] split2 = split1[1].split(" /by ");
-
-                    newTask = new Deadline(split2[0], split2[1]);
-                } else if (input.startsWith("event")) {
-                    String[] split1 = input.split(" ", 2);
-                    String[] split2 = split1[1].split(" /from ");
-                    String[] split3 = split2[1].split(" /to ");
-
-                    newTask = new Event(split2[0], split3[0], split3[1]);
-                } else {
-                    newTask = new Task(input);
-                }
-
-
-                list[pointer] = newTask;
-                System.out.println(newTask);
-                pointer++;
-                System.out.printf("Now you have %d tasks in the list. \n", pointer);
+        // if command "bye" entered, exit
+        while (!input.equals("bye")) {
+            try {
+                inputManager(input);
+            } catch (TalkerException e) {
+                System.out.println("Error: " + e.getMessage());
+            } finally {
+                System.out.println(LINE);
+                input = reader.nextLine();
             }
-            System.out.println(line);
         }
+
+        System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.print(line);
+        System.out.print(LINE);
+    }
+
+    private static void inputManager(String input) throws TalkerException {
+        String[] parsed = input.split(" ");
+
+        switch (parsed[0]) {
+            case "list":
+                listTasks();
+                break;
+            case "mark":
+                markTaskComplete(parsed);
+                break;
+            case "unmark":
+                unmarkTaskComplete(parsed);
+                break;
+            case "todo":
+                createToDo(input);
+                break;
+            case "deadline":
+                createDeadline(input);
+                break;
+            case "event":
+                createEvent(input);
+                break;
+            default:
+                throw new TalkerException("Unknown command!");
+        }
+    }
+
+    private static void listTasks() throws TalkerException {
+        if (pointer == 0) {
+            throw new TalkerException("List is empty!");
+        }
+
+        System.out.println("Here are the tasks in your list:");
+
+        for (int i = 0; i < pointer; i++) {
+            System.out.printf("%d.%s\n", i + 1, list[i]);
+        }
+    }
+
+    private static void markTaskComplete(String[] parsed) throws TalkerException {
+        try {
+            int index = Integer.parseInt(parsed[1]) - 1;
+            System.out.println(list[index].mark());
+        } catch (NumberFormatException e) {
+            throw new TalkerException("Mark format wrong. Try again with: mark <task number>");
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+        throw new TalkerException("Task not found!");
+        }
+    }
+
+    private static void unmarkTaskComplete(String[] parsed) throws TalkerException {
+        try {
+            int index = Integer.parseInt(parsed[1]) - 1;
+            System.out.println(list[index].unmark());
+        } catch (NumberFormatException e) {
+            throw new TalkerException("Unmark format wrong. Try again with: unmark <task number>");
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            throw new TalkerException("Task not found!");
+        }
+    }
+
+    private static void createToDo(String input) throws TalkerException {
+        try {
+            String desc = input.substring(5);
+
+            Task newTask = new ToDo(desc);
+
+            list[pointer] = newTask;
+            pointer++;
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.printf("Now you have %d tasks in the list. \n", pointer);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TalkerException("ToDo must have a description");
+        }
+    }
+
+    private static void createDeadline(String input) throws TalkerException {
+        try {
+            String contents = input.substring(9);
+
+            String[] parsed = contents.split(" /by ", 2);
+            String desc = parsed[0];
+            String by = parsed[1];
+
+            Task newTask = new Deadline(desc, by);
+
+            list[pointer] = newTask;
+            pointer++;
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.printf("Now you have %d tasks in the list. \n", pointer);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TalkerException("Deadline format wrong. Try again with: deadline <description> /by <deadline>");
+        }
+    }
+
+    private static void createEvent(String input) throws TalkerException {
+        try {
+            String contents = input.substring(6);
+
+            String[] parsed1 = contents.split(" /from ", 2);
+            String[] parsed2 = parsed1[1].split(" /to ", 2);
+            String desc = parsed1[0];
+            String from = parsed2[0];
+            String to = parsed2[1];
+
+            Task newTask = new Event(desc, from, to);
+
+            list[pointer] = newTask;
+            pointer++;
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.printf("Now you have %d tasks in the list. \n", pointer);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TalkerException(
+                    "Event format wrong. Try again with: event <description> /from <start> /to <end>");
+        }
     }
 }
 
