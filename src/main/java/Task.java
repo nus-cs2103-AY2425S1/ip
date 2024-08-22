@@ -6,16 +6,29 @@ public class Task {
         done = false;
     }
 
-    public static Task of(String userInput) throws CommandNotRecognisedException {
+    public static Task of(String userInput) throws
+            CommandNotRecognisedException,
+            TaskDescriptionEmptyException {
         String[] splitUserInput = userInput.split(" ", 2);
         String identifier = splitUserInput[0];
 
         if (identifier.equals("todo")) {
+            if (splitUserInput.length < 2) {
+                throw new TaskDescriptionEmptyException("todo");
+            }
             return new ToDo(splitUserInput[1]);
         } else if (identifier.equals("deadline")) {
+            if (splitUserInput.length < 2) {
+                throw new TaskDescriptionEmptyException("deadline");
+            }
+
             String[] details = splitUserInput[1].split("/by ", 2);
             return new Deadline(details[0], details[1]);
         } else if (identifier.equals("event")) {
+            if (splitUserInput.length < 2) {
+                throw new TaskDescriptionEmptyException("event");
+            }
+
             String[] details = splitUserInput[1].split("/from ", 2);
             String info = details[0];
             String[] dates = details[1].split("/to ", 2);
