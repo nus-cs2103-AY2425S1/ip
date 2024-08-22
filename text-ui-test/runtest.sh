@@ -19,7 +19,7 @@ then
     exit 1
 fi
 
-rm ../data/tasks.txt
+rm -f ../data/tasks.txt
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Zaibot < input.txt > ACTUAL.TXT
 
