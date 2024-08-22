@@ -1,12 +1,23 @@
-public class Parser {
+enum Command {
+    BYE,
+    MARK,
+    UNMARK,
+    DELETE,
+    DEADLINE,
+    EVENT,
+    TODO,
+    LIST,
+}
 
+
+public class Parser {
     // This method will return true if the user wants to exit the program
     public static boolean checkCommand(String input, TaskList taskList) {
-        if (Command.checkEqualCommand(input, "bye")) {
+        if (CommandParser.checkEqualCommand(input, Command.BYE.toString())) {
             FormattedPrint.bye();
             return true;
 
-        } else if (Command.checkCommand(input, "mark")) {
+        } else if (CommandParser.checkCommand(input, Command.MARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsDone(index);
@@ -15,7 +26,7 @@ public class Parser {
                 FormattedPrint.invalidMarkCommand();
             }
 
-        } else if (Command.checkCommand(input, "unmark")) {
+        } else if (CommandParser.checkCommand(input, Command.UNMARK.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsUndone(index);
@@ -24,7 +35,7 @@ public class Parser {
                 FormattedPrint.invalidUnmarkCommand();
             }
 
-        } else if (Command.checkCommand(input, "delete")) {
+        } else if (CommandParser.checkCommand(input, Command.DELETE.toString())) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 FormattedPrint.deleteTask(taskList.getTask(index), taskList.getSize());
@@ -33,7 +44,7 @@ public class Parser {
                 FormattedPrint.invalidDeleteCommand();
             }
 
-        } else if (Command.checkCommand(input, "deadline")) {
+        } else if (CommandParser.checkCommand(input, Command.DEADLINE.toString())) {
             try {
                 // GitHub Copilot suggested the following code snippet
                 String description = input.split(" ", 2)[1].split(" /by ")[0];
@@ -44,7 +55,7 @@ public class Parser {
                 FormattedPrint.invalidDeadlineCommand();
             }
 
-        } else if (Command.checkCommand(input, "event")) {
+        } else if (CommandParser.checkCommand(input, Command.EVENT.toString())) {
             try {
                 // GitHub Copilot suggested the following code snippet
                 String description = input.split(" ", 2)[1].split(" /from ")[0];
@@ -57,7 +68,7 @@ public class Parser {
                 FormattedPrint.invalidEventCommand();
             }
 
-        } else if (Command.checkCommand(input, "todo")) {
+        } else if (CommandParser.checkCommand(input, Command.TODO.toString())) {
             try {
                 String description = input.split(" ", 2)[1];
                 taskList.addItem(new Todo(description));
@@ -66,7 +77,7 @@ public class Parser {
                 FormattedPrint.invalidTodoCommand();
             }
 
-        } else if (Command.checkEqualCommand(input, "list")) {
+        } else if (CommandParser.checkEqualCommand(input, Command.LIST.toString())) {
             FormattedPrint.listTasks(taskList.getList());
         } else {
             // Any other command will be considered invalid

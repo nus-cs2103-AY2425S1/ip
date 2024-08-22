@@ -1,4 +1,4 @@
-public class Command {
+public class CommandParser {
     public static boolean checkCommand(String input, String command) {
         // use for commands that require additional arguments
         return input.split(" ")[0].equalsIgnoreCase(command);
