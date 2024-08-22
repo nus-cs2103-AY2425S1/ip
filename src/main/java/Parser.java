@@ -20,6 +20,7 @@ public class Parser {
                 default:
                     System.out.println("Unknown command: " + command);
             }
+            Duke.lnDiv();
         } while (!command.equals("bye"));
         scanner.close();
     }
