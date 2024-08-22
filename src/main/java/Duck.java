@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Duck {
     private static final String CHATBOT_NAME = "Duck";
     private static final String TEXT_SEPARATOR = "____________________________________________________________";
@@ -41,7 +39,7 @@ public class Duck {
 
     public static void main(String[] args) {
         // Start scanner
-        Scanner sc = new Scanner(System.in);
+        Reader reader = new Reader(System.in);
 
         // Print greeting
         printAsResponse(GREETING);
@@ -50,7 +48,7 @@ public class Duck {
         while (true) {
             System.out.println("");
 
-            String line = sc.nextLine();
+            String line = reader.getLine();
 
             if (line.equals("bye")) {
                 printAsResponse(GOODBYE);
@@ -66,6 +64,6 @@ public class Duck {
         }
 
         // Close Scanner
-        sc.close();
+        reader.close();
     }
 }
