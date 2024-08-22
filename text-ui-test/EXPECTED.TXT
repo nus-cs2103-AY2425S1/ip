@@ -48,7 +48,13 @@ OK, I've marked this task as not done yet:
 [D][ ] return book  (by: Sunday)
 
 
-Invalid command, try again
+bro out here speaking nonsense issit
+
+
+____________________________________________________________
+Noted. I've removed this task:
+[D][ ] return book  (by: Sunday)
+Now you have 2 tasks in the list.
 
 
 ____________________________________________________________

@@ -5,4 +5,5 @@ list
 mark 2
 unmark 2
 bonk
+delete 2
 bye
