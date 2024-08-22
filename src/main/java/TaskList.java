@@ -29,6 +29,14 @@ public class TaskList {
                     System.out.println("Invalid task number given. Type list to find out the task number");
                 }
                 
+            } else if (firstCommand.equals("delete")) {
+                try {
+                    int index = Integer.valueOf(splitwords[1]);
+                    this.deleteTask(index);
+                } catch (Exception e) {
+                    System.out.println("Invalid task number given. Type list to find out the task number");
+                }
+                
             } else if (firstCommand.equals("deadline")) {
                 if (splitwords.length == 1) {
                     System.out.println("The description of a deadline cannot be empty");
@@ -110,6 +118,14 @@ public class TaskList {
         Task task = this.tasklist.get(index-1);
         task.unmark();
         System.out.println("OK, I've marked this task as not done yet: \n" + task);
+    }
+
+    private void deleteTask(int index) {
+        Task task = this.tasklist.get(index - 1);
+        this.tasklist.remove(index - 1);
+        System.out.println(" Noted. I've removed this task: ");
+        System.out.println(task);
+        System.out.println("Now you have " + this.tasklist.size() + " tasks in the list.");
     }
 
     @Override
