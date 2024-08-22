@@ -1,8 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Lexi {
-    private static Task[] tasks = new Task[100];
-    private static int count = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static String LINE_BREAK = "____________________________________________________________";
 
     public static void main(String[] args) {
@@ -20,6 +20,8 @@ public class Lexi {
                     handleDeadline(response);
                 } else if (parts[0].equals("event")) {
                     handleEvent(response);
+                } else if(parts[0].equals("delete")) {
+                    handleDelete(parts);
                 } else if (response.equals("list")) {
                     listTasks();
                 } else {
@@ -34,6 +36,27 @@ public class Lexi {
             userInput.close();
             bye();
         }
+
+    private static void handleDelete(String[] parts) throws LexiException {
+        if(parts.length != 2) {
+            throw new LexiException("Please key in the command in this format " +
+                    "\"delete <task number>\"\n");
+        }
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            if(taskNumber <= 0 || taskNumber > tasks.size()) throw new LexiException("You can't delete a task that doesn't exist");
+            Task removedTask = tasks.remove(taskNumber-1);
+            System.out.println(LINE_BREAK);
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("   " + removedTask);
+            System.out.printf("Now you have %d tasks in the list.%n", tasks.size());
+            System.out.println(LINE_BREAK);
+
+        } catch(NumberFormatException e) {
+            throw new LexiException("Please enter a valid task number as follows:\n" +
+                    "\"delete <task number>\"\n");
+        }
+    }
 
     private static void handleEvent(String response) throws LexiException {
         String[] parts = response.split(" /from ");
@@ -84,10 +107,10 @@ public class Lexi {
             "\"mark <number>\"");
         }
         int taskNumber =  Integer.parseInt(parts[1]) - 1;
-        if(taskNumber > count - 1) {
+        if(taskNumber > tasks.size() - 1) {
             throw new LexiException("Sorry! That task does not exist.\nPlease key in the correct task number");
         }
-        Task taskToBeMarked = tasks[taskNumber];
+        Task taskToBeMarked = tasks.get(taskNumber);
         if(parts[0].equals("unmark")) {
             unmarkTask(taskToBeMarked);
         } else {
@@ -121,8 +144,8 @@ public class Lexi {
     public static void listTasks() {
         System.out.println(LINE_BREAK);
         System.out.println(" Here are the tasks in your list:");
-        for(int i = 0;i<count;i++) {
-            Task currTask = tasks[i];
+        for(int i = 0;i<tasks.size();i++) {
+            Task currTask = tasks.get(i);
             System.out.printf("  %d. %s%n", i+1, currTask);
         }
         System.out.println(LINE_BREAK + "\n");
@@ -139,12 +162,12 @@ public class Lexi {
         System.out.println(LINE_BREAK + "\n");
     }
     public static void addTask(Task task) {
-        tasks[count] = task;
-        count++;
+        tasks.add(task);
+        int taskSize = tasks.size();
         System.out.println(LINE_BREAK);
         System.out.println(" Got it. I've added this task:");
         System.out.printf("   %s%n", task);
-        System.out.printf(" Now you have %d task%s in the list.%n", count, count == 1 ? "" : "s");
+        System.out.printf(" Now you have %d task%s in the list.%n", taskSize, taskSize == 1 ? "" : "s");
         System.out.println(LINE_BREAK + "\n");
     }
 
