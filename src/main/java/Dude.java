@@ -1,26 +1,55 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * The Dude class is a chatbot, whose name is Dude, that can help you manage your tasks.
+ */
 public class Dude {
 
+    /**
+     * The taskList is an ArrayList that stores all the tasks that the user has added.
+     */
     private static ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * The TaskType enum controls the different types of tasks that the user can add.
+     */
     public enum TaskType {
         TODO("todo"),
         DEADLINE("deadline"),
         EVENT("event");
 
+        /**
+         * The type is a String that represents the type of task.
+         */
         private final String type;
 
+        /**
+         * The TaskType constructor creates a new TaskType object.
+         *
+         * @param type The type of task.
+         */
         TaskType(String type) {
             this.type = type;
         }
 
+        /**
+         * The getType method returns the type of task.
+         *
+         * @return The type of task.
+         */
         public String getType() {
             return this.type;
         }
     }
 
+    /**
+     * The addTask method adds a task to the taskList.
+     *
+     * @param input The user's input.
+     * @throws DudeException If the user's input is invalid.
+     */
     public static void addTask(String input) throws DudeException{
         if (input.startsWith(TaskType.TODO.getType() + " ")) {
             if (input.substring(5).isEmpty()) {
@@ -49,6 +78,12 @@ public class Dude {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * The deleteTask method deletes a task from the taskList.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws DudeException If the task does not exist.
+     */
     public static void deleteTask(int index) throws DudeException {
         if (index > taskList.size() || index < 1) {
             throw new DudeException("This task does not exist!");
@@ -60,6 +95,12 @@ public class Dude {
         }
     }
 
+    /**
+     * The markTaskAsDone method marks a task as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws DudeException If the task does not exist or is already marked as done.
+     */
     public static void markTaskAsDone(int index) throws DudeException {
         if (index > taskList.size() || index < 1) {
             throw new DudeException("This task does not exist!");
@@ -72,6 +113,12 @@ public class Dude {
         }
     }
 
+    /**
+     * The markTaskAsUndone method marks a task as not done.
+     *
+     * @param index The index of the task to be marked as not done.
+     * @throws DudeException If the task does not exist or is already marked as not done.
+     */
     public static void markTaskAsUndone(int index) throws DudeException {
         if (index > taskList.size() || index < 1) {
             throw new DudeException("This task does not exist!");
@@ -84,7 +131,11 @@ public class Dude {
         }
     }
 
-    public static void printList() throws DudeException {
+    /**
+     * The printList method prints all the tasks in the taskList.
+     * If the taskList is empty, it will print a message saying that there are no tasks in the list.
+     */
+    public static void printList() {
         if (taskList.isEmpty()) {
             System.out.println("There are no tasks in your list!");
         } else {
@@ -95,6 +146,14 @@ public class Dude {
         }
     }
 
+    /**
+     * The action method performs an action based on the user's input.
+     * Supported actions include adding a task,
+     * deleting a task, marking a task as done, marking a task as not done, and listing all tasks.
+     *
+     * @param input The user's input.
+     * @throws DudeException If the user's input is invalid.
+     */
     public static void action(String input) throws DudeException {
         if (input.startsWith("mark ")) {
             try {
@@ -122,6 +181,7 @@ public class Dude {
             throw new DudeException("I'm sorry, but I don't know what that means :(");
         }
     }
+
     public static void main(String[] args) {
         String line = "____________________________________________________________";
         System.out.println(line);
