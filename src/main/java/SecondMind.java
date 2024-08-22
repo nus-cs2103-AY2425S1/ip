@@ -12,6 +12,11 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static void exitProgram() {
+        System.out.println("Bye. Hope to see you again soon!");
+        printLineSeparator();
+    }
+
     public static void main(String[] args) {
         String logo = "SecondMind";
     }
