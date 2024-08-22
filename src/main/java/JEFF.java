@@ -57,10 +57,12 @@ public class JEFF {
             case "todo":
                 addTask(parts[1], "todo");
                 break;
+            case "deadline":
+                addTask(parts[1], "deadline");
+                break;
             default:
                 addTask(input);
         }
-
         return true;
     }
 
@@ -95,7 +97,15 @@ public class JEFF {
             case "todo":
                 taskList.add(new ToDo(input));
                 break;
-            case "deadline", "event":
+            case "deadline":
+                String[] parts = input.split("/by", 2);
+                if (parts.length < 2) {
+                    chatWarning("You did not follow the format for providing a deadline!\nIt should be: task /by date");
+                    return;
+                }
+                taskList.add(new Deadline(parts[0].trim(), parts[1].trim()));
+                break;
+            case "event":
                 break;
         }
         System.out.printf("added: %s\n", input);
