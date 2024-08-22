@@ -14,8 +14,8 @@ public class Task {
     public String markDoneToString() {
         return """
                 Yay! One task down!
-                I have marked the task as DONE :)
-                  [X] """ + description;
+                I have marked the following task as DONE :)
+                  [X]""" + " " + description;
     }
 
     public void unmarkDone() {
@@ -24,9 +24,9 @@ public class Task {
 
     public String unmarkDoneToString() {
         return """
-                Oh no! I shall mark the task as UNDONE :(
+                Oh no! I shall mark the following task as UNDONE :(
                 You can do it!
-                  [ ] """ + description;
+                  [ ]""" + " " + description;
     }
 
     public String taskToString() {
