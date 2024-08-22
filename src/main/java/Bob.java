@@ -12,9 +12,12 @@ public class Bob {
         Scanner scanner = new Scanner(System.in);
         String word = scanner.nextLine();
         while (!word.equals("bye")) {
+            System.out.println(line);
             System.out.println(word);
+            System.out.println(line);
             word = scanner.nextLine();
         }
+        System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
     }
