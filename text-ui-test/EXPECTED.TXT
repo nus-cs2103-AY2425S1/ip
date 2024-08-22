@@ -1,7 +1,36 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello I'm YapMeister
+YAPYAPYAPYAP
 
+
+Added:
+You have 1 tasks
+
+1. [T][ ] borrow book
+
+Added:
+You have 2 tasks
+
+You did this:
+[D][X] return book (by: Sunday)
+
+Added:
+You have 3 tasks
+
+You did this:
+[E][X] project meeting (from: Mon 2pm to: 4pm)
+
+You undid this:
+[D][ ] return book (by: Sunday)
+
+You did this:
+[T][X] borrow book
+
+Added:
+You have 4 tasks
+
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] add book (by: never)
+
+Fine. Bye. Leave and never return
