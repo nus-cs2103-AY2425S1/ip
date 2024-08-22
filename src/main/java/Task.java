@@ -20,6 +20,6 @@ public class Task {// used Task class from the Week 2 IP Page
     }
 
     public String toString() {
-            return "[" + this.getStatusIcon() + "] " + description;
+            return "[" + this.getStatusIcon() + "] " + description.trim();
     }
 }
