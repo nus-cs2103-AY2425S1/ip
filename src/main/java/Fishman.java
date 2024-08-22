@@ -8,6 +8,9 @@ public class Fishman {
                         + " |_|   |_|___/_| |_|_| |_| |_|\\__,_|_| |_|\n";
         System.out.println("Hello from\n" + logo);
 
+        System.out.println("Hello! I'm Fishman");
+        System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
 
