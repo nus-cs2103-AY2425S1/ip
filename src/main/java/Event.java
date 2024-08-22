@@ -8,6 +8,13 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
+    Event(String[] data) throws CheeseException {
+        super(data);
+        if(data.length != 5) throw new CheeseException("Incorrect data format");
+        startDate = data[3];
+        endDate = data[4];
+    }
+
     /**
      * Factory method to ensure correct creation of Event
      * @param input String
@@ -27,5 +34,14 @@ public class Event extends Task{
         return "[E]" +
                super.toString() +
                "(" + startDate + "-" + endDate +")";
+    }
+
+    @Override
+    public String dataString() {
+        String s = super.dataString();
+        s = s.replace("T,", "E,");
+        s += "," + startDate;
+        s += "," + endDate;
+        return s;
     }
 }
