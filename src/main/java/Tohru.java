@@ -137,6 +137,10 @@ public class Tohru {
                     }
 
                     String[] dissectedDeadlineArgument = argument.split("/by", 2);
+                    // Check if all arguments are present
+                    if (dissectedDeadlineArgument.length < 2) {
+                        throw new TohruException("Missing argument: Missing either description or deadline");
+                    }
                     String deadlineContent = dissectedDeadlineArgument[0];
                     // Check for valid description
                     if (deadlineContent.isBlank()) {
