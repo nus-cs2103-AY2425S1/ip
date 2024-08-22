@@ -19,10 +19,14 @@ public class Task {
         this.completed = false;
     }
 
+    public String getStatusIcon() {
+        return (this.isCompleted() ? "X" : " ");
+    }
+
     @Override
     public String toString() {
         return "["
-                + ((this.isCompleted()) ? "X" : " ")
+                + this.getStatusIcon()
                 + "] "
                 + this.name;
     }
