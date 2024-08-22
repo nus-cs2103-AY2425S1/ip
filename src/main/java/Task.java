@@ -13,14 +13,17 @@ public abstract class Task {
         this.type = "[ ]";
         this.completed = false;
         Task.list.add(this);
+        System.out.println("Sure! I'll add that in for you.");
+        System.out.printf("You now have %s tasks in your list.\n\n", Task.list.size());
     }
 
     public static void printList() {
         int a = 1;
         for (Task i : Task.list) {
-            System.out.printf("%s.%s\n", a, i.toString());
+            System.out.printf("     %s.%s\n", a, i.toString());
             a++;
         }
+        System.out.println();
     }
 
     public static void mark(int i) {

@@ -12,6 +12,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return super.toString() + " (From: " + this.start + " To: " + this.end + ")";
     }
 }

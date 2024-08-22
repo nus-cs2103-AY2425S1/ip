@@ -9,7 +9,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + this.deadline + ")";
+        return super.toString() + " (By: " + this.deadline + ")";
     }
 
 

@@ -8,9 +8,10 @@ public class Bob {
         while (true) {
             Scanner input = new Scanner(System.in);
             s = input.nextLine();
+            System.out.println("--------------------------------------------------");
             int i = s.indexOf(" ");
             if (i != -1) {
-                String s1 = s.substring(0, i);
+                String s1 = s.substring(0, i).toLowerCase();
                 String s2 = s.substring(i+1);
                 if (s2.trim().isEmpty()) {
                     System.out.println("Description empty");
@@ -34,12 +35,11 @@ public class Bob {
                     }
                     case "event" -> {
                         int a = s2.indexOf(" /from ");
+                        int b = s2.indexOf(" /to ");
                         String s3 = s2.substring(0, a);
-                        String s4 = s2.substring(a+7);
-                        int b = s4.indexOf(" /to ");
-                        String s5 = s4.substring(0, b);
-                        String s6 = s4.substring(b+5);
-                        new Event(s3, s5, s6);
+                        String s4 = s2.substring(a+8, b);
+                        String s5 = s2.substring(b+5);
+                        new Event(s3, s4, s5);
                     }
                     case "delete" -> {
                         int a = Integer.parseInt(s2);
@@ -50,11 +50,14 @@ public class Bob {
             }
             if (s.equals("list")) {
                 Task.printList();
+                System.out.println("--------------------------------------------------");
             } else if (s.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("--------------------------------------------------");
                 break;
             } else{
                 System.out.println("I don't know how to do that.");
+                System.out.println("--------------------------------------------------");
             }
 
         }
