@@ -1,7 +1,10 @@
 import java.util.Scanner;
 public class Yap {
     public static void main(String[] args) {
+        // Initialize Scanner
         Scanner scanner = new Scanner(System.in);
+
+        // Print logo and introductions
         String logo = "_    _  __     ______\n"
                     + " \\  // //\\    ||__| |\n"
                     + "  \\// //__\\   ||____/\n"
@@ -9,21 +12,30 @@ public class Yap {
                     + "  ||//      \\ ||\n";
         String separator = "_____________________________________";
         System.out.println("Hello from\n" + logo);
-
-        System.out.println("Here are some things I can do for you: ");
-
         System.out.println("What would you like me to do for you? ");
         System.out.println(separator);
-        String userInput;
 
+        // Infinite loop to get user input
+        String[] userInputs = new String[100];
+        int inputCount = 0;
         while (true) {
-            userInput = scanner.nextLine();
+            userInputs[inputCount] = scanner.nextLine();
             System.out.println(separator);
-            if (userInput.equalsIgnoreCase("bye")) {
+
+            // Bye functionality
+            if (userInputs[inputCount].equalsIgnoreCase("bye")) {
                 System.out.println("Bye! It was really nice talking to you, see you soon :)");
                 break;
             }
-            System.out.println(userInput);
+
+            // List functionality
+            if (userInputs[inputCount].equalsIgnoreCase("list")) {
+                for (int input = 0; input < inputCount; ++input) {
+                    System.out.println((input + 1) + ". " + userInputs[input]);
+                }
+            } else {
+                System.out.println("Added: " + userInputs[inputCount++]);
+            }
             System.out.println(separator);
         }
     }
