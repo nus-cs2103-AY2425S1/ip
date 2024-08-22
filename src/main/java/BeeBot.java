@@ -31,16 +31,24 @@ public class BeeBot {
                     speak(listStr);
                     break;
                 case "mark":
-                    int taskNum = Integer.parseInt(parts[1]);
-                    Task currTask = taskList.get(taskNum - 1);
-                    currTask.markAsDone();
-                    speak("Nice! I've marked this task as done:\n" + currTask.stringify());
+                    try {
+                        int taskNum = Integer.parseInt(parts[1]);
+                        Task currTask = taskList.get(taskNum - 1);
+                        currTask.markAsDone();
+                        speak("Nice! I've marked this task as done:\n" + currTask.stringify());
+                    } catch (Exception e) {
+                        speak(e.getMessage());
+                    }
                     break;
                 case "unmark":
-                    int taskNum2 = Integer.parseInt(parts[1]);
-                    Task curr = taskList.get(taskNum2 - 1);
-                    curr.markAsUndone();
-                    speak("Nice! I've marked this task as not done yet:\n" + curr.stringify());
+                    try {
+                        int taskNum2 = Integer.parseInt(parts[1]);
+                        Task curr = taskList.get(taskNum2 - 1);
+                        curr.markAsUndone();
+                        speak("Nice! I've marked this task as not done yet:\n" + curr.stringify());
+                    } catch (Exception e) {
+                        speak(e.getMessage());
+                    }
                     break;
                 case "todo":
                     int sizeOfTodo = parts.length;
@@ -167,6 +175,30 @@ public class BeeBot {
                                     + newEvent.stringify()
                                     + "Now you have "
                                     + currSize3 + " tasks in the list.\n");
+                        }
+                    } catch (Exception e) {
+                        speak(e.getMessage());
+                    }
+                    break;
+                case "delete":
+                    try {
+                        int deletionNumber = Integer.parseInt(parts[1]) - 1;
+                        if (deletionNumber >= taskList.size()) {
+                            throw new Exception("Task does not exist.\n");
+                        }
+                        String deletedDescription = taskList.get(deletionNumber).stringify();
+                        taskList.remove(deletionNumber);
+                        int currSize4 = taskList.size();
+                        if (currSize4 == 1) {
+                            speak("Got it. I've added this task:\n"
+                                    + deletedDescription
+                                    + "Now you have "
+                                    + currSize4 + " task in the list.\n");
+                        } else {
+                            speak("Noted. I've removed this task:\n"
+                                    + deletedDescription
+                                    + "Now you have "
+                                    + currSize4 + " tasks in the list.\n");
                         }
                     } catch (Exception e) {
                         speak(e.getMessage());
