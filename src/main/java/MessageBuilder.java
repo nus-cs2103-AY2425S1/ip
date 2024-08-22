@@ -12,4 +12,8 @@ public class MessageBuilder {
     public void sendGoodbyeMessage() {
         buildMessage("BYE!!! *UWAGHhhHH* !!! see Ya *uWahghgh*");
     }
+
+    public void echoMessage(String message) {
+        buildMessage(message);
+    }
 }
