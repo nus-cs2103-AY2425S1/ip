@@ -29,14 +29,14 @@ public class MarkAndUnmarkCommand {
                 Ned.print(selectedTask.toString());
             } catch (PatternSyntaxException e) {
                 Ned.print("Sorry m'lord, seems there was a typo in the command try again.");
-                Ned.print(CommandManager.commandMessage);
+                Ned.print(CommandManager.COMMAND_MESSAGE);
             } catch (NumberFormatException e) {
                 //never executed because of regex
                 Ned.print("Sorry m'lord, your command must specify a valid number");
-                Ned.print(CommandManager.commandMessage);
+                Ned.print(CommandManager.COMMAND_MESSAGE);
             } catch (IndexOutOfBoundsException e) {
                 Ned.print("Sorry m'lord, seems the item number you specified is not valid");
-                Ned.print(CommandManager.commandMessage);
+                Ned.print(CommandManager.COMMAND_MESSAGE);
             }
         } catch (NedException e) {
             Ned.print(e.getMessage());

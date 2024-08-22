@@ -17,5 +17,6 @@ public class ToDo extends Task {
         listOfText.add(newTask);
         Ned.print("Aye, I've added this task m'lord:");
         Ned.print(Ned.INDENTATIONS + newTask);
+        Ned.print("Now you've " + listOfText.size() + " tasks left. Get to it then!");
     }
 }

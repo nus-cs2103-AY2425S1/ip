@@ -22,12 +22,12 @@ public class Ned {
 
     public static void showWelcomeMessage() {
         print("Hello! I'm\n" + logo + "\n");
-        print("Lord of Winterfell and Warden Of The North\n");
+        print("Lord of Winterfell and Warden Of The North");
         print("What can I do for you?");
     }
 
     public static void showByeMessage() {
-        print("I wish you good fortune in the wars to come, m' lord\n");
+        print("I wish you good fortune in the wars to come, m' lord");
     }
 
     public static void print(String line) {

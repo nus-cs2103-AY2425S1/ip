@@ -7,30 +7,114 @@
     |_____|\____|'.__.' '.__.;__]
 
     Lord of Winterfell and Warden Of The North
-
     What can I do for you?
 
 
-    M'lord, you seem to have given me a nonsensical command. Input a correct command, for we have little time!
-    Winter is coming...
+    M'lord, you seem to have given me a nonsensical command. Input a correct command, for we have little time! Winter is coming....
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     Aye, I've added this task m'lord:
         [T][ ] read book to sleep
-    Now you've 1 tasks in the list. Get to it then.
+    Now you've 1 tasks left. Get to it then!
     M'lord, you cannot create a todo task with no description
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     M'lord, you cannot create a deadline task with no description
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     M'lord, you cannot create a deadline task with no description
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     M'lord, you cannot create a deadline task with no due date
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     Aye, I've added this task m'lord:
         [D][ ] do homework (by: Friday)
-    Now you've 2 tasks in the list. Get to it then.
+    Now you've 2 tasks left. Get to it then!
     M'lord, you cannot create an event task with no description
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     M'lord, you cannot create an event task with no 'from' date or no 'to' date. Gods be good, fill both up!
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     M'lord, you cannot create an event task with no 'from' date or no 'to' date. Gods be good, fill both up!
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
+    M'lord, you cannot create an event task with no 'to' date. Gods be good, fill both up!
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     M'lord, you cannot create an event task with no 'from' date or no 'to' date. Gods be good, fill both up!
-    M'lord, you cannot create an event task with no 'from' date or no 'to' date. Gods be good, fill both up!
-    M'lord, you cannot create an event task with no 'from' date or no 'to' date. Gods be good, fill both up!
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
+    M'lord, you cannot create an event task with no 'from' date. Gods be good, fill both up!
+    Usage:
+    list                             - Shows the list of all tasks
+    mark <item-index>                - Marks the item at the specified index as done
+    unmark <item-index>              - Marks the item at the specified index as undone
+    delete <item-index>              - Removes the item at the specified index from the list
+    todo <description>               - Creates a new todo task and adds it to the list
+    deadline <description> /by <date> - Creates a new deadline task and adds it to the list
+    event <description> /from <date> /to <date> - Creates a new event task and adds it to the list
     Aye, I've added this task m'lord:
         [E][ ] do homework (from: Monday 3pm to: Monday 6pm)
-    Now you've 3 tasks in the list. Get to it then.
     I wish you good fortune in the wars to come, m' lord
-

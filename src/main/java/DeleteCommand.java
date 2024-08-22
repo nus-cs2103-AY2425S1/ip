@@ -16,7 +16,7 @@ public class DeleteCommand {
                 String possibleIndex = words[1];
                 int index = Integer.parseInt(possibleIndex) - 1;
                 Task selectedTask = listOfText.get(index);
-                Ned.print("Noted m'lord. The following task has been removed:\n");
+                Ned.print("Noted m'lord. The following task has been removed:");
                 Ned.print(Ned.INDENTATIONS + selectedTask);
                 listOfText.remove(index); //removes the index specified
                 Ned.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfText.size()));
