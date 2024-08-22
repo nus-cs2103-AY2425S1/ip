@@ -109,6 +109,17 @@ public class Genesis {
                 current.unmark();
                 System.out.println("Ok. I've marked this task as not done yet:\n" +
                         current.description);
+            } else if (input.startsWith("delete ")) {
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                if (index >= items.size()) {
+                    System.out.println("No such task exists!");
+                    continue;
+                }
+                Task current = items.get(index);
+                items.remove(index);
+                System.out.println("Noted. I have removed the following task: \n"
+                                   + current.toString()
+                                   + "\nNow you have " + items.size() + " items in the list.");
             } else if (input.startsWith("deadline ")){
                 if (!input.contains("/by ")) {
                     System.out.println("You need a deadline to add this task!");
