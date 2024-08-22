@@ -7,5 +7,8 @@ mark 3
 mark 2
 todo finish assignments
 unmark 2
+mark 1
+task
 list
+todo
 bye

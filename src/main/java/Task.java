@@ -1,10 +1,13 @@
+import java.util.Objects;
+
 public abstract class Task {
     protected static int COUNT = 0;
     protected boolean done = false;
     protected String task;
 
-    public Task(String task) {
-        this.task = task;
+    public Task(String task) throws TheBotFatherException{
+        if (Objects.equals(task, "")) throw new TheBotFatherException("No description");
+        this.task = task.substring(0, task.length() - 1);
         COUNT++;
     }
 
