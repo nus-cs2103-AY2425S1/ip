@@ -56,11 +56,11 @@ public class Victor {
                     // retrieve and remove deleted task to reference later
                     Task removed = inputs.get(num);
                     inputs.remove(num);
+
                     System.out.println("  ~  Deleting the task below now!");
                     System.out.println("  ~  " + removed);
                 } catch (NumberFormatException e) {
-                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to mark" +
-                            " as done!");
+                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to delete!");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  ~  I don't think there's a task with that number!");
                 }
@@ -69,6 +69,7 @@ public class Victor {
                     String[] parsed = userInput.trim().split(" ");
                     int num = Integer.parseInt(parsed[parsed.length - 1]) - 1;
                     inputs.get(num).markDone();
+
                     System.out.println("  ~  You finished a task! Well done! I marked this task as done:");
                     System.out.println("  ~  " + inputs.get(num));
                 } catch (NumberFormatException e) {
@@ -82,6 +83,7 @@ public class Victor {
                     String[] parsed = userInput.trim().split(" ");
                     int num = Integer.parseInt(parsed[parsed.length - 1]) - 1;
                     inputs.get(num).markUndone();
+
                     System.out.println("  ~  Oops, I guess you didn't finish the task! I marked this task as undone:");
                     System.out.println("  ~  " + inputs.get(num));
                 } catch (NumberFormatException e) {
@@ -93,17 +95,21 @@ public class Victor {
             } else if (inputWords[0].equalsIgnoreCase("todo")) {
                 String[] parsed = userInput.trim().split(" ");
                 String taskName = "";
+
                 for (int i = 1; i < parsed.length; i++) {
                     taskName += " " + parsed[i];
                 }
+
                 // Trim so that blank space cannot be counted as name for task
                 taskName = taskName.trim();
+
                 if (taskName.isEmpty()) {
                     System.out.println("  ~  Please give a name for the To Do. The format should be \"todo " +
                             "(description)\"");
                 } else {
                     ToDo task = new ToDo(taskName);
                     inputs.add(task);
+
                     System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this" +
                             " To Do:");
                     System.out.println("  ~    " + task);
@@ -131,6 +137,7 @@ public class Victor {
                 // Trim so that blank space cannot be counted as name for task or deadlines
                 taskName = taskName.trim();
                 deadline = deadline.trim();
+
                 if (taskName.isEmpty()) {
                     System.out.println("  ~  Please give a name for the Deadline. The format should be \"deadline" +
                             " (description) /by (deadline)\"");
@@ -140,6 +147,7 @@ public class Victor {
                 } else {
                     Deadline task = new Deadline(taskName, deadline);
                     inputs.add(task);
+
                     System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added " +
                             "this Deadline:");
                     System.out.println("  ~    " + task);
@@ -176,6 +184,7 @@ public class Victor {
                 taskName = taskName.trim();
                 start = start.trim();
                 end = end.trim();
+
                 if (taskName.isEmpty()) {
                     System.out.println("  ~  Please give a name for the Event. The format should be \"event" +
                             " (description) /from (start) /to (end)\"");
@@ -188,6 +197,7 @@ public class Victor {
                 } else {
                     Event task = new Event(taskName, start, end);
                     inputs.add(task);
+
                     System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added" +
                             " this Event:");
                     System.out.println("  ~    " + task);
