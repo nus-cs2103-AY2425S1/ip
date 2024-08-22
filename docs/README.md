@@ -1,10 +1,6 @@
-# Duke User Guide
+# Xizi User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
+Xizi is a personal assistant chatbot designed to help you manage tasks efficiently. Whether you need to track deadlines, events, or simple to-dos, Xizi has you covered. With a simple command-line interface, Xizi ensures you stay organized.
 
 ## Adding deadlines
 
