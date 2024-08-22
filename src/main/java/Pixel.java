@@ -82,6 +82,16 @@ public class Pixel {
                 System.out.println("\t" + "OK, I've marked this task as not done yet:");
                 System.out.println("\t  " + currentTask);
                 System.out.println(LINE);
+            } else if (command.startsWith("delete")) {
+                String[] stringArray = command.split(" ", 0);
+                Integer index = Integer.parseInt(stringArray[1]) - 1;
+                Task removedTask = tasks.get(index);
+                tasks.remove(removedTask);
+                System.out.println(LINE);
+                System.out.println("\t" + "Noted. I've removed this task:");
+                System.out.println("\t  " + removedTask);
+                System.out.println("\t" + "Now you have " + tasks.size() + " task(s) in the list.");
+                System.out.println(LINE);
             } else if (command.equals("bye")) {
                 printExit();
                 break;
