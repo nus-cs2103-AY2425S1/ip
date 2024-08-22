@@ -22,8 +22,12 @@ public class TaskHandler {
      * @param index index of the desired task. index is in [0, n-1].
      * @return The task at the position.
      */
-    private Task getTask(int index) {
+    public Task getTask(int index) {
         return taskList.get(index);
+    }
+
+    public int getTaskCount() {
+        return taskList.size();
     }
 
     /**
@@ -31,7 +35,7 @@ public class TaskHandler {
      *
      * @return the list of tasks: 1. ___ \n 2. ___ \n ...
      */
-    private String getTaskListString() {
+    public String getTaskListString() {
         StringBuilder taskListString = new StringBuilder();
 
         for (int i = 0; i < taskList.size(); i++) {
