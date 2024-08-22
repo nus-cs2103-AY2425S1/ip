@@ -79,6 +79,12 @@ public class MrYapper {
         say(listInString);
     }
 
+    private static void deleteTask(int taskNumber) {
+        Task deletedTask = taskList.remove(taskNumber - 1);
+        say(String.format(" Task deleted successfully!\n   %s\n Now you have %d tasks in the list",
+                deletedTask, taskList.size()));
+    }
+
     public static void main(String[] args) {
         say(GREETING_MESSAGE);
         boolean conversationIsOngoing = true;
@@ -97,6 +103,23 @@ public class MrYapper {
                 break;
             case "list":
                 listTask();
+                break;
+            case "delete":
+                try {
+                    if (processedInput.length > 1) {
+                        int taskNumber = Integer.parseInt(processedInput[1]);
+                        deleteTask(taskNumber);
+                    } else {
+                        say(" You have to give me a valid task number!\n e.g. delete 2");
+                    }
+                } catch (NumberFormatException e) {
+                    // if the string after the mark command is not an integer
+                    say(" You have to give me a valid task number!\n e.g. delete 2");
+                } catch (IndexOutOfBoundsException e) {
+                    String errorMessage = String.format(" There is no such task!\n "
+                            + "You currently have %d tasks in your list", taskList.size());
+                    say(errorMessage);
+                }
                 break;
             case "mark":
             case "unmark":
