@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Puke {
     private MessageBuilder messageBuilder;
     public Puke() {
@@ -10,7 +11,19 @@ public class Puke {
 
     private void start() {
         messageBuilder.sendGreetingMessage();
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        while (true) {
+            userInput = scanner.nextLine();
+            if (userInput.trim().equalsIgnoreCase("bye")) {
+                break;
+            }
+            messageBuilder.echoMessage(userInput);
+        }
+
         terminate();
+        scanner.close();
     }
 
     private void terminate() {
