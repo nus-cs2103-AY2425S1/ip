@@ -1,12 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Repsmax {
     public static void main(String[] args) {
         //initialise scanner
         Scanner scanner = new Scanner(System.in);
         //initialise string array
-        Task[] tasks = new Task[100];
-        int taskcount = 0;
+        List<Task> tasks = new ArrayList<>();
         //greet the user
         String greeting = "  ____________________________________________________________\n" +
                 "   Hello! I'm Repsmax\n" +
@@ -29,8 +30,8 @@ public class Repsmax {
                 case "list":
                     System.out.println("  ____________________________________________________________\n");
                     System.out.println("  here are the task in your list:\n");
-                    for (int i = 0; i < taskcount; i++) {
-                        System.out.println("   " + (i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println("   " + (i + 1) + "." + tasks.get(i));
                     }
                     System.out.println("  ____________________________________________________________\n");
                     break;
@@ -38,11 +39,11 @@ public class Repsmax {
                 case "mark":
                     try {
                         int markIndex = Integer.parseInt(splitInput[1]) - 1;
-                        if (markIndex >= 0 && markIndex < taskcount) {
+                        if (markIndex >= 0 && markIndex < tasks.size()) {
                             System.out.println("  ____________________________________________________________\n");
                             System.out.println("  Nice! I've marked this task as done:\n");
-                            tasks[markIndex].setDone();
-                            System.out.println("  " + tasks[markIndex]);
+                            tasks.get(markIndex).setDone();
+                            System.out.println("  " + tasks.get(markIndex));
                             System.out.println("  ____________________________________________________________\n");
                         } else {
                             System.out.println("  ____________________________________________________________\n");
@@ -59,11 +60,11 @@ public class Repsmax {
                 case "unmark":
                     try {
                         int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
-                        if (unmarkIndex >= 0 && unmarkIndex < taskcount) {
+                        if (unmarkIndex >= 0 && unmarkIndex < tasks.size()) {
                             System.out.println("  ____________________________________________________________\n");
                             System.out.println("  OK, I've marked this task as not done yet:\n");
-                            tasks[unmarkIndex].setUndone();
-                            System.out.println("  " + tasks[unmarkIndex]);
+                            tasks.get(unmarkIndex).setUndone();
+                            System.out.println("  " + tasks.get(unmarkIndex));
                             System.out.println("  ____________________________________________________________\n");
                         } else {
                             System.out.println("  ____________________________________________________________\n");
@@ -80,12 +81,11 @@ public class Repsmax {
                 case "todo":
                     if (splitInput.length > 1) {
                         String description = splitInput[1];
-                        tasks[taskcount] = new Todo(description);
-                        taskcount++;
+                        tasks.add(new Todo(description));
                         System.out.println("  ____________________________________________________________");
                         System.out.println("  Got it. I've added this task:");
-                        System.out.println("   " + tasks[taskcount - 1]);
-                        System.out.println("  Now you have " + taskcount + " tasks in the list.");
+                        System.out.println("   " + tasks.get(tasks.size() - 1));
+                        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("  ____________________________________________________________");
                     } else {
                         System.out.println("  ____________________________________________________________");
@@ -99,12 +99,11 @@ public class Repsmax {
                         String[] parts = splitInput[1].split("/by ", 2);
                         String deaddescription = parts[0];
                         String by = parts[1];
-                        tasks[taskcount] = new Deadline(deaddescription, by);
-                        taskcount++;
+                        tasks.add(new Deadline(deaddescription, by));
                         System.out.println("  ____________________________________________________________");
                         System.out.println("  Got it. I've added this task:");
-                        System.out.println("   " + tasks[taskcount - 1]);
-                        System.out.println("  Now you have " + taskcount + " tasks in the list.");
+                        System.out.println("   " + tasks.get(tasks.size() - 1));
+                        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("  ____________________________________________________________");
 
                     } catch (ArrayIndexOutOfBoundsException e) {
@@ -121,12 +120,11 @@ public class Repsmax {
                         String Eventdescription = Eventparts[0];
                         String from = fromTo[0];
                         String to = fromTo[1];
-                        tasks[taskcount] = new Event(Eventdescription, from, to);
-                        taskcount++;
+                        tasks.add(new Event(Eventdescription, from, to));
                         System.out.println("  ____________________________________________________________");
                         System.out.println(" Got it. I've added this task:");
-                        System.out.println("   " + tasks[taskcount - 1]);
-                        System.out.println(" Now you have " + taskcount + " tasks in the list.");
+                        System.out.println("   " + tasks.get(tasks.size() - 1));
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("  ____________________________________________________________");
                     }  catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("  ____________________________________________________________");
@@ -135,9 +133,29 @@ public class Repsmax {
                     }
                     break;
 
+                case "delete":
+                    try {
+                        int deleteindex = Integer.parseInt(splitInput[1]) - 1;
+                        if (deleteindex >= 0 && deleteindex < tasks.size()) {
+                            System.out.println("  ____________________________________________________________");
+                            System.out.println("  Noted. I've removed this task:");
+                            System.out.println("   " + tasks.remove(deleteindex));
+                            System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
+                            System.out.println("  ____________________________________________________________");
+                        } else {
+                            System.out.println("  ____________________________________________________________");
+                            System.out.println("  OOPS!!! The task number is out of range.");
+                            System.out.println("  ____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("  ____________________________________________________________");
+                        System.out.println("  OOPS!!! The task number must be an integer.");
+                        System.out.println("  ____________________________________________________________");
+                    }
+                    break;
+
                 default:
-                    tasks[taskcount] = new Task(userInput);
-                    taskcount++;
+                    tasks.add(new Task(userInput));
                     System.out.println("____________________________________________________________");
                     System.out.println(" added: " + userInput);
                     System.out.println("____________________________________________________________");
