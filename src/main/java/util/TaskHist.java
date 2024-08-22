@@ -23,7 +23,7 @@ public class TaskHist {
    * @param taskDetails The info for the task
    * @return
    */
-  public boolean addTask(String taskType, String[] taskDetails) {
+  public void addTask(String taskType, String[] taskDetails) {
     Task newTask;
     switch (taskType) {
       case "todo":
@@ -39,14 +39,29 @@ public class TaskHist {
         newTask = new Task("Hm whats this?");
         break;
     }
+    this.tasks.add(newTask);
     // create the message to be printed
     StringBuilder sb = new StringBuilder(String.format(
         "%sGot it I've added this task:\n", Utility.INDENT));
     sb.append(String.format("%s%s%s\n", Utility.INDENT, Utility.INDENT, newTask.toString()));
     sb.append(String.format(
-        "%sNow you have %d tasks in your list.", Utility.INDENT, this.tasks.size() + 1));
+        "%sYou now have %d tasks in your list.", Utility.INDENT, this.tasks.size()));
     Utility.prettyPrint(sb.toString());
-    return this.tasks.add(newTask);
+  }
+
+  /**
+   * Method to delete a task from the list.
+   * 
+   * @param idx The idx of the task to be deleted starting from 1.
+   */
+  public void deleteTask(int idx) {
+    Task t = this.tasks.remove(--idx);
+    StringBuilder sb = new StringBuilder(String.format(
+        "%sOk! I've removed this task:\n", Utility.INDENT));
+    sb.append(String.format("%s%s%s\n", Utility.INDENT, Utility.INDENT, t.toString()));
+    sb.append(String.format(
+        "%sNow you have %d tasks in your list.", Utility.INDENT, this.tasks.size()));
+    Utility.prettyPrint(sb.toString());
   }
 
   /**

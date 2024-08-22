@@ -68,6 +68,11 @@ public class Mizz {
           this.handleMark(this.cmd, idx);
           break;
         }
+        case "delete": {
+          int idx = Integer.parseInt(parsedInput[1]);
+          this.handleDelete(idx);
+          break;
+        }
         case "todo":
         case "deadline":
         case "event": {
@@ -137,6 +142,20 @@ public class Mizz {
   }
 
   /**
+   * Method to delete a task.
+   * 
+   * @param idx An idx starting from 1.
+   */
+  private void handleDelete(int idx) {
+    if (!this.usrTasks.isValidIdx(idx)) {
+      Utility.prettyPrint(String.format(
+          "%sSomeones tryna be funny, idx: %d is out of range!", Utility.INDENT, idx));
+      return;
+    }
+    this.usrTasks.deleteTask(idx);
+  }
+
+  /**
    * Utility method to parse and clean the user input.
    * 
    * @param in The input from the scanner.
@@ -153,7 +172,13 @@ public class Mizz {
     result[0] = parts[0].toLowerCase();
 
     if (result[0].equals("mark") || result[0].equals("unmark")) {
-      verifyMarkUnmark(parts);
+      Validator.verifyMarkUnmark(parts);
+      result[1] = parts[1];
+      return result;
+    }
+
+    if (result[0].equals("delete")) {
+      Validator.verifyDelete(parts);
       result[1] = parts[1];
       return result;
     }
@@ -178,15 +203,15 @@ public class Mizz {
     }
     // description
     if (result[0].equals("todo")) {
-      verifyTodo(parts);
+      Validator.verifyTodo(parts);
       result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
     } else if (result[0].equals("deadline")) {
-      verifyDeadline(parts, byIdx);
+      Validator.verifyDeadline(parts, byIdx);
       result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
       result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1,
           parts.length));
     } else if (result[0].equals("event")) {
-      verifyEvent(parts, fromIdx, toIdx);
+      Validator.verifyEvent(parts, fromIdx, toIdx);
       result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
       result[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
       result[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
@@ -195,84 +220,4 @@ public class Mizz {
     return result;
   }
 
-  /**
-   * Method to validate the todo command.
-   * 
-   * @param details The full split input from the user.
-   * @throws ToDoException if the input is malformed.
-   */
-  private void verifyTodo(String[] details) throws ToDoException {
-    if (details.length == 1) {
-      throw new ToDoException("Missing a descrption for this todo!");
-    }
-  }
-
-  /**
-   * Method to validate the deadline command.
-   * 
-   * @param details The full split input from the user.
-   * @param byIdx   The idx of "/by" in details.
-   * @throws DeadlineException if the input is malformed.
-   */
-  private void verifyDeadline(String[] details, int byIdx) throws DeadlineException {
-    int maxAllowableIdx = details.length - 1;
-    if (byIdx == -1) {
-      throw new DeadlineException("Missing /by in the input!");
-    }
-    if (byIdx == maxAllowableIdx) {
-      throw new DeadlineException("Missing a string behind /by... by when?");
-    }
-    if (byIdx == 1) {
-      throw new DeadlineException(
-          "Hmmm I'm not sure whats the deadline for? Missing description!");
-    }
-  }
-
-  /**
-   * Method to validate the event command.
-   * 
-   * @param details The full split input from the user.
-   * @param fromIdx The idx of "/from" in details.
-   * @param toIdx   The idx of "/to" in details.
-   * @throws EventException if the input is malformed.
-   */
-  private void verifyEvent(String[] details, int fromIdx, int toIdx) throws EventException {
-    int maxAllowableIdx = details.length - 1;
-    if (fromIdx == 1) {
-      throw new EventException("Hmmm what's this event about? Missing description!");
-    }
-    if (fromIdx == -1) {
-      throw new EventException("Missing /from in the input!");
-    }
-    if (toIdx == -1) {
-      throw new EventException("To infinity! Missing /to in the input!");
-    }
-    if (fromIdx > toIdx) {
-      throw new EventException("/from should come before /to!");
-    }
-    if (fromIdx + 1 >= toIdx) {
-      throw new EventException("Missing a string behind /from... from when?");
-    }
-    if (toIdx == maxAllowableIdx) {
-      throw new EventException("Hm when does this event end? Missing info behind /to");
-    }
-  }
-
-  /**
-   * Method to validate the mark or unmark command.
-   * 
-   * @param details The full split input from the user.
-   * @throws UpdateMarkedException if the input is malformed.
-   */
-  private void verifyMarkUnmark(String[] details) throws UpdateMarkedException {
-    if (details.length == 1) {
-      throw new UpdateMarkedException("Too few arguments missing idx to mark/ unmark");
-    }
-    try {
-      Integer.parseInt(details[1]);
-    } catch (NumberFormatException e) {
-      throw new UpdateMarkedException(
-          String.format("Last I checked (%s)'s no int :/", details[1]));
-    }
-  }
 }

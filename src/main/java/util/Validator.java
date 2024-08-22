@@ -74,12 +74,31 @@ public class Validator {
    */
   public static void verifyMarkUnmark(String[] details) throws UpdateMarkedException {
     if (details.length == 1) {
-      throw new UpdateMarkedException("Too few arguments missing idx to mark/ unmark");
+      throw new UpdateMarkedException(
+          "Too few arguments missing idx to mark/ unmark", details[0]);
     }
     try {
       Integer.parseInt(details[1]);
     } catch (NumberFormatException e) {
       throw new UpdateMarkedException(
+          String.format("Last I checked (%s)'s no int :/", details[1]), details[0]);
+    }
+  }
+
+  /**
+   * Method to validate the delete command.
+   * 
+   * @param details The split input from the user.
+   * @throws DeleteException
+   */
+  public static void verifyDelete(String[] details) throws DeleteException {
+    if (details.length == 1) {
+      throw new DeleteException("Too few arguments! Missing idx.");
+    }
+    try {
+      Integer.parseInt(details[1]);
+    } catch (NumberFormatException e) {
+      throw new DeleteException(
           String.format("Last I checked (%s)'s no int :/", details[1]));
     }
   }
