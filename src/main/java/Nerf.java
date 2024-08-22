@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,9 +21,12 @@ public class Nerf {
         echo();
     }
 
-    private static void addToList(String input){
-        listings.add(new Task(input));
-        System.out.println("added: " + input);
+    private static void addToList(Task input){
+        listings.add(input);
+        System.out.println("Understood. I've added the following task:");
+        System.out.println("  " + input);
+        
+        System.out.println(String.format("You now have %d tasks in total.",listings.size()));
     }
     private static void printList(){
         System.out.println("Here are the tasks in your list:");
@@ -46,14 +48,35 @@ public class Nerf {
                         markTask(input);
                     } else if (input.startsWith("unmark ")) {
                         unmarkTask(input);
-                    }
-                    else {
-                        addToList(input);
+                    } else if (input.startsWith("todo ")){
+                        addTodo(input);
+                    } else if (input.startsWith("deadline ")){
+                        addDeadline(input);
+                    } else if (input.startsWith("event ")){
+                        addEvent(input);
                     }
                 }
             }
         } while (!input.equals("bye"));
     }
+
+    private static void addTodo(String input){
+        addToList(new ToDos(input.substring(5).trim())); 
+    }
+
+    private static void addDeadline(String input){
+        input = input.substring(9).trim();
+        String[] parts = input.split("/by",2);
+        addToList(new Deadlines(parts[0].trim(),parts[1].trim()));
+         
+    }
+    private static void addEvent(String input){
+        input = input.substring(6).trim();
+        String[] part1 = input.split("/from",2);
+        String[] part2 = part1[1].split("/to",2);
+        addToList(new Events(part1[0].trim(),part2[0].trim(),part2[1].trim()));
+    }
+
     private static void markTask(String input){
         String number = input.substring(5).trim();
         try {
@@ -65,9 +88,10 @@ public class Nerf {
                                """ + listings.get(num-1));
             printDivider();
         } catch (NumberFormatException e) {
-            addToList(input); // might be the task is to mark something
+            System.out.println("Oops! That does not seem like a number.");
         }
     }
+
     private static void unmarkTask(String input){
         String number = input.substring(7).trim();
         try {
@@ -79,7 +103,7 @@ public class Nerf {
                                """ + listings.get(num-1));
             printDivider();
         } catch (NumberFormatException e) {
-            addToList(input); // might be the task is to unmark something
+            System.out.println("Oops! That does not seem like a number.");
         }
     }
 
