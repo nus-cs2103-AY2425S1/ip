@@ -36,6 +36,8 @@ public class Buddy {
             } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                 // Store input text as new task
                 addTask(input);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("Please enter a valid command!");
@@ -164,5 +166,34 @@ public class Buddy {
 
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + tasks.get(taskIndex));
+    }
+
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param input User input.
+     */
+    private static void deleteTask(String input) {
+        // Check if input task number is a valid integer
+        try {
+            Integer.parseInt(input.split(" ")[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid task number!");
+            return;
+        }
+
+        int taskNumber = Integer.parseInt(input.split(" ")[1]);
+        int taskIndex = taskNumber - 1;
+
+        try {
+            Task task = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number!");
+        }
     }
 }
