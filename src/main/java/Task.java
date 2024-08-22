@@ -1,10 +1,12 @@
-public class Task {
+abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
 
-    public Task(String description) {
+    public Task(String type, String description) {
         this.description = description;
         this.isDone = false;
+        this.type = type;
     }
 
     public String getStatusIcon() {
@@ -17,10 +19,5 @@ public class Task {
 
     public void undo() {
         this.isDone = false;
-    }
-
-    public String toString() {
-        String message = "[" + this.getStatusIcon() + "] " + this.description;
-        return message;
     }
 }

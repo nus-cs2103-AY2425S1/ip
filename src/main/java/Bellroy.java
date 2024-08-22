@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,10 +19,11 @@ public class Bellroy {
         while (true) {
 
             userInput = scanner.nextLine();
+            String[] input = userInput.split(" /", 2);
+            String type = input[0].split(" ")[0].toLowerCase();
+            String description = input[0].substring(type.length());
 
-
-
-            switch (userInput.split(" ")[0]) {
+            switch (type) {
                 case "bye":
                     System.out.println("____________________________________________________________\n" +
                         "     Bye. Hope to see you again soon!\n" +
@@ -55,13 +57,50 @@ public class Bellroy {
                             "    ____________________________________________________________");
                     break;
 
-                default:
-                    Task temp = new Task(userInput);
-                    toDoList.add(temp);
-                    System.out.println("____________________________________________________________\n" +
-                            "     added: " + userInput + "\n" +
-                            "____________________________________________________________\n");
+                case "todo":
+                    Task todo = new Todo(description);
+                    toDoList.add(todo);
+                    String response1 = String.format("    ____________________________________________________________\n" +
+                            "     Got it. I've added this task:\n" +
+                            "       " + todo + "\n" +
+                            "     Now you have %d tasks in the list.\n" +
+                            "    ____________________________________________________________", toDoList.size());
+                    System.out.println(response1);
                     break;
+
+                case "deadline":
+                    String dueDate = input[1].split(" ", 2)[1].trim();
+                    Task deadline = new deadline(description, dueDate);
+                    toDoList.add(deadline);
+                    String response2 = String.format("    ____________________________________________________________\n" +
+                            "     Got it. I've added this task:\n" +
+                            "       " + deadline + "\n" +
+                            "     Now you have %d tasks in the list.\n" +
+                            "    ____________________________________________________________", toDoList.size());
+                    System.out.println(response2);
+                    break;
+
+                case "event":
+                    String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
+                    String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
+                    Task event = new Event(description, startTime, endTime);
+                    toDoList.add(event);
+                    String response3 = String.format("    ____________________________________________________________\n" +
+                            "     Got it. I've added this task:\n" +
+                            "       " + event + "\n" +
+                            "     Now you have %d tasks in the list.\n" +
+                            "    ____________________________________________________________", toDoList.size());
+                    System.out.println(response3);
+                    break;
+
+
+//                default:
+//                    Task temp = new Task(userInput);
+//                    toDoList.add(temp);
+//                    System.out.println("____________________________________________________________\n" +
+//                            "     added: " + userInput + "\n" +
+//                            "____________________________________________________________\n");
+//                    break;
             }
         }
 
