@@ -2,6 +2,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+enum CommandType {
+    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE;
+}
+
 public class TheOrangeRatchetCat {
 
     public static void main(String[] args) {
@@ -17,63 +21,68 @@ public class TheOrangeRatchetCat {
         List<Task> items = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine(); // Reads a line of text
-        try {
-            //String input = scanner.nextLine(); // Reads a line of text
-            while (!input.equals("bye")) {
-                if (input.equals("list")) {
-                    input = TheOrangeRatchetCat.checkList(input, items, scanner);
-                    continue;
-                }
-                if (input.startsWith("mark")) {
-                    String numberPart = input.substring(4).trim();
-                    if (numberPart.isEmpty()) {
-                        throw new TheOrangeRatchetCatException("You can't mark nothing!");
-                    }
-                    input = TheOrangeRatchetCat.markingTask(numberPart, items, scanner);
-                    continue;
-                }
-                if (input.startsWith("unmark")) {
-                    String numberPart = input.substring(6).trim();
-                    if (numberPart.isEmpty()) {
-                        throw new TheOrangeRatchetCatException("You can't unmark nothing!");
-                    }
-                    input = TheOrangeRatchetCat.unmarkingTask(numberPart, items, scanner);
-                    continue;
-                }
-                if (input.startsWith("todo")) {
+        // Perhaps you could try and take out the Try block and
+        // Wrap the specific if conditions in the try-catch block.
+        // Such as for unmark, mark and todo
+        // Try to catch error for the other 3 conditions as well
+        while (!input.equals("bye")) {
+            if (input.equals("list")) {
+                input = TheOrangeRatchetCat.checkList(input, items, scanner);
+                continue;
+            }
+            if (input.startsWith("mark")) {
+                String numberPart = input.substring(4).trim();
+                input = TheOrangeRatchetCat.markingTask(numberPart, items, scanner);
+                continue;
+            }
+            if (input.startsWith("unmark")) {
+                String numberPart = input.substring(6).trim();
+                input = TheOrangeRatchetCat.unmarkingTask(numberPart, items, scanner);
+                continue;
+            }
+            if (input.startsWith("todo")) {
+                try {
                     String taskDescription = input.substring(4).trim();
-                    if (taskDescription.isEmpty()) {
-                        throw new TheOrangeRatchetCatException("You can't do Nothing!");
-                    }
                     input = TheOrangeRatchetCat.addingToDo(taskDescription, items, scanner);
                     continue;
+                } catch (TheOrangeRatchetCatException e) {
+                    System.out.println(e.getMessage());
+                    input = scanner.nextLine();
+                    continue;
                 }
-                if (input.startsWith("deadline")) {
+            }
+            if (input.startsWith("deadline")) {
+                try {
                     input = TheOrangeRatchetCat.addingDeadline(input, items, scanner);
                     continue;
+                } catch (TheOrangeRatchetCatException e) {
+                    System.out.println(e.getMessage());
+                    input = scanner.nextLine();
+                    continue;
                 }
-                // Make sure to handle incorrect string inputs for event (not just event, but for other tasks as well)
-                if (input.startsWith("event")) {
+            }
+            // Make sure to handle incorrect string inputs for event (not just event, but for other tasks as well)
+            if (input.startsWith("event")) {
+                try {
                     input = TheOrangeRatchetCat.addingEvent(input, items, scanner);
                     continue;
-                }
-                if (input.startsWith("delete")) {
-                    int indexToDelete = Integer.parseInt(input.substring(6).trim());
-                    input = TheOrangeRatchetCat.deleteTask(indexToDelete, items, scanner);
+                } catch (TheOrangeRatchetCatException e) {
+                    System.out.println(e.getMessage());
+                    input = scanner.nextLine();
+                    continue;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Correct input format for adding event: event <Task> /from <input> /to <input>");
+                    input = scanner.nextLine();
                     continue;
                 }
-                Task.taskCount++;
-                System.out.println("____________________________________________________________");
-                System.out.println("added " + input);
-                System.out.println("____________________________________________________________");
-                Task task = new Task(input);
-                items.add(task);
-                input = scanner.nextLine(); // Reads the next line of input text again
             }
-        } catch (TheOrangeRatchetCatException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println(e.getMessage());
-            System.out.println("____________________________________________________________");
+            if (input.startsWith("delete")) {
+                int indexToDelete = Integer.parseInt(input.substring(6).trim());
+                input = TheOrangeRatchetCat.deleteTask(indexToDelete, items, scanner);
+                continue;
+            }
+            System.out.print("Inappropriate Command try again with adding either a Deadline/Todo/Event: ");
+            input = scanner.nextLine(); // Reads the next line of input text again
         }
         TheOrangeRatchetCat.bidFarewell();
         scanner.close(); // Close the scanner to avoid resource leaks
@@ -86,7 +95,7 @@ public class TheOrangeRatchetCat {
             System.out.println(index + "." + item);
             index++;
         }
-        return scanner.nextLine(); // Reads the next line of input text again
+        return scanner.nextLine();
     }
 
     private static String markingTask(String input, List<Task> items, Scanner scanner) {
@@ -102,6 +111,9 @@ public class TheOrangeRatchetCat {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
             return scanner.nextLine(); // Reads the next line of input text again
+        } catch (NumberFormatException e) {
+            System.out.println("Might want to reconsider your action. Please Try Again");
+            return scanner.nextLine(); // Reads the next line of input text again
         }
     }
 
@@ -114,8 +126,11 @@ public class TheOrangeRatchetCat {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
             System.out.println("____________________________________________________________");
-            return scanner.nextLine(); // Reads the next line of input text again
+            return scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
+            System.out.println("Might want to reconsider your action. Please Try Again");
+            return scanner.nextLine();
+        } catch (NumberFormatException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
             return scanner.nextLine(); // Reads the next line of input text again
         }
@@ -131,14 +146,17 @@ public class TheOrangeRatchetCat {
             System.out.println(taskToDelete);
             System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
             System.out.println("____________________________________________________________");
-            return scanner.nextLine(); // Reads the next line of input text again
+            return scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine(); // Reads the next line of input text again
+            return scanner.nextLine();
         }
     }
 
-    private static String addingToDo(String input, List<Task> items, Scanner scanner) {
+    private static String addingToDo(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
+        if (input.isEmpty()) {
+            throw new TheOrangeRatchetCatException("You can't do Nothing!");
+        }
         Task nextTask = new ToDo(input);
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -146,16 +164,22 @@ public class TheOrangeRatchetCat {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
-        return scanner.nextLine(); // Reads the next line of input text again
+        return scanner.nextLine();
     }
 
-    private static String addingDeadline(String input, List<Task> items, Scanner scanner) {
+    private static String addingDeadline(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
         // Split the input string by "/by"
         String[] parts = input.split("/by");
         // The description is the first part after removing the word "deadline"
         String taskDescription = parts[0].replace("deadline", "").trim();
+        if (taskDescription.isEmpty()) {
+            throw new TheOrangeRatchetCatException("You can't do Nothing!");
+        }
         // The "by" part is the second part, if it exists
         String date = parts.length > 1 ? parts[1].trim() : "";
+        if (date.isEmpty()) {
+            throw new TheOrangeRatchetCatException("You need to provide a deadline!");
+        }
         Task nextTask = new Deadline(taskDescription, date);
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -163,14 +187,17 @@ public class TheOrangeRatchetCat {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
-        return scanner.nextLine(); // Reads the next line of input text again*/
+        return scanner.nextLine();
     }
 
-    private static String addingEvent(String input, List<Task> items, Scanner scanner) {
+    private static String addingEvent(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
         // Split the input string by "/from"
         String[] parts = input.split("/from");
         // The taskDescription is the first part after removing the word "event"
         String taskDescription = parts[0].replace("event", "").trim();
+        if (taskDescription.isEmpty()) {
+            throw new TheOrangeRatchetCatException("You can't do Nothing!");
+        }
         // Further split the remaining part by "/to"
         String[] dateParts = parts[1].split("/to");
         // The "fromDate" is the first part
