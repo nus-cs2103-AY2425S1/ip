@@ -7,17 +7,26 @@ public class TaskList {
     private int size;
 
     TaskList(){
-        items = new ArrayList<>();
-        size = 0;
+        this.items = new ArrayList<>();
+        this.size = 0;
+    }
+
+    TaskList(List<Task> tasks){
+        this.items = tasks;
+        this.size = tasks.size();
     }
 
     public void addTask(Task newTask) {
-        items.add(newTask);
-        size += 1;
+        this.items.add(newTask);
+        this.size += 1;
     }
 
     public int getSize(){
         return this.size;
+    }
+
+    public List<Task> getItem(){
+        return this.items;
     }
 
     public Task deleteTask(int index) {
@@ -29,13 +38,13 @@ public class TaskList {
 
 
     public String markTask(int index){
-        Task task = items.get(index);
+        Task task = this.items.get(index);
         task.markDone();
         return task.toString();
     }
 
     public String unmarkTask(int index){
-        Task task = items.get(index);
+        Task task = this.items.get(index);
         task.unmark();
         return task.toString();
     }
@@ -43,8 +52,8 @@ public class TaskList {
 
 
     public void printActions(){
-        for (int i = 1; i <= size; i++){
-            System.out.printf("%,d. %s%n", i ,items.get(i-1).toString());
+        for (int i = 1; i <= this.size; i++){
+            System.out.printf("%,d. %s%n", i ,this.items.get(i-1).toString());
         }
     }
 

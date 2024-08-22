@@ -1,5 +1,5 @@
 
-public class Task {
+public abstract class Task {
     String name;
     boolean done;
 
@@ -29,6 +29,8 @@ public class Task {
 
         return stringbuilder.toString();
     }
+
+    public abstract String toFileFormat();
 
 
 }

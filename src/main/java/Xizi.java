@@ -1,9 +1,12 @@
 //https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Xizi {
+    private static final String FILE_PATH = "./data/xizi.txt";
     private static final String DIVIDER = "____________________________________________________________";
     private static final Pattern MARK_PATTERN = Pattern.compile("^mark (\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern UNMARK_PATTERN = Pattern.compile("^unmark (\\d+)$", Pattern.CASE_INSENSITIVE);
@@ -15,7 +18,18 @@ public class Xizi {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        TaskList actions = new TaskList();
+        TaskList actions;
+
+        Storage storage = new Storage(FILE_PATH);
+
+        try {
+            List<Task> loadedTasks = storage.load();
+            actions = new TaskList(loadedTasks);
+        } catch (IOException | XiziException e) {
+            printErrorMessage(e.getMessage());
+            actions = new TaskList();
+        }
+
 
 
         System.out.println(DIVIDER);
@@ -39,6 +53,7 @@ public class Xizi {
                         throw new XiziException("The task number does not exist. You have "+ actions.getSize()+" tasks in total.");
                     }
                     Task deleted = actions.deleteTask(taskNumber);
+                    storage.saveTasks(actions.getItem());
                     System.out.println(DIVIDER);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + deleted);
@@ -56,6 +71,7 @@ public class Xizi {
                     System.out.println("Nice! I've marked this task as done: ");
                     System.out.println(actions.markTask(taskNumber));
                     System.out.println(DIVIDER);
+                    storage.saveTasks(actions.getItem());
                     continue;
                 }
 
@@ -68,6 +84,7 @@ public class Xizi {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(actions.unmarkTask(taskNumber));
                     System.out.println(DIVIDER);
+                    storage.saveTasks(actions.getItem());
                     continue;
                 }
                 if (todoMatcher.matches()) {
@@ -76,6 +93,7 @@ public class Xizi {
                         throw new XiziException("The description of a todo cannot be empty. Type help to see the formats required.");
                     }
                     actions.addTask(new Todo(taskDescription));
+                    storage.appendTask(new Todo(taskDescription));
                     System.out.println(DIVIDER);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  [T][ ] " + taskDescription);
@@ -85,12 +103,13 @@ public class Xizi {
                 }
 
                 if (deadlineMatcher.matches()) {
-                    String taskDescription = deadlineMatcher.group(1).trim();;
+                    String taskDescription = deadlineMatcher.group(1).trim();
                     String deadline = deadlineMatcher.group(2).trim();
                     if (taskDescription.isEmpty() || deadline.isEmpty()) {
                         throw new XiziException("The description or time of a deadline cannot be empty.Type help to see the formats required.");
                     }
                     actions.addTask(new Deadline(taskDescription, deadline));
+                    storage.appendTask(new Deadline(taskDescription, deadline));
                     System.out.println(DIVIDER);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  [D][ ] " + taskDescription + " (by: " + deadline + ")");
@@ -107,6 +126,7 @@ public class Xizi {
                         throw new XiziException("The description, from or to time of an event cannot be empty.Type help to see the formats required.");
                     }
                     actions.addTask(new Event(taskDescription, fromTime, toTime));
+                    storage.appendTask(new Event(taskDescription, fromTime, toTime));
                     System.out.println(DIVIDER);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  [E][ ] " + taskDescription + " (from: " + fromTime + " to: " + toTime + ")");
@@ -139,7 +159,7 @@ public class Xizi {
                     throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
 
 
-            }} catch (XiziException e){
+            }} catch (IOException | XiziException e){
                 printErrorMessage(e.getMessage());
 
             }
