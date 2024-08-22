@@ -1,21 +1,21 @@
 public class StoredList {
-    private String[] data;
+    private Task[] data;
     private int last = 0;
 
     public StoredList(int len) {
-        data = new String[len];
+        this.data = new Task[len];
     }
 
-    public void addItem(String item) {
-        data[last] = item;
-        last++;
+    public void addItem(Task item) {
+        this.data[last] = item;
+        this.last++;
     }
 
-    public String getItem(int index) {
-        return data[index];
+    public Task getItem(int index) {
+        return this.data[index];
     }
 
     public int getSize() {
-        return last;
+        return this.last;
     }
 }

@@ -28,13 +28,17 @@ public class Chatterbox {
                     System.out.println(i + ". " + l1.getItem(i));
                 }
                 System.out.println("______________________________________________________________");
+            } else if (command.contains("mark")) {
+                String[] x = command.split(" ", 2);
+                int taskNum = Integer.parseInt(x[1]);
+                l1.getItem(taskNum).setCompleted(!x[0].equals("unmark"));
             } else {
                 String echoMessage = "____________________________________________________________\n"
                         + "added: "
                         + command
                         +"\n____________________________________________________________";
                 System.out.println(echoMessage);
-                l1.addItem(command);
+                l1.addItem(new Task(command));
             }
         }
     }
