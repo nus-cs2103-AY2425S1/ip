@@ -23,6 +23,15 @@ public class Blue {
 
         // Farewell message
         System.out.println("I'm sorry I was mimicking you! Bye Bye! Hope to see you again soon!");
+        System.out.println("_     /)---(\\          /~~~\\");
+        System.out.println("\\\\   (/ . . \\)        /  .. \\");
+        System.out.println(" \\\\__)-\\(*)/         (_,\\  |_)");
+        System.out.println(" \\_       (_         /   \\@/    /^^^\\");
+        System.out.println(" (___/-(____) _     /      \\   / . . \\");
+        System.out.println("              \\\\   /  `    |   V\\ Y /V");
+        System.out.println("               \\\\/  \\   | _\\    / - \\");
+        System.out.println("                \\   /__'|| \\\\_  |    \\");
+        System.out.println("                 \\_____)|_).\\_).||(__V");
         System.out.println("--------------------------------------------");
 
         // Close the scanner
