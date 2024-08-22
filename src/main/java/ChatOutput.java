@@ -16,4 +16,17 @@ public class ChatOutput {
 
         System.out.println(output);
     }
+
+    /**
+     * Outputs an error with the given text. The text will be prefixed by `ERROR:`, and
+     * is formatted using ANSI codes to be red (not working, using System.err)
+     *
+     * @param errorText text to be printed out as the error.
+     */
+    public void error(String errorText) {
+        // TODO ANSI color codes no work
+        String output = "\\u001B[31m ERROR:" + errorText + "\\u001B[0m";
+
+        System.err.println(errorText);
+    }
 }
