@@ -13,6 +13,19 @@ public class Bwead {
         while (true) {
             String input = scanner.nextLine();
 
+            boolean oneword = input.indexOf(" ") == -1;
+
+            if (oneword && input.equals("todo")) {
+                System.out.println("The description of a todo cannot be empty.");
+            } else if (oneword && input.equals("deadline")) {
+                System.out.println("The description of a deadline cannot be empty.");
+            } else if (oneword && input.equals("event")) {
+                System.out.println("The description of a event cannot be empty.");
+            } else if (oneword && !input.equals("bye")) {
+                System.out.println("I'm sorry, I don't know what that means.");
+            }
+
+
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
