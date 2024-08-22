@@ -18,6 +18,18 @@ public class Nixy {
                 list();
                 continue;
             }
+            if (input.startsWith("mark")) {
+                String[] words = splitCommand(input);
+                int taskNumber = Integer.parseInt(words[1]);
+                taskManager.markTaskAsDone(taskNumber);
+                continue;
+            }
+            if (input.startsWith("unmark")) {
+                String[] words = splitCommand(input);
+                int taskNumber = Integer.parseInt(words[1]);
+                taskManager.markTaskAsUndone(taskNumber);
+                continue;
+            }
 
             store(input);
         }
@@ -31,6 +43,11 @@ public class Nixy {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         return input;
+    }
+
+    /** Get command and arguments from input string. */
+    private static String[] splitCommand(String input) {
+        return input.split(" ");
     }
 
     /**
