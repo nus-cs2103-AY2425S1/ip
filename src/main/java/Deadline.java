@@ -15,7 +15,7 @@ public class Deadline extends Task {
         // [description] /by [deadline]
         String regex = "^(.*?)\\s+/by\\s+(.*)$";
 
-        if (!string.matches(regex)) {
+        if (string == null || !string.matches(regex)) {
             return null;
         }
 

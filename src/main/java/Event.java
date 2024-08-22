@@ -17,7 +17,7 @@ public class Event extends Task {
         // [description] /from [start] /to [end]
         String regex ="^(.*?)\\s+/from\\s+(.*?)\\s+/to(.*)$";
 
-        if (!string.matches(regex)) {
+        if (string == null || !string.matches(regex)) {
             return null;
         }
 
