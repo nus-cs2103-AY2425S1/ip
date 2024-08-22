@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PHamBot {
     private static final String line = "____________________________________________________________\n";
-    private static ArrayList<String> tasks = new ArrayList<>();
+    private static TaskList tasks = new TaskList();
 
     public static void main(String[] args) {
         Greet();
@@ -20,16 +20,22 @@ public class PHamBot {
             if (input.equals("list")) {
                 ListTasks();
             }
-            else {
-                input = AddTask(input);
-                System.out.println(OutlineMessage(input));
+            if (input.contains("task")) {
+                String task = input.substring(5);
+                System.out.println(OutlineMessage(AddTask(task)));
             }
+            if (input.contains("unmark")) {
+                unmark(Integer.parseInt(input.substring(7)));
+            } else if (input.contains("mark")) {
+                mark(Integer.parseInt(input.substring(5)));
+            }
+
+
         }
     }
 
     private static String OutlineMessage(String msg) {
-        String res= line + msg + "\n" + line;
-        return res;
+        return line + msg + "\n" + line;
     }
 
     public static void Greet() {
@@ -43,14 +49,24 @@ public class PHamBot {
     }
 
     public static String AddTask(String task) {
-        tasks.add(task);
+        tasks.addTask(new Task(task));
         return "Added: " + task;
     }
     public static void ListTasks() {
-        String res = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            res = res + (i + 1) + ". " + tasks.get(i) + "\n";
-        }
-        System.out.println(OutlineMessage(res));
+        System.out.println(OutlineMessage(tasks.toString()));
+    }
+
+    public static boolean mark(int index) {
+        int i = index - 1;
+        tasks.markTask(i);
+        System.out.println(OutlineMessage("I've marked the following task as done!\n" + tasks.getTask(i)));
+        return true;
+    }
+
+    public static boolean unmark(int index) {
+        int i = index - 1;
+        tasks.unmarkTask(i);
+        System.out.println(OutlineMessage("I've marked the following task as not done.\n" + tasks.getTask(i)));
+        return true;
     }
 }
