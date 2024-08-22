@@ -34,8 +34,21 @@ public class Bopes {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 inputs.get(index).markAsUndone();
             } else {
-                inputs.add(new Task(input));
-                System.out.println("added: " + input);
+                // Adding of tasks
+                Task newTask = null;
+                if (input.startsWith("todo")) {
+                    newTask = new ToDo(input.substring(5));
+                } else if (input.startsWith("deadline")) {
+                    String[] temp = input.substring(9).split(" /by ");
+                    newTask = new Deadline(temp[0], temp[1]);
+                } else if (input.startsWith("event")) {
+                    String[] temp = input.substring(6).split(" /from | /to ");
+                    newTask = new Event(temp[0], temp[1], temp[2]);
+                }
+                inputs.add(newTask);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask.toString());
+                System.out.println("Now you have " + inputs.size() + " tasks in the list.");
             }
         }
 
