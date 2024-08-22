@@ -12,8 +12,16 @@ public class Task {
         return (isDone ? "X" : " "); // Mark done task with X
     }
 
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsUndone() {
+        this.isDone = false;
+    }
+
     @Override
     public String toString() {
-        return this.description;
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }
