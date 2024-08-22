@@ -9,19 +9,23 @@ public class MrYapper {
 
     private static class Task {
         private final String TASK_NAME;
-        private boolean done;
+        private boolean isDone = false;
 
         private Task(String name) {
             this.TASK_NAME = name;
         }
 
         public void markAsDone() {
-            done = true;
+            isDone = true;
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " ");
         }
 
         @Override
         public String toString() {
-            return TASK_NAME;
+            return "[" + getStatusIcon() + "] " + TASK_NAME;
         }
     }
 
@@ -41,7 +45,7 @@ public class MrYapper {
         int listSize = taskList.size();
         String listInString = "";
         for (int i = 0; i < listSize; i += 1) {
-            String taskString = String.format(" %d. %s", i + 1, taskList.get(i));
+            String taskString = String.format(" %d.%s", i + 1, taskList.get(i));
             listInString += taskString;
             if (i < listSize - 1) {
                 listInString += "\n";
