@@ -4,9 +4,26 @@ import java.util.Scanner;
 public class Bigdog {
 
     // Array to store tasks
-    static String[] toDoList = new String[100];
+    static Task[] toDoList = new Task[100];
     // Counter to keep track of the number of tasks
     static int taskCounter = 0;
+
+    private static void editList(String str) {
+        if (str.startsWith("mark")) {
+            int ind = str.charAt(str.length() - 1) - '1';
+            toDoList[ind].mark();
+            System.out.print("Nice! I've marked this task as done:\n" + toDoList[ind] + "\n");
+        } else if (str.startsWith("unmark")){
+            int ind = str.charAt(str.length() - 1) - '1';
+            toDoList[ind].unmark();
+            System.out.print("OK, I've marked this task as not done yet:\n" + toDoList[ind] + "\n");
+        } else {
+            // Add and Echo user input
+            toDoList[taskCounter] = new Task(str);
+            taskCounter++;
+            System.out.println("added: " + str);
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -28,19 +45,14 @@ public class Bigdog {
             } else if (userInput.equalsIgnoreCase("list")) {
 
                 // Print the list
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i +1) + ". " + toDoList[i]);
+                    System.out.println((i + 1) + "." + toDoList[i]);
                 }
             } else {
-
-                // Add and Echo user input
-                toDoList[taskCounter] = userInput;
-                taskCounter++;
-                System.out.println("added: " + userInput);
+                editList(userInput);
             }
-
         }
-
         scanner.close();
     }
 }
