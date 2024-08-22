@@ -58,7 +58,7 @@ public class Snipe {
                 } else {
                     list.get(index).changeStatus();
                     printWithLines("Nice! I've marked this task as done:\n" +
-                            "[X] " + list.get(index).getDescription());
+                            list.get(index).toString());
                 }
             } else if (userInput.startsWith("unmark")) {
                 String[] split = userInput.split(" ");
@@ -68,7 +68,7 @@ public class Snipe {
                 } else {
                     list.get(index).changeStatus();
                     printWithLines("OK, I've marked this task as not done yet:\n" +
-                            "[ ] " + list.get(index).getDescription());
+                            list.get(index).toString());
                 }
             } else {
                 Task newTask = null;
