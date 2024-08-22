@@ -1,3 +1,5 @@
+package bot.tasks;
+
 public class Event extends Task {
 
     protected String from;

@@ -1,10 +1,15 @@
+package bot;
+
+import bot.tasks.*;
+import bot.utils.Formatter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ChadGPT {
+public class Bot {
     private static final List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {

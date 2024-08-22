@@ -1,3 +1,7 @@
+package bot.utils;
+
+import bot.tasks.Task;
+
 import java.util.List;
 
 public class Formatter {
