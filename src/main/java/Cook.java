@@ -58,7 +58,12 @@ public class Cook {
             // Tasks
             else {
                 if (commands[0].equalsIgnoreCase("todo")) {
-                    Task newTask = new ToDo(commands[1]);
+                    String taskName = userInput.substring(5);
+                    if (taskName.isEmpty()) {
+                        formatting("Oh no! The description of a todo cannot be empty. Please try again!");
+                        continue;
+                    }
+                    Task newTask = new ToDo(taskName);
                     taskList.add(newTask);
                 }
                 else if (commands[0].equalsIgnoreCase("deadline")) {
