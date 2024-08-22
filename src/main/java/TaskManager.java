@@ -11,6 +11,9 @@ public class TaskManager {
     }
 
     public void markTaskAsDone(int taskNumber) {
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
+        }
         tasks[taskNumber - 1].markAsDone();
         PrintUtility.wrapPrintWithHorizontalLines(
             "Nice! I've marked this task as done:",
@@ -19,6 +22,9 @@ public class TaskManager {
     }
 
     public void markTaskAsUndone(int taskNumber) {
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
+        }
         tasks[taskNumber - 1].markAsUndone();
         PrintUtility.wrapPrintWithHorizontalLines(
             "OK, I've marked this task as not done yet:",
