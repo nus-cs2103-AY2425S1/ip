@@ -101,7 +101,7 @@ public class Cloudy {
                 // prompt for input
                 userInput = echo.nextLine();
 
-
+            // user adds Todo task
             } else if (userInput.startsWith("todo")) {
                 System.out.println("____________________________________________________________");
                 if (userInput.trim().length() <= 4) {
@@ -120,6 +120,7 @@ public class Cloudy {
                 // prompt for input
                 userInput = echo.nextLine();
 
+            // user adds Deadline task
             } else if (userInput.startsWith("deadline")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
@@ -137,6 +138,7 @@ public class Cloudy {
                 // prompt for input
                 userInput = echo.nextLine();
 
+            // user adds Event task
             } else if (userInput.startsWith("event")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
@@ -160,6 +162,38 @@ public class Cloudy {
                 System.out.println("____________________________________________________________");
 
                 // prompt for input
+                userInput = echo.nextLine();
+
+            } else if (userInput.startsWith("delete")) {
+                String[] parts = userInput.split(" ");
+                if (parts.length == 2) {
+                    try {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        if (taskNumber > 0 && taskNumber < userList.size() + 1) {
+                            Task taskToDelete = userList.get(taskNumber - 1);
+
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(taskToDelete.printTaskOnList());
+                            userList.remove(taskNumber - 1);
+                            System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                            System.out.println("____________________________________________________________");
+
+                        } else {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("This task does not exist. Try again.");
+                            System.out.println("____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Please enter a valid task number.");
+                        System.out.println("____________________________________________________________");
+                    }
+                } else {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Invalid format.");
+                    System.out.println("____________________________________________________________");
+                }
                 userInput = echo.nextLine();
 
             // if user types invalid command
