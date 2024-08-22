@@ -17,9 +17,7 @@ public class Charlotte {
             try {
                 if (input.equalsIgnoreCase("bye")) {
                     break;
-                }
-
-                if (input.equalsIgnoreCase("list")) {
+                } else if (input.equalsIgnoreCase("list")) {
                     if (tasks.isEmpty()) {
                         throw new CharlotteException("Your task list is currently empty. Start by adding some tasks!");
                     }
@@ -38,7 +36,6 @@ public class Charlotte {
                     tasks.get(taskNumber).markAsDone();
                     System.out.println(line + "\n Nice! I've marked this task as done:\n  "
                             + tasks.get(taskNumber) + "\n" + line);
-
                 } else if (input.startsWith("unmark")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
                     if (taskNumber < 0 || taskNumber >= tasks.size()) {
@@ -47,7 +44,14 @@ public class Charlotte {
                     tasks.get(taskNumber).unmark();
                     System.out.println(line + "\n OK, I've marked this task as not done yet:\n  "
                             + tasks.get(taskNumber) + "\n" + line);
-
+                } else if (input.startsWith("delete")) {
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new CharlotteException("Task number is invalid. Please try again");
+                    }
+                    Task deletedTask = tasks.remove(taskNumber);
+                    System.out.println(line + "\n Noted. I've removed this task:\n  " + deletedTask
+                            + "\n Now you have " + tasks.size() + " tasks in the list.\n" + line);
                 } else if (input.startsWith("todo")) {
                     if (input.length() <= 5) {
                         throw new CharlotteException("The description of a todo cannot be empty. Please try again.");
