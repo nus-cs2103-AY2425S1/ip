@@ -55,12 +55,48 @@ public class Bigmouth {
                 System.out.println("   " + tasks[taskNumber]);
                 System.out.println("____________________________________________________________");
             }
-            // Store a new task
-            else {
-                tasks[taskCount] = new Task(userInput);
+            // Add a Todo task
+            else if (userInput.startsWith("todo ")) {
+                String description = userInput.substring(5);
+                tasks[taskCount] = new Todo(description);
                 taskCount++;
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + userInput);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            }
+            // Add a Deadline task
+            else if (userInput.startsWith("deadline ")) {
+                String[] parts = userInput.split(" /by ");
+                String description = parts[0].substring(9);
+                String by = parts[1];
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            }
+            // Add an Event task
+            else if (userInput.startsWith("event ")) {
+                String[] parts = userInput.split(" /from | /to ");
+                String description = parts[0].substring(6);
+                String from = parts[1];
+                String to = parts[2];
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + tasks[taskCount - 1]);
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            }
+            // Invalid input
+            else {
+                System.out.println("____________________________________________________________");
+                System.out.println(" Sorry, I don't understand that command.");
                 System.out.println("____________________________________________________________");
             }
         }
