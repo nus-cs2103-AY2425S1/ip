@@ -59,14 +59,14 @@ public class Joe {
                     newTask = new ToDo(s);
                 } else if (s.startsWith("deadline")) {
                     String[] parems = s.substring(8).split("/");
-                    newTask = new Deadline(parems[0], parems[1]);
+                    newTask = new Deadline(parems);
                 } else if (s.startsWith("event")) {
                     String[] parems = s.substring(5).split("/");
-                    newTask = new Event(parems[0], parems[1], parems[2]);
+                    newTask = new Event(parems);
                 } else {
                     throw new InvalidCommandException(s);
                 }
-            } catch (IllegalTaskException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage() + "\n" + line);
                 return;
             }
@@ -127,8 +127,8 @@ public class Joe {
         System.out.println("mark <idx>: Marks the task at your chosen index");
         System.out.println("unmark <idx>: Unmarks the task at your chosen index");
         System.out.println("todo <description>: Creates a ToDo task");
-        System.out.println("deadline <description> /<due date/time>: Creates a Deadline task");
-        System.out.println("event <description> /<start date/time> /<end date/time>: Creates an Event task");
+        System.out.println("deadline <description> /by <due date/time>: Creates a Deadline task");
+        System.out.println("event <description> /from <start date/time> /to <end date/time>: Creates an Event task");
         System.out.println("bye: ends our interaction :-(");
         System.out.println(line);
     }
