@@ -34,16 +34,25 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static boolean processInput(String input) {
+        String[] newInput = input.split(" ");
+        String command = newInput[0];
+        if (command.equals("bye")) {
+            return true;
+        } else if (command.equals("list")) {
+            printTaskList();
+        } else {
+            addToTaskList(input);
+        }
+        return false;
+    }
+
     private static void getInput() {
         Scanner reader = new Scanner(System.in);
         while (true) {
-            String command = reader.nextLine();
-            if (command.equals("bye")) {
+            boolean exit = processInput(reader.nextLine());
+            if (exit) {
                 break;
-            } else if (command.equals("list")) {
-                printTaskList();
-            } else {
-                addToTaskList(command);
             }
         }
         reader.close();
