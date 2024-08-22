@@ -32,6 +32,14 @@ public class Alex {
                     } else {
                         printInvalidTaskNumber();
                     }
+                } else if (userInput.toLowerCase().startsWith("delete ")) {
+                    int taskIndex = parseTaskIndex(userInput);
+                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                        Task removedTask = tasks.remove(taskIndex);
+                        printTaskDeleted(removedTask);
+                    } else {
+                        printInvalidTaskNumber();
+                    }
                 } else if (userInput.equalsIgnoreCase("tell me a joke")) {
                     printDividerWithMessage("Why did the scarecrow win an award? Because he was outstanding in his field!");
                 } else if (userInput.equalsIgnoreCase("bye")) {
@@ -87,6 +95,10 @@ public class Alex {
 
     private static void printTaskAdded(Task task) {
         printDividerWithMessage("Got it. I've added this task:\n   " + task + "\nNow you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void printTaskDeleted(Task task) {
+        printDividerWithMessage("Noted. I've removed this task:\n   " + task + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void printDividerWithMessage(String message) {
