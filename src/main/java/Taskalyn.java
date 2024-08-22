@@ -22,7 +22,7 @@ public class Taskalyn {
             } else if (input.equals("list")) {
                 taskManager.listTasks();
             } else {
-                taskManager.addTask(input);
+                taskManager.addTask("added: " + input);
                 taskManager.printLines(input);
             }
         }
