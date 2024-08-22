@@ -4,21 +4,25 @@ What can I do for you?
 ____________________________________
 
 ____________________________________
+No tasks in list!
+____________________________________
+
+____________________________________
 Added Todo task:
 [T][ ] buy milk
-You currently have 1 task/s in your list
+You currently have 1 task/s in your list.
 ____________________________________
 
 ____________________________________
 Added Deadline task:
 [D][ ] submit quiz (by: friday 10pm)
-You currently have 2 task/s in your list
+You currently have 2 task/s in your list.
 ____________________________________
 
 ____________________________________
 Added Event task:
 [E][ ] math lecture (from: 2pm to: 4pm)
-You currently have 3 task/s in your list
+You currently have 3 task/s in your list.
 ____________________________________
 
 ____________________________________
@@ -39,7 +43,7 @@ ____________________________________
 ____________________________________
 
 ____________________________________
-Unmarked that as done for you.
+Task has been unmarked.
 [T][ ] buy milk
 ____________________________________
 
@@ -47,6 +51,26 @@ ____________________________________
 1.[T][ ] buy milk
 2.[D][ ] submit quiz (by: friday 10pm)
 3.[E][ ] math lecture (from: 2pm to: 4pm)
+____________________________________
+
+____________________________________
+ERROR! The description of a deadline cannot be empty.
+____________________________________
+
+____________________________________
+ERROR! Deadline tasks require a deadline to be completed by.
+____________________________________
+
+____________________________________
+ERROR! Event tasks require a duration for the event.
+____________________________________
+
+____________________________________
+ERROR! Task to be marked not specified.
+____________________________________
+
+____________________________________
+ERROR! Task not found.
 ____________________________________
 
 ____________________________________

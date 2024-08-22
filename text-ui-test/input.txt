@@ -1,3 +1,4 @@
+mark
 todo buy milk
 deadline submit quiz /by friday 10pm
 event math lecture /from 2pm /to 4pm
@@ -6,4 +7,9 @@ mark 1
 list
 unmark 1
 list
+deadline
+deadline submit essay
+event cs2103T briefing
+mark
+mark 4
 bye
