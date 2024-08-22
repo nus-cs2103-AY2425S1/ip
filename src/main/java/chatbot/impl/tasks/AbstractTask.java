@@ -13,6 +13,7 @@ public abstract class AbstractTask implements Task {
         isDone = false;
     }
 
+    @Override
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }

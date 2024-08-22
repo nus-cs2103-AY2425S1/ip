@@ -12,4 +12,6 @@ public interface TaskStorage {
 
     void setTaskAsNotDone(int taskIdx);
 
+    void deleteTask(int taskIdx);
+
 }

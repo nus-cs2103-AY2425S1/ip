@@ -32,6 +32,7 @@ public class MessageParserImpl implements MessageParser {
             case "todo" -> handleTodo(inputParts);
             case "deadline" -> handleDeadline(inputParts);
             case "event" -> handleEvent(inputParts);
+            case "delete" -> handleDelete(inputParts);
             default -> throw new InvalidMessageException("Sorry, I don't recognize that command. :(");
         };
     }
@@ -96,8 +97,19 @@ public class MessageParserImpl implements MessageParser {
 
     private String addTask(Task task) {
         storage.addTask(task);
-        return String.format("Got it. Task saved:\n%s\n%d tasks in the list.",
-                task, storage.getSize());
+        return String.format("Got it. Task saved:\n%s\n%d tasks in the list.", task, storage.getSize());
+    }
+
+    private String handleDelete(String[] inputParts) throws InvalidMessageException {
+        try {
+            int taskIdx = Integer.parseInt(inputParts[1]) - 1;
+            Task task = storage.getTask(taskIdx);
+            storage.deleteTask(taskIdx);
+
+            return String.format("Sure. Task deleted:\n%s\n%d tasks in the lst.", task, storage.getSize());
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidMessageException("Sorry, delete needs a numerical task index. :(");
+        }
     }
 
 }

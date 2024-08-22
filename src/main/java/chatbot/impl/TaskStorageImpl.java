@@ -13,24 +13,34 @@ public class TaskStorageImpl implements TaskStorage {
         tasks = new ArrayList<>();
     }
 
+    @Override
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    @Override
     public Task getTask(int taskIdx) {
         return tasks.get(taskIdx);
     }
 
+    @Override
     public int getSize() {
         return tasks.size();
     }
 
+    @Override
     public void setTaskAsDone(int taskIdx) {
         tasks.get(taskIdx).setDone(true);
     }
 
+    @Override
     public void setTaskAsNotDone(int taskIdx) {
         tasks.get(taskIdx).setDone(false);
+    }
+
+    @Override
+    public void deleteTask(int taskIdx) {
+        tasks.remove(taskIdx);
     }
 
     @Override
