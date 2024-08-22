@@ -19,9 +19,17 @@ public class Jia {
         //Read user input until they say bye
         do {
             input = scanner.nextLine();
-            if (!input.equalsIgnoreCase("bye")) {
+
+            if (input.equalsIgnoreCase("list")) {
                 System.out.println("______________________________________________________");
-                System.out.println(" " + input);
+                for (int i = 0; i < inputs.size(); i++) {
+                    System.out.println(" " + (i + 1) + ". " + inputs.get(i));
+                }
+                System.out.println("______________________________________________________");
+            } else if (!input.equalsIgnoreCase("bye")) {
+                inputs.add(input);
+                System.out.println("______________________________________________________");
+                System.out.println(" " + "added: " + input);
                 System.out.println("______________________________________________________");
             }
         } while (!input.equalsIgnoreCase("bye"));
