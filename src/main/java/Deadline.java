@@ -11,4 +11,8 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by:" + by + ")";
     }
+
+    public String changeFormat() {
+        return "D | " + (this.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description + " | " + this.by;
+    }
 }
