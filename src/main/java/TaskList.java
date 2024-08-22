@@ -15,11 +15,20 @@ public class TaskList {
             String[] splitwords = command.split(" ", 2);
             String firstCommand = splitwords[0];
             if (firstCommand.equals("mark")) {
-                int index = Integer.valueOf(splitwords[1]);
-                this.markTask(index);
+                try {
+                    int index = Integer.valueOf(splitwords[1]);
+                    this.markTask(index);
+                } catch (Exception e) {
+                    System.out.println("Invalid task number given. Type list to find out the task number");
+                }
             } else if (firstCommand.equals("unmark")) {
-                int index = Integer.valueOf(splitwords[1]);
-                this.unmarkTask(index);
+                try {
+                    int index = Integer.valueOf(splitwords[1]);
+                    this.unmarkTask(index);
+                } catch (Exception e) {
+                    System.out.println("Invalid task number given. Type list to find out the task number");
+                }
+                
             } else if (firstCommand.equals("deadline")) {
                 String[] taskparts = splitwords[1].split(" /by ", 2);
                 String name = taskparts[0];
@@ -56,23 +65,15 @@ public class TaskList {
     }
 
     private void markTask(int index) {
-        if (index > this.tasklist.size()) {
-            System.out.println("Invalid task");
-        } else {
-            Task task = this.tasklist.get(index-1);
-            task.mark();
-            System.out.println(" Nice! I've marked this task as done: \n" + task);
-        }
+        Task task = this.tasklist.get(index-1);
+        task.mark();
+        System.out.println(" Nice! I've marked this task as done: \n" + task);
     }
 
     private void unmarkTask(int index) {
-        if (index > this.tasklist.size()) {
-            System.out.println("Invalid task");
-        } else {
-            Task task = this.tasklist.get(index-1);
-            task.unmark();
-            System.out.println("OK, I've marked this task as not done yet: \n" + task);
-        }
+        Task task = this.tasklist.get(index-1);
+        task.unmark();
+        System.out.println("OK, I've marked this task as not done yet: \n" + task);
     }
 
     @Override
