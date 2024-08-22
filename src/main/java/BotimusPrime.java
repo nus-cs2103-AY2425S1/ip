@@ -10,15 +10,15 @@ public class BotimusPrime {
         String name = "BotimusPrime";
         String greetingMessage =
                 "____________________________________________________________\n" +
-                " Hello! I'm " + name + "\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________";
+                        " Hello! I'm " + name + "\n" +
+                        " What can I do for you?\n" +
+                        "____________________________________________________________";
         String byeMessage =
                 "____________________________________________________________\n" +
-                " Bye! Hope to see you again soon!\n" +
-                "____________________________________________________________\n";
+                        " Bye! Hope to see you again soon!\n" +
+                        "____________________________________________________________\n";
 
-        List<String> textList = new ArrayList<String>();
+        List<Task> taskList = new ArrayList<>();
 
         System.out.println(greetingMessage);
 
@@ -29,20 +29,35 @@ public class BotimusPrime {
                 System.out.println(byeMessage);
                 break;
             } else if (input.equals("list")) {
-                System.out.println("____________________________________________________________\n");
-                for (int i = 0; i < textList.size(); i++) {
-                    System.out.printf("%d. %s%n", i + 1, textList.get(i));
+                System.out.println("____________________________________________________________\n" + "Here are the tasks in your list:\n");
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.printf("%d. %s%n", i + 1, taskList.get(i));
                 }
                 System.out.println("____________________________________________________________\n");
+            } else if (input.startsWith("mark")) {
+                String[] numFinder = input.split(" ");
+                int idx = Integer.parseInt(numFinder[1]) - 1;
+                taskList.get(idx).markAsDone();
+                System.out.println("____________________________________________________________\n" +
+                        "Nice! I've marked this task as done:\n" +
+                        taskList.get(idx));
+
+            } else if (input.startsWith("unmark")) {
+                String[] numFinder = input.split(" ");
+                int idx = Integer.parseInt(numFinder[1]) - 1;
+                taskList.get(idx).markAsUndone();
+                System.out.println("____________________________________________________________\n" +
+                        "OK, I've marked this task as not done yet:\n" +
+                        taskList.get(idx));
+
             } else {
-                textList.add(input);
+                taskList.add(new Task(input));
                 System.out.println(
                         "____________________________________________________________\n" +
-                        String.format("added: %s\n", input) +
-                        "____________________________________________________________\n");
+                                String.format("Alright, I've added the task \"%s\" to your list! \n", input) +
+                                "____________________________________________________________\n");
             }
         }
-
         sc.close();
     }
 }
