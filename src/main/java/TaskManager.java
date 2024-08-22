@@ -21,4 +21,17 @@ public class TaskManager {
         }
         return list.toString();
     }
+
+    public String markTask(int taskNumber, boolean isDone) {
+        if (taskNumber > 0 && taskNumber <= counter) {
+            if (isDone) {
+                tasks[taskNumber - 1].markAsDone();
+                return "Yippee~ *uweah* I've marked this task as done:\n  " + tasks[taskNumber - 1].toString();
+            } else {
+                tasks[taskNumber - 1].unmarkAsDone();
+                return "LOL I've marked this task as not done yet:\n  " + tasks[taskNumber - 1].toString();
+            }
+        }
+        return "Invalid task number!!!!";
+    }
 }
