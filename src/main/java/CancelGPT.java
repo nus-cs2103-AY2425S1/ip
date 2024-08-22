@@ -49,10 +49,28 @@ public class CancelGPT {
     public void handleCommand(String command) {
         if (command.equals("list")) {
             displayTasksList();
+        } else if (command.startsWith("mark")) {
+            String[] commandArray = command.split(" ");
+            int taskNumber = Integer.parseInt(commandArray[1]);
+            markTaskNumber(taskNumber);
+        } else if (command.startsWith("unmark")) {
+            String[] commandArray = command.split(" ");
+            int taskNumber = Integer.parseInt(commandArray[1]);
+            unmarkTaskNumber(taskNumber);
         } else {
             String text = addToTaskList(command);
             System.out.println("added: " + text);
         }
+    }
+
+    public boolean markTaskNumber(int taskNumber) {
+        this.TASKS_LIST.get(taskNumber - 1).mark();
+        return true;
+    }
+
+    public boolean unmarkTaskNumber(int taskNumber) {
+        this.TASKS_LIST.get(taskNumber - 1).unmark();
+        return true;
     }
 
     public String addToTaskList(String text) {
