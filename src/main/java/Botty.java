@@ -53,7 +53,7 @@ public class Botty {
                     break;
                 case "list":
                     if (currentIndex == 0) {
-                        reply("Your list is empty!");
+                        reply("Your list is empty! Add a task with the todo, deadline or event command.");
                     } else {
                         String[] content = new String[currentIndex + 1];
                         content[0] = "Here you go!";
