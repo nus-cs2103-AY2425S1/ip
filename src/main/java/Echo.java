@@ -120,6 +120,19 @@ public class Echo {
                 System.out.print("Got it. I've added this task: \n" + eventTask.getDescription() + "\n" +
                                 String.format("Now you have %d tasks in the list\n", list.size()));
                 break;
+            case "delete":
+                int index = Integer.parseInt(parts[1]) - 1;
+                if (index >= 0 && index < list.size()) {
+                    Task deletedTask = list.get(index);
+                    list.remove(index);
+                    System.out.print("Noted. I've removed this task:\n" +
+                            deletedTask.getDescription() +
+                            String.format("Now you have %d tasks in the list.\n", list.size()));
+                } else {
+                    System.out.print("There is no such task number!");
+                }
+                break;
+
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!\n"
                                 +  "____________________________________________________________\n");
