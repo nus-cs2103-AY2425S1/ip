@@ -9,7 +9,7 @@ public class Replies {
     public static final String goodbye = "     You are leaving? Ok bye:( come back soon";
 
     // Lists
-    List<String> ls = new ArrayList<>();
+    List<Tasks> ls = new ArrayList<>();
 
 
     //METHODS---------------------------------
@@ -29,9 +29,10 @@ public class Replies {
         } else if(Objects.equals(message,"")) {
             return line;
         } else {
-            ls.add(message);
-            return line + "\n" + "     " + "added: " + message + "\n" + line;
+            Tasks t = new Tasks(message);
+            ls.add(t);
+            return line + "\n" + "     " + "added: " + t + "\n" + line;
         }
     }
-    
+
 }
