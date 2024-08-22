@@ -4,6 +4,7 @@ public class Nixy {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
     static String[] tasks = new String[100];
     static int taskCount = 0;
+    static TaskManager taskManager = new TaskManager();
 
     public static void main(String[] args) {
         String chatbotName = "Nixy";
@@ -49,9 +50,10 @@ public class Nixy {
     /**
      * Read and store new task in the list of tasks.
      */
-    private static void store(String task) {
-        tasks[taskCount++] = task;
-        wrapPrintWithHorizontalLines("added: " + task);
+    private static void store(String taskName) {
+        Task task = new Task(taskName);
+        taskManager.addTask(task);
+        wrapPrintWithHorizontalLines("added: " + taskName);
     }
 
     /**
@@ -60,9 +62,7 @@ public class Nixy {
     private static void list() {
         indentPrint(HORIZONTAL_LINE);
         indentPrint("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            indentPrint((i + 1) + ". " + tasks[i]);
-        }
+        taskManager.listTasks();
         indentPrint(HORIZONTAL_LINE);
     }
 
