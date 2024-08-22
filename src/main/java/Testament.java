@@ -69,6 +69,30 @@ public class Testament {
                 }
                 printDialogue("This task has been unmarked:\n" + taskDetails);
 
+            } else if (splitUserInput[0].equals("delete")) {
+                if (splitUserInput.length < 2) {
+                    printDialogue("Please do specify the task to unmark");
+                    continue;
+                }
+
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(splitUserInput[1]);
+                } catch (NumberFormatException e) {
+                    printDialogue("Tasks should be specified by their task number");
+                    continue;
+                }
+
+                String taskDetails;
+                try {
+                    taskDetails = taskList.getTask(taskNumber);
+                    taskList.deleteTask(taskNumber);
+                } catch (NotInTaskListException e) {
+                    printDialogue(e.getMessage());
+                    continue;
+                }
+                printDialogue("This task has been deleted:\n" + taskDetails);
+
             } else {
                 try {
                     taskList.add(Task.of(userInput));
