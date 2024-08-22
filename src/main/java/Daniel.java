@@ -20,6 +20,23 @@ public class Daniel {
                     System.out.println(i + "." + element.toString());
                     i += 1;
                 }
+            } else if (input.startsWith("todo")) {
+                Todo x = new Todo(input);
+                array.add(x);
+                System.out.println("Got it. I've added this task:\n" + x.toString());
+                System.out.println("Now you have " + array.size() + " task in the list");
+            }else if (input.startsWith("deadline")) {
+                String[] split = input.substring(9).split(" /by ");
+                Deadline x = new Deadline(split[0], split[1]);
+                array.add(x);
+                System.out.println("Got it. I've added this task;\n" + x.toString());
+                System.out.println("Now you have " + array.size() + " task in the list");
+            }else if (input.startsWith("event")) {
+                String[] split = input.substring(6).split(" /from | /to ");
+                Event x = new Event(split[0], split[1], split[2]);
+                array.add(x);
+                System.out.println("Got it. I've added this task;\n" + x.toString());
+                System.out.println("Now you have " + array.size() + " task in the list");
             }else if (input.startsWith("mark")) {
                 int index = input.charAt(input.length() - 1) - '0';
                 array.get(index - 1).markAsDone();
@@ -30,10 +47,10 @@ public class Daniel {
                 array.get(index - 1).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(array.get(index - 1).toString());
-            } else {
+            } /*else {
                 System.out.println("added: " + input);
                 array.add(new Task(input));
-            }
+            }*/
         }
     }
 }
