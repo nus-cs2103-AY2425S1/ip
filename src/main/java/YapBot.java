@@ -24,6 +24,17 @@ public class YapBot {
         System.out.println(POSTFIXLINE);
     }
 
+    public static void deleteTask(int index) throws YapBotException {
+
+        if (index == 0 || index >= storedTasks.size() + 1) {
+            throw new YapBotException("Finding Task...\nFailure\nError, requested Task does not exist.\nUse command \"list\" to view your tasks.");
+        }
+
+        Task task = storedTasks.remove(index - 1);
+        System.out.println(PREFIXLINE + "\nFinding Task...\nSuccess\nTask deleted from database:\n  " + task + "\n" + POSTFIXLINE);
+
+    }
+
     public static void markOrUnmark(boolean mark, int index) throws YapBotException {
         if (mark) {
 
@@ -231,6 +242,24 @@ public class YapBot {
                             throw new YapBotException("Error, Automated Task Suggestion module offline.\nTask details must be manually entered.");
                         }
                         createTask(Tasktype.EVENT, commandDetails);
+                        input = in.nextLine();
+                        break;
+                    }
+
+                    case "delete": {
+                        if (commandDetails.isEmpty()) {
+                            throw new YapBotException("Error, User Input Prediction module offline.\nTask number must be manually entered (eg. \"1\", \"2\").");
+                        }
+
+                        int index = 0;
+
+                        if (commandDetails.contains(" ")) {
+                            index = Integer.parseInt(commandDetails.substring(0, commandDetails.indexOf(" ")));
+                        } else {
+                            index = Integer.parseInt(commandDetails);
+                        }
+
+                        deleteTask(index);
                         input = in.nextLine();
                         break;
                     }

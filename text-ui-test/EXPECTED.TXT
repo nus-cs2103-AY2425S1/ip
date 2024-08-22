@@ -102,6 +102,14 @@ Current Tasks:
 
 
 -------------------------------------------
+Finding Task...
+Success
+Task deleted from database:
+  [T][ ] find nemo
+-------------------------------------------
+
+
+-------------------------------------------
 Error, User Input Prediction module offline.
 Manual input required.
 -------------------------------------------
@@ -110,6 +118,20 @@ Manual input required.
 -------------------------------------------
 Error, supporting module for user command: "fakecommand" not found.
 YapBot may not support this feature.
+-------------------------------------------
+
+
+-------------------------------------------
+Error, User Input Prediction module offline.
+Task number must be manually entered (eg. "1", "2").
+-------------------------------------------
+
+
+-------------------------------------------
+Finding Task...
+Failure
+Error, requested Task does not exist.
+Use command "list" to view your tasks.
 -------------------------------------------
 
 

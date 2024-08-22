@@ -8,12 +8,15 @@ mark 2
 list
 unmark 1
 list
+delete 1
 
 fakecommand commit crime
 mark
 mark 1000
 unmark
 unmark 1000
+delete
+delete 1000
 todo
 deadline
 event
