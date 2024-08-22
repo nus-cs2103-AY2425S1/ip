@@ -1,7 +1,7 @@
 public abstract class Task {
     private final String description;
     private boolean isDone;
-    private final TaskType taskType;
+    private final TaskType taskType; // TaskType enum
 
     public Task(String description, TaskType taskType, boolean isDone) {
         this.description = description;

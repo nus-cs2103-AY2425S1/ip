@@ -8,48 +8,48 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
-        this.filePath = filePath; // e.g. "data/tasks.txt"
+        this.filePath = filePath;
     }
 
     public List<Task> load() throws IOException {
-        List<Task> tasks = new ArrayList<>(); // List of tasks to be returned
-        File file = new File(filePath); // Create a File object using the file path
+        List<Task> tasks = new ArrayList<>();
+        File file = new File(filePath);
         if (!file.exists()) {
-            file.getParentFile().mkdirs(); // Create parent directories if they do not exist
-            file.createNewFile(); // Create a new file if it does not exist
+            file.getParentFile().mkdirs();
+            file.createNewFile();
         } else {
-            BufferedReader reader = new BufferedReader(new FileReader(file)); // Create a BufferedReader object
-            String line; // Read the file line by line
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| "); // Split the line by " | "
-                String type = parts[0]; // Get the type of task
-                boolean isDone = parts[1].equals("1"); // Get the status of the task
-                String description = parts[2]; // Get the description of the task
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
                 switch (type) {
                     case "T":
                         tasks.add(new Todo(description, isDone));
-                        break; // Add a new Todos object to the list
+                        break;
                     case "D":
-                        LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                        LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                         tasks.add(new Deadline(description, by, isDone));
-                        break; // Add a new Deadline object to the list
+                        break;
                     case "E":
-                        LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                        LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                        LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                         tasks.add(new Event(description, from, to, isDone));
-                        break; // Add a new Event object to the list
+                        break;
                     default:
-                        throw new IOException("Corrupted data file."); // Throw an exception if the file is corrupted
+                        throw new IOException("Unknown task type in file");
                 }
             }
-            reader.close(); // close the reader
+            reader.close();
         }
         return tasks;
     }
 
-    public void save(List<Task> tasks) throws IOException {
+    public void save(TaskList taskList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-        for (Task task : tasks) {
+        for (Task task : taskList.getTasks()) {
             writer.write(task.toFileFormat());
             writer.newLine();
         }

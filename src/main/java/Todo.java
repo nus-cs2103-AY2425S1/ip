@@ -7,6 +7,7 @@ public class Todo extends Task {
     public String toFileFormat() {
         return "T | " + (getIsDone() ? "1" : "0") + " | " + getDescription();
     }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
