@@ -14,6 +14,7 @@ public class Parser {
             case "deadline":
             case "event":
             case "list":
+            case "delete":
             case "bye":
             case "mark":
             case "unmark":
