@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class IpMan {
@@ -45,10 +46,31 @@ public class IpMan {
                     System.out.println(list[idx].markStatus());
                     break;
                 }
+                case "todo": {
+                    list[nextIdx++] = new Todo(line.split(" ", 2)[1]);
+                    break;
+                }
+                case "deadline": {
+                    String[] tail = line.split(" ", 2)[1].split(" /by ");
+                    list[nextIdx++] = new Deadline(tail[0], tail[1]);
+                    break;
+                }
+                case "event": {
+                    String desc = line.split(" ", 2)[1].split(" /from ")[0];
+                    String from = line.split(" ", 2)[1].split(" /from ")[1].split(" /to ")[0];
+                    String to = line.split(" ", 2)[1].split(" /from ")[1].split(" /to ")[1];
+                    list[nextIdx++] = new Event(desc, from, to);
+                    break;
+                }
                 default: {
                     System.out.println("added: " + line);
                     list[nextIdx++] = new Task(line);
                 }
+            }
+            if (Arrays.asList("todo", "deadline", "event").contains(line.split(" ")[0])){
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list[nextIdx-1]);
+                System.out.println("Now you have " + nextIdx + " tasks in the list.");
             }
             System.out.println(SEPARATOR);
         }
