@@ -6,17 +6,17 @@ public class Genji {
     private static String LINE = "________________________________________________________________";
     private static Scanner scanner = new Scanner(System.in);
     private static boolean flag = true;
-    private static ArrayList<String> list = new ArrayList();
+    private static ArrayList<Task> list = new ArrayList();
 
-    public static void addList(String s) {
-        list.add(s);
-        System.out.println("added: " + s);
+    public static void addList(Task t) {
+        list.add(t);
+        System.out.println("added: " + t);
         System.out.println(LINE);
     }
 
     public static void showList() {
         int index = 1;
-        for(String task : list) {
+        for(Task task : list) {
             System.out.println(String.format("%d. ", index)+ task);
             index++;
         }
@@ -43,8 +43,20 @@ public class Genji {
                 flag = false;
             } else if (input.equals("list")) {
                 showList();
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.substring(5)) - 1;
+                list.get(index).mark();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(" " + list.get(index).toString());
+                System.out.println(LINE);
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                list.get(index).unmark();
+                System.out.println("OK! I've marked this task as not done yet:");
+                System.out.println(" " + list.get(index).toString());
+                System.out.println(LINE);
             } else {
-                addList(input);
+                addList(new Task(input));
             }
         }
         bye();
