@@ -5,16 +5,16 @@ import java.util.regex.*;
 public class Phenex {
     private final String line = "\t____________________________________________________________\n";
     private final ArrayList<Task> tasks;
-    private final String logo = "  _____    _    _   ______   _   _   ______  __   __ \n"
+    private final String logo = "  _____    _    _   ______   _   _   ______  __   __\n"
             + " |  __ \\  | |  | | |  ____| | \\ | | |  ____| \\ \\ / /\n"
-            + " | |__) | | |__| | | |__    |  \\| | | |__     \\ V / \n"
-            + " | |      | |  | | | |____  | |\\  | | |____   / . \\ \n"
+            + " | |__) | | |__| | | |__    |  \\| | | |__     \\ V /\n"
+            + " | |      | |  | | | |____  | |\\  | | |____   / . \\\n"
             + " |_|      |_|  |_| |______| |_| \\_| |______| /_/ \\_\\\n";
-    private final String greetMsg = "Hello! I'm \n"
+    private final String greetMsg = "Hello! I'm\n"
             + logo
-            + "Your favourite solid gold mobile suit! \n"
+            + "Your favourite solid gold mobile suit!\n"
             + line
-            + "What can I do for you? \n"
+            + "\tWhat can I do for you?\n"
             + line;
     private final String farewellMsg = "\t Goodbye. Extinguish the Zeon forces on your way out!\n" + line;
 
@@ -23,7 +23,7 @@ public class Phenex {
     }
 
     public void greet() {
-        System.out.println(greetMsg);
+        System.out.print(greetMsg);
     }
 
     public void sayFarewell() {
@@ -41,7 +41,7 @@ public class Phenex {
             return;
         }
 
-        System.out.println("\t Outstanding missions: ");
+        System.out.println("\t Outstanding missions:");
         for (int i = 0; i < size; i++) {
             String row = "\t "
                     + (i + 1)
@@ -168,7 +168,7 @@ public class Phenex {
                 p.tasks.add(event);
                 p.printTaskAdded(event);
             } else {
-                System.out.println("Error, invalid input.");
+                System.out.println("\tError, invalid input.");
             }
 
             p.printLine();
