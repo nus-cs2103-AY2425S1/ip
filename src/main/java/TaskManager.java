@@ -25,15 +25,7 @@ public class TaskManager {
     }
 
     protected void addTask(String userInput, String taskType) {
-        // Check if the task already exists
-        for (Task task : this.tasks) {
-            if (task.getDescription().equalsIgnoreCase(userInput)) {
-                System.out.println("This task is already in your list! Maybe you can try renaming it and input again?");
-                return;
-            }
-        }
         String taskInfo;
-        String taskDescription;
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
         } catch(Exception e) {
@@ -42,12 +34,22 @@ public class TaskManager {
                     "/ {Input task description here}\" to add a task)");
             return;
         }
+
+        String taskDescription;
         Task t;
         switch(taskType) {
             case "deadline":
                 try {
                     String[] taskInfoArray = taskInfo.split("/", 2);
                     taskDescription = taskInfoArray[0];
+                    // Check if the task already exists
+                    for (Task task : this.tasks) {
+                        if (task.getDescription().equalsIgnoreCase(taskDescription)) {
+                            System.out.println("This task is already in your list! " +
+                                    "Maybe you can try renaming it and input again?");
+                            return;
+                        }
+                    }
                     t = new Deadline(taskDescription, taskInfoArray[1]);
                 } catch (Exception e) {
                     System.out.println("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
@@ -60,6 +62,14 @@ public class TaskManager {
                 try {
                     String[] taskInfoArray = taskInfo.split("/", 3);
                     taskDescription = taskInfoArray[0];
+                    // Check if the task already exists
+                    for (Task task : this.tasks) {
+                        if (task.getDescription().equalsIgnoreCase(taskDescription)) {
+                            System.out.println("This task is already in your list! " +
+                                    "Maybe you can try renaming it and input again?");
+                            return;
+                        }
+                    }
                     t = new Event(taskInfoArray[0], taskInfoArray[1], taskInfoArray[2]);
                 } catch (Exception e) {
                     System.out.println("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
@@ -69,8 +79,16 @@ public class TaskManager {
                 }
                 break;
             default:
-                t = new Todo(taskInfo);
                 taskDescription = taskInfo;
+                // Check if the task already exists
+                for (Task task : this.tasks) {
+                    if (task.getDescription().equalsIgnoreCase(taskDescription)) {
+                        System.out.println("This task is already in your list! " +
+                                "Maybe you can try renaming it and input again?");
+                        return;
+                    }
+                }
+                t = new Todo(taskInfo);
                 break;
         }
         tasks.add(t);

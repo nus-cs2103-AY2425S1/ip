@@ -1,7 +1,72 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+___________________________________________________________________
 
+.----------------.  .----------------.  .-----------------. .----------------. 
+| .--------------. || .--------------. || .--------------. || .--------------. |
+| |     _____    | || | _____  _____ | || | ____  _____  | || |     ____     | |
+| |    |_   _|   | || ||_   _||_   _|| || ||_   \|_   _| | || |   .'    `.   | |
+| |      | |     | || |  | |    | |  | || |  |   \ | |   | || |  /  .--.  \  | |
+| |   _  | |     | || |  | '    ' |  | || |  | |\ \| |   | || |  | |    | |  | |
+| |  | |_' |     | || |   \ `--' /   | || | _| |_\   |_  | || |  \  `--'  /  | |
+| |  `.___.'     | || |    `.__.'    | || ||_____|\____| | || |   `.____.'   | |
+| |              | || |              | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------'  '----------------' 
+
+___________________________________________________________________
+🌟 Welcome to the Future! I'm Juno, your digital assistant.
+How can I assist you on your journey today?
+___________________________________________________________________
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+Well, seems like you did not input anything! Please try again.
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+😕 Hmm, something went wrong. Please enter a task number after mark/unmark. (💡 Tip: You can type "list" to see task numbers)
+😕 Hmm, something went wrong. Please enter a task number after mark/unmark. (💡 Tip: You can type "list" to see task numbers)
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+😕 Hmm, something went wrong. Did you add task correctly? (💡 Tip: Use "add {Specify Task Type e.g. todo, deadline, or event} /{Input task description here}" to add a task)
+Well, seems like you did not input anything! Please try again.
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+🎉 Got it! I've added: "Finish homework" to your list!
+🎯 You now have 1 tasks in the list. Keep going!
+This task is already in your list! Maybe you can try renaming it and input again?
+🎉 Got it! I've added: "Submit project " to your list!
+🎯 You now have 2 tasks in the list. Keep going!
+This task is already in your list! Maybe you can try renaming it and input again?
+🎉 Got it! I've added: "Attend meeting " to your list!
+🎯 You now have 3 tasks in the list. Keep going!
+This task is already in your list! Maybe you can try renaming it and input again?
+Well, seems like you did not input anything! Please try again.
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+Here's a rundown of all your tasks! 😊
+1. [📝 ToDo] [ ] Finish homework - Let's get this done! 💪
+2. [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+3. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: Saturday 1pm to: Sunday 1am)
+🎯 You have 3 tasks in the list. Keep going!
+Great work! Knew you would have completed it.
+  [📝 ToDo] [X] Finish homework - Let's get this done! 💪
+Hey, I have unmarked this task for you. Maybe you should start working on it soon?
+  [📝 ToDo] [ ] Finish homework - Let's get this done! 💪
+Great work! Knew you would have completed it.
+  [⏰ Deadline] [X] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+Here's a rundown of all your tasks! 😊
+1. [📝 ToDo] [ ] Finish homework - Let's get this done! 💪
+2. [⏰ Deadline] [X] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+3. [📅 Event] [ ] Attend meeting  - Mark your calendar! 🗓️ (from: Saturday 1pm to: Sunday 1am)
+🎯 You have 3 tasks in the list. Keep going!
+Well, seems like you did not input anything! Please try again.
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+Great work! Knew you would have completed it.
+  [📝 ToDo] [X] Finish homework - Let's get this done! 💪
+You have completed the task "Finish homework" already!
+  [📝 ToDo] [X] Finish homework - Let's get this done! 💪
+Well, seems like you did not input anything! Please try again.
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+Hey, I have unmarked this task for you. Maybe you should start working on it soon?
+  [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+Task "Submit project " is still not done! You can't unmark an undone task!
+  [⏰ Deadline] [ ] Submit project  - Don't miss it! ⏳ (due: Monday 3pm)
+Well, seems like you did not input anything! Please try again.
+The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
+____________________________________________________________
+👋 Farewell for now! Looking forward to our next interaction.
+____________________________________________________________

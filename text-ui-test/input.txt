@@ -1,0 +1,34 @@
+# Test for empty inputs
+
+# Test for invalid inputs
+add1
+marker
+mark 1 2
+add 1 2
+add event Attend meeting /1 4
+
+# Test for adding same tasks
+add todo Finish homework
+add todo Finish homework
+add deadline Submit project /Monday 3pm
+add deadline Submit project /Monday 3pm
+add event Attend meeting /Saturday 1pm/Sunday 1am
+add event Attend meeting /Saturday 1pm/ Saturday 3pm
+
+# Test for current functionality
+list
+mark 1
+unmark 1
+mark 2
+list
+
+# Test for multiple marks
+mark 1
+mark 1
+
+# Test for multiple unmarks
+unmark 2
+unmark 2
+
+# Test for bye
+bye
