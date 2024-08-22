@@ -31,13 +31,16 @@ public class Victor {
         while (!userInput.equalsIgnoreCase("bye")) {
             System.out.println("============================================================");
 
-            // handles case of empty user input
+            // Parse user input into separate words
+            String[] inputWords = userInput.trim().split(" ");
+
+            // Handles case of empty user input
             if (userInput.trim().isEmpty()) {
                 // User input is empty - ask again for input
                 System.out.println("  ~  What can I do for you?");
-            } else if (userInput.toLowerCase().startsWith("list")) {
+            } else if (inputWords[0].equalsIgnoreCase("list")) {
                 if (inputs.isEmpty()) {
-                    // no tasks were added to the list yet
+                    // No tasks were added to the list yet
                     System.out.println("  ~  No tasks in the list, add some To Dos, Events, and Deadlines first!");
                 } else {
                     System.out.println("  ~  Sure! Here are all of your tasks:");
@@ -45,7 +48,7 @@ public class Victor {
                         System.out.println("  ~  " + (i + 1) + ". " + inputs.get(i));
                     }
                 }
-            } else if (userInput.trim().toLowerCase().startsWith("delete")) {
+            } else if (inputWords[0].equalsIgnoreCase("delete")) {
                 try {
                     String[] parsed = userInput.trim().split(" ");
                     int num = Integer.parseInt(parsed[parsed.length - 1]) - 1;
@@ -61,7 +64,7 @@ public class Victor {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  ~  I don't think there's a task with that number!");
                 }
-            } else if (userInput.trim().toLowerCase().startsWith("mark")) {
+            } else if (inputWords[0].equalsIgnoreCase("mark")) {
                 try {
                     String[] parsed = userInput.trim().split(" ");
                     int num = Integer.parseInt(parsed[parsed.length - 1]) - 1;
@@ -74,7 +77,7 @@ public class Victor {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  ~  I don't think there's a task with that number!");
                 }
-            } else if (userInput.trim().toLowerCase().startsWith("unmark")) {
+            } else if (inputWords[0].equalsIgnoreCase("unmark")) {
                 try {
                     String[] parsed = userInput.trim().split(" ");
                     int num = Integer.parseInt(parsed[parsed.length - 1]) - 1;
@@ -87,13 +90,13 @@ public class Victor {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("  ~  I don't think there's a task with that number!");
                 }
-            } else if (userInput.trim().toLowerCase().startsWith("todo")) {
+            } else if (inputWords[0].equalsIgnoreCase("todo")) {
                 String[] parsed = userInput.trim().split(" ");
                 String taskName = "";
                 for (int i = 1; i < parsed.length; i++) {
                     taskName += " " + parsed[i];
                 }
-                // trim so that blank space cannot be counted as name for task
+                // Trim so that blank space cannot be counted as name for task
                 taskName = taskName.trim();
                 if (taskName.isEmpty()) {
                     System.out.println("  ~  Please give a name for the To Do. The format should be \"todo " +
@@ -107,7 +110,7 @@ public class Victor {
                     System.out.println("  ~  You now have " + inputs.size() +
                             ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
-            } else if (userInput.trim().toLowerCase().startsWith("deadline")) {
+            } else if (inputWords[0].equalsIgnoreCase("deadline")) {
                 String[] parsed = userInput.trim().split(" ");
                 String taskName = "";
                 String deadline = "";
@@ -125,7 +128,7 @@ public class Victor {
                         deadline += " " + parsed[i];
                     }
                 }
-                // trim so that blank space cannot be counted as name for task or deadlines
+                // Trim so that blank space cannot be counted as name for task or deadlines
                 taskName = taskName.trim();
                 deadline = deadline.trim();
                 if (taskName.isEmpty()) {
@@ -143,7 +146,7 @@ public class Victor {
                     System.out.println("  ~  You now have " + inputs.size() +
                             ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
-            } else if (userInput.trim().toLowerCase().startsWith("event")) {
+            } else if (inputWords[0].equalsIgnoreCase("event")) {
                 String[] parsed = userInput.trim().split(" ");
                 String taskName = "";
                 String start = "";
@@ -169,7 +172,7 @@ public class Victor {
                         end += "" + parsed[i];
                     }
                 }
-                // trim so that blank space cannot be counted as name for task, start or end
+                // Trim so that blank space cannot be counted as name for task, start or end
                 taskName = taskName.trim();
                 start = start.trim();
                 end = end.trim();
@@ -192,7 +195,7 @@ public class Victor {
                             ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
             } else {
-                // user input does not match any specified command
+                // User input does not match any specified command
                 System.out.println("  ~  Sorry, that's not something I know how to do :( Please specify either a " +
                         "To Do, a Deadline or an Event!");
             }
