@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
 
 public class Ai {
-    Task[] tasks = new Task[101];
-    int counter = 0;
+    ArrayList<Task> tasks = new ArrayList<>();
+
     static final String greetings = "Hi, I'm your favourite idol, Ai!!! \n"
             + "What shall we do today? Teehee o(◠u◠)o \n";
     static final String closing = "Don't you wanna get my autograph first? \n"
@@ -10,32 +11,60 @@ public class Ai {
     static final String line = "____________________________________________________________ \n";
 
     public void list() {
-        for(int i = 0; i < counter; i++) {
-            System.out.println((i + 1) + ". " + tasks[i] + "\n");
+        for(int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i) + "\n");
         }
         System.out.println(line);
     }
 
     public void add(Task task) {
-        tasks[counter] = task;
-        counter++;
+        tasks.add(task);
         System.out.println("Task added!!");
         System.out.println(task);
-        System.out.println(String.format("You better finish your %d tasks!! ehe :3 \n", counter) + line);
+        System.out.println(String.format("You better finish your %d tasks!! ehe :3 \n", tasks.size()) + line);
     }
 
-    public void mark(int i) {
-        Task temp = tasks[i-1];
+    public void mark(String reply) throws AiException {
+        int i = Integer.parseInt(reply.substring("mark ".length())) - 1;
+
+        if (i < 0 || i >= tasks.size()) {
+            throw new AiException("Hey hey!! The task doesn't exist... \n" +
+                                    "You might wanna try a valid number between 0 to " + tasks.size() + "\n");
+        }
+
+        Task temp = tasks.get(i);
         temp.mark();
         System.out.println("Marked as done... since you have time, how about a drink ;)");
         System.out.println(temp + "\n" + line);
     }
 
-    public void unmark(int i) {
-        Task temp = tasks[i-1];
+    public void unmark(String reply) throws AiException {
+        int i = Integer.parseInt(reply.substring("unmark ".length())) - 1;
+
+        if (i < 0 || i >= tasks.size()) {
+            throw new AiException("Hey hey!! The task doesn't exist... \n" +
+                    "You might wanna try a valid number between 0 to " + tasks.size() + "\n");
+        }
+
+        Task temp = tasks.get(i);
         temp.unmark();
         System.out.println("Donzo, task unmarked! Let me know if you need anything else :3");
         System.out.println(temp + "\n" + line);
+    }
+
+    public void delete(String reply) throws AiException {
+        int i = Integer.parseInt(reply.substring("delete ".length())) - 1;
+
+        if (i < 0 || i >= tasks.size()) {
+            throw new AiException("Hey hey!! The task doesn't exist... can't be removed >....< \n" +
+                    "You might wanna try a valid number between 0 to " + tasks.size() + "\n");
+        }
+
+        Task temp = tasks.get(i);
+        tasks.remove(i);
+        System.out.println("Gotchyaa, task removed!! \n");
+        System.out.println(temp + "\n");
+        System.out.println("You have "+ tasks.size() + " tasks in your list :p \n" + line);
     }
 
     public static void main(String[] args) throws AiException {
@@ -56,9 +85,11 @@ public class Ai {
                 if(reply.equals("list")) {
                     ai.list();
                 } else if (reply.startsWith("unmark")) {
-                    ai.unmark(Character.getNumericValue(reply.charAt(reply.length() - 1)));
+                    ai.unmark(reply);
                 } else if (reply.startsWith("mark")) {
-                    ai.mark(Character.getNumericValue(reply.charAt(reply.length() - 1)));
+                    ai.mark(reply);
+                } else if (reply.startsWith("delete")) {
+                    ai.delete(reply);
                 } else if (reply.startsWith("todo")) {
                     if (reply.length() < "todo ".length() + 1) {
                         throw new AiException("Whoopsies, todo cannot be empty >.< \n " +
