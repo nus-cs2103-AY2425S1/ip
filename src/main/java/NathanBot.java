@@ -76,6 +76,10 @@ public class NathanBot {
 
     private static void handleTodoCommand(String input, TaskList TaskList) {
         input = input.substring(TODO_COMMAND.length());
+        if (input.length() == 0) {
+            System.out.println(LINE + "The description of a todo cannot be empty. Use: todo <description>\n" + LINE);
+            return;
+        }
         ToDo task = new ToDo(input);
         TaskList.addTask(task);
         printAddTaskLine(task, TaskList);
@@ -121,7 +125,7 @@ public class NathanBot {
     }
 
     private static void handleUnknownCommand() {
-        System.out.println(LINE + "OOPS!!! I'm sorry, but I don't know what that means :-(" + "\n" + LINE);
+        System.out.println(LINE + "Unknown Command, womp womp." + "\n" + LINE);
     }
 
     private static void printAddTaskLine(Task task, TaskList TaskList) {
