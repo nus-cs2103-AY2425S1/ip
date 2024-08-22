@@ -1,14 +1,26 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The SilverWolf class represents a chat bot application.
+ * It allows users to add tasks, display the list of tasks, and show task statistics.
+ */
 public class SilverWolf {
-    // using arraylist
+
+    // List to store the tasks
     private static ArrayList<Task> list = new ArrayList<>();
-    // prints the line
+
+    /**
+     * Prints a divider line to the console for visual separation.
+     */
     private static void printDivider() {
         System.out.println("____________________________________________________________");
     }
-    // output the list
+
+    /**
+     * Outputs the list of tasks to the console with their corresponding indices.
+     * Each task is printed on a new line.
+     */
     private static void outputList(){
         int index = 1;
         for(Task t : list){
@@ -17,6 +29,11 @@ public class SilverWolf {
         }
     }
 
+
+    /**
+     * Outputs the list of tasks to the console with their corresponding indices.
+     * Each task is printed on a new line.
+     */
     private static void showConfirmation(){
         printDivider();
         System.out.println("Got it. I've added this task:");
@@ -26,9 +43,19 @@ public class SilverWolf {
         System.out.print("\n");
     }
 
+    /**
+     * Displays the total number of tasks currently in the list.
+     */
     private static void showTotalTask(){
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
+
+    /**
+     * The main method serves as the entry point for the SilverWolf chat bot.
+     * It displays a welcome message and processes user commands to manage tasks.
+     *
+     * @param args Command-line arguments (not used in this program).
+     */
     public static void main(String[] args) {
         // initialize the scanner to read user input
 
@@ -107,12 +134,20 @@ public class SilverWolf {
         scanner.close();
     }
 
+    /**
+     * Handles the 'bye' command from the user, which indicates the user wants to exit the
+     * application. Displays a farewell message and terminates the program loop.
+     */
     private static void handleBye() {
         printDivider();
         System.out.println(" Till we meet again! May this journey lead us starward!");
         printDivider();
     }
 
+    /**
+     * Handles the 'list' command from the user, which requests the application to display
+     * all current tasks in the task list. Outputs the list of tasks with appropriate formatting.
+     */
     private static void handleList() {
         printDivider();
         System.out.println("Here are the tasks in your list:");
@@ -121,6 +156,14 @@ public class SilverWolf {
         System.out.print("\n");
     }
 
+    /**
+     * Handles the 'mark' command, which marks a specific task as done based on the provided
+     * index. Extracts the task index from the command input, marks the task as completed,
+     * and displays confirmation of the action.
+     *
+     * @param input The user input containing the command and task index.
+     * @throws SilverWolfException If the index is out of bounds or invalid.
+     */
     private static void handleMark(String input) throws SilverWolfException{
         //extract the input number
         try {
@@ -139,6 +182,14 @@ public class SilverWolf {
         }
     }
 
+    /**
+     * Handles the 'unmark' command, which marks a specific task as not done based on the
+     * provided index. Extracts the task index from the command input, marks the task as
+     * incomplete, and displays confirmation of the action.
+     *
+     * @param input The user input containing the command and task index.
+     * @throws SilverWolfException If the index is out of bounds or invalid.
+     */
     private static void handleUnmark(String input) throws SilverWolfException{
         //extract the input number
         try {
@@ -157,6 +208,15 @@ public class SilverWolf {
     }
     }
 
+    /**
+     * Handles the 'todo' command, which adds a new Todo task to the task list. Extracts
+     * the task description from the command input, creates a new Todo task, and adds it
+     * to the list. Provides feedback on successful addition or throws an exception if the
+     * description is empty.
+     *
+     * @param input The user input containing the command and task description.
+     * @throws SilverWolfException If the task description is empty or invalid.
+     */
     private static void handleTodo(String input) throws SilverWolfException{
         //taking in the input
         try {
@@ -172,6 +232,15 @@ public class SilverWolf {
         }
     }
 
+    /**
+     * Handles the 'deadline' command, which adds a new Deadline task to the task list.
+     * Extracts the task description and deadline date/time from the command input, creates
+     * a new Deadline task, and adds it to the list. Provides feedback on successful addition
+     * or throws exceptions for invalid input.
+     *
+     * @param input The user input containing the command, task description, and deadline.
+     * @throws SilverWolfException If the input is incorrectly formatted or missing required information.
+     */
     private static void handleDeadline(String input) throws SilverWolfException{
         //taking in the input
         try {
@@ -186,6 +255,15 @@ public class SilverWolf {
         }
     }
 
+    /**
+     * Handles the 'event' command, which adds a new Event task to the task list.
+     * Extracts the task description, start date/time, and end date/time from the command
+     * input, creates a new Event task, and adds it to the list. Provides feedback on
+     * successful addition or throws exceptions for invalid input.
+     *
+     * @param input The user input containing the command, task description, start and end dates/times.
+     * @throws SilverWolfException If the input is incorrectly formatted or missing required information.
+     */
     private static void handleEvent(String input) throws SilverWolfException{
         try {
         //taking in the input
@@ -201,10 +279,24 @@ public class SilverWolf {
     }
     }
 
+    /**
+     * Handles invalid commands or input that does not match any expected format.
+     * Throws a SilverWolfException with a message indicating that the input is not recognized.
+     *
+     * @throws SilverWolfException Always thrown with a message about the incorrect input.
+     */
     private static void handleWrongInput() throws SilverWolfException{
         throw new SilverWolfException("Sorry what are you trying to say????");
     }
 
+    /**
+     * Handles the 'delete' command, which removes a specific task from the task list based
+     * on the provided index. Extracts the task index from the command input, removes the task
+     * from the list, and displays confirmation of the removal.
+     *
+     * @param input The user input containing the command and task index.
+     * @throws SilverWolfException If the index is out of bounds, invalid, or not a number.
+     */
     private static void handleDeleteCommand(String input) throws SilverWolfException{
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
