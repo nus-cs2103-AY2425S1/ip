@@ -67,7 +67,7 @@ public class Bob {
     public void addDeadline(String message) throws BobException {
         String x = message.replaceFirst("deadline", "");
         String[] parts = x.split(" /");
-        if (x.isEmpty()) {
+        if (parts.length != 2) {
             throw new BobException("OOPS!!! The description/start time of a deadline cannot be empty.");
         }
         Task t = new Deadline(parts[0].trim(), parts[1].trim());
@@ -77,7 +77,7 @@ public class Bob {
     public void addEvent(String message) throws BobException {
         String x = message.replaceFirst("event", "");
         String[] parts = x.split(" /");
-         if (parts.length < 3) {
+         if (parts.length != 3) {
             throw new BobException("OOPS!!! The description/start time/end time of an event cannot be empty.");
         }
         Task t = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
