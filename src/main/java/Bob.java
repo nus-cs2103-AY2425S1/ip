@@ -2,7 +2,7 @@ public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
 
     private static void say(String text) {
-        System.out.print("\n" + text + "\n" + SEPARATOR);
+        System.out.print("\n " + text.replace("\n", "\n ") + "\n" + SEPARATOR);
     }
 
     private static void greet() {
