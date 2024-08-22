@@ -31,13 +31,14 @@ public class Rasputin {
 
         while (true) {
             String input = scanner.nextLine().trim();
+            String command = input.split(" ")[0];
             // if user types "bye", break out of loop and bid farewell
-            if (input.equals("bye")) {
+            if (command.equals("bye")) {
                 break;
             }
 
             // display current list of tasks
-            if (input.equals("list")) {
+            if (command.equals("list")) {
                 if (ls.isEmpty()) {
                     printText("No tasks in list!");
                     continue;
@@ -53,7 +54,7 @@ public class Rasputin {
             }
 
             // unmark task
-            if (input.contains("unmark")) {
+            if (command.equals("unmark")) {
                 if (ls.isEmpty()) {
                     printText("No tasks in list!");
                     continue;
@@ -75,7 +76,7 @@ public class Rasputin {
             }
 
             // mark task as done
-            if (input.contains("mark")) {
+            if (command.equals("mark")) {
                 if (ls.isEmpty()) {
                     printText("No tasks in list!");
                     continue;
@@ -99,7 +100,7 @@ public class Rasputin {
             }
 
             // create todo task
-            if (input.contains("todo")) {
+            if (command.equals("todo")) {
                 try {
                     String desc = input.substring(5);
                     Todo task = new Todo(desc);
@@ -118,7 +119,7 @@ public class Rasputin {
             }
 
             // create deadline task
-            if (input.contains("deadline")) {
+            if (command.equals("deadline")) {
                 try {
                     String str = input.trim().substring(9);
                     String desc = str.split(" /by ")[0];
@@ -143,7 +144,7 @@ public class Rasputin {
             }
 
             // create event task
-            if (input.contains("event")) {
+            if (command.equals("event")) {
                 try {
                     String str = input.substring(6);
                     String desc = str.split(" /from ")[0];
@@ -169,7 +170,7 @@ public class Rasputin {
                 }
             }
 
-            if (input.contains("delete")) {
+            if (command.equals("delete")) {
                 try {
                     int index = (input.charAt(7) - '0' - 1);
                     String output = "Done, removed that task for you.\n" +
