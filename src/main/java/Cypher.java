@@ -169,44 +169,6 @@ public class Cypher {
                 System.out.println("That is not a valid command. Type --help in order to see the list of valid commands (This feature is still under construction)");
                 Cypher.lineBreak();
             }
-                /*
-                if (command[0].equalsIgnoreCase("list")) {
-                    Cypher.printTaskList();
-                } else if (command[0].equalsIgnoreCase("todo")) {
-                    Task task = new ToDo(command[1]);
-                    Cypher.addToList(task);
-                } else if (command[0].equalsIgnoreCase("deadline")) {
-                    String[] split = command[1].split("/by", 2);
-                    // Throw error here
-                    Task task = new Deadline(split[0], split[1]);
-                    Cypher.addToList(task);
-                } else if (command[0].equalsIgnoreCase("event")) {
-                    String[] split = command[1].split("/from|/to ", 3);
-                    Task task = new Event(split[0], split[1], split[2]);
-                    Cypher.addToList(task);
-                } else if (command[0].equalsIgnoreCase("mark")) {
-                    // Need check if that is number
-                    Cypher.markTask(Integer.parseInt(command[1]) - 1);
-                } else if (command[0].equalsIgnoreCase("unmark")) {
-                    // Need check if that is number
-                    Cypher.unmarkTask(Integer.parseInt(command[1]) - 1);
-                } else if (command[0].equalsIgnoreCase("--help")) {
-                    Cypher.lineBreak();
-                    System.out.println("<< Under construction >>");
-                    Cypher.lineBreak();
-                } else if (command[0].equalsIgnoreCase("bye")) {
-                    Cypher.lineBreak();
-                    scanner.close();
-                    stayIn = false;
-                } else {
-                    System.out.printf("\"%s\" this is not a valid command. Type --help in order to see the list of valid commands (This feature is still under construction)\n", command[0]);
-                }
-            }
-            catch (Exception dukeException) {
-                System.out.println(dukeException.toString());
-            } finally {
-                Cypher.lineBreak();
-            } */
         }
 
         Cypher.goodBye();
