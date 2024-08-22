@@ -13,11 +13,9 @@ public class Parser {
                 case "list": System.out.println(storage.toString());
                     break;
                 case "blah":
-                    System.out.println(command);
                     break;
                 case "bye":
-                    System.out.println(command);
-                    System.out.println("Thanks for using me!\nExiting the program...");
+                    System.out.println("It's finally over... *yawn!\nExiting the program...");
                     break;
                 default:
                     System.out.println("Added " + '\"'+ text + "\"" + " as a new task");
