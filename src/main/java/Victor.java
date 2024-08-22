@@ -25,13 +25,18 @@ public class Victor {
         System.out.println("What can I do for you?");
         System.out.println("============================================================");
         String userInput = inp.nextLine();
+
+        // Continues asking for input until user input is "bye"
         while (!userInput.equalsIgnoreCase("bye")) {
             System.out.println("============================================================");
+
+            // handles case of empty user input
             if (userInput.trim().isEmpty()) {
                 // User input is empty - ask again for input
                 System.out.println("  ~  What can I do for you?");
             } else if (userInput.toLowerCase().startsWith("list")) {
                 if (inputs.isEmpty()) {
+                    // no tasks were added to the list yet
                     System.out.println("  ~  No tasks in the list, add some To Dos, Events, and Deadlines first!");
                 } else {
                     System.out.println("  ~  Sure! Here are all of your tasks:");
@@ -43,6 +48,8 @@ public class Victor {
                 try {
                     String[] parsed = userInput.trim().split(" ");
                     int num = Integer.parseInt(parsed[parsed.length - 1]) - 1;
+
+                    // retrieve and remove deleted task to reference later
                     Task removed = inputs.get(num);
                     inputs.remove(num);
                     System.out.println("  ~  Deleting the task below now!");
@@ -82,6 +89,7 @@ public class Victor {
                 for (int i = 1; i < parsed.length; i++) {
                     taskName += " " + parsed[i];
                 }
+                // trim so that blank space cannot be counted as name for task
                 taskName = taskName.trim();
                 if (taskName.isEmpty()) {
                     System.out.println("  ~  Please give a name for the To Do. The format should be \"todo (description)\"");
@@ -97,19 +105,20 @@ public class Victor {
                 String taskName = "";
                 String deadline = "";
 
-                boolean deadlineFlag = false;
+                boolean isDeadline = false;
 
                 for (int i = 1; i < parsed.length; i++) {
                     if (parsed[i].startsWith("/")) {
-                        deadlineFlag = true;
+                        isDeadline = true;
                         continue;
                     }
-                    if (!deadlineFlag) {
+                    if (!isDeadline) {
                         taskName += " " + parsed[i];
                     } else {
                         deadline += " " + parsed[i];
                     }
                 }
+                // trim so that blank space cannot be counted as name for task or deadlines
                 taskName = taskName.trim();
                 deadline = deadline.trim();
                 if (taskName.isEmpty()) {
@@ -129,26 +138,27 @@ public class Victor {
                 String start = "";
                 String end = "";
 
-                boolean startFlag = false;
-                boolean endFlag = false;
+                boolean isStart = false;
+                boolean isEnd = false;
 
                 for (int i = 1; i < parsed.length; i++) {
                     if (parsed[i].startsWith("/")) {
-                        if (startFlag) {
-                            endFlag = true;
+                        if (isStart) {
+                            isEnd = true;
                         } else {
-                            startFlag = true;
+                            isStart = true;
                         }
                         continue;
                     }
-                    if (!startFlag) {
+                    if (!isStart) {
                         taskName += " " + parsed[i];
-                    } else if (!endFlag) {
+                    } else if (!isEnd) {
                         start += " " + parsed[i];
                     } else {
                         end += "" + parsed[i];
                     }
                 }
+                // trim so that blank space cannot be counted as name for task, start or end
                 taskName = taskName.trim();
                 start = start.trim();
                 end = end.trim();
@@ -166,6 +176,7 @@ public class Victor {
                     System.out.println("  ~  You now have " + inputs.size() + ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
             } else {
+                // user input does not match any specified command
                 System.out.println("  ~  Sorry, that's not something I know how to do :( Please specify either a To Do, a Deadline or an Event!");
             }
             System.out.println("============================================================");
