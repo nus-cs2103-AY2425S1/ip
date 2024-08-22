@@ -11,7 +11,7 @@ public class Wojak {
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm Wojak\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n");
+                "____________________________________________________________");
         Scanner sc = new Scanner(System.in);
 
         InputParser parser = new InputParser();

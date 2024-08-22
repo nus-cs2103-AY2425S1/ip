@@ -16,6 +16,6 @@ public class AddEventCommand implements Command {
         taskList.addTask(this.task);
         System.out.println("____________________________________________________________\n" +
                 "added: " + this.task.getDescription() + "\n" +
-                "____________________________________________________________\n");
+                "____________________________________________________________");
     }
 }

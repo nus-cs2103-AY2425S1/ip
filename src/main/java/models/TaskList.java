@@ -31,6 +31,9 @@ public class TaskList {
     }
 
     public String listTasks() {
+        if (tasks.size() == 0) {
+            return "List is empty!";
+        }
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             list.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
