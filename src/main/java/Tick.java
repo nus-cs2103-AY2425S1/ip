@@ -4,7 +4,7 @@ public class Tick {
     private static final String separator = "____________________________________________________________\n";
     private static final String botName = "Tick";
 
-    public void intro() {
+    public void greet() {
         System.out.print(Tick.separator);
         System.out.printf("Hello! I'm %s\n", Tick.botName);
         System.out.println("What can I do for you?");
@@ -18,7 +18,7 @@ public class Tick {
 
     public static void main(String[] args) {
         Tick bot = new Tick();
-        bot.intro();
+        bot.greet();
         bot.exit();
     }
 }
