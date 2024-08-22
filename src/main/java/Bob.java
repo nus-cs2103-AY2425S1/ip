@@ -1,8 +1,27 @@
+import java.util.Scanner;
+
 public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
+    private static String input = "";
+
+    private enum Command {
+        BYE("bye") {
+            @Override
+            public void run() {
+                exit();
+            }
+        };
+
+        public final String CMD;
+        public abstract void run();
+
+        Command(String cmd) {
+            CMD = cmd;
+        }
+    }
 
     private static void say(String text) {
-        System.out.print("\n " + text.replace("\n", "\n ") + "\n" + SEPARATOR);
+        System.out.println("\n " + text.replace("\n", "\n ") + "\n" + SEPARATOR);
     }
 
     private static void greet() {
@@ -29,8 +48,18 @@ public class Bob {
         | |              | | |              | | |              | |
         | '--------------' | '--------------' | '--------------' |
         '----------------' '----------------' '----------------'""";
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println(logo);
         greet();
-        exit();
+        while (true) {
+            input = scanner.nextLine();
+            for (Command c : Command.values()) {
+                if (input.equals(c.CMD)) {
+                    c.run();
+                    break;
+                }
+            }
+        }
     }
 }
