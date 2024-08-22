@@ -7,7 +7,6 @@ public class Atreides {
                     +  " / _____ \\ |_| | |  __/ | (_| |  __/\\__ \\ \n"
                     +  "/_/     \\_\\__|_|  \\___|_|\\__,_|\\___||___/\n";
 
-//        System.out.println("Hello from\n" + logo);
         String line = "____________________________________________________________";
         System.out.println(line);
         System.out.println("Hello! I'm\n" + logo);
