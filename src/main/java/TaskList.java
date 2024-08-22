@@ -11,6 +11,18 @@ public class TaskList {
         tasks.add(new Task(item));
     }
 
+    public void markAsDone(int index) {
+        tasks.get(index).markAsDone();
+    }
+
+    public void markAsUndone(int index) {
+        tasks.get(index).markAsUndone();
+    }
+
+    public String getTask(int index) {
+        return tasks.get(index).toString() + "\n";
+    }
+
     public String getList() {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
