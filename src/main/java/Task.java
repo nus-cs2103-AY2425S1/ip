@@ -26,6 +26,10 @@ public abstract class Task {
         System.out.println();
     }
 
+    public static int taskNum() {
+        return Task.list.size();
+    }
+
     public static void mark(int i) {
         Task t = Task.list.get(i);
         t.done();
