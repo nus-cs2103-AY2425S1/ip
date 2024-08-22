@@ -1,7 +1,7 @@
 public class Fred {
     public static void main(String[] args) {
         String line = "____________________________________________________________";
-        String name = "Echo";
+        String name = "Fred";
         String greeting = "Hello! I'm " + name + "\n" +
                 "What can I do for you?";
         String farewell = " Bye. Hope to see you again soon!";
