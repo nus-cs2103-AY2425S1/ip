@@ -6,4 +6,14 @@ mark 1
 list
 unmark 1
 list
+todo
+deadline
+deadline borrow new book
+event
+event meeting
+event meeting /from Mon
+mark 0
+unmark -1
+mark
+unmark
 bye
