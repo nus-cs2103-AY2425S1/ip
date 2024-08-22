@@ -15,7 +15,7 @@ public class Moody {
         int taskCount = 0;
 
         while (true) {
-            userInput = scanner.nextLine();
+            userInput = scanner.nextLine().trim();
             if (userInput.equals("bye")) {
                 System.out.println(spacer
                         + "Bye. Hope to see you again soon!\n"
@@ -43,16 +43,47 @@ public class Moody {
                 System.out.println(indent
                         + userTasks[taskNumber].toString());
                 System.out.println(spacer);
+            } else if (userInput.startsWith("todo ")) {
+                String description = userInput.substring(5).trim();
+                if (!description.isEmpty()) {
+                    userTasks[taskCount] = new Todo(description);
+                    taskCount++;
+                    System.out.println(spacer
+                            + "Got it. I've added this task:\n"
+                            + indent + userTasks[taskCount - 1] + "\n"
+                            + "Now you have " + taskCount + " tasks in the list.\n"
+                            + spacer);
+                }
+            } else if (userInput.startsWith("deadline ")){
+                String[] substrings = userInput.substring(9).split(" /by ");
+                // ensure user inputted task name and deadline
+                if (substrings.length == 2) {
+                    userTasks[taskCount] = new Deadline(substrings[0].trim(), substrings[1].trim());
+                    taskCount++;
+                    System.out.println(spacer
+                            + "Got it. I've added this task:\n"
+                            + indent + userTasks[taskCount - 1] + "\n"
+                            + "Now you have " + taskCount + " tasks in the list.\n"
+                            + spacer);
+                }
+            } else if (userInput.startsWith("event ")) {
+                String[] substrings = userInput.substring(5).split(" /from | /to ");
+                // ensure user inputted task name, from date, to date
+                if (substrings.length == 3) {
+                    userTasks[taskCount] = new Event(substrings[0].trim(), substrings[1].trim(), substrings[2].trim());
+                    taskCount++;
+                    System.out.println(spacer
+                            + "Got it. I've added this task:\n"
+                            + indent + userTasks[taskCount - 1] + "\n"
+                            + "Now you have " + taskCount + " tasks in the list.\n"
+                            + spacer);
+                }
             } else {
-                Task task = new Task(userInput);
-                userTasks[taskCount] = task;
-                taskCount++;
-                System.out.println(spacer
-                        + "added: "
-                        + userInput
-                        + "\n"
+                System.out.println(spacer +
+                        "Command not found. Please try again.\n"
                         + spacer);
             }
         }
+        scanner.close();
     }
 }
