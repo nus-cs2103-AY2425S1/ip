@@ -18,11 +18,11 @@ public class Cypher {
         Cypher.lineBreak();
     }
 
-    private static void addToList(String description) {
-        Task task = new Task(description);
+    private static void addToList(Task task) {
         taskList.add(task);
         Cypher.lineBreak();
-        System.out.println("Added: " + description);
+        System.out.println("Got it. I have added this task:\n  " + task);
+        System.out.printf("Now you have %d task in the list%n", Cypher.taskList.size());
         Cypher.lineBreak();
     }
 
@@ -58,18 +58,39 @@ public class Cypher {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter your command: ");
             String input = scanner.nextLine();
-            String[] command = input.split(" ");
+            String[] command = input.split(" ", 2);
 
             // Need to use switch cases
             if (command[0].equalsIgnoreCase("list")) {
                 Cypher.printTaskList();
-            } else if (command[0].equalsIgnoreCase("mark")) {
+            }
+            else if (command[0].equalsIgnoreCase("todo")) {
+                Task task = new ToDo(command[1]);
+                Cypher.addToList(task);
+            }
+            else if (command[0].equalsIgnoreCase("deadline")) {
+                String[] split = command[1].split("/by",2);
+                // Throw error here
+                Task task = new Deadline(split[0],split[1]);
+                Cypher.addToList(task);
+            }
+            else if (command[0].equalsIgnoreCase("event")) {
+                String[] split = command[1].split("/from|/to ",3);
+                Task task = new Event(split[0],split[1], split[2]);
+                Cypher.addToList(task);
+            }
+            else if (command[0].equalsIgnoreCase("mark")) {
+                // Need check if that is number
                 Cypher.markTask(Integer.parseInt(command[1]) - 1);
-            }else if (command[0].equalsIgnoreCase("unmark")) {
-                Cypher.unmarkTask(Integer.parseInt(command[1]) -1);
-            }else if (!command[0].equalsIgnoreCase("bye")) {
-                Cypher.addToList(String.join(" ",command));
-            } else {
+            }
+            else if (command[0].equalsIgnoreCase("unmark")) {
+                // Need check if that is number
+                Cypher.unmarkTask(Integer.parseInt(command[1]) - 1);
+            } else if (!command[0].equalsIgnoreCase("bye")) {
+                // Invalid Command
+                System.out.println("Invalid command");
+            }
+            else {
                 Cypher.lineBreak();
                 break;
             }
