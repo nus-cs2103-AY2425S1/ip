@@ -23,7 +23,8 @@ public class Parser {
      * @throws FishmanException.InvalidCommandException if input does not match any command.
      * @throws FishmanException.MissingArgumentException if command is missing arguments.
      * @throws FishmanException.NumberFormatException if a numeric argument is not a valid number.
-     * @throws FishmanException.EmptyListException if trying to mark/unmark a task in an empty list.
+     * @throws FishmanException.EmptyListException if trying to mark/unmark a task in an empty task list.
+     * @throws FishmanException.IndexOutOfBoundsException if trying to choose a nonexistent item from the list.
      * @throws FishmanException for unexpected errors during parsing.
      */
     public static Command parse(String userInput, TaskList tasks) throws FishmanException {
@@ -47,6 +48,9 @@ public class Parser {
                     throw new FishmanException.EmptyListException();
                 }
                 int markIndex = Integer.parseInt(inputs[1]) - 1;
+                if (markIndex < 0 || markIndex >= tasks.size()) {
+                    throw new FishmanException.IndexOutOfBoundsException(markIndex + 1);
+                }
                 return new MarkCommand(markIndex, true);
             case "unmark":
                 if (inputs.length < 2) {
@@ -56,6 +60,9 @@ public class Parser {
                     throw new FishmanException.EmptyListException();
                 }
                 int unmarkIndex = Integer.parseInt(inputs[1]) - 1;
+                if (unmarkIndex < 0 || unmarkIndex >= tasks.size()) {
+                    throw new FishmanException.IndexOutOfBoundsException(unmarkIndex + 1);
+                }
                 return new MarkCommand(unmarkIndex, false);
             case "todo":
                 if (inputs.length < 2) {
@@ -79,6 +86,9 @@ public class Parser {
                     throw new FishmanException.MissingArgumentException("delete");
                 }
                 int deleteIndex = Integer.parseInt(inputs[1]) - 1;
+                if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
+                    throw new FishmanException.IndexOutOfBoundsException(deleteIndex + 1);
+                }
                 return new DeleteCommand(deleteIndex);
             default:
                 throw new FishmanException.InvalidCommandException(commandPhrase);

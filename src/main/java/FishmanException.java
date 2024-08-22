@@ -43,6 +43,7 @@ public class FishmanException extends Exception {
         private static final String MESSAGE_TODO = "Todo command requires a description";
         private static final String MESSAGE_DEADLINE = "Deadline command requires a description and a /by date";
         private static final String MESSAGE_EVENT = "Event command requires a description, /from, and /to dates";
+        private static final String MESSAGE_DELETE = "Delete command requires an index";
 
         /**
          * Constructs a new InvalidCommandException with a message specific to the command type.
@@ -66,6 +67,7 @@ public class FishmanException extends Exception {
                 case "todo" -> MESSAGE_TODO;
                 case "deadline" -> MESSAGE_DEADLINE;
                 case "event" -> MESSAGE_EVENT;
+                case "delete" -> MESSAGE_DELETE;
                 default -> "Missing argument for command";
             };
         }
@@ -98,6 +100,22 @@ public class FishmanException extends Exception {
          */
         public EmptyListException() {
             super(MESSAGE);
+        }
+    }
+
+    /**
+     * The exception thrown when an index is out of bounds for a given Task List.
+     */
+    public static class IndexOutOfBoundsException extends FishmanException {
+        private static final String MESSAGE = "The index provided is out of bounds for the task list.";
+
+        /**
+         * Constructs a new IndexOutOfBoundsException with message.
+         *
+         * @param index The index provided by the user that is out of bounds.
+         */
+        public IndexOutOfBoundsException(int index) {
+            super(MESSAGE + " Index provided: " + index);
         }
     }
 
