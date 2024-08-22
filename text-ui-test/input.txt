@@ -12,4 +12,6 @@ todo
 deadline return book /by
 event project meeting /from
 event project meeting /from Mon 2pm
+delete 3
+list
 bye

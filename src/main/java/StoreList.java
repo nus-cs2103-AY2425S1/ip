@@ -66,7 +66,7 @@ public class StoreList {
     public void markItem(int num) {
         items.get(num-1).mark();
         System.out.println("    " + "Wohoo! I've marked this task as done! WELL DONE!:\n" +
-                "      " + items.get(num-1).print());
+                "      " + items.get(num-1).print()) ;
         }
 
     /**
@@ -78,6 +78,19 @@ public class StoreList {
         items.get(num-1).unMark();
         System.out.println("    " + "Aww:( I've marked this task as not done yet:\n" +
                 "      " + items.get(num-1).print());
+    }
+
+    /**
+     * Deletes item
+     *
+     * @param num Index of task to be deleted.
+     */
+    public void deleteItem(int num) {
+        Task temp = items.get(num-1);
+        items.remove(num-1);
+        System.out.println("    " + "Noted! I've removed this task:\n" +
+                "      " + temp.print() + "\n    Now you have " + this.getSize() + " tasks in the list.");
+
     }
 
 

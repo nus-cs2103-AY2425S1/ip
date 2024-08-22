@@ -46,6 +46,15 @@ public class Flash {
                 userInput = scanner.nextLine();
             }
 
+            //if user inputs delete, delete task
+            else if (words[0].equals("delete")) {
+                System.out.println(line);
+                storeList.deleteItem(Integer.parseInt(words[1]));
+                System.out.println(line);
+                userInput = scanner.nextLine();
+            }
+
+
             //if user inputs to do, add item of type to do
             else if (words[0].equals("todo")) {
                     System.out.println(line);
