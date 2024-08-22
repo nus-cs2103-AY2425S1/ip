@@ -7,11 +7,18 @@ public class Nuffle {
     private static ArrayList<Task> inputList = new ArrayList<>();
 
     private static void printLine() {
+        /**
+         * This method will print out a border
+         */
         // This method will be used to print the border
         System.out.println("---------------------------------------------");
     }
 
     private static void outputList() {
+        /**
+         * This method will print out all the task that is stored in the inputList
+         */
+
         // If there is no user input in the list
         if (inputList.isEmpty()) {
             System.out.println("List is empty. No input added.");
@@ -24,6 +31,11 @@ public class Nuffle {
     }
 
     private static void markTask(int index) {
+        /**
+         * Marks a specified task based on the given index
+         *
+         * @param index the index of the task to mark
+         */
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.size()) {
             Task currTask = inputList.get(index);
@@ -40,6 +52,11 @@ public class Nuffle {
         }
     }
     private static void unMarkTask(int index) {
+        /**
+         * Unmarks a specified task based on the given index
+         *
+         * @param index the index of the task to unmark
+         */
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.size()) {
             Task currTask = inputList.get(index);
@@ -57,6 +74,11 @@ public class Nuffle {
     }
 
     private static void addTaskToList(Task task) {
+        /**
+         * Adds a specified task to the inputList
+         *
+         * @param task which is Task object
+         */
         inputList.add(task);
         printLine();
         System.out.println(" Got it. I've added this task:");
@@ -65,7 +87,31 @@ public class Nuffle {
         printLine();
     }
 
-    public static void main(String[] args) throws NuffleException {
+    private static void deleteTask(int index) {
+        /**
+         * Deletes a specified task from the inputList
+         *
+         * @param index which is the index of the task to be removed
+         */
+
+        // first, check if the provided index is valid or not
+        if (index >= 0 && index < inputList.size()) {
+            Task remove = inputList.remove(index);
+            printLine();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("   " + remove);
+            System.out.println("Now you have " + inputList.size() + " tasks in the list.");
+            printLine();
+        } else {
+            // if the index is not in range, then print an error message
+            printLine();
+            System.out.println("Hmmm... The index provided seems to be out of range. Please try again.");
+            printLine();
+
+        }
+    }
+
+    public static void main(String[] args) {
 
         // This will be starting point of the application
 
@@ -113,6 +159,13 @@ public class Nuffle {
                     int index = Integer.parseInt(userInput.substring(7)) - 1;
                     // Unmark the task by calling the function
                     unMarkTask(index);
+                } else if (userInput.startsWith("delete")) {
+                    // Program will delete the specified task based on the index provided
+
+                    // Get the index from teh user input (e.g. delete 3)
+                    int index = Integer.parseInt(userInput.substring(7)) - 1;
+                    // Delete the task by calling the function
+                    deleteTask(index);
                 } else if (userInput.startsWith("todo")) {
                     // Program will add a To-do task to the list
 
