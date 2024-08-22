@@ -1,4 +1,4 @@
-//import java.util.Scanner;
+import java.util.Scanner;
 
 public class GavinChatBot {
     public static void main(String[] args) {
@@ -18,9 +18,8 @@ public class GavinChatBot {
         System.out.println("Hello! I'm Gavin\n");
         System.out.println("What can I do for you?\n");
         System.out.println(horizontalLine);
-        System.out.println("Bye. Hope to see you again soon!");
 
-        /*
+
         // create scanner to read user input
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -39,8 +38,5 @@ public class GavinChatBot {
             System.out.println(input);
             System.out.println(horizontalLine);
         }
-
-         */
-
     }
 }
