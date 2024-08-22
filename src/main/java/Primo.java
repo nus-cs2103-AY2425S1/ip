@@ -4,12 +4,12 @@ import java.util.Scanner;
 public class Primo {
     private static final Scanner scanner = new Scanner(System.in);
     private static boolean ended = false;
-    private static ArrayList<String> list = new ArrayList<>();
+    private static ArrayList<Task> list = new ArrayList<>();
 
     private static void printList() {
         int len = list.size();
         for (int i = 0; i < len; i++) {
-            String output = String.valueOf(i + 1) + ": " + list.get(i);
+            String output = String.valueOf(i + 1) + "." + list.get(i);
             System.out.println(output);
         }
     }
@@ -26,9 +26,11 @@ public class Primo {
             sayBye();
         } else if (input.equals("list")) {
             System.out.println("\nEl Primo: ");
+            System.out.println("Here are the tasks in your list:");
             printList();
         } else {
-            list.add(input);
+            Task newTask = new Task(input);
+            list.add(newTask);
             String output = "\nEl Primo: \n" + "Added: " + input;
             System.out.println(output);
         }
