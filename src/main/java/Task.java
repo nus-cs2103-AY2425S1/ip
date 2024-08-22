@@ -14,13 +14,13 @@ public class Task {
     public void markAsDone() {
         isDone = true;
         System.out.println("Nice! I've marked this task as done:\n" +
-                "[X] " + description);
+                toString());
     }
 
     public void markAsUndone() {
         isDone = false;
         System.out.println("OK, I've marked this task as not done yet:\n" +
-                "[ ] " + description);
+                toString());
     }
     @Override
     public String toString() {
