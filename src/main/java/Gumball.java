@@ -1,26 +1,46 @@
+import java.util.Scanner;
+
 public class Gumball {
     public static void main(String[] args) {
-        line();
-        intro();
-        line();
-        outro();
-        line();
+        Gumball chat = new Gumball();
+        chat.start();
 
     }
 
-    public static void intro() {
+    public String command;
+    public Scanner input = new Scanner(System.in);
+
+    public Gumball() {
+
+    }
+
+    public void start() {
+        intro();
+        while (true){
+            command = input.nextLine();
+            if(command.equals("bye")) break;
+            print(command);
+        }
+        outro();
+    }
+
+
+    public void intro() {
         String str = "Hello! I'm Gumball \n"
                 + "What can I do for you?";
-        System.out.println(str);
+        print(str);
     }
 
-    public static void outro() {
+    public void outro() {
         String str ="Bye. Hope to see you again soon!";
-        System.out.println(str);
+        print(str);
     }
 
-    public static void line() {
+    public void print(String out) {
         String str ="____________________________________________________________";
         System.out.println(str);
+        System.out.println(out);
+        System.out.println(str);
+
     }
 }
