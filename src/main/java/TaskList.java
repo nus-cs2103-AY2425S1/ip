@@ -4,7 +4,7 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     public void addTask(Task task) {
@@ -13,6 +13,14 @@ public class TaskList {
 
     public Task getTask(int index) {
         return tasks.get(index);
+    }
+
+    public int getIndex(Task task) {
+        return tasks.indexOf(task);
+    }
+
+    public void replaceTask(int index, Task newTask) {
+        tasks.set(index, newTask);
     }
 
     public int getCount() {
