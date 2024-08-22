@@ -12,7 +12,7 @@ public class Bopes {
         ArrayList<Task> inputs = new ArrayList<Task>();
 
         while (true) {
-            System.out.println("What can I do for you?");
+            System.out.println("\nWhat can I do for you?");
             input = scanner.nextLine();
 
             // Exit 

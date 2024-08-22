@@ -1,23 +1,94 @@
 Bopes is a personal assistant that helps you manage your tasks.
+
 What can I do for you?
 Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
-What can I do for you?
-Here are the tasks in your list:
-[T][ ] borrow book
+
 What can I do for you?
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[T][ ] buy groceries
 Now you have 2 tasks in the list.
+
+What can I do for you?
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
+Now you have 3 tasks in the list.
+
 What can I do for you?
 Got it. I've added this task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+Now you have 4 tasks in the list.
+
+What can I do for you?
+Got it. I've added this task:
+[T][ ] study for exams
+Now you have 5 tasks in the list.
+
 What can I do for you?
 Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [T][ ] buy groceries
+3. [D][ ] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+5. [T][ ] study for exams
+
+What can I do for you?
+Nice! I've marked this task as done:
+[T][X] borrow book
+Marked task 1 as done.
+
+What can I do for you?
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+Marked task 3 as done.
+
+What can I do for you?
+Here are the tasks in your list:
+1. [T][X] borrow book
+2. [T][ ] buy groceries
+3. [D][X] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+5. [T][ ] study for exams
+
+What can I do for you?
+OK, I've marked this task as not done yet:
 [T][ ] borrow book
-[D][ ] return book (by: Sunday)
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Unmarked task 1 as undone.
+
+What can I do for you?
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [T][ ] buy groceries
+3. [D][X] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+5. [T][ ] study for exams
+
+What can I do for you?
+Got it. I've added this task:
+[D][ ] submit assignment (by: Friday)
+Now you have 6 tasks in the list.
+
+What can I do for you?
+Got it. I've added this task:
+[E][ ] team lunch (from: Fri 12pm to: 2pm)
+Now you have 7 tasks in the list.
+
+What can I do for you?
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [T][ ] buy groceries
+3. [D][X] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+5. [T][ ] study for exams
+6. [D][ ] submit assignment (by: Friday)
+7. [E][ ] team lunch (from: Fri 12pm to: 2pm)
+
+What can I do for you?
+Error: The task index 8 is out of range. Please provide a valid task number between 1 and 7.
+
+What can I do for you?
+Error: Incorrect event format. Please use the format 'event <task> /from <start> /to <end>'. Example: 'event project meeting /from Monday 2pm /to Monday 4pm'.
+
 What can I do for you?
 Goodbye!
