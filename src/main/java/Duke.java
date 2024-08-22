@@ -1,9 +1,11 @@
 public class Duke {
 
-    private static void lnDiv() {
-        System.out.println("________________________________");
+    public static void lnDiv() {
+        System.out.println("_______________________________________________");
     }
     public static void main(String[] args) {
+
+        Parser p = new Parser();
         String logo = " _   _       _                 _   \n"
                 + "| \\ | | ___ | |_    ____ ____ | |_ \n"
                 + "|  \\| |/ _ \\  __|  / _` | '_ \\| __|\n"
@@ -13,8 +15,7 @@ public class Duke {
         System.out.println(logo+ "Hello I'm Not-gpt,");
         System.out.println("what can I do for you?");
         lnDiv();
-        System.out.println("Good bye, Thank you for using me!");
-        lnDiv();
+        p.parse();
 
     }
 }
