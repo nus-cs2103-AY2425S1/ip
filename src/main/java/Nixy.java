@@ -2,10 +2,11 @@ import java.util.Scanner;
 
 public class Nixy {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
+    static String[] tasks = new String[100];
     public static void main(String[] args) {
         String chatbotName = "Nixy";
         indentPrint(wrapWithHorizontalLines("Hello! I'm " + chatbotName, "What can I do for you?"));
-        echo();
+        store();
     }
 
     private static void echo() {
@@ -17,6 +18,21 @@ public class Nixy {
         }
         indentPrint(wrapWithHorizontalLines(input));
         echo();
+    }
+
+    /**
+     * Read and store new task in the list of tasks.
+     */
+    private static void store() {
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        if (input.equals("bye")) {
+            exit();
+            return;
+        }
+        tasks[tasks.length - 1] = input;
+        indentPrint(wrapWithHorizontalLines("added: " + input));
+        store();
     }
 
     private static void exit() {
