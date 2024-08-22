@@ -25,7 +25,7 @@ public class TaskTracker {
         }
     }
 
-    public void markDone(int z) throws InvalidIndexException {
+    public void markDone(int z) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
             System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
         } else if (z < 0 || z >= this.counter) {
@@ -36,7 +36,7 @@ public class TaskTracker {
         }
     }
 
-    public void unmarkDone(int q) throws InvalidIndexException {
+    public void unmarkDone(int q) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
             System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
         } else if (q < 0 || q >= this.counter) {
