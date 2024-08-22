@@ -32,3 +32,4 @@ delete 0
 delete 0.5
 delete 1
 list
+bye

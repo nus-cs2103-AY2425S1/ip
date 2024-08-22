@@ -31,6 +31,11 @@ public class LogicController {
 
         isAwaitingInput = true;
 
+        if (!inputScanner.hasNext()) {
+            display.output("Oops, please type something!");
+            isAwaitingInput = false;
+            awaitInput();
+        }
         String input = inputScanner.nextLine();
 
         isAwaitingInput = false;
@@ -108,7 +113,7 @@ public class LogicController {
 
                     display.output(new String[]{
                             "Alright, the task has been added!",
-                            taskList.insert(type, scanner.nextLine()).toString(),
+                            "\t" + taskList.insert(type, scanner.nextLine()).toString(),
                             String.format("You now have %s %s!", taskList.length(), taskList.length() == 1 ? "task" : "tasks")
                     });
                 } catch (TaskFieldException e) {
@@ -137,7 +142,6 @@ public class LogicController {
             default:
                 display.output("Oh no! I'm afraid I don't understand...");
         }
-
 
         scanner.close();
         awaitInput();
