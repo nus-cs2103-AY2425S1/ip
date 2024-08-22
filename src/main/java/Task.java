@@ -27,7 +27,8 @@ public class Task {
      *
      * @return returns the task description
      */
-    public String printTask() {
+    @Override
+    public String toString() {
         return (isDone ? "[X]" : "[ ]") + " " + name;
     }
 }
