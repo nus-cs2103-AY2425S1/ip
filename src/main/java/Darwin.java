@@ -4,13 +4,18 @@ import java.util.Scanner;
 
 public class Darwin {
     static final String NAME = "Darwin";
+    private ArrayList<Task> taskList = new ArrayList<>();
     static final String END = "bye";
     static final String CHECK_LIST = "list";
+    static final String ADD_TASK_MSG = "Got it. I've added this task:";
+    static final String TASK_COUNT_MSG = "Now you have %d tasks in the list.";
     static final String MARK = "mark";
     static final String MARK_MSG = "Nice! I've marked this task as done:";
-    static final String UNMARK_MSG = "OK, I've marked this task as not done yet:";
     static final String UNMARK = "unmark";
-    private ArrayList<Task> taskList = new ArrayList<>();
+    static final String UNMARK_MSG = "OK, I've marked this task as not done yet:";
+    static final String TODO = "todo";
+    static final String DEADLINE = "deadline";
+    static final String EVENT = "event";
 
     private static void reply(String in) {
         String line = "-".repeat(50);
@@ -18,11 +23,44 @@ public class Darwin {
         System.out.println(in);
         System.out.println(line);
     }
+    private static String[] parseInput(String in) {
+        in = in.trim();
+        int spaceIdx = in.indexOf(" ");
+        if (spaceIdx == -1) {
+            return new String[] {in, null};
+        }
+        String cmd = in.substring(0, spaceIdx);
+        String args = in.substring(spaceIdx + 1).trim();
+        return new String[] {cmd, args};
+    }
+    private int getTaskCount() {
+        return this.taskList.size();
+    }
+    private static Task createTask(String cmd, String taskArgs) {
+        String[] taskArgsArr = taskArgs.split(" /by| /from| /to", 3);
+        // TODO: handle wrong args
+        String taskName = taskArgsArr[0];
 
-    private void addTask(String taskName) {
-        Task task = new Task(taskName);
+        switch (cmd.toLowerCase()) {
+            case Darwin.TODO:
+                return new ToDo(taskName);
+            case Darwin.DEADLINE:
+                String taskDeadline = taskArgsArr[1].trim();
+                return new Deadline(taskName, taskDeadline);
+            case Darwin.EVENT:
+                // assume that /from will be before /to
+                String taskStart = taskArgsArr[1].trim();
+                String taskEnd = taskArgsArr[2].trim();
+                return new Event(taskName, taskStart, taskEnd);
+            default:
+                throw new IllegalArgumentException("Wrong task format");
+        }
+    }
+    private void addTask(String cmd, String taskArgs) {
+        Task task = Darwin.createTask(cmd, taskArgs);
         this.taskList.add(task);
-        String added = String.format("added: %s", task.getName());
+        String added = String.format("%s\n  %s\n%s", Darwin.ADD_TASK_MSG, task.getTaskInfo(),
+                String.format(Darwin.TASK_COUNT_MSG, this.getTaskCount()));
         Darwin.reply(added);
     }
 
@@ -36,43 +74,31 @@ public class Darwin {
         Darwin.reply(String.valueOf(taskList));
     }
 
-    private boolean parseMarkUnmarkCommand(String in) {
+    private void parseMarkUnmarkCommand(String cmd, String taskIdxStr) {
         /*
-        Returns a boolean of whether the input is a mark or unmark command.
         Handles the marking and unmarking of tasks.
          */
-        if (!in.startsWith(Darwin.MARK) && !in.startsWith(Darwin.UNMARK)) {
-            return false;
-        }
-        String[] parts = in.split(" ");
-        if (parts.length != 2) {
-            return false;
-        }
         try {
-            String cmdName = parts[0];
-            int taskIdx = Integer.parseInt(parts[1].trim()) - 1;
-            if (taskIdx >= 0 && taskIdx < this.taskList.size()) {
-                Task task = this.taskList.get(taskIdx);
-                String reply = "";
-                // should handle if the task is already done and mark cmd is executed
-                if (cmdName.equals(Darwin.MARK)) {
-                    reply += Darwin.MARK_MSG;
-                    task.markDone();
-                } else {
-                    reply += Darwin.UNMARK_MSG;
-                    task.unmarkDone();
-                }
-                reply += "\n  " + task.getTaskInfo();
-                Darwin.reply(reply);
-                return true;
-            } else {
-                return false;
+            int taskIdx = Integer.parseInt(taskIdxStr) - 1;
+            if (taskIdx < 0 || taskIdx >= this.taskList.size()) {
+                throw new IndexOutOfBoundsException();
             }
-        } catch (NumberFormatException e) {
-            return false;
+            Task task = this.taskList.get(taskIdx);
+            String reply = "";
+            // should handle if the task is already done and mark cmd is executed
+            if (cmd.equals(Darwin.MARK)) {
+                reply += Darwin.MARK_MSG;
+                task.markDone();
+            } else {
+                reply += Darwin.UNMARK_MSG;
+                task.unmarkDone();
+            }
+            reply += "\n  " + task.getTaskInfo();
+            Darwin.reply(reply);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            Darwin.reply("Invalid task number");
         }
     }
-
     public void initChat() {
         String startMsg = String.format("Hello! I'm %s\nWhat can I do for you?", NAME);
         String endMsg = "Bye. Hope to see you again soon!";
@@ -81,13 +107,18 @@ public class Darwin {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String in = scanner.nextLine();
-            if (in.equals(Darwin.END)) {
+            String[] inArr = Darwin.parseInput(in);
+            String cmd = inArr[0];
+            String args = inArr[1];
+            if (cmd.equals(Darwin.END)) {
                 Darwin.reply(endMsg);
                 break;
-            } else if (in.equals(Darwin.CHECK_LIST)) {
+            } else if (cmd.equals(Darwin.CHECK_LIST)) {
                 this.getTaskList();
-            } else if (!this.parseMarkUnmarkCommand(in)) {
-                this.addTask(in);
+            } else if (cmd.equals(Darwin.MARK) || cmd.equals(Darwin.UNMARK)) {
+                this.parseMarkUnmarkCommand(cmd, args);
+            } else {
+                this.addTask(cmd, args);
             }
         }
     }

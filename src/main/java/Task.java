@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String name;
     private boolean done = false;
 
@@ -17,8 +17,9 @@ public class Task {
     public void unmarkDone() {
         this.done = false;
     }
+    public abstract String getSymbol();
     public String getTaskInfo() {
         String check = this.isDone() ? "X" : " ";
-        return String.format("[%s] %s", check, this.getName());
+        return String.format("[%s][%s] %s", this.getSymbol(), check, this.getName());
     }
 }
