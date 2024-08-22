@@ -1,10 +1,13 @@
 public class Task {
     private boolean isDone;
     private String name;
+    public static int boolToInt(boolean b) {
+        return b ? 1 : 0;
+    }
 
-    public Task(String name) {
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
     public void mark() {
         this.isDone = true;
@@ -14,6 +17,7 @@ public class Task {
         this.isDone = false;
     }
 
+    @Override
     public String toString() {
         String checkbox;
         if (isDone) {
@@ -22,5 +26,16 @@ public class Task {
             checkbox = "[ ] ";
         }
         return checkbox + name;
+    }
+
+    public String toFileString() {
+        String s;
+        if (isDone) {
+            s = "1 | " + name;
+        } else {
+            s = "0 | " + name;
+        }
+
+        return s;
     }
 }
