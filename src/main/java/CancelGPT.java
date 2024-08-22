@@ -52,14 +52,14 @@ public class CancelGPT {
             if (command.equals("list")) {
                 displayTasksList();
             } else if (command.startsWith("delete")) {
-                int taskNumber = parseDeleteTaskNumber(command);
+                int taskNumber = parseDeleteTaskCommand(command);
                 deleteTask(taskNumber);
             } else if (command.startsWith("mark")) {
-                int taskNumber = parseMarkTaskNumber(command);
-                markTaskNumber(taskNumber);
+                int taskNumber = parseMarkTaskCommand(command);
+                markTask(taskNumber);
             } else if (command.startsWith("unmark")) {
-                int taskNumber = parseUnmarkTaskNumber(command);
-                unmarkTaskNumber(taskNumber);
+                int taskNumber = parseUnmarkTaskCommand(command);
+                unmarkTask(taskNumber);
             } else if (command.startsWith("todo")) {
                 Task toDoTask = parseToDoTaskCreationCommand(command);
                 handleAddingTask(toDoTask);
@@ -87,7 +87,7 @@ public class CancelGPT {
         System.out.println("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
     }
 
-    public int parseDeleteTaskNumber(String command) throws DeleteTaskInputException {
+    public int parseDeleteTaskCommand(String command) throws DeleteTaskInputException {
         String[] commandArray = command.split(" ");
         if (commandArray.length != 2) {
             throw new DeleteTaskInputException();
@@ -99,7 +99,7 @@ public class CancelGPT {
             throw new DeleteTaskInputException();
         }
     }
-    public int parseMarkTaskNumber(String command) throws MarkTaskInputException {
+    public int parseMarkTaskCommand(String command) throws MarkTaskInputException {
         String[] commandArray = command.split(" ");
         if (commandArray.length != 2) {
             throw new MarkTaskInputException();
@@ -112,7 +112,7 @@ public class CancelGPT {
         }
     }
 
-    public int parseUnmarkTaskNumber(String command) throws UnmarkTaskInputException {
+    public int parseUnmarkTaskCommand(String command) throws UnmarkTaskInputException {
         String[] commandArray = command.split(" ");
         if (commandArray.length != 2) {
             throw new UnmarkTaskInputException();
@@ -188,43 +188,13 @@ public class CancelGPT {
         return new Event(taskDescription, fromDate, toDate);
     }
 
-    public Task createToDoTask(String taskDescription) throws InvalidTask {
-        if (taskDescription == null || taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for ToDo task");
-        }
-        return new ToDo(taskDescription);
-    }
-
-    public Task createDeadlineTask(String taskDescription, String byDate) throws InvalidTask {
-        if (taskDescription == null || taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Deadline task");
-        }
-        if (byDate == null || byDate.isEmpty()) {
-            throw new InvalidTask("Missing by date for Deadline task");
-        }
-        return new Deadline(taskDescription, byDate);
-    }
-
-    public Task createEventTask(String taskDescription, String fromDate, String toDate) throws InvalidTask {
-        if (taskDescription == null || taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Event task");
-        }
-        if (fromDate == null || fromDate.isEmpty()) {
-            throw new InvalidTask("Missing from date for Event task");
-        }
-        if (toDate == null || toDate.isEmpty()) {
-            throw new InvalidTask("Missing to date for Event task");
-        }
-        return new Event(taskDescription, fromDate, toDate);
-    }
-
     public void handleAddingTask(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + addToTaskList(task));
         System.out.println("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
     }
 
-    public void markTaskNumber(int taskNumber) throws TaskDoesNotExist {
+    public void markTask(int taskNumber) throws TaskDoesNotExist {
         if (taskNumber <= 0 || taskNumber > this.TASKS_LIST.size()) {
             throw new TaskDoesNotExist();
         }
@@ -233,7 +203,7 @@ public class CancelGPT {
         System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
 
-    public void unmarkTaskNumber(int taskNumber) throws TaskDoesNotExist {
+    public void unmarkTask(int taskNumber) throws TaskDoesNotExist {
         if (taskNumber <= 0 || taskNumber > this.TASKS_LIST.size()) {
             throw new TaskDoesNotExist();
         }
