@@ -82,6 +82,13 @@ public class Llama {
                 } catch (InvalidTaskException e) {
                     displayString(e.getMessage());
                 }
+            } else if (command.equals("delete")) {
+                int index = Integer.parseInt(remaining);
+                try {
+                    tasks.deleteTask(index);
+                } catch (InvalidTaskException e) {
+                    displayString(e.getMessage());
+                }
             } else {
                 if (command.equals("todo")) {                       // add todo
                     try {

@@ -17,6 +17,17 @@ public class TaskStorage {
         System.out.println("\tYou now have " + this.numberOfTasks + " tasks.");
     }
 
+    public void deleteTask(int i) throws InvalidTaskException {
+        if (i <= 0 || i > this.numberOfTasks) {
+            throw new InvalidTaskException("Task does not exist!");
+        }
+        Task task = this.taskList.get(i - 1);
+        this.taskList.remove(i - 1);
+        System.out.println("\tDeleted: " + task);
+        this.numberOfTasks--;
+        System.out.println("\tYou now have " + this.numberOfTasks + " tasks.");
+    }
+
     public void markTask(int i) throws InvalidTaskException {
         if (i <= 0 || i > this.numberOfTasks) {
             throw new InvalidTaskException("Task does not exist!");
