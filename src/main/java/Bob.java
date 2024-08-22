@@ -1,27 +1,23 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Bob {
     public static void main(String[] args) {
         String logo = "Bob";
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
-        Task[] list = new Task[100];
-        int count = 0;
+        ArrayList<Task> list = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
         while(!input.equals("bye")) {
             try {
-                if(!input.startsWith("list") && !input.startsWith("bye") && !input.startsWith("unmark") && !input.startsWith("mark") && !input.startsWith("todo") && !input.startsWith("deadline") && !input.startsWith("event")) {
+                if(!input.startsWith("list") && !input.startsWith("bye") && !input.startsWith("unmark") && !input.startsWith("mark") && !input.startsWith("todo") && !input.startsWith("deadline") && !input.startsWith("event") && !input.startsWith("delete")) {
                     throw new BobException("Invalid command. Please enter a valid command. Valid commands are: list, unmark, mark, todo, deadline, event, and bye.");
                 }
                 if(input.startsWith("list")) {
-                    if(list[0] == null) {
-                        throw new BobException("You have no tasks in the list.");
-                    }
                     System.out.println("Here are the tasks in your list:");
-                    for(int i = 0; i < count; i++) {
-                        System.out.println((i + 1) + "." + list[i]);
+                    for(int i = 0; i < list.size(); i++) {
+                        System.out.println((i + 1) + "." + list.get(i));
                     }
                     input = scanner.nextLine();
                     continue;
@@ -30,26 +26,40 @@ public class Bob {
                 if(input.contains("unmark")) {
                     String[] parts = input.split(" ");
                     int index = Integer.parseInt(parts[1]) - 1;
-                    if(index < 0 || index >= count) {
+                    if(index < 0 || index >= list.size()) {
                         throw new BobException("Please enter a valid task number.");
                     }
-                    list[index].markAsNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:\n" + list[index]);
+                    list.get(index).markAsNotDone();
+                    System.out.println("OK, I've marked this task as not done yet:\n" + list.get(index));
                     input = scanner.nextLine();
                     continue;
                 }
                 if(input.contains("mark") && !input.contains("unmark")) {
                     String[] parts = input.split(" ");
                     int index = Integer.parseInt(parts[1]) - 1;
-                    if(index < 0 || index >= count) {
+                    if(index < 0 || index >= list.size()) {
                         throw new BobException("Please enter a valid task number.");
                     }
-                    list[index].markAsDone();
-                    System.out.println("Nice! I've marked this task as done:\n" + list[index]);
+                    list.get(index).markAsDone();
+                    System.out.println("Nice! I've marked this task as done:\n" + list.get(index));
                     input = scanner.nextLine();
                     continue;
                 }
                 Task t = null;
+
+                if(input.startsWith("delete")) {
+                    String[] parts = input.split(" ");
+                    int index = Integer.parseInt(parts[1]) - 1;
+                    if(index < 0 || index >= list.size()) {
+                        throw new BobException("Please enter a valid task number.");
+                    }
+
+                    System.out.println("Noted. I've removed this task:\n" + list.get(index));
+                    list.remove(index);
+                    System.out.println("Now you have " + list.size() + (list.isEmpty() ? " task in the list." : " tasks in the list."));
+                    input = scanner.nextLine();
+                    continue;
+                }
 
                 if(input.startsWith("todo")) {
                     String[] parts = input.split(" ");
@@ -86,7 +96,6 @@ public class Bob {
                     if (descriptionStr.isEmpty()) {
                         throw new BobException("The description of a deadline cannot be empty.");
                     }
-
 
                     t = new Deadline(descriptionStr, dateStr);
                 } else if (input.startsWith("event")) {
@@ -129,9 +138,8 @@ public class Bob {
                     t = new Event(descriptionStr, fromStr, toStr);
                 }
                 System.out.println("Got it. I've added this task:\n" + t);
-                System.out.println("Now you have " + (count + 1) + (count == 0 ? " task in the list." : " tasks in the list."));
-                list[count] = t;
-                count++;
+                System.out.println("Now you have " + (list.size() + 1) + (list.isEmpty() ? " task in the list." : " tasks in the list."));
+                list.add(t);
             } catch (BobException e) {
                 System.out.println("Error: " + e.getMessage());
             } catch (Exception e) {
