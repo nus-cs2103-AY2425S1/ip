@@ -15,15 +15,24 @@ public class TaskTracker {
                 if (this.taskList[i].getIsDone() == false) {
                     System.out.println("" + (i + 1) + ". [ ] " + this.taskList[i].getName());
                 } else {
-                    System.out.println("" + (i + 1) + ". [X] " + this.taskList[i].getIsDone());
+                    System.out.println("" + (i + 1) + ". [X] " + this.taskList[i].getName());
                 }
 
             }
         }
     }
 
+    public void markDone(int z) {
+        this.taskList[z].mark();
+    }
+
+    public void unmarkDone(int q) {
+        this.taskList[q].unmark();
+    }
+
     public void updateList(String s) {
         taskList[this.counter] = new Task(s);
         this.counter++;
+        System.out.println("added " + s);
     }
 }
