@@ -17,10 +17,27 @@ public class StoreList {
      *
      * @param item task to be added.
      */
-    public void addItem(String item) {
-        t = new Task(item);
-        items.add(t);
-        System.out.println("    added: " + t.getTaskDesc());
+    public void addItem(String item, String type) {
+
+        if (type.equals("todo")) {
+            t = new ToDos(item);
+            items.add(t);
+
+        } else if (type.equals("deadline")) {
+            t = new Deadlines(item);
+            items.add(t);
+
+        } else {
+            t = new Events(item);
+                items.add(t);
+            }
+        System.out.println("    Got it. I've added this task:\n" + "      " + t.print()
+                + "\n    Now you have " + this.getSize() + " tasks in the list.");
+    }
+
+    //getter
+    public int getSize() {
+        return items.size();
     }
 
     /**
@@ -51,6 +68,7 @@ public class StoreList {
      *
      */
     public void displayItems() {
+        System.out.println("    Here are the tasks in your list:");
         for (int i = 0; i < items.size(); i++) {
             System.out.println("    " + (i + 1) + "." + items.get(i).print());
         }

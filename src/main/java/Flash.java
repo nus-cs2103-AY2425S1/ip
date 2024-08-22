@@ -44,11 +44,23 @@ public class Flash {
                 storeList.displayItems();
                 System.out.println(line);
                 userInput = scanner.nextLine();
+            }
+
+            else if (words[0].equals("todo")) {
+                System.out.println(line);
+                storeList.addItem(userInput.substring(4), "todo");
+                System.out.println(line);
+                userInput = scanner.nextLine();
+
+            } else if (words[0].equals("deadline")) {
+                System.out.println(line);
+                storeList.addItem(userInput.substring(8), "deadline");
+                System.out.println(line);
+                userInput = scanner.nextLine();
 
             } else {
-                //If user types anything other than Bye, repeat it
                 System.out.println(line);
-                storeList.addItem(userInput);
+                storeList.addItem(userInput.substring(5), "event");
                 System.out.println(line);
                 userInput = scanner.nextLine();
             }
