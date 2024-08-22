@@ -17,7 +17,7 @@ public class Task {
         String status = this.status ? "X": " ";
         //need to compensate one space here because we set first word to ""
 
-        return String.format("[%s]%s ", status, this.details);
+        return String.format("[%s]%s", status, this.details);
     }
 
     public String getDetails() {

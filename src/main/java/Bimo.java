@@ -43,25 +43,26 @@ public class Bimo {
                         action.equals("event") ) {
                 System.out.println("    Got it. I've added this task:");
                 if (action.equals("todo")) {
-                    String[] temp = command.split(" ");
-                    temp[0] = "";
-                    Task task = new ToDo(String.join(" ", temp));
+                    Task task = new ToDo(getDetails(command));
                     Bimo.list[length] = task;
                     length += 1;
                     System.out.println("        "+ task.toString());
                 } else if (action.equals("deadline")) {
-
+                    String[] temp = command.split("/");
+                    String dueDate = processDate(temp[1]);
+                    String details = getDetails(temp[0]);
+                    Task task = new Deadline(details, dueDate);
+                    Bimo.list[length] = task;
+                    length += 1;
+                    System.out.println("        "+ task.toString());
                 } else {
 
                 }
                 String word = length == 1 ? "task" : "tasks";
                 System.out.println(String.format("    Now you have %d %s in the list.", length, word));
             } else {
-
+                System.out.println("    Invalid command");
             }
-
-
-
             System.out.println(line + "\n");
             command = scanner.nextLine();
         }
@@ -80,7 +81,16 @@ public class Bimo {
         }
     }
 
+    public static String getDetails(String mixed) {
+        String[] temp = mixed.split(" ");
+        temp[0] = "";
+        return String.join(" ", temp);
+    }
 
-
+    public static String processDate(String invalid) {
+        String[] temp = invalid.split(" ");
+        temp[0] = "";
+        return String.join(" ", temp);
+    }
 
 }
