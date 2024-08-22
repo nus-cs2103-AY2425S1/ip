@@ -6,7 +6,7 @@ package exception;
  * @author Toh Yi Hui A0259080A
  */
 public class IncorrectTaskFormatException extends BotException {
-    public IncorrectTaskFormatException() {
-        super("data.txt at root folder has corrupted data.");
+    public IncorrectTaskFormatException(String path) {
+        super(path + " at root folder has corrupted data.");
     }
 }

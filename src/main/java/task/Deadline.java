@@ -34,6 +34,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Return the dateline of the task.
+     *
+     * @return the dateline of the task.
+     */
+    public String getDeadline() {
+        return deadline;
+    }
+
+    /**
      * Return the String representation of the task.
      */
     @Override

@@ -40,6 +40,24 @@ public class Event extends Task {
     }
 
     /**
+     * Return the start time of the task.
+     *
+     * @return the start time of the task.
+     */
+    public String getStart() {
+        return start;
+    }
+
+    /**
+     * Return the end time of the task.
+     *
+     * @return the end time of the task.
+     */
+    public String getEnd() {
+        return end;
+    }
+
+    /**
      * Return the String representation of the task.
      */
     @Override

@@ -6,10 +6,22 @@ then
     mkdir ../bin
 fi
 
+# create data directory if it doesn't exist
+if [ ! -d "./data" ]
+then
+    mkdir ./data
+fi
+
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then
     rm ACTUAL.TXT
+fi
+
+# delete data from previous run
+if [ -e "./data/task.txt" ]
+then
+    rm ./data/task.txt
 fi
 
 # compile the code into the bin folder, terminates if error occurred

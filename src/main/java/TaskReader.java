@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import java.io.File;
@@ -22,6 +21,7 @@ import exception.IncorrectTaskFormatException;
  * @author Toh Yi Hui A0259080A
  */
 public class TaskReader {
+    private File file;
     private Scanner scanner;
     private Parser parser;
 
@@ -32,6 +32,7 @@ public class TaskReader {
      * @throws FileNotFoundException when the file is not found.
      */
     public TaskReader(File file) throws FileNotFoundException {
+        this.file = file;
         scanner = new Scanner(file);
     }
 
@@ -66,7 +67,7 @@ public class TaskReader {
      *                                      the expected format.
      */
     private Task parse(String line) throws IncorrectTaskFormatException {
-        String[] array = line.split("|");
+        String[] array = line.split(" \\| ");
 
         String type = readType(array);
         boolean isComplete = readIsComplete(array);
@@ -83,25 +84,25 @@ public class TaskReader {
             String endTime = readEndTime(array);
             return new Event(description, isComplete, startTime, endTime);
         default:
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
     }
 
     /**
      * Read the type of the task based on the given line.
      *
-     * @param array the line data split with the "|" delimiter.
+     * @param array the line data split with the " | " delimiter.
      * @return the type of the task in String (either "T", "D", or "E").
      * @throws IncorrectTaskFormatException when the type is not "T" or "D" or "E".
      */
     private String readType(String[] array) throws IncorrectTaskFormatException {
         if (array == null || array.length < 1) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
 
-        String type = array[0].trim();
+        String type = array[0];
         if (!type.equals("T") && !type.equals("D") && !type.equals("E")) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
 
         return type;
@@ -110,18 +111,18 @@ public class TaskReader {
     /**
      * Read whether the task is completed.
      *
-     * @param array the line data split with the "|" delimiter.
+     * @param array the line data split with the " | " delimiter.
      * @return true for 1, false for 0.
      * @throws IncorrectTaskFormatException when the data is not "1" or "0".
      */
     private boolean readIsComplete(String[] array) throws IncorrectTaskFormatException {
         if (array == null || array.length < 2) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
 
-        String isComplete = array[1].trim();
+        String isComplete = array[1];
         if (!isComplete.equals("0") && !isComplete.equals("1")) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
 
         return !isComplete.equals("0");
@@ -130,16 +131,16 @@ public class TaskReader {
     /**
      * Read the description of the task.
      *
-     * @param array the line data split with the "|" delimiter.
+     * @param array the line data split with the " | " delimiter.
      * @return the description of the task.
      * @throws IncorrectTaskFormatException when the data given is not correct.
      */
     private String readDescription(String[] array) throws IncorrectTaskFormatException {
         if (array == null || array.length < 3) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
 
-        return array[2].trim();
+        return array[2];
     }
 
     /**
@@ -155,7 +156,7 @@ public class TaskReader {
         try {
             return LocalDateTime.parse(s, formatter);
         } catch (DateTimeParseException e) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
         */
     }
@@ -163,13 +164,13 @@ public class TaskReader {
     /**
      * Read the date time of a dateline task.
      *
-     * @param array the line data split with the "|" delimiter.
+     * @param array the line data split with the " | " delimiter.
      * @return the date time of the task in a LocalDateTime object.
      * @throws IncorrectTaskFormatException when the data cannot be parsed as a LocalDateTime.
      */
     private String readDateTime(String[] array) throws IncorrectTaskFormatException {
         if (array == null || array.length < 4) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
 
         return parseTime(array[3]);
@@ -178,7 +179,7 @@ public class TaskReader {
     /**
      * Read the start time of an Event task.
      *
-     * @param array the line data split with the "|" delimiter.
+     * @param array the line data split with the " | " delimiter.
      * @return the date time of the task in a LocalDateTime object.
      * @throws IncorrectTaskFormatException when the data cannot be parsed as a LocalDateTime.
      */
@@ -190,13 +191,13 @@ public class TaskReader {
     /**
      * Read the end time of an Event task.
      *
-     * @param array the line data split with the "|" delimiter.
+     * @param array the line data split with the " | " delimiter.
      * @return the date time of the task in a LocalDateTime object.
      * @throws IncorrectTaskFormatException when the data cannot be parsed as a LocalDateTime.
      */
     private String readEndTime(String[] array) throws IncorrectTaskFormatException {
         if (array == null || array.length < 5) {
-            throw new IncorrectTaskFormatException();
+            throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
 
         return parseTime(array[4]);

@@ -63,6 +63,15 @@ public class Task {
     }
 
     /**
+     * Returns the description of the task.
+     *
+     * @return the description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Return the String representation of the task.
      */
     @Override

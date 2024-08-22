@@ -3,7 +3,9 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import executable.Executable;
 import executable.Greet;
@@ -25,6 +27,9 @@ public class YihuiBot {
     // The name of this bot
     private static final String NAME = "YihuiBot";
 
+    // The file path to read tasks data from
+    private static final String FILEPATH = "data/task.txt";
+
     // List of tasks
     private static ArrayList<Task> tasks;
 
@@ -32,7 +37,7 @@ public class YihuiBot {
         try {
             initializeTasks();
         } catch (IncorrectTaskFormatException e) {
-            prettyPrint("An error occured. " + e.getMessage());
+            normalPrint("An error occured. " + e.getMessage());
             return;
         }
         greetings();
@@ -61,29 +66,42 @@ public class YihuiBot {
                     isExit = true;
                 }
             } catch (IllegalStateException | NoSuchElementException | NullPointerException e) {
-                prettyPrint("An error occured. " + e.getMessage());
+                normalPrint("An error occured. " + e.getMessage());
                 isExit = true;
             } catch (BotException e) {
                 prettyPrint(e.getMessage());
             }
         }
         userInput.close();
+        try {
+            writeTasksToFile();
+        } catch (IOException e) {
+            normalPrint("An error occured while writing to file.\n" + e.getMessage());
+        }
     }
 
     private static void initializeTasks() throws IncorrectTaskFormatException {
-        prettyPrint("Initializing tasks...");
-        String path = "data/task.txt";
-        File data = new File(path);
+        normalPrint("Initializing tasks...");
+        File data = new File(FILEPATH);
         try {
             TaskReader taskReader = new TaskReader(data);
             tasks = taskReader.read();
         } catch (FileNotFoundException e) {
-            prettyPrint("No file with path ./data/task.txt found.\n"
-                    + "If this file exists, make sure to run the program where ./data/task.txt is accessible.\n"
+            normalPrint("No file with path " + FILEPATH + " found.\n"
+                    + "If this file exists, make sure to run the program where "
+                    + FILEPATH + " is accessible.\n"
                     + "Initializing an empty array of tasks...");
             tasks = new ArrayList<>();
         }
-        prettyPrint("Tasks initialized");
+        normalPrint("Tasks initialized");
+    }
+
+    private static void writeTasksToFile() throws IOException {
+        normalPrint("Writing tasks to " + FILEPATH + "...");
+        TaskWriter taskWriter = new TaskWriter(FILEPATH, tasks);
+        taskWriter.write();
+        taskWriter.close();
+        normalPrint("File written succesfully.");
     }
 
     private static void greetings() {
@@ -95,6 +113,10 @@ public class YihuiBot {
     private static void prettyPrint(String s) {
         String wrapped = wrapStringWithHorizontalLines(s);
         System.out.println(wrapped);
+    }
+
+    private static void normalPrint(String s) {
+        System.out.println(s);
     }
 
     private static String wrapStringWithHorizontalLines(String s) {
