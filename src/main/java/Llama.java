@@ -38,7 +38,7 @@ public class Llama {
         String hr = "____________________________________________________________" ;
         Scanner sc = new Scanner(System.in);
 
-        TaskStorage tasks = new TaskStorage(100);
+        TaskStorage tasks = new TaskStorage();
 
         // Initializing message
         displayString(hr);
