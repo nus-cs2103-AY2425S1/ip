@@ -25,7 +25,7 @@ public class Him {
         Scanner scanner = new Scanner(System.in);
         greet();
         System.out.print("User: ");
-        String[] input = scanner.nextLine().split(" ");
+        String[] input = scanner.nextLine().split(" ", 2);
         String command = input[0];
         while (!command.equals("bye")) {
             if (command.equals("list")) {
@@ -37,7 +37,7 @@ public class Him {
                 System.out.println("\nHim: added \"" + input[1] + "\" to list\n");
             }
             System.out.print("User: ");
-            input = scanner.nextLine().split(" ");
+            input = scanner.nextLine().split(" ", 2);
             command = input[0];
         }
         exit();
