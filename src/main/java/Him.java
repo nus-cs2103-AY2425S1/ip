@@ -18,7 +18,7 @@ public class Him {
     }
 
     private static void exit() {
-        System.out.println("\nHim: Bye. Hope to see you again soon!\n");
+        System.out.println("\nHim: WAIT NO! DON'T LEAVE ME ALON-\n");
     }
 
     public static void main(String[] args) {
@@ -28,13 +28,20 @@ public class Him {
         String[] input = scanner.nextLine().split(" ", 2);
         String command = input[0];
         while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
-            } else if (command.equals("mark")) {
-                complete(Integer.parseInt(input[1]) - 1);
-            } else if (command.equals("todo")) {
-                list.add(new ToDo(input[1]));
-                System.out.println("\nHim: added \"" + input[1] + "\" to list\n");
+            switch (command) {
+                case "list" -> System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
+                case "mark" -> complete(Integer.parseInt(input[1]) - 1);
+                case "todo" -> {
+                    ToDo newToDo = new ToDo(input[1]);
+                    list.add(newToDo);
+                    System.out.println("\nHim: added \"" + newToDo + "\" to list\n");
+                }
+                case "deadline" -> {
+                    String[] details = input[1].split("/by");
+                    Deadline newDeadline = new Deadline(details[0].trim(), details[1].trim());
+                    list.add(newDeadline);
+                    System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
+                }
             }
             System.out.print("User: ");
             input = scanner.nextLine().split(" ", 2);
