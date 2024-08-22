@@ -46,14 +46,23 @@ public class MiluTrock {
             tasks.get(i).markDone();
 
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks.get(i));
+            System.out.println("  " + tasks.get(i));
         } else if (words.length == 2 && words[0].equals("unmark")) {
             // Unmark task as done
             int i = Integer.parseInt(words[1]) - 1;
             tasks.get(i).unmarkDone();
 
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(tasks.get(i));
+            System.out.println("  " + tasks.get(i));
+        } else if (words.length == 2 && words[0].equals("delete")) {
+            // Delete task
+            int i = Integer.parseInt(words[1]) - 1;
+            Task task = tasks.get(i);
+            tasks.remove(i);
+
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } else if (
             words[0].equals("todo") || 
             words[0].equals("deadline") || 
@@ -72,7 +81,8 @@ public class MiluTrock {
                 }
                 tasks.add(task);
                 
-                System.out.println("Got it. I've added this task:\n  " + task);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } catch (InvalidTaskFormatException e) {
                 System.out.println(e.getMessage());
