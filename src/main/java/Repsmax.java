@@ -24,6 +24,7 @@ public class Repsmax {
                 System.out.println(goodbye);
                 break;
             }
+
             switch (command) {
                 case "list":
                     System.out.println("  ____________________________________________________________\n");
@@ -35,60 +36,103 @@ public class Repsmax {
                     break;
 
                 case "mark":
-                    int markIndex = Integer.parseInt(splitInput[1]) - 1;
-                    System.out.println("  ____________________________________________________________\n");
-                    System.out.println("  Nice! I've marked this task as done:\n");
-                    tasks[markIndex].setDone();
-                    System.out.println("  " + tasks[markIndex]);
-                    System.out.println("  ____________________________________________________________\n");
+                    try {
+                        int markIndex = Integer.parseInt(splitInput[1]) - 1;
+                        if (markIndex >= 0 && markIndex < taskcount) {
+                            System.out.println("  ____________________________________________________________\n");
+                            System.out.println("  Nice! I've marked this task as done:\n");
+                            tasks[markIndex].setDone();
+                            System.out.println("  " + tasks[markIndex]);
+                            System.out.println("  ____________________________________________________________\n");
+                        } else {
+                            System.out.println("  ____________________________________________________________\n");
+                            System.out.println("  OOPS!!! The task number is out of range.\"");
+                            System.out.println("  ____________________________________________________________\n");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("  ____________________________________________________________\n");
+                        System.out.println("  OOPS!!! The task number must be an integer.");
+                        System.out.println("  ____________________________________________________________\n");
+                    }
                     break;
 
                 case "unmark":
-                    int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
-                    System.out.println("  ____________________________________________________________\n");
-                    System.out.println("  OK, I've marked this task as not done yet:\n");
-                    tasks[unmarkIndex].setUndone();
-                    System.out.println("  " + tasks[unmarkIndex]);
-                    System.out.println("  ____________________________________________________________\n");
+                    try {
+                        int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
+                        if (unmarkIndex >= 0 && unmarkIndex < taskcount) {
+                            System.out.println("  ____________________________________________________________\n");
+                            System.out.println("  OK, I've marked this task as not done yet:\n");
+                            tasks[unmarkIndex].setUndone();
+                            System.out.println("  " + tasks[unmarkIndex]);
+                            System.out.println("  ____________________________________________________________\n");
+                        } else {
+                            System.out.println("  ____________________________________________________________\n");
+                            System.out.println("  OOPS!!! The task number is out of range.\"");
+                            System.out.println("  ____________________________________________________________\n");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("  ____________________________________________________________\n");
+                        System.out.println("  OOPS!!! The task number must be an integer.");
+                        System.out.println("  ____________________________________________________________\n");
+                    }
                     break;
 
                 case "todo":
-                    String description = splitInput[1];
-                    tasks[taskcount] = new Todo(description);
-                    taskcount++;
-                    System.out.println("  ____________________________________________________________");
-                    System.out.println("  Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskcount - 1]);
-                    System.out.println("  Now you have " + taskcount + " tasks in the list.");
-                    System.out.println("  ____________________________________________________________");
+                    if (splitInput.length > 1) {
+                        String description = splitInput[1];
+                        tasks[taskcount] = new Todo(description);
+                        taskcount++;
+                        System.out.println("  ____________________________________________________________");
+                        System.out.println("  Got it. I've added this task:");
+                        System.out.println("   " + tasks[taskcount - 1]);
+                        System.out.println("  Now you have " + taskcount + " tasks in the list.");
+                        System.out.println("  ____________________________________________________________");
+                    } else {
+                        System.out.println("  ____________________________________________________________");
+                        System.out.println("  OOPS!!! The description of a todo cannot be empty.");
+                        System.out.println("  ____________________________________________________________");
+                    }
                     break;
 
                 case "deadline":
-                    String[] parts = splitInput[1].split("/by ", 2);
-                    String deaddescription = parts[0];
-                    String by = parts[1];
-                    tasks[taskcount] = new Deadline(deaddescription, by);
-                    taskcount++;
-                    System.out.println("  ____________________________________________________________");
-                    System.out.println("  Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskcount - 1]);
-                    System.out.println("  Now you have " + taskcount + " tasks in the list.");
-                    System.out.println("  ____________________________________________________________");
+                    try {
+                        String[] parts = splitInput[1].split("/by ", 2);
+                        String deaddescription = parts[0];
+                        String by = parts[1];
+                        tasks[taskcount] = new Deadline(deaddescription, by);
+                        taskcount++;
+                        System.out.println("  ____________________________________________________________");
+                        System.out.println("  Got it. I've added this task:");
+                        System.out.println("   " + tasks[taskcount - 1]);
+                        System.out.println("  Now you have " + taskcount + " tasks in the list.");
+                        System.out.println("  ____________________________________________________________");
+
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("  ____________________________________________________________");
+                        System.out.println("  OOPS!!! The deadline command must include '/by <date/time>'.");
+                        System.out.println("  ____________________________________________________________");
+                    }
                     break;
 
                 case "event":
-                    String[] Eventparts = splitInput[1].split("/from ", 2);
-                    String[] fromTo = Eventparts[1].split("/to ", 2);
-                    String Eventdescription = Eventparts[0];
-                    String from = fromTo[0];
-                    String to = fromTo[1];
-                    tasks[taskcount] = new Event(Eventdescription, from, to);
-                    taskcount++;
-                    System.out.println("  ____________________________________________________________");
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks[taskcount - 1]);
-                    System.out.println(" Now you have " + taskcount + " tasks in the list.");
-                    System.out.println("  ____________________________________________________________");
+                    try {
+                        String[] Eventparts = splitInput[1].split("/from ", 2);
+                        String[] fromTo = Eventparts[1].split("/to ", 2);
+                        String Eventdescription = Eventparts[0];
+                        String from = fromTo[0];
+                        String to = fromTo[1];
+                        tasks[taskcount] = new Event(Eventdescription, from, to);
+                        taskcount++;
+                        System.out.println("  ____________________________________________________________");
+                        System.out.println(" Got it. I've added this task:");
+                        System.out.println("   " + tasks[taskcount - 1]);
+                        System.out.println(" Now you have " + taskcount + " tasks in the list.");
+                        System.out.println("  ____________________________________________________________");
+                    }  catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("  ____________________________________________________________");
+                        System.out.println("  OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>'.");
+                        System.out.println("  ____________________________________________________________");
+                    }
                     break;
 
                 default:
