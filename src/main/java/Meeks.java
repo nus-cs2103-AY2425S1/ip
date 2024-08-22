@@ -15,12 +15,12 @@ public class Meeks {
 
             if (command.isEmpty()) {
                 System.out.println("Input cannot be empty. Please try again.");
-                continue; // Skip to the next iteration of the loop
+                continue;
             }
             echo.echoOut();
 
             if (command.equalsIgnoreCase("bye")) {
-                break; // Exit the loop
+                break;
             }
         }
 
