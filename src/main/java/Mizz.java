@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import util.*;
+import MizzExceptions.*;
 
 public class Mizz {
   /** Name of the chat bot */
@@ -29,7 +30,8 @@ public class Mizz {
   }
 
   public static void main(String[] args) {
-    String greeting = String.format("Hello! I'm %s\n    What can I do for you?", NAME);
+    String greeting = String.format(
+        "Hello! I'm %s\n%sWhat can I do for you?", NAME, Utility.INDENT);
     String exitMsg = "Bye. Hope to see you again soon!";
     Mizz bot = new Mizz(greeting, exitMsg);
     Scanner scanner = new Scanner(System.in);
@@ -50,30 +52,34 @@ public class Mizz {
    * @param cmd The command read by scanner.
    */
   private void commandHandler(String cmd) {
-    String[] parsedInput = this.parseInput(cmd);
-    this.cmd = parsedInput[0];
-    switch (this.cmd) {
-      case "bye":
-        break;
-      case "list":
-        this.usrTasks.prettyPrintAll();
-        break;
-      case "mark":
-      case "unmark": {
-        // look at second arg ignore the rest
-        int idx = Integer.parseInt(parsedInput[1]);
-        this.handleMark(this.cmd, idx);
-        break;
+    try {
+      String[] parsedInput = this.parseInput(cmd);
+      this.cmd = parsedInput[0];
+      switch (this.cmd) {
+        case "bye":
+          break;
+        case "list":
+          this.usrTasks.prettyPrintAll();
+          break;
+        case "mark":
+        case "unmark": {
+          // look at second arg ignore the rest
+          int idx = Integer.parseInt(parsedInput[1]);
+          this.handleMark(this.cmd, idx);
+          break;
+        }
+        case "todo":
+        case "deadline":
+        case "event": {
+          this.handleCreate(this.cmd, parsedInput);
+          break;
+        }
+        default:
+          throw new MizzException("Invalid input: (" + this.cmd + ")");
+        // break;
       }
-      case "todo":
-      case "deadline":
-      case "event": {
-        this.handleCreate(this.cmd, parsedInput);
-        break;
-      }
-      default:
-        Utility.prettyPrint(String.format("%sInvalid command!", Utility.INDENT));
-        break;
+    } catch (MizzException e) {
+      Utility.prettyPrint(e.toString());
     }
   }
 
@@ -136,7 +142,7 @@ public class Mizz {
    * @param in The input from the scanner.
    * @return
    */
-  private String[] parseInput(String inpuString) {
+  private String[] parseInput(String inpuString) throws MizzException {
     // parts[0] -> command
     // parts[1] -> description
     // parts[2] -> "" if todo | by if deadline | from if event
@@ -147,9 +153,7 @@ public class Mizz {
     result[0] = parts[0].toLowerCase();
 
     if (result[0].equals("mark") || result[0].equals("unmark")) {
-      if (parts.length < 2) {
-        // throw exception
-      }
+      verifyMarkUnmark(parts);
       result[1] = parts[1];
       return result;
     }
@@ -174,22 +178,101 @@ public class Mizz {
     }
     // description
     if (result[0].equals("todo")) {
+      verifyTodo(parts);
       result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
     } else if (result[0].equals("deadline")) {
-      if (byIdx == -1 || byIdx == parts.length - 1) {
-        // throw exception
-      }
+      verifyDeadline(parts, byIdx);
       result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
-      result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1, parts.length));
+      result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1,
+          parts.length));
     } else if (result[0].equals("event")) {
-      if (fromIdx == -1 || toIdx == -1 || fromIdx + 1 >= toIdx) {
-        // throw exception
-      }
+      verifyEvent(parts, fromIdx, toIdx);
       result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
       result[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
       result[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
     }
 
     return result;
+  }
+
+  /**
+   * Method to validate the todo command.
+   * 
+   * @param details The full split input from the user.
+   * @throws ToDoException if the input is malformed.
+   */
+  private void verifyTodo(String[] details) throws ToDoException {
+    if (details.length == 1) {
+      throw new ToDoException("Missing a descrption for this todo!");
+    }
+  }
+
+  /**
+   * Method to validate the deadline command.
+   * 
+   * @param details The full split input from the user.
+   * @param byIdx   The idx of "/by" in details.
+   * @throws DeadlineException if the input is malformed.
+   */
+  private void verifyDeadline(String[] details, int byIdx) throws DeadlineException {
+    int maxAllowableIdx = details.length - 1;
+    if (byIdx == -1) {
+      throw new DeadlineException("Missing /by in the input!");
+    }
+    if (byIdx == maxAllowableIdx) {
+      throw new DeadlineException("Missing a string behind /by... by when?");
+    }
+    if (byIdx == 1) {
+      throw new DeadlineException(
+          "Hmmm I'm not sure whats the deadline for? Missing description!");
+    }
+  }
+
+  /**
+   * Method to validate the event command.
+   * 
+   * @param details The full split input from the user.
+   * @param fromIdx The idx of "/from" in details.
+   * @param toIdx   The idx of "/to" in details.
+   * @throws EventException if the input is malformed.
+   */
+  private void verifyEvent(String[] details, int fromIdx, int toIdx) throws EventException {
+    int maxAllowableIdx = details.length - 1;
+    if (fromIdx == 1) {
+      throw new EventException("Hmmm what's this event about? Missing description!");
+    }
+    if (fromIdx == -1) {
+      throw new EventException("Missing /from in the input!");
+    }
+    if (toIdx == -1) {
+      throw new EventException("To infinity! Missing /to in the input!");
+    }
+    if (fromIdx > toIdx) {
+      throw new EventException("/from should come before /to!");
+    }
+    if (fromIdx + 1 >= toIdx) {
+      throw new EventException("Missing a string behind /from... from when?");
+    }
+    if (toIdx == maxAllowableIdx) {
+      throw new EventException("Hm when does this event end? Missing info behind /to");
+    }
+  }
+
+  /**
+   * Method to validate the mark or unmark command.
+   * 
+   * @param details The full split input from the user.
+   * @throws UpdateMarkedException if the input is malformed.
+   */
+  private void verifyMarkUnmark(String[] details) throws UpdateMarkedException {
+    if (details.length == 1) {
+      throw new UpdateMarkedException("Too few arguments missing idx to mark/ unmark");
+    }
+    try {
+      Integer.parseInt(details[1]);
+    } catch (NumberFormatException e) {
+      throw new UpdateMarkedException(
+          String.format("Last I checked (%s)'s no int :/", details[1]));
+    }
   }
 }
