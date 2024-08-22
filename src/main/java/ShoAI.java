@@ -6,86 +6,77 @@ public class ShoAI {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm ShoAI");
-        System.out.println(" What can I do for you?");
+        System.out.println("Hello! I'm ShoAI");
+        System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
         while (true) {
-            String userInput = scanner.nextLine();
+            String input = scanner.nextLine();
+            String[] words = input.split(" ", 2);
+            String command = words[0];
 
-            if (userInput.equalsIgnoreCase("bye")) {
+            if (command.equals("bye")) {
                 System.out.println("____________________________________________________________");
-                System.out.println(" Bye. Hope to see you again soon!");
+                System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            }
-
-            if (userInput.equalsIgnoreCase("list")) {
-                displayTasks();
-            } else if (userInput.startsWith("mark")) {
-                int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                markTaskAsDone(taskNumber);
-            } else if (userInput.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                unmarkTaskAsDone(taskNumber);
+            } else if (command.equals("list")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + "." + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else if (command.startsWith("mark")) {
+                int index = Integer.parseInt(words[1]) - 1;
+                tasks[index].markAsDone();
+                System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks[index]);
+                System.out.println("____________________________________________________________");
+            } else if (command.startsWith("unmark")) {
+                int index = Integer.parseInt(words[1]) - 1;
+                tasks[index].markAsNotDone();
+                System.out.println("____________________________________________________________");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks[index]);
+                System.out.println("____________________________________________________________");
+            } else if (command.equals("todo")) {
+                String description = words[1];
+                tasks[taskCount] = new Todo(description);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (command.equals("deadline")) {
+                String[] parts = words[1].split(" /by ");
+                tasks[taskCount] = new Deadline(parts[0], parts[1]);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (command.equals("event")) {
+                String[] parts = words[1].split(" /from ");
+                String[] timeParts = parts[1].split(" /to ");
+                tasks[taskCount] = new Event(parts[0], timeParts[0], timeParts[1]);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
             } else {
-                addTask(userInput);
+                System.out.println("____________________________________________________________");
+                System.out.println("Sorry, I don't understand that command.");
+                System.out.println("____________________________________________________________");
             }
         }
 
         scanner.close();
-    }
-
-    private static void addTask(String taskDescription) {
-        if (taskCount < 100) {
-            tasks[taskCount] = new Task(taskDescription);
-            taskCount++;
-            System.out.println("____________________________________________________________");
-            System.out.println(" added: " + taskDescription);
-            System.out.println("____________________________________________________________");
-        } else {
-            System.out.println("____________________________________________________________");
-            System.out.println(" Sorry, I can't store any more tasks.");
-            System.out.println("____________________________________________________________");
-        }
-    }
-
-    private static void displayTasks() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + "." + tasks[i]);
-        }
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void markTaskAsDone(int taskNumber) {
-        if (taskNumber < taskCount && taskNumber >= 0) {
-            tasks[taskNumber].markAsDone();
-            System.out.println("____________________________________________________________");
-            System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + tasks[taskNumber]);
-            System.out.println("____________________________________________________________");
-        } else {
-            System.out.println("____________________________________________________________");
-            System.out.println(" Task number does not exist.");
-            System.out.println("____________________________________________________________");
-        }
-    }
-
-    private static void unmarkTaskAsDone(int taskNumber) {
-        if (taskNumber < taskCount && taskNumber >= 0) {
-            tasks[taskNumber].unmarkAsDone();
-            System.out.println("____________________________________________________________");
-            System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + tasks[taskNumber]);
-            System.out.println("____________________________________________________________");
-        } else {
-            System.out.println("____________________________________________________________");
-            System.out.println(" Task number does not exist.");
-            System.out.println("____________________________________________________________");
-        }
     }
 }
