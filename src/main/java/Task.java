@@ -15,18 +15,18 @@ public class Task {
         return this.name;
     }
 
-    public void mark() {
+    public void mark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == true) {
-            System.out.println("Task is already marked as done!");
+            throw new InvalidMarkAndUnmarkException("Task is already marked as done!");
         } else {
             System.out.println("Well Done Champ! I've marked this task as done!");
             this.isDone = true;
         }
     }
 
-    public void unmark() {
+    public void unmark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == false) {
-            System.out.println("Task is still undone!");
+            throw new InvalidMarkAndUnmarkException("Task is still undone!");
         } else {
             System.out.println("I've marked this task as undone! Please remember to complete it!");
             this.isDone = false;
