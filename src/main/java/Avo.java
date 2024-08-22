@@ -1,8 +1,5 @@
 import Commands.CommandManager;
-import Tasks.*;
 import Exceptions.AvoException;
-
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Avo {
@@ -27,9 +24,9 @@ public class Avo {
         }
     }
     private void listen() throws AvoException {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String userInput = scanner.nextLine();
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            String userInput = sc.nextLine();
             String command = userInput.split(" ")[0];
             if (command.equals("exit")) break;
             manager.getCommand(command).execute(userInput);
