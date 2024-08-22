@@ -10,7 +10,7 @@ public class Kotori {
         Scanner s = new Scanner(System.in);
         while (s.hasNext()){
             String input = s.nextLine();
-            if (input.equals("bye ")) {
+            if (input.equals("bye")) {
                 printExit();
                 break;
             } else if (input.equals("list")) {
