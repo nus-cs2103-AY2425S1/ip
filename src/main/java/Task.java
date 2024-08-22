@@ -11,7 +11,6 @@ public class Task {
 
     /**
      * marks item as complete
-     *
      */
     public void mark() {
         isDone = true;
@@ -19,7 +18,6 @@ public class Task {
 
     /**
      * Unmarks item as incomplete
-     *
      */
     public void unMark() {
         isDone = false;
@@ -28,7 +26,6 @@ public class Task {
     /**
      * Returns string representation of task completion status
      * If done, return X, else return " "
-     *
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -40,7 +37,6 @@ public class Task {
 
     /**
      * Returns string representation of task
-     *
      */
     public String print() {
         return "[" + this.getStatusIcon() + "] " + desc;

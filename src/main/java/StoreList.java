@@ -14,27 +14,44 @@ public class StoreList {
 
     /**
      * Adds appropriate task to list
+     * Catch all the relevant exceptions when trying to add invalid tasks
      *
      * @param item task to be added.
      * @param type tasktype to be created and stores.
      */
     public void addItem(String item, String type) {
+        try {
+            if (type.equals("todo")) {
+                t = new ToDos(item);
+                items.add(t);
 
-        if (type.equals("todo")) {
-            t = new ToDos(item);
-            items.add(t);
+            } else if (type.equals("deadline")) {
+                t = new Deadlines(item); // Constructor might throw EmptyDeadlineException
+                items.add(t);
 
-        } else if (type.equals("deadline")) {
-            t = new Deadlines(item);
-            items.add(t);
-
-        } else {
-            t = new Events(item);
+            } else {
+                t = new Events(item); // Constructor might throw EmptyEventException
                 items.add(t);
             }
-        System.out.println("    Got it. I've added this task:\n" + "      " + t.print()
-                + "\n    Now you have " + this.getSize() + " tasks in the list.");
+
+            System.out.println("    Got it. I've added this task:\n" + "      " + t.print()
+                    + "\n    Now you have " + this.getSize() + " tasks in the list.");
+
+        } catch (EmptyDescException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyDeadlineException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyEventException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyDeadlineDateException e) {
+            System.out.println(e.getMessage());
+        } catch (EmptyEventTimingException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
     }
+
 
     //getter
     public int getSize() {
