@@ -17,25 +17,30 @@ public class Bean {
             String response = scanner.nextLine();
             String[] splited = response.split(" ");
             if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
-                String output = "________________________________\n" + "Got it. I've added this task:";
-                System.out.println(output);
                 Task current = null;
-                switch (splited[0]) {
-                    case "todo":
-                        current = new Todo(response.replace("todo ",""));
-                        break;
-                    case "event":
-                        current = new Event(response.replace("event ",""));
-                        break;
-                    case "deadline":
-                        current = new Deadline(response.replace("deadline ",""));
-                        break;
+                try {
+                    switch (splited[0]) {
+                        case "todo":
+                            current = new Todo(response.replace("todo ", ""));
+                            break;
+                        case "event":
+                            current = new Event(response.replace("event ", ""));
+                            break;
+                        case "deadline":
+                            current = new Deadline(response.replace("deadline ", ""));
+                            break;
+                    }
+                    taskList[pointer] = current;
+                    pointer++;
+                    String output = "________________________________\n" + "Got it. I've added this task:";
+                    System.out.println(output);
+                    System.out.println(current.getString());
+                    output = "Now you have " + String.valueOf(pointer) + " tasks in the list.\n" + "________________________________";
+                    System.out.println(output);
+                } catch (DukeException e) {
+                    System.out.println("________________________________");
+                    System.out.println(e.getMessage() + "________________________________");
                 }
-                taskList[pointer] = current;
-                pointer++;
-                System.out.println(current.getString());
-                output = "Now you have " + String.valueOf(pointer) + " tasks in the list.\n" + "________________________________";
-                System.out.println(output);
             } else if (response.equals("list")) {
                 System.out.println("________________________________");
                 for (int i = 0; i < pointer; i++) {
@@ -45,23 +50,52 @@ public class Bean {
                 System.out.println("________________________________");
             } else if (splited[0].equals("mark")) {
                 int index = Integer.parseInt(splited[1]) - 1;
-                Task curr = taskList[index];
-                String msg = curr.mark();
-                System.out.println("________________________________");
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(msg);
-                System.out.println("________________________________");
+                try {
+                    if (index < 0 || index > pointer) {
+                        throw new DukeException("Invalid position!");
+                    }
+                    Task curr = taskList[index];
+                    if (curr.isDone) {
+                        throw new DukeException("It is already marked!");
+                    }
+                    String msg = curr.mark();
+                    System.out.println("________________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(msg);
+                    System.out.println("________________________________");
+                } catch (DukeException e) {
+                    System.out.println("________________________________");
+                    System.out.println(e.getMessage() + "\n________________________________");
+                }
             } else if (splited[0].equals("unmark")) {
                 int index = Integer.parseInt(splited[1]) - 1;
-                Task curr = taskList[index];
-                String msg = curr.mark();
-                System.out.println("________________________________");
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(msg);
-                System.out.println("________________________________");
+                try {
+                    if (index < 0 || index > pointer) {
+                        throw new DukeException("Invalid position!");
+                    }
+                    Task curr = taskList[index];
+                    if (!curr.isDone) {
+                        throw new DukeException("It is already unmarked!");
+                    }
+                    String msg = curr.mark();
+                    System.out.println("________________________________");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(msg);
+                    System.out.println("________________________________");
+                } catch (DukeException e) {
+                    System.out.println("________________________________");
+                    System.out.println(e.getMessage() + "\n________________________________");
+                }
             } else if (splited[0].equals("bye")){
                 System.out.println(byeMsg);
                 break;
+            } else {
+                try {
+                    throw new DukeException("I dont understand what you are trying to say :(");
+                } catch (DukeException e) {
+                    System.out.println("________________________________");
+                    System.out.println(e.getMessage() + "\n________________________________");
+                }
             }
         }
     }

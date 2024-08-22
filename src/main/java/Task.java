@@ -16,6 +16,10 @@ public class Task {
         return getString();
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public String getString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
