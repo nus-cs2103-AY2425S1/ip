@@ -55,7 +55,24 @@ public class Genji {
                 System.out.println("OK! I've marked this task as not done yet:");
                 System.out.println(list.get(index).toString());
                 System.out.println(LINE);
-            } else {
+            } else if (input.startsWith("todo")) {
+                ToDo td = new ToDo(input.substring(5));
+                addList(td);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(td);
+                System.out.println("Now you have " + list.size() + " tasks in the list");
+                System.out.println(LINE);
+            } else if (input.startsWith("deadline")) {
+                String name = input.substring(9, input.lastIndexOf("/"));
+                String time = input.substring(input.lastIndexOf("/") + 4);
+                Deadline ddl = new Deadline(name, time);
+                addList(ddl);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(ddl);
+                System.out.println("Now you have " + list.size() + " tasks in the list");
+                System.out.println(LINE);
+            }
+            else {
                 addList(new Task(input));
             }
         }
