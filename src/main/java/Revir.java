@@ -47,11 +47,38 @@ public class Revir {
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task index.");
                 }
+            } else if (input.startsWith("todo ")) {
+                // Add a todo task
+                String taskDescription = input.substring(5);
+                userInputList.add(new Todo(taskDescription));
+                System.out.println("Todo task added: " + taskDescription);
+            } else if (input.startsWith("deadline ")) {
+                // Add a deadline task
+                String taskDetails = input.substring(9);
+                String[] taskInfo = taskDetails.split(" /by ");
+                if (taskInfo.length == 2) {
+                    String taskDescription = taskInfo[0];
+                    String deadline = taskInfo[1];
+                    userInputList.add(new Deadline(taskDescription, deadline));
+                    System.out.println("Deadline task added: " + taskDescription + " (by: " + deadline + ")");
+                } else {
+                    System.out.println("Invalid deadline task format.");
+                }
+            } else if (input.startsWith("event ")) {
+                // Add an event task
+                String taskDetails = input.substring(6);
+                String[] taskInfo = taskDetails.split(" /from ");
+                if (taskInfo.length == 2) {
+                    String taskDescription = taskInfo[0];
+                    String startDate = taskInfo[1].split(" /to ")[0];
+                    String endDate = taskInfo[1].split(" /to ")[1];
+                    userInputList.add(new Event(taskDescription, startDate, endDate));
+                    System.out.println("Event task added: " + taskDescription + " (from: " + startDate + " to: " + endDate + ")");
+                } else {
+                    System.out.println("Invalid event task format.");
+                }
             } else {
-                // Add user input to the list
-                userInputList.add(new Task(input));
-                // Differentiate the print from the user input
-                System.out.println("Task added: " + input);
+                System.out.println("Invalid command.");
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
