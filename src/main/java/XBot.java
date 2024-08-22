@@ -22,6 +22,15 @@ public class XBot {
                 case "unmark":
                     markUndone(rest);
                     break;
+                case "todo":
+                    addTodo(rest);
+                    break;
+                case "event":
+                    addEvent(rest);
+                    break;
+                case "deadline":
+                    addDeadline(rest);
+                    break;
                 default:
                     if (!input.isEmpty()) {
                         addTask(input);
@@ -46,6 +55,40 @@ public class XBot {
         System.out.println("added: " + input);
         taskCount++;
     }
+
+    public static void addTodo(String rest) {
+        System.out.println("Got it. I've added this task:");
+        list[taskCount] = new ToDo(rest);
+        System.out.println(list[taskCount].toString());
+        taskCount++;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+    public static void addDeadline(String rest) {
+        String[] parts = rest.split("/by", 2);
+        System.out.println("Got it. I've added this task:");
+        String taskDescription = parts[0].trim();
+        String deadline = parts[1].trim();
+        list[taskCount] = new Deadline(taskDescription, deadline);
+        System.out.println(list[taskCount].toString());
+        taskCount++;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void addEvent(String rest) {
+        String[] parts = rest.split("/from", 2);
+        System.out.println("Got it. I've added this task:");
+        String taskDescription = parts[0].trim();
+        String time = parts[1].trim();
+        String[] timeParts = time.split("/to", 2);
+        String from = timeParts[0].trim();
+        String to = timeParts[1].trim();
+
+        list[taskCount] = new Event(taskDescription, from, to);
+        System.out.println(list[taskCount].toString());
+        taskCount++;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
 
     public static void markDone(String rest) {
         try {
