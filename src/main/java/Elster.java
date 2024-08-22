@@ -44,6 +44,9 @@ public class Elster {
                     taskList.addToList(task);
                 }
 
+            } else if (input.startsWith("delete")) {
+                taskList.deleteTask(Integer.parseInt(input.substring(7).strip()));
+
             } else if (input.startsWith("todo")) {
                 ToDoTask task = ToDoTask.of(input);
                 if (!(task == null)) {

@@ -72,6 +72,30 @@ public class TaskList {
         printLine();
     }
 
+    public void deleteTask(int index) {
+        printLine();
+        Task task;
+
+        try {
+            task = list.remove(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("    Ain't no such task in the middle of these woods");
+            printLine();
+            return;
+        }
+
+        System.out.println("    Your bidding has been done, removed:");
+        System.out.println("      " + task.toString());
+        if (list.size() == 1) {
+            System.out.println("    thou now hath " + list.size() + " task to complete");
+        } else if (list.size() == 0 ) {
+            System.out.println("    thou hath no tasks to be completed");
+        } else {
+            System.out.println("    thou now hath " + list.size() + " tasks to complete");
+        }
+        printLine();
+    }
+
     @Override
     public String toString() {
         return list.toString();
