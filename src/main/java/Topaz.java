@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Topaz {
 
-    private static ArrayList<String> todoList = new ArrayList<>(100);
+    private static ArrayList<Task> todoList = new ArrayList<>(100);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -16,6 +16,12 @@ public class Topaz {
                 break;
             } else if (prompt.equals("list")) {
                 listTodos();
+            } else if (prompt.startsWith("mark")) {
+                int index = Integer.parseInt(prompt.substring(5));
+                markTodo(index);
+            } else if (prompt.startsWith("unmark")) {
+                int index = Integer.parseInt(prompt.substring(7));
+                unmarkTodo(index);
             } else {
                 addTodos(prompt);
             }
@@ -44,7 +50,7 @@ public class Topaz {
     }
 
     private static void addTodos(String input) {
-        todoList.add(input);
+        todoList.add(new Task(input));
         System.out.println("____________________________________________________________");
         System.out.println(" Recorded! Hard work pays off~");
         System.out.println("____________________________________________________________");
@@ -55,8 +61,28 @@ public class Topaz {
         System.out.println(" Who works for money these days? Money is a means, not an end. Work should make you happy... That's the most fundamental principle.");
         System.out.println(" Don't forget your work~");
         for (int i = 0; i < todoList.size(); i++) {
-            System.out.println((i + 1) + ". " + todoList.get(i));
+            System.out.println((i + 1) + ". " + todoList.get(i).getStatus());
         }
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void markTodo(int index) {
+        Task todo = todoList.get(index - 1);
+        todo = todo.setDone();
+        todoList.set(index - 1, todo);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Nice! I've marked this task as done: ");
+        System.out.println("    " + todo.getStatus());
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void unmarkTodo(int index) {
+        Task todo = todoList.get(index - 1);
+        todo = todo.setUndo();
+        todoList.set(index - 1, todo);
+        System.out.println("____________________________________________________________");
+        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println("    " + todo.getStatus());
         System.out.println("____________________________________________________________");
     }
 }
