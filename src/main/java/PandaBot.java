@@ -81,6 +81,19 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist.");
                 }
+            } else if (input.equalsIgnoreCase("help")) {
+                printLine();
+                System.out.println("PandaBot Commands:");
+                System.out.println("1. todo <description> : Adds a new Todo task.");
+                System.out.println("2. deadline <description> /by <date/time> : Adds a new Deadline task.");
+                System.out.println("3. event <description> /from <start time> /to <end time> : Adds a new Event task.");
+                System.out.println("4. list : Lists all tasks.");
+                System.out.println("5. mark <task number> : Marks the specified task as done.");
+                System.out.println("6. unmark <task number> : Unmarks the specified task.");
+                System.out.println("7. delete <task number> : Deletes the specified task.");
+                System.out.println("8. help : Displays this help message.");
+                System.out.println("9. bye : Exits the PandaBot.");
+                printLine();
             } else {
                 Task task = null;
                 try {
