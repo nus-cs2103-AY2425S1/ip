@@ -7,6 +7,6 @@ public class Event extends Task {
     }
     @Override
     public String listedString(){
-        return super.toString() + " [from: " + this.startDate + " | to: " + this.endDate + "]";
+        return super.listedString() + " [from: " + this.startDate + " | to: " + this.endDate + "]";
     }
 }

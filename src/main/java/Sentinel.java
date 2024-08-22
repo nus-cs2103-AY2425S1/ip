@@ -44,11 +44,11 @@ public class Sentinel {
                 case mark, unmark, delete -> {
                     int num = sc.nextInt();
                     if (num > list.size()) {System.out.println("No such item in the list!"); break;}
-                    else if (input.equals(Command.delete)) {System.out.println("I have deleted the following task: \n\t" + list.remove(num-1).listedString() + "\n You have " + list.size() + " remaining " + (list.size() == 1 ? "task" : "tasks") + "."); break;}
+                    else if (input.equals(Command.delete)) {System.out.println("I have deleted the following task:\n\t" + list.remove(num-1).listedString() + "\n You have " + list.size() + " remaining " + (list.size() == 1 ? "task" : "tasks") + "."); break;}
                     else if (input.equals(Command.mark) && list.get(num-1).isDone()) {System.out.println(list.get(num-1) + " has already been marked as done."); break;}
                     else if (input.equals(Command.unmark) && !list.get(num-1).isDone()) {System.out.println(list.get(num-1) + " has already been marked as undone."); break;}
                     if (list.get(num-1).isDone()) list.get(num - 1).setUndone(); else list.get(num - 1).setDone();
-                    System.out.println("Nice! I've marked this task as " + (list.get(num-1).isDone() ? "done" : "undone") + ":");
+                    System.out.println("Alright! I've marked this task as " + (list.get(num-1).isDone() ? "done" : "undone") + ":");
                     System.out.println("\t" + list.get(num - 1).getStatusIcon() + " " + list.get(num - 1));
                 }
                 case todo, deadline, event -> {

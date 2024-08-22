@@ -7,6 +7,6 @@ public class Deadline extends Task{
     }
     @Override
     public String listedString(){
-        return super.toString() + " [by " + this.endDate + "]";
+        return super.listedString() + " [by " + this.endDate + "]";
     }
 }
