@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,21 +124,18 @@ public class Wolfie {
                         throw new WolfieException("Invalid task number. Please use existing numbers and not the description.");
                     }
                 } else if (input.startsWith("on ")) {
-                    LocalDateTime date = LocalDateTime.parse(input.substring(3).trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate date = LocalDate.parse(input.substring(3).trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Here are the tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
                     for (Task task : tasks) {
-                        if (task instanceof Deadline
-                                && ((Deadline) task).getBy().toLocalDate().equals(date.toLocalDate())) {
+                        if (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date)) {
                             System.out.println("   " + task);
-                        } else if (task instanceof Event
-                                && (((Event) task).getFrom().toLocalDate().equals(date.toLocalDate())
-                                    || ((Event) task).getTo().toLocalDate().equals(date.toLocalDate()))) {
+                        } else if (task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date)
+                                || ((Event) task).getTo().toLocalDate().equals(date))) {
                             System.out.println("   " + task);
                         }
                     }
                     System.out.println("____________________________________________________________");
-
                 } else {
                     throw new WolfieException("I'm sorry Dean's Lister, but I don't know what that means :-(");
                 }
