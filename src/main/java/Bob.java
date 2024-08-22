@@ -63,7 +63,7 @@ public class Bob {
             Bob.memory.add(task);
             Bob.print(
                     String.format("Here's the added task:\n" +
-                    "%s\n" +
+                    "\t%s\n" +
                     "Now you have %s tasks in the list.", task, Bob.memory.size())
             );
         }
