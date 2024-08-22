@@ -2,11 +2,11 @@ public class Parser {
 
     // This method will return true if the user wants to exit the program
     public static boolean checkCommand(String input, TaskList taskList) {
-        if (input.equalsIgnoreCase("bye")) {
+        if (Command.checkEqualCommand(input, "bye")) {
             FormattedPrint.bye();
             return true;
 
-        } else if (input.split(" ")[0].equalsIgnoreCase("mark")) {
+        } else if (Command.checkCommand(input, "mark")) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsDone(index);
@@ -15,7 +15,7 @@ public class Parser {
                 FormattedPrint.invalidMarkCommand();
             }
 
-        } else if (input.split(" ")[0].equalsIgnoreCase("unmark")) {
+        } else if (Command.checkCommand(input, "unmark")) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 taskList.markAsUndone(index);
@@ -24,7 +24,7 @@ public class Parser {
                 FormattedPrint.invalidUnmarkCommand();
             }
 
-        } else if (input.split(" ")[0].equalsIgnoreCase("deadline")) {
+        } else if (Command.checkCommand(input, "deadline")) {
             try {
                 // GitHub Copilot suggested the following code snippet
                 String description = input.split(" ", 2)[1].split(" /by ")[0];
@@ -35,7 +35,7 @@ public class Parser {
                 FormattedPrint.invalidDeadlineCommand();
             }
 
-        } else if (input.split(" ")[0].equalsIgnoreCase("event")) {
+        } else if (Command.checkCommand(input, "event")) {
             try {
                 // GitHub Copilot suggested the following code snippet
                 String description = input.split(" ", 2)[1].split(" /from ")[0];
@@ -48,7 +48,7 @@ public class Parser {
                 FormattedPrint.invalidEventCommand();
             }
 
-        } else if (input.split(" ")[0].equalsIgnoreCase("todo")) {
+        } else if (Command.checkCommand(input, "todo")) {
             try {
                 String description = input.split(" ", 2)[1];
                 taskList.addItem(new Todo(description));
@@ -57,7 +57,7 @@ public class Parser {
                 FormattedPrint.invalidTodoCommand();
             }
 
-        } else if (input.equalsIgnoreCase("list")) {
+        } else if (Command.checkEqualCommand(input, "list")) {
             FormattedPrint.listTasks(taskList.getList());
         } else {
             // Any other command will be considered invalid
