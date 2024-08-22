@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class SecondMind {
     private static final String line = "____________________________________________________________";
     private static final String logo = "SecondMind";
@@ -13,6 +15,21 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static void getInput() {
+        Scanner reader = new Scanner(System.in);
+        while (true) {
+            String command = reader.nextLine();
+            if (command.equals("bye")) {
+                break;
+            } else {
+                printLineSeparator();
+                System.out.println(command);
+                printLineSeparator();
+            }
+        }
+        reader.close();
+    }
+
     private static void exitProgram() {
         System.out.println("Bye. Hope to see you again soon!");
         printLineSeparator();
@@ -20,6 +37,7 @@ public class SecondMind {
 
     public static void main(String[] args) {
         greetUser();
+        getInput();
         exitProgram();
     }
 }
