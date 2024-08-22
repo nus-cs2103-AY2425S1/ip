@@ -5,7 +5,7 @@ public class B_word {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        ToDoHandler th = new ToDoHandler();
+        TaskHandler th = new TaskHandler();
 
         System.out.print(hline +
                 " Hello! I'm 'B word'\n" +
@@ -20,9 +20,15 @@ public class B_word {
         States currentState = States.to_loop;
 
         while (currentState != States.to_exit) {
+            String command = sc.next();
             String s = sc.nextLine();
             System.out.print(hline);
             String tmp = s.strip();
+            if (command.equals("bye")) {
+                break;
+            }
+            th.handleCommand(command, s);
+            /*
             if (tmp.equals("bye")) {
                 currentState = States.to_exit;
                 break;
@@ -35,6 +41,7 @@ public class B_word {
                 //System.out.println(tmp);
                 System.out.println("added: " + tmp);
             }
+             */
             System.out.print(hline);
         }
 
