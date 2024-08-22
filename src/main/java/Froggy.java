@@ -20,6 +20,9 @@ public class Froggy {
                 System.out.println(exit);
                 break;
             }
+
+            System.out.println(input + "\n"
+                    + "_______________________________\n");
         }
 
         scanner.close();
