@@ -21,10 +21,13 @@ public class Delphi {
                 System.out.println("      " + t.getTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
             }
             else {
-                t.addTask(input);
+                try {
+                    t.addTask(input);
+                } catch (DelphiException e){
+                    System.out.println("    " + e.getMessage());
+                }
             }
         }
-
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

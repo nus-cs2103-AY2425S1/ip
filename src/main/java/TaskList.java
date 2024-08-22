@@ -7,9 +7,12 @@ public class TaskList {
         protected String name;
         protected boolean isDone;
 
-        public Task(String description) {
-            this.name = description;
-            this.isDone = false;
+        public Task(String description) throws EmptyInputException {
+            if (description.length() > 0 && description.charAt(0) != '/') {
+                this.name = description;
+                this.isDone = false;
+            }
+            else throw new EmptyInputException();
         }
 
         public String getStatusIcon() {
@@ -28,7 +31,7 @@ public class TaskList {
     }
 
     private class Todo extends Task {
-        public Todo(String description) {
+        public Todo(String description) throws EmptyInputException {
             super(description);
         }
         @Override
@@ -39,7 +42,7 @@ public class TaskList {
 
     private class Deadline extends Task {
         private String deadline;
-        public Deadline(String description) {
+        public Deadline(String description) throws EmptyInputException {
             super(description);
             int slashIndex = description.indexOf("/");
 
@@ -63,7 +66,7 @@ public class TaskList {
 
         String window;
 
-        public Event(String description) {
+        public Event(String description) throws EmptyInputException {
             super(description);
 
             String[] parts = description.split("/");
@@ -97,26 +100,34 @@ public class TaskList {
     public TaskList() {
         tasks = new ArrayList<>();
     }
-    public void addTask(String task) {
+    public void addTask(String task) throws DelphiException {
         if (!task.equals("list")) {
             if (Parser.checkStringPrefix(task, 4, "todo")) {
-                Task tsk = new Todo(task.substring(5));
+                Task tsk;
+                if (task.length() > 4) tsk = new Todo(task.substring(5));
+                else tsk = new Todo("");
                 tasks.add(tsk);
                 System.out.println("    Got it. I've added this task:");
                 System.out.println("      " + tsk);
                 System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
             } else if (Parser.checkStringPrefix(task, 8, "deadline")) {
-                Task tsk = new Deadline(task.substring(9));
+                Task tsk;
+                if (task.length() > 8) tsk = new Todo(task.substring(9));
+                else tsk = new Todo("");
+                tasks.add(tsk);
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + tsk);
+                System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
+            } else if (Parser.checkStringPrefix(task, 5, "event")){
+                Task tsk;
+                if (task.length() > 5) tsk = new Todo(task.substring(6));
+                else tsk = new Todo("");
                 tasks.add(tsk);
                 System.out.println("    Got it. I've added this task:");
                 System.out.println("      " + tsk);
                 System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
             } else {
-                Task tsk = new Event(task.substring(6));
-                tasks.add(tsk);
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + tsk);
-                System.out.println("Now you have " + tasks.size()+ " tasks in the list.");
+                throw new InvalidInputException();
             }
         }
         else printTasks();
