@@ -59,7 +59,7 @@ public class Ui {
      * @param size The size of the task list.
      */
     public void displayAddedTask(Task task, int size) {
-        System.out.println("Bloop bloop, I have added the following task: ");
+        System.out.println("Bloop bloop, I have added the following task:");
         System.out.println(task);
         System.out.println("Now you have " + size + " tasks in the list.");
     }
@@ -70,7 +70,7 @@ public class Ui {
      * @param tasks The TaskList object containing all tasks.
      */
     public void displayTaskList(TaskList tasks) {
-        System.out.println("Bloop bloop, here are the tasks in your list: ");
+        System.out.println("Bloop bloop, here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.getTask(i));
         }
@@ -83,7 +83,7 @@ public class Ui {
      */
     public void displayTaskStatus(Task task) {
         if (task.isDone) {
-            System.out.println("Bloop bloop, I've marked this task as done: ");
+            System.out.println("Bloop bloop, I've marked this task as done:");
         } else {
             System.out.println("Bloop bloop, I've marked this task as not done yet: ");
         }
