@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Meow {
     static private String logo =  
     "     ___           ___           ___           ___ \n" +     
@@ -18,6 +20,18 @@ public class Meow {
     + "\n    _____________________________________________________________________";
     public static void main(String[] args) {
         System.out.println(openingMessage);
-        System.out.println("\n Okay bye neow !!!!");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        
+        // User input cycle is here.
+
+        while (!input.equals("bye")) {
+            System.out.println("    _____________________________________________________________________");
+            System.out.println("    " +input);
+            System.out.println("    _____________________________________________________________________");
+            input = sc.nextLine();
+        }
+
+        System.out.println("Fine just leave me like everyone does hmph");
     }
 }
