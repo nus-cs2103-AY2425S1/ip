@@ -70,10 +70,18 @@ public class Llama {
                 tasks.listAllTasks();
             } else if (command.equals("mark")) {                    // mark task
                 int index = Integer.parseInt(remaining);
-                tasks.markTask(index);
+                try {
+                    tasks.markTask(index);
+                } catch (InvalidTaskException e) {
+                    displayString(e.getMessage());
+                }
             } else if (command.equals("unmark")) {                  // unmark task
                 int index = Integer.parseInt(remaining);
-                tasks.unmarkTask(index);
+                try {
+                    tasks.unmarkTask(index);
+                } catch (InvalidTaskException e) {
+                    displayString(e.getMessage());
+                }
             } else {
                 if (command.equals("todo")) {                       // add todo
                     try {
@@ -93,13 +101,13 @@ public class Llama {
                     } catch(LlamaException e) {
                         displayString(e.getMessage());
                     }
+                } else {
+                    try {
+                        throw new LlamaException("Command not found, try again."); // really?
+                    } catch (LlamaException e){
+                        displayString(e.getMessage());
+                    }
                 }
-                try {
-                    throw new LlamaException("Command not found, try again."); // really?
-                } catch (LlamaException e){
-                    displayString(e.getMessage());
-                }
-
             }
         }
 

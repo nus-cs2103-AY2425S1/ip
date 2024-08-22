@@ -16,14 +16,20 @@ public class TaskStorage {
         System.out.println("\tYou now have " + this.numberOfTasks + " tasks.");
     }
 
-    public void markTask(int i) {
+    public void markTask(int i) throws InvalidTaskException {
+        if (i <= 0 || i > this.numberOfTasks) {
+            throw new InvalidTaskException("Task does not exist!");
+        }
         Task task = this.taskArray[i - 1];
         task.markDone();
         System.out.println("\tGood Job! The task is now marked as done: ");
         System.out.println("\tMarked task: " + task);
     }
 
-    public void unmarkTask(int i) {
+    public void unmarkTask(int i) throws InvalidTaskException {
+        if (i <= 0 || i > this.numberOfTasks) {
+            throw new InvalidTaskException("Task does not exist!");
+        }
         Task task = this.taskArray[i - 1];
         task.markNotDone();
         System.out.println("\tAlright, the task is marked as not done: ");
