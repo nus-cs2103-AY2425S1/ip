@@ -5,8 +5,8 @@ public class XBot {
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
-        System.out.println("Hello! I'm XBot\n" + "What can I do for you?\n");
-        while (!input.equalsIgnoreCase("Bye") || !input.equalsIgnoreCase("bye")) {
+        System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
+        while(!input.equalsIgnoreCase("bye")) {
             System.out.println(input);
             input = scanner.nextLine();
         }
