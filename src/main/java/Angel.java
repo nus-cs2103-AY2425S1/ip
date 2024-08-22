@@ -21,7 +21,7 @@ public class Angel {
                 System.out.println(logo + " Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     String status = isDone[i] ? "[X]" : "[ ]";
-                    System.out.println(" " + (i + 1) + "." + status + " " + tasks[i]);
+                    System.out.println(" " + (i + 1) + "." + tasks[i].replace("[ ]", status));
                 }
                 System.out.println(logo);
             } else if (userInput.startsWith("mark ")) {
@@ -29,20 +29,46 @@ public class Angel {
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     isDone[taskIndex] = true;
                     System.out.println(logo + " Nice! I've marked this task as done:\n"
-                            + "   [X] " + tasks[taskIndex] + "\n" + logo);
+                            + "   " + tasks[taskIndex].replace("[ ]", "[X]") + "\n" + logo);
                 }
             } else if (userInput.startsWith("unmark ")) {
                 int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     isDone[taskIndex] = false;
                     System.out.println(logo + " OK, I've marked this task as not done yet:\n"
-                            + "   [ ] " + tasks[taskIndex] + "\n" + logo);
+                            + "   " + tasks[taskIndex].replace("[X]", "[ ]") + "\n" + logo);
                 }
-            } else {
-                tasks[taskCount] = userInput;
-                isDone[taskCount] = false;  // Default status is not done
+            } else if (userInput.startsWith("todo ")) {
+                String description = userInput.substring(5);
+                tasks[taskCount] = "[T][ ] " + description;
+                isDone[taskCount] = false;
                 taskCount++;
-                System.out.println(logo + " added: " + userInput + "\n" + logo);
+                System.out.println(logo + " Got it. I've added this task:\n"
+                        + "   " + tasks[taskCount - 1] + "\n"
+                        + " Now you have " + taskCount + " tasks in the list.\n" + logo);
+            } else if (userInput.startsWith("deadline ")) {
+                String[] parts = userInput.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                tasks[taskCount] = "[D][ ] " + description + " (by: " + by + ")";
+                isDone[taskCount] = false;
+                taskCount++;
+                System.out.println(logo + " Got it. I've added this task:\n"
+                        + "   " + tasks[taskCount - 1] + "\n"
+                        + " Now you have " + taskCount + " tasks in the list.\n" + logo);
+            } else if (userInput.startsWith("event ")) {
+                String[] parts = userInput.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                tasks[taskCount] = "[E][ ] " + description + " (from: " + from + " to: " + to + ")";
+                isDone[taskCount] = false;
+                taskCount++;
+                System.out.println(logo + " Got it. I've added this task:\n"
+                        + "   " + tasks[taskCount - 1] + "\n"
+                        + " Now you have " + taskCount + " tasks in the list.\n" + logo);
+            } else {
+                System.out.println(logo + " Sorry, I don't recognize that command.\n" + logo);
             }
         }
 
