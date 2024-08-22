@@ -33,3 +33,4 @@ What can I do for you?
          Here are the tasks in your list:
          1. [T] [ ] borrow book
          2. [E] [ ] project meeting  (from: Mon 2pm  to: 4pm)
+Bye. Hope to see you again soon!
