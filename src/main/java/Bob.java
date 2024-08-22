@@ -12,7 +12,7 @@ public class Bob {
         while(!input.equals("bye")) {
             try {
                 if(!input.startsWith("list") && !input.startsWith("bye") && !input.startsWith("unmark") && !input.startsWith("mark") && !input.startsWith("todo") && !input.startsWith("deadline") && !input.startsWith("event") && !input.startsWith("delete")) {
-                    throw new BobException("Invalid command. Please enter a valid command. Valid commands are: list, unmark, mark, todo, deadline, event, and bye.");
+                    throw new BobException("Invalid command. Please enter a valid command. Valid commands are: list, unmark, mark, delete, todo, deadline, event, and bye.");
                 }
                 if(input.startsWith("list")) {
                     System.out.println("Here are the tasks in your list:");
