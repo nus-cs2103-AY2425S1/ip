@@ -40,6 +40,7 @@ public class Bob {
             if (inputWords[0].equals("list")) {
                 bob.listRecords();
                 input = scanner.nextLine();
+                input = input.trim();
                 continue;
             }
             //Print array loop
@@ -52,19 +53,23 @@ public class Bob {
                 if (inputWords.length == 1) {
                     System.out.println("Please input which item number you want to mark.");
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 } else if ((bob.records == null)) {
                     System.out.println("No record yet.");
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 } else if (bob.records.size() < Integer.valueOf(inputWords[1]) || Integer.valueOf(inputWords[1]) <= 0) {
                     System.out.println("Item index out of range.");
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 } else {
                     String currDescription = bob.records.get(Integer.parseInt(inputWords[1]) - 1).getDescription();
                     bob.markRecord(Integer.parseInt(inputWords[1]) - 1, true, currDescription);
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 }
             }
@@ -72,19 +77,23 @@ public class Bob {
                 if (inputWords.length == 1) {
                     System.out.println("Please input which item number you want to unmark.");
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 } else if ((bob.records == null)) {
                     System.out.println("No record yet.");
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 } else if (bob.records.size() < Integer.valueOf(inputWords[1]) || Integer.valueOf(inputWords[1]) <= 0) {
                     System.out.println("Item index out of range.");
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 } else {
                     String currDescription = bob.records.get(Integer.parseInt(inputWords[1]) - 1).getDescription();
                     bob.markRecord(Integer.parseInt(inputWords[1]) - 1, false, currDescription);
                     input = scanner.nextLine();
+                    input = input.trim();
                     continue;
                 }
             }
