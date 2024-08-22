@@ -1,32 +1,42 @@
 import TaskType.Task;
 import TaskType.TaskBuilder;
+import java.util.ArrayList;
 
 public class ListManager {
-    private Task[] ItemList = new Task[100];
-
-    // Keeps track of the smallest index that has empty value
-    private int ListIndex = 0;
+    private ArrayList<Task> itemList = new ArrayList<>();
 
     public void createItem(TaskBuilder builder) {
-        ItemList[ListIndex] = builder.build();
-        ListIndex++;
+        itemList.add(builder.build());
     }
 
     public String listItems() {
-        String result = "";
-        for (int i = 0; i < ListIndex; i++) {
-            Task task = ItemList[i];
-            result += (i + 1) + ". " + task.toString() + "\n";
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < itemList.size(); i++) {
+            Task task = itemList.get(i);
+            result.append(i + 1).append(". ").append(task.toString()).append("\n");
         }
-        return result;
+        return result.toString();
     }
 
     public void setDone(boolean done, int index) {
-        ItemList[index-1].setDone(done);
+        if (index > 0 && index <= itemList.size()) {
+            itemList.get(index - 1).setDone(done);
+        }
+    }
+
+    public void delete(int index) {
+        if (index > 0 && index <= itemList.size()) {
+            itemList.remove(index-1);
+        }
     }
 
     public String getItem(int index) {
-        return ItemList[index - 1].getStatusIcon() + " " + ItemList[index - 1].getDescription();
+        if (index > 0 && index <= itemList.size()) {
+            Task task = itemList.get(index - 1);
+            return task.toString();
+        }
+        return "";
     }
+
 
 }

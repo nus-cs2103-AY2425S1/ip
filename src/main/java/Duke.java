@@ -1,3 +1,4 @@
+import TaskType.Task;
 import TaskType.TaskBuilder;
 
 import java.util.Objects;
@@ -80,6 +81,13 @@ public class Duke {
 
                 TaskBuilder taskBuilder = new TaskBuilder(description, "event");
                 DukeManager.createItem(taskBuilder.from(from).to(to));
+
+            } else if (Objects.equals(firstWord, "delete")) {
+                String index = command.substring("delete".length()).trim();
+                String tempTask = DukeManager.getItem(Integer.parseInt(index));
+                DukeManager.delete(Integer.parseInt(index));
+                System.out.println("I have your ass covered! " + tempTask + " is now deleted");
+
 
             } else {
                 System.out.println("I dont get your command man");
