@@ -90,6 +90,18 @@ public class R2D2 {
                 System.out.println("Argh next time! *bzzt*");
                 System.out.println(database[index].toString());
                 System.out.println(hline);
+            } else if (input.startsWith("delete")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                Task task = database[index];
+                for (int i = index; i < counter; i++) {
+                    database[i] = database[i+1];
+                }
+                System.out.println(hline);
+                System.out.println("*POOF* Circuits fried! Deleted the mission.");
+                System.out.println(task.toString());
+                counter--;
+                counter--;
+                System.out.println("You currently have " + counter+ " missions available *reeeee* ");
             } else if (input.equals("list")) {
                 System.out.println(hline);
                 for (int i = 1; i < counter; i++) {
