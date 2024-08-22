@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import controllers.commands.*;
 import controllers.errors.*;
-import models.Task;
 import models.Deadline;
 import models.Event;
 import models.Todo;
@@ -25,6 +24,14 @@ public class InputParser {
             }
         } else if (isListCommand(cmd)) {
             return new ListCommand();
+        } else if (isDeleteCommand(cmd)) {
+            try {
+                String[] parts = cmd.split(" ");
+                int index = Integer.parseInt(parts[1]);
+                return new DeleteTaskCommand(index);
+            } catch (Exception e) {
+                throw new InvalidInputError("Invalid input for delete!");
+            }
         } else if (isUnmarkCommand(cmd)) {
             try {
                 String[] parts = cmd.split(" ");
@@ -102,6 +109,13 @@ public class InputParser {
     private boolean isEventCommand(String command) {
         String[] parts = command.split(" ");
         return parts[0].equals("event");
+    }
+
+    private boolean isDeleteCommand(String command) {
+        String deleteRegex = "delete (100|[1-9]|[1-9][0-9])";
+        Pattern deletePattern = Pattern.compile(deleteRegex);
+        Matcher deleteMatcher = deletePattern.matcher(command);
+        return deleteMatcher.matches();
     }
 
     private String extractStringBetweenTwoSubStrings(String command, String prefix, String byMarker) {

@@ -42,6 +42,11 @@ ____________________________________________________________
 OK, I've marked this task as not done yet:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
+1. [D][ ] do homework  (by:no idea :-p)
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][X] return book  (by:Sunday)
+4. [T][X] borrow book
+
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [D][ ] return book  (by:Sunday)
@@ -51,3 +56,17 @@ OK, I've marked this task as not done yet:
 [T][ ] borrow book
 ____________________________________________________________
 controllers.errors.InvalidCommandError: blah doesn't exist as a command
+____________________________________________________________
+Removed: borrow book
+____________________________________________________________
+____________________________________________________________
+Removed: return book 
+____________________________________________________________
+java.lang.IndexOutOfBoundsException: Index 19 out of bounds for length 2
+____________________________________________________________
+Removed: project meeting 
+____________________________________________________________
+____________________________________________________________
+Removed: do homework 
+____________________________________________________________
+List is empty!

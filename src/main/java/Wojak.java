@@ -24,7 +24,7 @@ public class Wojak {
             try {
                 Command command = parser.parse(nextLine);
                 command.execute(taskList);
-            } catch (InvalidCommandError | InvalidInputError e) {
+            } catch (Exception e) {
                 System.out.println(e);
             }
 

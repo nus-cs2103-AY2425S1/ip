@@ -9,6 +9,13 @@ mark 3
 mark 4
 unmark 1
 unmark 2
+list
 unmark 3
 unmark 4
 blah
+delete 4
+delete 3
+delete 20
+delete 2
+delete 1
+list

@@ -30,6 +30,10 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    public Task removeTask(int index) {
+        return this.tasks.remove(index-1);
+    }
+
     public String listTasks() {
         if (tasks.size() == 0) {
             return "List is empty!";
