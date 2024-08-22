@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Brock {
     private static final String horizontalLine = "________________________________________________\n";
+    private static final String[] items = new String[100];
+    private static int itemsIndex = 0;
 
     // Helper function to display response with lines
     private static void displayResponse(String response) {
@@ -20,13 +22,26 @@ public class Brock {
 
         // Main loop
         while (true) {
-            String command = scanner.nextLine() + '\n';
-            if (command.equals("bye\n")) {
+            String command = scanner.nextLine();
+            if (command.equals("bye")) {
                 String byeMessage = "Bye. Hope to see you again soon!\n";
                 displayResponse(byeMessage);
                 break;
+            } else if (command.equals("list")) {
+                // Use SB as it is a faster way to append strings
+                StringBuilder itemsString = new StringBuilder();
+                for (int i = 0; i < 100; i++) {
+                    if (items[i] == null) {
+                        break;
+                    }
+                    String itemNumber = Integer.toString(i + 1);
+                    itemsString.append(itemNumber).append(". ").append(items[i]);
+                }
+                displayResponse(itemsString.toString());
             } else {
-                displayResponse(command);
+                displayResponse("added: " + command + '\n');
+                Brock.items[itemsIndex] = command + '\n';
+                itemsIndex++;
             }
         }
     }
