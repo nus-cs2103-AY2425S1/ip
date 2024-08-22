@@ -1,7 +1,21 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-----------------------------------
+Hello! My name is Snowy
+What can I do for you?
+-----------------------------------
+New todo task added:
+ [T][ ] Borrow book
+-----------------------------------
+New todo task added:
+ [T][ ] Read Book
+-----------------------------------
+New Deadline task added:
+ [D][ ] Return book (by Sunday )
+-----------------------------------
+New Event task added:
+ [E][ ] project meeting (from Mon 2pm to: 4pm)
+-----------------------------------
+Command not recognized. Please try again
+-----------------------------------
+-----------------------------------
+Bye! Hope to see you again soon!
+-----------------------------------
