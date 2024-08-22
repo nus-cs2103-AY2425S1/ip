@@ -21,6 +21,16 @@ public class TaskManager {
         return "Roger that! I've added in this task:\n  " + tasks[counter - 1].toString() + "\nNow you have " + counter + " tasks in the list ~ !";
     }
 
+    public String deleteTask(int taskNumber) {
+        if (taskNumber > 0 && taskNumber <= counter) {
+            Task removedTask = tasks[taskNumber - 1];
+            System.arraycopy(tasks, taskNumber, tasks, taskNumber - 1, counter - taskNumber);
+            counter--;
+            return "Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + counter + " tasks in the list.";
+        }
+        return "Invalid task number!!!!";
+    }
+
     public String listTasks() {
         if (counter == 0) {
             return "You haven't added any task yet! :L";
