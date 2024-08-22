@@ -104,6 +104,22 @@ public class Alex {
         }
         scan();
     }
+    public void handleDelete(String input) {
+        int index = Integer.parseInt(input.substring(7)) - 1;
+        if (index >= 0 && index < list.size()) {
+            Task task = list.get(index);
+            System.out.println(LINE);
+            list.remove(index);
+            System.out.println("OK, I've deleted this task: \n" + task.toString() +
+                    "\n Now you have " + list.size() + " tasks left in the list.");
+            System.out.println(LINE);
+        } else {
+            System.out.println(LINE);
+            System.out.println("It seems that task does not exist. Please try again.");
+            System.out.println(LINE);
+        }
+        scan();
+    }
     public void scan() {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -125,6 +141,8 @@ public class Alex {
             handleDeadline(userInput);
         } else if (userInput.startsWith("event")) {
             handleEvent(userInput);
+        } else if (userInput.startsWith("delete")) {
+            handleDelete(userInput);
         } else {
             System.out.println(LINE);
             System.out.println("Sorry, I don't understand that command. Did you make a typo?");
