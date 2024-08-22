@@ -25,22 +25,22 @@ public class TaskTracker {
         }
     }
 
-    public void markDone(int z) {
+    public void markDone(int z) throws InvalidIndexException {
         if (this.counter == 0) {
             System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
         } else if (z < 0 || z >= this.counter) {
-            System.out.println("You have entered an invalid task number! Please try again.");
+            throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
         }
         else {
             this.taskList[z].mark();
         }
     }
 
-    public void unmarkDone(int q) {
+    public void unmarkDone(int q) throws InvalidIndexException {
         if (this.counter == 0) {
             System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
         } else if (q < 0 || q >= this.counter) {
-            System.out.println("You have entered an invalid task number! Please try again.");
+            throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
         }
         else {
             this.taskList[q].unmark();
