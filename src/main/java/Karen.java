@@ -28,14 +28,20 @@ public class Karen {
                 break;
             } else if (input.equals("list")) {
                 output += LINE;
-                for (int i = 0; i < tasks.size(); i++) {
-                    String s = tasks.get(i);
-                    if (s.isEmpty()) {
-                        break;
-                    } else {
-                        output += String.format("%d. %s\n",i + 1, s);
+
+                if (tasks.isEmpty()) {
+                    output += "No tasks yet!\n";
+                } else {
+                    for (int i = 0; i < tasks.size(); i++) {
+                        String s = tasks.get(i);
+                        if (s.isEmpty()) {
+                            break;
+                        } else {
+                            output += String.format("%d. %s\n",i + 1, s);
+                        }
                     }
                 }
+
                 output += LINE;
             }
             else {
