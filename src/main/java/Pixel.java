@@ -20,7 +20,7 @@ public class Pixel {
     public static void printList() {
         System.out.println(LINE);
         for (int index = 1; index <= tasks.size(); index++) {
-            System.out.println("\t" + index + "." + tasks.get(index-1).getFullDescription());
+            System.out.println("\t" + index + "." + tasks.get(index-1));
         }
         System.out.println(LINE);
     }
@@ -37,7 +37,7 @@ public class Pixel {
                 currentTask.markAsDone();
                 System.out.println(LINE);
                 System.out.println("\t" + "Nice! I've marked this task as done:");
-                System.out.println("\t  " + currentTask.getFullDescription());
+                System.out.println("\t  " + currentTask);
                 System.out.println(LINE);
             } else if (command.startsWith("unmark")) {
                 String[] stringArray = command.split(" ", 0);
@@ -45,7 +45,7 @@ public class Pixel {
                 currentTask.markAsUndone();
                 System.out.println(LINE);
                 System.out.println("\t" + "OK, I've marked this task as not done yet:");
-                System.out.println("\t  " + currentTask.getFullDescription());
+                System.out.println("\t  " + currentTask);
                 System.out.println(LINE);
             } else if (command.equals("bye")) {
                 printExit();

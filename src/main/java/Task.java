@@ -23,7 +23,8 @@ public class Task {
         return this.description;
     }
 
-    public String getFullDescription() {
+    @Override
+    public String toString() {
         return String.format("[%s] %s", getStatusIcon(), getDescription());
     }
 }
