@@ -62,6 +62,9 @@ public class Max {
                     this.storedTasks[this.storedTasksIndex] = event;
                     this.storedTasksIndex++;
                     printTaskTypeAdded(event);
+                } else if (text.startsWith("delete")){
+                    int index = Integer.parseInt(text.replace("delete ", ""));
+                    deleteTask(index);
                 } else {
                     throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
                 }
@@ -107,6 +110,7 @@ public class Max {
 
     public void list() {
         printLine();
+        System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < this.storedTasksIndex; i++) {
             int count = i + 1;
             System.out.println("\t " + count + "." + this.storedTasks[i].toString());
@@ -130,5 +134,35 @@ public class Max {
         System.out.println("\t OK, I've marked this task as not done yet:");
         System.out.println("\t   " + storedTasks[arrayIndex].toString());
         printLine();
+    }
+
+    public void deleteTask(int index) throws MaxException {
+        int arrayIndexToDelete = index - 1;
+        if (arrayIndexToDelete > storedTasksIndex || arrayIndexToDelete < 0) {
+            throw new MaxException("This task does not exist! Deletion unsuccessful.");
+        }
+        Task[] temp = new Task[100];
+
+        for (int i = 0; i < arrayIndexToDelete; i++) {
+            temp[i] = storedTasks[i];
+        }
+
+        for (int i = index; i < storedTasks.length; i++) {
+            temp[i - 1] = storedTasks[i];
+        }
+
+        this.storedTasksIndex--;
+
+        printLine();
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.println("\t   " + this.storedTasks[arrayIndexToDelete].toString());
+        System.out.println("\t Now you have " + this.storedTasksIndex + " tasks in the list.");
+        printLine();
+
+        this.storedTasks = temp;
+
+
+
+
     }
 }
