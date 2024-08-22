@@ -36,6 +36,48 @@ public class Snowy {
 
     }
 
+    public static class ToDo extends Task {
+
+        public ToDo(String description) {
+            super(description);
+        }
+        @Override
+        public String toString() {
+            return "[E]" + super.toString();
+        }
+    }
+
+    public static class Deadline extends Task {
+
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    public static class Event extends Task {
+        protected String from;
+        protected String to;
+
+        public Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        }
+    }
+
     public static class ToDoList {
         private ArrayList<Task> taskList;
         public ToDoList() {
@@ -85,27 +127,36 @@ public class Snowy {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 isBye = true;
+
             } else if (input.equalsIgnoreCase("list")) {
                 taskList.displayList();
+
             } else if (input.split(" ")[0].equalsIgnoreCase("mark")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
+
                 if (!taskList.isTaskDone(index - 1)) {
                     System.out.println(line + "\nMarked as done\n");
                     taskList.toggleTask(index - 1);
+
                 } else {
                     System.out.println("Task is already done");
+
                 }
             } else if (input.split(" ")[0].equalsIgnoreCase("unmark")){
                 int index = Integer.parseInt(input.split(" ")[1]);
+
                 if (taskList.isTaskDone(index - 1)) {
                     System.out.println(line + "\nUnmarked task\n");
                     taskList.toggleTask(index - 1);
+
                 } else {
                     System.out.println("Cannot unmark task as it is not done");
+
                 }
             } else {
                 System.out.println(line + "\nYou said: " + input + "\n" + line);
                 taskList.addTask(input);
+
             }
         }
         System.out.println("Bye. See you next time!");
