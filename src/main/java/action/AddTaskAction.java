@@ -13,6 +13,6 @@ public class AddTaskAction extends Action {
     @Override
     public String execute(TaskList taskList) {
         taskList.addTask(task);
-        return "Added task: " + task.toString() + "\n";
+        return "Added task: " + task.toString() + "\n" + taskList.getTaskSummary();
     }
 }

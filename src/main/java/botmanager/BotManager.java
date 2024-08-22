@@ -6,7 +6,7 @@ import util.Parser;
 import util.Ui;
 
 /**
- * Entry point for the botmanager.BotManager Chatbot
+ * Entry point for the BotManager Chatbot
  *
  * @author dwsc37
  */
@@ -25,7 +25,7 @@ public class BotManager {
        ui.start();
 
        while (true) {
-           String input = ui.readUserInput();
+           String input = ui.readUserInput().stripTrailing().stripLeading();
            if (input.equals("bye")) {
                break;
            }
