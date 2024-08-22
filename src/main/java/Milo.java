@@ -200,7 +200,7 @@ public class Milo {
                 System.out.println(hLine + invalidMessage + hLine);
                 break;
             default:
-                String defaultMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
+                String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
                 System.out.println(hLine + defaultMessage + hLine);
         }
     }
