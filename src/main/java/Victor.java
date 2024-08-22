@@ -17,9 +17,9 @@ public class Victor {
 + "   `---`     '---'    `._____.'    '---'      '-----'    ''-'   `'-'\n";
         Scanner inp = new Scanner(System.in);
         ArrayList<Task> inputs = new ArrayList<Task>();
-        String[] exclamations = new String[]{"Wonderful", "Cool", "Magnificent", "Splendid", "Great", "Fantastic",
-                "Marvellous"};
-        Random Random = new Random();
+//        String[] exclamations = new String[]{"Wonderful", "Cool", "Magnificent", "Splendid", "Great", "Fantastic",
+//                "Marvellous"};
+//        Random Random = new Random();
 
         System.out.println(logo);
         System.out.println("Hello! My name is Victor!");
@@ -110,8 +110,9 @@ public class Victor {
                     ToDo task = new ToDo(taskName);
                     inputs.add(task);
 
-                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this" +
-                            " To Do:");
+//                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this" +
+//                            " To Do:");
+                    System.out.println("  ~  Cool! I added this To Do:");
                     System.out.println("  ~    " + task);
                     System.out.println("  ~  You now have " + inputs.size() +
                             ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
@@ -148,8 +149,9 @@ public class Victor {
                     Deadline task = new Deadline(taskName, deadline);
                     inputs.add(task);
 
-                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added " +
-                            "this Deadline:");
+//                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added " +
+//                            "this Deadline:");
+                    System.out.println("  ~  Splendid! I added this Deadline:");
                     System.out.println("  ~    " + task);
                     System.out.println("  ~  You now have " + inputs.size() +
                             ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
@@ -198,8 +200,7 @@ public class Victor {
                     Event task = new Event(taskName, start, end);
                     inputs.add(task);
 
-                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added" +
-                            " this Event:");
+                    System.out.println("  ~  Wonderful! I added this Event:");
                     System.out.println("  ~    " + task);
                     System.out.println("  ~  You now have " + inputs.size() +
                             ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
