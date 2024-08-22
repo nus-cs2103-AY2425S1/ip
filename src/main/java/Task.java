@@ -6,4 +6,12 @@ public class Task {
         this.description = description;
         this.isdone = false;
     }
+
+    public void markAsDone() {
+        this.isdone = true;
+    }
+
+    public void markAsUndone() {
+        this.isdone = false;
+    }
 }
