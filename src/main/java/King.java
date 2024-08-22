@@ -9,20 +9,30 @@ class King {
                 "|_|\\_\\|_|_| |_|\\__, |\n" +
                 "               |___/ ";
 
-        System.out.println("Greetings from the\n" + logo);
+        System.out.println("Behold the wrath of the\n" + logo);
         System.out.println("____________________________________________________________");
-        System.out.println("How may I assist you?");
+        System.out.println("What do you have for me?");
         System.out.println("____________________________________________________________");
 
+        //Take in user input
         Scanner scanner = new Scanner(System.in);
+
+        //Array to store tasks
+        String[] tasks = new String[100];
+        int taskcounter = 0;
 
         while(true) {
             String input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("bye")) {
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                for (int i = 0; i < taskcounter; i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                }
             }
-            System.out.println(input);
+            tasks[taskcounter] = input;
+            taskcounter++;
             System.out.println("____________________________________________________________");
         }
         System.out.println("You are dismissed my loyal subject.");
