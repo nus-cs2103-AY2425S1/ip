@@ -29,16 +29,25 @@ public class Barcus {
 
         while (!exit) {
             String reply = receive(scanner);
+            String[] words = reply.split(" ");
 
             if (reply.equals("bye")) {
                 exit = true;
                 talk(goodbye);
             } else if (reply.equals("list")) {
                 // for add list
-                talk("");
+                talk("Okie, here are your tasks!");
                 for (int i = 0; i < curr; i++) {
                     System.out.println(String.valueOf(i+1) + ". " + tasks[i].toString());
                 }
+            } else if (words[0].equals("unmark")) {
+                int pos = Integer.parseInt(words[1]);
+                tasks[pos - 1].unmarkDone();
+                talk("No prob, have marked as undone: " + tasks[pos - 1]);
+            } else if (words[0].equals("mark")) {
+                int pos = Integer.parseInt(words[1]);
+                tasks[pos - 1].markDone();
+                talk("Good job! Have marked as done: " + tasks[pos - 1]);
             } else {
                 // for echo
 //                talk(reply);
@@ -49,6 +58,10 @@ public class Barcus {
                 talk("Added task '" + reply + "'");
             }
         }
+
+        // current problems:
+        // - typing mark papers as a task will cause error
+        // - trying to mark or unmark something out of index has error
 
     }
 
