@@ -32,7 +32,11 @@ public class PandaBot {
                     System.out.println((i + 1) + ". " + taskList[i]);
                 }
                 printLine();
-            } else if (input.startsWith("mark ")) {
+            } else if (input.startsWith("mark")) {
+                if (input.equalsIgnoreCase("mark")) {
+                    System.out.println("Please specify which Task number to mark");
+                    continue;
+                }
                 int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
                 if (taskNum >= 0 && taskNum < taskCount) {
                     taskList[taskNum].markAsDone();
@@ -43,7 +47,11 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist");
                 }
-            } else if (input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark")) {
+                if (input.equalsIgnoreCase("unmark")) {
+                    System.out.println("Please specify which Task number to unmark");
+                    continue;
+                }
                 int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
                 if (taskNum >= 0 && taskNum < taskCount) {
                     taskList[taskNum].unmark();
@@ -54,26 +62,14 @@ public class PandaBot {
                 } else {
                     System.out.println("The specified task does not exist");
                 }
-            } else if (input.equalsIgnoreCase("todo")) {
-                printLine();
-                ToDo.showUsage();
-                printLine();
-            } else if (input.equalsIgnoreCase("deadline")) {
-                printLine();
-                Deadline.showUsage();
-                printLine();
-            } else if (input.equalsIgnoreCase("event")) {
-                printLine();
-                Event.showUsage();
-                printLine();
             } else {
                 Task task = null;
                 try {
-                    if (input.startsWith("todo ")) {
+                    if (input.startsWith("todo")) {
                         task = new ToDo("").createTask(input);
-                    } else if (input.startsWith("deadline ")) {
+                    } else if (input.startsWith("deadline")) {
                         task = new Deadline("", "").createTask(input);
-                    } else if (input.startsWith("event ")) {
+                    } else if (input.startsWith("event")) {
                         task = new Event("", "", "").createTask(input);
                     } else {
                         System.out.println("Invalid command. Type '/help' for assistance.");
@@ -86,7 +82,7 @@ public class PandaBot {
                     System.out.println(taskList[taskCount - 1]);
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                     printLine();
-                } catch (IllegalArgumentException e) {
+                } catch (InputException e) {
                     System.out.println(e.getMessage());
                 }
             }
