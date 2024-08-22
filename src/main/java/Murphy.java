@@ -12,10 +12,10 @@ public class Murphy {
                     + "|____/ \\__,_|_|\\_\\___|\n";
             System.out.println("Hello from\n" + logo);
         */
-        System.out.println("________________");
+        prLine();
         System.out.println("Hello! I'm Murphy");
         System.out.println("What can I do for you?");
-        System.out.println("________________");
+        prLine();
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNextLine()) {
             String input = scanner.nextLine();
@@ -41,6 +41,7 @@ public class Murphy {
                 }
                 if (index > Murphy.numOfTasks || index <= 0) {
                     System.out.println("Out of the range of tasks!");
+                    prLine();
                     continue;
                 }
                 Murphy.markItem(index);
@@ -59,6 +60,7 @@ public class Murphy {
                 }
                 if (index > Murphy.numOfTasks || index <= 0) {
                     System.out.println("Out of the range of tasks!");
+                    prLine();
                     continue;
                 }
                 Murphy.unmarkItem(index);
@@ -68,6 +70,7 @@ public class Murphy {
             } else if(input.startsWith("deadline ")) {
                 if (!input.contains("/by ")) {
                     System.out.println("Provide a by time for deadline");
+                    prLine();
                     continue;
                 }
                 String[] split = input.split("/by ");
@@ -76,6 +79,7 @@ public class Murphy {
             } else if (input.startsWith("event ")) {
                 if (!input.contains("/from ") || !input.contains("/to ")) {
                     System.out.println("Provide a from and to time for event");
+                    prLine();
                     continue;
                 }
                 String[] split = input.split("/from ");
@@ -84,19 +88,25 @@ public class Murphy {
                 Murphy.addItem(event);
             } else {
                 System.out.println("Command not found");
+                prLine();
             }
         }
     }
 
+    private static void prLine() {
+        System.out.println("____________________");
+    }
+
     private static void bye() {
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("________________");
+        prLine();
     }
 
     private static void list() {
         for (int i = 0; i < Murphy.numOfTasks; i++) {
             System.out.println((i+1) + ". " + Murphy.tasks[i]);
         }
+        prLine();
     }
 
     private static void addItem(Task task) {
@@ -104,17 +114,20 @@ public class Murphy {
         System.out.println(task);
         Murphy.tasks[Murphy.numOfTasks++] = task;
         System.out.println("Now you have " + Murphy.numOfTasks + " task(s) in the list.");
+        prLine();
     }
 
     private static void markItem(int index) {
         Murphy.tasks[index - 1].mark();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(Murphy.tasks[index - 1]);
+        prLine();
     }
 
     private static void unmarkItem(int index) {
         Murphy.tasks[index - 1].unmark();
         System.out.println("I've unmarked this task. Guess Murphy struck?");
         System.out.println(Murphy.tasks[index - 1]);
+        prLine();
     }
 }

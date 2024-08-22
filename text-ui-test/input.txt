@@ -1,0 +1,9 @@
+todo test todo
+deadline homework /by Sunday
+event dinner /from 6pm /to 9pm
+list
+mark 2
+list
+unmark 2
+list
+bye
