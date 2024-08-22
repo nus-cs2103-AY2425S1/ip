@@ -10,25 +10,23 @@ public class TaskList {
         listOfTasks.add(task);
     }
 
-    public boolean mark(int i) {
+    public void mark(int i) throws NotInTaskListException {
         if (i > listOfTasks.size() || i < 1) {
-            return false;
+            throw new NotInTaskListException();
         }
         listOfTasks.get(i - 1).done();
-        return true;
     }
 
-    public boolean unMark(int i) {
+    public void unMark(int i) throws NotInTaskListException {
         if (i > listOfTasks.size() || i < 1) {
-            return false;
+            throw new NotInTaskListException();
         }
         listOfTasks.get(i - 1).undone();
-        return true;
     }
 
-    public String getTask(int i) {
+    public String getTask(int i) throws NotInTaskListException {
         if (i > listOfTasks.size() || i < 1) {
-            return "";
+            throw new NotInTaskListException();
         }
         return listOfTasks.get(i - 1).toString();
     }
