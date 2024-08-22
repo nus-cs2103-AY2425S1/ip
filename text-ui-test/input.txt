@@ -11,4 +11,16 @@ list
 todo read book
 mark 3
 list
+todo
+blah blah
+todo jump 20 times
+list
+todos run around
+deadline say good
+deadline
+event say hi /from 2pm /to 3pm
+event say nope /from 2pm
+event say bye /to 3pm
+event say invalid
+event
 bye

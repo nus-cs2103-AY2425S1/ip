@@ -73,6 +73,67 @@ Meep: Here are the tasks in your list:
 4. [T][ ] read book
 -----------------------------------------
 You: -----------------------------------------
+Meep: Sorry, there is something wrong with your todo command.
+Todo command should be in the format: todo <description>
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, I don't understand that command. Please try again.
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Got it. I've added this task:
+[T][ ] jump 20 times
+Now you have 5 tasks in the list
+-----------------------------------------
+You: -----------------------------------------
+Meep: Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+4. [T][ ] read book
+5. [T][ ] jump 20 times
+-----------------------------------------
+You: -----------------------------------------
+Meep: Sorry, I don't understand that command. Please try again.
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your deadline command.
+Deadline command should be in the format: deadline <description> /by <date>
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your deadline command.
+Deadline command should be in the format: deadline <description> /by <date>
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Got it. I've added this task:
+[E][ ] say hi (from: 2pm to: 3pm)
+Now you have 6 tasks in the list
+-----------------------------------------
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your event command.
+Event command should be in the format: event <description> /from <date> /to <date>
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your event command.
+Event command should be in the format: event <description> /from <date> /to <date>
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your event command.
+Event command should be in the format: event <description> /from <date> /to <date>
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your event command.
+Event command should be in the format: event <description> /from <date> /to <date>
+-----------------------------------------
+
+You: -----------------------------------------
 Meep: Bye! Have a great day!
 -----------------------------------------
 
