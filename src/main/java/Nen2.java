@@ -10,7 +10,7 @@ public class Nen2 {
     private static final Scanner messageReader = new Scanner(System.in);
 
     private static final Task[] listOfTasks = new Task[100];
-    private static int amountOfText = 0;
+    private static int amountOfTask = 0;
 
     public static void main(String[] args) {
         greet();
@@ -43,9 +43,11 @@ public class Nen2 {
                 printList();
                 break;
             default:
-                System.out.println("added: " + input);
-                listOfTasks[amountOfText] = new Task(input);
-                amountOfText++;
+                Task t = Task.of(input);
+                listOfTasks[amountOfTask] = t;
+                amountOfTask++;
+                System.out.println("Got it. I've added this task: \n" + t);
+                System.out.println("Now you have " + amountOfTask + " tasks in the list.");
         }
 
         System.out.println(separator);
@@ -54,7 +56,7 @@ public class Nen2 {
 
     private static void printList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < amountOfText; i++) {
+        for (int i = 0; i < amountOfTask; i++) {
             System.out.println(String.valueOf(i + 1) + "." + listOfTasks[i]);
         }
     }
