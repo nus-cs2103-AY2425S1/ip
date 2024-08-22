@@ -15,6 +15,7 @@ public class Event extends Task {
                 + " (from: "
                 + this.startDate
                 + " to: "
-                + this.endDate;
+                + this.endDate
+                + ")";
     }
 }

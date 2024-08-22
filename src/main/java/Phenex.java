@@ -87,12 +87,9 @@ public class Phenex {
         String unmarkRegex = "^unmark \\d+\\s*$";
 
         // regex's for commands which tell Phenex to add Task
-        String todoRegex = "(?i)todo ";
-        String deadlineKeywordRegex = "(?i)deadline";
-        String deadlineByRegex = "/by ";
-        String eventKeywordRegex = "(?i)event";
-        String eventFromRegex = "/from ";
-        String eventToRegex = "/to ";
+        String todoRegex = "^(?i)todo (.+)";
+        String deadlineRegex = "^(?i)deadline (.+) /by (.+)";
+        String eventRegex = "^(?i)event (.+) /from (.+) /to (.+)$";
 
         ArrayList<Task> tasks = new ArrayList<>();
         String userInput;
@@ -101,14 +98,19 @@ public class Phenex {
         Pattern markPattern = Pattern.compile(markRegex);
         Pattern unmarkPattern = Pattern.compile(unmarkRegex);
         Pattern todoPattern = Pattern.compile(todoRegex);
-        Pattern deadlineKeywordPattern = Pattern.compile(deadlineKeywordRegex);
+        Pattern deadlinePattern = Pattern.compile(deadlineRegex);
+        Pattern eventPattern = Pattern.compile(eventRegex);
 
         Matcher terminatingMatcher;
         Matcher listMatcher;
         Matcher markMatcher;
         Matcher unmarkMatcher;
+        Matcher todoMatcher;
+        Matcher deadlineMatcher;
+        Matcher eventMatcher;
 
         while (true) {
+            // scan inputs
             userInput = scanner.nextLine();
             terminatingMatcher = terminatingPattern.matcher(userInput);
 
@@ -120,6 +122,9 @@ public class Phenex {
             listMatcher = listPattern.matcher(userInput);
             markMatcher = markPattern.matcher(userInput);
             unmarkMatcher = unmarkPattern.matcher(userInput);
+            todoMatcher = todoPattern.matcher(userInput);
+            deadlineMatcher = deadlinePattern.matcher(userInput);
+            eventMatcher = eventPattern.matcher(userInput);
 
             p.printLine();
 
@@ -135,12 +140,36 @@ public class Phenex {
                 int taskNumber = Integer.parseInt(unmarkMatcher.group().substring(7));
                 int idx = taskNumber - 1;
                 p.markTaskIncomplete(idx);
-            } else {
+            } else if (todoMatcher.matches()) {
                 // add new tasks
-                Task taskToAdd = new Task(userInput);
-                p.tasks.add(taskToAdd);
-                String taskAddedMsg = "\t Mission " + userInput + " added.";
+                String todoName = todoMatcher.group(1);
+                ToDo toDo = new ToDo(todoName);
+                p.tasks.add(toDo);
+                String taskAddedMsg = "\t Mission " + todoName + " added:";
                 System.out.println(taskAddedMsg);
+                System.out.println("\t   " + toDo);
+                System.out.println("\t Total upcoming missions: " + p.tasks.size());
+            } else if (deadlineMatcher.matches()) {
+                String deadlineName = deadlineMatcher.group(1);
+                String deadlineBy = deadlineMatcher.group(2);
+                Deadline deadline = new Deadline(deadlineName, deadlineBy);
+                p.tasks.add(deadline);
+                String taskAddedMsg = "\t Mission " + deadlineName + " added:";
+                System.out.println(taskAddedMsg);
+                System.out.println("\t   " + deadline);
+                System.out.println("\t Total upcoming missions: " + p.tasks.size());
+            } else if (eventMatcher.matches()) {
+                String eventName = eventMatcher.group(1);
+                String eventFrom = eventMatcher.group(2);
+                String eventTo = eventMatcher.group(3);
+                Event event = new Event(eventName, eventFrom, eventTo);
+                p.tasks.add(event);
+                String taskAddedMsg = "\t Mission " + eventName + " added:";
+                System.out.println(taskAddedMsg);
+                System.out.println("\t   " + event);
+                System.out.println("\t Total upcoming missions: " + p.tasks.size());
+            } else {
+                System.out.println("Error, invalid input.");
             }
 
             p.printLine();
