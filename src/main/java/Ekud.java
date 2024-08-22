@@ -59,22 +59,36 @@ public class Ekud {
         }
     }
 
-    public void markList(int listIndex) {
-        // assumes valid index is given
+    public int readInt(String input) throws EkudWrongInputFormatException {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            String message = String.format(
+                    """
+                            Now look what you've done!!
+                            I thought it was obvious... But '%s' is clearly not an Integer!""",
+                    input);
+            throw new EkudWrongInputFormatException(message);
+        }
+    }
+
+    public void markList(int listIndex) throws TaskListIndexOutOfBoundsException {
         tasks.markComplete(listIndex);
-        String message = String.format("""
+        String message = String.format(
+                """
                         Wowie!! You've completed your task!
                         I shall mark it as complete in celebration!
-                          %s
+                                %s
                         Woohoo!! Only %d more to go!""",
                 tasks.getTask(listIndex),
                 tasks.getIncompleteCount());
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
     }
 
-    public void unmarkList(int listIndex) {
-        // assumes valid index is given
-        String message = String.format("""
+    public void unmarkList(int listIndex) throws TaskListIndexOutOfBoundsException {
+        tasks.markIncomplete(listIndex);
+        String message = String.format(
+                """
                         Oh ho ho, did you perhaps forget something?
                         It's OK, I already noted down your incompetence...
                           %s
@@ -85,7 +99,7 @@ public class Ekud {
     }
 
     public void warnUnknownCommand() {
-        String warning = "Stop yapping buddy, I have no clue what ya saying!";
+        String warning = "Quit yapping buddy, I have no clue what ya saying!";
         FormatPrinter.printIndent(warning, OUTPUT_PREFIX);
     }
 
@@ -141,6 +155,7 @@ public class Ekud {
                     ekud.echoList();
                     break;
                 case MARK_COMMNAD:
+                    int index = ekud.readInt(argument);
                     ekud.markList(Integer.parseInt(argument) - 1);
                     break;
                 case UNMARK_COMMAND:
@@ -158,8 +173,9 @@ public class Ekud {
                 default:
                     ekud.warnUnknownCommand();
                 }
-            } catch (TaskArgumentMissingException tame) {
-                FormatPrinter.printIndent(tame.getMessage(), OUTPUT_PREFIX);
+            } catch (TaskArgumentMissingException | EkudWrongInputFormatException
+                     | TaskListIndexOutOfBoundsException err) {
+                FormatPrinter.printIndent(err.getMessage(), OUTPUT_PREFIX);
             } finally {
                 if (ekud.isRunning()) {
                     printLineSeparator();
