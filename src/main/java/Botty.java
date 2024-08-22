@@ -174,7 +174,7 @@ public class Botty {
     private static void handleDelete(String argument) throws BottyException {
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
-                    "Do indicate which task to mark with its number!");
+                    "Do indicate which task to delete with its number!");
         }
         int taskIndex = Integer.parseInt(argument) - 1;
         if (taskList.isEmpty()) {
