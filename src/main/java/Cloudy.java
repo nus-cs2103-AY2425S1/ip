@@ -17,7 +17,7 @@ public class Cloudy {
         // Asking for user input
         String userInput = echo.nextLine();
 
-        // program
+        // main program loop
         while (true) {
             // if user types 'bye', program will end
             if (Objects.equals(userInput, "bye")) {
@@ -44,7 +44,7 @@ public class Cloudy {
                 if (parts.length == 2) {
                     try {
                         int taskNumber = Integer.parseInt(parts[1]);
-                        if (taskNumber > 0 && taskNumber < userList.size()) {
+                        if (taskNumber > 0 && taskNumber < userList.size() + 1) {
                             Task taskToMark = userList.get(taskNumber - 1);
                             taskToMark.markTask();
 
@@ -72,7 +72,7 @@ public class Cloudy {
                 String[] parts = userInput.split(" ");
                 if (parts.length == 2) {
                     int taskNumber = Integer.parseInt(parts[1]);
-                    if (taskNumber > 0 && taskNumber < userList.size()) {
+                    if (taskNumber > 0 && taskNumber < userList.size() + 1) {
                         Task taskToMark = userList.get(taskNumber - 1);
                         taskToMark.unmarkTask();
 
@@ -90,20 +90,73 @@ public class Cloudy {
 
                 // prompt for input
                 userInput = echo.nextLine();
-            // if user types in a task, it is added to the list
+
+
+            } else if (userInput.startsWith("todo")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                String taskDescription = userInput.substring(5);
+                Task newTask = new Todo(taskDescription);
+                userList.add(newTask);
+                System.out.println(newTask.printTaskOnList());
+                System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+
+                // prompt for input
+                userInput = echo.nextLine();
+
+            } else if (userInput.startsWith("deadline")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+
+                String[] parts = userInput.split("/by");
+                String taskDescription = parts[0].substring(9).trim();
+                String deadline = parts.length > 0 ? parts[1].trim() : "";
+                Task newTask = new Deadline(taskDescription, deadline);
+                userList.add(newTask);
+
+                System.out.println(newTask.printTaskOnList());
+                System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+
+                // prompt for input
+                userInput = echo.nextLine();
+
+            } else if (userInput.startsWith("event")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+
+                String[] partsFrom = userInput.split("/from");
+                String taskDescription = partsFrom[0].substring(6).trim();
+                String startTime = "", endTime = "";
+                if (partsFrom.length > 1) {
+                    String[] partsTo = partsFrom[1].split("/to");
+                    startTime = partsTo[0].trim();
+                    if (partsTo.length > 1) {
+                        endTime = partsTo[1].trim();
+                    }
+
+                }
+                Task newTask = new Event(taskDescription, startTime, endTime);
+                userList.add(newTask);
+
+                System.out.println(newTask.printTaskOnList());
+                System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+
+                // prompt for input
+                userInput = echo.nextLine();
+
+            // if user types invalid command
             } else {
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + userInput);
-                Task newTask = new Task(userInput);
-                userList.add(newTask);
+                System.out.println("Invalid command, try again.");
                 System.out.println("____________________________________________________________");
 
                 // prompt for input
                 userInput = echo.nextLine();
             }
         }
-
-
 
     }
 }
