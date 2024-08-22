@@ -16,12 +16,12 @@ if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/**.java; 
   exit 1
 fi
 
-for input_file in input*.txt; do
+for input_file in ./input/input*.txt; do
   # Extract the base name from the input file (e.g. "input_<name>")
   base_name=$(basename "$input_file" .txt)
 
   uppercase_name=$(echo "${base_name#input_}" | tr '[:lower:]' '[:upper:]')
-  expected_file="EXPECTED_${base_name#input_}.txt"
+  expected_file="./expected-output/EXPECTED_${base_name#input_}.txt"
 
   # Run the program, feed commands from the input file, and redirect the output to ACTUAL.TXT
   java -classpath ../bin Mizz <"$input_file" >ACTUAL.TXT
