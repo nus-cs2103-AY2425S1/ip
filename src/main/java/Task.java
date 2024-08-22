@@ -24,6 +24,6 @@ public abstract class Task {
     @Override
     public String toString() {
         String isDoneStr = isDone ? "[X] " : "[ ] ";
-        return isDoneStr + description;
+        return "[" + getType() + "]" + isDoneStr + description + " ";
     }
 }
