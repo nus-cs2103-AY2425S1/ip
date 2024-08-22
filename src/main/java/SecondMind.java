@@ -32,9 +32,7 @@ public class SecondMind {
             if (command.equals("bye")) {
                 break;
             } else {
-                printLineSeparator();
-                System.out.println(command);
-                printLineSeparator();
+                addToTaskList(command);
             }
         }
         reader.close();
