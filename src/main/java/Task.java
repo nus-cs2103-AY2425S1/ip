@@ -6,11 +6,12 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+    public void editStatus() {
+        this.isDone = !this.isDone;
     }
 
-    public String getTaskDescription() {
-        return this.description;
+    @Override
+    public String toString() {
+        return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
     }
 }
