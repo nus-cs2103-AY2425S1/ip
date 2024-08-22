@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Donk {
@@ -10,14 +12,22 @@ public class Donk {
                 "____________________________________________________________\n";
         System.out.println(greeting);
 
+        List<String> tasks = new ArrayList<>();
+
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
                 System.out.println(byeMsg);
                 break;
+            } else if (userInput.equals("list")) {
+                for (int i = 1; i <= tasks.size(); i++) {
+                    System.out.println("    " + i + ": " + tasks.get(i-1));
+                }
+            } else {
+                tasks.add(userInput);
+                System.out.println("    added: " + userInput);
             }
-            System.out.println("    " + userInput);
         }
 
     }
