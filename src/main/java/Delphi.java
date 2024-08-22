@@ -19,6 +19,11 @@ public class Delphi {
                 t.markTaskAsUndone(Integer.parseInt(String.valueOf(input.charAt(7))));
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("      " + t.getTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
+            } else if (Parser.checkStringPrefix(input, 6, "delete")) {
+                //t.removeTask(Integer.parseInt(String.valueOf(input.charAt(7))));
+                System.out.println("    Noted. I've removed this task:");
+                System.out.println("      " + t.removeTask(Integer.parseInt(String.valueOf(input.charAt(7)))));
+                System.out.println("    Now you have " + t.getSize() + " tasks in the list");
             }
             else {
                 try {

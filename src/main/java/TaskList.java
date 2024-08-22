@@ -132,11 +132,25 @@ public class TaskList {
         }
         else printTasks();
     }
+    public Task removeTask(int i) {
+        if (i <= tasks.size()) {
+            Task t = tasks.get(i-1);
+            tasks.remove(i-1);
+            return t;
+        } else {
+            return null; //may want to add error handling for invalid indexes here
+        }
+    }
+    public int getSize() {
+        return tasks.size();
+    }
     public void markTaskAsDone(int i) {
         if (i <= tasks.size()) tasks.get(i-1).complete();
+        //may want to add error handling for invalid indexes here
     }
     public void markTaskAsUndone(int i) {
         if (i <= tasks.size()) tasks.get(i-1).uncomplete();
+        //may want to add error handling for invalid indexes here
     }
     public String getTask(int i) {
         if (i <= tasks.size()) return tasks.get(i-1).toString();
