@@ -28,6 +28,10 @@ public class Duke {
             }
             else if (userInput.equals("bye")) {
                 break;
+            } else if (userInput.startsWith("mark")) {
+                handleMarkTask(userInput, true);
+            } else if (userInput.startsWith("unmark")){
+                handleMarkTask(userInput, false);
             } else {
                 todo.addTask(userInput);
             }
@@ -37,4 +41,23 @@ public class Duke {
         scanner.close();
     }
 
+    public static void handleMarkTask(String message, boolean mark) {
+        String[] split = message.split(" ");
+        if (split.length > 2) {
+            Reply.printMessage(" Invalid input");
+            return;
+        }
+
+        try {
+            if (mark) {
+                todo.markTask(Integer.parseInt(split[1]));
+            } else {
+                todo.unmarkTask(Integer.parseInt(split[1]));
+            }
+        } catch (NumberFormatException e ) {
+            Reply.printMessage(" Invalid number");
+        } catch (IndexOutOfBoundsException e) {
+            Reply.printMessage(" Index number does not exist");
+        }
+    }
 }

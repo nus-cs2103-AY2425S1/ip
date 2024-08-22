@@ -22,6 +22,36 @@ public class TodoList {
     }
 
     /**
+     * Mark specific task as done
+     *
+     * @param index the task number to be marked
+     */
+    public void markTask(int index) {
+        if (index > 0 && index <= listOfTasks.size()) {
+            Task task = listOfTasks.get(index - 1);
+            task.markAsDone();
+            Reply.printMessage("Nice! I've marked this task as done:\n" + "   " + task.printTask());
+        } else {
+            Reply.printMessage("Task number " + index + " does not exist.");
+        }
+    }
+
+    /**
+     * Mark specific task as not done
+     *
+     * @param index the task number to be marked
+     */
+    public void unmarkTask(int index) {
+        if (index > 0 && index <= listOfTasks.size()) {
+            Task task = listOfTasks.get(index - 1);
+            task.markAsNotDone();
+            Reply.printMessage("OK, I've marked this task as not done yet:\n" + "   " + task.printTask());
+        } else {
+            Reply.printMessage("Task number " + index + " does not exist.");
+        }
+    }
+
+    /**
      * print all tasks added to todolist
      *
      * @return String of all tasks added
