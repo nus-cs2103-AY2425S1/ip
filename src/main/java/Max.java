@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Max {
-    private final Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private Task[] storedTasks;
     private int storedTasksIndex;
 
@@ -20,47 +20,68 @@ public class Max {
         boolean running = true;
 
         while (running) {
-            String text = scanner.nextLine();
+            String text = scanner.nextLine().trim();
 
-            if (text.equals("bye")) {
-                running = false;
-            } else if (text.equals("list")) {
-                list();
-            } else if (text.startsWith("mark")) {
-                int index = Integer.parseInt(text.replace("mark ", ""));
-                markDone(index);
-            } else if (text.startsWith("unmark")) {
-                int index = Integer.parseInt(text.replace("unmark ", ""));
-                markNotDone(index);
-            } else if (text.startsWith("deadline")) {
-                String[] temp = text.replace("deadline ", "").split(" /by ");
-                Deadline deadline = new Deadline(temp[0], temp[1]);
-                this.storedTasks[this.storedTasksIndex] = deadline;
-                this.storedTasksIndex++;
-                printTaskTypeAdded(deadline);
-            } else if (text.startsWith("todo")) {
-                Todo todo = new Todo(text.replace("todo ", ""));
-                this.storedTasks[this.storedTasksIndex] = todo;
-                this.storedTasksIndex++;
-                printTaskTypeAdded(todo);
-            } else if (text.startsWith("event")) {
-                String[] temp = text.replace("event ", "").split(" /from ");
-                Event event = new Event(temp[0], temp[1]);
-                this.storedTasks[this.storedTasksIndex] = event;
-                this.storedTasksIndex++;
-                printTaskTypeAdded(event);
-            } else {
-                this.storedTasks[this.storedTasksIndex] = new Task(text);
-                this.storedTasksIndex++;
-                echo(text);
+            try {
+                if (text.equals("bye")) {
+                    running = false;
+                } else if (text.equals("list")) {
+                    list();
+                } else if (text.startsWith("mark")) {
+                    int index = Integer.parseInt(text.replace("mark ", ""));
+                    markDone(index);
+                } else if (text.startsWith("unmark")) {
+                    int index = Integer.parseInt(text.replace("unmark ", ""));
+                    markNotDone(index);
+                } else if (text.startsWith("deadline")) {
+                    String[] temp = text.replace("deadline ", "").split(" /by ");
+                    if (temp.length != 2) {
+                        throw new MaxException("Oh no!! The description of the task cannot be empty. :(");
+                    }
+                    checkTask(temp[0].trim());
+                    checkTask(temp[1].trim());
+                    Deadline deadline = new Deadline(temp[0], temp[1]);
+                    this.storedTasks[this.storedTasksIndex] = deadline;
+                    this.storedTasksIndex++;
+                    printTaskTypeAdded(deadline);
+                } else if (text.startsWith("todo")) {
+                    String temp = text.replace("todo", "").trim();
+                    checkTask(temp);
+                    Todo todo = new Todo(temp);
+                    this.storedTasks[this.storedTasksIndex] = todo;
+                    this.storedTasksIndex++;
+                    printTaskTypeAdded(todo);
+                } else if (text.startsWith("event")) {
+                    String[] temp = text.replace("event ", "").split(" /from ");
+                    if (temp.length != 2) {
+                        throw new MaxException("Oh no!! The description of the task cannot be empty. :(");
+                    }
+                    checkTask(temp[0].trim());
+                    checkTask(temp[1].trim());
+                    Event event = new Event(temp[0], temp[1]);
+                    this.storedTasks[this.storedTasksIndex] = event;
+                    this.storedTasksIndex++;
+                    printTaskTypeAdded(event);
+                } else {
+                    throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
+                }
+            } catch (MaxException e) {
+                printLine();
+                printMessage(e.getMessage());
             }
         }
         printBye();
     }
+
+    public void checkTask(String todo) throws MaxException {
+        if (todo.isEmpty()) {
+            throw new MaxException("Oh no!! The description of the task cannot be empty. :(");
+        }
+    }
     public void printTaskTypeAdded(Task task) {
         printLine();
         System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t  " + task.toString());
+        System.out.println("\t   " + task.toString());
         System.out.println("\t Now you have " + storedTasksIndex + " tasks in the list.");
         printLine();
     }
@@ -82,11 +103,6 @@ public class Max {
 
     public void printLine() {
         System.out.println("\t____________________________________________________________");
-    }
-
-    public void echo(String text) {
-        printLine();
-        printMessage("added: " + text);
     }
 
     public void list() {
