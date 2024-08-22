@@ -20,11 +20,12 @@ public class Reo {
         System.out.println("----------------------\n" +
                 "Hello! I'm Reo.\nWhat can I do for you?\n"
                 + "----------------------");
+        ArrayList<Task> tasks = FileOperations.readFile();
 
         String currInput;
         currInput = "placeholder";
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        // ArrayList<Task> tasks = data;
         while (!currInput.toLowerCase().equals("bye")) {
             String toPrint = "";
             toPrint = "";
@@ -50,8 +51,9 @@ public class Reo {
                     break;
                 case TODO:
                     String[] parts1 = currInput.split(" ", 2);
-                    Todo toPush = new Todo(parts1[1]);
+                    Todo toPush = new Todo(parts1[1], false);
                     tasks.add(toPush);
+                    FileOperations.writeFile(toPush);
                     toPrint += "----------------------\n";
                     try {
                         toPrint += "I've added this todo:\n " + toPush.toString() + "\n";
@@ -64,6 +66,7 @@ public class Reo {
                 case MARK:
                     try {
                         tasks.get(Integer.valueOf(words[1]) - 1).mark();
+                        FileOperations.editLine(Integer.valueOf(words[1]), "mark");
                         toPrint += "----------------------\n";
                         toPrint += "Good job! I've marked this item as done:\n";
                         toPrint += tasks.get(Integer.valueOf(words[1]) - 1).toString() + "\n";
@@ -75,6 +78,7 @@ public class Reo {
                 case UNMARK:
                     try {
                         tasks.get(Integer.valueOf(words[1]) - 1).unmark();
+                        FileOperations.editLine(Integer.valueOf(words[1]), "unmark");
                         toPrint += "----------------------\n";
                         toPrint += "Get better, I've marked this item as not done:\n";
                         toPrint += tasks.get(Integer.valueOf(words[1]) - 1).toString() + "\n";
@@ -91,8 +95,10 @@ public class Reo {
                         String name = firstPart[1];
                         String deadline = parts[1].trim();
 
-                        Deadline toPush1 = new Deadline(name, deadline);
+                        Deadline toPush1 = new Deadline(name, false, deadline);
                         tasks.add(toPush1);
+                        FileOperations.writeFile(toPush1);
+
                         toPrint += "----------------------\n";
                         toPrint += "I've added this deadline:\n";
                         toPrint += toPush1.toString() + "\n";
@@ -112,8 +118,10 @@ public class Reo {
                         String from = secondPart[0].trim();
                         String to = secondPart[1].trim();
 
-                        Event toPush2 = new Event(name, to, from);
+                        Event toPush2 = new Event(name, false, to, from);
                         tasks.add(toPush2);
+                        FileOperations.writeFile(toPush2);
+
                         toPrint += "----------------------\n";
                         toPrint += "I've added this event:\n";
                         toPrint += toPush2.toString() + "\n";
@@ -125,8 +133,10 @@ public class Reo {
                     break;
                 case DELETE:
                     try {
-                        Task toRemove = tasks.get(Integer.valueOf(words[1]) - 1);
-                        tasks.remove(Integer.valueOf(words[1]) - 1);
+                        int index = Integer.valueOf(words[1]) - 1;
+                        Task toRemove = tasks.get(index);
+                        tasks.remove(index);
+                        FileOperations.removeLine(index + 1);
                         toPrint += "----------------------\n";
                         toPrint += "I've deleted this task:\n";
                         toPrint += toRemove.toString() + "\n";
