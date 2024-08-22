@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Meow {
@@ -18,6 +19,7 @@ public class Meow {
     "\n    Welcome to the Meow Chatbot!!! I love meowing hue hue"
     + "\n    What can I do for you Meow?"
     + "\n    _____________________________________________________________________";
+    private static ArrayList<String> taskList = new ArrayList<>();
     public static void main(String[] args) {
         System.out.println(openingMessage);
         Scanner sc = new Scanner(System.in);
@@ -26,12 +28,31 @@ public class Meow {
         // User input cycle is here.
 
         while (!input.equals("bye")) {
-            System.out.println("    _____________________________________________________________________");
-            System.out.println("    " +input);
-            System.out.println("    _____________________________________________________________________");
+            outputTask(input);
             input = sc.nextLine();
         }
 
         System.out.println("Fine just leave me like everyone does hmph");
+    }
+
+    private static void outputTask(String input) {
+        if (input.equals("list")) {
+            displayList();
+        } else {
+            addTask(input);
+        }
+    }
+    private static void addTask(String task) {
+        taskList.add(task);
+        System.out.println("_____________________________________________________________________\n   Meow has added a task:\n     " + task + "\n_____________________________________________________________________");
+    }
+
+    private static void displayList() {
+        System.out.println("_____________________________________________________________________\n   Meow here is your task list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println("    " + i + ". " + taskList.get(i));
+
+        }
+        System.out.println("_____________________________________________________________________");
     }
 }
