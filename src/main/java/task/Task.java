@@ -1,11 +1,11 @@
 package task;
 
 /**
- * A task stored by BotManager
+ * A generic task stored by BotManager
  *
  * @author dwsc37
  */
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone = false;
 
@@ -24,6 +24,7 @@ public class Task {
     private String getStatusIcon() {
         return isDone ? "[X]" : "[ ]";
     }
+
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;

@@ -3,6 +3,11 @@ package action;
 import task.Task;
 import task.TaskList;
 
+/**
+ * Action to mark a task as done
+ *
+ * @author dwsc37
+ */
 public class MarkTaskAction extends Action {
     private final int taskIndex;
 
