@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import controllers.InputParser;
 import controllers.commands.Command;
+import controllers.errors.InvalidCommandError;
+import controllers.errors.InvalidInputError;
 import models.*;
 
 public class Wojak {
@@ -19,11 +21,13 @@ public class Wojak {
 
         while (sc.hasNextLine()) {
             String nextLine = sc.nextLine();
-            Command command = parser.parse(nextLine);
-            command.execute(taskList);
+            try {
+                Command command = parser.parse(nextLine);
+                command.execute(taskList);
+            } catch (InvalidCommandError | InvalidInputError e) {
+                System.out.println(e);
+            }
+
         }
-
-
-
     }
 }

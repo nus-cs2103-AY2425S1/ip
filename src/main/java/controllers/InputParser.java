@@ -3,6 +3,7 @@ package controllers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import controllers.commands.*;
+import controllers.errors.*;
 import models.Task;
 import models.Deadline;
 import models.Event;
@@ -10,37 +11,59 @@ import models.Todo;
 
 public class InputParser {
 
-    public Command parse(String cmd) {
+    public Command parse(String cmd) throws InvalidInputError, InvalidCommandError {
 
         if (isByeCommand(cmd)) {
             return new ByeCommand();
         } else if (isMarkCommand(cmd)) {
-            String[] parts = cmd.split(" ");
-            int index = Integer.parseInt(parts[1]);
-            return new MarkTaskCommand(index);
+            try {
+                String[] parts = cmd.split(" ");
+                int index = Integer.parseInt(parts[1]);
+                return new MarkTaskCommand(index);
+            } catch (Exception e) {
+                throw new InvalidInputError("Invalid input for mark!");
+            }
         } else if (isListCommand(cmd)) {
             return new ListCommand();
         } else if (isUnmarkCommand(cmd)) {
-            String[] parts = cmd.split(" ");
-            int index = Integer.parseInt(parts[1]);
-            return new UnmarkTaskCommand(index);
+            try {
+                String[] parts = cmd.split(" ");
+                int index = Integer.parseInt(parts[1]);
+                return new UnmarkTaskCommand(index);
+            } catch (Exception e) {
+                throw new InvalidInputError("Invalid input for unmark!");
+            }
         } else if (isTodoCommand(cmd)) {
-            Todo newTask = new Todo(cmd.substring(5));
-            return new AddTodoCommand(newTask);
+            try {
+                Todo newTask = new Todo(cmd.substring(5));
+                return new AddTodoCommand(newTask);
+            } catch (Exception e) {
+                throw new InvalidInputError("Invalid input for todo!");
+            }
+
         } else if (isDeadlineCommand(cmd)) {
-            String description = extractStringBetweenTwoSubStrings(cmd, "deadline", "/by");
-            String by = extractStringFromSubstringToEnd(cmd, "/by");
-            Deadline deadline = new Deadline(description, by);
-            return new AddDeadlineCommand(deadline);
+            try {
+                String description = extractStringBetweenTwoSubStrings(cmd, "deadline", "/by");
+                String by = extractStringFromSubstringToEnd(cmd, "/by");
+                Deadline deadline = new Deadline(description, by);
+                return new AddDeadlineCommand(deadline);
+            } catch (Exception e) {
+                throw new InvalidInputError("Invalid input for deadline!");
+            }
+
         } else if (isEventCommand(cmd)) {
-            String description = extractStringBetweenTwoSubStrings(cmd, "event", "/from");
-            String from = extractStringBetweenTwoSubStrings(cmd, "/from", "/to");
-            String to = extractStringFromSubstringToEnd(cmd, "/to");
-            Event event = new Event(description, from, to);
-            return new AddEventCommand(event);
+            try {
+                String description = extractStringBetweenTwoSubStrings(cmd, "event", "/from");
+                String from = extractStringBetweenTwoSubStrings(cmd, "/from", "/to");
+                String to = extractStringFromSubstringToEnd(cmd, "/to");
+                Event event = new Event(description, from, to);
+                return new AddEventCommand(event);
+            } catch (Exception e) {
+                throw new InvalidInputError("Invalid input for event!");
+            }
         } else {
-            Task newTask = new Task(cmd);
-            return new AddTaskCommand(newTask);
+            String errorString = String.format("%s doesn't exist as a command", cmd);
+            throw new InvalidCommandError(errorString);
         }
     }
 
