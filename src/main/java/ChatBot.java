@@ -24,15 +24,16 @@ public class ChatBot {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void addToList(String desc){
+    public void addToList(Task task){
         try {
-            lst.add(new Task(desc));
+            lst.add(task);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void showList() {
+        System.out.println("Here are the tasks in your list:");
         int num = 1;
         for (int i = 0; i < lst.size(); ++i) {
             System.out.println(num + ". " + lst.get(i).getDesc());
@@ -45,7 +46,7 @@ public class ChatBot {
         while (true) {
             String input = scanner.nextLine();
 
-            String [] parts = input.split(" ");
+            String [] parts = input.split(" ", 2);
 
             if (input.equals(exitKeyword)) {
                 goodbye();
@@ -63,8 +64,41 @@ public class ChatBot {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(task.getDesc());
             } else {
-                addToList(input);
-                System.out.println("added: " + input);
+                String command = parts[0];
+                String description = parts[1];
+
+                String by = null;
+                String from = null;
+                String to = null;
+
+                if (description.contains(" /")) {
+                    String [] details = description.split(" /");
+                    description = details[0].trim();
+                    for (int i = 1; i < details.length; i++) {
+                        String detail = details[i].trim();
+                        if (detail.startsWith("by ")) {
+                            by = detail.substring(3).trim();
+                        } else if (detail.startsWith("from ")) {
+                            from = detail.substring(5);
+                        } else if (detail.startsWith("to ")) {
+                            to = detail.substring(3).trim();
+                        }
+                    }
+                }
+
+                Task task = null;
+                if (command.equals("todo")) {
+                    task = new Todo (description);
+                    addToList(task);
+                } else if (command.equals("deadline")) {
+                    task = new Deadline(by, description);
+                    addToList(task);
+                } else if (command.equals("event")) {
+                    task = new Event(from, to, description);
+                    addToList(task);
+                }
+                System.out.println("Got it. I've added this task: " + "\n" + task.getDesc());
+                System.out.println("Now you have " + lst.size() + " tasks in the list.");
             }
         }
     }
