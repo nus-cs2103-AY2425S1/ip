@@ -18,13 +18,22 @@ public class Mediell {
             } else if (Objects.equals(message, "list")) {
                 items.displayList();
             } else if (message.startsWith("mark")) {
-                int index = Integer.parseInt(message.split("\\s")[1]) - 1;
+                int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
                 items.markItem(index);
             } else if (message.startsWith("unmark")) {
-                int index = Integer.parseInt(message.split("\\s")[1]) - 1;
+                int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
                 items.unMarkItem(index);
+            } else if (message.startsWith("todo")) {
+                String task = message.split(" ", 2)[1];
+                items.addToDo(task);
+            } else if (message.startsWith("event")) {
+                String task = message.split(" ", 2)[1];
+                items.addEvent(task);
+            } else if (message.startsWith("deadline")) {
+                String task = message.split(" ", 2)[1];
+                items.addDeadline(task);
             } else {
-                items.addItem(message);
+                System.out.println("Sorry :( I'm confused at what I have to do");
             }
             printLine();
         }

@@ -13,10 +13,25 @@ public class TaskList {
         }
     }
 
-    public void addItem(String item) {
-        listItems[size] = new Task(item);
+    private void addTaskProcessing() {
+        System.out.println("Got it! I've added this task: ");
+        System.out.println(listItems[size]);
         size++;
-        System.out.println("added: " + item);
+    }
+
+    public void addToDo(String item) {
+        listItems[size] = new ToDo(item);
+        addTaskProcessing();
+    }
+
+    public void addEvent(String item) {
+        listItems[size] = new Event(item);
+        addTaskProcessing();
+    }
+
+    public void addDeadline(String item) {
+        listItems[size] = new Deadline(item);
+        addTaskProcessing();
     }
 
     public void markItem(int index) {
