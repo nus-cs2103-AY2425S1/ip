@@ -3,7 +3,8 @@ Hello homie! I'm JackBean, a chatbot designed to help you with your daily tasks!
 How may I help you today my homie?
 ____________________________________________________________
 ____________________________________________________________
-Homie, did you mean to say something else? I don't understand what you're saying :(
+Yo Homieee, i did not catch what you are saying!
+Please use deadline, event or todo formats, type help if you are unsure of the formats!
 ____________________________________________________________
 ____________________________________________________________
 Got it homie! I've added your todo, LESGOOOOO:
@@ -55,6 +56,38 @@ Yo homie!, here are the tasks in your list:
 1. [T][ ] hello there my bro im testing
 2. [D][X] hOmIeEE im testing (by: tomorrow)
 3. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+Yo homie! Here are the commands you can use:
+1. list - to list all tasks
+2. todo <description> - to add a todo task
+3. deadline <description> /by <date> - to add a deadline task
+4. event <description> /from <date> /to <date> - to add an event task
+5. mark <task number> - to mark a task as done
+6. unmark <task number> - to mark a task as undone
+7. bye - to exit the program
+8. help - to see this message again
+9. maybe some easter eggs in the future? :)
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are too many arguments for deadline!
+deadline should be of this format: deadline <description> /by <date>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are not enough arguments for event!
+event should be of this format: event <description> /from <date> /to <date>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are not enough arguments for todo!
+todo should be of this format: todo <description>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are not enough arguments for deadline!
+deadline should be of this format: deadline <description> /by <date>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are too many arguments for event!
+event should be of this format: event <description> /from <date> /to <date>
 ____________________________________________________________
 ____________________________________________________________
 Bye homie! Come back if you need anything else. JackBean, signing off!
