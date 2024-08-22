@@ -137,9 +137,6 @@ public class YapBot {
                 break;
             }
 
-            default:
-                System.out.println(PREFIXLINE + "\nAdding Task...\nFailure\nInvalid Task Type: " + tasktype + "\n" + POSTFIXLINE);
-
         }
 
 
@@ -154,6 +151,7 @@ public class YapBot {
 
         while (continueLoop) {
             try {
+                input = input.trim();
                 int spaceCharPos = input.indexOf(" ");
                 String command = "";
                 String commandDetails = "";
