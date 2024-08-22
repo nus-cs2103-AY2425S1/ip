@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Revir {
     public static void main(String[] args) {
@@ -7,13 +8,14 @@ public class Revir {
         System.out.println("What can I do for you?");
 
         ArrayList<Task> userInputList =  new ArrayList<Task>();
-        while (true) {
-            String input = System.console().readLine();
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            String input = scanner.nextLine();
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                // Print the user input history
-                System.out.println("History:");
+                // Print the user input list
+                System.out.println("List:");
                 for (Task userInput : userInputList) {
                     System.out.println(userInput.toString());
                 }
@@ -81,6 +83,7 @@ public class Revir {
                 System.out.println("Invalid command.");
             }
         }
+        scanner.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
