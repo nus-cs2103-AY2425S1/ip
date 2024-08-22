@@ -35,6 +35,7 @@ public class Task {
         }
     }
 
+    @Override
     public String toString() {
         return this.completed ? "[X] " + this.name : "[ ] " + this.name;
     }
