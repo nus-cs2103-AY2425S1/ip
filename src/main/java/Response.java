@@ -60,4 +60,19 @@ public class Response {
         System.out.println("========================================");
     }
 
+    public void empty_todo(){
+        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+    }
+
+    public void empty_deadline(){
+        System.out.println("OOPS!!! The format of a deadline is wrong.");
+    }
+
+    public void empty_event(){
+        System.out.println("OOPS!!! The format of a event is wrong.");
+    }
+
+    public void invalid_input(){
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
 }
