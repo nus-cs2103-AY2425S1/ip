@@ -25,6 +25,14 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static void printTaskList() {
+        printLineSeparator();
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println(String.format("%d. %s", i+1, taskList[i]));
+        }
+        printLineSeparator();
+    }
+
     private static void getInput() {
         Scanner reader = new Scanner(System.in);
         while (true) {
