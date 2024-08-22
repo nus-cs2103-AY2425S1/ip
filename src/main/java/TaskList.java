@@ -27,6 +27,10 @@ public class TaskList {
         return tasks.get(index).toString() + "\n";
     }
 
+    public String getLastTask() {
+        return tasks.getLast().toString();
+    }
+
     public String getList() {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {

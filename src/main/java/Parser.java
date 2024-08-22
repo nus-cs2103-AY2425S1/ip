@@ -22,7 +22,7 @@ public class Parser {
             String description = input.split(" ", 2)[1].split(" /by ")[0];
             String by = input.split(" /by ")[1];
             taskList.addItem(new Deadline(description, by));
-            FormattedPrint.addTask(description, taskList.getSize());
+            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
 
         } else if (input.toLowerCase().startsWith("event")) {
 
@@ -32,18 +32,18 @@ public class Parser {
             String from = input.split(" /from ")[1].split(" /to ")[0];
             String to = input.split(" /to ")[1];
             taskList.addItem(new Event(description, from, to));
-            FormattedPrint.addTask(description, taskList.getSize());
+            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
 
         } else if (input.toLowerCase().startsWith("todo")) {
             String description = input.split(" ", 2)[1];
             taskList.addItem(new Todo(description));
-            FormattedPrint.addTask(description, taskList.getSize());
+            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
 
         } else if (input.equalsIgnoreCase("list")) {
             FormattedPrint.listTasks(taskList.getList());
         } else {
             taskList.addItem(input);
-            FormattedPrint.addTask(input, taskList.getSize());
+            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
         }
         return false;
     }
