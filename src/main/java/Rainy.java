@@ -3,12 +3,14 @@ import java.util.*;
 public class Rainy {
     public static void main(String[] args) {
         System.out.println("Hello! I am RAINY - Responsive, Automated, Intelligence Network for You.");
-        System.out.println("What can I do for you on this marvelous day?");
+        System.out.println("I am a digital assistant designed to help you keep track of your day.");
+        System.out.println("So, what can I do for you today?");
         System.out.println("\n");
         TaskTracker tm = new TaskTracker();
         Scanner sc = new Scanner(System.in);
         String messages = sc.nextLine();
         String[] input = messages.split(" ");
+        String[] splitByTask = messages.split("/");
         String message = input[0];
         int count;
         if (message.equals("mark") || message.equals("unmark")) {
@@ -28,13 +30,18 @@ public class Rainy {
                 tm.markDone(count - 1);
             } else if (message.equals("unmark") && count != -1) {
                 tm.unmarkDone(count - 1);
+            } else if (message.equals("todo")) {
+                tm.updateListToDo(splitByTask[0].substring(5));
+            } else if (message.equals("deadline")) {
+                tm.updateListDeadline(splitByTask[0].substring(9), splitByTask[1]);
             }
 
             else {
-                tm.updateList(messages);
+                tm.updateListEvent(splitByTask[0].substring(6), splitByTask[1], splitByTask[2]);
             }
             messages = sc.nextLine();
             input = messages.split(" ");
+            splitByTask = messages.split("/");
             message = input[0];
             if (message.equals("mark") || message.equals("unmark")) {
                 try {
