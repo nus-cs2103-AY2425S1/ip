@@ -71,9 +71,9 @@ public class Bob {
             } catch (EmptyArgumentException | MissingArgumentException |
                      InvalidTaskNumberException | InvalidInputException e) {
                 System.out.println(e.getMessage());
-            } finally {
-                System.out.print(DIVIDER);
             }
+
+            System.out.print(DIVIDER);
         }
     }
 
