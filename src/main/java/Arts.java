@@ -77,6 +77,7 @@ public class Arts {
                             System.out.println("Noted. I've removed this task:");
                             System.out.println(" " + removedTask);
                             System.out.println("Now you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks") + " in the list.");
+                            System.out.println("____________________________________________________________");
                         }
                         break;
 
