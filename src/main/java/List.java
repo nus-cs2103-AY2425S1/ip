@@ -8,7 +8,7 @@ public class List {
         String initialise = """
                 -----------------------------------------------
                 Initialising List Bot...
-                'View List' to show list
+                Type 'List' to show full list
                 -----------------------------------------------
                 """;
 
@@ -22,7 +22,7 @@ public class List {
             System.out.print("Add item: ");
             input = scanner.nextLine();
 
-            if (input.equalsIgnoreCase("View List")) {
+            if (input.equalsIgnoreCase("List")) {
                 System.out.println("-----------------------------------------------");
                 System.out.println("Displaying List:");
                 for (int i = 0; i < list.size(); i++) {
