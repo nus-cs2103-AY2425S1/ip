@@ -17,13 +17,6 @@ public class Reader extends PrintWriter {
         r = new BufferedReader(new InputStreamReader(i));
     }
 
-    public void close() {
-        try {
-            r.close();
-        } catch (IOException e) {
-        }
-    }
-
     private String nextToken() {
         String ans = peekToken();
         token = null;
@@ -34,7 +27,7 @@ public class Reader extends PrintWriter {
         return peekToken() != null;
     }
 
-    private String peekToken() {
+    public String peekToken() {
         if (token == null)
             try {
                 while (st == null || !st.hasMoreTokens()) {
@@ -57,17 +50,13 @@ public class Reader extends PrintWriter {
         return nextToken();
     }
 
-    public String getLine() {
+    public String peekLine() {
+        peekToken();
+        return line;
+    }
+
+    public void skipLine() {
         st = null;
         token = null;
-        String line;
-
-        try {
-            line = r.readLine();
-        } catch (IOException e) {
-            line = null;
-        }
-
-        return line;
     }
 }

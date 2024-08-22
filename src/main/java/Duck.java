@@ -9,7 +9,7 @@ public class Duck {
     private static final String GOODBYE = "Bye. Hope to see you again soon!";
 
     // List to store user inputs
-    private static final TaskList STORED_TEXT = new TaskList();
+    private static final TaskList TASKS = new TaskList();
 
     private static String addSeparators(String text) {
         return TEXT_SEPARATOR_WITH_NEWLINE
@@ -47,20 +47,28 @@ public class Duck {
         // User input loop
         while (true) {
             System.out.println("");
-
-            String line = reader.getLine();
+            String line = reader.peekLine();
 
             if (line.equals("bye")) {
                 printAsResponse(GOODBYE);
                 break;
             } else if (line.equals("list")) {
-                printAsResponse(STORED_TEXT.toString());
+                printAsResponse(TASKS.toString());
             } else {
-                STORED_TEXT.addItem(line);
+                String command = reader.peekToken();
 
-                String response = "added: " + line;
-                printAsResponse(response);
+                if (command.equals("mark")) {
+                    reader.getWord();
+                    int itemLabel = reader.getInt();
+                    TASKS.markItem(itemLabel);
+                } else {
+                    TASKS.addItem(line);
+                    String response = "added: " + line;
+                    printAsResponse(response);
+                }
             }
+
+            reader.skipLine();
         }
 
         // Close Scanner

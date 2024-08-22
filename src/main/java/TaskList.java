@@ -7,6 +7,10 @@ public class TaskList {
         numItems++;
     }
 
+    public void markItem(int label) {
+        LIST[label - 1].markAsDone();
+    }
+
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < numItems; i++) {
