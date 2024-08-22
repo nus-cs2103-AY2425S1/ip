@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Topaz {
 
-    private static ArrayList<Task> todoList = new ArrayList<>(100);
+    private static ArrayList<Task> taskList = new ArrayList<>(100);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -15,15 +17,22 @@ public class Topaz {
                 goodbyeUser();
                 break;
             } else if (prompt.equals("list")) {
-                listTodos();
+                listTasks();
             } else if (prompt.startsWith("mark")) {
                 int index = Integer.parseInt(prompt.substring(5));
-                markTodo(index);
+                markTask(index);
             } else if (prompt.startsWith("unmark")) {
                 int index = Integer.parseInt(prompt.substring(7));
-                unmarkTodo(index);
+                unmarkTask(index);
+            } else if (prompt.startsWith("todo")) {
+                String description = prompt.substring(5);
+                addTodo(description);
+            } else if (prompt.startsWith("deadline")) {
+                addDeadline(prompt);
+            } else if (prompt.startsWith("event")) {
+                addEvent(prompt);
             } else {
-                addTodos(prompt);
+                echo(prompt);
             }
         }
 
@@ -49,38 +58,86 @@ public class Topaz {
         System.out.println("____________________________________________________________");
     }
 
-    private static void addTodos(String input) {
-        todoList.add(new Task(input));
+    private static void addTasks(Task task) {
+        task.addToList(taskList);
         System.out.println("____________________________________________________________");
-        System.out.println(" Recorded! Hard work pays off~");
+        System.out.println(" Got it. I've added this task: ");
+        System.out.println("    " + task.getStatus());
+        System.out.println(" Hard work pays off~");
+        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
-    private static void listTodos() {
+    private static void listTasks() {
         System.out.println("____________________________________________________________");
         System.out.println(" Who works for money these days? Money is a means, not an end. Work should make you happy... That's the most fundamental principle.");
         System.out.println(" Don't forget your work~");
-        for (int i = 0; i < todoList.size(); i++) {
-            System.out.println((i + 1) + ". " + todoList.get(i).getStatus());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i).getStatus());
         }
         System.out.println("____________________________________________________________");
     }
 
-    private static void markTodo(int index) {
-        Task todo = todoList.get(index - 1);
-        todo.setDone();
+    private static void markTask(int index) {
+        Task task = taskList.get(index - 1);
+        task.setDone();
         System.out.println("____________________________________________________________");
         System.out.println(" Nice! I've marked this task as done: ");
-        System.out.println("    " + todo.getStatus());
+        System.out.println("    " + task.getStatus());
         System.out.println("____________________________________________________________");
     }
 
-    private static void unmarkTodo(int index) {
-        Task todo = todoList.get(index - 1);
-        todo.setUndo();
+    private static void unmarkTask(int index) {
+        Task task = taskList.get(index - 1);
+        task.setUndo();
         System.out.println("____________________________________________________________");
         System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("    " + todo.getStatus());
+        System.out.println("    " + task.getStatus());
         System.out.println("____________________________________________________________");
+    }
+
+    private static void addTodo(String description) {
+        Todo todo = new Todo(description);
+        addTasks(todo);
+    }
+
+    private static void addDeadline(String input) {
+        String deadlinePattern = "deadline (.*?) /by";
+        String byPattern = "/by (.*)";
+
+        Pattern ddlPatternCompiled = Pattern.compile(deadlinePattern);
+        Pattern byPatternCompiled = Pattern.compile(byPattern);
+
+        Matcher deadlineMatcher = ddlPatternCompiled.matcher(input);
+        Matcher byMatcher = byPatternCompiled.matcher(input);
+
+        if (deadlineMatcher.find() && byMatcher.find()) {
+            String description = deadlineMatcher.group(1).trim();
+            String by = byMatcher.group(1).trim();
+            Deadline deadline = new Deadline(description, by);
+            addTasks(deadline);
+        }
+    }
+
+    private static void addEvent(String input) {
+        String eventPattern = "event (.*?) /from";
+        String fromPattern = "/from (.*?) /to";
+        String toPattern = "/to (.*)";
+
+        Pattern eventPatternCompiled = Pattern.compile(eventPattern);
+        Pattern fromPatternCompiled = Pattern.compile(fromPattern);
+        Pattern toPatternCompiled = Pattern.compile(toPattern);
+
+        Matcher eventMatcher = eventPatternCompiled.matcher(input);
+        Matcher fromMatcher = fromPatternCompiled.matcher(input);
+        Matcher toMatcher = toPatternCompiled.matcher(input);
+
+        if (eventMatcher.find() && fromMatcher.find() && toMatcher.find()) {
+            String description = eventMatcher.group(1).trim();
+            String from = fromMatcher.group(1).trim();
+            String to = toMatcher.group(1).trim();
+            Event event = new Event(description, from, to);
+            addTasks(event);
+        }
     }
 }

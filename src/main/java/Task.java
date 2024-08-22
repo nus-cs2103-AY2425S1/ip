@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -5,6 +7,11 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 
     public String getStatusIcon() {
@@ -21,5 +28,9 @@ public class Task {
 
     public void setUndo() {
         this.isDone = false;
+    }
+
+    public void addToList(ArrayList<Task> list) {
+        list.add(this);
     }
 }
