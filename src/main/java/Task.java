@@ -1,17 +1,15 @@
 public class Task {
   private String description;
   private boolean isDone;
+  private char typeChar;
 
-  public Task(String description) {
+  protected Task(String description, char typeChar) {
     this.description = description;
     this.isDone = false;
+    this.typeChar = typeChar;
   }
 
-  public String getDescription() {
-    return description;
-  }
-
-  public String getStatusIcon() {
+  private String getStatusIcon() {
     return (this.isDone ? "X" : " "); // mark done task with X
   }
 
@@ -25,5 +23,10 @@ public class Task {
     boolean success = this.isDone;
     this.isDone = false;
     return success;
+  }
+
+  @Override
+  public String toString() {
+    return "[" + this.typeChar + "]" + "[" + this.getStatusIcon() + "] " + this.description;
   }
 }

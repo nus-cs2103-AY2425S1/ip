@@ -56,7 +56,7 @@ public class Vuewee {
             boolean success = taskList[taskNumber].markAsDone();
 
             System.out.println(success ? "Nice! I've marked this task as done:" : "This task is already done:");
-            System.out.println("  [X] " + taskList[taskNumber].getDescription());
+            System.out.println("  " + taskList[taskNumber].toString());
           } catch (NumberFormatException e) {
             System.err.println("Invalid task number: " + inputParts[1]);
           }
@@ -76,15 +76,22 @@ public class Vuewee {
 
             System.out.println(
                 success ? "OK, I've marked this task as not done yet:" : "This task is already marked as not done:");
-            System.out.println("  [ ] " + taskList[taskNumber].getDescription());
+            System.out.println("  " + taskList[taskNumber].toString());
           } catch (NumberFormatException e) {
             System.err.println("Invalid task number: " + inputParts[1]);
           }
           break;
         }
-        // Add task to task list
+        // Add TODO task to task list
+        case "todo": {
+          taskList[taskListLength] = new TodoTask(inputParts[1]);
+          taskListLength++;
+          System.out.println("Got it. I've added this task:");
+          System.out.println("  " + taskList[taskListLength - 1]);
+          break;
+        }
         default: {
-          taskList[taskListLength] = new Task(input);
+          taskList[taskListLength] = new Task(input, ' ');
           taskListLength++;
           System.out.println("added: " + input);
           break;
