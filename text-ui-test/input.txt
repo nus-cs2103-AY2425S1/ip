@@ -8,4 +8,17 @@ unmark 2
 mark 1
 deadline add book /by never
 list
+mark 69
+mark -120090
+mark 21409ffosifje
+unmark 3250fj
+deadline return
+todo
+event
+event /from
+event /by
+event /from /by
+event /from f /by
+deadline /by ff
+yapyapyap
 bye

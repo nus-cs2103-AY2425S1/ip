@@ -33,4 +33,30 @@ You have 4 tasks
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 4. [D][ ] add book (by: never)
 
+No task at that index
+
+No task at that index
+
+Invalid number format
+
+Invalid number format
+
+Invalid Task description
+
+Invalid Task description
+
+Invalid Task description
+
+Invalid Task description
+
+Invalid Task description
+
+Invalid Task description
+
+Invalid Task description
+
+Invalid Task description
+
+Invalid input please yap yapology
+
 Fine. Bye. Leave and never return
