@@ -1,5 +1,6 @@
 public class SecondMind {
     private static final String line = "____________________________________________________________";
+    private static final String logo = "SecondMind";
 
     private static void printLineSeparator() {
         System.out.println(line);
@@ -18,6 +19,7 @@ public class SecondMind {
     }
 
     public static void main(String[] args) {
-        String logo = "SecondMind";
+        greetUser();
+        exitProgram();
     }
 }
