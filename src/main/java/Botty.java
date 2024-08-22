@@ -87,6 +87,8 @@ public class Botty {
             reply("I have run out of space, sorry!");
         }
     }
+
+    // Adapted from https://stackoverflow.com/a/39402538
     private static boolean isNumber(String string) {
         try {
             Integer.parseInt(string);
