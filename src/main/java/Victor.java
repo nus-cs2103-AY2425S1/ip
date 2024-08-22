@@ -14,7 +14,6 @@ public class Victor {
 + " \\ (_,_) /   |   | (  .  .-'_/  ) (_(=)_)  \\ `\"/  \\  ) / |  | \\ `'   /\n"
 + "  \\     /    |   |  `-'`-'     /   (_I_)    '. \\_/``\".'  |  |  \\    /\n"
 + "   `---`     '---'    `._____.'    '---'      '-----'    ''-'   `'-'\n";
-
         Scanner inp = new Scanner(System.in);
         ArrayList<Task> inputs = new ArrayList<Task>();
 
