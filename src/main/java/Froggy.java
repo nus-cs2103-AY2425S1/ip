@@ -27,15 +27,15 @@ public class Froggy {
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("Task List:");
                 for (int i = 1; i <= tasks.size(); i++) {
-                    System.out.println(i + ".[" + tasks.get(i - 1).getStatusIcon() + "] "
-                            + tasks.get(i - 1).description);
+                    System.out.println(i + "." + tasks.get(i - 1).toString());
                 }
                 System.out.println("_______________________________");
             } else if (input.toLowerCase().startsWith("mark ")) {
                 int index = Integer.parseInt(input.substring(5)) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     tasks.get(index).setStatus(true);
-                    System.out.println("Marked " + tasks.get(index).description + " as done.");
+                    System.out.println("Marked the following task as done:");
+                    System.out.println(tasks.get(index).toString());
                     System.out.println(line);
                 } else {
                     System.out.println("Invalid index");
@@ -45,7 +45,8 @@ public class Froggy {
                 int index = Integer.parseInt(input.substring(7)) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     tasks.get(index).setStatus(false);
-                    System.out.println("Marked " + tasks.get(index).description + " as undone.");
+                    System.out.println("Marked the following task as undone:");
+                    System.out.println(tasks.get(index).toString());
                     System.out.println(line);
                 } else {
                     System.out.println("Invalid index");
@@ -53,10 +54,14 @@ public class Froggy {
                 }
             }
             else {
-                tasks.add(new Task(input));
-                System.out.println("Added: " + input + "\n" + line);
+                Task current = new Task(input);
+                tasks.add(current);
+                System.out.println("Added this task:");
+                System.out.println(current.toString());
+                System.out.println(line);
             }
         }
+
         scanner.close();
     }
 }
