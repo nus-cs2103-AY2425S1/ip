@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Fred {
     static String line = "____________________________________________________________";
     static String name = "Fred";
-    static Task[] taskList = new Task[100];
+    static String[] taskList = new String[100];
     public static void main(String[] args) {
         greet();
         //echo();
@@ -60,7 +60,7 @@ public class Fred {
                 continue;
             }
             if (index < taskList.length) {
-                taskList[index] = new Task(input);
+                taskList[index] = input;
                 System.out.println(line);
                 System.out.println("added: " + input);
                 System.out.println(line);
@@ -79,7 +79,7 @@ public class Fred {
         int index = 1;
         System.out.println(line);
         while (taskList[index - 1] != null) {
-            System.out.println(String.format("%d.[%s] %s", index, taskList[index - 1].getStatusIcon(), taskList[index - 1].getDescription()));
+            System.out.println(index + ". " + taskList[index - 1]);
             index++;
             if (index > taskList.length) {
                 break;
