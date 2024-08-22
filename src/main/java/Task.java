@@ -14,4 +14,8 @@ class Task {
     public String toString() {
         return (completed ? "[X] " : "[ ] ") + description;
     }
+
+    static String format() {
+        return "task <description>";
+    }
 }
