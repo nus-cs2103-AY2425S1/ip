@@ -131,7 +131,9 @@ public class Botty {
         }
     }
     private static void setTaskCompletion(boolean completion, int taskIndex) {
-        if (taskIndex >= 0 && taskIndex <= currentIndex - 1) {
+        if (currentIndex == 0) {
+            reply("Your list is empty! Add a task with the todo, deadline or event command.");
+        } else if (taskIndex >= 0 && taskIndex <= currentIndex - 1) {
             taskList[taskIndex].setCompleted(completion);
             reply(completion
                     ? "Congrats on completing that! Let me just mark that as done for you."
