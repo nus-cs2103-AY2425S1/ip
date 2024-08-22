@@ -4,6 +4,7 @@ public class Flash {
     public static void main(String[] args) {
         /* create an instance of scanner class */
         Scanner scanner = new Scanner(System.in);
+        StoreList storeList = new StoreList();
 
         //Horizontal line for better readability
         String line = "    __________________________________________";
@@ -17,11 +18,19 @@ public class Flash {
 
 
         while (!userInput.equals("bye")) {
-            //If user types anything other than Bye, repeat it
-            System.out.println(line);
-            System.out.println("    " + userInput);
-            System.out.println(line);
-            userInput = scanner.nextLine();
+
+            if (userInput.equals("list")) {
+                System.out.println(line);
+                storeList.displayItems();
+                System.out.println(line);
+                userInput = scanner.nextLine();
+            } else {
+                //If user types anything other than Bye, repeat it
+                System.out.println(line);
+                storeList.addItem(userInput);
+                System.out.println(line);
+                userInput = scanner.nextLine();
+            }
         }
 
         System.out.println(line);
