@@ -2,7 +2,17 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ChoaticBot {
+    private TaskList tasklist;
+
+    public ChoaticBot() {
+        this.tasklist = new TaskList();
+    }
+    public static void printLine() {
+        System.out.println("____________________________________________________________\n");
+    }
+
     public static void main(String[] args) {
+        ChoaticBot chatBot = new ChoaticBot();
         String welcomeMsg = "____________________________________________________________ \n"
                 + "Hello! I'm ChoaticBot\n"
                 + "What can I do for you?\n"
@@ -12,12 +22,8 @@ public class ChoaticBot {
                 + "Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________\n";
 
-
-        String lines = "____________________________________________________________\n";
         System.out.println(welcomeMsg);
         Scanner scanner = new Scanner(System.in);
-        String[] taskList = new String[100];
-        int numberOfTasks = 0;
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -28,16 +34,24 @@ public class ChoaticBot {
 
             // Listing out list
             if (Objects.equals(userInput, "list")) {
-                System.out.println(lines);
-                for (int i = 0; i < numberOfTasks; i++) {
-                    System.out.println( (i + 1) + ". " + taskList[i]);
-                }
-                System.out.println(lines);
+                printLine();
+                chatBot.tasklist.listTask();
+                printLine();
+            } else if (Objects.equals((userInput.split(" ")[0]), "mark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+                printLine();
+                chatBot.tasklist.markTask(index);
+                printLine();
+            } else if (Objects.equals((userInput.split(" ")[0]), "unmark"))  {
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+                printLine();
+                chatBot.tasklist.unmarkTask(index);
+                printLine();
             } else {
                 //Adding task to task list
-                taskList[numberOfTasks] = userInput;
-                numberOfTasks++;
-                System.out.println(lines + "added: " + userInput + "\n" + lines);
+                printLine();
+                chatBot.tasklist.addTask(userInput);
+                printLine();
             }
         }
     }
