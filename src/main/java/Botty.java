@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Botty {
@@ -20,9 +21,7 @@ public class Botty {
 
     private static final String bottySymbol = "Botty: ";
     private static final String bottyIndentation = "       ";
-
-    private static int currentIndex = 0;
-    private static Task[] taskList;
+    private static ArrayList<Task> taskList;
 
     public static void main(String[] args) {
         System.out.println(logo);
@@ -32,7 +31,7 @@ public class Botty {
 
         Scanner inputScanner = new Scanner(System.in);
 
-        taskList = new Task[100];
+        taskList = new ArrayList<>(100);
 
         boolean exitFlag = false;
 
@@ -80,16 +79,12 @@ public class Botty {
         reply("Thank you for your continued patronage. Goodbye!");
     }
     private static void addToTaskList(Task task) {
-        if (currentIndex < taskList.length) {
-            taskList[currentIndex] = task;
-            currentIndex++;
+        taskList.add(task);
 
-            reply("I have added the following task to the list!",
-                    task.toString(),
-                    "You now have " + currentIndex + " tasks.");
-        } else {
-            reply("I have run out of space, sorry!");
-        }
+        reply("I have added the following task to the list!",
+                task.toString(),
+                "You now have " + taskList.size() + " tasks.");
+
     }
 
     // Adapted from https://stackoverflow.com/a/39402538
@@ -102,17 +97,18 @@ public class Botty {
         }
     }
     private static void setTaskCompletion(boolean completion, int taskIndex) throws BottyException {
-        if (currentIndex == 0) {
+        if (taskList.isEmpty()) {
             throw new BottyException("Your list is empty! Add a task with the todo, deadline or event command.");
-        } else if (taskIndex < 0 || taskIndex > currentIndex - 1) {
+        } else if (taskIndex < 0 || taskIndex > taskList.size() - 1) {
             throw new BottyException("I don't see a task with that number! Try a number from 1 to " +
-                    currentIndex);
+                    taskList.size());
         }
-        taskList[taskIndex].setCompleted(completion);
+        Task task = taskList.get(taskIndex);
+        task.setCompleted(completion);
         reply(completion
                 ? "Congrats on completing that! Let me just mark that as done for you."
                 : "It's okay, we can get that done later. I'll mark that as undone for you.",
-                taskList[taskIndex].toString());
+                task.toString());
     }
     private static void reply(String... strings) {
         System.out.println(bottySymbol + strings[0]);
@@ -122,14 +118,14 @@ public class Botty {
     }
 
     private static void handleList() {
-        if (currentIndex == 0) {
+        if (taskList.isEmpty()) {
             reply("Your list is empty! Add a task with the todo, deadline or event command.");
         } else {
-            String[] content = new String[currentIndex + 1];
+            String[] content = new String[taskList.size() + 1];
             content[0] = "Here you go!";
 
-            for (int i = 1; i < currentIndex + 1; i++) {
-                content[i] = i + ". " + taskList[i - 1];
+            for (int i = 1; i < taskList.size() + 1; i++) {
+                content[i] = i + ". " + taskList.get(i - 1);
             }
 
             reply(content);
