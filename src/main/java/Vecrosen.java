@@ -37,9 +37,26 @@ public class Vecrosen {
                 for (int i = 0; i < list.size(); ++i) {
                     speak((i+1) + "." + list.get(i).toString());
                 }
+            } else if (input.startsWith("todo ")) {
+                String desc = input.substring(5);
+                list.add(new Task(desc));
+                speak("Todo added: " + desc);
+            } else if (input.matches("deadline .+ /by .+")) {
+                int byStart = input.indexOf("/by ");
+                String by = input.substring(byStart + 4);
+                String desc = input.substring(9, byStart - 1);
+                list.add(new Task(desc + " (by: " + by + ')'));
+                speak("Deadline added: " + desc);
+            } else if (input.matches("event .+ /begin .+ /end .+")) {
+                int beginStart = input.indexOf("/begin ");
+                int endStart = input.indexOf("/end ");
+                String desc = input.substring(6, beginStart - 1);
+                String begin = input.substring(beginStart + 7, endStart - 1);
+                String end = input.substring(endStart + 5);
+                list.add(new Task(desc + " (begins: " + begin + ", ends: " + end + ")"));
+                speak("Event added: " + desc);
             } else {
-                list.add(new Task(input));
-                speak("added: " + input);
+                speak("Sorry, I don't understand.");
             }
         }
         speak("Bye. Hope to see you again soon!");
