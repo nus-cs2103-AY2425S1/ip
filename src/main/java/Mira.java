@@ -18,10 +18,8 @@ public class Mira {
      * The chatbot echoes all commands and displays a goodbye message when exiting.
      */
     public void run() {
-        // show welcome message with multiline text block
-        this.ui.showMessage("""
-                Hello! I'm Mira
-                What can I do for you?""");
+        // show welcome message with multiline text
+        this.ui.showMessage("Hello! I'm Mira\nWhat can I do for you?");
         while (this.isRunning) {
             // read user input until a newline is entered
             String userInput = ui.readCommand();
