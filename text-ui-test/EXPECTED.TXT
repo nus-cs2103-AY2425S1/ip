@@ -134,6 +134,65 @@ Event command should be in the format: event <description> /from <date> /to <dat
 -----------------------------------------
 
 You: -----------------------------------------
+Meep: Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+4. [T][ ] read book
+5. [T][ ] jump 20 times
+6. [E][ ] say hi (from: 2pm to: 3pm)
+-----------------------------------------
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your mark command.
+Mark command should be in the format: mark <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your unmark command.
+Unmark command should be in the format: unmark <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your mark command.
+Mark command should be in the format: mark <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your unmark command.
+Unmark command should be in the format: unmark <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your mark command.
+Mark command should be in the format: mark <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Sorry, there is something wrong with your unmark command.
+Unmark command should be in the format: unmark <index>
+The index should be a number within the range of the list
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Nice! I've marked this task as done:
+[T][X] borrow book
+-----------------------------------------
+
+You: -----------------------------------------
+Meep: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+4. [T][ ] read book
+5. [T][ ] jump 20 times
+6. [E][ ] say hi (from: 2pm to: 3pm)
+-----------------------------------------
+You: -----------------------------------------
 Meep: Bye! Have a great day!
 -----------------------------------------
 

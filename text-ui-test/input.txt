@@ -23,4 +23,13 @@ event say nope /from 2pm
 event say bye /to 3pm
 event say invalid
 event
+list
+mark
+unmark
+mark 0
+unmark 0
+mark 8
+unmark 8
+mark 1
+list
 bye
