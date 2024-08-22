@@ -20,9 +20,21 @@ public class PHamBot {
             if (input.equals("list")) {
                 ListTasks();
             }
-            if (input.contains("task")) {
+            if (input.contains("todo")) {
                 String task = input.substring(5);
-                System.out.println(OutlineMessage(AddTask(task)));
+                System.out.println(OutlineMessage(addToDo(task)));
+            }
+            if (input.contains("deadline")) {
+                int dateIndex = input.indexOf("/");
+                String task = input.substring(9, dateIndex);
+                String deadline = input.substring(dateIndex + 1);
+                System.out.println(OutlineMessage(addDeadline(task, deadline)));
+            }
+            if (input.contains("event")) {
+                int dateIndex = input.indexOf("/");
+                String task = input.substring(6, dateIndex);
+                String deadline = input.substring(dateIndex + 1);
+                System.out.println(OutlineMessage(addEvent(task, deadline)));
             }
             if (input.contains("unmark")) {
                 unmark(Integer.parseInt(input.substring(7)));
@@ -48,10 +60,21 @@ public class PHamBot {
         System.out.println(OutlineMessage(goodbye));
     }
 
-    public static String AddTask(String task) {
-        tasks.addTask(new Task(task));
-        return "Added: " + task;
+    public static String addToDo(String task) {
+        tasks.addTask(new ToDo(task));
+        return "Added:\n" + task;
     }
+
+    public static String addDeadline(String task, String deadline) {
+        tasks.addTask(new Deadline(task, deadline));
+        return "Added:\n" + task;
+    }
+
+    public static String addEvent(String task, String date) {
+        tasks.addTask(new Event(task, date));
+        return "Added:\n" + task;
+    }
+
     public static void ListTasks() {
         System.out.println(OutlineMessage(tasks.toString()));
     }
