@@ -1,11 +1,10 @@
+import java.util.Scanner;
 public class Duke {
+
+    private String username;
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        String initial = "What can I do for you?\n";
-        System.out.println("Hello from\n" + logo + initial);
+        System.out.println("Hello I'm Bonnie, what is your name?");
+        Scanner username = new Scanner(System.in);
+        System.out.println(String.format("Hey %s! Welcome to the Bonnie chat bot!", username.nextLine()));
     }
 }
