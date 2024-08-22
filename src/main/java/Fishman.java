@@ -1,8 +1,12 @@
 public class Fishman {
     private final Ui ui;
+    private final TaskList tasks;
+    private final Parser parser;
 
-    public Fishman(Ui ui) {
-        this.ui = ui;
+    public Fishman() {
+        ui = new Ui();
+        tasks = new TaskList();
+        parser = new Parser();
     }
 
     public void start() {
@@ -11,20 +15,14 @@ public class Fishman {
         boolean isExit = false;
 
         while (!isExit) {
-            String command = ui.readCommands();
-            if (!command.equals("bye")) {
-                System.out.println(command);
-            } else {
-                isExit = true;
-            }
-
+            String userInput = ui.readCommands();
+            Command command = Parser.parse(userInput);
+            command.execute(tasks,ui);
+            isExit = command.isExit();
         }
-        ui.displayGoodbye();
     }
     public static void main(String[] args) {
-        Ui ui = new Ui();
-        Fishman fishman = new Fishman(ui);
-        fishman.start();
+        new Fishman().start();
     }
 }
 
