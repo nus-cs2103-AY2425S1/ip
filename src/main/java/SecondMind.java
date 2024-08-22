@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class SecondMind {
     private static final String line = "____________________________________________________________";
     private static final String logo = "SecondMind";
-    private static String[] taskList = new String[100];
+    private static Task[] taskList = new Task[100];
     private static int taskCount = 0;
 
     private static void printLineSeparator() {
@@ -18,10 +18,11 @@ public class SecondMind {
     }
 
     private static void addToTaskList(String task) {
-        taskList[taskCount] = task;
+        Task curr = new Task(task);
+        taskList[taskCount] = curr;
         taskCount++;
         printLineSeparator();
-        System.out.println("added: " + task);
+        System.out.println("added: " + curr.getDescription());
         printLineSeparator();
     }
 
