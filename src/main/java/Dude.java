@@ -5,13 +5,13 @@ public class Dude {
     private String input;
     private String line = "____________________________________________________________";
     private String botName = "Dude";
-    private String[] tasks;
+    private Task[] tasks;
     private int taskPointer;
 
     public Dude(){
         this.scanner = new Scanner(System.in);
         input = "";
-        tasks = new String[100];
+        tasks = new Task[100];
         taskPointer = 0;
     }
 
@@ -26,13 +26,20 @@ public class Dude {
 
     public void readAndReact(){
         input = scanner.nextLine();
+        String[] splitInput = input.split(" ");
 
-        if(input.equals("bye")){
+        if(splitInput[0].equals("bye")){
             exit();
             return;
         }
-        else if(input.equals("list")){
+        else if(splitInput[0].equals("list")){
             list();
+        }
+        else if(splitInput[0].equals("mark")){
+            mark(Integer.parseInt(splitInput[1]));
+        }
+        else if(splitInput[0].equals("unmark")){
+            unmark(Integer.parseInt(splitInput[1]));
         }
         else{
             add(input);
@@ -41,12 +48,12 @@ public class Dude {
         readAndReact();
     }
 
-    public void add(String task){
-        this.tasks[taskPointer] = task;
+    public void add(String taskDes){
+        this.tasks[taskPointer] = new Task(taskDes);
         taskPointer++;
 
         System.out.println(line);
-        System.out.println("added: " + task);
+        System.out.println("added: " + taskDes);
         System.out.println(line);
     }
 
@@ -54,9 +61,29 @@ public class Dude {
         System.out.println(line);
 
         for(int i = 1; i <= taskPointer; i ++){
-            System.out.println(i + ". " + tasks[i - 1]);
+            System.out.println(i + "." + tasks[i - 1]);
         }
 
+        System.out.println(line);
+    }
+
+    public void mark(int index){
+        Task task = tasks[index - 1];
+        task.markAsDone();
+
+        System.out.println(line);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
+        System.out.println(line);
+    }
+
+    public void unmark(int index){
+        Task task = tasks[index - 1];
+        task.markAsNotDone();
+
+        System.out.println(line);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
         System.out.println(line);
     }
 
