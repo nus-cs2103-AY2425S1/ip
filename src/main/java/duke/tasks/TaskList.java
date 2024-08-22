@@ -75,6 +75,26 @@ public class TaskList {
     }
 
     /**
+     * Filters and prints all tasks containing the input.
+     */
+    public void filter(String input) {
+        ArrayList<Task> filtered = new ArrayList<>();
+        for (Task t : this.taskStore) {
+            if (t.toString().contains(input)) {
+                filtered.add(t);
+            }
+        }
+        if (filtered.isEmpty()) {
+            System.out.println("No matching tasks found in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < filtered.size(); ++i) {
+                System.out.printf("%d.%s\n", i+1, filtered.get(i).toString());
+            }
+        }
+    }
+
+    /**
      * Returns a copy of the task list.
      *
      * @return ArrayList containing all tasks
