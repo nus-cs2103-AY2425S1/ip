@@ -6,7 +6,7 @@ public class Task {
         this.taskName = taskName;
     }
 
-    private void setCompleted(boolean completed) {
+    public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
