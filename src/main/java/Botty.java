@@ -42,8 +42,8 @@ public class Botty {
 
             String userInput = inputScanner.nextLine();
 
-            String[] splitInput = userInput.split(" ", 2);
-            String command = splitInput[0];
+            String[] splitInput = userInput.trim().split(" ", 2);
+            String command = splitInput[0].toLowerCase();
 
             boolean hasIntegerArgument = splitInput.length > 1 && isNumber(splitInput[1]);
 
