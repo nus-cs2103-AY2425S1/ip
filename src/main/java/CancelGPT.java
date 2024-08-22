@@ -137,16 +137,18 @@ public class CancelGPT {
 
     public Task parseDeadlineTaskCreationCommand(String command) throws InvalidTask {
         String[] commandArray = command.split(" ");
-        String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, commandArray.length);
-        String taskDescription = String.join(" ", taskDescriptionArr);
-        if (taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Deadline task");
-        }
 
         int byIndex = Arrays.asList(commandArray).indexOf("/by");
         if (byIndex == -1) {
             throw new InvalidTask("Missing `by` for Deadline task");
         }
+
+        String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, byIndex);
+        String taskDescription = String.join(" ", taskDescriptionArr);
+        if (taskDescription.isEmpty()) {
+            throw new InvalidTask("Missing description for Deadline task");
+        }
+
         String[] byDateArr = Arrays.copyOfRange(commandArray, byIndex + 1, commandArray.length);
         String byDate = String.join(" ", byDateArr);
         if (byDate.isEmpty()) {
@@ -157,16 +159,18 @@ public class CancelGPT {
 
     public Task parseEventTaskCreationCommand(String command) throws InvalidTask {
         String[] commandArray = command.split(" ");
-        String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, commandArray.length);
-        String taskDescription = String.join(" ", taskDescriptionArr);
-        if (taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Event task");
-        }
 
         int fromIndex = Arrays.asList(commandArray).indexOf("/from");
         if (fromIndex == -1) {
             throw new InvalidTask("Missing `from` for Event task");
         }
+
+        String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, fromIndex);
+        String taskDescription = String.join(" ", taskDescriptionArr);
+        if (taskDescription.isEmpty()) {
+            throw new InvalidTask("Missing description for Event task");
+        }
+
 
         int toIndex = Arrays.asList(commandArray).indexOf("/to");
         if (toIndex == -1) {
