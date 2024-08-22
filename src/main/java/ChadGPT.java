@@ -21,15 +21,15 @@ public class ChadGPT {
         Pattern regex = Pattern.compile("(\\w+)\\s*(.*)");
         Matcher matcher = regex.matcher(input);
         if (matcher.matches()) {
-            String command = matcher.group(1);
+            String cmd = matcher.group(1);
             String args = matcher.group(2);
 
-            switch (command) {
+            switch (cmd) {
                 case "list":
                     handleList();
                     break;
-                case "todo":
-                    handleAddTask(args);
+                case "todo", "deadline", "event":
+                    handleAddTask(cmd, args);
                     break;
                 case "mark":
                     handleMarkTask(args);
@@ -52,6 +52,42 @@ public class ChadGPT {
     private static void handleList() {
         printBotMessage("Here are the tasks in your list:\n" + Formatter.formatList(tasks));
     }
+
+    private static void handleAddTask(String cmd, String args) {
+        if (cmd.equals("todo")) {
+            tasks.add(new Todo(args));
+        } else if (cmd.equals("deadline")) {
+            Pattern regex = Pattern.compile("(.*)\\s/by\\s(.*)");
+            Matcher matcher = regex.matcher(args);
+            if (matcher.matches()) {
+                String task = matcher.group(1);
+                String deadline = matcher.group(2);
+                tasks.add(new Deadline(task, deadline));
+            } else {
+                // TODO: Handle error
+            }
+        } else {
+            // Last command is guaranteed to be "event" by the switch statement
+            Pattern regex = Pattern.compile("(.*)\\s/from\\s(.*)\\s/to\\s(.*)");
+            Matcher matcher = regex.matcher(args);
+            if (matcher.matches()) {
+                String task = matcher.group(1);
+                String from = matcher.group(2);
+                String to = matcher.group(3);
+                tasks.add(new Event(task, from, to));
+            } else {
+                // TODO: Handle error
+            }
+        }
+        Task newTask = tasks.get(tasks.size()-1);
+        String response = String.format(
+                "Got it. I've added this task:\n  %s\nNow you have %d task(s) in the list.",
+                newTask.toString(),
+                tasks.size()
+        );
+        printBotMessage(response);
+    }
+
     private static void handleMarkTask(String args) {
         int index = getTaskIndex(args);
         tasks.get(index).markAsDone();
@@ -66,11 +102,6 @@ public class ChadGPT {
 
     private static int getTaskIndex(String input) {
         return Integer.parseInt(input.split(" ")[0]) - 1;
-    }
-
-    private static void handleAddTask(String args) {
-        tasks.add(new Task(args));
-        printBotMessage("added: " + args);
     }
 
     /**
