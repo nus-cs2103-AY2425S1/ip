@@ -70,8 +70,22 @@ public class Ui {
     public void displayTaskList(TaskList tasks) {
         System.out.println("Bloop bloop, here are the tasks in your list: ");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i));
+            System.out.println((i + 1) + ". " + "[" + tasks.getTask(i).getStatusIcon() + "] " + tasks.getTask(i));
         }
+    }
+
+    /**
+     * Display the confirmation message after the task is marked or unmarked.
+     *
+     * @param task The task object that is marked or unmarked.
+     */
+    public void displayTaskStatus(Task task) {
+        if (task.isDone) {
+            System.out.println("Bloop bloop, I've marked this task as done: ");
+        } else {
+            System.out.println("Bloop bloop, I've marked this task as not done yet: ");
+        }
+        System.out.println("[" + task.getStatusIcon() + "] " + task);
     }
 
 }

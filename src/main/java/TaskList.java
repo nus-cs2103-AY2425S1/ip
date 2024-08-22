@@ -34,6 +34,22 @@ class TaskList {
     }
 
     /**
+     * Marks a task at the specified index in the task list as done.
+     * @param index The index of the task to retrieve.
+     */
+    public void markAsDone(int index) {
+        tasks.get(index).markAsDone();
+    }
+
+    /**
+     * Marks a task at the specified index in the task list as not done.
+     * @param index The index of the task to retrieve.
+     */
+    public void markAsNotDone(int index) {
+        tasks.get(index).markAsNotDone();
+    }
+
+    /**
      * Returns the number of tasks currently in the task list.
      *
      * @return The number of tasks in the list.
