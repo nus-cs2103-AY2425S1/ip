@@ -1,17 +1,34 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Wolfie {
+    private static Storage storage;
+    private static List<Task> tasks;
+
     public static void main(String[] args) {
+        String FILE_PATH = "./data/tasks.txt";
+        storage = new Storage(FILE_PATH);
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" OOPS!!! Error loading tasks: " + e.getMessage());
+            System.out.println("____________________________________________________________");
+            tasks = new ArrayList<>();
+        }
+
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
 
         String wolfieArt =
-                " __        __   _ _  __ _ \n" +
-                        " \\ \\      / /__| | |/ _| |\n" +
-                        "  \\ \\ /\\ / / _ \\ | | |_| |\n" +
-                        "   \\ V  V /  __/ | |  _|_|\n" +
-                        "    \\_/\\_/ \\___|_|_|_| (_)\n";
+                """
+                         __        __   _ _  __ _\s
+                         \\ \\      / /__| | |/ _| |
+                          \\ \\ /\\ / / _ \\ | | |_| |
+                           \\ V  V /  __/ | |  _|_|
+                            \\_/\\_/ \\___|_|_|_| (_)
+                        """;
 
         System.out.println("____________________________________________________________");
         System.out.println(wolfieArt);
@@ -38,6 +55,7 @@ public class Wolfie {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1; // get the task index
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markAsDone(); // mark the task as done
+                        saveTasks();
                         System.out.println("____________________________________________________________");
                         System.out.println(" Nice! I've marked this task as done:");
                         System.out.println("   " + tasks.get(taskIndex)); // print the task
@@ -49,6 +67,7 @@ public class Wolfie {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markAsUndone(); // mark the task as not done
+                        saveTasks();
                         System.out.println("____________________________________________________________");
                         System.out.println(" OK! I've marked this task as not done yet:");
                         System.out.println("   " + tasks.get(taskIndex)); // print the task
@@ -61,7 +80,8 @@ public class Wolfie {
                     if (description.isEmpty()) {
                         throw new WolfieException("The description of a todo cannot be empty.");
                     }
-                    tasks.add(new Todo(description)); // create a new task and add it to the list
+                    tasks.add(new Todo(description, false)); // create a new task and add it to the list
+                    saveTasks();
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it! I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1)); // print the task
@@ -75,7 +95,8 @@ public class Wolfie {
                     }
                     String description = parts[0].trim(); // description is before " /by "
                     String by = parts[1].trim(); // by is after " /by "
-                    tasks.add(new Deadline(description, by)); // create a new deadline task and add it to the list
+                    tasks.add(new Deadline(description, by, false)); // create a new deadline task and add it to the list
+                    saveTasks();
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it! I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1)); // print the task
@@ -91,7 +112,8 @@ public class Wolfie {
                     String description = parts[0].trim(); // description is before " /from "
                     String from = parts[1].trim(); // from is after " /from " and before " /to "
                     String to = parts[2].trim(); // to is after " /to "
-                    tasks.add(new Event(description, from, to)); // create a new event and add it to the list
+                    tasks.add(new Event(description, from, to, false)); // create a new event and add it to the list
+                    saveTasks();
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it! I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1)); // print the task
@@ -102,6 +124,7 @@ public class Wolfie {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1; // get the task index
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         Task removedTask = tasks.remove(taskIndex); // remove the task
+                        saveTasks();
                         System.out.println("____________________________________________________________");
                         System.out.println(" Noted! I've removed this task:");
                         System.out.println("   " + removedTask); // print the removed task
@@ -125,5 +148,15 @@ public class Wolfie {
             }
         }
         scanner.close(); // close scanner and exit the program :)
+    }
+
+    private static void saveTasks() {
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" OOPS!!! Error saving tasks: " + e.getMessage());
+            System.out.println("____________________________________________________________");
+        }
     }
 }

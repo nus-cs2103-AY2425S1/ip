@@ -3,9 +3,9 @@ public abstract class Task {
     private boolean isDone;
     private final TaskType taskType;
 
-    public Task(String description, TaskType taskType) {
+    public Task(String description, TaskType taskType, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
         this.taskType = taskType;
     }
 
@@ -20,6 +20,16 @@ public abstract class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public abstract String toFileFormat();
 
     @Override
     public String toString() {
