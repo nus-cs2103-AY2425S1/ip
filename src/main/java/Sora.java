@@ -45,7 +45,7 @@ public class Sora {
                     System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
                 } else if (command[0].equalsIgnoreCase("delete") && command.length == 2) {
                     Task deletedTask = taskList.remove(Integer.parseInt(command[1]) - 1);
-                    System.out.println("Noted. Sora has removed this task:");
+                    System.out.println("\tNoted. Sora has removed this task:");
                     System.out.println("\t" + deletedTask);
                 } else if (command.length == 0) {
                     throw new SoraException("Error: No Command Inputted.");
