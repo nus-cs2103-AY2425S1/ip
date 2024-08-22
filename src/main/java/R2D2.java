@@ -15,6 +15,46 @@ public class R2D2 {
             public void setDone(boolean setter) {
                 this.isDone = setter;
             }
+            @Override
+            public String toString() {
+                return "[" + this.getStatusIcon() + "] " + this.description;
+            }
+        }
+
+        class Deadline extends Task {
+            protected String date;
+            public Deadline(String description, String date) {
+                super(description);
+                this.date = date;
+            }
+            @Override
+            public String toString() {
+                return "[D]" + super.toString() + " (by: " + this.date + ")";
+            }
+        }
+
+        class Event extends Task {
+            protected String startDate;
+            protected String endDate;
+            public Event(String description, String startDate, String endDate) {
+                super(description);
+                this.startDate = startDate;
+                this.endDate = endDate;
+            }
+            @Override
+            public String toString() {
+                return "[E]" + super.toString() + "(from: " + this.startDate + " to: " + this.endDate + ")";
+            }
+        }
+
+        class Todo extends Task {
+            public Todo(String description) {
+                super(description);
+            }
+            @Override
+            public String toString() {
+                return "[T]" + super.toString();
+            }
         }
         //Opening dialogue for the bot
         String hline = "____________________________________________________________";
@@ -25,45 +65,63 @@ public class R2D2 {
 
         // Reading input from user
         Scanner reader = new Scanner(System.in);
-        Task userTask = new Task(reader.nextLine());
 
         // init a new database and counter for memory recall
         Task[] database = new Task[100];
         int counter = 1;
 
         // Main interaction
-        while (!(userTask.description.equals("bye"))) {
-            if (userTask.description.startsWith("mark")) {
-                int index = Integer.parseInt(userTask.description.split(" ")[1]);
+        while (true) {
+            String input = reader.nextLine();
+            if (input.equals("bye")) {
+                break;
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
                 database[index].setDone(true);
                 System.out.println(hline);
                 System.out.println("Mission accomplished! *bzzt*");
-                System.out.println("[" + database[index].getStatusIcon() + "] " + database[index].description);
+                System.out.println(database[index].toString());
                 System.out.println(hline);
-            } else if (userTask.description.startsWith("unmark")) {
-                int index = Integer.parseInt(userTask.description.split(" ")[1]);
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
                 database[index].setDone(false);
                 System.out.println(hline);
                 System.out.println("Argh next time! *bzzt*");
-                System.out.println("[" + database[index].getStatusIcon() + "] " + database[index].description);
+                System.out.println(database[index].toString());
                 System.out.println(hline);
-            } else if (!userTask.description.equals("list")) {
-                //added into database
-                System.out.println(hline);
-                System.out.println("Buzzinga! Added to your list: \n" + userTask.description);
-                System.out.println(hline);
-
-                //processing in the background (adding to database)
-                database[counter] = userTask;
-                counter++;
-            } else { // list has been typed
+            } else if (input.equals("list")) {
                 System.out.println(hline);
                 for (int i = 1; i < counter; i++) {
-                    System.out.println(i + "." + "[" + database[i].getStatusIcon() + "] " + database[i].description);
+                    System.out.println(i + "." + database[i].toString());
                 }
                 System.out.println(hline);
+            } else if (input.startsWith("todo")) {
+                Task task = new Todo(input.substring(5));
+                database[counter] = task;
+                System.out.println("Understood boss. Added!");
+                System.out.println(task.toString());
+                System.out.println("You currently have " + counter + " missions available *reeeee* ");
+                System.out.println(hline);
+                counter++;
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.split("/by");
+                Task task = new Deadline(parts[0].substring(9), parts[1].substring(1));
+                database[counter] = task;
+                System.out.println("Understood boss. Added!");
+                System.out.println(task.toString());
+                System.out.println("You currently have " + counter + " missions available *reeeee* ");
+                System.out.println(hline);
+                counter++;
+            } else if (input.startsWith("event")) {
+                String[] parts = input.split("/");
+                Task task = new Event(parts[0].substring(6), parts[1].substring(5), parts[2].substring(3));
+                database[counter] = task;
+                System.out.println("Understood boss. Added!");
+                System.out.println(task.toString());
+                System.out.println("You currently have " + counter + " missions available *reeeee* ");
+                System.out.println(hline);
+                counter++;
             }
-            userTask = new Task(reader.nextLine());
         }
 
         // standard exit when bye is typed
