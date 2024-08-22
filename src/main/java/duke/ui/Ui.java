@@ -1,4 +1,4 @@
-package ui;
+package duke.ui;
 
 /**
  * The Ui class handles the user interface for the Duke application.

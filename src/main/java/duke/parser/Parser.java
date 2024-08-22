@@ -1,8 +1,8 @@
-package parser;
+package duke.parser;
 
-import exceptions.DukeException;
+import duke.exceptions.DukeException;
 import java.util.Scanner;
-import tasks.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * Parser class for handling user input in the Duke application.

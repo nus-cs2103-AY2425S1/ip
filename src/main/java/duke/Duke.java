@@ -1,7 +1,9 @@
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+package duke;
+
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 import java.util.Scanner;
 
