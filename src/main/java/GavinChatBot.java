@@ -6,7 +6,7 @@ public class GavinChatBot{
     static int taskCount = 0;
     public static void main(String[] args) {
 
-        String horizontalLine = "_________________________________\n";
+        String horizontalLine = "___________________________________________________________________________________\n";
 
         // print welcome message
         System.out.println(horizontalLine);
@@ -46,7 +46,7 @@ public class GavinChatBot{
     }
 
     public static void handleInput(String input) throws GavinException{
-        String horizontalLine = "_________________________________\n";
+        String horizontalLine = "___________________________________________________________________________________\n";
         if (input.equalsIgnoreCase("bye")) {
             // print exit message
             System.out.println(horizontalLine);
@@ -79,7 +79,7 @@ public class GavinChatBot{
     }
 
     public static void markTask(String input) throws GavinException {
-        String horizontalLine = "_________________________________\n";
+        String horizontalLine = "___________________________________________________________________________________\n";
         // mark task as done
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
@@ -96,7 +96,7 @@ public class GavinChatBot{
     }
 
     public static void unmarkTask(String input) throws GavinException {
-        String horizontalLine = "_________________________________\n";
+        String horizontalLine = "___________________________________________________________________________________\n";
         // mark task as undone
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
@@ -166,7 +166,7 @@ public class GavinChatBot{
     }
 
     private static void printAddTaskMessage(Task task, int taskCount) {
-        String horizontalLine = "_________________________________\n";
+        String horizontalLine = "___________________________________________________________________________________\n";
         System.out.println(horizontalLine);
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
