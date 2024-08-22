@@ -67,14 +67,25 @@ public class MrTracker {
     }
 
     public static void addTodo (ArrayList<Task> taskList, String arg) {
-        ToDo newTask = new ToDo(arg);
-        taskList.add(newTask);
-        System.out.println("added: " + arg);
+        ToDo newToDo = new ToDo(arg);
+        taskList.add(newToDo);
+        System.out.println("I have added the task " + newToDo.toString());
+        System.out.println("You now have " + taskList.size() + " tasks");
+        return;
     }
 
     public static void addDeadLine (ArrayList<Task> taskList, String arg) {
         if (arg.contains("/by ")) {
-
+            int index = arg.indexOf("/by ");
+            String taskName = arg.substring(0, index);
+            String endDate = arg.substring(index+4);
+            Task newDeadLine = new DeadLine(taskName, endDate);
+            taskList.add(newDeadLine);
+            System.out.println("I have added the task " + newDeadLine.toString());
+            System.out.println("You now have " + taskList.size() + " tasks");
+            return;
+        } else {
+            //throw error?
         }
     }
 
