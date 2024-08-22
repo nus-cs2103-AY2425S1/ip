@@ -44,7 +44,17 @@ public class Bopes {
                     } else {
                         throw BopesException.invalidIndex(inputs.size());
                     }
-                } else {
+                } else if (input.split(" ")[0].equalsIgnoreCase("delete")) {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (index >= 0 && index < inputs.size()) {
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(inputs.get(index).toString());
+                        inputs.remove(index);
+                        System.out.println("Now you have " + inputs.size() + " tasks in the list.");
+                    } else {
+                        throw BopesException.invalidIndex(inputs.size());
+                    }
+                }else {
                     // Adding of tasks
                     Task newTask = null;
                     if (input.startsWith("todo ")) {
