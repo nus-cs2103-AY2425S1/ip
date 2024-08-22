@@ -1,10 +1,13 @@
 # Buddy User Guide
 
+***GitHub Copilot was used throughout the development as an auto-complete tool**
+
 // Update the title above to match the actual product name
 
 // Product screenshot goes here
 
 // Product intro goes here
+
 
 ## Adding deadlines
 
