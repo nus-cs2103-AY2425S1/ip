@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class ChatBuddy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100]; // Array to store up to 100 tasks
+        Task[] tasks = new Task[100]; // Array to store up to 100 tasks
         int taskCount = 0; // To keep track of the number of tasks stored
 
         try {
@@ -19,8 +19,29 @@ public class ChatBuddy {
                         System.out.println((i + 1) + ". " + tasks[i]);
                     }
                     System.out.println("_____________________________________________");
+                } else if (userInput.startsWith("mark ")) {
+                    // Mark a task as done
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    if (taskNumber < taskCount && taskNumber >= 0) {
+                        tasks[taskNumber].markAsDone();
+                        System.out.println("_____________________________________________");
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(" " + tasks[taskNumber]);
+                        System.out.println("_____________________________________________");
+                    }
+                } else if (userInput.startsWith("unmark ")){
+                    // Unmark a task as not done
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    if (taskNumber < taskCount && taskNumber >= 0) {
+                        tasks[taskNumber].unmarkAsDone();
+                        System.out.println("_____________________________________________");
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(" " + tasks[taskNumber]);
+                        System.out.println("_____________________________________________");
+                    }
                 } else {
-                    tasks[taskCount] = userInput;
+                    // Store the user input as a new task
+                    tasks[taskCount] = new Task(userInput);
                     taskCount++;
                     System.out.println("_____________________________________________");
                     System.out.println("Added: " + userInput);
