@@ -3,13 +3,15 @@
 Powering up...
 System booted successfully.
 YapBot online.
+Extensive damage detected.
+Core Systems 28% functional.
 -------------------------------------------
 
 
 -------------------------------------------
 Adding Task...
 Success
-Task Added:
+Task added to database:
   [T][ ] find nemo
 Total tasks: 1
 -------------------------------------------
@@ -18,7 +20,7 @@ Total tasks: 1
 -------------------------------------------
 Adding Task...
 Success
-Task Added:
+Task added to database:
   [D][ ] find dory (by: 10pm)
 Total tasks: 2
 -------------------------------------------
@@ -27,9 +29,18 @@ Total tasks: 2
 -------------------------------------------
 Adding Task...
 Success
-Task Added:
+Task added to database:
   [E][ ] celebrate birthday (From: Monday 5pm To: Tuesday 11pm)
 Total tasks: 3
+-------------------------------------------
+
+
+-------------------------------------------
+Adding Task...
+Success
+Task added to database:
+  [E][ ] celebrate christmas (From: Tuesday 5pm To: Wednesday 1pm)
+Total tasks: 4
 -------------------------------------------
 
 
@@ -40,6 +51,7 @@ Current Tasks:
   1.[T][ ] find nemo
   2.[D][ ] find dory (by: 10pm)
   3.[E][ ] celebrate birthday (From: Monday 5pm To: Tuesday 11pm)
+  4.[E][ ] celebrate christmas (From: Tuesday 5pm To: Wednesday 1pm)
 -------------------------------------------
 
 
@@ -47,7 +59,7 @@ Current Tasks:
 Finding Task...
 Success
 Task Completed:
-[T][X] find nemo
+  [T][X] find nemo
 -------------------------------------------
 
 
@@ -55,7 +67,7 @@ Task Completed:
 Finding Task...
 Success
 Task Completed:
-[D][X] find dory (by: 10pm)
+  [D][X] find dory (by: 10pm)
 -------------------------------------------
 
 
@@ -66,6 +78,7 @@ Current Tasks:
   1.[T][X] find nemo
   2.[D][X] find dory (by: 10pm)
   3.[E][ ] celebrate birthday (From: Monday 5pm To: Tuesday 11pm)
+  4.[E][ ] celebrate christmas (From: Tuesday 5pm To: Wednesday 1pm)
 -------------------------------------------
 
 
@@ -73,7 +86,36 @@ Current Tasks:
 Finding Task...
 Success
 Task Incomplete:
-[T][ ] find nemo
+  [T][ ] find nemo
+-------------------------------------------
+
+
+-------------------------------------------
+Retrieving Tasks...
+Success
+Current Tasks:
+  1.[T][ ] find nemo
+  2.[D][X] find dory (by: 10pm)
+  3.[E][ ] celebrate birthday (From: Monday 5pm To: Tuesday 11pm)
+  4.[E][ ] celebrate christmas (From: Tuesday 5pm To: Wednesday 1pm)
+-------------------------------------------
+
+
+-------------------------------------------
+Error, User Input Prediction module offline.
+Manual input required.
+-------------------------------------------
+
+
+-------------------------------------------
+Error, supporting module for user command: "fakecommand" not found.
+YapBot may not support this feature.
+-------------------------------------------
+
+
+-------------------------------------------
+Error, User Input Prediction module offline.
+Task number must be manually entered (eg. "1", "2").
 -------------------------------------------
 
 
@@ -81,13 +123,52 @@ Task Incomplete:
 Finding Task...
 Failure
 Error, requested Task does not exist.
+Use command "list" to view your tasks.
 -------------------------------------------
 
 
 -------------------------------------------
-Adding Task...
+Error, User Input Prediction module offline.
+Task number must be manually entered (eg. "1", "2").
+-------------------------------------------
+
+
+-------------------------------------------
+Finding Task...
 Failure
-Invalid Task Type: fakeevent
+Error, requested Task does not exist.
+Use command "list" to view your tasks.
+-------------------------------------------
+
+
+-------------------------------------------
+Error, Automated Task Suggestion module offline.
+Task details must be manually entered.
+-------------------------------------------
+
+
+-------------------------------------------
+Error, Automated Task Suggestion module offline.
+Task details must be manually entered.
+-------------------------------------------
+
+
+-------------------------------------------
+Error, Automated Task Suggestion module offline.
+Task details must be manually entered.
+-------------------------------------------
+
+
+-------------------------------------------
+Error, Deadline Prediction module offline.
+Supply a deadline using "/by" (eg. /by Monday 1pm).
+-------------------------------------------
+
+
+-------------------------------------------
+Error, start and end times not detected.
+Supply start time using "/from" (eg. /from Monday 1pm).
+Supply end time using "/to" (eg. /to Tuesday 1pm).
 -------------------------------------------
 
 

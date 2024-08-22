@@ -1,11 +1,22 @@
 todo find nemo
 deadline find dory /by 10pm
 event celebrate birthday /from Monday 5pm /to Tuesday 11pm
+event celebrate christmas /to Wednesday 1pm /from Tuesday 5pm
 list
 mark 1
 mark 2
 list
 unmark 1
-mark 0
-fakeevent commit crime
+list
+
+fakecommand commit crime
+mark
+mark 1000
+unmark
+unmark 1000
+todo
+deadline
+event
+deadline generictask
+event generictask
 bye
