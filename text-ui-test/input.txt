@@ -10,4 +10,9 @@ list
 todo
 deadline
 event
+delete 2
+mark 10
+unmark 11
+delete 11
+list
 bye
