@@ -21,6 +21,10 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
+    public String taskType() {
+        return "Normal task";
+    }
     @Override
     public String toString() {
         return String.format("%s %s", getStatusIcon(), description);

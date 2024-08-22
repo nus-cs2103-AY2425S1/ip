@@ -33,6 +33,18 @@ public class WenJigglyBot {
 
                 addTask(new DeadlineTask(taskName, deadline));
 
+            } else if (task.contains("event")) {
+                // Split the string by "/from" and "/to"
+                String[] fromParts = task.split("/from");
+                String[] toParts = fromParts[1].split("/to");
+
+                // Extract the event description, start time, and end time
+                String event = fromParts[0].replaceFirst("event", "").trim();
+                String startTime = toParts[0].trim();
+                String endTime = toParts[1].trim();
+
+                addTask(new EventTask(event, startTime, endTime));
+
             } else {
                 addTask(new Task(task));
             }
@@ -43,26 +55,35 @@ public class WenJigglyBot {
     private static void toggleTask(String action, int idx) {
         Task task = tasks.get(idx);
         if (action.equals("mark")) {
+            System.out.println("____________________________________________________________");
             System.out.println("\tYay! Task Completed!");
             task.markTask();
             System.out.println("\t" + task);
+            System.out.println("____________________________________________________________");
         } else {
+            System.out.println("____________________________________________________________");
             System.out.println("\tGet to work boy, why not done!!!");
             tasks.get(idx).unmarkTask();
             System.out.println("\t" + task);
+            System.out.println("____________________________________________________________");
         }
     }
 
     private static void addTask(Task task) {
         tasks.add(task);
-        System.out.printf("\tadded: %s\n", task.getDescription());
+        System.out.println("____________________________________________________________");
+        System.out.printf("\tAdding %s\n", task.taskType());
+        System.out.printf("\tDone! Added: %s\n", task.getDescription());
         System.out.printf("You now have %d tasks!\n", tasks.size());
+        System.out.println("____________________________________________________________");
     }
 
     private static void displayTasks() {
+        System.out.println("____________________________________________________________");
         System.out.println("Here are your tasks :)");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("\t%d. %s%n", i+1, tasks.get(i).toString());
         }
+        System.out.println("____________________________________________________________");
     }
 }

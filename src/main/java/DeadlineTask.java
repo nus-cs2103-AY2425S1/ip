@@ -5,7 +5,10 @@ public class DeadlineTask extends Task {
         super(description);
         this.deadline = deadline;
     }
-
+    @Override
+    public String taskType() {
+        return "Event Task";
+    }
     @Override
     public String toString() {
         String formattedDeadline = String.format("(by: %s)", deadline);
