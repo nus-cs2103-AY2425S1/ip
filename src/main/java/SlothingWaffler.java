@@ -25,7 +25,7 @@ public class SlothingWaffler {
                     case "todo" -> addTodoTask(split, tasks);
                     case "deadline" -> addDeadlineTask(split, tasks);
                     case "event" -> addEventTask(split, tasks);
-                    default -> throw new SlothingWafflerException("STOP SLOTHING! Please give me instructions that the Slothing Waffler can understand :(");
+                    default -> throw new SlothingWafflerException("STOP SLOTHING! Please give instructions that the Slothing Waffler can understand :(");
                 }
             } catch (SlothingWafflerException e) {
                 System.out.println(e.getMessage());
