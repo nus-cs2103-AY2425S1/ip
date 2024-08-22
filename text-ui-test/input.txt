@@ -1,0 +1,7 @@
+todo read books
+event meet friends /from 2pm /to 4pm
+deadline submit assignment /by Sunday
+list
+mark 1
+list
+bye
