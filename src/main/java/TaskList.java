@@ -12,22 +12,16 @@ public class TaskList {
         tasks.add(new Task(taskContent));
     }
 
-    public void markTask(int taskId) {
-        try {
-            Task task = tasks.get(taskId);
-            task.markTask();
-        } catch (IndexOutOfBoundsException e) {
-            return;
-        }
+    public Task markTask(int taskId) throws Exception {
+        Task task = tasks.get(taskId - 1);
+        task.markTask();
+        return task;
     }
 
-    public void unmarkTask(int taskId) {
-        try {
-            Task task = tasks.get(taskId);
-            task.unmarkTask();
-        } catch (IndexOutOfBoundsException e) {
-            return;
-        }
+    public Task unmarkTask(int taskId) throws Exception {
+        Task task = tasks.get(taskId - 1);
+        task.unmarkTask();
+        return task;
     }
 
     public void printAllTasks() {
