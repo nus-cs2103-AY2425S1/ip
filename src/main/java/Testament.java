@@ -48,7 +48,7 @@ public class Testament {
             } else {
                 try {
                     taskList.add(Task.of(userInput));
-                } catch (CommandNotRecognisedException e) {
+                } catch (TestamentException e) {
                     printDialogue(e.getMessage());
                     continue;
                 }
