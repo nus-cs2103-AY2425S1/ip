@@ -25,81 +25,93 @@ public class Sentinel {
 
         System.out.println("Hello from\n" + logo);
         System.out.println("\nWhat can I do for you?");
-        try (Scanner sc = new Scanner(System.in)) {
-            String input = "";
-            while (!input.equals("bye")) {
-                System.out.println("____________________________________________________________\n");
-                input = sc.next().toLowerCase();
-                System.out.println("____________________________________________________________\n");
-                switch (input) {
-                    case "mark" -> {
-                        int num = sc.nextInt();
-                        if (num > index) {System.out.println("No such item in the list!"); break;}
-                        else if (items[num-1].isDone()) {System.out.println(items[num-1] + " has already been marked as done."); break;}
-                        items[num - 1].setDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("\t" + items[num - 1].getStatusIcon() + " " + items[num - 1]);
+        Scanner sc = new Scanner(System.in);
+        String input = "";
+        while (!input.equals("bye")) {
+            System.out.println("____________________________________________________________\n");
+            input = sc.next().toLowerCase();
+            System.out.println("____________________________________________________________\n");
+            switch (input) {
+                case "mark" -> {
+                    int num = sc.nextInt();
+                    if (num > index) {System.out.println("No such item in the list!"); break;}
+                    else if (items[num-1].isDone()) {System.out.println(items[num-1] + " has already been marked as done."); break;}
+                    items[num - 1].setDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("\t" + items[num - 1].getStatusIcon() + " " + items[num - 1]);
+                }
+                case "unmark" -> {
+                    int num = sc.nextInt();
+                    if (num > index) {System.out.println("No such item in the list!"); break;}
+                    else if (!items[num-1].isDone()) {System.out.println(items[num-1] + " has already been marked as undone."); break;}
+                    items[num - 1].setUndone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("\t" + items[num - 1].getStatusIcon() + items[num - 1]);
+                }
+                case "list" -> {
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < index; i++) {
+                        System.out.println("\t" + (i + 1) + "." + items[i].classFirstChar() + items[i].getStatusIcon() + " " + items[i].listedString());
                     }
-                    case "unmark" -> {
-                        int num = sc.nextInt();
-                        if (num > index) {System.out.println("No such item in the list!"); break;}
-                        else if (!items[num-1].isDone()) {System.out.println(items[num-1] + " has already been marked as undone."); break;}
-                        items[num - 1].setUndone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("\t" + items[num - 1].getStatusIcon() + items[num - 1]);
-                    }
-                    case "list" -> {
-                        System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < index; i++) {
-                            System.out.println("\t" + (i + 1) + "." + items[i].classFirstChar() + items[i].getStatusIcon() + " " + items[i].listedString());
-                        }
-                    }
-                    case "todo", "deadline", "event" -> {
-                        String input2 = sc.nextLine().trim();
-                        switch (input){
-                            case "todo" -> items[index] = new ToDo(input2);
+                }
+                case "todo", "deadline", "event" -> {
+                    String input2 = sc.nextLine().trim();
+                    if (input2.isEmpty()) {System.out.println(input.substring(0, 1).toUpperCase() + input.substring(1) + " name cannot be empty"); continue;}
+                    switch (input){
+                        case "todo" -> items[index] = new ToDo(input2);
 
-                            case "deadline", "event" -> {
-                                String[] stringArr = input2.split(" ");
-                                String taskName = "", from = "", to = "";
-                                boolean task = true, fr = false;
-                                for (String word: stringArr){
-                                    if (word.toLowerCase().contains("/by") || word.toLowerCase().contains("/to")) {task = false; fr = false;}
-                                    else if (word.toLowerCase().contains("/from")) {task = false; fr = true;}
+                        case "deadline", "event" -> {
+                            String[] stringArr = input2.split(" ");
+                            String taskName = "", from = "", to = "";
+                            boolean task = true, fr = false;
+                            for (String word: stringArr){
+                                if (word.toLowerCase().contains("/by") || word.toLowerCase().contains("/to")) {task = false; fr = false;}
+                                else if (word.toLowerCase().contains("/from")) {task = false; fr = true;}
 
-                                    else if (task && !fr) taskName = taskName.concat(word + " ");
-                                    else if (!task && fr) from = from.concat(word + " ");
-                                    else to = to.concat(word + " ");
+                                else if (task && !fr) taskName = taskName.concat(word + " ");
+                                else if (!task && fr) from = from.concat(word + " ");
+                                else to = to.concat(word + " ");
+                            }
+                            taskName = taskName.trim(); from = from.trim(); to = to.trim();
+                             switch (input){
+                                case "deadline" -> {
+                                    if (to.isEmpty()) {
+                                        System.out.println("Please state the deadline using /by (eg: deadline return book /by Sunday)");
+                                        continue;
+                                    }
+                                    items[index] = new Deadline(taskName, to);
                                 }
-                                taskName = taskName.trim(); from = from.trim(); to = to.trim();
-                                 switch (input){
-                                    case "deadline" -> {
-                                        if (to.isEmpty()) {
-                                            System.out.println("Please state the deadline using /by (eg: deadline return book /by Sunday)");
-                                            continue;
-                                        }
-                                        items[index] = new Deadline(taskName, to);
+                                case "event" -> {
+                                    if (from.isEmpty() || to.isEmpty()) {
+                                        System.out.println("Please state the start and end date using /from and /to respectively (eg: event project meeting /from Mon 2pm /to 4pm)");
+                                        continue;
                                     }
-                                    case "event" -> {
-                                        if (from.isEmpty() || to.isEmpty()) {
-                                            System.out.println("Please state the start and end date using /from and /to respectively (eg: event project meeting /from Mon 2pm /to 4pm)");
-                                            continue;
-                                        }
-                                        items[index] = new Event(taskName, from, to);
-                                    }
+                                    items[index] = new Event(taskName, from, to);
                                 }
                             }
                         }
-                        System.out.println("Got it. I've added this task: " + items[index]);
-                        System.out.println("\t" + items[index].classFirstChar() + items[index].getStatusIcon() + " " + items[index++].listedString());
                     }
-                    default -> {
-                        if (!input.equals("bye"))
-                            System.out.println("Unrecognised command. /help to list all commands.");
-                    }
+                    System.out.println("Got it. I've added this task: " + items[index]);
+                    System.out.println("\t" + items[index].classFirstChar() + items[index].getStatusIcon() + " " + items[index++].listedString());
+                }
+                case "/help" ->{
+                    String helpText = """
+                    1. todo <task>                                Adds tasks without any date/time attached to list.
+                    2. deadline <task> /by <date>                 Adds tasks that need to be done before a specific date/time to list.
+                    3. event <event> /from <date> /to <date>      Adds tasks that start at a specific date/time and ends at a specific date/time to list.
+                    4. list                                       List all tasks.
+                    5. mark <index>                               Mark task as done.
+                    6. unmark <index>                             Mark task as undone.
+                    7. bye                                        Ends the chatbot.
+                    """;
+                    System.out.println(helpText);
+                }
+                default -> {
+                    if (!input.equals("bye"))
+                        System.out.println("Unrecognised command. /help to list all commands.");
                 }
             }
-            System.out.println("Bye. Hope to see you again soon!");
         }
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
