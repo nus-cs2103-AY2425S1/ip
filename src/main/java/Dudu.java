@@ -1,4 +1,4 @@
-public class Duke {
+public class Dudu {
     public static void main(String[] args) {
         String lineRule = "--------------------------------------------\n";
         String welcomeMessage = lineRule
