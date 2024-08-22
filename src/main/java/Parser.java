@@ -19,6 +19,11 @@ public class Parser {
      *
      * @param userInput The string input by the user.
      * @return A Command object with respect to the user's input.
+     * @throws FishmanException.InvalidCommandException if input does not match any command.
+     * @throws FishmanException.MissingArgumentException if command is missing arguments.
+     * @throws FishmanException.NumberFormatException if a numeric argument is not a valid number.
+     * @throws FishmanException.EmptyListException if trying to mark/unmark a task in an empty list.
+     * @throws FishmanException for unexpected errors during parsing.
      */
     public static Command parse(String userInput, TaskList tasks) throws FishmanException {
         if (userInput == null || userInput.trim().isEmpty()) {

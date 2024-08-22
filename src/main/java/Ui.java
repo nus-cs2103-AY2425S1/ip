@@ -90,6 +90,11 @@ public class Ui {
         System.out.println(task);
     }
 
+    /**
+     * Display the header to the error message.
+     *
+     * @param message The message header for the error.
+     */
     public void displayError(String message) {
         System.out.println("Glub glub! " + message);
     }

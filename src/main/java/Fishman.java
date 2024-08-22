@@ -25,6 +25,8 @@ public class Fishman {
      * Starts the Fishman bot.
      * Displays the logo and welcome message, before entering the main loop.
      * The loop will continue until the exit command is received.
+     * The method will handle exceptions that may occur during execution.
+     * Any unchecked exception is caught and reported as well.
      */
     public void start() {
         ui.displayLogo();
