@@ -12,20 +12,20 @@ public class Bobby {
             System.out.println();
             String input = scanner.nextLine();
 
-            if (input.equals("bye")) {
+            if (input.equalsIgnoreCase("bye")) {
                 bye();
                 System.out.println();
                 break;
             }
 
-            if (input.equals("list")) {
+            if (input.equalsIgnoreCase("list")) {
                 listOutTasks();
             } else {
                 if (input.contains(" ")) {
                     String[] splitString = input.split(" ");
-                    if (splitString[0].equals("mark")) {
+                    if (splitString[0].equalsIgnoreCase("mark")) {
                         mark(Integer.valueOf(splitString[1]));
-                    } else if (splitString[0].equals("unmark")) {
+                    } else if (splitString[0].equalsIgnoreCase("unmark")) {
                         unmark(Integer.valueOf(splitString[1]));
                     } else {
                         Task t = new Task(input);
