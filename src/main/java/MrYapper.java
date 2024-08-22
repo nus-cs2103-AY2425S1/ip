@@ -1,9 +1,24 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
     private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
+    private static ArrayList<Task> taskList = new ArrayList<>(100);
+
+    private static class Task {
+        private final String TASK_NAME;
+
+        private Task(String name) {
+            this.TASK_NAME = name;
+        }
+
+        @Override
+        public String toString() {
+            return TASK_NAME;
+        }
+    }
 
     // Inserts line indentation in response messages
     private static void say(String message) {
@@ -12,8 +27,9 @@ public class MrYapper {
                 + "\n____________________________________________________________");
     }
 
-    private static void echo(String str) {
-        say(" " + str);
+    private static void addTask(String name) {
+        taskList.add(new Task(name));
+        say( "added: " + name);
     }
 
     public static void main(String[] args) {
@@ -29,7 +45,7 @@ public class MrYapper {
                 userInputReader.close();
                 say(GOODBYE_MESSAGE);
             } else {
-                echo(userInput);
+                addTask(userInput);
             }
         } while (conversationIsOngoing);
     }
