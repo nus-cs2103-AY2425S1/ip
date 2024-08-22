@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.*;
 public class R2D2 {
     public static void main(String[] args) {
 
@@ -96,13 +97,17 @@ public class R2D2 {
                 }
                 System.out.println(hline);
             } else if (input.startsWith("todo")) {
-                Task task = new Todo(input.substring(5));
-                database[counter] = task;
-                System.out.println("Understood boss. Added!");
-                System.out.println(task.toString());
-                System.out.println("You currently have " + counter + " missions available *reeeee* ");
-                System.out.println(hline);
-                counter++;
+                try {
+                    Task task = new Todo(input.substring(5));
+                    database[counter] = task;
+                    System.out.println("Understood boss. Added!");
+                    System.out.println(task.toString());
+                    System.out.println("You currently have " + counter + " missions available *reeeee* ");
+                    System.out.println(hline);
+                    counter++;
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("*BEEP Description empty! *zzzz*");
+                }
             } else if (input.startsWith("deadline")) {
                 String[] parts = input.split("/by");
                 Task task = new Deadline(parts[0].substring(9), parts[1].substring(1));
@@ -121,6 +126,10 @@ public class R2D2 {
                 System.out.println("You currently have " + counter + " missions available *reeeee* ");
                 System.out.println(hline);
                 counter++;
+            } else {
+                System.out.println(hline);
+                System.out.println("ERROR404 I do not know what you are saying *weewoo*");
+                System.out.println(hline);
             }
         }
 
