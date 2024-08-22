@@ -6,6 +6,8 @@ public class Yapper {
 
     private static String divider = "____________________________________________________________";
     private static String name = "Yapper";
+
+    // Use of enum class to detect specific errors
     private enum Type {DESC, DEADLINE, FROM, TO};
 
     public static void main(String[] args) {
