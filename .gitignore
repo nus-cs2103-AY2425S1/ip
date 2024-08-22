@@ -1,3 +1,13 @@
+# Java
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
 # IDEA files
 /.idea/
 /out/
@@ -7,6 +17,21 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+.gradle
+.gradletasknamecache
+gradle-app.setting
+!gradle-wrapper.jar
+
+# IntelliJ
+out/
+.idea/
+.idea_modules/
+*.ipr
+*.iws
+
+# VSCode
+.vscode/
+.code-workspace
 
 # MacOS custom attributes files created by Finder
 .DS_Store
