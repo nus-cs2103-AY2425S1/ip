@@ -9,27 +9,23 @@ Now you have 2 tasks in the list.
 Got it. I've added this task:
 [E][ ] welcome tea (from: monday 3pm to: 5pm)
 Now you have 3 tasks in the list.
-added: without type
+Oh No!! I'm sorry, but I don't know what that means :-(
 Nice! I've marked this task as done:
 [D][X] return book (by: Sunday)
 Here are the tasks in your list:
 1. [T][ ] borrow book
 2. [D][X] return book (by: Sunday)
 3. [E][ ] welcome tea (from: monday 3pm to: 5pm)
-4. [ ] without type
 OK, I've marked this task as not done yet:
 [D][ ] return book (by: Sunday)
-Invalid task number!
+Oh No!! Invalid task number!
 Nice! I've marked this task as done:
 [E][X] welcome tea (from: monday 3pm to: 5pm)
-Nice! I've marked this task as done:
-[X] without type
-OK, I've marked this task as not done yet:
-[ ] without type
-Invalid task number!
+Oh No!! This task number do not exist.
+Oh No!! This task number do not exist.
+Oh No!! Invalid task number!
 Here are the tasks in your list:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][X] welcome tea (from: monday 3pm to: 5pm)
-4. [ ] without type
 Bye. Hope to see you again soon!
