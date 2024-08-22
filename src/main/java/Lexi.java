@@ -9,20 +9,19 @@ public class Lexi {
         greet();
         String response = userInput.nextLine();
         while(!response.equals("bye")) {
-            if(response.contains("mark") || response.contains("unmark")) {
-                String[] parts = response.split(" ");
-                int taskNumber =  Integer.parseInt(parts[1]) - 1;
-                Task taskToBeMarked = tasks[taskNumber];
-                if (response.contains("unmark")) {
-                    unmarkTask(taskToBeMarked);
-                } else {
-                    markTask(taskToBeMarked);
-                }
-
+            String[] parts = response.split(" ");
+            if(parts[0].contains("mark")) {
+                handleMark(parts);
+            } else if(parts[0].equals("todo")) {
+                handleTodo(response);
+            } else if(parts[0].equals("deadline")){
+                handleDeadline(response);
+            } else if(parts[0].equals("event")) {
+                handleEvent(response);
             } else if(response.equals("list")) {
                 listTasks();
             } else {
-                addTask(response);
+                addTask(new Task(response));
             }
             response = userInput.nextLine();
         }
@@ -30,6 +29,36 @@ public class Lexi {
         bye();
     }
 
+    private static void handleEvent(String response) {
+        String[] parts = response.split(" /from ");
+        String taskName = parts[0].substring(6);
+        String[] range = parts[1].split(" /to ");
+        String from  = range[0];
+        String to = range[1];
+        addTask(new Event(taskName, from, to));
+    }
+
+    private static void handleDeadline(String response) {
+        String[] parts = response.split(" /by ");
+        String taskName = parts[0].substring(9);
+        String by = parts[1];
+        addTask(new Deadline(taskName, by));
+    }
+
+    private static void handleTodo(String response) {
+        String taskName = response.substring(5);
+        addTask(new Todo(taskName));
+    }
+
+    private static void handleMark(String[] parts) {
+        int taskNumber =  Integer.parseInt(parts[1]) - 1;
+        Task taskToBeMarked = tasks[taskNumber];
+        if(parts[0].equals("unmark")) {
+            unmarkTask(taskToBeMarked);
+        } else {
+            markTask(taskToBeMarked);
+        }
+    }
     private static void unmarkTask(Task taskToBeMarked) {
         taskToBeMarked.undoTask();
         System.out.println("____________________________________________________________");
@@ -67,11 +96,13 @@ public class Lexi {
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________\n");
     }
-    public static void addTask(String taskName) {
-        tasks[count] = new Task(taskName);
+    public static void addTask(Task task) {
+        tasks[count] = task;
         count++;
         System.out.println("____________________________________________________________");
-        System.out.printf(" added: %s%n", taskName);
+        System.out.println(" Got it. I've added this task:");
+        System.out.printf("   %s%n", task);
+        System.out.printf(" Now you have %d task%s in the list.%n", count, count == 1 ? "" : "s");
         System.out.println("____________________________________________________________\n");
     }
 
