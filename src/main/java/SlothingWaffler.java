@@ -22,13 +22,7 @@ public class SlothingWaffler {
                     case "list" -> displayTaskList(tasks);
                     case "mark" -> markTask(tasks, Integer.parseInt(split[1]) - 1);
                     case "delete" -> deleteTask(tasks, Integer.parseInt(split[1]) - 1);
-                    case "todo" -> {
-                        if (split.length < 2 || split[1].isBlank()) {
-                            throw new SlothingWafflerException("The description of a Todo Task cannot be empty!");
-                        }
-                        tasks.add(new Todo(split[1]));
-                        addTaskMessage(tasks);
-                    }
+                    case "todo" -> addTodo(split, tasks);
                     case "deadline" -> {
                         if (split.length < 2 || split[1].isBlank()) {
                             throw new SlothingWafflerException("The description of a Deadline Task cannot be empty.");
@@ -90,6 +84,14 @@ public class SlothingWaffler {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void addTodo(String[] split, ArrayList<Task> tasks) throws SlothingWafflerException {
+        if (split.length < 2 || split[1].isBlank()) {
+            throw new SlothingWafflerException("The description of a Todo Task cannot be empty!");
+        }
+        tasks.add(new Todo(split[1]));
+        addTaskMessage(tasks);
     }
 
     private static void deleteTask(ArrayList<Task> tasks, int taskNum) {
