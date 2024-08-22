@@ -27,7 +27,14 @@ public class Testament {
                     continue;
                 }
 
-                int taskNumber = Integer.parseInt(splitUserInput[1]);
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(splitUserInput[1]);
+                } catch (NumberFormatException e) {
+                    printDialogue("Tasks should be specified by their task number");
+                    continue;
+                }
+
                 String taskDetails;
                 try {
                     taskList.mark(taskNumber);
@@ -44,7 +51,14 @@ public class Testament {
                     continue;
                 }
 
-                int taskNumber = Integer.parseInt(splitUserInput[1]);
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(splitUserInput[1]);
+                } catch (NumberFormatException e) {
+                    printDialogue("Tasks should be specified by their task number");
+                    continue;
+                }
+                
                 String taskDetails;
                 try {
                     taskList.unMark(taskNumber);
@@ -77,7 +91,7 @@ public class Testament {
             }
         }
     }
-    
+
     private static void printDialogue(String s) {
         System.out.println(LINE);
         System.out.println(s);
