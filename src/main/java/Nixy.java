@@ -32,13 +32,21 @@ public class Nixy {
                 taskManager.markTaskAsUndone(taskNumber);
                 continue;
             }
-
             if (input.startsWith("todo")) {
                 final int TODO_PREFIX_LENGTH = 5;
                 String taskName = input.substring(TODO_PREFIX_LENGTH);
-                store(taskName);
+                store(new TodoTask(taskName));
                 continue;
             }
+            if (input.startsWith("deadline")) {
+                final int DEADLINE_PREFIX_LENGTH = 9;
+                String taskMeta = input.substring(DEADLINE_PREFIX_LENGTH);
+                // index 0 is task name, index 1 is deadline
+                String[] taskParts = taskMeta.split(" /by ");
+                store(new DeadlineTask(taskParts[0], taskParts[1]));
+                continue;
+            }
+
         }
         exit();
     }
@@ -72,12 +80,11 @@ public class Nixy {
     }
 
     /**
-     * Read and store new task in the list of tasks.
+     * Store new task in the list of tasks.
      */
-    private static void store(String taskName) {
-        Task task = new TodoTask(taskName);
+    private static void store(Task task) {
         taskManager.addTask(task);
-        PrintUtility.wrapPrintWithHorizontalLines("Got it. I've added this task: " + taskName,
+        PrintUtility.wrapPrintWithHorizontalLines("Got it. I've added this task: \n      " + task,
             "Now you have " + taskManager.getTaskCount() + " tasks in the list.");
     }
 

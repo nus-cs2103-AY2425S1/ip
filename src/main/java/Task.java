@@ -24,6 +24,7 @@ public abstract class Task {
         return this.description;
     }
 
+    @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusLabel(), this.description);
     }
