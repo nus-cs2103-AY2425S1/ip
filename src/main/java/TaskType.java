@@ -1,15 +1,11 @@
-public enum Command {
-    LIST("list"),
-    MARK("mark"),
-    UNMARK("unmark"),
-    BYE("bye"),
-    TODO("todo"),
-    DEADLINE("deadline"),
-    EVENT("event");
+public enum TaskType {
+    TODO(Command.TODO.toString()),
+    DEADLINE(Command.DEADLINE.toString()),
+    EVENT(Command.EVENT.toString());
 
     private final String name;
 
-    private Command(String name) {
+    private TaskType(String name) {
         this.name = name;
     }
 

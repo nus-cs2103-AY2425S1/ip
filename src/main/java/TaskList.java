@@ -2,13 +2,17 @@ public class TaskList {
     private static final Task[] LIST = new Task[100];
     private static int numItems = 0;
 
-    public void addItem(String item) {
-        LIST[numItems] = new Task(item);
+    public void addTask(Task task) {
+        LIST[numItems] = task;
         numItems++;
     }
 
     public Task getItem(int label) {
         return LIST[label - 1];
+    }
+
+    public int getTaskCount() {
+        return numItems;
     }
 
     public String toString() {

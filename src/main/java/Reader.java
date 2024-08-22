@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.StringJoiner;
 import java.util.StringTokenizer;
 
 public class Reader extends PrintWriter {
@@ -58,5 +59,19 @@ public class Reader extends PrintWriter {
     public void skipLine() {
         st = null;
         token = null;
+    }
+
+    public String getWholeLine() {
+        String line = peekLine();
+        skipLine();
+        return line;
+    }
+
+    public String getRemainingLine() {
+        StringJoiner sj = new StringJoiner(" ");
+        while (st.hasMoreTokens()) {
+            sj.add(st.nextToken());
+        }
+        return sj.toString();
     }
 }

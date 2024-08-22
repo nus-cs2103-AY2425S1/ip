@@ -37,6 +37,14 @@ public class Duck {
         System.out.println(formatAsResponse(text));
     }
 
+    private static void handleNewTask(Task task) {
+        TASKS.addTask(task);
+        String response = "Got it. I've added this task:\n"
+                + indentText(task.toString(), 2) + "\n"
+                + "Now you have " + TASKS.getTaskCount() + " tasks in the list.";
+        printAsResponse(response);
+    }
+
     public static void main(String[] args) {
         // Start scanner
         Reader reader = new Reader(System.in);
@@ -51,17 +59,18 @@ public class Duck {
 
             // "bye" and "list" will only work if they are the only word in the line
             // e.g. "bye bye" would not work
-            if (line.equals(Command.BYE)) {
+            if (Command.BYE.equalsName(line)) {
                 printAsResponse(GOODBYE);
                 break;
-            } else if (line.equals(Command.LIST)) {
+            } else if (Command.LIST.equalsName(line)) {
                 String response = "Here are the tasks in your list:\n"
                         + TASKS.toString();
                 printAsResponse(response);
             } else {
                 String command = reader.peekToken();
 
-                if (command.equals(Command.MARK)) {
+                // "mark" / "unmark"
+                if (Command.MARK.equalsName(command)) {
                     reader.getWord();
                     int itemLabel = reader.getInt();
                     Task task = TASKS.getItem(itemLabel);
@@ -70,7 +79,7 @@ public class Duck {
                     String response = "Nice! I've marked this task as done:\n"
                             + indentText(task.toString(), 2);
                     printAsResponse(response);
-                } else if (command.equals(Command.UNMARK)) {
+                } else if (Command.UNMARK.equalsName(command)) {
                     reader.getWord();
                     int itemLabel = reader.getInt();
                     Task task = TASKS.getItem(itemLabel);
@@ -79,10 +88,21 @@ public class Duck {
                     String response = "OK, I've marked this task as not done yet:\n"
                             + indentText(task.toString(), 2);
                     printAsResponse(response);
-                } else {
-                    TASKS.addItem(line);
-                    String response = "added: " + line;
-                    printAsResponse(response);
+                }
+
+                // Tasks
+                else if (Command.TODO.equalsName(command)) {
+                    reader.getWord();
+                    Task task = new TaskTodo(reader.getRemainingLine());
+                    handleNewTask(task);
+                } else if (Command.DEADLINE.equalsName(command)) {
+                    reader.getWord();
+                    Task task = new TaskDeadline(reader.getRemainingLine());
+                    handleNewTask(task);
+                } else if (Command.EVENT.equalsName(command)) {
+                    reader.getWord();
+                    Task task = new TaskEvent(reader.getRemainingLine());
+                    handleNewTask(task);
                 }
             }
 
