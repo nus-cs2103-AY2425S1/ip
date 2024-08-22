@@ -38,26 +38,45 @@ public class TaskHandler {
             }
         } else if (command.equals("deadline")) {
             try {
-            String[] arr = desc.split("/by");
-            Task t = new Deadline(arr[0].strip(), arr[1].strip());
-            this.tasks.add(t);
-            System.out.println("added:\n" + t);
-            System.out.println("You have " + this.tasks.size() + " tasks in list");
+                String[] arr = desc.split("/by");
+                Task t;
+                try {
+                    t = new Deadline(arr[0].strip(), arr[1].strip());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("missing /by");
+                    return;
+                }
+                this.tasks.add(t);
+                System.out.println("added:\n" + t);
+                System.out.println("You have " + this.tasks.size() + " tasks in list");
             } catch (EmptyDescException e) {
                 System.out.println(e);
             }
         } else if (command.equals("event")) {
             String[] arr = desc.split("/from");
-            String[] arr2 = arr[1].split("/to");
+            String[] arr2;
+            try {
+                arr2 = arr[1].split("/to");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("missing /from");
+                return;
+            }
             Task t = null;
             try {
-                t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
-            this.tasks.add(t);
-            System.out.println("added:\n" + t);
-            System.out.println("You have " + this.tasks.size() + " tasks in list");
+                try {
+                    t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    System.out.println("missing /to");
+                    return;
+                }
+                this.tasks.add(t);
+                System.out.println("added:\n" + t);
+                System.out.println("You have " + this.tasks.size() + " tasks in list");
             } catch (Exception e) {
                 System.out.println(e);
             }
+        } else if (command.equals("delete")) {
+            this.deleteTask(Integer.parseInt(desc));
         } else {
             try {
                 throw new InvalidCommandException();
@@ -66,6 +85,14 @@ public class TaskHandler {
             }
             //System.out.println("Unknown command: " + command);
         }
+    }
+
+    private void deleteTask(int i) {
+        if (i > this.tasks.size()) {
+            System.out.println("index out of bounds");
+            return;
+        }
+        this.tasks.remove(i - 1);
     }
 
     public String getTasksString() {
