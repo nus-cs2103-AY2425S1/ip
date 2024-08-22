@@ -9,12 +9,15 @@ public class XBot {
         System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
         String input = scanner.nextLine();
         while(!input.equalsIgnoreCase("bye")) {
+            String[] words = input.split("\\s+", 2);
+            String command = words[0];
+            String rest = words.length > 1 ? words[1] : "";
             if (input.equalsIgnoreCase("list")) {
                 //display list
                 System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < taskCount; i++) {
                     int index = i + 1;
-                    System.out.println(index + ".[" + list[i].getStatusIcon() + "] " + list[i].getDescription());
+                    System.out.println(index + ". " + list[i].toString());
                 }
             } else if (!input.isEmpty()) {
                 //store input in list
