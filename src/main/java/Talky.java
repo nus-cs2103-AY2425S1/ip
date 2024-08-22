@@ -9,7 +9,7 @@ public class Talky {
         System.out.println(content);
         System.out.println(seperator);
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TalkyException {
         class Task {
             protected String name;
             protected boolean marked;
@@ -74,43 +74,53 @@ public class Talky {
 
         Scanner sc = new Scanner(System.in);
         while (true) {
-            String input = sc.nextLine();
-            String[] commandLine = input.split(" ", 2);
-            String command = commandLine[0];
-            if (command.equals("bye")) {
-                break;
-            } else if (command.equals("list")) {
-                String textsList = "";
-                int rank = 1;
-                for (Task task : userTasks) {
-                    textsList += rank + "." + task.toString() + "\n";
-                    rank++;
+            try {
+                String input = sc.nextLine();
+                String[] commandLine = input.split(" ", 2);
+                String command = commandLine[0];
+                if (command.equals("bye")) {
+                    break;
+                } else if (command.equals("list")) {
+                    String textsList = "";
+                    int rank = 1;
+                    for (Task task : userTasks) {
+                        textsList += rank + "." + task.toString() + "\n";
+                        rank++;
+                    }
+                    printSeperator(textsList);
+                } else if (command.equals("mark")) {
+                    if (commandLine.length != 2) throw new TalkyException("Specify mark in the format: mark [index]");
+                    int indexToChange = Integer.parseInt(commandLine[1]) - 1;
+                    Task changedTask = userTasks.get(indexToChange);
+                    changedTask.setMark(true);
+                    printSeperator("I've marked this task as done: " + changedTask.getName());
+                } else if (command.equals("unmark")) {
+                    if (commandLine.length != 2) throw new TalkyException("Specify unmark in the format: unmark [index]");
+                    int indexToChange = Integer.parseInt(commandLine[1]) - 1;
+                    Task changedTask = userTasks.get(indexToChange);
+                    changedTask.setMark(false);
+                    printSeperator("I've marked this task as not done: " + changedTask.getName());
+                } else if (command.equals("todo")) {
+                    if (commandLine.length != 2) throw new TalkyException("Specify what task to do in the format: todo [name]");
+                    userTasks.add(new ToDo(commandLine[1]));
+                    printSeperator("Added ToDo: " + commandLine[1]);
+                } else if (command.equals("deadline")) {
+                    if (commandLine.length != 2) throw new TalkyException("Specify deadline in the format: deadline [name] /by [date]");
+                    String[] params = commandLine[1].split(" /by ");
+                    if (params.length != 2) throw new TalkyException("Specify deadline in the format: deadline [name] /by [date]");
+                    userTasks.add(new Deadline(params[0], params[1]));
+                    printSeperator("Added Deadline: " + params[0]);
+                } else if (command.equals("event")) {
+                    if (commandLine.length != 2) throw new TalkyException("Specify event in the format: event [name] /from [date] /to [date]");
+                    String[] params = commandLine[1].split(" /from | /to ");
+                    if (params.length != 3) throw new TalkyException("Specify deadline in the format: deadline [name] /by [date]");
+                    userTasks.add(new Event(params[0], params[1], params[2]));
+                    printSeperator("Added Event: " + params[0]);
+                } else {
+                    throw new TalkyException("I'm sorry, I do not recognise this command: " + command);
                 }
-                printSeperator(textsList);
-            } else if (command.equals("mark")){
-                int indexToChange = Integer.parseInt(commandLine[1]) - 1;
-                Task changedTask = userTasks.get(indexToChange);
-                changedTask.setMark(true);
-                printSeperator("I've marked this task as done: " + changedTask.getName());
-            }  else if (command.equals("unmark")){
-                int indexToChange = Integer.parseInt(commandLine[1]) - 1;
-                Task changedTask = userTasks.get(indexToChange);
-                changedTask.setMark(false);
-                printSeperator("I've marked this task as not done: " + changedTask.getName());
-            } else if (command.equals("todo")) {
-                userTasks.add(new ToDo(commandLine[1]));
-                printSeperator("Added ToDo: " + commandLine[1]);
-            } else if (command.equals("deadline")) {
-                String[] params = commandLine[1].split(" /by ");
-                userTasks.add(new Deadline(params[0], params[1]));
-                printSeperator("Added Deadline: " + params[0]);
-            } else if (command.equals("event")) {
-                String[] params = commandLine[1].split(" /from | /to ");
-                userTasks.add(new Event(params[0], params[1], params[2]));
-                printSeperator("Added Event: " + params[0]);
-            } else {
-                userTasks.add(new Task(command));
-                printSeperator("added: " + command);
+            } catch (TalkyException err) {
+                printSeperator(err.getMessage());
             }
         }
 
