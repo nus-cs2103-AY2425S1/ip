@@ -35,6 +35,8 @@ public class Kitty {
                 return;
             } else if (command.contains("list")) {
                 List();
+            } else if (command.contains("delete")) {
+                delete(extractFirstNumber(command));
             } else if (command.contains("unmark")) {
                 unmark(extractFirstNumber(command));
             } else if (command.contains("mark")) {
@@ -105,20 +107,48 @@ public class Kitty {
         System.out.println("\n" + divisionLine);
     }
 
+    private static void delete(int index) {
+        try {
+            Task tmp = list.get(index - 1);
+            String note = tmp.toString();
+            list.remove(index - 1);
+            System.out.println(divisionLine);
+            System.out.println("I have removed it from the list :)");
+            System.out.println("  " + note);
+            System.out.printf("Now you have %d tasks in the list\n\n", list.size());
+            System.out.println(divisionLine);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(divisionLine + "\nIndex out of bound, you can only input integer from 1 to "
+                    + list.size() + ".\n\n" + divisionLine);
+        }
+    }
+
     private static void mark(int index) {
-        Task tmp = list.get(index - 1);
-        tmp.mark();
-        System.out.println("Well done! You have completed this task!");
-        System.out.println("  " + tmp);
-        System.out.println("\n" + divisionLine);
+        try {
+            Task tmp = list.get(index - 1);
+            tmp.mark();
+            System.out.println(divisionLine);
+            System.out.println("Well done! You have completed this task!");
+            System.out.println("  " + tmp);
+            System.out.println("\n" + divisionLine);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(divisionLine + "\nIndex out of bound, you can only input integer from 1 to "
+                    + list.size() + ".\n\n" + divisionLine);
+        }
     }
 
     private static void unmark(int index) {
-        Task tmp = list.get(index - 1);
-        tmp.unmark();
-        System.out.println("Meow~ Okay we can continue this task!");
-        System.out.println("  " + tmp);
-        System.out.println("\n" + divisionLine);
+        try {
+            Task tmp = list.get(index - 1);
+            tmp.unmark();
+            System.out.println(divisionLine);
+            System.out.println("Meow~ Okay we can continue this task!");
+            System.out.println("  " + tmp);
+            System.out.println("\n" + divisionLine);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(divisionLine + "\nIndex out of bound, you can only input integer from 1 to "
+                    + list.size() + ".\n\n" + divisionLine);
+        }
     }
 
     private static int extractFirstNumber(String input) {
