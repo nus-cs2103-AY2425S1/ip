@@ -60,8 +60,7 @@ public class Duke {
                 DukeManager.createItem(taskBuilder.by(by));
 
             } else if (Objects.equals(firstWord, "todo")) {
-                String description = command.substring("todo ".length()).trim();
-
+                String description = command.substring("todo".length()).trim();
                 TaskBuilder taskBuilder = new TaskBuilder(description, "todo");
                 DukeManager.createItem(taskBuilder);
 
@@ -83,7 +82,7 @@ public class Duke {
                 DukeManager.createItem(taskBuilder.from(from).to(to));
 
             } else {
-                System.out.println("added " + command);
+                System.out.println("I dont get your command man");
 
             }
         }
