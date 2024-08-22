@@ -22,6 +22,17 @@ public class WenJigglyBot {
             } else if (task.contains("todo")) {
                 String taskName = task.replaceFirst("todo", "").trim();
                 addTask(new ToDoTask(taskName));
+            } else if (task.contains("deadline")) {
+                // remove deadline tag
+                String taskNameAndDeadline = task.replaceFirst("deadline", "").trim();
+
+                // split the title and deadline
+                String[] parts = taskNameAndDeadline.split("/by");
+                String taskName = parts[0].trim();
+                String deadline = parts[1].trim();
+
+                addTask(new DeadlineTask(taskName, deadline));
+
             } else {
                 addTask(new Task(task));
             }
