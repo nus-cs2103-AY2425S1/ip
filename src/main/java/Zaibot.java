@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class Zaibot {
 
-    private static final Storage storage = new Storage();
+    private static final TaskList taskList = new TaskList();
+    private static final Storage storage = new Storage(taskList);
 
     /**
      * Prints a message, with the horizontal line above and below it
@@ -93,9 +94,9 @@ public class Zaibot {
             default:
                 throw new ZaibotException("Invalid task");
         }
-        Storage.addTask(task);
+        taskList.addTask(task);
         printMessage(taskAddMessage + task.toString() + "\n" +
-                String.format(taskTotalMessage, Storage.getNumberOfTasks()));
+                String.format(taskTotalMessage, taskList.getNumberOfTasks()));
     }
 
     /**
@@ -118,22 +119,22 @@ public class Zaibot {
                 printMessage(goodbyeMessage);
                 break;
             case "list":
-                printMessage(taskListMessage + tasksListToString());
+                printMessage(taskListMessage + taskList);
                 break;
             case "mark":
-                current = Storage.getTask(Integer.parseInt(options[1]));
+                current = taskList.getTask(Integer.parseInt(options[1]));
                 current.setCompletionStatus(true);
                 printMessage(markTaskMessage + current.toString() + "\n");
                 break;
             case "unmark":
-                current = Storage.getTask(Integer.parseInt(options[1]));
+                current = taskList.getTask(Integer.parseInt(options[1]));
                 current.setCompletionStatus(false);
                 printMessage(unmarkTaskMessage + current.toString() + "\n");
                 break;
             case "delete":
-                current = Storage.removeTask(Integer.parseInt(options[1]));
+                current = taskList.removeTask(Integer.parseInt(options[1]));
                 printMessage(String.format("%s %s\nNow you have %d tasks in the list.\n",
-                        deleteTaskMessage, current.toString(), Storage.getNumberOfTasks())
+                        deleteTaskMessage, current.toString(), taskList.getNumberOfTasks())
                 );
                 break;
             case "todo":
@@ -150,14 +151,6 @@ public class Zaibot {
      * Takes in the list of tasks, and converts it into a string.
      * @return A string of all the tasks, enumerated.
      */
-    public static String tasksListToString() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 1; i <= Storage.getNumberOfTasks(); i++) {
-            Task task = Storage.getTask(i);
-            result.append(i).append(". ").append(task.toString()).append("\n");
-        }
-        return result.toString();
-    }
 
     public static void main(String[] args) {
         String greetingMessage = "Hello! I'm zAIbot.\nWhat can I do for you?\n";
@@ -170,7 +163,7 @@ public class Zaibot {
             currentCommand = input.nextLine();
             try {
                 processCommand(currentCommand);
-                storage.saveToFile();
+                storage.saveToFile(taskList);
             }
             catch (ZaibotException exception) {
                 printMessage(exception.getMessage());

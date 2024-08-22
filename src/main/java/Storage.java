@@ -22,10 +22,9 @@ public class Storage {
         }
     }
 
-    private static final ArrayList<Task> tasks = new ArrayList<>();
     private String link;
 
-    public Storage() {
+    public Storage(TaskList taskList) {
         try {
             Files.createDirectories(Paths.get("../data"));
         }
@@ -33,30 +32,10 @@ public class Storage {
             e.printStackTrace();
         }
         this.link = "../data/tasks.txt";
-        readFromFile();
+        readFromFile(taskList);
     }
 
-    public ArrayList<Task> retrieveTasks() {
-        return tasks;
-    }
-
-    public static void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    public static int getNumberOfTasks() {
-        return tasks.size();
-    }
-
-    public static Task getTask(int number) {
-        return tasks.get(number - 1);
-    }
-
-    public static Task removeTask(int number) {
-        return tasks.remove(number - 1);
-    }
-
-    public void saveToFile() {
+    public void saveToFile(TaskList taskList) {
         File file = new File(link);
         BufferedWriter writer;
 
@@ -64,7 +43,7 @@ public class Storage {
             file.createNewFile();
             writer = new BufferedWriter(new FileWriter(file));
             boolean first = true;
-            for (Task task : tasks) {
+            for (Task task : taskList.retrieveTasks()) {
                 if (!first) {
                     writer.newLine();
                 }
@@ -78,7 +57,7 @@ public class Storage {
         }
     }
 
-    public void readFromFile() {
+    public void readFromFile(TaskList taskList) {
         File file = new File(this.link);
         BufferedReader reader;
 
@@ -87,7 +66,7 @@ public class Storage {
             reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
             while (line != null) {
-                tasks.add(parseInput(line));
+                taskList.addTask(parseInput(line));
                 // read next line
                 line = reader.readLine();
             }
