@@ -20,41 +20,23 @@ public class Serenity {
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(i + 1 + ". " + list.get(i));
                 }
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                Task t = list.get(index);
-                t.markAsDone();
-                System.out.println(horizontalLine);
-                System.out.println("Nice! I've marked this task as done:\n" + t);
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                Task t = list.get(index);
-                t.markAsNotDone();
-                System.out.println(horizontalLine);
-                System.out.println("OK, I've marked this task as not done yet:\n" + t);
-            } else if (input.startsWith("todo")) {
-                //remove the type of task
-                String description = input.split(" ", 2)[1];
-                Todo td = new Todo(description);
-                addTask(td);
-            } else if (input.startsWith("deadline")) {
-                String description = input.split(" ", 2)[1];
-                String[] parts = description.split("/by");
-                Deadline dl = new Deadline(parts[0], parts[1]);
-                addTask(dl);
-            } else if (input.startsWith("event")) {
-                String description = input.split(" ", 2)[1];
-                String[] parts = description.split("/from");
-                String[] timings = parts[1].split("/to");
-                Event e = new Event(parts[0], timings[0], timings[1]);
-                addTask(e);
+            } else if (input.contains("mark")) {
+                try {
+                    changeStatus(input);
+                } catch (SerenityException e){
+                    System.out.println(e.getMessage());
+                }
             } else {
-                Task t = new Task(input);
-                addTask(t);
+               try {
+                   addTask(input);
+               } catch (SerenityException e) {
+                   System.out.println(e.getMessage());
+               }
             }
             System.out.println(horizontalLine);
             input = sc.nextLine();
         }
+
         sc.close();
 
         System.out.println(horizontalLine);
@@ -63,12 +45,74 @@ public class Serenity {
 
     }
 
-    private static void addTask(Task t) {
+    private static void addTask(String input) throws SerenityException {
+
+        Task t;
+
+        if (input.startsWith("todo")) {
+            String[] description = input.split(" ");
+            if (description.length == 1) {
+                throw new SerenityException("Error: The description of a todo cannot be empty.");
+            } else {
+                //remove the type of task
+                String taskDescription = input.split(" ", 2)[1];
+                Todo td = new Todo(taskDescription);
+                t = td;
+            }
+        } else if (input.startsWith("deadline")) {
+            String[] description = input.split(" ");
+            if (description.length == 1) {
+                throw new SerenityException("Error: The description of a deadline cannot be empty.");
+            } else {
+                String taskDescription = input.split(" ", 2)[1];
+                String[] parts = taskDescription.split("/by");
+                Deadline dl = new Deadline(parts[0], parts[1]);
+                t = dl;
+            }
+        } else if (input.startsWith("event")) {
+            String[] description = input.split(" ");
+            if (description.length == 1) {
+                throw new SerenityException("Error: The description of an event cannot be empty.");
+            } else {
+                String taskDescription = input.split(" ", 2)[1];
+                String[] parts = taskDescription.split("/from");
+                String[] timings = parts[1].split("/to");
+                Event e = new Event(parts[0], timings[0], timings[1]);
+                t = e;
+            }
+        } else {
+            throw new SerenityException("Error: Type of task is not specified.");
+        }
+
         list.add(t);
         count++;
         System.out.println(horizontalLine);
         System.out.println("Got it. I've added this task:\n" + t);
         String numOfTasks = count == 1 ? "task" : "tasks";
         System.out.println("Now you have " + count + " " + numOfTasks + " in the list.");
+    }
+
+    private static void changeStatus(String input) throws SerenityException {
+
+        String[] parts = input.split(" ");
+        if (parts.length == 1) {
+            throw new SerenityException("Error: Missing task index.");
+        }
+
+        if (input.startsWith("mark")) {
+            int index = Integer.parseInt(input.substring(5)) - 1;
+            Task t = list.get(index);
+            t.markAsDone();
+            System.out.println(horizontalLine);
+            System.out.println("Nice! I've marked this task as done:\n" + t);
+        } else if (input.startsWith("unmark")) {
+            int index = Integer.parseInt(input.substring(7)) - 1;
+            Task t = list.get(index);
+            t.markAsNotDone();
+            System.out.println(horizontalLine);
+            System.out.println("OK, I've marked this task as not done yet:\n" + t);
+        } else {
+            throw new SerenityException("Error: Type of task is not specified.");
+        }
     }
 }
