@@ -25,7 +25,7 @@ public class CancelGPT {
         System.out.println(horizontalLine);
 
         String command = sc.nextLine();
-        while (!command.equals("bye")) {
+        while (!command.equals(Command.BYE.toString())) {
             System.out.println(horizontalLine);
             handleCommand(command);
             System.out.println(horizontalLine);
@@ -49,24 +49,24 @@ public class CancelGPT {
 
     public void handleCommand(String command) {
         try {
-            if (command.equals("list")) {
+            if (command.equals(Command.LIST.toString())) {
                 displayTasksList();
-            } else if (command.startsWith("delete")) {
+            } else if (command.startsWith(Command.DELETE.toString())) {
                 int taskNumber = parseDeleteTaskCommand(command);
                 deleteTask(taskNumber);
-            } else if (command.startsWith("mark")) {
+            } else if (command.startsWith(Command.MARK.toString())) {
                 int taskNumber = parseMarkTaskCommand(command);
                 markTask(taskNumber);
-            } else if (command.startsWith("unmark")) {
+            } else if (command.startsWith(Command.UNMARK.toString())) {
                 int taskNumber = parseUnmarkTaskCommand(command);
                 unmarkTask(taskNumber);
-            } else if (command.startsWith("todo")) {
+            } else if (command.startsWith(Command.TODO.toString())) {
                 Task toDoTask = parseToDoTaskCreationCommand(command);
                 handleAddingTask(toDoTask);
-            } else if (command.startsWith("deadline")) {
+            } else if (command.startsWith(Command.DEADLINE.toString())) {
                 Task deadlineTask = parseDeadlineTaskCreationCommand(command);
                 handleAddingTask(deadlineTask);
-            } else if (command.startsWith("event")) {
+            } else if (command.startsWith(Command.EVENT.toString())) {
                 Task eventTask = parseEventTaskCreationCommand(command);
                 handleAddingTask(eventTask);
             } else {
