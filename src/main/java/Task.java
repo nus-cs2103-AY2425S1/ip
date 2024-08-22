@@ -1,6 +1,12 @@
-public class Task {
+public abstract class Task {
     private boolean isComplete = false;
     private String name;
+
+    public static enum TASK_TYPES {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
 
     public Task(String name) {
         this.name = name;

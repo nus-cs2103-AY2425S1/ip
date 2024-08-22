@@ -1,14 +1,40 @@
 import java.util.ArrayList;
 
-public class TodoList {
+public class TaskList {
     private ArrayList<Task> tasks;
 
-    public TodoList() {
+    public TaskList() {
         tasks = new ArrayList<Task>();
     }
 
-    public void insert(String item) {
-        tasks.add(new Task(item));
+    public Task insert(Task.TASK_TYPES type, String input) {
+        Task task;
+        input = input.trim();
+
+        switch (type) {
+            case TODO:
+                task = new TodoTask(input);
+                break;
+            case DEADLINE:
+                task = DeadlineTask.fromInput(input);
+                break;
+            case EVENT:
+                task = EventTask.fromInput(input);
+                break;
+            default:
+                throw new RuntimeException();
+        }
+
+        tasks.add(task);
+        return task;
+    }
+
+    public void delete(int index) {
+        tasks.remove(index);
+    }
+
+    public Task pop(int index) {
+        return tasks.remove(index);
     }
 
     public void mark(int index) {
@@ -25,6 +51,10 @@ public class TodoList {
 
     public Task getTask(int index) {
         return tasks.get(index);
+    }
+
+    public int length() {
+        return tasks.size();
     }
 
     public ArrayList<Task> getItems() {
