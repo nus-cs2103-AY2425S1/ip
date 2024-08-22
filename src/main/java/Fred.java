@@ -57,6 +57,13 @@ public class Fred {
                 break;
             } else if (input.equals("list")) {
                 printTaskList();
+            } else if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.substring(5)) - 1;
+                markTaskAsDone(index);
+
+            } else if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                markTaskAsNotDone(index);
             } else {
                 addToTaskList(input);
             }
@@ -87,6 +94,22 @@ public class Fred {
                 break;
             }
         }
+        System.out.println(line);
+    }
+
+    private static void markTaskAsDone(int index) {
+        taskList[index].markAsDone();
+        System.out.println(line);
+        System.out.println(String.format("Nice! I've marked this task as done:\n" +
+                "   [%s] %s", taskList[index].getStatusIcon(), taskList[index].getDescription()));
+        System.out.println(line);
+    }
+
+    private static void markTaskAsNotDone(int index) {
+        taskList[index].markAsNotDone();
+        System.out.println(line);
+        System.out.println(String.format("OK, I've marked this task as not done yet:\n" +
+                "   [%s] %s", taskList[index].getStatusIcon(), taskList[index].getDescription()));
         System.out.println(line);
     }
 }
