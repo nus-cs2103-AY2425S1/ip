@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Taskalyn {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
