@@ -1,9 +1,28 @@
+import java.util.Scanner;
+
 public class Buddy {
+
     public static void main(String[] args) {
-        System.out.println("____________________________________");
-        System.out.println("Hello! I'm Buddy\nWhat can I do for you?");
-        System.out.println("____________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("    ____________________________________");
+        System.out.println("    Hey there! I'm Buddy\n    What do ya need help with?");
+        System.out.println("    ____________________________________\n");
+
+        while (true) {
+            String userInput = scanner.nextLine();
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                System.out.println("\n    ____________________________________");
+                System.out.println("    Bye! See ya soon!");
+                System.out.println("    ____________________________________");
+                break;
+            } else {
+                System.out.println("\n    ____________________________________");
+                System.out.println("    " + userInput);
+                System.out.println("    ____________________________________\n");
+            }
+        }
+        scanner.close();
+
     }
 }
