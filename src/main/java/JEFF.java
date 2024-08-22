@@ -58,6 +58,13 @@ public class JEFF {
                         throw new JEFFException("You must provide only one number after unmark!");
                     }
                     break;
+                case "delete":
+                    if (parts.length == 2 && isNumeric(parts[1])) {
+                        deleteTask(Integer.parseInt(parts[1]));
+                    } else {
+                        throw new JEFFException("You must provide only one number after unmark!");
+                    }
+                    break;
                 case "todo":
                     if (parts.length != 2) {
                         throw new JEFFException("You must provide a valid task to do!");
@@ -86,6 +93,15 @@ public class JEFF {
             System.out.println(e.getMessage());
         }
         return true;
+    }
+
+    private static void deleteTask(int i) throws JEFFException {
+        if (i <= 0 || i > taskList.size()) {
+            throw new JEFFException("The number is outside the range!");
+        }
+        System.out.println("Ok, I will delete this task:");
+        System.out.printf("%s\n", taskList.get(i - 1));
+        taskList.remove(i - 1);
     }
 
     private static void markNotDone(int i) throws JEFFException {
