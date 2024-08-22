@@ -6,8 +6,8 @@ public class EventTask extends AbstractTask {
 
     private String endTime;
 
-    public EventTask(String name, String startTime, String endTime) {
-        super(name);
+    public EventTask(String description, String startTime, String endTime) {
+        super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }

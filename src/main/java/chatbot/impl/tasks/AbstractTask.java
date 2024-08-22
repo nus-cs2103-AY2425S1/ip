@@ -4,12 +4,12 @@ import chatbot.Task;
 
 public abstract class AbstractTask implements Task {
 
-    private final String name;
+    private final String description;
 
     private boolean isDone;
 
-    public AbstractTask(String name) {
-        this.name = name;
+    public AbstractTask(String description) {
+        this.description = description;
         isDone = false;
     }
 
@@ -19,7 +19,7 @@ public abstract class AbstractTask implements Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", isDone ? "X" : " ", name);
+        return String.format("[%s] %s", isDone ? "X" : " ", description);
     }
 
 }

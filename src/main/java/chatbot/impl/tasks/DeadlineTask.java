@@ -4,8 +4,8 @@ public class DeadlineTask extends AbstractTask {
 
     private String deadline;
 
-    public DeadlineTask(String name, String deadline) {
-        super(name);
+    public DeadlineTask(String description, String deadline) {
+        super(description);
         this.deadline = deadline;
     }
 
