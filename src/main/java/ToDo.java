@@ -5,16 +5,6 @@ public class ToDo extends Task {
      * @param description Description of the task.
      */
     public ToDo(String description) {
-        super(description);
-    }
-
-    /**
-     * Returns the string representation of the task.
-     *
-     * @return String representation of the task.
-     */
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
+        super(TaskType.TODO, description);
     }
 }

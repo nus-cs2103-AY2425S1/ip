@@ -2,6 +2,7 @@
  * Task class represents a task with a description and a boolean to indicate if it is done.
  */
 public class Task {
+    private final TaskType taskType;
     private final String description;
     private boolean isDone;
 
@@ -10,7 +11,8 @@ public class Task {
      *
      * @param description Description of the task.
      */
-    public Task(String description) {
+    public Task(TaskType taskType, String description) {
+        this.taskType = taskType;
         this.description = description;
         this.isDone = false;
     }
@@ -45,6 +47,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + taskType.toString().charAt(0) + "][" + getStatusIcon() + "] " + description;
     }
 }

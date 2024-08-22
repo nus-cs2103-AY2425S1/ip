@@ -8,17 +8,17 @@ public class Deadline extends Task {
      * @param deadline    Deadline of the task.
      */
     public Deadline(String description, String deadline) {
-        super(description);
+        super(TaskType.DEADLINE, description);
         this.deadline = deadline;
     }
 
     /**
-     * Returns the string representation of the task.
+     * Returns the string representation of the deadline.
      *
-     * @return String representation of the task.
+     * @return String representation of the deadline.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return super.toString() + " (by: " + deadline + ")";
     }
 }

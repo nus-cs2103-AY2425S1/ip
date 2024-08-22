@@ -10,18 +10,18 @@ public class Event extends Task {
      * @param endDateTime   End date and time of the event.
      */
     public Event(String description, String startDateTime, String endDateTime) {
-        super(description);
+        super(TaskType.EVENT, description);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
 
     /**
-     * Returns the string representation of the task.
+     * Returns the string representation of the event.
      *
-     * @return String representation of the task.
+     * @return String representation of the event.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
+        return super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
     }
 }

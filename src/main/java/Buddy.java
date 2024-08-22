@@ -1,8 +1,14 @@
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Buddy {
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final Map<String, TaskType> taskTypeCommandsMap = Map.of(
+            "todo", TaskType.TODO,
+            "deadline", TaskType.DEADLINE,
+            "event", TaskType.EVENT
+    );
 
     public static void main(String[] args) {
         // Welcome message
@@ -33,7 +39,7 @@ public class Buddy {
                 markTaskAsDone(input);
             } else if (input.startsWith("unmark")) {
                 markTaskAsNotDone(input);
-            } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+            } else if (taskTypeCommandsMap.containsKey(input.split(" ", 2)[0])) {
                 // Store input text as new task
                 addTask(input);
             } else if (input.startsWith("delete")) {
@@ -77,12 +83,18 @@ public class Buddy {
 
         String type = parts[0];
         String description = parts[1];
+        TaskType taskType = taskTypeCommandsMap.get(type);
 
-        switch (type) {
-            case "todo":
+        if (taskType == null) {
+            System.out.println("Please enter a valid task type!");
+            return;
+        }
+
+        switch (taskType) {
+            case TODO:
                 tasks.add(new ToDo(description));
                 break;
-            case "deadline":
+            case DEADLINE:
                 String[] deadlineParts = description.split(" /by ");
 
                 if (deadlineParts.length < 2) {
@@ -92,7 +104,7 @@ public class Buddy {
 
                 tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
                 break;
-            case "event":
+            case EVENT:
                 String[] eventParts = description.split(" /from | /to ");
 
                 if (eventParts.length < 3) {
@@ -102,9 +114,6 @@ public class Buddy {
 
                 tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
                 break;
-            default:
-                System.out.println("Invalid task type!");
-                return;
         }
 
         System.out.println("Got it. I've added this task:");
@@ -186,8 +195,7 @@ public class Buddy {
         int taskIndex = taskNumber - 1;
 
         try {
-            Task task = tasks.get(taskIndex);
-            tasks.remove(taskIndex);
+            Task task = tasks.remove(taskIndex);
 
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + task);
