@@ -4,38 +4,6 @@ import java.util.ArrayList;
 
 public class Victor {
 
-    public static class Task {
-        protected final String name;
-        protected boolean done;
-
-        public Task(String name) {
-            this.name = name;
-            this.done = false;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-        public void markDone() {
-            this.done = true;
-        }
-
-        public void markUndone() {
-            this.done = false;
-        }
-
-        @Override
-        public String toString() {
-            String out;
-            if (this.done) {
-                out = "{X} " + this.name;
-            } else {
-                out = "{ } " + this.name;
-            }
-            return out;
-        }
-    }
-
     public static void main(String[] args) {
         String logo = ",---.  ,---..-./`)     _______ ,---------.    ,-----.    .-------.\n"
 + "|   /  |   |\\ .-.')   /   __  \\\\          \\ .'  .-,  '.  |  _ _   \\    \n"
@@ -64,6 +32,7 @@ public class Victor {
                 if (inputs.isEmpty()) {
                     System.out.println("  ~  Nothing has been input so far - nothing to list! What can I do for you?");
                 } else {
+                    System.out.println("  ~  Sure! Here are all of your tasks:");
                     for (int i = 0; i < inputs.size(); i++) {
                         System.out.println("  ~  " + (i + 1) + ". " + inputs.get(i));
                     }
