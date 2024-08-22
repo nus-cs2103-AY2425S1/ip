@@ -6,41 +6,56 @@ public class Nen2 {
             + "|  \\| | / _ \\| '__ |    ) |\n"
             + "| |\\  ||  __/| | | |   / /_ \n"
             + "|_| \\_| \\___||_| |_|  |____|\n";
-    private final static String separator = "--------------------------------------------";
-    private static Scanner messageReader = new Scanner(System.in);
+    private static final String separator = "--------------------------------------------";
+    private static final Scanner messageReader = new Scanner(System.in);
 
-    private static String[] listOfText = new String[100];
+    private static final Task[] listOfTasks = new Task[100];
     private static int amountOfText = 0;
 
     public static void main(String[] args) {
         greet();
-        processMessage();
+        parseInput(messageReader.nextLine());
         exit();
     }
 
-    private static void processMessage() {
-        String message = messageReader.nextLine();
+    private static void parseInput(String input) {
         System.out.println(separator);
 
-        switch(message) {
+        int arg;
+        String action = input.split(" ")[0];
+
+        switch(action) {
             case "bye":
                 return;
+            case "mark":
+                arg = Integer.parseInt(input.split(" ")[1]);
+                listOfTasks[arg - 1].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(listOfTasks[arg - 1].toString());
+                break;
+            case "unmark":
+                arg = Integer.parseInt(input.split(" ")[1]);
+                listOfTasks[arg - 1].markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(listOfTasks[arg - 1].toString());
+                break;
             case "list":
                 printList();
                 break;
             default:
-                System.out.println("added: " + message);
-                listOfText[amountOfText] = message;
+                System.out.println("added: " + input);
+                listOfTasks[amountOfText] = new Task(input);
                 amountOfText++;
         }
 
         System.out.println(separator);
-        processMessage();
+        parseInput(messageReader.nextLine());
     }
 
     private static void printList() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < amountOfText; i++) {
-            System.out.println(String.valueOf(i + 1) + ". " + listOfText[i]);
+            System.out.println(String.valueOf(i + 1) + "." + listOfTasks[i]);
         }
     }
 
