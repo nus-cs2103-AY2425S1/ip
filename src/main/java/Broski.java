@@ -48,6 +48,15 @@ public class Broski {
             System.out.println(list.get(i));
             System.out.println(line);
             this.chatbot();
+        } else if (reply.length() > 7 && reply.startsWith("delete")) {
+            System.out.println(line);
+            int i = Integer.parseInt(reply.split(" ")[1]);
+            String temp = list.get(i).toString();
+            list.remove(i);
+            System.out.println("Gotcha, I've removed this task:");
+            System.out.println(temp);
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
+            this.chatbot();
         } else {
             System.out.println(line);
             if (reply.length() == 4 && reply.startsWith("todo")) {
