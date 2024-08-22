@@ -1,0 +1,8 @@
+Hello! I'm Revir
+What can I do for you?
+Invalid command.
+Invalid deadline task format.
+Invalid event task format.
+Invalid command.
+List:
+Bye. Hope to see you again soon!
