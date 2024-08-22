@@ -25,10 +25,6 @@ public class Zaibot {
         }
     }
 
-    /**
-     * Takes in the list of tasks, and converts it into a string.
-     * @return A string of all the tasks, enumerated.
-     */
     public static void main(String[] args) {
         new Zaibot().run();
     }
