@@ -107,6 +107,13 @@ public class CommandBuffer {
         return sj.toString();
     }
 
+    /**
+     * Read tokens until before the pattern specified has been found
+     * and joins them into a single line. (Excludes the pattern.) Then,
+     * remove the pattern.
+     * 
+     * @return tokens until before the pattern joined into a single line
+     */
     public String getUntilAndRemovePattern(String pattern) {
         String output = getUntil(pattern);
         nextToken();

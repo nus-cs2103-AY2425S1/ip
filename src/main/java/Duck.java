@@ -1,3 +1,8 @@
+import tasks.Task;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Todo;
+
 public class Duck {
     private static final String CHATBOT_NAME = "Duck";
     private static final String TEXT_SEPARATOR = "____________________________________________________________";
@@ -92,18 +97,18 @@ public class Duck {
                 // Tasks
                 else if (Command.TODO.equalsName(command)) {
                     String taskPart = lineBuffer.getRemainingLine();
-                    Task task = new TaskTodo(taskPart);
+                    Task task = new Todo(taskPart);
                     handleNewTask(task);
                 } else if (Command.DEADLINE.equalsName(command)) {
                     String taskPart = lineBuffer.getUntilAndRemovePattern("/by");
                     String deadlinePart = lineBuffer.getRemainingLine();
-                    Task task = new TaskDeadline(taskPart, deadlinePart);
+                    Task task = new Deadline(taskPart, deadlinePart);
                     handleNewTask(task);
                 } else if (Command.EVENT.equalsName(command)) {
                     String taskPart = lineBuffer.getUntilAndRemovePattern("/from");
                     String fromPart = lineBuffer.getUntilAndRemovePattern("/to");
                     String toPart = lineBuffer.getRemainingLine();
-                    Task task = new TaskEvent(taskPart, fromPart, toPart);
+                    Task task = new Event(taskPart, fromPart, toPart);
                     handleNewTask(task);
                 } else {
                     printAsResponse("Oops, I do not understand you.");

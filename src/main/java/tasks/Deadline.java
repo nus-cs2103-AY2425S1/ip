@@ -1,7 +1,9 @@
-public class TaskDeadline extends Task {
+package tasks;
+
+public class Deadline extends Task {
     private final String deadline;
 
-    public TaskDeadline(String description, String deadline) {
+    public Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;
     }

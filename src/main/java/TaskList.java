@@ -1,3 +1,5 @@
+import tasks.Task;
+
 public class TaskList {
     private static final Task[] LIST = new Task[100];
     private static int numItems = 0;
