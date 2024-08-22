@@ -9,14 +9,14 @@ public class Sora {
         System.out.println(horizontalLine + "\n" + greeting);
 
         Scanner commandScanner = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
         while (true) {
             try {
                 String[] command = commandScanner.nextLine().trim().split(" ", 2);
                 if (command[0].equalsIgnoreCase("bye") && command.length == 1) {
                     break;
                 } else if (command[0].equalsIgnoreCase("list") && command.length == 1) {
-                    displayList(taskList);
+                    taskList.displayList();
                 } else if (command[0].equalsIgnoreCase("mark") && command.length == 2) {
                     taskList.get(Integer.parseInt(command[1]) - 1).setDone(true);
                     System.out.println("\tNice! Sora has marked this task as done:");
@@ -43,6 +43,10 @@ public class Sora {
                     System.out.println("\tGot it. Sora has added this task:");
                     System.out.println("\t" + taskList.get(taskList.size() - 1));
                     System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
+                } else if (command[0].equalsIgnoreCase("delete") && command.length == 2) {
+                    Task deletedTask = taskList.remove(Integer.parseInt(command[1]) - 1);
+                    System.out.println("Noted. Sora has removed this task:");
+                    System.out.println("\t" + deletedTask);
                 } else if (command.length == 0) {
                     throw new SoraException("Error: No Command Inputted.");
                 } else {
@@ -60,9 +64,5 @@ public class Sora {
         System.out.println(exit + "\n" + horizontalLine);
     }
 
-    public static void displayList(List<Task> list) {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i));
-        }
-    }
+
 }
