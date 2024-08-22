@@ -49,7 +49,15 @@ public class Jia {
                             System.out.println("Invalid task number :(");
                         }
                     } else if (input.startsWith("delete")) {
-
+                        int taskNumber = Integer.parseInt(input.substring(6).trim()) - 1;
+                        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                            Task removedTask = tasks.remove(taskNumber);
+                            System.out.println("______________________________________________________");
+                            System.out.println("OK! I will remove this task:");
+                            System.out.println(" " + removedTask);
+                            System.out.println("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list");
+                            System.out.println("______________________________________________________");
+                        }
                     } else if (input.startsWith("todo")) {
                         String description = input.substring(4).trim();
                         if (description.isEmpty()) {
