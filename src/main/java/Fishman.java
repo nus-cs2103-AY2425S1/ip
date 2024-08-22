@@ -32,10 +32,16 @@ public class Fishman {
         boolean isExit = false;
 
         while (!isExit) {
-            String userInput = ui.readCommands();
-            Command command = Parser.parse(userInput);
-            command.execute(tasks,ui);
-            isExit = command.isExit();
+            try {
+                String userInput = ui.readCommands();
+                Command command = Parser.parse(userInput, tasks);
+                command.execute(tasks, ui);
+                isExit = command.isExit();
+            } catch (FishmanException e) {
+                ui.displayError(e.getMessage());
+            } catch (Exception e) {
+                ui.displayError("Uh oh, an unexpected error has occured: " + e.getMessage());
+            }
         }
     }
 

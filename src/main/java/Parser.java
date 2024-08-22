@@ -20,36 +20,59 @@ public class Parser {
      * @param userInput The string input by the user.
      * @return A Command object with respect to the user's input.
      */
-    public static Command parse(String userInput) {
+    public static Command parse(String userInput, TaskList tasks) throws FishmanException {
+        if (userInput == null || userInput.trim().isEmpty()) {
+            throw new FishmanException.InvalidCommandException("");
+        }
         String[] inputs = userInput.split(" ", 2);
         String commandPhrase = inputs[0].toLowerCase();
 
-        switch (commandPhrase) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
-            return new ListCommand();
-        case "mark":
-            int markIndex = Integer.parseInt(inputs[1]) - 1;
-            return new MarkCommand(markIndex, true);
-        case "unmark":
-            int unmarkIndex = Integer.parseInt(inputs[1]) - 1;
-            return new MarkCommand(unmarkIndex, false);
-        case "todo":
-            return new AddCommand(new ToDo(inputs[1]));
-        case "deadline":
-            String[] deadlineString = inputs[1].split("/by");
-            return new AddCommand(new Deadline(deadlineString[0].trim(), deadlineString[1].trim()));
-        case "event":
-            String[] eventString = inputs[1].split("/from|/to");
-            return new AddCommand(new Event(eventString[0].trim(),eventString[1].trim(),eventString[2].trim()));
-        default:
-            return new Command() {
-                @Override
-                public void execute(TaskList tasks, Ui ui) {
-                    ui.displayGoodbye();
+        try {
+            switch (commandPhrase) {
+            case "bye":
+                return new ExitCommand();
+            case "list":
+                return new ListCommand();
+            case "mark":
+                if (inputs.length < 2) {
+                    throw new FishmanException.MissingArgumentException("mark");
                 }
-            };
+                if (tasks.size() == 0) {
+                    throw new FishmanException.EmptyListException();
+                }
+                int markIndex = Integer.parseInt(inputs[1]) - 1;
+                return new MarkCommand(markIndex, true);
+            case "unmark":
+                if (inputs.length < 2) {
+                    throw new FishmanException.MissingArgumentException("unmark");
+                }
+                if (tasks.size() == 0) {
+                    throw new FishmanException.EmptyListException();
+                }
+                int unmarkIndex = Integer.parseInt(inputs[1]) - 1;
+                return new MarkCommand(unmarkIndex, false);
+            case "todo":
+                if (inputs.length < 2) {
+                    throw new FishmanException.MissingArgumentException("todo");
+                }
+                return new AddCommand(new ToDo(inputs[1]));
+            case "deadline":
+                if (inputs.length < 2 || !inputs[1].contains("/by")) {
+                    throw new FishmanException.MissingArgumentException("deadline");
+                }
+                String[] deadlineString = inputs[1].split("/by");
+                return new AddCommand(new Deadline(deadlineString[0].trim(), deadlineString[1].trim()));
+            case "event":
+                if (inputs.length < 2 || !inputs[1].contains("/from") || !inputs[1].contains("/to")) {
+                    throw new FishmanException.MissingArgumentException("event");
+                }
+                String[] eventString = inputs[1].split("/from|/to");
+                return new AddCommand(new Event(eventString[0].trim(), eventString[1].trim(), eventString[2].trim()));
+            default:
+                throw new FishmanException.InvalidCommandException(commandPhrase);
+            }
+        } catch (NumberFormatException e) {
+            throw new FishmanException.NumberFormatException(e.getMessage());
         }
     }
 }
