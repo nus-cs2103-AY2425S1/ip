@@ -10,7 +10,7 @@ public class Event extends Task {
 
     public static Event getEventFromInput(String input) throws InvalidTaskFormatException {
         if (input.length() < 6) {
-            throw new InvalidTaskFormatException("Deadline");
+            throw new InvalidTaskFormatException("Event");
         }
 
         String[] parts = input.substring(6).split(" /from ");
