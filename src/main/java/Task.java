@@ -1,25 +1,25 @@
 public class Task {
-    private final String name;
-    private boolean completed;
+    protected final String name;
+    protected boolean completed;
 
     public Task(String name) {
         this.name = name;
         this.completed = false;
     }
 
-    public boolean isCompleted() {
+    protected boolean isCompleted() {
         return this.completed;
     }
 
-    public void markComplete() {
+    protected void markComplete() {
         this.completed = true;
     }
 
-    public void markUncomplete() {
+    protected void markUncomplete() {
         this.completed = false;
     }
 
-    public String getStatusIcon() {
+    protected String getStatusIcon() {
         return (this.isCompleted() ? "X" : " ");
     }
 
