@@ -19,22 +19,26 @@ public class TaskList {
         String[] parts = input.split(" /");
         switch(words[0]) {
         case "todo":
-            String nameAndType = parts[0].substring(5);
-            Task todo = new Todo(nameAndType);
-            list.add(todo);
+                String nameAndType = parts[0].substring(5);
+                Task todo = new Todo(nameAndType);
+                list.add(todo);
+
         break;
         case "event":
-            nameAndType = parts[0].substring(6);
-            String from = parts[1].replace("from ", "");
-            String to = parts[2].replace("to ", "");
-            Task event = new Event(nameAndType, from, to);
-            list.add(event);
+                nameAndType = parts[0].substring(6);
+                String from = parts[1].replace("from ", "");
+                String to = parts[2].replace("to ", "");
+                Task event = new Event(nameAndType, from, to);
+                list.add(event);
+
+
         break;
         case "deadline":
-            nameAndType = parts[0].substring(6);
-            String end = parts[1].replace("by ", "by: ");
-            Task deadline = new Deadline(nameAndType, end);
-            list.add(deadline);
+                nameAndType = parts[0].substring(6);
+                String end = parts[1].replace("by ", "by: ");
+                Task deadline = new Deadline(nameAndType, end);
+                list.add(deadline);
+
         break;
         default:
         System.out.println("Unknown command");
