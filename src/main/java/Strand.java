@@ -52,7 +52,7 @@ public class Strand {
     }
 
     /**
-     * Marks a task as done or undone based on the input command.
+     * Marks a task as done or undone
      *
      * @param input The user command to mark or unmark a task.
      * @throws StrandException If the input is invalid or the task index is out of bounds.
@@ -76,7 +76,7 @@ public class Strand {
                     t.markAsNotDone();
                     str = "OK, I've marked this task as not done yet:\n";
                 }
-                output(str + t.toString());
+                output(str + t);
 
             } catch (NumberFormatException e) {
                 throw new StrandNumberNotFoundException(split[0]);
@@ -134,6 +134,35 @@ public class Strand {
     }
 
     /**
+     * Delete task from the strandList
+     *
+     * @param input The user command to add a task.
+     * @throws StrandException If the task description or necessary parameters are missing or incorrect.
+     */
+    private static void deleteTask(String input) throws StrandException {
+        String[] split = input.split("\\s+");
+        if (split.length < 2) {
+            throw new StrandNumberNotFoundException(split[0]);
+        } else {
+            try {
+                int index = Integer.parseInt(split[1]);
+                if (index > strandList.size() || index < 1) {
+                    throw new StrandWrongIndexException(strandList.size());
+                }
+                Task t = strandList.get(index - 1);
+                String taskString = t.toString();
+                strandList.remove(index - 1);
+                output("Noted. I've removed this task:\n" + taskString
+                        + "\nNow you have " + strandList.size() + " tasks in the list.");
+
+            } catch (NumberFormatException e) {
+                throw new StrandNumberNotFoundException(split[0]);
+            }
+        }
+    }
+
+
+    /**
      * Processes the user input and executes the corresponding command.
      *
      * @param input The user command.
@@ -152,6 +181,8 @@ public class Strand {
                 input.toLowerCase().startsWith("deadline") ||
                 input.toLowerCase().startsWith("event")) {
             addTask(input);
+        } else if (input.toLowerCase().startsWith("delete")) {
+            deleteTask(input);
         } else {
             throw new StrandWrongCommandException();
         }
