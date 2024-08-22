@@ -10,10 +10,13 @@ public class JEFF {
         // Init sequence
         String logo =
                 """
-                        ███████████████████████████████████████████████████████████████████████
-                        █▄─▀█▀─▄█▄─█─▄███▄─▀█▄─▄██▀▄─██▄─▀█▀─▄█▄─▄▄─█████▄─▄█▄─▄▄─█▄─▄▄─█▄─▄▄─█
-                        ██─█▄█─███▄─▄█████─█▄▀─███─▀─███─█▄█─███─▄█▀███─▄█─███─▄█▀██─▄████─▄███
-                        ▀▄▄▄▀▄▄▄▀▀▄▄▄▀▀▀▀▄▄▄▀▀▄▄▀▄▄▀▄▄▀▄▄▄▀▄▄▄▀▄▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▄▄▀▄▄▄▀▀▀▄▄▄▀▀▀""";
+                                                                            ____._________________________________|
+                          _____ ___.__.   ____ _____    _____   ____       |    |\\_   _____/\\_   _____/\\_   _____/|
+                         /     <   |  |  /    \\\\__  \\  /     \\_/ __ \\      |    | |    __)_  |    __)   |    __)  |
+                        |  Y Y  \\___  | |   |  \\/ __ \\|  Y Y  \\  ___/  /\\__|    | |        \\ |     \\    |     \\   |
+                        |__|_|  / ____| |___|  (____  /__|_|  /\\___  > \\________|/_______  / \\___  /    \\___  /   |
+                              \\/\\/           \\/     \\/      \\/     \\/                    \\/      \\/         \\/    |
+                        """;
 
         System.out.println("Hello there\n" + logo);
 
@@ -91,7 +94,7 @@ public class JEFF {
 
     private static void addTask(String input) {
         taskList.add(new Task(input));
-        System.out.printf("added: %s\n", input);
+        System.out.printf("added: %s\n", taskList.get(taskList.size() - 1));
     }
 
     // Overloaded `addTask` to have more functionality
@@ -117,7 +120,7 @@ public class JEFF {
                 taskList.add(new Event(event_parts[0].trim(), event_parts[1].trim(), event_parts[2].trim()));
                 break;
         }
-        System.out.printf("added: %s\n", input);
+        System.out.printf("added: %s\n", taskList.get(taskList.size() - 1));
     }
 
     private static boolean isNumeric(String str) {

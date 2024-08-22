@@ -1,0 +1,13 @@
+read books
+mark 1
+unmark 1
+todo buy books
+mark 3
+list
+deadline submit test /by tomorrow 10pm
+event dodgeball /from tomorrow 8pm /to 10pm
+list
+mark 4
+deadline live life by tomorrow
+event live life /from now till later
+bye
