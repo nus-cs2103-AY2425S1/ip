@@ -65,7 +65,9 @@ public class Alpha {
             
             else if (s1.split(" ")[0].equalsIgnoreCase(Commands.TODO.getDescription())) {
                 try {
-                    ToDo NewToDo = new ToDo(s1.split(" ")[1]);
+                    String[] splitArray = s1.split(" ");
+                    String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
+                    ToDo NewToDo = new ToDo(processedInput);
                     storage.storeTask(NewToDo);
                     String echoResponse = "____________________________________________________________ \n"
                             + "Got it. I've added this task: \n"
