@@ -37,11 +37,37 @@ public class YapperBot {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[targetTask]);
                 System.out.println("________________________________");
-            } else {
-                tasks[numTask] = new Task(userInput);
+            } else if (userInput.startsWith("todo")) {
+                String description = userInput.substring(5);
+                tasks[numTask] = new Todo(description);
                 numTask++;
                 System.out.println("________________________________");
-                System.out.println("added: " + userInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[numTask - 1]);
+                System.out.println("Now you have " + numTask + (numTask == 1 ? " task" : " tasks") + " in the list.");
+                System.out.println("________________________________");
+            } else if (userInput.startsWith("deadline")) {
+                String[] input = userInput.substring(9).split(" /by ");
+                String description = input[0];
+                String by = input[1];
+                tasks[numTask] = new Deadline(description, by);
+                numTask++;
+                System.out.println("________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[numTask - 1]);
+                System.out.println("Now you have " + numTask + (numTask == 1 ? " task" : " tasks") + " in the list.");
+                System.out.println("________________________________");
+            } else if (userInput.startsWith("event")) {
+                String[] input = userInput.substring(6).split(" /from | /to ");
+                String description = input[0];
+                String from = input[1];
+                String to = input[2];
+                tasks[numTask] = new Event(description, from, to);
+                numTask++;
+                System.out.println("________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[numTask - 1]);
+                System.out.println("Now you have " + numTask + (numTask == 1 ? " task" : " tasks") + " in the list.");
                 System.out.println("________________________________");
             }
         }
