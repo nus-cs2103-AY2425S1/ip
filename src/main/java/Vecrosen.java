@@ -14,8 +14,9 @@ public class Vecrosen {
             String input;
             Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
+            if (input.equals("bye")) break;
             speak(input);
         }
-        //speak("Bye. Hope to see you again soon!");
+        speak("Bye. Hope to see you again soon!");
     }
 }
