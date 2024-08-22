@@ -26,6 +26,11 @@ public class Elon {
                 action.unmarkTask(index, list);
                 inputArr = this.nextInput(scanner);
                 continue;
+            } else if (inputArr[0].equals("delete")) {
+                int index = Integer.parseInt(inputArr[1]) - 1;
+                action.deleteTask(index, list);
+                inputArr = this.nextInput(scanner);
+                continue;
             } else {
                 if (inputArr[0].equals("todo")) {
                     try {

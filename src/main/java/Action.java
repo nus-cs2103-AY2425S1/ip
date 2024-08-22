@@ -76,7 +76,6 @@ public class Action {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description for ToDo task not specified.");
         }
-        startAddTask();
         String task = "";
         for (int i = 1; i < inputArr.length; i++) {
             task += inputArr[i] + " ";
@@ -84,6 +83,7 @@ public class Action {
         task = task.strip();
         ToDo todo = new ToDo(task);
         list.add(todo);
+        startAddTask();
         System.out.println("\t " + todo.toString());
     }
 
@@ -116,7 +116,6 @@ public class Action {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description, From and To date for Event task not specified.");
         }
-        startAddTask();
         int i = 1;
         String task = "";
         while (!inputArr[i].equals("/from")) {
@@ -145,6 +144,15 @@ public class Action {
         to = to.strip();
         Event event = new Event(task, from, to);
         list.add(event);
+        startAddTask();
         System.out.println("\t " + event.toString());
+    }
+
+    public void deleteTask(int index, ArrayList<Task> list) {
+        drawLine();
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.println("\t " + list.get(index));
+        list.remove(index);
+        endAddTask(list.size());
     }
 }
