@@ -26,11 +26,15 @@ public class Kayo {
                 System.out.print("Nice! I've marked this task at done: \n");
                 System.out.print(taskList.get(index) + "\n");
             }else if(splitList[0].equals("todo")) {
-                ToDo todo = new ToDo(splitList[1],false);
-                taskList.add(todo);
-                System.out.print("Got it. I've added this task: \n");
-                System.out.print(todo + "\n");
-                System.out.print("Now you have " + taskList.size() + " tasks in the list.\n");
+                if(splitList.length==1) {
+                    new DukeException("OOPS !! The description of a todo can't be empty");
+                } else {
+                    ToDo todo = new ToDo(splitList[1],false);
+                    taskList.add(todo);
+                    System.out.print("Got it. I've added this task: \n");
+                    System.out.print(todo + "\n");
+                    System.out.print("Now you have " + taskList.size() + " tasks in the list.\n");
+                }
             } else if(splitList[0].equals("deadline")) {
                 String[] bySplit = inputString.split("/by");
                 Deadline deadline = new Deadline(splitList[1],false,bySplit[1]);
@@ -45,6 +49,8 @@ public class Kayo {
                 System.out.print("Got it. I've added this task: \n");
                 System.out.print(event + "\n");
                 System.out.print("Now you have " + taskList.size() + " tasks in the list.\n");
+            } else {
+                new DukeException("OOPS !! Sorry i dont know what that means!");
             }
         }
         Exit();
@@ -101,6 +107,11 @@ public class Kayo {
         @Override
         public String toString() {
             return "[D] "+super.toString() + "(by" + by + ")";
+        }
+    }
+    public static class DukeException {
+        public DukeException(String message) {
+            System.out.println(message);
         }
     }
 
