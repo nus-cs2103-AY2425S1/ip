@@ -1,11 +1,10 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Schedulo {
     public static void main(String[] args) {
         String horizontalLine = "---------------";
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> Tasks = new ArrayList<>();
+        TaskList taskList = new TaskList();
         System.out.println(horizontalLine);
         System.out.println("Hello I am Schedulo!");
         System.out.println("What can I do for you?");
@@ -19,12 +18,19 @@ public class Schedulo {
                 break;
             }
             if (command.equals("list")) {
-                for (int i = 0; i < Tasks.size(); i++) {
-                    System.out.println((i+1) + ". " + Tasks.get(i));
-                }
+                System.out.println(taskList);
             } else {
-                Tasks.add(command);
-                System.out.println("added: " + command);
+                String[] splitwords = command.split(" ");
+                String newcommand = splitwords[0];
+                if (newcommand.equals("mark")) {
+                    int index = Integer.valueOf(splitwords[1]);
+                    System.out.println(taskList.markTask(index));
+                } else if (newcommand.equals("unmark")) {
+                    int index = Integer.valueOf(splitwords[1]);
+                    System.out.println(taskList.unmarkTask(index));
+                } else {
+                    System.out.println(taskList.add(command));
+                }
             }
             System.out.println(horizontalLine);
         }
