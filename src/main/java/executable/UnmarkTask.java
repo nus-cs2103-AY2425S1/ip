@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import task.Task;
 
+import exception.InvalidArgumentException;
+
 /**
  * An executable to mark tasks as undone.
  *
@@ -38,12 +40,13 @@ public class UnmarkTask extends TaskModifier {
      * Mark the task at idx as incomplete.
      *
      * @return NORMAL normally, ERROR if tasks == null.
+     * @throws InvalidArgumentException when given index is out of bounds of ArrayList.
      */
     @Override
-    public Executable.exitCode execute() {
+    public exitCode execute() throws InvalidArgumentException {
         if (tasks == null) {
             output = "Task list cannot be null.";
-            return Executable.exitCode.ERROR;
+            return exitCode.ERROR;
         }
 
         try {
@@ -54,9 +57,10 @@ public class UnmarkTask extends TaskModifier {
                 output = "Task " + idx + " is not complete.";
             }
         } catch (IndexOutOfBoundsException e) {
-            output = idx + " index out of bounds of task list of size " + super.tasks.size() + ".";
+            String message = idx + " index out of bounds of task list of size " + super.tasks.size() + ".";
+            throw new InvalidArgumentException(message);
         }
-        return Executable.exitCode.NORMAL;
+        return exitCode.NORMAL;
     }
 
     /**

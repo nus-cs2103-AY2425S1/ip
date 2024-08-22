@@ -14,9 +14,9 @@ public class Exit implements Executable {
      * @return TERMINATE.
      */
     @Override
-    public Executable.exitCode execute() {
+    public exitCode execute() {
         output = "Bye. Hope to see you again soon!";
-        return Executable.exitCode.TERMINATE;
+        return exitCode.TERMINATE;
     }
 
     /**

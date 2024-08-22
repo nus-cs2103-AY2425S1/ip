@@ -34,10 +34,10 @@ public class ListTask extends TaskModifier {
      * @return NORMAL normally, ERROR if tasks == null.
      */
     @Override
-    public Executable.exitCode execute() {
+    public exitCode execute() {
         if (tasks == null) {
             output = "Task list cannot be null.";
-            return Executable.exitCode.ERROR;
+            return exitCode.ERROR;
         }
         
         output = "Here are the tasks in your list:";
@@ -45,7 +45,7 @@ public class ListTask extends TaskModifier {
             Task task = tasks.get(i);
             output += "\n" + (i + 1) + ". " + task.toString();
         }
-        return Executable.exitCode.NORMAL;
+        return exitCode.NORMAL;
     }
 
     /**

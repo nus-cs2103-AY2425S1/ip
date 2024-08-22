@@ -1,3 +1,8 @@
+Initializing tasks...
+No file with path data/task.txt found.
+If this file exists, make sure to run the program where data/task.txt is accessible.
+Initializing an empty array of tasks...
+Tasks initialized
 -----------------------------------------------------------------
 Hello! I am YihuiBot!
 What can I do for you?
@@ -145,3 +150,5 @@ Unexpected argument called with bye.
 -----------------------------------------------------------------
 Bye. Hope to see you again soon!
 -----------------------------------------------------------------
+Writing tasks to data/task.txt...
+File written succesfully.

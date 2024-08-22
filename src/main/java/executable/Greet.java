@@ -38,9 +38,9 @@ public class Greet implements Executable {
      * @return NORMAL.
      */
     @Override
-    public Executable.exitCode execute() {
+    public exitCode execute() {
         output = "Hello! I am " + greeter + "!\nWhat can I do for you?";
-        return Executable.exitCode.NORMAL;
+        return exitCode.NORMAL;
     }
 
     /**

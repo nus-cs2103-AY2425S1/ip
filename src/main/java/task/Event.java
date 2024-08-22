@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDateTime;
+
 /**
  * A Task with a specific start and end time.
  *
@@ -20,6 +22,39 @@ public class Event extends Task {
         super(description);
         this.start = start;
         this.end = end;
+    }
+
+    /**
+     * constructor for a new Event with the specified status of the Event.
+     *
+     * @param description the description of the task.
+     * @param iscomplete the status of the task.
+     * @param start the start time of the task.
+     * @param end the end time of the task.
+     */
+    public Event(String description, boolean isComplete, String start,
+            String end) {
+        super(description, isComplete);
+        this.start = start;
+        this.end = end;
+    }
+
+    /**
+     * Return the start time of the task.
+     *
+     * @return the start time of the task.
+     */
+    public String getStart() {
+        return start;
+    }
+
+    /**
+     * Return the end time of the task.
+     *
+     * @return the end time of the task.
+     */
+    public String getEnd() {
+        return end;
     }
 
     /**

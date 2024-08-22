@@ -3,8 +3,14 @@
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
+REM create data directory if it doesn't exist
+if not exist .\data mkdir .\data
+
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
+
+REM delete data from previous run
+if exist .\data\task.txt del .\data\task.txt
 
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\task\*.java ..\src\main\java\exception\*.java  ..\src\main\java\executable\*.java ..\src\main\java\*.java

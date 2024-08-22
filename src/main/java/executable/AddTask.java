@@ -40,16 +40,16 @@ public class AddTask extends TaskModifier {
      * @return NORMAL normally, ERROR if tasks == null.
      */
     @Override
-    public Executable.exitCode execute() {
+    public exitCode execute() {
         if (tasks == null) {
             output = "Task list cannot be null.";
-            return Executable.exitCode.ERROR;
+            return exitCode.ERROR;
         }
 
         tasks.add(task);
         output = "Got it. I've added this task:\n" + task.toString()
                 + "\nNow you have " + super.tasks.size() + " task(s) in your list.";
-        return Executable.exitCode.NORMAL;
+        return exitCode.NORMAL;
     }
 
     /**
