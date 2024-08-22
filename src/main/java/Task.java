@@ -1,18 +1,33 @@
 public class Task {
 
     private final String taskName;
-
-    private static int totalTasks = 0;
-    private final int taskNo;
+    private boolean completeStatus;
 
     public Task(String name) {
         taskName = name;
-        taskNo = totalTasks + 1;
-        totalTasks++;
+
+    }
+
+    public void markDone() {
+        completeStatus = true;
+    }
+
+    public void markUndone() {
+        completeStatus = false;
     }
 
     @Override
     public String toString() {
-        return String.format("%d. %s", taskNo, taskName);
+        String status;
+
+        if (completeStatus) {
+            status = "[✓]";
+
+        } else {
+            status = "[ ]";
+
+        }
+
+        return String.format("%s %s", status, taskName);
     }
 }

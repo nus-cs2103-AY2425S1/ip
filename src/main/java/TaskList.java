@@ -12,13 +12,22 @@ public class TaskList {
         taskList.add(new Task(taskName));
     }
 
+    public Task findTask(String input) {
+
+        int taskNo = Character.getNumericValue(input.charAt(input.length() - 1)) - 1;
+
+        return taskList.get(taskNo);
+    }
+
     @Override
     public String toString() {
 
-        StringBuilder str = new StringBuilder();
+        StringBuilder str = new StringBuilder("Here are your tasks, champ. Let's see how many you can actually cross off.\n");
+        int index = 1;
 
         for (Task task : taskList) {
-            str.append(task.toString()).append('\n');
+            str.append(index).append(". ").append(task.toString()).append('\n');
+            index++;
         }
 
         if (!str.isEmpty()) {
