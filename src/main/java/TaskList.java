@@ -35,6 +35,12 @@ public class TaskList {
         return this.tasklist.get(idx-1).toString();
     }
 
+    public String[] describeTasks() {
+        ArrayList<String> results = new ArrayList<>();
+        this.tasklist.forEach((task) -> results.add(task.toString()));
+        return results.toArray(results.toArray(new String[0]));
+    }
+
     public String toString() {
         String str = "";
         for (int i = 0; i < this.tasklist.size(); i++) {

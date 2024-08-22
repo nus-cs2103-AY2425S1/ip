@@ -1,61 +1,78 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bob {
-    private static final String line = "____________________________________________________________\n";
+    private static final String line = "____________________________________________________________";
+    private static final String indentation = "    ";
     private static TaskList taskList = new TaskList();
+    private static final String[] greeting = { "Hello! I'm Bob", "What can I do for you?" };
+    private static final String[] farewell = { " Bye. Hope to see you again soon!" };
 
-    private static String greeting() {
-        return Bob.lineFormat(" Hello! I'm Bob\n" +
-                " What can I do for you?");
+    private static void prettyPrint(String[] texts) {
+        String separator = Bob.indentation + Bob.line;
+        System.out.println(separator);
+        for (String text: texts) {
+            System.out.print(Bob.indentation);
+            System.out.println(text);
+        }
+        System.out.println(separator);
     }
-    private static String farewell() {
-        return  Bob.lineFormat(" Bye. Hope to see you again soon!");
+
+    private static void addTask(String desc) {
+        Bob.taskList.addTask(desc);
+        Bob.prettyPrint(new String[] { "Added: " + desc });
     }
-    private static String lineFormat(String input) {
-        return Bob.line + input + "\n" + Bob.line;
-    }
-    private static void addTask(String command) {
-        Bob.taskList.addTask(command);
-        System.out.println(Bob.lineFormat("Added: " + command));
-    }
+
     private static void listCommands() {
-        System.out.print(Bob.lineFormat("Here are the tasks in your list:\n" + Bob.taskList.toString()));
+        String[] desc = { "Here are the tasks in your list:" };
+        String[] tasks = Bob.taskList.describeTasks();
+        String[] texts = new String[tasks.length + desc.length];
+
+        for (int i = 0; i < desc.length; i++) { // Copy desc lines into texts array to be printed
+            texts[i] = desc[i];
+        }
+        for (int i = 0; i < tasks.length; i++) { // Copy tasks lines into texts array to be printed
+            texts[i + desc.length] = String.format("%d.", i+1) + tasks[i];
+        }
+
+        Bob.prettyPrint(texts);
+    }
+
+    private static void markTask(int idx) {
+        Bob.taskList.mark(idx);
+        Bob.prettyPrint(new String[] { "Nice! I've marked this task as done:", Bob.taskList.describeTask(idx) });
+    }
+
+    private static void unmarkTask(int idx) {
+        Bob.taskList.unmark(idx);
+        Bob.prettyPrint(new String[] { "OK, I've marked this task as not done yet:", Bob.taskList.describeTask(idx) });
     }
 
     public static void main(String[] args) {
-        System.out.print(Bob.greeting());
+        Bob.prettyPrint(Bob.greeting);
         String input = "";
         String[] arguments;
         Scanner scanner = new Scanner(System.in);
 
         outerLoop:
         while (true) {
-            System.out.println("Enter your command: ");
             input = scanner.nextLine();
             arguments = input.split(" ");
 
             switch (arguments[0]) {
                 case ("bye"):
-                    System.out.println(Bob.farewell());
+                    Bob.prettyPrint(Bob.farewell);
                     break outerLoop;
                 case ("list"):
                     Bob.listCommands();
                     continue;
                 case ("mark"): {
                     int idx = Integer.parseInt(arguments[1]);
-                    Bob.taskList.mark(idx);
-                    String temp = "Nice! I've marked this task as done:\n"
-                            + Bob.taskList.describeTask(idx);
-                    System.out.println(Bob.lineFormat(temp));
+                    Bob.markTask(idx);
                     continue;
                 }
                 case ("unmark"): {
                     int idx = Integer.parseInt(arguments[1]);
-                    Bob.taskList.unmark(idx);
-                    String temp = "OK, I've marked this task as not done yet:\n"
-                            + Bob.taskList.describeTask(idx);
-                    System.out.println(Bob.lineFormat(temp));
+                    Bob.unmarkTask(idx);
                     continue;
                 }
                 default:
