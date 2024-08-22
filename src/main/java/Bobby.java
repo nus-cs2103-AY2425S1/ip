@@ -24,12 +24,33 @@ public class Bobby {
             }
 
             String[] splitInput = input.split(" ");
-            switch (splitInput[0]) {
+            switch (splitInput[0].toLowerCase()) {
                 case "mark":
                     mark(Integer.valueOf(splitInput[1]));
                     break;
                 case "unmark":
                     unmark(Integer.valueOf(splitInput[1]));
+                    break;
+                case "todo":
+                    // Split into 2 parts and then get the second part after todo
+                    String todoInput = input.split(" ", 2)[1];
+                    Todo td = new Todo(todoInput);
+                    addToList(td);
+                    break;
+                case "deadline":
+                    String deadlineInput = input.split(" ", 2)[1];
+                    String deadlineDescription = deadlineInput.split(" /by ")[0];
+                    String deadlineDay = deadlineInput.split(" /by ")[1];
+                    Deadline dl = new Deadline(deadlineDescription, deadlineDay);
+                    addToList(dl);
+                    break;
+                case "event":
+                    String eventInput = input.split(" ", 2)[1];
+                    String eventDescription = eventInput.split(" /", 3)[0];
+                    String eventStart = eventInput.split(" /", 3)[1].substring(5);
+                    String eventEnd = eventInput.split(" /", 3)[2].substring(3);
+                    Event event = new Event(eventDescription, eventStart, eventEnd);
+                    addToList(event);
                     break;
                 default:
                     Task t = new Task(input);
@@ -71,7 +92,8 @@ public class Bobby {
         Bobby.storage.add(t);
         horizontalLine(35);
         System.out.println();
-        System.out.println("added: " + t.getDescription());
+        System.out.println("Plus one more thing to do:");
+        System.out.println(t.toString());
         horizontalLine(35);
     }
 
