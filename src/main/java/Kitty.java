@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Kitty {
     private static final String name = "Kitty";
     private static final String divisionLine = "--------------------------";
@@ -16,6 +18,18 @@ public class Kitty {
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?\n");
         System.out.println(divisionLine);
+        Echo();
+    }
+
+    public static void Echo() {
+        Scanner sc = new Scanner(System.in);
+        String command = "";
+        while (!command.contains("bye")) {
+            command = sc.nextLine();
+            System.out.println(divisionLine);
+            System.out.println(command + "\n");
+            System.out.println(divisionLine);
+        }
         Exit();
     }
 
