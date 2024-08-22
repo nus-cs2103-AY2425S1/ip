@@ -1,0 +1,9 @@
+todo buy milk
+deadline submit quiz /by friday 10pm
+event math lecture /from 2pm /to 4pm
+list
+mark 1
+list
+unmark 1
+list
+bye

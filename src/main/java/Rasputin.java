@@ -60,7 +60,7 @@ public class Rasputin {
                 }
                 int index = (input.charAt(7) - '0' - 1);
                 ls.get(index).markAsNotDone();
-                String output = "Unmarked that as done for you. \n" +
+                String output = "Unmarked that as done for you.\n" +
                         ls.get(index).toString();
                 printText(output);
                 continue;
@@ -74,7 +74,7 @@ public class Rasputin {
                 }
                 int index = (input.charAt(5) - '0' - 1);
                 ls.get(index).markAsDone();
-                String output = "Marked that as done for you. \n" +
+                String output = "Marked that as done for you.\n" +
                         ls.get(index).toString();
                 printText(output);
                 continue;
