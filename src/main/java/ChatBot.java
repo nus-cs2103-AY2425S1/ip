@@ -1,5 +1,8 @@
 package main.java;
 
+import main.java.Exceptions.EmptyDescriptionError;
+import main.java.Exceptions.InvalidCommandError;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -41,65 +44,82 @@ public class ChatBot {
         }
     }
 
-    public void run() {
+    public void run() throws InvalidCommandError, EmptyDescriptionError {
         greet();
-        while (true) {
-            String input = scanner.nextLine();
+        while (true){
+            try {
 
-            String [] parts = input.split(" ", 2);
+                String input = scanner.nextLine();
 
-            if (input.equals(exitKeyword)) {
-                goodbye();
-                return;
-            } else if (input.equals(listKeyword)) {
-                showList();
-            } else if (parts.length == 2 && parts[0].equals("mark")) {
-                Task task = lst.get(Integer.parseInt(parts[1])-1);
-                task.markDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(task.getDesc());
-            } else if (parts.length == 2 && parts[0].equals("unmark")) {
-                Task task = lst.get(Integer.parseInt(parts[1])-1);
-                task.markUndone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(task.getDesc());
-            } else {
-                String command = parts[0];
-                String description = parts[1];
+                String [] parts = input.split(" ", 2);
 
-                String by = null;
-                String from = null;
-                String to = null;
+                if (input.equals(exitKeyword)) {
+                    goodbye();
+                    return;
+                } else if (input.equals(listKeyword)) {
+                    showList();
+                } else if (parts.length == 2 && parts[0].equals("mark")) {
+                    Task task = lst.get(Integer.parseInt(parts[1])-1);
+                    task.markDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(task.getDesc());
+                } else if (parts.length == 2 && parts[0].equals("unmark")) {
+                    Task task = lst.get(Integer.parseInt(parts[1])-1);
+                    task.markUndone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(task.getDesc());
+                } else {
+                    String command = parts[0];
 
-                if (description.contains(" /")) {
-                    String [] details = description.split(" /");
-                    description = details[0].trim();
-                    for (int i = 1; i < details.length; i++) {
-                        String detail = details[i].trim();
-                        if (detail.startsWith("by ")) {
-                            by = detail.substring(3).trim();
-                        } else if (detail.startsWith("from ")) {
-                            from = detail.substring(5);
-                        } else if (detail.startsWith("to ")) {
-                            to = detail.substring(3).trim();
+                    if (parts.length < 2) {
+                        throw new Exception("Invalid input.");
+                    }
+                    String description = parts[1];
+
+                    String by = null;
+                    String from = null;
+                    String to = null;
+
+                    if (description.contains(" /")) {
+                        String [] details = description.split(" /");
+                        description = details[0].trim();
+                        for (int i = 1; i < details.length; i++) {
+                            String detail = details[i].trim();
+                            if (detail.startsWith("by ")) {
+                                by = detail.substring(3).trim();
+                            } else if (detail.startsWith("from ")) {
+                                from = detail.substring(5);
+                            } else if (detail.startsWith("to ")) {
+                                to = detail.substring(3).trim();
+                            }
                         }
                     }
+
+                    Task task = null;
+                    if (command.equals("todo")) {
+                        if (description.equals("")) {
+                            throw new EmptyDescriptionError();
+                        }
+                        task = new Todo (description);
+                        addToList(task);
+                    } else if (command.equals("deadline")) {
+                        task = new Deadline(by, description);
+                        addToList(task);
+                    } else if (command.equals("event")) {
+                        task = new Event(from, to, description);
+                        addToList(task);
+                    } else {
+                        throw new InvalidCommandError();
+                    }
+                    System.out.println("Got it. I've added this task: " + "\n" + task.getDesc());
+                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
                 }
 
-                Task task = null;
-                if (command.equals("todo")) {
-                    task = new Todo (description);
-                    addToList(task);
-                } else if (command.equals("deadline")) {
-                    task = new Deadline(by, description);
-                    addToList(task);
-                } else if (command.equals("event")) {
-                    task = new Event(from, to, description);
-                    addToList(task);
-                }
-                System.out.println("Got it. I've added this task: " + "\n" + task.getDesc());
-                System.out.println("Now you have " + lst.size() + " tasks in the list.");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
+
         }
-    }
+        }
+
 }
