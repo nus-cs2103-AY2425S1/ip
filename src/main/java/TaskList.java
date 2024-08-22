@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     public String getLastTask() {
-        return this.tasks.getLast().toString();
+        return this.tasks.get(this.tasks.size() - 1).toString();
     }
 
     public String getList() {
