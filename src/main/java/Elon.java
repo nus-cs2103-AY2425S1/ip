@@ -7,7 +7,7 @@ public class Elon {
     public String[] nextInput(Scanner scanner) {
         return scanner.nextLine().split(" ");
     }
-    private void Run() {
+    private void Run() throws ElonException {
         action.greet();
         Scanner scanner = new Scanner(System.in);
         String[] inputArr = scanner.nextLine().split(" ");
@@ -27,13 +27,26 @@ public class Elon {
                 inputArr = this.nextInput(scanner);
                 continue;
             } else {
-                action.startAddTask();
                 if (inputArr[0].equals("todo")) {
-                    action.addToDo(inputArr, list);
+                    try {
+                        action.addToDo(inputArr, list);
+                    } catch (ElonException e) {
+                        System.out.println(e);
+                    }
                 } else if (inputArr[0].equals("deadline")) {
-                    action.addDeadline(inputArr, list);
+                    try {
+                        action.addDeadline(inputArr, list);
+                    } catch (ElonException e) {
+                        System.out.println(e);
+                    }
                 } else if (inputArr[0].equals("event")) {
-                    action.addEvent(inputArr, list);
+                    try {
+                        action.addEvent(inputArr, list);
+                    } catch (ElonException e) {
+                        System.out.println(e);
+                    }
+                } else {
+                    throw new ElonException("Error. Invalid command.");
                 }
                 action.endAddTask(list.size());
                 inputArr = this.nextInput(scanner);
@@ -44,6 +57,11 @@ public class Elon {
     }
     public static void main(String[] args) {
         Elon elon = new Elon();
-        elon.Run();
+        try {
+            elon.Run();
+        } catch (ElonException e) {
+            System.out.println(e);
+        }  finally {
+        }
     }
 }

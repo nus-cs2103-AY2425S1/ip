@@ -1,3 +1,4 @@
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 public class Action {
@@ -26,25 +27,37 @@ public class Action {
 
     public void listTasks(ArrayList<Task> list) {
         drawLine();
-        System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(String.format("\t %d.", i + 1) + list.get(i).toString());
+        if (list.isEmpty()) {
+            System.out.println("\t There are no tasks in your list.");
+        } else {
+            System.out.println("\t Here are the tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(String.format("\t %d.", i + 1) + list.get(i).toString());
+            }
         }
         drawLine();
     }
 
     public void markTask(int index, ArrayList<Task> list) {
         drawLine();
-        System.out.println("\t Nice! I've marked this task as done:");
-        list.get(index).setDone();
+        if (list.get(index).getIsDone()) {
+            System.out.println("\t Task is already marked as done:");
+        } else {
+            System.out.println("\t Nice! I've marked this task as done:");
+            list.get(index).setDone();
+        }
         System.out.println("\t " + list.get(index).toString());
         drawLine();
     }
 
     public void unmarkTask(int index, ArrayList<Task> list) {
         drawLine();
-        System.out.println("\t OK, I've marked this task as not done yet:");
-        list.get(index).setNotDone();
+        if (!list.get(index).getIsDone()) {
+            System.out.println("\t Task is already not marked as done:");
+        } else {
+            System.out.println("\t OK, I've marked this task as not done yet:");
+            list.get(index).setNotDone();
+        }
         System.out.println("\t " + list.get(index).toString());
         drawLine();
     }
@@ -59,7 +72,11 @@ public class Action {
         drawLine();
     }
 
-    public void addToDo(String[] inputArr, ArrayList<Task> list) {
+    public void addToDo(String[] inputArr, ArrayList<Task> list) throws ElonException {
+        if (inputArr.length <= 1) {
+            throw new ElonException("Error. Description for ToDo task not specified.");
+        }
+        startAddTask();
         String task = "";
         for (int i = 1; i < inputArr.length; i++) {
             task += inputArr[i] + " ";
@@ -70,7 +87,10 @@ public class Action {
         System.out.println("\t " + todo.toString());
     }
 
-    public void addDeadline(String[] inputArr, ArrayList<Task> list) {
+    public void addDeadline(String[] inputArr, ArrayList<Task> list) throws ElonException {
+        if (inputArr.length <= 1) {
+            throw new ElonException("Error. Description and By date for Deadline task not specified.");
+        }
         int i = 1;
         String task = "";
         while (!inputArr[i].equals("/by")) {
@@ -79,16 +99,24 @@ public class Action {
         }
         task = task.strip();
         String by = "";
+        if (inputArr.length <= i+1) {
+            throw new ElonException("Error. By date for Deadline task not specified.");
+        }
         for (int j = i+1; j < inputArr.length; j++) {
             by += inputArr[j] + " ";
         }
         by = by.strip();
         Deadline deadline = new Deadline(task, by);
         list.add(deadline);
+        startAddTask();
         System.out.println("\t " + deadline.toString());
     }
 
-    public void addEvent(String[] inputArr, ArrayList<Task> list) {
+    public void addEvent(String[] inputArr, ArrayList<Task> list) throws ElonException {
+        if (inputArr.length <= 1) {
+            throw new ElonException("Error. Description, From and To date for Event task not specified.");
+        }
+        startAddTask();
         int i = 1;
         String task = "";
         while (!inputArr[i].equals("/from")) {
@@ -97,6 +125,9 @@ public class Action {
         }
         task = task.strip();
         i++;
+        if (inputArr.length <= i) {
+            throw new ElonException("Error. From date for Event task not specified.");
+        }
         String from = "";
         while (!inputArr[i].equals("/to")) {
             from += inputArr[i] + " ";
@@ -104,6 +135,9 @@ public class Action {
         }
         from = from.strip();
         i++;
+        if (inputArr.length <= i) {
+            throw new ElonException("Error. To date for Event task not specified.");
+        }
         String to = "";
         for (int j = i; j < inputArr.length; j++) {
             to += inputArr[j] + " ";
