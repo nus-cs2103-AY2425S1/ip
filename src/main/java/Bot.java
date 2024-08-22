@@ -3,6 +3,7 @@ import java.util.*;
 public class Bot {
     private final String INDENT = "  ";
     private final String DIVIDER = "____________________________________________________________\n";
+    private final List<String> TASK_TYPES = List.of(new String[]{"todo", "event", "deadline"});
     private ArrayList<Task> taskList = new ArrayList<>();
 
     public void acceptCommand() {
@@ -10,7 +11,7 @@ public class Bot {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             List<String> inputList = Arrays.asList(input.split(" "));
-            String command = inputList.get(0);
+            String command = inputList.get(0).strip();
 //            System.out.println("inputList size: " + inputList.size());
             String args = String.join(" ", inputList.subList(1, inputList.size()));
 //            System.out.println("command: " + command);
@@ -32,7 +33,21 @@ public class Bot {
                 int taskToMark = Integer.parseInt(args);
                 markTask(taskToMark, command);
             } else {
-                addToList(command, args);
+                try {
+                    addToList(command, args);
+                } catch (UnknownCommandException e) {
+                    System.out.println(DIVIDER
+                            + "hmmm i didn't quite understand what you said. try again?\n"
+                            + DIVIDER);
+                } catch (NoDescriptionException e) {
+                    String aOrAn = (Objects.equals(command, "event"))
+                            ? " an "
+                            : " a ";
+                    System.out.println(DIVIDER
+                            + "uhhh the description of" + aOrAn
+                            + command + " can't be empty :( try again?\n"
+                            + DIVIDER);
+                }
             }
         }
     }
@@ -45,7 +60,13 @@ public class Bot {
             return "your list has " + listSize + " items now.\n";
         }
     }
-    public void addToList(String command, String args) {
+    public void addToList(String command, String args) throws NoDescriptionException, UnknownCommandException {
+        if (!(TASK_TYPES.contains(command))) {
+            throw new UnknownCommandException();
+        }
+        if (Objects.equals(args, "")) {
+            throw new NoDescriptionException();
+        }
         if (Objects.equals(command, "todo")) {
             Todo todo = new Todo(args);
             taskList.add(todo);
