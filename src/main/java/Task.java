@@ -17,7 +17,7 @@ public class Task {
         isDone = true;
         System.out.println("____________________________________________________________ \n"
                 + "Nice! I've marked this task as done: \n"
-                + this.toString() + "\n"
+                + this + "\n"
                 + "____________________________________________________________") ;
 
     }
@@ -26,8 +26,14 @@ public class Task {
         isDone = false;
         System.out.println("____________________________________________________________ \n"
                 + "OK, I've marked this task as not done yet: \n"
-                + this.toString() + "\n"
+                + this + "\n"
                 + "____________________________________________________________") ;
+
+    }
+    public void delete() {
+        System.out.println("____________________________________________________________ \n"
+                + "Noted. I've removed this task:\n"
+                + this + "\n");
 
     }
 
