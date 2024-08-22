@@ -38,10 +38,29 @@ public class Charlotte {
                     System.out.println(line + "\n OK, I've marked this task as not done yet:\n  "
                             + tasks.get(taskNumber) + "\n" + line);
                 }
-            } else {
-                Task newTask = new Task(input);
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5);
+                Task newTask = new ToDo(description);
                 tasks.add(newTask);
-                System.out.println(line + "\n added: " + input + "\n" + line);
+                System.out.println(line + "\n Got it. I've added this task:\n  " + newTask
+                        + "\n Now you have " + tasks.size() + " tasks in the list.\n" + line);
+            } else if (input.startsWith("deadline")) {
+                String[] deadline = input.substring(9).split(" /by ");
+                String description = deadline[0];
+                String by = deadline[1];
+                Task newTask = new Deadline(description, by);
+                tasks.add(newTask);
+                System.out.println(line + "\n Got it. I've added this task:\n  " + newTask
+                        + "\n Now you have " + tasks.size() + " tasks in the list.\n" + line);
+            } else if (input.startsWith("event")) {
+                String[] event = input.substring(6).split(" /from | /to ");
+                String description = event[0];
+                String from = event[1];
+                String to = event[2];
+                Task newTask = new Event(description, from, to);
+                tasks.add(newTask);
+                System.out.println(line + "\n Got it. I've added this task:\n  " + newTask
+                        + "\n Now you have " + tasks.size() + " tasks in the list.\n" + line);
             }
 
         }
