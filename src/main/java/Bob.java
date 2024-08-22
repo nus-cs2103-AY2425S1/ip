@@ -102,7 +102,7 @@ public class Bob {
             throw new ChatBotException("The description of a todo cannot be empty.");
         }
         String description = phrase.substring(5);
-        Bob.tasks.add(new ToDo(description));
+        Bob.tasks.add(new ToDo(description, TaskType.TODO));
         System.out.println("Got it. I've added this task:");
         System.out.printf("  %s\n", Bob.tasks.get(tasks.size() - 1));
         System.out.printf("Now you have %d tasks in the list.\n", Bob.tasks.size());
@@ -113,7 +113,7 @@ public class Bob {
             String[] parts = phrase.split(" /by ");
             String description = parts[0].substring(9);
             String by = parts[1];
-            Bob.tasks.add(new Deadline(description, by));
+            Bob.tasks.add(new Deadline(description, by, TaskType.DEADLINE));
             System.out.println("Got it. I've added this task:");
             System.out.printf("  %s\n", Bob.tasks.get(Bob.tasks.size() - 1));
             System.out.printf("Now you have %d tasks in the list.\n", Bob.tasks.size());
@@ -128,7 +128,7 @@ public class Bob {
             String description = parts[0].substring(6);
             String from = parts[1];
             String to = parts[2];
-            Bob.tasks.add(new Event(description, from, to));
+            Bob.tasks.add(new Event(description, from, to, TaskType.EVENT));
             System.out.println("Got it. I've added this task:");
             System.out.printf("  %s\n", Bob.tasks.get(tasks.size() - 1));
             System.out.printf("Now you have %d tasks in the list.\n", Bob.tasks.size());
