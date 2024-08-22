@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Zaibot {
 
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final Storage storage = new Storage();
 
     /**
      * Prints a message, with the horizontal line above and below it
@@ -17,11 +17,10 @@ public class Zaibot {
 
     /**
      * This takes a command split by spaces, and processes them into separate commands
-     * The array returned is a String array of size 3, separating the string
-     * If the parameter is not applicable, it is left empty.
+     * The Hashmap returned contains key-value pairs of {parameter name: argument value}
      *
      * @param command A command
-     * @return A string array containing 3 strings, the name, to and by
+     * @return A Hashmap<String, String> where the key is the parameter name, and the value is the argument.
      */
     public static HashMap<String, String> processAddOptions(String command) throws ZaibotException {
         HashMap<String, String> arguments = new HashMap<>();
@@ -38,7 +37,6 @@ public class Zaibot {
         }
         arguments.put("name", options[0].trim());
 
-
         for (int i = 1; i < options.length; i++) {
             String option = options[i];
             String optionName = option.substring(0, option.indexOf(' ')).trim();
@@ -52,6 +50,12 @@ public class Zaibot {
         return arguments;
     }
 
+    /**
+     * Processes a task addition given the command and the task name.
+     * @param command The full length command
+     * @param taskName The name of the task
+     * @throws ZaibotException throws errors if command is not following the syntax
+     */
     public static void addTask(String command, String taskName) throws ZaibotException{
         String taskAddMessage = "Got it. I've added this task\n";
         String taskTotalMessage = "Now you have %d tasks in the list.\n";
@@ -83,9 +87,9 @@ public class Zaibot {
             default:
                 throw new ZaibotException("Invalid task");
         }
-        tasks.add(task);
+        Storage.addTask(task);
         printMessage(taskAddMessage + task.toString() + "\n" +
-                String.format(taskTotalMessage, tasks.size()));
+                String.format(taskTotalMessage, Storage.getNumberOfTasks()));
     }
 
     /**
@@ -111,19 +115,19 @@ public class Zaibot {
                 printMessage(taskListMessage + tasksListToString());
                 break;
             case "mark":
-                current = tasks.get(Integer.parseInt(options[1]) - 1);
+                current = Storage.getTask(Integer.parseInt(options[1]));
                 current.setCompletionStatus(true);
                 printMessage(markTaskMessage + current.toString() + "\n");
                 break;
             case "unmark":
-                current = tasks.get(Integer.parseInt(options[1]) - 1);
+                current = Storage.getTask(Integer.parseInt(options[1]));
                 current.setCompletionStatus(false);
                 printMessage(unmarkTaskMessage + current.toString() + "\n");
                 break;
             case "delete":
-                current = tasks.remove(Integer.parseInt(options[1]) - 1);
+                current = Storage.removeTask(Integer.parseInt(options[1]));
                 printMessage(String.format("%s %s\nNow you have %d tasks in the list.\n",
-                        deleteTaskMessage, current.toString(), tasks.size())
+                        deleteTaskMessage, current.toString(), Storage.getNumberOfTasks())
                 );
                 break;
             case "todo":
@@ -142,10 +146,9 @@ public class Zaibot {
      */
     public static String tasksListToString() {
         StringBuilder result = new StringBuilder();
-        int current = 0;
-        for (Task task : tasks) {
-            current++;
-            result.append(current).append(". ").append(task.toString()).append("\n");
+        for (int i = 1; i <= Storage.getNumberOfTasks(); i++) {
+            Task task = Storage.getTask(i);
+            result.append(i).append(". ").append(task.toString()).append("\n");
         }
         return result.toString();
     }
@@ -161,6 +164,7 @@ public class Zaibot {
             currentCommand = input.nextLine();
             try {
                 processCommand(currentCommand);
+                storage.saveToFile();
             }
             catch (ZaibotException exception) {
                 printMessage(exception.getMessage());

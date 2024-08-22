@@ -7,6 +7,11 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    @Override
+    public String toSaveString() {
+        return String.format("D | %s | %s",
+                super.toSaveString(), this.deadline);
+    }
 
     @Override
     public String toString() {

@@ -15,6 +15,17 @@ public class Task {
         this.isDone = status;
     }
 
+
+    /**
+     * Returns the string representation of the task when saved.
+     * @return a string in the format TYPE | COMPLETION \ NAME | ....
+     */
+    public String toSaveString() {
+        return String.format("%s | %s",
+                this.isDone ? "COMPLETE" : "INCOMPLETE",
+                this.name);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s",
