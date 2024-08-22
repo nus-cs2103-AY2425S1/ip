@@ -16,21 +16,25 @@ public class Event extends Task {
 
             if (inputString.contains("/to ")) {
                 int toIndex = inputString.indexOf("/to ");
-
+                if (toIndex < fromIndex) {
+                    throw new InvalidDateException("Wrong date order provided!");
+                }
                 String fromDate = inputString.substring(fromIndex + 6, toIndex);
                 String toDate = inputString.substring(toIndex + 4);
-                if (fromDate.length() == 0 || toDate.length() == 0) {
-                    throw new InvalidDateException();
+                if (fromDate.length() == 0) {
+                    throw new InvalidDateException("From date not provided");
+                } else if (toDate.length() == 0) {
+                    throw new InvalidDateException("To date not provided");
                 }
+                this.name = taskName;
+                this.fromDate = fromDate;
+                this.toDate = toDate;
+            } else {
+                throw new InvalidDateException("To date is not provided!");
             }
-
-
-            this.name = taskName;
-            this.fromDate = fromDate;
-            this.toDate = toDate;
-
+        } else {
+            throw new InvalidDateException("From date is not provided!");
         }
-        throw new InvalidDateException();
     }
 
     @Override
