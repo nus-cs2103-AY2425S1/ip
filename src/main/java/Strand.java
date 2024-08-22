@@ -15,13 +15,6 @@ public class Strand {
     }
     private static void chatStart() {
         running = true;
-//        String nameLogo = """
-//                 ____ _____ ____      _    _   _ ____ \s
-//                / ___|_   _|  _ \\    / \\  | \\ | |  _ \\ \s
-//                \\___ \\ | | | |_) |  / _ \\ |  \\| | | | |\s
-//                 ___) || | |  _ <  / ___ \\| |\\  | |_| |\s
-//                |____/ |_| |_| \\_\\/_/   \\_\\_| \\_|____/\s
-//                """;
         output("Hello from Strand\nWhat can I do for you?");
     }
 
@@ -34,13 +27,18 @@ public class Strand {
         );
     }
 
-    private static void mark(String input) {
+    private static void mark(String input) throws StrandException {
         String[] split = input.split("\\s+");
         if(split.length < 2) {
-            output("Please input a number after " + split[0] +  ". (e.g. mark 2).");
-        } else {
+            throw new StrandNumberNotFoundException(split[0]);
+        }
+        else {
             try {
-                Task t = strandList.get(Integer.parseInt(split[1])-1);
+                int index= Integer.parseInt(split[1]);
+                if(index > strandList.size() || index < 1) {
+                    throw new StrandWrongIndexException(strandList.size());
+                }
+                Task t = strandList.get(index-1);
                 String str;
                 if(Objects.equals(split[0], "mark")) {
                     t.markAsDone();
@@ -52,30 +50,43 @@ public class Strand {
                 output(str + t.getStatusIcon());
 
             } catch (NumberFormatException e) {
-                output("Please input a number after " + split[0]);
-            } catch (IndexOutOfBoundsException e) {
-                output("Please input a number which is in range. \n" + listAll());
-
+                throw new StrandNumberNotFoundException(split[0]);
             }
 
         }
     }
 
-    private static void addTask(String input) {
-        String type = input.split(" ")[0];
-        String desc = input.split(" ", 2)[1];
+    private static void addTask(String input) throws StrandException {
+        String[] split = input.split(" ", 2);
+        String type = split[0];
+        if(split.length < 2) {
+            throw new StrandDescNotFoundException("Description", type);
+        }
+        String desc = split[1];
+        if(desc.isEmpty()) {
+            throw new StrandDescNotFoundException("Description", type);
+        }
         switch (type.toLowerCase()) {
             case "todo": {
                 strandList.add(new Todo(desc));
                 break;
             }
             case "deadline": {
+                if(!desc.contains(" /by ")) {
+                    throw new StrandDescNotFoundException("Deadline", type);
+                }
                 String description = desc.substring(0,desc.indexOf(" /by "));
                 String deadline = desc.substring(desc.indexOf(" /by ")+5);
                 strandList.add(new Deadline(description, deadline));
                 break;
             }
             case "event":{
+                if(!desc.contains(" /from ")) {
+                    throw new StrandDescNotFoundException("Start time", type);
+                }
+                if(!desc.contains(" /to ")) {
+                    throw new StrandDescNotFoundException("End time", type);
+                }
                 String description = desc.substring(0,desc.indexOf(" /from "));
                 String start = desc.substring(desc.indexOf(" /from ")+7, desc.indexOf(" /to "));
                 String end = desc.substring(desc.indexOf(" /to ")+5);
@@ -88,7 +99,7 @@ public class Strand {
                 + "\nNow you have " + strandList.size() + " tasks in the list.");
     }
 
-    private static void inputs(String input) {
+    private static void inputs(String input) throws StrandException {
         if(input.equalsIgnoreCase("bye")) {
             output("Bye. Hope to see you again soon!");
             running = false;
@@ -97,14 +108,12 @@ public class Strand {
         } else if (input.toLowerCase().startsWith("mark") ||
                 input.toLowerCase().startsWith("unmark")) {
             mark(input);
-
         } else if (input.toLowerCase().startsWith("todo") ||
                 input.toLowerCase().startsWith("deadline") ||
                 input.toLowerCase().startsWith("event")) {
             addTask(input);
         } else {
-            output("added: " + input + "\n");
-            strandList.add(new Task(input));
+            throw new StrandWrongCommandException();
         }
     }
     public static void main(String[] args) {
@@ -112,7 +121,11 @@ public class Strand {
         Scanner scan = new Scanner(System.in);
         while(running && scan.hasNextLine()) {
             String userInput = scan.nextLine();
-            inputs(userInput);
+            try {
+                inputs(userInput);
+            } catch (StrandException e) {
+                output(e.toString());
+            }
         }
     }
 }
