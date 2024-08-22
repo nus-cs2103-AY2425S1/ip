@@ -4,12 +4,21 @@ import java.util.Scanner;
 
 public class IpMan {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final List<String> items = new ArrayList<>();
+    private static final List<Task> items = new ArrayList<>();
 
     private static void printItems() {
         for (int i = 0; i < items.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, items.get(i));
+            Task task = items.get(i);
+            System.out.printf("%d. %s\n", i + 1, task);
         }
+    }
+
+    private static String[] safeSplit(String input, int noArgs) {
+        String[] split = input.split(" ");
+        if (split.length < noArgs) {
+            throw new IllegalArgumentException(String.format("Expected %d arguments. Found %d.", noArgs, split.length));
+        }
+        return split;
     }
 
     public static void main(String[] args) {
@@ -28,9 +37,19 @@ public class IpMan {
                 break;
             } else if (input.equals("list")) {
                 printItems();
+            } else if (input.startsWith("mark")) {
+                String[] split = safeSplit(input, 2);
+                Task task = items.get(Integer.parseInt(split[1]) - 1);
+                task.markDone();
+                System.out.printf("Marked this task as done:\n%s\n", task);
+            } else if (input.startsWith("unmark")) {
+                String[] split = safeSplit(input, 2);
+                Task task = items.get(Integer.parseInt(split[1]) - 1);
+                task.unmarkDone();
+                System.out.printf("Marked this task as not yet done:\n%s\n", task);
             } else {
                 System.out.println(input);
-                items.add(input);
+                items.add(new Task(input));
             }
         }
 
