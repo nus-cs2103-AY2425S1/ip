@@ -1,13 +1,13 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class FRIDAY {
     private Boolean isActive;
     private String userInput;
     private String output;
     private final String greeting, exitMessage;
     private String divider;
-    private final Task[] storage = new Task[100];
+    private final ArrayList<Task> storage = new ArrayList<>();
     private int storagePointer = 0;
 
     public FRIDAY() {
@@ -51,19 +51,13 @@ public class FRIDAY {
                 switch (keyword) {
                     //keywords
                     case ("mark"):
-                        if (taskDetails.isEmpty()) {
-                            throw new FRIDAYException("ERROR: Please input the task that you are trying to mark as complete");
-                        }
-                        storage[Integer.parseInt(parts[1]) - 1].check();
-                        String marked = divider + "Nice! I've marked this task as done\n" + storage[Integer.parseInt(parts[1]) - 1] + "\n" + divider;
+                        storage.get(Integer.parseInt(parts[1]) - 1).check();
+                        String marked = divider + "Nice! I've marked this task as done\n" + storage.get(Integer.parseInt(parts[1]) - 1) + "\n" + divider;
                         System.out.println(marked);
                         break;
                     case ("unmark"):
-                        if (taskDetails.isEmpty()) {
-                            throw new FRIDAYException("ERROR: Please input the task that you are trying to mark as incomplete");
-                        }
-                        storage[Integer.parseInt(parts[1]) - 1].uncheck();
-                        String unmarked = divider + "Ok, I've marked this task as not done yet\n" + storage[Integer.parseInt(parts[1]) - 1] + "\n" + divider;
+                        storage.get(Integer.parseInt(parts[1]) - 1).uncheck();
+                        String unmarked = divider + "Ok, I've marked this task as not done yet\n" + storage.get(Integer.parseInt(parts[1]) - 1) + "\n" + divider;
                         System.out.println(unmarked);
                         break;
                     case ("todo"):
@@ -97,6 +91,15 @@ public class FRIDAY {
                         Task newEvent = new Event(eventDescription, eventStart, eventEnd);
                         add(newEvent);
                         break;
+                    case("delete"):
+                        if (taskDetails.isEmpty()) {
+                            throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
+                        }
+                        storage.remove(Integer.parseInt(parts[1]) - 1);
+                        String removed = divider + "Noted. I've removed this task:\n" + storage.get(Integer.parseInt(parts[1]) - 1) + "\n" + "\nNow you have " + storage.size() + " tasks in your list\n" + divider;
+                        System.out.println(removed);
+                        break;
+
                     case ("bye"):
                         System.out.println(exitMessage);
                         isActive = false;
@@ -104,13 +107,12 @@ public class FRIDAY {
                     case ("list"):
                         display();
                         break;
-
                     //if there is no input then nothing added to list
                     case (""):
                         break;
                     //to handle all normal inputs less empty strings
                     default:
-                        throw new FRIDAYException("It appears that you have attempted to log an unrecognized task type. Please try again");
+                        throw new FRIDAYException("It appears that you have attempted to log an unrecognized class type. Please try again");
                 }
             }
             catch(FRIDAYException e) {
@@ -122,17 +124,16 @@ public class FRIDAY {
     //function to add string to storage array
     public void add(Task input) {
         //add the input to the array
-        storage[storagePointer] = input;
-        storagePointer += 1;
-        output = divider + "Got it. I've added this task:\n " + input.getDescription() + "\nNow you have " + storagePointer + " tasks in your list\n" + divider;
+        storage.add(input);
+        output = divider + "Got it. I've added this task:\n " + input.getDescription() + "\nNow you have " + storage.size() + " tasks in your list\n" + divider;
         System.out.println(output);
     }
 
     //function to display storage in list format
     public void display() {
         String displayList = divider;
-        for(int i = 1; i <= storagePointer; i++) {
-            displayList += i + ". " + storage[i - 1] + "\n";
+        for(int i = 1; i <= storage.size(); i++) {
+            displayList += i + ". " + storage.get(i - 1) + "\n";
         }
         displayList += divider;
         output = "Here are the tasks in your list:\n" + displayList;
