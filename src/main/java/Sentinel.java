@@ -32,27 +32,21 @@ public class Sentinel {
             input = sc.next().toLowerCase();
             System.out.println("____________________________________________________________\n");
             switch (input) {
-                case "mark" -> {
-                    int num = sc.nextInt();
-                    if (num > list.size()) {System.out.println("No such item in the list!"); break;}
-                    else if (list.get(num-1).isDone()) {System.out.println(list.get(num-1) + " has already been marked as done."); break;}
-                    list.get(num - 1).setDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("\t" + list.get(num - 1).getStatusIcon() + " " + list.get(num - 1));
-                }
-                case "unmark" -> {
-                    int num = sc.nextInt();
-                    if (num > list.size()) {System.out.println("No such item in the list!"); break;}
-                    else if (!list.get(num-1).isDone()) {System.out.println(list.get(num-1) + " has already been marked as undone."); break;}
-                    list.get(num - 1).setUndone();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("\t" + list.get(num - 1).getStatusIcon() + list.get(num - 1));
-                }
                 case "list" -> {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < list.size(); i++) {
-                        System.out.println("\t" + (i + 1) + "." + list.get(i).classFirstChar() + list.get(i).getStatusIcon() + " " + list.get(i).listedString());
+                        System.out.println("\t" + (i + 1) + "." + list.get(i).listedString());
                     }
+                }
+                case "mark", "unmark", "delete" -> {
+                    int num = sc.nextInt();
+                    if (num > list.size()) {System.out.println("No such item in the list!"); break;}
+                    else if (input.equals("delete")) {System.out.println("I have deleted \n\t" + list.remove(num-1).listedString() + "\n You have " + list.size() +" remaining tasks."); break;}
+                    else if (input.equals("mark") && list.get(num-1).isDone()) {System.out.println(list.get(num-1) + " has already been marked as done."); break;}
+                    else if (input.equals("unmark") && !list.get(num-1).isDone()) {System.out.println(list.get(num-1) + " has already been marked as undone."); break;}
+                    if (list.get(num-1).isDone()) list.get(num - 1).setUndone(); else list.get(num - 1).setDone();
+                    System.out.println("Nice! I've marked this task as " + (list.get(num-1).isDone() ? "done" : "undone") + ":");
+                    System.out.println("\t" + list.get(num - 1).getStatusIcon() + " " + list.get(num - 1));
                 }
                 case "todo", "deadline", "event" -> {
                     String input2 = sc.nextLine().trim();
@@ -92,7 +86,7 @@ public class Sentinel {
                         }
                     }
                     System.out.println("Got it. I've added this task: " + list.get(list.size()-1));
-                    System.out.println("\t" + list.get(list.size()-1).classFirstChar() + list.get(list.size()-1).getStatusIcon() + " " + list.get(list.size()-1).listedString());
+                    System.out.println("\t" + list.get(list.size()-1).listedString());
                 }
                 case "/help" ->{
                     String helpText = """

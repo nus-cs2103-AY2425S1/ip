@@ -11,7 +11,7 @@ public class Task {
     }
     @Override
     public String toString(){ return this.description; }
-    public String listedString(){ return this.toString(); }
+    public String listedString(){ return this.classFirstChar() + this.getStatusIcon() + " " + this; }
     public String classFirstChar() {return "["+this.getClass().toString().charAt(6)+"]";}
     public boolean isDone() {return this.isDone;}
     public void setUndone(){ this.isDone = false;}
