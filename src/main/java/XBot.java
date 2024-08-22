@@ -43,7 +43,7 @@ public class XBot {
     }
 
     public static void displayTask() {
-        System.out.println("Here are the tasks in your list: ");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             int index = i + 1;
             System.out.println(index + ". " + list[i].toString());

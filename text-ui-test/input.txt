@@ -1,0 +1,14 @@
+todo borrow book
+deadline return book /by Sunday
+event welcome tea /from monday 3pm /to 5pm
+without type
+mark 2
+list
+unmark 2
+unmark this
+mark 3
+mark 4
+unmark 4
+unmark this
+list
+bye
