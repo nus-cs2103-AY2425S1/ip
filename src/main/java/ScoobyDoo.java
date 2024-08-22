@@ -7,7 +7,7 @@ public class ScoobyDoo {
 
         String greet = String.format("Hello! I'm %s\nWhat can I do for you?", name);
         printFormattedResponse(greet);
-        String input = "";
+        String input;
         Scanner scanIn = new Scanner(System.in);
         while (true) {
             input = scanIn.nextLine();
@@ -33,14 +33,5 @@ public class ScoobyDoo {
         System.out.println("\n");
 
     }
-
-    public static String getUserInput() {
-        String input;
-        Scanner scanIn = new Scanner(System.in);
-        input = scanIn.nextLine();
-        scanIn.close();
-        return input;
-    }
-
 }
 
