@@ -133,14 +133,34 @@ public class Jard {
                     if (command.equals("mark")) {
                         task.markAsDone();
                         System.out.println("____________________________________________________________");
-                        System.out.println(" Nice! I've marked this task as done:");
+                        System.out.println("Nice! I've marked this task as done:");
                     } else {
                         task.markAsNotDone();
                         System.out.println("____________________________________________________________");
-                        System.out.println(" OK, I've marked this task as not done yet:");
+                        System.out.println("OK, I've marked this task as not done yet:");
                     }
                     System.out.println("   " + task);
                     System.out.println("____________________________________________________________");
+                } else if (command.equals("delete")) {
+                    if (inputParts.length < 2) {
+                        throw new JardException("Invalid command! Please specify the task number.");
+                    } else {
+                        try {
+                            int taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                                Task removedTask = tasks.remove(taskIndex);
+                                System.out.println("____________________________________________________________");
+                                System.out.println(" Noted. I've removed this task:");
+                                System.out.println("   " + removedTask);
+                                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                                System.out.println("____________________________________________________________");
+                            } else {
+                                throw new JardException("Task number does not exist!");
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new JardException("Invalid task number format!");
+                        }
+                    }
                 } else if (command.equals("todo") && inputParts.length > 1) {
                     tasks.add(new Todo(inputParts[1]));
                     System.out.println("____________________________________________________________");
