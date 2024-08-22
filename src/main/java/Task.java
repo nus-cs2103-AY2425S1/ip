@@ -7,7 +7,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -19,7 +19,14 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusOutput() {
+    /**
+     * Returns a string representation of the task.
+     * Includes the status icon and the task description.
+     *
+     * @return Task as a formatted string.
+     */
+    @Override
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 }
