@@ -7,7 +7,7 @@ public class List {
         this.itemCount = 0;
     }
 
-    public void answer(String response) {
+    public void answer(String response) throws InvalidCommandException, InvalidNumberException {
         String command = response.contains(" ")
                 ? response.substring(0, response.indexOf(' '))
                 : response;
@@ -17,33 +17,57 @@ public class List {
         int index;
         switch (command) {
             case "todo":
-                name = response.substring(response.indexOf(' ') + 1);
-                this.add(new Todo(name));
+                try {
+                    name = response.substring(response.indexOf(' ') + 1);
+                    this.add(new Todo(name));
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException();
+                }
                 break;
             case "deadline":
-                name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
-                endTime = response.substring(response.indexOf("/by") + 4);
-                this.add(new Deadline(name, endTime));
+                try {
+                    name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
+                    endTime = response.substring(response.indexOf("/by") + 4);
+                    this.add(new Deadline(name, endTime));
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException();
+                }
                 break;
             case "event":
-                name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
-                startTime = response.substring(response.indexOf("/from") + 6, response.indexOf("/to") - 1);
-                endTime = response.substring(response.indexOf("/to") + 4);
-                this.add(new Event(name, startTime, endTime));
+                try {
+                    name = response.substring(response.indexOf(' ') + 1, response.indexOf('/') - 1);
+                    startTime = response.substring(response.indexOf("/from") + 6, response.indexOf("/to") - 1);
+                    endTime = response.substring(response.indexOf("/to") + 4);
+                    this.add(new Event(name, startTime, endTime));
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException();
+                }
                 break;
             case "mark":
-                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
-                this.markTask(index);
+                try {
+                    index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
+                    this.markTask(index);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException();
+                } catch (NumberFormatException e) {
+                    throw new InvalidNumberException();
+                }
                 break;
             case "unmark":
-                index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
-                this.unmarkTask(index);
+                try {
+                    index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
+                    this.unmarkTask(index);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException();
+                } catch (NumberFormatException e) {
+                    throw new InvalidNumberException();
+                }
                 break;
             case "list":
                 this.listOut();
                 break;
             default:
-                System.out.println("say smth");
+                throw new InvalidCommandException();
         }
     }
 

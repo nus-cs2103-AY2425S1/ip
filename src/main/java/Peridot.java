@@ -12,8 +12,13 @@ public class Peridot {
         botSay("What's up?");
         String userResponse = scanner.nextLine();
         while (!userResponse.equals("bye")) {
-            list.answer(userResponse);
-            userResponse = scanner.nextLine();
+            try {
+                list.answer(userResponse);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } finally {
+                userResponse = scanner.nextLine();
+            }
         }
         botSay("Bye!");
     }
