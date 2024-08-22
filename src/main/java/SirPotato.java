@@ -16,20 +16,34 @@ public class SirPotato {
     private String indent = "   ";
     private ArrayList<Task> toDoList;
 
+    /**
+     * Constructor for the chatbot, named SirPotato
+     * Initialises the scanner and the toDoList.
+     */
     public SirPotato() {
         this.scanner = new Scanner(System.in);
         this.toDoList = new ArrayList<Task>();
     }
 
+    /**
+     * Displays the welcome message when the user first starts the chat
+     */
     public void displayWelcomeMessage() {
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do ya for?\n" + horizontal_line);
     }
 
+    /**
+     * Displays the bye message when the user types 'bye'.
+     */
     public void displayByeMessage() {
         System.out.println("Bye mate, see you around.");
     }
 
+    /**
+     * Displays the message that a task has been added to the list
+     * @param task the task that is being added to the toDoList.
+     */
     public void displayAddedTask(Task task) {
         System.out.println(horizontal_line);
         System.out.println(indent + "Got it. I've added this task for ya.");
@@ -38,8 +52,9 @@ public class SirPotato {
         System.out.println(horizontal_line);
     }
 
-
-
+    /**
+     * Starts the chat with the bot. Keeps accepting user input until the user types 'bye'.
+     */
     public void startChat() {
         displayWelcomeMessage();
 

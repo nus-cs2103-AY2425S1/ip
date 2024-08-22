@@ -12,9 +12,6 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    public static void main(String[] args) {
-        Deadline dl = new Deadline("Do your work", "10th August");
-        System.out.print(dl);
-    }
+    
 
 }
