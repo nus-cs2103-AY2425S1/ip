@@ -47,6 +47,9 @@ public class Bot {
                     case "unmark":
                         handleUnmarkTask(args);
                         break;
+                    case "delete":
+                        handleDeleteTask(args);
+                        break;
                     case "bye":
                         printBotMessage("Bye. Hope to see you again soon!");
                         System.exit(0);
@@ -98,6 +101,22 @@ public class Bot {
         String response = String.format(
                 "Got it. I've added this task:\n  %s\nNow you have %d task(s) in the list.",
                 newTask.toString(),
+                tasks.size()
+        );
+        printBotMessage(response);
+    }
+
+    private static void handleDeleteTask(String args) throws InvalidTaskIdException {
+        int index = getTaskIndex(args);
+        if (index < 0 || index > tasks.size()-1) {
+            throw new InvalidTaskIdException(index+1);
+        }
+        Task taskToDelete = tasks.get(index);
+        tasks.remove(taskToDelete);
+
+        String response = String.format(
+                "Noted. I've removed this task:\n  %s\nNow you have %d task(s) in the list.",
+                taskToDelete.toString(),
                 tasks.size()
         );
         printBotMessage(response);
