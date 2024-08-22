@@ -23,7 +23,7 @@ public class NathanBot {
     private static final String DELETE_COMMAND = "delete ";
 
     public static void main(String[] args) {
-        TaskList TaskList = new TaskList();
+        TaskList taskList = new TaskList();
         System.out.println(LINE + GREET + LINE);
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -33,19 +33,19 @@ public class NathanBot {
                     handleExit();
                     break;
                 } else if (input.equals(DISPLAY_LIST_COMMAND)) {
-                    handleDisplayList(TaskList);
+                    handleDisplayList(taskList);
                 } else if (input.startsWith(MARK_DONE_COMMAND)) {
-                    handleMarkCommand(input, MARK_DONE_COMMAND, TaskList, true);
+                    handleMarkCommand(input, MARK_DONE_COMMAND, taskList, true);
                 } else if (input.startsWith(MARK_UNDONE_COMMAND)) {
-                    handleMarkCommand(input, MARK_UNDONE_COMMAND, TaskList, false);
+                    handleMarkCommand(input, MARK_UNDONE_COMMAND, taskList, false);
                 } else if (input.startsWith(TODO_COMMAND)) {
-                    handleTodoCommand(input, TaskList);
+                    handleTodoCommand(input, taskList);
                 } else if (input.startsWith(DEADLINE_COMMAND)) {
-                    handleDeadlineCommand(input, TaskList);
+                    handleDeadlineCommand(input, taskList);
                 } else if (input.startsWith(EVENT_COMMAND)) {
-                    handleEventCommand(input, TaskList);
+                    handleEventCommand(input, taskList);
                 } else if (input.startsWith(DELETE_COMMAND)) {
-                    handleDeleteCommand(input, TaskList);
+                    handleDeleteCommand(input, taskList);
                 } else {
                     handleUnknownCommand();
                 }
@@ -57,50 +57,50 @@ public class NathanBot {
         System.out.println(LINE + EXIT + LINE);
     }
 
-    private static void handleDisplayList(TaskList TaskList) {
-        System.out.println(LINE + TaskList + LINE);
+    private static void handleDisplayList(TaskList taskList) {
+        System.out.println(LINE + taskList + LINE);
     }
 
-    private static void handleMarkCommand(String input, String command, TaskList TaskList, boolean isDone) {
+    private static void handleMarkCommand(String input, String command, TaskList taskList, boolean isDone) {
         // Assisted by Copilot
         try {
             int index = Integer.parseInt(input.substring(command.length()));
             if (isDone) {
-                TaskList.markAsDone(index - 1);
-                System.out.println(LINE + "Nice! I've marked this task as done:\n  " + TaskList.getTask(index - 1) + "\n" + LINE);
+                taskList.markAsDone(index - 1);
+                System.out.println(LINE + "Nice! I've marked this task as done:\n  " + taskList.getTask(index - 1) + "\n" + LINE);
             } else {
-                TaskList.markAsUndone(index - 1);
-                System.out.println(LINE + "OK, I've marked this task as not done yet:\n  " + TaskList.getTask(index - 1) + "\n" + LINE);
+                taskList.markAsUndone(index - 1);
+                System.out.println(LINE + "OK, I've marked this task as not done yet:\n  " + taskList.getTask(index - 1) + "\n" + LINE);
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
         }
     }
 
-    private static void handleDeleteCommand(String input, TaskList TaskList) {
+    private static void handleDeleteCommand(String input, TaskList taskList) {
         // Assisted by Copilot
         try {
             int index = Integer.parseInt(input.substring(DELETE_COMMAND.length()));
-            Task task = TaskList.getTask(index - 1);
-            TaskList.deleteTask(index - 1);
-            System.out.println(LINE + "Noted. I've removed this task:\n  " + task + "\nNow you have " + TaskList.listLength() + " tasks in the list.\n" + LINE);
+            Task task = taskList.getTask(index - 1);
+            taskList.deleteTask(index - 1);
+            System.out.println(LINE + "Noted. I've removed this task:\n  " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n" + LINE);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
         }
     }
 
-    private static void handleTodoCommand(String input, TaskList TaskList) {
+    private static void handleTodoCommand(String input, TaskList taskList) {
         input = input.substring(TODO_COMMAND.length());
         if (input.length() == 0) {
             System.out.println(LINE + "The description of a todo cannot be empty. Use: todo <description>\n" + LINE);
             return;
         }
         ToDo task = new ToDo(input);
-        TaskList.addTask(task);
-        printAddTaskLine(task, TaskList);
+        taskList.addTask(task);
+        printAddTaskLine(task, taskList);
     }
 
-    private static void handleDeadlineCommand(String input, TaskList TaskList) {
+    private static void handleDeadlineCommand(String input, TaskList taskList) {
         // Logic input by me, syntax suggested by Copilot
         input = input.substring(DEADLINE_COMMAND.length()).trim();
 
@@ -114,11 +114,11 @@ public class NathanBot {
         String by = parts[1].trim();
         Deadline task = new Deadline(description, by);
 
-        TaskList.addTask(task);
-        printAddTaskLine(task, TaskList);
+        taskList.addTask(task);
+        printAddTaskLine(task, taskList);
     }
 
-    private static void handleEventCommand(String input, TaskList TaskList) {
+    private static void handleEventCommand(String input, TaskList taskList) {
         // Logic input by me, syntax suggested by Copilot
         input = input.substring(EVENT_COMMAND.length()).trim();
 
@@ -134,16 +134,16 @@ public class NathanBot {
 
         Event task = new Event(description, from, to);
 
-        TaskList.addTask(task);
+        taskList.addTask(task);
 
-        printAddTaskLine(task, TaskList);
+        printAddTaskLine(task, taskList);
     }
 
     private static void handleUnknownCommand() {
         System.out.println(LINE + "Unknown Command, womp womp." + "\n" + LINE);
     }
 
-    private static void printAddTaskLine(Task task, TaskList TaskList) {
-        System.out.println(LINE + "Got it. I've added this task: \n    " + task + "\nNow you have " + TaskList.listLength() + " tasks in the list.\n" + LINE);
+    private static void printAddTaskLine(Task task, TaskList taskList) {
+        System.out.println(LINE + "Got it. I've added this task: \n    " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n" + LINE);
     }
 }
