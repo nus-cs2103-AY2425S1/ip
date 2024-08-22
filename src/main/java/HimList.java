@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 public class HimList {
-    private ArrayList<String> list;
+    private ArrayList<Task> list;
 
     public HimList() {
-        list = new ArrayList<>();
+        this.list = new ArrayList<>();
     }
 
     public void add(String item) {
-        list.add(item);
+        list.add(new Task(item));
     }
 
     public String toString() {
