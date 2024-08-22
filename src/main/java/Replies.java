@@ -40,9 +40,12 @@ public class Replies {
             ls.get(i2 - 1).setter(false);
             return "     Task undone \n     " + ls.get(i2 - 1);
         } else {
-            Tasks t = new Tasks(message);
+            Tasks t = TaskCreator.create(message);
             ls.add(t);
-            return line + "\n" + "     " + "added: " + t + "\n" + line;
+            return line + "\n     "
+                    + "Got it! added the task: \n     "
+                    + t + "\n     "
+                    + String.format("Now you have %h tasks in the list \n", ls.size()) + line;
         }
     }
 
