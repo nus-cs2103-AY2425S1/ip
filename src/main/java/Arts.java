@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Scanner;
 
 public class Arts {
@@ -15,29 +16,49 @@ public class Arts {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         while (true) {
             String input = scanner.nextLine();
+            String[] parts = input.split(" ", 2);
 
-            if (input.equalsIgnoreCase("bye")) {
+            if (parts[0].equalsIgnoreCase("bye")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Bye! Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else if (input.equalsIgnoreCase("list")){
+            } else if (parts[0].equalsIgnoreCase("list")){
                 System.out.println("____________________________________________________________");
                 if (taskCount == 0) {
                     System.out.println("No tasks yet! Why not add some?");
                 } else {
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
                         System.out.println((i + 1) + ". " + tasks[i]);
                     }
                 }
                 System.out.println("____________________________________________________________");
+            } else if (parts[0].equalsIgnoreCase("mark")){
+                int taskIndex = Integer.parseInt(parts[1]) -1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].markAsDone();
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done.");
+                System.out.println(" " + tasks[taskIndex]);
+                System.out.println("____________________________________________________________");
+            } else if (parts[0].equalsIgnoreCase("unmark")) {
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].markAsNotDone();
+                }
+                System.out.println("____________________________________________________________");
+                System.out.println("OK, I've marked this task as not done.");
+                System.out.println(" " + tasks[taskIndex]);
+                System.out.println("____________________________________________________________");
             } else {
-                tasks[taskCount] = input;
+                tasks[taskCount] = new Task(input);
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("Added: " + input);
