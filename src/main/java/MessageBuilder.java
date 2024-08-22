@@ -14,7 +14,7 @@ public class MessageBuilder {
         buildMessage("BYE!!! *UWAGHhhHH* !!! see Ya *uWahghgh*");
     }
 
-    public void echoMessage(String message) {
+    public void sendMessage(String message) {
         buildMessage(message);
     }
 }
