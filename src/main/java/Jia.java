@@ -1,9 +1,13 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jia {
     public static void main(String[] args) {
         //Create a scanner object to read user input
         Scanner scanner = new Scanner(System.in);
+
+        //Create an array list to store user inputs
+        ArrayList<String> inputs = new ArrayList<>();
         String input;
 
         //Greet the user
