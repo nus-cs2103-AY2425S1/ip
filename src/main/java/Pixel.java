@@ -34,29 +34,35 @@ public class Pixel {
         System.out.println(LINE);
     }
 
-    public static void processResponse() {
+    public static void processResponse() throws
+            InvalidCommandException,
+            EmptyDescriptionException {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine();
             if (command.equals("list")) {
                 printList();
             } else if (command.startsWith("todo")) {
-                String description = command.replace("todo ", "");
-                ToDo newToDo = new ToDo(description);
-                tasks.add(newToDo);
-                printAddConfirmation(newToDo.toString());
+                String description = command.replace("todo", "").trim();
+                if (description.equals("")) {
+                    throw new EmptyDescriptionException("Description not found");
+                } else {
+                    ToDo newToDo = new ToDo(description);
+                    tasks.add(newToDo);
+                    printAddConfirmation(newToDo.toString());
+                }
             } else if (command.startsWith("deadline")) {
                 String[] stringArray = command.split("/", 0);
-                String description = stringArray[0].replace("deadline ", "");
-                String by = stringArray[1].replace("by ", "");
+                String description = stringArray[0].replace("deadline", "").trim();
+                String by = stringArray[1].replace("by", "").trim();
                 Deadline newDeadline = new Deadline(description, by);
                 tasks.add(newDeadline);
                 printAddConfirmation(newDeadline.toString());
             } else if (command.startsWith("event")) {
                 String[] stringArray = command.split("/", 0);
-                String description = stringArray[0].replace("event ", "");
-                String from = stringArray[1].replace("from ", "");
-                String to = stringArray[2].replace("to ", "");
+                String description = stringArray[0].replace("event", "").trim();
+                String from = stringArray[1].replace("from", "").trim();
+                String to = stringArray[2].replace("to", "").trim();
                 Event newEvent = new Event(description, from, to);
                 tasks.add(newEvent);
                 printAddConfirmation(newEvent.toString());
@@ -80,16 +86,29 @@ public class Pixel {
                 printExit();
                 break;
             } else {
-                Task newTask = new Task(command);
-                tasks.add(newTask);
-                System.out.println(LINE);
-                System.out.println("\t" + "added: " + newTask.getDescription());
-                System.out.println(LINE);
+                throw new InvalidCommandException("Command not found");
             }
         }
     }
     public static void main(String[] args) {
-        printGreeting();
-        processResponse();
+        try {
+            printGreeting();
+            processResponse();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(LINE);
+            System.out.println("\t" + "I'm sorry, but there is no such index that exists");
+            System.out.println("\t" + "Type in a valid index!");
+            System.out.println(LINE);
+        } catch (InvalidCommandException e) {
+            System.out.println(LINE);
+            System.out.println("\t" + "I'm sorry, but I don't know what that means");
+            System.out.println("\t" + "Type in a valid command!");
+            System.out.println(LINE);
+        } catch (EmptyDescriptionException e) {
+            System.out.println(LINE);
+            System.out.println("\t" + "I'm sorry, but I can't add a task if the description is empty!");
+            System.out.println("\t" + "Type in a valid description!");
+            System.out.println(LINE);
+        }
     }
 }
