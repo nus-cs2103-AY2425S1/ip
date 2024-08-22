@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Bottle {
     final static String lineBreak = "\n____________________________________________________________\n";
@@ -62,8 +63,7 @@ public class Bottle {
         System.out.println(lineBreak + str + lineBreak);
     }
     public static void main(String[] args) {
-        Task[] taskList = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
         String welcomeMsg =
                 " Hello! I'm Bottle\n" +
                 " What can I do for you?";
@@ -79,15 +79,15 @@ public class Bottle {
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     System.out.println(lineBreak);
-                    for (int i = 0; i < taskCount; i++) {
+                    for (int i = 0; i < taskList.size(); i++) {
                         int idx = i + 1;
-                        System.out.println(idx + ". " + taskList[i]);
+                        System.out.println(idx + ". " + taskList.get(i));
                     }
                     System.out.println(lineBreak);
                 } else if (input.startsWith("mark ")) {
                     int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        Task task = taskList[taskIndex];
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        Task task = taskList.get(taskIndex);
                         task.mark();
                         String msg = "Nice! I've marked this task as done:\n";
                         printwithBreak(msg + task);
@@ -96,8 +96,8 @@ public class Bottle {
                     }
                 } else if (input.startsWith("unmark ")) {
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        Task task = taskList[taskIndex];
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        Task task = taskList.get(taskIndex);
                         task.unMark();
                         String msg = "OK, I've marked this task as not done yet:\n";
                         printwithBreak(msg + task);
@@ -109,12 +109,11 @@ public class Bottle {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("Description cannot be empty");
                     }
-                    taskList[taskCount] = new Task.Todo(description);
-                    taskCount++;
+                    taskList.add(new Task.Todo(description));
                     System.out.print(lineBreak);
                     System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + taskList[taskCount - 1].toString());
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   " + taskList.get(taskList.size() - 1).toString());
+                    System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
                     System.out.println(lineBreak);
                 } else if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(9).split(" /by ");
@@ -123,12 +122,11 @@ public class Bottle {
                     }
                     String description = parts[0];
                     String by = parts[1];
-                    taskList[taskCount] = new Task.Deadline(description, by);
-                    taskCount++;
+                    taskList.add(new Task.Deadline(description, by));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + taskList[taskCount - 1].toString());
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   " + taskList.get(taskList.size() - 1).toString());
+                    System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
@@ -138,12 +136,11 @@ public class Bottle {
                     String description = parts[0];
                     String from = parts[1];
                     String to = parts[2];
-                    taskList[taskCount] = new Task.Event(description, from, to);
-                    taskCount++;
+                    taskList.add(new Task.Event(description, from, to));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + taskList[taskCount - 1].toString());
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("   " + taskList.get(taskList.size() - 1).toString());
+                    System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else {
                     throw new RuntimeException("OOPS!!! Something went wrong.");
