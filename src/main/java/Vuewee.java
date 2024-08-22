@@ -14,7 +14,7 @@ public class Vuewee {
     while (true) {
       String input = scanner.nextLine();
 
-      String[] inputParts = input.split(" ", 1);
+      String[] inputParts = input.split(" ", 2);
 
       if (inputParts.length == 0) {
         throw new Error("Unknown error occured. Input error.");
@@ -45,23 +45,41 @@ public class Vuewee {
 
         // Mark task as done if user types "mark <task number>"
         case "mark": {
-          String[] words = input.split(" ");
-          int taskNumber = Integer.parseInt(words[1]) - 1;
-          boolean success = taskList[taskNumber].markAsDone();
+          try {
+            int taskNumber = Integer.parseInt(inputParts[1]) - 1;
 
-          System.out.println(success ? "Nice! I've marked this task as done:" : "This task is already done:");
-          System.out.println("  [X] " + taskList[taskNumber].getDescription());
+            if (taskNumber >= taskListLength || taskNumber < 0) {
+              System.out.println("Invalid task number. There are " + taskListLength + " tasks in your list.");
+              break;
+            }
+
+            boolean success = taskList[taskNumber].markAsDone();
+
+            System.out.println(success ? "Nice! I've marked this task as done:" : "This task is already done:");
+            System.out.println("  [X] " + taskList[taskNumber].getDescription());
+          } catch (NumberFormatException e) {
+            System.err.println("Invalid task number: " + inputParts[1]);
+          }
           break;
         }
 
         case "unmark": {
-          String[] words = input.split(" ");
-          int taskNumber = Integer.parseInt(words[1]) - 1;
-          boolean success = taskList[taskNumber].markAsUndone();
+          try {
+            int taskNumber = Integer.parseInt(inputParts[1]) - 1;
 
-          System.out.println(
-              success ? "OK, I've marked this task as not done yet:" : "This task is already marked as not done:");
-          System.out.println("  [ ] " + taskList[taskNumber].getDescription());
+            if (taskNumber >= taskListLength || taskNumber < 0) {
+              System.out.println("Invalid task number. There are " + taskListLength + " tasks in your list.");
+              break;
+            }
+
+            boolean success = taskList[taskNumber].markAsUndone();
+
+            System.out.println(
+                success ? "OK, I've marked this task as not done yet:" : "This task is already marked as not done:");
+            System.out.println("  [ ] " + taskList[taskNumber].getDescription());
+          } catch (NumberFormatException e) {
+            System.err.println("Invalid task number: " + inputParts[1]);
+          }
           break;
         }
         // Add task to task list
