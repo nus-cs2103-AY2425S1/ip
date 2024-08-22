@@ -29,18 +29,41 @@ public class Mentos
     }
 
     public void startConversation(){
+        /*
+         * Starts the conversation with the user by displaying a greeting message.
+         * This method prints a formatted message to the console, including a
+         * border and a welcome message indicating that the chatbot, Mentos, is
+         * ready to assist.
+         */
         System.out.println("____________________________");
         System.out.println("Hello! I'm Mentos\nWhat can I do to help you?");
         System.out.println("____________________________");
     }
 
     public void endConversation(){
+        /*
+         * Ends the conversation with the user by displaying a farewell message.
+         * This method prints a formatted message to the console, including a
+         * border and a closing statement with a fun reference to Mentos,
+         * encouraging the user to "Pop a Mentos" and stay fresh.
+         */
         System.out.println("____________________________");
         System.out.println("Pop a Mentos, stay fresh! See you next time!");
         System.out.println("____________________________");
     }
 
     public Matcher regexHandler(String input,String regex){
+        /*
+         * Handles regular expression matching on a given input string.
+         * This method compiles the provided regular expression (regex) and
+         * attempts to find a match within the input string. If a match is found,
+         * it returns the `Matcher` object, allowing further operations like
+         * extracting matched groups. If no match is found, it returns `null`.
+         *
+         * @param input the string to be matched against the regular expression.
+         * @param regex the regular expression used for matching.
+         * @return `Matcher` object if a match is found; `null` otherwise.
+         */
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()){
@@ -50,6 +73,30 @@ public class Mentos
     }
 
     public void taskHandler(String input) {
+        /*
+         * Handles user input commands related to task management.
+         *
+         * This method processes various task-related commands such as listing tasks,
+         * marking tasks as done, unmarking tasks, deleting tasks, and adding new tasks
+         * (todo, deadline, event). It uses regular expressions to parse and validate
+         * the input commands, and throws custom exceptions (`MentosException`)
+         * when inputs are invalid.
+         *
+         * The following commands are supported:
+         *   list - Lists all the current tasks.
+         *   mark X- Marks the task at index X as done.
+         *   unmark X - Unmarks the task at index X (marks it as not done).
+         *   delete X< - Deletes the task at index X.
+         *   todo DESCRIPTION - Adds a new ToDo task with the given description.
+         *   deadline DESCRIPTION /by DATETIME - Adds a new Deadline task with the given description and due date.
+         *   event DESCRIPTION /from DATETIME /to DATETIME - Adds a new Event task with the given description and time range.
+         *
+         * If an unrecognized command is given, the method responds with a message indicating
+         * that the command is not understood.
+         *
+         * @param input the user's input command as a string.
+         * @throws MentosException if the input is invalid or if the specified task index does not exist.
+         */
         try {
             if (input.equals("list")) {
                 displayTasks();
@@ -144,6 +191,15 @@ public class Mentos
     }
 
     public void displayTasks(){
+        /*
+         * Displays the list of tasks currently stored.
+         *
+         * This method iterates through the list of tasks and prints each one,
+         * preceded by its corresponding index in the list. The tasks are formatted
+         * as a numbered list, and each task's string representation is output.
+         * After displaying all tasks, a separator line is printed.
+         */
+
         for (int i = 0; i < noTasks; i++) {
             String task_out = String.format("%d. %s",i+1,tasks.get(i).toString());
             System.out.println(task_out);
@@ -152,6 +208,18 @@ public class Mentos
     }
 
     public void print_event(String event, Task task){
+        /*
+         * Prints a formatted message indicating that a task event has occurred.
+         *
+         * This method outputs a message to the console that includes the type of event
+         * (such as "todo", "deadline", or "event"), the details of the task that was
+         * added, and the number of remaining tasks. The message is enclosed within
+         * a border for visual clarity.
+         *
+         * @param event the type of event that occurred (e.g., "todo", "deadline", "event").
+         * @param task the task object that was added or modified, whose details will be printed.
+         */
+
         System.out.println("____________________________");
         System.out.printf(event+" Added\n%s\n%d remaining tasks%n",task.toString(),noTasks);
         System.out.println("____________________________");
