@@ -12,8 +12,9 @@ public class Echo {
     public void setWord(String word) {
         this.word = word;
     }
+    //update the todo, deadline and event
     public void echoOut() {
-        String description = word.toLowerCase();
+        String description = word;
         String[] parts = description.split(" ", 2);
         String command = parts[0];
 
@@ -25,7 +26,7 @@ public class Echo {
                 System.out.println("Here are the tasks in your list: \n");
                 for (int i = 0; i < list.size(); i++) {
                     Task task = list.get(i);
-                    String response = String.format("%d. [%s] %s", i + 1, task.getStatusIcon(), task.getDescription());
+                    String response = String.format("%d. %s", i + 1, task.getDescription());
                     System.out.println(response);
                 }
                 break;
@@ -39,7 +40,7 @@ public class Echo {
                         if (index >= 0 && index < list.size()) {
                             Task t = list.get(index);
                             t.markAsDone();
-                            String response = String.format("[%s] %s", t.getStatusIcon(), t.getDescription());
+                            String response = String.format("%s", t.getDescription());
                             System.out.println("Nice I've marked this task as done: \n"
                                     +  "____________________________________________________________\n"
                                     + response);
@@ -63,7 +64,7 @@ public class Echo {
                         if (index >= 0 && index < list.size()) {
                             Task t = list.get(index);
                             t.unMark();
-                            String response = String.format("[%s] %s", t.getStatusIcon(), t.getDescription());
+                            String response = String.format("%s", t.getDescription());
                             System.out.println("OK, I've marked this task as not done yet: \n"
                                     +  "____________________________________________________________\n"
                                     + response);
@@ -75,6 +76,44 @@ public class Echo {
                         System.out.println("Please enter a valid task number\n");
                     }
                 }
+                break;
+
+            case "todo":
+                Task toDoTask = new ToDoTask(parts[1]);
+                list.add(toDoTask);
+                System.out.print("Got it. I've added this task: \n" + toDoTask.getDescription() +
+                        String.format("Now you have %d tasks in the list\n", list.size()));
+                break;
+
+            case "deadline":
+                int byIndex = parts[1].indexOf("/by");
+                if (byIndex == -1) {
+                    System.out.println("Incorrect format of adding deadline tasks. " +
+                            "Use '/by to specify the deadline after the task description");
+                }
+                String desc = parts[1].substring(0, byIndex);
+                String deadline = parts[1].substring(byIndex + 3);
+                Task deadlineTask = new DeadlineTask(desc, deadline);
+                list.add(deadlineTask);
+                System.out.print("Got it. I've added this task: \n" + deadlineTask.getDescription() +
+                        String.format("Now you have %d tasks in the list\n", list.size()));
+
+                break;
+            case "event":
+                int fromIndex = parts[1].indexOf("/from");
+                int toIndex = parts[1].indexOf("/to");
+                if (fromIndex == -1 || toIndex == -1) {
+                    System.out.println("Incorrect format of adding event tasks. " +
+                            "Use '/from to specify the start after the task description " +
+                            "and /to to specify deadline after start time");
+                }
+                String details = parts[1].substring(0, fromIndex);
+                String start = parts[1].substring(fromIndex + 5, toIndex);
+                String end = parts[1].substring(toIndex + 3);
+                Task eventTask = new EventTask(details, start, end);
+                list.add(eventTask);
+                System.out.print("Got it. I've added this task: \n" + eventTask.getDescription() + "\n" +
+                                String.format("Now you have %d tasks in the list\n", list.size()));
                 break;
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!\n"
