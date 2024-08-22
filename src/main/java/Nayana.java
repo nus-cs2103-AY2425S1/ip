@@ -10,6 +10,7 @@ public class Nayana {
      * The main method is the entry point of the application.
      * It prints a logo and a series of messages to the console.
      * and continues to process user input until the user types "bye"
+     * Commands include listing tasks or adding new tasks.
      *
      * @param args Command line arguments.
      */
@@ -34,15 +35,19 @@ public class Nayana {
         System.out.println("Hello! I'm Nayana");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
+        TaskList taskList = new TaskList();
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             if (command.equals("bye")) {
                 System.out.println("Bye!!! Hope to help you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else {
-                System.out.println(command);
+            } else if (command.equals("list")){
+                System.out.println(taskList);
                 System.out.println("____________________________________________________________");
+            } else {
+                Task nextTask = new Task(command);
+                taskList.addTask(nextTask);
             }
         }
         scanner.close();
