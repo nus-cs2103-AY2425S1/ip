@@ -30,21 +30,57 @@ public class TaskList {
                 }
                 
             } else if (firstCommand.equals("deadline")) {
+                if (splitwords.length == 1) {
+                    System.out.println("The description of a deadline cannot be empty");
+                    return;
+                }
                 String[] taskparts = splitwords[1].split(" /by ", 2);
                 String name = taskparts[0];
+                if (taskparts.length == 1) {
+                    System.out.println("The /by of a deadline cannot be empty");
+                    return;
+                }
                 String deadline = taskparts[1];
+                if (name.trim().equals("")) {
+                    System.out.println("The description of a deadline cannot be empty");
+                    return;
+                }
                 Task task = new Deadline(name, deadline);
                 this.add(task);
             } else if (firstCommand.equals("event")) {
+                if (splitwords.length == 1) {
+                    System.out.println("The description of an event cannot be empty");
+                    return;
+                }
                 String[] taskParts = splitwords[1].split(" /from ", 2);
+                if (taskParts.length == 1) {
+                    System.out.println("The from and to of an event cannot be empty");
+                    return;
+                }
                 String[] deadlines = taskParts[1].split(" /to ", 2);
                 String name = taskParts[0];
                 String from = deadlines[0];
+                if (deadlines.length == 1) {
+                    System.out.println("The from or to of an event cannot be empty");
+                    return;
+                }
                 String to = deadlines[1];
+                if (name.trim().equals("")) {
+                    System.out.println("The description of an event cannot be empty");
+                    return;
+                }
                 Task task = new Event(name, from, to);
                 this.add(task);
             } else if (firstCommand.equals("todo")) {
+                if (splitwords.length == 1) {
+                    System.out.println("The description of a todo cannot be empty");
+                    return;
+                }
                 String name = splitwords[1];
+                if (name.trim().equals("")) {
+                    System.out.println("The description of a todo cannot be empty");
+                    return;
+                }
                 Task task = new Todo(name);
                 this.add(task);
             } else {

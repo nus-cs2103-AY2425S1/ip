@@ -5,7 +5,7 @@ public class Task {
 
     public Task(String name) {
         this.done = false;
-        this.taskName = name;
+        this.taskName = name.trim();
     }
 
     public void mark() {
