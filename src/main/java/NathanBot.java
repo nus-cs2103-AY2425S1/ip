@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import tasks.Task;
+import tasks.Tasklist;
 
 public class NathanBot {
     public static void main(String[] args) {
@@ -9,6 +11,8 @@ public class NathanBot {
                        """;
         String EXIT = "Bye. Hope to see you again soon!\n";
         String BREAK_COMMAND = "bye";
+        String DISPLAY_LIST= "list";
+        Tasklist taskList = new Tasklist();
         System.out.println(LINE + GREET + LINE);
         
         try (Scanner scanner = new Scanner(System.in)) {
@@ -17,8 +21,11 @@ public class NathanBot {
                 if (input.equals(BREAK_COMMAND)) {
                     System.out.println(LINE + EXIT + LINE);
                     break;
+                } else if (input.equals(DISPLAY_LIST)) {
+                    System.out.println(LINE + taskList + LINE);
                 } else {
-                    System.out.println(LINE + input + "\n" + LINE);
+                    taskList.addTask(new Task(input));
+                    System.out.println(LINE + "added: " + input + "\n" + LINE);
                 }
             }
         }
