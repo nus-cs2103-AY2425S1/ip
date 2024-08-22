@@ -32,17 +32,25 @@ public enum Command {
         return usage;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public static Command getCommandFromInput(String input) throws InvalidCommandException {
         for (Command command : Command.values()) {
-            if (command.getInput().equals(input)) {
+            if (command.input.equals(input)) {
                 return command;
             }
         }
 
         throw new InvalidCommandException(input);
+    }
+
+    private int getMaxUsageLength() {
+        int maxUsageLenth = 0;
+        for (Command command : Command.values()) {
+            maxUsageLenth = Math.max(maxUsageLenth, command.usage.length());
+        }
+        return maxUsageLenth;
+    }
+
+    public String getHelpMessage() {
+        return String.format("%-" + getMaxUsageLength() + "s    %s", usage, description);
     }
 }
