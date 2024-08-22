@@ -43,7 +43,8 @@ public class Bob {
                 for (int i = 1; i < parts.length; i++) {
                     description.append(parts[i]).append(" ");
                 }
-                t = new Todo(description.toString());
+                String descriptionStr = description.toString().trim();
+                t = new Todo(descriptionStr);
             } else if (input.startsWith("deadline")) {
                 String[] parts = input.split(" ");
                 StringBuilder description = new StringBuilder();
