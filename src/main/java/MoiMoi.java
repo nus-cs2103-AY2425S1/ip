@@ -15,12 +15,25 @@ public class MoiMoi {
             + "Hello, master! How may I help you today? ><\n\n" + MoiMoi.userHeader;
     private static final String exitMessage = MoiMoi.moiMoiHeader
             + "I'll always be here for you~ See ya, master! ^^\n";
-    private Scanner sc = new Scanner(System.in);
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    private Storage storage;
+    private ArrayList<Task> tasks;
+    private Scanner sc;
+
+    public MoiMoi(String path) {
+        try {
+            storage = new Storage(path);
+            tasks = storage.load();
+        } catch (MoiMoiException e) {
+            System.out.println(e.getMessage());
+            tasks = new ArrayList<Task>();
+        }
+        sc = new Scanner(System.in);
+    }
 
     public void run() {
 
         System.out.println(MoiMoi.greeting);
+
         String input = sc.nextLine();
         String command = Parser.inputToCommand(input);
 
@@ -60,6 +73,12 @@ public class MoiMoi {
             command = Parser.inputToCommand(input);
         }
 
+        try {
+            storage.save(tasks);
+        } catch (StorageIOException e) {
+            System.out.println(e.getMessage());
+        }
+
         System.out.print("\n" + MoiMoi.exitMessage);
 
     }
@@ -67,7 +86,7 @@ public class MoiMoi {
     public void todo(String description) {
         Todo task = new Todo(description);
         this.tasks.add(task);
-        System.out.println("Aight! Todo task added: " + task.toString()
+        System.out.println("Aight! Todo task added: " + task.stringUI()
                 + "\nWe have " + tasks.size() + " tasks in the bag~");
     }
 
@@ -76,7 +95,7 @@ public class MoiMoi {
             String[] descBy = description.split(" /by ", 2);
             Deadline task = new Deadline(descBy[0], descBy[1]);
             this.tasks.add(task);
-            System.out.println("Got it! Deadline task added: " + task.toString()
+            System.out.println("Got it! Deadline task added: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks in the bag~");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
@@ -89,7 +108,7 @@ public class MoiMoi {
             String[] fromTo = descFromTo[1].split(" /to ", 2);
             Event task = new Event(descFromTo[0], fromTo[0], fromTo[1]);
             this.tasks.add(task);
-            System.out.println("Here you go! Event task added: " + task.toString()
+            System.out.println("Here you go! Event task added: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks in the bag~");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
@@ -101,7 +120,7 @@ public class MoiMoi {
             int i = Integer.parseInt(index) - 1;
             Task task = tasks.get(i);
             tasks.remove(i);
-            System.out.println("Aju nice! I've got rid of this task: " + task.toString()
+            System.out.println("Aju nice! I've got rid of this task: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks left in the bag~");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException();
@@ -112,7 +131,7 @@ public class MoiMoi {
         try {
             Task task = tasks.get(Integer.parseInt(index) - 1);
             task.mark();
-            System.out.println("YAY!! One down!!\n" + task.toString());
+            System.out.println("YAY!! One down!!\n" + task.stringUI());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException();
         }
@@ -122,7 +141,7 @@ public class MoiMoi {
         try {
             Task task = tasks.get(Integer.parseInt(index) - 1);
             task.unmark();
-            System.out.println("Oof, it's OK! Let's get it done soon ;)\n" + task.toString());
+            System.out.println("Oof, it's OK! Let's get it done soon ;)\n" + task.stringUI());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException();
         }
@@ -132,14 +151,13 @@ public class MoiMoi {
         System.out.println("Here's your list of tasks!");
         int index = 1;
         for (Task task : this.tasks) {
-            System.out.println(index + ". " + task.toString());
+            System.out.println(index + ". " + task.stringUI());
             index = index + 1;
         }
     }
 
     public static void main(String[] args) {
-        MoiMoi moiMoi = new MoiMoi();
-        moiMoi.run();
+        new MoiMoi("data/moimoi.txt").run();
     }
 
 }
