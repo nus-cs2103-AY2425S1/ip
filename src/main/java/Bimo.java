@@ -56,7 +56,14 @@ public class Bimo {
                     length += 1;
                     System.out.println("        "+ task.toString());
                 } else {
-
+                    String[] temp = command.split("/");
+                    String start = processDate(temp[1]);
+                    String end = processDate(temp[2]);
+                    String details = getDetails(temp[0]);
+                    Task task = new Event(details, start ,end);
+                    Bimo.list[length] = task;
+                    length += 1;
+                    System.out.println("        "+ task.toString());
                 }
                 String word = length == 1 ? "task" : "tasks";
                 System.out.println(String.format("    Now you have %d %s in the list.", length, word));
@@ -81,12 +88,23 @@ public class Bimo {
         }
     }
 
+    /**
+     *
+     * @param mixed String that consists of action and description
+     * @return Only the description but with white space infront
+     */
     public static String getDetails(String mixed) {
         String[] temp = mixed.split(" ");
         temp[0] = "";
         return String.join(" ", temp);
     }
 
+
+    /**
+     *
+     * @param invalid String that contains filler words such as from, by and to
+     * @return String that only includes the date portion but with white space infront
+     */
     public static String processDate(String invalid) {
         String[] temp = invalid.split(" ");
         temp[0] = "";
