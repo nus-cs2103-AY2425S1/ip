@@ -1,13 +1,13 @@
 public class Deadline extends Task {
-    private String date;
+    private String by;
 
-    public Deadline(String name) {
-        super(name.split("/by")[1]);
-        this.date = name.split("/by")[1];
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
     }
 
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s)", super.toString(), this.date);
+        return String.format("[D] %s (by: %s)", super.toString(), this.by);
     }
 }
