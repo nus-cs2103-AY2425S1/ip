@@ -26,35 +26,65 @@ public class Bobby {
             String[] splitInput = input.split(" ");
             switch (splitInput[0].toLowerCase()) {
                 case "mark":
-                    mark(Integer.valueOf(splitInput[1]));
+                    try {
+                        mark(Integer.valueOf(splitInput[1]));
+                    } catch (IndexOutOfBoundsException e) {
+                        horizontalLine(35);
+                        System.out.println();
+                        System.out.println("Item cannot be accessed in list.");
+                        System.out.println("Check the number of items again.");
+                        horizontalLine(35);
+                    }
                     break;
                 case "unmark":
-                    unmark(Integer.valueOf(splitInput[1]));
+                    try {
+                        unmark(Integer.valueOf(splitInput[1]));
+                    } catch (IndexOutOfBoundsException e) {
+                        horizontalLine(35);
+                        System.out.println();
+                        System.out.println("Item cannot be accessed in list.");
+                        System.out.println("Check the number of items again.");
+                        horizontalLine(35);
+                    }
                     break;
                 case "todo":
-                    // Split into 2 parts and then get the second part after todo
-                    String todoInput = input.split(" ", 2)[1];
-                    Todo td = new Todo(todoInput);
-                    addToList(td);
+                    try {
+                        Todo td = Todo.createTodo(input);
+                        addToList(td);
+                    } catch (EmptyDescriptionException e) {
+                        horizontalLine(35);
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        horizontalLine(35);
+                    }
                     break;
                 case "deadline":
-                    String deadlineInput = input.split(" ", 2)[1];
-                    String deadlineDescription = deadlineInput.split(" /by ")[0];
-                    String deadlineDay = deadlineInput.split(" /by ")[1];
-                    Deadline dl = new Deadline(deadlineDescription, deadlineDay);
-                    addToList(dl);
+                    try {
+                        Deadline dl = Deadline.createDeadline(input);
+                        addToList(dl);
+                    } catch (EmptyDescriptionException e) {
+                        horizontalLine(35);
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        horizontalLine(35);
+                    }
                     break;
                 case "event":
-                    String eventInput = input.split(" ", 2)[1];
-                    String eventDescription = eventInput.split(" /", 3)[0];
-                    String eventStart = eventInput.split(" /", 3)[1].substring(5);
-                    String eventEnd = eventInput.split(" /", 3)[2].substring(3);
-                    Event event = new Event(eventDescription, eventStart, eventEnd);
-                    addToList(event);
+                    try {
+                        Event event = Event.createEvent(input);
+                        addToList(event);
+                    } catch (EmptyDescriptionException e) {
+                        horizontalLine(35);
+                        System.out.println();
+                        System.out.println(e.getMessage());
+                        horizontalLine(35);
+                    }
                     break;
                 default:
-                    Task t = new Task(input);
-                    addToList(t);
+                    horizontalLine(35);
+                    System.out.println();
+                    System.out.println("Please use a valid command: todo, deadline or event.");
+                    horizontalLine(35);
             }
         }
     }
