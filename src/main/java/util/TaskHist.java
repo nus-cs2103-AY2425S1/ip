@@ -34,7 +34,7 @@ public class TaskHist {
     // create the message to be printed
     StringBuilder sb = new StringBuilder(String.format(
         "%sGot it I've added this task:\n", Utility.INDENT));
-    sb.append(String.format("%s%s\n", Utility.INDENT, newTask.toString()));
+    sb.append(String.format("%s%s%s\n", Utility.INDENT, Utility.INDENT, newTask.toString()));
     sb.append(String.format(
         "%sNow you have %d tasks in your list.", Utility.INDENT, this.tasks.size() + 1));
     TaskHist.prettyPrint(sb.toString());
@@ -42,7 +42,7 @@ public class TaskHist {
   }
 
   /**
-   * Prints the items in the hist
+   * Prints the items in the hist.
    */
   public void prettyPrintAll() {
     int no = 1;
@@ -68,7 +68,7 @@ public class TaskHist {
     } else {
       sb.append("Task has already been completed!\n");
     }
-    sb.append(String.format("%s%s", Utility.INDENT, entry.toString()));
+    sb.append(String.format("%s%s%s", Utility.INDENT, Utility.INDENT, entry.toString()));
     TaskHist.prettyPrint(sb.toString());
   }
 
@@ -79,16 +79,15 @@ public class TaskHist {
    */
   public void markAsUndone(int idx) {
     Task entry = this.tasks.get(--idx);
-    System.out.println(String.format("%s", Utility.INDENTED_LINE));
+    StringBuilder sb = new StringBuilder();
     if (entry.isDone()) {
       entry.markUndone();
-      System.out.println(
-          String.format("%sOK, I've marked this task as not done yet:", Utility.INDENT));
+      sb.append(String.format("%sOK, I've marked this task as not done yet:\n", Utility.INDENT));
     } else {
-      System.out.println(String.format("%sTask is already unmarked!", Utility.INDENT));
+      sb.append(String.format("%sTask is already unmarked!\n", Utility.INDENT));
     }
-    System.out.println(String.format("  %s%s", Utility.INDENT, entry.toString()));
-    System.out.println(String.format("%s", Utility.INDENTED_LINE));
+    sb.append(String.format("%s%s%s", Utility.INDENT, Utility.INDENT, entry.toString()));
+    TaskHist.prettyPrint(sb.toString());
   }
 
   @Override
