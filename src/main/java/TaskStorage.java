@@ -12,6 +12,18 @@ public class TaskStorage {
     tasks.add(task);
   }
 
+  public Task getTask(int taskIdx) {
+    return tasks.get(taskIdx);
+  }
+
+  public void setTaskAsDone(int taskIdx) {
+    tasks.get(taskIdx).setDone(true);
+  }
+
+  public void setTaskAsNotDone(int taskIdx) {
+    tasks.get(taskIdx).setDone(false);
+  }
+
   @Override
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();

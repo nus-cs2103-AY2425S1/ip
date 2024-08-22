@@ -15,6 +15,7 @@ public class Kat {
   private static final TaskStorage storage = new TaskStorage();
 
   public static void main(String[] args) {
+    // Todo: Refactor out to separate class / methods
     System.out.println("Hello from\n" + LOGO);
 
     respond("Hi! I'm Kat.\nHow can I help?");
@@ -29,6 +30,21 @@ public class Kat {
 
       if (inputMsg.equalsIgnoreCase("list")) {
         respond(storage.toString());
+        continue;
+      }
+
+      // Todo: Handle invalid inputs
+      if (inputMsg.startsWith("mark")) {
+        int taskIdx = Integer.parseInt(inputMsg.split(" ")[1]) - 1;
+        storage.setTaskAsDone(taskIdx);
+        respond("Nice! Done:\n" + storage.getTask(taskIdx).toString());
+        continue;
+      }
+
+      if (inputMsg.startsWith("unmark")) {
+        int taskIdx = Integer.parseInt(inputMsg.split(" ")[1]) - 1;
+        storage.setTaskAsNotDone(taskIdx);
+        respond("Ah! Not done:\n" + storage.getTask(taskIdx).toString());
         continue;
       }
 
