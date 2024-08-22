@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class XBot {
-    private static Task[] list = new Task[100];
-    private static int taskCount = 0;
+    private static List<Task> list = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
@@ -58,18 +59,18 @@ public class XBot {
 
     public static void displayTask() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
-            System.out.println(index + ". " + list[i].toString());
+            System.out.println(index + ". " + list.get(i).toString());
         }
     }
 
     public static void addTodo(String rest) {
         System.out.println("Got it. I've added this task:");
-        list[taskCount] = new ToDo(rest);
-        System.out.println(list[taskCount].toString());
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        Task newTask = new ToDo(rest);
+        list.add(newTask);
+        System.out.println(newTask.toString());
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
     public static void addDeadline(String rest) throws XBotException {
         String[] parts = rest.split("/by", 2);
@@ -77,10 +78,10 @@ public class XBot {
             System.out.println("Got it. I've added this task:");
             String taskDescription = parts[0].trim();
             String deadline = parts[1].trim();
-            list[taskCount] = new Deadline(taskDescription, deadline);
-            System.out.println(list[taskCount].toString());
-            taskCount++;
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            Task newTask = new Deadline(taskDescription, deadline);
+            list.add(newTask);
+            System.out.println(newTask.toString());
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'deadline <task> /by <date>'");
         }
@@ -96,11 +97,10 @@ public class XBot {
             if (timeParts.length == 2) {
                 String from = timeParts[0].trim();
                 String to = timeParts[1].trim();
-
-                list[taskCount] = new Event(taskDescription, from, to);
-                System.out.println(list[taskCount].toString());
-                taskCount++;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                Task newTask = new Event(taskDescription, from, to);
+                list.add(newTask);
+                System.out.println(newTask.toString());
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
             }
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
@@ -111,8 +111,8 @@ public class XBot {
     public static void markDone(String rest) throws XBotException {
         try {
             int taskNumber = Integer.parseInt(rest.trim());
-            if (taskNumber > 0 && taskNumber <= taskCount) {
-                list[taskNumber - 1].markAsDone();
+            if (taskNumber > 0 && taskNumber <= list.size()) {
+                list.get(taskNumber - 1).markAsDone();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
@@ -124,8 +124,8 @@ public class XBot {
     public static void markUndone(String rest) throws XBotException {
         try {
             int taskNumber = Integer.parseInt(rest.trim());
-            if (taskNumber > 0 && taskNumber <= taskCount) {
-                list[taskNumber - 1].markAsUndone();
+            if (taskNumber > 0 && taskNumber <= list.size()) {
+                list.get(taskNumber - 1).markAsUndone();
             } else {
                 throw new XBotException("This task number do not exist.");
             }
