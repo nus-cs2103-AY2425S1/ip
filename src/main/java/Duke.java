@@ -24,7 +24,7 @@ public class Duke {
             userInput = scanner.nextLine();
 
             if (userInput.equals("list")){
-                Reply.printMessage(taskList.printTodo());
+                Reply.printMessage(taskList.printList());
             } else if (userInput.equals("bye")) {
                 break;
             } else if (userInput.startsWith("mark")) {
@@ -38,7 +38,7 @@ public class Duke {
             } else if (userInput.startsWith("event")) {
                 handleAddEvent(userInput);
             } else {
-                Reply.printMessage(" Invalid Input");
+                Reply.printMessage("Invalid input");
             }
         }
 
@@ -54,7 +54,7 @@ public class Duke {
     public static void handleMarkTask(String message, boolean mark) {
         String[] split = message.split(" ");
         if (split.length > 2) {
-            Reply.printMessage(" Invalid input");
+            Reply.printMessage("Invalid input");
             return;
         }
 
@@ -65,9 +65,9 @@ public class Duke {
                 taskList.unmarkTask(Integer.parseInt(split[1]));
             }
         } catch (NumberFormatException e ) {
-            Reply.printMessage(" Invalid number");
+            Reply.printMessage("Invalid number");
         } catch (IndexOutOfBoundsException e) {
-            Reply.printMessage(" Index number does not exist");
+            Reply.printMessage("Index number does not exist");
         }
     }
 
@@ -93,8 +93,7 @@ public class Duke {
             String by = parts[1].trim();
             taskList.addTask(new Deadline(taskName, by));
         } else {
-            Reply.printMessage(" Incorrect format for deadline task. Please use the format: " +
-                    "'deadline <task> /by <date>'.");
+            Reply.printMessage("Invalid input");
         }
     }
 
@@ -111,8 +110,7 @@ public class Duke {
             String to = parts[2].trim();
             taskList.addTask(new Event(taskName, from, to));
         } else {
-            Reply.printMessage(" Incorrect format for event task. Please use the format: 'event <task> " +
-                    "/from <start time> /to <end time>'.");
+            Reply.printMessage("Invalid input");
         }
     }
 }
