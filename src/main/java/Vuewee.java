@@ -42,7 +42,7 @@ public class Vuewee {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             taskList.markTask(taskNumber, true);
           } catch (NumberFormatException e) {
-            System.err.println("Invalid task number: " + inputParts[1]);
+            System.out.println("Invalid task number: " + inputParts[1]);
           }
           break;
         }
@@ -52,7 +52,7 @@ public class Vuewee {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             taskList.markTask(taskNumber, false);
           } catch (NumberFormatException e) {
-            System.err.println("Invalid task number: " + inputParts[1]);
+            System.out.println("Invalid task number: " + inputParts[1]);
           }
           break;
         }
@@ -66,13 +66,13 @@ public class Vuewee {
         // (Usage: deadline <description> /by <date>)
         case "deadline": {
           if (inputParts.length < 2) {
-            System.err.println("Invalid deadline format. Usage: deadline <description> /by <date>");
+            System.out.println("Invalid deadline format. Usage: deadline <description> /by <date>");
             break;
           }
 
           String[] deadlineParts = inputParts[1].split(" /by ");
           if (deadlineParts.length != 2) {
-            System.err.println(
+            System.out.println(
                 "Invalid deadline format. Usage: deadline <description> /by <date>");
             break;
           }
@@ -102,12 +102,12 @@ public class Vuewee {
 
             taskList.addTask(new EventTask(description, fromDate, toDate));
           } else {
-            System.err.println("Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>");
+            System.out.println("Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>");
           }
           break;
         }
         default: {
-          System.err.println("Unknown command: " + command);
+          System.out.println("Unknown command: " + command);
           break;
         }
       }
