@@ -4,8 +4,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import ui.TextUI;
-
 
 import exception.CitadelException;
 import exception.CitadelInvalidArgException;

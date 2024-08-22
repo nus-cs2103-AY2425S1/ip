@@ -4,8 +4,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import ui.TextUI;
-
 
 import exception.CitadelException;
 import exception.CitadelInvalidArgException;
@@ -26,12 +24,12 @@ public class TaskList {
         this.taskList.add(task);
     }
 
-    public Task delete(int index) {
-        return this.taskList.remove(index - 1);
+    public Task remove(int index) {
+        return this.taskList.remove(index);
     }
 
     public Task get(int index) {
-        return this.taskList.get(index - 1);
+        return this.taskList.get(index);
     }
 
     public int size() {
@@ -39,6 +37,6 @@ public class TaskList {
     }
 
     public boolean isEmpty() {
-        return this.taskList.size() == 0;
+        return this.taskList.isEmpty();
     }
 }
