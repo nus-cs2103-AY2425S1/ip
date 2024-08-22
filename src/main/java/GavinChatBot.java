@@ -114,7 +114,7 @@ public class GavinChatBot{
     public static void toDoTask(String input) throws GavinException {
         String[] inputParts = input.split(" ", 2);
 
-        // throw an error if description of todo is empty
+        // throw an error if description is empty
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
             throw new GavinException("A ToDo must have a description!!!");
         }
