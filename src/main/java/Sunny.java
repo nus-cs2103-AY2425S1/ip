@@ -11,17 +11,12 @@ public class Sunny {
             "      ____) | | |__| || |\\  || |\\  |    | |     \n" +
             "     |_____/   \\____/ |_| \\_||_| \\_|    |_|     \n";
 
-    public static final String line = "     ────────────────────";
-    public static final String welcome = "     HELLO! I am Sunny:)\n     How can I help you?";
-    public static final String goodbye = "     You are leaving? Ok bye:( come back soon";
-
+    private static Replies toUser = new Replies();
 
     public static void main(String[] args) {
         // WELCOME MESSAGE
         System.out.println("Hello from\n" + logo);
-        System.out.println(line);
-        System.out.println(welcome);
-        System.out.println(line);
+        System.out.println(toUser.welcome());
 
         // USER INTERACTION
         while (true) {
@@ -29,18 +24,13 @@ public class Sunny {
             String userMessage = userInput.nextLine();  // Read user input
 
             if (Objects.equals(userMessage, "bye")) {
+                System.out.println(toUser.reply("bye"));
                 break;
-            } else if (Objects.equals(userMessage, "")) {
-                System.out.println(line);
             } else {
-                System.out.println(line);  // responds
-                System.out.println("     " + userMessage);
-                System.out.println(line);
+                System.out.println(toUser.reply(userMessage));
             }
+
+
         }
-
-
-        System.out.println(line);
-        System.out.println(goodbye);
     }
 }
