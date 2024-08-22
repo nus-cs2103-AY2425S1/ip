@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Atlas {
@@ -48,18 +49,42 @@ public class Atlas {
                     int markIndex = Integer.parseInt(commandsArray[1]) - 1;
                     Task taskToBeMarked = taskList.get(markIndex);
                     taskToBeMarked.setIsDone();
-                    Atlas.print(String.format("Nice! I've marked this task as done:\n\t %s", taskToBeMarked));
+                    Atlas.print(String.format("Nice! I've marked this task as done:\n \t%s", taskToBeMarked));
                     break;
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(commandsArray[1]) - 1;
                     Task taskToBeUnmarked = taskList.get(unmarkIndex);
                     taskToBeUnmarked.setIsDone();
                     taskList.get(unmarkIndex).setIsNotDone();
-                    Atlas.print(String.format("OK, I've marked this task as not done yet:\n\t %s", taskToBeUnmarked));
+                    Atlas.print(String.format("OK, I've marked this task as not done yet:\n \t%s", taskToBeUnmarked));
+                    break;
+                case "todo":
+                    String todoName = String.format("%s %s", commandsArray[1], commandsArray[2]);
+                    ToDo todo = new ToDo(todoName);
+                    Atlas.addTask(taskList, todo);
+                    break;
+                case "deadline":
+                    String deadlineName = String.format("%s %s", commandsArray[1], commandsArray[2]);
+                    String deadlineTime = String.join(" ", Arrays.copyOfRange(commandsArray, 4, commandsArray.length));
+                    Deadline deadline = new Deadline(deadlineName, deadlineTime);
+                    Atlas.addTask(taskList, deadline);
+                    break;
+                case "event":
+                    String eventName = String.format("%s %s", commandsArray[1], commandsArray[2]);
+                    String startTime = "", endTime = "";
+                    for (int i = 4; i < commandsArray.length; i++) {
+                        if (commandsArray[i].equals("/to")) {
+                            startTime = String.join(" ", Arrays.copyOfRange(commandsArray, 4, i));
+                            endTime = String.join(" ", Arrays.copyOfRange(commandsArray, i + 1, commandsArray.length));
+                        }
+                    }
+
+                    Event event = new Event(eventName, startTime, endTime);
+                    Atlas.addTask(taskList, event);
                     break;
                 default:
-                    taskList.add(new Task(nextCommandLine));
-                    Atlas.print(String.format("added: %s", nextCommandLine));
+//                    taskList.add(new Task(nextCommandLine));
+//                    Atlas.print(String.format("added: %s", nextCommandLine));
                     break;
             }
         }
@@ -78,5 +103,11 @@ public class Atlas {
 
     public static void exit() {
         Atlas.print("Bye. Hope to see you again soon!");
+    }
+
+    public static void addTask(ArrayList<Task> taskList, Task task) {
+        taskList.add(task);
+        String addMessage = String.format("Got it. I've added this task: \n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
+        Atlas.print(addMessage);
     }
 }
