@@ -1,13 +1,13 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Moody {
     private static final String SPACER = "____________________________________________________________\n";
     private static final String INDENT = "    ";
-    private static Task[] userTasks = new Task[100];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> userTasks = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println(SPACER + "Hello! I'm Moody!\nWhat can I do for you?\n" + SPACER);
+        greetUser();
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -30,6 +30,8 @@ public class Moody {
                     addDeadlineTask(userInput);
                 } else if (userInput.startsWith("event")) {
                     addEventTask(userInput);
+                } else if (userInput.startsWith("delete ")) {
+                    deleteTask(userInput);
                 } else {
                     invalidCommand();
                 }
@@ -40,14 +42,18 @@ public class Moody {
         scanner.close();
     }
 
+    private static void greetUser() {
+        System.out.println(SPACER + "Hello! I'm Moody!\nWhat can I do for you?\n" + SPACER);
+    }
+
     private static void sayGoodbye() {
         System.out.println(SPACER + "Bye. Hope to see you again soon!\n" + SPACER);
     }
 
     private static void listTasks() {
         System.out.print(SPACER);
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + userTasks[i]);
+        for (int i = 0; i < userTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + userTasks.get(i));
         }
         System.out.println(SPACER);
     }
@@ -55,8 +61,8 @@ public class Moody {
     private static void markTask(String userInput) throws TaskOutOfBoundsException {
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
-        // to handle array out-of-bounds cases when accessing userTasks array
-        if (taskNumber >= taskCount || taskNumber < 0) {
+        // to handle array out-of-bounds cases when accessing userTasks arraylist
+        if (taskNumber >= userTasks.size() || taskNumber < 0) {
             throw new TaskOutOfBoundsException("""
                     Error: Cannot mark a task that does not exist
                     
@@ -64,17 +70,17 @@ public class Moody {
                     """);
         }
 
-        userTasks[taskNumber].markAsDone();
+        userTasks.get(taskNumber).markAsDone();
         System.out.println(SPACER + "Nice! I've marked this task as done:");
-        System.out.println(INDENT + userTasks[taskNumber].toString());
+        System.out.println(INDENT + userTasks.get(taskNumber).toString());
         System.out.println(SPACER);
     }
 
     private static void unmarkTask(String userInput) throws TaskOutOfBoundsException {
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
-        // to handle array out-of-bounds cases when accessing userTasks array
-        if (taskNumber >= taskCount || taskNumber < 0) {
+        // to handle array out-of-bounds cases when accessing userTasks arraylist
+        if (taskNumber >= userTasks.size() || taskNumber < 0) {
             throw new TaskOutOfBoundsException("""
                     Error: Cannot mark a task that does not exist
                     
@@ -82,9 +88,9 @@ public class Moody {
                     """);
         }
 
-        userTasks[taskNumber].markAsNotDone();
+        userTasks.get(taskNumber).markAsNotDone();
         System.out.println(SPACER + "OK, I've marked this task as not done yet:");
-        System.out.println(INDENT + userTasks[taskNumber].toString());
+        System.out.println(INDENT + userTasks.get(taskNumber).toString());
         System.out.println(SPACER);
     }
 
@@ -104,10 +110,10 @@ public class Moody {
         }
 
         String description = userInput.substring(5).trim();
-        userTasks[taskCount] = new Todo(description);
-        taskCount++;
-        System.out.println(SPACER + "Got it. I've added this task:\n" + INDENT + userTasks[taskCount - 1] + "\n"
-                + "Now you have " + taskCount + " tasks in the list.\n" + SPACER);
+        userTasks.add(new Todo(description));
+        System.out.println(SPACER + "Got it. I've added this task:\n"
+                + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
+                + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
     }
 
     private static void addDeadlineTask(String userInput) throws TaskInputException, InvalidCommandException {
@@ -136,10 +142,10 @@ public class Moody {
                     """);
         }
 
-        userTasks[taskCount] = new Deadline(substrings[0].trim(), substrings[1].trim());
-        taskCount++;
-        System.out.println(SPACER + "Got it. I've added this task:\n" + INDENT + userTasks[taskCount - 1] + "\n"
-                + "Now you have " + taskCount + " tasks in the list.\n" + SPACER);
+        userTasks.add(new Deadline(substrings[0].trim(), substrings[1].trim()));
+        System.out.println(SPACER + "Got it. I've added this task:\n"
+                + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
+                + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
     }
 
     private static void addEventTask(String userInput) throws TaskInputException, InvalidCommandException {
@@ -169,10 +175,28 @@ public class Moody {
 
         }
 
-        userTasks[taskCount] = new Event(substrings[0].trim(), substrings[1].trim(), substrings[2].trim());
-        taskCount++;
-        System.out.println(SPACER + "Got it. I've added this task:\n" + INDENT + userTasks[taskCount - 1] + "\n"
-                + "Now you have " + taskCount + " tasks in the list.\n" + SPACER);
+        userTasks.add(new Event(substrings[0].trim(), substrings[1].trim(), substrings[2].trim()));
+        System.out.println(SPACER + "Got it. I've added this task:\n"
+                + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
+                + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
+    }
+
+    private static void deleteTask(String userInput) throws TaskOutOfBoundsException {
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+        // to handle array out-of-bounds cases when accessing userTasks arraylist
+        if (taskNumber >= userTasks.size() || taskNumber < 0) {
+            throw new TaskOutOfBoundsException("""
+                    Error: Cannot mark a task that does not exist
+                    
+                    Please check that you are marking the correct task number.
+                    """);
+        }
+
+        Task removedTask = userTasks.remove(taskNumber);
+        System.out.println(SPACER + "Noted. I've removed this task:\n" + INDENT + removedTask + "\n"
+                + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
+
     }
 
     private static void invalidCommand() throws InvalidCommandException {
