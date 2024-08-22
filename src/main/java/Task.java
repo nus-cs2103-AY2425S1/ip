@@ -20,11 +20,16 @@ public class Task {
         return description;
     }
 
-    public Task mark() {
-        return new Task(description, true);
+    public void mark() {
+        isDone = true;
     }
 
-    public Task unmark() {
-        return new Task(description);
+    public void unmark() {
+        isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return this.getStatusIcon() + " " + description;
     }
 }
