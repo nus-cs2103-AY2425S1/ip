@@ -11,6 +11,7 @@ public class Bro {
     final static String UNMARK_COMMAND = "unmark";
     final static String ADD_TODO_COMMAND = "todo";
     final static String ADD_DEADLINE_COMMAND = "deadline";
+    final static String ADD_EVENT_COMMAND = "event";
 
     public static void main(String[] args) {
         reply(GREETING_MESSAGE);
@@ -28,8 +29,7 @@ public class Bro {
                 secondArg = inputArgs[1];
             }
 
-            switch (cmd
-            ) {
+            switch (cmd) {
                 case EXIT_COMMAND:
                     isConversing = false;
                     break;
@@ -74,16 +74,40 @@ public class Bro {
                         reply("Wrong usage of deadline command");
                         break;
                     }
-                    String[] parts = secondArg.split("/by");
-                    String taskContent = parts[0].trim();
-                    String deadline = parts[1].trim();
+                    String[] deadlineInputs = secondArg.split("/by");
+                    String taskContent = deadlineInputs[0].trim();
+                    String deadline = deadlineInputs[1].trim();
 
                     Task deadlineTask = taskList.addTask(new DeadlineTask(taskContent, deadline));
                     addTaskReply(deadlineTask, taskList.getNumberOfTask());
                     break;
+                case ADD_EVENT_COMMAND:
+                    // Input validation
+                    if (secondArg.isEmpty()) {
+                        reply("Bro I Can't add a empty task");
+                        break;
+                    }
+                    if (!secondArg.contains("/from") || !secondArg.contains("/to")) {
+                        reply("Wrong usage of event command");
+                        break;
+                    }
+
+                    try {
+                        String[] eventInputs = secondArg.split("/from");
+                        String eventName = eventInputs[0].trim();
+
+                        String[] durationInputs = eventInputs[1].split("/to");
+                        String startTime = durationInputs[0].trim();
+                        String endTime = durationInputs[1].trim();
+                        Task eventTask = taskList.addTask(new EventTask(eventName, startTime, endTime));
+                        addTaskReply(eventTask, taskList.getNumberOfTask());
+                        break;
+                    } catch (Exception e) {
+                        reply("Error: " + e.getMessage());
+                        break;
+                    }
                 default:
-                    taskList.addTask(new Task(input));
-                    reply("added: " + input);
+                    reply("I don't respond to that.");
             }
         }
         reply(GOODBYE_MESSAGE);
