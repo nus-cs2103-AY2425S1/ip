@@ -55,11 +55,17 @@ public class Evan {
                 // Check for "mark <task_number>"
                 if (input.matches("(?i)mark \\d+")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= TASKS.size()) {
+                        throw new EvanException("The <task_number> you entered is not valid.");
+                    }
                     markTaskAsDone(TASKS.get(taskIndex));
                 }
                 // Check for "unmark <task_number>"
                 else if (input.matches("(?i)unmark \\d+")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= TASKS.size()) {
+                        throw new EvanException("The <task_number> you entered is not valid.");
+                    }
                     markTaskAsUndone(TASKS.get(taskIndex));
                 }
                 // Check for "todo <description>"
@@ -94,6 +100,9 @@ public class Evan {
                     System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
                 } else if (input.matches("(?i)delete \\d+")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= TASKS.size()) {
+                        throw new EvanException("The <task_number> you entered is not valid.");
+                    }
                     deleteTask(TASKS.get(taskIndex));
                     System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
                 } else {
