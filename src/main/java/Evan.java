@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Evan {
     private static final String DIVIDER = "_".repeat(50);
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final ArrayList<String> TASKS = new ArrayList<>();
+    private static final ArrayList<Task> TASKS = new ArrayList<>();
 
     public static void main(String[] args) {
         greetUser();
@@ -51,9 +51,9 @@ public class Evan {
         printDivider();
     }
 
-    private static void addTask(String task) {
-        TASKS.add(task);
-        System.out.println("added: " + task);
+    private static void addTask(String description) {
+        TASKS.add(new Task(description));
+        System.out.println("added: " + description);
         printDivider();
     }
 
