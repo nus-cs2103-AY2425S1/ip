@@ -26,6 +26,8 @@ OK, I've marked this task as not done yet:
 Noted. I've removed this task:
 Now you have 2 tasks in the list.
 --------------------
+Error:The index is out of bound!
+--------------------
 Here are the tasks in your list:
 1. [T][X] t1
 2. [E][ ] e1  (from: d1  to: d2)
