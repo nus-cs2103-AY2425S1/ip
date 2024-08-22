@@ -31,36 +31,52 @@ public class Froggy {
                 }
                 System.out.println("_______________________________");
             } else if (input.toLowerCase().startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                if (index >= 0 && index < tasks.size()) {
-                    tasks.get(index).setStatus(true);
-                    System.out.println("Marked the following task as done:");
-                    System.out.println(tasks.get(index).toString());
-                    System.out.println(line);
-                } else {
-                    System.out.println("Invalid index");
+                try {
+                    int index = Integer.parseInt(input.substring(5)) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).setStatus(true);
+                        System.out.println("Marked the following task as done:");
+                        System.out.println(tasks.get(index).toString());
+                        System.out.println(line);
+                    } else {
+                        System.out.println("Invalid index");
+                        System.out.println(line);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid number after 'mark'.");
                     System.out.println(line);
                 }
             } else if (input.toLowerCase().startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= 0 && index < tasks.size()) {
-                    tasks.get(index).setStatus(false);
-                    System.out.println("Marked the following task as undone:");
-                    System.out.println(tasks.get(index).toString());
-                    System.out.println(line);
-                } else {
-                    System.out.println("Invalid index");
+                try {
+                    int index = Integer.parseInt(input.substring(7)) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).setStatus(false);
+                        System.out.println("Marked the following task as undone:");
+                        System.out.println(tasks.get(index).toString());
+                        System.out.println(line);
+                    } else {
+                        System.out.println("Invalid index");
+                        System.out.println(line);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid number after 'unmark'.");
                     System.out.println(line);
                 }
             } else {
                 //Handle Task input
                 if (input.toLowerCase().startsWith("todo ")) {
-                    String desc = input.substring(5);
-                    Todo current = new Todo(desc);
-                    tasks.add(current);
-                    System.out.println("Added this task:");
-                    System.out.println(current.toString());
-                    System.out.println(line);
+                    if (input.length() == 5) {
+                        System.out.println("Error: No description for ToDo task.");
+                        System.out.println("Please input a description for the task");
+                        System.out.println(line);
+                    } else {
+                        String desc = input.substring(5);
+                        Todo current = new Todo(desc);
+                        tasks.add(current);
+                        System.out.println("Added this task:");
+                        System.out.println(current.toString());
+                        System.out.println(line);
+                    }
                 } else if (input.toLowerCase().startsWith("deadline ")) {
                     int index = input.toLowerCase().indexOf("/by ");
                     if (index != -1) {
@@ -87,10 +103,8 @@ public class Froggy {
                     }
                 }
                 else {
-                    Task current = new Task(input);
-                    tasks.add(current);
-                    System.out.println("Added this task:");
-                    System.out.println(current.toString());
+                    System.out.println("Input not recognised. Please input a valid action:");
+                    System.out.println("todo, event, deadline, mark, unmark, list, bye");
                     System.out.println(line);
                 }
             }
