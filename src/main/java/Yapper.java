@@ -29,56 +29,102 @@ public class Yapper {
         }
         else if (command.startsWith("mark"))
         {
-            String input = command.substring(5);
-            int order = Integer.parseInt(input);
-            mark(order);
+            mark(command);
         }
         else if (command.startsWith("unmark"))
         {
-            String input = command.substring(7);
-            int order = Integer.parseInt(input);
-            unmark(order);
+            unmark(command);
         }
         else if (command.startsWith("todo"))
         {
-            String input = command.substring(5);
-            addToDo(input);
+            addToDo(command);
         }
         else if (command.startsWith("deadline"))
         {
-            String input = command.substring(9);
-            String[] split = input.split("/by ");
-            addDeadline(split[0], split[1]);
+            addDeadline(command);
         }
         else if (command.startsWith("event"))
         {
-            String input = command.substring(6);
-            String[] split = input.split("/from ");
-            String[] split2 = split[1].split("/to ");
-            addEvent(split[0], split2[0], split2[1]);
+            addEvent(command);
         }
         else
         {
-
+            throw new YapperException("Yapper don't know this command :(");
         }
     }
 
-    public static void addToDo(String toDoName)
+    public static void addToDo(String command)
     {
-        ToDo todo = new ToDo(toDoName);
+        String input = command.substring(5);
+        if (input.isEmpty())
+        {
+           throw new YapperException("Description for ToDo cannot be empty!");
+        }
+        ToDo todo = new ToDo(input);
         addTask(todo);
     }
 
-    public static void addDeadline(String deadlineName, String deadlineTime)
+    public static void addDeadline(String command)
     {
-        Deadline deadline = new Deadline(deadlineName, deadlineTime);
-        addTask(deadline);
+        String input = command.substring(9);
+        if (input.isEmpty())
+        {
+            throw new YapperException("Description for Deadline cannot be empty!");
+        }
+        String[] split = input.split("/by ");
+        if (split.length == 1)
+        {
+            throw new YapperException("Deadline require /by command with Deadline Time");
+        }
+        else if (split[0].isEmpty())
+        {
+            throw new YapperException("Deadline Task is empty!");
+        }
+        else if (split[1].isEmpty())
+        {
+            throw new YapperException("Deadline Time is empty!");
+        }
+        else
+        {
+            Deadline deadline = new Deadline(split[0], split[1]);
+            addTask(deadline);
+        }
     }
 
-    public static void addEvent(String eventName, String eventFromTime, String eventToTime)
+    public static void addEvent(String command)
     {
-        Event event = new Event(eventName, eventFromTime, eventToTime);
-        addTask(event);
+        String input = command.substring(6);
+        if (input.isEmpty())
+        {
+            throw new YapperException("Event Task cannot be empty!");
+        }
+        String[] split = input.split("/from ");
+        String[] split2 = split[1].split("/to ");
+        if (split.length == 1)
+        {
+            throw new YapperException("Event require /from command with Start Time");
+        }
+        else if (split2.length == 1)
+        {
+            throw new YapperException("Event require /to command with End Time");
+        }
+        else if (split[0].isEmpty())
+        {
+            throw new YapperException("Event Task is empty!");
+        }
+        else if (split2[0].isEmpty())
+        {
+            throw new YapperException("Event Start Time is empty!");
+        }
+        else if (split2[1].isEmpty())
+        {
+            throw new YapperException("Event End Time is empty!");
+        }
+        else
+        {
+            Event event = new Event(split[0], split2[0], split2[1]);
+            addTask(event);
+        }
     }
 
     // add a new task into the list
@@ -90,21 +136,55 @@ public class Yapper {
     }
 
     // mark a task as done
-    public static void mark(int taskNumber)
+    public static void mark(String taskNumber) throws YapperException
     {
-        Task taskToMark = listOfTask.get(taskNumber - 1);
-        taskToMark.setDone(true);
-        System.out.println("Nice! I've marked this task as done: \n" +
-                taskToMark);
+        String input = taskNumber.substring(5);
+        if (input.isEmpty())
+        {
+            throw new YapperException("Task Number cannot be empty!");
+        }
+
+        int order = Integer.parseInt(input);
+        if (order <= 0)
+        {
+            throw new YapperException("Task Number cannot be less than 1!");
+        }
+        else if (order > listOfTask.size())
+        {
+            throw new YapperException("Task Number cannot be more than size of list!");
+        }
+        else {
+            Task taskToMark = listOfTask.get(order - 1);
+            taskToMark.setDone(true);
+            System.out.println("Nice! I've marked this task as done: \n" +
+                    taskToMark);
+        }
     }
 
     // umark a task as undone
-    public static void unmark(int taskNumber)
+    public static void unmark(String taskNumber) throws YapperException
     {
-        Task taskToUnmark = listOfTask.get(taskNumber - 1);
-        taskToUnmark.setDone(false);
-        System.out.println("OK, I've marked this task as not done yet: \n" +
-                taskToUnmark);
+        String input = taskNumber.substring(7);
+        if (input.isEmpty())
+        {
+            throw new YapperException("Task Number cannot be empty!");
+        }
+
+        int order = Integer.parseInt(input);
+        if (order <= 0)
+        {
+            throw new YapperException("Task Number cannot be less than 1!");
+        }
+        else if (order > listOfTask.size())
+        {
+            throw new YapperException("Task Number cannot be more than size of list!");
+        }
+        else {
+            Task taskToUnmark = listOfTask.get(order - 1);
+            taskToUnmark.setDone(false);
+            System.out.println("OK, I've marked this task as not done yet: \n" +
+                    taskToUnmark);
+        }
     }
 
     // return list
