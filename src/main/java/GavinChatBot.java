@@ -11,6 +11,8 @@ public class GavinChatBot {
         System.out.println("Hello from\n" + logo);
         */
 
+        String[] inputList = new String[100];
+        int inputIndex = 0;
         String horizontalLine = "_________________________________\n";
 
         // print welcome message
@@ -33,9 +35,22 @@ public class GavinChatBot {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(horizontalLine);
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                // print out list of items
+                System.out.println(horizontalLine);
+                for (int i = 0; i < inputList.length; i++) {
+                    if (inputList[i] == null) {
+                        break;
+                    }
+                    System.out.println(i + ". " + inputList[i]);
+                }
+                System.out.println(horizontalLine);
+                continue;
             }
             System.out.println(horizontalLine);
-            System.out.println(input);
+            inputList[inputIndex] = input;
+            inputIndex++;
+            System.out.println("added:" + input);
             System.out.println(horizontalLine);
         }
     }
