@@ -40,21 +40,29 @@ public class Bellroy {
                     break;
 
                 case "mark":
-                    int position = Integer.parseInt(userInput.split(" ")[1]);
-                    toDoList.get(position - 1).markDone();
-                    System.out.println("    ____________________________________________________________\n" +
-                            "     Nice! I've marked this task as done:\n" +
-                            "     " + toDoList.get(position-1).toString() + "\n" +
-                            "    ____________________________________________________________");
+                    try {
+                        int position = Integer.parseInt(userInput.split(" ")[1]);
+                        toDoList.get(position - 1).markDone();
+                        System.out.println("    ____________________________________________________________\n" +
+                                "     Nice! I've marked this task as done:\n" +
+                                "     " + toDoList.get(position - 1).toString() + "\n" +
+                                "    ____________________________________________________________");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please specify which task to mark!!");
+                    }
                     break;
 
                 case "unmark":
-                    int pos = Integer.parseInt(userInput.split(" ")[1]);
-                    toDoList.get(pos - 1).undo();
-                    System.out.println("    ____________________________________________________________\n" +
-                            "     OK, I've marked this task as not done yet:\n" +
-                            "     " + toDoList.get(pos-1).toString() + "\n" +
-                            "    ____________________________________________________________");
+                    try {
+                        int pos = Integer.parseInt(userInput.split(" ")[1]);
+                        toDoList.get(pos - 1).undo();
+                        System.out.println("    ____________________________________________________________\n" +
+                                "     OK, I've marked this task as not done yet:\n" +
+                                "     " + toDoList.get(pos - 1).toString() + "\n" +
+                                "    ____________________________________________________________");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please specify which task to unmark!!");
+                    }
                     break;
 
                 case "todo":
@@ -69,28 +77,36 @@ public class Bellroy {
                     break;
 
                 case "deadline":
-                    String dueDate = input[1].split(" ", 2)[1].trim();
-                    Task deadline = new deadline(description, dueDate);
-                    toDoList.add(deadline);
-                    String response2 = String.format("    ____________________________________________________________\n" +
-                            "     Got it. I've added this task:\n" +
-                            "       " + deadline + "\n" +
-                            "     Now you have %d tasks in the list.\n" +
-                            "    ____________________________________________________________", toDoList.size());
-                    System.out.println(response2);
+                    try {
+                        String dueDate = input[1].split(" ", 2)[1].trim();
+                        Task deadline = new deadline(description, dueDate);
+                        toDoList.add(deadline);
+                        String response2 = String.format("    ____________________________________________________________\n" +
+                                "     Got it. I've added this task:\n" +
+                                "       " + deadline + "\n" +
+                                "     Now you have %d tasks in the list.\n" +
+                                "    ____________________________________________________________", toDoList.size());
+                        System.out.println(response2);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please specify a deadline!!");
+                    }
                     break;
 
                 case "event":
-                    String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
-                    String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
-                    Task event = new Event(description, startTime, endTime);
-                    toDoList.add(event);
-                    String response3 = String.format("    ____________________________________________________________\n" +
-                            "     Got it. I've added this task:\n" +
-                            "       " + event + "\n" +
-                            "     Now you have %d tasks in the list.\n" +
-                            "    ____________________________________________________________", toDoList.size());
-                    System.out.println(response3);
+                    try {
+                        String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
+                        String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
+                        Task event = new Event(description, startTime, endTime);
+                        toDoList.add(event);
+                        String response3 = String.format("    ____________________________________________________________\n" +
+                                "     Got it. I've added this task:\n" +
+                                "       " + event + "\n" +
+                                "     Now you have %d tasks in the list.\n" +
+                                "    ____________________________________________________________", toDoList.size());
+                        System.out.println(response3);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please make sure that you provide a /from and /to time");
+                    }
                     break;
 
 
