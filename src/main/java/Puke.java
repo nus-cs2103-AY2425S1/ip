@@ -1,8 +1,12 @@
 import java.util.Scanner;
 public class Puke {
     private MessageBuilder messageBuilder;
+    private TaskManager taskManager;
+    private InputManager inputManager;
     public Puke() {
         this.messageBuilder = new MessageBuilder();
+        this.taskManager = new TaskManager();
+        this.inputManager = new InputManager(taskManager, messageBuilder);
     }
     public static void main(String[] args) {
         Puke chatBot = new Puke();
@@ -19,7 +23,7 @@ public class Puke {
             if (userInput.trim().equalsIgnoreCase("bye")) {
                 break;
             }
-            messageBuilder.echoMessage(userInput);
+            inputManager.handleInput(userInput);
         }
 
         terminate();
