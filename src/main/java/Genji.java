@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Genji {
@@ -5,7 +6,13 @@ public class Genji {
     private static String LINE = "________________________________________________________________";
     private static Scanner scanner = new Scanner(System.in);
     private static boolean flag = true;
+    private static ArrayList<String> list = new ArrayList();
 
+    public static void addList(String s) {
+        list.add(s);
+        System.out.println("added: " + s);
+        System.out.println(LINE);
+    }
     public static void bye() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
@@ -27,7 +34,7 @@ public class Genji {
                 flag = false;
             }
             else {
-                echo(input);
+                addList(input);
             }
         }
         bye();
