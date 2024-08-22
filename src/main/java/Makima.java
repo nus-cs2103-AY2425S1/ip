@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Makima {
 
     public static final String LINE_SEPERATOR = "__________________";
     private boolean running = true;
+    private ArrayList<String> lines = new ArrayList<String>();
 
     public void greeting() {
         System.out.println("Yahallo! I'm your friendly chatbot, Makima!");
@@ -33,10 +35,18 @@ public class Makima {
                     running = false;
                     break;
 
+                case "list":
+                    for (int i = 0; i < lines.size(); i++) {
+                        System.out.println(i + ": " + lines.get(i));
+                    }
+                    System.out.println(LINE_SEPERATOR);
+                    break;
+
                 default:
-                    System.out.println(userInput);
+                    System.out.println("added: " + userInput);
+                    lines.add(userInput);
+                    System.out.println(LINE_SEPERATOR);
             }
-            System.out.println(LINE_SEPERATOR);
         }
 
         farewell();
