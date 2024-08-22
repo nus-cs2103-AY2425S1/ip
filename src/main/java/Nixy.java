@@ -8,7 +8,7 @@ public class Nixy {
 
     public static void main(String[] args) {
         String chatbotName = "Nixy";
-        wrapPrintWithHorizontalLines("Hello! I'm " + chatbotName, "What can I do for you?");
+        PrintUtility.wrapPrintWithHorizontalLines("Hello! I'm " + chatbotName, "What can I do for you?");
         while (true) {
             String input = readInput();
             if (input.equals("bye")) {
@@ -43,7 +43,7 @@ public class Nixy {
             exit();
             return;
         }
-        wrapPrintWithHorizontalLines(input);
+        PrintUtility.wrapPrintWithHorizontalLines(input);
         echo();
     }
 
@@ -53,38 +53,21 @@ public class Nixy {
     private static void store(String taskName) {
         Task task = new Task(taskName);
         taskManager.addTask(task);
-        wrapPrintWithHorizontalLines("added: " + taskName);
+        PrintUtility.wrapPrintWithHorizontalLines("added: " + taskName);
     }
 
     /**
      * List all tasks in the list of tasks.
      */
     private static void list() {
-        indentPrint(HORIZONTAL_LINE);
-        indentPrint("Here are the tasks in your list:");
+        PrintUtility.indentPrint(HORIZONTAL_LINE);
+        PrintUtility.indentPrint("Here are the tasks in your list:");
         taskManager.listTasks();
-        indentPrint(HORIZONTAL_LINE);
+        PrintUtility.indentPrint(HORIZONTAL_LINE);
     }
 
     private static void exit() {
-        wrapPrintWithHorizontalLines("Bye. Hope to see you again soon!");
+        PrintUtility.wrapPrintWithHorizontalLines("Bye. Hope to see you again soon!");
     }
 
-    private static void wrapPrintWithHorizontalLines(String... lines) {
-        indentPrint(HORIZONTAL_LINE);
-        indentPrint(lines);
-        indentPrint(HORIZONTAL_LINE);
-    }
-
-    private static void indentPrint(String... lines) {
-        for (String line : lines) {
-            System.out.println("    " + line);
-        }
-    }
-
-    private static void normalPrint(String... lines) {
-        for (String line : lines) {
-            System.out.println(line);
-        }
-    }
 }
