@@ -91,7 +91,7 @@ private void handleSpecialInputs(CommandType commandType, String userInput) {
             case EVENT:
                 Task newTask = addTask(commandType, userInput);
                 list.add(newTask);
-                printWithLines("Got it. I've added this task:\n  " + newTask + listLength());
+                printWithLines(" Got it. I've added this task:\n  " + newTask + listLength());
                 break;
             default:
                 throw new SnipeException("Unknown command. Type 'help' for a list of commands.");
