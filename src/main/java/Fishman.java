@@ -1,16 +1,32 @@
-public class Fishman {
-    public static void main(String[] args) {
-        String logo =
-                "  _____ _     _                           \n"
-                        + " |  ___(_)___| |__  _ __ ___   __ _ _ __  \n"
-                        + " | |_  | / __| '_ \\| '_ ` _ \\ / _` | '_ \\ \n"
-                        + " |  _| | \\__ \\ | | | | | | | | (_| | | | |\n"
-                        + " |_|   |_|___/_| |_|_| |_| |_|\\__,_|_| |_|\n";
-        System.out.println("Hello from\n" + logo);
+import java.util.Objects;
 
-        System.out.println("Hello! I'm Fishman");
-        System.out.println("What can I do for you?");
-        System.out.println("Bye. Hope to see you again soon!");
+public class Fishman {
+    private Ui ui;
+
+    public Fishman(Ui ui) {
+        this.ui = ui;
+    }
+
+    public void start() {
+        ui.displayLogo();
+        ui.displayWelcome();
+        boolean isExit = false;
+
+        while (!isExit) {
+            String command = ui.readCommands();
+            if (!command.equals("bye")) {
+                System.out.println(command);
+            } else {
+                isExit = true;
+            }
+
+        }
+        ui.displayGoodbye();
+    }
+    public static void main(String[] args) {
+        Ui ui = new Ui();
+        Fishman fishman = new Fishman(ui);
+        fishman.start();
     }
 }
 
