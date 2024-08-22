@@ -10,13 +10,28 @@ public class TrackBot {
         // with minor modifications
         while (true) {
             String userInput = scanner.nextLine();
+
             if (userInput.equalsIgnoreCase("list")) {
                 toDoList.listToString();
-                //System.out.println(listString);
             } else if (userInput.equalsIgnoreCase("how are you?")) {
-                System.out.println("TrackBot: I'm good, thank you. How about you?");
+                System.out.println("I'm good, thank you. How about you?");
             } else if (userInput.equalsIgnoreCase("bye")) {
                 break;
+            } else if (userInput.toLowerCase().startsWith("mark ")) {
+                try {
+                    int num = Integer.parseInt(userInput.substring(5)) - 1;
+                    toDoList.markTask(num);
+                } catch (Exception e) {
+                    System.out.println("Something went wrong. Please try again.");
+                }
+
+            } else if (userInput.toLowerCase().startsWith("unmark ")) {
+                try {
+                    int num = Integer.parseInt(userInput.substring(7)) - 1;
+                    toDoList.unmarkTask(num);
+                } catch (Exception e) {
+                    System.out.println("Something went wrong. Please try again.");
+                }
             } else {
                 String msg = toDoList.addToList(userInput);
                 System.out.println(msg);
