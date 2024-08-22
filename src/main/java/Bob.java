@@ -22,7 +22,7 @@ public class Bob {
                 int taskNumber = Integer.parseInt(response.substring(5));
                 Task task = memory.get(taskNumber - 1);
                 task.mark();
-                Bob.print(String.format("Nice! I've marked this task as done: \n\t %s", task));
+                Bob.print(String.format("Nice! I've marked this task as done:\n\t%s", task));
                 continue;
             }
 
@@ -30,7 +30,7 @@ public class Bob {
                 int taskNumber = Integer.parseInt(response.substring(7));
                 Task task = memory.get(taskNumber - 1);
                 task.unmark();
-                Bob.print(String.format("Oh well, this task has been marked undone: \n\t %s", task));
+                Bob.print(String.format("Oh well, this task has been marked undone:\n\t%s", task));
                 continue;
             }
 
