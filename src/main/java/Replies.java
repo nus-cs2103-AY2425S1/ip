@@ -39,6 +39,15 @@ public class Replies {
             int i2 = Integer.parseInt(m2);
             ls.get(i2 - 1).setter(false);
             return "     Task undone \n     " + ls.get(i2 - 1);
+        } else if(Objects.equals(m1, "delete")) {
+            String m2 = message.split(" ", 2)[1];
+            int i2 = Integer.parseInt(m2);
+            String s = ls.get(i2 - 1).toString();
+            ls.remove(i2 -1);
+            return line + "\n     "
+                    + "Got it! removed the task: \n     "
+                    + s + "\n     "
+                    + String.format("Now you have %h tasks in the list \n", ls.size()) + line;
         } else {
             try {
                 Tasks t = TaskCreator.create(message);
