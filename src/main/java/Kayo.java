@@ -49,6 +49,13 @@ public class Kayo {
                 System.out.print("Got it. I've added this task: \n");
                 System.out.print(event + "\n");
                 System.out.print("Now you have " + taskList.size() + " tasks in the list.\n");
+            }else if(splitList[0].equals("delete")) {
+                int index = Integer.parseInt(splitList[1])-1;
+                Task taskToDelete = taskList.get(index);
+                taskList.remove(index);
+                System.out.print("Noted. I've removed this task: \n");
+                System.out.print(taskToDelete + "\n");
+                System.out.print("Now you have " + taskList.size() + " tasks in the list.\n");
             } else {
                 new DukeException("OOPS !! Sorry i dont know what that means!");
             }
