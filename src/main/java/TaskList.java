@@ -31,6 +31,13 @@ public class TaskList {
         return listOfTasks.get(i - 1).toString();
     }
 
+    public void deleteTask(int i) throws NotInTaskListException {
+        if (i > listOfTasks.size() || i < 1) {
+            throw new NotInTaskListException();
+        }
+        listOfTasks.remove(i + 1);
+    }
+
     public int getSize() {
         return listOfTasks.size();
     }
