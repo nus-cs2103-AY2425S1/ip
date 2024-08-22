@@ -16,20 +16,35 @@ public class MrYapper {
 
     private static void addTask(String type, String parameter) {
         Task newTask;
+        String[] parameters;
         switch (type) {
         case "todo":
             newTask = new Todo(parameter);
             break;
         case "deadline":
-            String[] parameters = parameter.split("\\s*/by\\s*");
+            parameters = parameter.split("\\s*/by\\s*");
             if (parameters.length == 2 && !parameters[0].isEmpty()) {
                 newTask = new Deadline(parameters[0], parameters[1]);
-                break;
             } else {
-                say(" You need to give me a description and a deadline using \"/by\"\n"
-                        + "e.g. deadline CS2103T project /by Dec 31st");
+                say(" I need one description and deadline using \"/by\"\n"
+                        + " e.g. deadline CS2103T project /by Dec 31st");
                 return;
             }
+            break;
+        case "event":
+            parameters = parameter.split("\\s*/from\\s* | \\s*/to\\s*");
+            if (parameters.length == 3 &&
+                    !(parameters[0].isEmpty() || parameters[1].isEmpty())) {
+                String description = parameters[0];
+                String startTime = parameters[1];
+                String endTime = parameters[2];
+                newTask = new Event(description, startTime, endTime);
+            } else {
+                say(" I need one description, start and end time using \"/from\" and \"/to\"\n"
+                        + " e.g. event project meeting /from Mon 2pm /to 4pm");
+                return;
+            }
+            break;
         default:
             say(" The type of task is invalid! Something went wrong :(");
             return;
@@ -103,6 +118,7 @@ public class MrYapper {
                 break;
             case "todo":
             case "deadline":
+            case "event":
                 if (processedInput.length > 1) {
                     addTask(command, processedInput[1]);
                 } else {
