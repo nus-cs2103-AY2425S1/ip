@@ -81,6 +81,7 @@ public class SecondMind {
     }
 
     private static void exitProgram() {
+        printLineSeparator();
         System.out.println("Bye. Hope to see you again soon!");
         printLineSeparator();
     }
