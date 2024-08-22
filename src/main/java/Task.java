@@ -15,8 +15,13 @@ public class Task {
         this.isDone = false;
     }
 
+    // Reused from https://nus-cs2103-ay2425s1.github.io/website/schedule/week2/project.html
+    private String getStatusIcon() {
+        return (this.isDone ? "X" : " ");
+    }
+
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
