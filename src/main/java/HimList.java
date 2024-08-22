@@ -8,13 +8,34 @@ public class HimList {
     }
 
     public void add(String item) {
-        list.add(new Task(item));
+        Task task = new Task(item);
+        list.add(task);
+    }
+
+    public class TaskDoesNotExistException extends Exception {
+        public TaskDoesNotExistException(int index) {
+            super("Task " + (index + 1) + " does not exist");
+        }
+    }
+
+    public void complete(int index) throws Task.AlreadyCompletedException, TaskDoesNotExistException {
+        try {
+            Task task = list.get(index);
+            if (task == null) throw new TaskDoesNotExistException(index);
+            task.complete();
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskDoesNotExistException(index);
+        }
+    }
+
+    public String taskAt(int index) {
+        return list.get(index).toString();
     }
 
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            output.append(String.format("%d. %s\n", i + 1, list.get(i)));
+            output.append(String.format("%d.[%s] %s\n", i + 1, list.get(i).getStatusIcon(), list.get(i)));
         }
         return output.toString();
     }

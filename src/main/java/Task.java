@@ -6,10 +6,28 @@ public class Task {
         this.title = title;
     }
 
-    public void complete() {
+    public void complete() throws AlreadyCompletedException {
+        if (isComplete) {
+            throw new AlreadyCompletedException();
+        }
         isComplete = true;
     }
 
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    public class AlreadyCompletedException extends Exception {
+        private AlreadyCompletedException() {
+            super("the task has already been completed");
+        }
+    }
+
+    public String getStatusIcon() {
+        return (isComplete ? "X" : " ");
+    }
+
+    @Override
     public String toString() {
         return title;
     }
