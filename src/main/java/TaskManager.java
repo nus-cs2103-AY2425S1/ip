@@ -6,11 +6,13 @@ public class TaskManager {
         taskCount = 0;
         tasks = new Task[100];
     }
-    public void addTask(String description) {
-        tasks[taskCount] = new Task(description);
+    public void addTask(Task task) {
+        tasks[taskCount] = task;
         taskCount++;
         System.out.println("____________________________________________________________");
-        System.out.println("added: " + description);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + task);
+        System.out.println(" Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
