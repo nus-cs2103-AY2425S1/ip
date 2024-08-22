@@ -13,6 +13,7 @@ public class TaskStorage {
         this.taskArray[this.numberOfTasks] = task;
         System.out.println("\tAdded: " + task);
         this.numberOfTasks++;
+        System.out.println("\tYou now have " + this.numberOfTasks + " tasks.");
     }
 
     public void markTask(int i) {
@@ -30,6 +31,7 @@ public class TaskStorage {
     }
 
     public void listAllTasks() {
+        System.out.println("\tYou currently have " + this.numberOfTasks + " tasks.");
         for (int i = 0; i < numberOfTasks; i++) {
             int num = i + 1;
             Task task = taskArray[i];

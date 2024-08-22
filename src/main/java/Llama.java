@@ -9,6 +9,30 @@ public class Llama {
         System.out.println("\t" + num + ". " + task);
     }
 
+    public static void addTodo(String remaining, TaskStorage tasks) {
+        if (remaining.isBlank()) {
+            throw new LlamaException("Empty Todo Task?!? Might as well ask me to not add it in!");
+        }
+
+        tasks.addTask(new Todo(remaining));
+    }
+
+    public static void addDeadline(String remaining, TaskStorage tasks) {
+        if (remaining.isBlank()) {
+            throw new LlamaException("Empty Deadline?!? What's the point of keeping track of nothing?");
+        }
+
+        tasks.addTask(new Deadline(remaining));
+    }
+
+    public static void addEvent(String remaining, TaskStorage tasks) {
+        if (remaining.isBlank()) {
+            throw new LlamaException("Empty Event?!? You're planning to go nowhere with no one?");
+        }
+
+        tasks.addTask(new Event(remaining));
+    }
+
     public static void main(String[] args) {
         String logo = "";
         String hr = "____________________________________________________________" ;
@@ -21,6 +45,8 @@ public class Llama {
         displayString("Hello! I'm Llama!");
         displayString(logo);
         displayString("What can I do for you?");
+
+
 
         // Get user input
         boolean shouldContinue = true;
@@ -48,16 +74,32 @@ public class Llama {
             } else if (command.equals("unmark")) {                  // unmark task
                 int index = Integer.parseInt(remaining);
                 tasks.unmarkTask(index);
-            } else {                                                // add other tasks
-                if (command.equals("todo")) {
-                    tasks.addTask(new Todo(remaining));
-                } else if (command.equals("deadline")) {
-                    tasks.addTask(new Deadline(remaining));
-                } else if (command.equals("event")) {
-                    tasks.addTask(new Event(remaining));
-                } else {
-                    displayString("Unknown command ;-;");
+            } else {
+                if (command.equals("todo")) {                       // add todo
+                    try {
+                        addTodo(remaining, tasks);
+                    } catch(LlamaException e) {
+                        displayString(e.getMessage());
+                    }
+                } else if (command.equals("deadline")) {            // add deadline
+                    try {
+                        addDeadline(remaining, tasks);
+                    } catch(LlamaException e) {
+                        displayString(e.getMessage());
+                    }
+                } else if (command.equals("event")) {               // add event
+                    try {
+                        addEvent(remaining, tasks);
+                    } catch(LlamaException e) {
+                        displayString(e.getMessage());
+                    }
                 }
+                try {
+                    throw new LlamaException("Command not found, try again."); // really?
+                } catch (LlamaException e){
+                    displayString(e.getMessage());
+                }
+
             }
         }
 
