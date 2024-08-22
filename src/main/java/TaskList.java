@@ -97,41 +97,68 @@ public class TaskList {
     //     }
     // }
 
+    private CommandType getCommandType(String input) {
+        switch (input.toLowerCase()) {
+            case "list":
+                return CommandType.LIST;
+            case "mark":
+                return CommandType.MARK;
+            case "unmark":
+                return CommandType.UNMARK;
+            case "delete":
+                return CommandType.DELETE;
+            case "todo":
+                return CommandType.TODO;
+            case "deadline":
+                return CommandType.DEADLINE;
+            case "event":
+                return CommandType.EVENT;
+            case "bye":
+                return CommandType.BYE;
+            default:
+                return CommandType.INVALID;
+        }
+    }
+    
+
     public void executeCommand(String command) {
+        String[] splitWords = command.split(" ", 2);
+        CommandType commandType = getCommandType(splitWords[0]);
+    
         try {
-            if (command.equals("list")) {
-                this.list();
-            } else {
-                String[] splitWords = command.split(" ", 2);
-                String firstCommand = splitWords[0];
-                switch (firstCommand) {
-                    case "mark":
-                        handleMarkCommand(splitWords);
-                        break;
-                    case "unmark":
-                        handleUnmarkCommand(splitWords);
-                        break;
-                    case "delete":
-                        handleDeleteCommand(splitWords);
-                        break;
-                    case "deadline":
-                        handleDeadlineCommand(splitWords);
-                        break;
-                    case "event":
-                        handleEventCommand(splitWords);
-                        break;
-                    case "todo":
-                        handleTodoCommand(splitWords);
-                        break;
-                    default:
-                        throw new InvalidCommandException();
-                }
+            switch (commandType) {
+                case LIST:
+                    this.list();
+                    break;
+                case MARK:
+                    handleMarkCommand(splitWords);
+                    break;
+                case UNMARK:
+                    handleUnmarkCommand(splitWords);
+                    break;
+                case DELETE:
+                    handleDeleteCommand(splitWords);
+                    break;
+                case TODO:
+                    handleTodoCommand(splitWords);
+                    break;
+                case DEADLINE:
+                    handleDeadlineCommand(splitWords);
+                    break;
+                case EVENT:
+                    handleEventCommand(splitWords);
+                    break;
+                case BYE:
+                    System.out.println("Bye. Hope to see you again soon!");
+                    break;
+                default:
+                    throw new InvalidCommandException();
             }
         } catch (ScheduloException e) {
             System.out.println(e.getMessage());
         }
     }
-
+    
     private void handleMarkCommand(String[] splitWords) throws ScheduloException {
         if (splitWords.length < 2) {
             throw new InvalidTaskNumberException();
