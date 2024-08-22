@@ -9,29 +9,45 @@ public class BeeBot {
         String greet = "Hello! I'm BeeBot\n"
                 + "What can I do for you?\n";
         String exit = "Bye. Hope to see you again!\n";
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
         speak(greet);
 
         while (!exit_status) {
-            String cmd = scanner.nextLine();
+            String input = scanner.nextLine();
+            String[] parts = input.split(" ");
+            String cmd = parts[0];
+
             switch (cmd) {
                 case "bye":
                     speak(exit);
                     exit_status = true;
                     break;
                 case "list":
-                    int size = list.size();
+                    int size = taskList.size();
                     String listStr = "";
                     for (int i = 0; i < size; i++) {
-                        listStr += list.get(i) + "\n";
+                        listStr += taskList.get(i).stringify();
                     }
                     speak(listStr);
                     break;
+                case "mark":
+                    int taskNum = Integer.parseInt(parts[1]);
+                    Task currTask = taskList.get(taskNum - 1);
+                    currTask.markAsDone();
+                    speak("Nice! I've marked this task as done:\n" + currTask.stringify());
+                    break;
+                case "unmark":
+                    int taskNum2 = Integer.parseInt(parts[1]);
+                    Task curr = taskList.get(taskNum2 - 1);
+                    curr.markAsUndone();
+                    speak("Nice! I've marked this task as not done yet:\n" + curr.stringify());
+                    break;
                 default:
-                    int num = list.size() + 1;
-                    list.add(num + ": " + cmd);
-                    speak("added: " + cmd + "\n");
+                    int num = taskList.size() + 1;
+                    Task newTask = new Task(num, input);
+                    taskList.add(newTask);
+                    speak("added: " + input + "\n");
                     break;
             }
         }
