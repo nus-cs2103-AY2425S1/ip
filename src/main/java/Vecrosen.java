@@ -45,7 +45,7 @@ public class Vecrosen {
                 int byStart = input.indexOf("/by ");
                 String by = input.substring(byStart + 4);
                 String desc = input.substring(9, byStart - 1);
-                list.add(new Task(desc + " (by: " + by + ')'));
+                list.add(new Deadline(desc, by));
                 speak("Deadline added: " + desc);
             } else if (input.matches("event .+ /begin .+ /end .+")) {
                 int beginStart = input.indexOf("/begin ");
@@ -53,7 +53,7 @@ public class Vecrosen {
                 String desc = input.substring(6, beginStart - 1);
                 String begin = input.substring(beginStart + 7, endStart - 1);
                 String end = input.substring(endStart + 5);
-                list.add(new Task(desc + " (begins: " + begin + ", ends: " + end + ")"));
+                list.add(new Event(desc, begin, end));
                 speak("Event added: " + desc);
             } else {
                 speak("Sorry, I don't understand.");

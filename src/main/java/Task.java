@@ -19,6 +19,6 @@ public class Task {
     public String toString() {
         char isDone = ' ';
         if (done) isDone = 'X';
-        return "[" + isDone + "] " + description;
+        return "[T][" + isDone + "] " + description;
     }
 }
