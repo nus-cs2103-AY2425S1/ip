@@ -15,6 +15,7 @@ public class Parser {
      * - "todo": Creates an AddCommand which creates a new ToDo task with the information provided by the user.
      * - "deadline": Creates an AddCommand which creates a new Deadline task with the information provided by the user.
      * - "event": Creates an AddCommand which creates a new Event task with the information provided by the user.
+     * - "delete": Creates an DeleteCommand which deletes the task.
      * - Any other input: Creates a Command which will terminate the program.
      *
      * @param userInput The string input by the user.
@@ -73,6 +74,12 @@ public class Parser {
                 }
                 String[] eventString = inputs[1].split("/from|/to");
                 return new AddCommand(new Event(eventString[0].trim(), eventString[1].trim(), eventString[2].trim()));
+            case "delete":
+                if (inputs.length < 2) {
+                    throw new FishmanException.MissingArgumentException("delete");
+                }
+                int deleteIndex = Integer.parseInt(inputs[1]) - 1;
+                return new DeleteCommand(deleteIndex);
             default:
                 throw new FishmanException.InvalidCommandException(commandPhrase);
             }

@@ -50,6 +50,15 @@ class TaskList {
     }
 
     /**
+     * Deletes a task at the specified index in the task list.
+     *
+     * @param index The index of the task to delete.
+     */
+    public void delete(int index) {
+        tasks.remove(index);
+    }
+
+    /**
      * Returns the number of tasks currently in the task list.
      *
      * @return The number of tasks in the list.

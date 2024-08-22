@@ -91,6 +91,17 @@ public class Ui {
     }
 
     /**
+     * Displays the confirmation message after task deletion.
+     * @param task The task that is deleted.
+     * @param size The size of the task list.
+     */
+    public void displayDeletedTask(Task task, int size) {
+        System.out.println("Bloop bloop, I have removed the following task:");
+        System.out.println(task);
+        System.out.println("Now you have " + size + " tasks in the list.");
+    }
+
+    /**
      * Display the header to the error message.
      *
      * @param message The message header for the error.
