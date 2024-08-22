@@ -23,18 +23,36 @@ public class Duke {
         }
     }
 
-    private static void mark(int index) throws {
+    private static void mark(int index) throws InvalidIndexException {
+        if (index-1 < 0 || index-1 >= toDoList.size()) {
+            throw new InvalidIndexException("Invalid index provided, please provide proper index.");
+        }
         Task task = toDoList.get(index-1);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
     }
 
-    private static void unmark(int index) {
+    private static void unmark(int index) throws InvalidIndexException {
+        if (index-1 < 0 || index-1 >= toDoList.size()) {
+            throw new InvalidIndexException("Invalid index provided, please provide proper index.");
+        }
         Task task = toDoList.get(index-1);
         task.unmarkAsUndone();
         System.out.println("Ok! I've marked this task as not done yet:");
         System.out.println(task.toString());
+    }
+
+    private static void delete(int index) throws InvalidIndexException {
+        if (index-1 < 0 || index-1 >= toDoList.size()) {
+            throw new InvalidIndexException("Invalid index provided, please provide proper index.");
+        }
+        Task task = toDoList.get(index-1);
+        toDoList.remove(index-1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task.toString());
+        counter -= 1;
+        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
     }
 
     public static void main(String[] args) throws DukeException {
@@ -46,11 +64,41 @@ public class Duke {
             String[] getInstr = command.split(" ", 2);
             String instr = getInstr[0];
             if (instr.equals("mark")) {
-                int index = Integer.parseInt(getInstr[1]);
-                mark(index);
+                try {
+                    int index;
+                    if (getInstr.length <= 1) {
+                        index = -1;
+                    } else {
+                        index = Integer.parseInt(getInstr[1]);
+                    }
+                    mark(index);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
+                }
             } else if (instr.equals("unmark")) {
-                int index = Integer.parseInt(getInstr[1]);
-                unmark(index);
+                try {
+                    int index;
+                    if (getInstr.length <= 1) {
+                        index = -1;
+                    } else {
+                        index = Integer.parseInt(getInstr[1]);
+                    }
+                    unmark(index);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
+                }
+            } else if (instr.equals("delete")) {
+                try {
+                    int index;
+                    if (getInstr.length <= 1) {
+                        index = -1;
+                    } else {
+                        index = Integer.parseInt(getInstr[1]);
+                    }
+                    delete(index);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
+                }
             } else if (instr.equals("list")) {
                 printList();
             } else if (instr.equals("bye")) {
