@@ -20,21 +20,20 @@ public class Bobby {
 
             if (input.equalsIgnoreCase("list")) {
                 listOutTasks();
-            } else {
-                if (input.contains(" ")) {
-                    String[] splitString = input.split(" ");
-                    if (splitString[0].equalsIgnoreCase("mark")) {
-                        mark(Integer.valueOf(splitString[1]));
-                    } else if (splitString[0].equalsIgnoreCase("unmark")) {
-                        unmark(Integer.valueOf(splitString[1]));
-                    } else {
-                        Task t = new Task(input);
-                        addToList(t);
-                    }
-                } else {
+                continue;
+            }
+
+            String[] splitInput = input.split(" ");
+            switch (splitInput[0]) {
+                case "mark":
+                    mark(Integer.valueOf(splitInput[1]));
+                    break;
+                case "unmark":
+                    unmark(Integer.valueOf(splitInput[1]));
+                    break;
+                default:
                     Task t = new Task(input);
                     addToList(t);
-                }
             }
         }
     }
