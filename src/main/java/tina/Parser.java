@@ -9,7 +9,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The <code>Parser</code> class handles the parsing of user input commands and task data.
+ * It provides methods to interpret commands, convert strings into <code>Task</code> objects,
+ * and format dates.
+ */
 public class Parser {
+
+    /**
+     * Parses a task creation command and adds the task to the provided <code>TaskList</code>.
+     *
+     * @param input The user input command for creating a task.
+     * @param tasks The <code>TaskList</code> to which the parsed task will be added.
+     * @throws TinaException if the command is invalid or the description is missing.
+     */
     private static void parseTask(String input, TaskList tasks) throws TinaException {
         try {
             if (input.startsWith("todo")) {
@@ -36,6 +49,14 @@ public class Parser {
             throw new TinaException("Where is your description?");
         }
     }
+
+    /**
+     * Parses user input to execute commands like list, mark, unmark, delete, or add a task.
+     *
+     * @param input The user input command.
+     * @param tasks The <code>TaskList</code> on which the command will be executed.
+     * @throws TinaException if the command is invalid, the index is missing, or the index format is incorrect.
+     */
     public static void parseInput(String input, TaskList tasks) throws TinaException {
         try {
             if (input.equals("list")) {
@@ -59,6 +80,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string representation of a task from storage and converts it into a <code>Task</code> object.
+     *
+     * @param input The string representation of the task from storage.
+     * @return The parsed <code>Task</code> object.
+     * @throws TinaException if the task type is invalid.
+     */
     public static Task parseLine(String input) {
         char type = input.charAt(0);
         boolean isMark = input.charAt(2) == '1';
@@ -82,6 +110,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date and time string into a <code>LocalDateTime</code> object to be stored in task.
+     *
+     * @param input The date and time string in the format "d/M/yyyy HHmm".
+     * @return The parsed <code>LocalDateTime</code> object.
+     * @throws TinaException if the date and time format is invalid.
+     */
     public static LocalDateTime parseDate(String input) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
@@ -91,6 +126,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Formats a <code>LocalDateTime</code> object into a custom string representation.
+     *
+     * @param input The <code>LocalDateTime</code> object to be formatted.
+     * @return A string of the date and time in the custom format "MMM dd yyyy HH:mm".
+     */
     public static String formatDate(LocalDateTime input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return input.format(formatter);
