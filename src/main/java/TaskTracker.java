@@ -52,6 +52,7 @@ public class TaskTracker {
         this.counter++;
         System.out.println("Gotcha!! Added this task to your list:");
         System.out.println(taskList[this.counter - 1]);
+        System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
     }
 
     public void updateListDeadline(String s, String t) {
@@ -59,6 +60,7 @@ public class TaskTracker {
         this.counter++;
         System.out.println("Gotcha!! Added this task to your list:");
         System.out.println(taskList[this.counter - 1]);
+        System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
     }
 
     public void updateListEvent(String s, String t, String u) {
@@ -66,5 +68,6 @@ public class TaskTracker {
         this.counter++;
         System.out.println("Gotcha!! Added this task to your list:");
         System.out.println(taskList[this.counter - 1]);
+        System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
     }
 }
