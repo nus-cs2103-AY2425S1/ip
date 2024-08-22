@@ -142,9 +142,12 @@ public class Slave {
                     // event
                     String[] eventArr = s.split(" /from ");
                     if (eventArr.length == 1) {
-                        throw new InvalidTaskFormatException("Error with input string format");
+                        throw new InvalidTaskFormatException("Missing event start date");
                     }
                     String[] startEndDate = eventArr[1].split(" /to ");
+                    if (startEndDate.length == 1) {
+                        throw new InvalidTaskFormatException("Missing event end date");
+                    }
                     list.add(new Event(eventArr[0], startEndDate[0], startEndDate[1]));
                     break;
                 default:
@@ -164,7 +167,7 @@ public class Slave {
 
     }
 
-    private static void markAsDone(String s) {
+    private static void markAsDone(String s) throws IllegalArgumentException {
         try {
             int i = Integer.parseInt(s);
 
@@ -181,7 +184,7 @@ public class Slave {
         }
     }
 
-    private static void markAsIncomplete(String s) {
+    private static void markAsIncomplete(String s) throws IllegalArgumentException {
         try {
             int i = Integer.parseInt(s);
             if (i < 1 || i > list.size()) {
