@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class Store {
+public class TaskList {
     ArrayList<String> items;
 
-    public Store() {
+    public TaskList() {
         items = new ArrayList<>();
     }
 

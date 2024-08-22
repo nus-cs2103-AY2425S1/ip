@@ -9,7 +9,7 @@ public class Meep {
                 -----------------------------------------
                 """);
         Scanner scanner = new Scanner(System.in);
-        Store store = new Store();
+        TaskList taskList = new TaskList();
         // keep scanning for user input
         while (true) {
             System.out.print("You: ");
@@ -25,7 +25,7 @@ public class Meep {
                 System.out.println("""
                         -----------------------------------------
                         Meep: Here is your list:
-                        """ + store.getList() + """
+                        """ + taskList.getList() + """
                         -----------------------------------------
                         """);
             } else {
@@ -33,7 +33,7 @@ public class Meep {
                         "Meep: " +
                         "added: " + input + "\n" +
                         "-----------------------------------------");
-                store.addItem(input);
+                taskList.addItem(input);
             }
         }
     }
