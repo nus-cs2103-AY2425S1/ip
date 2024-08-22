@@ -1,10 +1,28 @@
-public class Duke {
+import java.util.Scanner;
+public class Samson {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        final String chatBoxName = "Samson";
+        Greeting greeting = new Greeting(chatBoxName);
+        greeting.greet();
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        while (true) {
+            userInput = scanner.nextLine();
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                greeting.exit();
+                break;
+            }
+
+            // Echo the user input
+            System.out.println("____________________________________________________________");
+            System.out.println(" " + userInput);
+            System.out.println("____________________________________________________________");
+        }
+
+        scanner.close();
+
     }
 }
