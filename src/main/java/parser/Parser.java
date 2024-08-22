@@ -1,4 +1,9 @@
+package parser;
+
 import enums.CommandName;
+import exceptions.JarException;
+import tasks.*;
+import ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +17,7 @@ public class Parser {
             try {
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
                 if (taskNumber < 0) {
-                    throw new JarException("Task number must be greater than 0.");
+                    throw new JarException("tasks.Task number must be greater than 0.");
                 }
                 return taskNumber;
             } catch (NumberFormatException e) {

@@ -1,10 +1,17 @@
+package tasks;
+
+import storage.Storage;
+import exceptions.JarException;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
-    public TaskList() {}
+    public TaskList() {
+    }
 
     public TaskList(Storage storage) throws IOException, JarException {
         this.tasks = new ArrayList<>(storage.load());  // Load tasks from the storage
