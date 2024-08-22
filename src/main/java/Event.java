@@ -9,21 +9,22 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static void showUsage() {
-        System.out.println("To add an Event task, use the following format:");
-        System.out.println("event <task description> /from <start time> /to <end time>");
-    }
-
     @Override
-    public Task createTask(String input) {
+    public Task createTask(String input) throws InputException{
+        if (input.equalsIgnoreCase("event")) {
+            throw new InputException("To add an Event task, use the following format: event <task description> /from <start time> /to <end time>");
+        }
         String[] details = input.substring(6).split(" /from | /to ");
         if (details.length == 3) {
             String description = details[0].trim();
             String from = details[1].trim();
             String to = details[2].trim();
+            if (description.isEmpty()) {
+                throw new InputException("You need to describe your Event!");
+            }
             return new Event(description, from, to);
         } else {
-            throw new IllegalArgumentException("Invalid format. Use: event <description> /from <start> /to <end>");
+            throw new InputException("Invalid format. Use: event <description> /from <start> /to <end>");
         }
     }
 

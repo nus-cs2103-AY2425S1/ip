@@ -7,7 +7,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public abstract Task createTask(String input);
+    public abstract Task createTask(String input) throws InputException;
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
