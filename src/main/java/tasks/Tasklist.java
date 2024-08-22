@@ -1,35 +1,39 @@
 package tasks;
 import java.util.ArrayList;
 
-public class Tasklist {
-    private final ArrayList<Task> taskList;
+public class TaskList {
+    private final ArrayList<Task> TaskList;
     
-    public Tasklist() {
-        this.taskList = new ArrayList<>();
+    public TaskList() {
+        this.TaskList = new ArrayList<>();
     }
 
     public void addTask(Task task) {
-        taskList.add(task);
+        TaskList.add(task);
     }
 
     public void markAsDone(int index) {
-        taskList.get(index).markAsDone();
+        TaskList.get(index).markAsDone();
     }
 
     public void markAsUndone(int index) {
-        taskList.get(index).unmarkAsDone();
+        TaskList.get(index).unmarkAsDone();
     }
 
     public Task getTask(int index) {
-        return taskList.get(index);
+        return TaskList.get(index);
+    }
+
+    public int listLength() {
+        return TaskList.size();
     }
 
     @Override
     public String toString() {
         // suggested by Copilot
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            sb.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n");
+        for (int i = 0; i < TaskList.size(); i++) {
+            sb.append((i + 1)).append(". ").append(TaskList.get(i).toString()).append("\n");
         }
         return sb.toString();
     }
