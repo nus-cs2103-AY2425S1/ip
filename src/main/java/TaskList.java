@@ -15,6 +15,10 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    public void delete(int taskId) {
+        this.tasks.remove(taskId - 1);
+    }
+
     /**
      * Mark a task as done
      * @param taskId Index of the task to be marked
@@ -50,7 +54,6 @@ public class TaskList {
         }
         return tasks.get(tasks.size() - 1).toString();
     }
-
 
     /**
      * Get the total number of tasks
