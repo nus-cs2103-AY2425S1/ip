@@ -1,5 +1,3 @@
-import java.util.SplittableRandom;
-
 public class ToDo extends Task{
     public ToDo(String name) {
         super(name);
