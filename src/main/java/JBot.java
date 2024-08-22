@@ -18,15 +18,14 @@ public class JBot {
 
         commandMap.put("list", ListCommand.getInstance());
         commandMap.put("bye", ByeCommand.getInstance());
+        commandMap.put("mark", MarkCommand.getInstance());
+        commandMap.put("unmark", UnmarkCommand.getInstance());
     }
     private static void greetUser() {
         hLine();
         System.out.println("Hello! I'm JBot");
         System.out.println("What can I do for you?");
         hLine();
-    }
-    private static void endSession() {
-
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -36,7 +35,8 @@ public class JBot {
 
         while (JBot.isRunning) {
             String userInput = sc.nextLine();
-            JBotCommand command = commandMap.getOrDefault(userInput, AddCommand.getInstance());
+            String inputCommand = userInput.split(" ")[0];
+            JBotCommand command = commandMap.getOrDefault(inputCommand, AddCommand.getInstance());
 
             hLine();
             command.run(userInput, taskList);

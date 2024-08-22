@@ -12,6 +12,8 @@ public class ListCommand implements JBotCommand {
     public void run(String input, ArrayList<Task> taskList) {
         int counter = 1;
 
+        System.out.println("Here are the tasks in your list:");
+
         for (Task task : taskList) {
             System.out.printf(
                     "%1$s. %2$s%n",
