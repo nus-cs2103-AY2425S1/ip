@@ -15,6 +15,10 @@ public class Task {
         this.isdone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
