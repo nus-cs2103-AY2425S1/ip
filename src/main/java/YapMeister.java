@@ -3,7 +3,7 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class YapMeister {
-    final static int MAX_TASKS = 5;
+    final static int MAX_TASKS = 100;
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -46,14 +46,40 @@ public class YapMeister {
                     System.out.println("You undid this:");
                     System.out.println(tasks[umindex].toString());
                     break;
-                default:
-                    if (taskIndex >= MAX_TASKS) {
-                        System.out.println("task list full");
-                        break;
-                    }
-                    tasks[taskIndex] = new Task(input);
+                case "todo":
+                    tasks[taskIndex] = new ToDo(input.split("todo ")[1]);
+                    System.out.println("Added:");
+                    tasks[taskIndex].toString();
                     taskIndex++;
-                    System.out.println("added: " + input);
+                    System.out.println(String.format("You have %d tasks", taskIndex));
+                    break;
+                case "deadline":
+                    String name = input.split("deadline ")[1].split(" /by")[0];
+                    String deadline = input.split("/by ")[1];
+                    tasks[taskIndex] = new Deadline(name, deadline);
+                    System.out.println("Added:");
+                    tasks[taskIndex].toString();
+                    taskIndex++;
+                    System.out.println(String.format("You have %d tasks", taskIndex));
+                    break;
+                case "event":
+                    String namee = input.split("event ")[1].split(" /from")[0];
+                    String from = input.split("/from ")[1].split(" /to")[0];
+                    String to = input.split("/to ")[1];
+                    tasks[taskIndex] = new Event(namee, from, to);
+                    System.out.println("Added:");
+                    tasks[taskIndex].toString();
+                    taskIndex++;
+                    System.out.println(String.format("You have %d tasks", taskIndex));
+                    break;
+                default:
+//                    if (taskIndex >= MAX_TASKS) {
+//                        System.out.println("task list full");
+//                        break;
+//                    }
+//                    tasks[taskIndex] = new Task(input);
+//                    taskIndex++;
+//                    System.out.println("added: " + input);
             }
         }
         System.out.println("Fine. Bye. Leave and never return");
