@@ -1,10 +1,10 @@
 public class WenJie {
     public static void main(String[] args) {
         String logo = " ____________________________________________________________\n" +
-                " Hello! I'm Wen Jie\n" +
-                " What can I do for you?\n" +
+                " Eh wasusp la bro, my name is Wen Jie.\n" +
+                " What you want?\n" +
                 "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
+                " Eh zao liao, see you around ah bro.\n" +
                 "____________________________________________________________\n\n";
 
         System.out.println(logo);
