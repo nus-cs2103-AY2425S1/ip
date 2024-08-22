@@ -1,18 +1,11 @@
 import java.util.Scanner;
 
-public class GavinChatBot {
+public class GavinChatBot{
+    // array to hold Task objects
+    static Task[] tasks = new Task[100];
+    static int taskCount = 0;
     public static void main(String[] args) {
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        */
 
-        String[] inputList = new String[100];
-        int inputIndex = 0;
         String horizontalLine = "_________________________________\n";
 
         // print welcome message
@@ -38,18 +31,38 @@ public class GavinChatBot {
             } else if (input.equalsIgnoreCase("list")) {
                 // print out list of items
                 System.out.println(horizontalLine);
-                for (int i = 0; i < inputList.length; i++) {
-                    if (inputList[i] == null) {
+                System.out.println("Here are the tasks in your list: ");
+                for (int i = 0; i < tasks.length; i++) {
+                    if (tasks[i] == null) {
                         break;
                     }
-                    System.out.println(i + ". " + inputList[i]);
+                    System.out.println(i+1 + ". " + "[" + tasks[i].getStatusIcon() + "]" + tasks[i].description);
                 }
                 System.out.println(horizontalLine);
                 continue;
+            } else if (input.startsWith("mark")) {
+                // mark task as done
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                tasks[taskNumber].markAsDone();
+                System.out.println(horizontalLine);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].description);
+                System.out.println(horizontalLine);
+                continue;
+            } else if (input.startsWith("unmark")) {
+                // mark task as undone
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                tasks[taskNumber].markAsNotDone();
+                System.out.println(horizontalLine);
+                System.out.println("OK, I've marked this task as not done yet!");
+                System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + tasks[taskNumber].description);
+                System.out.println(horizontalLine);
+                continue;
             }
+
             System.out.println(horizontalLine);
-            inputList[inputIndex] = input;
-            inputIndex++;
+            tasks[taskCount] = new Task(input);
+            taskCount++;
             System.out.println("added:" + input);
             System.out.println(horizontalLine);
         }
