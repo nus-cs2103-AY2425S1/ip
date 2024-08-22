@@ -1,4 +1,4 @@
-testtask
+todo testtask
 list
 mark 1
 list
@@ -22,4 +22,6 @@ mark 4
 list
 unmark 4
 list
+wrongcommand
+mark 6
 bye
