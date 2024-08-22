@@ -18,7 +18,8 @@ public class Ui {
     }
 
     public void start() {
-        String greetMessage = "Hello, I'm BotManager, your friendly task assistant!\nWhat can I do for you?";
+        String greetMessage = "Hello, I'm BotManager, your friendly task assistant!\n" +
+                "What can I do for you? (Type 'help' to view all available commands)";
         printMessageWithDividers(greetMessage);
         scanner = new Scanner(System.in);
     }

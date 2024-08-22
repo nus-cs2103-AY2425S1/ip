@@ -11,7 +11,7 @@ public enum Command {
     MARK("mark", "mark <task index>", "mark task with corresponding task index as done"),
     UNMARK("unmark", "unmark <task index>", "unmark task with corresponding task index as undone"),
     DELETE("delete", "delete <task index>", "delete task with corresponding task index"),
-    HELP("help", "help", "show information on all commands"),
+    HELP("help", "help", "view all available commands"),
     EXIT("bye", "bye", "exit BotManager");
 
     private final String input;
