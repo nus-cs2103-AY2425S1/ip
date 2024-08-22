@@ -28,7 +28,7 @@ public class TaskList {
         return taskList.get(taskIndex);
     }
 
-    public String getTaskSummary() {
+    public String getSummary() {
         if (taskList.isEmpty()) {
             return "You have no tasks currently.";
         } else if (taskList.size() == 1) {
@@ -40,7 +40,7 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getTaskSummary()).append("\n");
+        stringBuilder.append(getSummary()).append("\n");
         for (int i = 0; i < getTaskCount(); i++) {
             stringBuilder.append(i + 1).append(". ");
             stringBuilder.append(taskList.get(i).toString()).append("\n");

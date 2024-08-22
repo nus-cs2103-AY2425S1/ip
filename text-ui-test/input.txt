@@ -1,6 +1,13 @@
 todo first task
+todo
+event no time range
+event no time range /from /to
+deadline no by
+invalid command
 event second task /from Today /to Tomorrow
 mark 2
+mark 3
+mark
 list
 deadline third task /by Today
 mark 3

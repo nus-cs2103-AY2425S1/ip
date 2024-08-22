@@ -1,5 +1,8 @@
 package action;
 
+import exception.BotException;
+import exception.InvalidTaskIndexException;
+import exception.TaskIndexOutOfRangeException;
 import task.Task;
 import task.TaskList;
 
@@ -16,8 +19,11 @@ public class UnmarkTaskAction extends Action {
     }
 
     @Override
-    public String execute(TaskList taskList) {
-        Task task = taskList.unmarkTask(taskIndex);
+    public String execute(TaskList taskList) throws TaskIndexOutOfRangeException {
+        if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
+            throw new TaskIndexOutOfRangeException(taskIndex, taskList.getSummary());
+        }
+        Task task = taskList.unmarkTask(taskIndex - 1);
         return "Marked task as undone: " + task.toString();
     }
 }

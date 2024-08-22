@@ -1,6 +1,7 @@
 package botmanager;
 
 import action.Action;
+import exception.BotException;
 import task.TaskList;
 import util.Parser;
 import util.Ui;
@@ -25,13 +26,17 @@ public class BotManager {
        ui.start();
 
        while (true) {
-           String input = ui.readUserInput().stripTrailing().stripLeading();
-           if (input.equals("bye")) {
+           String input = ui.readUserInput();
+           if (input.strip().equals("bye")) {
                break;
            }
-           Action action = parser.parseInput(input);
-           String output = action.execute(taskList);
-           ui.printMessage(output);
+           try {
+               Action action = parser.parseInput(input);
+               String output = action.execute(taskList);
+               ui.printMessage(output);
+           } catch (BotException e) {
+                ui.printMessage(e.getMessage());
+           }
        }
 
        ui.exit();

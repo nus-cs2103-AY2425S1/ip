@@ -1,5 +1,6 @@
 package action;
 
+import exception.BotException;
 import task.Task;
 import task.TaskList;
 
@@ -18,6 +19,6 @@ public class AddTaskAction extends Action {
     @Override
     public String execute(TaskList taskList) {
         taskList.addTask(task);
-        return "Added task: " + task.toString() + "\n" + taskList.getTaskSummary();
+        return "Added task: " + task.toString() + "\n" + taskList.getSummary();
     }
 }

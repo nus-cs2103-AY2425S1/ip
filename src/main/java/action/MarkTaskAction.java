@@ -1,5 +1,8 @@
 package action;
 
+import exception.BotException;
+import exception.InvalidTaskIndexException;
+import exception.TaskIndexOutOfRangeException;
 import task.Task;
 import task.TaskList;
 
@@ -16,8 +19,11 @@ public class MarkTaskAction extends Action {
     }
 
     @Override
-    public String execute(TaskList taskList) {
-        Task task = taskList.markTask(taskIndex);
+    public String execute(TaskList taskList) throws TaskIndexOutOfRangeException {
+        if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
+            throw new TaskIndexOutOfRangeException(taskIndex, taskList.getSummary());
+        }
+        Task task = taskList.markTask(taskIndex - 1);
         return "Marked task as done: " + task.toString();
     }
 }

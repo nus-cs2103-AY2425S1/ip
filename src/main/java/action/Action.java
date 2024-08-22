@@ -1,5 +1,6 @@
 package action;
 
+import exception.BotException;
 import task.TaskList;
 
 /**
@@ -8,5 +9,5 @@ import task.TaskList;
  * @author dwsc37
  */
 public abstract class Action {
-    public abstract String execute(TaskList taskList);
+    public abstract String execute(TaskList taskList) throws BotException;
 }
