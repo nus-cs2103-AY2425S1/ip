@@ -46,6 +46,17 @@ public class Nixy {
                 store(new DeadlineTask(taskParts[0], taskParts[1]));
                 continue;
             }
+            if (input.startsWith("event")) {
+                final int EVENT_PREFIX_LENGTH = 6;
+                String taskMeta = input.substring(EVENT_PREFIX_LENGTH);
+                // index 0 is task name, index 1 is start time with end time
+                String[] taskParts = taskMeta.split(" /from ");
+                String taskName = taskParts[0];
+                // index 0 is start time, index 1 is end time
+                taskParts = taskParts[1].split(" /to ");
+                store(new EventTask(taskName, taskParts[0], taskParts[1]));
+                continue;
+            }
 
         }
         exit();
