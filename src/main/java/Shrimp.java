@@ -1,9 +1,27 @@
+import java.util.Scanner;
+
 public class Shrimp {
 
     private static final String PARTITION = "____________________________________________________________\n";
 
     public static void main(String[] args) {
+        //program initialize
         programStart();
+
+        //echo user's command
+        Scanner sc = new Scanner(System.in);
+        String userInput;
+
+        while (true) {
+            userInput = sc.nextLine();  // Read the next line of user input
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                break;  // Exit the loop if "bye" is entered
+            }
+
+            String output = PARTITION + userInput + "\n" + PARTITION;
+            System.out.println(output);
+        }
         programExit();
     }
 
