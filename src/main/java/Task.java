@@ -12,14 +12,18 @@ public class Task {
   }
 
   public String getStatusIcon() {
-    return (isDone ? "X" : " "); // mark done task with X
+    return (this.isDone ? "X" : " "); // mark done task with X
   }
 
-  public void markAsDone() {
-    isDone = true;
+  public boolean markAsDone() {
+    boolean success = !this.isDone;
+    this.isDone = true;
+    return success;
   }
 
-  public void markAsUndone() {
-    isDone = false;
+  public boolean markAsUndone() {
+    boolean success = this.isDone;
+    this.isDone = false;
+    return success;
   }
 }
