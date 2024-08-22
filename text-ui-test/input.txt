@@ -1,0 +1,9 @@
+todo bake
+todo cry
+event project meeting /from Mon 2pm /to 4pm
+event funeral /from Fri 3pm /to 9pm
+deadline return book /by Sunday
+mark 1
+mark 3
+list
+bye

@@ -4,11 +4,11 @@ public class Bean {
         String greeting = "________________________________\n"
                 + "Hello! I'm Bean\n"
                 + "What can i do for you?\n"
-                +"________________________________\n";
+                +"________________________________";
         String byeMsg =
                  "________________________________\n"
                 + "Bye. Hope to see you again soon!\n"
-                + "________________________________\n";
+                + "________________________________";
         System.out.println(greeting);
         Scanner scanner = new Scanner(System.in);
         Task[] taskList = new Task[100];
