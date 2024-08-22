@@ -60,6 +60,18 @@ public class Cloud {
         );
     }
 
+    public static void deleteTask(Query query) {
+        int taskId = Integer.parseInt(query.getDetails().strip());
+        String taskStatus = tasks.getTaskStatus(taskId);
+        tasks.delete(taskId);
+        System.out.printf(
+                "Removed the following task:\n\t%s\n%d task%s remaining\n",
+                taskStatus,
+                tasks.getTaskCount(),
+                tasks.getTaskCount() != 1 ? "s" : ""
+        );
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -106,6 +118,8 @@ public class Cloud {
                 case ("todo"):
                     addTask(query);
                     break;
+                case "delete":
+                    deleteTask(query);
                 default:
                     break;
             }
