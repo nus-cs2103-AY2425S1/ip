@@ -6,7 +6,8 @@ public class Bottle {
         System.out.println(lineBreak + str + lineBreak);
     }
     public static void main(String[] args) {
-
+        String[] taskList = new String[100];
+        int taskCount = 0;
         String welcomeMsg =
                 " Hello! I'm Bottle\n" +
                 " What can I do for you?";
@@ -19,8 +20,18 @@ public class Bottle {
             if (input.equalsIgnoreCase("bye")) {
                 printwithBreak(byeMsg);
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                System.out.println(lineBreak);
+                for (int i = 0; i < taskCount; i++) {
+                    int idx = i + 1;
+                    System.out.println(idx + ". " + taskList[i]);
+                }
+                System.out.println(lineBreak);
+            } else {
+                taskList[taskCount] = input;
+                taskCount++;
+                printwithBreak("added " + input);
             }
-            printwithBreak(input);
         }
     }
 }
