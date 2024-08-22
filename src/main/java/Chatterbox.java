@@ -9,7 +9,7 @@ public class Chatterbox {
                 ____________________________________________________________
                 """;
         System.out.println(welcomeMessage);
-        StoredList l1 = new StoredList(100);
+        StoredList l1 = new StoredList();
         Scanner sc = new Scanner(System.in);
         boolean done = false;
         while (!done) {
@@ -51,6 +51,13 @@ public class Chatterbox {
                     case "5": //event
                         l1.addItem(new Event(command[1], command[2], command[3]));
                         break;
+                    case "6": //delete
+                        try {
+                            l1.removeItem(Integer.parseInt(command[1]) - 1);
+                            break;
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new ChatterBoxNullTaskError();
+                        }
                 }
             }
             catch (ChatterBoxError e) {
@@ -112,6 +119,18 @@ public class Chatterbox {
                             }
                         } else {
                             throw new ChatterBoxEventError();
+                        }
+                    }
+                    case "delete" -> {
+                        if (command.length == 2) {
+                            try {
+                                Integer.parseInt(command[1]);
+                                return new String[]{"6", command[1]};
+                            } catch (NumberFormatException e) {
+                                throw new ChatterBoxDeleteError();
+                            }
+                        } else {
+                            throw new ChatterBoxDeleteError();
                         }
                     }
                     default -> throw new ChatterBoxError();
