@@ -22,9 +22,10 @@ public class RapGod {
                 -----------------------------------------------
                 Hello. I'm RapGod
                 What can I do for you today?
-                Type:
+                
+                [OPTIONS]
                 'Echo' to echo
-                'List' to create a list
+                'Make List' to create a list
                 'Bye' to exit
                 -----------------------------------------------
                 """;
@@ -41,7 +42,7 @@ public class RapGod {
             if (option.equalsIgnoreCase("echo")) {
                 Echo.run();
                 break;
-            } else if (option.equalsIgnoreCase("list")) {
+            } else if (option.equalsIgnoreCase("make list")) {
                 List.run();
                 break;
             } else if (option.equalsIgnoreCase("Bye")) {
