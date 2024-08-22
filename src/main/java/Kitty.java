@@ -39,8 +39,12 @@ public class Kitty {
                 unmark(extractFirstNumber(command));
             } else if (command.contains("mark")) {
                 mark(extractFirstNumber(command));
-            } else {
+            } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")){
                 add(command);
+            } else {
+                System.out.println(divisionLine);
+                System.out.println("Burrrrr~ What is this??? I have no idea about it...\n");
+                System.out.println(divisionLine);
             }
         }
     }
@@ -48,29 +52,44 @@ public class Kitty {
     private static void add(String item) {
         String[] aux = item.split(" ", 2);
         String type = aux[0];
-        String name = aux[1];
-        Task tmp = type.equals("todo")
-                ? new Todo(name)
-                : type.equals("deadline")
-                ? createDeadline(name)
-                : type.equals("event")
-                ? createEvent(name)
-                : null;
-        list.add(tmp);
-        System.out.println(divisionLine);
-        System.out.println("Okie, I added it into the list:");
-        System.out.println("  " + tmp);
-        System.out.printf("Now you have %d tasks in the list.\n\n", list.size());
-        System.out.println(divisionLine);
+        Task tmp;
+        try {
+            if (aux.length == 1) {
+                System.out.println(divisionLine);
+                System.out.println("Oooops... I don't know what you want to do though...");
+                throw new TaskException();
+            }
+            String name = aux[1];
+            tmp = type.equals("todo")
+                    ? new Todo(name)
+                    : type.equals("deadline")
+                    ? createDeadline(name)
+                    : type.equals("event")
+                    ? createEvent(name)
+                    : null;
+            list.add(tmp);
+            System.out.println(divisionLine);
+            System.out.println("Okie, I added it into the list:");
+            System.out.println("  " + tmp);
+            System.out.printf("Now you have %d tasks in the list.\n\n", list.size());
+            System.out.println(divisionLine);
+        } catch (KittyException e) {
+            System.out.println(e);
+            System.out.println("\n" + divisionLine);
+        }
     }
 
-    private static Task createDeadline(String str) {
+    private static Task createDeadline(String str) throws DeadlineException{
         String[] parts = str.split("/by");
+        if (parts.length == 1)
+            throw new DeadlineException();
         return new Deadline(parts[0], parts[1]);
     }
 
-    private static Task createEvent(String str) {
+    private static Task createEvent(String str) throws EventException{
         String[] parts = str.split("/from|/to");
+        if (parts.length < 3)
+            throw new EventException();
         return new Event(parts[0], parts[1], parts[2]);
 
     }
