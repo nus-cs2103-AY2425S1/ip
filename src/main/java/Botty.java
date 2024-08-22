@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Botty {
@@ -26,9 +27,9 @@ public class Botty {
 
     public static void main(String[] args) {
         System.out.println(logo);
-
         System.out.println();
-        System.out.println(bottySymbol + "Hello, I am Botty the Bot, how may I be of service today?");
+
+        reply("Hello, I am Botty the Bot, how may I be of service today?");
 
         Scanner inputScanner = new Scanner(System.in);
 
@@ -52,20 +53,23 @@ public class Botty {
                     break;
                 case "list":
                     if (currentIndex == 0) {
-                        System.out.println(bottySymbol + "Your list is empty!");
+                        reply("Your list is empty!");
                     } else {
-                        System.out.println(bottySymbol + "Here you go!");
+                        String[] content = new String[currentIndex + 1];
+                        content[0] = "Here you go!";
+
                         for (int i = 1; i < currentIndex + 1; i++) {
-                            System.out.println(bottyIndentation + "  " + i + ". " + taskList[i - 1]);
+                            content[i] = "  " + i + ". " + taskList[i - 1];
                         }
+
+                        reply(content);
                     }
                     break;
                 case "mark":
                     if (hasIntegerArgument) {
                         setTaskCompletion(true, Integer.parseInt(splitInput[1]) - 1);
                     } else {
-                        System.out.println(bottySymbol +
-                                "I don't quite know what you want me to do. " +
+                        reply("I don't quite know what you want me to do. " +
                                 "Do indicate which task to mark with its number!");
                     }
                     break;
@@ -73,8 +77,7 @@ public class Botty {
                     if (hasIntegerArgument) {
                         setTaskCompletion(false, Integer.parseInt(splitInput[1]) - 1);
                     } else {
-                        System.out.println(bottySymbol +
-                                "I don't quite know what you want me to do. " +
+                        reply("I don't quite know what you want me to do. " +
                                 "Do indicate which task to unmark with its number!");
                     }
                     break;
@@ -84,7 +87,7 @@ public class Botty {
                 case "event":
                     Event event = Event.generateFromString(splitInput[1]);
                     if (event == null) {
-                        System.out.println(bottySymbol + "I am unable to add that event! Please provide details in " +
+                        reply("I am unable to add that event! Please provide details in " +
                                 "the following format: [description] /from [start] /to [end]");
                     } else {
                         addToTaskList(event);
@@ -93,32 +96,30 @@ public class Botty {
                 case "deadline":
                     Deadline deadline = Deadline.generateFromString(splitInput[1]);
                     if (deadline == null) {
-                        System.out.println(bottySymbol + "I am unable to add that deadline! Please provide details " +
+                        reply("I am unable to add that deadline! Please provide details " +
                                 "in the following format: [description] /by [deadline]");
                     } else {
                         addToTaskList(deadline);
                     }
                     break;
                 default:
-                    System.out.println(bottySymbol + "I'm sorry, that is not a command I am familiar with.");
+                    reply("I'm sorry, that is not a command I am familiar with.");
             }
         }
 
         inputScanner.close();
-        System.out.println(bottySymbol + "Thank you for your continued patronage. Goodbye!");
+        reply("Thank you for your continued patronage. Goodbye!");
     }
     private static void addToTaskList(Task task) {
         if (currentIndex < taskList.length) {
             taskList[currentIndex] = task;
             currentIndex++;
 
-            System.out.println(bottySymbol + "I have added the following task to the list!");
-            System.out.println(bottyIndentation + task);
-
-            System.out.println(bottyIndentation + "You now have " + currentIndex + " tasks.");
+            reply("I have added the following task to the list!",
+                    task.toString(),
+                    "You now have " + currentIndex + " tasks.");
         } else {
-            System.out.println(bottySymbol +
-                    "I have run out of space, sorry! Here's a cookie \uD83C\uDF6A");
+            reply("I have run out of space, sorry!");
         }
     }
     private static boolean isNumber(String string) {
@@ -131,15 +132,20 @@ public class Botty {
     }
     private static void setTaskCompletion(boolean completion, int taskIndex) {
         if (taskIndex >= 0 && taskIndex <= currentIndex - 1) {
-            System.out.println(bottySymbol +
-                    (completion
-                            ? "Congrats on completing that! Let me just mark that as done for you."
-                            : "It's okay, we can get that done later. I'll mark that as undone for you."));
             taskList[taskIndex].setCompleted(completion);
-            System.out.println(bottyIndentation + "  " + taskList[taskIndex]);
+            reply(completion
+                    ? "Congrats on completing that! Let me just mark that as done for you."
+                    : "It's okay, we can get that done later. I'll mark that as undone for you.",
+                    "  " + taskList[taskIndex].toString());
         } else {
-            System.out.println(bottySymbol + "I don't see a task with that number! Try a number from 1 to " +
+            reply("I don't see a task with that number! Try a number from 1 to " +
                     currentIndex);
+        }
+    }
+    private static void reply(String... strings) {
+        System.out.println(bottySymbol + strings[0]);
+        for (int i = 1; i < strings.length; i++) {
+            System.out.println(bottyIndentation + strings[i]);
         }
     }
 }
