@@ -16,7 +16,7 @@ public class Duke {
         Task event;
         ArrayList<Task> list = new ArrayList<>();
 
-        while (true) {
+        while (scanner.hasNextLine()) {
             event = null;
             command = scanner.nextLine();
             splitedBySpace = command.split("\\s+", 2);
