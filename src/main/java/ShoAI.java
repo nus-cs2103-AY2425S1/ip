@@ -33,14 +33,14 @@ public class ShoAI {
                 tasks[index].markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[index]);
+                System.out.println("  " + tasks[index]);
                 System.out.println("____________________________________________________________");
             } else if (command.startsWith("unmark")) {
                 int index = Integer.parseInt(words[1]) - 1;
                 tasks[index].markAsNotDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[index]);
+                System.out.println("  " + tasks[index]);
                 System.out.println("____________________________________________________________");
             } else if (command.equals("todo")) {
                 String description = words[1];
@@ -48,8 +48,8 @@ public class ShoAI {
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " task" + (taskCount > 1 ? "s" : "") + " in the list.");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else if (command.equals("deadline")) {
                 String[] parts = words[1].split(" /by ");
@@ -57,8 +57,8 @@ public class ShoAI {
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " task" + (taskCount > 1 ? "s" : "") + " in the list.");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else if (command.equals("event")) {
                 String[] parts = words[1].split(" /from ");
@@ -67,8 +67,8 @@ public class ShoAI {
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " task" + (taskCount > 1 ? "s" : "") + " in the list.");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else {
                 System.out.println("____________________________________________________________");
