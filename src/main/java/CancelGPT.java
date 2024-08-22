@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -57,10 +58,37 @@ public class CancelGPT {
             String[] commandArray = command.split(" ");
             int taskNumber = Integer.parseInt(commandArray[1]);
             unmarkTaskNumber(taskNumber);
-        } else {
-            String text = addToTaskList(command);
-            System.out.println("added: " + text);
+        } else if (command.startsWith("todo")) {
+            String[] commandArray = command.split(" ");
+            String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, commandArray.length);
+            String taskDescription = String.join(" ", taskDescriptionArr);
+            handleAddingTask(new ToDo(taskDescription));
+        } else if (command.startsWith("deadline")) {
+            String[] commandArray = command.split(" ");
+            int byIndex = Arrays.asList(commandArray).indexOf("/by");
+            String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, byIndex);
+            String taskDescription = String.join(" ", taskDescriptionArr);
+            String[] byDateArr = Arrays.copyOfRange(commandArray, byIndex + 1, commandArray.length);
+            String byDate = String.join(" ", byDateArr);
+            handleAddingTask(new Deadline(taskDescription, byDate));
+        } else if (command.startsWith("event")) {
+            String[] commandArray = command.split(" ");
+            int fromIndex = Arrays.asList(commandArray).indexOf("/from");
+            int toIndex = Arrays.asList(commandArray).indexOf("/to");
+            String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, fromIndex);
+            String taskDescription = String.join(" ", taskDescriptionArr);
+            String[] fromDateArr = Arrays.copyOfRange(commandArray, fromIndex + 1, toIndex);
+            String fromDate = String.join(" ", fromDateArr);
+            String[] toDateArr = Arrays.copyOfRange(commandArray, toIndex + 1, commandArray.length);
+            String toDate = String.join(" ", toDateArr);
+            handleAddingTask(new Event(taskDescription, fromDate, toDate));
         }
+    }
+
+    public void handleAddingTask(Task task) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + addToTaskList(task));
+        System.out.println("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
     }
 
     public void markTaskNumber(int taskNumber) {
@@ -75,10 +103,9 @@ public class CancelGPT {
         System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
 
-    public String addToTaskList(String text) {
-        Task task = new Task(text);
+    public String addToTaskList(Task task) {
         this.TASKS_LIST.add(task);
-        return task.getDescription();
+        return task.toString();
     }
 
     public void displayTasksList() {
