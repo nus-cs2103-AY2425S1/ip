@@ -29,7 +29,7 @@ public class MrYapper {
 
     private static void addTask(String name) {
         taskList.add(new Task(name));
-        say( "added: " + name);
+        say(" added: " + name);
     }
 
     private static void listTask() {
