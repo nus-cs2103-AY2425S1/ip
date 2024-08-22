@@ -8,7 +8,7 @@ public class Meep {
         boolean isDone = false;
         // keep scanning for user input
         while (!isDone) {
-            System.out.print("You: ");
+            FormattedPrint.inputWaiting();
             String input = scanner.nextLine();
             isDone = Parser.checkCommand(input, taskList);
         }

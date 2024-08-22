@@ -16,6 +16,10 @@ public class FormattedPrint {
                 """);
     }
 
+    public static void inputWaiting() {
+        System.out.print("You: ");
+    }
+
     public static void doneTask(String task) {
         System.out.println("""
                 -----------------------------------------
