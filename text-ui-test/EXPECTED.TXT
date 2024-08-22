@@ -1,7 +1,35 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    ___________________________________
+    Hello! I'm Bimo
+    What can I do for you?
+    ___________________________________
+    ___________________________________
+    Got it. I've added this task:
+        [T][ ] Buy bread
+    Now you have 1 task in the list.
+    ___________________________________
+    ___________________________________
+    Got it. I've added this task:
+        [E][ ] Attend Lecture (from: Friday 10am to: Friday 12pm)
+    Now you have 2 tasks in the list.
+    ___________________________________
+    ___________________________________
+    Got it. I've added this task:
+        [D][ ] Read a book (by: Saturday 10 am)
+    Now you have 3 tasks in the list.
+    ___________________________________
+    ___________________________________
+    Here are the tasks in your list:
+    1. [T][ ] Buy bread
+    2. [E][ ] Attend Lecture (from: Friday 10am to: Friday 12pm)
+    3. [D][ ] Read a book (by: Saturday 10 am)
+    ___________________________________
+    ___________________________________
+    Nice! I've marked this task as done:
+       [T][X] Buy bread
+    ___________________________________
+    ___________________________________
+    OK, I've marked this task as not done yet:
+       [T][ ] Buy bread
+    ___________________________________
+    Bye. Hope to see you again soon!
+    ___________________________________

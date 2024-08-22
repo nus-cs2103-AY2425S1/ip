@@ -10,7 +10,6 @@ public class Bimo {
         System.out.println("    " + String.format("Hello! I'm %s", name));
         System.out.println("    " + "What can I do for you?");
         System.out.println(line);
-        System.out.println();
         String command = scanner.nextLine();
 
         while (!command.toLowerCase().equals("bye")) {
@@ -70,7 +69,7 @@ public class Bimo {
             } else {
                 System.out.println("    Invalid command");
             }
-            System.out.println(line + "\n");
+            System.out.println(line);
             command = scanner.nextLine();
         }
 
