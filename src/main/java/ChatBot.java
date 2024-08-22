@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class ChatBot {
     private Scanner scanner = new Scanner(System.in);
 
-    private ArrayList<String> lst = new ArrayList<>();
+    private ArrayList<Task> lst = new ArrayList<>();
 
     private String name;
     private String exitKeyword = "bye";
@@ -24,9 +24,9 @@ public class ChatBot {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void addToList(String s){
+    public void addToList(String desc){
         try {
-            lst.add(s);
+            lst.add(new Task(desc));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -35,7 +35,7 @@ public class ChatBot {
     public void showList() {
         int num = 1;
         for (int i = 0; i < lst.size(); ++i) {
-            System.out.println(num + ". " + lst.get(i));
+            System.out.println(num + ". " + lst.get(i).getDesc());
             num +=1;
         }
     }
@@ -44,11 +44,24 @@ public class ChatBot {
         greet();
         while (true) {
             String input = scanner.nextLine();
+
+            String [] parts = input.split(" ");
+
             if (input.equals(exitKeyword)) {
                 goodbye();
                 return;
-            } else if (input.equals(listKeyword)){
+            } else if (input.equals(listKeyword)) {
                 showList();
+            } else if (parts.length == 2 && parts[0].equals("mark")) {
+                Task task = lst.get(Integer.parseInt(parts[1])-1);
+                task.markDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(task.getDesc());
+            } else if (parts.length == 2 && parts[0].equals("unmark")) {
+                Task task = lst.get(Integer.parseInt(parts[1])-1);
+                task.markUndone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(task.getDesc());
             } else {
                 addToList(input);
                 System.out.println("added: " + input);
