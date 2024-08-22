@@ -1,5 +1,9 @@
 import java.util.Arrays;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import executable.AddTask;
 import executable.DeleteTask;
 import executable.Executable;
@@ -23,6 +27,18 @@ import exception.UnexpectedArgumentException;
  * @author Toh Yi Hui A0259080A
  */
 public class Parser {
+    private DateTimeFormatter formatter;
+
+    /**
+     * Constructor for a new Parser. Takes in a string pattern for formatting
+     * date time strings.
+     *
+     * @param dateTimeFormat the date time format.
+     * @throws IllegalArgumentException if the pattern is not valid.
+     */
+    public Parser(String dateTimeFormat) throws IllegalArgumentException {
+        formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+    }
      /**
      * Parse the user's input, breaking it down into a command and an array of
      * arguments. Based on what command and arguments were given, the Parser will
@@ -145,8 +161,9 @@ public class Parser {
         return new AddTask(task);
     }
 
-    private Executable deadline(String[] arguments) throws InvalidArgumentException {
-        String sample = "deadline return book /by Sunday";
+    private Executable deadline(String[] arguments) throws NullPointerException,
+            InvalidArgumentException {
+        String sample = "deadline return book /by 2024-04-08 06:30";
 
         if (arguments == null) {
             String output = "Please specify a task description and a deadline as argument.\n"
@@ -171,13 +188,20 @@ public class Parser {
         }
 
         String description = sliceAndJoinAt(arguments, 0, idx, " ");
-        String deadline = sliceAndJoinAt(arguments, idx + 1, arguments.length, " ");
-        Deadline task = new Deadline(description, deadline);
-        return new AddTask(task);
+        try {
+            LocalDateTime deadline = parseDateTime(
+                    sliceAndJoinAt(arguments, idx + 1, arguments.length, " "));
+            Deadline task = new Deadline(description, deadline);
+            return new AddTask(task);
+        } catch (DateTimeParseException e) {
+            String output = "Please specify a proper deadline.\nE.g. " + sample;
+            throw new InvalidArgumentException(output);
+        }
     }
 
-    private Executable event(String[] arguments) throws InvalidArgumentException {
-        String sample = "event project meeting /from Mon 2pm /to 4pm";
+    private Executable event(String[] arguments) throws NullPointerException,
+            InvalidArgumentException {
+        String sample = "event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30";
 
         if (arguments == null) {
             String output = "Please specify a task description, starting and ending time "
@@ -216,10 +240,17 @@ public class Parser {
         }
 
         String description = sliceAndJoinAt(arguments, 0, fromIdx, " ");
-        String from = sliceAndJoinAt(arguments, fromIdx + 1, toIdx, " ");
-        String to = sliceAndJoinAt(arguments, toIdx + 1, arguments.length, " ");
-        Event task = new Event(description, from, to);
-        return new AddTask(task);
+        try {
+            LocalDateTime from = parseDateTime(
+                    sliceAndJoinAt(arguments, fromIdx + 1, toIdx, " "));
+            LocalDateTime to = parseDateTime(
+                sliceAndJoinAt(arguments, toIdx + 1, arguments.length, " "));
+            Event task = new Event(description, from, to);
+            return new AddTask(task);
+        } catch (DateTimeParseException e) {
+            String output = "Please specify a proper deadline.\nE.g. " + sample;
+            throw new InvalidArgumentException(output);
+        }
     }
 
     private Executable delete(String[] arguments) throws InvalidArgumentException {
@@ -254,7 +285,7 @@ public class Parser {
      * @return the index of the String s in given array.
      *         Return -1 if no such String is found.
      */
-    private static int findIndexOfStringInArray(String[] array, String s) {
+    private int findIndexOfStringInArray(String[] array, String s) {
         return Arrays.<String>asList(array).indexOf(s);
     }
 
@@ -268,7 +299,22 @@ public class Parser {
      * @param delimiter the delimiter that separates each element.
      * @return the resulting String after joining it using delimiter.
      */
-    private static String sliceAndJoinAt(String[] array, int from, int to, CharSequence delimiter) {
+    private String sliceAndJoinAt(String[] array, int from, int to, CharSequence delimiter) {
         return String.join(delimiter, Arrays.<String>copyOfRange(array, from, to));
+    }
+
+    /**
+     * Converts the String into a LocalDateTime object.
+     *
+     * @param dateTime the dateTime in String.
+     * @return a LocalDateTime object.
+     */
+    private LocalDateTime parseDateTime(String dateTime) throws NullPointerException,
+            DateTimeParseException {
+        if (formatter == null) {
+            throw new NullPointerException("formatter cannot be null.");
+        }
+
+        return LocalDateTime.parse(dateTime, formatter);
     }
 }

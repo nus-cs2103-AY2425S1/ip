@@ -23,24 +23,29 @@ import exception.IncorrectTaskFormatException;
 public class TaskReader {
     private File file;
     private Scanner scanner;
-    private Parser parser;
+    private DateTimeFormatter formatter;
 
     /**
-     * Constructor for a new TaskReader. It takes in a File as parameter.
+     * Constructor for a new TaskReader. It takes in a File as parameter and
+     * read it, converting date time based on the given date time format.
      *
      * @param file the file containing the data.
+     * @param dateTimeFormat the format for converting date time strings.
      * @throws FileNotFoundException when the file is not found.
+     * @throws IllegalArgumentException if the dateTimeFormat is not a proper pattern.
      */
-    public TaskReader(File file) throws FileNotFoundException {
+    public TaskReader(File file, String dateTimeFormat) throws FileNotFoundException,
+           IllegalArgumentException {
         this.file = file;
         scanner = new Scanner(file);
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     }
 
     /**
      * Reads each line in scanner and covert it into an ArrayList of Task.
      *
      * @return the list of tasks.
-     * @throws NullPointerException when scanner is null.
+     * @throws NullPointerException when scanner or formatter is null.
      * @throws IncorrectTaskFormatException when the content of file is not in
      *                                      the expected format.
      */
@@ -63,10 +68,11 @@ public class TaskReader {
      *
      * @param line the line data.
      * @return the task.
+     * @throws NullPointerException when formatter is null.
      * @throws IncorrectTaskFormatException when the content of file is not in
      *                                      the expected format.
      */
-    private Task parse(String line) throws IncorrectTaskFormatException {
+    private Task parse(String line) throws NullPointerException, IncorrectTaskFormatException {
         String[] array = line.split(" \\| ");
 
         String type = readType(array);
@@ -77,11 +83,11 @@ public class TaskReader {
         case ("T"):
             return new Todo(description, isComplete);
         case ("D"):
-            String dateTime = readDateTime(array);
+            LocalDateTime dateTime = readDateTime(array);
             return new Deadline(description, isComplete, dateTime);
         case ("E"):
-            String startTime = readStartTime(array);
-            String endTime = readEndTime(array);
+            LocalDateTime startTime = readStartTime(array);
+            LocalDateTime endTime = readEndTime(array);
             return new Event(description, isComplete, startTime, endTime);
         default:
             throw new IncorrectTaskFormatException(file.getAbsolutePath());
@@ -147,18 +153,19 @@ public class TaskReader {
      * Convert the given String into a LocalDateTime.
      *
      * @return a LocalDateTime object.
+     * @throws NullPointerException when formatter is null.
      * @throws IncorrectTaskFormatException when the data string cannot be parsed as a LocalDateTime.
      */
-    private String parseTime(String s) throws IncorrectTaskFormatException {
-        return s;
-        /*
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM--dd HH:mm");
+    private LocalDateTime parseTime(String s) throws NullPointerException, IncorrectTaskFormatException {
+        if (formatter == null) {
+            throw new NullPointerException("Formatter cannot be null.");
+        }
+
         try {
             return LocalDateTime.parse(s, formatter);
         } catch (DateTimeParseException e) {
             throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
-        */
     }
 
     /**
@@ -166,9 +173,11 @@ public class TaskReader {
      *
      * @param array the line data split with the " | " delimiter.
      * @return the date time of the task in a LocalDateTime object.
+     * @throws NullPointerException when formatter is null.
      * @throws IncorrectTaskFormatException when the data cannot be parsed as a LocalDateTime.
      */
-    private String readDateTime(String[] array) throws IncorrectTaskFormatException {
+    private LocalDateTime readDateTime(String[] array) throws NullPointerException,
+            IncorrectTaskFormatException {
         if (array == null || array.length < 4) {
             throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }
@@ -181,9 +190,11 @@ public class TaskReader {
      *
      * @param array the line data split with the " | " delimiter.
      * @return the date time of the task in a LocalDateTime object.
+     * @throws NullPointerException when formatter is null.
      * @throws IncorrectTaskFormatException when the data cannot be parsed as a LocalDateTime.
      */
-    private String readStartTime(String[] array) throws IncorrectTaskFormatException {
+    private LocalDateTime readStartTime(String[] array) throws NullPointerException,
+            IncorrectTaskFormatException {
         // Exact same function as readDateTime.
         return readDateTime(array);
     }
@@ -193,9 +204,11 @@ public class TaskReader {
      *
      * @param array the line data split with the " | " delimiter.
      * @return the date time of the task in a LocalDateTime object.
+     * @throws NullPointerException when formatter is null.
      * @throws IncorrectTaskFormatException when the data cannot be parsed as a LocalDateTime.
      */
-    private String readEndTime(String[] array) throws IncorrectTaskFormatException {
+    private LocalDateTime readEndTime(String[] array) throws NullPointerException,
+            IncorrectTaskFormatException {
         if (array == null || array.length < 5) {
             throw new IncorrectTaskFormatException(file.getAbsolutePath());
         }

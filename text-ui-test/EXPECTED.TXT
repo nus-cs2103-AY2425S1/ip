@@ -48,63 +48,83 @@ Task 1 is already completed.
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please specify a task description and a deadline as argument.
-E.g. deadline return book /by Sunday
+E.g. deadline return book /by 2024-04-08 06:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate a deadline using '/by'.
-E.g. deadline return book /by Sunday
+E.g. deadline return book /by 2024-04-08 06:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate a task description.
-E.g. deadline return book /by Sunday
+E.g. deadline return book /by 2024-04-08 06:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate a task description.
-E.g. deadline return book /by Sunday
+E.g. deadline return book /by 2024-04-08 06:30
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Please specify a proper deadline.
+E.g. deadline return book /by 2024-04-08 06:30
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Please specify a proper deadline.
+E.g. deadline return book /by 2024-04-08 06:30
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Please specify a proper deadline.
+E.g. deadline return book /by 2024-04-08 06:30
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Please specify a proper deadline.
+E.g. deadline return book /by 2024-04-08 06:30
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+Please specify a proper deadline.
+E.g. deadline return book /by 2024-04-08 06:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Got it. I've added this task:
-[D][ ] return book (by: Sunday 2pm)
+[D][ ] return book (by: 8 Feb Thursday, 14:30H)
 Now you have 2 task(s) in your list.
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please specify a task description, starting and ending time of event as argument.
-E.g. event project meeting /from Mon 2pm /to 4pm
+E.g. event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate starting and ending time of event using '/from' and '/to'.
-E.g. event project meeting /from Mon 2pm /to 4pm
+E.g. event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate a task description.
-E.g. event project meeting /from Mon 2pm /to 4pm
+E.g. event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate starting and ending time of event using '/from' and '/to'.
-E.g. event project meeting /from Mon 2pm /to 4pm
+E.g. event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate starting and ending time of event using '/from' and '/to'.
-E.g. event project meeting /from Mon 2pm /to 4pm
+E.g. event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate the start time before the end time.
-E.g. event project meeting /from Mon 2pm /to 4pm
+E.g. event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please indicate an end time.
-E.g. event project meeting /from Mon 2pm /to 4pm
+E.g. event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Got it. I've added this task:
-[E][ ] project meeting (from: Sunday 2pm to: 4pm)
+[E][ ] project meeting (from: 9 Apr Tuesday, 12:30H to: 9 Apr Tuesday, 14:30H)
 Now you have 3 task(s) in your list.
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][X] read book
-2. [D][ ] return book (by: Sunday 2pm)
-3. [E][ ] project meeting (from: Sunday 2pm to: 4pm)
+2. [D][ ] return book (by: 8 Feb Thursday, 14:30H)
+3. [E][ ] project meeting (from: 9 Apr Tuesday, 12:30H to: 9 Apr Tuesday, 14:30H)
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please call unmark with an integer.
@@ -120,8 +140,8 @@ Ok. I've marked this task as not done:
 -----------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] return book (by: Sunday 2pm)
-3. [E][ ] project meeting (from: Sunday 2pm to: 4pm)
+2. [D][ ] return book (by: 8 Feb Thursday, 14:30H)
+3. [E][ ] project meeting (from: 9 Apr Tuesday, 12:30H to: 9 Apr Tuesday, 14:30H)
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Please call delete with an integer.
@@ -136,13 +156,13 @@ E.g. delete 2
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Noted. I've removed this task:
-[D][ ] return book (by: Sunday 2pm)
+[D][ ] return book (by: 8 Feb Thursday, 14:30H)
 Now you have 2 task(s) in your list.
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [E][ ] project meeting (from: Sunday 2pm to: 4pm)
+2. [E][ ] project meeting (from: 9 Apr Tuesday, 12:30H to: 9 Apr Tuesday, 14:30H)
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Unexpected argument called with bye.

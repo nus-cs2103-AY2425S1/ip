@@ -30,6 +30,9 @@ public class YihuiBot {
     // The file path to read tasks data from
     private static final String FILEPATH = "data/task.txt";
 
+    // Format for date time of task
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+
     // List of tasks
     private static ArrayList<Task> tasks;
 
@@ -43,7 +46,7 @@ public class YihuiBot {
         greetings();
 
         Scanner userInput = new Scanner(System.in);
-        Parser parser = new Parser();
+        Parser parser = new Parser(DATE_TIME_FORMAT);
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -84,7 +87,7 @@ public class YihuiBot {
         normalPrint("Initializing tasks...");
         File data = new File(FILEPATH);
         try {
-            TaskReader taskReader = new TaskReader(data);
+            TaskReader taskReader = new TaskReader(data, DATE_TIME_FORMAT);
             tasks = taskReader.read();
         } catch (FileNotFoundException e) {
             normalPrint("No file with path " + FILEPATH + " found.\n"
@@ -98,7 +101,7 @@ public class YihuiBot {
 
     private static void writeTasksToFile() throws IOException {
         normalPrint("Writing tasks to " + FILEPATH + "...");
-        TaskWriter taskWriter = new TaskWriter(FILEPATH, tasks);
+        TaskWriter taskWriter = new TaskWriter(FILEPATH, DATE_TIME_FORMAT, tasks);
         taskWriter.write();
         taskWriter.close();
         normalPrint("File written succesfully.");

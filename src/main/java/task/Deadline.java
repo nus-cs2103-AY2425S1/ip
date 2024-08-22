@@ -1,6 +1,8 @@
 package task;
 
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 /**
  * A Task with a deadline.
@@ -8,7 +10,7 @@ import java.time.LocalDateTime;
  * @author Toh Yi Hui A0259080A
  */
 public class Deadline extends Task {
-    private String deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructor for a new Deadline task.
@@ -16,7 +18,7 @@ public class Deadline extends Task {
      * @param description the description of the task.
      * @param deadline the deadline of the task.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
@@ -28,7 +30,7 @@ public class Deadline extends Task {
      * @param isComplete the status of the task.
      * @param deadline the deadline of the task.
      */
-    public Deadline(String description, boolean isComplete, String deadline) {
+    public Deadline(String description, boolean isComplete, LocalDateTime deadline) {
         super(description, isComplete);
         this.deadline = deadline;
     }
@@ -38,7 +40,7 @@ public class Deadline extends Task {
      *
      * @return the dateline of the task.
      */
-    public String getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
@@ -47,6 +49,25 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline);
+        return String.format("[D]%s (by: %s)", super.toString(), parseDeadlineToString());
+    }
+
+    /**
+     * Return the String representation of the deadline.
+     * Format example: 7 July Monday, 16:00H
+     *
+     * @return the formatted String.
+     */
+    private String parseDeadlineToString() {
+        String dayOfMonth = String.valueOf(deadline.getDayOfMonth());
+        String month = deadline.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        String dayOfWeek = deadline.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        String hour = deadline.getHour() < 10
+                ? "0" + String.valueOf(deadline.getHour())
+                : String.valueOf(deadline.getHour());
+        String minute = deadline.getMinute() < 10
+                ? "0" + String.valueOf(deadline.getMinute())
+                : String.valueOf(deadline.getMinute());
+        return String.format("%s %s %s, %s:%sH", dayOfMonth, month, dayOfWeek, hour, minute);
     }
 }
