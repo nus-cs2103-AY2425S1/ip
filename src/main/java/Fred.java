@@ -4,10 +4,11 @@ public class Fred {
     static String line = "____________________________________________________________";
     static String name = "Fred";
     static Task[] taskList = new Task[100];
+    static int taskListIndex = 0;
     public static void main(String[] args) {
         greet();
         //echo();
-        addToTaskList();
+        getInput();
         sayFarewell();
         exit();
     }
@@ -47,32 +48,33 @@ public class Fred {
         exit();
     }
 
-    private static void addToTaskList() {
-        int index = 0;
+    private static void getInput() {
         Scanner scanner = new Scanner(System.in);
         String input;
         while (true) {
             input = scanner.nextLine();
-            if (input.equals("bye")){
+            if (input.equals("bye")) {
                 break;
-            } else if (input.equals("list")){
+            } else if (input.equals("list")) {
                 printTaskList();
-                continue;
-            }
-            if (index < taskList.length) {
-                taskList[index] = new Task(input);
-                System.out.println(line);
-                System.out.println("added: " + input);
-                System.out.println(line);
-                index++;
             } else {
-                System.out.println(line);
-                System.out.println("Unable to add to task list");
-                System.out.println(line);
+                addToTaskList(input);
             }
         }
-        sayFarewell();
-        exit();
+    }
+
+    private static void addToTaskList(String input) {
+        if (taskListIndex < taskList.length) {
+            taskList[taskListIndex] = new Task(input);
+            System.out.println(line);
+            System.out.println("added: " + input);
+            System.out.println(line);
+            taskListIndex++;
+        } else {
+            System.out.println(line);
+            System.out.println("Unable to add to task list");
+            System.out.println(line);
+        }
     }
 
     private static void printTaskList() {
