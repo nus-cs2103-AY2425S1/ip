@@ -38,7 +38,7 @@ public class FRIDAY {
 
         //bot running
         System.out.println(greeting);
-        while(isActive) {
+        while(isActive && scanner.hasNextLine()) {
             //collect user input
             userInput = scanner.nextLine();
             String[] parts = userInput.split(" ");
