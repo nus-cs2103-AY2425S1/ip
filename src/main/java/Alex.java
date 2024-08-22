@@ -13,50 +13,57 @@ public class Alex {
         while (true) {
             String userInput = scanner.nextLine();
 
-            if (userInput.equalsIgnoreCase("list")) {
-                printTaskList();
-            } else if (userInput.toLowerCase().startsWith("mark ")) {
-                int taskIndex = parseTaskIndex(userInput);
-                if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                    tasks.get(taskIndex).markAsDone();
-                    printTaskStatusChange("Nice! I've marked this task as done:", taskIndex);
+            try {
+                if (userInput.equalsIgnoreCase("list")) {
+                    printTaskList();
+                } else if (userInput.toLowerCase().startsWith("mark ")) {
+                    int taskIndex = parseTaskIndex(userInput);
+                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                        tasks.get(taskIndex).markAsDone();
+                        printTaskStatusChange("Nice! I've marked this task as done:", taskIndex);
+                    } else {
+                        printInvalidTaskNumber();
+                    }
+                } else if (userInput.toLowerCase().startsWith("unmark ")) {
+                    int taskIndex = parseTaskIndex(userInput);
+                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                        tasks.get(taskIndex).markAsNotDone();
+                        printTaskStatusChange("OK, I've marked this task as not done yet:", taskIndex);
+                    } else {
+                        printInvalidTaskNumber();
+                    }
+                } else if (userInput.equalsIgnoreCase("tell me a joke")) {
+                    printDividerWithMessage("Why did the scarecrow win an award? Because he was outstanding in his field!");
+                } else if (userInput.equalsIgnoreCase("bye")) {
+                    printDividerWithMessage("Bye. Hope to see you again soon!");
+                    break;
+                } else if (userInput.toLowerCase().startsWith("todo ")) {
+                    Task newTask = new Todo(userInput.substring(5));
+                    tasks.add(newTask);
+                    printTaskAdded(newTask);
+                } else if (userInput.toLowerCase().startsWith("deadline ")) {
+                    String[] parts = userInput.substring(9).split(" /by ");
+                    Task newTask = new Deadline(parts[0], parts[1]);
+                    tasks.add(newTask);
+                    printTaskAdded(newTask);
+                } else if (userInput.toLowerCase().startsWith("event ")) {
+                    String[] parts = userInput.substring(6).split(" /from | /to ");
+                    Task newTask = new Event(parts[0], parts[1], parts[2]);
+                    tasks.add(newTask);
+                    printTaskAdded(newTask);
+                } else if (userInput.toLowerCase().equals("todo")) {
+                    throw new EmptyTodoException();
+                } else if (userInput.toLowerCase().equals("blah")) {
+                    throw new UnknownCommandException();
                 } else {
-                    printInvalidTaskNumber();
+                    Task newTask = new Task(userInput);
+                    tasks.add(newTask);
+                    printTaskAdded(newTask);
                 }
-            } else if (userInput.toLowerCase().startsWith("unmark ")) {
-                int taskIndex = parseTaskIndex(userInput);
-                if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                    tasks.get(taskIndex).markAsNotDone();
-                    printTaskStatusChange("OK, I've marked this task as not done yet:", taskIndex);
-                } else {
-                    printInvalidTaskNumber();
-                }
-            } else if (userInput.equalsIgnoreCase("tell me a joke")) {
-                printDividerWithMessage("Why did the scarecrow win an award? Because he was outstanding in his field!");
-            } else if (userInput.equalsIgnoreCase("bye")) {
-                printDividerWithMessage("Bye. Hope to see you again soon!");
-                break;
-            } else if (userInput.toLowerCase().startsWith("todo ")) {
-                Task newTask = new Todo(userInput.substring(5));
-                tasks.add(newTask);
-                printTaskAdded(newTask);
-            } else if (userInput.toLowerCase().startsWith("deadline ")) {
-                String[] parts = userInput.substring(9).split(" /by ");
-                Task newTask = new Deadline(parts[0], parts[1]);
-                tasks.add(newTask);
-                printTaskAdded(newTask);
-            } else if (userInput.toLowerCase().startsWith("event ")) {
-                String[] parts = userInput.substring(6).split(" /from | /to ");
-                Task newTask = new Event(parts[0], parts[1], parts[2]);
-                tasks.add(newTask);
-                printTaskAdded(newTask);
-            } else {
-                Task newTask = new Task(userInput);
-                tasks.add(newTask);
-                printTaskAdded(newTask);
+            } catch (AlexException e) {
+                printDividerWithMessage(e.getMessage());
             }
         }
-
         scanner.close();
     }
 
