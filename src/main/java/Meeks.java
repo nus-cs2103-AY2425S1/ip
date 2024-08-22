@@ -3,11 +3,9 @@ public class Meeks {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("____________________________________________________________\n"
-                         + "Hello! I'm Meeks! Your friendly chatbot!\n"
-                         + "What can I do for you?\n");
-
         Echo echo = new Echo();
+
+        echo.greet();
 
 
         while (true) {
