@@ -28,21 +28,23 @@ public class Sora {
                 taskList.add(new ToDo(command[1]));
                 System.out.println("\tGot it. Sora has added this task:");
                 System.out.println("\t" + taskList.get(taskList.size() - 1));
+                System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
             } else if (command[0].equalsIgnoreCase("deadline") && command.length == 2) {
                 String[] deadlineInformation = command[1].trim().split(" /by ", 2);
                 taskList.add(new Deadline(deadlineInformation[0], deadlineInformation[1]));
                 System.out.println("\tGot it. Sora has added this task:");
                 System.out.println("\t" + taskList.get(taskList.size() - 1));
+                System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
             } else if (command[0].equalsIgnoreCase("event") && command.length == 2) {
                 String eventFrom = command[1].trim().split(" /from ", 2)[1].split(" /to", 2)[0];
                 String eventTo = command[1].trim().split("/to ", 2)[1];
                 taskList.add(new Event(command[0], eventFrom, eventTo));
                 System.out.println("\tGot it. Sora has added this task:");
                 System.out.println("\t" + taskList.get(taskList.size() - 1));
+                System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
             } else {
                 // TODO
             }
-            System.out.println("\tNow, you have " + taskList.size() + " tasks in your list");
             System.out.println(horizontalLine);
         }
 
