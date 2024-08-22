@@ -27,7 +27,7 @@ public class Nerf {
         System.out.println("Understood. I've added the following task:");
         System.out.println("  " + input);
         
-        System.out.println(String.format("You now have %d tasks in total.",listings.size()));
+        System.out.println(String.format("You now have %d task(s) in total.",listings.size()));
     }
     private static void printList(){
         System.out.println("Here are the tasks in your list:");
@@ -45,41 +45,83 @@ public class Nerf {
                 case "bye" -> exit();
                 case "list" -> printList();
                 default -> {
-                    if (input.startsWith("mark ")) {
-                        markTask(input);
-                    } else if (input.startsWith("unmark ")) {
-                        unmarkTask(input);
-                    } else if (input.startsWith("todo ")){
-                        addTodo(input);
-                    } else if (input.startsWith("deadline ")){
-                        addDeadline(input);
-                    } else if (input.startsWith("event ")){
-                        addEvent(input);
+                    try {
+                        if (input.startsWith("mark")) {
+                            markTask(input);
+                        } else if (input.startsWith("unmark")) {
+                            unmarkTask(input);
+                        } else if (input.startsWith("todo")){
+                            addTodo(input);
+                        } else if (input.startsWith("deadline")){
+                            addDeadline(input);
+                        } else if (input.startsWith("event")){
+                            addEvent(input);
+                        } else {
+                            System.out.println("""
+                                            Sorry, I dont understand what u are asking of me.
+                                            You may use list/bye or mark/unmark/todo/deadline/event + required syntax
+                                            """);
+                        }
+                    } catch (InvalidDataException e) {
+                        System.out.println("Sorry, your input is seems to be missing some data.");
                     }
                 }
             }
         } while (!input.equals("bye"));
     }
 
-    private static void addTodo(String input){
-        addToList(new ToDos(input.substring(5).trim())); 
+    private static void addTodo(String input) throws InvalidDataException{
+        String taskDesc = input.substring(4).trim();
+        if (taskDesc.equals("")) {
+            throw new InvalidDataException();
+        } else {
+            addToList(new ToDos(taskDesc)); 
+        }
+        
     }
 
-    private static void addDeadline(String input){
-        input = input.substring(9).trim();
+    private static void addDeadline(String input) throws InvalidDataException{
+        input = input.substring(8).trim();
         String[] parts = input.split("/by",2);
-        addToList(new Deadlines(parts[0].trim(),parts[1].trim()));
+        if (parts.length != 2) {
+            System.out.println("Syntax: deadline <taskname> /by <datetime>");
+        } else {
+            String taskDesc = parts[0].trim();
+            String deadline = parts[1].trim();
+            if (taskDesc.equals("") || deadline.equals("")){
+                throw new InvalidDataException();
+            }
+            addToList(new Deadlines(taskDesc,deadline));
+        }
+        
          
     }
-    private static void addEvent(String input){
-        input = input.substring(6).trim();
+    private static void addEvent(String input) throws InvalidDataException{
+        input = input.substring(5).trim();
         String[] part1 = input.split("/from",2);
-        String[] part2 = part1[1].split("/to",2);
-        addToList(new Events(part1[0].trim(),part2[0].trim(),part2[1].trim()));
+        if (part1.length != 2) {
+            System.out.println("Syntax: event <taskname> /from <datetime> /to <datetime>");
+        }
+        else {
+            String[] part2 = part1[1].split("/to",2);
+            if (part2.length != 2) {
+                System.out.println("Syntax: event <taskname> /from <datetime> /to <datetime>");
+            } else {
+                String taskDesc = part1[0].trim();
+                String from = part2[0].trim();
+                String to = part2[1].trim();
+                if (taskDesc.equals("") || from.equals("") || to.equals("")){
+                    throw new InvalidDataException();
+                }
+                addToList(new Events(taskDesc,from,to));
+            }
+        }
+        
+        
     }
 
     private static void markTask(String input){
-        String number = input.substring(5).trim();
+        String number = input.substring(4).trim();
         try {
             int num = Integer.parseInt(number);
             listings.get(num-1).setDone();
@@ -90,11 +132,13 @@ public class Nerf {
             printDivider();
         } catch (NumberFormatException e) {
             System.out.println("Oops! That does not seem like a number.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops! Please specific a number within the list.");
         }
     }
 
     private static void unmarkTask(String input){
-        String number = input.substring(7).trim();
+        String number = input.substring(6).trim();
         try {
             int num = Integer.parseInt(number);
             listings.get(num-1).setUndone();
@@ -105,11 +149,12 @@ public class Nerf {
             printDivider();
         } catch (NumberFormatException e) {
             System.out.println("Oops! That does not seem like a number.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops! Please specific a number within the list.");
         }
     }
 
     private static String userInput(){
-        
         String res = scanner.nextLine();
         printDivider();
         return res;
