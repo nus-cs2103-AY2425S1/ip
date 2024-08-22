@@ -1,11 +1,12 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Bob {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
-        int taskCounter = 0;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("------------------------------------------");
         System.out.println("Hello! I'm Bob!\nHow can I help you today?");
@@ -23,20 +24,19 @@ public class Bob {
                         // print tasks
                         System.out.println("------------------------------------------");
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < taskCounter; i++) {
-                            int j = i + 1;
-                            System.out.println(j + ". " + tasks[i].toString());
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i).toString());
                         }
                         System.out.println("------------------------------------------");
                         break;
 
                     case "mark":
                         int taskIndexMark = Integer.parseInt(taskDescription) - 1;
-                        if (taskIndexMark < taskCounter && taskIndexMark >= 0) {
-                            tasks[taskIndexMark].mark();
+                        if (taskIndexMark < tasks.size() && taskIndexMark >= 0) {
+                            tasks.get(taskIndexMark).mark();
                             System.out.println("------------------------------------------");
                             System.out.println("Yay! I've marked this task as done:");
-                            System.out.println("[" + tasks[taskIndexMark].getStatusIcon() + "] " + tasks[taskIndexMark].getDescription());
+                            System.out.println("[" + tasks.get(taskIndexMark).getStatusIcon() + "] " + tasks.get(taskIndexMark).getDescription());
                             System.out.println("------------------------------------------");
                         } else {
                             System.out.println("------------------------------------------");
@@ -47,11 +47,11 @@ public class Bob {
 
                     case "unmark":
                         int taskIndexUnmark = Integer.parseInt(taskDescription) - 1;
-                        if (taskIndexUnmark < taskCounter && taskIndexUnmark >= 0) {
-                            tasks[taskIndexUnmark].unmark();
+                        if (taskIndexUnmark < tasks.size() && taskIndexUnmark >= 0) {
+                            tasks.get(taskIndexUnmark).unmark();
                             System.out.println("------------------------------------------");
                             System.out.println("Alright, I've marked this task as not done yet:");
-                            System.out.println("[" + tasks[taskIndexUnmark].getStatusIcon() + "] " + tasks[taskIndexUnmark].getDescription());
+                            System.out.println("[" + tasks.get(taskIndexUnmark).getStatusIcon() + "] " + tasks.get(taskIndexUnmark).getDescription());
                             System.out.println("------------------------------------------");
                         } else {
                             System.out.println("------------------------------------------");
@@ -64,12 +64,11 @@ public class Bob {
                         if (taskDescription.isEmpty()) {
                             throw new BobException("Description of the todo cannot be empty :(");
                         }
-                        tasks[taskCounter] = new Todo(taskDescription);
-                        taskCounter++;
+                        tasks.add(new Todo(taskDescription));
                         System.out.println("------------------------------------------");
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks[taskCounter - 1].toString());
-                        System.out.println("Now you have " + taskCounter + " task(s) in the list.");
+                        System.out.println(tasks.get(tasks.size() - 1).toString());
+                        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                         System.out.println("------------------------------------------");
                         break;
 
@@ -81,12 +80,11 @@ public class Bob {
                         if (dlParts.length < 2) {
                             throw new BobException("Missing details :(\nPlease use this format: 'deadline [description] /by [deadline]' :(");
                         }
-                        tasks[taskCounter] = new Deadline(dlParts[0], dlParts[1]);
-                        taskCounter++;
+                        tasks.add(new Deadline(dlParts[0], dlParts[1]));
                         System.out.println("------------------------------------------");
                         System.out.println("Ok! I've added this task:");
-                        System.out.println(tasks[taskCounter - 1].toString());
-                        System.out.println("Now, you have " + taskCounter + " task(s) in the list.");
+                        System.out.println(tasks.get(tasks.size() - 1).toString());
+                        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                         System.out.println("------------------------------------------");
                         break;
 
@@ -97,14 +95,30 @@ public class Bob {
                             throw new BobException("Missing details :(\nPlease use this format: event [description] /from [start] /to [end]");
                         }
                         String[] eventParts = taskDescription.split(" /from | /to ");
-                        tasks[taskCounter] = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                        taskCounter++;
+                        tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
                         System.out.println("------------------------------------------");
                         System.out.println("Ok! I've added this task:");
-                        System.out.println(tasks[taskCounter - 1].toString());
-                        System.out.println("Now you have " + taskCounter + " task(s) in the list.");
+                        System.out.println(tasks.get(tasks.size() - 1).toString());
+                        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                         System.out.println("------------------------------------------");
                         break;
+
+                    case "delete":
+                        int taskIndexDelete = Integer.parseInt(taskDescription) - 1;
+                        if (taskIndexDelete < tasks.size() && taskIndexDelete >= 0) {
+                            Task removedTask = tasks.remove(taskIndexDelete);
+                            System.out.println("------------------------------------------");
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("  " + removedTask.toString());
+                            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+                            System.out.println("------------------------------------------");
+                        } else {
+                            System.out.println("------------------------------------------");
+                            System.out.println("Invalid index :(");
+                            System.out.println("------------------------------------------");
+                        }
+                        break;
+
 
                     case "bye":
                         // exit
