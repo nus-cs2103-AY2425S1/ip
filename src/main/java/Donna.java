@@ -1,6 +1,22 @@
 import java.util.Scanner;
 
 public class Donna {
+    private static Task[] tasks = new Task[100];
+    private static int taskNum = 0;
+
+    static private void printDashedLine() {
+        System.out.println("____________________________________________________________");
+    }
+
+    private static int addTask(String desc) {
+        tasks[taskNum] = new Task(desc);
+        taskNum++;
+        printDashedLine();
+        System.out.println("added: " + desc);
+        printDashedLine();
+        return taskNum;
+    }
+
     static private void printDonnaLogo() {
         System.out.println(" ____      ");
         System.out.println("|  _ \\  ___  _ __  _ __   __ _ ");
@@ -12,37 +28,68 @@ public class Donna {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] tasks = new String[100];
-        int taskNum = 0;
 
         printDonnaLogo();
+
+        //greeting
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Donna");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
+        //constant inputs from the user
         while (true) {
             String input = sc.nextLine();
+            String[] inputWords = input.split(" ");
 
             if (input.equals("bye")) { //exit
-                System.out.println("____________________________________________________________");
+                printDashedLine();
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
+                printDashedLine();
                 break;
             } else if (input.equals("list")) { //display list
-                System.out.println("____________________________________________________________");
+                printDashedLine();
                 for (int i = 0; i < taskNum; i++) {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
-                System.out.println("____________________________________________________________");
-            } else { //add tasks to the array
-                tasks[taskNum] = input;
-                taskNum++;
-                System.out.println("____________________________________________________________");
-                System.out.println("added: " + input);
-                System.out.println("____________________________________________________________");
+                printDashedLine();
+            } else if (inputWords[0].equals("mark") && inputWords.length == 2) { //request to mark a task as done
+                try {
+                    int taskToMark = Integer.parseInt(inputWords[1]); //not index
+                    if ((taskToMark - 1) <= taskNum) { //if task to mark is a valid task
+                        tasks[taskToMark - 1].markDone();
+                        printDashedLine();
+                        System.out.println("Nice! I've marked this task as done: ");
+                        System.out.println("    " + tasks[taskToMark - 1]);
+                        printDashedLine();
+                    } else {
+                        printDashedLine();
+                        System.out.println("Invalid task number :(");
+                        printDashedLine();
+                    }
+                } catch (NumberFormatException e) { //if the phrase isnt "mark INTEGER" it's a task instead of a request
+                    taskNum = addTask(input);
+                }
+            } else if (inputWords[0].equals("unmark") && inputWords.length == 2) { //request to unmark
+                try {
+                    int taskToMark = Integer.parseInt(inputWords[1]);
+                    if ((taskToMark - 1) <= taskNum) { //if task to mark is a valid task
+                        tasks[taskToMark - 1].markNotDone();
+                        printDashedLine();
+                        System.out.println("OK, I have marked this task as not done yet: ");
+                        System.out.println("    " + tasks[taskToMark - 1]);
+                        printDashedLine();
+                    } else {
+                        printDashedLine();
+                        System.out.println("Invalid task number :(");
+                        printDashedLine();
+                    }
+                } catch (NumberFormatException e) { //if the phrase isnt "unmark INTEGER" it's a task instead of a request
+                    taskNum = addTask(input);
+                }
+            } else { //not a request
+                taskNum = addTask(input);
             }
-
         }
 
         sc.close();
