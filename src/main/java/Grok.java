@@ -1,13 +1,34 @@
+import java.util.Scanner;
+
 public class Grok {
 
-    private static void padMessage(String msg) {
+    private static String padHorizontalLines(String msg) {
         String horizontalLine = "_".repeat(80);
-        System.out.println(horizontalLine);
-        System.out.println(msg);
-        System.out.println("\n".concat(horizontalLine));
+        return String.join(
+                "\n",
+                horizontalLine, msg, horizontalLine
+        );
+    }
+    private static String indent(String msg) {
+        String indentSpaces = " ".repeat(4);
+        return indentSpaces.concat(msg.replace("\n", "\n".concat(indentSpaces)));
+    }
+
+    private static String padMessage(String msg) {
+        return indent(padHorizontalLines(msg));
     }
     public static void main(String[] args) {
-        padMessage("Hello! I'm Grok\nWhat can I do for you?");
-        padMessage("Bye. Hope to see you again soon!");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
+        while (true) {
+            String userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                break;
+            }
+            System.out.println(padMessage(userInput));
+        }
+
+
+        System.out.println(padMessage("Bye. Hope to see you again soon!"));
     }
 }
