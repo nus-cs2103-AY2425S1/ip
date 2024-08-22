@@ -2,7 +2,7 @@ abstract class Task {
     private final String description;
     private boolean isDone;
 
-    Task(char type, String description) {
+    Task(String description) {
         this.description = description;
         this.isDone = false;
     }
