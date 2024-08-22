@@ -50,6 +50,17 @@ public class BotimusPrime {
                 taskList.get(idx));
     }
 
+    private static void handleDelete(String input) {
+        String[] numFinder = input.split(" ");
+        int idx = Integer.parseInt(numFinder[1]) - 1;
+        Task task = taskList.get(idx);
+        taskList.remove(idx);
+        System.out.println("____________________________________________________________\n" +
+                "Noted. I've removed this task:\n" +
+                task +
+                "\nNow you have " + taskList.size() + " tasks in the list.");
+    }
+
     private static void handleToDo(String input) {
         if (input.length() <= 5 || input.substring(5).isEmpty()) {
             System.out.println("eh bro udw to put ur description of ur task issit");
@@ -164,8 +175,10 @@ public class BotimusPrime {
                 handleDeadline(input);
             } else if (input.startsWith("event")) {
                 handleEvent(input);
+            } else if (input.startsWith("delete")) {
+                handleDelete(input);
             } else {
-                System.out.println("Invalid command, try again");
+                handleUnknown();
             }
         }
         sc.close();
