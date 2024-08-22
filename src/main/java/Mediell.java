@@ -11,29 +11,34 @@ public class Mediell {
         String message = "";
         TaskList items = new TaskList();
         while (true) {
-            System.out.println("");
-            message = scanner.nextLine();
-            if (Objects.equals(message, "bye")) {
-                break;
-            } else if (Objects.equals(message, "list")) {
-                items.displayList();
-            } else if (message.startsWith("mark")) {
-                int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
-                items.markItem(index);
-            } else if (message.startsWith("unmark")) {
-                int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
-                items.unMarkItem(index);
-            } else if (message.startsWith("todo")) {
-                String task = message.split(" ", 2)[1];
-                items.addToDo(task);
-            } else if (message.startsWith("event")) {
-                String task = message.split(" ", 2)[1];
-                items.addEvent(task);
-            } else if (message.startsWith("deadline")) {
-                String task = message.split(" ", 2)[1];
-                items.addDeadline(task);
-            } else {
-                System.out.println("Sorry :( I'm confused at what I have to do");
+            try {
+                System.out.println("");
+                message = scanner.nextLine();
+                if (Objects.equals(message, "bye")) {
+                    break;
+                } else if (Objects.equals(message, "list")) {
+                    items.displayList();
+                } else if (message.startsWith("mark")) {
+                    int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
+                    items.markItem(index);
+                } else if (message.startsWith("unmark")) {
+                    int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
+                    items.unMarkItem(index);
+                } else if (message.startsWith("todo")) {
+                    String task = message.split(" ", 2)[1];
+                    items.addToDo(task);
+                } else if (message.startsWith("event")) {
+                    String task = message.split(" ", 2)[1];
+                    items.addEvent(task);
+                } else if (message.startsWith("deadline")) {
+                    String task = message.split(" ", 2)[1];
+                    items.addDeadline(task);
+                } else {
+                    System.out.println("Sorry :( I'm confused at what I have to do");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // if out of range likely because not enough inputs
+                System.out.println("OOPS!! Not enough inputs were provided");
             }
             printLine();
         }

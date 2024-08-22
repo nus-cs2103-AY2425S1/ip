@@ -35,12 +35,20 @@ public class TaskList {
     }
 
     public void markItem(int index) {
+        if (index >= size) {
+            System.out.println("OOPS!! please enter a valid number");
+            return;
+        }
         listItems[index].markAsCompleted();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(listItems[index]);
     }
 
     public void unMarkItem(int index) {
+        if (index >= size) {
+            System.out.println("OOPS!! please enter a valid number");
+            return;
+        }
         listItems[index].markAsUncompleted();
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(listItems[index]);
