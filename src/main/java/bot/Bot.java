@@ -1,5 +1,9 @@
 package bot;
 
+import bot.exceptions.BotException;
+import bot.exceptions.EmptyTodoException;
+import bot.exceptions.InvalidTaskDescriptionException;
+import bot.exceptions.InvalidTaskIdException;
 import bot.tasks.*;
 import bot.utils.Formatter;
 
@@ -29,28 +33,31 @@ public class Bot {
             String cmd = matcher.group(1);
             String args = matcher.group(2);
 
-            switch (cmd) {
-                case "list":
-                    handleList();
-                    break;
-                case "todo", "deadline", "event":
-                    handleAddTask(cmd, args);
-                    break;
-                case "mark":
-                    handleMarkTask(args);
-                    break;
-                case "unmark":
-                    handleUnmarkTask(args);
-                    break;
-                case "bye":
-                    printBotMessage("Bye. Hope to see you again soon!");
-                    System.exit(0);
-                default:
-                    // TODO? Possibly find a better way to handle this
-                    printBotMessage("Command not found");
+            try {
+                switch (cmd) {
+                    case "list":
+                        handleList();
+                        break;
+                    case "todo", "deadline", "event":
+                        handleAddTask(cmd, args);
+                        break;
+                    case "mark":
+                        handleMarkTask(args);
+                        break;
+                    case "unmark":
+                        handleUnmarkTask(args);
+                        break;
+                    case "bye":
+                        printBotMessage("Bye. Hope to see you again soon!");
+                        System.exit(0);
+                    default:
+                        printBotMessage("Command not found");
+                }
+            } catch (BotException e) {
+                printBotMessage(e.getMessage());
             }
         } else {
-            // TODO: Throw exception
+            printBotMessage("Command not found");
         }
     }
 
@@ -58,8 +65,11 @@ public class Bot {
         printBotMessage("Here are the tasks in your list:\n" + Formatter.formatList(tasks));
     }
 
-    private static void handleAddTask(String cmd, String args) {
+    private static void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException {
         if (cmd.equals("todo")) {
+            if (args.isEmpty()) {
+                throw new EmptyTodoException();
+            }
             tasks.add(new Todo(args));
         } else if (cmd.equals("deadline")) {
             Pattern regex = Pattern.compile("(.*)\\s/by\\s(.*)");
@@ -69,7 +79,7 @@ public class Bot {
                 String deadline = matcher.group(2);
                 tasks.add(new Deadline(task, deadline));
             } else {
-                // TODO: Handle error
+                throw new InvalidTaskDescriptionException(args);
             }
         } else {
             // Last command is guaranteed to be "event" by the switch statement
@@ -81,7 +91,7 @@ public class Bot {
                 String to = matcher.group(3);
                 tasks.add(new Event(task, from, to));
             } else {
-                // TODO: Handle error
+                throw new InvalidTaskDescriptionException(args);
             }
         }
         Task newTask = tasks.get(tasks.size()-1);
@@ -93,14 +103,20 @@ public class Bot {
         printBotMessage(response);
     }
 
-    private static void handleMarkTask(String args) {
+    private static void handleMarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
+        if (index < 0 || index > tasks.size()-1) {
+            throw new InvalidTaskIdException(index+1);
+        }
         tasks.get(index).markAsDone();
         printBotMessage("Nice! I've marked this task as done:\n" + tasks.get(index));
     }
 
-    private static void handleUnmarkTask(String args) {
+    private static void handleUnmarkTask(String args) throws InvalidTaskIdException {
         int index = getTaskIndex(args);
+        if (index < 0 || index > tasks.size()-1) {
+            throw new InvalidTaskIdException(index+1);
+        }
         tasks.get(index).markAsIncomplete();
         printBotMessage("OK, I've marked this task as not done yet:\n" + tasks.get(index));
     }
