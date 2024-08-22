@@ -3,13 +3,24 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Alex {
-
+    //create separation line
+    private static String line = "____________________________________________________________";
     public static void main(String[] args) {
+        boolean sayHi = true;
+        while (true) {
+            try {
+                run(sayHi);
+                break;
+            } catch (AlexException e) {
+                System.out.println(line + "\n" + e.getMessage() + "\n" + line);
+                sayHi = false;
+            }
+        }
+    }
+
+    private static void run(boolean sayHi) throws AlexException {
         //Create a Scanner object
         Scanner inputScanner = new Scanner(System.in);
-
-        //Create the separation line variable
-        String line = "____________________________________________________________";
 
         //Create an arrayList to store all the Task objects
         ArrayList<Task> list = new ArrayList<>();
@@ -21,12 +32,13 @@ public class Alex {
         String greeting =
                 """
                         ____________________________________________________________
-                         Hello! I'm Alex
-                         What can I do for you?
+                         Hello! I'm Alex, your personal assistant
+                         What can I do for you today?
                         ____________________________________________________________""";
 
-        System.out.println(greeting);
-
+        if (sayHi) {
+            System.out.println(greeting);
+        }
 
         while(true) {
             //create new scanner for the line of user input
@@ -67,9 +79,13 @@ public class Alex {
                     while (lineScanner.hasNext()) {
                         arrOfStr.add(lineScanner.next());
                     }
+                    if (arrOfStr.isEmpty()) {
+                        throw new AlexException("Oh no! Alex doesn't like that the todo task is blank :( You have to provide a task!");
+                    }
                     task = new Todo(size + 1, String.join(" ", arrOfStr), false);
                 } else if (response.equals("deadline")) {
                     String description = "";
+                    String deadline = "";
                     while (lineScanner.hasNext()) {
                         String next = lineScanner.next();
                         if (next.equals("/by")) {
@@ -79,7 +95,14 @@ public class Alex {
                             arrOfStr.add(next);
                         }
                     }
-                    task = new Deadline(size + 1, description, false, String.join(" ", arrOfStr));
+                    deadline = String.join(" ", arrOfStr);
+                    if ((description.isEmpty() && !arrOfStr.isEmpty()) || (!description.isEmpty()) && deadline.isEmpty()) {
+                        throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a deadline date by writing '/by' followed by the deadline!");
+                    }
+                    if (description.isEmpty() && deadline.isEmpty()) {
+                        throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide a task!");
+                    }
+                    task = new Deadline(size + 1, description, false, deadline);
                 } else if (response.equals("event")) {
                     String description = "";
                     String start = "";
@@ -98,6 +121,8 @@ public class Alex {
                         }
                     }
                     task = new Event(size + 1, description, false, start, String.join(" ", arrOfStr));
+                } else {
+                    throw new AlexException("Sorry! Alex doesn't understand you. Please only start with 'todo', 'deadline', 'event', 'mark', 'unmark', 'list' or 'bye'!");
                 }
                 list.add(task);
                 size++;
