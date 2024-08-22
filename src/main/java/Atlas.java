@@ -1,3 +1,4 @@
+import Commands.Commands;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,31 +29,32 @@ public class Atlas {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String nextCommandLine = scanner.nextLine();
-            String command = nextCommandLine.split(" ")[0];
+            String command = nextCommandLine.split(" ")[0].toUpperCase();
             try {
-                switch (command) {
-                    case "bye":
+                // Solution below inspired by https://stackoverflow.com/questions/10387329/using-string-representations-of-enum-values-in-switch-case
+                switch (Commands.valueOf(command)) {
+                    case BYE:
                         Atlas.exit();
                         return;
-                    case "list":
+                    case LIST:
                         listTaskItems(taskList, nextCommandLine);
                         break;
-                    case "mark":
+                    case MARK:
                         markItem(taskList, nextCommandLine);
                         break;
-                    case "unmark":
+                    case UNMARK:
                         unmarkItem(taskList, nextCommandLine);
                         break;
-                    case "todo":
+                    case TODO:
                         addToDo(taskList, nextCommandLine);
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         addDeadline(taskList, nextCommandLine);
                         break;
-                    case "event":
+                    case EVENT:
                         addEvent(taskList, nextCommandLine);
                         break;
-                    case "delete":
+                    case DELETE:
                         deleteTask(taskList, nextCommandLine);
                         break;
                     default:
