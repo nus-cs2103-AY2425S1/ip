@@ -18,7 +18,8 @@ public class Barcus {
         Scanner scanner = new Scanner(System.in);
 
         // list to save info
-        String[] tasks = new String[100];
+//        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int curr = 0;
 
         // start
@@ -36,12 +37,14 @@ public class Barcus {
                 // for add list
                 talk("");
                 for (int i = 0; i < curr; i++) {
-                    System.out.println(String.valueOf(i+1) + ". " + tasks[i]);
+                    System.out.println(String.valueOf(i+1) + ". " + tasks[i].toString());
                 }
             } else {
                 // for echo
 //                talk(reply);
-                tasks[curr] = reply;
+
+                // create new task
+                tasks[curr] = new Task(reply);
                 curr++;
                 talk("Added task '" + reply + "'");
             }
