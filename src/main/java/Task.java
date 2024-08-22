@@ -31,8 +31,14 @@ public class Task {
             }
 
             String[] details = splitUserInput[1].split("/from ", 2);
+            if (details.length < 2) {
+                throw new EventNoTimeException();
+            }
             String info = details[0];
             String[] dates = details[1].split("/to ", 2);
+            if (dates.length < 2) {
+                throw new EventNoTimeException();
+            }
             return new Events(info, dates[0], dates[1]);
         } else {
             //task not recognised
