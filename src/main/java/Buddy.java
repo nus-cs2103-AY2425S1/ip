@@ -33,9 +33,12 @@ public class Buddy {
                 markTaskAsDone(input);
             } else if (input.startsWith("unmark")) {
                 markTaskAsNotDone(input);
-            } else {
+            } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                 // Store input text as new task
                 addTask(input);
+            } else {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("Please enter a valid command!");
             }
         }
 
@@ -64,6 +67,12 @@ public class Buddy {
      */
     private static void addTask(String input) {
         String[] parts = input.split(" ", 2);
+
+        if (parts.length < 2) {
+            System.out.println("Please enter a valid task description!");
+            return;
+        }
+
         String type = parts[0];
         String description = parts[1];
 
@@ -73,10 +82,22 @@ public class Buddy {
                 break;
             case "deadline":
                 String[] deadlineParts = description.split(" /by ");
+
+                if (deadlineParts.length < 2) {
+                    System.out.println("Please enter a valid deadline description!");
+                    return;
+                }
+
                 tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
                 break;
             case "event":
                 String[] eventParts = description.split(" /from | /to ");
+
+                if (eventParts.length < 3) {
+                    System.out.println("Please enter a valid event description!");
+                    return;
+                }
+
                 tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
                 break;
             default:
