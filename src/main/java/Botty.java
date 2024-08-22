@@ -93,7 +93,7 @@ public class Botty {
         try {
             Integer.parseInt(string);
             return true;
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
     }
@@ -152,7 +152,11 @@ public class Botty {
     }
     private static void handleTodo(String argument) {
         Todo todo = Todo.generateFromString(argument);
-        addToTaskList(todo);
+        if (todo == null) {
+            reply("I am unable to add that todo! Please ensure that the description is not blank");
+        } else {
+            addToTaskList(todo);
+        }
     }
     private static void handleDeadline(String argument) {
         Deadline deadline = Deadline.generateFromString(argument);

@@ -9,6 +9,9 @@ public class Todo extends Task {
     }
 
     public static Todo generateFromString(String string) {
+        if (string == null || string.isEmpty()) {
+            return null;
+        }
         return new Todo(string);
     }
 }
