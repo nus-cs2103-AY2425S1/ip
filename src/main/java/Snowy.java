@@ -1,5 +1,6 @@
 import com.sun.source.util.TaskListener;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -84,8 +85,10 @@ public class Snowy {
             taskList = new ArrayList<Task>();
         }
 
-        public void addTask(String d) {
-            taskList.add(new Task(d));
+        public void addTask(Task t) {
+            taskList.add(t);
+            String str = String.format(" %s\nNow you have %d task(s) in your list\n" + line, t, this.taskList.size());
+            System.out.println(str);
         }
 
         public boolean isTaskDone(int i) {
@@ -104,7 +107,7 @@ public class Snowy {
             }
         }
         public void displayList() {
-            System.out.println(line+"\nYour to-do list");
+            System.out.println(line+"\nYour list of tasks");
             if (taskList.isEmpty()) {
                 System.out.println("No tasks, make a to-do list first");
             }
@@ -153,10 +156,20 @@ public class Snowy {
                     System.out.println("Cannot unmark task as it is not done");
 
                 }
-            } else {
-                System.out.println(line + "\nYou said: " + input + "\n" + line);
-                taskList.addTask(input);
+            } else if (input.startsWith("todo")){
+                String description = input.substring(4);
+                System.out.println(line);
+                if (description.equals(" ")) {
+                    System.out.println("Please provide a description");
+                } else {
+                    ToDo todo = new ToDo(description);
+                    System.out.println("Added to do to your list of tasks");
+                    taskList.addTask(todo);
 
+                }
+            } else if (input.startsWith("deadline")) {
+                String description = input.substring(4);
+                System.out.println(line);
             }
         }
         System.out.println("Bye. See you next time!");
