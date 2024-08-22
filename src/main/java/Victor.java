@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Victor {
 
@@ -16,6 +17,8 @@ public class Victor {
 + "   `---`     '---'    `._____.'    '---'      '-----'    ''-'   `'-'\n";
         Scanner inp = new Scanner(System.in);
         ArrayList<Task> inputs = new ArrayList<Task>();
+        String[] exclamations = new String[]{"Wonderful", "Cool", "Magnificent", "Splendid", "Great", "Fantastic", "Marvellous"};
+        Random Random = new Random();
 
         System.out.println(logo);
         System.out.println("Hello! My name is Victor!");
@@ -68,11 +71,11 @@ public class Victor {
                 }
                 taskName = taskName.trim();
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the To Do.");
+                    System.out.println("  ~  Please give a name for the To Do. The format should be \"todo (description)\"");
                 } else {
                     ToDo task = new ToDo(taskName);
                     inputs.add(task);
-                    System.out.println("  ~  Cool! I added this To Do:");
+                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this To Do:");
                     System.out.println("  ~    " + task);
                     System.out.println("  ~  You now have " + inputs.size() + ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
@@ -97,13 +100,13 @@ public class Victor {
                 taskName = taskName.trim();
                 deadline = deadline.trim();
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the Deadline.");
+                    System.out.println("  ~  Please give a name for the Deadline. The format should be \"deadline (description) /by (deadline)\"");
                 } else if (deadline.isEmpty()) {
-                    System.out.println("  ~  Please give a deadline for the Deadline.");
+                    System.out.println("  ~  Please give a deadline for the Deadline. The format should be \"deadline (description) /by (deadline)\"");
                 } else {
                     Deadline task = new Deadline(taskName, deadline);
                     inputs.add(task);
-                    System.out.println("  ~  Cool! I added this Deadline:");
+                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this Deadline:");
                     System.out.println("  ~    " + task);
                     System.out.println("  ~  You now have " + inputs.size() + ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
@@ -137,20 +140,20 @@ public class Victor {
                 start = start.trim();
                 end = end.trim();
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the Event.");
+                    System.out.println("  ~  Please give a name for the Event. The format should be \"event (description) /from (start) /to (end)\"");
                 } else if (start.isEmpty()) {
-                    System.out.println("  ~  Please give a start time for the Event.");
+                    System.out.println("  ~  Please give a start time for the Event. The format should be \"event (description) /from (start) /to (end)\"");
                 } else if (end.isEmpty()) {
-                    System.out.println("  ~  Please give an end time for the Event.");
+                    System.out.println("  ~  Please give an end time for the Event. The format should be \"event (description) /from (start) /to (end)\"");
                 } else {
                     Event task = new Event(taskName, start, end);
                     inputs.add(task);
-                    System.out.println("  ~  Cool! I added this Event:");
+                    System.out.println("  ~  " + exclamations[Random.nextInt(exclamations.length)] + "! I added this Event:");
                     System.out.println("  ~    " + task);
                     System.out.println("  ~  You now have " + inputs.size() + ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
                 }
             } else {
-                System.out.println("  ~  Please specify either a To Do, a Deadline or an Event!");
+                System.out.println("  ~  Sorry, that's not something I know how to do :( Please specify either a To Do, a Deadline or an Event!");
             }
             System.out.println("============================================================");
             userInput = inp.nextLine();
