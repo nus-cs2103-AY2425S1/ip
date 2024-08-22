@@ -1,17 +1,22 @@
 public class Event extends Task {
 
-    protected String start;
-    protected String end;
+    protected String from;
+    protected String to;
 
-    public Event(String description, String start, String end) {
-        super(description);
-        this.start = start;
-        this.end  = end;
+    public Event(String description, String from, String to) {
+        super("E", description);
+        this.from = from;
+        this.to  = to;
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+    public String stringUI() {
+        return super.stringUI() + " (from: " + this.from + " to: " + this.to + ")";
+    }
+
+    @Override
+    public String stringStorage() {
+        return super.stringStorage() + " | " + this.from + " | " + this.to;
     }
 
 }
