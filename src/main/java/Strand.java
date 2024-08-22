@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Strand {
     private static boolean running = false;
     private static final String horizontalLine = "----------------------------------------><>";
-    private static List<String> listy = new ArrayList<>();
+    private static final List<String> strandList = new ArrayList<>();
     private static void print(String s) {
         System.out.println(s.indent(4));
     }
@@ -27,8 +27,8 @@ public class Strand {
 
     private static void listAll() {
         output(
-                listy.stream()
-                        .map((x) -> (listy.indexOf(x)+1) + ". " + x + "\n")
+                strandList.stream()
+                        .map((x) -> (strandList.indexOf(x)+1) + ". " + x + "\n")
                         .reduce((a, b) -> a + b).orElse("")
         );
     }
@@ -48,7 +48,7 @@ public class Strand {
 
             default : {
                 output("added: " + input);
-                listy.add(input);
+                strandList.add(input);
             }
         }
     }
