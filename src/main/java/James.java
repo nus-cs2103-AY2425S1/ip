@@ -11,7 +11,7 @@ public class James {
 
         Scanner scanner = new Scanner(System.in);
         String command;
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             System.out.print("> ");
@@ -21,12 +21,18 @@ public class James {
                 break;
             } else if (command.equalsIgnoreCase("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
-                    String task = String.format("%d. %s", (i + 1), tasks.get(i));
+                    String task = String.format("%d. %s", (i + 1), tasks.get(i).printTask());
                     System.out.println(task);
                 }
+            } else if (command.toUpperCase().startsWith("MARK")) {
+                int taskNum = Integer.parseInt(command.substring(command.length() - 1));
+                tasks.get(taskNum - 1).mark();
+            } else if (command.toUpperCase().startsWith("UNMARK")) {
+                int taskNum = Integer.parseInt(command.substring(command.length() - 1));
+                tasks.get(taskNum - 1).unMark();
             } else {
-                tasks.add(command);
-                System.out.println("Task added: " + command + "\n");
+                tasks.add(new Task(command, false));
+                System.out.println("Task added:" + command + "\n");
             }
         }
 
