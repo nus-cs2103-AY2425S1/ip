@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
+    private static final String LINE_PREFIX = "    ";
     private static String input = "";
 
     private enum Command {
@@ -9,6 +10,12 @@ public class Bob {
             @Override
             public void run() {
                 exit();
+            }
+        },
+        CATCH_ALL("") {
+            @Override
+            public void run() {
+                say(input);
             }
         };
 
@@ -21,11 +28,11 @@ public class Bob {
     }
 
     private static void say(String text) {
-        System.out.println("\n " + text.replace("\n", "\n ") + "\n" + SEPARATOR);
+        String t = SEPARATOR + "\n " + text.replace("\n", "\n ") + "\n" + SEPARATOR;
+        System.out.println(LINE_PREFIX + t.replace("\n", "\n" + LINE_PREFIX) + "\n");
     }
 
     private static void greet() {
-        System.out.print(SEPARATOR);
         say("Hey there! Bob at your service.  \n" +
                 "Let’s roll up our sleeves and get to work!");
     }
@@ -47,18 +54,24 @@ public class Bob {
         | |  |_______/   | | |   `.____.'   | | |  |_______/   | |
         | |              | | |              | | |              | |
         | '--------------' | '--------------' | '--------------' |
-        '----------------' '----------------' '----------------'""";
+        '----------------' '----------------' '----------------'
+        """;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(logo);
         greet();
         while (true) {
+            boolean executed = false;
             input = scanner.nextLine();
             for (Command c : Command.values()) {
                 if (input.equals(c.CMD)) {
                     c.run();
+                    executed = true;
                     break;
                 }
+            }
+            if (!executed) {
+                Command.CATCH_ALL.run();
             }
         }
     }
