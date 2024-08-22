@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HypeBot {
@@ -22,7 +23,8 @@ public class HypeBot {
     }
 
     public static void exit() {
-        System.out.println("Alright homie, it's been a BLAST hanging out with you. "
+        System.out.println(bufferLine
+                + "Alright homie, it's been a BLAST hanging out with you. "
                 + "Have a wonderful\nday, and catch you soon again you ABSOLUTE BALLER!\n"
                 + bufferLine);
     }
@@ -32,17 +34,30 @@ public class HypeBot {
 
         Scanner sc = new Scanner(System.in);
         boolean canExit = false;
+        ArrayList<String> commandList = new ArrayList<>();
+
         while (!canExit) {
-            String command = sc.nextLine().toLowerCase();
-            if (command.contains("bye")) {
+            String command = sc.nextLine();
+            String commandLowerCase = command.toLowerCase();
+            if (commandLowerCase.equals("bye")) {
                 canExit = true;
                 continue;
             }
-            System.out.println(bufferLine
-                    + "HECK YEAH, "
-                    + command
-                    + "!\n"
-                    + bufferLine);
+
+            if (commandLowerCase.equals("list")) {
+                System.out.println(bufferLine + "ALRIGHT, Here's that list!\n");
+                for (int i = 0; i < commandList.size(); i++) {
+                    System.out.println(i + 1 + ". " + commandList.get(i));
+                }
+                System.out.println(bufferLine);
+            } else {
+                commandList.add(command);
+                System.out.println(bufferLine
+                        + "HECK YEAH, ADDED: "
+                        + command
+                        + "!\n"
+                        + bufferLine);
+            }
         }
 
         exit();
