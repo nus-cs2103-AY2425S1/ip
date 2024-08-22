@@ -31,6 +31,7 @@ public class Alex {
         while(true) {
             //create new scanner for the line of user input
             Scanner lineScanner = new Scanner(inputScanner.nextLine());
+            //handle exception for no new line found
 
             //Obtain the first word of user input
             String response = lineScanner.next();

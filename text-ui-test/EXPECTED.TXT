@@ -1,7 +1,43 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+ Hello! I'm Alex
+ What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] borrow book from the Jurong East Regional library
+Now you have 1 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] sing a song
+Now you have 2 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] write a poem (by: next wednesday)
+Now you have 3 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] go for night run (from: tues 3pm to: 5pm)
+Now you have 4 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[T][X] sing a song
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] borrow book from the Jurong East Regional library
+2.[T][X] sing a song
+3.[D][ ] write a poem (by: next wednesday)
+4.[E][ ] go for night run (from: tues 3pm to: 5pm)
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[T][ ] sing a song
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
 
