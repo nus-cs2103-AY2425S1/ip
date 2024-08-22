@@ -37,9 +37,24 @@ public class Gopher {
                     taskList.size(),
                     taskList.size() == 1 ? "task" : "tasks"));
             System.out.println(horizontalSeparator + "\n");
-        } catch (UnknownCommandException
-        | EmptyTaskDescriptionException
-        | MissingTokenException e) {
+        } catch (UnknownCommandException e) {
+            System.out.println(e.getMessage());
+            System.out.println(horizontalSeparator);
+            System.out.println("""
+                    Current Supported Commands:
+                        1. todo - Create a ToDo Task
+                        2. deadline - Create a Deadline Task
+                        3. event - Create an Event Task
+                        4. mark - Mark a task as done
+                        5. unmark - Mark a task as not done
+                        6. bye - Exit the chatbot
+                    
+                    Note: The command is case-insensitive, as long as the
+                    input characters match, the chatbot would be able to
+                    respond to the given command
+                    """);
+        } catch (EmptyTaskDescriptionException
+            | MissingTokenException e) {
             System.out.println(e.getMessage());
         }
     }
