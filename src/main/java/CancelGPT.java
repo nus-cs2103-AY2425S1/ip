@@ -51,6 +51,9 @@ public class CancelGPT {
         try {
             if (command.equals("list")) {
                 displayTasksList();
+            } else if (command.startsWith("delete")) {
+                int taskNumber = parseDeleteTaskNumber(command);
+                deleteTask(taskNumber);
             } else if (command.startsWith("mark")) {
                 int taskNumber = parseMarkTaskNumber(command);
                 markTaskNumber(taskNumber);
@@ -69,11 +72,33 @@ public class CancelGPT {
             } else {
                 throw new UnknownInput();
             }
-        } catch (MarkTaskInputException | UnmarkTaskInputException | InvalidTask | TaskDoesNotExist | UnknownInput e) {
+        } catch (MarkTaskInputException | UnmarkTaskInputException | InvalidTask | TaskDoesNotExist | UnknownInput | DeleteTaskInputException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    public void deleteTask(int taskNumber) throws TaskDoesNotExist {
+        if (taskNumber <= 0 || taskNumber > TASKS_LIST.size()) {
+            throw new TaskDoesNotExist();
+        }
+        Task taskDeleted = this.TASKS_LIST.remove(taskNumber - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + taskDeleted);
+        System.out.println("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
+    }
+
+    public int parseDeleteTaskNumber(String command) throws DeleteTaskInputException {
+        String[] commandArray = command.split(" ");
+        if (commandArray.length != 2) {
+            throw new DeleteTaskInputException();
+        }
+
+        try {
+            return Integer.parseInt(commandArray[1]);
+        } catch (NumberFormatException e) {
+            throw new DeleteTaskInputException();
+        }
+    }
     public int parseMarkTaskNumber(String command) throws MarkTaskInputException {
         String[] commandArray = command.split(" ");
         if (commandArray.length != 2) {
