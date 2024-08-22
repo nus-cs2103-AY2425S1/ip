@@ -43,64 +43,29 @@ public class Botty {
 
             String[] splitInput = userInput.trim().split(" ", 2);
             String command = splitInput[0].toLowerCase();
-
-            boolean hasIntegerArgument = splitInput.length > 1 && isNumber(splitInput[1]);
+            String argument = splitInput.length > 1 ? splitInput[1] : null;
 
             switch (command) {
                 case "bye":
                     exitFlag = true;
                     break;
                 case "list":
-                    if (currentIndex == 0) {
-                        reply("Your list is empty! Add a task with the todo, deadline or event command.");
-                    } else {
-                        String[] content = new String[currentIndex + 1];
-                        content[0] = "Here you go!";
-
-                        for (int i = 1; i < currentIndex + 1; i++) {
-                            content[i] = i + ". " + taskList[i - 1];
-                        }
-
-                        reply(content);
-                    }
+                    handleList();
                     break;
                 case "mark":
-                    if (hasIntegerArgument) {
-                        setTaskCompletion(true, Integer.parseInt(splitInput[1]) - 1);
-                    } else {
-                        reply("I don't quite know what you want me to do. " +
-                                "Do indicate which task to mark with its number!");
-                    }
+                    handleMark(argument);
                     break;
                 case "unmark":
-                    if (hasIntegerArgument) {
-                        setTaskCompletion(false, Integer.parseInt(splitInput[1]) - 1);
-                    } else {
-                        reply("I don't quite know what you want me to do. " +
-                                "Do indicate which task to unmark with its number!");
-                    }
+                    handleUnmark(argument);
                     break;
                 case "todo":
-                    Todo todo = Todo.generateFromString(splitInput[1]);
-                    addToTaskList(todo);
-                    break;
-                case "event":
-                    Event event = Event.generateFromString(splitInput[1]);
-                    if (event == null) {
-                        reply("I am unable to add that event! Please provide details in " +
-                                "the following format: [description] /from [start] /to [end]");
-                    } else {
-                        addToTaskList(event);
-                    }
+                    handleTodo(argument);
                     break;
                 case "deadline":
-                    Deadline deadline = Deadline.generateFromString(splitInput[1]);
-                    if (deadline == null) {
-                        reply("I am unable to add that deadline! Please provide details " +
-                                "in the following format: [description] /by [deadline]");
-                    } else {
-                        addToTaskList(deadline);
-                    }
+                    handleDeadline(argument);
+                    break;
+                case "event":
+                    handleEvent(argument);
                     break;
                 default:
                     reply("I'm sorry, that is not a command I am familiar with.");
@@ -148,6 +113,61 @@ public class Botty {
         System.out.println(bottySymbol + strings[0]);
         for (int i = 1; i < strings.length; i++) {
             System.out.println(bottyIndentation + strings[i]);
+        }
+    }
+
+    private static void handleList() {
+        if (currentIndex == 0) {
+            reply("Your list is empty! Add a task with the todo, deadline or event command.");
+        } else {
+            String[] content = new String[currentIndex + 1];
+            content[0] = "Here you go!";
+
+            for (int i = 1; i < currentIndex + 1; i++) {
+                content[i] = i + ". " + taskList[i - 1];
+            }
+
+            reply(content);
+        }
+    }
+    private static void handleMark(String argument) {
+        if (!isNumber(argument)) {
+            reply("I don't quite know what you want me to do. " +
+                    "Do indicate which task to mark with its number!");
+            return;
+        }
+
+        setTaskCompletion(true, Integer.parseInt(argument) - 1);
+    }
+    private static void handleUnmark(String argument) {
+        if (!isNumber(argument)) {
+            reply("I don't quite know what you want me to do. " +
+                    "Do indicate which task to unmark with its number!");
+            return;
+        }
+
+        setTaskCompletion(false, Integer.parseInt(argument) - 1);
+    }
+    private static void handleTodo(String argument) {
+        Todo todo = Todo.generateFromString(argument);
+        addToTaskList(todo);
+    }
+    private static void handleDeadline(String argument) {
+        Deadline deadline = Deadline.generateFromString(argument);
+        if (deadline == null) {
+            reply("I am unable to add that deadline! Please provide details " +
+                    "in the following format: [description] /by [deadline]");
+        } else {
+            addToTaskList(deadline);
+        }
+    }
+    private static void handleEvent(String argument) {
+        Event event = Event.generateFromString(argument);
+        if (event == null) {
+            reply("I am unable to add that event! Please provide details in " +
+                    "the following format: [description] /from [start] /to [end]");
+        } else {
+            addToTaskList(event);
         }
     }
 }
