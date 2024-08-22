@@ -31,7 +31,7 @@ public class Lama {
                     System.out.println((i + 1) + "." + list[i]);
 //                    System.out.println(String.format("%d. [%s] %s", i + 1, list[i].getStatusIcon(), list[i]));
                 }
-                System.out.println(bar);
+                System.out.println(bar + "\n");
             } else if (words[0].equals("mark")){
                 int n = Integer.parseInt(words[1]) - 1;
                 list[n].markAsDone();
@@ -39,7 +39,7 @@ public class Lama {
                 System.out.println("Nice! I've marked this task as done:");
 //                System.out.println("  [" + list[n].getStatusIcon() + "] " + list[n]);
                 System.out.println("  " + list[n]);
-                System.out.println(bar);
+                System.out.println(bar + "\n");
             } else if (words[0].equals("unmark")){
                 int n = Integer.parseInt(words[1]) - 1;
                 list[n].markAsUnDone();
@@ -47,7 +47,7 @@ public class Lama {
                 System.out.println("OK, I've marked this task as not done yet:");
 //                System.out.println("  [" + list[n].getStatusIcon() + "] " + list[n]);
                 System.out.println("  " + list[n]);
-                System.out.println(bar);
+                System.out.println(bar + "\n");
             } else if (words[0].equals("todo")) {
                 list[count] = new Todo(words[1]);
                 count++;
@@ -55,7 +55,7 @@ public class Lama {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + list[count - 1]);
                 System.out.println("Now you have " + count +" tasks in the list.");
-                System.out.println(bar);
+                System.out.println(bar + "\n");
 
             } else if (words[0].equals("deadline")) {
                 String[] half = words[1].split(" /by ");
@@ -65,7 +65,7 @@ public class Lama {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + list[count - 1]);
                 System.out.println("Now you have " + count +" tasks in the list.");
-                System.out.println(bar);
+                System.out.println(bar + "\n");
             } else if (words[0].equals("event")) {
                 String[] first = words[1].split(" /from ");
                 String[] time = first[1].split(" /to ");
@@ -75,7 +75,7 @@ public class Lama {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + list[count - 1]);
                 System.out.println("Now you have " + count +" tasks in the list.");
-                System.out.println(bar);
+                System.out.println(bar + "\n");
             }
 
         }
