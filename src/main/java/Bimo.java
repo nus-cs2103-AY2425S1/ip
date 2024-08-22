@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Bimo {
     public static String name = "Bimo";
-    public static String line = "    " + "----------------------------------";
+    public static String line = "    " + "___________________________________";
     public static Scanner scanner = new Scanner(System.in);
     public static int length = 0;
     public static Task[] list = new Task[100];
@@ -10,6 +10,7 @@ public class Bimo {
         System.out.println("    " + String.format("Hello! I'm %s", name));
         System.out.println("    " + "What can I do for you?");
         System.out.println(line);
+        System.out.println();
         String command = scanner.nextLine();
         while (!command.toLowerCase().equals("bye")) {
             System.out.println(line);
@@ -26,7 +27,7 @@ public class Bimo {
                 length += 1;
                 System.out.println("    added: " + task.toString());
             }
-            System.out.println(line);
+            System.out.println(line + "\n");
             command = scanner.nextLine();
         }
         System.out.println("    " +"Bye. Hope to see you again soon!");
