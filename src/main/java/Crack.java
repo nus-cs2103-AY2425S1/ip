@@ -16,7 +16,7 @@ public class Crack {
 
         while (true) {
             System.out.print("You: ");
-            input = scanner.nextLine();
+            input = scanner.nextLine().trim();
 
             if (input.equals("bye")) {
                 System.out.println("Goodbye!");
@@ -92,6 +92,19 @@ public class Crack {
                             + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
                 } catch (Exception e) {
                     System.out.println(divider + " Error: Invalid format for event. Use: event <description> /from <start> /to <end>.\n" + divider);
+                }
+            } else if (input.startsWith("delete ")) {
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        Task removedTask = tasks.remove(index);
+                        System.out.println(divider + " Noted. I've removed this task:\n   " + removedTask + "\n"
+                                + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
+                    } else {
+                        System.out.println(divider + " Error: Task number out of range.\n" + divider);
+                    }
+                } catch (Exception e) {
+                    System.out.println(divider + " Error: Please provide a valid task number.\n" + divider);
                 }
             } else {
                 System.out.println(divider + " Error: Invalid Command.\n" + divider);
