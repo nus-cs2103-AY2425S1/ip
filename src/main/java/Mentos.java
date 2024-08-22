@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,7 +10,8 @@ public class Mentos
     private String TODO = "todo";
     private String DEADLINE = "deadline";
     private String EVENT = "event";
-    private Task[] tasks = new Task[100];
+    private String DELETE = "delete";
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int noTasks = 0;
 
     public static void main(String[] args) {
@@ -23,7 +25,6 @@ public class Mentos
             }
             mentos.taskHandler(input);
         }
-//        mentos.taskHandler(scanner);
         mentos.endConversation();
     }
 
@@ -62,9 +63,9 @@ public class Mentos
                 if (index > noTasks || index == 0) {
                     throw new MentosException("No Such Tasks!");
                 }
-                tasks[index - 1].markAsDone();
+                tasks.get(index-1).markAsDone();
                 System.out.println("Nicely done! This task is marked as done!");
-                System.out.println(tasks[index - 1].toString());
+                System.out.println(tasks.get(index-1).toString());
                 System.out.println("____________________________");
 
             } else if (input.startsWith(UNMARKED)) {
@@ -77,19 +78,36 @@ public class Mentos
                 if (index > noTasks || index == 0) {
                     throw new MentosException("No Such Tasks!");
                 }
-                tasks[index - 1].markAsNotDone();
+                tasks.get(index-1).markAsNotDone();
                 System.out.println("Holdup this task is not done!");
-                System.out.println(tasks[index - 1].toString());
+                System.out.println(tasks.get(index-1).toString());
                 System.out.println("____________________________");
-            } else if (input.startsWith(TODO)) {
+            } else if (input.startsWith(DELETE)){
+                Matcher match = regexHandler(input,"delete (\\d+)$");
+                if (match == null){
+                    throw new MentosException("Invalid Delete input!");
+                }
+                String extracted = match.group(1);
+                int index = Integer.parseInt(extracted);
+                if (index > noTasks || index ==0){
+                    throw new MentosException("No Such Tasks!");
+                }
+                System.out.println("____________________________");
+                System.out.printf("Alrights I have removed the following task!\n%s%n",tasks.get(index-1).toString());
+                tasks.remove(index-1);
+                noTasks--;
+                System.out.printf("%d remaining tasks%n",noTasks);
+            }
+            else if (input.startsWith(TODO)) {
                 Matcher match = regexHandler(input, "todo (.+)");
                 if (match == null) {
                     throw new MentosException("Todo cannot be empty!");
                 }
                 String extracted = match.group(1);
                 noTasks++;
-                tasks[noTasks-1] = new ToDo(extracted);
-                print_event(TODO,tasks[noTasks-1]);
+                Task newTodo = new ToDo(extracted);
+                tasks.add(newTodo);
+                print_event(TODO,newTodo);
             } else if (input.startsWith(DEADLINE)){
                 Matcher match = regexHandler(input,"deadline (.+) \\/by (.+)$");
                 if (match == null){
@@ -98,8 +116,9 @@ public class Mentos
                 noTasks++;
                 String deadline_desc = match.group(1);
                 String by = match.group(2);
-                tasks[noTasks-1] = new Deadline(deadline_desc,by);
-                print_event(DEADLINE,tasks[noTasks-1]);
+                Task newDeadline = new Deadline(deadline_desc,by);
+                tasks.add(newDeadline);
+                print_event(DEADLINE,newDeadline);
             } else if (input.startsWith(EVENT)){
                 Matcher match = regexHandler(input,"event (.+) \\/from (.+) \\/to (.+)$");
                 if (match == null){
@@ -109,8 +128,9 @@ public class Mentos
                 String eventDesc = match.group(1);
                 String from = match.group(2);
                 String to = match.group(3);
-                tasks[noTasks-1] = new Event(eventDesc,from,to);
-                print_event(EVENT,tasks[noTasks-1]);
+                Task newEvent = new Event(eventDesc,from,to);
+                tasks.add(newEvent);
+                print_event(EVENT,newEvent);
             }
 
             else {
@@ -125,7 +145,7 @@ public class Mentos
 
     public void displayTasks(){
         for (int i = 0; i < noTasks; i++) {
-            String task_out = String.format("%d. %s",i+1,tasks[i].toString());
+            String task_out = String.format("%d. %s",i+1,tasks.get(i).toString());
             System.out.println(task_out);
         }
         System.out.println("____________________________");
