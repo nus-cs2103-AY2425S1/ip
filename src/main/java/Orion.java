@@ -1,10 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Orion {
     static Scanner scanner = new Scanner(System.in);
     static String horizontalLine = "────────────────────────────────────────";
-    static Task[] tasks = new Task[100];
-    static int taskCount = 0;
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println(horizontalLine);
@@ -16,54 +16,54 @@ public class Orion {
         while (true) {
             String input = scanner.nextLine();
             String[] parts = input.split(" ", 2);
+            Command command = Command.fromString(parts[0]);
 
             try {
-                switch (parts[0]) {
-                    case "bye":
+                switch (command) {
+                    case BYE:
                         break label;
 
-                    case "list":
+                    case LIST:
                         validateListCommand(parts);
                         System.out.println(horizontalLine);
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < taskCount; i++) {
-                            System.out.println((i + 1) + "." + tasks[i]);
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + "." + tasks.get(i));
                         }
                         System.out.println(horizontalLine);
                         break;
 
-                    case "mark":
+                    case MARK:
                         validateMarkCommand(parts);
                         int markTaskNumber = Integer.parseInt(parts[1]) - 1;
-                        tasks[markTaskNumber].markAsDone();
+                        tasks.get(markTaskNumber).markAsDone();
                         System.out.println(horizontalLine);
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  " + tasks[markTaskNumber]);
+                        System.out.println("  " + tasks.get(markTaskNumber));
                         System.out.println(horizontalLine);
                         break;
 
-                    case "unmark":
+                    case UNMARK:
                         validateUnmarkCommand(parts);
                         int unmarkTaskNumber = Integer.parseInt(parts[1]) - 1;
-                        tasks[unmarkTaskNumber].markAsNotDone();
+                        tasks.get(unmarkTaskNumber).markAsNotDone();
                         System.out.println(horizontalLine);
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("  " + tasks[unmarkTaskNumber]);
+                        System.out.println("  " + tasks.get(unmarkTaskNumber));
                         System.out.println(horizontalLine);
                         break;
 
-                    case "todo":
+                    case TODO:
                         validateTodoCommand(parts);
-                        tasks[taskCount] = new Todo(parts[1]);
-                        taskCount++;
+                        tasks.add(new Todo(parts[1]));
                         System.out.println(horizontalLine);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks[taskCount - 1]);
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println(horizontalLine);
                         break;
 
-                    case "deadline":
+                    case DEADLINE:
                         validateDeadlineCommand(parts);
                         String[] words = parts[1].split(" ");
                         StringBuilder description = new StringBuilder();
@@ -80,16 +80,15 @@ public class Orion {
                             }
                         }
 
-                        tasks[taskCount] = new Deadline(description.toString().trim(), by.toString().trim());
-                        taskCount++;
+                        tasks.add(new Deadline(description.toString().trim(), by.toString().trim()));
                         System.out.println(horizontalLine);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks[taskCount - 1]);
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println(horizontalLine);
                         break;
 
-                    case "event":
+                    case EVENT:
                         validateEventCommand(parts);
                         String[] eventWords = parts[1].split(" ");
                         StringBuilder eventDescription = new StringBuilder();
@@ -112,15 +111,26 @@ public class Orion {
                             }
                         }
 
-                        tasks[taskCount] = new Event(eventDescription.toString().trim(), from.toString().trim(), to.toString().trim());
-                        taskCount++;
+                        tasks.add(new Event(eventDescription.toString().trim(), from.toString().trim(), to.toString().trim()));
                         System.out.println(horizontalLine);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks[taskCount - 1]);
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println(horizontalLine);
                         break;
 
+                    case DELETE:
+                        validateDeleteCommand(parts);
+                        int deleteTaskNumber = Integer.parseInt(parts[1]) - 1;
+                        Task removedTask = tasks.remove(deleteTaskNumber);
+                        System.out.println(horizontalLine);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + removedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println(horizontalLine);
+                        break;
+
+                    case UNKNOWN:
                     default:
                         throw new ValidationException("Unknown command: " + parts[0]);
                 }
@@ -136,7 +146,8 @@ public class Orion {
         System.out.println(horizontalLine);
     }
 
-    // Validation methods
+    // Validation methods remain the same...
+
     public static void validateListCommand(String[] parts) throws ValidationException {
         if (parts.length > 1) {
             throw new ValidationException("The 'list' command does not accept any arguments.");
@@ -149,7 +160,7 @@ public class Orion {
         }
 
         int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= taskCount || tasks[taskNumber] == null) {
+        if (taskNumber < 0 || taskNumber >= tasks.size() || tasks.get(taskNumber) == null) {
             throw new ValidationException("Task number " + (taskNumber + 1) + " does not exist.");
         }
     }
@@ -160,7 +171,7 @@ public class Orion {
         }
 
         int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= taskCount || tasks[taskNumber] == null) {
+        if (taskNumber < 0 || taskNumber >= tasks.size() || tasks.get(taskNumber) == null) {
             throw new ValidationException("Task number " + (taskNumber + 1) + " does not exist.");
         }
     }
@@ -183,13 +194,24 @@ public class Orion {
         }
     }
 
+    public static void validateDeleteCommand(String[] parts) throws ValidationException {
+        if (parts.length != 2 || !isNumeric(parts[1])) {
+            throw new ValidationException("Delete command requires a valid task number.");
+        }
+
+        int taskNumber = Integer.parseInt(parts[1]) - 1;
+        if (taskNumber < 0 || taskNumber >= tasks.size() || tasks.get(taskNumber) == null) {
+            throw new ValidationException("Task number " + (taskNumber + 1) + " does not exist.");
+        }
+    }
+
     // Helper method to check if a string is numeric
     private static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
-            return false;
-        } catch (NumberFormatException e) {
             return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
