@@ -11,7 +11,6 @@ public class BeeBot {
         ArrayList<Task> taskList = new ArrayList<>();
 
         speak(greet);
-
         while (!exit_status) {
             String input = scanner.nextLine();
             String[] parts = input.split(" ");
@@ -45,91 +44,136 @@ public class BeeBot {
                     break;
                 case "todo":
                     int sizeOfTodo = parts.length;
-                    String name = "";
-                    for (int i = 1; i < sizeOfTodo; i++) {
-                        name += (parts[i] + " ");
-                    }
+                    try {
+                        if (sizeOfTodo == 1) {
+                            throw new Exception("Enter a description for the Todo Task.\n");
+                        }
+                        String name = "";
+                        for (int i = 1; i < sizeOfTodo - 1; i++) {
+                            name += (parts[i] + " ");
+                        }
+                        name += parts[sizeOfTodo - 1];
+                        ToDo newToDo = new ToDo(name);
+                        taskList.add(newToDo);
+                        int currSize = taskList.size();
 
-                    ToDo newToDo = new ToDo(name);
-                    taskList.add(newToDo);
-                    int currSize = taskList.size();
-
-                    if (currSize == 1) {
-                        speak("Got it. I've added this task:\n"
-                                + newToDo.stringify()
-                                + "Now you have "
-                                + currSize + " task in the list.\n");
-                    } else {
-                        speak("Got it. I've added this task:\n"
-                                + newToDo.stringify()
-                                + "Now you have "
-                                + currSize + " tasks in the list.\n");
+                        if (currSize == 1) {
+                            speak("Got it. I've added this task:\n"
+                                    + newToDo.stringify()
+                                    + "Now you have "
+                                    + currSize + " task in the list.\n");
+                        } else {
+                            speak("Got it. I've added this task:\n"
+                                    + newToDo.stringify()
+                                    + "Now you have "
+                                    + currSize + " tasks in the list.\n");
+                        }
+                    } catch (Exception e) {
+                        speak(e.getMessage());
                     }
                     break;
                 case "deadline":
-                    String deadlineName = "";
-                    int d = 1;
+                    try {
+                        if (parts.length == 1) {
+                            throw new Exception("Enter a description for the Deadline Task.\n");
+                        }
+                        String deadlineName = "";
+                        int d = 1;
+                        int sizeOfCmd = parts.length;
 
-                    while (!parts[d].equals("/by")) {
-                        deadlineName += (parts[d] + " ");
+                        while (!parts[d].equals("/by")) {
+                            deadlineName += (parts[d] + " ");
+                            d++;
+                            if (d == sizeOfCmd) {
+                                throw new Exception("Enter `/by` followed by a deadline.\n");
+                            }
+                        }
+
                         d++;
-                    }
-                    d++;
-                    String deadlineDate = "";
-                    for (; d < parts.length - 1; d++) {
-                        deadlineDate += (parts[d] + " ");
-                    }
-                    deadlineDate += parts[d];
-                    Deadline newDeadline = new Deadline(deadlineName, deadlineDate);
-                    taskList.add(newDeadline);
-                    int currSize2 = taskList.size();
-                    if (currSize2 == 1) {
-                        speak("Got it. I've added this task:\n"
-                                + newDeadline.stringify()
-                                + "Now you have "
-                                + currSize2 + " task in the list.\n");
-                    } else {
-                        speak("Got it. I've added this task:\n"
-                                + newDeadline.stringify()
-                                + "Now you have "
-                                + currSize2 + " tasks in the list.\n");
+                        if (d == sizeOfCmd) {
+                            throw new Exception("Enter a date for the Deadline Task.\n");
+                        }
+                        String deadlineDate = "";
+                        for (; d < parts.length - 1; d++) {
+                            deadlineDate += (parts[d] + " ");
+                        }
+                        deadlineDate += parts[d];
+
+                        Deadline newDeadline = new Deadline(deadlineName, deadlineDate);
+                        taskList.add(newDeadline);
+                        int currSize2 = taskList.size();
+                        if (currSize2 == 1) {
+                            speak("Got it. I've added this task:\n"
+                                    + newDeadline.stringify()
+                                    + "Now you have "
+                                    + currSize2 + " task in the list.\n");
+                        } else {
+                            speak("Got it. I've added this task:\n"
+                                    + newDeadline.stringify()
+                                    + "Now you have "
+                                    + currSize2 + " tasks in the list.\n");
+                        }
+                    } catch (Exception e) {
+                        speak(e.getMessage());
                     }
                     break;
                 case "event":
-                    String eventName = "";
-                    int e = 1;
-                    while (!parts[e].equals("/from")) {
-                        eventName += (parts[e] + " ");
+                    try {
+                        if (parts.length == 1) {
+                            throw new Exception("Enter a description for the Event Task.\n");
+                        }
+                        String eventName = "";
+                        int sizeOfEventCmd = parts.length;
+                        int e = 1;
+                        while (!parts[e].equals("/from")) {
+                            eventName += (parts[e] + " ");
+                            e++;
+                            if (e == sizeOfEventCmd) {
+                                throw new Exception("Enter `/from` followed by a start date/time.\n");
+                            }
+                        }
                         e++;
-                    }
-                    e++;
-                    String startTime = "";
-                    while (!parts[e].equals("/to")) {
-                        startTime += (parts[e] + " ");
+                        if (e == sizeOfEventCmd) {
+                            throw new Exception("Enter a start date/time.\n");
+                        }
+                        String startTime = "";
+                        while (!parts[e].equals("/to")) {
+                            startTime += (parts[e] + " ");
+                            e++;
+                            if (e == sizeOfEventCmd) {
+                                throw new Exception("Enter `/to` followed by an end time.\n");
+                            }
+                        }
                         e++;
-                    }
-                    e++;
-                    String endTime = "";
-                    for (; e < parts.length - 1; e++) {
-                        endTime += (parts[e] + " ");
-                    }
-                    endTime += parts[e];
-                    Event newEvent = new Event(eventName, startTime, endTime);
-                    taskList.add(newEvent);
-                    int currSize3 = taskList.size();
+                        if (e == sizeOfEventCmd) {
+                            throw new Exception("Enter an end time.\n");
+                        }
+                        String endTime = "";
+                        for (; e < parts.length - 1; e++) {
+                            endTime += (parts[e] + " ");
+                        }
+                        endTime += parts[e];
+                        Event newEvent = new Event(eventName, startTime, endTime);
+                        taskList.add(newEvent);
+                        int currSize3 = taskList.size();
 
-                    if (currSize3 == 1) {
-                        speak("Got it. I've added this task:\n"
-                                + newEvent.stringify()
-                                + "Now you have "
-                                + currSize3 + " task in the list.\n");
-                    } else {
-                        speak("Got it. I've added this task:\n"
-                                + newEvent.stringify()
-                                + "Now you have "
-                                + currSize3 + " tasks in the list.\n");
+                        if (currSize3 == 1) {
+                            speak("Got it. I've added this task:\n"
+                                    + newEvent.stringify()
+                                    + "Now you have "
+                                    + currSize3 + " task in the list.\n");
+                        } else {
+                            speak("Got it. I've added this task:\n"
+                                    + newEvent.stringify()
+                                    + "Now you have "
+                                    + currSize3 + " tasks in the list.\n");
+                        }
+                    } catch (Exception e) {
+                        speak(e.getMessage());
                     }
                     break;
+                default:
+                    speak("Invalid command.\n");
             }
         }
     }
