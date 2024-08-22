@@ -27,47 +27,82 @@ public class Bimo {
 
             } else if (action.equals("mark")) {
                 int index = Integer.valueOf(command.toLowerCase().split(" ")[1]) - 1;
-                updateList(true, index);
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("       " + list[index].toString());
+                try {
+                    updateList(true, index);
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("       " + list[index].toString());
+                } catch(IllegalArgumentException e) {
+                    System.out.println("    Task selected not in list");
+                }
 
             } else if (action.equals("unmark")) {
                 int index = Integer.valueOf(command.toLowerCase().split(" ")[1]) - 1;
-                updateList(false, index);
-                System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("       " + list[index].toString());
+                try {
+                    updateList(false, index);
+                    System.out.println("    OK, I've marked this task as not done yet:");
+                    System.out.println("       " + list[index].toString());
+                } catch (IllegalArgumentException e) {
+                    System.out.println("    Task selected not in list");
+                }
+
 
             } else if (action.equals("todo") ||
                         action.equals("deadline") ||
                         action.equals("event") ) {
-                System.out.println("    Got it. I've added this task:");
                 if (action.equals("todo")) {
-                    Task task = new ToDo(getDetails(command));
-                    Bimo.list[length] = task;
-                    length += 1;
-                    System.out.println("        "+ task.toString());
+                    try {
+                        Task task = new ToDo(getDetails(command));
+                        System.out.println("    Got it. I've added this task:");
+                        Bimo.list[length] = task;
+                        length += 1;
+                        System.out.println("        "+ task.toString());
+                        String word = length == 1 ? "task" : "tasks";
+                        System.out.println(String.format("    Now you have %d %s in the list.", length, word));
+
+                    } catch (MissingDescriptionException e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 } else if (action.equals("deadline")) {
                     String[] temp = command.split("/");
-                    String dueDate = processDate(temp[1]);
-                    String details = getDetails(temp[0]);
-                    Task task = new Deadline(details, dueDate);
-                    Bimo.list[length] = task;
-                    length += 1;
-                    System.out.println("        "+ task.toString());
+                    try {
+                        String details = getDetails(temp[0]);
+                        String dueDate = processDate(true, temp);
+                        Task task = new Deadline(details, dueDate);
+                        System.out.println("    Got it. I've added this task:");
+                        System.out.println("        "+ task.toString());
+                        Bimo.list[length] = task;
+                        length += 1;
+                        String word = length == 1 ? "task" : "tasks";
+                        System.out.println(String.format("    Now you have %d %s in the list.", length, word));
+                    } catch (MissingDescriptionException e) {
+                        System.out.println(e.getMessage());
+                    } catch (InvalidDateException e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 } else {
-                    String[] temp = command.split("/");
-                    String start = processDate(temp[1]);
-                    String end = processDate(temp[2]);
-                    String details = getDetails(temp[0]);
-                    Task task = new Event(details, start ,end);
-                    Bimo.list[length] = task;
-                    length += 1;
-                    System.out.println("        "+ task.toString());
+                    try {
+                        String[] temp = command.split("/");
+                        String details = getDetails(temp[0]);
+                        String start = processDate(true, temp);
+                        String end = processDate(false, temp);
+                        Task task = new Event(details, start ,end);
+                        System.out.println("    Got it. I've added this task:");
+                        Bimo.list[length] = task;
+                        length += 1;
+                        System.out.println("        "+ task.toString());
+                        String word = length == 1 ? "task" : "tasks";
+                        System.out.println(String.format("    Now you have %d %s in the list.", length, word));
+                    } catch (MissingDescriptionException e){
+                        System.out.println(e.getMessage());
+                    } catch (InvalidDateException e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 }
-                String word = length == 1 ? "task" : "tasks";
-                System.out.println(String.format("    Now you have %d %s in the list.", length, word));
             } else {
-                System.out.println("    Invalid command");
+                System.out.println("    Invalid command, please try another command");
             }
             System.out.println(line);
             command = scanner.nextLine();
@@ -77,7 +112,13 @@ public class Bimo {
         System.out.println(line);
     }
 
-    public static void updateList(boolean complete, int index) {
+    /**
+     *
+     * @param complete boolean value that represents whether task is completed
+     * @param index position of task in list to change status
+     * @throws IllegalArgumentException
+     */
+    public static void updateList(boolean complete, int index) throws IllegalArgumentException {
         if (index < 0 || index >= length) {
             throw new IllegalArgumentException();
         } else if(complete) {
@@ -90,22 +131,35 @@ public class Bimo {
     /**
      *
      * @param mixed String that consists of action and description
-     * @return Only the description but with white space infront
+     * @return Only the description but with white space in front
+     * @throws MissingDescriptionException
      */
-    public static String getDetails(String mixed) {
+    public static String getDetails(String mixed) throws MissingDescriptionException {
         String[] temp = mixed.split(" ");
+        if (temp.length <= 1) {
+            throw new MissingDescriptionException("    Please key in description for your task");
+        }
         temp[0] = "";
         return String.join(" ", temp);
     }
 
-
     /**
      *
-     * @param invalid String that contains filler words such as from, by and to
-     * @return String that only includes the date portion but with white space infront
+     * @param first To indicate whether its start or end date
+     * @param array An array of strings split by /
+     * @return the corresponding date portion of string
+     * @throws InvalidDateException
      */
-    public static String processDate(String invalid) {
-        String[] temp = invalid.split(" ");
+    public static String processDate(boolean first, String[] array) throws InvalidDateException {
+        if (array.length <= 1) {
+            throw new InvalidDateException("    Please provide a date using /");
+        } else if (!first && array.length <= 2) {
+            throw new InvalidDateException("    Please provide a due date");
+        }
+        String[] temp = first ? array[1].split(" ") : array[2].split(" ");
+        if (temp.length <= 1) {
+            throw new InvalidDateException("    Please provide by or from or to before date");
+        }
         temp[0] = "";
         return String.join(" ", temp);
     }
