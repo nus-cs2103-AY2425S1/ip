@@ -116,12 +116,7 @@ public class Vuewee {
             break;
           }
         }
-      } catch (
-          InvalidTaskDescriptionException
-          | RedundantMarkException
-          | RedundantUnmarkException
-          | EmptyListException
-          | IndexOutOfBoundsException e) {
+      } catch (TaskListException | IndexOutOfBoundsException e) {
         System.out.println(e.getMessage());
       }
       System.out.println("____________________________________________________________");
