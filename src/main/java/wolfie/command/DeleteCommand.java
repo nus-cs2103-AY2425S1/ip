@@ -1,9 +1,17 @@
+package wolfie.command;
+
+import wolfie.exception.WolfieException;
+import wolfie.task.Task;
+import wolfie.task.TaskList;
+import wolfie.util.Storage;
+import wolfie.util.Ui;
+
 import java.io.IOException;
 
-public class UnmarkCommand extends Command {
+public class DeleteCommand extends Command {
     private final int index;
 
-    public UnmarkCommand(String arguments) {
+    public DeleteCommand(String arguments) {
         this.index = Integer.parseInt(arguments) - 1;
     }
 
@@ -12,9 +20,8 @@ public class UnmarkCommand extends Command {
         if (index < 0 || index >= tasks.size()) {
             throw new WolfieException("Invalid task number. Please use existing numbers and not the description.");
         }
-        Task task = tasks.get(index);
-        task.markAsUndone();
+        Task removedTask = tasks.remove(index);
         storage.save(tasks);
-        ui.showTaskUnmarked(task);
+        ui.showTaskRemoved(removedTask, tasks.size());
     }
 }

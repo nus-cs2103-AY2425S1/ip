@@ -1,7 +1,15 @@
+package wolfie;
+import wolfie.command.Command;
+import wolfie.exception.WolfieException;
+import wolfie.util.Parser;
+import wolfie.util.Storage;
+import wolfie.util.Ui;
+import wolfie.task.TaskList;
+
 import java.io.IOException;
 
 public class Wolfie {
-    private Storage storage; // Add this line
+    private final Storage storage; // Add this line
     private TaskList tasks;
     private Ui ui;
 

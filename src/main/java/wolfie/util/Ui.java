@@ -1,3 +1,7 @@
+package wolfie.util;
+
+import wolfie.task.Task;
+import wolfie.task.TaskList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +25,7 @@ public class Ui {
                         """;
         System.out.println("____________________________________________________________");
         System.out.println(wolfieArt);
-        System.out.println(" Hello Dean's Lister! I'm Wolfie");
+        System.out.println(" Hello Dean's Lister! I'm wolfie.Wolfie");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
     }

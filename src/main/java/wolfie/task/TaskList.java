@@ -1,3 +1,5 @@
+package wolfie.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ public class TaskList {
     }
 
     public TaskList(List<Task> tasks) {
-        this.tasks = tasks; // Initialize with existing tasks if it exists checked in Wolfie.java
+        this.tasks = tasks; // Initialize with existing tasks if it exists checked in wolfie.Wolfie.java
     }
 
     public void add(Task task) {

@@ -1,3 +1,7 @@
+package wolfie.util;
+import wolfie.command.*;
+import wolfie.exception.WolfieException;
+
 public class Parser {
     public static Command parse(String input) throws WolfieException {
         String[] parts = input.split(" ", 2); // Split the input into two parts

@@ -1,3 +1,10 @@
+package wolfie.command;
+
+import wolfie.exception.WolfieException;
+import wolfie.task.TaskList;
+import wolfie.util.Storage;
+import wolfie.util.Ui;
+
 import java.io.IOException;
 
 public abstract class Command {

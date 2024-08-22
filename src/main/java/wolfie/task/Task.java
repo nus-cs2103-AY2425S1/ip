@@ -1,7 +1,9 @@
+package wolfie.task;
+
 public abstract class Task {
     private final String description;
     private boolean isDone;
-    private final TaskType taskType; // TaskType enum
+    private final TaskType taskType; // wolfie.task.TaskType enum
 
     public Task(String description, TaskType taskType, boolean isDone) {
         this.description = description;

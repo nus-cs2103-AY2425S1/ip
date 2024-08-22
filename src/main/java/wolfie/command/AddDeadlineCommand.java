@@ -1,3 +1,12 @@
+package wolfie.command;
+
+import wolfie.exception.WolfieException;
+import wolfie.task.Deadline;
+import wolfie.task.Task;
+import wolfie.task.TaskList;
+import wolfie.util.Storage;
+import wolfie.util.Ui;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

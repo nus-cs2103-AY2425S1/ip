@@ -1,3 +1,10 @@
+package wolfie.util;
+import wolfie.task.Task;
+import wolfie.task.TaskList;
+import wolfie.task.Todo;
+import wolfie.task.Deadline;
+import wolfie.task.Event;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private String filePath;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -30,12 +38,12 @@ public class Storage {
                         tasks.add(new Todo(description, isDone));
                         break;
                     case "D":
-                        LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime by = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
                         tasks.add(new Deadline(description, by, isDone));
                         break;
                     case "E":
-                        LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                        LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
+                        LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
                         tasks.add(new Event(description, from, to, isDone));
                         break;
                     default:
