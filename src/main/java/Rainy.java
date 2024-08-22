@@ -5,7 +5,6 @@ public class Rainy {
         System.out.println("Hello! I am RAINY - Responsive, Automated, Intelligence Network for You.");
         System.out.println("I am a digital assistant designed to help you keep track of your day.");
         System.out.println("So, what can I do for you today?");
-        System.out.println("\n");
         TaskTracker tm = new TaskTracker();
         Scanner sc = new Scanner(System.in);
         String messages = sc.nextLine();
