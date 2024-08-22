@@ -24,7 +24,8 @@ public class KukiShinobu {
             // split user input into commands and argument (if applicable)
             String[] parts = input.split(" ", 2);
             String command = parts[0];
-            String argument = parts.length > 1 ? parts[1] : "";
+            //prevents index out of bounds error if no arguments provided after command
+            String arguments = parts.length > 1 ? parts[1] : "";
 
             // break out of while loop if user issues "bye" command
             if (command.equals("bye")) {
@@ -38,14 +39,26 @@ public class KukiShinobu {
                     break;
                 case "mark":
                     // argument is task index
-                    this.markAsDone(Integer.parseInt(argument));
+                    this.markAsDone(arguments);
                     break;
                 case "unmark":
                     // argument is task index
-                    this.unmarkAsDone(Integer.parseInt(argument));
+                    this.unmarkAsDone(arguments);
+                    break;
+                // TODO: Add cases for todo, deadline and event
+                case "todo":
+                    // argument is desc, pass desc in
+                    this.addTodo(arguments);
+                    break;
+                case "deadline":
+                    // Break arguments into desc + by
+                    this.addDeadline(arguments);
+                    break;
+                case "event":
+                    // break arguments into desc, start and end
+                    this.addEvent(arguments);
                     break;
                 default:
-                    this.addTask(input);
             }
             KukiShinobu.printHorizontalLine();
         }
@@ -58,19 +71,53 @@ public class KukiShinobu {
         }
     }
 
-    private void markAsDone(int i) {
+    private void markAsDone(String indexString) {
+        int i = Integer.parseInt((indexString));
         this.tasks.get(i - 1).markAsDone();
     }
 
-    private void unmarkAsDone(int i) {
+    private void unmarkAsDone(String indexString) {
+        int i = Integer.parseInt((indexString));
         this.tasks.get(i - 1).unmarkAsDone();
     }
 
-    private void addTask(String taskDescription) {
-        Task newTask = new Task(taskDescription);
-        this.tasks.add(newTask);
-        System.out.println("added: " + taskDescription);
+    private void printAddedTaskSummary(Task task) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
+
+    private void addTodo(String arguments) {
+        // arguments is taskDescription
+        Task newTodo = new Todo(arguments);
+        this.tasks.add(newTodo);
+        this.printAddedTaskSummary(newTodo);
+    }
+
+    private void addDeadline(String arguments) {
+        String[] parts = arguments.split(" /by ", 2);
+        String taskDescription = parts[0];
+        String by = parts[1];
+        Task newDeadline = new Deadline(taskDescription, by);
+        this.tasks.add(newDeadline);
+        this.printAddedTaskSummary(newDeadline);
+    }
+
+    private void addEvent(String arguments) {
+        String[] parts = arguments.split("\\s+/from\\s+|\\s+/to\\s+", 3);
+        String taskDescription = parts[0];
+        String start = parts[1];
+        String end = parts[2];
+        Task newEvent = new Event(taskDescription, start, end);
+        this.tasks.add(newEvent);
+        this.printAddedTaskSummary(newEvent);
+    }
+
+//    private void addTask(String taskDescription) {
+//        Task newTask = new Task(taskDescription);
+//        this.tasks.add(newTask);
+//        System.out.println("added: " + taskDescription);
+//    }
 
     public void greet() {
         KukiShinobu.printHorizontalLine();
