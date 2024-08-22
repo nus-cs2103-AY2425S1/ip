@@ -1,26 +1,48 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    main-color: rgb(237, 255, 242);
     -fx-background-color: main-color;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: auto;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Arial";
+    -fx-background-color: #ffffff;
+    -fx-font: 16px "Open Sans";
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
 }
 
-.button {
-    -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+.circular-button {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 5px;
 }
 
-.button:hover {
-    -fx-background-color:cyan;
-    -fx-font-size: 18px;
+.circular-button .image-view {
+    -fx-image: url("../images/send.png");
+    -fx-preserve-ratio: true;
+    -fx-fit-width: 20px;
+    -fx-fit-height: 20px;
 }
 
-.button:pressed {
-    -fx-background-color:orange;
-    -fx-font-size: 20px;
+.circular-button:hover {
+    -fx-background-color: #29A9E0;
+}
+
+.circular-button:hover .image-view {
+    -fx-image: url("../images/sendhover.png");
+    -fx-preserve-ratio: true;
+    -fx-fit-width: 20px;
+    -fx-fit-height: 20px;
+}
+
+.circular-button.disabled {
+    -fx-background-color: #E0E0E0; /* Light gray for disabled state */
+    -fx-border-color: #B0B0B0;
+    -fx-opacity: 0.5; /* Makes the button look disabled */
 }
 
 .scroll-pane,

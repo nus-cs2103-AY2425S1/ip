@@ -78,6 +78,10 @@ public class Sigma {
         }
     }
 
+    public String getWelcome() {
+        return this.ui.showWelcome();
+    }
+
     /**
      * Handles the user's input by parsing and executing the corresponding command.
      * If an error occurs during command execution, an appropriate error message

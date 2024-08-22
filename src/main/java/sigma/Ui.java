@@ -139,7 +139,7 @@ public class Ui {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.getSize(); i++) {
-            sb.append(String.format("%d. %s", i + 1, tasks.getTask(i + 1)));
+            sb.append(String.format("%d. %s\n", i + 1, tasks.getTask(i + 1)));
         }
 
         return "Here are the matching tasks in your list:\n" + sb;

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import sigma.command.CommandType;
 
 /**
@@ -24,12 +25,28 @@ public class MainWindow extends AnchorPane {
 
     private Sigma sigma;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/Sigma.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/Sigma.jpg"));
+    private final Font font = new Font("Open Sans", 12);
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getSigmaWelcome(sigmaImage));
+        userInput.setPromptText("Message");
+        sendButton.setDisable(true);
+        sendButton.getStyleClass().add("disabled");
+        userInput.setFocusTraversable(false);
+
+        userInput.textProperty().addListener((obs, oldText, newText) -> {
+            if (newText.trim().isEmpty()) {
+                sendButton.setDisable(true);
+                sendButton.getStyleClass().add("disabled");
+            } else {
+                sendButton.setDisable(false);
+                sendButton.getStyleClass().remove("disabled");
+            }
+        });
     }
 
     /** Injects the Duke instance */
@@ -51,5 +68,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSigmaDialog(response, sigmaImage, commandType)
         );
         userInput.clear();
+        userInput.setPromptText("Message");
     }
 }

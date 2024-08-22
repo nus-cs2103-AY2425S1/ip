@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import sigma.command.CommandType;
 
@@ -43,10 +44,9 @@ public class DialogBox extends HBox {
     private void setDisplayPicture(Image img) {
         displayPicture.setImage(img);
         double radius = 25.0;
-        Circle clip = new Circle(radius, radius, radius);
+        Circle clip = new Circle(25.0, 25.0, 25.0);
+        clip.setFill(new ImagePattern(img));
         displayPicture.setClip(clip);
-        displayPicture.setFitWidth(radius * 2);
-        displayPicture.setFitHeight(radius * 2);
     }
 
     /**
@@ -64,26 +64,16 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    private void changeDialogStyle(CommandType commandType) {
-        switch(commandType) {
-        case TODO:
-            dialog.getStyleClass().add("todo-label");
-            break;
-        case MARK:
-            dialog.getStyleClass().add("marked-label");
-            break;
-        case DELETE:
-            dialog.getStyleClass().add("delete-label");
-            break;
-        default:
-            // Do nothing
-        }
-    }
-
     public static DialogBox getSigmaDialog(String text, Image img, CommandType commandType) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.changeDialogStyle(commandType);
+        return db;
+    }
+
+    public static DialogBox getSigmaWelcome(Image img) {
+        String welcome = "Greetings, I'm Sigma!\n" + "What can I do for you?";
+        var db = new DialogBox(welcome, img);
+        db.flip();
         return db;
     }
 }
