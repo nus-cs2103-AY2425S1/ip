@@ -15,7 +15,7 @@ public class SlothingWaffler {
                 String[] split = input.split(" ", 2);
 
                 if (split[0].strip().equals("bye")) {
-                    System.out.println("See you next time! Remember to get a waffle!");
+                    exit();
                     break;
                 }
                 switch (split[0].strip()) {
@@ -80,6 +80,10 @@ public class SlothingWaffler {
         tasks.get(taskNum).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + tasks.get(taskNum).toString());
+    }
+
+    private static void exit() {
+        System.out.println("See you next time! Remember to get a waffle!");
     }
 
     private static void greet() {
