@@ -16,26 +16,49 @@ public class Yap {
         System.out.println(separator);
 
         // Infinite loop to get user input
-        String[] userInputs = new String[100];
-        int inputCount = 0;
+        Task[] tasks = new Task[100];
+        int taskCount = 0;
         while (true) {
-            userInputs[inputCount] = scanner.nextLine();
-            System.out.println(separator);
+            String userInput = scanner.nextLine();
 
             // Bye functionality
-            if (userInputs[inputCount].equalsIgnoreCase("bye")) {
+            if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println("Bye! It was really nice talking to you, see you soon :)");
                 break;
             }
 
+            System.out.println(separator);
+
+            // Mark functionality
+            if (userInput.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                tasks[taskIndex].markAsDone();
+                System.out.println("I've marked this task as done: ");
+                System.out.println(tasks[taskIndex]);
+                System.out.println(separator);
+                continue;
+            }
+
+            // Unmark functionality
+            if (userInput.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                tasks[taskIndex].markAsUndone();
+                System.out.println("I've marked this task as not done: ");
+                System.out.println(tasks[taskIndex]);
+                System.out.println(separator);
+                continue;
+            }
+
             // List functionality
-            if (userInputs[inputCount].equalsIgnoreCase("list")) {
-                for (int input = 0; input < inputCount; ++input) {
-                    System.out.println((input + 1) + ". " + userInputs[input]);
+            if (userInput.equalsIgnoreCase("list")) {
+                for (int input = 0; input < taskCount; ++input) {
+                    System.out.println((input + 1) + ". " + tasks[input].toString());
                 }
             } else {
-                System.out.println("Added: " + userInputs[inputCount++]);
+                tasks[taskCount] = new Task(userInput);
+                System.out.println("Added: " + tasks[taskCount++]);
             }
+
             System.out.println(separator);
         }
     }
