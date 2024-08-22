@@ -36,24 +36,40 @@ public class Utility {
                 message.equalsIgnoreCase("Hello") ||
                 message.equalsIgnoreCase("Ciallo")) {
             System.out.println("Ciallo～(∠・ω< )⌒★");
-            return ;
+            return;
+        }
+        if (taskType.equals("delete")) {
+            try {
+                int taskIndex = divideMessage(message)[1].charAt(0) - 49;
+                System.out.println("Noted. I've removed this task:\n" + toDo.get(taskIndex) +
+                        "\nNow you have " + toDo.size() + " tasks in the list.\n");
+                toDo.remove(taskIndex);
+                return;
+            } catch(IndexOutOfBoundsException e) {
+                System.out.println("The task you want to delete is not in task list, please try again.");
+                return;
+            }
         }
         if (taskType.equals("list")) {
+            if (toDo.isEmpty()) {
+                System.out.println("You don't have any task now ~(∠・ω< )⌒★");
+                return;
+            }
             System.out.println("Here are the tasks in your list:");
             for (int i = 1; i <= toDo.size(); i++) {
                 System.out.println(i + "." + toDo.get(i - 1));
             }
-            return ;
+            return;
         }
         if (taskType.equals("mark")) {
             try {
                 int taskIndex = divideMessage(message)[1].charAt(0) - 49;
                 toDo.get(taskIndex).markAsDone();
                 System.out.println("Nice! I've marked this task as done:\n" + toDo.get(taskIndex));
-                return ;
+                return;
             } catch(IndexOutOfBoundsException e) {
                 System.out.println("The task you want to mark is not in task list, please try again.");
-                return ;
+                return;
             }
 
         }
@@ -62,10 +78,10 @@ public class Utility {
                 int taskIndex = divideMessage(message)[1].charAt(0) - 49;
                 toDo.get(taskIndex).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:\n" + toDo.get(taskIndex));
-                return ;
+                return;
             } catch(IndexOutOfBoundsException e) {
                 System.out.println("The task you want to unmark is not in task list, please try again.");
-                return ;
+                return;
             }
         }
         if (taskType.equals("todo")) {
@@ -76,10 +92,10 @@ public class Utility {
                 System.out.print("Got it. I've added this task:\n  " +
                         task.toString() +
                         "\nNow you have " + toDo.size() + " tasks in the list.\n");
-                return ;
+                return;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("The description of the todo task cannot be empty, please try again.");
-                return ;
+                return;
             }
         }
         if (taskType.equals("deadline")) {
@@ -87,7 +103,7 @@ public class Utility {
                 String taskInfo = splitTaskInfo(message)[1];
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("The description of the deadline task cannot be empty, please try again.");
-                return ;
+                return;
             }
             String taskInfo = splitTaskInfo(message)[1];
             try {
@@ -96,11 +112,11 @@ public class Utility {
                 System.out.print("Got it. I've added this task:\n  " +
                         task.toString() +
                         "\nNow you have " + toDo.size() + " tasks in the list.\n");
-                return ;
+                return;
             } catch (IndexOutOfBoundsException e) {
                 System.out.print("The description of the deadline task must include the ddl time, please try again.\n" +
                         "Tips: use /by to enter the ddl time.\n e.g. deadline quiz1 /by today 23:59\n");
-                return ;
+                return;
             }
         }
         if (taskType.equals("event")) {
@@ -108,7 +124,7 @@ public class Utility {
                 String taskInfo = splitTaskInfo(message)[1];
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("The description of the event task cannot be empty, please try again.");
-                return ;
+                return;
             }
             String taskInfo = splitTaskInfo(message)[1];
             try {
@@ -117,13 +133,13 @@ public class Utility {
                 System.out.print("Got it. I've added this task:\n  " +
                         task.toString() +
                         "\nNow you have " + toDo.size() + " tasks in the list.\n");
-                return ;
+                return;
             } catch (IndexOutOfBoundsException e) {
                 System.out.print("The description of the event task must include" +
                         " the start time and the end time, please try again.\n" +
                         "Tips: use /from and /to to enter the start and end time.\n" +
                         " e.g. event meeting1 /from today 12:00 /to 14:00\n");
-                return ;
+                return;
             }
         }
 
