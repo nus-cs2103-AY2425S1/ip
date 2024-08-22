@@ -7,6 +7,6 @@ public class ToDoTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][$s] %s", this.SYMBOL, super.isDone, super.description);
+        return String.format("[%s][%s] %s", this.SYMBOL, super.getStatusIcon(), super.description);
     }
 }

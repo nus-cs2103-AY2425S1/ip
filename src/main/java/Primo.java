@@ -41,6 +41,39 @@ public class Primo {
             System.out.println("\nEl Primo:");
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(list.get(index));
+        } else if (words[0].equals("todo")) {
+            int fromIndex = input.indexOf("todo ") + 5;
+            String description = input.substring(fromIndex);
+            Task newTask = new ToDoTask(description);
+            list.add(newTask);
+            System.out.println("\nEl Primo:");
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.printf("Now you have %d tasks in the list.%n", list.size());
+        } else if (words[0].equals("deadline")) {
+            int fromIndex = input.indexOf("deadline ") + 9;
+            int toIndex = input.indexOf("/by ");
+            String description = input.substring(fromIndex, toIndex - 1);
+            String dueTime = input.substring(toIndex + 4);
+            Task newTask = new DeadlineTask(description, dueTime);
+            list.add(newTask);
+            System.out.println("\nEl Primo:");
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.printf("Now you have %d tasks in the list.%n", list.size());
+        } else if (words[0].equals("event")) {
+            int fromIndex = input.indexOf("event ") + 6;
+            int toIndex = input.indexOf("/from ");
+            int finalIndex = input.indexOf("/to ");
+            String description = input.substring(fromIndex, toIndex - 1);
+            String from = input.substring(toIndex + 6, finalIndex - 1);
+            String to = input.substring(finalIndex + 4);
+            Task newTask = new EventTask(description, from, to);
+            list.add(newTask);
+            System.out.println("\nEl Primo:");
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
+            System.out.printf("Now you have %d tasks in the list.%n", list.size());
         } else {
             Task newTask = new Task(input);
             list.add(newTask);

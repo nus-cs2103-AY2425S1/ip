@@ -9,6 +9,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][$s] %s (by: %s)", this.SYMBOL, super.isDone, super.description, this.dueTime);
+        return String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(), super.description, this.dueTime);
     }
 }

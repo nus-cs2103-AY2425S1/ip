@@ -11,7 +11,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][$s] %s (from: %s to: %s)", this.SYMBOL, super.isDone, super.description,
+        return String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(), super.description,
                 this.from, this.to);
     }
 }
