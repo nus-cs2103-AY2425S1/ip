@@ -90,4 +90,8 @@ public class Ui {
         System.out.println(task);
     }
 
+    public void displayError(String message) {
+        System.out.println("Glub glub! " + message);
+    }
+
 }
