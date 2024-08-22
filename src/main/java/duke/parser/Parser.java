@@ -1,8 +1,8 @@
-package parser;
+package duke.parser;
 
-import exceptions.DukeException;
+import duke.exceptions.DukeException;
 import java.util.Scanner;
-import tasks.TaskList;
+import duke.tasks.TaskList;
 public class Parser {
 
     private final Scanner scan;

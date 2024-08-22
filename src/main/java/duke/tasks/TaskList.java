@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,8 +6,8 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
-import exceptions.DukeException;
-import storage.Storage;
+import duke.exceptions.DukeException;
+import duke.storage.Storage;
 
 public class TaskList {
     private static TaskList taskList;
