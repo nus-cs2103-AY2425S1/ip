@@ -14,4 +14,11 @@ unmark 2
 list
 unmark 3
 list
+add
+todo
+deadline
+event
+deadline Watch ST2334 Recordings
+event Orientation Week
+event Orientation Week /from Monday to Friday
 bye

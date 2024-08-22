@@ -99,6 +99,33 @@ Ok, I've marked this task as not done yet:
 3. [E][ ] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
 ==================================================
 
+Unknown Command: add
+Please try again...
+==================================================
+Current Supported Commands:
+    1. todo - Create a ToDo Task
+    2. deadline - Create a Deadline Task
+    3. event - Create an Event Task
+    4. mark - Mark a task as done
+    5. unmark - Mark a task as not done
+    6. bye - Exit the chatbot
+
+Note: The command is case-insensitive, as long as the
+input characters match, the chatbot would be able to
+respond to the given command
+
+Oops...The description of a todo cannot be empty.
+Please try again...
+Oops...The description of a deadline cannot be empty.
+Please try again...
+Oops...The description of a event cannot be empty.
+Please try again...
+Seems like you are missing token /by when creating a deadline
+Please try again...
+Seems like you are missing token /from when creating a event
+Please try again...
+Seems like you are missing token /to when creating a event
+Please try again...
 ==================================================
 Bye. Hope to see you again soon!
 ==================================================
