@@ -11,16 +11,16 @@ public class Storage {
         this.TaskLists.add(newTask);
     }
     
-    public String lastTask() {
+    public Task lastTask() {
         if (!this.TaskLists.isEmpty()) {
             if (this.TaskLists.get(this.TaskLists.size() - 1).getDescription().equals("bye"))
-                return "Bye. Hope to see you again soon!";
+                return null;
             else {
-                return this.TaskLists.get(this.TaskLists.size() - 1).getDescription();
+                return this.TaskLists.get(this.TaskLists.size() - 1);
             }
         }
         else {
-            return "";
+            return null;
         }
     }
     
@@ -28,9 +28,7 @@ public class Storage {
         StringBuilder result = new StringBuilder();
             for (int i =0; i < this.TaskLists.size(); i++) {
                 result.append(i + 1).append(". ")
-                        .append(this.TaskLists.get(i).getStatusIcon())
-                        .append(" ")
-                        .append(this.TaskLists.get(i).getDescription()).append("\n");
+                        .append(this.TaskLists.get(i).toString()).append("\n");
             }
         return result.toString();
     }
@@ -43,10 +41,12 @@ public class Storage {
         } else {
             this.TaskLists.get(normalizedIndex).markAsUndone();
         }
-        result.append(this.TaskLists.get(normalizedIndex).getStatusIcon())
-                .append(" ")  // Adding a space here
-                .append(this.TaskLists.get(normalizedIndex).getDescription());
+        result.append(this.TaskLists.get(normalizedIndex).toString());
         return result.toString();
+    }
+    
+    public String getLength() {
+        return "Now you have " + String.valueOf(this.TaskLists.size())+ " tasks in the list.";
     }
     
 }

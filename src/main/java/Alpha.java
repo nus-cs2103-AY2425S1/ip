@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 public class Alpha {
     public static void main(String[] args) {
@@ -47,15 +48,65 @@ public class Alpha {
                 System.out.println(echoResponse);
             }
             
-            else {
-                Task TaskOne = new Task(s1);
-                storage.storeTask(TaskOne);
-                String userInput = storage.lastTask();
+            else if (s1.split(" ")[0].equals("todo")) {
+                ToDo NewToDo = new ToDo(s1.split(" ")[1]);
+                storage.storeTask(NewToDo);
                 String echoResponse = "____________________________________________________________ \n"
-                        + "added: " + userInput + "\n"
+                        + "Got it. I've added this task: \n"
+                        + storage.lastTask().toString() + "\n"
+                        + storage.getLength() + "\n"
                         + "____________________________________________________________ \n";
                 System.out.println(echoResponse);
             }
+
+            else if (s1.split(" ")[0].equals("deadline")) {
+                String[] splitArray = s1.split(" ");
+                String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
+    
+                // Further processing to get the description before the "/"
+                String description = processedInput.split("/")[0].trim();
+                
+                //Further processing to get by date after the "/"
+                String by = processedInput.split("/")[1].trim();
+                by = by.replace("by ", "");
+                
+                Deadline NewDeadline = new Deadline(description, by);
+                storage.storeTask(NewDeadline);
+                String echoResponse = "____________________________________________________________ \n"
+                        + "Got it. I've added this task: \n"
+                        + storage.lastTask().toString() + "\n"
+                        + storage.getLength() + "\n"
+                        + "____________________________________________________________ \n";
+                System.out.println(echoResponse);
+            }
+
+            else if (s1.split(" ")[0].equals("event")) {
+                String[] splitArray = s1.split(" ");
+                String processedInput = String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
+    
+                // Further processing to get the description before the "/"
+                String description = processedInput.split("/")[0].trim();
+    
+                //Further processing to get start date after the "/"
+                String start = processedInput.split("/")[1].trim();
+                start = start.replace("from ", "");
+    
+                //Further processing to get start date after the "/"
+                String end = processedInput.split("/")[2].trim();
+                end = start.replace("to" , "");
+                
+                Event NewEvent = new Event(description, start, end);
+                storage.storeTask(NewEvent);
+                String echoResponse = "____________________________________________________________ \n"
+                        + "Got it. I've added this task: \n"
+                        + storage.lastTask().toString() + "\n"
+                        + storage.getLength() + "\n"
+                        + "____________________________________________________________ \n";
+                System.out.println(echoResponse);
+            } else {
+                System.out.println("Sorry User, chatbot only accepts, todo, deadline, event, list, bye, mark and unmark commands");
+            }
+            
         }
     
         // Close the scanner after the loop ends
