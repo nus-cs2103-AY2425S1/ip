@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Duke {
 
     public static void main(String[] args) {
+
         String logo = " K   K   OOOOO   BBBBB   EEEEE \n"
                 + " K  K   O     O  B    B  E     \n"
                 + " KKK    O     O  BBBBB   EEEE  \n"
@@ -13,38 +16,29 @@ public class Duke {
         System.out.println("How can I help you? ");
         System.out.println("____________________________________________________________");
 
-        String[] things = new String[24];
-        int count = 0;
         Scanner scanner = new Scanner(System.in);
-        String userInput;
+
+        ArrayList<String> tasks = new ArrayList<>();
 
         while (true) {
-            userInput = scanner.nextLine();
+            String userInput = scanner.nextLine();
+
             System.out.println("____________________________________________________________");
 
             if (userInput.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("Goodbye! My man.");
                 System.out.println("____________________________________________________________");
                 break;
-            }
-
-            if (userInput.equals("list")) {
-                int counter = 0;
-                while (things[counter] != null) {
-                    System.out.println(things[counter]);
-                    counter++;
+            } else if (userInput.equals("list")) {
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
-                System.out.println("____________________________________________________________");
             } else {
+                tasks.add(userInput);
                 System.out.println("added: " + userInput);
-                int num = count + 1;
-                String numString = String.valueOf(num);
-                things[count] = numString + ". " + userInput;
-                count++;
-                System.out.println("____________________________________________________________");
             }
+            System.out.println("____________________________________________________________");
         }
-
         scanner.close();
     }
 }
