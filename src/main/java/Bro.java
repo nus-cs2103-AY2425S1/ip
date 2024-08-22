@@ -10,6 +10,7 @@ public class Bro {
     final static String MARK_COMMAND = "mark";
     final static String UNMARK_COMMAND = "unmark";
     final static String ADD_TODO_COMMAND = "todo";
+    final static String ADD_DEADLINE_COMMAND = "deadline";
 
     public static void main(String[] args) {
         reply(GREETING_MESSAGE);
@@ -58,9 +59,27 @@ public class Bro {
                 case ADD_TODO_COMMAND:
                     if (secondArg.isEmpty()) {
                         reply("Bro I can't add a empty task");
+                        break;
                     }
-                    Task task = taskList.addTask(new TodoTask(secondArg));
-                    addTaskReply(task, taskList.getNumberOfTask());
+                    Task todoTask = taskList.addTask(new TodoTask(secondArg));
+                    addTaskReply(todoTask, taskList.getNumberOfTask());
+                    break;
+                case ADD_DEADLINE_COMMAND:
+                    // Input validation
+                    if (secondArg.isEmpty()) {
+                        reply("Bro I Can't add a empty task");
+                        break;
+                    }
+                    if (!secondArg.contains("/by")) {
+                        reply("Wrong usage of deadline command");
+                        break;
+                    }
+                    String[] parts = secondArg.split("/by");
+                    String taskContent = parts[0].trim();
+                    String deadline = parts[1].trim();
+
+                    Task deadlineTask = taskList.addTask(new DeadlineTask(taskContent, deadline));
+                    addTaskReply(deadlineTask, taskList.getNumberOfTask());
                     break;
                 default:
                     taskList.addTask(new Task(input));
