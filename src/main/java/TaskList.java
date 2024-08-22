@@ -56,15 +56,23 @@ public class TaskList {
     }
 
     private void markTask(int index) {
-        Task task = this.tasklist.get(index-1);
-        task.mark();
-        System.out.println(" Nice! I've marked this task as done: \n" + task);
+        if (index > this.tasklist.size()) {
+            System.out.println("Invalid task");
+        } else {
+            Task task = this.tasklist.get(index-1);
+            task.mark();
+            System.out.println(" Nice! I've marked this task as done: \n" + task);
+        }
     }
 
     private void unmarkTask(int index) {
-        Task task = this.tasklist.get(index-1);
-        task.unmark();
-        System.out.println("OK, I've marked this task as not done yet: \n" + task);
+        if (index > this.tasklist.size()) {
+            System.out.println("Invalid task");
+        } else {
+            Task task = this.tasklist.get(index-1);
+            task.unmark();
+            System.out.println("OK, I've marked this task as not done yet: \n" + task);
+        }
     }
 
     @Override
