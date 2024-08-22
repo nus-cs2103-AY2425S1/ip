@@ -14,8 +14,37 @@ public class ChatBot {
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            if (input.startsWith("list")) {
-                listTasks();
+            if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                break;
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5);
+                tasks.add(new Todo(description));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + new Todo(description));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.split(" /by ");
+                String description = parts[0].substring(9);
+                String by = parts[1];
+                tasks.add(new Deadline(description, by));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + new Deadline(description, by));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                String[] parts = input.split(" /from | /to ");
+                String description = parts[0].substring(6);
+                String start = parts[1];
+                String end = parts[2];
+                tasks.add(new Event(description, start, end));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + new Event(description, start, end));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + "." + tasks.get(i));
+                }
             } else if (input.startsWith("mark")) {
                 int taskNumber = Integer.parseInt(input.substring(5)) - 1;
                 markTask(taskNumber);
