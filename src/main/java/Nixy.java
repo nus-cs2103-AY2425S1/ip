@@ -3,12 +3,38 @@ import java.util.Scanner;
 public class Nixy {
     static final String HORIZONTAL_LINE = "____________________________________________________________";
     static String[] tasks = new String[100];
+    static int taskCount = 0;
+
     public static void main(String[] args) {
         String chatbotName = "Nixy";
         wrapPrintWithHorizontalLines("Hello! I'm " + chatbotName, "What can I do for you?");
-        store();
+        while (true) {
+            String input = readInput();
+            if (input.equals("bye")) {
+                break;
+            }
+            if (input.equals("list")) {
+                list();
+                continue;
+            }
+
+            store(input);
+        }
+        exit();
     }
 
+    /**
+     * Read input from the user.
+     */
+    private static String readInput() {
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        return input;
+    }
+
+    /**
+     * Deprecated method to read input and echo it back.
+     */
     private static void echo() {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
@@ -23,16 +49,21 @@ public class Nixy {
     /**
      * Read and store new task in the list of tasks.
      */
-    private static void store() {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        if (input.equals("bye")) {
-            exit();
-            return;
+    private static void store(String task) {
+        tasks[taskCount++] = task;
+        wrapPrintWithHorizontalLines("added: " + task);
+    }
+
+    /**
+     * List all tasks in the list of tasks.
+     */
+    private static void list() {
+        indentPrint(HORIZONTAL_LINE);
+        indentPrint("Here are the tasks in your list:");
+        for (int i = 0; i < taskCount; i++) {
+            indentPrint((i + 1) + ". " + tasks[i]);
         }
-        tasks[tasks.length - 1] = input;
-        wrapPrintWithHorizontalLines("added: " + input);
-        store();
+        indentPrint(HORIZONTAL_LINE);
     }
 
     private static void exit() {
