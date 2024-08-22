@@ -31,8 +31,17 @@ public class SecondMind {
             String taskDescription = taskInfo[0].substring(9);
             String taskDeadline = taskInfo[1];
             return new DeadlineTask(taskDescription, taskDeadline);
+        } else if (taskType.equals("event")) {
+            taskInfo = task.split(" /", 3);
+            //Prefix of taskInfo[0] is "event "
+            String taskDescription = taskInfo[0].substring(6);
+            //Prefix of taskInfo[1] is "from "
+            String taskStart = taskInfo[1].substring(5);
+            //Prefix of taskInfo[2] is "to "
+            String taskEnd = taskInfo[2].substring(3);
+            return new EventTask(taskDescription, taskStart, taskEnd);
         }
-        return new Task(task);
+        return null;
     }
 
     private static void addToTaskList(String task) {
