@@ -12,4 +12,7 @@ deadline submit essay
 event cs2103T briefing
 mark
 mark 4
+delete
+delete 6
+delete 2
 bye

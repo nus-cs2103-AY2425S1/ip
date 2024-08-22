@@ -169,6 +169,27 @@ public class Rasputin {
                 }
             }
 
+            if (input.contains("delete")) {
+                try {
+                    int index = (input.charAt(7) - '0' - 1);
+                    String output = "Done, removed that task for you.\n" +
+                            ls.get(index).toString();
+                    ls.remove(index);
+                    printText(output);
+                }
+                catch (StringIndexOutOfBoundsException e) {
+                    printText("ERROR! Task to be deleted not specified.");
+                }
+                catch (IndexOutOfBoundsException e) {
+                    printText("ERROR! Task not found.");
+                }
+                finally {
+                    continue;
+                }
+            }
+
+
+
             printText("I'm sorry, I don't understand that command.");
 
         }
