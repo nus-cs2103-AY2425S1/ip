@@ -155,11 +155,10 @@ public class Ekud {
                     ekud.echoList();
                     break;
                 case MARK_COMMNAD:
-                    int index = ekud.readInt(argument);
-                    ekud.markList(Integer.parseInt(argument) - 1);
+                    ekud.markList(ekud.readInt(argument) - 1);
                     break;
                 case UNMARK_COMMAND:
-                    ekud.unmarkList(Integer.parseInt(argument) - 1);
+                    ekud.unmarkList(ekud.readInt(argument) - 1);
                     break;
                 case TODO_COMMAND:
                     ekud.addToList(new TodoTask(argument));
@@ -179,7 +178,7 @@ public class Ekud {
             } finally {
                 if (ekud.isRunning()) {
                     printLineSeparator();
-                };
+                }
             }
         }
         ekud.sayGoodbye();
