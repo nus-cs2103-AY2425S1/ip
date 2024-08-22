@@ -13,12 +13,8 @@ public class Response {
         line();
     }
 
-//    public void added_task_message(Task t) {
-//        System.out.println("Got it. I've added this task:");
-//        if (t.getTag().equals("T")) {
-//            System.out.println("[T][ ] " + t.getName());
-//        }
-//        System.out.println("Now you have " + t.get_list_size() +" tasks in the list.");
+//    public void added_task_message(String s) {
+//        System.out.println("added: " + s);
 //    }
 
     public void list_task_message(ArrayList<Task> task_list) {
@@ -31,6 +27,8 @@ public class Response {
                     System.out.println(counter + ".[D][X] " + t.getName());
                 } else if (t.getTag().equals("E")) {
                     System.out.println(counter + ".[E][X] " + t.getName());
+                } else {
+                    System.out.println(counter + ".[-][X] " + t.getName());
                 }
             } else {
                 if (t.getTag().equals("T")) {
@@ -39,6 +37,8 @@ public class Response {
                     System.out.println(counter + ".[D][ ] " + t.getName());
                 } else if (t.getTag().equals("E")) {
                     System.out.println(counter + ".[E][ ] " + t.getName());
+                } else {
+                    System.out.println(counter + ".[-][ ] " + t.getName());
                 }
             }
             counter++;

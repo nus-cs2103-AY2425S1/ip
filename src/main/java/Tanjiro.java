@@ -33,6 +33,9 @@ public class Tanjiro {
                 String end = deadline_arr[2].substring(3);
                 Events temp_event = new Events(name, start, end);
                 temp_event.add_task(temp_event);
+            } else {
+                Task task = new Task(user_input, "-");
+                task.add_task(task);
             }
 //            else {
 //                Task temp_task = new Task(user_input);

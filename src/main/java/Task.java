@@ -18,6 +18,7 @@ public class Task {
 
     public void add_task(Task temp) {
         task_list.add(temp);
+        System.out.println("added: " + temp.getName());
     }
 
     public static void list_task() {
