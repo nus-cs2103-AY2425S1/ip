@@ -6,6 +6,12 @@ public class Bot {
     private final List<String> TASK_TYPES = List.of(new String[]{"todo", "event", "deadline"});
     private ArrayList<Task> taskList = new ArrayList<>();
 
+    public void taskNotFound(int taskNumber) {
+        System.out.println(DIVIDER
+                + "task " + taskNumber + " doesn't exist...try another number!\n"
+                + DIVIDER);
+    }
+
     public void acceptCommand() {
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -13,7 +19,7 @@ public class Bot {
             List<String> inputList = Arrays.asList(input.split(" "));
             String command = inputList.get(0).strip();
 //            System.out.println("inputList size: " + inputList.size());
-            String args = String.join(" ", inputList.subList(1, inputList.size()));
+            String args = String.join(" ", inputList.subList(1, inputList.size())).strip();
 //            System.out.println("command: " + command);
 //            System.out.println("args: " + args);
 //            Consider implementing the 1010X approach to calling functions
@@ -29,9 +35,20 @@ public class Bot {
                 showList();
             } else if (Objects.equals(command, "mark")
                     || Objects.equals(command, "unmark")) {
-                // need to handle the case where a non-integer is passed to mark
+                // need to handle the case where a non-integer is passed to mark (NumberFormatException)
                 int taskToMark = Integer.parseInt(args);
-                markTask(taskToMark, command);
+                try {
+                    markTask(taskToMark, command);
+                } catch (IndexOutOfBoundsException e) {
+                    taskNotFound(taskToMark);
+                }
+            } else if (Objects.equals(command, "delete")) {
+                int taskToDelete = Integer.parseInt(args);
+                try {
+                    deleteTask(taskToDelete);
+                } catch (IndexOutOfBoundsException e) {
+                    taskNotFound(taskToDelete);
+                }
             } else {
                 try {
                     addToList(command, args);
@@ -104,7 +121,8 @@ public class Bot {
     }
 
     public void showList() {
-        System.out.println(DIVIDER);
+        System.out.println(DIVIDER
+            + "here's everything that's in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             System.out.println((i+1) + ". " + task.taskDescription());
@@ -119,7 +137,7 @@ public class Bot {
         if (Objects.equals(command, "mark")) {
             System.out.println(DIVIDER
                 + "ok i've marked this task as done:\n"
-                + INDENT+ task.taskDescription() + "\n"
+                + INDENT + task.taskDescription() + "\n"
                 + DIVIDER);
         } else {
             System.out.println(DIVIDER
@@ -127,5 +145,14 @@ public class Bot {
                     + INDENT + task.taskDescription() + "\n"
                     + DIVIDER);
         }
+    }
+
+    public void deleteTask(int taskToDelete) throws IndexOutOfBoundsException{
+        Task task = taskList.remove(taskToDelete-1);
+        System.out.println(DIVIDER
+                + "alright i've purged this task for you:\n"
+                + INDENT + task.taskDescription() + "\n"
+                + listSizeUpdateMessage()
+                + DIVIDER);
     }
 }
