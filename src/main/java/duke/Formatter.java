@@ -3,6 +3,7 @@ package duke;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Formatter {
     public static final String SPACING = "    ";
@@ -16,7 +17,7 @@ public class Formatter {
         return Formatter.SPACING + " " + i + "." + task.toString() + "\n";
     }
 
-    public static String formatTaskListings(ArrayList<Task> tasks) {
+    public static String formatTaskListings(List<Task> tasks) {
         StringBuilder str = new StringBuilder();
 
         str.append(Formatter.formattedBorder()).append("\n");
