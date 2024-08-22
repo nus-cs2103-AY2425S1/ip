@@ -29,14 +29,14 @@ public class Murphy {
             } else if (input.startsWith("mark ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
-                    Murphy.addItem(input);
+                    //Murphy.addItem(input);
                     continue;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(split[1]);
                 } catch (NumberFormatException e) {
-                    Murphy.addItem(input);
+                    //Murphy.addItem(input);
                     continue;
                 }
                 if (index > Murphy.numOfTasks || index <= 0) {
@@ -47,14 +47,14 @@ public class Murphy {
             } else if (input.startsWith("unmark ")){
                 String[] split = input.split(" ");
                 if (split.length > 2) {
-                    Murphy.addItem(input);
+                    //Murphy.addItem(input);
                     continue;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(split[1]);
                 } catch (NumberFormatException e) {
-                    Murphy.addItem(input);
+                    //Murphy.addItem(input);
                     continue;
                 }
                 if (index > Murphy.numOfTasks || index <= 0) {
@@ -62,8 +62,28 @@ public class Murphy {
                     continue;
                 }
                 Murphy.unmarkItem(index);
+            } else if(input.startsWith("todo ")){
+                Task todo = new Todo(input.substring(5));
+                Murphy.addItem(todo);
+            } else if(input.startsWith("deadline ")) {
+                if (!input.contains("/by ")) {
+                    System.out.println("Provide a by time for deadline");
+                    continue;
+                }
+                String[] split = input.split("/by ");
+                Task deadline = new Deadline(split[0].substring(9).trim(), split[1]);
+                Murphy.addItem(deadline);
+            } else if (input.startsWith("event ")) {
+                if (!input.contains("/from ") || !input.contains("/to ")) {
+                    System.out.println("Provide a from and to time for event");
+                    continue;
+                }
+                String[] split = input.split("/from ");
+                String[] split2 = split[1].split("/to ");
+                Task event = new Event(split[0].substring(6).trim(), split2[0].trim(), split2[1]);
+                Murphy.addItem(event);
             } else {
-                Murphy.addItem(input);
+                System.out.println("Command not found");
             }
         }
     }
@@ -79,9 +99,11 @@ public class Murphy {
         }
     }
 
-    private static void addItem(String item) {
-        System.out.println("added: " + item);
-        Murphy.tasks[Murphy.numOfTasks++] = new Task(item);
+    private static void addItem(Task task) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        Murphy.tasks[Murphy.numOfTasks++] = task;
+        System.out.println("Now you have " + Murphy.numOfTasks + " task(s) in the list.");
     }
 
     private static void markItem(int index) {
@@ -92,7 +114,7 @@ public class Murphy {
 
     private static void unmarkItem(int index) {
         Murphy.tasks[index - 1].unmark();
-        System.out.println("Guess Murphy struck:");
+        System.out.println("I've unmarked this task. Guess Murphy struck?");
         System.out.println(Murphy.tasks[index - 1]);
     }
 }
