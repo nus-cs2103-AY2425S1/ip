@@ -1,24 +1,56 @@
+import java.util.Scanner;
+
 public class RapGod {
     public static void main(String[] args) {
         String logo = """
-                    ____              ______          __
-                   / __ \\____ _____  / ____/___  ____/ /
-                  / /_/ / __ `/ __ \\/ / __/ __ \\/ __  /\s
-                 / _, _/ /_/ / /_/ / /_/ / /_/ / /_/ / \s
-                /_/ |_|\\__,_/ .___/\\____/\\____/\\__,_/  \s
-                           /_/                         \s
+                ██████╗  █████╗ ██████╗  ██████╗  ██████╗ ██████╗\s
+                ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗██╔══██╗
+                ██████╔╝███████║██████╔╝██║  ███╗██║   ██║██║  ██║
+                ██╔══██╗██╔══██║██╔═══╝ ██║   ██║██║   ██║██║  ██║
+                ██║  ██║██║  ██║██║     ╚██████╔╝╚██████╔╝██████╔╝
+                ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝      ╚═════╝  ╚═════╝ ╚═════╝\s
+                                                                 \s                      
                 """;
 
-        System.out.println("Introducing\n" + logo);
-
-        String output = """
-                ____________________________________________________________
-                 Hello! I'm %s
-                 What can I do for you?
-                ____________________________________________________________
-                 Bye. Hope to see you again soon!
-                ____________________________________________________________
+        String header = """
+                -----------------------------------------------
+                 I'm beginning to feel like a:
+                -----------------------------------------------
                 """;
-        System.out.printf(String.format(output, "RapGod"));
+
+        String introduction = """
+                -----------------------------------------------
+                Hello. I'm RapGod
+                What can I do for you today?
+                Type 'Bye' to exit.
+                -----------------------------------------------
+                """;
+
+        System.out.println(header);
+        System.out.println(logo);
+        System.out.print(introduction);
+
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        int count = 1;
+
+        while (true) {
+            System.out.print("You: ");
+            input = scanner.nextLine();
+            if (!input.equalsIgnoreCase("Bye")) {
+                System.out.println("-----------------------------------------------");
+                System.out.printf("RapGod: %s, yo!\n", input);
+                System.out.println("-----------------------------------------------");
+
+                count++;
+            } else {
+                break;
+            }
+
+        }
+
+        System.out.println("-----------------------------------------------");
+        System.out.println("Bye! Hope to see you again soon!");
+        System.out.println("-----------------------------------------------");
     }
 }
