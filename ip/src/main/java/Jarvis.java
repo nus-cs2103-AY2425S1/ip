@@ -1,5 +1,7 @@
 import java.util.Scanner;
+
 public class Jarvis {
+
     public static void main(String[] args) {
         String logo =
                 "       _                  _     \n"+
@@ -16,14 +18,20 @@ public class Jarvis {
         System.out.println();
 
         String input = "";
+        TaskList tasklist = new TaskList();
 
         // Keep reading input until "bye" is entered
         while (!input.equals("bye")) {
-            input = scanner.nextLine(); // Read the input once
-            if (!input.equals("bye")) { // Only print if it's not "bye"
+            input = scanner.nextLine();
+            if(input.equals("list")) {
+                tasklist.list();
+
+            } else if (!input.equals("bye")) { // Only print if it's not "bye"
                 System.out.println("__________________________________\n" + input+ "\n" +
                         "__________________________________");
+                tasklist.add(input);
             }
+
         }
         System.out.println( "Bye. Hope to see you again soon!");
     }
