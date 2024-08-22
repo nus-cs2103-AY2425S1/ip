@@ -3,13 +3,13 @@ import java.util.ArrayList;
 
 public class Cypher {
     private enum Commands {
-        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE, HELP
+        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE, HELP, DELETE
     }
 
     private static ArrayList<Task> taskList;
 
     private static void lineBreak() {
-        System.out.println("-------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------------------------");
     }
 
     private static void greet() {
@@ -33,9 +33,13 @@ public class Cypher {
 
     private static void printTaskList() {
         Cypher.lineBreak();
-        System.out.println("Here are the items in your list:");
-        for (int i = 0; i < Cypher.taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + Cypher.taskList.get(i));
+        if (Cypher.taskList.isEmpty()) {
+            System.out.println("You have no items in your list:");
+        } else {
+            System.out.println("Here are the items in your list:");
+            for (int i = 0; i < Cypher.taskList.size(); i++) {
+                System.out.println((i + 1) + ". " + Cypher.taskList.get(i));
+            }
         }
         Cypher.lineBreak();
     }
@@ -44,7 +48,7 @@ public class Cypher {
         Task task = Cypher.taskList.get(i);
         task.completeTask();
         Cypher.lineBreak();
-        System.out.println("Nice! I have marked this task as completed:\n" + task);
+        System.out.println("Nice! I have marked this task as completed:\n " + task);
         Cypher.lineBreak();
     }
 
@@ -52,7 +56,15 @@ public class Cypher {
         Task task = Cypher.taskList.get(i);
         task.incompleteTask();
         Cypher.lineBreak();
-        System.out.println("Ok! I have marked this task as incomplete:\n" + task);
+        System.out.println("Ok! I have marked this task as incomplete:\n " + task);
+        Cypher.lineBreak();
+    }
+
+    private static void delTask(int i) {
+        Task task = Cypher.taskList.remove(i);
+        Cypher.lineBreak();
+        System.out.println("Noted! I have removed this task:\n " + task);
+        System.out.printf("Now you have %d task in the list%n", Cypher.taskList.size());
         Cypher.lineBreak();
     }
 
@@ -130,6 +142,16 @@ public class Cypher {
                         Cypher.lineBreak();
                         System.out.println("<<UNDER CONSTRUCTION>>");
                         Cypher.lineBreak();
+                        break;
+                    case DELETE:
+                        int delVal = Integer.parseInt(command[1]) - 1;
+                        if (delVal >= Cypher.taskList.size()) {
+                            throw new CypherException(String.format("You have %d items in your list. Enter a valid integer or add more items to your list", Cypher.taskList.size()));
+                        } else if (delVal < 0) {
+                            throw new CypherException("Enter a value above 0");
+                        }
+                        Cypher.delTask(delVal);
+                        break;
                     default:
                         System.out.printf("\"%s\" is not a valid command. Type --help in order to see the list of valid commands (This feature is still under construction)\n", command[0]);
                 }
