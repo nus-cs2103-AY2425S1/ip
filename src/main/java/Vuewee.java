@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 public class Vuewee {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
-    Task[] taskList = new Task[100];
-    int taskListLength = 0;
+    TaskList taskList = new TaskList();
 
     System.out.println("____________________________________________________________");
     System.out.println("Hello! I'm Vuewee\nWhat can I do for you?");
@@ -33,15 +32,7 @@ public class Vuewee {
       switch (command) {
         // List all tasks with done status if user types "list"
         case "list": {
-          if (taskListLength == 0) {
-            System.err.println("You have no tasks in your list.");
-            break;
-          }
-
-          for (int i = 0; i < taskListLength; i++) {
-            Task task = taskList[i];
-            System.out.println((i + 1) + ". " + task.toString());
-          }
+          taskList.displayTasks();
           break;
         }
 
@@ -49,16 +40,7 @@ public class Vuewee {
         case "mark": {
           try {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
-
-            if (taskNumber >= taskListLength || taskNumber < 0) {
-              System.out.println("Invalid task number. There are " + taskListLength + " tasks in your list.");
-              break;
-            }
-
-            boolean success = taskList[taskNumber].markAsDone();
-
-            System.out.println(success ? "Nice! I've marked this task as done:" : "This task is already done:");
-            System.out.println("  " + taskList[taskNumber].toString());
+            taskList.markTask(taskNumber, true);
           } catch (NumberFormatException e) {
             System.err.println("Invalid task number: " + inputParts[1]);
           }
@@ -68,17 +50,7 @@ public class Vuewee {
         case "unmark": {
           try {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
-
-            if (taskNumber >= taskListLength || taskNumber < 0) {
-              System.out.println("Invalid task number. There are " + taskListLength + " tasks in your list.");
-              break;
-            }
-
-            boolean success = taskList[taskNumber].markAsUndone();
-
-            System.out.println(
-                success ? "OK, I've marked this task as not done yet:" : "This task is already marked as not done:");
-            System.out.println("  " + taskList[taskNumber].toString());
+            taskList.markTask(taskNumber, false);
           } catch (NumberFormatException e) {
             System.err.println("Invalid task number: " + inputParts[1]);
           }
@@ -87,10 +59,7 @@ public class Vuewee {
         // Add todo task to task list
         // (Usage: todo <description>)
         case "todo": {
-          taskList[taskListLength] = new TodoTask(inputParts[1]);
-          taskListLength++;
-          System.out.println("Got it. I've added this task:");
-          System.out.println("  " + taskList[taskListLength - 1]);
+          taskList.addTask(new TodoTask(inputParts[1]));
           break;
         }
         // Add deadline task to task list
@@ -107,11 +76,7 @@ public class Vuewee {
                 "Invalid deadline format. Usage: deadline <description> /by <date>");
             break;
           }
-          taskList[taskListLength] = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
-          System.out.println("Got it. I've added this task:");
-          System.out.println("  " + taskList[taskListLength]);
-          taskListLength++;
-          System.out.println("Now you have " + taskListLength + " tasks in the list.");
+          taskList.addTask(new DeadlineTask(deadlineParts[0], deadlineParts[1]));
           break;
         }
         // Add event task to task list
@@ -135,11 +100,7 @@ public class Vuewee {
             String fromDate = fromMatcher.group(1);
             String toDate = toMatcher.group(1);
 
-            taskList[taskListLength] = new EventTask(description, fromDate, toDate);
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + taskList[taskListLength]);
-            taskListLength++;
-            System.out.println("Now you have " + taskListLength + " tasks in the list.");
+            taskList.addTask(new EventTask(description, fromDate, toDate));
           } else {
             System.err.println("Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>");
           }
