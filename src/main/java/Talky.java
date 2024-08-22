@@ -91,12 +91,14 @@ public class Talky {
                 } else if (command.equals("mark")) {
                     if (commandLine.length != 2) throw new TalkyException("Specify mark in the format: mark [index]");
                     int indexToChange = Integer.parseInt(commandLine[1]) - 1;
+                    if (indexToChange < 0 | indexToChange > userTasks.size()) throw new TalkyException("mark index out of bounds");
                     Task changedTask = userTasks.get(indexToChange);
                     changedTask.setMark(true);
                     printSeperator("I've marked this task as done: " + changedTask.getName());
                 } else if (command.equals("unmark")) {
                     if (commandLine.length != 2) throw new TalkyException("Specify unmark in the format: unmark [index]");
                     int indexToChange = Integer.parseInt(commandLine[1]) - 1;
+                    if (indexToChange < 0 | indexToChange > userTasks.size()) throw new TalkyException("unmark index out of bounds");
                     Task changedTask = userTasks.get(indexToChange);
                     changedTask.setMark(false);
                     printSeperator("I've marked this task as not done: " + changedTask.getName());
@@ -116,8 +118,13 @@ public class Talky {
                     if (params.length != 3) throw new TalkyException("Specify deadline in the format: deadline [name] /by [date]");
                     userTasks.add(new Event(params[0], params[1], params[2]));
                     printSeperator("Added Event: " + params[0]);
-                } else {
-                    throw new TalkyException("I'm sorry, I do not recognise this command: " + command);
+                } else if (command.equals("delete")) {
+                    if (commandLine.length != 2) throw new TalkyException("Specify mark in the format: delete [index]");
+                    int indexToChange = Integer.parseInt(commandLine[1]) - 1;
+                    if (indexToChange < 0 | indexToChange > userTasks.size()) throw new TalkyException("delete index out of bounds");
+                    Task removedTask = userTasks.get(indexToChange);
+                    userTasks.remove(indexToChange);
+                    printSeperator("I've deleted this task: " + removedTask.getName());
                 }
             } catch (TalkyException err) {
                 printSeperator(err.getMessage());
