@@ -14,35 +14,46 @@ public class MrYapper {
                 + "\n____________________________________________________________");
     }
 
-    private static void addTask(String type, String parameter) {
+    private static void addTask(String type, String[] processedInput) throws InvalidTaskException {
+        if (processedInput.length < 2) {
+            throw new InvalidTaskException(type, " You need to provide the task details!");
+        }
+        String details = processedInput[1];
         Task newTask;
         String[] parameters;
         switch (type) {
         case "todo":
-            newTask = new Todo(parameter);
+            newTask = new Todo(details);
             break;
         case "deadline":
-            parameters = parameter.split("\\s*/by\\s*");
-            if (parameters.length == 2 && !parameters[0].isEmpty()) {
-                newTask = new Deadline(parameters[0], parameters[1]);
+            parameters = details.split("/by");
+            if (parameters.length != 2) {
+                throw new InvalidTaskException(type, " I'll need you to format your details properly");
+            } else if (parameters[0].trim().isEmpty()) {
+                throw new InvalidTaskException(type, " Your description cannot be empty!");
+            } else if (parameters[1].trim().isEmpty()) {
+                throw new InvalidTaskException(type, " Your deadline cannot be empty!");
             } else {
-                say(" I need one description and deadline using \"/by\"\n"
-                        + " e.g. deadline CS2103T project /by Dec 31st");
-                return;
+                newTask = new Deadline(parameters[0].trim(), parameters[1].trim());
             }
             break;
         case "event":
-            parameters = parameter.split("\\s*/from\\s* | \\s*/to\\s*");
-            if (parameters.length == 3 &&
-                    !(parameters[0].isEmpty() || parameters[1].isEmpty())) {
-                String description = parameters[0];
-                String startTime = parameters[1];
-                String endTime = parameters[2];
-                newTask = new Event(description, startTime, endTime);
+            parameters = details.split("/from");
+            if (parameters.length != 2) {
+                throw new InvalidTaskException(type, " I'll need you to format your details properly");
+            } else if (parameters[0].trim().isEmpty()) {
+                throw new InvalidTaskException(type, " Your description cannot be empty!");
+            }
+
+            String[] timings = parameters[1].trim().split("/to");
+            if (timings.length != 2) {
+                throw new InvalidTaskException(type, " I'll need you to format your details properly");
+            } else if (timings[0].trim().isEmpty()) {
+                throw new InvalidTaskException(type, " Your start time cannot be empty!");
+            } else if (timings[1].trim().isEmpty()) {
+                throw new InvalidTaskException(type, " Your end time cannot be empty!");
             } else {
-                say(" I need one description, start and end time using \"/from\" and \"/to\"\n"
-                        + " e.g. event project meeting /from Mon 2pm /to 4pm");
-                return;
+                newTask = new Event(parameters[0].trim(), timings[0].trim(), timings[1].trim());
             }
             break;
         default:
@@ -119,10 +130,10 @@ public class MrYapper {
             case "todo":
             case "deadline":
             case "event":
-                if (processedInput.length > 1) {
-                    addTask(command, processedInput[1]);
-                } else {
-                    say(" You need to give a description when adding tasks!");
+                try {
+                    addTask(command, processedInput);
+                } catch (InvalidTaskException e) {
+                    say(e.getMessage());
                 }
                 break;
             default:
