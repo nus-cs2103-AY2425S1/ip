@@ -16,13 +16,16 @@ public class Bwead {
             boolean oneword = input.indexOf(" ") == -1;
 
             if (oneword && input.equals("todo")) {
-                System.out.println("The description of a todo cannot be empty.");
+                //System.out.println("The description of a todo cannot be empty.");
+                throw new DukeException("The description of a todo cannot be empty.");
             } else if (oneword && input.equals("deadline")) {
-                System.out.println("The description of a deadline cannot be empty.");
+                //System.out.println("The description of a deadline cannot be empty.");
+                throw new DukeException("The description of a deadline cannot be empty.");
             } else if (oneword && input.equals("event")) {
-                System.out.println("The description of a event cannot be empty.");
-            } else if (oneword && !input.equals("bye")) {
-                System.out.println("I'm sorry, I don't know what that means.");
+                //System.out.println("The description of a event cannot be empty.");
+                throw new DukeException("The description of an event cannot be empty.");
+            } else if (oneword && !input.equals("bye") && !input.equals("list")) {
+                throw new DukeException("I'm sorry, I don't know what that means.");
             }
 
 
@@ -63,6 +66,12 @@ public class Bwead {
                 Event task = new Event(name, start, end);
                 texts.add(task);
                 System.out.println("Got it. I've added this task: " + task.toString());
+                System.out.println("Now you have " + texts.size() + " tasks in the list.");
+            } else if (input.startsWith("delete")) {
+                int index = Integer.valueOf(input.split(" ")[1]);
+                Task toremove = texts.get(index - 1);
+                texts.remove(toremove);
+                System.out.println("Noted. I've removed this task: " + toremove.toString());
                 System.out.println("Now you have " + texts.size() + " tasks in the list.");
             }
         }
