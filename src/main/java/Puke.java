@@ -4,6 +4,16 @@ public class Puke {
         this.messageBuilder = new MessageBuilder();
     }
     public static void main(String[] args) {
-        System.out.println("PUKE");
+        Puke chatBot = new Puke();
+        chatBot.start();
+    }
+
+    private void start() {
+        messageBuilder.sendGreetingMessage();
+        terminate();
+    }
+
+    private void terminate() {
+        messageBuilder.sendGoodbyeMessage();
     }
 }
