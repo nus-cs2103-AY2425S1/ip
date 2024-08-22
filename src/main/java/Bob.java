@@ -46,10 +46,53 @@ public class Bob {
                 t = new Todo(description.toString());
             } else if (input.startsWith("deadline")) {
                 String[] parts = input.split(" ");
-                t = new Deadline(parts[1], parts[2]);
+                StringBuilder description = new StringBuilder();
+                int j = 0;
+                for (int i = 1; i < parts.length - 1; i++) {
+                    if(parts[i].contains("/by")) {
+                        break;
+                    }
+                    description.append(parts[i]).append(" ");
+                    j = i + 2;
+                }
+                StringBuilder date = new StringBuilder();
+                for (int i = j; i < parts.length; i++) {
+                    date.append(parts[i]).append(" ");
+                }
+                // Remove last space
+                String descriptionStr = description.toString().trim();
+                String dateStr = date.toString().trim();
+
+                t = new Deadline(descriptionStr, dateStr);
             } else if (input.startsWith("event")) {
                 String[] parts = input.split(" ");
-                t = new Event(parts[1], parts[2], parts[3]);
+                StringBuilder description = new StringBuilder();
+                int j = 0;
+                for (int i = 1; i < parts.length - 1; i++) {
+                    if(parts[i].contains("/from")) {
+                        break;
+                    }
+                    description.append(parts[i]).append(" ");
+                    j = i + 2;
+                }
+                StringBuilder from = new StringBuilder();
+                for (int i = j; i < parts.length - 2; i++) {
+                    if(parts[i].contains("/to")) {
+                        break;
+                    }
+                    from.append(parts[i]).append(" ");
+                    j = i + 2;
+                }
+                StringBuilder to = new StringBuilder();
+                for (int i = j; i < parts.length; i++) {
+                    to.append(parts[i]).append(" ");
+                }
+                // Remove last space
+                String descriptionStr = description.toString().trim();
+                String fromStr = from.toString();
+                String dateStr = to.toString().trim();
+
+                t = new Event(descriptionStr, fromStr, dateStr);
             }
             System.out.println("Got it. I've added this task:\n" + t);
             System.out.println("Now you have " + (count + 1) + (count == 0 ? " task in the list." : " tasks in the list."));
