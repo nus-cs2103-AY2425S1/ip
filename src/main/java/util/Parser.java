@@ -2,6 +2,7 @@ package util;
 
 import action.Action;
 import action.AddTaskAction;
+import action.DeleteTaskAction;
 import action.HelpAction;
 import action.ListTasksAction;
 import action.MarkTaskAction;
@@ -40,6 +41,8 @@ public class Parser {
             return new AddTaskAction(event);
         case "help":
             return new HelpAction();
+        case "delete":
+            return new DeleteTaskAction(parseTaskIndex(input));
         default:
             throw new InvalidCommandException(input);
         }

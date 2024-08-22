@@ -11,6 +11,9 @@ mark
 list
 deadline third task /by Today
 mark 3
+delete 4
+delete 1
+list
 unmark 2
 list
 bye

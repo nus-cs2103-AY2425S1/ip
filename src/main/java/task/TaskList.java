@@ -14,10 +14,6 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public int getTaskCount() {
-        return taskList.size();
-    }
-
     public Task markTask(int taskIndex) {
         taskList.get(taskIndex).mark();
         return taskList.get(taskIndex);
@@ -28,13 +24,23 @@ public class TaskList {
         return taskList.get(taskIndex);
     }
 
+    public Task deleteTask(int taskIndex) {
+        Task task = taskList.get(taskIndex);
+        taskList.remove(taskIndex);
+        return task;
+    }
+
+    public int getTaskCount() {
+        return taskList.size();
+    }
+
     public String getSummary() {
         if (taskList.isEmpty()) {
             return "You have no tasks currently.";
-        } else if (taskList.size() == 1) {
+        } else if (getTaskCount() == 1) {
             return "You have 1 task currently.";
         }
-        return "You have " + taskList.size() + " tasks currently.";
+        return "You have " + getTaskCount()+ " tasks currently.";
     }
 
     @Override
