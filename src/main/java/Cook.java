@@ -39,7 +39,7 @@ public class Cook {
                 formatting(taskListString.toString().stripTrailing());
             }
             // Mark/Unmark tasks
-            else if (commands.length == 2 && (commands[0].equalsIgnoreCase("mark"))) {
+            else if (commands.length == 2 && (commands[0].equalsIgnoreCase("mark") || commands[0].equalsIgnoreCase("unmark"))) {
                 try {
                     int taskIndex = Integer.parseInt(commands[1]) - 1;
                     Task taskToMark = taskList.get(taskIndex);
@@ -51,6 +51,16 @@ public class Cook {
                     } else {
                         formatting("Oh no! The task is already marked as " + done + ":\nDid you intend to do something else?");
                     }
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    formatting("Oh no! I can't find the task you are referring to... Sorry!");
+                }
+            }
+            // Delete tasks
+            else if (commands.length == 2 && commands[0].equalsIgnoreCase("delete")) {
+                try {
+                    int taskIndex = Integer.parseInt(commands[1]) - 1;
+                    Task taskToMark = taskList.remove(taskIndex);
+                    formatting("Alright, I've deleted the following task:\n   " + taskToMark.toString());
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     formatting("Oh no! I can't find the task you are referring to... Sorry!");
                 }
