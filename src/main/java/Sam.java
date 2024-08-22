@@ -23,6 +23,9 @@ public class Sam {
                     items.markItemDone(input);
                 } else if (input.startsWith("unmark")){
                     items.markItemUndone(input);
+                } else if (input.startsWith("delete")) {
+                    items.deleteItem(input);
+                    System.out.println(String.format("Now you have %d tasks in the list", items.getSize()));
                 } else {
                     String[] parts = input.split(" ");
                     String itemType = parts[0];
