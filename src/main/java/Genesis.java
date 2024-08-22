@@ -110,8 +110,16 @@ public class Genesis {
                 System.out.println("Ok. I've marked this task as not done yet:\n" +
                         current.description);
             } else if (input.startsWith("deadline ")){
+                if (!input.contains("/by ")) {
+                    System.out.println("You need a deadline to add this task!");
+                    continue;
+                }
                 String[] parts = input.split("/by ");
                 String taskName = parts[0].replaceFirst("deadline ", "").trim();
+                if (taskName.equals("")) {
+                    System.out.println("You need a task description!");
+                    continue;
+                }
                 String deadline = parts[1].trim();
                 Deadline current = new Deadline(taskName, deadline);
                 items.add(current);
@@ -119,20 +127,36 @@ public class Genesis {
                                     + "\nYou now have " + items.size() + " items in the list.");
             } else if (input.startsWith("todo ")) {
                 String taskName = input.replaceFirst("todo ", "").trim();
+                if (taskName.equals("")) {
+                    System.out.println("You need a task description!");
+                    continue;
+                }
                 Todo current = new Todo(taskName);
                 items.add(current);
                 System.out.println("Got it. I've added this task:\n" + current.toString()
                         + "\nYou now have " + items.size() + " items in the list.");
             } else if (input.startsWith("event ")) {
+                if (!input.contains("/from ")) {
+                    System.out.println("You need a starting date to add this task!");
+                    continue;
+                } else if (!input.contains("/ to")) {
+                    System.out.println("You need an ending date to add this task!");
+                }
                 String[] parts = input.split("/from ");
                 String[] parts2 = parts[1].split("/to ");
                 String taskName = parts[0].replaceFirst("event ", "").trim();
+                if (taskName.equals("")) {
+                    System.out.println("You need a task description!");
+                    continue;
+                }
                 String startDate = parts2[0].trim();
                 String endDate = parts2[1].trim();
                 Event current = new Event(taskName, startDate, endDate);
                 items.add(current);
                 System.out.println("Got it. I've added this task:\n" + current.toString()
                         + "\nYou now have " + items.size() + " items in the list.");
+            } else {
+                System.out.println("Sorry, I am not sure what task this is! Please enter a valid task.");
             }
         }
 
