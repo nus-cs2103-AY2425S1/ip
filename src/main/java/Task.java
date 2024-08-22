@@ -3,15 +3,20 @@ import java.util.HashSet;
 
 public abstract class Task {
     private String name;
-    private Boolean status;
-    public static Response r;
+//    private Boolean status;
+    enum status {
+        MARKED,
+        UNMARKED
+    }
 
+    status current_status;
+    public static Response r;
     public String tag;
     public static ArrayList<Task> task_list = new ArrayList<>();
 
     public Task(String name, String tag) {
         this.name = name;
-        this.status = false;
+        current_status = status.UNMARKED;
         this.tag = tag;
         r = new Response();
     }
@@ -21,10 +26,6 @@ public abstract class Task {
         r.delete_message(temp);
         task_list.remove(temp);
     }
-//    public void add_task(Task temp) {
-//        task_list.add(temp);
-//        System.out.println("added: " + temp.getName());
-//    }
 
     public static void list_task() {
         r.list_task_message(task_list);
@@ -32,13 +33,13 @@ public abstract class Task {
 
     public static void mark_task(int index) {
         Task temp = task_list.get(index-1);
-        temp.setStatus(true);
+        temp.setCurrent_status(status.MARKED);
         r.mark_message(temp.getName());
     }
 
     public static void unmark_task(int index) {
         Task temp = task_list.get(index-1);
-        temp.setStatus(false);
+        temp.setCurrent_status(status.UNMARKED);
         r.unmark_message(temp.getName());
 
     }
@@ -47,13 +48,20 @@ public abstract class Task {
         return name;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public status getCurrent_status() {
+        return current_status;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setCurrent_status(status current_status) {
+        this.current_status = current_status;
     }
+//    public Boolean getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(Boolean status) {
+//        this.status = status;
+//    }
 
     public String getTag() {
         return tag;

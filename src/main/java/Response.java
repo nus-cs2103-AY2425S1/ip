@@ -19,19 +19,19 @@ public class Response {
     public void delete_message(Task t) {
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {
-            if (t.getStatus()) {
+            if (t.getCurrent_status()== Task.status.MARKED) {
                 System.out.println("[T][X] " + t.getName());
             } else {
                 System.out.println("[T][ ] " + t.getName());
             }
         } else if (t instanceof Deadlines) {
-            if (t.getStatus()) {
+            if (t.getCurrent_status()== Task.status.MARKED) {
                 System.out.println("[D][X] " + t.getName() + "(by: " + t.getDay() + ")");
             } else {
                 System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDay() + ")");
             }
         } else if (t instanceof Events) {
-            if (t.getStatus()) {
+            if (t.getCurrent_status()== Task.status.MARKED) {
                 System.out.println("[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
             } else {
                 System.out.println("[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
@@ -43,7 +43,7 @@ public class Response {
     public void list_task_message(ArrayList<Task> task_list) {
         int counter = 1;
         for (Task t : task_list) {
-            if (t.getStatus()) {
+            if (t.getCurrent_status()== Task.status.MARKED) {
                 if (t.getTag().equals("T")) {
                     if (t instanceof ToDos) {
                         System.out.println(counter + ".[T][X] " + t.getName());
