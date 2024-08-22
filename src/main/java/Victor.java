@@ -30,14 +30,27 @@ public class Victor {
             if (userInput.trim().isEmpty()) {
                 // User input is empty - ask again for input
                 System.out.println("  ~  What can I do for you?");
-            } else if (userInput.toLowerCase().contains("list")) {
+            } else if (userInput.toLowerCase().startsWith("list")) {
                 if (inputs.isEmpty()) {
-                    System.out.println("  ~  Nothing has been input so far - nothing to list! What can I do for you?");
+                    System.out.println("  ~  No tasks in the list, add some To Dos, Events, and Deadlines first!");
                 } else {
                     System.out.println("  ~  Sure! Here are all of your tasks:");
                     for (int i = 0; i < inputs.size(); i++) {
                         System.out.println("  ~  " + (i + 1) + ". " + inputs.get(i));
                     }
+                }
+            } else if (userInput.trim().toLowerCase().startsWith("delete")) {
+                try {
+                    String[] parsed = userInput.trim().split(" ");
+                    int num = Integer.parseInt(parsed[parsed.length - 1]) - 1;
+                    Task removed = inputs.get(num);
+                    inputs.remove(num);
+                    System.out.println("  ~  Deleting the task below now!");
+                    System.out.println("  ~  " + removed);
+                } catch (NumberFormatException e) {
+                    System.out.println("  ~  Sorry, I don't think you entered a number for which task to mark as done!");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("  ~  I don't think there's a task with that number!");
                 }
             } else if (userInput.trim().toLowerCase().startsWith("mark")) {
                 try {
