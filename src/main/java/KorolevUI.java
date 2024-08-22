@@ -7,7 +7,7 @@ public class KorolevUI {
             What can I do for you?
             """;
     private final String end = "Bye. Hope to see you again soon!";
-    private final String divider = "--------------------";
+
 
     private KorolevList repo = new KorolevList();
 
@@ -20,42 +20,12 @@ public class KorolevUI {
 
     private void readCommands() {
         String input = "";
-        while (true) {
+        boolean isRunning = true;
+        KorolevCommand c;
+        while (isRunning) {
             input = scanner.nextLine();
-            String[] target = input.split("\\s");
-            System.out.println(divider);
-            if (input.equals("bye")) {
-                repo.saveEvent();
-                break;
-            } else if (input.equals("list")) {
-                System.out.println(repo.displayList());
-            } else if (target[0].equals("unmark")) {
-                try {
-                    repo.unmarkEvent(Integer.parseInt(target[1]) - 1);
-                } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                    System.out.println("Error:" + e.getMessage());
-                }
-            } else if (target[0].equals("mark")) {
-                try {
-                    repo.markEvent(Integer.parseInt(target[1]) - 1);
-                } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                    System.out.println("Error:" + e.getMessage());
-                }
-            } else if (target[0].equals("delete")) {
-                try {
-                    repo.removeEvent(Integer.parseInt(target[1]) - 1);
-                } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                    System.out.println("Error:" + e.getMessage());
-                }
-            } else {
-                try {
-                    repo.addEvent(input);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            System.out.println(divider);
+            c = new KorolevCommand(input, repo);
+            isRunning = c.executeCommand();
         }
     }
 }
