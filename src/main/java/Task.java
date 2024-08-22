@@ -12,7 +12,6 @@ public class Task {
     }
     public void check() {
         this.isComplete = true;
-
     }
 
     public void uncheck() {

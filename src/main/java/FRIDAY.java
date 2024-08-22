@@ -1,9 +1,13 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FRIDAY {
     private Boolean isActive;
-    private String userInput, output, greeting, exitMessage, divider;
-    private Task[] storage = new Task[100];
+    private String userInput;
+    private String output;
+    private final String greeting, exitMessage;
+    private String divider;
+    private final Task[] storage = new Task[100];
     private int storagePointer = 0;
 
     public FRIDAY() {
@@ -39,19 +43,43 @@ public class FRIDAY {
             userInput = scanner.nextLine();
             String[] parts = userInput.split(" ");
             String keyword = parts[0];
+            //taskDetails is the user input without the keyword
+            String taskDetails = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
             //keywords trigger respective actions
             switch(keyword) {
                 //keywords
                 case("mark"):
-                    storage[Integer.valueOf(parts[1]) - 1].check();
-                    String marked = divider + "Nice! I've marked this task as done\n" + storage[Integer.valueOf(parts[1]) - 1] + "\n" + divider;
+                    storage[Integer.parseInt(parts[1]) - 1].check();
+                    String marked = divider + "Nice! I've marked this task as done\n" + storage[Integer.parseInt(parts[1]) - 1] + "\n" + divider;
                     System.out.println(marked);
                     break;
                 case("unmark"):
-                    storage[Integer.valueOf(parts[1]) - 1].uncheck();
-                    String unmarked = divider + "Ok, I've marked this task as not done yet\n" + storage[Integer.valueOf(parts[1]) - 1] + "\n" + divider;
+                    storage[Integer.parseInt(parts[1]) - 1].uncheck();
+                    String unmarked = divider + "Ok, I've marked this task as not done yet\n" + storage[Integer.parseInt(parts[1]) - 1] + "\n" + divider;
                     System.out.println(unmarked);
+                    break;
+                case("todo"):
+                    //create new to do task
+                    Task newToDo = new ToDo(taskDetails);
+                    add(newToDo);
+                    break;
+                case("deadline"):
+                    //create new deadline task
+                    String[] deadlineDetails = taskDetails.split("/");
+                    String deadlineDescription = deadlineDetails[0];
+                    String deadlineDeadline = deadlineDetails[1];
+                    Task newDeadline = new Deadline(deadlineDescription, deadlineDeadline);
+                    add(newDeadline);
+                    break;
+                case("event"):
+                    //create new event task
+                    String[] eventDetails = taskDetails.split("/");
+                    String eventDescription = eventDetails[0];
+                    String eventStart = eventDetails[1];
+                    String eventEnd = eventDetails[2];
+                    Task newEvent = new Event(eventDescription, eventStart, eventEnd);
+                    add(newEvent);
                     break;
                 case("bye"):
                     System.out.println(exitMessage);
@@ -69,20 +97,6 @@ public class FRIDAY {
                     Task newItem = new Task(userInput);
                     add(newItem);
             }
-/*
-            //the keyword bye triggers exit bot
-            if(userInput.toLowerCase().equals("bye")) {
-                System.out.println(exitMessage);
-                isActive = false;
-                break;
-            }
-
-            //keyword list should display the full list
-            if(userInput.toLowerCase().equals("list")) {
-                display();
-                continue;
-            }
- */
         }
     }
 
@@ -91,7 +105,7 @@ public class FRIDAY {
         //add the input to the array
         storage[storagePointer] = input;
         storagePointer += 1;
-        output = divider + "added: " + input.getDescription() + "\n" + divider;
+        output = divider + "Got it. I've added this task:\n " + input.getDescription() + "\nNow you have " + storagePointer + " tasks in your list\n" + divider;
         System.out.println(output);
     }
 
@@ -104,16 +118,6 @@ public class FRIDAY {
         displayList += divider;
         output = "Here are the tasks in your list:\n" + displayList;
         System.out.println(output);
-    }
-
-    public void markAsDone(Task task, int index) {
-        Task markAsDone = storage[index];
-        markAsDone.check();
-    }
-
-    public void markAsUndone(Task task, int index) {
-        Task markAsUndone = storage[index];
-        markAsUndone.uncheck();
     }
 
     public static void main(String[] args) {
