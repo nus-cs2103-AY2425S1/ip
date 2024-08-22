@@ -34,7 +34,7 @@ public class Vuewee {
         // List all tasks with done status if user types "list"
         case "list": {
           if (taskListLength == 0) {
-            System.out.println("You have no tasks in your list.");
+            System.err.println("You have no tasks in your list.");
             break;
           }
 
@@ -97,20 +97,21 @@ public class Vuewee {
         // (Usage: deadline <description> /by <date>)
         case "deadline": {
           if (inputParts.length < 2) {
-            System.out.println("Invalid deadline format. Usage: deadline <description> /by <date>");
+            System.err.println("Invalid deadline format. Usage: deadline <description> /by <date>");
             break;
           }
 
           String[] deadlineParts = inputParts[1].split(" /by ");
           if (deadlineParts.length != 2) {
-            System.out.println(
+            System.err.println(
                 "Invalid deadline format. Usage: deadline <description> /by <date>");
             break;
           }
           taskList[taskListLength] = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
-          taskListLength++;
           System.out.println("Got it. I've added this task:");
-          System.out.println("  " + taskList[taskListLength - 1]);
+          System.out.println("  " + taskList[taskListLength]);
+          taskListLength++;
+          System.out.println("Now you have " + taskListLength + " tasks in the list.");
           break;
         }
         // Add event task to task list
@@ -135,18 +136,17 @@ public class Vuewee {
             String toDate = toMatcher.group(1);
 
             taskList[taskListLength] = new EventTask(description, fromDate, toDate);
-            taskListLength++;
             System.out.println("Got it. I've added this task:");
-            System.out.println("  " + taskList[taskListLength - 1]);
+            System.out.println("  " + taskList[taskListLength]);
+            taskListLength++;
+            System.out.println("Now you have " + taskListLength + " tasks in the list.");
           } else {
-            System.out.println("Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>");
+            System.err.println("Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>");
           }
           break;
         }
         default: {
-          taskList[taskListLength] = new Task(input, ' ');
-          taskListLength++;
-          System.out.println("added: " + input);
+          System.err.println("Unknown command: " + command);
           break;
         }
       }
