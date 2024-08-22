@@ -1,8 +1,8 @@
 list
 todo one
-deadline two /by tomorrow
+deadline two /by 2024-01-01 12:00
 list
-event three /from today /to tomorrow
+event three /from 2024-04-01 10:00 /to 2024-06-01 18:00
 mark 1
 mark 2
 list

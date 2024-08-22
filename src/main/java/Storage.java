@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Storage {
@@ -26,12 +27,12 @@ public class Storage {
 
     public Storage() {
         try {
-            Files.createDirectories(Paths.get("./data"));
+            Files.createDirectories(Paths.get("../data"));
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        this.link = "./data/tasks.txt";
+        this.link = "../data/tasks.txt";
         readFromFile();
     }
 
@@ -107,8 +108,8 @@ public class Storage {
 
          task = switch (tokens[0].trim()) {
             case "T" -> new ToDoTask(name);
-            case "D" -> new DeadlineTask(name, tokens[3]);
-            case "E" -> new EventTask(name, tokens[3], tokens[4]);
+            case "D" -> new DeadlineTask(name, LocalDateTime.parse(tokens[3]));
+            case "E" -> new EventTask(name, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]));
             default -> throw new ZaibotException("Saved file data not in expected format.");
         };
 

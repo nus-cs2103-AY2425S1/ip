@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class Zaibot {
         }
 
         String optionString = command.substring(command.indexOf(' '));
-        String[] options = optionString.split("/");
+        String[] options = optionString.split(" /");
 
         if (optionString.isEmpty() || options[0].isEmpty()) {
             throw new ZaibotException("Name cannot be empty.");
@@ -65,6 +67,8 @@ public class Zaibot {
 
         String name = allOptions.get("name");
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         switch (taskName) {
             case "todo":
                 task = new ToDoTask(name);
@@ -74,7 +78,7 @@ public class Zaibot {
                     throw new ZaibotException("Deadline must have option /by.");
                 }
                 String by = allOptions.get("by");
-                task = new DeadlineTask(name, by);
+                task = new DeadlineTask(name, LocalDateTime.parse(by, formatter));
                 break;
             case "event":
                 if (!allOptions.containsKey("from") || !allOptions.containsKey("to")) {
@@ -82,7 +86,9 @@ public class Zaibot {
                 }
                 String from = allOptions.get("from");
                 String to = allOptions.get("to");
-                task = new EventTask(name, from, to);
+                task = new EventTask(name,
+                        LocalDateTime.parse(from, formatter),
+                        LocalDateTime.parse(to, formatter));
                 break;
             default:
                 throw new ZaibotException("Invalid task");

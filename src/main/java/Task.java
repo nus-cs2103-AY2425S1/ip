@@ -1,6 +1,9 @@
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     private String name;
     private boolean isDone;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHSS");
 
     public Task(String name) {
         this.name = name;
@@ -15,6 +18,9 @@ public class Task {
         this.isDone = status;
     }
 
+    public static DateTimeFormatter getFormatter() {
+        return formatter;
+    }
 
     /**
      * Returns the string representation of the task when saved.
