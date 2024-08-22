@@ -15,7 +15,7 @@ public class Socchat {
                 exit();
                 break;
             } else if (input.equals("list")) {
-                System.out.println("Your task list: ");
+                System.out.println("Your task list:");
                 list(tasks);
             } else if (input.equals("mark")) {
                 int taskIndex = scanner.nextInt();
@@ -56,7 +56,7 @@ public class Socchat {
         System.out.println("What can I do for you?");
     }
     public static void exit() {
-        System.out.println("Bye. Hope to see you again soon! ");
+        System.out.println("Bye. Hope to see you again soon!");
     }
     public static void list(ArrayList<Task> tasks) {
         for(int i = 0; i < tasks.size(); i++) {
