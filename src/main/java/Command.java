@@ -1,5 +1,5 @@
-interface Command<T> {
-    void execute(T context, Ui ui);
+interface Command {
+    void execute(TaskList tasks, Ui ui);
 
     default boolean isExit() {
         return false;
