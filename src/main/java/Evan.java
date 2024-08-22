@@ -14,7 +14,21 @@ public class Evan {
         while (running) {
             String input = SCANNER.nextLine();
             printDivider();
-            running = handleInput(input);
+            try {
+                running = handleInput(input);
+            } catch (EvanException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Here is a list of valid commands:");
+                System.out.println("- list");
+                System.out.println("- todo <description>");
+                System.out.println("- deadline <description> /by <end>");
+                System.out.println("- event <description> /from <start> /to <end>");
+                System.out.println("- mark <task_number>");
+                System.out.println("- unmark <task_number>");
+                System.out.println("- bye");
+                System.out.println("Please enter another command.");
+                printDivider();
+            }
         }
     }
 
@@ -25,7 +39,7 @@ public class Evan {
         printDivider();
     }
 
-    private static boolean handleInput(String input) {
+    private static boolean handleInput(String input) throws EvanException {
         // Continue prompting the user for input
         // Exit the program
         return switch (input.toLowerCase()) {
@@ -38,40 +52,48 @@ public class Evan {
                 yield false;
             }
             default -> {
-                // Check for "mark <integer>"
+                // Check for "mark <task_number>"
                 if (input.matches("(?i)mark \\d+")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     markTaskAsDone(TASKS.get(taskIndex));
                 }
-                // Check for "unmark <integer>"
+                // Check for "unmark <task_number>"
                 else if (input.matches("(?i)unmark \\d+")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     markTaskAsUndone(TASKS.get(taskIndex));
                 }
-                // Check for "todo <task_name>"
+                // Check for "todo <description>"
                 else if (input.matches("(?i)todo .+")) {
-                    String taskName = input.substring(5); // Extract everything after "todo "
-                    addToDo(taskName);
+                    String description = input.substring(5); // Extract everything after "todo "
+                    if (description.isBlank()) {
+                        throw new EvanException("The <description> of a todo cannot be empty.");
+                    }
+                    addToDo(description);
                     System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
                 }
-                // Check for "deadline <task_name> /<by_when>"
+                // Check for "deadline <description> /by <end>"
                 else if (input.matches("(?i)deadline .+ /by.+")) {
                     String[] parts = input.substring(9).split(" /by ", 2); // Split into task_name and by_when
-                    String taskName = parts[0];
-                    String byWhen = parts[1];
-                    addDeadline(taskName, byWhen);
+                    String description = parts[0];
+                    String end = parts[1];
+                    if (description.isBlank() || end.isBlank()) {
+                        throw new EvanException("The <description> and <end> of a deadline cannot be empty.");
+                    }
+                    addDeadline(description, end);
                     System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
-                } // Check for "event <task_name> /from <start> /to <end>"
+                } // Check for "event <description> /from <start> /to <end>"
                 else if (input.matches("(?i)event .+ /from .+ /to .+")) {
                     String[] parts = input.substring(6).split(" /from | /to ", 3); // Split into task_name, start, and end
                     String taskName = parts[0];
                     String start = parts[1];
                     String end = parts[2];
+                    if (taskName.isBlank() || start.isBlank() || end.isBlank()) {
+                        throw new EvanException("The <description>, <start>, and <end> of an event cannot be empty.");
+                    }
                     addEvent(taskName, start, end);
                     System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
                 } else {
-                    addTask(input);
-                    System.out.printf("Now you have %d tasks in the list.\n", TASKS.size());
+                    throw new EvanException("You have entered an invalid command: " + input);
                 }
                 printDivider();
                 yield true;
@@ -84,11 +106,6 @@ public class Evan {
             System.out.printf("%d.%s\n", i + 1, TASKS.get(i));
         }
         printDivider();
-    }
-
-    private static void addTask(String description) {
-        TASKS.add(new Task(description));
-        System.out.println("added: " + description);
     }
 
     private static void addToDo(String description) {
