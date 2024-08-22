@@ -2,12 +2,15 @@ import java.util.Scanner;
 
 public class Jade {
     public static void main(String[] args) {
-        String indent = " ";
-        String topLine = indent.repeat(4) + "_".repeat(60) + "\n";
-        String botLine = "\n" + indent.repeat(4) + "_".repeat(60);
-        String greet = indent.repeat(5) + "Hello! I'm Jade!\n"
-                + indent.repeat(5) + "What can I do for you?";
-        String exit = indent.repeat(5) + "Bye. Hope to see you again soon!";
+        String indent = "     "; // 5 spaces for indentation
+        String topLine = "    " + "_".repeat(60) + "\n";
+        String botLine = "\n" + "    " + "_".repeat(60);
+        String greet = indent + "Hello! I'm Jade!\n"
+                + indent + "What can I do for you?";
+        String exit = indent + "Bye. Hope to see you again soon!";
+        String list = ""; // initial list
+        int num = 0; // number of texts
+        String message;
 
         System.out.println(topLine + greet + botLine);
 
@@ -15,8 +18,22 @@ public class Jade {
         String command = sc.nextLine();
 
         while (!command.equals("bye")) {
-            System.out.println(topLine + indent.repeat(5) + command + botLine);
-            command = sc.nextLine();
+            if (command.equals("list")) {
+                System.out.println(topLine + list + botLine);
+                command = sc.nextLine();
+            } else {
+                num++;
+
+                if (num == 1) {
+                    list += indent + num + ". " + command;
+                } else {
+                    list += "\n" + indent + num + ". " + command;
+                }
+
+                message = indent + "added: " + command;
+                System.out.println(topLine + message + botLine);
+                command = sc.nextLine();
+            }
         }
 
         System.out.println(topLine + exit + botLine);
