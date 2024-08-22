@@ -15,7 +15,7 @@ public class Nerf {
                                        ##  ##   ######   ##  ##   ##    
                                        """;
 
-    private static List<String> listings = new ArrayList<>();
+    private static final List<String> listings = new ArrayList<>();
 
     public static void main(String[] args) {
         greetings();
@@ -26,15 +26,23 @@ public class Nerf {
         listings.add(input);
         System.out.println("added: " + input);
     }
+    private static void printList(){
+        for (int i = 0; i < listings.size();i++){
+            System.out.println(String.format("%d. %s",i+1,listings.get(i)));
+        }
+        printDivider();
+    }
 
     private static void echo(){
-        String input = userInput();
-        while (!input.equals("bye")){
-            addToList(input);
+        String input;
+        do {
             input = userInput();
-        }
-        exit();
-
+            switch(input){
+                case "bye" -> exit();
+                case "list" -> printList();
+                default -> addToList(input);
+            }
+        } while (!input.equals("bye"));
     }
 
     private static String userInput(){
