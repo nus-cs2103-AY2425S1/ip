@@ -82,7 +82,8 @@ public class Botty {
                     }
                     break;
                 case "todo":
-                    addToTaskList(new Todo(splitInput[1]));
+                    Todo todo = Todo.generateFromString(splitInput[1]);
+                    addToTaskList(todo);
                     break;
                 case "event":
                     Event event = Event.generateFromString(splitInput[1]);

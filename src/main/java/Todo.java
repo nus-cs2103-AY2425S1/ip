@@ -8,4 +8,7 @@ public class Todo extends Task {
         return "[T] " + super.toString();
     }
 
+    public static Todo generateFromString(String string) {
+        return new Todo(string);
+    }
 }
