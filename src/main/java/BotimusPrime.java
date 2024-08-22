@@ -50,12 +50,53 @@ public class BotimusPrime {
                         "OK, I've marked this task as not done yet:\n" +
                         taskList.get(idx));
 
-            } else {
-                taskList.add(new Task(input));
+            } else if (input.startsWith("todo")) {
+                ToDo task = new ToDo(input);
+
+                taskList.add(task);
+
                 System.out.println(
                         "____________________________________________________________\n" +
-                                String.format("Alright, I've added the task \"%s\" to your list! \n", input) +
+                                String.format("Alright, I've added the task:\n %s \nNow you have %d tasks in the list.\n", task, taskList.size()) +
+
                                 "____________________________________________________________\n");
+            } else if (input.startsWith("deadline")) {
+                String[] parser = input.split("/by ");
+
+                String description = parser[0].substring(9);
+                String deadline = parser[1];
+
+                Deadline task = new Deadline(description, deadline);
+
+                taskList.add(task);
+
+                System.out.println(
+                        "____________________________________________________________\n" +
+                                String.format("Alright, I've added the task:\n %s \nNow you have %d tasks in the list.\n", task, taskList.size()) +
+
+                                "____________________________________________________________\n");
+            } else if (input.startsWith("event")) {
+                String[] parser = input.split("/from ");
+
+                String description = parser[0].substring(6);
+                String times = parser[1];
+
+                String[] fromAndTo = times.split("/to ");
+
+                String from = fromAndTo[0];
+                String to = fromAndTo[1];
+
+                Event task = new Event(description, from, to);
+
+                taskList.add(task);
+
+                System.out.println(
+                        "____________________________________________________________\n" +
+                                String.format("Alright, I've added the task:\n %s \nNow you have %d tasks in the list.\n", task, taskList.size()) +
+
+                                "____________________________________________________________\n");
+            } else {
+                System.out.println("Invalid command, try again");
             }
         }
         sc.close();
