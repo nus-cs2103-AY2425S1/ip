@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Note {
-    private Task[] myList;
+    private ArrayList<Task> myList;
     private int noOfTask;
 
     public Note() {
-        this.myList = new Task[100];
+        this.myList = new ArrayList<>();
         this.noOfTask = 0;
     }
 
@@ -37,14 +37,14 @@ public class Note {
         } else {
             throw new InputErrorException();
         }
-        myList[noOfTask] = task;
+        myList.add(task);
         noOfTask++;
         System.out.println(task.toString());
     }
 
 
     public void mark(int number) {
-        Task currTask = myList[number];
+        Task currTask = myList.get(number);
         currTask.markAsDone();
         System.out.println("--------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
@@ -53,7 +53,7 @@ public class Note {
     }
 
     public void unmark(int number) {
-        Task currTask = myList[number];
+        Task currTask = myList.get(number);
         currTask.markAsUnDone();
         System.out.println("--------------------------------------------");
         System.out.println("OK, I've marked this task as not done yet:");
@@ -61,11 +61,22 @@ public class Note {
         System.out.println("--------------------------------------------");
     }
 
+    public void delete(int number) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(myList.get(number).toString());
+        myList.remove(number);
+        this.noOfTask--;
+        String result = "Now you have " + noOfTask +  " tasks in the list.";
+        System.out.println(result);
+        System.out.println("____________________________________________________________");
+    }
+
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         System.out.println("--------------------------------------------");
         for (int i = 0; i < noOfTask; i++) {
-            String result = i + 1 + ". " + this.myList[i].toString();
+            String result = i + 1 + ". " + myList.get(i).toString();
             System.out.println(result);
         }
         System.out.println("--------------------------------------------");

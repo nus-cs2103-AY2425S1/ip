@@ -60,6 +60,18 @@ public class Blue {
                 continue;
             }
 
+            if (input.startsWith("delete ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    note.delete(taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                }
+                continue;
+            }
+
+
+
             //print out added... and add the item to the myList field in the Note object
             try {
                 note.addToList(input);
