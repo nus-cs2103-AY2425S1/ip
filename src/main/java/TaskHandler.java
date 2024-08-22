@@ -28,25 +28,43 @@ public class TaskHandler {
         } else if (command.equals("list")) {
             System.out.println(this.getTasksString());
         } else if (command.equals("todo")) {
-            Task t = new ToDoTask(desc);
-            this.tasks.add(t);
-            System.out.println("added:\n" + t);
-            System.out.println("You have " + this.tasks.size() + " tasks in list");
+            try {
+                Task t = new ToDoTask(desc);
+                this.tasks.add(t);
+                System.out.println("added:\n" + t);
+                System.out.println("You have " + this.tasks.size() + " tasks in list");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         } else if (command.equals("deadline")) {
+            try {
             String[] arr = desc.split("/by");
             Task t = new Deadline(arr[0].strip(), arr[1].strip());
             this.tasks.add(t);
             System.out.println("added:\n" + t);
             System.out.println("You have " + this.tasks.size() + " tasks in list");
+            } catch (EmptyDescException e) {
+                System.out.println(e);
+            }
         } else if (command.equals("event")) {
             String[] arr = desc.split("/from");
             String[] arr2 = arr[1].split("/to");
-            Task t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
+            Task t = null;
+            try {
+                t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
             this.tasks.add(t);
             System.out.println("added:\n" + t);
             System.out.println("You have " + this.tasks.size() + " tasks in list");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         } else {
-            System.out.println("Unknown command: " + command);
+            try {
+                throw new InvalidCommandException();
+            } catch (InvalidCommandException e) {
+                System.out.println(e);
+            }
+            //System.out.println("Unknown command: " + command);
         }
     }
 

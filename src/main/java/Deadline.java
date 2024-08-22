@@ -1,6 +1,6 @@
 public class Deadline extends Task {
     private final String deadline;
-    Deadline(String desc, String deadline) {
+    Deadline(String desc, String deadline) throws EmptyDescException {
         super(desc);
         this.deadline = deadline;
     }

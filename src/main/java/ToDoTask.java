@@ -1,6 +1,6 @@
 public class ToDoTask extends Task{
-    ToDoTask(String desc){
-        super('T', desc);
+    ToDoTask(String desc) throws EmptyDescException {
+        super(desc);
     }
 
     public String toString(){

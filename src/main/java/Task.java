@@ -2,7 +2,10 @@ abstract class Task {
     private final String description;
     private boolean isDone;
 
-    Task(String description) {
+    Task(String description) throws EmptyDescException {
+        if (description == "") {
+            throw new EmptyDescException();
+        }
         this.description = description;
         this.isDone = false;
     }
