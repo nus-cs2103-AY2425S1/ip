@@ -19,19 +19,22 @@ public class ChaCha {
 
         System.out.println(greeting);
 
-        Scanner input = new Scanner(System.in);
-        String text = input.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        ListOfTask list = new ListOfTask();
 
-        while (!text.equals("bye")) {
-            System.out.println(
-                    "     ____________________________________________________________ \n" +
-                    "     " +
-                    text +
-                    "\n" +
-                    "     ____________________________________________________________ \n");
-            text = new Scanner(System.in).nextLine();
+        while (scanner.hasNextLine()) {
+            String cmd = scanner.nextLine();
+
+            if (cmd.equals("bye")) {
+                System.out.println(exit);
+                break;
+            } else if (cmd.equals("list")) {
+                System.out.println(list.printList());
+            } else {
+                System.out.println(list.addTask(cmd));
+            }
+            scanner = new Scanner(System.in);
         }
 
-        System.out.println(exit);
     }
 }
