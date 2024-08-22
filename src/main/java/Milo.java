@@ -1,5 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
-
+import java.util.ArrayList;
 import TaskObj.Deadlines;
 import TaskObj.Events;
 import TaskObj.Task;
@@ -33,8 +34,7 @@ public class Milo {
         String greetingMessage = hLine + greeting + hLine;
         String byeMessage = hLine + bye + hLine;
         // Database to store text
-        // Assumption no more than 100 tasks
-        Task[] todoList = new Task[100];
+        ArrayList<Task> todoList = new ArrayList<>();
 
         // Greets user
         System.out.println(greetingMessage);
@@ -53,16 +53,25 @@ public class Milo {
                     break;
                 // Mark as complete
                 case "mark":
-                    Task curTask = todoList[Integer.parseInt(arrOfInput[1]) - 1];
+                    Task curTask = todoList.get(Integer.parseInt(arrOfInput[1]) - 1);
                     curTask.mark();
                     printMark(curTask);
                     userInput = myScanner.nextLine();
                     break;
                 // Mark as incomplete
                 case "unmark":
-                    Task currTask = todoList[Integer.parseInt(arrOfInput[1]) - 1];
+                    Task currTask = todoList.get(Integer.parseInt(arrOfInput[1]) - 1);
                     currTask.unmark();
                     printUnmark(currTask);
+                    userInput = myScanner.nextLine();
+                    break;
+                // Deleting tasks
+                case "delete":
+                    int delIndex = Integer.parseInt(arrOfInput[1]) - 1;
+                    Task currrTask = todoList.get(delIndex);
+                    currrTask.delete();
+                    todoList.remove(delIndex);
+                    printDelete(currrTask);
                     userInput = myScanner.nextLine();
                     break;
                 // Adding tasks
@@ -74,7 +83,7 @@ public class Milo {
                     } else {
                         String desc = arrOfInput[1];
                         Task curTodo = new Todos(desc);
-                        todoList[Task.taskNumber - 1] = curTodo;
+                        todoList.add(curTodo);
                         printTask(curTodo);
                     }
                     userInput = myScanner.nextLine();
@@ -91,7 +100,7 @@ public class Milo {
                             printError(taskType.DEADLINE, "Invalid deadline command\n Proper formatting: deadline <task description> + /by + <date description>");
                         } else {
                             Task curDeadline = new Deadlines(deadlineDesc[0], deadlineDesc[1]);
-                            todoList[Task.taskNumber - 1] = curDeadline;
+                            todoList.add(curDeadline);
                             printTask(curDeadline);
                         }
                     }
@@ -108,7 +117,7 @@ public class Milo {
                             printError(taskType.DEADLINE, "Invalid event command\n Proper formatting: deadline <task description> + /from + <starting date description> + /to + <ending date description");
                         } else {
                             Task curEvent = new Events(eventDesc[0], eventDesc[1], eventDesc[2]);
-                            todoList[Task.taskNumber - 1] = curEvent;
+                            todoList.add(curEvent);
                             printTask(curEvent);
                         }
                     }
@@ -125,11 +134,11 @@ public class Milo {
     }
 
     // Method to print todolist
-    private static void printList(Task[] todoList) {
+    private static void printList(ArrayList<Task> todoList) {
         System.out.print(hLine);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Task.taskNumber; i++) {
-            System.out.println(i+1 + "." + todoList[i].toString());
+            System.out.println(i+1 + "." + todoList.get(i).toString());
         }
         System.out.println(hLine);
     }
@@ -145,6 +154,19 @@ public class Milo {
         System.out.print(hLine);
         System.out.println("Ok, I've marked this as not done yet:");
         System.out.println("  " + curTask.toString());
+        System.out.print(hLine);
+    }
+
+    private static void printDelete(Task curTask) {
+        System.out.print(hLine);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + curTask.toString());
+        int curTaskNumber = Task.taskNumber;
+        if (curTaskNumber == 1) {
+            System.out.println("Now you have " + curTaskNumber + " task in the list.");
+        } else {
+            System.out.println("Now you have " + curTaskNumber + " tasks in the list.");
+        }
         System.out.print(hLine);
     }
 

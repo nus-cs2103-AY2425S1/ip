@@ -4,6 +4,8 @@ public class Task {
     private final String description;
     private Boolean completed = false;
 
+    private Boolean deleted = false;
+
     public Task(String desc) {
         this.description = desc;
         taskNumber++;
@@ -19,6 +21,11 @@ public class Task {
         if (this.completed) {
             this.completed = false;
         }
+    }
+
+    public void delete() {
+        this.deleted = true;
+        taskNumber--;
     }
 
     @Override
