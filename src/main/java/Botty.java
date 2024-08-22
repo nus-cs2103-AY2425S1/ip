@@ -37,38 +37,42 @@ public class Botty {
         boolean exitFlag = false;
 
         while (!exitFlag) {
-            System.out.println();
+            try {
+                System.out.println();
 
-            String userInput = inputScanner.nextLine();
+                String userInput = inputScanner.nextLine();
 
-            String[] splitInput = userInput.trim().split(" ", 2);
-            String command = splitInput[0].toLowerCase();
-            String argument = splitInput.length > 1 ? splitInput[1] : null;
+                String[] splitInput = userInput.trim().split(" ", 2);
+                String command = splitInput[0].toLowerCase();
+                String argument = splitInput.length > 1 ? splitInput[1] : null;
 
-            switch (command) {
-                case "bye":
-                    exitFlag = true;
-                    break;
-                case "list":
-                    handleList();
-                    break;
-                case "mark":
-                    handleMark(argument);
-                    break;
-                case "unmark":
-                    handleUnmark(argument);
-                    break;
-                case "todo":
-                    handleTodo(argument);
-                    break;
-                case "deadline":
-                    handleDeadline(argument);
-                    break;
-                case "event":
-                    handleEvent(argument);
-                    break;
-                default:
-                    reply("I'm sorry, that is not a command I am familiar with.");
+                switch (command) {
+                    case "bye":
+                        exitFlag = true;
+                        break;
+                    case "list":
+                        handleList();
+                        break;
+                    case "mark":
+                        handleMark(argument);
+                        break;
+                    case "unmark":
+                        handleUnmark(argument);
+                        break;
+                    case "todo":
+                        handleTodo(argument);
+                        break;
+                    case "deadline":
+                        handleDeadline(argument);
+                        break;
+                    case "event":
+                        handleEvent(argument);
+                        break;
+                    default:
+                        throw new BottyException("I'm sorry, that is not a command I am familiar with.");
+                }
+            } catch (BottyException exception) {
+                reply(exception.getMessage());
             }
         }
 
@@ -97,19 +101,18 @@ public class Botty {
             return false;
         }
     }
-    private static void setTaskCompletion(boolean completion, int taskIndex) {
+    private static void setTaskCompletion(boolean completion, int taskIndex) throws BottyException {
         if (currentIndex == 0) {
-            reply("Your list is empty! Add a task with the todo, deadline or event command.");
-        } else if (taskIndex >= 0 && taskIndex <= currentIndex - 1) {
-            taskList[taskIndex].setCompleted(completion);
-            reply(completion
-                    ? "Congrats on completing that! Let me just mark that as done for you."
-                    : "It's okay, we can get that done later. I'll mark that as undone for you.",
-                    taskList[taskIndex].toString());
-        } else {
-            reply("I don't see a task with that number! Try a number from 1 to " +
+            throw new BottyException("Your list is empty! Add a task with the todo, deadline or event command.");
+        } else if (taskIndex < 0 || taskIndex > currentIndex - 1) {
+            throw new BottyException("I don't see a task with that number! Try a number from 1 to " +
                     currentIndex);
         }
+        taskList[taskIndex].setCompleted(completion);
+        reply(completion
+                ? "Congrats on completing that! Let me just mark that as done for you."
+                : "It's okay, we can get that done later. I'll mark that as undone for you.",
+                taskList[taskIndex].toString());
     }
     private static void reply(String... strings) {
         System.out.println(bottySymbol + strings[0]);
@@ -132,48 +135,41 @@ public class Botty {
             reply(content);
         }
     }
-    private static void handleMark(String argument) {
-        if (!isNumber(argument)) {
-            reply("I don't quite know what you want me to do. " +
+    private static void handleMark(String argument) throws BottyException {
+        if (argument == null || !isNumber(argument)) {
+            throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to mark with its number!");
-            return;
         }
-
         setTaskCompletion(true, Integer.parseInt(argument) - 1);
     }
-    private static void handleUnmark(String argument) {
-        if (!isNumber(argument)) {
-            reply("I don't quite know what you want me to do. " +
+    private static void handleUnmark(String argument) throws BottyException {
+        if (argument == null || !isNumber(argument)) {
+            throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to unmark with its number!");
-            return;
         }
-
         setTaskCompletion(false, Integer.parseInt(argument) - 1);
     }
-    private static void handleTodo(String argument) {
+    private static void handleTodo(String argument) throws BottyException {
         Todo todo = Todo.generateFromString(argument);
         if (todo == null) {
-            reply("I am unable to add that todo! Please ensure that the description is not blank");
-        } else {
-            addToTaskList(todo);
+            throw new BottyException("I am unable to add that todo! Please ensure that the description is not blank");
         }
+        addToTaskList(todo);
     }
-    private static void handleDeadline(String argument) {
+    private static void handleDeadline(String argument) throws BottyException {
         Deadline deadline = Deadline.generateFromString(argument);
         if (deadline == null) {
-            reply("I am unable to add that deadline! Please provide details " +
+            throw new BottyException("I am unable to add that deadline! Please provide details " +
                     "in the following format: [description] /by [deadline]");
-        } else {
-            addToTaskList(deadline);
         }
+        addToTaskList(deadline);
     }
-    private static void handleEvent(String argument) {
+    private static void handleEvent(String argument) throws BottyException {
         Event event = Event.generateFromString(argument);
         if (event == null) {
-            reply("I am unable to add that event! Please provide details in " +
+            throw new BottyException("I am unable to add that event! Please provide details in " +
                     "the following format: [description] /from [start] /to [end]");
-        } else {
-            addToTaskList(event);
         }
+        addToTaskList(event);
     }
 }
