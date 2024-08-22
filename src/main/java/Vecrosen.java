@@ -14,6 +14,7 @@ public class Vecrosen {
     public static void main(String[] args) {
         speak("Hello, I'm Vecrosen\n","What can I do for you?");
         ArrayList<String> list = new ArrayList<String>();
+        ArrayList<Boolean> done = new ArrayList<Boolean>();
         while (true) {
             String input;
             Scanner scanner = new Scanner(System.in);
@@ -21,11 +22,13 @@ public class Vecrosen {
             if (input.equals("bye")) break;
             else if (input.equals("list")) {
                 for (int i = 0; i < list.size(); ++i) {
-                    // let's avoid string concatenation
-                    speak((i+1) + ". ", list.get(i));
+                    char isDone = ' ';
+                    if (done.get(i)) isDone = 'X';
+                    speak((i+1) + ".[" + isDone + "] ", list.get(i));
                 }
             } else {
                 list.add(input);
+                done.add(list.size() % 2 == 0);
                 speak("added: ", input);
             }
         }
