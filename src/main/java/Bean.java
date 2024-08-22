@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Bean {
     public static void main(String[] args) {
         String greeting = "________________________________\n"
@@ -11,7 +12,7 @@ public class Bean {
                 + "________________________________";
         System.out.println(greeting);
         Scanner scanner = new Scanner(System.in);
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<>();
         int pointer = 0;
         while (true) {
             String response = scanner.nextLine();
@@ -30,7 +31,7 @@ public class Bean {
                             current = new Deadline(response.replace("deadline ", ""));
                             break;
                     }
-                    taskList[pointer] = current;
+                    taskList.add(current);
                     pointer++;
                     String output = "________________________________\n" + "Got it. I've added this task:";
                     System.out.println(output);
@@ -44,7 +45,7 @@ public class Bean {
             } else if (response.equals("list")) {
                 System.out.println("________________________________");
                 for (int i = 0; i < pointer; i++) {
-                    String output = String.valueOf(i + 1) + ". " + taskList[i].getString();
+                    String output = String.valueOf(i + 1) + ". " + taskList.get(i).getString();
                     System.out.println(output);
                 }
                 System.out.println("________________________________");
@@ -54,7 +55,7 @@ public class Bean {
                     if (index < 0 || index > pointer) {
                         throw new DukeException("Invalid position!");
                     }
-                    Task curr = taskList[index];
+                    Task curr = taskList.get(index);
                     if (curr.isDone) {
                         throw new DukeException("It is already marked!");
                     }
@@ -73,7 +74,7 @@ public class Bean {
                     if (index < 0 || index > pointer) {
                         throw new DukeException("Invalid position!");
                     }
-                    Task curr = taskList[index];
+                    Task curr = taskList.get(index);
                     if (!curr.isDone) {
                         throw new DukeException("It is already unmarked!");
                     }
@@ -82,6 +83,21 @@ public class Bean {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(msg);
                     System.out.println("________________________________");
+                } catch (DukeException e) {
+                    System.out.println("________________________________");
+                    System.out.println(e.getMessage() + "\n________________________________");
+                }
+            } else if (splited[0].equals("delete")) {
+                int index = Integer.parseInt(splited[1]) - 1;
+                try {
+                    if (index < 0 || index > pointer) {
+                        throw new DukeException("Invalid position!");
+                    }
+                    System.out.println("________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(taskList.remove(index).getString());
+                    pointer--;
+                    System.out.println( "Now you have " + String.valueOf(pointer) + " tasks in the list.\n" + "________________________________");
                 } catch (DukeException e) {
                     System.out.println("________________________________");
                     System.out.println(e.getMessage() + "\n________________________________");
