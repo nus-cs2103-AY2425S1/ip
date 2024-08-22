@@ -16,6 +16,10 @@ public class Task {
         return new Task(this.description, true);
     }
 
+    public Task markAsUndone() {
+        return new Task(this.description, false);
+    }
+
     public String getStatusIcon() {
         return (status ? "X" : " ");
     }
