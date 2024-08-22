@@ -8,6 +8,13 @@ import TaskObj.Todos;
 public class Milo {
     private static final String hLine = "____________________________________________________________\n";
 
+    private static enum taskType {
+        TODO,
+        EVENT,
+        DEADLINE,
+        INVALID
+    }
+
     public static void main(String[] args) {
         String cat0 = """
                   ╱|、
@@ -61,29 +68,54 @@ public class Milo {
                 // Adding tasks
                 // Todos
                 case "todo":
-                    String desc = arrOfInput[1];
-                    Task curTodo = new Todos(desc);
-                    todoList[Task.taskNumber - 1] = curTodo;
-                    printTask(curTodo);
+                    // Check case where todos empty
+                    if (arrOfInput.length == 1) {
+                        printError(taskType.TODO, "The description of a todo cannot be empty");
+                    } else {
+                        String desc = arrOfInput[1];
+                        Task curTodo = new Todos(desc);
+                        todoList[Task.taskNumber - 1] = curTodo;
+                        printTask(curTodo);
+                    }
                     userInput = myScanner.nextLine();
                     break;
                 // Deadline
                 case "deadline":
-                    String[] deadlineDesc = arrOfInput[1].split("/by", 2);
-                    Task curDeadline = new Deadlines(deadlineDesc[0], deadlineDesc[1]);
-                    todoList[Task.taskNumber - 1] = curDeadline;
-                    printTask(curDeadline);
+                    // Check case where deadline empty
+                    if (arrOfInput.length == 1) {
+                        printError(taskType.DEADLINE, "The description of a deadline cannot be empty");
+                    } else {
+                        // Check case where deadline command is not properly formatted
+                        String[] deadlineDesc = arrOfInput[1].split("/by", 2);
+                        if (deadlineDesc.length != 2) {
+                            printError(taskType.DEADLINE, "Invalid deadline command\n Proper formatting: deadline <task description> + /by + <date description>");
+                        } else {
+                            Task curDeadline = new Deadlines(deadlineDesc[0], deadlineDesc[1]);
+                            todoList[Task.taskNumber - 1] = curDeadline;
+                            printTask(curDeadline);
+                        }
+                    }
                     userInput = myScanner.nextLine();
                     break;
                 // Event
                 case "event":
-                    String[] eventDesc = arrOfInput[1].split("/from | /to", 3);
-                    Task curEvent = new Events(eventDesc[0], eventDesc[1], eventDesc[2]);
-                    todoList[Task.taskNumber - 1] = curEvent;
-                    printTask(curEvent);
+                    // Check case where event empty
+                    if (arrOfInput.length == 1) {
+                        printError(taskType.EVENT, "The description of an event cannot be empty");
+                    } else {
+                        String[] eventDesc = arrOfInput[1].split("/from | /to", 3);
+                        if (eventDesc.length != 3) {
+                            printError(taskType.DEADLINE, "Invalid event command\n Proper formatting: deadline <task description> + /from + <starting date description> + /to + <ending date description");
+                        } else {
+                            Task curEvent = new Events(eventDesc[0], eventDesc[1], eventDesc[2]);
+                            todoList[Task.taskNumber - 1] = curEvent;
+                            printTask(curEvent);
+                        }
+                    }
                     userInput = myScanner.nextLine();
                     break;
                 default:
+                    printError(taskType.INVALID, "");
                     userInput = myScanner.nextLine();
             }
         }
@@ -129,4 +161,25 @@ public class Milo {
         System.out.print(hLine);
     }
 
+    private static void printError(taskType tasktype, String desc) {
+        String oops = "OOPS!!! ";
+        switch (tasktype) {
+            case TODO:
+                System.out.println(hLine + oops + desc + "\n" + hLine);
+                break;
+            case DEADLINE:
+                System.out.println(hLine + oops + desc + "\n" + hLine);
+                break;
+            case EVENT:
+                System.out.println(hLine + oops + desc + "\n" + hLine);
+                break;
+            case INVALID:
+                String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
+                System.out.println(hLine + invalidMessage + hLine);
+                break;
+            default:
+                String defaultMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
+                System.out.println(hLine + defaultMessage + hLine);
+        }
+    }
 }
