@@ -12,6 +12,9 @@ public class Task {
     public void undoTask() {
         this.isDone = false;
     }
+    public boolean getIsDone() {
+        return this.isDone;
+    }
     @Override
     public String toString() {
         String status = isDone ? "X" : " ";
