@@ -19,45 +19,93 @@ public class Nixy {
                 continue;
             }
             if (input.startsWith("mark")) {
-                final int MARK_PREFIX_LENGTH = 5;
-                String taskNumberStr = input.substring(MARK_PREFIX_LENGTH);
-                int taskNumber = Integer.parseInt(taskNumberStr);
-                taskManager.markTaskAsDone(taskNumber);
+                final int MARK_PREFIX_LENGTH = 4;
+                String taskNumberStr = input.substring(MARK_PREFIX_LENGTH).trim();
+                if (taskNumberStr.isEmpty()) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as done cannot be empty.");
+                    continue;
+                }
+                try {
+                    int taskNumber = Integer.parseInt(taskNumberStr);
+                    taskManager.markTaskAsDone(taskNumber);
+                } catch (NumberFormatException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as done must be an integer.");
+                } catch (TaskNotExistException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
+                }
                 continue;
             }
             if (input.startsWith("unmark")) {
-                final int UNMARK_PREFIX_LENGTH = 7;
-                String taskNumberStr = input.substring(UNMARK_PREFIX_LENGTH);
-                int taskNumber = Integer.parseInt(taskNumberStr);
-                taskManager.markTaskAsUndone(taskNumber);
+                final int UNMARK_PREFIX_LENGTH = 6;
+                String taskNumberStr = input.substring(UNMARK_PREFIX_LENGTH).trim();
+                if (taskNumberStr.isEmpty()) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as undone cannot be empty.");
+                    continue;
+                }
+                try {
+                    int taskNumber = Integer.parseInt(taskNumberStr);
+                    taskManager.markTaskAsUndone(taskNumber);
+                } catch (NumberFormatException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as undone must be an integer.");
+                } catch (TaskNotExistException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
+                }
                 continue;
             }
             if (input.startsWith("todo")) {
-                final int TODO_PREFIX_LENGTH = 5;
-                String taskName = input.substring(TODO_PREFIX_LENGTH);
+                final int TODO_PREFIX_LENGTH = 4;
+                String taskName = input.substring(TODO_PREFIX_LENGTH).trim();
+                if (taskName.isEmpty()) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The description of a todo cannot be empty.");
+                    continue;
+                }
                 store(new TodoTask(taskName));
                 continue;
             }
             if (input.startsWith("deadline")) {
-                final int DEADLINE_PREFIX_LENGTH = 9;
-                String taskMeta = input.substring(DEADLINE_PREFIX_LENGTH);
+                final int DEADLINE_PREFIX_LENGTH = 8;
+                String taskMeta = input.substring(DEADLINE_PREFIX_LENGTH).trim();
+
+                // check if taskMeta is empty or does not contain /by
+                if (taskMeta.isEmpty()) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The description of a deadline cannot be empty.");
+                    continue;
+                }
+
                 // index 0 is task name, index 1 is deadline
-                String[] taskParts = taskMeta.split(" /by ");
-                store(new DeadlineTask(taskParts[0], taskParts[1]));
+                try {
+                    String[] taskParts = taskMeta.split(" /by ");
+                    store(new DeadlineTask(taskParts[0], taskParts[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The deadline of a deadline task must be specified.");
+                }
+
                 continue;
             }
             if (input.startsWith("event")) {
-                final int EVENT_PREFIX_LENGTH = 6;
-                String taskMeta = input.substring(EVENT_PREFIX_LENGTH);
+                final int EVENT_PREFIX_LENGTH = 5;
+                String taskMeta = input.substring(EVENT_PREFIX_LENGTH).trim();
+
+                // check if taskMeta is empty or does not contain /from and /to
+                if (taskMeta.isEmpty()) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The description of an event cannot be empty.");
+                    continue;
+                }
+
                 // index 0 is task name, index 1 is start time with end time
-                String[] taskParts = taskMeta.split(" /from ");
-                String taskName = taskParts[0];
-                // index 0 is start time, index 1 is end time
-                taskParts = taskParts[1].split(" /to ");
-                store(new EventTask(taskName, taskParts[0], taskParts[1]));
+                try {
+                    String[] taskParts = taskMeta.split(" /from ");
+                    String taskName = taskParts[0];
+                    // index 0 is start time, index 1 is end time
+                    taskParts = taskParts[1].split(" /to ");
+                    store(new EventTask(taskName, taskParts[0], taskParts[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The start and end time of an event must be specified.");
+                }
                 continue;
             }
 
+            PrintUtility.wrapPrintWithHorizontalLines("HEY YOU ARE TYPING WEIRD THINGS! I don't understand.");
         }
         exit();
     }
