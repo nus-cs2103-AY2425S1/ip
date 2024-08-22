@@ -3,17 +3,22 @@ import java.util.Scanner;
 public class Downy {
 
     public static void main(String[] args) {
+        // Divider for separating ChatBot from input messages
         String divider = "________________________________________\n";
+        // Initialise scanner and taskList
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        // Track task count
         int taskCount = 0;
         System.out.println(divider + "Hello! I'm Downy.\nHow can I help?\n" + divider);
 
+        // Loop for user inputs until program exits
         while (true) {
             String userInput = scanner.nextLine();
             String[] parts = userInput.split(" ", 2);
             String command = parts[0];
             try {
+                // For commands with no arguments
                 if (userInput.equals("bye")) {
                     break;
                 } else if (userInput.equals("list")) {
@@ -30,8 +35,10 @@ public class Downy {
                     continue;
                 }
 
+                // For commands with arguments (either number or string)
                 try {
                     switch (command) {
+                        // Mark a task to be complete
                         case "mark" -> {
                             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                                 throw new MissingArgumentException("Mark command requires a task number.\n" +
@@ -52,6 +59,7 @@ public class Downy {
                             }
                             continue;
                         }
+                        // Un-mark a task such that it is not complete
                         case "unmark" -> {
                             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                                 throw new MissingArgumentException("Unmark command requires a task number.\n" +
@@ -72,6 +80,29 @@ public class Downy {
                             }
                             continue;
                         }
+                        // Remove a task from the taskList
+                        case "delete" -> {
+                            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                                throw new MissingArgumentException("Delete command requires a task number.\n" +
+                                        "   Usage: delete <taskNumber>");
+                            }
+                            String remainder = parts[1];
+                            try {
+                                int taskNumber = Integer.parseInt(remainder);
+                                Task t = tasks.get(taskNumber - 1);
+                                tasks.remove(taskNumber - 1);
+                                taskCount--;
+                                System.out.println(divider);
+                                System.out.println("Ok! This task has been removed:\n  " + t);
+                                System.out.println(divider);
+                            } catch (NumberFormatException e) {
+                                throw new InvalidFormatException("Task number has to be a positive integer.");
+                            } catch (IndexOutOfBoundsException e) {
+                                throw new IllegalArgumentException("Task number does not exist.");
+                            }
+                            continue;
+                        }
+                        // Add a todo task
                         case "todo" -> {
                             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                                 throw new MissingArgumentException("Todo command requires a task description.\n" +
@@ -84,6 +115,7 @@ public class Downy {
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
                             continue;
                         }
+                        // Add a deadline task
                         case "deadline" -> {
                             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                                 throw new MissingArgumentException("Deadline command requires a task description " +
@@ -104,6 +136,7 @@ public class Downy {
                                     + "\nNow you have " + taskCount + " tasks in this list\n" + divider);
                             continue;
                         }
+                        // Add a event task
                         case "event" -> {
                             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                                 throw new MissingArgumentException("Event command requires a task description, " +
@@ -128,6 +161,7 @@ public class Downy {
                             continue;
                         }
                     }
+                    // Catch exceptions and print out error messages
                 } catch (MissingArgumentException | InvalidFormatException | IllegalArgumentException e) {
                     System.out.println(divider);
                     System.out.println(e.getMessage());
@@ -136,6 +170,7 @@ public class Downy {
                     continue;
                 }
                 throw new InvalidCommandException();
+                // Catch invalid command inputs here
             } catch (InvalidCommandException e) {
                 System.out.print(divider);
                 System.out.println(e);
@@ -143,6 +178,7 @@ public class Downy {
                 System.out.println(" - list");
                 System.out.println(" - mark <taskNumber>");
                 System.out.println(" - unmark <taskNumber>");
+                System.out.println(" - delete <taskNumber>");
                 System.out.println(" - todo <taskDescription>");
                 System.out.println(" - deadline <taskDescription> /by <dueDate>");
                 System.out.println(" - event <taskDescription> /from <startTime> /to <endTime>");
