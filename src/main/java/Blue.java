@@ -17,7 +17,6 @@ public class Blue {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Note note = new Note();
-        int count = 0;
 
         // Greet the user
         System.out.println("--------------------------------------------");
@@ -62,9 +61,10 @@ public class Blue {
             }
 
             //print out added... and add the item to the myList field in the Note object
-            note.addToList(input);
             System.out.println("--------------------------------------------");
-            System.out.printf("added: %s%n", input);
+            note.addToList(input);
+            String temp = "Now you have " + note.getNumberOfTask() + " tasks in the list.";
+            System.out.println(temp);
             System.out.println("--------------------------------------------");
         }
 
