@@ -16,5 +16,6 @@ public class List {
     public void addItem(String item) {
         listItems[size] = item;
         size++;
+        System.out.println("added: " + item);
     }
 }

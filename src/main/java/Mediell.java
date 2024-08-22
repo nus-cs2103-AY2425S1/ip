@@ -9,13 +9,17 @@ public class Mediell {
         printLine();
         Scanner scanner = new Scanner(System.in);
         String message = "";
+        List items = new List();
         while (true) {
             System.out.println("");
             message = scanner.next();
-            if (Objects.equals(message, "bye")) {
+            if (Objects.equals(message, "list")) {
+                items.displayList();
+            } else if (Objects.equals(message, "bye")) {
                 break;
+            } else {
+                items.addItem(message);
             }
-            System.out.println(message);
             printLine();
         }
 
