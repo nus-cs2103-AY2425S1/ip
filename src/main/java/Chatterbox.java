@@ -28,8 +28,7 @@ public class Chatterbox {
                         break;
                     case "1": //list
                         System.out.println("____________________________________________________________");
-                        int len = l1.getSize();
-                        for (int i = 1; i < len + 1; i++) {
+                        for (int i = 1; i < l1.getSize(); i++) {
                             System.out.println(i + ". " + l1.getItem(i - 1));
                         }
                         System.out.println("____________________________________________________________");
