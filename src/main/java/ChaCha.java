@@ -28,11 +28,26 @@ public class ChaCha {
             if (cmd.equals("bye")) {
                 System.out.println(exit);
                 break;
-            } else if (cmd.equals("list")) {
+            }
+
+            else if (cmd.equals("list")) {
                 System.out.println(list.printList());
-            } else {
+            }
+
+            else if (cmd.startsWith("mark ")) {
+                int index = Integer.parseInt(cmd.substring(5));
+                System.out.println(list.markDone(index));
+            }
+
+            else if (cmd.startsWith("unmark ")) {
+                int index = Integer.parseInt(cmd.substring(7));
+                System.out.println(list.markUndone(index));
+            }
+
+            else {
                 System.out.println(list.addTask(cmd));
             }
+
             scanner = new Scanner(System.in);
         }
 
