@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Strand {
     private static boolean running = false;
     private static final String horizontalLine = "----------------------------------------><>";
+    private static List<String> listy = new ArrayList<>();
     private static void print(String s) {
         System.out.println(s.indent(4));
     }
@@ -16,11 +19,20 @@ public class Strand {
                  ____ _____ ____      _    _   _ ____ \s
                 / ___|_   _|  _ \\    / \\  | \\ | |  _ \\ \s
                 \\___ \\ | | | |_) |  / _ \\ |  \\| | | | |\s
-                 _) || | |  _ <  / _ \\| |\\  | |_| |\s
+                 ___) || | |  _ <  / ___ \\| |\\  | |_| |\s
                 |____/ |_| |_| \\_\\/_/   \\_\\_| \\_|____/\s
                 """;
         output("Hello from \n" + nameLogo + "\nWhat can I do for you?");
     }
+
+    private static void listAll() {
+        output(
+                listy.stream()
+                        .map((x) -> (listy.indexOf(x)+1) + ". " + x + "\n")
+                        .reduce((a, b) -> a + b).orElse("")
+        );
+    }
+
     private static void inputs(String input) {
         switch (input.toLowerCase()) {
             case "bye": {
@@ -29,8 +41,14 @@ public class Strand {
                 break;
             }
 
+            case "list": {
+                listAll();
+                break;
+            }
+
             default : {
-                output(input);
+                output("added: " + input);
+                listy.add(input);
             }
         }
     }
@@ -38,7 +56,7 @@ public class Strand {
         chatStart();
         while(running) {
             Scanner scan = new Scanner(System.in);
-            String userInput = scan.next();
+            String userInput = scan.nextLine();
             inputs(userInput);
         }
     }
