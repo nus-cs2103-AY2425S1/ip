@@ -117,7 +117,7 @@ public class MonoBot {
         Task curr = MonoBot.taskList.get(i);
         curr.markTask();
         MonoBot.hLine();
-        System.out.println("Nice! I have marked this task as completed: \n" + curr);
+        System.out.println("Nice! I have marked this task as completed:\n" + curr);
         MonoBot.hLine();
     }
 
@@ -125,7 +125,20 @@ public class MonoBot {
         Task curr = MonoBot.taskList.get(i);
         curr.unmarkTask();
         MonoBot.hLine();
-        System.out.println("Ok! I have marked this task as incomplete: \n" + curr);
+        System.out.println("Ok! I have marked this task as incomplete:\n" + curr);
         MonoBot.hLine();
     }
 }
+
+/**
+ * todo sleep
+ * event 2101 tutorial /from 9am /to 12pm
+ * deadline ip week 2 /by friday 4pm
+ * list
+ * mark 3
+ * mark 2
+ * list
+ * unmark 2
+ * list
+ * bye
+ */
