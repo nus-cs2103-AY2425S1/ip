@@ -26,18 +26,29 @@ public class Bobby {
         System.out.println(input);
     }
 
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int count = 0;
 
     private static void add_task(String task) {
         if (count < tasks.length) {
-            tasks[count] = task;
+            tasks[count] = new Task(task);
             count++;
             System.out.println("added: " + task);
         } else {
             System.out.println("Task list is full! Cannot add more tasks.");
         }
     }
+
+    private static void print_task() {
+        if (count == 0) {
+            System.out.println("No tasks added to the list yet.");
+        } else {
+            for (int i = 0; i < count; i++) {
+                System.out.println(String.format("%d.[%s] %s", i + 1, tasks[i].getStatusIcon(), tasks[i]));
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -50,18 +61,19 @@ public class Bobby {
                 exit();
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
-                if (count == 0) {
-                    System.out.println("No tasks added to the list yet.");
-                } else {
-                    for (int i = 0; i < count; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
-                    }
-                }
+                print_task();
+            } else if (userInput.startsWith("mark ")) {
+
+                int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
+                System.out.println("Nice! I've marked this task as done: " + tasks[taskNumber]);
+                tasks[taskNumber].markTask();
+            } else if (userInput.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+                System.out.println("OK, I've marked this task as not done yet: " + tasks[taskNumber]);
+                tasks[taskNumber].unmarkTask();
             } else {
                 add_task(userInput);
             }
         }
-
-
     }
 }
