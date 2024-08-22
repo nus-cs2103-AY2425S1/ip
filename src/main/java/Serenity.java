@@ -14,24 +14,22 @@ public class Serenity {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equalsIgnoreCase("bye")) {
-            if (input.equalsIgnoreCase("list")) {
-                System.out.println(horizontalLine);
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println(i + 1 + ". " + list.get(i));
-                }
-            } else if (input.contains("mark")) {
-                try {
+            try {
+                if (input.equalsIgnoreCase("list")) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.println(i + 1 + ". " + list.get(i));
+                    }
+                } else if (input.contains("mark")) {
                     changeStatus(input);
-                } catch (SerenityException e){
-                    System.out.println(e.getMessage());
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input);
+                } else {
+                    addTask(input);
                 }
-            } else {
-               try {
-                   addTask(input);
-               } catch (SerenityException e) {
-                   System.out.println(e.getMessage());
-               }
+            } catch (SerenityException e) {
+                System.out.println(e.getMessage());
             }
             System.out.println(horizontalLine);
             input = sc.nextLine();
@@ -43,6 +41,30 @@ public class Serenity {
         System.out.println("Goodbye. Hope to see you again soon!");
         System.out.println(horizontalLine);
 
+    }
+
+    private static void changeStatus(String input) throws SerenityException {
+
+        String[] parts = input.split(" ");
+        if (parts.length == 1) {
+            throw new SerenityException("Error: Missing task index.");
+        }
+
+        if (input.startsWith("mark")) {
+            int index = Integer.parseInt(input.substring(5)) - 1;
+            Task t = list.get(index);
+            t.markAsDone();
+            System.out.println(horizontalLine);
+            System.out.println("Nice! I've marked this task as done:\n" + t);
+        } else if (input.startsWith("unmark")) {
+            int index = Integer.parseInt(input.substring(7)) - 1;
+            Task t = list.get(index);
+            t.markAsNotDone();
+            System.out.println(horizontalLine);
+            System.out.println("OK, I've marked this task as not done yet:\n" + t);
+        } else {
+            throw new SerenityException("Error: Type of task is not specified.");
+        }
     }
 
     private static void addTask(String input) throws SerenityException {
@@ -92,27 +114,19 @@ public class Serenity {
         System.out.println("Now you have " + count + " " + numOfTasks + " in the list.");
     }
 
-    private static void changeStatus(String input) throws SerenityException {
-
+    private static void deleteTask(String input) throws SerenityException {
         String[] parts = input.split(" ");
         if (parts.length == 1) {
             throw new SerenityException("Error: Missing task index.");
         }
 
-        if (input.startsWith("mark")) {
-            int index = Integer.parseInt(input.substring(5)) - 1;
-            Task t = list.get(index);
-            t.markAsDone();
-            System.out.println(horizontalLine);
-            System.out.println("Nice! I've marked this task as done:\n" + t);
-        } else if (input.startsWith("unmark")) {
-            int index = Integer.parseInt(input.substring(7)) - 1;
-            Task t = list.get(index);
-            t.markAsNotDone();
-            System.out.println(horizontalLine);
-            System.out.println("OK, I've marked this task as not done yet:\n" + t);
-        } else {
-            throw new SerenityException("Error: Type of task is not specified.");
-        }
+        int index = Integer.parseInt(input.substring(7)) - 1;
+        Task t = list.get(index);
+        list.remove(index);
+        count --;
+        System.out.println(horizontalLine);
+        System.out.println("Noted. I've removed this task:\n" + t);
+        String numOfTasks = count == 1 ? "task" : "tasks";
+        System.out.println("Now you have " + count + " " + numOfTasks + " in the list.");
     }
 }
