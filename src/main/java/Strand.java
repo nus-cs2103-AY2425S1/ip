@@ -1,10 +1,10 @@
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 public class Strand {
     private static boolean running = false;
     private static final String horizontalLine = "----------------------------------------><>";
-    private static final List<String> strandList = new ArrayList<>();
+    private static final ArrayList<Task> strandList = new ArrayList<>();
     private static void print(String s) {
         System.out.println(s.indent(4));
     }
@@ -25,31 +25,54 @@ public class Strand {
         output("Hello from \n" + nameLogo + "\nWhat can I do for you?");
     }
 
-    private static void listAll() {
-        output(
+    private static String listAll() {
+        return(
                 strandList.stream()
-                        .map((x) -> (strandList.indexOf(x)+1) + ". " + x + "\n")
+                        .map((x) ->
+                                (strandList.indexOf(x)+1) + "." + x.getStatusIcon() + "\n")
                         .reduce((a, b) -> a + b).orElse("")
         );
     }
 
+    private static void mark(String input) {
+        String[] split = input.split("\\s+");
+        if(split.length < 2) {
+            output("Please input a number after " + split[0] +  ". (e.g. mark 2).");
+        } else {
+            try {
+                Task t = strandList.get(Integer.parseInt(split[1])-1);
+                String str;
+                if(Objects.equals(split[0], "mark")) {
+                    t.markAsDone();
+                    str = "Nice! I've marked this task as done:\n";
+                } else {
+                    t.markAsNotDone();
+                    str = "OK, I've marked this task as not done yet:\n";
+                }
+                output(str + t.getStatusIcon());
+
+            } catch (NumberFormatException e) {
+                output("Please input a number after " + split[0]);
+            } catch (IndexOutOfBoundsException e) {
+                output("Please input a number which is in range. \n" + listAll());
+
+            }
+
+        }
+    }
+
     private static void inputs(String input) {
-        switch (input.toLowerCase()) {
-            case "bye": {
-                output("Bye. Hope to see you again soon!");
-                running = false;
-                break;
-            }
-
-            case "list": {
-                listAll();
-                break;
-            }
-
-            default : {
-                output("added: " + input);
-                strandList.add(input);
-            }
+        if(input.equalsIgnoreCase("bye")) {
+            output("Bye. Hope to see you again soon!");
+            running = false;
+        } else if (input.equalsIgnoreCase("list")) {
+            output(listAll());
+        } else if (input.toLowerCase().startsWith("mark") ||
+                input.toLowerCase().startsWith("unmark")) {
+            mark(input);
+        } else {
+            output("added: " + input);
+            strandList.add(new Task(input));
         }
     }
     public static void main(String[] args) {
