@@ -17,22 +17,28 @@ public class Parser {
             FormattedPrint.undoneTask(taskList.getTask(index));
 
         } else if (input.split(" ")[0].equalsIgnoreCase("deadline")) {
-
-            // GitHub Copilot suggested the following code snippet
-            String description = input.split(" ", 2)[1].split(" /by ")[0];
-            String by = input.split(" /by ")[1];
-            taskList.addItem(new Deadline(description, by));
-            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+            try {
+                // GitHub Copilot suggested the following code snippet
+                String description = input.split(" ", 2)[1].split(" /by ")[0];
+                String by = input.split(" /by ")[1];
+                taskList.addItem(new Deadline(description, by));
+                FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                FormattedPrint.invalidDeadlineCommand();
+            }
 
         } else if (input.split(" ")[0].equalsIgnoreCase("event")) {
-
-            // GitHub Copilot suggested the following code snippet
-            String description = input.split(" ", 2)[1].split(" /from ")[0];
-            // from is between /from and /to
-            String from = input.split(" /from ")[1].split(" /to ")[0];
-            String to = input.split(" /to ")[1];
-            taskList.addItem(new Event(description, from, to));
-            FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+            try {
+                // GitHub Copilot suggested the following code snippet
+                String description = input.split(" ", 2)[1].split(" /from ")[0];
+                // from is between /from and /to
+                String from = input.split(" /from ")[1].split(" /to ")[0];
+                String to = input.split(" /to ")[1];
+                taskList.addItem(new Event(description, from, to));
+                FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                FormattedPrint.invalidEventCommand();
+            }
 
         } else if (input.split(" ")[0].equalsIgnoreCase("todo")) {
             try {

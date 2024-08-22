@@ -70,4 +70,22 @@ public class FormattedPrint {
                 -----------------------------------------
                 """);
     }
+
+    public static void invalidDeadlineCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with your deadline command.
+                Deadline command should be in the format: deadline <description> /by <date>
+                -----------------------------------------
+                """);
+    }
+
+    public static void invalidEventCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with your event command.
+                Event command should be in the format: event <description> /from <date> /to <date>
+                -----------------------------------------
+                """);
+    }
 }
