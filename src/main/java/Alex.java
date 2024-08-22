@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Alex {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -64,7 +63,7 @@ public class Alex {
                 } else if (userInput.toLowerCase().equals("blah")) {
                     throw new UnknownCommandException();
                 } else {
-                    Task newTask = new Task(userInput);
+                    Task newTask = new Task(userInput, TaskType.TODO);
                     tasks.add(newTask);
                     printTaskAdded(newTask);
                 }
