@@ -17,10 +17,12 @@ public class brainRot {
                 + "____________________________________________________________";
 
         System.out.println(greeting);
+//        reader.next(" ");
         String answer = reader.nextLine();
 
         //logic to check if "bye" or "list" has been said
         while(!answer.equals("bye")) {
+
             if(answer.equals("list")) {
                 System.out.println("____________________________________________________________ \n"
                 + "Here are the tasks in your list:\n");
@@ -28,32 +30,66 @@ public class brainRot {
                 for(int i = 1 ; i < mem; i ++) {
                     System.out.println(i + "." + arr[i].toString());
                 }
-                System.out.println("\n"
-                + "____________________________________________________________ \n");
+                System.out.println("____________________________________________________________ \n");
 
-                reader = new Scanner(System.in);
                 answer = reader.nextLine();
 
 
-            } else if (answer.contains("unmark")) {
+            } else if (answer.startsWith("unmark")) {
                 int index = answer.charAt(7) - 48;
-//                System.out.println(answer.charAt(5));
-//                System.out.println(index);
-//                System.out.println(arr[1]);
                 arr[index].unmark();
                 reader = new Scanner(System.in);
                 answer = reader.nextLine();
-            } else if (answer.contains("mark")) {
+
+            } else if (answer.startsWith("mark")) {
                 int index = answer.charAt(5) - 48;
                 arr[index].mark();
                 reader = new Scanner(System.in);
                 answer = reader.nextLine();
+
             } else {
-                System.out.println(answer);
-                arr[mem] = new Task(answer);
-                mem++;
-                reader = new Scanner(System.in);
+                String[] commands = answer.split("/", 2);
+                String activity = commands[0];
+
+
+                if (answer.startsWith("todo")) {
+
+                    activity = activity.substring(5).trim();
+                    arr[mem] = new ToDo(activity);
+                    System.out.println("____________________________________________________________\n"
+                            +"Got it. I've added this task:\n"
+                            + arr[mem].toString() + "\n");
+                    mem++;
+
+                } else if (answer.startsWith("deadline")) {
+
+                    String end = commands[1].substring(3).trim();
+                    activity = activity.substring(9).trim();
+                    arr[mem] = new Deadline(activity, end);
+                    System.out.println("____________________________________________________________\n"
+                            +"Got it. I've added this task:\n"
+                            + arr[mem].toString() + "\n");
+                    mem++;
+
+                } else if (answer.startsWith("event")) {
+
+                    String[] eventTimes = commands[1].split(" /to ");
+                    String start = eventTimes[0].substring(5).trim();
+                    String end = eventTimes[1].trim();
+                    activity = activity.substring(6).trim();
+                    arr[mem] = new Event(activity, start, end);
+                    System.out.println("____________________________________________________________\n"
+                            +"Got it. I've added this task:\n"
+                            + arr[mem].toString() + "\n");
+                    mem++;
+
+                }
+
+                System.out.println("Now you have " + (mem-1) + " tasks in the list. \n"
+                        + "____________________________________________________________");
+
                 answer = reader.nextLine();
+
             }
 
         }
