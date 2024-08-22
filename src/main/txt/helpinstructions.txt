@@ -1,8 +1,10 @@
 Hello! Here are your list of helpful commands:
 'list' - shows you your current list of tasks
-'mark n' - marks the task on your list at number n as done
-'unmark n' - unmarks the task on your list at number n as not done
+'mark n' - marks the task at number n on your list as done
+'unmark n' - unmarks the task at number n on your list as not done
 'todo task_name' - adds a todo task with task_name to your list
 'deadline task_name /by due_date' - adds a deadline task with task_name to your list with a deadline of due_date
 'event task_name /from start_date /to end_date' - adds an event task with task_name with a start_date to end_date
+'delete n' - deletes the task at number n on your list
+
 'help' - shows the list of useful commands
