@@ -15,14 +15,14 @@ public class Strand {
     }
     private static void chatStart() {
         running = true;
-        String nameLogo = """
-                 ____ _____ ____      _    _   _ ____ \s
-                / ___|_   _|  _ \\    / \\  | \\ | |  _ \\ \s
-                \\___ \\ | | | |_) |  / _ \\ |  \\| | | | |\s
-                 ___) || | |  _ <  / ___ \\| |\\  | |_| |\s
-                |____/ |_| |_| \\_\\/_/   \\_\\_| \\_|____/\s
-                """;
-        output("Hello from \n" + nameLogo + "\nWhat can I do for you?");
+//        String nameLogo = """
+//                 ____ _____ ____      _    _   _ ____ \s
+//                / ___|_   _|  _ \\    / \\  | \\ | |  _ \\ \s
+//                \\___ \\ | | | |_) |  / _ \\ |  \\| | | | |\s
+//                 ___) || | |  _ <  / ___ \\| |\\  | |_| |\s
+//                |____/ |_| |_| \\_\\/_/   \\_\\_| \\_|____/\s
+//                """;
+        output("Hello from Strand\nWhat can I do for you?");
     }
 
     private static String listAll() {
@@ -109,8 +109,8 @@ public class Strand {
     }
     public static void main(String[] args) {
         chatStart();
-        while(running) {
-            Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
+        while(running && scan.hasNextLine()) {
             String userInput = scan.nextLine();
             inputs(userInput);
         }
