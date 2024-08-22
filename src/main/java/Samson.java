@@ -20,6 +20,14 @@ public class Samson {
 
             if (userInput.equalsIgnoreCase("list")) {
                 taskManager.listTask();
+            } else if (userInput.startsWith("mark")) {
+                String[] chunk = userInput.split(" ");
+                int taskNum = Integer.parseInt(chunk[1]);
+                taskManager.markTask(taskNum);
+            } else if (userInput.startsWith("unmark")) {
+                String[] chunk = userInput.split(" ");
+                int taskNum = Integer.parseInt(chunk[1]);
+                taskManager.unmarkTask(taskNum);
             } else {
                 taskManager.addTask(userInput);
             }
