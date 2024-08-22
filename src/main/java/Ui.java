@@ -30,4 +30,17 @@ public class Ui {
     public void displayGoodbye() {
         System.out.println("Bloop bloop. Hope to see you again soon!");
     }
+
+    public void displayAddedTask(Task task) {
+        System.out.println("Bloop bloop, I have added the following task: ");
+        System.out.println("Added: " + task);
+    }
+
+    public void displayTaskList(TaskList tasks) {
+        System.out.println("Bloop bloop, here are the tasks in your list: ");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.getTask(i));
+        }
+    }
+
 }
