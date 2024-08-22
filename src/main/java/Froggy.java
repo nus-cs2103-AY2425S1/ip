@@ -14,6 +14,7 @@ public class Froggy {
                 + "_______________________________";
         String exit = "Bye. Hope to see you again soon!\n"
                 + "_______________________________";
+        String line = "_______________________________";
 
         System.out.println(greeting);
 
@@ -26,13 +27,34 @@ public class Froggy {
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println("Task List:");
                 for (int i = 1; i <= tasks.size(); i++) {
-                    System.out.println(i + "." + tasks.get(i - 1).description);
+                    System.out.println(i + ".[" + tasks.get(i - 1).getStatusIcon() + "] "
+                            + tasks.get(i - 1).description);
                 }
                 System.out.println("_______________________________");
-            } else {
+            } else if (input.toLowerCase().startsWith("mark ")) {
+                int index = Integer.parseInt(input.substring(5)) - 1;
+                if (index >= 0 && index < tasks.size()) {
+                    tasks.get(index).setStatus(true);
+                    System.out.println("Marked " + tasks.get(index).description + " as done.");
+                    System.out.println(line);
+                } else {
+                    System.out.println("Invalid index");
+                    System.out.println(line);
+                }
+            } else if (input.toLowerCase().startsWith("unmark ")) {
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                if (index >= 0 && index < tasks.size()) {
+                    tasks.get(index).setStatus(false);
+                    System.out.println("Marked " + tasks.get(index).description + " as undone.");
+                    System.out.println(line);
+                } else {
+                    System.out.println("Invalid index");
+                    System.out.println(line);
+                }
+            }
+            else {
                 tasks.add(new Task(input));
-                System.out.println("Added: " + input + "\n"
-                        + "_______________________________");
+                System.out.println("Added: " + input + "\n" + line);
             }
         }
         scanner.close();
