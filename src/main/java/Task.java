@@ -1,16 +1,24 @@
 class Task {
     String taskString;
     boolean done;
-    Task(String taskString, boolean done) {
+    Task(String taskString) {
         this.taskString = taskString;
-        this.done = done;
+        this.done = false;
     }
 
-    String getString() {
-        return this.taskString;
+    String getDone() {
+        return (this.done ? "[X]" : "[ ]");
     }
 
-    boolean getStatus() {
-        return this.done;
+    void markAsDone() {
+        this.done = true;
+    }
+
+    void markAsNotDone() {
+        this.done = false;
+    }
+
+    public String toString() {
+        return this.getDone() + " " + this.taskString;
     }
 }
