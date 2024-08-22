@@ -20,13 +20,14 @@ public class TaskList {
     /**
      * Adds a new task to the list and displays a confirmation message.
      *
-     * @param description The task to be added.
+     * @param task The task to be added.
      */
-    public void addTask(String description) {
+    public void addTask(Task task) {
         if (taskCount < tasks.length) {
-            tasks[taskCount] = new Task(description);
+            tasks[taskCount] = task;
             taskCount++;
-            this.ui.showMessage("added: " + description);
+            this.ui.showMessage("Got it. I've added this task:\n  " + task +
+                    "\nNow you have " + taskCount + " tasks in the list.");
         } else {
             this.ui.showMessage("Task list is full. Cannot add more tasks.");
         }
