@@ -28,25 +28,47 @@ public class Cypher {
 
     private static void printTaskList() {
         Cypher.lineBreak();
+        System.out.println("Here are the items in your list: ");
         for (int i = 0; i < Cypher.taskList.size(); i++) {
             System.out.println((i + 1) + ". " + Cypher.taskList.get(i));
         }
         Cypher.lineBreak();
     }
+
+    private static void markTask(int i) {
+        Task task = Cypher.taskList.get(i);
+        task.completeTask();
+        Cypher.lineBreak();
+        System.out.println("Nice! I have marked this task as completed: \n" + task);
+        Cypher.lineBreak();
+    }
+
+   private static void unmarkTask(int i) {
+       Task task = Cypher.taskList.get(i);
+       task.incompleteTask();
+       Cypher.lineBreak();
+       System.out.println("Ok! I have marked this task as incomplete: \n" + task);
+       Cypher.lineBreak();
+   }
     public static void main(String[] args) {
         Cypher.greet();
         Cypher.taskList = new ArrayList<>();
-        String command = "";
+
         while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter your command: ");
-            command = scanner.nextLine();
+            String input = scanner.nextLine();
+            String[] command = input.split(" ");
 
-            // Echo
-            if (command.equalsIgnoreCase("list")) {
+            // Need to use switch cases
+            if (command[0].equalsIgnoreCase("list")) {
                 Cypher.printTaskList();
-            } else if (!command.equalsIgnoreCase("bye")) {
-                Cypher.addToList(command);
+            } else if (command[0].equalsIgnoreCase("mark")) {
+                Cypher.markTask(Integer.parseInt(command[1]) - 1);
+            }else if (command[0].equalsIgnoreCase("unmark")) {
+                Cypher.unmarkTask(Integer.parseInt(command[1]) -1);
+            }else if (!command[0].equalsIgnoreCase("bye")) {
+                Cypher.addToList(String.join(" ",command));
             } else {
                 Cypher.lineBreak();
                 break;
