@@ -23,4 +23,8 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public boolean isInvalid() {
+        return description.isEmpty();
+    }
 }
