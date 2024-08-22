@@ -1,6 +1,6 @@
 public class ToDo extends Task {
 
-    public ToDo(String description) throws EchoMIndException {
+    public ToDo(String description) throws BobException {
         super(description);
     }
     @Override

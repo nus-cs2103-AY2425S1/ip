@@ -1,27 +1,36 @@
-[EchoMind] Hello! I'm EchoMind!
-[EchoMind] What can I do for you?
-[EchoMind] Got it. I've added this task:
-[EchoMind] [T][ ] borrow book
-[EchoMind] Now you have 1 tasks in the list.
-[EchoMind] Got it. I've added this task:
-[EchoMind] [D][ ] return book (by: by Sunday)
-[EchoMind] Now you have 2 tasks in the list.
-[EchoMind] Got it. I've added this task:
-[EchoMind] [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
-[EchoMind] Now you have 3 tasks in the list.
-[EchoMind] 1. [T][ ] borrow book
-[EchoMind] 2. [D][ ] return book (by: by Sunday)
-[EchoMind] 3. [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
-[EchoMind] Nice! I've marked this task as done:
-[EchoMind] [D][X] return book (by: by Sunday)
-[EchoMind] Nice! I've marked this task as done:
-[EchoMind] [E][X] project meeting (from: from Mon 2pm to: to 4pm)
-[EchoMind] 1. [T][ ] borrow book
-[EchoMind] 2. [D][X] return book (by: by Sunday)
-[EchoMind] 3. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
-[EchoMind] OK, I've marked this task as not done yet:
-[EchoMind] [D][ ] return book (by: by Sunday)
-[EchoMind] 1. [T][ ] borrow book
-[EchoMind] 2. [D][ ] return book (by: by Sunday)
-[EchoMind] 3. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
-[EchoMind] Bye. Hope to see you again soon!
+[Bob] Hello! I'm Bob!
+[Bob] What can I do for you?
+[Bob] Got it. I've added this task:
+[Bob] [T][ ] borrow book
+[Bob] Now you have 1 tasks in the list.
+[Bob] Got it. I've added this task:
+[Bob] [D][ ] return book (by: by Sunday)
+[Bob] Now you have 2 tasks in the list.
+[Bob] Got it. I've added this task:
+[Bob] [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
+[Bob] Now you have 3 tasks in the list.
+[Bob] 1. [T][ ] borrow book
+[Bob] 2. [D][ ] return book (by: by Sunday)
+[Bob] 3. [E][ ] project meeting (from: from Mon 2pm to: to 4pm)
+[Bob] Nice! I've marked this task as done:
+[Bob] [D][X] return book (by: by Sunday)
+[Bob] Nice! I've marked this task as done:
+[Bob] [E][X] project meeting (from: from Mon 2pm to: to 4pm)
+[Bob] 1. [T][ ] borrow book
+[Bob] 2. [D][X] return book (by: by Sunday)
+[Bob] 3. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
+[Bob] OK, I've marked this task as not done yet:
+[Bob] [D][ ] return book (by: by Sunday)
+[Bob] 1. [T][ ] borrow book
+[Bob] 2. [D][ ] return book (by: by Sunday)
+[Bob] 3. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
+[Bob] OOPS!!! The description of a todo cannot be empty.
+[Bob] OOPS!!! The description/start time of a deadline cannot be empty.
+[Bob] OOPS!!! The description/start time/end time of an event cannot be empty.
+[Bob] Noted. I've removed this task:
+[Bob] [D][ ] return book (by: by Sunday)
+[Bob] Now you have 2 tasks in the list.
+[Bob] 1. [T][ ] borrow book
+[Bob] 2. [E][X] project meeting (from: from Mon 2pm to: to 4pm)
+[Bob] OOPS!!! I'm sorry, but I don't know what that means :-(
+[Bob] Bye. Hope to see you again soon!
