@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Kobe {
 
     public static void main(String[] args) {
 
@@ -13,16 +13,15 @@ public class Duke {
 
         System.out.println("____________________________________________________________");
         System.out.println("Greetings! I am Kobe Bryant \n" + logo);
-        System.out.println("How can I help you? ");
+        System.out.println("How can I help you?");
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             String userInput = scanner.nextLine();
-
             System.out.println("____________________________________________________________");
 
             if (userInput.equals("bye")) {
@@ -30,11 +29,22 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 break;
             } else if (userInput.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
+                    System.out.println((i + 1) + "." + tasks.get(i));
                 }
+            } else if (userInput.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                tasks.get(taskNumber).markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks.get(taskNumber));
+            } else if (userInput.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                tasks.get(taskNumber).markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks.get(taskNumber));
             } else {
-                tasks.add(userInput);
+                tasks.add(new Task(userInput));
                 System.out.println("added: " + userInput);
             }
             System.out.println("____________________________________________________________");
