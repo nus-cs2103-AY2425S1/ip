@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class Snowy {
 
 
@@ -12,9 +12,7 @@ public class Snowy {
     private static final String ENDING = "Bye! Hope to see you again soon!\n"
             + LINE;
 
-    private static Task[] tasks = new Task[100];
-
-    private static int numOfTasks;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static boolean isRunning = true;
 
@@ -30,23 +28,25 @@ public class Snowy {
 
             String description = spaceIndex == -1 ? "": lastInput.substring(spaceIndex + 1);
 
+            Task newTask;
+
             switch (command) {
                 case "bye":
                     isRunning = false;
                     break;
 
                 case "list":
-                    for (int i = 0; i < numOfTasks; i++) {
-                        System.out.printf("%d. %s\n", i + 1, tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.printf("%d. %s\n", i + 1, tasks.get(i));
                     }
                     break;
 
                 case "mark":
                     try {
                         int index = Integer.parseInt(description);
-                        tasks[index - 1].markComplete();
+                        tasks.get(index - 1).markComplete();
                         System.out.println("Nice! I've marked this task as done:\n"
-                                + tasks[index - 1].toString());
+                                + tasks.get(index - 1).toString());
                     }catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
                         System.out.println("Invalid index provided. Please try again");
                     }
@@ -55,9 +55,9 @@ public class Snowy {
                 case "unmark":
                     try {
                         int index = Integer.parseInt(description);
-                        tasks[index - 1].markIncomplete();
+                        tasks.get(index - 1).markIncomplete();
                         System.out.println("Ok, I've marked this task as not done yet:\n"
-                                + tasks[index - 1].toString());
+                                + tasks.get(index - 1).toString());
                     }catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
                         System.out.println("Invalid index provided. Please try again");
                     }
@@ -69,9 +69,9 @@ public class Snowy {
                                 + "Please try again.");
                         break;
                     }
-                    tasks[numOfTasks] = new ToDo(description);
-                    System.out.println("New todo task added:\n" + tasks[numOfTasks]);
-                    numOfTasks++;
+                    newTask = new ToDo(description);
+                    tasks.add(newTask);
+                    System.out.println("New todo task added:\n" + newTask);
                     break;
 
                 case "deadline":
@@ -101,10 +101,9 @@ public class Snowy {
                                 + "Please try again.");
                         break;
                     }
-
-                    tasks[numOfTasks] = new Deadline(deadlineName, date);
-                    System.out.println("New Deadline task added:\n" + tasks[numOfTasks]);
-                    numOfTasks++;
+                    newTask = new Deadline(deadlineName, date);
+                    tasks.add(newTask);
+                    System.out.println("New Deadline task added:\n" + newTask);
                     break;
 
                 case "event":
@@ -140,10 +139,9 @@ public class Snowy {
                                 + "Please try again.");
                         break;
                     }
-
-                    tasks[numOfTasks] = new Event(eventName, fromDate, toDate);
-                    System.out.println("New Event task added:\n " + tasks[numOfTasks]);
-                    numOfTasks++;
+                    newTask = new Event(eventName, fromDate, toDate);
+                    tasks.add(newTask);
+                    System.out.println("New Event task added:\n " + newTask);
                     break;
 
 
