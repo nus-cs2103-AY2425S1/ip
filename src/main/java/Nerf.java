@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Nerf {
@@ -13,23 +15,33 @@ public class Nerf {
                                        ##  ##   ######   ##  ##   ##    
                                        """;
 
+    private static List<String> listings = new ArrayList<>();
+
     public static void main(String[] args) {
         greetings();
         echo();
     }
 
+    private static void addToList(String input){
+        listings.add(input);
+        System.out.println("added: " + input);
+    }
+
     private static void echo(){
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        printDivider();
+        String input = userInput();
         while (!input.equals("bye")){
-            System.out.println(input);
-            printDivider();
-            input = scanner.nextLine();
-            printDivider();
+            addToList(input);
+            input = userInput();
         }
         exit();
 
+    }
+
+    private static String userInput(){
+        Scanner scanner = new Scanner(System.in);
+        String res = scanner.nextLine();
+        printDivider();
+        return res;
     }
 
     private static void printLogo(){
