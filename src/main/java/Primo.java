@@ -89,7 +89,7 @@ public class Primo {
                 break;
             case TODO:
                 int todoFromIndex = input.indexOf("todo ") + 5;
-                String todoDescription = input.substring(todoFromIndex);
+                String todoDescription = input.substring(todoFromIndex).trim();
                 if (todoDescription.isEmpty()) {
                     throw new PrimoException("Description cannot be empty! Expected: todo <string>");
                 }
@@ -105,12 +105,12 @@ public class Primo {
                     throw new PrimoException("Invalid parameters! Expected: deadline <string> /by <string>");
                 }
                 int deadlineFromIndex = input.indexOf("deadline ") + 9;
-                int deadlineToIndex = input.indexOf("/by ");
+                int deadlineToIndex = input.indexOf("/by");
                 String deadlineDescription = input.substring(deadlineFromIndex, deadlineToIndex).trim();
                 if (deadlineDescription.isEmpty()) {
                     throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
                 }
-                String dueTime = input.substring(deadlineToIndex + 4);
+                String dueTime = input.substring(deadlineToIndex + 3).trim();
                 if (dueTime.isEmpty()) {
                     throw new PrimoException("deadline time cannot be empty! Expected deadline <string> /by <string>");
                 }
@@ -126,17 +126,17 @@ public class Primo {
                     throw new PrimoException("Invalid parameters! Expected: event <string> /from <string> /to <string>");
                 }
                 int eventFromIndex = input.indexOf("event ") + 6;
-                int eventToIndex = input.indexOf("/from ");
-                int eventFinalIndex = input.indexOf("/to ");
+                int eventToIndex = input.indexOf("/from");
+                int eventFinalIndex = input.indexOf("/to");
                 String eventDescription = input.substring(eventFromIndex, eventToIndex).trim();
                 if (eventDescription.isEmpty()) {
                     throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
                 }
-                String from = input.substring(eventToIndex + 6, eventFinalIndex).trim();
+                String from = input.substring(eventToIndex + 5, eventFinalIndex).trim();
                 if (from.isEmpty()) {
                     throw new PrimoException("'From' parameter cannot be empty! Expected deadline <string> /by <string>");
                 }
-                String to = input.substring(eventFinalIndex + 4);
+                String to = input.substring(eventFinalIndex + 3).trim();
                 Task newEventTask = new EventTask(eventDescription, from, to);
                 if (to.isEmpty()) {
                     throw new PrimoException("'To' parameter cannot be empty! Expected deadline <string> /by <string>");
