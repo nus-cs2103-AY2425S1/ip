@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class SecondMind {
     private static final String line = "____________________________________________________________";
@@ -17,12 +18,24 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static Task createTask(String task) {
+        String[] taskInfo = task.split(" ");
+        String taskType = taskInfo[0];
+        if (taskType.equals("todo")) {
+            taskInfo[0] = "";
+            return new ToDoTask(String.join(" ", taskInfo));
+        } else {
+            System.out.println("Not todo");
+        }
+        return new Task(task);
+    }
+
     private static void addToTaskList(String task) {
-        Task curr = new Task(task);
+        Task curr = createTask(task);
         taskList[taskCount] = curr;
         taskCount++;
         printLineSeparator();
-        System.out.println("added: " + curr.getDescription());
+        System.out.println("Got it. I have added the following task:\n\t" + curr);
         printLineSeparator();
     }
 
