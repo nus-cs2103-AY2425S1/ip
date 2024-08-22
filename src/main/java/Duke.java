@@ -10,8 +10,8 @@ public class Duke {
                 + " K   K   OOOOO   BBBBB   EEEEE \n";
 
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Kobe :D \n" + logo);
-        System.out.println("What can I do for you?");
+        System.out.println("Greetings! I'm Kobe Bryant \n" + logo);
+        System.out.println("How can I help you? ");
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
