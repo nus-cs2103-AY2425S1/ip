@@ -7,8 +7,6 @@ public class Duck {
         String greeting = TEXT_SEPARATOR
                 + String.format(" Hello! I'm %s\n", CHATBOT_NAME)
                 + " What can I do for you?\n"
-                + TEXT_SEPARATOR
-                + " Bye. Hope to see you again soon!\n"
                 + TEXT_SEPARATOR;
 
         // Print greeting
