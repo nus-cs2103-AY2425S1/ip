@@ -9,9 +9,14 @@ public class MrYapper {
 
     private static class Task {
         private final String TASK_NAME;
+        private boolean done;
 
         private Task(String name) {
             this.TASK_NAME = name;
+        }
+
+        public void markAsDone() {
+            done = true;
         }
 
         @Override
@@ -52,13 +57,33 @@ public class MrYapper {
 
         do {
             String userInput = userInputReader.nextLine();
+            String[] processedInput = userInput.trim().split("\\s+");
+            String command = processedInput[0];
 
-            if (userInput.equals("bye")) {
+            if (command.equals("bye")) {
                 conversationIsOngoing = false;
                 userInputReader.close();
                 say(GOODBYE_MESSAGE);
-            } else if (userInput.equals("list")) {
+            } else if (command.equals("list")) {
                 listTask();
+            } else if (command.equals("mark")) {
+                try {
+                    if (processedInput.length > 1) {
+                        int taskNumber = Integer.parseInt(processedInput[1]);
+                        Task task = taskList.get(taskNumber - 1);
+                        task.markAsDone();
+                        say("OK! I have marked this task as done:\n   " + task);
+                    } else {
+                        say(" You have to give me a valid task number!\n e.g. mark 2");
+                    }
+                } catch (NumberFormatException e) {
+                    // if the string after the mark command is not an integer
+                    say(" You have to give me a valid task number!\n e.g. mark 2");
+                } catch (IndexOutOfBoundsException e) {
+                    String errorMessage = String.format(" There is no such task!\n "
+                            + "You currently have %d tasks", taskList.size());
+                    say(errorMessage);
+                }
             } else {
                 addTask(userInput);
             }
