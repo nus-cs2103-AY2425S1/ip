@@ -3,10 +3,8 @@ import java.util.Scanner;
 
 public class SlothingWaffler {
     public static void main(String[] args) {
-        System.out.println("""
-                Hello! I'm the Slothing Waffler!
-                Let's stop slothing and get cracking!""");
 
+        greet();
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -84,6 +82,11 @@ public class SlothingWaffler {
         System.out.println("  " + tasks.get(taskNum).toString());
     }
 
+    private static void greet() {
+        System.out.println("""
+                Hello! I'm the Slothing Waffler!
+                Let's stop slothing and get cracking!""");
+    }
     private static void deleteTask(ArrayList<Task> tasks, int taskNum) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + tasks.get(taskNum));
