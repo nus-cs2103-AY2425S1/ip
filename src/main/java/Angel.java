@@ -75,6 +75,27 @@ public class Angel {
                 } else {
                     System.out.println(logo + " Invalid event format. Please use the format 'event <description> /from <start> /to <end>'.\n" + logo);
                 }
+            } else if (userInput.startsWith("delete ")) {
+                int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    // Print the task to be deleted
+                    System.out.println(logo + " Noted. I've removed this task:\n"
+                            + "   " + tasks[taskIndex] + "\n");
+
+                    // Shift tasks down to fill the gap
+                    for (int i = taskIndex; i < taskCount - 1; i++) {
+                        tasks[i] = tasks[i + 1];
+                        isDone[i] = isDone[i + 1];
+                    }
+                    tasks[taskCount - 1] = null;  // Clear the last task
+                    isDone[taskCount - 1] = false; // Clear the last status
+                    taskCount--;
+
+                    // Print the updated task count
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.\n" + logo);
+                } else {
+                    System.out.println(logo + " Task number is out of range.\n" + logo);
+                }
             } else {
                 System.out.println(logo + " Sorry, I don't recognize that command.\n" + logo);
             }
