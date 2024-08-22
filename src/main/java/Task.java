@@ -15,4 +15,16 @@ public abstract class Task {
     public void unMark() {
         this.isDone = false;
     }
+
+    @Override
+    public String toString () {
+        String res = "";
+        if (this.isDone) {
+            res += "[X] ";
+        } else {
+            res += "[ ] ";
+        }
+        res += this.name;
+        return res;
+    }
 }
