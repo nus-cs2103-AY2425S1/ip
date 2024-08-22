@@ -26,6 +26,19 @@ public class TaskList {
         System.out.println(String.format("Now you have %d tasks left in the list", tasks.size()));
         System.out.println("____________________________________________________________");
     }
+    public void delete(int index) {
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println(String.format("Now you have %d tasks left in the list", tasks.size()));
+        System.out.println("____________________________________________________________");
+
+    }
+    public int getSize() {
+        return tasks.size();
+    }
 
     /**
      * Marks the task as done.
