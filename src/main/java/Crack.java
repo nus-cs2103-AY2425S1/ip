@@ -43,9 +43,28 @@ public class Crack {
                 } catch (Exception e) {
                     System.out.println("Invalid task number.");
                 }
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                tasks.add(new Todo(description));
+                System.out.println(divider + " Got it. I've added this task:\n   [T][ ] " + description + "\n"
+                        + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                tasks.add(new Deadline(description, by));
+                System.out.println(divider + " Got it. I've added this task:\n   [D][ ] " + description + " (by: " + by + ")\n"
+                        + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                tasks.add(new Event(description, from, to));
+                System.out.println(divider + " Got it. I've added this task:\n   [E][ ] " + description + " (from: " + from + " to: " + to + ")\n"
+                        + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
             } else {
-                tasks.add(new Task(input));
-                System.out.println(divider + "\nadded: " + input + "\n" + divider);
+                System.out.println("Invalid command.");
             }
         }
 
