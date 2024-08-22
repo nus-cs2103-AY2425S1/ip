@@ -1,9 +1,8 @@
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, TaskType.DEADLINE, isDone);

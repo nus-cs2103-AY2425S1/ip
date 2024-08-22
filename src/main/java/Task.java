@@ -29,7 +29,7 @@ public abstract class Task {
         return this.description;
     }
 
-    public abstract String toFileFormat();
+    public abstract String toFileFormat(); // abstract method to be implemented by subclasses
 
     @Override
     public String toString() {

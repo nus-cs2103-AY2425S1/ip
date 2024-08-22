@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class OnCommand extends Command {
-    private LocalDate date;
+    private final LocalDate date;
 
     public OnCommand(String arguments) {
         this.date = LocalDate.parse(arguments.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));

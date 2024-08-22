@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class UnmarkCommand extends Command {
-    private int index;
+    private final int index;
 
     public UnmarkCommand(String arguments) {
         this.index = Integer.parseInt(arguments) - 1;

@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AddDeadlineCommand extends Command {
-    private String arguments;
+    private final String arguments;
 
     public AddDeadlineCommand(String arguments) {
         this.arguments = arguments;

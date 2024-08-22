@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     public DeleteCommand(String arguments) {
         this.index = Integer.parseInt(arguments) - 1;

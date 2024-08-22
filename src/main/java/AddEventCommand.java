@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AddEventCommand extends Command {
-    private String arguments;
+    private final String arguments;
 
     public AddEventCommand(String arguments) {
         this.arguments = arguments;

@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class AddTodoCommand extends Command {
-    private String description;
+    private final String description;
 
     public AddTodoCommand(String description) {
         this.description = description;

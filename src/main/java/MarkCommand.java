@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class MarkCommand extends Command {
-    private int index;
+    private final int index;
 
     public MarkCommand(String arguments) {
         this.index = Integer.parseInt(arguments) - 1;
