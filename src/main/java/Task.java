@@ -1,5 +1,5 @@
-public class Task {
-    private String description;
+public abstract class Task {
+    private final String description;
     private boolean isDone;
 
     public Task(String description) {
@@ -18,6 +18,8 @@ public class Task {
     public boolean isDone() {
         return isDone;
     }
+
+    public abstract String getType(); //method to return whether task is a ToDo, Event or Deadline
 
     @Override
     public String toString() {
