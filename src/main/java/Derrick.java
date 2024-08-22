@@ -1,16 +1,101 @@
 import java.awt.geom.NoninvertibleTransformException;
 import java.lang.reflect.Array;
+import java.io.*;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Derrick {
-
     private final ArrayList<Task> toDo = new ArrayList<>();
+    private static final String FOLDER_PATH = Paths.get(System.getProperty("user.home"), "ip","data").toString();
+    private static final String FILE_NAME = "DATA.TXT";
+    private static final Path FILE_PATH = Paths.get(FOLDER_PATH, FILE_NAME);
+
+    public Derrick() {
+        createDirectory();
+        loadTasksFromFile();
+    }
     public void greetings() {
         System.out.println("Hello, I am Derrick");
         System.out.println("What can I do for you?");
     }
+
+
+    public void createDirectory() {
+        Path folderPath = Paths.get(FOLDER_PATH);
+        System.out.println("Folder path is " + folderPath);
+        if (!java.nio.file.Files.exists(folderPath)) {
+            try {
+                Files.createDirectories(folderPath);
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the directory: " + e.getMessage());
+            }
+        }
+
+        if (!Files.exists(FILE_PATH)) {
+            try {
+                Files.createFile(FILE_PATH);
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
+        }
+    }
+
+
+    public void saveTasksToFile() {
+        try (BufferedWriter writer = Files.newBufferedWriter(FILE_PATH)) {
+            for (Task task : toDo) {
+                writer.write(task.changeFormat() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public void loadTasksFromFile() {
+        if (!Files.exists(FILE_PATH)) {
+            System.out.println("No previous task data found. Starting with an empty list.");
+            return;
+        }
+
+        try (BufferedReader reader = Files.newBufferedReader(FILE_PATH)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                Task task = null;
+                switch (type) {
+                    case "T":
+                        task = new Todo(description);
+                        break;
+                    case "D":
+                        String by = parts[3];
+                        task = new Deadline(description, by);
+                        break;
+                    case "E":
+                        String start = parts[3];
+                        String end = parts[4];
+                        task = new Event(description, start, end);
+                        break;
+                }
+
+                if (task != null) {
+                    if (isDone) {
+                        task.markStatus();
+                    }
+                    toDo.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from file: " + e.getMessage());
+        }
+    }
+
+
 
     public void list(ArrayList<Task> list) {
         if (this.toDo.isEmpty()) {
@@ -39,7 +124,7 @@ public class Derrick {
         }
 
         Task task = list.get(position - 1);
-        task.changeStatus();
+        task.markStatus();
         System.out.println("I have marked this task as done!");
         System.out.println(task);
     }
@@ -59,7 +144,7 @@ public class Derrick {
         }
 
         Task task = list.get(position - 1);
-        task.changeStatus();
+        task.unmarkStatus();
         System.out.println("I have marked this task as not done yet!");
         System.out.println(task);
     }
@@ -164,6 +249,7 @@ public class Derrick {
         Scanner scanner = new Scanner(System.in);
         label:
         while (true) {
+            System.out.println("List contains " + toDo.toString());
             String input = scanner.nextLine();
             String instructions = input.split(" ")[0];
             Commands command = Commands.fromString(instructions);
@@ -177,6 +263,7 @@ public class Derrick {
                 case MARK:
                     try {
                         this.markItem(this.toDo, input);
+                        saveTasksToFile();
                     } catch (MissingPositionException | MissingItemException e) {
                         System.out.println(e.getMessage());
                     }
@@ -184,6 +271,7 @@ public class Derrick {
                 case UNMARK: {
                     try {
                         this.unmarkItem(this.toDo, input);
+                        saveTasksToFile();
                     } catch (MissingPositionException | MissingItemException e) {
                         System.out.println(e.getMessage());
                     }
@@ -192,6 +280,7 @@ public class Derrick {
                 case DELETE: {
                     try {
                         this.delete(this.toDo, input);
+                        saveTasksToFile();
                     } catch (MissingItemException | MissingPositionException | EmptyListException e) {
                         System.out.println(e.getMessage());
                     }
@@ -200,6 +289,7 @@ public class Derrick {
                 case TODO: {
                     try {
                         this.addTodo(this.toDo, input);
+                        saveTasksToFile();
                     }
                     catch (InvalidDescriptionException e) {
                         System.out.println(e.getMessage());
@@ -209,6 +299,7 @@ public class Derrick {
                 case DEADLINE: {
                     try {
                         this.addDeadline(this.toDo, input);
+                        saveTasksToFile();
                     }
                     catch(InvalidDescriptionException e) {
                         System.out.println(e.getMessage());
@@ -218,6 +309,7 @@ public class Derrick {
                 case EVENT: {
                     try {
                         this.addEvent(this.toDo, input);
+                        saveTasksToFile();
                     } catch (InvalidDescriptionException e) {
                         System.out.println(e.getMessage());
                     }

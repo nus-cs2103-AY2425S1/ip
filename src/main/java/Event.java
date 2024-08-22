@@ -12,4 +12,9 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (from:" + start + "to:" + end + ")";
     }
+
+    @Override
+    public String changeFormat() {
+        return "E | " + (this.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description + " | " + this.start + " | " + this.end;
+    }
 }
