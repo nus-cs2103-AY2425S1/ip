@@ -47,13 +47,13 @@ public class Genji {
                 int index = Integer.parseInt(input.substring(5)) - 1;
                 list.get(index).mark();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(" " + list.get(index).toString());
+                System.out.println(list.get(index).toString());
                 System.out.println(LINE);
             } else if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.substring(7)) - 1;
                 list.get(index).unmark();
                 System.out.println("OK! I've marked this task as not done yet:");
-                System.out.println(" " + list.get(index).toString());
+                System.out.println(list.get(index).toString());
                 System.out.println(LINE);
             } else {
                 addList(new Task(input));
