@@ -25,11 +25,10 @@ public class SlothingWaffler {
                     case "todo" -> addTodoTask(split, tasks);
                     case "deadline" -> addDeadlineTask(split, tasks);
                     case "event" -> addEventTask(split, tasks);
-                    default -> throw new SlothingWafflerException("The Waffler will continuing slothing!! " +
-                            "Please give me instructions that I can understand :(");
+                    default -> throw new SlothingWafflerException("RAWR! Please give me instructions that the Slothing Waffler can understand :(");
                 }
             } catch (SlothingWafflerException e) {
-                System.out.println("OOPS!! " + e.getMessage());
+                System.out.println(e.getMessage());
             } finally {
                 System.out.println("YUM. The Waffler is ready for your next command!");
             }
@@ -68,7 +67,7 @@ public class SlothingWaffler {
 
     private static void addTodoTask(String[] split, ArrayList<Task> tasks) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
-            throw new SlothingWafflerException("The description of a Todo Task cannot be empty!");
+            throw new SlothingWafflerException("HEY!! The description of a Todo Task cannot be empty!");
         }
         tasks.add(new Todo(split[1]));
         addTaskMessage(tasks);
@@ -76,11 +75,11 @@ public class SlothingWaffler {
 
     private static void addDeadlineTask(String[] split, ArrayList<Task> tasks) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
-            throw new SlothingWafflerException("The description of a Deadline Task cannot be empty.");
+            throw new SlothingWafflerException("HEY!! The description of a Deadline Task cannot be empty.");
         }
         String[] desc = split[1].split(" /by ", 2);
         if (desc.length < 2) {
-            throw new SlothingWafflerException("The Deadline Task must have a description AND a due date.");
+            throw new SlothingWafflerException("HEY!! The Deadline Task must have a description AND a due date.");
         }
         tasks.add(new Deadline(desc[0], desc[1]));
         addTaskMessage(tasks);
@@ -88,11 +87,11 @@ public class SlothingWaffler {
 
     private static void addEventTask(String[] split, ArrayList<Task> tasks) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
-            throw new SlothingWafflerException("The description of an Event Task cannot be empty.");
+            throw new SlothingWafflerException("HEY!! The description of an Event Task cannot be empty.");
         }
         String[] desc = split[1].split(" /from | /to ");
         if (desc.length < 3) {
-            throw new SlothingWafflerException("An event must have a description, start time, and end time.");
+            throw new SlothingWafflerException("HEY!! An event must have a description, start time, and end time.");
         }
         tasks.add(new Event(desc[0], desc[1], desc[2]));
         addTaskMessage(tasks);
