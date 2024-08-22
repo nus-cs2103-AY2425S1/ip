@@ -9,28 +9,40 @@ public class InputManager {
 
     public void handleInput(String input) {
         input = input.trim();
+        String command = input.split("\\s+")[0];
+        String args = input.substring(command.length()).trim();
+
         try {
             if (input.isEmpty()) {
                 throw new PukeException("OOPS!!! You need to enter a command.");
-            } else if (input.matches("todo.*")) {
-                handleTodo(input);
-            } else if (input.matches("deadline.*")) {
-                handleDeadline(input);
-            } else if (input.matches("event.*")) {
-                handleEvent(input);
-            } else if (input.matches("mark.*")) {
-                handleMarking(input.substring(4).trim(), true);
-            } else if (input.matches("unmark.*")) {
-                handleMarking(input.substring(6).trim(), false);
-            } else if (input.equalsIgnoreCase("list")) {
-                messageBuilder.sendMessage(taskManager.listTasks());
-            } else {
-                throw new PukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            switch (command.toLowerCase()) {
+                case "todo":
+                    handleTodo(args);
+                    break;
+                case "deadline":
+                    handleDeadline(args);
+                    break;
+                case "event":
+                    handleEvent(args);
+                    break;
+                case "mark":
+                    handleMarking(args, true);
+                    break;
+                case "unmark":
+                    handleMarking(args, false);
+                    break;
+                case "list":
+                    messageBuilder.sendMessage(taskManager.listTasks());
+                    break;
+                default:
+                    throw new PukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (PukeException e) {
             messageBuilder.sendMessage(e.getMessage());
         }
     }
+
     private void handleTodo(String input) throws PukeException {
         String trimmedInput = input.substring(4).trim();
         if (trimmedInput.isEmpty()) {
