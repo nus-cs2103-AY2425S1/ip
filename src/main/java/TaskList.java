@@ -53,4 +53,17 @@ public class TaskList {
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(listItems[index]);
     }
+
+    public void deleteTask(int index) {
+        if (index >= size) {
+            System.out.println("OOPS!! please enter a valid number");
+            return;
+        }
+        System.out.println("Ok, I will remove the task:");
+        System.out.println(listItems[index]);
+        for (int i = index; i < size - 1; i++) {
+            listItems[i] = listItems[i + 1];
+        }
+        size--;
+    }
 }

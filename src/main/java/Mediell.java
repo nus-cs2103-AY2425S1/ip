@@ -24,6 +24,9 @@ public class Mediell {
                 } else if (message.startsWith("unmark")) {
                     int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
                     items.unMarkItem(index);
+                } else if (message.startsWith("delete")) {
+                    int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
+                    items.deleteTask(index);
                 } else if (message.startsWith("todo")) {
                     String task = message.split(" ", 2)[1];
                     items.addToDo(task);
