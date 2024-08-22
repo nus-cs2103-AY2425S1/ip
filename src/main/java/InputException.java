@@ -7,6 +7,7 @@ public class InputException extends Exception{
                 :msg.equals("todo")? "todo format: todo xxxxx"
                 :msg.equals("event")? "event format: event xxxxx /from xxxxx /to xxxxx"
                 :msg.equals("deadline")? "deadline format: deadline xxxxx /by xxxx"
+                :msg.equals("id")? "invalid task ID"
                 :"invalid input");
     }
 }

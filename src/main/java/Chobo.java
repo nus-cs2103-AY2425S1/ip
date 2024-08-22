@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Chobo {
-    //private static final Task[] tasks = new Task[100];
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static String line = "----------------------------------------";
     private static int totalTask = 0;
@@ -9,45 +8,59 @@ public class Chobo {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm Chobo\nWhat can I do for you?");
         System.out.println(line);
+        InputException deadlineError = new InputException("deadline");
+        InputException eventError = new InputException("event");
+        InputException todoError = new InputException("todo");
+        InputException invalidTaskNumber = new InputException("id");
         while (true) {
             try {
                 String original = scanner.nextLine();
                 String[] input = original.split(" ", 2);
-                if (input[0].equals("bye")) {
+                String action = input[0];
+                if (action.equals("bye")) {
                     break;
-                } else if (input[0].equals("list")) {
+                } else if (action.equals("list")) {
                     listTask();
-                } else if (input[0].equals("mark")) {
-                    markTask(tasks.get(Integer.parseInt(input[1]) - 1));
-                } else if (input[0].equals("unmark")) {
-                    unmarkTask(tasks.get(Integer.parseInt(input[1]) - 1));
-                } else if (input[0].equals("delete")) {
-                    deleteTask(Integer.parseInt(input[1])-1);
-                }else if (input[0].equals("todo")) {
+                } else if (action.equals("mark") || action.equals("unmark") || action.equals("delete")) {
+                    if (input.length<2) {
+                        throw invalidTaskNumber;
+                    }
+                    int taskId = Integer.parseInt(input[1]) - 1;
+                    if (taskId > totalTask - 1 || taskId < 0) {
+                        throw invalidTaskNumber;
+                    }
+                    if (action.equals("mark")) {
+                        markTask(tasks.get(taskId));
+                    } else if (action.equals("unmark")) {
+                        unmarkTask(tasks.get(taskId));
+                    } else {
+                        deleteTask(taskId);
+                    }
+                } else if (action.equals("todo")) {
                     if(input.length<2){
-                        throw new InputException("todo");
+                        throw todoError;
                     }
                     addTask(new ToDo(input[1], false));
-                } else if (input[0].equals("deadline")){
+                } else if (action.equals("deadline")){
                     if(input.length<2){
-                        throw new InputException("deadline");
+                        throw deadlineError;
                     }
                     String[] part = input[1].split("/by", 2);
                     if(part.length<2){
-                        throw new InputException("deadline");
+                        throw deadlineError;
                     }
                     addTask(new Deadline(part[0], false, part[1]));
-                } else if (input[0].equals("event")) {
+                } else if (action.equals("event")) {
                     if(input.length<2){
-                        throw new InputException("event");
+                        throw eventError;
                     }
                     String[] part = input[1].split("/from", 2);
                     if(part.length<2){
-                        throw new InputException("event");
+                        throw eventError;
                     }
                     String[] dates = part[1].split("/to", 2);
                     if(dates.length<2){
-                        throw new InputException("event");
+                        throw eventError;
                     }
                     addTask(new Event(part[0], false, dates[0], dates[1]));
                 } else {
