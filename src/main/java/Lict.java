@@ -6,7 +6,7 @@ public class Lict {
     private final static String name = "Lict";
     private final static String horizontal_line = "__________________________________";
     private final static ArrayList<Task> tasks = new ArrayList<>();
-    private final static ArrayList<String> actions = new ArrayList<>(List.of("mark", "unmark"));
+    private final static ArrayList<String> actions = new ArrayList<>(List.of("mark", "unmark", "delete"));
     private final static ArrayList<String> eventTypes = new ArrayList<>(List.of("todo", "deadline", "event"));
 
     private static boolean handle_markings(String input) {
@@ -21,8 +21,9 @@ public class Lict {
         }
         try {
             int index = Integer.parseInt(input_parts[1].trim()) - 1;
-
-            if (index >= tasks.size()) {
+            if (index < 0) {
+                System.out.println("Invalid task number. Task numbers should all be positive.");
+            } else if (index >= tasks.size()) {
                 System.out.println("Invalid task number. There are only " + tasks.size() + " tasks in the list.");
             } else {
                 if (action.equals("mark")) {
@@ -35,6 +36,13 @@ public class Lict {
                     t.changeStatus(false);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("    " + t);
+                } else {
+                    Task t = tasks.get(index);
+                    tasks.remove(index);
+                    Task.deleteTask();
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("    " + t);
+                    System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.");
                 }
             }
         } catch (NumberFormatException e) {
