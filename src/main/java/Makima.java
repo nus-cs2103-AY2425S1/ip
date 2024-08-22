@@ -56,6 +56,11 @@ public class Makima {
     public String getInput() {
         String userInput = sc.nextLine();
         System.out.println(LINE_SEPERATOR);
+        while (userInput.isEmpty()) {
+            System.out.println("Input cannot be empty!");
+            System.out.println(LINE_SEPERATOR);
+            userInput = sc.nextLine();
+        }
         return userInput;
     }
 
