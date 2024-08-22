@@ -4,18 +4,20 @@ import java.util.HashSet;
 public class Task {
     private String name;
     private Boolean status;
-    private static Response r;
+    public static Response r;
+
+    public String tag;
     public static ArrayList<Task> task_list = new ArrayList<>();
 
-    public Task(String name) {
+    public Task(String name, String tag) {
         this.name = name;
         this.status = false;
+        this.tag = tag;
         r = new Response();
     }
 
     public void add_task(Task temp) {
         task_list.add(temp);
-        r.added_task_message(temp.getName());
     }
 
     public static void list_task() {
@@ -45,5 +47,13 @@ public class Task {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public int get_list_size(){
+        return task_list.size();
     }
 }
