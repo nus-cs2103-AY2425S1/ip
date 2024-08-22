@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -5,27 +6,45 @@ import java.util.Scanner;
 public class JBot {
 
     private static boolean isRunning = true;
+    private static Map<String, JBotCommand> commandMap;
+    private static ArrayList<Task> taskList = new ArrayList<>();
+
+    private static void hLine() {
+        System.out.println("________________________________________");
+    }
+
+    public static void initCommandMap() {
+        commandMap = new HashMap<>();
+
+        commandMap.put("list", ListCommand.getInstance());
+        commandMap.put("bye", ByeCommand.getInstance());
+    }
     private static void greetUser() {
+        hLine();
         System.out.println("Hello! I'm JBot");
         System.out.println("What can I do for you?");
+        hLine();
     }
     private static void endSession() {
-        System.out.println("Bye. Hope to see you again soon!");
+
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        initCommandMap();
 
         greetUser();
 
         while (JBot.isRunning) {
-            String command = sc.nextLine();
+            String userInput = sc.nextLine();
+            JBotCommand command = commandMap.getOrDefault(userInput, AddCommand.getInstance());
 
-            if (command.equals("bye")) {
+            hLine();
+            command.run(userInput, taskList);
+            hLine();
+
+            if (command.equals(ByeCommand.getInstance())) {
                 sc.close();
-                isRunning = false;
-                endSession();
-            } else {
-                System.out.println(command);
+                JBot.isRunning = false;
             }
         }
     }
