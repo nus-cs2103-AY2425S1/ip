@@ -1,0 +1,9 @@
+todo buy bread
+deadline eat bread /by Monday 2pm
+event make bread /from Tuesday 4pm /to Tuesday 6pm
+list
+mark 2
+mark 3
+unmark 2
+list
+bye
