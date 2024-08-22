@@ -20,7 +20,8 @@ public class Torne {
 
     /**
      * Parses the string command and arguments that the user entered. The correct operation is then called. If the input
-     * **invalid**, e.g. the command does not exist, nothing will be printed and the bot asks for another input.
+     * is **invalid**, e.g. the command does not exist, nothing will be printed and the bot asks for another input.
+     * Invalid inputs have their own handling processes.
      *
      * @param input string input by the user
      */
