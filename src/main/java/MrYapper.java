@@ -7,32 +7,6 @@ public class MrYapper {
     private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
     private static final ArrayList<Task> taskList = new ArrayList<>(100);
 
-    private static class Task {
-        private final String TASK_NAME;
-        private boolean isDone = false;
-
-        private Task(String name) {
-            this.TASK_NAME = name;
-        }
-
-        public void markAsDone() {
-            isDone = true;
-        }
-
-        public void markAsNotDone() {
-            isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : " ");
-        }
-
-        @Override
-        public String toString() {
-            return "[" + getStatusIcon() + "] " + TASK_NAME;
-        }
-    }
-
     // Inserts line indentation in response messages
     private static void say(String message) {
         System.out.println("____________________________________________________________\n"
@@ -40,9 +14,20 @@ public class MrYapper {
                 + "\n____________________________________________________________");
     }
 
-    private static void addTask(String name) {
-        taskList.add(new Task(name));
-        say(" added: " + name);
+    private static void addTask(String type, String description) {
+        Task newTask;
+        switch (type) {
+        case "todo":
+            newTask = new Todo(description);
+            break;
+        default:
+            say(" The type of task is invalid! Something went wrong :(");
+            return;
+        }
+
+        taskList.add(newTask);
+        say(String.format(" Task added successfully!\n   %s\n Now you have %d tasks in the list",
+                newTask, taskList.size()));
     }
 
     private static void listTask() {
@@ -65,7 +50,7 @@ public class MrYapper {
 
         do {
             String userInput = userInputReader.nextLine();
-            String[] processedInput = userInput.trim().split("\\s+");
+            String[] processedInput = userInput.trim().split("\\s+", 2);
             String command = processedInput[0];
 
             switch (command) {
@@ -102,12 +87,15 @@ public class MrYapper {
                     say(" You have to give me a valid task number!\n e.g. mark 2");
                 } catch (IndexOutOfBoundsException e) {
                     String errorMessage = String.format(" There is no such task!\n "
-                            + "You currently have %d tasks", taskList.size());
+                            + "You currently have %d tasks in your list", taskList.size());
                     say(errorMessage);
                 }
                 break;
+            case "todo":
+                addTask(command, processedInput[1]);
+                break;
             default:
-                addTask(userInput);
+                say("Hmm... I'm not sure what you're trying to do :(");
             }
         } while (conversationIsOngoing);
     }
