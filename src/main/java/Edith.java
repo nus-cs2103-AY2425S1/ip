@@ -1,10 +1,16 @@
-public class Duke {
+import java.util.Objects;
+
+public class Edith {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+        String horizontal = "____________________________________________________________";
+        String greeting = " heyyy im edith! \n what can I do for you?";
+        String farewell = " bye!! see you soon love <3";
+        String linebreak = "\n";
+
+        System.out.println(horizontal + linebreak +
+                greeting + linebreak +
+                horizontal + linebreak +
+                farewell + linebreak + horizontal);
     }
 }
