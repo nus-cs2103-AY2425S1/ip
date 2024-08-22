@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Shrimp {
 
-    private static final String PARTITION = "____________________________________________________________\n";
+    private static final String PARTITION = "____________________________________________________________";
 
     public static void main(String[] args) {
         //program initialize
@@ -11,16 +11,30 @@ public class Shrimp {
         //echo user's command
         Scanner sc = new Scanner(System.in);
         String userInput;
+        TaskList taskList = new TaskList();
 
         while (true) {
             userInput = sc.nextLine();  // Read the next line of user input
+            Task newTask = new Task(userInput);
 
             if (userInput.equalsIgnoreCase("bye")) {
+                //todo Add this as a special case (ExitTask)
                 break;  // Exit the loop if "bye" is entered
             }
-
-            String output = PARTITION + userInput + "\n" + PARTITION;
-            System.out.println(output);
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println(PARTITION);
+                System.out.println("Gotchaaa~ Here's the list so far:");
+                for (int i = 0; i < taskList.getCount(); i++) {
+                    System.out.println(i+1 + ". " + taskList.getTask(i));
+                }
+                System.out.println(PARTITION);
+            } else {
+                taskList.addTask(newTask);
+                String output = "rawr! '" + userInput + "' has been added to the list~";
+                System.out.println(PARTITION);
+                System.out.println(output);
+                System.out.println(PARTITION);
+            }
         }
         programExit();
     }
@@ -37,13 +51,16 @@ public class Shrimp {
                      \\/     \\/               \\/|__|   \s
                                                       \s
                 """;
-        String output = PARTITION + greetings + logo + "\n" + PARTITION;
+        String output = greetings + logo;
+        System.out.println(PARTITION);
         System.out.println(output);
+        System.out.println(PARTITION);
     }
 
     static void programExit() {
         String output = "Byebye~ It's time to say goodbye for the day~ Hope you enjoyed and had fuuun~ " +
-                "I'll see you later~\n" + PARTITION;
+                "I'll see you later~";
         System.out.println(output);
+        System.out.println(PARTITION);
     }
 }
