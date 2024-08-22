@@ -13,11 +13,11 @@ public class Task {
         this.description = description;
     }
 
-    protected void markTask() {
+    protected void mark() {
         isDone = true;
     }
 
-    protected void unmarkTask() {
+    protected void unmark() {
         isDone = false;
     }
 

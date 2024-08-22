@@ -19,12 +19,12 @@ public class TaskList {
     }
 
     public Task markTask(int taskIndex) {
-        taskList.get(taskIndex).markTask();
+        taskList.get(taskIndex).mark();
         return taskList.get(taskIndex);
     }
 
     public Task unmarkTask(int taskIndex) {
-        taskList.get(taskIndex).unmarkTask();
+        taskList.get(taskIndex).unmark();
         return taskList.get(taskIndex);
     }
 
