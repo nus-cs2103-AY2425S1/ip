@@ -72,69 +72,84 @@ public class Bottle {
         printwithBreak(welcomeMsg);
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
-                printwithBreak(byeMsg);
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                System.out.println(lineBreak);
-                for (int i = 0; i < taskCount; i++) {
-                    int idx = i + 1;
-                    System.out.println(idx + ". " + taskList[i]);
+            try {
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("bye")) {
+                    printwithBreak(byeMsg);
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    System.out.println(lineBreak);
+                    for (int i = 0; i < taskCount; i++) {
+                        int idx = i + 1;
+                        System.out.println(idx + ". " + taskList[i]);
+                    }
+                    System.out.println(lineBreak);
+                } else if (input.startsWith("mark ")) {
+                    int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        Task task = taskList[taskIndex];
+                        task.mark();
+                        String msg = "Nice! I've marked this task as done:\n";
+                        printwithBreak(msg + task);
+                    } else {
+                        throw new IndexOutOfBoundsException("Wrong Task Number");
+                    }
+                } else if (input.startsWith("unmark ")) {
+                    int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        Task task = taskList[taskIndex];
+                        task.unMark();
+                        String msg = "OK, I've marked this task as not done yet:\n";
+                        printwithBreak(msg + task);
+                    } else {
+                        throw new IndexOutOfBoundsException("Wrong Task Number");
+                    }
+                } else if (input.startsWith("todo ")) {
+                    String description = input.substring(5);
+                    if (description.isEmpty()) {
+                        throw new IllegalArgumentException("Description cannot be empty");
+                    }
+                    taskList[taskCount] = new Task.Todo(description);
+                    taskCount++;
+                    System.out.print(lineBreak);
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + taskList[taskCount - 1].toString());
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(lineBreak);
+                } else if (input.startsWith("deadline ")) {
+                    String[] parts = input.substring(9).split(" /by ");
+                    if (parts.length != 2) {
+                        throw new IllegalArgumentException("Incorrect deadline arguments count");
+                    }
+                    String description = parts[0];
+                    String by = parts[1];
+                    taskList[taskCount] = new Task.Deadline(description, by);
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + taskList[taskCount - 1].toString());
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } else if (input.startsWith("event ")) {
+                    String[] parts = input.substring(6).split(" /from | /to ");
+                    if (parts.length != 3) {
+                        throw new IllegalArgumentException("Incorrect event arguments count");
+                    }
+                    String description = parts[0];
+                    String from = parts[1];
+                    String to = parts[2];
+                    taskList[taskCount] = new Task.Event(description, from, to);
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + taskList[taskCount - 1].toString());
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } else {
+                    throw new RuntimeException("OOPS!!! Something went wrong.");
                 }
-                System.out.println(lineBreak);
-            } else if (input.startsWith("mark ")) {
-                int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    Task task = taskList[taskIndex];
-                    task.mark();
-                    String msg = "Nice! I've marked this task as done:\n";
-                    printwithBreak(msg + task);
-                }
-            } else if (input.startsWith("unmark ")) {
-                int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    Task task = taskList[taskIndex];
-                    task.unMark();
-                    String msg = "OK, I've marked this task as not done yet:\n";
-                    printwithBreak(msg + task);
-                }
-            } else if (input.startsWith("todo ")) {
-                String description = input.substring(5);
-                taskList[taskCount] = new Task.Todo(description);
-                taskCount++;
-                System.out.print(lineBreak);
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + taskList[taskCount - 1].toString());
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                System.out.println(lineBreak);
-            } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split(" /by ");
-                String description = parts[0];
-                String by = parts[1];
-                taskList[taskCount] = new Task.Deadline(description, by);
-                taskCount++;
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + taskList[taskCount - 1].toString());
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                System.out.println("____________________________________________________________");
-            } else if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split(" /from | /to ");
-                String description = parts[0];
-                String from = parts[1];
-                String to = parts[2];
-                taskList[taskCount] = new Task.Event(description, from, to);
-                taskCount++;
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + taskList[taskCount - 1].toString());
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                System.out.println("____________________________________________________________");
-            } else {
-                taskList[taskCount] = new Task(input);
-                taskCount++;
-                printwithBreak("added " + input);
+            } catch (RuntimeException e) {
+                printwithBreak(e.getMessage());
             }
         }
     }
