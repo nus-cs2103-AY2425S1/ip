@@ -50,8 +50,8 @@ public class Mizz {
    * @param cmd The command read by scanner.
    */
   private void commandHandler(String cmd) {
-    String[] parts = cmd.split("\\s+");
-    this.cmd = parts[0];
+    String[] parsedInput = this.parseInput(cmd);
+    this.cmd = parsedInput[0];
     switch (this.cmd) {
       case "bye":
         break;
@@ -61,14 +61,14 @@ public class Mizz {
       case "mark":
       case "unmark": {
         // look at second arg ignore the rest
-        int idx = Integer.parseInt(parts[1]);
+        int idx = Integer.parseInt(parsedInput[1]);
         this.handleMark(this.cmd, idx);
         break;
       }
       case "todo":
       case "deadline":
       case "event": {
-        this.handleCreate(this.cmd, Arrays.copyOfRange(parts, 1, parts.length));
+        this.handleCreate(this.cmd, parsedInput);
         break;
       }
       default:
@@ -121,12 +121,13 @@ public class Mizz {
   }
 
   /**
+   * Method to create a new task.
    * 
-   * @param msg
+   * @param taskType One of todo | deadline | event
+   * @param taskInfo Array containing the description & by or from to depending.
    */
   private void handleCreate(String taskType, String[] taskInfo) {
-    String cleanedString = String.join(" ", taskInfo);
-    this.usrTasks.addTask(taskType, cleanedString);
+    this.usrTasks.addTask(taskType, taskInfo);
   }
 
   /**
@@ -138,5 +139,68 @@ public class Mizz {
     System.out.println(Utility.INDENTED_LINE);
     System.out.println(String.format("%s%s", Utility.INDENT, msg));
     System.out.println(Utility.INDENTED_LINE);
+  }
+
+  /**
+   * Utility method to parse and clean the user input.
+   * 
+   * @param in The input from the scanner.
+   * @return
+   */
+  private String[] parseInput(String inpuString) {
+    // parts[0] -> command
+    // parts[1] -> description
+    // parts[2] -> "" if todo | by if deadline | from if event
+    // parts[3] -> to if event else ""
+
+    String[] result = new String[4];
+    String[] parts = inpuString.split("\\s+");
+    result[0] = parts[0].toLowerCase();
+
+    if (result[0].equals("mark") || result[0].equals("unmark")) {
+      if (parts.length < 2) {
+        // throw exception
+      }
+      result[1] = parts[1];
+      return result;
+    }
+
+    if (result[0].equals("list") || result[0].equals("bye")) {
+      return result;
+    }
+
+    int byIdx = -1;
+    int fromIdx = -1;
+    int toIdx = -1;
+
+    // only take the first occurence of /by | /from | /to
+    for (int i = 1; i < parts.length; i++) {
+      if (fromIdx == -1 && parts[i].equals("/from")) {
+        fromIdx = i;
+      } else if (toIdx == -1 && parts[i].equals("/to")) {
+        toIdx = i;
+      } else if (byIdx == -1 && parts[i].equals("/by")) {
+        byIdx = i;
+      }
+    }
+    // description
+    if (result[0].equals("todo")) {
+      result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+    } else if (result[0].equals("deadline")) {
+      if (byIdx == -1 || byIdx == parts.length - 1) {
+        // throw exception
+      }
+      result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, byIdx));
+      result[2] = String.join(" ", Arrays.copyOfRange(parts, byIdx + 1, parts.length));
+    } else if (result[0].equals("event")) {
+      if (fromIdx == -1 || toIdx == -1 || fromIdx + 1 >= toIdx) {
+        // throw exception
+      }
+      result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
+      result[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
+      result[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
+    }
+
+    return result;
   }
 }

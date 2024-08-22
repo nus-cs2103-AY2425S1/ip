@@ -2,8 +2,10 @@ package util;
 
 import java.util.List;
 
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
-import tasks.ToDos;
+import tasks.ToDo;
 
 import java.util.ArrayList;
 
@@ -18,14 +20,20 @@ public class TaskHist {
    * Method to add into the running list of tasks entered.
    * 
    * @param taskType    Can be one of todo | deadline | event
-   * @param taskDetails The info in the task
+   * @param taskDetails The info for the task
    * @return
    */
-  public boolean addTask(String taskType, String taskDetails) {
+  public boolean addTask(String taskType, String[] taskDetails) {
     Task newTask;
     switch (taskType) {
       case "todo":
-        newTask = new ToDos(taskDetails);
+        newTask = new ToDo(taskDetails[1]);
+        break;
+      case "deadline":
+        newTask = new Deadline(taskDetails[1], taskDetails[2]);
+        break;
+      case "event":
+        newTask = new Event(taskDetails[1], taskDetails[2], taskDetails[3]);
         break;
       default:
         newTask = new Task("Hm whats this?");
