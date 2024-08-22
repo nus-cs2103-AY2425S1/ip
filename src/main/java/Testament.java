@@ -22,6 +22,11 @@ public class Testament {
                 printDialogue(taskList.toString());
 
             } else if (splitUserInput[0].equals("mark")) {
+                if (splitUserInput.length < 2) {
+                    printDialogue("Please do specify the task to mark");
+                    continue;
+                }
+
                 int taskNumber = Integer.parseInt(splitUserInput[1]);
                 String taskDetails;
                 try {
@@ -34,6 +39,11 @@ public class Testament {
                 printDialogue("Congratulations on completing your task:\n" + taskDetails);
 
             } else if (splitUserInput[0].equals("unmark")) {
+                if (splitUserInput.length < 2) {
+                    printDialogue("Please do specify the task to unmark");
+                    continue;
+                }
+
                 int taskNumber = Integer.parseInt(splitUserInput[1]);
                 String taskDetails;
                 try {
@@ -67,7 +77,7 @@ public class Testament {
             }
         }
     }
-
+    
     private static void printDialogue(String s) {
         System.out.println(LINE);
         System.out.println(s);
