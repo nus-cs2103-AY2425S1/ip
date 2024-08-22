@@ -12,6 +12,7 @@ public class LunaBot {
         System.out.println("___________________________________________________________________");
         System.out.println(" Hello! I'm LunaBot");
         System.out.println(" What can I do for you?");
+        System.out.println("___________________________________________________________________");
 
         // Create scanner for user input
         Scanner scanner = new Scanner(System.in);
@@ -57,11 +58,39 @@ public class LunaBot {
                 System.out.println("   " + list[taskNumber]);
                 System.out.println("___________________________________________________________________");
             }
-            else {
-                list[count] = new Task(input); // store input in the array
+            else if (input.startsWith("todo ")){
+                String description = input.substring(5);
+                list[count] = new ToDo(description); // store input in the array
                 count++; // increase count to index tasks and track total number of tasks
                 System.out.println("___________________________________________________________________");
-                System.out.println(" added: " + input);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + list[count - 1]);
+                System.out.println(" Now you have " + count + " tasks in the list.");
+                System.out.println("___________________________________________________________________");
+            }
+            else if (input.startsWith("deadline ")) {
+                String[] arr = input.substring(9).split(" /by ");
+                String description = arr[0];
+                String by = arr[1];
+                list[count] = new Deadline(description, by);
+                count++;
+                System.out.println("___________________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + list[count - 1]);
+                System.out.println(" Now you have " + count + " tasks in the list.");
+                System.out.println("___________________________________________________________________");
+            }
+            else if (input.startsWith("event ")) {
+                String[] arr = input.substring(6).split(" /from | /to ");
+                String description = arr[0];
+                String from = arr[1];
+                String to = arr[2];
+                list[count] = new Event(description, from, to);
+                count++;
+                System.out.println("___________________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + list[count - 1]);
+                System.out.println(" Now you have " + count + " tasks in the list.");
                 System.out.println("___________________________________________________________________");
             }
 
