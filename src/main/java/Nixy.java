@@ -136,7 +136,10 @@ public class Nixy {
         return input;
     }
 
-    /** Get command and arguments from input string. */
+    /** Get command and arguments from input string.
+     * @param input input string from user
+     * @return array of command and arguments
+     */
     private static String[] splitCommand(String input) {
         return input.split(" ");
     }
@@ -157,6 +160,7 @@ public class Nixy {
 
     /**
      * Store new task in the list of tasks.
+     * @param task task to be stored (TodoTask, DeadlineTask, EventTask)
      */
     private static void store(Task task) {
         taskManager.addTask(task);
@@ -174,6 +178,9 @@ public class Nixy {
         PrintUtility.indentPrint(HORIZONTAL_LINE);
     }
 
+    /**
+     * Print exit message
+     */
     private static void exit() {
         PrintUtility.wrapPrintWithHorizontalLines("Bye. Hope to see you again soon!");
     }

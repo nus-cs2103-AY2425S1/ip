@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that manages tasks as a collection.
+ * It provides basic functionality for adding, deleting, listing, and marking tasks as done.
+ */
 public class TaskManager {
     private List<Task> tasks = new ArrayList<>();
 
@@ -12,6 +16,11 @@ public class TaskManager {
         return tasks.size();
     }
 
+    /**
+     * Marks the task with the specified task number as done.
+     *
+     * @param taskNumber The task number to mark as done.
+     */
     public void markTaskAsDone(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()){
             throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
@@ -23,6 +32,11 @@ public class TaskManager {
         );
     }
 
+    /**
+     * Marks the task with the specified task number as undone.
+     *
+     * @param taskNumber The task number to mark as undone.
+     */
     public void markTaskAsUndone(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
             throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
@@ -34,6 +48,11 @@ public class TaskManager {
         );
     }
 
+    /**
+     * Deletes the task with the specified task number.
+     *
+     * @param taskNumber The task number to delete.
+     */
     public void deleteTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
             throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to delete does not exist.", taskNumber));
@@ -46,6 +65,9 @@ public class TaskManager {
         );
     }
 
+    /**
+     * Prints all tasks numerically in order. (Indented)
+     */
     public void listTasks() {
         int taskCount = this.getTaskCount();
         for (int i = 0; i < taskCount; i++) {
