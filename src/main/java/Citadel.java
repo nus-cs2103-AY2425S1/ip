@@ -32,31 +32,29 @@ public class Citadel {
         while (true) {
             try {
                 input = ui.nextLine();
-                String command = input.split(" ")[0].toUpperCase();
-                if (Commands.valueOf(command).equals(Commands.BYE)) {
+                Commands command = Parser.parseCommand(input);
+                if (command.equals(Commands.BYE)) {
                     break;
                 }
-
-                if (Commands.valueOf(command).equals(Commands.LIST)) {
+                if (command.equals(Commands.LIST)) {
                     ui.printTasks(items);
-                } else if (Commands.valueOf(command).equals(Commands.MARK)) {
+                } else if (command.equals(Commands.MARK)) {
                     new markTask(input, items).run();
-                } else if (Commands.valueOf(command).equals(Commands.UNMARK)) {
+                } else if (command.equals(Commands.UNMARK)) {
                     new unmarkTask(input, items).run();
-                } else if (Commands.valueOf(command).equals(Commands.DELETE)) {
+                } else if (command.equals(Commands.DELETE)) {
                     new deleteTask(input, items).run();
                 } else {
-                    if (Commands.valueOf(command).equals(Commands.DEADLINE)) {
+                    if (command.equals(Commands.DEADLINE)) {
                         new handleDeadline(input, items).run();
-                    } else if (Commands.valueOf(command).equals(Commands.EVENT)) {
+                    } else if (command.equals(Commands.EVENT)) {
                         new handleEvent(input, items).run();
-                    } else if (Commands.valueOf(command).equals(Commands.TODO)) {
+                    } else if (command.equals(Commands.TODO)) {
                         new handleTodo(input, items).run();
                     } else {
                         throw new CitadelInvalidCommandException();
                     }
                 }
-
             } catch (CitadelException e) {
                 ui.printCitadelException(e);
             } catch (DateTimeParseException e) {

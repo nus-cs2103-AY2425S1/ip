@@ -21,5 +21,5 @@ public class markTask extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new CitadelInvalidArgException();
         }
-    };
+    }
 }
