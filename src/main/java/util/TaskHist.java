@@ -109,6 +109,7 @@ public class TaskHist {
    * @return true if is within range else false.
    */
   public boolean isValidIdx(int idx) {
+    idx--;
     return idx < this.tasks.size() && idx >= 0;
   }
 
