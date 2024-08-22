@@ -4,6 +4,7 @@ public class SecondMind {
     private static final String line = "____________________________________________________________";
     private static final String logo = "SecondMind";
     private static String[] taskList = new String[100];
+    private static int taskCount = 0;
 
     private static void printLineSeparator() {
         System.out.println(line);
@@ -13,6 +14,14 @@ public class SecondMind {
         printLineSeparator();
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
+        printLineSeparator();
+    }
+
+    private static void addToTaskList(String task) {
+        taskList[taskCount] = task;
+        taskCount++;
+        printLineSeparator();
+        System.out.println("added: " + task);
         printLineSeparator();
     }
 
