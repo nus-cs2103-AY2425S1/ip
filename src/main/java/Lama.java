@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lama {
@@ -7,15 +8,13 @@ public class Lama {
         Scanner scanner = new Scanner(System.in);
 
         String bar = "____________________________________________________________";
-        Task[] list = new Task[100];
-        int count = 0;
+        ArrayList<Task> list = new ArrayList<>();
 
         System.out.println(bar);
         System.out.println("Hello! I'm Lama");
         System.out.println("What can I do for you?");
         System.out.println(bar + "\n");
 
-        label:
         while(scanner.hasNextLine()) {
             String input = scanner.nextLine();
             try {
@@ -27,12 +26,12 @@ public class Lama {
                         System.out.println(bar);
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println(bar);
-                        break label;
+                        return;
                     case "list":
                         System.out.println(bar);
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < count; i++) {
-                            System.out.println((i + 1) + "." + list[i]);
+                        for (int i = 0; i < list.size(); i++) {
+                            System.out.println((i + 1) + "." + list.get(i));
                         }
                         System.out.println(bar + "\n");
                         break;
@@ -44,13 +43,13 @@ public class Lama {
 
                         int n = Integer.parseInt(words[1]) - 1;
 
-                        if (Integer.parseInt(words[1]) > count || Integer.parseInt(words[1]) <= 0) {
+                        if (Integer.parseInt(words[1]) > list.size() || Integer.parseInt(words[1]) <= 0) {
                             throw new LamaException("Sorry, the number given exceed the bound of list");
                         }
-                        list[n].markAsDone();
+                        list.get(n).markAsDone();
                         System.out.println(bar);
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  " + list[n]);
+                        System.out.println("  " + list.get(n));
                         System.out.println(bar + "\n");
                         break;
                     }
@@ -61,14 +60,14 @@ public class Lama {
                         }
 
                         int n = Integer.parseInt(words[1]) - 1;
-                        if (Integer.parseInt(words[1]) > count || Integer.parseInt(words[1]) <= 0) {
+                        if (Integer.parseInt(words[1]) > list.size() || Integer.parseInt(words[1]) <= 0) {
                             throw new LamaException("Sorry, the number given exceed the bound of list");
                         }
 
-                        list[n].markAsUnDone();
+                        list.get(n).markAsUnDone();
                         System.out.println(bar);
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("  " + list[n]);
+                        System.out.println("  " + list.get(n));
                         System.out.println(bar + "\n");
                         break;
                     }
@@ -77,12 +76,11 @@ public class Lama {
                         if (words.length < 2) {
                             throw new LamaException("Please specify the description of TODO!");
                         }
-                        list[count] = new Todo(words[1]);
-                        count++;
+                        list.add(new Todo(words[1]));
                         System.out.println(bar);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + list[count - 1]);
-                        System.out.println("Now you have " + count + " tasks in the list.");
+                        System.out.println("  " + list.get(list.size() - 1));
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
                         System.out.println(bar + "\n");
 
                         break;
@@ -97,12 +95,11 @@ public class Lama {
                             throw new LamaException("Please specify the date of deadline in the format of:\n" +
                                     "deadline [description] /by [date]");
                         }
-                        list[count] = new Deadline(half[0], half[1]);
-                        count++;
+                        list.add(new Deadline(half[0], half[1]));
                         System.out.println(bar);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + list[count - 1]);
-                        System.out.println("Now you have " + count + " tasks in the list.");
+                        System.out.println("  " + list.get(list.size() - 1));
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
                         System.out.println(bar + "\n");
                         break;
 
@@ -126,12 +123,29 @@ public class Lama {
                                     "event [description] /from [start time] /to [end time]");
                         }
 
-                        list[count] = new Event(first[0], time[0], time[1]);
-                        count++;
+                        list.add(new Event(first[0], time[0], time[1]));
                         System.out.println(bar);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + list[count - 1]);
-                        System.out.println("Now you have " + count + " tasks in the list.");
+                        System.out.println("  " + list.get(list.size() - 1));
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        System.out.println(bar + "\n");
+                        break;
+
+                    case "delete":
+                        if (words.length < 2) {
+                            throw new LamaException("Please specify the number that wanted to delete!");
+                        }
+
+                        int n = Integer.parseInt(words[1]) - 1;
+                        if (Integer.parseInt(words[1]) > list.size() || Integer.parseInt(words[1]) <= 0) {
+                            throw new LamaException("Sorry, the number given exceed the bound of list");
+                        }
+
+                        Task removed = list.remove(n);
+                        System.out.println(bar);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + removed);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
                         System.out.println(bar + "\n");
                         break;
 
@@ -151,10 +165,8 @@ public class Lama {
                 System.out.println(e.getMessage());
                 System.out.println(bar + "\n");
             }
-
         }
 
-        scanner.close();
 
     }
 }
