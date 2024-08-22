@@ -9,13 +9,19 @@ public class Event extends Task {
         super(description);
     }
 
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
 
     private String getFrom() {return this.from;}
     private String getTo() {return this.to;}
 
     @Override
     public String toString() {
-        return String.format("[E] [%s] %s (from: %s to: %s)", this.getStatusIcon(), this.getDescription(),
+        return String.format("[E][%s] %s(from: %sto: %s)", this.getStatusIcon(), this.getDescription(),
                 this.getFrom(), this.getTo());
     }
 }

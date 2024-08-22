@@ -1,12 +1,13 @@
 package controllers.commands;
 
 import models.Task;
+import models.Event;
 import models.TaskList;
 
-public class AddTaskCommand implements Command {
-    private Task task;
+public class AddEventCommand implements Command {
+    private Event task;
 
-    public AddTaskCommand(Task task) {
+    public AddEventCommand(Event task) {
         this.task = task;
     }
 

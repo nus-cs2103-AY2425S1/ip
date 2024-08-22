@@ -1,12 +1,14 @@
 package controllers.commands;
 
 import models.Task;
+import models.Todo;
 import models.TaskList;
 
-public class AddTaskCommand implements Command {
-    private Task task;
+public class AddTodoCommand implements Command
+{
+    private Todo task;
 
-    public AddTaskCommand(Task task) {
+    public AddTodoCommand(Todo task) {
         this.task = task;
     }
 

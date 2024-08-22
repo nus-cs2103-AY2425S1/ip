@@ -4,6 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import controllers.commands.*;
 import models.Task;
+import models.Deadline;
+import models.Event;
+import models.Todo;
 
 public class InputParser {
 
@@ -21,6 +24,20 @@ public class InputParser {
             String[] parts = cmd.split(" ");
             int index = Integer.parseInt(parts[1]);
             return new UnmarkTaskCommand(index);
+        } else if (isTodoCommand(cmd)) {
+            Todo newTask = new Todo(cmd.substring(5));
+            return new AddTodoCommand(newTask);
+        } else if (isDeadlineCommand(cmd)) {
+            String description = extractStringBetweenTwoSubStrings(cmd, "deadline", "/by");
+            String by = extractStringFromSubstringToEnd(cmd, "/by");
+            Deadline deadline = new Deadline(description, by);
+            return new AddDeadlineCommand(deadline);
+        } else if (isEventCommand(cmd)) {
+            String description = extractStringBetweenTwoSubStrings(cmd, "event", "/from");
+            String from = extractStringBetweenTwoSubStrings(cmd, "/from", "/to");
+            String to = extractStringFromSubstringToEnd(cmd, "/to");
+            Event event = new Event(description, from, to);
+            return new AddEventCommand(event);
         } else {
             Task newTask = new Task(cmd);
             return new AddTaskCommand(newTask);
@@ -47,5 +64,32 @@ public class InputParser {
 
     private boolean isByeCommand(String command) {
         return command.equals("bye");
+    }
+
+    private boolean isTodoCommand(String command) {
+        String[] parts = command.split(" ");
+        return parts[0].equals("todo");
+    }
+
+    private boolean isDeadlineCommand(String command) {
+        String[] parts = command.split(" ");
+        return parts[0].equals("deadline");
+    }
+
+    private boolean isEventCommand(String command) {
+        String[] parts = command.split(" ");
+        return parts[0].equals("event");
+    }
+
+    private String extractStringBetweenTwoSubStrings(String command, String prefix, String byMarker) {
+        int taskStartIndex = command.indexOf(prefix) + prefix.length();
+        int byIndex = command.indexOf(byMarker);
+
+        return command.substring(taskStartIndex+1, byIndex);
+    }
+
+    private String extractStringFromSubstringToEnd(String command, String prefix) {
+        int taskStartIndex = command.indexOf(prefix) + prefix.length();
+        return command.substring(taskStartIndex+1);
     }
 }

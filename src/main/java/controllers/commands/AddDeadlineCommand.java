@@ -3,10 +3,10 @@ package controllers.commands;
 import models.Task;
 import models.TaskList;
 
-public class AddTaskCommand implements Command {
+public class AddDeadlineCommand implements Command {
     private Task task;
 
-    public AddTaskCommand(Task task) {
+    public AddDeadlineCommand(Task task) {
         this.task = task;
     }
 
