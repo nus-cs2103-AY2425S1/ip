@@ -31,6 +31,7 @@ public class Bill {
     private void addTask(Task newTask){
         userList.add(newTask);
         System.out.println("added: " + newTask);
+        System.out.println("Now you have " + userList.size() + " tasks in the list.");
     }
 
     private void handleMarkOfTask(String[] parsedInput) {
@@ -57,16 +58,73 @@ public class Bill {
         System.out.println(targetTask);
     }
 
+    private void handleToDo(String userCommand) {
+        // data validation
+        String[] parsedInput = userCommand.split(" ");
+        if (parsedInput.length < 2) {
+            System.out.println("Please provide a second argument for the todo");
+            return;
+        }
+        String trimmedUserCommand = userCommand.replaceFirst("todo", "").trim();
+        addTask(new ToDo(trimmedUserCommand));
+
+    }
+
+    private void handleDeadline(String userCommand){
+        // data validation
+        String[] parsedInput = userCommand.split(" ");
+        if (parsedInput.length < 4) {
+            System.out.println("4 Arguments needed minimum for deadline command, following the format: deadline <task> /by <date>, where <> suggest user input");
+            return;
+        }
+        if (!userCommand.contains(" /by ")) {
+            System.out.println("Missing /by, ensure to follow the format: deadline <task> /by <date> where <> suggest user input");
+            return;
+        }
+        // data parsing
+        // remove deadline, trim white spaces and delimit by /by
+        String[] trimmedUserCommand = userCommand.replaceFirst("deadline", "").trim().split(" /by ");
+        String deadlineDescription = trimmedUserCommand[0];
+        String deadlineBy = trimmedUserCommand[1];
+
+        addTask(new Deadline(deadlineDescription, deadlineBy));
+    }
+
+    private void handleEvent(String userCommand){
+        // data validation
+        String[] parsedInput = userCommand.split(" ");
+        if (parsedInput.length < 6) {
+            System.out.println("6 Arguments needed minimum for deadline command, following the format: event <task> /from <date1> /to <date2>, where <> suggest user input");
+            return;
+        }
+        if (!userCommand.contains(" /from ")) {
+            System.out.println("Missing /from, ensure to follow the format: event <task> /from <date1> /to <date2>, where <> suggest user input");
+            return;
+        }
+        if (!userCommand.contains(" /to ")) {
+            System.out.println("Missing /by, ensure to follow the format: event <task> /from <date1> /to <date2>, where <> suggest user input");
+            return;
+        }
+        // data parsing
+        // remove event, trim white spaces and delimit by /from and /to
+        String[] trimmedUserCommand = userCommand.replaceFirst("event", "").trim().split(" /from ");
+        String eventDescription = trimmedUserCommand[0];
+        String[] furtherTrimmedUserCommand = trimmedUserCommand[1].trim().split(" /to ");
+        String eventFrom = furtherTrimmedUserCommand[0];
+        String eventTo = furtherTrimmedUserCommand[1];
+
+        addTask(new Event(eventDescription, eventFrom, eventTo));
+    }
+
     public void start() {
         introduce();
         Scanner userScanner = new Scanner(System.in);
-        String userCommand = userScanner.nextLine();
+        // remove leading and trailing whitespaces
+        String userCommand = userScanner.nextLine().trim();
 
         while (!userCommand.equals("bye")) {
-
             String[] parsedInput = userCommand.split(" ");
             String route = parsedInput[0];
-
             switch (route) {
                 case "list":
                     showList();
@@ -75,11 +133,19 @@ public class Bill {
                 case "unmark":
                     handleMarkOfTask(parsedInput);
                     break;
+                case "todo":
+                    handleToDo(userCommand);
+                    break;
+                case "deadline":
+                    handleDeadline(userCommand);
+                    break;
+                case "event":
+                    handleEvent(userCommand);
+                    break;
                 default:
-                    addTask(new Task(userCommand));
+                    System.out.println("Not a recognised command, please try again");
                     break;
             }
-
             userCommand = userScanner.nextLine();
         }
         conclude();
