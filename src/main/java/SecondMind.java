@@ -24,8 +24,13 @@ public class SecondMind {
         if (taskType.equals("todo")) {
             taskInfo[0] = "";
             return new ToDoTask(String.join(" ", taskInfo));
-        } else {
-            System.out.println("Not todo");
+        } else if (taskType.equals("deadline")) {
+            taskInfo = task.split("/");
+            taskInfo = String.join(" ", taskInfo).split(" by ");
+            //Prefix of taskInfo[0] is "deadline "
+            String taskDescription = taskInfo[0].substring(9);
+            String taskDeadline = taskInfo[1];
+            return new DeadlineTask(taskDescription, taskDeadline);
         }
         return new Task(task);
     }
