@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class Pixy {
 
-    private List<Task> list = new ArrayList<>();
-    private String inputTask() {
+    private List<Task> list = new ArrayList<>(); // Array List to store the tasks
+    private String inputTask() {    // method to input tasks
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
         return sc.next();
     }
-    private void addToList(Task task) {
+    private void addToList(Task task) { // add to list method
         list.add(task);
         System.out.println("Got it. I've added this task:\n " + task);
         System.out.println("Now you have " + list.size() + " tasks in the list." +
@@ -23,10 +23,10 @@ public class Pixy {
             System.out.println((i + 1) + ". " + task.toString());
         }
     }
-    private boolean isValidTaskNumber(int index) {
+    private boolean isValidTaskNumber(int index) {  // method to check whether the task number is valid
         return index > 0 && index <= list.size();
     }
-    private void markTask(int taskNumber, boolean done) {
+    private void markTask(int taskNumber, boolean done) {   // method to mark or unmark the specified task
         if (isValidTaskNumber(taskNumber)) {
             Task task = list.get(taskNumber - 1);
             task.markAsDone(done);
@@ -36,7 +36,7 @@ public class Pixy {
             System.out.println("Invalid task number entered!Input again.");
         }
     }
-    public void run() {
+    public void run() { // method to execute all the commands inputted by user until bye encountered
         while (true) {
             String command = inputTask();
             System.out.println("____________________________________________________________\n");

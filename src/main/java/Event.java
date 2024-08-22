@@ -1,3 +1,4 @@
+// class for Tasks which are events
 public class Event extends Task{
     protected String from;
     protected String to;

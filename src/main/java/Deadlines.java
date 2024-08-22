@@ -1,3 +1,4 @@
+// class for Tasks with Deadlines
 public class Deadlines extends Task{
     protected String by;
     public Deadlines(String description, String by) {
