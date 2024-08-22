@@ -92,6 +92,9 @@ public class Waterfall {
                                 }
                                 newTask = new ToDo(title);
                             } else if (nextInput.startsWith("deadline ")) {
+                                if (!nextInput.contains("/")) {
+                                    throw new WaterfallException("oh man where's your deadline!");
+                                }
                                 int index = nextInput.indexOf("/");
                                 String title = nextInput.substring(9, index);
                                 if (title.isEmpty()) {
