@@ -4,6 +4,10 @@ import tasks.Event;
 import tasks.Todo;
 import java.util.Scanner;
 
+import exceptions.DeadlineUsageException;
+import exceptions.EventUsageException;
+import exceptions.TodoUsageException;
+
 public class Duck {
     private static final String CHATBOT_NAME = "Duck";
     private static final String TEXT_SEPARATOR = "____________________________________________________________";
@@ -96,21 +100,34 @@ public class Duck {
                 }
 
                 // Tasks
+                // TODO: Reduce duplicate code
                 else if (Command.TODO.equalsName(command)) {
                     String taskPart = lineBuffer.getRemainingLine();
-                    Task task = new Todo(taskPart);
-                    handleNewTask(task);
+                    try {
+                        Task task = new Todo(taskPart);
+                        handleNewTask(task);
+                    } catch (TodoUsageException e) {
+                        printAsResponse(e.toString());
+                    }
                 } else if (Command.DEADLINE.equalsName(command)) {
                     String taskPart = lineBuffer.getUntilAndRemovePattern("/by");
                     String deadlinePart = lineBuffer.getRemainingLine();
-                    Task task = new Deadline(taskPart, deadlinePart);
-                    handleNewTask(task);
+                    try {
+                        Task task = new Deadline(taskPart, deadlinePart);
+                        handleNewTask(task);
+                    } catch (DeadlineUsageException e) {
+                        printAsResponse(e.toString());
+                    }
                 } else if (Command.EVENT.equalsName(command)) {
                     String taskPart = lineBuffer.getUntilAndRemovePattern("/from");
                     String fromPart = lineBuffer.getUntilAndRemovePattern("/to");
                     String toPart = lineBuffer.getRemainingLine();
-                    Task task = new Event(taskPart, fromPart, toPart);
-                    handleNewTask(task);
+                    try {
+                        Task task = new Event(taskPart, fromPart, toPart);
+                        handleNewTask(task);
+                    } catch (EventUsageException e) {
+                        printAsResponse(e.toString());
+                    }
                 } else {
                     printAsResponse("Oops, I do not understand you.");
                 }

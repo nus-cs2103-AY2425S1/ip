@@ -29,7 +29,7 @@ public class CommandBuffer {
      * @return the next token
      */
     public String peekToken() {
-        if (token == null) {
+        if (token == null && st.hasMoreTokens()) {
             token = st.nextToken();
         }
         return token;

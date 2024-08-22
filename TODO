@@ -1,3 +1,5 @@
 - Add the terminal cursor
-- "tasks" is printed even when there is only 1 task
+- "tasks" is printed instead of "task" even when there is only 1 task
 - Remove reader class if it is not needed
+- Add tests for exceptions
+- Handle more exceptions
