@@ -2,6 +2,41 @@ import java.util.Scanner;
 public class Bottle {
     final static String lineBreak = "\n____________________________________________________________\n";
     static class Task {
+        static class Todo extends Task {
+            public Todo(String desc) {
+                super(desc);
+            }
+            @Override
+            public String toString() {
+                return "[T]" + super.toString();
+            }
+        }
+        static class Deadline extends Task {
+            protected String by;
+
+            public Deadline(String description, String by) {
+                super(description);
+                this.by = by;
+            }
+
+            @Override
+            public String toString() {
+                return "[D]" + super.toString() + " (by: " + by + ")";
+            }
+        }
+        static class Event extends Task {
+            protected String from;
+            protected String to;
+            public Event(String desc, String from, String to) {
+                super(desc);
+                this.from = from;
+                this.to = to;
+            }
+            @Override
+            public String toString() {
+                return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+            }
+        }
         private boolean isChecked;
         private String taskDesc;
 
@@ -64,6 +99,38 @@ public class Bottle {
                     String msg = "OK, I've marked this task as not done yet:\n";
                     printwithBreak(msg + task);
                 }
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                taskList[taskCount] = new Task.Todo(description);
+                taskCount++;
+                System.out.print(lineBreak);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + taskList[taskCount - 1].toString());
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println(lineBreak);
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                taskList[taskCount] = new Task.Deadline(description, by);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + taskList[taskCount - 1].toString());
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                taskList[taskCount] = new Task.Event(description, from, to);
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + taskList[taskCount - 1].toString());
+                System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
             } else {
                 taskList[taskCount] = new Task(input);
                 taskCount++;
