@@ -2,6 +2,7 @@ import tasks.Task;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
+import java.util.Scanner;
 
 public class Duck {
     private static final String CHATBOT_NAME = "Duck";
@@ -40,6 +41,7 @@ public class Duck {
 
     private static void printAsResponse(String text) {
         System.out.println(formatAsResponse(text));
+        System.out.println("");
     }
 
     private static void handleNewTask(Task task) {
@@ -52,15 +54,14 @@ public class Duck {
 
     public static void main(String[] args) {
         // Start scanner
-        Reader reader = new Reader(System.in);
+        Scanner sc = new Scanner(System.in);
 
         // Print greeting
         printAsResponse(GREETING);
 
         // User input loop
         while (true) {
-            System.out.println("");
-            String line = reader.getWholeLine();
+            String line = sc.nextLine();
             CommandBuffer lineBuffer = new CommandBuffer(line);
 
             // "bye" and "list" will only work if they are the only word in the line
@@ -117,6 +118,6 @@ public class Duck {
         }
 
         // Close Scanner
-        reader.close();
+        sc.close();
     }
 }
