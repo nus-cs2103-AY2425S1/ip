@@ -204,6 +204,9 @@ public class TheOrangeRatchetCat {
         String fromDate = dateParts[0].trim();
         // The "toDate" is the second part
         String toDate = dateParts.length > 1 ? dateParts[1].trim() : "";
+        if (toDate.isEmpty()) {
+            throw new TheOrangeRatchetCatException("You need to specify an end time!");
+        }
         Task nextTask = new Event(taskDescription, fromDate, toDate);
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
