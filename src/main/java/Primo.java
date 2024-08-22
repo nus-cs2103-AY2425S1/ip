@@ -15,19 +15,32 @@ public class Primo {
     }
 
     private static void sayBye() {
-        String byeMessage = "\nEl Primo: \n" +
+        String byeMessage = "\nEl Primo:\n" +
                             "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
         ended = true;
     }
 
     public static void assessInput(String input) {
+        String[] words = input.split(" ");
         if (input.equals("bye")) {
             sayBye();
         } else if (input.equals("list")) {
-            System.out.println("\nEl Primo: ");
+            System.out.println("\nEl Primo:");
             System.out.println("Here are the tasks in your list:");
             printList();
+        } else if (words[0].equals("mark")) {
+            int index = Integer.valueOf(words[1]) - 1;
+            list.get(index).markAsDone();
+            System.out.println("\nEl Primo:");
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(list.get(index));
+        } else if (words[0].equals("unmark")) {
+            int index = Integer.valueOf(words[1]) - 1;
+            list.get(index).markAsUndone();
+            System.out.println("\nEl Primo:");
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(list.get(index));
         } else {
             Task newTask = new Task(input);
             list.add(newTask);
@@ -36,7 +49,7 @@ public class Primo {
         }
     }
     public static void readInput() {
-        System.out.println("\nMe: ");
+        System.out.println("\nMe:");
         String input = scanner.nextLine();
         assessInput(input);
     }
