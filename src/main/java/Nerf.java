@@ -15,6 +15,7 @@ public class Nerf {
                                        """;
 
     private static final List<Task> listings = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         greetings();
@@ -108,7 +109,7 @@ public class Nerf {
     }
 
     private static String userInput(){
-        Scanner scanner = new Scanner(System.in);
+        
         String res = scanner.nextLine();
         printDivider();
         return res;
