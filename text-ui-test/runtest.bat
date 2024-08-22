@@ -18,4 +18,13 @@ REM run the program, feed commands from input.txt file and redirect the output t
 java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+FC /W ACTUAL.TXT EXPECTED.TXT
+
+FC /W ACTUAL.TXT EXPECTED.TXT > nul
+IF ERRORLEVEL 1 (
+    echo Test result: FAILED
+    exit /b 1
+) else (
+    echo Test result: PASSED
+    exit /b 0
+)

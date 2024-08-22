@@ -72,7 +72,9 @@ public class Duke {
                 counter += 1;
             } else if (instr.equals("event")) {
                 String[] getTime = getInstr[1].split(" /", 3);
-                Task task = new Event(getTime[0], getTime[1], getTime[2]);
+                String[] from = getTime[1].split(" ",2);
+                String[] to = getTime[2].split(" ",2);
+                Task task = new Event(getTime[0], from[1], to[1]);
                 toDoList.add(task);
                 System.out.println("Got it. I've added this task: ");
                 System.out.println(task.toString());
