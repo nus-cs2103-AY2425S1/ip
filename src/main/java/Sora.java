@@ -18,8 +18,12 @@ public class Sora {
                 displayList(taskList);
             } else if (command[0].equalsIgnoreCase("mark") && command.length == 2) {
                 taskList.get(Integer.parseInt(command[1]) - 1).setDone(true);
+                System.out.println("\tNice! Sora has marked this task as done:");
+                System.out.println("\t" + taskList.get(Integer.parseInt(command[1]) - 1));
             } else if (command[0].equalsIgnoreCase("unmark")) {
                 taskList.get(Integer.parseInt(command[1]) - 1).setDone(false);
+                System.out.println("\tOk, Sora has unmarked this task as not done:");
+                System.out.println("\t" + taskList.get(Integer.parseInt(command[1]) - 1));
             } else {
                 String description = command[0] + (command.length == 2 ? " " + command[1] : "");
                 taskList.add(new Task(description));
