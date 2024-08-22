@@ -46,7 +46,10 @@ public class KukiShinobu {
                         // argument is task index
                         this.unmarkAsDone(arguments);
                         break;
-                    // TODO: Add cases for todo, deadline and event
+                    case "delete":
+                        // argument is task index
+                        this.deleteTask(arguments);
+                        break;
                     case "todo":
                         // argument is desc, pass desc in
                         this.addTodo(arguments);
@@ -80,17 +83,29 @@ public class KukiShinobu {
     }
 
     private void markAsDone(String indexString) {
-        int i = Integer.parseInt((indexString));
-        this.tasks.get(i - 1).markAsDone();
+        int i = Integer.parseInt((indexString)) - 1;
+        this.tasks.get(i).markAsDone();
     }
 
     private void unmarkAsDone(String indexString) {
-        int i = Integer.parseInt((indexString));
-        this.tasks.get(i - 1).unmarkAsDone();
+        int i = Integer.parseInt((indexString)) - 1;
+        this.tasks.get(i).unmarkAsDone();
+    }
+
+    private void deleteTask(String indexString) {
+        int i = Integer.parseInt((indexString)) - 1;
+        Task deletedTask = this.tasks.remove(i);
+        printDeletedTaskSummary(deletedTask);
     }
 
     private void printAddedTaskSummary(Task task) {
         System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+    }
+
+    private void printDeletedTaskSummary(Task task) {
+        System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
