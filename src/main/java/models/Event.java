@@ -1,4 +1,6 @@
-public class Todo extends Task {
+package models;
+
+public class Event extends Task {
 
     private String from;
     private String to;
@@ -7,10 +9,6 @@ public class Todo extends Task {
         super(description);
     }
 
-    public Deadline(String description, String from, String to) {
-        super(description);
-        this.by = by;
-    }
 
     private String getFrom() {return this.from;}
     private String getTo() {return this.to;}

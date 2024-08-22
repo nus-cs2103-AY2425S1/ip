@@ -1,4 +1,6 @@
-public abstract class Task {
+package models;
+
+public class Task {
     protected String description;
     protected boolean isDone;
 
