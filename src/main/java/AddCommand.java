@@ -1,4 +1,4 @@
-public class AddCommand implements Command<TaskList>{
+public class AddCommand implements Command {
     private final Task task;
 
     public AddCommand(Task task) {
@@ -8,5 +8,6 @@ public class AddCommand implements Command<TaskList>{
     @Override
     public void execute(TaskList tasks, Ui ui) {
         tasks.addTask(task);
+        ui.displayAddedTask(task);
     }
 }
