@@ -10,4 +10,11 @@ mark 3
 list
 unmark 2
 list
+todo
+deadline
+deadline problem set 2
+event
+event kurt tay's party
+mark 30
+mark THISISNOTANUMBER
 bye
