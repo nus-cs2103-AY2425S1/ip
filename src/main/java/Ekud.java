@@ -78,7 +78,7 @@ public class Ekud {
                 """
                         Wowie!! You've completed your task!
                         I shall mark it as complete in celebration!
-                                %s
+                          %s
                         Woohoo!! Only %d more to go!""",
                 tasks.getTask(listIndex),
                 tasks.getIncompleteCount());
