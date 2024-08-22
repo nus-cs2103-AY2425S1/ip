@@ -26,16 +26,6 @@ public class Task {
             box = "[ ]";
         }
 
-        return String.format("%d.%s %s", this.taskNumber, box, this.taskName);
-    }
-
-    public String stringForMark() {
-        String box = "";
-        if (this.taskCompletionStatus) {
-            box = "[X]";
-        } else {
-            box = "[ ]";
-        }
         return String.format("%s %s", box, this.taskName);
     }
 }
