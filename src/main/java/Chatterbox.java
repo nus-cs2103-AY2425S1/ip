@@ -10,9 +10,10 @@ public class Chatterbox {
                 """;
         System.out.println(welcomeMessage);
         StoredList l1 = new StoredList(100);
+        Scanner sc = new Scanner(System.in);
         boolean done = false;
         while (!done) {
-            String[] command = readInput().split(" ", 2);
+            String[] command = sc.nextLine().split(" ", 2);
             if (command[0].equals("bye")) {
                 String byeMessage = """
                 ____________________________________________________________
@@ -24,12 +25,12 @@ public class Chatterbox {
             } else if (command[0].equals("list")) {
                 System.out.println("____________________________________________________________");
                 int len = l1.getSize();
-                for (int i = 0; i < len; i++) {
-                    System.out.println(i + ". " + l1.getItem(i));
+                for (int i = 1; i < len + 1; i++) {
+                    System.out.println(i + ". " + l1.getItem(i-1));
                 }
-                System.out.println("______________________________________________________________");
+                System.out.println("____________________________________________________________");
             } else if (command[0].contains("mark")) {
-                int taskNum = Integer.parseInt(command[1]);
+                int taskNum = Integer.parseInt(command[1]) - 1;
                 l1.getItem(taskNum).setCompleted(command[0].equals("mark"));
             } else if (command[0].equals("todo")) {
                 l1.addItem(new ToDos(command[1]));
@@ -48,10 +49,5 @@ public class Chatterbox {
                 l1.addItem(new Task(command[1]));
             }
         }
-    }
-
-    public static String readInput() {
-        Scanner scan  = new Scanner(System.in);
-        return scan.nextLine();
     }
 }
