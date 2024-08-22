@@ -5,7 +5,7 @@ public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
     private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
-    private static ArrayList<Task> taskList = new ArrayList<>(100);
+    private static final ArrayList<Task> taskList = new ArrayList<>(100);
 
     private static class Task {
         private final String TASK_NAME;
@@ -32,6 +32,19 @@ public class MrYapper {
         say( "added: " + name);
     }
 
+    private static void listTask() {
+        int listSize = taskList.size();
+        String listInString = "";
+        for (int i = 0; i < listSize; i += 1) {
+            String taskString = String.format(" %d. %s", i + 1, taskList.get(i));
+            listInString += taskString;
+            if (i < listSize - 1) {
+                listInString += "\n";
+            }
+        }
+        say(listInString);
+    }
+
     public static void main(String[] args) {
         say(GREETING_MESSAGE);
         boolean conversationIsOngoing = true;
@@ -44,6 +57,8 @@ public class MrYapper {
                 conversationIsOngoing = false;
                 userInputReader.close();
                 say(GOODBYE_MESSAGE);
+            } else if (userInput.equals("list")) {
+                listTask();
             } else {
                 addTask(userInput);
             }
