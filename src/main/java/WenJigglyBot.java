@@ -47,6 +47,10 @@ public class WenJigglyBot {
                     }
                 } else if (task.equals("bye")) {
                     break;
+                } else if (task.contains("delete")) {
+                    String[] strings = task.split(" ");
+                    int idx = Integer.parseInt(strings[1].trim()) - 1;
+                    deleteTask(idx);
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -83,6 +87,19 @@ public class WenJigglyBot {
             throw new DeadlineException();
         }
         return parts;
+    }
+
+    private static void deleteTask(int idx) {
+        if (idx < 0 || idx > tasks.size() - 1) {
+            System.out.println("You entered an invalid index you fool!");
+            return;
+        }
+        System.out.println("____________________________________________________________");
+        System.out.println("\tRemoving this task!");
+        System.out.println("\t\t" + tasks.get(idx));
+        tasks.remove(idx);
+        System.out.println("\tYou now have " + tasks.size() + " tasks");
+        System.out.println("____________________________________________________________");
     }
 
     private static void toggleTask(String action, int idx) {
