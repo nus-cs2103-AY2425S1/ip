@@ -19,6 +19,9 @@ public class WenJigglyBot {
                 String action = strings[0];
                 int idx = Integer.parseInt(strings[1]) - 1;
                 toggleTask(action, idx);
+            } else if (task.contains("todo")) {
+                String taskName = task.replaceFirst("todo", "").trim();
+                addTask(new ToDoTask(taskName));
             } else {
                 addTask(new Task(task));
             }
@@ -42,9 +45,11 @@ public class WenJigglyBot {
     private static void addTask(Task task) {
         tasks.add(task);
         System.out.printf("\tadded: %s\n", task.getDescription());
+        System.out.printf("You now have %d tasks!\n", tasks.size());
     }
 
     private static void displayTasks() {
+        System.out.println("Here are your tasks :)");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("\t%d. %s%n", i+1, tasks.get(i).toString());
         }
