@@ -53,11 +53,41 @@ public class EchoBot {
                     }
                     break;
                 }
-                default:
-                    tasks[taskCount] = new Task(userInput);
+                case "todo": {
+                    tasks[taskCount] = new Todo(inputParts[1]);
                     taskCount++;
                     System.out.println("____________________________________________________________");
-                    System.out.println(" added: " + userInput);
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskCount - 1]);
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                    break;
+                }
+                case "deadline": {
+                    String[] details = inputParts[1].split(" /by ");
+                    tasks[taskCount] = new Deadline(details[0], details[1]);
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskCount - 1]);
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                    break;
+                }
+                case "event": {
+                    String[] details = inputParts[1].split(" /from | /to ");
+                    tasks[taskCount] = new Event(details[0], details[1], details[2]);
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskCount - 1]);
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                    break;
+                }
+                default:
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" I'm sorry, I don't recognize that command.");
                     System.out.println("____________________________________________________________");
                     break;
             }
