@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
@@ -7,6 +8,10 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, TaskType.DEADLINE, isDone);
         this.by = by; // store the deadline
+    }
+
+    public LocalDateTime getBy() {
+        return by;
     }
 
     @Override

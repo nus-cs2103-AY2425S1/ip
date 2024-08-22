@@ -7,8 +7,17 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, TaskType.EVENT, isDone);
-        this.from = from; // store the start time
+        // store the start time
+        this.from = from;
         this.to = to; // store the end time
+    }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
     }
 
     @Override

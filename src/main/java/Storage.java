@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private String filePath;
@@ -28,12 +30,12 @@ public class Storage {
                         tasks.add(new Todo(description, isDone));
                         break; // Add a new Todos object to the list
                     case "D":
-                        String by = parts[3];
+                        LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                         tasks.add(new Deadline(description, by, isDone));
                         break; // Add a new Deadline object to the list
                     case "E":
-                        String from = parts[3];
-                        String to = parts[4];
+                        LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                        LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                         tasks.add(new Event(description, from, to, isDone));
                         break; // Add a new Event object to the list
                     default:

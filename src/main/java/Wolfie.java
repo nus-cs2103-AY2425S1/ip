@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Wolfie {
     private static Storage storage;
@@ -81,28 +83,18 @@ public class Wolfie {
                         throw new WolfieException("The description of a todo cannot be empty.");
                     }
                     tasks.add(new Todo(description, false)); // create a new task and add it to the list
-                    saveTasks();
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it! I've added this task:");
-                    System.out.println("   " + tasks.get(tasks.size() - 1)); // print the task
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                    // print the number of tasks
-                    System.out.println("____________________________________________________________");
+                    printTasksAdded();
                 } else if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(9).split(" /by "); // split by " /by "
                     if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
                         throw new WolfieException("The description and deadline of a deadline task cannot be empty.");
                     }
                     String description = parts[0].trim(); // description is before " /by "
-                    String by = parts[1].trim(); // by is after " /by "
-                    tasks.add(new Deadline(description, by, false)); // create a new deadline task and add it to the list
-                    saveTasks();
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it! I've added this task:");
-                    System.out.println("   " + tasks.get(tasks.size() - 1)); // print the task
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                    // print the number of tasks
-                    System.out.println("____________________________________________________________");
+                    LocalDateTime by = LocalDateTime.parse(parts[1].trim(),
+                                        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")); // parse the date and time
+                    tasks.add(new Deadline(description, by, false));
+                    // create a new deadline task and add it to the list
+                    printTasksAdded();
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
                     // split by " /from " or " /to "
@@ -110,16 +102,12 @@ public class Wolfie {
                         throw new WolfieException("The description, start time, and end time of an event cannot be empty.");
                     }
                     String description = parts[0].trim(); // description is before " /from "
-                    String from = parts[1].trim(); // from is after " /from " and before " /to "
-                    String to = parts[2].trim(); // to is after " /to "
+                    LocalDateTime from = LocalDateTime.parse(parts[1].trim(),
+                                        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")); // parse the start date and time
+                    LocalDateTime to = LocalDateTime.parse(parts[2].trim(),
+                                        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")); // parse the end date and time
                     tasks.add(new Event(description, from, to, false)); // create a new event and add it to the list
-                    saveTasks();
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it! I've added this task:");
-                    System.out.println("   " + tasks.get(tasks.size() - 1)); // print the task
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                    // print the number of tasks
-                    System.out.println("____________________________________________________________");
+                    printTasksAdded();
                 } else if (input.startsWith("delete ")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1; // get the task index
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
@@ -134,6 +122,22 @@ public class Wolfie {
                     } else {
                         throw new WolfieException("Invalid task number. Please use existing numbers and not the description.");
                     }
+                } else if (input.startsWith("on ")) {
+                    LocalDateTime date = LocalDateTime.parse(input.substring(3).trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Here are the tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+                    for (Task task : tasks) {
+                        if (task instanceof Deadline
+                                && ((Deadline) task).getBy().toLocalDate().equals(date.toLocalDate())) {
+                            System.out.println("   " + task);
+                        } else if (task instanceof Event
+                                && (((Event) task).getFrom().toLocalDate().equals(date.toLocalDate())
+                                    || ((Event) task).getTo().toLocalDate().equals(date.toLocalDate()))) {
+                            System.out.println("   " + task);
+                        }
+                    }
+                    System.out.println("____________________________________________________________");
+
                 } else {
                     throw new WolfieException("I'm sorry Dean's Lister, but I don't know what that means :-(");
                 }
@@ -158,5 +162,15 @@ public class Wolfie {
             System.out.println(" OOPS!!! Error saving tasks: " + e.getMessage());
             System.out.println("____________________________________________________________");
         }
+    }
+
+    private static void printTasksAdded() {
+        saveTasks();
+        System.out.println("____________________________________________________________");
+        System.out.println(" Got it! I've added this task:");
+        System.out.println("   " + tasks.get(tasks.size() - 1)); // print the task
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        // print the number of tasks
+        System.out.println("____________________________________________________________");
     }
 }

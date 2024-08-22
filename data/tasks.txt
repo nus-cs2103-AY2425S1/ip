@@ -1,4 +1,2 @@
-T | 1 | borrow book
-D | 0 | finish iP project | Week 3
-T | 0 | finish 2100 quizzes
-E | 0 | Laufey Concert | Sept 5 8pm | Sept 5 10pm
+T | 0 | borrow book
+D | 0 | Finish Project | 2024-12-01T18:00:00
