@@ -9,6 +9,8 @@ public class Moody {
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
+        String[] userList = new String[100];
+        int taskCount = 0;
 
         while (true) {
             userInput = scanner.nextLine();
@@ -17,8 +19,20 @@ public class Moody {
                         + "Bye. Hope to see you again soon!\n"
                         + spacer);
                 break;
+            } else if (userInput.equals("list")){
+                System.out.print(spacer);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + userList[i]);
+                }
+                System.out.println(spacer);
             } else {
-                System.out.println(spacer + userInput + "\n" + spacer);
+                userList[taskCount] = userInput;
+                taskCount++;
+                System.out.println(spacer
+                        + "added: "
+                        + userInput
+                        + "\n"
+                        + spacer);
             }
         }
     }
