@@ -56,7 +56,7 @@ public class Sage {
                 String description = fullCommand[1].trim();
                 if (description.isEmpty())
                     throw new SageException("Invalid todo command. Please include a description.");
-                
+
                 tasksList.add(new ToDo(description));
                 addedTextBox();
 
@@ -82,6 +82,23 @@ public class Sage {
 
                 tasksList.add(new Event(description, from, to));
                 addedTextBox();
+
+            } else if (command.equals("delete") && fullCommand.length > 1) {
+                int index;
+                try {
+                    index = Integer.parseInt(fullCommand[1].trim()) - 1;
+                } catch (NumberFormatException e) {
+                    throw new SageException("Invalid delete command. Index must be a number.");
+                }
+
+                if (index < 0 || index >= tasksList.size()) {
+                    throw new SageException("Invalid index. Please try again.");
+                }
+
+                Task deletedTask = tasksList.get(index);
+                tasksList.remove(index);
+                int noOfTasks = tasksList.size();
+                textBox(String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", deletedTask, noOfTasks));
 
             } else {
                 throw new SageException("Invalid command.");
