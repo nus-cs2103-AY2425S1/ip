@@ -1,0 +1,9 @@
+todo first task
+event second task /from Today /to Tomorrow
+mark 2
+list
+deadline third task /by Today
+mark 3
+unmark 2
+list
+bye
