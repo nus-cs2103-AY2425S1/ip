@@ -69,6 +69,14 @@ public class DGPT {
                             "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
                 }
             }
+            case "delete" -> {
+                if (parts.length == 2) {
+                    deleteTask(Integer.parseInt(parts[1]) - 1);
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have only 1 number after your request. " +
+                            "(e.g. \"delete 1\")");
+                }
+            }
             default -> throw new TaskNotFoundException("OOPS!!! I do not recognise that request. These are the " +
                     "following requests that are supported:\n" +
                     "-list\n" +
@@ -77,6 +85,7 @@ public class DGPT {
                     "-todo\n" +
                     "-deadline\n" +
                     "-event\n" +
+                    "-delete\n" +
                     "-bye");
         }
     }
@@ -137,6 +146,15 @@ public class DGPT {
         System.out.println("-----------------------");
         System.out.println("DGPT> OK, I've marked this task as not done yet:");
         System.out.println(this.list.get(index).toString());
+        System.out.println("-----------------------");
+    }
+
+    private void deleteTask(int index) {
+        System.out.println("-----------------------");
+        System.out.println("DGPT> OK, I've removed this task from the list:");
+        System.out.println(this.list.get(index).toString());
+        this.list.remove(index);
+        System.out.printf("Now you have %d tasks in the list.%n", this.list.size());
         System.out.println("-----------------------");
     }
 
