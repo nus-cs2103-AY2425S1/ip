@@ -9,6 +9,8 @@ public class Bigmouth {
 //        System.out.println("Hello from\n" + logo);
         Scanner scanner = new Scanner(System.in);
         String userInput;
+        String[] tasks = new String[100];
+        int taskCount = 0;
 
         // Introduction
         System.out.println("____________________________________________________________");
@@ -27,15 +29,23 @@ public class Bigmouth {
                 break;
             }
 
-            // Echo the user's input
-            System.out.println("____________________________________________________________");
-            System.out.println(" " + userInput);
-            System.out.println("____________________________________________________________");
+            // List all stored tasks if the user types "list"
+            if (userInput.equals("list")) {
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                // Store the task and acknowledge it
+                tasks[taskCount] = userInput;
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + userInput);
+                System.out.println("____________________________________________________________");
+            }
         }
 
         scanner.close();
-
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
     }
 }
