@@ -24,6 +24,16 @@ public class Parser {
             taskList.addItem(new Deadline(description, by));
             FormattedPrint.addTask(description, taskList.getSize());
 
+        } else if (input.toLowerCase().startsWith("event")) {
+
+            // GitHub Copilot suggested the following code snippet
+            String description = input.split(" ", 2)[1].split(" /from ")[0];
+            // from is between /from and /to
+            String from = input.split(" /from ")[1].split(" /to ")[0];
+            String to = input.split(" /to ")[1];
+            taskList.addItem(new Event(description, from, to));
+            FormattedPrint.addTask(description, taskList.getSize());
+
         } else if (input.toLowerCase().startsWith("todo")) {
             String description = input.split(" ", 2)[1];
             taskList.addItem(new Todo(description));
