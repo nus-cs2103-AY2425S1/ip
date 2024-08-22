@@ -54,6 +54,11 @@ public class James {
                     tasks.add(task);
                     System.out.println("Task added:" + "\n" + task.printTask());
                     System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                } else if (words[0].equalsIgnoreCase("delete")) {
+                    int taskNum = Integer.parseInt(command.substring(command.length() - 1));
+                    System.out.println("Task removed:" + "\n" + tasks.get(taskNum - 1).printTask());
+                    tasks.remove(taskNum - 1);
+                    System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
                 } else {
                     throw new CommandNotFoundException("Sorry! I don't understand what you mean by (" + command +
                             ") please try a different command!");
