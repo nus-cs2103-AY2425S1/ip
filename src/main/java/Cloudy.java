@@ -54,13 +54,19 @@ public class Cloudy {
                             System.out.println("____________________________________________________________");
 
                         } else {
-                            System.out.println("Invalid task number.");
+                            System.out.println("____________________________________________________________");
+                            System.out.println("This task does not exist. Try again.");
+                            System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
+                        System.out.println("____________________________________________________________");
                         System.out.println("Please enter a valid task number.");
+                        System.out.println("____________________________________________________________");
                     }
                 } else {
+                    System.out.println("____________________________________________________________");
                     System.out.println("Invalid format.");
+                    System.out.println("____________________________________________________________");
                 }
 
                 // prompt for input
@@ -82,10 +88,14 @@ public class Cloudy {
                         System.out.println("____________________________________________________________");
 
                     } else {
+                        System.out.println("____________________________________________________________");
                         System.out.println("Invalid task number.");
+                        System.out.println("____________________________________________________________");
                     }
                 } else {
+                    System.out.println("____________________________________________________________");
                     System.out.println("Invalid format.");
+                    System.out.println("____________________________________________________________");
                 }
 
                 // prompt for input
@@ -94,12 +104,17 @@ public class Cloudy {
 
             } else if (userInput.startsWith("todo")) {
                 System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                String taskDescription = userInput.substring(5);
-                Task newTask = new Todo(taskDescription);
-                userList.add(newTask);
-                System.out.println(newTask.printTaskOnList());
-                System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                if (userInput.trim().length() <= 4) {
+                    System.out.println("No task detected.");
+                } else {
+                    String taskDescription = userInput.substring(5).trim();
+                    Task newTask = new Todo(taskDescription);
+                    userList.add(newTask);
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask.printTaskOnList());
+                    System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                }
                 System.out.println("____________________________________________________________");
 
                 // prompt for input
