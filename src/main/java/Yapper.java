@@ -47,9 +47,38 @@ public class Yapper {
         {
             addEvent(command);
         }
+        else if (command.startsWith("delete"))
+        {
+            deleteTask(command);
+        }
         else
         {
             throw new YapperException("Yapper don't know this command :(");
+        }
+    }
+
+    public static void deleteTask(String command)
+    {
+        String input = command.substring(7);
+        if (input.isEmpty())
+        {
+            throw new YapperException("Task Number cannot be empty!");
+        }
+
+        int order = Integer.parseInt(input);
+        if (order <= 0)
+        {
+            throw new YapperException("Task Number cannot be less than 1!");
+        }
+        else if (order > listOfTask.size())
+        {
+            throw new YapperException("Task Number cannot be more than size of list!");
+        }
+        else {
+            Task task = listOfTask.get(order - 1);
+            listOfTask.remove(order - 1);
+            System.out.println("Noted. I've removed this task: \n" +
+                    task + "\nNow you have " + listOfTask.size() + " tasks in the list");;
         }
     }
 
