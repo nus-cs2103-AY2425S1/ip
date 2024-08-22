@@ -5,9 +5,7 @@ import java.util.ArrayList;
  * This is a chatbot class named Bob.
  */
 public class Bob {
-    // Stores all user inputs.
     private ArrayList<Task> records;
-    // Keeps the count of the number of user inputs stored.
     private int counter;
 
     /**
@@ -44,10 +42,10 @@ public class Bob {
                 continue;
             }
             //Print array loop
-            System.out.println("Current words in inputWords");
-            for (String x : inputWords) {
-                System.out.println(x);
-            }
+//            System.out.println("Current words in inputWords");
+//            for (String x : inputWords) {
+//                System.out.println(x);
+//            }
 
             if (inputWords[0].equals("mark")) {
                 if (inputWords.length == 1) {
@@ -66,8 +64,8 @@ public class Bob {
                     input = input.trim();
                     continue;
                 } else {
-                    String currDescription = bob.records.get(Integer.parseInt(inputWords[1]) - 1).getDescription();
-                    bob.markRecord(Integer.parseInt(inputWords[1]) - 1, true, currDescription);
+                    Task currTask = bob.records.get(Integer.parseInt(inputWords[1]) - 1);
+                    currTask.markTask(true);
                     input = scanner.nextLine();
                     input = input.trim();
                     continue;
@@ -90,8 +88,8 @@ public class Bob {
                     input = input.trim();
                     continue;
                 } else {
-                    String currDescription = bob.records.get(Integer.parseInt(inputWords[1]) - 1).getDescription();
-                    bob.markRecord(Integer.parseInt(inputWords[1]) - 1, false, currDescription);
+                    Task currTask = bob.records.get(Integer.parseInt(inputWords[1]) - 1);
+                    currTask.markTask(false);
                     input = scanner.nextLine();
                     input = input.trim();
                     continue;
@@ -102,10 +100,10 @@ public class Bob {
             Task newTask = new Task(input);
             bob.records.add(bob.getCounter(), newTask);
 
-            System.out.println("Current tasks in records");
-            for (Task x : bob.records) {
-                System.out.println(x.getDescription());
-            }
+//            System.out.println("Current tasks in records");
+//            for (Task x : bob.records) {
+//                System.out.println(x.getDescription());
+//            }
 
             bob.setCounter(bob.getCounter() + 1);
             input = scanner.nextLine();
@@ -149,27 +147,11 @@ public class Bob {
             int num = i + 1;
             Task currTask = records.get(i);
             if (num == records.size()) {
-                allRecords += num + ".[" + currTask.getStatusIcon() + "] " + currTask.getDescription();
+                allRecords += num + "." + currTask.getTaskListItem();
             } else {
-                allRecords += num + ".[" + currTask.getStatusIcon() + "] " + currTask.getDescription() + "\n\t";
+                allRecords += num + "." + currTask.getTaskListItem() + "\n\t";
             }
         }
         Bob.printLines(allRecords);
-    }
-
-    /**
-     * Marks the record based on the task.
-     * @param index Arraylist index of the task in the records.
-     * @param isDone Whether task is completed.
-     * @param taskDescription Description of task.
-     */
-    public void markRecord(int index, Boolean isDone, String taskDescription) {
-        try {
-            Task currTask = records.get(index);
-            String toPrint = currTask.markTask(isDone, taskDescription);
-            Bob.printLines(toPrint);
-        } catch(Exception e) {
-            System.out.println("Invalid marking");
-        }
     }
 }
