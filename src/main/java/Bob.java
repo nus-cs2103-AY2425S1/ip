@@ -55,6 +55,15 @@ public class Bob {
                         myTasks.add(newEvent(scanner.nextLine().trim()));
                         System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
                         break;
+                    case "delete":
+                        int inde = scanner.nextInt() - 1;
+                        if (!(inde < myTasks.size()) || inde < 0) {
+                            throw new InvalidTaskNumberException();
+                        }
+                        Task delTask = myTasks.remove(inde);
+                        System.out.println(" Noted. I've removed this task:\n " + delTask);
+                        System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
+                        break;
                     default:
                         scanner.nextLine();
                         throw new InvalidInputException();
