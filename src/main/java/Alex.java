@@ -46,6 +46,7 @@ public class Alex {
                 }
                 System.out.println(line);
             } else if (response.equals("mark") || response.equals("unmark")) {
+                //mark and unmark tasks
                 String taskNumberStr = lineScanner.next();
                 int taskNumber = Integer.valueOf(taskNumberStr);
                 Task task = list.get(taskNumber - 1);
@@ -57,37 +58,49 @@ public class Alex {
                     System.out.println(line + "\nOK, I've marked this task as not done yet: \n" + task + "\n" + line);
                 }
                 //room for error handling
-            } else if (response.equals("todo")) {
-
+            } else {
                 ArrayList<String> arrOfStr = new ArrayList<>();
+                Task task = new Task(0, "", false);
 
-                //String next = myObj.next();
-                while (lineScanner.hasNext()) {
-                    arrOfStr.add(lineScanner.next());
-                }
-                Task task = new Todo(size + 1, String.join(" ", arrOfStr), false);
-                list.add(task);
-                size++;
-                message(line, task, size);
-            } else if (response.equals("deadline")) {
-                ArrayList<String> arrOfStr = new ArrayList<>();
-                String description = "";
-                while (lineScanner.hasNext()) {
-                    String next = lineScanner.next();
-                    if (next.indexOf("/") == 0) {
-                        description = String.join(" ", arrOfStr);
-                        arrOfStr.clear();
-                    } else {
-                        arrOfStr.add(next);
+                if (response.equals("todo")) {
+                    while (lineScanner.hasNext()) {
+                        arrOfStr.add(lineScanner.next());
                     }
+                    task = new Todo(size + 1, String.join(" ", arrOfStr), false);
+                } else if (response.equals("deadline")) {
+                    String description = "";
+                    while (lineScanner.hasNext()) {
+                        String next = lineScanner.next();
+                        if (next.equals("/by")) {
+                            description = String.join(" ", arrOfStr);
+                            arrOfStr.clear();
+                        } else {
+                            arrOfStr.add(next);
+                        }
+                    }
+                    task = new Deadline(size + 1, description, false, String.join(" ", arrOfStr));
+                } else if (response.equals("event")) {
+                    String description = "";
+                    String start = "";
+                    //boolean startTime = true;
+
+                    while (lineScanner.hasNext()) {
+                        String next = lineScanner.next();
+                        if (next.equals("/from")) {
+                            description = String.join(" ", arrOfStr);
+                            arrOfStr.clear();
+                        } else if (next.equals("/to")) {
+                            start = String.join(" ", arrOfStr);
+                            arrOfStr.clear();
+                        } else {
+                            arrOfStr.add(next);
+                        }
+                    }
+                    task = new Event(size + 1, description, false, start, String.join(" ", arrOfStr));
                 }
-                Task task = new Deadline(size + 1, description, false, String.join(" ", arrOfStr));
                 list.add(task);
                 size++;
                 message(line, task, size);
-            } else if (response.equals("event")) {
-                list.add(new Todo(size + 1, response, false));
-                size++;
             }
         }
 
