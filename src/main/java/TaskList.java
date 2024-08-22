@@ -2,14 +2,15 @@ import java.util.ArrayList;
 
 // TaskList class encapsulates a task list tracked by Bro Bot
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
-    public void addTask(String taskContent) {
-        tasks.add(new Task(taskContent));
+    public Task addTask(Task task) {
+        tasks.add(task);
+        return task;
     }
 
     public Task markTask(int taskId) throws Exception {
@@ -28,5 +29,9 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
+    }
+
+    public int getNumberOfTask() {
+        return tasks.size();
     }
 }

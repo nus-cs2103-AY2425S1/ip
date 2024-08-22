@@ -9,6 +9,7 @@ public class Bro {
     final static String LIST_COMMAND = "list";
     final static String MARK_COMMAND = "mark";
     final static String UNMARK_COMMAND = "unmark";
+    final static String ADD_TODO_COMMAND = "todo";
 
     public static void main(String[] args) {
         reply(GREETING_MESSAGE);
@@ -19,7 +20,7 @@ public class Bro {
         while (isConversing) {
             // Read from standard input
             String input = sc.nextLine();
-            String[] inputArgs = input.split(" ");
+            String[] inputArgs = input.split(" ", 2);
             String cmd = inputArgs[0];
             String secondArg = "";
             if (inputArgs.length > 1) {
@@ -54,15 +55,22 @@ public class Bro {
                         reply("Error: " + e.getMessage());
                         break;
                     }
+                case ADD_TODO_COMMAND:
+                    if (secondArg.isEmpty()) {
+                        reply("Bro I can't add a empty task");
+                    }
+                    Task task = taskList.addTask(new TodoTask(secondArg));
+                    addTaskReply(task, taskList.getNumberOfTask());
+                    break;
                 default:
-                    taskList.addTask(input);
+                    taskList.addTask(new Task(input));
                     reply("added: " + input);
             }
         }
         reply(GOODBYE_MESSAGE);
     }
 
-    // Prints a adds to list on standard output
+    // Prints an adds to list on standard output
     public static void reply(String content) {
         String replyStr = String.format("""
                 ____________________________________________________________
@@ -70,6 +78,19 @@ public class Bro {
                 Bro
                 ____________________________________________________________
                 """, content);
+        System.out.print(replyStr);
+    }
+
+    // Prints an add task reply
+    public static void addTaskReply(Task task, int numberOfTasks) {
+        String replyStr = String.format("""
+                ____________________________________________________________
+                Got it. I've added this task:
+                %s
+                You now have %d tasks in the list.
+                Bro
+                ____________________________________________________________
+                """, task.toString(), numberOfTasks);
         System.out.print(replyStr);
     }
 }
