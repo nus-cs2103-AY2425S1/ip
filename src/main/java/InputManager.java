@@ -47,19 +47,17 @@ public class InputManager {
     }
 
     private void handleTodo(String input) throws PukeException {
-        String trimmedInput = input.substring(4).trim();
-        if (trimmedInput.isEmpty()) {
+        if (input.isEmpty()) {
             throw new PukeException("OOPS!!! The description of a todo cannot be empty.");
         }
-        messageBuilder.sendMessage(taskManager.addTask("todo", trimmedInput));
+        messageBuilder.sendMessage(taskManager.addTask("todo", input));
     }
 
     private void handleDeadline(String input) throws PukeException {
-        String trimmedInput = input.substring(8).trim();
-        if (trimmedInput.isEmpty()) {
+        if (input.isEmpty()) {
             throw new PukeException("OOPS!!! The description of a deadline cannot be empty.");
         }
-        String[] parts = trimmedInput.split(" /by ");
+        String[] parts = input.split(" /by ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new PukeException("OOPS!!! The deadline must have a specified time.");
         }
@@ -67,11 +65,10 @@ public class InputManager {
     }
 
     private void handleEvent(String input) throws PukeException {
-        String trimmedInput = input.substring(5).trim();
-        if (trimmedInput.isEmpty()) {
+        if (input.isEmpty()) {
             throw new PukeException("OOPS!!! The description of a event cannot be empty.");
         }
-        String[] parts = trimmedInput.split(" /from | /to ");
+        String[] parts = input.split(" /from | /to ");
         if (parts.length < 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             throw new PukeException("OOPS!!! An event must have both start and end times specified.");
         }
