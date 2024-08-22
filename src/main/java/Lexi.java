@@ -1,6 +1,33 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+enum Command {
+    TODO("Adds a todo task."),
+    DEADLINE("Adds a task with a deadline."),
+    EVENT("Adds an event with a start and end time."),
+    MARK("Marks a task as done."),
+    UNMARK("Unmarks a task."),
+    DELETE("Deletes a task."),
+    LIST("Lists all tasks."),
+    BYE("Exits the application.");
+
+    private final String description;
+
+    Command(String description) {
+        this.description = description;
+    }
+    @Override
+    public String toString() {
+        return this.name() + ": " + this.description;
+    }
+
+    public static void printCommands() {
+        for(Command command: Command.values()) {
+            System.out.println(command);
+        }
+    }
+}
+
 public class Lexi {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static String LINE_BREAK = "____________________________________________________________";
@@ -9,26 +36,36 @@ public class Lexi {
         Scanner userInput = new Scanner(System.in);
         greet();
         String response = userInput.nextLine();
-        while (!response.equals("bye")) {
+        while (!response.toUpperCase().equals(Command.BYE.name())) {
             try {
                 String[] parts = response.split(" ");
-                if (parts[0].contains("mark")) {
-                    handleMark(parts);
-                } else if (parts[0].equals("todo")) {
-                    handleTodo(response);
-                } else if (parts[0].equals("deadline")) {
-                    handleDeadline(response);
-                } else if (parts[0].equals("event")) {
-                    handleEvent(response);
-                } else if(parts[0].equals("delete")) {
-                    handleDelete(parts);
-                } else if (response.equals("list")) {
-                    listTasks();
-                } else {
-                    throw new LexiException("Sorry I don't know what the means :(\n");
+                Command command = Command.valueOf(parts[0].toUpperCase());
+                switch (command) {
+                    case MARK:
+                    case UNMARK:
+                        handleMark(parts);
+                        break;
+                    case TODO:
+                        handleTodo(response);
+                        break;
+                    case DEADLINE:
+                        handleDeadline(response);
+                        break;
+                    case EVENT:
+                        handleEvent(response);
+                        break;
+                    case DELETE:
+                        handleDelete(parts);
+                        break;
+                    case LIST:
+                        listTasks();
+                        break;
                 }
-            } catch (LexiException e) {
+            } catch(LexiException e) {
                 System.out.println(e.getMessage());
+            } catch(IllegalArgumentException e) {
+                System.out.println("You have entered an invalid command!\nKey in one of them from the list below:\n");
+                Command.printCommands();
             } finally {
                 response = userInput.nextLine();
             }
@@ -60,15 +97,21 @@ public class Lexi {
 
     private static void handleEvent(String response) throws LexiException {
         String[] parts = response.split(" /from ");
+        // If only command "event" is present
         if(parts[0].equals(response)) {
             throw new LexiException("Please key in the command in this format\n"
-                    + "\"event <task> /by <deadline>\n");
+                    + "\"event <task> /from <start> /to <end>\"\n");
         }
         String taskName = parts[0].substring(6);
+        if(parts.length < 2) {
+            throw new LexiException("Please key in the command in this format\n"
+                    + "\"event <task> /from <start> /to <end>\"\n");
+        }
         String[] range = parts[1].split(" /to ");
+        // No "to" command entered
         if(parts[1].equals(range[0])) {
             throw new LexiException("Please key in the command in this format\n"
-                    + "\"event <task> /by <deadline>\n");
+                    + "\"event <task> /from <start> /to <end>\"\n");
         }
         String from  = range[0];
         String to = range[1];
@@ -79,7 +122,7 @@ public class Lexi {
         String[] parts = response.split(" /by ");
         if(parts[0].equals(response)) {
             throw new LexiException("Please key in the command in this format\n"
-            + "\"deadline <task> /by <deadline>\n");
+            + "\"deadline <task> /by <deadline>\"\n");
         }
         String taskName = parts[0].substring(9);
         String by = parts[1];
@@ -102,7 +145,8 @@ public class Lexi {
     }
 
     private static void handleMark(String[] parts) throws LexiException {
-        if(parts[1].isEmpty() || parts[1].isBlank()) {
+
+        if(parts.length != 2 || parts[1].isEmpty() || parts[1].isBlank()) {
             throw new LexiException("Please enter your command in this format\n" +
             "\"mark <number>\"");
         }
