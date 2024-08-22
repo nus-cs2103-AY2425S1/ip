@@ -30,85 +30,61 @@ public class Bob {
      */
     static void chat(Bob bob) {
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        input = input.trim();
+        String input = scanner.nextLine().trim();
 
         while (!input.equals("bye")) {
             String[] inputWords = input.split("\s+");
-            if (inputWords[0].equals("list")) {
-                bob.listRecords();
-                input = scanner.nextLine();
-                input = input.trim();
-                continue;
-            }
-            //Print array loop
-//            System.out.println("Current words in inputWords");
-//            for (String x : inputWords) {
-//                System.out.println(x);
-//            }
+            String keyword = inputWords[0];
 
-            if (inputWords[0].equals("mark")) {
-                if (inputWords.length == 1) {
-                    System.out.println("Please input which item number you want to mark.");
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                } else if ((bob.records == null)) {
-                    System.out.println("No record yet.");
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                } else if (bob.records.size() < Integer.valueOf(inputWords[1]) || Integer.valueOf(inputWords[1]) <= 0) {
-                    System.out.println("Item index out of range.");
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                } else {
-                    Task currTask = bob.records.get(Integer.parseInt(inputWords[1]) - 1);
-                    currTask.markTask(true);
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                }
+            switch (keyword) {
+                case "list":
+                    bob.listRecords();
+                    break;
+                case "mark":
+                    bob.updateMark(inputWords, true);
+                    break;
+                case "unmark":
+                    bob.updateMark(inputWords, false);
+                    break;
+                default:
+                    bob.addTask(input);
             }
-            if (inputWords[0].equals("unmark")) {
-                if (inputWords.length == 1) {
-                    System.out.println("Please input which item number you want to unmark.");
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                } else if ((bob.records == null)) {
-                    System.out.println("No record yet.");
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                } else if (bob.records.size() < Integer.valueOf(inputWords[1]) || Integer.valueOf(inputWords[1]) <= 0) {
-                    System.out.println("Item index out of range.");
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                } else {
-                    Task currTask = bob.records.get(Integer.parseInt(inputWords[1]) - 1);
-                    currTask.markTask(false);
-                    input = scanner.nextLine();
-                    input = input.trim();
-                    continue;
-                }
-            }
-            String immediateAdd = "added: " + input;
-            Bob.printLines(immediateAdd);
-            Task newTask = new Task(input);
-            bob.records.add(bob.getCounter(), newTask);
 
-//            System.out.println("Current tasks in records");
-//            for (Task x : bob.records) {
-//                System.out.println(x.getDescription());
-//            }
-
-            bob.setCounter(bob.getCounter() + 1);
-            input = scanner.nextLine();
+            input = scanner.nextLine().trim();
         }
-        printLines("Bye. Hope to see you again soon!bye");
+        printLines("Bye. Hope to see you again soon!");
+    }
+
+    /**
+     * Updates whether the task in the record is completed or not completed.
+     * @param inputWords String array of the words given as input.
+     * @param isCompleted Whether the task is marked as completed or incompleted.
+     */
+    public void updateMark(String[] inputWords, Boolean isCompleted) {
+        if (inputWords.length == 1) {
+            System.out.println("Please input which item number you want to mark.");
+        } else if (this.records.size() < Integer.valueOf(inputWords[1]) || Integer.valueOf(inputWords[1]) <= 0) {
+            System.out.println("Item index out of range.");
+        } else {
+            Task currTask = this.records.get(Integer.parseInt(inputWords[1]) - 1);
+            if (isCompleted) {
+                currTask.markTask(true);
+            } else {
+                currTask.markTask(false);
+            }
+        }
+    }
+
+    /**
+     * Adds a task to records
+     * @param input Input given by a user.
+     */
+    public void addTask(String input) {
+        String immediateAdd = "added: " + input;
+        Bob.printLines(immediateAdd);
+        Task newTask = new Task(input);
+        this.records.add(this.counter, newTask);
+        this.setCounter(this.counter + 1);
     }
 
     /**

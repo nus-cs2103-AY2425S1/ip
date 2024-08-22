@@ -19,12 +19,8 @@ public class Task {
     }
 
     /**
-     * Returns the stored description of this particular task.
+     * Returns a string representation for a line item in the printed list,
      */
-    public String getDescription() {
-        return this.description;
-    }
-
     public String getTaskListItem() {
         return("[" + this.getStatusIcon() + "] " + this.description);
     }
