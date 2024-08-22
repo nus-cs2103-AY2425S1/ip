@@ -1,20 +1,8 @@
 import java.util.*;
 
 public class Bot {
-    public class Task {
-        private final String name;
-        private Boolean isDone;
-
-        public Task(String taskName) {
-            this.name = taskName;
-            this.isDone = false;
-        }
-
-        public void changeMark() {
-            this.isDone = !isDone;
-        }
-    }
-
+    private final String INDENT = "  ";
+    private final String DIVIDER = "____________________________________________________________\n";
     private ArrayList<Task> taskList = new ArrayList<>();
 
     public void acceptCommand() {
@@ -44,28 +32,63 @@ public class Bot {
                 int taskToMark = Integer.parseInt(args);
                 markTask(taskToMark, command);
             } else {
-                addToList(input);
+                addToList(command, args);
             }
         }
     }
-    public void addToList(String input) {
-        taskList.add(new Task(input));
-        System.out.println("____________________________________________________________\n"
-                + "added: " + input + "\n"
-                + "____________________________________________________________\n");
+
+    public String listSizeUpdateMessage() {
+        int listSize = taskList.size();
+        if (listSize == 1) {
+            return "your list has " + listSize + " item now.\n";
+        } else {
+            return "your list has " + listSize + " items now.\n";
+        }
+    }
+    public void addToList(String command, String args) {
+        if (Objects.equals(command, "todo")) {
+            Todo todo = new Todo(args);
+            taskList.add(todo);
+            System.out.println(DIVIDER
+                + "i've thrown this to-do into your task list:\n"
+                + INDENT + todo.taskDescription() + "\n"
+                + listSizeUpdateMessage()
+                + DIVIDER);
+        } else if (Objects.equals(command, "deadline")) {
+            String[] taskAndDeadline = args.split(" /by ");
+            String taskName = taskAndDeadline[0];
+            String deadline = taskAndDeadline[1];
+            Deadline dl = new Deadline(taskName, deadline);
+            taskList.add(dl);
+            System.out.println(DIVIDER
+                    + "the new deadline's been added to your task list:\n"
+                    + INDENT + dl.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + DIVIDER);
+        } else if (Objects.equals(command, "event")) {
+            String[] taskAndTimings = args.split(" /from | /to ");
+//            System.out.println(Arrays.toString(taskAndTimings));
+            String taskName = taskAndTimings[0];
+            String from = taskAndTimings[1];
+            String to = taskAndTimings[2];
+            Event event = new Event(taskName, from, to);
+            taskList.add(event);
+            System.out.println(DIVIDER
+                    + "aaaaand this event is now in your task list:\n"
+                    + INDENT + event.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + DIVIDER);
+        }
         acceptCommand();
     }
 
     public void showList() {
-        System.out.println("____________________________________________________________");
+        System.out.println(DIVIDER);
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            String taskStatus = task.isDone
-                    ? "X"
-                    : " ";
-            System.out.println((i+1) + ". [" + taskStatus + "] " + task.name);
+            System.out.println((i+1) + ". " + task.taskDescription());
         }
-        System.out.println("____________________________________________________________");
+        System.out.println(DIVIDER);
         acceptCommand();
     }
 
@@ -73,15 +96,15 @@ public class Bot {
         Task task = taskList.get(taskToMark-1);
         task.changeMark();
         if (Objects.equals(command, "mark")) {
-            System.out.println("____________________________________________________________\n"
+            System.out.println(DIVIDER
                 + "ok i've marked this task as done:\n"
-                + "[X] " + task.name + "\n"
-                + "____________________________________________________________");
+                + INDENT+ task.taskDescription() + "\n"
+                + DIVIDER);
         } else {
-            System.out.println("____________________________________________________________\n"
+            System.out.println(DIVIDER
                     + "ok i've unmarked this task:\n"
-                    + "[ ] " + task.name + "\n"
-                    + "____________________________________________________________");
+                    + INDENT + task.taskDescription() + "\n"
+                    + DIVIDER);
         }
     }
 }
