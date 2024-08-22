@@ -6,7 +6,7 @@ public class Task {
         done = false;
     }
 
-    public static Task of(String userInput) {
+    public static Task of(String userInput) throws CommandNotRecognisedException {
         String[] splitUserInput = userInput.split(" ", 2);
         String identifier = splitUserInput[0];
 
@@ -22,8 +22,7 @@ public class Task {
             return new Events(info, dates[0], dates[1]);
         } else {
             //task not recognised
-            System.out.print("Task not recognised");
-            return null;
+            throw new CommandNotRecognisedException();
         }
     }
 
