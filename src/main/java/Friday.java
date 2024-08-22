@@ -1,8 +1,9 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Friday {
-    private final Task[] items = new Task[100];
+    private final ArrayList<Task> items = new ArrayList<>();
     private int index;
     private void horizontalLine() {
         System.out.println("\t____________________________________________________________");
@@ -23,6 +24,7 @@ public class Friday {
         System.out.println("\ttodo <description> - Remember a TODO Task for you to revisit again.");
         System.out.println("\tdeadline <description> /by <when> - Remember a Deadline Task for you to complete by the deadline.");
         System.out.println("\tevent <description> /from <when> /to <when> - Remember an Event Task from when it begins to when it ends.");
+        System.out.println("\tdelete <index> - Delete an entry from your current list.");
         System.out.println("\tbye - Exits this app and says Good Bye to Friday :)");
     }
     private void readInput() {
@@ -40,8 +42,8 @@ public class Friday {
             }
             else if (Objects.equals(input, "list")) { // Level 2
                 System.out.println("\tHere are the tasks in your list:");
-                for (int i = 0; i < index; i++) {
-                    System.out.println("\t" + items[i].toPrettyString());
+                for (int i = 0; i < items.size(); i++) {
+                    System.out.println("\t" + (i + 1) + "." + items.get(i).toString());
                 }
                 horizontalLine();
             } else {
@@ -63,13 +65,24 @@ public class Friday {
                         inputs = input.substring(6).split(" /from | /to ");
                         if (inputs.length <= 2) throw new FridayException("Invalid input. usage: event <description> /from <when> /to <when>.");
                         currTask = new Event(inputs[0], inputs[1], inputs[2]);
+                    } else if (Objects.equals(inputs[0], "delete")) { // Level 6
+                        if (!inputs[1].chars().allMatch(Character::isDigit)) throw new FridayException("Invalid input. usage: delete <index>\n\tWhat would you like to delete?"); // Deleting a non-digit entry
+                        int target = Integer.parseInt(inputs[1]);
+                        if (target > items.size() || target <= 0) throw new FridayException("Invalid input. It appears you are attempting to access something that does not exist yet."); // OutOfBoundsException
+                        currTask = items.get(Integer.parseInt(inputs[1]) - 1);
+                        items.remove(currTask);
+                        System.out.println("\tNoted. I've removed this task:");
+                        System.out.println("\t  " + currTask);
+                        System.out.println("\tNow you have " + items.size() + " tasks in the list.");
+                        horizontalLine();
+                        continue;
                     } else {
                         throw new FridayException("Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.\n\tCheck 'help' for more information."); // Commands that are not recognized or incorrect usage of commands
                     }
-                    items[index++] = currTask;
+                    items.add(currTask);
                     System.out.println("\tGot it. I've added this task:");
                     System.out.println("\t  " + currTask);
-                    System.out.println("\tNow you have " + index + " tasks in the list.");
+                    System.out.println("\tNow you have " + items.size() + " tasks in the list.");
                     horizontalLine();
                 } catch (FridayException e) {
                     System.out.println("\t" + e.getMessage());
@@ -81,11 +94,11 @@ public class Friday {
     private void markUnmark(String[] inputs) throws FridayException {
         if (!inputs[1].chars().allMatch(Character::isDigit)) throw new FridayException("Invalid input. Where would you like to " + inputs[0] + "?"); // Marking a non-digit
         int target = Integer.parseInt(inputs[1]);
-        if (target > index || target <= 0) throw new FridayException("Invalid input. It appears you are attempting to access something that does not exist yet."); // OutOfBoundsException
+        if (target > items.size() || target <= 0) throw new FridayException("Invalid input. It appears you are attempting to access something that does not exist yet."); // OutOfBoundsException
         if (Objects.equals(inputs[0], "mark")) {
-            items[target - 1].markAsDone();
+            items.get(target - 1).markAsDone();
         } else {
-            items[target - 1].unmarkAsDone();
+            items.get(target - 1).unmarkAsDone();
         }
     }
 

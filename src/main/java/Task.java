@@ -1,12 +1,9 @@
 public class Task {
-    private static int COUNT = 1;
-    protected int id;
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
-        this.id = COUNT++;
         this.isDone = false;
     }
 
@@ -27,9 +24,5 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + description;
-    }
-
-    public String toPrettyString() {
-        return id + "." + this;
     }
 }

@@ -4,6 +4,18 @@
 	To view the list of commands that I support, type 'help' for more information.
 	____________________________________________________________
 	____________________________________________________________
+	Here are the list of commands that I support
+	help - List of commands supported by me, Friday.
+	list - View all entries to the current list of things you have asked me to take note of.
+	mark <index> - Mark an entry in the list as a completed task.
+	unmark <index> - Unmark an entry in the list as a completed task.
+	todo <description> - Remember a TODO Task for you to revisit again.
+	deadline <description> /by <when> - Remember a Deadline Task for you to complete by the deadline.
+	event <description> /from <when> /to <when> - Remember an Event Task from when it begins to when it ends.
+	delete <index> - Delete an entry from your current list.
+	bye - Exits this app and says Good Bye to Friday :)
+	____________________________________________________________
+	____________________________________________________________
 	Got it. I've added this task:
 	  [T][ ] read book
 	Now you have 1 tasks in the list.
@@ -47,6 +59,26 @@
 	3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 	4.[T][X] join sports club
 	5.[T][ ] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Noted. I've removed this task:
+	  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	Now you have 4 tasks in the list.
+	____________________________________________________________
+	____________________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[D][X] return book (by: June 6th)
+	3.[T][X] join sports club
+	4.[T][ ] borrow book
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
+	Check 'help' for more information.
+	____________________________________________________________
+	____________________________________________________________
+	Invalid input. usage: delete <index>
+	What would you like to delete?
 	____________________________________________________________
 	____________________________________________________________
 	Invalid input. Please ensure that this command is supported by me and you have utilized the right syntax.
