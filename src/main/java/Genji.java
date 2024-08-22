@@ -11,6 +11,10 @@ public class Genji {
         list.add(t);
     }
 
+    public static void delete(int i) {
+        list.remove(i);
+    }
+
     public static void showList() {
         int index = 1;
         for(Task task : list) {
@@ -47,7 +51,7 @@ public class Genji {
                         int index = Integer.parseInt(input.substring(5)) - 1;
                         list.get(index).mark();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(list.get(index).toString());
+                        System.out.println(list.get(index));
                     } catch (NumberFormatException n) {
                         System.out.println("Please input a integer after \"mark\"");
                     } catch (IndexOutOfBoundsException i) {
@@ -62,9 +66,9 @@ public class Genji {
                         int index = Integer.parseInt(input.substring(7)) - 1;
                         list.get(index).unmark();
                         System.out.println("OK! I've marked this task as not done yet:");
-                        System.out.println(list.get(index).toString());
+                        System.out.println(list.get(index));
                     } catch (NumberFormatException n) {
-                        System.out.println("Please input a integer after \"mark\"");
+                        System.out.println("Please input a integer after \"unmark\"");
                     } catch (IndexOutOfBoundsException i) {
                         System.out.println("Please input a integer smaller than the number of tasks");
                     }
@@ -110,6 +114,23 @@ public class Genji {
                         System.out.println("Now you have " + list.size() + " tasks in the list");
                     } catch (StringIndexOutOfBoundsException s) {
                         System.out.println("Time period not provided or not in the proper form");
+                    }
+                }
+            } else if (input.startsWith("delete")) {
+                if (input.length() < 8) {
+                    System.out.println("No descriptions detected, try again");
+                } else {
+                    try {
+                        int index = Integer.parseInt(input.substring(7)) - 1;
+                        Task temp = list.get(index);
+                        Genji.delete(index);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(temp);
+                        System.out.println("Now you have " + list.size() + " tasks in the list");
+                    } catch (NumberFormatException n) {
+                        System.out.println("Please input a integer after \"delete\"");
+                    } catch (IndexOutOfBoundsException i) {
+                        System.out.println("Please input a integer smaller than the number of tasks");
                     }
                 }
             } else {
