@@ -56,10 +56,12 @@ public class Nerf {
                             addDeadline(input);
                         } else if (input.startsWith("event")){
                             addEvent(input);
+                        } else if (input.startsWith("delete")){
+                            deleteTask(input);
                         } else {
                             System.out.println("""
                                             Sorry, I dont understand what u are asking of me.
-                                            You may use list/bye or mark/unmark/todo/deadline/event + required syntax
+                                            You may use list/bye or mark/unmark/todo/deadline/event/delete + required syntax
                                             """);
                         }
                     } catch (InvalidDataException e) {
@@ -68,6 +70,25 @@ public class Nerf {
                 }
             }
         } while (!input.equals("bye"));
+    }
+
+    private static void deleteTask(String input){
+        String number = input.substring(6).trim();
+        try {
+            int num = Integer.parseInt(number);
+            String taskDeleted = listings.get(num-1).toString();
+            listings.remove(num-1);
+            System.out.println(String.format("""
+                              Noted, removing:
+                                 %s
+                              You now have %d task(s) in total.
+                               """, taskDeleted,listings.size()));
+            printDivider();
+        } catch (NumberFormatException e) {
+            System.out.println("Oops! That does not seem like a number.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops! Please specific a number within the list.");
+        }
     }
 
     private static void addTodo(String input) throws InvalidDataException{
