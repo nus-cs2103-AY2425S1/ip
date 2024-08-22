@@ -55,7 +55,8 @@ public class Duck {
         // User input loop
         while (true) {
             System.out.println("");
-            String line = reader.peekLine();
+            String line = reader.getWholeLine();
+            CommandBuffer lineBuffer = new CommandBuffer(line);
 
             // "bye" and "list" will only work if they are the only word in the line
             // e.g. "bye bye" would not work
@@ -67,22 +68,20 @@ public class Duck {
                         + TASKS.toString();
                 printAsResponse(response);
             } else {
-                String command = reader.peekToken();
+                String command = lineBuffer.getWord();
 
-                // "mark" / "unmark"
+                // "mark" / "unmark" commands
                 if (Command.MARK.equalsName(command)) {
-                    reader.getWord();
-                    int itemLabel = reader.getInt();
-                    Task task = TASKS.getItem(itemLabel);
+                    int taskLabel = lineBuffer.getInt();
+                    Task task = TASKS.getItem(taskLabel);
                     task.markAsDone();
 
                     String response = "Nice! I've marked this task as done:\n"
                             + indentText(task.toString(), 2);
                     printAsResponse(response);
                 } else if (Command.UNMARK.equalsName(command)) {
-                    reader.getWord();
-                    int itemLabel = reader.getInt();
-                    Task task = TASKS.getItem(itemLabel);
+                    int taskLabel = lineBuffer.getInt();
+                    Task task = TASKS.getItem(taskLabel);
                     task.markAsNotDone();
 
                     String response = "OK, I've marked this task as not done yet:\n"
@@ -92,21 +91,24 @@ public class Duck {
 
                 // Tasks
                 else if (Command.TODO.equalsName(command)) {
-                    reader.getWord();
-                    Task task = new TaskTodo(reader.getRemainingLine());
+                    String taskPart = lineBuffer.getRemainingLine();
+                    Task task = new TaskTodo(taskPart);
                     handleNewTask(task);
                 } else if (Command.DEADLINE.equalsName(command)) {
-                    reader.getWord();
-                    Task task = new TaskDeadline(reader.getRemainingLine());
+                    String taskPart = lineBuffer.getUntilAndRemovePattern("/by");
+                    String deadlinePart = lineBuffer.getRemainingLine();
+                    Task task = new TaskDeadline(taskPart, deadlinePart);
                     handleNewTask(task);
                 } else if (Command.EVENT.equalsName(command)) {
-                    reader.getWord();
-                    Task task = new TaskEvent(reader.getRemainingLine());
+                    String taskPart = lineBuffer.getUntilAndRemovePattern("/from");
+                    String fromPart = lineBuffer.getUntilAndRemovePattern("/to");
+                    String toPart = lineBuffer.getRemainingLine();
+                    Task task = new TaskEvent(taskPart, fromPart, toPart);
                     handleNewTask(task);
+                } else {
+                    printAsResponse("Oops, I do not understand you.");
                 }
             }
-
-            reader.skipLine();
         }
 
         // Close Scanner
