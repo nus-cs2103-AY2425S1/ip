@@ -12,13 +12,28 @@ public class Dudu {
 
         System.out.println(welcomeMessage);
         Scanner sc = new Scanner(System.in);
+        String[] tasks = new String[100];
+        int count = 0;
         while (sc.hasNextLine()) {
             String message = sc.nextLine();
-            System.out.println(lineRule
-                             + message + "\n"
-                             + lineRule);
-            if (message.equals("bye")) {
+            if (message.equals("list")) {
+                System.out.println(lineRule);
+                if (count == 0) {
+                    System.out.println("No tasks");
+                } else {
+                    for (int i = 0; i < count; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                }
+                System.out.println(lineRule);
+            } else if (message.equals("bye")) {
                 break;
+            } else {
+                tasks[count] = message;
+                count++;
+                System.out.println(lineRule
+                                 + "added: " + message + "\n"
+                                 + lineRule);
             }
         }
         System.out.println(goodbyeMessage);
