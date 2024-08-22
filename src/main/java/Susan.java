@@ -8,7 +8,7 @@ public class Susan {
 
         // Initialisation
         Scanner scanner = new Scanner(System.in);
-        List<String> tasks = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         String userInput = scanner.nextLine();
 
         // Add, List
@@ -19,9 +19,24 @@ public class Susan {
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println((i + 1) + ". " + tasks.get(i));
                 }
-            } else {
-                // Add task to list
-                tasks.add(userInput.toUpperCase());
+            }
+            // Mark as Undone
+            else if (userInput.contains("unmark")) {
+                int n = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
+                tasks.get(n - 1).undoMark();
+                System.out.println("OK. This task is not done yet:");
+                System.out.println(tasks.get(n - 1));
+            }
+            // Mark as Done
+            else if (userInput.contains("mark")) {
+                int n = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
+                tasks.get(n - 1).markAsDone();
+                System.out.println("Good job! This task has been conquered:");
+                System.out.println(tasks.get(n - 1));
+            }
+            // Add task to list
+            else {
+                tasks.add(new Task(userInput));
                 System.out.println("OK busy girl! added: " + userInput);
             }
             // Read next input
