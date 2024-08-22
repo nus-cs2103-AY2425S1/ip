@@ -1,7 +1,7 @@
-public class TooManyArguments extends Exception {
+public class TooManyArgumentsException extends Exception {
     public TaskType type;
 
-    public TooManyArguments(String type, String message) {
+    public TooManyArgumentsException(String type, String message) {
         super(message);
         if (type.equalsIgnoreCase("deadline")) {
             this.type = TaskType.DEADLINE;
@@ -12,20 +12,19 @@ public class TooManyArguments extends Exception {
         }
     }
 
-    public TooManyArguments() {
-        super("too many arguments");
+    public TooManyArgumentsException(String type) {
+        new TooManyArgumentsException(type, "too many arguments");
     }
 
     @Override
     public String toString() {
-        switch (type) {
-            case DEADLINE:
-                return "Yo Homieee, there are too many arguments for deadline!\n deadline should be of this format: deadline <description> /by <date>";
-            case EVENT:
-                return "Yo Homieee, there are too many arguments for event!\n event should be of this format: event <description> /from <date> /to <date>";
-            case TODO:
-                return "Yo Homieee, there are too many arguments for todo!\n todo should be of this format: todo <description>";
-        }
-        return "Yo Homieee, there are too many arguments!";
+        return switch (type) {
+            case DEADLINE ->
+                    "Yo Homieee, there are too many arguments for deadline!\ndeadline should be of this format: deadline <description> /by <date>";
+            case EVENT ->
+                    "Yo Homieee, there are too many arguments for event!\nevent should be of this format: event <description> /from <date> /to <date>";
+            case TODO ->
+                    "Yo Homieee, there are too many arguments for todo!\ntodo should be of this format: todo <description>";
+        };
     }
 }

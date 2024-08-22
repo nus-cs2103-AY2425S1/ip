@@ -1,6 +1,6 @@
-public class NotEnoughArguments extends Exception {
+public class NotEnoughArgumentsException extends Exception {
     public TaskType type;
-    public NotEnoughArguments(String type, String message) {
+    public NotEnoughArgumentsException(String type, String message) {
         super(message);
         if (type.equalsIgnoreCase("deadline")) {
             this.type = TaskType.DEADLINE;
@@ -11,20 +11,19 @@ public class NotEnoughArguments extends Exception {
         }
     }
 
-    public NotEnoughArguments() {
-        super("not enough arguments");
+    public NotEnoughArgumentsException(String type) {
+        new NotEnoughArgumentsException(type, "not enough arguments");
     }
 
     @Override
     public String toString() {
-        switch (type) {
-            case DEADLINE:
-                return "Yo Homieee, there are not enough arguments for deadline!\n deadline should be of this format: deadline <description> /by <date>";
-            case EVENT:
-                return "Yo Homieee, there are not enough arguments for event!\n event should be of this format: event <description> /from <date> /to <date>";
-            case TODO:
-                return "Yo Homieee, there are not enough arguments for todo!\n todo should be of this format: todo <description>";
-        }
-        return "Yo Homieee, there are not enough arguments!";
+        return switch (type) {
+            case DEADLINE ->
+                    "Yo Homieee, there are not enough arguments for deadline!\ndeadline should be of this format: deadline <description> /by <date>";
+            case EVENT ->
+                    "Yo Homieee, there are not enough arguments for event!\nevent should be of this format: event <description> /from <date> /to <date>";
+            case TODO ->
+                    "Yo Homieee, there are not enough arguments for todo!\ntodo should be of this format: todo <description>";
+        };
     }
 }

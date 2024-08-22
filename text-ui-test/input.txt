@@ -15,4 +15,9 @@ event hello there my bro im testing /lesser words less
 todo
 deadline not enough words
 event hello there my bro im testing /from yesterday /to tOdAy /extra extratext
+list
+delete 2
+list
+delete 1
+list
 bye

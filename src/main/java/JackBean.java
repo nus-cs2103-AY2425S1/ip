@@ -96,89 +96,133 @@ public class JackBean {
         while (true) {
             String input = userInput.nextLine();
 
-            if (input.equalsIgnoreCase("bye")) { // I added equalsIgnoreCase() by myself
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                System.out.println(horizontalLine);
-                System.out.println("Yo homie!, here are the tasks in your list:");
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println((i + 1) + ". " + taskList.get(i));
-                }
-                System.out.println(horizontalLine);
-            } else if (input.toLowerCase().startsWith("mark")) {
-                // first use split and then parse the integer
-                String[] splitInput = input.split(" ");
-                int taskNumber = Integer.parseInt(splitInput[1]);
-
-                // check if task is already done
-                if (taskList.get(taskNumber - 1).isDone) {
+            try {
+                if (input.equalsIgnoreCase("bye")) { // I added equalsIgnoreCase() by myself
+                    break;
+                } else if (input.equalsIgnoreCase("help")) {
+                    // GitHub copilot helped mostly with the help message
                     System.out.println(horizontalLine);
-                    System.out.println("This task is already done my homie:");
+                    System.out.println("Yo homie! Here are the commands you can use:");
+                    System.out.println("1. list - to list all tasks");
+                    System.out.println("2. todo <description> - to add a todo task");
+                    System.out.println("3. deadline <description> /by <date> - to add a deadline task");
+                    System.out.println("4. event <description> /from <date> /to <date> - to add an event task");
+                    System.out.println("5. mark <task number> - to mark a task as done");
+                    System.out.println("6. unmark <task number> - to mark a task as undone");
+                    System.out.println("7. bye - to exit the program");
+                    System.out.println("8. help - to see this message again");
+                    System.out.println("9. maybe some easter eggs in the future? :)");
+                    System.out.println(horizontalLine);
+
+                } else if (input.equalsIgnoreCase("list")) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Yo homie!, here are the tasks in your list:");
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println((i + 1) + ". " + taskList.get(i));
+                    }
+                    System.out.println(horizontalLine);
+                } else if (input.toLowerCase().startsWith("mark")) {
+                    // first use split and then parse the integer
+                    String[] splitInput = input.split(" ");
+                    int taskNumber = Integer.parseInt(splitInput[1]);
+
+                    // check if task is already done
+                    if (taskList.get(taskNumber - 1).isDone) {
+                        System.out.println(horizontalLine);
+                        System.out.println("This task is already done my homie:");
+                        System.out.println(taskList.get(taskNumber - 1));
+                        System.out.println(horizontalLine);
+                        continue;
+                    }
+
+                    // now handle implementation
+                    taskList.get(taskNumber - 1).markAsDone();
+                    System.out.println(horizontalLine);
+                    System.out.println("LESGOOO homie! Good job on finishing this task:");
                     System.out.println(taskList.get(taskNumber - 1));
                     System.out.println(horizontalLine);
-                    continue;
-                }
+                } else if (input.toLowerCase().startsWith("unmark")) {
+                    // first use split and then parse the integer
+                    String[] splitInput = input.split(" ");
+                    int taskNumber = Integer.parseInt(splitInput[1]);
 
-                // now handle implementation
-                taskList.get(taskNumber - 1).markAsDone();
-                System.out.println(horizontalLine);
-                System.out.println("LESGOOO homie! Good job on finishing this task:");
-                System.out.println(taskList.get(taskNumber - 1));
-                System.out.println(horizontalLine);
-            } else if (input.toLowerCase().startsWith("unmark")) {
-                // first use split and then parse the integer
-                String[] splitInput = input.split(" ");
-                int taskNumber = Integer.parseInt(splitInput[1]);
+                    // check if task is already undone
+                    if (!taskList.get(taskNumber - 1).isDone) {
+                        System.out.println(horizontalLine);
+                        System.out.println("This task hasn't been marked done yet my homie:");
+                        System.out.println(taskList.get(taskNumber - 1));
+                        System.out.println(horizontalLine);
+                        continue;
+                    }
 
-                // check if task is already undone
-                if (!taskList.get(taskNumber - 1).isDone) {
+                    // now handle implementation
+                    taskList.get(taskNumber - 1).markAsUndone();
                     System.out.println(horizontalLine);
-                    System.out.println("This task hasn't been marked done yet my homie:");
+                    System.out.println("All good my homie! You've got this, I've undone this task:");
                     System.out.println(taskList.get(taskNumber - 1));
                     System.out.println(horizontalLine);
-                    continue;
+                } else if (input.toLowerCase().startsWith("delete")) {
+                    // first use split and then parse the integer
+                    String[] splitInput = input.split(" ");
+                    int taskNumber = Integer.parseInt(splitInput[1]);
+
+                    // now handle implementation
+                    System.out.println(horizontalLine);
+                    System.out.println("Got it my homie! I've removed this task:");
+                    System.out.println(taskList.get(taskNumber - 1));
+                    taskList.remove(taskNumber - 1);
+                    howManyTasks();
+                    System.out.println(horizontalLine);
+                } else if (input.toLowerCase().startsWith("todo")) {
+                    if (input.length() < 6) {
+                        throw new NotEnoughArgumentsException("todo", "not enough arguments");
+                    }
+                    String description = input.substring(5);
+                    taskList.add(new Todo(description));
+                    System.out.println(horizontalLine);
+                    System.out.println("Got it homie! I've added your todo, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
+                    howManyTasks();
+                    System.out.println(horizontalLine);
+                } else if (input.toLowerCase().startsWith("deadline")) {
+                    String important = input.substring(9);
+                    String[] splitImportant = important.split(" /");
+                    if (splitImportant.length > 2) {
+                        throw new TooManyArgumentsException("deadline", "too many arguments");
+                    } else if (splitImportant.length < 2) {
+                        throw new NotEnoughArgumentsException("deadline", "not enough arguments");
+                    }
+                    String description = splitImportant[0];
+                    String by = splitImportant[1].substring(3);
+
+                    taskList.add(new Deadline(description, by));
+                    System.out.println(horizontalLine);
+                    System.out.println("Got it homie! I've added your deadline, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
+                    howManyTasks();
+                    System.out.println(horizontalLine);
+                } else if (input.toLowerCase().startsWith("event")) {
+                    String important = input.substring(6);
+                    String[] splitImportant = important.split(" /");
+                    if (splitImportant.length > 3) {
+                        throw new TooManyArgumentsException("event", "too many arguments");
+                    } else if (splitImportant.length < 3) {
+                        throw new NotEnoughArgumentsException("event", "not enough arguments");
+                    }
+                    String description = splitImportant[0];
+                    String from = splitImportant[1].substring(5);
+                    String to = splitImportant[2].substring(3);
+
+
+                    taskList.add(new Event(description, from, to));
+                    System.out.println(horizontalLine);
+                    System.out.println("Got it homie! I've added your event, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
+                    howManyTasks();
+                    System.out.println(horizontalLine);
+                } else {
+                    throw new InvalidTaskTypeException();
                 }
-
-                // now handle implementation
-                taskList.get(taskNumber - 1).markAsUndone();
+            } catch (Exception e) {
                 System.out.println(horizontalLine);
-                System.out.println("All good my homie! You've got this, I've undone this task:");
-                System.out.println(taskList.get(taskNumber - 1));
-                System.out.println(horizontalLine);
-            } else if (input.toLowerCase().startsWith("todo")) {
-                String description = input.substring(5);
-                taskList.add(new Todo(description));
-                System.out.println(horizontalLine);
-                System.out.println("Got it homie! I've added your todo, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
-                howManyTasks();
-                System.out.println(horizontalLine);
-            } else if (input.toLowerCase().startsWith("deadline")) {
-                String important = input.substring(9);
-                String[] splitImportant = important.split(" /");
-                String description = splitImportant[0];
-                String by = splitImportant[1].substring(3);
-
-                taskList.add(new Deadline(description, by));
-                System.out.println(horizontalLine);
-                System.out.println("Got it homie! I've added your deadline, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
-                howManyTasks();
-                System.out.println(horizontalLine);
-            } else if (input.toLowerCase().startsWith("event")) {
-                String important = input.substring(6);
-                String[] splitImportant = important.split(" /");
-                String description = splitImportant[0];
-                String from = splitImportant[1].substring(5);
-                String to = splitImportant[2].substring(3);
-
-
-                taskList.add(new Event(description, from, to));
-                System.out.println(horizontalLine);
-                System.out.println("Got it homie! I've added your event, LESGOOOOO:\n" + taskList.get(taskList.size() - 1));
-                howManyTasks();
-                System.out.println(horizontalLine);
-            } else {
-                System.out.println(horizontalLine);
-                System.out.println("Homie, did you mean to say something else? I don't understand what you're saying :(");
+                System.out.println(e);
                 System.out.println(horizontalLine);
             }
         }

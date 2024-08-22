@@ -4,7 +4,7 @@ How may I help you today my homie?
 ____________________________________________________________
 ____________________________________________________________
 Yo Homieee, i did not catch what you are saying!
-Please use deadline, event or todo formats, type help if you are unsure of the formats!
+Please use deadline, event, todo, or other command formats, type help if you are unsure of the formats!
 ____________________________________________________________
 ____________________________________________________________
 Got it homie! I've added your todo, LESGOOOOO:
@@ -88,6 +88,31 @@ ____________________________________________________________
 ____________________________________________________________
 Yo Homieee, there are too many arguments for event!
 event should be of this format: event <description> /from <date> /to <date>
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [D][X] hOmIeEE im testing (by: tomorrow)
+3. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+Got it my homie! I've removed this task:
+[D][X] hOmIeEE im testing (by: tomorrow)
+Homie, you have 2 task(s) in the list now.
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+Got it my homie! I've removed this task:
+[T][ ] hello there my bro im testing
+Homie, you have 1 task(s) in the list now.
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
 ____________________________________________________________
 ____________________________________________________________
 Bye homie! Come back if you need anything else. JackBean, signing off!

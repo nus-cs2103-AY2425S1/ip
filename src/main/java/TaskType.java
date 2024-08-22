@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public enum TaskType {
+public enum TaskType {
+    DEADLINE, EVENT, TODO;
 }
