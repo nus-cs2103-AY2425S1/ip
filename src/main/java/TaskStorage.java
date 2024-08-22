@@ -16,6 +16,10 @@ public class TaskStorage {
     return tasks.get(taskIdx);
   }
 
+  public int getSize() {
+    return tasks.size();
+  }
+
   public void setTaskAsDone(int taskIdx) {
     tasks.get(taskIdx).setDone(true);
   }

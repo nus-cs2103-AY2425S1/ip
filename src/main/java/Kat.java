@@ -29,7 +29,7 @@ public class Kat {
       }
 
       if (inputMsg.equalsIgnoreCase("list")) {
-        respond(storage.toString());
+        respond("Here are your tasks:\n" + storage);
         continue;
       }
 
@@ -37,7 +37,7 @@ public class Kat {
       if (inputMsg.startsWith("mark")) {
         int taskIdx = Integer.parseInt(inputMsg.split(" ")[1]) - 1;
         storage.setTaskAsDone(taskIdx);
-        respond("Nice! Done:\n" + storage.getTask(taskIdx).toString());
+        respond("Nice! Done:\n" + storage.getTask(taskIdx).toString() + "\n");
         continue;
       }
 
@@ -48,8 +48,31 @@ public class Kat {
         continue;
       }
 
-      storage.addTask(new Task(inputMsg));
-      respond("added: " + inputMsg);
+      if (inputMsg.startsWith("todo")) {
+        String taskName = inputMsg.replaceFirst("todo ", "");
+        Task task = new ToDoTask(taskName);
+        storage.addTask(task);
+        respond(String.format("Got it. Task saved:\n%s\n%d tasks in the list.", task, storage.getSize()));
+        continue;
+      }
+
+      if (inputMsg.startsWith("deadline")) {
+        String inputMsgWithoutPrefix = inputMsg.replaceFirst("deadline ", "");
+        String[] splitInputMsg = inputMsgWithoutPrefix.split("/by");
+        Task task = new DeadlineTask(splitInputMsg[0].trim(), splitInputMsg[1].trim());
+        storage.addTask(task);
+        respond(String.format("Got it. Task saved:\n%s\n%d tasks in the list.", task, storage.getSize()));
+        continue;
+      }
+
+      if (inputMsg.startsWith("event")) {
+        String inputMsgWithoutPrefix = inputMsg.replaceFirst("deadline ", "");
+        String[] splitInputMsg = inputMsgWithoutPrefix.split("/from|/to");
+        Task task = new EventTask(splitInputMsg[0].trim(), splitInputMsg[1].trim(), splitInputMsg[2].trim());
+        storage.addTask(task);
+        respond(String.format("Got it. Task saved:\n%s\n%d tasks in the list.", task, storage.getSize()));
+        continue;
+      }
     }
 
     respond("See you!");
