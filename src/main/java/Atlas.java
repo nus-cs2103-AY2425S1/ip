@@ -96,14 +96,18 @@ public class Atlas {
             throw new AtlasException("To view the list, the list command should not be called with any additional arguments.");
         }
 
-        StringBuilder listOutput = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            listOutput.append(String.format("%d: ", i + 1)).append(taskList.get(i));
-            if (i < taskList.size() - 1) {
-                listOutput.append('\n');
+        if (taskList.isEmpty()) {
+            Atlas.print("No items have been added to the task list.");
+        } else {
+            StringBuilder listOutput = new StringBuilder();
+            for (int i = 0; i < taskList.size(); i++) {
+                listOutput.append(String.format("%d: ", i + 1)).append(taskList.get(i));
+                if (i < taskList.size() - 1) {
+                    listOutput.append('\n');
+                }
             }
+            Atlas.print(listOutput.toString());
         }
-        Atlas.print(listOutput.toString());
     }
 
     public static void markItem(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
