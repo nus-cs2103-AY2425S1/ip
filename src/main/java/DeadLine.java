@@ -20,8 +20,9 @@ public class DeadLine extends Task {
             this.name = taskName;
             this.endDate = byDate;
 
+        } else {
+            throw new InvalidDateException();
         }
-        throw new InvalidDateException();
     }
 
     @Override
