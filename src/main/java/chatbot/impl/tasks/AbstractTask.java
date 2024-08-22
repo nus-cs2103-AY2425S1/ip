@@ -1,10 +1,14 @@
-public class Task {
+package chatbot.impl.tasks;
+
+import chatbot.Task;
+
+public abstract class AbstractTask implements Task {
 
     private final String name;
 
     private boolean isDone;
 
-    public Task(String name) {
+    public AbstractTask(String name) {
         this.name = name;
         isDone = false;
     }

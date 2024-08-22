@@ -1,6 +1,8 @@
-public class ToDoTask extends Task {
+package chatbot.impl.tasks;
 
-    public ToDoTask(String name) {
+public class TodoTask extends AbstractTask {
+
+    public TodoTask(String name) {
         super(name);
     }
 

@@ -1,10 +1,15 @@
+package chatbot.impl;
+
+import chatbot.Task;
+import chatbot.TaskStorage;
+
 import java.util.ArrayList;
 
-public class TaskStorage {
+public class TaskStorageImpl implements TaskStorage {
 
     private final ArrayList<Task> tasks;
 
-    public TaskStorage() {
+    public TaskStorageImpl() {
         tasks = new ArrayList<>();
     }
 

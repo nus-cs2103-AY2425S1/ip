@@ -56,7 +56,7 @@ Here are your tasks:
 > Me
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Kat
-Nice! Done:
+Nice! Marked as done:
 [E][X] sleep (from: 12am to: 12pm)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Me
@@ -71,7 +71,7 @@ Here are your tasks:
 > Me
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Kat
-Nice! Done:
+Nice! Marked as done:
 [E][X] sleep (from: 12am to: 12pm)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Me
@@ -86,7 +86,7 @@ Here are your tasks:
 > Me
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Kat
-Ah! Not done:
+Ah! Unmarked as not done:
 [D][ ] cs2103t ip (by: Fri 1600)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Me
@@ -101,7 +101,7 @@ Here are your tasks:
 > Me
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Kat
-Nice! Done:
+Nice! Marked as done:
 [D][X] cs2103t ip (by: Fri 1600)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Me
@@ -116,7 +116,7 @@ Here are your tasks:
 > Me
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Kat
-Ah! Not done:
+Ah! Unmarked as not done:
 [D][ ] cs2103t ip (by: Fri 1600)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > Me

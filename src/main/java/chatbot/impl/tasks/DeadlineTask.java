@@ -1,4 +1,6 @@
-public class DeadlineTask extends Task {
+package chatbot.impl.tasks;
+
+public class DeadlineTask extends AbstractTask {
 
     private String deadline;
 

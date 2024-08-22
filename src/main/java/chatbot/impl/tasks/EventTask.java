@@ -1,4 +1,6 @@
-public class EventTask extends Task {
+package chatbot.impl.tasks;
+
+public class EventTask extends AbstractTask {
 
     private String startTime;
 
