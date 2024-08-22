@@ -9,25 +9,25 @@ public class Atlas {
         // Reused from https://patorjk.com/software/taag/#p=display&f=Isometric1&t=Atlas
         // with minor modifications
         String logo = """
-                      ___           ___           ___       ___           ___    \s
-                     /\\  \\         /\\  \\         /\\__\\     /\\  \\         /\\  \\   \s
-                    /::\\  \\        \\:\\  \\       /:/  /    /::\\  \\       /::\\  \\  \s
-                   /:/\\:\\  \\        \\:\\  \\     /:/  /    /:/\\:\\  \\     /:/\\ \\  \\ \s
-                  /::\\~\\:\\  \\       /::\\  \\   /:/  /    /::\\~\\:\\  \\   _\\:\\~\\ \\  \\\s
-                 /:/\\:\\ \\:\\__\\     /:/\\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\ /\\ \\:\\ \\ \\__\\
-                 \\/__\\:\\/:/  /    /:/  \\/__/ \\:\\  \\    \\/__\\:\\/:/  / \\:\\ \\:\\ \\/__/
-                      \\::/  /    /:/  /       \\:\\  \\        \\::/  /   \\:\\ \\:\\__\\ \s
-                      /:/  /     \\/__/         \\:\\  \\       /:/  /     \\:\\/:/  / \s
-                     /:/  /                     \\:\\__\\     /:/  /       \\::/  /  \s
-                     \\/__/                       \\/__/     \\/__/         \\/__/   \s
+                     ___           ___           ___       ___           ___
+                    /\\  \\         /\\  \\         /\\__\\     /\\  \\         /\\  \\
+                   /::\\  \\        \\:\\  \\       /:/  /    /::\\  \\       /::\\  \\
+                  /:/\\:\\  \\        \\:\\  \\     /:/  /    /:/\\:\\  \\     /:/\\ \\  \\
+                 /::\\~\\:\\  \\       /::\\  \\   /:/  /    /::\\~\\:\\  \\   _\\:\\~\\ \\  \\
+                /:/\\:\\ \\:\\__\\     /:/\\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\ /\\ \\:\\ \\ \\__\\
+                \\/__\\:\\/:/  /    /:/  \\/__/ \\:\\  \\    \\/__\\:\\/:/  / \\:\\ \\:\\ \\/__/
+                     \\::/  /    /:/  /       \\:\\  \\        \\::/  /   \\:\\ \\:\\__\\
+                     /:/  /     \\/__/         \\:\\  \\       /:/  /     \\:\\/:/  /
+                    /:/  /                     \\:\\__\\     /:/  /       \\::/  /
+                    \\/__/                       \\/__/     \\/__/         \\/__/
                 """;
 
         System.out.println("Hello from\n" + logo);
         Atlas.greet();
 
         ArrayList<Task> taskList = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner scanner = new Scanner(System.in);
             String nextCommandLine = scanner.nextLine();
             String[] commandsArray = nextCommandLine.split(" ");
             String command = commandsArray[0];
@@ -96,7 +96,7 @@ public class Atlas {
     }
 
     public static void greet() {
-        Atlas.print("Hello! I'm Atlas \n" + "What can I do for you?");
+        Atlas.print("Hello! I'm Atlas\n" + "What can I do for you?");
     }
 
     public static void exit() {
@@ -105,7 +105,7 @@ public class Atlas {
 
     public static void addTask(ArrayList<Task> taskList, Task task) {
         taskList.add(task);
-        String addMessage = String.format("Got it. I've added this task: \n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
+        String addMessage = String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.", task, taskList.size());
         Atlas.print(addMessage);
     }
 }
