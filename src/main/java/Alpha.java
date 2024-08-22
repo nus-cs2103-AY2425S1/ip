@@ -107,7 +107,7 @@ public class Alpha {
                         + "____________________________________________________________ \n";
                 System.out.println(echoResponse);
             } else {
-                System.out.println("Sorry User, chatbot only accepts, todo, deadline, event, list, bye, mark and unmark commands");
+                System.out.println("Sorry User, Alpha only accepts, todo, deadline, event, list, bye, mark and unmark commands");
             }
             
         }
