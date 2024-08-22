@@ -48,7 +48,6 @@ public class Ekud {
                 task,
                 tasks.getIncompleteCount());
         FormatPrinter.printIndent(confirmation, OUTPUT_PREFIX);
-        printLineSeparator();
     }
 
     public void echoList() {
@@ -58,7 +57,6 @@ public class Ekud {
             System.out.printf("\t %d. %s\n", i, task);
             i++;
         }
-        printLineSeparator();
     }
 
     public void markList(int listIndex) {
@@ -72,7 +70,6 @@ public class Ekud {
                 tasks.getTask(listIndex),
                 tasks.getIncompleteCount());
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
-        printLineSeparator();
     }
 
     public void unmarkList(int listIndex) {
@@ -85,13 +82,11 @@ public class Ekud {
                 tasks.getTask(listIndex),
                 tasks.getIncompleteCount());
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
-        printLineSeparator();
     }
 
     public void warnUnknownCommand() {
         String warning = "Stop yapping buddy, I have no clue what ya saying!";
         FormatPrinter.printIndent(warning, OUTPUT_PREFIX);
-        printLineSeparator();
     }
 
     public static HashMap<String, String> parseTokens(String[] tokens) {
@@ -137,30 +132,38 @@ public class Ekud {
             printLineSeparator();
 
             // handle command
-            switch (command) {
-            case END_COMMAND:
-                ekud.setRunning(false);
-                break;
-            case LIST_COMMAND:
-                ekud.echoList();
-                break;
-            case MARK_COMMNAD:
-                ekud.markList(Integer.parseInt(argument) - 1);
-                break;
-            case UNMARK_COMMAND:
-                ekud.unmarkList(Integer.parseInt(argument) - 1);
-                break;
-            case TODO_COMMAND:
-                ekud.addToList(new TodoTask(argument));
-                break;
-            case DEADLINE_COMMAND:
-                ekud.addToList(new DeadlineTask(argument, tokenMap.get("/by")));
-                break;
-            case EVENT_COMMAND:
-                ekud.addToList(new EventTask(argument, tokenMap.get("/from"), tokenMap.get("/to")));
-                break;
-            default:
-                ekud.warnUnknownCommand();
+            try {
+                switch (command) {
+                case END_COMMAND:
+                    ekud.setRunning(false);
+                    break;
+                case LIST_COMMAND:
+                    ekud.echoList();
+                    break;
+                case MARK_COMMNAD:
+                    ekud.markList(Integer.parseInt(argument) - 1);
+                    break;
+                case UNMARK_COMMAND:
+                    ekud.unmarkList(Integer.parseInt(argument) - 1);
+                    break;
+                case TODO_COMMAND:
+                    ekud.addToList(new TodoTask(argument));
+                    break;
+                case DEADLINE_COMMAND:
+                    ekud.addToList(new DeadlineTask(argument, tokenMap.get("/by")));
+                    break;
+                case EVENT_COMMAND:
+                    ekud.addToList(new EventTask(argument, tokenMap.get("/from"), tokenMap.get("/to")));
+                    break;
+                default:
+                    ekud.warnUnknownCommand();
+                }
+            } catch (TaskArgumentMissingException tame) {
+                FormatPrinter.printIndent(tame.getMessage(), OUTPUT_PREFIX);
+            } finally {
+                if (ekud.isRunning()) {
+                    printLineSeparator();
+                };
             }
         }
         ekud.sayGoodbye();

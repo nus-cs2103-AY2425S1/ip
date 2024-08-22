@@ -2,10 +2,15 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws TaskArgumentMissingException {
+        if (description == null || description.isEmpty()) {
+            throw new TaskArgumentMissingException(getEmptyDescriptionErrorMessage());
+        }
         this.description = description;
         isDone = false;
     }
+
+    public abstract String getEmptyDescriptionErrorMessage();
 
     public boolean isDone() {
         return isDone;
