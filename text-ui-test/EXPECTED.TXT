@@ -18,9 +18,6 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-added: random task
-____________________________________________________________
-____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] borrow book
 ____________________________________________________________
@@ -33,5 +30,4 @@ Here are the tasks in your list:
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
-4. [ ] random task
 ____________________________________________________________
