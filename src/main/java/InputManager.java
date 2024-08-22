@@ -26,6 +26,9 @@ public class InputManager {
                 case "event":
                     handleEvent(args);
                     break;
+                case "delete":
+                    handleDelete(args);
+                    break;
                 case "mark":
                     handleMarking(args, true);
                     break;
@@ -73,6 +76,21 @@ public class InputManager {
             throw new PukeException("OOPS!!! An event must have both start and end times specified.");
         }
         messageBuilder.sendMessage(taskManager.addTask("event", parts[0].trim(), parts[1].trim(), parts[2].trim()));
+    }
+
+    private void handleDelete(String numberString) throws PukeException {
+        if (numberString.isEmpty()) {
+            throw new PukeException("OOPS!!! You must specify a task number to delete!!");
+        }
+        try {
+            int taskNumber = Integer.parseInt(numberString);
+            if (taskNumber < 1 || taskNumber > taskManager.getTaskCount()) {
+                throw new PukeException("OOPS!!! The task number " + taskNumber + " is out of bounds.");
+            }
+            messageBuilder.sendMessage(taskManager.deleteTask(taskNumber));
+        } catch (NumberFormatException e) {
+            throw new PukeException("Invalid task number format!!!!");
+        }
     }
 
     private void handleMarking(String numberString, boolean isDone) throws PukeException {
