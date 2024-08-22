@@ -12,8 +12,8 @@ public class Duke {
                 + "| |\\  | (_) | |_  | (_| | |_) | |_ \n"
                 + "|_| \\_|\\___/ \\__|  \\__, | .__/ \\__|\n"
                 + "                   |___/|_|        \n";
-        System.out.println(logo+ "Hello I'm Not-gpt,");
-        System.out.println("what can I do for you?");
+        System.out.println(logo+ "hi, I'm Not-gpt,");
+        System.out.println("do you really need me to do sth for you?");
         lnDiv();
         Parser.parse();
 

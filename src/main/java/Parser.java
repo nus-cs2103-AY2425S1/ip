@@ -10,15 +10,14 @@ public class Parser {
             text = scanner.nextLine();
             command = text.toLowerCase();
             switch (command) {
-                case "list": System.out.println(storage.toString());
-                    break;
-                case "blah":
+                case "list": System.out.println(storage);
                     break;
                 case "bye":
-                    System.out.println("It's finally over... *yawn!\nExiting the program...");
+                    System.out.println("It's finally over... *yawn*\nI'm heading to bed\nExiting the program...");
                     break;
                 default:
-                    System.out.println("Added " + '\"'+ text + "\"" + " as a new task");
+                    storage.add(text);
+                    System.out.println("Added " + '\"'+ text + "\"" + " as a new task I guess");
             }
             Duke.lnDiv();
         } while (!command.equals("bye"));
