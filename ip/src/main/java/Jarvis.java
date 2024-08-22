@@ -25,11 +25,28 @@ public class Jarvis {
             input = scanner.nextLine();
             if(input.equals("list")) {
                 tasklist.list();
-
-            } else if (!input.equals("bye")) { // Only print if it's not "bye"
-                System.out.println("__________________________________\n" + input+ "\n" +
-                        "__________________________________");
-                tasklist.add(input);
+            }else if (!input.equals("bye")) { // Only print if it's not "bye"
+                if(input.startsWith("mark") || input.startsWith("unmark")) {
+                    String[] parts = input.split(" ");
+                    if(parts.length == 2) {
+                        int taskIndex = Integer.parseInt(parts[1]);
+                        if (input.startsWith("mark")) {
+                            tasklist.mark(taskIndex);
+                        } else if (input.startsWith("unmark")) {
+                            tasklist.unmark(taskIndex);
+                        } else {
+                            System.out.println("__________________________________\n" + input+ "\n" +
+                                    "__________________________________");
+                            tasklist.add(input);
+                        }
+                    }
+                } else {
+                    System.out.println("__________________________________\n" + input + "\n" +
+                            "__________________________________");
+                    tasklist.add(input);
+                }
+            } else {
+                System.out.println("error");
             }
 
         }
