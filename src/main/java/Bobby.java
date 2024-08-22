@@ -94,6 +94,7 @@ public class Bobby {
         System.out.println();
         System.out.println("Plus one more thing to do:");
         System.out.println(t.toString());
+        System.out.println(String.format("Now you have %d tasks.", storage.size()));
         horizontalLine(35);
     }
 
