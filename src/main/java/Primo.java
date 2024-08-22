@@ -114,6 +114,20 @@ public class Primo {
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
             System.out.printf("Now you have %d tasks in the list.%n", list.size());
+        } else if (words[0].equals("delete")) {
+            try {
+                Integer.valueOf(words[1]);
+            } catch (NumberFormatException e) {
+                throw new PrimoException("delete <integer> expected");
+            }
+            int index = Integer.valueOf(words[1]) - 1;
+            if (index >= list.size()) {
+                throw new PrimoException("You don't have that many tasks!");
+            }
+            System.out.println("\nEl Primo:");
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(list.get(index));
+            list.remove(index);
         } else {
             throw new PrimoException(
                     "Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, list, bye)");
