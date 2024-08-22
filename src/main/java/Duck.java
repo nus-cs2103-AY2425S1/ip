@@ -49,17 +49,19 @@ public class Duck {
             System.out.println("");
             String line = reader.peekLine();
 
-            if (line.equals("bye")) {
+            // "bye" and "list" will only work if they are the only word in the line
+            // e.g. "bye bye" would not work
+            if (line.equals(Command.BYE)) {
                 printAsResponse(GOODBYE);
                 break;
-            } else if (line.equals("list")) {
+            } else if (line.equals(Command.LIST)) {
                 String response = "Here are the tasks in your list:\n"
                         + TASKS.toString();
                 printAsResponse(response);
             } else {
                 String command = reader.peekToken();
 
-                if (command.equals("mark")) {
+                if (command.equals(Command.MARK)) {
                     reader.getWord();
                     int itemLabel = reader.getInt();
                     Task task = TASKS.getItem(itemLabel);
@@ -68,7 +70,7 @@ public class Duck {
                     String response = "Nice! I've marked this task as done:\n"
                             + indentText(task.toString(), 2);
                     printAsResponse(response);
-                } else if (command.equals("unmark")) {
+                } else if (command.equals(Command.UNMARK)) {
                     reader.getWord();
                     int itemLabel = reader.getInt();
                     Task task = TASKS.getItem(itemLabel);
