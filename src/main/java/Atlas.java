@@ -29,30 +29,29 @@ public class Atlas {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String nextCommandLine = scanner.nextLine();
-            String[] commandsArray = nextCommandLine.split(" ");
-            String command = commandsArray[0];
+            String command = nextCommandLine.split(" ")[0];
             try {
                 switch (command) {
                     case "bye":
                         Atlas.exit();
                         return;
                     case "list":
-                        listTaskItems(taskList, commandsArray);
+                        listTaskItems(taskList, nextCommandLine);
                         break;
                     case "mark":
-                        markItem(taskList, commandsArray);
+                        markItem(taskList, nextCommandLine);
                         break;
                     case "unmark":
-                        unmarkItem(taskList, commandsArray);
+                        unmarkItem(taskList, nextCommandLine);
                         break;
                     case "todo":
-                        addToDo(taskList, commandsArray);
+                        addToDo(taskList, nextCommandLine);
                         break;
                     case "deadline":
-                        addDeadline(taskList, commandsArray);
+                        addDeadline(taskList, nextCommandLine);
                         break;
                     case "event":
-                        addEvent(taskList, commandsArray);
+                        addEvent(taskList, nextCommandLine);
                         break;
                     default:
                         break;
@@ -78,10 +77,21 @@ public class Atlas {
         Atlas.print("Bye. Hope to see you again soon!");
     }
 
-    public static void listTaskItems(ArrayList<Task> taskList, String[] commandsArray) throws AtlasException {
+    public static boolean isNumber(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static void listTaskItems(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+        String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length > 1) {
             throw new AtlasException("To view the list, the list command should not be called with any additional arguments.");
         }
+
         StringBuilder listOutput = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             listOutput.append(String.format("%d: ", i + 1)).append(taskList.get(i));
@@ -92,24 +102,32 @@ public class Atlas {
         Atlas.print(listOutput.toString());
     }
 
-    public static void markItem(ArrayList<Task> taskList, String[] commandsArray) throws AtlasException {
+    public static void markItem(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+        String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
             throw new AtlasException("Marking a task as done requires the task number.");
+        } else if (!isNumber(commandsArray[1])) {
+            throw new AtlasException("Task number provided is not a number.");
         } else if (commandsArray.length > 2) {
             throw new AtlasException("Marking a task as done only requires the task number without any additional arguments.");
         }
+
         int markIndex = Integer.parseInt(commandsArray[1]) - 1;
         Task taskToBeMarked = taskList.get(markIndex);
         taskToBeMarked.setIsDone();
         Atlas.print(String.format("Nice! I've marked this task as done:\n \t%s", taskToBeMarked));
     }
 
-    public static void unmarkItem(ArrayList<Task> taskList, String[] commandsArray) throws AtlasException {
+    public static void unmarkItem(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+        String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
-            throw new AtlasException("Unmarking a task to be undone requires the task number.");
+            throw new AtlasException("Unmarking a task as undone requires the task number.");
+        } else if (!isNumber(commandsArray[1])) {
+            throw new AtlasException("Task number provided is not a number.");
         } else if (commandsArray.length > 2) {
-            throw new AtlasException("Unmarking a task to be undone only requires the task number without any additional arguments.");
+            throw new AtlasException("Unmarking a task as undone only requires the task number without any additional arguments.");
         }
+
         int unmarkIndex = Integer.parseInt(commandsArray[1]) - 1;
         Task taskToBeUnmarked = taskList.get(unmarkIndex);
         taskToBeUnmarked.setIsDone();
@@ -123,29 +141,35 @@ public class Atlas {
         Atlas.print(addMessage);
     }
 
-    public static void addToDo(ArrayList<Task> taskList, String[] commandsArray) throws AtlasException {
+    public static void addToDo(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+        String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
             throw new AtlasException("The description of a todo cannot be empty.");
         }
+
         String todoName = String.join(" ", Arrays.copyOfRange(commandsArray, 1, commandsArray.length));
         ToDo todo = new ToDo(todoName);
         Atlas.addTask(taskList, todo);
     }
 
-    public static void addDeadline(ArrayList<Task> taskList, String[] commandsArray) throws AtlasException {
+    public static void addDeadline(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+        String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
             throw new AtlasException("The description of a deadline cannot be empty.");
         }
+
         String deadlineName = String.format("%s %s", commandsArray[1], commandsArray[2]);
         String deadlineTime = String.join(" ", Arrays.copyOfRange(commandsArray, 4, commandsArray.length));
         Deadline deadline = new Deadline(deadlineName, deadlineTime);
         Atlas.addTask(taskList, deadline);
     }
 
-    public static void addEvent(ArrayList<Task> taskList, String[] commandsArray) throws AtlasException {
+    public static void addEvent(ArrayList<Task> taskList, String nextCommandLine) throws AtlasException {
+        String[] commandsArray = nextCommandLine.split(" ");
         if (commandsArray.length == 1) {
             throw new AtlasException("The description of a event cannot be empty.");
         }
+
         String eventName = String.format("%s %s", commandsArray[1], commandsArray[2]);
         String startTime = "", endTime = "";
         for (int i = 4; i < commandsArray.length; i++) {
