@@ -9,6 +9,7 @@ public class Grok {
                 horizontalLine, msg, horizontalLine
         );
     }
+
     private static String indent(String msg) {
         String indentSpaces = " ".repeat(4);
         return indentSpaces.concat(msg.replace("\n", "\n".concat(indentSpaces)));
