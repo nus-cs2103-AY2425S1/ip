@@ -52,9 +52,36 @@ public class Nayana {
             } else if (command.startsWith("unmark")){
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
                 taskList.markAsNotDone(index);
-            } else {
-                Task nextTask = new Task(command);
+
+            } else if (command.startsWith("deadline")){
+                String[] parts = command.split(" /by ");
+                String description = parts[0].trim();
+                String deadline = parts[1].trim();
+
+                Deadlines nextTask = new Deadlines(description,deadline);
                 taskList.addTask(nextTask);
+
+            } else if (command.startsWith("event")) {
+                String[] fromParts = command.split(" /from ");
+                String description = fromParts[0].trim();
+
+                String[] toParts = fromParts[1].split(" /to ");
+                String startTime = toParts[0].trim();
+                String endTime = toParts[1].trim();
+
+                Event nextTask = new Event(description,startTime,endTime);
+                taskList.addTask(nextTask);
+
+            } else if (command.startsWith("todo")){
+                String[] parts = command.split("todo ");
+                String description = parts[1].trim();
+                ToDos nextTask = new ToDos(description);
+                taskList.addTask(nextTask);
+
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("____________________________________________________________");
             }
         }
         scanner.close();

@@ -20,6 +20,11 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println(String.format("Now you have %d tasks left in the list", tasks.size()));
+        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -46,7 +51,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String listOfTasks = "";
+        String listOfTasks = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasks.size(); i++) {
             listOfTasks += (i + 1) + ". " + tasks.get(i) + "\n";
         }

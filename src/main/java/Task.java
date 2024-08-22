@@ -14,9 +14,6 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        System.out.println("____________________________________________________________");
-        System.out.println("added:" + description);
-        System.out.println("____________________________________________________________");
         this.done = false;
     }
     /**
