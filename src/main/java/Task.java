@@ -1,9 +1,11 @@
 public class Task {
 
+    protected String typeIcon;
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String typeIcon, String description) {
+        this.typeIcon = typeIcon;
         this.description = description;
         this.isDone = false;
     }
@@ -13,16 +15,19 @@ public class Task {
     }
 
     public void mark() {
-        this.isDone = true;;
+        this.isDone = true;
     }
 
     public void unmark() {
         this.isDone = false;
     }
 
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+    public String stringUI() {
+        return "[" + this.typeIcon + "][" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String stringStorage(){
+        return this.typeIcon + " | " + this.getStatusIcon() + " | " + this.description;
     }
 
 }
