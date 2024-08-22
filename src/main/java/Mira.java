@@ -26,44 +26,47 @@ public class Mira {
             String[] commandParts = userInput.split(" ", 2); // cam only split one time
             String command = commandParts[0];
             String arguments = commandParts.length > 1 ? commandParts[1] : "";
-
-            switch (command) {
-                case "bye" -> {
-                    this.ui.showMessage("Bye. Hope to see you again soon!");
-                    this.isRunning = false;
-                }
-                case "list" -> this.tasks.listTasks();
-                case "mark" -> {
-                    int index = Integer.parseInt(arguments);
-                    this.tasks.markTask(index);
-                }
-                case "unmark" -> {
-                    int index = Integer.parseInt(arguments);
-                    this.tasks.unmarkTask(index);
-                }
-                case "todo" -> this.tasks.addTask(new Todo(arguments));
-                case "deadline" -> {
-                    String[] deadlineParts = arguments.split("/by", 2);
-                    if (deadlineParts.length != 2) {
-                        this.ui.showMessage("Invalid format. Use: deadline <description> /by <deadline>");
-                        break;
+            try {
+                switch (command) {
+                    case "bye" -> {
+                        this.ui.showMessage("Bye. Hope to see you again soon!");
+                        this.isRunning = false;
                     }
-                    String description = deadlineParts[0].trim();
-                    String by = deadlineParts[1].trim();
-                    this.tasks.addTask(new Deadline(description, by));
-                }
-                case "event" -> {
-                    String[] eventParts = arguments.split("/from|/to");
-                    if (eventParts.length != 3) {
-                        this.ui.showMessage("Invalid format. Use: event <description> /from <start> /to <end>");
-                        break;
+                    case "list" -> this.tasks.listTasks();
+                    case "mark" -> {
+                        int index = Integer.parseInt(arguments);
+                        this.tasks.markTask(index);
                     }
-                    String description = eventParts[0].trim();
-                    String from = eventParts[1].trim();
-                    String to = eventParts[2].trim();
-                    this.tasks.addTask(new Event(description, from, to));
+                    case "unmark" -> {
+                        int index = Integer.parseInt(arguments);
+                        this.tasks.unmarkTask(index);
+                    }
+                    case "todo" -> this.tasks.addTask(new Todo(arguments));
+                    case "deadline" -> {
+                        String[] deadlineParts = arguments.split("/by", 2);
+                        if (deadlineParts.length != 2) {
+                            throw new MiraException("Invalid format. Use: deadline <description> /by <deadline>");
+                        }
+                        String description = deadlineParts[0].trim();
+                        String by = deadlineParts[1].trim();
+                        this.tasks.addTask(new Deadline(description, by));
+                    }
+                    case "event" -> {
+                        String[] eventParts = arguments.split("/from|/to");
+                        if (eventParts.length != 3) {
+                            throw new MiraException("Invalid format. Use: event <description> /from <start> /to <end>");
+                        }
+                        String description = eventParts[0].trim();
+                        String from = eventParts[1].trim();
+                        String to = eventParts[2].trim();
+                        this.tasks.addTask(new Event(description, from, to));
+                    }
+                    default -> throw new MiraException("I'm sorry, I don't understand that command.");
                 }
-                default -> this.ui.showMessage("I'm sorry, I don't understand that command.");
+            } catch (MiraException e) {
+                this.ui.showMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                this.ui.showMessage("Please provide a valid task number.");
             }
         }
     }

@@ -22,14 +22,14 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws MiraException {
         if (taskCount < tasks.length) {
             tasks[taskCount] = task;
             taskCount++;
             this.ui.showMessage("Got it. I've added this task:\n  " + task +
                     "\nNow you have " + taskCount + " tasks in the list.");
         } else {
-            this.ui.showMessage("Task list is full. Cannot add more tasks.");
+            throw new MiraException("Task list is full. Cannot add more tasks.");
         }
     }
 
@@ -52,10 +52,9 @@ public class TaskList {
      *
      * @param index The index of the task to mark as done (1-based index).
      */
-    public void markTask(int index) {
+    public void markTask(int index) throws MiraException {
         if (index <= 0 || index > taskCount) {
-            ui.showMessage("Invalid task number.");
-            return;
+            throw new MiraException("Invalid task number.");
         }
 
         tasks[index - 1].setStatus(true);
@@ -67,10 +66,9 @@ public class TaskList {
      *
      * @param index The index of the task to unmark (1-based index).
      */
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws MiraException {
         if (index <= 0 || index > taskCount) {
-            ui.showMessage("Invalid task number.");
-            return;
+            throw new MiraException("Invalid task number.");
         }
 
         tasks[index - 1].setStatus(false);
