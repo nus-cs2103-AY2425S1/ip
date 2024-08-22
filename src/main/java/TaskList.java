@@ -3,10 +3,16 @@ import java.util.ArrayList;
 public class TaskList {
     ArrayList<Task> list = new ArrayList<>();
 
-    public void addToList(String task) {
+    public void addToList(Task task) {
         printLine();
-        System.out.println("    added: " + task);
-        list.add(new Task(task));
+        System.out.println("    The task hath been added");
+        System.out.println("      " + task);
+        list.add(task);
+        if (list.size() == 1) {
+            System.out.println("    thou now hath " + list.size() + " task to complete");
+        } else {
+            System.out.println("    thou now hath " + list.size() + " tasks to complete");
+        }
         printLine();
         System.out.println();
     }

@@ -1,3 +1,5 @@
+import com.sun.source.tree.CaseTree;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,14 +32,22 @@ public class Elster {
             } else if (input.equals("list")) {
                 taskList.printList();
 
+            } else if (input.startsWith("deadline")) {
+                DeadlineTask task = DeadlineTask.of(input);
+                taskList.addToList(task);
+
+            } else if (input.startsWith("event")) {
+                EventTask task = EventTask.of(input);
+                taskList.addToList(task);
+
+            } else if (input.startsWith("todo")) {
+                taskList.addToList(ToDoTask.of(input));
+
             } else if (input.startsWith("mark")) {
                 taskList.markTaskAsDone(Integer.parseInt(input.substring(5,6)));
 
             } else if (input.startsWith("unmark")) {
                 taskList.unmarkTaskAsUndone(Integer.parseInt(input.substring(7,8)));
-
-            } else {
-                taskList.addToList(input);
 
             }
         }
