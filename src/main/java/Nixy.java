@@ -19,19 +19,26 @@ public class Nixy {
                 continue;
             }
             if (input.startsWith("mark")) {
-                String[] words = splitCommand(input);
-                int taskNumber = Integer.parseInt(words[1]);
+                final int MARK_PREFIX_LENGTH = 5;
+                String taskNumberStr = input.substring(MARK_PREFIX_LENGTH);
+                int taskNumber = Integer.parseInt(taskNumberStr);
                 taskManager.markTaskAsDone(taskNumber);
                 continue;
             }
             if (input.startsWith("unmark")) {
-                String[] words = splitCommand(input);
-                int taskNumber = Integer.parseInt(words[1]);
+                final int UNMARK_PREFIX_LENGTH = 7;
+                String taskNumberStr = input.substring(UNMARK_PREFIX_LENGTH);
+                int taskNumber = Integer.parseInt(taskNumberStr);
                 taskManager.markTaskAsUndone(taskNumber);
                 continue;
             }
 
-            store(input);
+            if (input.startsWith("todo")) {
+                final int TODO_PREFIX_LENGTH = 5;
+                String taskName = input.substring(TODO_PREFIX_LENGTH);
+                store(taskName);
+                continue;
+            }
         }
         exit();
     }
@@ -68,9 +75,10 @@ public class Nixy {
      * Read and store new task in the list of tasks.
      */
     private static void store(String taskName) {
-        Task task = new Task(taskName);
+        Task task = new TodoTask(taskName);
         taskManager.addTask(task);
-        PrintUtility.wrapPrintWithHorizontalLines("added: " + taskName);
+        PrintUtility.wrapPrintWithHorizontalLines("Got it. I've added this task: " + taskName,
+            "Now you have " + taskManager.getTaskCount() + " tasks in the list.");
     }
 
     /**

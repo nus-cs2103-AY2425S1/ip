@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -7,9 +7,10 @@ public class Task {
         this.isDone = false;
     }
 
-    private String getStatus() {
+    private String getStatusLabel() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
 
     public void markAsDone() {
         this.isDone = true;
@@ -24,6 +25,6 @@ public class Task {
     }
 
     public String toString() {
-        return "[" + this.getStatus() + "] " + this.description;
+        return String.format("[%s] %s", this.getStatusLabel(), this.description);
     }
 }

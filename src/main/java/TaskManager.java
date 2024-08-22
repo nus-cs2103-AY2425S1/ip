@@ -6,6 +6,10 @@ public class TaskManager {
         tasks[taskCount++] = task;
     }
 
+    public int getTaskCount() {
+        return taskCount;
+    }
+
     public void markTaskAsDone(int taskNumber) {
         tasks[taskNumber - 1].markAsDone();
         PrintUtility.wrapPrintWithHorizontalLines(
