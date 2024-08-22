@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 public class Strand {
@@ -61,6 +62,33 @@ public class Strand {
         }
     }
 
+    private static void addTask(String input) {
+        String type = input.split(" ")[0];
+        String desc = input.split(" ", 2)[1];
+        switch (type.toLowerCase()) {
+            case "todo": {
+                strandList.add(new Todo(desc));
+                break;
+            }
+            case "deadline": {
+                String description = desc.substring(0,desc.indexOf(" /by "));
+                String deadline = desc.substring(desc.indexOf(" /by ")+5);
+                strandList.add(new Deadline(description, deadline));
+                break;
+            }
+            case "event":{
+                String description = desc.substring(0,desc.indexOf(" /from "));
+                String start = desc.substring(desc.indexOf(" /from ")+7, desc.indexOf(" /to "));
+                String end = desc.substring(desc.indexOf(" /to ")+5);
+                strandList.add(new Event(description, start, end));
+                break;
+            }
+        }
+        output("Got it. I've added this task:\n  "
+                + strandList.get(strandList.size()-1).getStatusIcon()
+                + "\nNow you have " + strandList.size() + " tasks in the list.");
+    }
+
     private static void inputs(String input) {
         if(input.equalsIgnoreCase("bye")) {
             output("Bye. Hope to see you again soon!");
@@ -70,8 +98,13 @@ public class Strand {
         } else if (input.toLowerCase().startsWith("mark") ||
                 input.toLowerCase().startsWith("unmark")) {
             mark(input);
+
+        } else if (input.toLowerCase().startsWith("todo") ||
+                input.toLowerCase().startsWith("deadline") ||
+                input.toLowerCase().startsWith("event")) {
+            addTask(input);
         } else {
-            output("added: " + input);
+            output("added: " + input + "\n");
             strandList.add(new Task(input));
         }
     }
