@@ -1,13 +1,13 @@
-import TaskType.Task;
+package Bot;
+
 import TaskType.TaskBuilder;
 
 import java.util.Objects;
 import java.util.Scanner;
-import Duke.TaskType; // Import the enum
 
 //
 public class Duke {
-    private static String name = "Duke";
+    private static String name = "Bot.Duke";
     private ListManager DukeManager = new ListManager();
     // Possible use of Task
     public enum TaskType {

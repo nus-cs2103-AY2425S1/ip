@@ -1,15 +1,18 @@
 package TaskType;
 
+import Bot.Duke;
+
 import java.util.Objects;
 
+// All kinds of error handlings of invalid task format can be done here instead of Bot.Duke class
 public class TaskBuilder {
     private String description;
-    private String taskType;
+    private Duke.TaskType taskType;
     private String by;
     private String from;
     private String to;
 
-    public TaskBuilder(String description, String taskType) {
+    public TaskBuilder(String description, Duke.TaskType taskType) {
         this.description = description;
         this.taskType = taskType;
     }
@@ -18,6 +21,7 @@ public class TaskBuilder {
         if (Objects.equals(by, "")) {
             System.out.println("by cannot be empty");
         }
+        this.by = by;
         return this;
     }
 
@@ -39,7 +43,7 @@ public class TaskBuilder {
 
     public Task build() {
         switch (taskType) {
-            case "todo":
+            case TODO:
                 if (!Objects.equals(description, "")) {
                     ToDo todo = new ToDo(description);
                     System.out.println(todo);
@@ -48,7 +52,7 @@ public class TaskBuilder {
                     System.out.println("Todo requires a description!");
                     throw new IllegalArgumentException("Todo requires a description!");
                 }
-            case "deadline":
+            case DEADLINE:
                 if (by != null) {
                     Deadline deadline = new Deadline(description, by);
                     System.out.println(deadline);
@@ -58,7 +62,7 @@ public class TaskBuilder {
 
                     throw new IllegalArgumentException("deadline requires a 'by' parameter man!");
                 }
-            case "event":
+            case EVENT:
                 if (from != null && to != null) {
                     Event event = new Event(description, from, to);
                     System.out.println(event);
