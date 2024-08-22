@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 
 public class Weeny {
     public static void main(String[] args) {
@@ -79,6 +79,18 @@ public class Weeny {
                     line();
                     System.out.println("Got it. I've added this task:");
                     System.out.println(current.toString());
+                    System.out.println("Now you have " + data.size() + " tasks in the list.");
+                    line();
+                } else if (command.equals("delete")) {
+                    int val = endnum(input) - 1;
+                    if (val >= data.size() || val < 0) {
+                        throw new IndexOutOfBoundsException("Just a reminder. You can't delete tasks that don't exist!");
+                    }
+                    Task temp = data.get(val);
+                    data.remove(val);
+                    line();
+                    System.out.println("Spooof! The task magically disappeared");
+                    System.out.println(temp.toString());
                     System.out.println("Now you have " + data.size() + " tasks in the list.");
                     line();
                 } else {
