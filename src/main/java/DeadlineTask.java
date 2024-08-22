@@ -3,6 +3,12 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(String description, String deadline) throws TaskArgumentMissingException {
         super(description);
+        if (deadline == null || deadline.isEmpty()) {
+            throw new TaskArgumentMissingException(
+                    """
+                            Whoopsies!! Looks like you forgot your deadline!
+                            I'll say this once: next time mark your deadline with '/deadline'.""");
+        }
         this.deadline = deadline;
     }
 
