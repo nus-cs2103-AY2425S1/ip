@@ -115,6 +115,28 @@ public class Bill {
         }
     }
 
+    private void handleDelete(String[] parsedInput) throws BillException {
+        // data validation
+        if (parsedInput.length < 2) {
+            throw new BillException("Please provide a second argument when deleting a task");
+        }
+        if (parsedInput.length > 2) {
+            throw new BillException("Please provide only one additional argument after the delete word, ensure to follow the format: delete <number>, where <> is your input");
+        }
+        // ensure task number is within the range of the task list
+        if (Integer.parseInt(parsedInput[1]) > userList.size() || Integer.parseInt(parsedInput[1]) < 1) {
+            throw new BillException("There is no task of that number in the current list, unable to delete, please try again with a valid number");
+        }
+
+        int targetTaskNumber = Integer.parseInt(parsedInput[1]) - 1;
+        Task targetTask = userList.get(targetTaskNumber);
+
+        userList.remove(targetTaskNumber);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(targetTask);
+        System.out.println("Now you have " + userList.size() + " tasks in the list.");
+    }
+
     public void start() {
         introduce();
         Scanner userScanner = new Scanner(System.in);
@@ -142,6 +164,9 @@ public class Bill {
                         break;
                     case "event":
                         handleEvent(userCommand);
+                        break;
+                    case "delete":
+                        handleDelete(parsedInput);
                         break;
                     default:
                         System.out.println("Not a recognised command, please try again");
