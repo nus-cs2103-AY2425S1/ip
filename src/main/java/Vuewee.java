@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Vuewee {
   public static void main(String[] args) {
@@ -38,7 +40,7 @@ public class Vuewee {
 
           for (int i = 0; i < taskListLength; i++) {
             Task task = taskList[i];
-            System.out.println((i + 1) + ". [" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println((i + 1) + ". " + task.toString());
           }
           break;
         }
@@ -82,12 +84,63 @@ public class Vuewee {
           }
           break;
         }
-        // Add TODO task to task list
+        // Add todo task to task list
+        // (Usage: todo <description>)
         case "todo": {
           taskList[taskListLength] = new TodoTask(inputParts[1]);
           taskListLength++;
           System.out.println("Got it. I've added this task:");
           System.out.println("  " + taskList[taskListLength - 1]);
+          break;
+        }
+        // Add deadline task to task list
+        // (Usage: deadline <description> /by <date>)
+        case "deadline": {
+          if (inputParts.length < 2) {
+            System.out.println("Invalid deadline format. Usage: deadline <description> /by <date>");
+            break;
+          }
+
+          String[] deadlineParts = inputParts[1].split(" /by ");
+          if (deadlineParts.length != 2) {
+            System.out.println(
+                "Invalid deadline format. Usage: deadline <description> /by <date>");
+            break;
+          }
+          taskList[taskListLength] = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
+          taskListLength++;
+          System.out.println("Got it. I've added this task:");
+          System.out.println("  " + taskList[taskListLength - 1]);
+          break;
+        }
+        // Add event task to task list
+        // (Usage: event <description> /from <fromDate> /to <toDate>)
+        case "event": {
+          if (inputParts.length < 2) {
+            System.out.println("Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>");
+            break;
+          }
+
+          String paramsInput = inputParts[1];
+          Pattern fromPattern = Pattern.compile("/from (.+?)(?:$| /to| /from)");
+          Pattern toPattern = Pattern.compile("/to (.+?)(?:$| /from| /to)");
+
+          Matcher fromMatcher = fromPattern.matcher(paramsInput);
+          Matcher toMatcher = toPattern.matcher(paramsInput);
+
+          if (fromMatcher.find() && toMatcher.find()) {
+            // Extract description, from date and to date using regex results
+            String description = paramsInput.substring(0, Math.min(fromMatcher.start(), toMatcher.start())).trim();
+            String fromDate = fromMatcher.group(1);
+            String toDate = toMatcher.group(1);
+
+            taskList[taskListLength] = new EventTask(description, fromDate, toDate);
+            taskListLength++;
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + taskList[taskListLength - 1]);
+          } else {
+            System.out.println("Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>");
+          }
           break;
         }
         default: {
