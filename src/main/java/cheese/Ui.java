@@ -1,8 +1,8 @@
 package cheese;
 
-import cheese.task.Task;
-
 import java.util.Scanner;
+
+import cheese.task.Task;
 
 /**
  * Takes in user input and formats the response
@@ -11,7 +11,7 @@ public class Ui {
     private static final String GREETING = "Hello! I'm Wheely Big Cheese\nWhat can I do for you?";
     private static final String ENDING = "Schwooo Weeeeee!!! Shutting down.....";
     private static final String ERROR = "Cheese.Command not gouda.... ";
-    private Scanner sc;
+    private final Scanner sc;
 
     Ui() {
         this.sc = new Scanner(System.in);

@@ -1,25 +1,27 @@
 package cheese.task;
 
-import cheese.CheeseException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
+
+import cheese.CheeseException;
 
 /**
  * Parent class for all tasks
  */
 public class Task {
-    private String name;
+    private final String name;
     private boolean done;
 
     /**
      * Simple constructor
      * @param name name for task
-     * @throws CheeseException
+     * @throws CheeseException if no name
      */
     public Task(String name) throws CheeseException {
-        if (name.isBlank()) throw new CheeseException("Cheese needs to have a name");
+        if (name.isBlank()) {
+            throw new CheeseException("Cheese needs to have a name");
+        }
         this.name = name;
         done = false;
     }
@@ -27,19 +29,21 @@ public class Task {
     /**
      * Takes in csv data (from Storage) that is split
      * @param data arr of String
-     * @throws CheeseException
+     * @throws CheeseException if incorrect date
      */
     public Task(String[] data) throws CheeseException {
-        if (data.length < 3) throw new CheeseException("Incorrect data format");
+        if (data.length < 3) {
+            throw new CheeseException("Incorrect data format");
+        }
         done = Objects.equals(data[1], "1");
         name = data[2];
     }
 
     /**
      * Helper function for children to parse date
-     * @param dateStr
-     * @return
-     * @throws CheeseException
+     * @param dateStr specific format for date
+     * @return LocalDate
+     * @throws CheeseException if dateStr wrong
      */
     public static LocalDate parseDate(String dateStr) throws CheeseException {
         LocalDate d;

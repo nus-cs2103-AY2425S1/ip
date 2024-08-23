@@ -9,7 +9,7 @@ import cheese.Ui;
  * Encapsulates small parts of logic for the bot
  */
 public class Command {
-    private boolean exitChat;
+    private final boolean exitChat;
 
     Command() {
         exitChat = false;

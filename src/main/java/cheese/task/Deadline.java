@@ -1,16 +1,16 @@
 package cheese.task;
 
-import cheese.CheeseException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import cheese.CheeseException;
+
 /**
  * Task with a dateline
  */
-public class Deadline extends Task{
-    private LocalDate date;
+public class Deadline extends Task {
+    private final LocalDate date;
 
     private Deadline(String name, LocalDate date) throws CheeseException {
         super(name);
@@ -20,11 +20,13 @@ public class Deadline extends Task{
     /**
      * Takes in csv data (from Storage) that is split
      * @param data String array
-     * @throws CheeseException
+     * @throws CheeseException incorrect date format
      */
     public Deadline(String[] data) throws CheeseException {
         super(data);
-        if(data.length != 4) throw new CheeseException("Incorrect data format");
+        if (data.length != 4) {
+            throw new CheeseException("Incorrect data format");
+        }
         date = parseDate(data[3]);
     }
 
@@ -36,8 +38,12 @@ public class Deadline extends Task{
      */
     public static Deadline of(String input) throws CheeseException {
         String[] tokens = input.replace("deadline", "").strip().split("/by");
-        if (tokens.length < 2) throw new CheeseException("Cheese.Deadline needs a /by");
-        if (tokens[1].isBlank()) throw new CheeseException("Cheese.Deadline needs a date!");
+        if (tokens.length < 2) {
+            throw new CheeseException("Cheese.Deadline needs a /by");
+        }
+        if (tokens[1].isBlank()) {
+            throw new CheeseException("Cheese.Deadline needs a date!");
+        }
         return new Deadline(tokens[0].strip(), Task.parseDate(tokens[1]));
     }
 
@@ -55,9 +61,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() +
-                   " in " + daysLeft() + " days " +
-                   "(by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " in " + daysLeft() + " days "
+            + "(by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**

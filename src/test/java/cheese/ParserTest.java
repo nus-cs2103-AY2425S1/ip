@@ -17,42 +17,42 @@ public class ParserTest {
     @Test
     public void testParseListCommand() throws CheeseException {
         Command command = Parser.parse("list", 10);
-        assertTrue(command instanceof ListCommand);
+        assertInstanceOf(ListCommand.class, command);
     }
     @Test
     public void testParseMarkCommand() throws CheeseException {
         Command command = Parser.parse("mark 1", 10);
-        assertTrue(command instanceof MarkCommand);
+        assertInstanceOf(MarkCommand.class, command);
     }
     @Test
     public void testParseUnmarkCommand() throws CheeseException {
         Command command = Parser.parse("unmark 1", 10);
-        assertTrue(command instanceof MarkCommand);
+        assertInstanceOf(MarkCommand.class, command);
     }
     @Test
     public void testParseTodoCommand() throws CheeseException {
         Command command = Parser.parse("todo Read a book", 10);
-        assertTrue(command instanceof AddCommand);
+        assertInstanceOf(AddCommand.class, command);
     }
     @Test
     public void testParseDeadlineCommand() throws CheeseException {
         Command command = Parser.parse("deadline Submit report /by 2023-03-25", 10);
-        assertTrue(command instanceof AddCommand);
+        assertInstanceOf(AddCommand.class, command);
     }
     @Test
     public void testParseEventCommand() throws CheeseException {
         Command command = Parser.parse("event Meeting /from 2024-03-05 /to 2024-04-04", 10);
-        assertTrue(command instanceof AddCommand);
+        assertInstanceOf(AddCommand.class, command);
     }
     @Test
     public void testParseDeleteCommand() throws CheeseException {
         Command command = Parser.parse("delete 1", 10);
-        assertTrue(command instanceof UpdateCommand);
+        assertInstanceOf(UpdateCommand.class, command);
     }
     @Test
     public void testParseDefaultCommand() throws CheeseException {
         Command command = Parser.parse("unknown command", 10);
-        assertTrue(command instanceof AddCommand);
+        assertInstanceOf(AddCommand.class, command);
     }
 
     // Tests for getIdx

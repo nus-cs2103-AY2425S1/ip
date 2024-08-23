@@ -1,10 +1,4 @@
 package cheese;
-
-import cheese.task.Deadline;
-import cheese.task.Event;
-import cheese.task.Task;
-import cheese.task.ToDo;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,11 +6,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import cheese.task.Deadline;
+import cheese.task.Event;
+import cheese.task.Task;
+import cheese.task.ToDo;
+
+
+
 /**
  * Manipulate file that store task information
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     Storage(String filePath) {
         this.filePath = filePath;
@@ -58,10 +59,10 @@ public class Storage {
     private Task loadTask(String s) throws CheeseException {
         String[] data = s.split(",");
         return switch (data[0]) {
-            case "T" -> new ToDo(data);
-            case "D" -> new Deadline(data);
-            case "E" -> new Event(data);
-            default -> throw new CheeseException("Incorrect data format");
+        case "T" -> new ToDo(data);
+        case "D" -> new Deadline(data);
+        case "E" -> new Event(data);
+        default -> throw new CheeseException("Incorrect data format");
         };
     }
 
