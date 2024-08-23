@@ -42,6 +42,13 @@ public class Him {
                     list.add(newDeadline);
                     System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
                 }
+                case "event" -> {
+                    String[] details = input[1].split("/");
+                    Event newEvent = new Event(details[0].trim(), details[1].substring(details[1].indexOf(" ")).trim(),
+                            details[2].substring(details[2].indexOf(" ")).trim());
+                    list.add(newEvent);
+                    System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
+                }
             }
             System.out.print("User: ");
             input = scanner.nextLine().split(" ", 2);
