@@ -73,6 +73,7 @@ public class TaskList {
                 } catch (NumberFormatException e) {
                     throw new InvalidNumberException();
                 }
+                break;
             case "list":
                 this.listOut();
                 break;
@@ -94,10 +95,6 @@ public class TaskList {
         }
     }
 
-    public void printTask(int index) {
-        System.out.println(this.list.get(index));
-    }
-
     public void markTask(int index) {
         this.list.get(index).mark();
         System.out.println("You have marked the following task as done!");
@@ -111,6 +108,9 @@ public class TaskList {
     }
 
     public void delete(int index) {
-        
+        Task deleted = this.list.get(index);
+        this.list.remove(index);
+        System.out.println("Let's go deleting!");
+        System.out.println("Deleted task " + deleted);
     }
 }
