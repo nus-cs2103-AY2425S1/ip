@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class ConverSage {
     public static void main(String[] args) {
         String logo = "  ____                          ____                   \n" +
@@ -8,9 +10,23 @@ public class ConverSage {
                 "                                            |___/      ";
         String horizontalLine = "____________________________________________________________";
         System.out.println(logo);
-        System.out.println("Hello! I'm your ConverSage!");
+        System.out.println("Greetings, I'm your ConverSage.");
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
-        System.out.println("Bye. Hope to see you again soon!");
+
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            input = scanner.nextLine();
+            System.out.println(horizontalLine);
+            if (input.equalsIgnoreCase("bye")) {
+                System.out.println("Goodbye. We shall meet again soon.");
+                System.out.println(horizontalLine);
+                break;
+            }
+            System.out.println(input);
+            System.out.println(horizontalLine);
+        }
     }
 }
