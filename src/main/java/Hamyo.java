@@ -14,7 +14,15 @@ public class Hamyo {
 
         while (active) {
             String str = scanner.nextLine();
-            if (str.startsWith("bye")) {
+            if (str.startsWith("add")) {
+                if (str.length() > 4) {
+                    add(str.substring(4));
+                } else {
+                    System.out.println("Oh no! Usage: add [task]");
+                }
+            } else if (str.equals("list")) {
+                listItems();
+            } else if (str.startsWith("bye")) {
                 terminate();
             } else {
                 echo(str);
@@ -34,6 +42,7 @@ public class Hamyo {
             "$$   $$  $$  $$  $$  $$$  $$       $$  $$  $$\n" +
             "$$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$");
     }
+
     public static void greet() {
         printLine();
         printLogo();
@@ -44,6 +53,19 @@ public class Hamyo {
     public static void terminate() {
         active = false;
         System.out.println("Annyeong! Till we meet again. <3");
+        printLine();
+    }
+
+    public static void add(String item) {
+        items[nItems++] = item;
+        System.out.println("added: " + item);
+        printLine();
+    }
+
+    public static void listItems() {
+        for (int i = 0; i < nItems; i++) {
+            System.out.printf("%d. %s\n", i + 1, items[i]);
+        }
         printLine();
     }
 
