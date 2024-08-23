@@ -8,6 +8,10 @@ public class MarkCommand implements Command {
         String inputArgs = Parser.parseInput(input).args();
         int index = Integer.parseInt(inputArgs) - 1;
 
+        if (index < 0 || index >= items.size()) {
+            throw new InvalidIndexException(items.size(), index);
+        }
+
         this.items = items;
         this.itemIndex = index;
     }

@@ -33,6 +33,10 @@ public class Parser {
         }
         values[index] = sj.toString();
 
+        if (index != args.length) {
+            throw new MissingArgumentException(args.length, index);
+        }
+
         return values;
     }
 }

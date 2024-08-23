@@ -9,6 +9,9 @@ public class CreateToDoCommand implements Command {
 
         // Remove the command from the input
         this.name = Parser.parseInput(input).args();
+        if (this.name.isEmpty()) {
+            throw new MissingArgumentException(1, 0);
+        }
     }
 
     @Override

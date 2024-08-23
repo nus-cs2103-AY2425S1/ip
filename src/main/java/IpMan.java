@@ -19,26 +19,31 @@ public class IpMan {
             String input = scanner.nextLine();
             Command command;
 
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                command = new ListCommand(items);
-            } else if (input.startsWith("mark")) {
-                command = new MarkCommand(items, input);
-            } else if (input.startsWith("unmark")) {
-                command = new UnmarkCommand(items, input);
-            } else if (input.startsWith("todo")) {
-                command = new CreateToDoCommand(items, input);
-            } else if (input.startsWith("deadline")) {
-                command = new CreateDeadlineCommand(items, input);
-            } else if (input.startsWith("event")) {
-                command = new CreateEventCommand(items, input);
-            } else {
-                System.out.println("Sorry, I don't recognise that command. Try again!");
-                continue;
-            }
+            try {
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    command = new ListCommand(items);
+                } else if (input.startsWith("mark")) {
+                    command = new MarkCommand(items, input);
+                } else if (input.startsWith("unmark")) {
+                    command = new UnmarkCommand(items, input);
+                } else if (input.startsWith("todo")) {
+                    command = new CreateToDoCommand(items, input);
+                } else if (input.startsWith("deadline")) {
+                    command = new CreateDeadlineCommand(items, input);
+                } else if (input.startsWith("event")) {
+                    command = new CreateEventCommand(items, input);
+                } else {
+                    System.out.println("Sorry, I don't recognise that command. Try again!");
+                    continue;
+                }
 
-            command.execute();
+                command.execute();
+            } catch (Exception e) {
+                System.out.println("Oh no! Something went wrong:");
+                System.out.println(e.getMessage());
+            }
         }
 
         // Goodbye
