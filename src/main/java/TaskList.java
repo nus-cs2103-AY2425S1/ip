@@ -8,6 +8,14 @@ public class TaskList implements Iterable<Task> {
         tasks = new ArrayList<>();
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    public boolean isAllComplete() {
+        return (!isEmpty() && getIncompleteCount() == 0);
+    }
+
     public int getIncompleteCount() {
         int count = 0;
         for (Task task: tasks) {
