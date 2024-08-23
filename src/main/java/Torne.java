@@ -15,7 +15,9 @@ public class Torne {
             "list", NO_ARGS,
             "mark",DEFAULT_ARG,
             "unmark", DEFAULT_ARG,
-            "test", new String[]{"a", "b"}
+            "todo", NO_ARGS,
+            "deadline", new String[]{"by"},
+            "event", new String[]{"from", "to"}
     );
 
     /**
@@ -145,12 +147,22 @@ Aww, bye to you as well :c""";
 
     /**
      * Adds a task and shows a message if the task was successfully added.
+     *
      * @param name name of task to be added
      */
     private void addTask(String name) {
         TASK_HANDLER.addTask(new Task(name));
         String message = "added: " + name;
         OUTPUT.writeText(message);
+    }
+
+    /**
+     * Creates a new task with no date/time, with type `Todo`.
+     *
+     * @param name name of task to be added
+     */
+    private void addTaskTodo(String name) {
+
     }
 
     /**
