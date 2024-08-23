@@ -1,5 +1,5 @@
 public class CommandFormatException extends Exception {
-    public CommandFormatException(String message, TaskManager taskManager) {
+    public CommandFormatException(String message) {
         super(message);
     }
 }

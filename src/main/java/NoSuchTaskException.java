@@ -1,5 +1,5 @@
 public class NoSuchTaskException extends Exception {
-    public NoSuchTaskException(String message, TaskManager taskManager) {
+    public NoSuchTaskException(String message) {
         super(message);
     }
 }
