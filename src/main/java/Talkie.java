@@ -4,18 +4,29 @@ import java.util.Scanner;
 
 public class Talkie {
 
+    public enum MessageType {
+        HORIZONTAL_LINE("-------------------------------------------------------------------"),
+        WELCOME_MESSAGE(HORIZONTAL_LINE.message + "\n"
+                + "Hello! I'm Talkie, your friendly ChatBot.\n"
+                + "What can I do for you?\n"
+                + HORIZONTAL_LINE.message + "\n"),
+        BYE_MESSAGE(HORIZONTAL_LINE.message + "\n"
+                + "Bye. Hope to see you again soon!\n"
+                + HORIZONTAL_LINE.message + "\n");
+
+        private final String message;
+
+        MessageType(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return this.message;
+        }
+    }
+
     protected static List<Task> taskList = new ArrayList<>();
     protected static Scanner scanner = new Scanner(System.in);
-    protected static String horizontalLine = "-------------------------------------------------------------------";
-
-    protected static String welcomeMessage = horizontalLine + "\n"
-            + "Hello! I'm Talkie, your friendly ChatBot.\n"
-            + "What can I do for you?\n"
-            + horizontalLine + "\n";
-
-    protected static String byeMessage = horizontalLine + "\n"
-            + "Bye. Hope to see you again soon!\n"
-            + horizontalLine + "\n";
 
     // Creates Deadline Task
     public static void createDeadline(String input) throws TalkieMissingArgumentException {
@@ -78,11 +89,11 @@ public class Talkie {
     // The message displayed whenever a task is created
     public static String addMessage(Task t) {
         String taskWord = (taskList.size() > 1) ? "tasks" : "task";
-        return horizontalLine + "\n"
+        return MessageType.HORIZONTAL_LINE.getMessage() + "\n"
                 + "Got it. I've added this task:\n"
                 + "  " + t + "\n"
                 + "Now you have " + taskList.size() + " " + taskWord + " in the list.\n"
-                + horizontalLine + "\n";
+                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
     }
 
     // Deletes a task
@@ -102,11 +113,11 @@ public class Talkie {
             if (index <= taskList.size() - 1) {
                 Task task = taskList.remove(index);
                 String taskWord = (taskList.size() > 1) ? "tasks" : "task";
-                String doneMessage = horizontalLine + "\n"
+                String doneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
                         + "Noted! I've removed this task:\n"
                         + "  " + task + "\n"
                         + "Now you have " + taskList.size() + " " + taskWord + " in the list.\n"
-                        + horizontalLine + "\n";
+                        + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
                 System.out.println(doneMessage);
             } else {
                 throw new TalkieNoTaskFoundException();
@@ -125,10 +136,10 @@ public class Talkie {
             listMessage += description;
         }
 
-        String finalListMessage = horizontalLine + "\n"
+        String finalListMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
                 + "Here are the tasks in your list:\n"
                 +  listMessage
-                + horizontalLine + "\n";
+                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
         System.out.println(finalListMessage);
     }
 
@@ -149,10 +160,10 @@ public class Talkie {
             if (index <= taskList.size() - 1) {
                 Task task = taskList.get(index);
                 task.markAsDone();
-                String doneMessage = horizontalLine + "\n"
+                String doneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
                         + "Nice! I've marked this task as done:\n"
                         + " " + task + "\n"
-                        + horizontalLine + "\n";
+                        + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
                 System.out.println(doneMessage);
             } else {
                 throw new TalkieNoTaskFoundException();
@@ -180,10 +191,10 @@ public class Talkie {
             if (index <= taskList.size() - 1) {
                 Task task = taskList.get(index);
                 task.markAsNotDone();
-                String undoneMessage = horizontalLine + "\n"
+                String undoneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
                         + "OK, I've marked this task as not done yet:\n"
                         + " " + task + "\n"
-                        + horizontalLine + "\n";
+                        + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
                 System.out.println(undoneMessage);
             } else {
                 throw new TalkieNoTaskFoundException();
@@ -206,7 +217,7 @@ public class Talkie {
 
     // Runs the main program
     public static void runTalkie() {
-        System.out.println(Talkie.welcomeMessage);
+        System.out.println(MessageType.WELCOME_MESSAGE.getMessage());
 
         boolean isFinished = false;
         while (!isFinished) {
@@ -214,7 +225,7 @@ public class Talkie {
 
             try {
                 if (input.equalsIgnoreCase("bye")) {
-                    System.out.println(byeMessage);
+                    System.out.println(MessageType.BYE_MESSAGE.getMessage());
                     isFinished = true;
 
                 } else if (input.equalsIgnoreCase("list")) {
