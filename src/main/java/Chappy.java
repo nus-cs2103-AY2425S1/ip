@@ -55,7 +55,7 @@ public class Chappy {
                 userInputArray[t].markAsNotDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Aww.. I've marked this task as not done yet..");
-                System.out.println("[" + userInputArray[t].getStatusIcon() + "] " + userInputArray[t].toString());
+                System.out.println(userInputArray[t].toString());
                 System.out.println("____________________________________________________________");
 
             }  else if (userInput.toLowerCase().contains("mark")) {
@@ -63,18 +63,39 @@ public class Chappy {
                 userInputArray[t].markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Fantastic! I've marked this task as done!");
-                System.out.println("[" + userInputArray[t].getStatusIcon() + "] " + userInputArray[t].toString());
+                System.out.println(userInputArray[t].toString());
+                System.out.println("____________________________________________________________");
+            } else if (userInput.toLowerCase().contains("todo")) {
+                String t = userInput.split("todo")[1];
+                Todo task = new Todo(t);
+                userInputArray[userInputArrayPointer] = task;
+                userInputArrayPointer++;
+                System.out.println("Alright sir! I've added this task:");
+                System.out.println(task.toString());
+                System.out.println("____________________________________________________________");
+            } else if (userInput.toLowerCase().contains("deadline")) {
+                String t = userInput.split("deadline")[1];
+                String[] t2 = t.split("/by");
+                Deadline task = new Deadline(t2[0], t2[1]);
+                userInputArray[userInputArrayPointer] = task;
+                userInputArrayPointer++;
+                System.out.println("Alright sir! I've added this task:");
+                System.out.println(task.toString());
+                System.out.println("____________________________________________________________");
+            } else if (userInput.toLowerCase().contains("event")) {
+                String t = userInput.split("event")[1];
+                String[] t2 = t.split("/from");
+                String[] t3 = t2[1].split("/to");
+
+                Event task = new Event(t2[0], t3[0], t3[1]);
+                userInputArray[userInputArrayPointer] = task;
+                userInputArrayPointer++;
+                System.out.println("Alright sir! I've added this task:");
+                System.out.println(task.toString());
                 System.out.println("____________________________________________________________");
             }
             
-            else if (userInput != "") {
-                System.out.println("____________________________________________________________");
-                Task t = new Task(userInput);
-                userInputArray[userInputArrayPointer] = t;
-                userInputArrayPointer++;
-                System.out.println("added: " + userInput);
-                System.out.println("____________________________________________________________");
-            }
+           
             
         }
         System.out.println("____________________________________________________________");
