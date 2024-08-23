@@ -21,4 +21,12 @@ public class TaskManager {
         tasks.add(new Task(task));
     }
 
+    public void removeTask(int taskId) {
+        if(taskId > 0 && taskId <= tasks.size()) {
+            tasks.remove(taskId - 1);
+        } else {
+            throw new IllegalArgumentException("Trying to delete nonexistent task");
+        }
+    }
+
 }
