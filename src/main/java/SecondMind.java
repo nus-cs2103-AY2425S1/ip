@@ -18,40 +18,70 @@ public class SecondMind {
         printLineSeparator();
     }
 
-    private static Task createTask(String task) {
+    private static Task createToDo(String[] taskInfo) throws EmptyToDoException {
+        if (taskInfo.length == 1) {
+            throw new EmptyToDoException();
+        }
+        taskInfo[0] = "";
+        return new ToDoTask(String.join(" ", taskInfo));
+    }
+
+    private static Task createDeadline(String task) {
+        String[] taskInfo = task.split("/");
+        taskInfo = String.join(" ", taskInfo).split(" by ");
+        //Prefix of taskInfo[0] is "deadline "
+        String taskDescription = taskInfo[0].substring(9);
+        String taskDeadline = taskInfo[1];
+        return new DeadlineTask(taskDescription, taskDeadline);
+    }
+
+    private static Task createEvent(String task) {
+        String[] taskInfo = task.split(" /", 3);
+        //Prefix of taskInfo[0] is "event "
+        String taskDescription = taskInfo[0].substring(6);
+        //Prefix of taskInfo[1] is "from "
+        String taskStart = taskInfo[1].substring(5);
+        //Prefix of taskInfo[2] is "to "
+        String taskEnd = taskInfo[2].substring(3);
+        return new EventTask(taskDescription, taskStart, taskEnd);
+    }
+
+    private static Task createTask(String task) throws EmptyCommandException, EmptyToDoException, UnknownCommandException {
         String[] taskInfo = task.split(" ");
         String taskType = taskInfo[0];
-        if (taskType.equals("todo")) {
-            taskInfo[0] = "";
-            return new ToDoTask(String.join(" ", taskInfo));
+        if (taskInfo[0].equals("")) {
+            throw new EmptyCommandException();
+        } else if (taskType.equals("todo")) {
+            try {
+                return createToDo(taskInfo);
+            } catch (EmptyToDoException e) {
+                throw e;
+            }
         } else if (taskType.equals("deadline")) {
-            taskInfo = task.split("/");
-            taskInfo = String.join(" ", taskInfo).split(" by ");
-            //Prefix of taskInfo[0] is "deadline "
-            String taskDescription = taskInfo[0].substring(9);
-            String taskDeadline = taskInfo[1];
-            return new DeadlineTask(taskDescription, taskDeadline);
+            return createDeadline(task);
         } else if (taskType.equals("event")) {
-            taskInfo = task.split(" /", 3);
-            //Prefix of taskInfo[0] is "event "
-            String taskDescription = taskInfo[0].substring(6);
-            //Prefix of taskInfo[1] is "from "
-            String taskStart = taskInfo[1].substring(5);
-            //Prefix of taskInfo[2] is "to "
-            String taskEnd = taskInfo[2].substring(3);
-            return new EventTask(taskDescription, taskStart, taskEnd);
+            return createEvent(task);
+        } else {
+            throw new UnknownCommandException();
         }
-        return null;
     }
 
     private static void addToTaskList(String task) {
-        Task curr = createTask(task);
-        taskList[taskCount] = curr;
-        taskCount++;
-        printLineSeparator();
-        System.out.println("Got it. I have added the following task:\n\t" + curr);
-        System.out.println("You have a grand total of " + taskCount + " task(s)");
-        printLineSeparator();
+        try {
+            Task curr = createTask(task);
+            taskList[taskCount] = curr;
+            taskCount++;
+            printLineSeparator();
+            System.out.println("Got it. I have added the following task:\n\t" + curr);
+            System.out.println("You have a grand total of " + taskCount + " task(s)");
+            printLineSeparator();
+        } catch (EmptyCommandException e) {
+            System.out.println(e);
+        } catch (EmptyToDoException e) {
+            System.out.println(e);
+        } catch (UnknownCommandException e) {
+            System.out.println(e);
+        }
     }
 
     private static void printTaskList() {
