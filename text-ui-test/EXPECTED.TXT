@@ -16,12 +16,13 @@ Nice! I've marked this task as done:
 2 , [D][ ] Submit assignment (by: Friday)
 3 , [E][ ] Team meeting (from: Monday 10am to: 12pm)
 OK, I've marked this task as not done yet:
-1 , [T][ ] Read a book
+1 , [T][ ] Submit assignment (by: Friday)
+
 2 , [D][ ] Submit assignment (by: Friday)
 3 , [E][ ] Team meeting (from: Monday 10am to: 12pm)
      Noted. I've removed this task:
 [D][ ] Submit assignment (by: Friday)
      Now you have 4 tasks in the list.!
-1 , [D][ ] Submit assignment (by: Friday)
+1 , [T][ ] Read a book
 2 , [E][ ] Team meeting (from: Monday 10am to: 12pm)
 Bye. Hope to see you again soon!
