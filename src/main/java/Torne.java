@@ -222,6 +222,7 @@ Aww, bye to you as well :c""";
 
     /**
      * Marks a particular task as complete.
+     *
      * @param indexStr index of task to be marked as complete.
      */
     private void mark(String indexStr) {
@@ -254,6 +255,7 @@ Aww, bye to you as well :c""";
 
     /**
      * Marks a particular task as incomplete.
+     *
      * @param indexStr index of task to be marked as incomplete.
      */
     private void unmark(String indexStr) {
