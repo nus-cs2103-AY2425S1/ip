@@ -126,7 +126,7 @@ public class Ontos {
                 + " Now you have" + elements + " tasks in the list.\n" 
                 + line);
             } else {
-                System.out.println("placeholder text before level-5");
+                System.out.println(line + " OOPS!!! I'm sorry, but I don't know what that means :-(" + line);
             }
         }
         sc.close();
