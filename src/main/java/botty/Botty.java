@@ -52,7 +52,6 @@ public class Botty {
 
     public void beginInteraction() {
         inputScanner = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
 
         displayIntroduction();
 
