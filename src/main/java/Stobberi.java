@@ -35,6 +35,14 @@ public class Stobberi {
         done += listOfTasks.get(number - 1).toString();
         System.out.println(displayForm(done));
     }
+    private static void delete(int number) { // Make tasks singular and plural in the future
+        Task temp = listOfTasks.get(number - 1);
+        listOfTasks.remove(number - 1);
+        String done = "Noted. I've removed this task:\n" +
+                "  " + temp
+                + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
+        System.out.println(displayForm(done));
+    }
     private static void displayLastAdded() {
         System.out.println(displayForm(
                 "Got it. I've added this task:\n    "
@@ -84,6 +92,10 @@ public class Stobberi {
                         continue;
                     } else if (firstWord.equals("unmark")) {
                         unmarkTask(number);
+                        temp = scanner.nextLine();
+                        continue;
+                    } else if (firstWord.equals("delete")) {
+                        delete(number);
                         temp = scanner.nextLine();
                         continue;
                     }
