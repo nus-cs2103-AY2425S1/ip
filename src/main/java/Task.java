@@ -3,6 +3,7 @@ public class Task {
 
     private String content;
     private Boolean status;
+    
 
     public Task(String content,Boolean status) {
         this.content = content;
