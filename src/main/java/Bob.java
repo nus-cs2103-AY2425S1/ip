@@ -5,7 +5,7 @@ public class Bob {
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String LINE_PREFIX = "    ";
     private static String input = "";
-    private static final ArrayList<String> list = new ArrayList<>();
+    private static final ArrayList<Task> list = new ArrayList<>();
 
     private enum Command {
         BYE("bye") {
@@ -20,16 +20,16 @@ public class Bob {
                 StringBuilder text = new StringBuilder();
                 int i;
                 for (i = 0; i < list.size() - 1; ++i) {
-                    text.append(i + 1).append(". ").append(list.get(i)).append("\n");
+                    text.append(i + 1).append(".").append(list.get(i)).append("\n");
                 }
-                text.append(i + 1).append(". ").append(list.get(i));
+                text.append(i + 1).append(".").append(list.get(i));
                 say(text.toString());
             }
         },
         CATCH_ALL("") {
             @Override
             public void run() {
-                list.add(input);
+                list.add(new Task(input));
                 say("added: " + input);
             }
         };
