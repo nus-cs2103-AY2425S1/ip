@@ -9,27 +9,12 @@ public class CreateDeadlineCommand implements Command {
     public CreateDeadlineCommand(List<Task> items, String input) {
         this.items = items;
 
-
-        // Parse the "name" and "by" from the input
-        StringJoiner nameSj = new StringJoiner(" ");
-        StringJoiner bySj = new StringJoiner(" ");
-
         // Remove the command from the input
         String inputArgs = input.split(" ", 2)[1];
-        String[] split = inputArgs.split(" ");
+        String[] args = Parser.extractArgs(inputArgs, new String[] { "/by" });
 
-        StringJoiner currentSj = nameSj;
-        for (String s : split) {
-            if (s.equals("/by")) {
-                currentSj = bySj;
-                continue;
-            }
-
-            currentSj.add(s);
-        }
-
-        this.name = nameSj.toString();
-        this.by = bySj.toString();
+        this.name = args[0];
+        this.by = args[1];
     }
 
     @Override
