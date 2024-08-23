@@ -1,3 +1,6 @@
+import java.util.Objects;
+import java.util.Scanner;
+
 public class Friday {
     public static void main(String[] args) {
         String logo = "___________        .__     .___                \n"
@@ -13,16 +16,42 @@ public class Friday {
                 Hello! I'm Friday!
                 What would you like to do?
                 """);
+        boolean bye = false;
+        while(!bye) {
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Your input > ");
+            String input = getInput(sc);
+            printLine();
+            switch (input) {
+                case "Bye":
+                case "bye":
+                    bye = true;
+                    break;
+                case "Quit":
+                case "quit":
+                case "Exit":
+                case "exit":
+                    System.out.println("Friday > Type \"bye\" or \"Bye\" to exit");
+                    printLine();
+                    break;
+                default:
+                    System.out.println("Friday > " + input);
+                    printLine();
+                    break;
+            }
+        }
         terminate();
-
     }
     public static void printLine() {
         System.out.println("----------------------------------------------");
     }
 
     public static void terminate() {
+        System.out.println("Friday > Bye! See you soon!");
         printLine();
-        System.out.println("Bye! See you soon!");
-        printLine();
+    }
+
+    public static String getInput(Scanner sc) {
+        return sc.nextLine();
     }
 }
