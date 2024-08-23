@@ -12,59 +12,65 @@ public class Lawrence {
         while (true) {
             userInput = sc.nextLine();  // Get next user input
             String[] inputComponents = userInput.split(" ", 2);
-            String command = inputComponents[0];
+
+            Command command;
+            try {
+                command = Command.fromString(inputComponents[0]);
+            } catch (IllegalArgumentException e) {
+                displayMessage(
+                        String.format("Unable to recognize command '%s'. Please try again.", inputComponents[0]));
+                continue;  // Skip to the next iteration
+            }
+
             switch (command) {
-                case "bye":
+                case EXIT:
                     exitSession();
                     break;
-                case "list":
+                case DISPLAY:
                     displayTasks();
                     break;
-                case "mark":
+                case MARK_COMPLETE:
                     if (inputComponents.length < 2) {
                         displayMessage("Please specify the task you want to mark as complete.");
                         break;
                     }
                     markTaskAsComplete(inputComponents[1]);
                     break;
-                case "unmark":
+                case MARK_INCOMPLETE:
                     if (inputComponents.length < 2) {
                         displayMessage("Please specify the task you want to mark as incomplete.");
                         break;
                     }
                     markTaskAsIncomplete(inputComponents[1]);
                     break;
-                case "delete":
+                case DELETE:
                     if (inputComponents.length < 2) {
                         displayMessage("Please specify the task you want to delete.");
                         break;
                     }
                     deleteTask(inputComponents[1]);
                     break;
-                case "todo":
+                case CREATE_TODO:
                     if (inputComponents.length < 2) {
                         displayMessage("Todo description cannot be empty! Please try again.");
                         break;
                     }
                     addTodo(inputComponents[1]);
                     break;
-                case "deadline":
+                case CREATE_DEADLINE:
                     if (inputComponents.length < 2) {
                         displayMessage("Deadline information not found! Please try again.");
                         break;
                     }
                     addDeadline(inputComponents[1]);
                     break;
-                case "event":
+                case CREATE_EVENT:
                     if (inputComponents.length < 2) {
                         displayMessage("Event information not found! Please try again.");
                         break;
                     }
                     addEvent(inputComponents[1]);
                     break;
-
-                default:
-                    displayMessage(String.format("Unable to recognise command '%s'. Please try again.", command));
             }
         }
     }
@@ -96,7 +102,7 @@ public class Lawrence {
         int numberOfTasks = tasks.getSize();
         String verb = numberOfTasks == 1 ? "is" : "are";
         String plural = numberOfTasks == 1 ? "" : "s";
-        displayMessage(String.format("Alright, added task:%n%s to the list.%n"
+        displayMessage(String.format("Alright, added task:%n%s%n to the list.%n"
                 + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural));
     }
 
@@ -108,7 +114,7 @@ public class Lawrence {
                     String.format("Task %s has been deleted.", deletedTask));
         } catch (NumberFormatException e) {
             displayMessage("Please specify a number to select a task.");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
         }
@@ -122,7 +128,7 @@ public class Lawrence {
                     String.format("I've marked the task as complete:%n%s", completeTask));
         } catch (NumberFormatException e) {
             displayMessage("Please specify a number to select a task.");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
         }
@@ -136,7 +142,7 @@ public class Lawrence {
                     String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask));
         } catch (NumberFormatException e) {
             displayMessage("Please specify a number to select a task.");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
         }

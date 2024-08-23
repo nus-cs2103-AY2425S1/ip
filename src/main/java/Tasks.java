@@ -12,6 +12,10 @@ public class Tasks {
     }
 
     public Task deleteTask(int taskNumber) {
+        if (list.isEmpty()) {
+            throw new IllegalStateException("There are no tasks that can be chosen for deletion.");
+        }
+
         if (taskNumber < 1 || taskNumber > list.size()) {
             throw new IllegalArgumentException(
                     String.format("Task does not exist. Number must be within the range 1 to %s.", list.size()));
@@ -20,6 +24,10 @@ public class Tasks {
     }
 
     public Task completeTask(int taskNumber) {
+        if (list.isEmpty()) {
+            throw new IllegalStateException("There are no tasks that can be chosen to be marked as complete.");
+        }
+
         if (taskNumber < 1 || taskNumber > list.size()) {
             throw new IllegalArgumentException(
                     String.format("Task does not exist. Number must be within the range 1 to %s.", list.size()));
@@ -30,6 +38,10 @@ public class Tasks {
     }
 
     public Task uncompleteTask(int taskNumber) {
+        if (list.isEmpty()) {
+            throw new IllegalStateException("There are no tasks that can be chosen to be marked as incomplete.");
+        }
+
         if (taskNumber < 1 || taskNumber > list.size()) {
             throw new IllegalArgumentException(
                     String.format("Task does not exist. Number must be within the range 1 to %s.", list.size()));

@@ -17,4 +17,7 @@ todo Get Deleted
 list
 delete 4
 unmark 1
+eVEnt clubbing /from 10pm /to 2am
+TODO sleep
+list
 bye
