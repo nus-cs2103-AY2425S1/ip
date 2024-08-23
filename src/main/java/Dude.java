@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dude {
@@ -5,15 +6,15 @@ public class Dude {
     private String input;
     private String line = "____________________________________________________________";
     private String botName = "Dude";
-    private Task[] tasks;
-    private int taskPointer;
+    private ArrayList<Task> tasks;
+    private int tasksSize;
     private boolean isRunning;
 
     public Dude(){
         this.scanner = new Scanner(System.in);
         this.input = "";
-        this.tasks = new Task[100];
-        this.taskPointer = 0;
+        this.tasks = new ArrayList<>();
+        this.tasksSize = 0;
         this.isRunning = true;
     }
 
@@ -64,6 +65,9 @@ public class Dude {
         else if(splitInput[0].equals("event")){
             addEvent(taskDes);
         }
+        else if(splitInput[0].equals("delete")){
+            delete(taskDes);
+        }
         else{
             throw new DudeInvalidCommandException(splitInput[0]);
         }
@@ -75,13 +79,13 @@ public class Dude {
         }
         else{
             Task newTask = new ToDo(taskDes);
-            this.tasks[taskPointer] = newTask;
-            taskPointer++;
+            this.tasks.add(newTask);
+            tasksSize++;
 
             System.out.println(line);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
-            System.out.println("Now you have " + taskPointer + " tasks in the list.");
+            System.out.println("Now you have " + tasksSize + " tasks in the list.");
             System.out.println(line);
         }
     }
@@ -105,13 +109,13 @@ public class Dude {
             }
 
             Task newTask = new Deadline(splitDes[0].strip(), splitBy[1].strip());
-            this.tasks[taskPointer] = newTask;
-            taskPointer++;
+            this.tasks.add(newTask);
+            tasksSize++;
 
             System.out.println(line);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
-            System.out.println("Now you have " + taskPointer + " tasks in the list.");
+            System.out.println("Now you have " + tasksSize + " tasks in the list.");
             System.out.println(line);
         }
     }
@@ -143,13 +147,13 @@ public class Dude {
             }
 
             Task newTask = new Event(splitDes[0].strip(), splitFrom[1].strip(), splitTo[1].strip());
-            this.tasks[taskPointer] = newTask;
-            taskPointer++;
+            this.tasks.add(newTask);
+            tasksSize++;
 
             System.out.println(line);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
-            System.out.println("Now you have " + taskPointer + " tasks in the list.");
+            System.out.println("Now you have " + tasksSize + " tasks in the list.");
             System.out.println(line);
         }
     }
@@ -158,8 +162,8 @@ public class Dude {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
 
-        for(int i = 1; i <= taskPointer; i ++){
-            System.out.println(i + "." + tasks[i - 1]);
+        for(int i = 1; i <= tasksSize; i ++){
+            System.out.println(i + "." + tasks.get(i - 1));
         }
 
         System.out.println(line);
@@ -172,7 +176,7 @@ public class Dude {
 
         int index = checkAndConvertNumber(taskDes);
 
-        Task task = tasks[index - 1];
+        Task task = tasks.get(index - 1);
         task.markAsDone();
 
         System.out.println(line);
@@ -188,12 +192,28 @@ public class Dude {
 
         int index = checkAndConvertNumber(taskDes);
 
-        Task task = tasks[index - 1];
+        Task task = tasks.get(index - 1);
         task.markAsNotDone();
 
         System.out.println(line);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
+        System.out.println(line);
+    }
+
+    public void delete(String taskDes) throws DudeException{
+        if(taskDes.isEmpty()){
+            throw new DudeNullDescriptionException("delete");
+        }
+
+        int index = checkAndConvertNumber(taskDes);
+        Task task = tasks.remove(index - 1);
+        tasksSize--;
+
+        System.out.println(line);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + tasksSize + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -206,7 +226,7 @@ public class Dude {
             throw new DudeNumberException(s);
         }
 
-        if(index > taskPointer){
+        if(index < 1 || index > tasksSize){
             throw new DudeNumberException(s);
         }
 
