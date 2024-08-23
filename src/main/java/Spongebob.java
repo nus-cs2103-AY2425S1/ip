@@ -1,19 +1,30 @@
+import java.io.File;
 import java.util.*;
 
 public class Spongebob {
 
-    static List<Task> cache = new ArrayList<>();
+    static Storage storage;
+    static List<Task> cache;
 
     final static String LINE = "____________________________________________________________\n";
+    final static String GREETINGS = "Hey there! I’m SpongeBob SquarePants! \nWhat can I do for ya today?\n";
+    final static String GOODBYE = "Aye aye, pal! Bye-bye for now! Hope to catch you in Bikini Bottom again soon! \n";
 
     public static void main(String[] args) {
 
+
+        storage = new Storage("data/spongebob.txt");
+        try {
+            cache = storage.load();
+        } catch (SpongebobException e) {
+            System.out.println("Uh oh! Storage is Corrupted! \n");
+        }
+
+
         Scanner scanner = new Scanner(System.in);
+        Task curTask;
 
-        String greetings = "Hey there! I’m SpongeBob SquarePants! \nWhat can I do for ya today?\n";
-        String goodbye =  "Aye aye, pal! Bye-bye for now! Hope to catch you in Bikini Bottom again soon! \n";
-
-        System.out.println(LINE + "\n" + greetings + LINE);
+        System.out.println(LINE + "\n" + GREETINGS + LINE);
 
         String usrInput = scanner.nextLine();   // get user input
 
@@ -25,6 +36,7 @@ public class Spongebob {
 
             // array to store arguments
             String[] arguments = new String[4];
+
 
             // set array to empty strings
             for (int i = 0; i < arguments.length; i++) {
@@ -64,9 +76,10 @@ public class Spongebob {
                     try {
                         // get index of task
                         int index = Integer.parseInt(arguments[1]);
-
+                        
                         // mark
                         cache.get(index - 1).markAsDone();
+                        storage.update(index - 1, cache.get(index - 1));
                         System.out.println("Woohoo! I’ve marked this task as done — great job!");
                         System.out.println(cache.get(index - 1));
 
@@ -92,6 +105,8 @@ public class Spongebob {
 
                         // unmark
                         cache.get(index - 1).unmarkAsDone();
+                        storage.update(index - 1, cache.get(index - 1));
+
                         System.out.println("Alrighty, I’ve put that task back to \"not done yet.\" Keep at it—you’ve got this!");
                         System.out.println(cache.get(index - 1));
 
@@ -109,10 +124,11 @@ public class Spongebob {
                         // get args
                         Task newTask = new Todo(arguments[1]);
                         cache.add(newTask);
+                        storage.add(newTask);
+
                         System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newTask);
                         System.out.println("Now you have " + cache.size() + " in the list!");
-
                     } catch (SpongebobException e) {
                         System.out.println(e.getMessage());
                     } finally {
@@ -134,6 +150,8 @@ public class Spongebob {
                     try {
                         Task newDeadline = new Deadline(arguments[1], arguments[2]);
                         cache.add(newDeadline);
+                        storage.add(newDeadline);
+
                         System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newDeadline);
                         System.out.println("Now you have " + cache.size() + " tasks in the list.");
@@ -165,6 +183,8 @@ public class Spongebob {
                                 arguments[2],
                                 arguments[3]);
                         cache.add(newEvent);
+                        storage.add(newEvent);
+
                         System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newEvent);
                         System.out.println("Now you have " + cache.size() + " tasks in the list.");
@@ -186,6 +206,8 @@ public class Spongebob {
                     try {
                         Task cur = cache.get(Integer.parseInt(arguments[1])-1);
                         cache.remove(Integer.parseInt(arguments[1])-1);
+                        storage.delete(cur);
+
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(cur);
                         System.out.println("Now you have " + cache.size() + " tasks in the list.");
@@ -207,6 +229,6 @@ public class Spongebob {
             System.out.println(LINE + "\n");
             usrInput = scanner.nextLine();  // get next input
         }
-        System.out.println(LINE + goodbye + LINE);  // end
+        System.out.println(LINE + GOODBYE + LINE);  // end
     }
 }
