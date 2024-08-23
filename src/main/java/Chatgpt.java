@@ -69,6 +69,7 @@ public class Chatgpt {
     }
     private static void unmarkTask(int id) {
         tasks.get(id).unmarkDone();
+        System.out.println("OK, I've marked this task as not done yet:");
     }
 
     private static void addTodoTask(String input) throws EmptyDescriptionException {
