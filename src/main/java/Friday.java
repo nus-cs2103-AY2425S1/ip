@@ -12,10 +12,14 @@ public class Friday {
 
         System.out.println("Loading........\n" + logo);
         printLine();
+
+        TaskList master = new TaskList(100);
+
         System.out.println("""
                 Hello! I'm Friday!
                 What would you like to do?
                 """);
+
         boolean bye = false;
         while(!bye) {
             Scanner sc = new Scanner(System.in);
@@ -34,14 +38,19 @@ public class Friday {
                     System.out.println("Friday > Type \"bye\" or \"Bye\" to exit");
                     printLine();
                     break;
+                case "List":
+                case "list":
+                    System.out.println("Friday > Here's everything!\n" + master.toString());
+                    break;
                 default:
-                    System.out.println("Friday > " + input);
+                    master.addTask(new Task(input));
                     printLine();
                     break;
             }
         }
         terminate();
     }
+
     public static void printLine() {
         System.out.println("----------------------------------------------");
     }
