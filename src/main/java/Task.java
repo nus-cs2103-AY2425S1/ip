@@ -32,7 +32,7 @@ public class Task {
         return description;
     }
 
-    public String toStringMarked() {
+    public String toStringDetails() {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
 }
