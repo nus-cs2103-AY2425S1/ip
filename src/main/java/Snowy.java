@@ -96,26 +96,50 @@ public class Snowy {
             return task.isDone;
         }
 
-        public void toggleTask(int i) {
+        public void toggleTask(int i) throws SnowyException {
             if (i >= 0 && i < taskList.size()) {
                 Task task = taskList.get(i);
                 task.toggleStatus();
                 String str = String.format("%d. %s", i+1, task);
                 System.out.println(str + "\n" + line + "\n");
             } else {
-                System.out.println("Invalid task index.");
+                throw new SnowyException("Invalid task index.");
             }
         }
-        public void displayList() {
+        public void displayList() throws SnowyException {
             System.out.println(line+"\nYour list of tasks");
             if (taskList.isEmpty()) {
-                System.out.println("No tasks, make a to-do list first");
+                throw new SnowyException("No tasks, make a list first");
             }
             for (int i = 0; i < taskList.size(); i++) {
                 String str = String.format("%d. %s",i+1, taskList.get(i));
-                System.out.println(str + "\n");
+                System.out.println(str);
             }
             System.out.println(line);
+        }
+
+        public void deleteTask(int index) throws SnowyException {
+            if (taskList.isEmpty()) {
+                throw new SnowyException("No tasks in list.");
+            }
+            if (index >=0 && index < taskList.size()) {
+                Task task = taskList.get(index - 1);
+                System.out.println("Removed task:\n " + task);
+                taskList.remove(index - 1);
+                System.out.printf("\nNow you have %d task(s) in your list\n", this.taskList.size());
+
+            } else {
+                throw new SnowyException("Invalid index");
+            }
+        }
+
+    }
+
+    public static class SnowyException extends Exception {
+        protected String formatted;
+        public SnowyException(String message) {
+            super(message);
+            formatted = line + "\nmessage\n" + line;
         }
     }
 
@@ -127,7 +151,9 @@ public class Snowy {
         boolean isBye = false;
 
         while (!isBye) {
-            String input = scanner.nextLine();
+            try {
+                String input = scanner.nextLine();
+
             if (input.equalsIgnoreCase("bye")) {
                 isBye = true;
 
@@ -135,21 +161,26 @@ public class Snowy {
                 taskList.displayList();
 
             } else if (input.split(" ")[0].equalsIgnoreCase("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]);
+                String[] parts = input.split(" ");
+                if (parts.length < 2) {
+                    throw new SnowyException("Please provide a task number");
+                }
+                int index = Integer.parseInt(parts[1]);
                 if (taskList.isTaskDone(index - 1)) {
-                    System.out.println("Task is already done");
-                    continue;
+                    throw new SnowyException("Task is already done");
 
                 }
                 System.out.println(line + "\nMarked as done\n");
                 taskList.toggleTask(index - 1);
 
-
             } else if (input.split(" ")[0].equalsIgnoreCase("unmark")){
-                int index = Integer.parseInt(input.split(" ")[1]);
+                String[] parts = input.split(" ");
+                if (parts.length < 2) {
+                    throw new SnowyException("Please provide a task number");
+                }
+                int index = Integer.parseInt(parts[1]);
                 if (!taskList.isTaskDone(index - 1)) {
-                    System.out.println("Cannot unmark task as it is not done");
-                    continue;
+                    throw new SnowyException("Cannot unmark task as it is not done");
 
                 }
                 System.out.println(line + "\nUnmarked task\n");
@@ -159,8 +190,8 @@ public class Snowy {
                 String description = input.substring(4).trim();
                 System.out.println(line);
                 if (description.isEmpty() || description.equals(" ")) {
-                    System.out.println("Please provide a description");
-                    continue;
+                    throw new SnowyException("Please provide a description");
+
                 }
                 ToDo todo = new ToDo(description);
                 System.out.println("Added a to do to your list of tasks");
@@ -171,17 +202,27 @@ public class Snowy {
                 boolean hasDate = input.contains("/by");
                 System.out.println(line);
 
-                if (after.isEmpty() || after.equals(" ")) {
-                    System.out.println("Please provide a description");
-                    continue;
-                }
                 if (!hasDate) {
-                    System.out.println("Please provide a deadline");
-                    continue;
+                    throw new SnowyException("Please provide a deadline");
                 }
 
-                String description = after.split(" /by ", 2)[0];
-                String date = after.split(" /by ", 2)[1];
+                String[] parts = after.split(" /by ", 2);
+
+                if (parts.length < 2) {
+                    throw new SnowyException("Please provide a deadline.");
+                }
+
+                String description = parts[0].trim();
+                String date = parts[1].trim();
+
+
+                if (description.isEmpty()) {
+                    throw new SnowyException("Please provide a description");
+                }
+                if (date.isEmpty()) {
+                    throw new SnowyException("Please provide a deadline");
+                }
+
                 Deadline deadline = new Deadline(description, date);
                 System.out.println("Added a task with deadline to your list of tasks");
                 taskList.addTask(deadline);
@@ -193,13 +234,8 @@ public class Snowy {
 
                 System.out.println(line);
 
-                if (after.isEmpty() || after.equals(" ")) {
-                    System.out.println("Please provide a description");
-                    continue;
-                }
                 if (!hasFrom || !hasTo) {
-                    System.out.println("Please provide both from and to");
-                    continue;
+                    throw new SnowyException("Please provide both from and to");
                 }
 
                 String description = after.split(" /from ", 2)[0];
@@ -208,12 +244,34 @@ public class Snowy {
                 String from = afterDesc.split("/to", 2)[0].trim();
                 String to = afterDesc.split("/to", 2)[1].trim();
 
+                if (description.isEmpty() || description.equals(" ")) {
+                    throw new SnowyException("Please provide a description");
+                }
+                if (from.isEmpty() || from.equals(" ")) {
+                    throw new SnowyException("Please provide a from");
+                }
+                if (to.isEmpty() || to.equals(" ")) {
+                    throw new SnowyException("Please provide a to");
+                }
+
                 Event event = new Event(description, from, to);
                 System.out.println("Added an event to your list of tasks");
                 taskList.addTask(event);
 
+            } else if (input.startsWith("delete")) {
+                String[] parts = input.split(" ");
+                if (parts.length < 2) {
+                    throw new SnowyException("Please provide a task number.");
+                }
+                int index = Integer.parseInt(parts[1]);
+                taskList.deleteTask(index);
+                System.out.println(line);
+            } else {
+                throw new SnowyException("Sorry, I do not understand.");
             }
-        }
-        System.out.println("Bye. See you next time!");
+        } catch (SnowyException e) {
+                System.out.println(e.getMessage());
+            }
+        }  System.out.println("Bye. See you next time!");
     }
 }
