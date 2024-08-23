@@ -30,13 +30,18 @@ public class TaskManager {
     public void listTasks() {
         String taskString = "Here are the tasks in your list:\n" + "    ";
 
-        for (int i=0; i<tasks.size(); i++) {
-            if (i != tasks.size() - 1) {
-                taskString += i + 1 + "." + tasks.get(i).toString() + "\n    ";
+        if (!tasks.isEmpty()) {
+            for (int i=0; i<tasks.size(); i++) {
+                if (i != tasks.size() - 1) {
+                    taskString += i + 1 + "." + tasks.get(i).toString() + "\n    ";
+                }
+                else {
+                    taskString += i + 1 + "." + tasks.get(i).toString();
+                }
             }
-            else {
-                taskString += i + 1 + "." + tasks.get(i).toString();
-            }
+        }
+        else {
+            taskString += "Nothing!";
         }
 
         printLines(taskString);
