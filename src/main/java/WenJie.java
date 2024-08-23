@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class WenJie {
@@ -5,7 +6,7 @@ public class WenJie {
 
         Scanner scanner = new Scanner(System.in);
         boolean active = true;
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int currentPointer = 0;
 
         String greeting =
@@ -19,7 +20,11 @@ public class WenJie {
         while(active) {
             String input = scanner.nextLine();
 
-            switch(input) {
+            String[] parts = input.split(" ");
+
+            String firstWord = parts[0];
+
+            switch(firstWord) {
                 case "bye": {
                     active = false;
                     String farewell =
@@ -39,13 +44,15 @@ public class WenJie {
                     break;
                 }
 
+
                 default :
                     String output =
                             "____________________________________________________________\n" +
                              "added: " + input + "\n" +
                             "____________________________________________________________\n";
                     System.out.println(output);
-                    taskList[currentPointer] = input;
+                    Task temp = new Task(input);
+                    taskList[currentPointer] = temp;
                     currentPointer++;
                     break;
             }
@@ -53,7 +60,7 @@ public class WenJie {
 
     }
 
-    public static String displayList(String[] list) {
+    public static String displayList(Task[] list) {
         String result = "";
         int i = 0;
         while (list[i] != null){
