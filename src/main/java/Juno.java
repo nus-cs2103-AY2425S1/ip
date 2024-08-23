@@ -47,6 +47,7 @@ public class Juno {
             String userInput = scanner.nextLine().trim();
             String markTaskString = "mark";
             String unmarkTaskString = "unmark";
+            String deleteTaskString = "delete";
             String addTodoTaskString = "add todo";
             String addDeadlineTaskString = "add deadline";
             String addEventTaskString = "add event";
@@ -61,9 +62,11 @@ public class Juno {
                 } else if (userInput.isEmpty()) {
                     this.invalidUserInput();
                 } else if (userInput.startsWith(markTaskString)) {
-                    this.taskManager.toggleTaskStatus(userInput, true);
+                    this.taskManager.toggleTaskStatus(userInput, true, false);
                 } else if (userInput.startsWith(unmarkTaskString)) {
-                    this.taskManager.toggleTaskStatus(userInput, false);
+                    this.taskManager.toggleTaskStatus(userInput, false, false);
+                } else if (userInput.startsWith(deleteTaskString)) {
+                    this.taskManager.toggleTaskStatus(userInput, false, true);
                 } else if (userInput.startsWith(addTodoTaskString)) {
                     this.taskManager.addTask(userInput, "todo");
                 } else if (userInput.startsWith(addDeadlineTaskString)) {

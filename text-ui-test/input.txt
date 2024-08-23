@@ -30,5 +30,12 @@ mark 1
 unmark 2
 unmark 2
 
+# Test for delete
+delete 1
+delete 1
+list
+delete 3
+list
+
 # Test for bye
 bye

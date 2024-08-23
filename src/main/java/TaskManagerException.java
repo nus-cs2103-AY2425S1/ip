@@ -5,7 +5,7 @@ public class TaskManagerException extends Exception {
         EMPTY_LIST,
         INVALID_MARK_TASK_NUMBER,
         INVALID_ADD_TASK_NUMBER,
-//        DUPLICATE_TASK,
+        DUPLICATE_TASK,
         TASK_OUT_OF_RANGE
     }
 

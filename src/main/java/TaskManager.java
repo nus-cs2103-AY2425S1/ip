@@ -29,7 +29,7 @@ public class TaskManager {
         String taskInfo;
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                     "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
                     "/ {Input task description here}\" to add a task)",
@@ -46,13 +46,13 @@ public class TaskManager {
                     // Check if the task already exists
                     for (Task task : this.tasks) {
                         if (task.getDescription().equalsIgnoreCase(taskDescription)) {
-                            System.out.println("This task is already in your list! " +
-                                    "Maybe you can try renaming it and input again?");
-                            return;
+                            throw new TaskManagerException("This task is already in your list! " +
+                                    "Maybe you can try renaming it and input again?",
+                                    TaskManagerException.ErrorType.DUPLICATE_TASK);
                         }
                     }
                     t = new Deadline(taskDescription, taskInfoArray[1]);
-                } catch (Exception e) {
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                     throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
                             "/ {Input task description here}\" to add a task)",
@@ -66,13 +66,13 @@ public class TaskManager {
                     // Check if the task already exists
                     for (Task task : this.tasks) {
                         if (task.getDescription().equalsIgnoreCase(taskDescription)) {
-                            System.out.println("This task is already in your list! " +
-                                    "Maybe you can try renaming it and input again?");
-                            return;
+                            throw new TaskManagerException("This task is already in your list! " +
+                                    "Maybe you can try renaming it and input again?",
+                                    TaskManagerException.ErrorType.DUPLICATE_TASK);
                         }
                     }
                     t = new Event(taskInfoArray[0], taskInfoArray[1], taskInfoArray[2]);
-                } catch (Exception e) {
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
                     throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
                             "/ {Input task description here}\" to add a task)",
@@ -84,24 +84,34 @@ public class TaskManager {
                 // Check if the task already exists
                 for (Task task : this.tasks) {
                     if (task.getDescription().equalsIgnoreCase(taskDescription)) {
-                        System.out.println("This task is already in your list! " +
-                                "Maybe you can try renaming it and input again?");
-                        return;
+                        throw new TaskManagerException("This task is already in your list! " +
+                                "Maybe you can try renaming it and input again?",
+                                TaskManagerException.ErrorType.DUPLICATE_TASK);
                     }
                 }
                 t = new Todo(taskInfo);
                 break;
         }
-        tasks.add(t);
+        this.tasks.add(t);
         System.out.println("\uD83C\uDF89 Got it! I've added: \"" + taskDescription + "\" to your list!");
         System.out.println("\uD83C\uDFAF You now have " + this.tasks.size() + " tasks in the list. Keep going!");
     }
 
-    protected void toggleTaskStatus(String userInput, boolean markAsDone) throws TaskManagerException {
+    protected void toggleTaskStatus(String userInput, boolean markAsDone, boolean isDelete) throws TaskManagerException {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                Task taskToMark = tasks.get(taskNumber);
+            if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
+
+                if (isDelete) {
+                    Task taskToDelete = this.tasks.remove(taskNumber);
+                    System.out.println("Got it! 🗑️ I've waved goodbye to this task:");
+                    System.out.println(taskToDelete.toString());
+                    System.out.println("Your list just got lighter! 🌟 " +
+                            "Now you're down to " + this.tasks.size() + " tasks. Keep up the momentum!");
+                    return;
+                }
+
+                Task taskToMark = this.tasks.get(taskNumber);
                 if (markAsDone) {
                     if (taskToMark.getIsDone()) {
                         System.out.println("You have completed the task \"" +
@@ -117,20 +127,20 @@ public class TaskManager {
                                 taskToMark.getDescription() +
                                 "\" is still not done! You can't unmark an undone task!");
                     } else {
-                        tasks.get(taskNumber).markAsNotDone();
+                        this.tasks.get(taskNumber).markAsNotDone();
                         System.out.println("Hey, I have unmarked this task for you. " +
                                 "Maybe you should start working on it soon?");
                     }
                 }
-                System.out.println("  " + tasks.get(taskNumber).toString());
+                System.out.println("  " + this.tasks.get(taskNumber).toString());
             } else {
                 throw new TaskManagerException("\uD83D\uDEAB Oops! That task number is out of range. " +
                         "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
                         TaskManagerException.ErrorType.TASK_OUT_OF_RANGE);
             }
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. " +
-                    "Please enter a task number after mark/unmark. " +
+                    "Please enter a task number after mark/unmark/delete command. " +
                     "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
                     TaskManagerException.ErrorType.INVALID_MARK_TASK_NUMBER);
         }
