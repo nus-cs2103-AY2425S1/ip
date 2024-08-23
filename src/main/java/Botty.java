@@ -23,13 +23,18 @@ public class Botty {
     private static TaskManager taskManager;
 
     public static void main(String[] args) {
+        Botty botty = new Botty();
+
+        botty.beginInteraction();
+    }
+
+    public void beginInteraction() {
         System.out.println(logo);
         System.out.println();
 
         reply("Hello, I am Botty the Bot, how may I be of service today?");
 
         Scanner inputScanner = new Scanner(System.in);
-
         taskManager = new TaskManager();
 
         boolean exitFlag = false;
@@ -80,7 +85,15 @@ public class Botty {
         inputScanner.close();
         reply("Thank you for your continued patronage. Goodbye!");
     }
-    private static void addToTaskList(Task task) {
+    private void reply(String content) {
+        String[] strings = content.split("\n");
+        System.out.println(bottySymbol + strings[0]);
+        for (int i = 1; i < strings.length; i++) {
+            System.out.println(bottyIndentation + strings[i]);
+        }
+    }
+
+    private void addToTaskList(Task task) {
         taskManager.addTask(task);
 
         reply("I have added the following task to the list!\n" +
@@ -90,7 +103,7 @@ public class Botty {
     }
 
     // Adapted from https://stackoverflow.com/a/39402538
-    private static boolean isNumber(String string) {
+    private boolean isNumber(String string) {
         try {
             Integer.parseInt(string);
             return true;
@@ -98,19 +111,10 @@ public class Botty {
             return false;
         }
     }
-    private static void reply(String content) {
-        String[] strings = content.split("\n");
-        System.out.println(bottySymbol + strings[0]);
-        for (int i = 1; i < strings.length; i++) {
-            System.out.println(bottyIndentation + strings[i]);
-        }
-    }
-
-    private static void handleList() throws TaskListEmptyException {
+    private void handleList() throws TaskListEmptyException {
         reply("Here you go!\n" + taskManager.list());
     }
-
-    private static void handleMark(String argument) throws BottyException {
+    private void handleMark(String argument) throws BottyException {
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to mark with its number!");
@@ -121,7 +125,7 @@ public class Botty {
 
         reply("Congrats on completing that! Let me just mark that as done for you.\n" + task);
     }
-    private static void handleUnmark(String argument) throws BottyException {
+    private void handleUnmark(String argument) throws BottyException {
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to unmark with its number!");
@@ -131,14 +135,14 @@ public class Botty {
 
         reply("It's okay, we can get that done later. I'll mark that as undone for you.\n" + task);
     }
-    private static void handleTodo(String argument) throws BottyException {
+    private void handleTodo(String argument) throws BottyException {
         Todo todo = Todo.generateFromString(argument);
         if (todo == null) {
             throw new BottyException("I am unable to add that todo! Please ensure that the description is not blank");
         }
         addToTaskList(todo);
     }
-    private static void handleDeadline(String argument) throws BottyException {
+    private void handleDeadline(String argument) throws BottyException {
         Deadline deadline = Deadline.generateFromString(argument);
         if (deadline == null) {
             throw new BottyException("I am unable to add that deadline! Please provide details " +
@@ -146,7 +150,7 @@ public class Botty {
         }
         addToTaskList(deadline);
     }
-    private static void handleEvent(String argument) throws BottyException {
+    private void handleEvent(String argument) throws BottyException {
         Event event = Event.generateFromString(argument);
         if (event == null) {
             throw new BottyException("I am unable to add that event! Please provide details in " +
@@ -154,7 +158,7 @@ public class Botty {
         }
         addToTaskList(event);
     }
-    private static void handleDelete(String argument) throws BottyException {
+    private void handleDelete(String argument) throws BottyException {
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to delete with its number!");
