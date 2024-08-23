@@ -3,47 +3,62 @@ import java.util.ArrayList;
 
 public class Rizz {
     private Scanner input = new Scanner(System.in);
-    private ArrayList<String> arrList = new ArrayList<>();
-
-
-    private String indent(String str) {
-        String[] lines = str.split("\n");
-        StringBuilder indentedText = new StringBuilder();
-        for (String line : lines) {
-            indentedText.append("\t").append(line).append("\n");
-        }
-        return indentedText.toString();
-    }
+    private ArrayList<Task> arrList = new ArrayList<>();
 
     private void greet() {
-        String str = "____________________________________________________________\n" +
-                "Hello! I'm Rizz\n" +
-                "What can I do for you?\n" +
-                "____________________________________________________________\n";
-        System.out.println(this.indent(str));
+        String str = "\t____________________________________________________________\n" +
+                "\tHello! I'm Rizz\n" +
+                "\tWhat can I do for you?\n" +
+                "\t____________________________________________________________\n";
+        System.out.println(str);
     }
 
     private void echo(String textInput) {
-        arrList.add(textInput);
+        arrList.add(new Task(textInput));
         System.out.println("\tadded: " + textInput + "\n");
     }
 
     private void exit() {
-        String str =  "____________________________________________________________\n" +
-                "Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n";
-        System.out.println(this.indent(str));
+        String str =  "\t____________________________________________________________\n" +
+                "\tBye. Hope to see you again soon!\n" +
+                "\t____________________________________________________________\n";
+        System.out.println(str);
     }
 
     private void outputList() {
         if (arrList.isEmpty()) {
             System.out.println("\tNo items in the list.\n");
         } else {
-            System.out.println("\t____________________________________________________________");
+            StringBuilder strBuilder = new StringBuilder();
             for (int i = 0; i < arrList.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + arrList.get(i));
+                strBuilder.append("\t").append(i + 1).append(". ").append(arrList.get(i)).append("\n");
             }
-            System.out.println("\t____________________________________________________________\n");
+            String str = "\t____________________________________________________________\n" +
+                    "\tHere are the tasks in your list:\n" + strBuilder +
+                    "\t____________________________________________________________\n";
+            System.out.println(str);
+        }
+    }
+
+    private void markTask(int index) {
+        if (index >= 1 && index <= arrList.size()) {
+            Task task = arrList.get(index - 1);
+            task.markAsDone();
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t  " + task + "\n");
+        } else {
+            System.out.println("\tInvalid task number.\n");
+        }
+    }
+
+    private void unmarkTask(int index) {
+        if (index >= 1 && index <= arrList.size()) {
+            Task task = arrList.get(index - 1);
+            task.unmarkAsDone();
+            System.out.println("\tOK, I've marked this task as not done yet:");
+            System.out.println("\t  " + task + "\n");
+        } else {
+            System.out.println("\tInvalid task number.\n");
         }
     }
 
@@ -55,11 +70,19 @@ public class Rizz {
                 break;
             } else if (textInput.equals("list")) {
                 this.outputList();
+            } else if (textInput.startsWith("mark ")) {
+                int index = Integer.parseInt(textInput.split(" ")[1]);
+                this.markTask(index);
+
+            } else if (textInput.startsWith("unmark ")) {
+                int index = Integer.parseInt(textInput.split(" ")[1]);
+                this.unmarkTask(index);
             } else {
                 this.echo(textInput);
             }
         }
     }
+
 
     public static void main(String[] args) {
         Rizz rizz = new Rizz();
