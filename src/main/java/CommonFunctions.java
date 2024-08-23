@@ -20,7 +20,7 @@ public class CommonFunctions {
      * @param list The list to be printed.
      */
     public static <E> void PrintList(List<E> list) {
-        String output = "\n";
+        String output = "Hi!! Here are the tasks you have left!\n";
         for (int i = 0; i < list.size(); i++) {
             output += String.format("%d. %s\n", i + 1, list.get(i));
         }

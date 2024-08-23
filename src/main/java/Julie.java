@@ -10,7 +10,19 @@ public class Julie {
         Scanner sc = new Scanner(System.in);
         while (run) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
+            if (input.startsWith("mark")) {
+                String[] tokens = input.split(" ");
+                int x = Integer.parseInt(tokens[1]) - 1;
+                Task t = taskList.get(x);
+                t.mark();
+                CommonFunctions.WrappedLinePrint(String.format("Ooh, this task is done!\n%s",t));
+            } else if (input.startsWith("unmark")) {
+                String[] tokens = input.split(" ");
+                int x = Integer.parseInt(tokens[1]) - 1;
+                Task t = taskList.get(x);
+                t.unmark();
+                CommonFunctions.WrappedLinePrint(String.format("Oop, this task is not yet done\n%s",t));
+            } else if (input.equals("bye")) {
                 run = false;
             } else if (input.equals("list")) {
                 CommonFunctions.PrintList(taskList);
