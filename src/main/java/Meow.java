@@ -125,8 +125,9 @@ public class Meow {
             
 
         } else {
-            System.out.println("    " + "MEOW MEOW ENTER A TASK OR ELSE ILL EAT U");
-            System.out.println("    " + "_____________________________________________________________________\n");
+            errorMsg(new Meowception("001").toString());
+            // System.out.println("    " + "MEOW MEOW ENTER A TASK OR ELSE ILL EAT U");
+            // System.out.println("    " + "_____________________________________________________________________\n");
             //addingMessage(inputType);
         }
     }

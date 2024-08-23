@@ -8,7 +8,7 @@ public class Meowception extends Exception {
     public String toString() {
         switch (code) {
             case "001":
-                return "Meowception ERROR 0001: meow meow enter a valid command neow.";
+                return "Meowception ERROR 001: meow meow enter a valid command neow.";
             case "100":
                 return "Meowception ERROR 100: meow meow you need to enter a task and it cant be blank silly goose meow";
             case "200":
