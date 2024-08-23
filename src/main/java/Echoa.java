@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Scanner;
 
 /**
@@ -50,9 +51,32 @@ public class Echoa {
                 System.out.println("Task unmarked :(");
                 System.out.println(tasklist[index].toString() + "\n");
             } else {
-                System.out.println("added: " + command + "\n");
-                tasklist[taskcount] = new Task(command);
+                String[] commandArr = command.split(" ", 2);
+                String type = commandArr[0];
+                String task = commandArr[1];
+
+                if (type.equals("todo")) {
+                    tasklist[taskcount] = new ToDo(task);
+                } else if (type.equals("deadline")) {
+                    String[] taskArray = task.split(" /", 2);
+                    String taskDescription = taskArray[0];
+                    String taskDate = taskArray[1];
+                    taskDate = taskDate.split( " ", 2)[1];
+                    tasklist[taskcount] = new Deadline(taskDescription, taskDate);
+                } else if (type.equals("event")) {
+                    String[] taskArray = task.split(" /", 3);
+                    String taskDescription = taskArray[0];
+                    String taskStart = taskArray[1];
+                    taskStart = taskStart.split(" ", 2)[1];
+                    String taskEnd = taskArray[2];
+                    taskEnd = taskEnd.split(" ", 2)[1];
+                    tasklist[taskcount] = new Event(taskDescription, taskStart, taskEnd);
+                }
+
                 tasklist[taskcount].unmarkAsUndone();
+                System.out.println("Task added!");
+                System.out.println(tasklist[taskcount].toString());
+                System.out.println("Now you have " + (taskcount + 1) + " task(s).\n");
                 taskcount++;
             }
         }
