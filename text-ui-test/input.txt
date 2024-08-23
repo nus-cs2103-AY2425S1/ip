@@ -10,4 +10,10 @@ todo borrow book
 list
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
+sleep
+/help
+todo
+deadline submit assignment
+event karaoke at Nathan's
+event karaoke at Nathan's /from Saturday 9pm
 bye

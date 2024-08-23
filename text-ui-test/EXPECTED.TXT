@@ -62,5 +62,31 @@ Got it. I've added this task:
 Now you have 7 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
+"sleep" is not a valid command.
+Type /help to see the list of available commands.
+____________________________________________________________
+____________________________________________________________
+bye: ends our interaction :-(
+deadline <description> /by <due date/time>: Creates a Deadline task
+delete <idx>: Deletes the task at your chosen index
+event <description> /from <start date/time> /to <end date/time>: Creates an Event task
+list: Displays your current tasks
+mark <idx>: Marks the task at your chosen index
+todo <description>: Creates a ToDo task
+unmark <idx>: Unmarks the task at your chosen index
+____________________________________________________________
+____________________________________________________________
+You can't do a non-existent task.
+____________________________________________________________
+____________________________________________________________
+Deadline: You did not provide a due date/time.
+____________________________________________________________
+____________________________________________________________
+Event: Did not provide start and end date/time
+____________________________________________________________
+____________________________________________________________
+Event: Did not provide end date/time
+____________________________________________________________
+____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
