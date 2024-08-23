@@ -1,3 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+
 public class Event extends IndividualTask{
 
     private String from;
@@ -7,6 +12,8 @@ public class Event extends IndividualTask{
         this.from = from;
         this.to = to;
     }
+
+
     @Override
     public String saveToFileFormat() {
         return "E | " + this.getSaveIcon() + " | " + this.getTaskDescription() + " | " + this.from + " | " + this.to;
