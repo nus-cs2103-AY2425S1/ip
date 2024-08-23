@@ -6,7 +6,7 @@ public class Task {
     protected boolean isDone;
 
     Task(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     public void markAsDone() {

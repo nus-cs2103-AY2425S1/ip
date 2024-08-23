@@ -44,12 +44,12 @@ public class Torne {
         // get command - first no-space phrase
         String command = parts[0];
 
-        // command exists check
-        // Level 2 - check if input is a command, if not, add as task
+        // command exists check:
+        // Check if input is a command, if not, give error message
         if (!COMMANDS.containsKey(command)) {
             // Command is not found in COMMANDS
             // add whole input
-            addTask(input);
+            OUTPUT.error(String.format("Command %s is not valid.", command));
             return;
         }
 
@@ -101,15 +101,26 @@ public class Torne {
         // OUTPUT.writeText(String.valueOf(argMap));
 
         // NOW ON TO ACTUALLY MATCHING THE FUNCS
+        String defaultArg = argMap.get("");
+
         switch (command) {
         case "list":
             listTasks();
             break;
         case "mark":
-            mark(argMap.get(""));
+            mark(defaultArg);
             break;
         case "unmark":
-            unmark(argMap.get(""));
+            unmark(defaultArg);
+            break;
+        case "todo":
+            addTaskTodo(defaultArg);
+            break;
+        case "deadline":
+            addTaskDeadline(defaultArg, argMap.get("by"));
+            break;
+        case "event":
+            addTaskEvent(defaultArg, argMap.get("from"), argMap.get("to"));
             break;
         default:
         }
@@ -148,28 +159,62 @@ Aww, bye to you as well :c""";
     /**
      * Adds a task and shows a message if the task was successfully added.
      *
-     * @param name name of task to be added
+     * @param task task that is to be added
      */
-    private void addTask(String name) {
-        TASK_HANDLER.addTask(new Task(name));
-        String message = "added: " + name;
+    private void addTask(Task task) {
+        TASK_HANDLER.addTask(task);
+        String message = "Alright, I'll add this task:\n" + task
+                + String.format("\nNow you have %d tasks!", TASK_HANDLER.getTaskCount());
         OUTPUT.writeText(message);
     }
 
     /**
-     * Creates a new task with no date/time, with type `Todo`.
+     * Creates a new task with no date/time, with type `TaskTodo`.
      *
      * @param name name of task to be added
      */
     private void addTaskTodo(String name) {
+        Task toAdd = new TaskTodo(name);
+        addTask(toAdd);
+    }
 
+    /**
+     * Creates a new task with a datetime as the deadline, with type `TaskDeadline`.
+     *
+     * @param name name of task to be added
+     * @param by date/time to do the task by
+     */
+    private void addTaskDeadline(String name, String by) {
+        Task toAdd = new TaskDeadline(name, by);
+        addTask(toAdd);
+    }
+
+    /**
+     * Creates a new task that starts at a datetime and ends at a datetime,
+     * with type `TaskEvent`.
+     *
+     * @param name name of task to be added
+     * @param from starting datetime
+     * @param to ending datetime
+     */
+    private void addTaskEvent(String name, String from, String to) {
+        Task toAdd = new TaskEvent(name, from, to);
+        addTask(toAdd);
     }
 
     /**
      * Shows the lists of tasks to the user.
      */
     private void listTasks() {
-        OUTPUT.writeText(TASK_HANDLER.getTaskListString());
+        String message;
+        if (TASK_HANDLER.getTaskCount() == 0) {
+            message = "You currently have no tasks!\nSo quiet...";
+        } else {
+            message = String.format("You currently have %d tasks:", TASK_HANDLER.getTaskCount())
+                    + TASK_HANDLER.getTaskListString();
+        }
+
+        OUTPUT.writeText(message);
     }
 
     private void mark(String indexStr) {
