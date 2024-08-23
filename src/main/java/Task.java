@@ -18,7 +18,7 @@ public class Task {
         };
 
         if (components[1].equals("1")) {
-            returned.mark();
+            returned.silentMark();
         }
 
         return returned;
@@ -73,6 +73,10 @@ public class Task {
             this.completed = true;
         }
         System.out.println(this);
+    }
+
+    public void silentMark() {
+        this.completed = true;
     }
 
     public void unmark() {

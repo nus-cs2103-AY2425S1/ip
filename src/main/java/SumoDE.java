@@ -8,8 +8,8 @@ public class SumoDE {
 
         // Initialisation
         SumoTaskList tasks;
-        try {
 
+        try {
             tasks = new SumoTaskList("data\\taskSaved.txt");
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.

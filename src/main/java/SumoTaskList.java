@@ -17,8 +17,18 @@ public class SumoTaskList {
 
         if (f.exists()) {
             Scanner s = new Scanner(f);
+
+            int line = 0;
             while (s.hasNext()) {
-                tasks.add(Task.createFromData(s.nextLine()));
+                try {
+                    tasks.add(Task.createFromData(s.nextLine()));
+                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Your saved file at line " + line + " is corrupted. " +
+                            "Sumo cannot read so Sumo will skip that and continue with the rest!");
+                } finally {
+                    line++;
+                }
+
             }
         } else {
             if(!f.createNewFile()) {
