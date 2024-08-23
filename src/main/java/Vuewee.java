@@ -39,6 +39,9 @@ public class Vuewee {
 
           // Mark task as done if user types "mark <task number>"
           case "mark": {
+            if (inputParts.length < 2) {
+              throw new InvalidTaskDescriptionException("mark", "mark <task number>");
+            }
             try {
               int taskNumber = Integer.parseInt(inputParts[1]) - 1;
               taskList.markTask(taskNumber, true);
@@ -49,6 +52,9 @@ public class Vuewee {
           }
 
           case "unmark": {
+            if (inputParts.length < 2) {
+              throw new InvalidTaskDescriptionException("unmark", "unmark <task number>");
+            }
             try {
               int taskNumber = Integer.parseInt(inputParts[1]) - 1;
               taskList.markTask(taskNumber, false);
@@ -109,6 +115,17 @@ public class Vuewee {
             String toDate = toMatcher.group(1);
 
             taskList.addTask(new EventTask(description, fromDate, toDate));
+            break;
+          }
+          // Delete task from task list
+          // (Usage: delete <task number>)
+          case "delete": {
+            try {
+              int taskNumber = Integer.parseInt(inputParts[1]) - 1;
+              taskList.deleteTask(taskNumber);
+            } catch (NumberFormatException e) {
+              System.out.println("Invalid task number: " + inputParts[1]);
+            }
             break;
           }
           default: {

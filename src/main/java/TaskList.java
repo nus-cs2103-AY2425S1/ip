@@ -5,6 +5,7 @@ public class TaskList {
   public TaskList() {
   }
 
+  // Simple helper method to determine if the task count is 1 or more
   private String taskWord() {
     return this.taskCount == 1 ? "task" : "tasks";
   }
@@ -20,6 +21,25 @@ public class TaskList {
     System.out.println("Now you have " + this.taskCount + " " + this.taskWord() + " in the list.");
   }
 
+  public void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
+    if (taskNumber >= this.taskCount || taskNumber < 0) {
+      throw new IndexOutOfBoundsException(
+          "Invalid task number. There are " + (this.taskCount - 1) + " " + this.taskWord() + " in your list.");
+    }
+
+    Task task = this.tasks[taskNumber];
+    System.out.println("Noted. I've removed this task:");
+    System.out.println("  " + task.toString());
+
+    for (int i = taskNumber; i < this.taskCount - 1; i++) {
+      this.tasks[i] = this.tasks[i + 1];
+    }
+
+    this.taskCount--;
+
+    System.out.println("Now you have " + this.taskCount + " " + this.taskWord() + " in the list.");
+  }
+
   public void displayTasks() throws EmptyListException {
     if (this.length() == 0) {
       throw new EmptyListException();
@@ -27,14 +47,15 @@ public class TaskList {
 
     for (int i = 0; i < this.taskCount; i++) {
       Task task = this.tasks[i];
-      System.out.println((i + 1) + ". " + task.toString());
+      System.out.println("  " + (i + 1) + ". " + task.toString());
     }
   }
 
   public void markTask(int taskNumber, boolean done)
       throws RedundantMarkException, RedundantUnmarkException, IndexOutOfBoundsException {
     if (taskNumber >= this.taskCount || taskNumber < 0) {
-      throw new IndexOutOfBoundsException("Invalid task number. There are " + " " + this.taskWord() + " in your list.");
+      throw new IndexOutOfBoundsException(
+          "Invalid task number. There are " + (this.taskCount - 1) + " " + this.taskWord() + " in your list.");
     }
 
     if (done) {
