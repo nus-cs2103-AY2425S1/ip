@@ -19,6 +19,8 @@ public abstract class Task {
 
     public abstract String getDescription();
 
+    public abstract String convertToFileFormat();
+
     public void markDone() {
         if (!this.isDone) {
             this.isDone = true;

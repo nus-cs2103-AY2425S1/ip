@@ -14,11 +14,25 @@ public class Events extends Task {
         }
     }
 
+    public Events(String description, String fromTime, String toTime, boolean isDone) {
+        super(description);
+        this.type = "E";
+        this.description = description;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+        this.isDone = isDone;
+    }
+
     @Override
     public String getDescription() {
         return this.description
                 + "(" + this.fromTime.replaceFirst("from", "from:")
                 + this.toTime.replaceFirst("to", "to:") + ")";
+    }
+
+    @Override
+    public String convertToFileFormat() {
+        return this.type + "|" + this.isDone + "|" + this.description + "|" + this.fromTime + "|" + this.toTime;
     }
 
 }

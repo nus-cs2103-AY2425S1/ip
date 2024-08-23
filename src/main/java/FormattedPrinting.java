@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class FormattedPrinting {
 
-    public static void FormatPrint(String message) {
+    public static void formatPrint(String message) {
         String indentation = "   ";
         String separatorLine = indentation + "______________________________________________________";
         StringBuilder outputMessage = new StringBuilder(separatorLine);
@@ -17,16 +17,15 @@ public class FormattedPrinting {
         System.out.println(outputMessage.toString());
     }
 
-    public static void Welcome() {
+    public static void welcome() {
         String welcomeMessage = "Hello I'm Mortal Reminder!\n"
                 + "What can I do for you?";
-        FormattedPrinting.FormatPrint(welcomeMessage);
+        formatPrint(welcomeMessage);
 
     }
 
-    public static void GoodBye() {
-        String goodByeMessage = "Bye. Hope to see you again soon!";
-        FormattedPrinting.FormatPrint(goodByeMessage);
+    public static void goodbye() {
+        formatPrint("Bye. Hope to see you again soon!");
     }
 
     public static void printList(TaskList taskList) {
@@ -41,7 +40,7 @@ public class FormattedPrinting {
                     currentList.append("\n");
                 }
             }
-            FormatPrint(currentList.toString());
+            formatPrint(currentList.toString());
         }
     }
 
@@ -58,7 +57,7 @@ public class FormattedPrinting {
                 + "Now you have "
                 + taskList.getSize()
                 + " task(s) in the list.";
-        FormatPrint(message);
+        formatPrint(message);
     }
 
     public static void deleteTask(Task task, TaskList taskList) {
@@ -68,52 +67,65 @@ public class FormattedPrinting {
                 + "Now you have "
                 + taskList.getSize()
                 + " task(s) in the list.";
-        FormatPrint(message);
+        formatPrint(message);
+    }
+
+    public static void clearList() {
+        formatPrint("List has been cleared.");
     }
 
     public static void printMarked(Task task) {
-        FormatPrint("Nice!  I've marked this task as done:\n" + printTask(task));
+        formatPrint("Nice!  I've marked this task as done:\n" + printTask(task));
     }
 
     public static void printUnmarked(Task task) {
-        FormatPrint("OK, I've marked this task as not done yet:\n" + printTask(task));
+        formatPrint("OK, I've marked this task as not done yet:\n" + printTask(task));
     }
 
     public static void descriptionEmptyError() {
-        FormatPrint("You have an empty description. Please try again.");
+        formatPrint("You have an empty description. Please try again.");
     }
 
     public static void markError() {
-        FormatPrint("This task has already been marked as done.");
+        formatPrint("This task has already been marked as done.");
     }
 
     public static void unmarkError() {
-        FormatPrint("This task has already been marked as not done.");
+        formatPrint("This task has already been marked as not done.");
     }
 
     public static void unknownCommand() {
         String outputMessage = "I do not recognise this command, please check again!\n"
                 + "Available commands are:\n"
                 + Arrays.toString(CommandTypes.class.getEnumConstants()).toLowerCase();
-        FormatPrint(outputMessage);
+        formatPrint(outputMessage);
     }
 
     public static void unknownNumber() {
-        FormatPrint("Please enter a valid number after the command!");
+        formatPrint("Please enter a valid number after the command!");
     }
 
     public static void emptyList() {
-        FormatPrint("You have no tasks in your list.");
+        formatPrint("You have no tasks in your list.");
     }
 
     public static void outOfListBounds(TaskList taskList) {
-        FormatPrint("Invalid task number!\n"
+        formatPrint("Invalid task number!\n"
                 + "Please input a number between 1 and "
                 + taskList.getSize());
     }
 
     public static void invalidNumberOfDetails() {
-        FormatPrint("Please give the correct amount of information for the command!");
+        formatPrint("Please give the correct amount of information for the command!");
+    }
+
+    public static void taskUnableToBeStoredInFile() {
+        formatPrint("There was an error in adding the task to the storage file!");
+    }
+
+    public static void fileCorrupted() {
+        formatPrint("The storage file has been corrupted.\n" +
+                "Use the clear_tasks command to get rid of this!");
     }
 
 }

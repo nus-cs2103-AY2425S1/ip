@@ -13,9 +13,23 @@ public class Deadline extends Task {
         }
     }
 
+    // the following constructor was created using ChatGPT autocomplete
+    public Deadline(String description, String deadline, boolean isDone) {
+        super(description);
+        this.type = "D";
+        this.description = description;
+        this.deadline = deadline;
+        this.isDone = isDone;
+    }
+
     @Override
     public String getDescription() {
         return this.description + "(" + this.deadline.replaceFirst("by", "by:") + ")";
+    }
+
+    @Override
+    public String convertToFileFormat() {
+        return this.type + "|" + this.isDone + "|" + this.description + "|" + this.deadline;
     }
 
 }
