@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class ZeroException {
+public class ZeroException extends Exception {
+    public ZeroException(String message) {
+        super(message);
+    }
 }
