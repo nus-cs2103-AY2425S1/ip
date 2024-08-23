@@ -1,5 +1,5 @@
 public class Duke {
-    public String addHorizontalLines(String dialog) {
+    public static String addHorizontalLines(String dialog) {
         String res = "____________________________________________________________\n" +
                 dialog + "\n" +
                 "____________________________________________________________";
@@ -7,11 +7,11 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String hi = " Hello! I'm Foo\n" +
+                " What can I do for you?";
+
+        String bye = "Bye. Hope to see you again soon!";
+        System.out.println(addHorizontalLines(hi));
+        System.out.println(addHorizontalLines(bye));
     }
 }
