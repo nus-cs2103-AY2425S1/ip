@@ -36,30 +36,27 @@ public class Rizz {
     }
 
     private void markTask(int index) {
-        if (index >= 1 && index <= arrList.size()) {
             Task task = arrList.get(index - 1);
             task.markAsDone();
             System.out.println("\tNice! I've marked this task as done:");
             System.out.println("\t\t" + task + "\n");
-        } else {
-            System.out.println("\tInvalid task number.\n");
-        }
     }
 
     private void unmarkTask(int index) {
-        if (index >= 1 && index <= arrList.size()) {
             Task task = arrList.get(index - 1);
             task.unmarkAsDone();
             System.out.println("\tOK, I've marked this task as not done yet:");
             System.out.println("\t\t" + task + "\n");
-        } else {
-            System.out.println("\tInvalid task number.\n");
-        }
     }
 
     private void caseCheck() {
         while (true) {
-            String textInput = this.input.nextLine();
+            if (!input.hasNextLine()) {
+                System.out.println("\tNo more commands in input.\n");
+                break;
+            }
+            String textInput = this.input.nextLine().trim();
+
             if (textInput.equals("bye")) {
                 this.exit();
                 break;
@@ -68,33 +65,52 @@ public class Rizz {
                 this.outputList();
 
             } else if (textInput.startsWith("mark ")) {
-                int index = Integer.parseInt(textInput.split(" ")[1]);
-                this.markTask(index);
+                try {
+                    int index = Integer.parseInt(textInput.split(" ")[1].trim());
+                    this.markTask(index);
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    System.out.println("\tOOPS!!! The mark command is missing an index or has an invalid index.");
+                }
 
             } else if (textInput.startsWith("unmark ")) {
-                int index = Integer.parseInt(textInput.split(" ")[1]);
-                this.unmarkTask(index);
+                try {
+                    int index = Integer.parseInt(textInput.split(" ")[1].trim());
+                    this.unmarkTask(index);
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    System.out.println("\tOOPS!!! The unmark command is missing an index or has an invalid index.");
+                }
 
             } else if (textInput.startsWith("todo ")) {
-                String text = textInput.substring(5).trim();
-                this.addToDo(text);
+                String description = textInput.substring(5).trim();
+                if (description.isEmpty()) {
+                    System.out.println("\tOOPS!!! The todo details cannot be empty / incorrectly formatted.");
+                } else {
+                    this.addToDo(description);
+                }
 
             } else if (textInput.startsWith("deadline ")) {
                 String[] parts = textInput.substring(9).split("/by", 2);
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                this.addDeadline(description, by);
+                if (parts.length < 2 || parts[0].trim().isEmpty()) {
+                    System.out.println("\tOOPS!!! The deadline's details cannot be empty / incorrectly formatted.");
+                } else {
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+                    this.addDeadline(description, by);
+                }
 
             } else if (textInput.startsWith("event ")) {
                 String[] parts = textInput.substring(6).split("/from|/to", 3);
-                String description = parts[0].trim();
-                String from = parts[1].trim();
-                String to = parts[2].trim();
-                this.addEvent(description, from, to);
+                if (parts.length < 3 || parts[0].trim().isEmpty()) {
+                    System.out.println("\tOOPS!!! The event's details cannot be empty / incorrectly formatted.");
+                } else {
+                    String description = parts[0].trim();
+                    String from = parts[1].trim();
+                    String to = parts[2].trim();
+                    this.addEvent(description, from, to);
+                }
 
             } else {
-                System.out.println("\tInvalid Intput\n");
-                //Remove Echo
+                System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
