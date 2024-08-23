@@ -50,7 +50,7 @@ public class Ui {
             return displayList + "Your task list is empty!" + "\n" + DIVIDER;
         }
         for (int i = 0; i < taskLength; i++) {
-            displayList += (i + 1) + ". " + "[" + list[i].getStatusIcon() + "] " + list[i].getDescription() + "\n";
+            displayList += (i + 1) + ". " + list[i].toString() + "\n";
             if(i == taskLength - 1) {
                 displayList += DIVIDER;
                 break;
@@ -66,7 +66,7 @@ public class Ui {
      * @return A string containing the message "marked" along with the task description and its status icon
      */
     public String displayMarkedTask(Task task) {
-        return DIVIDER + "\n" + MARKED + "\n" + "  " + "[" + task.getStatusIcon() + "] " + task.getDescription() + "\n" + DIVIDER;
+        return DIVIDER + "\n" + MARKED + "\n" + "  " + task.toString() + "\n" + DIVIDER;
     }
 
     /**
@@ -85,7 +85,7 @@ public class Ui {
      * @return A string containing the message "unmarked" along with the task description and its status icon
      */
     public String displayUnmarkedTask(Task task) {
-        return DIVIDER + "\n" + UNMARKED + "\n" + "  " + "[" + task.getStatusIcon() + "] " + task.getDescription() + "\n" + DIVIDER;
+        return DIVIDER + "\n" + UNMARKED + "\n" + "  " + task.toString() + "\n" + DIVIDER;
     }
 
     /**
