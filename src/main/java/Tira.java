@@ -91,7 +91,7 @@ public class Tira {
     public static void addTask(Task task, ArrayList<Task> taskList) {
         taskList.add(task);
         System.out.println("Miao! Got it. I've added this task to my cat brain:\n" +
-                task.toString() + "\nNow you have " + taskList.size() + " in the list!");
+                task.toString() + "\nNow you have " + taskList.size() + " task(s) in the list!");
     }
 }
 
