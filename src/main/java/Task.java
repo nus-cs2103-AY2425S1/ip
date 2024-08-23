@@ -27,6 +27,11 @@ public class Task {
         System.out.println("\t\t" + this);
     }
 
+    public void deleteTask() {
+        System.out.println("\t" + "Noted. I've removed this task:");
+        System.out.println("\t\t" + this);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), getDescription());

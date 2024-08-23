@@ -57,12 +57,14 @@ public class Devon {
                     markAction(input);
                 } else if (command.equals("unmark")) {
                     unmarkAction(input);
+                } else if (command.equals("todo")) {
+                    todoAction(input);
                 } else if (command.equals("deadline")) {
                     deadlineAction(input);
                 } else if (command.equals("event")) {
                     eventAction(input);
-                } else if (command.equals("todo")) {
-                    todoAction(input);
+                } else if (command.equals("delete")) {
+                    deleteAction(input);
                 } else {
                     unknownAction();
                 }
@@ -74,23 +76,38 @@ public class Devon {
         }
     }
 
-    void markAction(String input) throws DevonInvalidTaskNumberException {
-        int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+    private void markAction(String input) throws DevonInvalidTaskNumberException {
+        int taskIndex;
+        try {
+            taskIndex = Integer.parseInt(detectContent(input)) - 1;
+        } catch (NumberFormatException e) {
+            throw new DevonInvalidTaskNumberException();
+        }
         if (taskIndex < 0 || taskIndex >= taskCount) {
-            throw new DevonInvalidTaskNumberException(taskIndex + 1);
+            throw new DevonInvalidTaskNumberException();
         }
         markAsDone(tasks.get(taskIndex));
     }
 
-    void unmarkAction(String input) throws DevonInvalidTaskNumberException {
-        int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+    private void unmarkAction(String input) throws DevonInvalidTaskNumberException {
+        int taskIndex;
+        try {
+            taskIndex = Integer.parseInt(detectContent(input)) - 1;
+        } catch (NumberFormatException e) {
+            throw new DevonInvalidTaskNumberException();
+        }
         if (taskIndex < 0 || taskIndex >= taskCount) {
-            throw new DevonInvalidTaskNumberException(taskIndex + 1);
+            throw new DevonInvalidTaskNumberException();
         }
         markAsUndone(tasks.get(taskIndex));
     }
 
-    void deadlineAction(String input) throws DevonInvalidDeadlineException {
+    private void todoAction(String input) {
+        String description = detectContent(input).trim();
+        addToList(new Todo(description));
+    }
+
+    private void deadlineAction(String input) throws DevonInvalidDeadlineException {
         String content = detectContent(input);
         if (!content.contains("/by")) {
             throw new DevonInvalidDeadlineException();
@@ -101,7 +118,7 @@ public class Devon {
         addToList(new Deadline(description, by));
     }
 
-    void eventAction(String input) throws DevonInvalidEventException {
+    private void eventAction(String input) throws DevonInvalidEventException {
         String content = detectContent(input);
         if (!(content.contains("/from") && content.contains("/to"))) {
             throw new DevonInvalidEventException();
@@ -114,12 +131,15 @@ public class Devon {
         addToList(new Event(description, from, to));
     }
 
-    void todoAction(String input) {
-        String description = detectContent(input).trim();
-        addToList(new Todo(description));
+    private void deleteAction(String input) throws DevonInvalidTaskNumberException {
+        int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+        if (taskIndex < 0 || taskIndex >= taskCount) {
+            throw new DevonInvalidTaskNumberException();
+        }
+        deleteTask(taskIndex);
     }
 
-    void unknownAction() throws DevonUnknownCommandException {
+    private void unknownAction() throws DevonUnknownCommandException {
         throw new DevonUnknownCommandException();
     }
 
@@ -129,7 +149,7 @@ public class Devon {
         this.printLongLine();
         System.out.println("\t" + "Got it. I've added this task:");
         System.out.println("\t\t" + task);
-        System.out.println("\t" + "Now you have " + taskCount + " tasks in the list.");
+        printNumberOfTasks();
         this.printLongLine();
     }
 
@@ -148,15 +168,29 @@ public class Devon {
         this.printLongLine();
     }
 
-    void markAsDone(Task task) {
+    private void printNumberOfTasks() {
+        System.out.println("\t" + "Now you have " + taskCount + " tasks in the list.");
+    }
+
+    private void markAsDone(Task task) {
         printLongLine();
         task.markAsDone();
         printLongLine();
     }
 
-    void markAsUndone(Task task) {
+    private void markAsUndone(Task task) {
         printLongLine();
         task.markAsUndone();
+        printLongLine();
+    }
+
+    private void deleteTask(int taskIndex) {
+        Task currentTask = tasks.get(taskIndex);
+        currentTask.deleteTask();
+        tasks.remove(taskIndex);
+        taskCount--;
+        printLongLine();
+        printNumberOfTasks();
         printLongLine();
     }
 
