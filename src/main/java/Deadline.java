@@ -9,7 +9,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D][" + (this.getStatus() ? "X" : " ") + "] " +
-                this.getDescription() + "(by: " + this.end + ")";
+                this.getDescription() + " (by: " + this.end + ")";
     }
 
 }

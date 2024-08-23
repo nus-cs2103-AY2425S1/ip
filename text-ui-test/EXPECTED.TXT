@@ -1,7 +1,61 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+Roads? Where We're Going, We Don't Need Roads?! So, what can I help you with today?
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!
+
+[T][ ] Read the Back to the Future script
+
+Why don’t you make like a tree and get outta here? But not before you see that you have 1 tasks in the list.
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Last night, Darth Vader came down from Planet Vulcan and told me that if you don't meet this deadline... he'd melt your brain! So, better get moving!
+
+[D][ ] Submit project (by: 2024-08-25)
+
+If you're gonna build a time machine into a car, why not do it with some style? And speaking of style, you now have 2 tasks in the list.
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+The appropriate question is: ‘When the hell are they?’ Your event is now set in time!
+
+[E][ ] Watch Back to the Future (from: 18:00 end: 20:00)
+
+Marty, don't be such a square. Now you have 3 tasks in the list.
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Here’s your list! Like Doc Brown’s flux capacitor, this will help keep everything in perfect sync!
+
+1. [T][ ] Read the Back to the Future script
+2. [D][ ] Submit project (by: 2024-08-25)
+3. [E][ ] Watch Back to the Future (from: 18:00 end: 20:00)
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!
+[T][X] Read the Back to the Future script
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Looks like we're going back to the future—task unmarked! Time to revisit this one.
+
+[D][ ] Submit project (by: 2024-08-25)
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Here’s your list! Like Doc Brown’s flux capacitor, this will help keep everything in perfect sync!
+
+1. [T][X] Read the Back to the Future script
+2. [D][ ] Submit project (by: 2024-08-25)
+3. [E][ ] Watch Back to the Future (from: 18:00 end: 20:00)
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Looks like we're going back to the future—task unmarked! Time to revisit this one.
+
+[T][ ] Read the Back to the Future script
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Here’s your list! Like Doc Brown’s flux capacitor, this will help keep everything in perfect sync!
+
+1. [T][ ] Read the Back to the Future script
+2. [D][ ] Submit project (by: 2024-08-25)
+3. [E][ ] Watch Back to the Future (from: 18:00 end: 20:00)
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+Your future is whatever you make it, so make it a good one! Until next time, keep the DeLorean ready!

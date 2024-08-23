@@ -12,7 +12,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + (this.getStatus() ? "X" : " ") + "] " +
-                this.getDescription() + "(from: " + this.start + " end: " + this.end + ")";
+                this.getDescription() + " (from: " + this.start + " end: " + this.end + ")";
     }
 
 
