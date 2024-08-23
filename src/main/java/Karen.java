@@ -91,7 +91,13 @@ public class Karen {
                 //add new Task
                 Task task = null;
                 if (command[0].equals("todo")) {
-                    task = new Todo(command[1]);
+                    try {
+                        task = new Todo(command[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        output += LINE
+                                + "Please enter a name for your todo!\n"
+                                + LINE;
+                    }
                 } else if(command[0].equals("deadline")) {
                     String[] params = command[1].split("/by ", 2);
                     task = new Deadline(params[0], params[1]);
