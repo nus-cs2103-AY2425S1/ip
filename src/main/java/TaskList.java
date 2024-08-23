@@ -48,8 +48,9 @@ public class TaskList {
     public String markItem(int place) {
         try {
             Task curr = list.get(place - 1);
-            curr.mark();
-            return "Well done! I have checked this item off the list:\n" + curr;
+            return curr.mark()
+                ? "Well done! I have checked this item off the list:\n" + curr
+                : "This item was already marked as done previously!";
         } catch (IndexOutOfBoundsException e) {
             return "This task does not exist!";
         }
@@ -58,8 +59,9 @@ public class TaskList {
     public String unmarkItem(int place) {
         try {
             Task curr = list.get(place - 1);
-            curr.unmark();
-            return "Oh no! It's ok, I will uncheck this item for now:\n" + curr;
+            return curr.unmark()
+                ? "Oh no! It's ok, I will uncheck this item for now:\n" + curr
+                : "This item was already unchecked previously!";
         } catch (IndexOutOfBoundsException e) {
             return "This task does not exist!";
         }

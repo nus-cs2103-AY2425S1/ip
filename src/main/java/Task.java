@@ -9,12 +9,22 @@ abstract public class Task {
         this.done = false;
     }
 
-    public void mark() {
-        this.done = true;
+    public boolean mark() {
+        if (done) {
+            return false;
+        } else {
+            done = true;
+            return done;
+        }
     }
 
-    public void unmark() {
-        this.done = false;
+    public boolean unmark() {
+        if (!done) {
+            return false;
+        } else {
+            done = false;
+            return true;
+        }
     }
 
     public int getCount() {

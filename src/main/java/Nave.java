@@ -15,8 +15,7 @@ public class Nave {
             deadline [name] /by [date]: adds a deadline with associated name and date
             event [name] /from [date] /to [date]: adds an event with associated name,
                 start date and end date
-            bye: ends the Nave chatbot
-            """;
+            bye: ends the Nave chatbot""";
 
     private static final TaskList tasks = new TaskList();
     public static void main(String[] args) {
