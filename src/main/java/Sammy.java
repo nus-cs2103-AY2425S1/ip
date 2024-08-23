@@ -24,6 +24,7 @@ class InvalidTaskNumberException extends SammyException {
         super("Wrong task number.");
     }
 }
+
 class Task {
     protected String description;
     protected boolean isDone;
@@ -137,6 +138,18 @@ public class Sammy {
                         System.out.println(line);
                         System.out.println(" OK, I've marked this task as not done yet:");
                         System.out.println(" " + tasks.get(index));
+                        System.out.println(line);
+                    } else {
+                        throw new InvalidTaskNumberException();
+                    }
+                } else if (input.startsWith("delete ")) {
+                    int index = Integer.parseInt(input.substring(7).trim()) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        Task removedTask = tasks.remove(index);
+                        System.out.println(line);
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println(" " + removedTask);
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println(line);
                     } else {
                         throw new InvalidTaskNumberException();
