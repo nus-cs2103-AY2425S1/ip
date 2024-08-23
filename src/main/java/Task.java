@@ -14,7 +14,14 @@ public class Task {
     }
 
     public String addedString() {
-        return line + "added: " + input + "\n" + line;
+        //return line + "added: " + input + "\n" + line;
+        String str = "Got it. I've added this task:\n" + displayTask();
+        if (numOfTasks < 2) {
+            str += "Now you have " +numOfTasks + " task in the list.\n";
+        } else {
+            str += "Now you have " + numOfTasks + " tasks in the list.\n";
+        }
+        return line + str + line;
     }
 
     public String displayTask() {
@@ -27,6 +34,14 @@ public class Task {
 
     public int getIndex() {
         return this.index;
+    }
+
+    public String getInput() {
+        return this.input;
+    }
+
+    public boolean getDone() {
+        return this.done;
     }
 
     public void markAsDone() {
