@@ -12,7 +12,6 @@ public class Duck {
 
         while (true) {
             String userCommand = scanner.nextLine();
-            String[] commandParts = userCommand.split(" ", 2);
             if (userCommand.equals("bye")) {
                 break;
             }
@@ -23,22 +22,40 @@ public class Duck {
                     System.out.println(num + ". " + list.get(i));
                 }
                 System.out.println(line);
-            } else if (commandParts.length == 2 && commandParts[0].equals("mark")) {
-                int taskIndex = Integer.parseInt(commandParts[1]) - 1;
+            } else if (userCommand.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
                 Task task = list.get(taskIndex);
                 task.mark();
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(task);
-            } else if (commandParts.length == 2 && commandParts[0].equals("unmark")) {
-                int taskIndex = Integer.parseInt(commandParts[1]) - 1;
+            } else if (userCommand.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
                 Task task = list.get(taskIndex);
                 task.unmark();
                 System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println(task);
-            } else {
-                Task task = new Task(userCommand);
+            } else if (userCommand.startsWith("todo")) {
+                Task task = new ToDo(userCommand);
                 list.add(task);
-                System.out.println(line + "\n" + "added: " + userCommand + "\n" + line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else if (userCommand.startsWith("event")) {
+                String[] commandParts = userCommand.split("/from|/to");
+                Task task = new Event(commandParts[0], commandParts[1], commandParts[1]);
+                list.add(task);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else if (userCommand.startsWith("deadline")) {
+                String[] commandParts = userCommand.split("/by");
+                Task task = new Deadline(commandParts[0], commandParts[1]);
+                list.add(task);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else {
+                System.out.println("nothing");
             }
         }
 
