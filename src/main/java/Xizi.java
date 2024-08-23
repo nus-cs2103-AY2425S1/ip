@@ -72,35 +72,35 @@ public class Xizi {
 
             try {
                 switch (commandType) {
-                    case DELETE:
-                        handleDelete(actions, storage, userInput);
-                        break;
-                    case MARK:
-                        handleMark(actions, storage, userInput);
-                        break;
-                    case UNMARK:
-                        handleUnmark(actions, storage, userInput);
-                        break;
-                    case TODO:
-                        handleTodo(actions, storage, userInput);
-                        break;
-                    case DEADLINE:
-                        handleDeadline(actions, storage, userInput);
-                        break;
-                    case EVENT:
-                        handleEvent(actions, storage, userInput);
-                        break;
-                    case LIST:
-                        handleList(actions);
-                        break;
-                    case BYE:
-                        handleBye(scanner);
-                        return;
-                    case HELP:
-                        printHelp();
-                        break;
-                    default:
-                        throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
+                case DELETE:
+                    handleDelete(actions, storage, userInput);
+                    break;
+                case MARK:
+                    handleMark(actions, storage, userInput);
+                    break;
+                case UNMARK:
+                    handleUnmark(actions, storage, userInput);
+                    break;
+                case TODO:
+                    handleTodo(actions, storage, userInput);
+                    break;
+                case DEADLINE:
+                    handleDeadline(actions, storage, userInput);
+                    break;
+                case EVENT:
+                    handleEvent(actions, storage, userInput);
+                    break;
+                case LIST:
+                    handleList(actions);
+                    break;
+                case BYE:
+                    handleBye(scanner);
+                    return;
+                case HELP:
+                    printHelp();
+                    break;
+                default:
+                    throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
                 }
             } catch (IOException | XiziException e) {
                 printErrorMessage(e.getMessage());
