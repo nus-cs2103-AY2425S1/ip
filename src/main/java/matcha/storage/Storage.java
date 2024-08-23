@@ -14,13 +14,27 @@ import matcha.task.Deadline;
 import matcha.task.Event;
 import matcha.exception.MatchaException;
 
-
+/**
+ * Represents a Storage object that saves and loads tasks from a file.
+ */
 public class Storage {
     private static String FILE_PATH;
+
+    /**
+     * Constructor for Storage object.
+     * @param filePath The file path to save and load tasks from.
+     */
     public Storage(String filePath) {
         Storage.FILE_PATH = filePath;
     }
 
+    /**
+     * Initializes the file to save and load tasks from. If file or
+     * directory does not exist, it will be created.
+     *
+     * @return The file to save and load tasks from.
+     * @throws IOException If there is an error creating the file.
+     */
     private static File initFile() throws IOException {
        File file = new File(FILE_PATH);
 
@@ -37,8 +51,12 @@ public class Storage {
        return file;
     }
 
-
-
+    /**
+     * Loads tasks from given file and returns them as an ArrayList.
+     *
+     * @return An ArrayList of tasks loaded from file.
+     * @throws MatchaException If there is an error loading tasks from file.
+     */
     public ArrayList<Task> loadTasks() throws MatchaException {
         try {
           File file = Storage.initFile();
@@ -60,6 +78,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to a given file.
+     *
+     * @param tasks The ArrayList of tasks to save to file.
+     * @throws MatchaException If there is an error saving tasks to file.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws MatchaException {
         try {
             File file = Storage.initFile();
@@ -76,6 +100,5 @@ public class Storage {
         } catch (IOException e) {
             throw new MatchaException("Oh no! Error saving tasks to file.");
         }
-
     }
 }

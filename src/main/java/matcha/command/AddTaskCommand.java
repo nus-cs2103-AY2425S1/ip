@@ -10,21 +10,40 @@ import matcha.tasklist.TaskList;
 import matcha.storage.Storage;
 import matcha.ui.Ui;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddTaskCommand extends Command{
     private String commandType;
     private String[] inputWords;
+
+    /**
+     * Constructor for AddTaskCommand.
+     *
+     * @param inputWords Array of words from user input.
+     * @param commandType Type of add task command.
+     */
     public AddTaskCommand(String[] inputWords, String commandType) {
         this.commandType = commandType;
         this.inputWords = inputWords;
     }
 
+    /**
+     * Adds the given task to the task list. Prints out the task details and saves
+     * the updated task list to file.
+     *
+     * @param tasks Task list to add task to.
+     * @param ui Ui object to interact with user.
+     * @param storage Storage object to save tasks to file.
+     * @throws MatchaException If the task details are not provided or are invalid.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
         if (inputWords.length < 2) {
             throw new MatchaException("Please include the " + commandType + " details!");
         }
         
-        switch(commandType) {
+        switch (commandType) {
 
         case "todo":
             Todo todo = new Todo(inputWords[1]);
@@ -61,6 +80,12 @@ public class AddTaskCommand extends Command{
         }
     }
 
+    /**
+     * Creates a Deadline task from the user input.
+     *
+     * @return Deadline task created from user input.
+     * @throws MatchaException If the deadline details are not provided or are invalid.
+     */
     private Deadline createDeadline() throws MatchaException {
         if (!inputWords[1].contains(" /by ")) {
             throw new MatchaException("Invalid format to add Deadline.\nPlease use '/by' to specify the " +
@@ -82,6 +107,12 @@ public class AddTaskCommand extends Command{
         return new Deadline(deadlineDesc, formattedBy);
     }
 
+    /**
+     * Creates an Event task from the user input.
+     *
+     * @return Event task created from user input.
+     * @throws MatchaException If the event details are not provided or are invalid.
+     */
     private Event createEvent() throws MatchaException {
         if (inputWords.length < 2) {
             throw new MatchaException("Please include the Event details!");
