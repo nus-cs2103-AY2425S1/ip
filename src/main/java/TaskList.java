@@ -27,13 +27,13 @@ public class TaskList {
      *
      * @param index the task number to be marked
      */
-    public void markTask(int index) {
+    public void markTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
             Task task = listOfTasks.get(index - 1);
             task.markAsDone();
             Reply.printMessage("Nice! I've marked this task as done:\n" + "  " + task.toString());
         } else {
-            Reply.printMessage("Task number " + index + " does not exist.");
+            throw new TaskNotFoundException();
         }
     }
 
@@ -42,16 +42,26 @@ public class TaskList {
      *
      * @param index the task number to be marked
      */
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
             Task task = listOfTasks.get(index - 1);
             task.markAsNotDone();
             Reply.printMessage("OK, I've marked this task as not done yet:\n" + "  " + task.toString());
         } else {
-            Reply.printMessage("Task number " + index + " does not exist.");
+            throw new TaskNotFoundException();
         }
     }
 
+    public void deleteTask(int index) throws TaskNotFoundException {
+        if (index > 0 && index <= listOfTasks.size()) {
+            Task removedTask = listOfTasks.remove(index - 1);
+            Reply.printMessage("Noted. I've removed this task:" + "\n" + "  "
+                    + removedTask + "\n" + "Now you have "
+                    + listOfTasks.size() + " tasks in the list." );
+        } else {
+            throw new TaskNotFoundException();
+        }
+    }
     /**
      * print all tasks added to the list
      *

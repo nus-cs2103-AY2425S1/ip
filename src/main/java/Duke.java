@@ -37,6 +37,8 @@ public class Duke {
                     handleAddDeadline(userInput);
                 } else if (userInput.startsWith("event")) {
                     handleAddEvent(userInput);
+                } else if (userInput.startsWith("delete")) {
+                    handleDeleteTask(userInput);
                 } else {
                     throw new InvalidInputException();
                 }
@@ -45,6 +47,8 @@ public class Duke {
             } catch (MissingTaskNameException e) {
                 Reply.printMessage(e.toString());
             } catch (MissingDateException e) {
+                Reply.printMessage(e.toString());
+            } catch (TaskNotFoundException e) {
                 Reply.printMessage(e.toString());
             }
 
@@ -58,7 +62,8 @@ public class Duke {
      * @param message input of user
      * @param mark boolean to mark or unmark task
      */
-    public static void handleMarkTask(String message, boolean mark) throws InvalidInputException {
+    public static void handleMarkTask(String message, boolean mark) throws InvalidInputException,
+            TaskNotFoundException {
         String[] split = message.split(" ");
         if (split.length > 2) {
            throw new InvalidInputException();
@@ -125,6 +130,20 @@ public class Duke {
         String from = parts[1].trim();
         String to = parts[2].trim();
         taskList.addTask(new Event(taskName, from, to));
+    }
+
+    public static void handleDeleteTask(String message) throws InvalidInputException, TaskNotFoundException {
+        String[] split = message.split(" ");
+        if (split.length > 2) {
+            throw new InvalidInputException();
+        }
+        try {
+            taskList.deleteTask(Integer.parseInt(split[1]));
+        } catch (NumberFormatException e ) {
+            Reply.printMessage("Invalid number");
+        } catch (IndexOutOfBoundsException e) {
+            Reply.printMessage("Index number does not exist");
+        }
     }
 }
 
