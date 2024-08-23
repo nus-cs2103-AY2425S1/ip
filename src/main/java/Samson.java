@@ -59,6 +59,13 @@ public class Samson {
                     String from = parts[1];
                     String to = parts[2];
                     taskManager.addTask(new Event(description, from, to));
+                } else if (userInput.startsWith("delete")){
+                    String[] chunk = userInput.split(" ");
+                    if (chunk.length != 2) {
+                        throw new SamException("Please provide valid Task Number");
+                    }
+                    int taskNum = Integer.parseInt(chunk[1]);
+                    taskManager.deleteTask(taskNum);
                 } else {
                     throw new SamException("I'm sorry, but I don't know what that means :-( \n " +
                             "Kindly provide the tasks starting with 'todo', 'event' or 'deadline'!!");
