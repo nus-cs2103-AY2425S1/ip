@@ -25,4 +25,13 @@ public class TaskList {
     public static int getTaskListLength() {
         return length;
     }
+
+    /**
+     *
+     * @param task adds a new Task to the TaskList
+     */
+    public void addTask(Task task) {
+        taskList[length] = task;
+        length++;
+    }
 }
