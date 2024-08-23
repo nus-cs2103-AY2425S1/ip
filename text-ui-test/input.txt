@@ -1,4 +1,4 @@
-make list
+list bot
 Task 1 /by Sunday
 Task 2
 Event 1 /from 9am /to 3pm
@@ -23,6 +23,7 @@ list
 Task 7 /by the end of the month
 Event 4 /from 7am /to 8am
 Event 5 /from 7am
+shit
 mark 7
 Task 8
 unmark 6

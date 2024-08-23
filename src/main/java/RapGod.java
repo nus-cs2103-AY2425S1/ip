@@ -13,8 +13,7 @@ public class RapGod {
     ));
     public static void main(String[] args) {
         String logo = """
-                 I'm beginning to feel like a
-                 ____              ____           _\s
+                  ____              ____           _\s
                 |  _ \\ __ _ _ __  / ___| ___   __| |
                 | |_) / _` | '_ \\| |  _ / _ \\ / _` |
                 |  _ < (_| | |_) | |_| | (_) | (_| |
@@ -25,7 +24,6 @@ public class RapGod {
         String header = """
                 -----------------------------------------------
                  I'm beginning to feel like a:
-                -----------------------------------------------
                 """;
 
         String introduction = """
@@ -34,8 +32,8 @@ public class RapGod {
                 What can I do for you today?
                 
                 [OPTIONS]
-                'Echo' to echo
-                'Make List' to create a list
+                'Echo bot' to echo
+                'List bot' to create a list
                 'Bye' to exit
                 -----------------------------------------------
                 """;
@@ -61,10 +59,10 @@ public class RapGod {
                 continue;
             }
 
-            if (option.equalsIgnoreCase("echo")) {
+            if (option.equalsIgnoreCase("echo bot")) {
                 Echo.run();
                 break;
-            } else if (option.equalsIgnoreCase("make list")) {
+            } else if (option.equalsIgnoreCase("list bot")) {
                 List.run();
                 break;
             } else if (option.equalsIgnoreCase("Bye")) {
