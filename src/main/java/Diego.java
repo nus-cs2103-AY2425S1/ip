@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Diego {
 
@@ -18,9 +22,49 @@ public class Diego {
             """;
 
         System.out.println(hiMessage);
-
         ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
+
+        
+        try {
+            File f = new File("data/Diego.txt");
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                String[] parts = input.split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                switch (taskType) {
+                    case "T":
+                        tasks.add(new Todo(description));
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(description, parts[3]));
+                        break;
+                    case "E":
+                        tasks.add(new Event(description, parts[3], parts[4]));
+                        break;
+                }
+                if (isDone) tasks.get(taskCount).mark();
+                taskCount++;
+            }
+            s.close(); 
+        } catch (FileNotFoundException e) {
+            try {
+                File dir = new File("data");
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                File f = new File("data/Diego.txt");
+                f.createNewFile();
+            
+            } catch (IOException ioException) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }    
+        
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -31,7 +75,7 @@ public class Diego {
                     break;
                 } else if (input.equals("list")) {
                     System.out.println("____________________________________________________________");
-                    System.out.println("Here are the tasks in your list");
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
                         System.out.println(i + 1 + ". " + tasks.get(i));
                     }
@@ -88,20 +132,31 @@ public class Diego {
                     System.out.println("____________________________________________________________");
                     System.out.println("Noted. I've removed this task:");
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    Task currTask = tasks.get(index);
+                    Task currTask = tasks.remove(index); 
                     System.out.println(" " + currTask);
                     taskCount--;
                     System.out.printf("Now you have %d tasks in the list%n", taskCount);
                     System.out.println("____________________________________________________________");
 
-                }else {
+                } else {
                     throw new UnknownCommandException();
                 }
+
+                
+                try (FileWriter writer = new FileWriter("data/Diego.txt")) {
+                    for (Task task : tasks) {
+                        writer.write(task.toFileFormat() + System.lineSeparator());
+                    }
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+
             } catch (DiegoException e) {
                 System.out.println(e.getMessage());
             }
         }
-
+        
+        scanner.close(); 
         System.out.println(byeMessage);
     }
 }

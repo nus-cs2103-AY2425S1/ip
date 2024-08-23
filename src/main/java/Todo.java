@@ -8,4 +8,9 @@ public class Todo extends Task{
         return "[T]" + (isDone ? "[X]" : "[ ]") + " " + description;
     }
 
+    @Override
+    public String toFileFormat() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
 }
