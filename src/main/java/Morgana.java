@@ -17,7 +17,7 @@ public class Morgana {
         Scanner sc = new Scanner(System.in);
         String line;
         while (!(line = sc.nextLine()).equals("bye")) {
-            String[] input = line.split(" ", 2);
+            String[] input = line.trim().split(" ", 2);
             switch (input[0]) {
                 case "list" -> listTasks();
                 case "mark" -> markTaskAsDone(Integer.parseInt(line.split(" ")[1]) - 1);
@@ -61,29 +61,55 @@ public class Morgana {
     }
 
     private static void addTask(String[] input) {
-        Task task = createTask(input[0], input[1]);
-        tasks.add(task);
+        try {
+            Task task = createTask(input[0], input.length > 1 ? input[1].trim() : "");
+            tasks.add(task);
 
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.printf("%s%n", task);
-        System.out.printf("Now you have %d task%s in the list.%n",
-                tasks.size(), tasks.size() > 1 ? "s" : "");
-        System.out.println(HORIZONTAL_LINE);
+            System.out.print(HORIZONTAL_LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.printf("%s%n", task);
+            System.out.printf("Now you have %d task%s in the list.%n",
+                    tasks.size(), tasks.size() > 1 ? "s" : "");
+            System.out.println(HORIZONTAL_LINE);
+        } catch (MorganaException e) {
+            System.out.print(HORIZONTAL_LINE);
+            System.out.println(e.getMessage());
+            System.out.println(HORIZONTAL_LINE);
+        }
     }
 
-    private static Task createTask(String command, String args) {
+    private static Task createTask(String command, String args) throws MorganaException {
         return switch (command) {
-            case "todo" -> new Todo(args);
+            case "todo" -> {
+                if (args.isEmpty()) {
+                    throw new MorganaException("""
+                            Invalid todo format.
+                            Usage: todo <description>.
+                            Example: todo borrow book""");
+                }
+                yield new Todo(args);
+            }
             case "deadline" -> {
                 String[] parts = args.split(" /by ");
+                if (parts.length != 2) {
+                    throw new MorganaException("""
+                            Invalid deadline format.
+                            Usage: deadline <description> /by <date/time>
+                            Example: deadline return book /by Sunday""");
+                }
                 yield new Deadline(parts[0], parts[1]);
             }
             case "event" -> {
                 String[] parts = args.split(" /from | /to ");
+                if (parts.length != 3) {
+                    throw new MorganaException("""
+                            Invalid event format.
+                            Usage: event <description> /from <date/time> /to <date/time>
+                            Example: event project meeting /from Mon 2pm /to 4pm""");
+                }
                 yield new Event(parts[0], parts[1], parts[2]);
             }
-            default -> null;
+            default -> throw new MorganaException("Unknown command: %s".formatted(command));
         };
     }
 }
