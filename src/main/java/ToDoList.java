@@ -7,11 +7,17 @@ public class ToDoList {
         todoList.add(task);
     }
 
-    public void mark(int taskNumber) {
+    public void mark(int taskNumber) throws InvalidTaskNumberException {
+        if (taskNumber > todoList.size() || taskNumber < 1) {
+            throw new InvalidTaskNumberException();
+        }
         todoList.get(taskNumber - 1).check();
     }
 
-    public void unmark(int taskNumber) {
+    public void unmark(int taskNumber) throws InvalidTaskNumberException {
+        if (taskNumber > todoList.size() || taskNumber < 1) {
+            throw new InvalidTaskNumberException();
+        }
         todoList.get(taskNumber - 1).uncheck();
     }
 
