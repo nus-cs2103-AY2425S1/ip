@@ -126,7 +126,7 @@ public class Grok {
 
                 Task newTask;
                 try {
-                    newTask = new Deadline(description, due);;
+                    newTask = new Deadline(description, due);
                 } catch (GrokInvalidUserInputException e) {
                     System.out.println(padMessage("OOPS! " + e.getMessage()));
                     continue;
