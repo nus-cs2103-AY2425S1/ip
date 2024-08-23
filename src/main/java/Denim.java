@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Denim {
@@ -12,8 +13,7 @@ public class Denim {
 
     static final String horizontalLine = "____________________________________________________________";
     static final String chatBotName = "Denim";
-    static Task[] taskList = new Task[100];
-    static int taskSize = 0;
+    static ArrayList<Task> taskList = new ArrayList<>(100);
 
     public static void main(String[] args) {
         displayGreetingMessage();
@@ -81,16 +81,16 @@ public class Denim {
 
     static void handleList() {
         System.out.println(horizontalLine);
-        for (int i = 0; i < taskSize; i++) {
-            System.out.printf("%d. %s\n", i + 1, taskList[i].toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, taskList.get(i));
         }
         System.out.println(horizontalLine);
     }
 
     static void handleTaskAddition(Task task) {
-        taskList[taskSize++] = task;
+        taskList.add(task);
         System.out.printf("%s%nGot it. I've added this task:%n   %s%nNow you have %d tasks in the list.%n%s%n",
-                horizontalLine, task, taskSize, horizontalLine);
+                horizontalLine, task, taskList.size(), horizontalLine);
     }
 
     static void handleMark(String argument) throws DenimException {
@@ -101,12 +101,12 @@ public class Denim {
         try {
             int index = Integer.parseInt(argument) - 1;
 
-            if (index < 0 || index >= taskSize) {
+            if (index < 0 || index >= taskList.size()) {
                 throw new DenimException("OOPS!!! The task number is out of range. >=C");
             }
 
-            taskList[index].setDone(true);
-            System.out.printf("Okay, I've marked this task as done: \n %s\n", taskList[index]);
+            taskList.get(index).setDone(true);
+            System.out.printf("Okay, I've marked this task as done: \n %s\n", taskList.get(index));
         } catch (NumberFormatException e) {
             throw new DenimException("y u do dis! Argument must be a valid numb3r! ( =ω=)..nyaa");
         }
@@ -120,12 +120,12 @@ public class Denim {
         try {
             int index = Integer.parseInt(argument) - 1;
 
-            if (index < 0 || index >= taskSize) {
+            if (index < 0 || index >= taskList.size()) {
                 throw new DenimException("OOPS!!! The task number is out of range. >=C");
             }
 
-            taskList[index].setDone(false);
-            System.out.printf("Okay, I've marked this task as not done yet: \n %s\n", taskList[index]);
+            taskList.get(index).setDone(false);
+            System.out.printf("Okay, I've marked this task as not done yet: \n %s\n", taskList.get(index));
         } catch (NumberFormatException e) {
             throw new DenimException("y u do dis! Argument must be a valid numb3r! ( =ω=)..nyaa");
         }
@@ -139,24 +139,17 @@ public class Denim {
         try {
             int index = Integer.parseInt(argument) - 1;
 
-            if (index < 0 || index >= taskSize) {
+            if (index < 0 || index >= taskList.size()) {
                 throw new DenimException("OOPS!!! The task number is out of range. >=C");
             }
 
-            Task deletedTask = taskList[index];
+            Task deletedTask = taskList.get(index);
 
-            // Shift elements after deletion
-            for (int i = index; i < taskSize - 1; i++) {
-                taskList[i] = taskList[i + 1];
-            }
-
-            // Nullify the last element and reduce the task size
-            taskList[taskSize - 1] = null;
-            taskSize--;
+            taskList.remove(index);
 
             String deleteMessage = String.format("%s%nGot it. I've deleted this task:%n   " +
                     "%s%nNow you have %d tasks in the list.%n%s%n", horizontalLine,
-                    deletedTask, taskSize, horizontalLine);
+                    deletedTask, taskList.size(), horizontalLine);
             System.out.println(deleteMessage);
         } catch (NumberFormatException e) {
             throw new DenimException("y u do dis! Argument must be a valid numb3r! ( =ω=)..nyaa");
