@@ -130,6 +130,19 @@ public class ConverSage {
                     }
 
                     System.out.println(horizontalLine);
+                } else if (input.startsWith("delete")) {
+                    int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                        throw new ConverSageException("Task Number is invalid...");
+                    }
+
+                    Task currTask = taskList.get(taskIndex);
+                    String deletedTask = currTask.toString();
+                    taskList.remove(taskIndex);
+                    System.out.println("Ok, I've deleted the following task: ");
+                    System.out.println("  " + deletedTask);
+                    System.out.println("You have " + taskList.size() + " tasks in your list" );
+                    System.out.println(horizontalLine);
                 } else {
                     throw new ConverSageException("Invalid command, please try again");
                 }
