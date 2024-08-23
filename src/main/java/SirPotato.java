@@ -54,9 +54,9 @@ public class SirPotato {
 
     public void checkForErrors(String userInput) throws DukeException {
         if (userInput.startsWith("todo")) {
-        if (userInput.length() <= 5 || userInput.substring(5).isEmpty()) {
-            throw new DukeException("Mate, you have got to give us a description of the task");
-        }
+            if (userInput.length() <= 5 || userInput.substring(5).isEmpty()) {
+                throw new DukeException("Mate, you have got to give us a description of the task");
+            }
         } else if (userInput.startsWith("deadline")) {
             String[] sectionedString = userInput.split("/by ");
             if (sectionedString.length < 2 || 
@@ -70,9 +70,25 @@ public class SirPotato {
                 sectionedString[1].isEmpty() || sectionedString[2].isEmpty()) {
                 throw new DukeException("Mate, an event should have the description, the start, and the end.");
             }
+        } else if (userInput.startsWith("delete")) {
+            if (userInput.length() <= 7) {
+                throw new DukeException("You need to say which item to delete");
+            }
         } else if (!userInput.equals("bye") && !userInput.equals("list") && !userInput.startsWith("mark") && !userInput.startsWith("unmark")) {
             throw new DukeException("I'm sorry, that is not a valid input");
         }
+    }
+
+    /**
+     * Prints out the deletion message 
+     */
+
+    public void displayDeletionMessage(Task task) {
+        System.out.println(horizontal_line);
+        System.out.println("Gotcha mate, I've deleted the following task: ");
+        System.out.println(task);
+        System.out.println("Now you've got " + (toDoList.size() - 1) + " tasks left.");
+        System.out.println(horizontal_line);
     }
 
 
@@ -132,6 +148,11 @@ public class SirPotato {
                     Event ev = new Event(description, from, to);
                     toDoList.add(ev);
                     displayAddedTask(ev);
+                } else if (userInput.startsWith("delete")) {
+                    String[] sectionedString = userInput.split(" ");
+                    int itemToDelete = Integer.parseInt(sectionedString[1]) - 1;
+                    displayDeletionMessage(toDoList.get(itemToDelete));
+                    toDoList.remove(itemToDelete);
                 } else {
                     throw new DukeException("That is not valid input mate. Please have another go.");
                 }
