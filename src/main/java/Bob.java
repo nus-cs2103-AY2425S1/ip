@@ -57,7 +57,6 @@ public class Bob {
                     break;
 
                 case "todo":
-                    System.out.println("the rest is " + rest);
                     taskList[position] = new Todo(rest);
                     System.out.println(String.format(" Got it. I've added this task:" + "\n"
                             + taskList[position] + "\n"
@@ -76,7 +75,6 @@ public class Bob {
                     break;
 
                 case "deadline":
-                    System.out.println("the rest is " + rest);
                     splitString = rest.split("/by");
                     taskList[position] = new Deadline(splitString[0], splitString[1]);
                     System.out.println(String.format(" Got it. I've added this task:" + "\n"
