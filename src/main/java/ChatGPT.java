@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class ChatGPT {
     private static String NAME = "ChatGPT";
     private static String LINE = "________________________________________________";
-    private static String[] list = new String[100];
+    private static Task[] list = new Task[100];
     private static int listSize = 0;
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
@@ -17,8 +17,16 @@ public class ChatGPT {
             }
             if (input.equals("list")) {
                 printList();
+            } else if(input.split(" ")[0].equals("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                System.out.println(list[index-1].setCompleted(true));
+                System.out.println("\t"+LINE);
+            } else if(input.split(" ")[0].equals("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                System.out.println(list[index-1].setCompleted(false));
+                System.out.println("\t"+LINE);
             } else {
-                list[listSize] = input;
+                list[listSize] = new Task(input);
                 listSize++;
                 System.out.println("\tadded: " + input);
                 System.out.println("\t"+LINE);
