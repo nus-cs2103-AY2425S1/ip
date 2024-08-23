@@ -15,12 +15,16 @@ public class Park {
                 sc.close();
                 System.exit(0);
             } else if (s.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                int n = 1;
-                for (Task t : arr) {
-                    System.out.print(n);
-                    System.out.println("." + t.toString());
-                    n++;
+                if (arr.isEmpty()) {
+                    System.out.println("There are no tasks in your list.");
+                } else {
+                    System.out.println("Here are the tasks in your list:");
+                    int n = 1;
+                    for (Task t : arr) {
+                        System.out.print(n);
+                        System.out.println("." + t.toString());
+                        n++;
+                    }
                 }
             } else if (s.startsWith("mark")) {
                 try {
@@ -43,6 +47,20 @@ public class Park {
                     arr.set(n - 1, t);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(t);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("invalid or missing index");
+                }
+            } else if (s.startsWith("delete")) {
+                try {
+                    String strn = s.substring(7);
+                    int n = Integer.parseInt(strn);
+                    Task t = arr.get(n - 1);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(t);
+                    arr.remove(n - 1);
+                    int noTasks = arr.size();
+                    String strNoTasks = Integer.toString(noTasks);
+                    System.out.println("Now you have " + strNoTasks + " tasks in the list");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("invalid or missing index");
                 }
