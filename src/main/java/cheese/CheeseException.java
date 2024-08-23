@@ -3,7 +3,7 @@ package cheese;
 /**
  * Custom exception
  */
-public class CheeseException extends Exception{
+public class CheeseException extends Exception {
     /**
      * Just a constructor
      * @param message error message to inform user

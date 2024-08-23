@@ -8,9 +8,9 @@ import cheese.command.Command;
 public class WheelyBigCheese {
     public static final String LIST_FILE_PATH = "./list.txt";
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     WheelyBigCheese() {
         ui = new Ui();

@@ -14,7 +14,7 @@ public class AddCommand extends Command {
 
     /**
      * Only constructor for add command
-     * @param task
+     * @param task task to add
      */
     public AddCommand(Task task) {
         super();
@@ -26,7 +26,7 @@ public class AddCommand extends Command {
      * @param tasks list of tasks
      * @param ui format response
      * @param storage store data
-     * @throws CheeseException
+     * @throws CheeseException if Storage fails
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {

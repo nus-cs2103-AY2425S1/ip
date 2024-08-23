@@ -1,8 +1,8 @@
 package cheese;
 
-import cheese.task.Task;
-
 import java.util.ArrayList;
+
+import cheese.task.Task;
 
 /**
  * contains the task list
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * All operations are the same as ArrayList
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     TaskList() {
         tasks = new ArrayList<>();

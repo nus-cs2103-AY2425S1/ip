@@ -1,6 +1,11 @@
 package cheese;
 
-import cheese.command.*;
+import cheese.command.AddCommand;
+import cheese.command.Command;
+import cheese.command.ExitCommand;
+import cheese.command.ListCommand;
+import cheese.command.MarkCommand;
+import cheese.command.UpdateCommand;
 import cheese.task.Deadline;
 import cheese.task.Event;
 import cheese.task.Task;
@@ -17,14 +22,18 @@ public class Parser {
      * @throws CheeseException Missing/Incorrect input
      */
     public static int getIdx(String[] inputTokens, int size) throws CheeseException {
-        if (inputTokens.length != 2) throw new CheeseException("Need location of cheese");
+        if (inputTokens.length != 2) {
+            throw new CheeseException("Need location of cheese");
+        }
         int idx;
         try {
             idx = Integer.parseInt(inputTokens[1]) - 1;
         } catch (NumberFormatException e) {
             throw new CheeseException(e.getMessage());
         }
-        if (idx >= size || idx < 0) throw new CheeseException("Incorrect location of cheese");
+        if (idx >= size || idx < 0) {
+            throw new CheeseException("Incorrect location of cheese");
+        }
         return idx;
     }
 
