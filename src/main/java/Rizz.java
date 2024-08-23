@@ -1,6 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Rizz {
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
+    private ArrayList<String> arrList = new ArrayList<>();
+
 
     private String indent(String str) {
         String[] lines = str.split("\n");
@@ -20,7 +24,8 @@ public class Rizz {
     }
 
     private void echo(String textInput) {
-        System.out.println("\t" + textInput + "\n");
+        arrList.add(textInput);
+        System.out.println("\tadded: " + textInput + "\n");
     }
 
     private void exit() {
@@ -30,13 +35,29 @@ public class Rizz {
         System.out.println(this.indent(str));
     }
 
-    private void caseCheck() {
-        String textInput = this.input.nextLine();
-        if (textInput.equals("bye")) {
-            this.exit();
+    private void outputList() {
+        if (arrList.isEmpty()) {
+            System.out.println("\tNo items in the list.\n");
         } else {
-            this.echo(textInput);
-            this.caseCheck();
+            System.out.println("\t____________________________________________________________");
+            for (int i = 0; i < arrList.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + arrList.get(i));
+            }
+            System.out.println("\t____________________________________________________________\n");
+        }
+    }
+
+    private void caseCheck() {
+        while (true) {
+            String textInput = this.input.nextLine();
+            if (textInput.equals("bye")) {
+                this.exit();
+                break;
+            } else if (textInput.equals("list")) {
+                this.outputList();
+            } else {
+                this.echo(textInput);
+            }
         }
     }
 
