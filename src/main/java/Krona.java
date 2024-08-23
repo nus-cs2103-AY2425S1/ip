@@ -30,10 +30,29 @@ public class Krona {
                 tasks[taskIndex].markNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[taskIndex]);
-            } else {
-                tasks[allTasks] = new Task(input);
+            } else if (words[0].startsWith("todo")) {
+                tasks[allTasks] = new ToDo(words[1]);
                 allTasks++;
-                System.out.println("added: " + input);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[allTasks - 1]);
+                System.out.println("Now you have " + allTasks + " tasks in the list.");
+            } else if (words[0].startsWith("deadline")) {
+                String[] parts = words[1].split("/by ", 2);
+                tasks[allTasks] = new Deadline(parts[0], parts[1]);
+                allTasks++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[allTasks - 1]);
+                System.out.println("Now you have " + allTasks + " tasks in the list.");
+            } else if (words[0].startsWith("event")) {
+                String[] parts = words[1].split("/from ", 2);
+                String[] time = parts[1].split("/to ", 2);
+                tasks[allTasks] = new Event(parts[0], time[0], time[1]);
+                allTasks++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[allTasks - 1]);
+                System.out.println("Now you have " + allTasks + " tasks in the list.");
+            } else {
+                System.out.println("Unknown command. Please try again.");
             }
         }
     }
