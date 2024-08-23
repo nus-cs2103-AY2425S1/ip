@@ -9,7 +9,10 @@ public class Joseph {
         final String HELP = "help";
         final String MARK = "mark "; // note that it includes a space character
         final String UNMARK = "unmark "; // note that it includes a space character
-        Task[] list = new Task[100];
+        final String TODO = "todo";
+        final String DEADLINE = "deadline";
+        final String EVENT = "event";
+        ToDo[] list = new ToDo[100];
         int tracker = 0;
 
         Scanner scanner = new Scanner(System.in);
@@ -45,8 +48,15 @@ public class Joseph {
                         "marks task X on the list as completed");
                 System.out.println("unmark X, where X is any number: " +
                         "unmarks task X on the list as uncompleted.");
-                System.out.println("desc, where desc is any other string: " +
-                        "adds desc to the list as an incomplete task");
+                System.out.println("todo desc, " +
+                        "where desc is any string: " +
+                        " adds a todo to the list)");
+                System.out.println("deadline desc /due, " +
+                        "where desc and due are any string: " +
+                        " adds a deadline to the list with its due date)");
+                System.out.println("event desc /start /end, " +
+                        "where desc, start and end are any string: " +
+                        " adds an event to the list with its start and end)");
                 System.out.println("bye: closes the chatbot");
                 System.out.println("----------------------------------");
 
@@ -66,13 +76,23 @@ public class Joseph {
                         " as not done!");
             }
 
-            else {
-                Task task = new Task(input);
-                list[tracker] = task;
+            else if (input.equals(TODO)) {
+                ToDo todo = new ToDo(input);
+                list[tracker] = todo;
                 System.out.println("----------------------------------");
-                System.out.println("I've added: " + input);
+                System.out.println("I've added the todo: " + input);
                 System.out.println("----------------------------------");
                 tracker++;
+            }
+
+            else if (input.equals(DEADLINE)) {
+                String[] details = input.split("/");
+                String task = details[0];
+                String due = details[1];
+                Deadlines deadline = new Deadlines(task, due);
+                list[tracker] = deadline;
+            } else {
+
             }
         }
     }

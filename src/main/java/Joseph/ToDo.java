@@ -1,10 +1,10 @@
 package Joseph;
 
-public class Task {
+public class ToDo {
     private String desc;
     private boolean isDone;
 
-    public Task(String desc) {
+    public ToDo(String desc) {
         this.desc = desc;
         this.isDone = false;
     }
