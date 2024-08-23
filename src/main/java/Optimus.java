@@ -9,20 +9,22 @@ public class Optimus {
         Scanner stringScanner = new Scanner(System.in);
         String [] tasks = new String [100];
         int i = 0;
+
         while (true) {
-            String text = stringScanner.next();
+            String text = stringScanner.nextLine();
             if (text.equals("bye")){
                 break;
             }
-            if (text.equals("list")){
+            else if (text.equals("list")){
                 for (int j = 0; j < tasks.length; j++) {
                     System.out.println(j + ". " + text);
                 }
             }
-            tasks[i] = text;
-            System.out.println("added: " + text);
-            i++;
-
+            else {
+                tasks[i] = text;
+                System.out.println("added: " + text);
+                i++;
+            }
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
