@@ -144,37 +144,37 @@ We have 2 tasks left in the bag~
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( This date-time doesn't make sense to me.. This calls for a fix!
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( This date-time doesn't make sense to me.. This calls for a fix!
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( This date-time doesn't make sense to me.. This calls for a fix!
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( This date-time doesn't make sense to me.. This calls for a fix!
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( This date-time doesn't make sense to me.. This calls for a fix!
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( This date-time doesn't make sense to me.. This calls for a fix!
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
@@ -186,8 +186,26 @@ Uh-oh :'( Need some fixing on the date range here!
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Here you go! Event task added: [E][ ] meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:00)
+Here you go! Event task added: [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
 We have 3 tasks in the bag~
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Here you go! Event task added: [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+We have 4 tasks in the bag~
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Got it! Deadline task added: [D][ ] iP (by: 22-08-2024 17:17)
+We have 5 tasks in the bag~
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Got it! Deadline task added: [D][ ] tP (by: 23-08-2024 17:17)
+We have 6 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
@@ -195,7 +213,35 @@ We have 3 tasks in the bag~
 Here's your list of tasks!
 1. [T][X] borrow book
 2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
-3. [E][ ] meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:00)
+3. [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+4. [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+5. [D][ ] iP (by: 22-08-2024 17:17)
+6. [D][ ] tP (by: 23-08-2024 17:17)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid dates in the format 'yyyy-MM-dd' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Here's your list of tasks, occurring on 22-08-2024!
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+4. [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+5. [D][ ] iP (by: 22-08-2024 17:17)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Here's your list of tasks!
+1. [T][X] borrow book
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+3. [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+4. [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+5. [D][ ] iP (by: 22-08-2024 17:17)
+6. [D][ ] tP (by: 23-08-2024 17:17)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 

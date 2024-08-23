@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -65,6 +66,9 @@ public class MoiMoi {
                 case "list":
                     this.list();
                     break;
+                case "filter":
+                    this.filter(Parser.inputToArgs(input));
+                    break;
                 default:
                     throw new InvalidCommandException();
                 }
@@ -109,7 +113,7 @@ public class MoiMoi {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException();
+            throw new InvalidDateTimeException("date-time");
         }
     }
 
@@ -132,7 +136,7 @@ public class MoiMoi {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException();
+            throw new InvalidDateTimeException("date-time");
         }
     }
 
@@ -174,6 +178,23 @@ public class MoiMoi {
         for (Task task : this.tasks) {
             System.out.println(index + ". " + task.stringUI());
             index = index + 1;
+        }
+    }
+
+    public void filter(String dateString) throws InvalidDateTimeException {
+        try {
+            LocalDate date = LocalDate.parse(dateString);
+            System.out.println("Here's your list of tasks, occurring on "
+                    + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "!");
+            int index = 1;
+            for (Task task : this.tasks) {
+                if (task.occurringOn(date)) {
+                    System.out.println(index + ". " + task.stringUI());
+                }
+                index = index + 1;
+            }
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("date");
         }
     }
 
