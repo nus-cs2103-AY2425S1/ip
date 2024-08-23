@@ -57,6 +57,10 @@ public class Duck {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(task);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+            } else if (userCommand.startsWith("delete")) {
+                int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+                list.remove(taskIndex);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else {
                 throw new InvalidCommandException("Invalid command");
             }
