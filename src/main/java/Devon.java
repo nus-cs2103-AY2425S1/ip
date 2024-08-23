@@ -8,6 +8,18 @@ public class Devon {
     protected ArrayList<Task> tasks = new ArrayList<>();
     protected int taskCount = 0;
 
+    private enum Command {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+
+        public static Command fromString(String command) {
+            try {
+                return Command.valueOf(command.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return UNKNOWN;
+            }
+        }
+    }
+
     private void start() {
         introduction();
         receiveUserInput();
@@ -47,26 +59,36 @@ public class Devon {
     private void receiveUserInput() {
         while (true) {
             String input = scanner.nextLine();
-            String command = detectCommand(input);
+            Command command = Command.fromString(detectCommand(input));
+
             try {
-                if (command.equals("bye")) {
-                    break;
-                } else if (command.equals("list")) {
-                    printList();
-                } else if (command.equals("mark")) {
-                    markAction(input);
-                } else if (command.equals("unmark")) {
-                    unmarkAction(input);
-                } else if (command.equals("todo")) {
-                    todoAction(input);
-                } else if (command.equals("deadline")) {
-                    deadlineAction(input);
-                } else if (command.equals("event")) {
-                    eventAction(input);
-                } else if (command.equals("delete")) {
-                    deleteAction(input);
-                } else {
-                    unknownAction();
+                switch (command) {
+                    case BYE:
+                        return;
+                    case LIST:
+                        printList();
+                        break;
+                    case MARK:
+                        markAction(input);
+                        break;
+                    case UNMARK:
+                        unmarkAction(input);
+                        break;
+                    case TODO:
+                        todoAction(input);
+                        break;
+                    case DEADLINE:
+                        deadlineAction(input);
+                        break;
+                    case EVENT:
+                        eventAction(input);
+                        break;
+                    case DELETE:
+                        deleteAction(input);
+                        break;
+                    default:
+                        unknownAction();
+                        break;
                 }
             } catch (DevonException e) {
                 printLongLine();
