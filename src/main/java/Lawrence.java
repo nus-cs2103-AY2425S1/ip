@@ -1,7 +1,19 @@
+import java.util.Scanner;
+
 public class Lawrence {
     private static final String NAME = "Lawrence";
     public static void main(String[] args) {
         greetUser();
+        Scanner sc = new Scanner(System.in);
+
+        String command;
+        while (true) {
+            command = sc.nextLine();  // Get next command
+            if (command.equals("bye")) {
+                break;
+            }
+            printCommand(command);
+        }
         exit();
     }
 
@@ -11,7 +23,14 @@ public class Lawrence {
         System.out.println(greeting);
     }
 
+    private static void printCommand(String command) {
+        String line = "___________________________________";
+        System.out.println(line);
+        System.out.println(command);
+        System.out.println(line);
+    }
+
     private static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("That's all folks! Hope to see you again soon!");
     }
 }
