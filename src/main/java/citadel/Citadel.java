@@ -9,11 +9,31 @@ import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidCommandException;
 import citadel.ui.TextUI;
 
+/**
+ * The {@code Citadel} class represents the main entry point of the Citadel application.
+ * It manages user interactions, processes commands, and coordinates tasks and data storage.
+ */
 public class Citadel {
+
+    /** The list of tasks managed by the application. */
     public static TaskList items = new TaskList();
+
+    /** The storage system used to persist tasks between sessions. */
     public static Storage db = new Storage("data/citadel");
+
+    /** The user interface used to interact with the user. */
     public static TextUI ui = new TextUI();
 
+    /**
+     * The main method that starts the Citadel application.
+     * <p>
+     * This method initializes the application, loads existing tasks, and enters a loop
+     * to process user commands until the user exits the application.
+     * </p>
+     *
+     * @param args Command-line arguments (not used in this application).
+     * @throws IOException If an I/O error occurs during task storage operations.
+     */
     public static void main(String[] args) throws IOException {
         ui.printStart();
         items = db.getTasks();
@@ -59,6 +79,7 @@ public class Citadel {
                 case FIND:
                     new FindTask(input, items).run();
                     break;
+
                 default:
                     throw new CitadelInvalidCommandException();
                 }
