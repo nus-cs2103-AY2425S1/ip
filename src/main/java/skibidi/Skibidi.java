@@ -1,12 +1,22 @@
 package skibidi;
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Skibidi {
+    enum SkibidiCommand {
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
+
     static class SkibidiException extends Exception {
         public SkibidiException(String message) {
             super(String.format("SKIBIDI ERROR: %s", message));
@@ -32,7 +42,7 @@ public class Skibidi {
     }
 
     void printList() {
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("\tNO ITEMS");
             return;
         }
@@ -81,17 +91,17 @@ public class Skibidi {
         }
         String[] cmdArgs;
         try {
-            switch (args[0]) {
-                case "list":
+            switch (SkibidiCommand.valueOf(args[0].toUpperCase())) {
+                case LIST:
                     printList();
                     break;
-                case "mark":
+                case MARK:
                     markTask(Integer.parseInt(args[1].strip()) - 1);
                     break;
-                case "unmark":
+                case UNMARK:
                     unmarkTask(Integer.parseInt(args[1].strip()) - 1);
                     break;
-                case "todo":
+                case TODO:
                     if (args.length == 1) {
                         throw new SkibidiException("COMMAND todo REQUIRES DESCRIPTION ARGUMENT");
                     }
@@ -100,7 +110,7 @@ public class Skibidi {
                     System.out.printf("\tADDED TODO: %s\n", todo.toString());
                     System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
                     break;
-                case "deadline":
+                case DEADLINE:
                     cmdArgs = args[1].split("/by");
                     if (cmdArgs.length != 2) {
                         throw new SkibidiException("COMMAND deadline REQUIRES ARGUMENT /by");
@@ -110,7 +120,7 @@ public class Skibidi {
                     System.out.printf("\tADDED DEADLINE: %s\n", deadline.toString());
                     System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
                     break;
-                case "event":
+                case EVENT:
                     // Assume order of arguments is always /from followed by /to
                     cmdArgs = args[1].split("/from|/to");
                     if (cmdArgs.length != 3) {
@@ -121,7 +131,7 @@ public class Skibidi {
                     System.out.printf("\tADDED EVENT: %s\n", event.toString());
                     System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
                     break;
-                case "delete":
+                case DELETE:
                     deleteTask(Integer.parseInt(args[1].strip()) - 1);
                     break;
                 default:
@@ -129,7 +139,7 @@ public class Skibidi {
             }
         } catch (NumberFormatException e) {
             System.out.printf("\tERROR: INVALID NUMBER GIVEN FOR COMMAND: %s\n", args[0]);
-        } catch (Exception e) {
+        } catch (SkibidiException e) {
             System.out.printf("\t%s\n", e.getMessage());
         }
         Skibidi.printSeparator();
@@ -148,7 +158,7 @@ public class Skibidi {
                 System.out.println(line);
             }
         } catch (IOException err) {
-            err.printStackTrace();
+            System.out.println(err.toString());
         }
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -165,8 +175,8 @@ public class Skibidi {
                     break;
                 }
                 parseAndExecuteCommand(line);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException err) {
+                System.out.println(err.toString());
             }
         }
     }
