@@ -27,8 +27,9 @@ public class Nebula {
                 int taskNum = parser.splitCommandAndTaskNumber(command);
                 System.out.println(taskList.unmarkTask(taskNum));
             }
-            else {
-                Task newTask = new Task(command);
+            else if(command.startsWith("todo")) {
+                String taskDescription = parser.splitCommandAndTaskDescription(command);
+                Task newTask = new Todo(taskDescription);
                 String addedTask = taskList.addTask(newTask);
                 System.out.println(addedTask);
             }

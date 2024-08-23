@@ -33,8 +33,8 @@ public class Ui {
      */
     public String displayAddedTask(Task task) {
         return DIVIDER + "\n" + "Got it! I've added this task: " + "\n"
-                + "  " + task.getDescription() + "\n" + "Now you have " + TaskList.getTaskListLength()
-                + " tasks in the list." + "\n" + DIVIDER;
+                + "  " + task.toString() + "\n" + "Now you have " + TaskList.getTaskListLength()
+                + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list." + "\n" + DIVIDER;
     }
 
     /**

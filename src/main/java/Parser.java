@@ -9,4 +9,8 @@ public class Parser {
         String taskNum = command.split(" ", 2)[1];
         return Integer.parseInt(taskNum);
     }
+
+    public String splitCommandAndTaskDescription(String command) {
+        return command.split(" ", 2)[1];
+    }
 }
