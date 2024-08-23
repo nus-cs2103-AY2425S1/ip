@@ -16,6 +16,7 @@ public class Lumina {
     private static final String ECHO_TODO_TASK = "todo";
     private static final String ECHO_DEADLINE_TASK = "deadline";
     private static final String ECHO_EVENT_TASK = "event";
+    private static final String ECHO_DELETE_TASK = "delete";
     private static final int indentWidth = 2;
 
     // task description and whether the task is done
@@ -179,6 +180,19 @@ public class Lumina {
         this.addTask(task);
     }
 
+    private void deleteTask(int index) throws LuminaException {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new LuminaException("Oh no! Lumina detected index out of bounds! Please try again");
+        }
+        StringBuilder deleteTaskMessage = new StringBuilder();
+        deleteTaskMessage.append("Noted. I've removed this task:\n");
+        deleteTaskMessage.append(indentMessage(this.tasks.get(index).toString()));
+        deleteTaskMessage.append("\n");
+        this.tasks.remove(index);
+        deleteTaskMessage.append(String.format("Now you have %d tasks in the list.", tasks.size()));
+        this.printMessage(deleteTaskMessage.toString());
+    }
+
     private void handleEventTask(String msg) throws LuminaException{
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 6) { // need desc, startDateTime, endDateTime
@@ -277,6 +291,7 @@ public class Lumina {
         while(true) {
             System.out.println();
             msg = sc.nextLine();
+
             if (msg.equals(Lumina.ECHO_EXIT_STRING)) {
                 this.exit();
                 break;
@@ -340,6 +355,22 @@ public class Lumina {
                 }
                 continue;
             }
+            if (msg.contains(Lumina.ECHO_DELETE_TASK)) {
+                try {
+                    String[] msgSplit = msg.split(" ");
+                    if (msgSplit.length == 2) {
+                        int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
+                        this.deleteTask(taskIndex);
+                    } else {
+                        throw new LuminaException("Oh no! Lumina detected unexpected number of parameters in " +
+                                "your command! Please try again");
+                    }
+                } catch(LuminaException e) {
+                    this.printMessage(e.getMessage());
+                }
+                continue;
+            }
+
             // exception
             this.printMessage("Oh no! I don't know what to do with this command!");
         }
