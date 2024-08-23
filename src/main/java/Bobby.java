@@ -55,7 +55,7 @@ public class Bobby {
         greet();
         while (true) {
             // Ask the user for input
-            System.out.print("Enter something (type 'bye' to quit): ");
+            System.out.print("Enter something (type 'bye' to quit):\n");
             String userInput = scanner.nextLine();
             if (userInput.equalsIgnoreCase("bye")) {
                 exit();
