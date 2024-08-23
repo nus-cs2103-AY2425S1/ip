@@ -10,4 +10,7 @@ deadline do homework /by no idea :-p
 todo
 deadline
 event
+delete 2
+list
+delete 4
 bye

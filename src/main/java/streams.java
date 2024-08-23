@@ -29,6 +29,8 @@ public class streams {
                     handleDeadline(cmd, todo);
                 } else if (cmd.startsWith("event")) {
                     handleEvent(cmd, todo);
+                } else if (cmd.startsWith("delete")) {
+                    handleDelete(cmd, todo);
                 } else if (cmd.equals("bye")) {
                     System.out.println("bye. hope to see you again soon!");
                 } else {
@@ -126,6 +128,21 @@ public class streams {
             }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("the format for events is 'event [description] /from [date] /to [date]'");
+        }
+    }
+
+    private static void handleDelete(String cmd, ArrayList<Task> todo) {
+        try {
+            int no = Integer.parseInt(cmd.substring(cmd.indexOf(' ') + 1).trim()) - 1;
+            if (no < 0 || no >= todo.size()) {
+                System.out.println("invalid task number");
+            } else {
+                Task removedTask = todo.remove(no);
+                System.out.println("okkieee..i've removed this task: " + removedTask);
+                System.out.println("yayyayayy!!!! now you have " + todo.size() + " tasks in the list");
+            }
+        } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println("error parsing task number");
         }
     }
 
