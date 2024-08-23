@@ -23,8 +23,9 @@ public class Ponder_Pika {
             userCommand = scan.nextLine();
 
             if (userCommand.equals("list")) {
-                for (int i = 1; i <= myList.size() + 2; i++) {
-                    System.out.println(i + ". " + myList.poll());
+                String[] listArray = myList.toArray(new String[myList.size()]);
+                for (int i = 0; i < listArray.length; i++) {
+                    System.out.println(i+1 + ". " + listArray[i]);
                 }
                 System.out.println("................................................");
             } else if (!userCommand.equals("bye")) {
