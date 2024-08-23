@@ -1,33 +1,44 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TaskStorage {
-    private final ArrayList<Task> tasks;
+    private final Map<Integer, Task> tasks;
+    private int autoIncrementId;
 
-    // Constructor
     public TaskStorage() {
-        tasks = new ArrayList<>();
+        tasks = new HashMap<>();
+        autoIncrementId = 1; // Start the ID from 1
     }
 
-    // Method to add a task
     public void addTask(Task task) {
-        tasks.add(task);
+        tasks.put(autoIncrementId, task);
+        autoIncrementId++;
     }
 
-    public void markTask(int taskNumber) {
-        //Tasks are 1 indexed but ArrayLists are 0 indexed, thus need to minus 1
-        Task t = tasks.get(taskNumber - 1);
-        t.markDone();
+    public void markTask(int taskId) {
+        Task task = tasks.get(taskId);
+        if (task != null) {
+            task.markDone();
+        } else {
+            System.out.println("    Invalid task ID.");
+        }
     }
 
-    public Task getTask(int taskNumber) {
-        return tasks.get(taskNumber - 1);
+    public Task getTask(int taskId) {
+        return tasks.get(taskId);
     }
 
-    public int getTaskCount() { return tasks.toArray().length;}
+    public void deleteTask(int taskId) {
+        tasks.remove(taskId);
+    }
 
-    // Method to list all tasks
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
     public void listTasks() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + tasks.get(i));
+        for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
+            System.out.println("     " + entry.getKey() + ". " + entry.getValue());
         }
     }
 }

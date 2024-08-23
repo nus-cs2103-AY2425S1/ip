@@ -34,6 +34,8 @@ public class MrIncredible {
                 } else {
                     MrIncredible.handleError("The event description, start, or end time is missing or improperly formatted. Use: event <description> /from <start> /to <end>");
                 }
+            } else if (input.startsWith("delete ")) {
+                MrIncredible.deleteTask(input);
             } else {
                 MrIncredible.handleError("Sorry, I don't recognize that command. Please try again.");
             }
@@ -46,6 +48,25 @@ public class MrIncredible {
         System.out.println("    ____________________________________________________________");
         System.out.println("    OOPS!!! " + errorMessage);
         System.out.println("    ____________________________________________________________");
+    }
+
+    public static void deleteTask(String input) {
+        try {
+            int taskId = Integer.parseInt(input.substring(7).trim());
+            Task removedTask = taskStorage.getTask(taskId);
+            if (removedTask != null) {
+                taskStorage.deleteTask(taskId);
+                System.out.println("    ____________________________________________________________");
+                System.out.println("    Noted. I've removed this task:");
+                System.out.println("      " + removedTask);
+                System.out.println("    Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
+                System.out.println("    ____________________________________________________________");
+            } else {
+                System.out.println("    Invalid task ID.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("    Invalid task ID.");
+        }
     }
 
     public static void addToDoTask(String description) {
