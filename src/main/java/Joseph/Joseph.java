@@ -1,5 +1,7 @@
 package Joseph;
 
+import jdk.jfr.Event;
+
 import java.util.Scanner;
 public class Joseph {
     public static void main(String[] args) {
@@ -9,10 +11,10 @@ public class Joseph {
         final String HELP = "help";
         final String MARK = "mark "; // note that it includes a space character
         final String UNMARK = "unmark "; // note that it includes a space character
-        final String TODO = "todo";
-        final String DEADLINE = "deadline";
-        final String EVENT = "event";
-        ToDo[] list = new ToDo[100];
+        final String TODO = "todo ";
+        final String DEADLINE = "deadline ";
+        final String EVENT = "event ";
+        Task[] list = new Task[100];
         int tracker = 0;
 
         Scanner scanner = new Scanner(System.in);
@@ -34,8 +36,8 @@ public class Joseph {
             else if (input.equals(LIST)) {
                 System.out.println("----------------------------------");
                 for (int i = 1; i < tracker + 1; i++) {
-                    String done = "[" + list[i-1].getDesc() + "] ";
-                    System.out.println(i + ". " + done + list[i-1]);
+                    String done = "[" + list[i-1].getDone() + "] ";
+                    System.out.println(i + ". " + done + list[i-1].getDesc());
                 }
                 System.out.println("----------------------------------");
             }
@@ -76,7 +78,8 @@ public class Joseph {
                         " as not done!");
             }
 
-            else if (input.equals(TODO)) {
+            else if (input.startsWith(TODO)) {
+                input = input.substring(5).trim();
                 ToDo todo = new ToDo(input);
                 list[tracker] = todo;
                 System.out.println("----------------------------------");
@@ -85,14 +88,35 @@ public class Joseph {
                 tracker++;
             }
 
-            else if (input.equals(DEADLINE)) {
+            else if (input.startsWith(DEADLINE)) {
+                input = input.substring(9).trim();
                 String[] details = input.split("/");
                 String task = details[0];
                 String due = details[1];
-                Deadlines deadline = new Deadlines(task, due);
+                Deadline deadline = new Deadline(task, due);
                 list[tracker] = deadline;
-            } else {
+                System.out.println("----------------------------------");
+                System.out.println("I've added the deadline: " + input);
+                System.out.println("----------------------------------");
+                tracker++;
+            }
 
+            else if (input.startsWith(EVENT)) {
+                input = input.substring(6).trim();
+                String[] details = input.split("/");
+                String task = details[0];
+                String start = details[1];
+                String end = details[2];
+                JEvent event = new JEvent(task, start, end);
+                list[tracker] = event;
+                System.out.println("----------------------------------");
+                System.out.println("I've added the event: " + input);
+                System.out.println("----------------------------------");
+                tracker++;
+            }
+
+            else {
+                System.out.println("That is not a recognised command!");
             }
         }
     }
