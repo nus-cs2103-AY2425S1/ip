@@ -1,6 +1,11 @@
-____________________________________________________________
-Hello ! I'm AVA
-What can I do for you ?
-____________________________________________________________
-Bye.Hope to see you again soon !
-____________________________________________________________
+          Hi,  I'm AVA (Artificial Virtual Assistant).
+       I am a virtual personal assistant created by Nikhil.
+        I am currently an infant and can't do much 🙁 but
+          don't worry I should soon be very capable 😉.
+
+----------------------------------------------------------------
+       I'll add what you say to a list and show it to you when
+                          you say list,
+          but if you want to leave you can just say bye .🙂
+
+----------------------------------------------------------------
