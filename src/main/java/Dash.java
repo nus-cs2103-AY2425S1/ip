@@ -24,6 +24,7 @@ public class Dash {
         String horizontalLine = "________________________________________";
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm\n" + logo + "\nWhat can I do for you?");
+        System.out.println(horizontalLine);
 
         //Main loop
         while (true) {
