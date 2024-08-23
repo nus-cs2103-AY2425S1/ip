@@ -22,12 +22,16 @@ public class Ponder_Pika {
         while(true) {
             userCommand = scan.nextLine();
 
-            if (!userCommand.equals("bye")) {
+            if (userCommand.equals("list")) {
+                for (int i = 1; i <= myList.size() + 2; i++) {
+                    System.out.println(i + ". " + myList.poll());
+                }
+                System.out.println("................................................");
+            } else if (!userCommand.equals("bye")) {
                 myList.add(userCommand);
                 System.out.println("        added: " + userCommand);
                 System.out.println("................................................");
-            }
-            else {
+            } else {
                 System.out.println("\n------------------------------------------------");
                 Ponder_Pika.bidBye();
                 System.out.println("\n------------------------------------------------");
