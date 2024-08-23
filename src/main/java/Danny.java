@@ -4,42 +4,40 @@ import java.util.Objects;
 import java.util.Scanner;
 public class Danny {
     static String cat = """
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⠟⠋⠀⠀⠹⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡾⠟⠁⠀⠀⠀⠀⠀⢻⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣶⡿⠛
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⡿⠋⠁⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣶⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣿⣿⠿⠿⣶⣶⣦⣤⣴⣿⠟⠁⠀⠀⠀⢀⡼
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡟⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⢠⠞⠁⡴⠋⠀⠀⢀⡴⠋⢈⡿⠛⠁⠀⠀⠀⠀⢀⠎⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⡧⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠋⠀⡜⠀⠀⠀⣠⠋⠀⢠⠞⠀⠀⠀⠀⠀⠀⠀⠼⠤⡄
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣄⡼⠁⠀⠀⢰⠃⠀⣠⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠔⠁
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⢿⣿⠟⠀⠀⠀⠀⠀⣠⣤⣄⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠘⠷⠴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦
-                ⠀⠀⠀⠀⠀⣰⡟⠛⢿⣶⣤⣼⡇⠀⠈⠀⠀⠀⠀⢠⣾⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⢀⣴⡶⠿⠿⠀⠀⠘⠿⣿⣿⣷⣦⡀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠇⠀⣀⡤⠤⠤⠤⠤⣀⡀⠀⠀⠀⠀⢀⣶⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀
-                ⣴⡿⠋⠀⠀⠀⠀⠀⠀⠀⠙⢦⣉⠻⢿⣷⣦⣀⠀⠘⠻⠿⠟⠋⡠⢾⠁⠀⠀⠀⠀⠀⠀⠈⠐⠄⠀⠀⢸⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀
-                ⣿⡇⠀⢀⡾⢻⣿⣷⡀⠀⠀⢰⠌⣑⠦⣌⠛⠿⣷⣦⣀⠀⠀⢰⠁⠘⣄⠀⢀⠶⡀⠀⠀⢀⡄⠈⡆⠀⠘⢿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀
-                ⣿⠃⠀⢸⣇⣿⣿⣿⡇⠀⠀⢸⠀⠈⠙⠺⢽⣦⣌⡙⠻⣷⣦⣄⠀⠀⠀⠉⠀⠀⠙⠒⠒⠉⠀⠀⢱⠀⠀⠀⠙⠛⠛⠉⠀⠀⠀⠀⠀⠀
-                ⣿⠀⠀⠀⠙⠿⠿⠋⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠙⠂⠀⠀⣿⠻⣿⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⢠⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⣿⡄⠀⠀⠀⢀⣄⠀⢀⡤⠒⠺⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⢹⠉⡿⢿⣦⣤⣶⣶⣦⣤⡐⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⣿⡇⠀⣦⡀⠘⠛⢀⡼⠀⠀⢠⠀⠈⡗⣦⣄⡀⠀⠀⠀⠀⣿⠀⢸⠀⡇⢸⡏⢹⠿⣄⡉⠛⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⣿⣧⣀⠀⠉⠓⠚⠉⠀⣠⣤⣤⣀⠀⡇⣇⢸⠉⡗⠦⢄⣀⢻⣦⣼⡀⡇⢸⠀⢸⠀⣿⢉⠒⠾⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⢻⣿⣌⡙⠲⢤⣴⠶⠚⠧⣌⡛⠿⣿⣷⣷⣸⠀⡇⠀⠀⠈⠙⠺⣝⡻⢿⣾⣦⣸⠀⣿⠀⠉⠀⠸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠈⠙⠻⢿⣶⣬⣙⣶⣤⣈⠙⠳⢤⣉⡛⠿⣷⣷⣄⡀⠀⠀⠀⠀⠈⠙⠻⢿⣿⣷⣿⠀⠀⠀⠀⢿⡇⠀⠀⠀⠀⠠⡀⠀⠀⠀⢀⣀⣤
-                ⠀⠀⠀⠀⠀⠈⠙⠻⢿⣿⣿⣧⣄⣀⡈⠙⠳⢦⣍⠛⢿⣷⣦⣄⠀⠀⠀⠀⠀⠈⠙⠻⢤⡀⠀⠀⢸⡇⠐⢦⡀⠀⢀⡌⠲⣄⣠⡼⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢹⣿⠟⠛⠛⠛⠷⢶⣌⣙⡶⠬⠷⠞⠛⠳⠶⠶⣦⣤⣀⠀⠀⠉⠓⣶⣾⣿⠀⠀⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡇⠀⠀⠀⠀⠀⠀⣿⠋⠀⠀⠀⣠⠔⠁⠀⠀⠀⠉⠻⢷⣦⡀⢀⣿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⢀⠜⠁⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣾⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⡿⠿⠀⠀⠀⠀⠀⠀⠀⠻⠦⠠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠮⠤⠈⠻⠷⠤⠤⠤⠤⠄⠀⠀⠀⠀⠀⠀⠀⠀
-                """;
+                  |\\      _,,,---,,_
+            ZZZzz /,`.-'`'    -.  ;-;;,_
+                 |,4-  ) )-,_. ,\\ (  `'-'
+                '---''(_/--'  `-'\\_)
+            """;
     static String seperator = "____________________________________________________________";
 
-    public static int handleIntInput(String in, int size) throws NumberFormatException{
+    public static int handleIntInput(String in, int size) throws Exception{
         int i = -1;
         i = Integer.parseInt(in.split(" ")[1])-1;
         if(i>=size){
-            throw new NumberFormatException("Out of index");
+            throw new Exception("Out of index");
         }
         return i;
     }
+
+    public static void checkTodo(String in) throws Exception{
+        if(in.length()<=4){
+            throw new Exception("Please Enter Something for Todo!");
+        }
+    }
+    public static void checkDeadline(String in) throws Exception{
+        if(in.split("/by ").length < 2){
+            throw new Exception("Wrong Syntax! Use /by for Deadlines!");
+        }
+    }
+    public static void checkEvent(String in) throws Exception{
+        String[] eventSplit = in.split("/from ");
+        if(eventSplit.length < 2 || eventSplit[1].split("/to ").length<2){
+            throw new Exception("Wrong Syntax! Use /from and /to for Events!");
+        }
+
+    }
+
     public static void main(String[] args) {
         System.out.println(seperator);
         System.out.println("Hello! I'm Danny");
@@ -61,17 +59,27 @@ public class Danny {
                     }
                     break;
                 case "todo":
+                    try{
+                        checkTodo(in);
+                    }
+                    catch (Exception e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
                     String description = in.substring(4);
                     Task add = new ToDos(description);
                     arr.add(add);
                     System.out.println("added: " + add.toString());
                     break;
                 case "deadline":
-                    String[] deadlineSplit = in.split("/by ");
-                    if(deadlineSplit.length < 2){
-                        System.out.println("Wrong Syntax! Use /by for Deadlines!");
+                    try{
+                        checkDeadline(in);
+                    }
+                    catch (Exception e){
+                        System.out.println(e.getMessage());
                         break;
                     }
+                    String[] deadlineSplit = in.split("/by ");
                     description = deadlineSplit[0].substring(8);
                     String by = deadlineSplit[1];
                     add = new Deadlines(description,by);
@@ -79,11 +87,14 @@ public class Danny {
                     System.out.println("added: " + add.toString());
                     break;
                 case "event":
-                    String[] eventSplit = in.split("/from ");
-                    if(eventSplit.length < 2 || eventSplit[1].split("/to ").length<2){
-                        System.out.println("Wrong Syntax! Use /from and /to for Events!");
+                    try{
+                        checkEvent(in);
+                    }
+                    catch (Exception e){
+                        System.out.println(e.getMessage());
                         break;
                     }
+                    String[] eventSplit = in.split("/from ");
                     description = eventSplit[0].substring(5);
                     String from = eventSplit[1].split(" /to ")[0];
                     by = eventSplit[1].split("/to ")[1];
@@ -96,7 +107,7 @@ public class Danny {
                     try{
                         i = handleIntInput(in,arr.size());
                     }
-                    catch (NumberFormatException e) {
+                    catch (Exception e) {
                         System.out.println(cat);
                         System.out.println(e.getMessage());
                         break;
@@ -110,7 +121,7 @@ public class Danny {
                     try{
                         i = handleIntInput(in,arr.size());
                     }
-                    catch (NumberFormatException e) {
+                    catch (Exception e) {
                         System.out.println(cat);
                         System.out.println(e.getMessage());
                         break;
@@ -121,7 +132,7 @@ public class Danny {
                     System.out.println(text);
                     break;
                 default:
-                    System.out.println(in);
+                    System.out.println("Unknown Command Detected!");
                     break;
             }
             System.out.println(seperator);
