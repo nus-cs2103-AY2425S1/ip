@@ -112,6 +112,7 @@ public class Milo {
                     if (arrOfInput.length == 1) {
                         printError(taskType.EVENT, "The description of an event cannot be empty");
                     } else {
+                        // Check case where event command is not properly formatted
                         String[] eventDesc = arrOfInput[1].split("/from | /to", 3);
                         if (eventDesc.length != 3) {
                             printError(taskType.DEADLINE, "Invalid event command\n Proper formatting: deadline <task description> + /from + <starting date description> + /to + <ending date description");
