@@ -41,10 +41,12 @@ public class Elysia {
                     addEvent(input.substring(5).trim());
                 }
 
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else {
-                System.out.println("Oh my! I'm so sorry,\n" +
-                        "but it seems I'm not sure what that means.\n" +
-                        "Let's figure it out together, shall we?");
+                    System.out.println("Oh my! I'm so sorry,\n" +
+                            "but it seems I'm not sure what that means.\n" +
+                            "Let's figure it out together, shall we?");
             }
         }
     }
@@ -121,6 +123,17 @@ public class Elysia {
                 taskType +
                 " is missing.\n" +
                 "How about we add a little something to it?");
+        System.out.println(line);
+    }
+
+    public static void deleteTask(String input) {
+        int index = Integer.parseInt(input.substring(7)) - 1;
+        Task task = arrayList.get(index);
+        arrayList.remove(index);
+        System.out.println(line);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + arrayList.size() + " tasks in the list.");
         System.out.println(line);
     }
 }
