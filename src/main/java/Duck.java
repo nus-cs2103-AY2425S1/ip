@@ -1,4 +1,6 @@
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duck {
     public static void main(String[] args) throws DuckException {
@@ -36,6 +38,21 @@ public class Duck {
                     throw new DuckException("There is no task with the given task number.");
                 }
                 System.out.println("OK, I've marked this task as not done yet:\n "+ cmds[num-1]);
+            } else if ((userCmd.length() >= 6) && (userCmd.substring(0,6).toLowerCase().equals("delete"))) {
+                int num = Integer.valueOf(userCmd.substring(7));
+                if (num < cmdNum + 1) {
+                    System.out.println("Noted. I've removed this task:\n "+ cmds[num-1]);
+
+                    ArrayList<Task> newCmds = new ArrayList<Task>(Arrays.asList(cmds));
+                    newCmds.remove(num-1);
+                    cmds = newCmds.toArray(new Task[100]);
+                    cmdNum--;
+
+                    System.out.println("Now you have " + cmdNum + " tasks in the list.");
+                } else {
+                    throw new DuckException("There is no task with the given task number.");
+                }
+
             } else if ((userCmd.length() >= 4) && (userCmd.substring(0,4).toLowerCase().equals("todo"))) {
                 if (userCmd.length() == 4) {
                     throw new DuckException("The description of a todo cannot be empty.");
