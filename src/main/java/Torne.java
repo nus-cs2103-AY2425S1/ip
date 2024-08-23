@@ -18,7 +18,8 @@ public class Torne {
             "unmark", DEFAULT_ARG,
             "todo", NO_ARGS,
             "deadline", new String[]{"", "by"},
-            "event", new String[]{"", "from", "to"}
+            "event", new String[]{"", "from", "to"},
+            "delete", DEFAULT_ARG
     );
 
     private String helpMessage;
@@ -118,6 +119,9 @@ public class Torne {
             break;
         case "unmark":
             unmark(defaultArg);
+            break;
+        case "delete":
+            deleteTask(defaultArg);
             break;
         case "todo":
             addTaskTodo(defaultArg);
@@ -256,6 +260,39 @@ Aww, bye to you as well :c""";
         }
 
         OUTPUT.writeText(message);
+    }
+
+    /**
+     * Deletes the task at the specified index.
+     *
+     * @param indexStr index of task to be marked as complete.
+     */
+    private void deleteTask(String indexStr) {
+        if (indexStr == null) {
+            OUTPUT.error("No task index specified.");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(indexStr.trim()) - 1;
+
+            if (index < 0 || index >= TASK_HANDLER.getTaskCount()) {
+                // TODO I'm guessing task handler should be the one raising this exception! SAME AS THE OTHER TWO
+                OUTPUT.error("Invalid task index. Out of range.");
+                return;
+            }
+
+            Task removed = TASK_HANDLER.removeTask(index);
+            int count = TASK_HANDLER.getTaskCount();
+
+            String message = "Alright, I'll delete this task:\n" + removed
+                    + String.format("\nNow you have %d task", count)
+                    + ((count > 1) ? "s left!" : "left!");
+            OUTPUT.writeText(message);
+
+        } catch (NumberFormatException e) {
+            OUTPUT.error("Invalid task index. It is not an integer.");
+        }
     }
 
     /**
