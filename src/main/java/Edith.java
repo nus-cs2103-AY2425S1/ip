@@ -71,6 +71,19 @@ public class Edith {
         System.out.println(indentation + message2 + lineBreak);
     }
 
+    public void delete(int index) {
+        String deletedTask = listOfTasks.get(index).toString();
+        listOfTasks.remove(index);
+
+        int numOfTasks = listOfTasks.size();
+        String message1 = "Certainly. I've removed this task:";
+        String message2 = "There are now " + numOfTasks + " tasks in your list.";
+
+        System.out.println(indentation + message1);
+        System.out.println(indentation + deletedTask);
+        System.out.println(indentation + message2 + lineBreak);
+    }
+
     public void list() {
         String emptyListMessage = "Great news, you have no outstanding task! Have a break!";
         String filledListMessage = "Here are the tasks in your list:";
@@ -150,7 +163,15 @@ public class Edith {
                     String errorMessage = edith.invalidIndexMessage(index + 1);
                     System.err.println(errorMessage);
                 }
-            } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")){
+            } else if (userInput.startsWith("delete ")) {
+                int index = Integer.parseInt(userInput.substring(7).trim()) - 1;
+                try {
+                    edith.delete(index);
+                } catch (IndexOutOfBoundsException e) {
+                    String errorMessage = edith.invalidIndexMessage(index + 1);
+                    System.err.println(errorMessage);
+                }
+            } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
                 try {
                     edith.add(userInput);
                 } catch (EdithException e) {
