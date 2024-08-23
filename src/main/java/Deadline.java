@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
     public Deadline(String description, String by) throws SpongebobException{
         super(description, TaskType.DEADLINE);
-        this.by = by;
 
         // check for errors
         if (description.equals(" ") || by.equals(" ")) {
@@ -19,6 +22,12 @@ public class Deadline extends Task {
             throw new SpongebobException("Barnacles! You missed out " + msg + "!");
         }
 
+        try {
+            this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Barnacles! Please enter date at dd/mm/yyyy!");
+        }
+
     }
 
 
@@ -27,11 +36,16 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+
+        return "[D]"
+                + super.toString()
+                + "(by: " + this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")"; // convert
     }
 
     @Override
     public String save() {
-        return super.save() + "|" + this.by;
+        return super.save()
+                + "|"
+                + this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }

@@ -46,10 +46,10 @@ public class Spongebob {
             }
 
             // first argument
-            arguments[0] = command[0];
+            arguments[0] = command[0].trim();
             if (command.length > 1) {
                 // second argument
-                arguments[1] = command[1];
+                arguments[1] = command[1].trim();
             }
 
             // check argument
@@ -143,8 +143,8 @@ public class Spongebob {
                     command = arguments[1].split("/by", 2);
 
                     if (command.length > 1) {
-                        arguments[2] = command[1];
-                        arguments[1] = command[0];
+                        arguments[2] = command[1].trim();
+                        arguments[1] = command[0].trim();
                     }
 
 
@@ -157,6 +157,7 @@ public class Spongebob {
                         System.out.println("Got it! I've added this task to your list — keep up the great work!");
                         System.out.println(newDeadline);
                         System.out.println("Now you have " + cache.size() + " tasks in the list.");
+
                     } catch (SpongebobException e) {
                         System.out.println(e.getMessage());
                     } finally {
@@ -169,13 +170,13 @@ public class Spongebob {
                     command = arguments[1].split("/from", 3);
 
                     if (command.length > 1) {
-                        arguments[1] = command[0];
-                        arguments[2] = command[1];
+                        arguments[1] = command[0].trim();
+                        arguments[2] = command[1].trim();
 
                         command = arguments[2].split("/to", 2);
                         if (command.length > 1) {
-                            arguments[3] = command[1];
-                            arguments[2] = command[0];
+                            arguments[3] = command[1].trim();
+                            arguments[2] = command[0].trim();
                         }
                     }
 
