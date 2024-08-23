@@ -49,14 +49,35 @@ public class Yap {
                 continue;
             }
 
+            // If user adds a todo task
+            if (userInput.startsWith("todo")) {
+                tasks[taskCount] = InputParser.parseInputAsToDo(userInput);
+                System.out.println("Added: " + tasks[taskCount++]);
+                System.out.printf("You now have %d tasks in the list%n", taskCount);
+                continue;
+            }
+
+            // If user adds a deadline task
+            if (userInput.startsWith("deadline")) {
+                tasks[taskCount] = InputParser.parseInputAsDeadline(userInput);
+                System.out.println("Added: " + tasks[taskCount++]);
+                System.out.printf("You now have %d tasks in the list%n", taskCount);
+                continue;
+            }
+
+            // If user adds an event task
+            if (userInput.startsWith("event")) {
+                tasks[taskCount] = InputParser.parseInputAsEvent(userInput);
+                System.out.println("Added: " + tasks[taskCount++]);
+                System.out.printf("You now have %d tasks in the list%n", taskCount);
+                continue;
+            }
+
             // List functionality
             if (userInput.equalsIgnoreCase("list")) {
                 for (int input = 0; input < taskCount; ++input) {
                     System.out.println((input + 1) + ". " + tasks[input].toString());
                 }
-            } else {
-                tasks[taskCount] = new Task(userInput);
-                System.out.println("Added: " + tasks[taskCount++]);
             }
 
             System.out.println(separator);
