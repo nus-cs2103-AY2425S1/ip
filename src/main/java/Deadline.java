@@ -1,18 +1,20 @@
+import java.time.LocalDateTime;
+
 /**
  * The Deadline class represents a task with a specific deadline.
  */
 public class Deadline extends Task {
-    protected String deadline;
+    protected LocalDateTime deadline;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.
      *
      * @param description The description of the task.
-     * @param deadline The deadline by which the task needs to be completed.
+     * @param date The deadline by which the task needs to be completed.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String date) throws StrandException {
         super(description);
-        this.deadline = deadline;
+        this.deadline = this.parseDate(date);
     }
 
     @Override
@@ -27,6 +29,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return this.getType() + super.toString() + " (by: " + this.deadline + ")";
+        return String.format("%s%s (by: %s)",
+                this.getType(),
+                super.toString(),
+                this.parseOutputDate(this.deadline));
     }
 }

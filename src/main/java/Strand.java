@@ -134,11 +134,11 @@ public class Strand {
         String[] split = input.split(" ", 2);
         String type = split[0];
         if (split.length < 2) {
-            throw new StrandDescNotFoundException("Description", type);
+            throw new StrandDescNotFoundException("Description");
         }
         String desc = split[1].trim();
         if (desc.isEmpty()) {
-            throw new StrandDescNotFoundException("Description", type);
+            throw new StrandDescNotFoundException("Description");
         }
         String uppercaseInput = type.toUpperCase();
         Commands command;
@@ -154,7 +154,7 @@ public class Strand {
             }
             case DEADLINE: {
                 if (!desc.contains(" /by ")) {
-                    throw new StrandDescNotFoundException("Deadline", type);
+                    throw new StrandDescNotFoundException("Deadline");
                 }
                 String description = desc.substring(0, desc.indexOf(" /by ")).trim();
                 String deadline = desc.substring(desc.indexOf(" /by ") + 5).trim();
@@ -163,10 +163,10 @@ public class Strand {
             }
             case EVENT: {
                 if (!desc.contains(" /from ")) {
-                    throw new StrandDescNotFoundException("Start time", type);
+                    throw new StrandDescNotFoundException("Start time");
                 }
                 if (!desc.contains(" /to ")) {
-                    throw new StrandDescNotFoundException("End time", type);
+                    throw new StrandDescNotFoundException("End time");
                 }
                 String description = desc.substring(0, desc.indexOf(" /from ")).trim();
                 String start = desc.substring(desc.indexOf(" /from ") + 7, desc.indexOf(" /to ") + 1).trim();
