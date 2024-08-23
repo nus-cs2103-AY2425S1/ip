@@ -1,11 +1,15 @@
 package matcha.parser;
+
 import matcha.command.AddTaskCommand;
 import matcha.command.Command;
 import matcha.command.DeleteTaskCommand;
 import matcha.command.ExitCommand;
+import matcha.command.FindTaskCommand;
 import matcha.command.ListTaskCommand;
 import matcha.command.UpdateTaskCommand;
+
 import matcha.exception.MatchaException;
+
 import matcha.task.Deadline;
 import matcha.task.Event;
 import matcha.task.Task;
@@ -46,6 +50,9 @@ public class Parser {
 
         case "bye":
             return new ExitCommand();
+
+        case "find":
+            return new FindTaskCommand(inputWords);
 
         default:
             throw new MatchaException("Hmm, I'm sorry but I am unfamiliar with this command :(");
