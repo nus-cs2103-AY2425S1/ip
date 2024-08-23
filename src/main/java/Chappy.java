@@ -39,7 +39,11 @@ public class Chappy {
         while(true) {
             Scanner scannerObj = new Scanner(System.in); 
             String userInput = scannerObj.nextLine();
+            
             if (userInput.equalsIgnoreCase("bye")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("It's been a pleasure serving you! Farewell sir.");
+                System.out.println("____________________________________________________________");
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 System.out.println("____________________________________________________________");
@@ -47,7 +51,7 @@ public class Chappy {
                     if (userInputArray[i] == null) {
                         break;
                     }
-                    System.out.println(i+1 + ".[" + userInputArray[i].getStatusIcon() + "] " + userInputArray[i].toString());
+                    System.out.println(i+1 + "." + userInputArray[i].toString());
                 }
                 System.out.println("____________________________________________________________");
             } else if (userInput.toLowerCase().contains("unmark")) {
@@ -66,40 +70,78 @@ public class Chappy {
                 System.out.println(userInputArray[t].toString());
                 System.out.println("____________________________________________________________");
             } else if (userInput.toLowerCase().contains("todo")) {
-                String t = userInput.split("todo")[1];
-                Todo task = new Todo(t);
+                String[] t = userInput.split("todo");
+                if (t.length < 2) {
+                    System.out.println("Oh SIR! The description of a todo cannot be empty!");
+                    continue;
+                }
+                Todo task = new Todo(t[1]);
                 userInputArray[userInputArrayPointer] = task;
                 userInputArrayPointer++;
+                System.out.println("____________________________________________________________");
                 System.out.println("Alright sir! I've added this task:");
                 System.out.println(task.toString());
                 System.out.println("____________________________________________________________");
             } else if (userInput.toLowerCase().contains("deadline")) {
-                String t = userInput.split("deadline")[1];
-                String[] t2 = t.split("/by");
+                String[] t = userInput.split("deadline");
+                if (t.length < 2) {
+                    System.out.println("Oh SIR! The description of a deadline cannot be empty!");
+                    continue;
+                }
+                String[] t2 = t[1].split("/by");
+                if (t2.length < 2) {
+                    System.out.println("Oh SIR! The \"by\" description of a deadline cannot be empty!");
+                    continue;
+                }
                 Deadline task = new Deadline(t2[0], t2[1]);
                 userInputArray[userInputArrayPointer] = task;
                 userInputArrayPointer++;
+                System.out.println("____________________________________________________________");
                 System.out.println("Alright sir! I've added this task:");
                 System.out.println(task.toString());
                 System.out.println("____________________________________________________________");
             } else if (userInput.toLowerCase().contains("event")) {
-                String t = userInput.split("event")[1];
-                String[] t2 = t.split("/from");
+                String[] t = userInput.split("event");
+                if (t.length < 2) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Oh SIR! The description of an event cannot be empty!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
+                String[] t2 = t[1].split("/from");
+                if (t2.length < 2) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Oh SIR! The \"from\" description of an event cannot be empty!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
+                
                 String[] t3 = t2[1].split("/to");
+                if (t3.length < 2) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Oh SIR! The \"by\" description of an event cannot be empty!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
 
                 Event task = new Event(t2[0], t3[0], t3[1]);
                 userInputArray[userInputArrayPointer] = task;
                 userInputArrayPointer++;
+                System.out.println("____________________________________________________________");
                 System.out.println("Alright sir! I've added this task:");
                 System.out.println(task.toString());
                 System.out.println("____________________________________________________________");
+            } else if (userInput != "") {
+                System.out.println("____________________________________________________________");
+                System.out.println("Oh SIR! I can't understand what you are saying!");
+                System.out.println("____________________________________________________________");
+                
             }
             
            
             
         }
-        System.out.println("____________________________________________________________");
-        System.out.println("It's been a pleasure serving you! Farewell sir.");
-        System.out.println("____________________________________________________________");
+        
+       
     }
 }
