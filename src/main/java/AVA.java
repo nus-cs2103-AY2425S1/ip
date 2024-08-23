@@ -83,6 +83,19 @@ public class AVA {
             //TODO: use string format
             out.println("Alright I have marked this task as not done");
             out.println(taskId +". " + task);
+        } else if(currentInput.startsWith("delete")){
+            int taskId;
+            try{
+                taskId = Integer.parseInt(currentInput.substring(7));
+            } catch(NumberFormatException e){
+                out.println("I am sorry, but you need to provide me a task id to delete something.");
+                return;
+            }
+            Task task = taskManager.getTasks().get(taskId-1);
+            taskManager.removeTask(taskId);
+            //TODO: use string format
+            out.println("Alright I have deleted this task");
+            out.println(taskId +". " + task);
         }
         else{
             taskManager.addTask(currentInput);
