@@ -46,40 +46,48 @@ public class Appleaster {
 
     private static void processInput(String input) throws AppleasterException {
         String[] parts = input.split("\\s+", 2);
-        String command = parts[0].toLowerCase();
+        CommandType command = getCommandType(parts[0].toLowerCase());
 
         switch (command) {
-            case "list":
+            case LIST:
                 taskList.listTasks();
                 break;
-            case "mark":
-            case "unmark":
+            case MARK:
+            case UNMARK:
                 handleMarkUnmark(command, parts);
                 break;
-            case "todo":
+            case TODO:
                 handleTodo(parts);
                 break;
-            case "deadline":
+            case DEADLINE:
                 handleDeadline(parts);
                 break;
-            case "event":
+            case EVENT:
                 handleEvent(parts);
                 break;
-            case "delete":
+            case DELETE:
                 handleDelete(parts);
-                break;                
+                break;
             default:
-                throw new AppleasterException("I don't recognize that command. Here are the commands I know: todo, deadline, event, list, mark, unmark.");
+                throw new AppleasterException("I don't recognize that command. Here are the commands I know: todo, deadline, event, list, mark, unmark, delete.");
         }
     }
 
-    private static void handleMarkUnmark(String command, String[] parts) throws AppleasterException {
+    private static CommandType getCommandType(String command) {
+        try {
+            return CommandType.valueOf(command.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return CommandType.UNKNOWN;
+        }
+    }    
+
+    private static void handleMarkUnmark(CommandType command, String[] parts) throws AppleasterException {
         if (parts.length < 2) {
-            throw new AppleasterException("Please provide a task number to " + command + ". For example: " + command + " 1");
+            throw new AppleasterException("Please provide a task number to " + command.name().toLowerCase() + ". For example: " + command.name().toLowerCase() + " 1");
         }
         try {
             int index = Integer.parseInt(parts[1]) - 1;
-            taskList.markTask(index, command.equals("mark"));
+            taskList.markTask(index, command == CommandType.MARK);
         } catch (NumberFormatException e) {
             throw new AppleasterException("The task number should be a valid integer. You provided: " + parts[1]);
         } catch (IndexOutOfBoundsException e) {
