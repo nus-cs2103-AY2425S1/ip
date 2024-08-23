@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Botty {
@@ -21,7 +20,7 @@ public class Botty {
 
     private static final String bottySymbol = "Botty: ";
     private static final String bottyIndentation = "       ";
-    private static ArrayList<Task> taskList;
+    private static TaskManager taskManager;
 
     public static void main(String[] args) {
         System.out.println(logo);
@@ -31,7 +30,7 @@ public class Botty {
 
         Scanner inputScanner = new Scanner(System.in);
 
-        taskList = new ArrayList<>(100);
+        taskManager = new TaskManager();
 
         boolean exitFlag = false;
 
@@ -82,11 +81,11 @@ public class Botty {
         reply("Thank you for your continued patronage. Goodbye!");
     }
     private static void addToTaskList(Task task) {
-        taskList.add(task);
+        taskManager.addTask(task);
 
         reply("I have added the following task to the list!\n" +
                 task + "\n" +
-                "You now have " + taskList.size() + " tasks.");
+                "You now have " + taskManager.size() + " tasks.");
 
     }
 
@@ -99,20 +98,6 @@ public class Botty {
             return false;
         }
     }
-    private static void setTaskCompletion(boolean completion, int taskIndex) throws BottyException {
-        if (taskList.isEmpty()) {
-            throw new BottyException("Your list is empty! Add a task with the todo, deadline or event command.");
-        } else if (taskIndex < 0 || taskIndex > taskList.size() - 1) {
-            throw new BottyException("I don't see a task with that number! Try a number from 1 to " +
-                    taskList.size());
-        }
-        Task task = taskList.get(taskIndex);
-        task.setCompleted(completion);
-        reply((completion
-                ? "Congrats on completing that! Let me just mark that as done for you."
-                : "It's okay, we can get that done later. I'll mark that as undone for you.") + "\n" +
-                task);
-    }
     private static void reply(String content) {
         String[] strings = content.split("\n");
         System.out.println(bottySymbol + strings[0]);
@@ -121,33 +106,30 @@ public class Botty {
         }
     }
 
-    private static void handleList() {
-        if (taskList.isEmpty()) {
-            reply("Your list is empty! Add a task with the todo, deadline or event command.");
-        } else {
-            StringBuilder content = new StringBuilder("Here you go!\n");
-
-            for (int i = 1; i < taskList.size(); i++) {
-                content.append(i).append(". ").append(taskList.get(i - 1)).append("\n");
-            }
-
-            content.append(taskList.size()).append(". ").append(taskList.get(taskList.size() - 1));
-            reply(content.toString());
-        }
+    private static void handleList() throws TaskListEmptyException {
+        reply("Here you go!\n" + taskManager.list());
     }
+
     private static void handleMark(String argument) throws BottyException {
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to mark with its number!");
         }
-        setTaskCompletion(true, Integer.parseInt(argument) - 1);
+
+        int taskIndex = Integer.parseInt(argument) - 1;
+        Task task = taskManager.markTask(taskIndex);
+
+        reply("Congrats on completing that! Let me just mark that as done for you.\n" + task);
     }
     private static void handleUnmark(String argument) throws BottyException {
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to unmark with its number!");
         }
-        setTaskCompletion(false, Integer.parseInt(argument) - 1);
+        int taskIndex = Integer.parseInt(argument) - 1;
+        Task task = taskManager.unmarkTask(taskIndex);
+
+        reply("It's okay, we can get that done later. I'll mark that as undone for you.\n" + task);
     }
     private static void handleTodo(String argument) throws BottyException {
         Todo todo = Todo.generateFromString(argument);
@@ -178,15 +160,10 @@ public class Botty {
                     "Do indicate which task to delete with its number!");
         }
         int taskIndex = Integer.parseInt(argument) - 1;
-        if (taskList.isEmpty()) {
-            throw new BottyException("Your list is empty! Add a task with the todo, deadline or event command.");
-        } else if (taskIndex < 0 || taskIndex > taskList.size() - 1) {
-            throw new BottyException("I don't see a task with that number! Try a number from 1 to " +
-                    taskList.size());
-        }
-        Task task = taskList.remove(taskIndex);
+
+        Task task = taskManager.deleteTask(taskIndex);
         reply("Got it! I have removed the following task:\n" +
                 task + "\n" +
-                "You have " + taskList.size() + " tasks left!");
+                "You have " + taskManager.size() + " tasks left!");
     }
 }
