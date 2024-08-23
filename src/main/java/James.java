@@ -33,7 +33,7 @@ public class James {
                     int taskNum = Integer.parseInt(command.substring(command.length() - 1));
                     tasks.get(taskNum - 1).unMark();
                 } else if (words[0].equalsIgnoreCase("todo")){
-                    String description = command.substring(4);
+                    String description = command.substring(4).trim();
                     Task task = new Todo(description, false);
                     tasks.add(task);
                     System.out.println("Task added:" + "\n" + task.printTask());

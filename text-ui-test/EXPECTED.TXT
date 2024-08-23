@@ -1,7 +1,26 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello Big Boy! I'm James
+How can I assist you today?
+
+> Task added:
+[T][ ] buy milk
+Now you have 1 tasks in the list.
+> Task added:
+[D][ ] complete homework (by: tuesday)
+Now you have 2 tasks in the list.
+> Task added:
+[E][ ] concert (from: sunday 6pm to: sunday 9pm)
+Now you have 3 tasks in the list.
+> 1. [T][ ] buy milk
+2. [D][ ] complete homework (by: tuesday)
+3. [E][ ] concert (from: sunday 6pm to: sunday 9pm)
+> Slay! marked it as done!
+[D][X] complete homework (by: tuesday)
+> Task added:
+[T][ ] say hi to mum
+Now you have 4 tasks in the list.
+> 1. [T][ ] buy milk
+2. [D][X] complete homework (by: tuesday)
+3. [E][ ] concert (from: sunday 6pm to: sunday 9pm)
+4. [T][ ] say hi to mum
+> Goodbye. Come back anytime!
 

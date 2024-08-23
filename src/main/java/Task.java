@@ -6,7 +6,7 @@ public class Task {
         if (desc.isEmpty()) {
             throw new MissingDescriptionException("Looks like you left out description of the task, please try again.");
         }
-        this.description = desc.substring(1);
+        this.description = desc;
         this.marked = mark;
     }
 
