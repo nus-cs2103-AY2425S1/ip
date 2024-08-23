@@ -41,7 +41,7 @@ public class Derek implements Bot {
         try {
             System.out.println("Hello! I'm Derek! Can we be friends?\n" + logo);
             String userInput =
-                    "Your response (Y/N): ";
+                    "Your response (Y/N):";
             System.out.println(userInput);
             Scanner sc = new Scanner(System.in);
             String response = sc.nextLine();
@@ -57,11 +57,12 @@ public class Derek implements Bot {
                         + "----------------------------------------------------------------------\n"
                         + "Please enter your commands correctly for Derek (he's a little slow):\n"
                         + "todo (task)\n"
-                        + "event (task) /from (start time) /to (end time) \n"
-                        + "deadline (task) /by (date) \n"
-                        + "mark (task number)"
-                        + "unmark (task number)"
-                        + "delete (task number");
+                        + "event (task) /from (start time) /to (end time)\n"
+                        + "deadline (task) /by (date)\n"
+                        + "mark (task number)\n"
+                        + "unmark (task number)\n"
+                        + "delete (task number)\n"
+                        + "bye");
                 acceptCommands();
             } else if (response.equalsIgnoreCase("N")) {
                 System.out.println(leavingMessage);
@@ -78,29 +79,36 @@ public class Derek implements Bot {
      */
     @Override
     public void acceptCommands() {
-        try {
-            Scanner sc = new Scanner(System.in);
-            String name = sc.nextLine();
-            Command command = new Command(name);
-            if (command.isLeavingCommand()) {
-                System.out.println(leavingMessage);
-            } else if (command.isListCommand()) {
-                this.returnList();
-            } else if (command.isCompletedCommand(this.taskList.size())) {
-                String[] words = name.split("\\s+");
-                this.markCompleted(Integer.valueOf(words[1]));
-            } else if (command.isIncompleteCommand(this.taskList.size())) {
-                String[] words = name.split("\\s+");
-                this.markIncomplete(Integer.valueOf(words[1]));
-            } else if (command.isDeleteCommand(this.taskList.size())) {
-                String[] words = name.split("\\s+");
-                this.deleteTask(Integer.valueOf(words[1]));
-            } else {
-                this.addTask(command);
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            try {
+                String name = sc.nextLine();
+                Command command = new Command(name);
+
+                if (command.isLeavingCommand()) {
+                    System.out.println(leavingMessage);
+                    break;  // Exit the loop and end the program
+                } else if (command.isListCommand()) {
+                    this.returnList();
+                } else if (command.isCompletedCommand(this.taskList.size())) {
+                    String[] words = name.split("\\s+");
+                    this.markCompleted(Integer.valueOf(words[1]));
+                } else if (command.isIncompleteCommand(this.taskList.size())) {
+                    String[] words = name.split("\\s+");
+                    this.markIncomplete(Integer.valueOf(words[1]));
+                } else if (command.isDeleteCommand(this.taskList.size())) {
+                    String[] words = name.split("\\s+");
+                    this.deleteTask(Integer.valueOf(words[1]));
+                } else {
+                    this.addTask(command);
+                }
+
+                System.out.println("anything else?");
+
+            } catch (IncorrectCommandException e) {
+                System.out.println(e.getMessage() + "\n");
             }
-        } catch (IncorrectCommandException e) {
-            System.out.println(e.getMessage() + "\n");
-            this.acceptCommands();
         }
     }
 
@@ -113,7 +121,6 @@ public class Derek implements Bot {
         Task task = taskList.get(number - 1);
         taskList.remove(number - 1);
         System.out.println( "phew! that list was looooonngggg... i was getting tired of remembering it!" + "\n" + task.toString());
-        this.acceptCommands();
     }
 
     /**
@@ -125,8 +132,8 @@ public class Derek implements Bot {
         task.markCompleted();
         String celebration = generateRandomCelebration();
         System.out.println(celebration + " you slayed that!" + "\n" + task.toString());
-        this.acceptCommands();
     }
+
 
     /**
      * Marks a task as incomplete.
@@ -136,8 +143,8 @@ public class Derek implements Bot {
         Task task = taskList.get(number - 1);
         task.markIncomplete();
         System.out.println("You'll get 'em next time!" + "\n" + task.toString());
-        this.acceptCommands();
     }
+
 
     /**
      * Adds a task to the task list based on the user's command.
@@ -156,24 +163,15 @@ public class Derek implements Bot {
             } else if (command.isToDoTask()) {
                 task = Task.toDoTask(name);
             } else {
-                throw new IncorrectCommandException(String.format("Is it a todo, event, or deadline?\n"
-                                                                    + "Please enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums"));
+                throw new IncorrectCommandException("Is it a todo, event, or deadline?\nPlease enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums");
             }
             taskList.add(task);
             String celebration = generateRandomCelebration();
             System.out.println(celebration + "\n" + task + "\n");
 
-            System.out.println("anything else?");
-            this.acceptCommands();
         } catch (IncorrectCommandException e) {
-            System.out.println("C'mon, I can't understand what you're saying! Help me out here!\n"
-                    + sadLogo
-                    + "\n"
-                    + e.getMessage());
-
-            this.acceptCommands();
+            System.out.println("C'mon, I can't understand what you're saying! Help me out here!\n" + sadLogo + "\n" + e.getMessage());
         }
-
     }
 
     /**
@@ -191,7 +189,15 @@ public class Derek implements Bot {
     }
 
     /**
-     * Returns the list of tasks.
+     * Returns the task list.
+     * @return the list of tasks
+     */
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    /**
+     * Returns the list of tasks in string format.
      */
     @Override
     public void returnList(){
@@ -200,7 +206,6 @@ public class Derek implements Bot {
             list += String.format((i+1) + ". " + taskList.get(i).toString() + "\n");
         }
         System.out.println("I think these are your tasks! Please don't leave me!!\n" + list);
-        this.acceptCommands();
     }
 
 

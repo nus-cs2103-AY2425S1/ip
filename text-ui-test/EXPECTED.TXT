@@ -6,3 +6,10 @@ Hello! I'm Derek! Can we be friends?
     ----
 
 Your response (Y/N):
+Ok...
+ ---    ---
+| # |  | # |
+ ---    ---
+    ----
+  /      \
+
