@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.*;
 
 class Task {
     private boolean mark;
@@ -74,10 +75,18 @@ class Event extends Task {
     }
 }
 
+class TimoException extends Exception {
+
+    public TimoException(String errorMessage) {
+        super(errorMessage);
+    }
+
+}
 
 
-public class Timo {
-    public static void main(String[] args) {
+
+public class Timo{
+    public static void main(String[] args) throws TimoException {
         //greet
         System.out.println("----------------------------");
         System.out.println("Hello! I'm Timo\nWhat can I do for you?");
@@ -87,8 +96,7 @@ public class Timo {
         Scanner echo = new Scanner(System.in);
 
         //initialise array to store the values
-        Task[] arr = new Task[100];
-        int index = 1;
+        List<Task> arr = new ArrayList<Task>();
 
 
         String input = "";
@@ -109,8 +117,8 @@ public class Timo {
                 case "list":
                     System.out.println("----------------------------");
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 1; i < index; i++) {
-                        Task chosen = arr[i - 1];
+                    for (int i = 1; i <= arr.size(); i++) {
+                        Task chosen = arr.get(i - 1);
                         System.out.println(i + ". " + chosen);
                     }
                     System.out.println("----------------------------");
@@ -122,7 +130,7 @@ public class Timo {
                         String num = String.valueOf(input.charAt(input.length() - 1));
                         int target = Integer.parseInt(num);
                         System.out.println(target);
-                        Task chosen = arr[target - 1];
+                        Task chosen = arr.get(target - 1);
                         chosen.markDone();
                         System.out.println("----------------------------");
                         System.out.println("Nice! I've marked this task as done:");
@@ -132,7 +140,7 @@ public class Timo {
                         //to unmark
                         String num = String.valueOf(input.charAt(input.length() - 1));
                         int target = Integer.parseInt(num);
-                        Task chosen = arr[target - 1];
+                        Task chosen = arr.get(target - 1);
                         chosen.markUndone();
                         System.out.println("----------------------------");
                         System.out.println("Nice! I've marked this task as not done yet:");
@@ -140,48 +148,54 @@ public class Timo {
                         System.out.println("----------------------------");
                     } else if (input.startsWith("todo")) {
                         //have an array that splits the input by space to obtain task
-                        String[] tmp = input.split(" ", 2);
-                        Todo task = new Todo(false, tmp[1]);
-                        System.out.println("----------------------------");
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(task.toString());
-                        System.out.println("Now you have " + index + " tasks in the list.");
-                        System.out.println("----------------------------");
-                        arr[index - 1] = task;
-                        index++;
+                        try {
+                            String[] tmp = input.split(" ", 2);
+                            if (tmp.length != 2) {
+                                throw new TimoException("Usage todo: todo <task> (need argument)");
+                            }
+                            Todo task = new Todo(false, tmp[1]);
+                            arr.add(task);
+                            System.out.println("----------------------------");
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(task.toString());
+                            System.out.println("Now you have " + arr.size() + " tasks in the list.");
+                            System.out.println("----------------------------");
+                        } catch (TimoException ex) {
+                            System.out.println("----------------------------");
+                            System.out.println(ex);
+                            System.out.println("----------------------------");
+                        }
                     } else if (input.startsWith("deadline")) {
                         String[] tmp = input.split("deadline |/by ");
                         Deadline task = new Deadline(false, tmp[1], tmp[2]);
+                        arr.add(task);
                         System.out.println("----------------------------");
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.toString());
-                        System.out.println("Now you have " + index + " tasks in the list.");
+                        System.out.println("Now you have " + arr.size() + " tasks in the list.");
                         System.out.println("----------------------------");
-                        arr[index - 1] = task;
-                        index++;
                     } else if (input.startsWith("event")) {
                         String[] tmp = input.split("event |/from |/to ");
                         Event task = new Event(false, tmp[1], tmp[2], tmp[3]);
+                        arr.add(task);
                         System.out.println("----------------------------");
                         System.out.println("Got it. I've added this task:");
                         System.out.println(task.toString());
-                        System.out.println("Now you have " + index + " tasks in the list.");
+                        System.out.println("Now you have " + arr.size() + " tasks in the list.");
                         System.out.println("----------------------------");
-                        arr[index - 1] = task;
-                        index++;
+//                    } else if (input.startsWith("delete")) {
+//                        String num = String.valueOf(input.charAt(input.length() - 1));
+//                        int target = Integer.parseInt(num);
                     } else {
-                        //to add to list
-                        System.out.println("----------------------------");
-                        System.out.println("added: " + input);
-                        System.out.println("----------------------------");
-                        arr[index - 1] = new Task(false, input);
-                        index++;
-                        break;
+                        try {
+                            throw new TimoException("I'm sorry, I do not know what that means! Please try again with a different command!");
+                        } catch (TimoException ex) {
+                            System.out.println("----------------------------");
+                            System.out.println(ex);
+                            System.out.println("----------------------------");
+                        }
                     }
             }
         }
-
-
-
     }
 }
