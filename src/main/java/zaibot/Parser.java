@@ -1,3 +1,8 @@
+package zaibot;
+
+import zaibot.command.*;
+import zaibot.exception.ZaibotException;
+
 import java.util.HashMap;
 
 public class Parser {
@@ -6,7 +11,7 @@ public class Parser {
      * The Hashmap returned contains key-value pairs of {parameter name: argument value}
      *
      * @param command A command
-     * @return A Command with the parsed arguments.
+     * @return A zaibot.command.Command with the parsed arguments.
      */
     public static Command parse(String command) throws ZaibotException {
         HashMap<String, String> arguments = new HashMap<>();

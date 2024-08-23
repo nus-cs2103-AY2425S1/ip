@@ -1,3 +1,8 @@
+package zaibot;
+
+import zaibot.exception.ZaibotException;
+import zaibot.task.Task;
+
 import java.util.Scanner;
 
 /**
@@ -98,8 +103,8 @@ public class Ui {
      * @throws ZaibotException If the update task is not part of the values for task above.
      */
     public static void displayTask(Task task,
-                                         String type,
-                                         TaskList taskList) throws ZaibotException {
+                                   String type,
+                                   TaskList taskList) throws ZaibotException {
         switch (type) {
             case "mark":
             case "unmark":

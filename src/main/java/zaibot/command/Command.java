@@ -1,10 +1,19 @@
+package zaibot.command;
+
+import zaibot.*;
+import zaibot.exception.ZaibotException;
+import zaibot.task.DeadlineTask;
+import zaibot.task.EventTask;
+import zaibot.task.Task;
+import zaibot.task.ToDoTask;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 /**
  * This class represents a command by its name (the command itself) and a collection of its objects,
- * as parsed by the Parser.
+ * as parsed by the zaibot.Parser.
  */
 public abstract class Command {
 

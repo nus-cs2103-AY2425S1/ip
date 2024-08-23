@@ -1,3 +1,11 @@
+package zaibot;
+
+import zaibot.exception.ZaibotException;
+import zaibot.task.DeadlineTask;
+import zaibot.task.EventTask;
+import zaibot.task.Task;
+import zaibot.task.ToDoTask;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -87,7 +95,7 @@ public class Storage {
      * Parses a line from the file in the format specified
      * Helper function for the readFromFile function.
      * @param input A line from the file on disk
-     * @return The Task object with data from the input line
+     * @return The zaibot.task.Task object with data from the input line
      * @throws ZaibotException if the line is not formatted as expected.
      */
     public Task parseLine(String input) throws ZaibotException {
