@@ -20,7 +20,7 @@ public class Meow {
     + "\n    What can I do for you Meow?"
     + "\n    _____________________________________________________________________";
     private static ArrayList<Task> taskList = new ArrayList<>();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Meowception {
         System.out.println(openingMessage);
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -41,26 +41,38 @@ public class Meow {
         System.out.println("    " + "_____________________________________________________________________\n");
     }
 
-    private static void outputTask(String inputType) {
+    private static void outputTask(String inputType) throws Meowception {
         if (inputType.startsWith("mark")) {
-            if (inputType.length() > 5) {
-                if (inputType.charAt(4) == ' ' && !inputType.substring(5).trim().isEmpty()) {
+            try {
+                if (!inputType.substring(5).trim().isEmpty()) {
                     markTask(inputType);
                     return;
+                } else {
+                    throw new Meowception("100");
                 }
-                
-            } 
-            errorMsg("Meow meow you need to enter a task number to mark !!!");
+            } catch (Meowception err) {
+                System.out.println("    " + err);
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                System.out.println("    " + err);
+            }
+            // errorMsg("Meow meow you need to enter a task number to mark !!!");
             
             
         } else if (inputType.startsWith("unmark")) {
-            if (inputType.length() > 7) {
-                if (inputType.charAt(6) == ' ' && !inputType.substring(7).trim().isEmpty()) {
+            try {
+                if (!inputType.substring(7).trim().isEmpty()) {
                     unmarkTask(inputType);
                     return;
+                } else {
+                    throw new Meowception("100");
                 }
+            } catch (Meowception err) {
+                System.out.println("    " + err);        
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                System.out.println("    " + err);
             }
-            errorMsg("Meow meow you need to enter a task number to unmark !!!");
             
                 
         } else if (inputType.equals("list")) { 
@@ -191,11 +203,11 @@ public class Meow {
      * @param String: The command line containing index.
      * @output void, prints to console and unmarks task.
      */
-    static private void unmarkTask(String task) {
+    static private void unmarkTask(String task) throws Meowception {
         String numberString = task.substring(task.indexOf(" ") + 1);
         int number = Integer.parseInt(numberString);
         if (number > taskList.size() || number <= 0) {
-            System.out.println("    ERROR404: TASK NOT FOUND");
+            throw new Meowception("404");
         }
         else { // Check if the task is already unmarked and stuff...  
             System.out.println("    " + "_____________________________________________________________________");
