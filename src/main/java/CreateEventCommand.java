@@ -11,30 +11,30 @@ public class CreateEventCommand implements Command {
         this.items = items;
 
         // Parse the "name", "from" and "to" from the input
-        StringJoiner nameSb = new StringJoiner(" ");
-        StringJoiner fromSb = new StringJoiner(" ");
-        StringJoiner toSb = new StringJoiner(" ");
+        StringJoiner nameSj = new StringJoiner(" ");
+        StringJoiner fromSj = new StringJoiner(" ");
+        StringJoiner toSj = new StringJoiner(" ");
 
         // Remove the command from the input
         String inputArgs = input.split(" ", 2)[1];
         String[] split = inputArgs.split(" ");
 
-        StringJoiner currentSb = nameSb;
+        StringJoiner currentSj = nameSj;
         for (String s : split) {
             if (s.equals("/from")) {
-                currentSb = fromSb;
+                currentSj = fromSj;
                 continue;
             } else if (s.equals("/to")) {
-                currentSb = toSb;
+                currentSj = toSj;
                 continue;
             }
 
-            currentSb.add(s);
+            currentSj.add(s);
         }
 
-        this.name = nameSb.toString();
-        this.from = fromSb.toString();
-        this.to = toSb.toString();
+        this.name = nameSj.toString();
+        this.from = fromSj.toString();
+        this.to = toSj.toString();
     }
 
     @Override
