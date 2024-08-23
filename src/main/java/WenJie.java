@@ -1,5 +1,5 @@
-import java.util.Objects;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class WenJie {
     public static void main(String[] args) {
@@ -7,8 +7,8 @@ public class WenJie {
         try {
             Scanner scanner = new Scanner(System.in);
             boolean active = true;
-            Task[] taskList = new Task[100];
-            int currentPointer = 0;
+//            Task[] taskList = new Task[100];
+            ArrayList<Task> taskList = new ArrayList<>(1);
 
             String greeting =
                     "____________________________________________________________\n" +
@@ -48,15 +48,15 @@ public class WenJie {
                     case "mark": {
                         int taskNo = Integer.parseInt(parts[1]) - 1;
 
-                        if (taskNo  + 1 > currentPointer) {
+                        if (taskNo + 1 > taskList.size()) {
                             throw new OutOfBoundsException();
                         }
 
-                        taskList[taskNo].setStatusIcon(true);
+                        taskList.get(taskNo).setStatusIcon(true);
                         String output =
                                 "____________________________________________________________\n" +
                                         "Nice! I've marked this task as done:\n" +
-                                        taskList[taskNo] + "\n" +
+                                        taskList.get(taskNo) + "\n" +
                                         "____________________________________________________________";
                         System.out.println(output);
                         break;
@@ -65,15 +65,15 @@ public class WenJie {
                     case "unmark": {
                         int taskNo = Integer.parseInt(parts[1]) - 1;
 
-                        if (taskNo + 1 > currentPointer) {
+                        if (taskNo + 1 > taskList.size()) {
                             throw new OutOfBoundsException();
                         }
 
-                        taskList[taskNo].setStatusIcon(false);
+                        taskList.get(taskNo).setStatusIcon(false);
                         String output =
                                 " ____________________________________________________________\n" +
                                         " OK, I've marked this task as not done yet:\n " +
-                                        taskList[taskNo] + "\n" +
+                                        taskList.get(taskNo) + "\n" +
                                         " ____________________________________________________________";
                         System.out.println(output);
                         break;
@@ -91,11 +91,10 @@ public class WenJie {
                                 "____________________________________________________________\n" +
                                         "Got it. I've added this task:\n" +
                                         temp + "\n" +
-                                        "Now you have " + (currentPointer + 1)+" tasks in the list.\n" +
+                                        "Now you have " + (taskList.size() + 1)+" tasks in the list.\n" +
                                         "____________________________________________________________\n";
                         System.out.println(output);
-                        taskList[currentPointer] = temp;
-                        currentPointer++;
+                        taskList.add(temp);
                         break;
                     }
 
@@ -124,15 +123,14 @@ public class WenJie {
 
                         String desc = input.substring(9, endIndex);
                         Deadline temp = new Deadline(desc, by);
-                        taskList[currentPointer] = temp;
+                        taskList.add(temp);
                         String output =
                                 "____________________________________________________________\n" +
                                         "Got it. I've added this task:\n" +
                                         temp + "\n" +
-                                        "Now you have " + (currentPointer + 1)+" tasks in the list.\n" +
+                                        "Now you have " + taskList.size() +" tasks in the list.\n" +
                                         "____________________________________________________________\n";
                         System.out.println(output);
-                        currentPointer++;
                         break;
                     }
 
@@ -168,17 +166,20 @@ public class WenJie {
                             }
                         }
 
+                        if (endIndex == 0) {
+                            throw new InvalidInputException();
+                        }
+
                         String desc = input.substring(6, endIndex);
                         Event temp = new Event(desc, from, to);
-                        taskList[currentPointer] = temp;
+                        taskList.add(temp);
                         String output =
                                 "____________________________________________________________\n" +
                                         "Got it. I've added this task:\n" +
                                         temp + "\n" +
-                                        "Now you have " + (currentPointer + 1)+" tasks in the list.\n" +
+                                        "Now you have " + taskList.size() +" tasks in the list.\n" +
                                         "____________________________________________________________\n";
                         System.out.println(output);
-                        currentPointer++;
                         break;
                     }
 
@@ -198,11 +199,11 @@ public class WenJie {
 
     }
 
-    public static String displayList(Task[] list) {
+    public static String displayList(ArrayList<Task> list) {
         String result = "";
         int i = 0;
-        while (list[i] != null){
-            String newLine = (i + 1) + ". " + list[i] + "\n";
+        while (i < list.size()){
+            String newLine = (i + 1) + ". " + list.get(i) + "\n";
             result += newLine;
             i++;
         }
