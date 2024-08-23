@@ -1,0 +1,10 @@
+todo Read a Book
+deadline Do Homework /by Sunday 4pm
+event Go for lecture /from Friday 4pm /to Friday 6pm
+list
+mark 1
+mark 2
+list
+unmark 2
+list
+bye
