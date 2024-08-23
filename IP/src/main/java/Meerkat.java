@@ -1,12 +1,9 @@
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
 
 public class Meerkat {
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
         String lines = "____________________________________________________________";
         String greeting = """
@@ -17,13 +14,23 @@ public class Meerkat {
                 Goodnight, sleep tight, Hope I don't ever see you again!
                 """;
         System.out.println(lines + "\n" + greeting + lines);
+        List<String> listOfItems = new ArrayList<>();
         while (true) {
-            String input = sc.next();
+            String input = sc.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println(lines + "\n" + bye + lines);
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                System.out.println(lines);
+                for (int i = 1; i < listOfItems.size() + 1; i++) {
+                    System.out.println(i + ". " + listOfItems.get(i-1));
+                }
+                System.out.println(lines);
+            } else {
+                listOfItems.add(input);
+                System.out.println(lines + "\nadded: " + input + "\n" + lines);
             }
-            System.out.println(lines + "\n" + input + "\n" + lines);
+
         }
         System.exit(0);
     }
