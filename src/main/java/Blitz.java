@@ -24,6 +24,9 @@ public class Blitz{
     }
 
     public static void actionBasedOnInput(ArrayList<Task> inputHistory, String strippedInput) {
+        if (strippedInput.isEmpty()) {
+            return;
+        }
 
         if (strippedInput.equals("list")) {
             displayList(inputHistory);
