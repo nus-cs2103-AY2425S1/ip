@@ -7,6 +7,7 @@ import duke.exceptions.InvalidDeadlineException;
 import duke.exceptions.InvalidEventException;
 import duke.exceptions.UnknownMessageException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,18 @@ public class TaskManager {
             throw new IllegalStateException("No tasks available.");
         }
         return tasks.get(tasks.size() - 1);
+    }
+
+    public List<Task> getTasksOccurring(LocalDateTime dateTime) {
+        List<Task> tasksOccurringOnDateTime = new ArrayList<>();
+
+        for (Task task : this.tasks) {
+            if (task.occurring(dateTime)) {
+                tasksOccurringOnDateTime.add(task);
+            }
+        }
+
+        return tasksOccurringOnDateTime;
     }
 
     public void setTasks(List<Task> tasks) {

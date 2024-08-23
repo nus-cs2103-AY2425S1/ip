@@ -5,6 +5,7 @@ import duke.exceptions.UnknownMessageException;
 import duke.tasks.*;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.List;
 
@@ -54,13 +55,15 @@ public class DailyTasks {
     private void handleCommand(String userInput) {
         try {
             if (userInput.equals("list")) {
-                System.out.println(Formatter.formatTaskListings(taskManager.getTasks()));
+                System.out.println(Formatter.formatTaskListings(taskManager.getTasks(), false));
             } else if (userInput.startsWith("unmark")) {
                 handleMarkingTask(userInput, false);
             } else if (userInput.startsWith("mark")) {
                 handleMarkingTask(userInput, true);
             } else if (userInput.startsWith("delete")) {
                 handleDeleteTask(userInput);
+            } else if (userInput.startsWith("filter")) {
+                handleFilterTask(userInput);
             } else { // we try to add a task (todos/ deadline/ event) else throw an exception
                 taskManager.addTask(userInput);
             }
@@ -91,6 +94,13 @@ public class DailyTasks {
             Task task = taskManager.deleteTask(index);
             System.out.println(Formatter.formatDeleteTask(task, taskManager.getTasks().size()));
         }
+    }
+
+    private void handleFilterTask(String userInput) {
+        String dateString = userInput.split(" ", 2)[1];
+        LocalDateTime dateTime = DateTimeParser.parseDateTime(dateString);
+        List<Task> tasks = this.taskManager.getTasksOccurring(dateTime);
+        System.out.println(Formatter.formatTaskListings(tasks, true));
     }
 
     private int parseTaskIndex(String userInput) {

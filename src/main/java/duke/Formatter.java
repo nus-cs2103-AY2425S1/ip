@@ -17,11 +17,11 @@ public class Formatter {
         return Formatter.SPACING + " " + i + "." + task.toString() + "\n";
     }
 
-    public static String formatTaskListings(List<Task> tasks) {
+    public static String formatTaskListings(List<Task> tasks, boolean filtered) {
         StringBuilder str = new StringBuilder();
 
         str.append(Formatter.formattedBorder()).append("\n");
-        str.append(Formatter.SPACING + " " + "Here are the tasks in your list:" + "\n");
+        str.append(Formatter.SPACING + " ").append(filtered ? "Here are the filtered tasks:" : "Here are the tasks in your list:").append("\n");
         for (int i = 0; i < tasks.size(); i++) {
             str.append(Formatter.formatSingleTask(i + 1, tasks.get(i)));
         }
