@@ -1,0 +1,12 @@
+todo finish homework
+deadline submit assignment /by Aug 31st 11:59pm
+event team building retreat /from Sep 10th 9am /to Sep 12th 5pm
+list
+mark 1
+delete 2
+event dinner with friends /from Sep 15th 7pm /to Sep 15th 9pm
+todo start reading new book
+unmark 3
+deadline renew library books /by Sep 18th
+list
+bye
