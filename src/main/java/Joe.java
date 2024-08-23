@@ -16,9 +16,9 @@ public class Joe {
             String commandStr = inputArr[0].toUpperCase();
             Commands command = Commands.valueOf(commandStr);
             switch (command) {
-                case EXIT:
+                case BYE:
                     System.out.println("\t" + "Bye. Hope to see you again soon!");
-                    break;
+                    return;
                 case LIST:
                     if (tasks.isEmpty()) System.out.println("\t\uD83C\uDF89 No tasks yet! Looks like you've got a clean slate. Time to add some tasks and conquer the day! \uD83D\uDE80");
                     for (int i = 0; i < tasks.size(); i++) {
@@ -37,10 +37,10 @@ public class Joe {
                     Task task = tasks.get(idx - 1);
                     if (command == Commands.MARK) {
                         task.markDone();
-                        System.out.printf("\tNice! I've marked this task as done: \n\t  %s\n", task);
+                        System.out.printf("\tNice! I've marked this task as done:\n\t  %s\n", task);
                     } else {
                         task.unmarkDone();
-                        System.out.printf("\tOK, I've marked this task as not done yet: \n\t  %s\n", task);
+                        System.out.printf("\tOK, I've marked this task as not done yet:\n\t  %s\n", task);
                     }
                     break;
                 case TODO:
@@ -80,7 +80,7 @@ public class Joe {
                             break;
                     }
                     tasks.add(newTask);
-                    System.out.println("\tGot it. I've added this task:\n\t  " + newTask.toString());
+                    System.out.println("\tGot it. I've added this task:\n\t  " + newTask);
                     System.out.printf("""
                                 Now you have %d tasks in the list.
                             %n""", tasks.size());
