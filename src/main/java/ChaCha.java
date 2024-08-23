@@ -9,12 +9,12 @@ public class ChaCha {
 //        System.out.println("Hello from\n" + logo);
 
         String greeting = "     ____________________________________________________________ \n" +
-                "     Hello! I'm ChaCha \n" +
+                "     Hello! I'm ChaCha the ChatBot. \n" +
                 "     What can I do for you? \n" +
                 "     ____________________________________________________________ \n";
 
         String exit = "     ____________________________________________________________ \n" +
-                "     Bye. Hope to see you again soon! \n" +
+                "     Bye. Hope to talk to you again soon! \n" +
                 "     ____________________________________________________________";
 
         System.out.println(greeting);
@@ -34,9 +34,8 @@ public class ChaCha {
                 System.out.println(list.printList());
             }
 
-            else if (cmd.startsWith("todo ")) {
-                String[] arr = cmd.split(" ");
-                String description = arr[1];
+            else if (cmd.startsWith("todo")) {
+                String description = cmd.substring(5);
                 System.out.println("     ____________________________________________________________ \n" +
                         "     Got it. I've added this task:\n" +
                         "       " + list.addToDo(description).printTask() + "\n" +
@@ -44,7 +43,7 @@ public class ChaCha {
                         "     ____________________________________________________________");
             }
 
-            else if (cmd.startsWith("deadline ")) {
+            else if (cmd.startsWith("deadline")) {
                 String temp = cmd.substring(9);
                 String[] arr = temp.split(" /");
                 String description = arr[0];
@@ -56,7 +55,7 @@ public class ChaCha {
                         "     ____________________________________________________________");
             }
 
-            else if (cmd.startsWith("event ")) {
+            else if (cmd.startsWith("event")) {
                 String temp = cmd.substring(6);
                 String[] arr = temp.split(" /");
                 String description = arr[0];
@@ -80,7 +79,9 @@ public class ChaCha {
             }
 
             else {
-                System.out.println("error");
+                System.out.println("     ____________________________________________________________ \n" +
+                        "Hmmm... I don't seem to understand this. Please input another command! \n" +
+                        "     ____________________________________________________________");
             }
 
             scanner = new Scanner(System.in);
