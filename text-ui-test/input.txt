@@ -1,0 +1,11 @@
+todo eat
+todo sleep
+mark 1
+mark 2
+unmark 1
+deadline lecture 1 /by 5pm
+deadline lecture 2 /by 6pm
+delete 4
+event zoom meeting /from 7pm /to 9pm
+deadline drink
+bye

@@ -134,11 +134,11 @@ public class LunaBot {
                 throw new LunaBotException("Invalid task number provided");
             }
             Task deleted = taskList.remove(taskNumber);
-            System.out.println("____________________________________________________________");
+            System.out.println("___________________________________________________________________");
             System.out.println(" Noted. I've removed this task:");
             System.out.println("   " + deleted);
             System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            System.out.println("___________________________________________________________________");
         }
         catch (NumberFormatException e) {
             throw new LunaBotException("Invalid task number format");
