@@ -31,17 +31,16 @@ public class Elysia {
             } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                 System.out.println(line);
                 System.out.println("Got it. I've added this task:");
+                Task task;
 
                 if (input.startsWith("todo")) {
-                    Task task = addToDos(input.substring(5));
-                    System.out.println(task);
+                    task = addToDos(input.substring(5));
                 } else if (input.startsWith("deadline")) {
-                    Task task = addDeadline(input.substring(9));
-                    System.out.println(task);
+                    task = addDeadline(input.substring(9));
                 } else {
-                    Task task = addEvent(input.substring(6));
-                    System.out.println(task);
+                    task = addEvent(input.substring(6));
                 }
+                System.out.println("  " + task);
                 System.out.println("Now you have " + arrayList.size() + " tasks in the list.");
                 System.out.println(line);
             }
