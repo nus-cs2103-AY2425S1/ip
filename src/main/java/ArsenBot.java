@@ -5,6 +5,8 @@ public class ArsenBot {
         System.out.println("Hello! I'm ArsenBot");
         System.out.println("What can I do for you?\n");
 
+        String[] mem = new String[105];
+        int cnt = 0;
         Scanner reader = new Scanner(System.in);
         while (true) {
             String input = reader.nextLine();
@@ -14,7 +16,15 @@ public class ArsenBot {
                 break;
             }
 
-            System.out.println(input);
+            if (input.equals("list")) {
+                for (int i = 1; i <= cnt; i ++) {
+                    System.out.println(i + ". " + mem[i]);
+                }
+                continue;
+            }
+
+            mem[++ cnt] = input;
+            System.out.println("added: " + input);
         }
     }
 }
