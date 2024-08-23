@@ -46,6 +46,12 @@ public class Fence {
                 ((items.size() == 1) ? " item " : " items ") + "in the list.");
     }
 
+    public void delete(int i) {
+        System.out.println("removed: " + items.get(i-1));
+        System.out.println("(we never make plans)");
+        items.remove(i - 1);
+    }
+
     public static void main(String[] args) {
         Fence fence = new Fence();
         fence.greet();
@@ -60,7 +66,6 @@ public class Fence {
                 break;
             } else if (command.equals("list")) {
                 fence.list();
-                continue;
             } else if (firstWord.equals("todo")) {
                 try {
                     String desc = st.nextToken();
@@ -127,8 +132,12 @@ public class Fence {
                 } else {
                     fence.unmark(i);
                 }
+            } else if (firstWord.equals("delete")) {
+                int i = Integer.parseInt(st.nextToken());
+                fence.delete(i);
+                fence.count();
             } else {
-                System.out.println("fence has been programmed to track your tasks and has lost all ability " +
+                System.out.println("fence is programmed to track your tasks and has long lost all ability " +
                         "to do other things ");
             }
         }
