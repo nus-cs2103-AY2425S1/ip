@@ -1,3 +1,4 @@
+import commands.CommandType;
 import java.util.Scanner;
 import tasks.Deadline;
 import tasks.Event;
@@ -13,14 +14,6 @@ public class NathanBot {
                         What can I do for you?
                        """;
     private static final String EXIT = "Bye. Hope to see you again soon!\n";
-    private static final String BREAK_COMMAND = "bye";
-    private static final String DISPLAY_LIST_COMMAND = "list";
-    private static final String MARK_DONE_COMMAND = "mark ";
-    private static final String MARK_UNDONE_COMMAND = "unmark ";
-    private static final String TODO_COMMAND = "todo ";
-    private static final String DEADLINE_COMMAND = "deadline ";
-    private static final String EVENT_COMMAND = "event ";
-    private static final String DELETE_COMMAND = "delete ";
 
     public static void main(String[] args) {
         TaskList taskList = new TaskList();
@@ -29,25 +22,21 @@ public class NathanBot {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 String input = scanner.nextLine();
-                if (input.equals(BREAK_COMMAND)) {
-                    handleExit();
-                    break;
-                } else if (input.equals(DISPLAY_LIST_COMMAND)) {
-                    handleDisplayList(taskList);
-                } else if (input.startsWith(MARK_DONE_COMMAND)) {
-                    handleMarkCommand(input, MARK_DONE_COMMAND, taskList, true);
-                } else if (input.startsWith(MARK_UNDONE_COMMAND)) {
-                    handleMarkCommand(input, MARK_UNDONE_COMMAND, taskList, false);
-                } else if (input.startsWith(TODO_COMMAND)) {
-                    handleTodoCommand(input, taskList);
-                } else if (input.startsWith(DEADLINE_COMMAND)) {
-                    handleDeadlineCommand(input, taskList);
-                } else if (input.startsWith(EVENT_COMMAND)) {
-                    handleEventCommand(input, taskList);
-                } else if (input.startsWith(DELETE_COMMAND)) {
-                    handleDeleteCommand(input, taskList);
-                } else {
-                    handleUnknownCommand();
+                CommandType commandType = CommandType.fromInput(input);
+
+                switch (commandType) {
+                    case BREAK -> {
+                        handleExit();
+                        return;
+                    }
+                    case DISPLAY_LIST -> handleDisplayList(taskList);
+                    case MARK_DONE -> handleMarkCommand(input, "mark ", taskList, true);
+                    case MARK_UNDONE -> handleMarkCommand(input, "unmark ", taskList, false);
+                    case TODO -> handleTodoCommand(input, taskList);
+                    case DEADLINE -> handleDeadlineCommand(input, taskList);
+                    case EVENT -> handleEventCommand(input, taskList);
+                    case DELETE -> handleDeleteCommand(input, taskList);
+                    default -> handleUnknownCommand();
                 }
             }
         }
@@ -80,7 +69,7 @@ public class NathanBot {
     private static void handleDeleteCommand(String input, TaskList taskList) {
         // Assisted by Copilot
         try {
-            int index = Integer.parseInt(input.substring(DELETE_COMMAND.length()));
+            int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()));
             Task task = taskList.getTask(index - 1);
             taskList.deleteTask(index - 1);
             System.out.println(LINE + "Noted. I've removed this task:\n  " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n" + LINE);
@@ -90,7 +79,7 @@ public class NathanBot {
     }
 
     private static void handleTodoCommand(String input, TaskList taskList) {
-        input = input.substring(TODO_COMMAND.length());
+        input = input.substring(CommandType.TODO.getCommand().length());
         if (input.length() == 0) {
             System.out.println(LINE + "The description of a todo cannot be empty. Use: todo <description>\n" + LINE);
             return;
@@ -102,7 +91,7 @@ public class NathanBot {
 
     private static void handleDeadlineCommand(String input, TaskList taskList) {
         // Logic input by me, syntax suggested by Copilot
-        input = input.substring(DEADLINE_COMMAND.length()).trim();
+        input = input.substring(CommandType.DEADLINE.getCommand().length()).trim();
 
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
@@ -120,7 +109,7 @@ public class NathanBot {
 
     private static void handleEventCommand(String input, TaskList taskList) {
         // Logic input by me, syntax suggested by Copilot
-        input = input.substring(EVENT_COMMAND.length()).trim();
+        input = input.substring(CommandType.EVENT.getCommand().length()).trim();
 
         String[] parts = input.split(" /from | /to ");
         if (parts.length < 3) {
