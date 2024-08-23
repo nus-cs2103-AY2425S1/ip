@@ -23,6 +23,10 @@ public class TaskList {
         tasks.set(index, newTask);
     }
 
+    public void deleteTask(int index) {
+        tasks.remove(index);
+    }
+
     public int getCount() {
         return tasks.size();
     }
