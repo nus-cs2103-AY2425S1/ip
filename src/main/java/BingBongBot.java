@@ -3,11 +3,17 @@ import java.util.List;
 
 public class BingBongBot {
     private final BingBongUI ui;
-    private final List<Task> taskList;
+    private final Storage storage;
+    private List<Task> taskList;
 
-    public BingBongBot(BingBongUI ui) {
+    public BingBongBot(BingBongUI ui, Storage storage) {
         this.ui = ui;
-        this.taskList = new ArrayList<>();
+        this.storage = storage;
+        try {
+            this.taskList = storage.load();
+        } catch (BingBongException e) {
+            this.taskList = new ArrayList<>();
+        }
     }
 
     public void run() {
@@ -20,33 +26,33 @@ public class BingBongBot {
                 CommandType command = CommandType.fromString(input);
 
                 switch (command) {
-                    case BYE:
-                        isRunning = false;
-                        ui.showGoodbye();
-                        break;
-                    case LIST:
-                        listTasks();
-                        break;
-                    case MARK:
-                        int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                        markTask(markIndex);
-                        break;
-                    case UNMARK:
-                        int unmarkIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                        unmarkTask(unmarkIndex);
-                        break;
-                    case DELETE:
-                        int deleteIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                        deleteTask(deleteIndex);
-                        break;
-                    case TODO:
-                    case DEADLINE:
-                    case EVENT:
-                        addTask(input, command);
-                        break;
-                    case INVALID:
-                    default:
-                        ui.showResponse("Command not recognized. Please try again...");
+                case BYE:
+                    isRunning = false;
+                    ui.showGoodbye();
+                    break;
+                case LIST:
+                    listTasks();
+                    break;
+                case MARK:
+                    int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    markTask(markIndex);
+                    break;
+                case UNMARK:
+                    int unmarkIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    unmarkTask(unmarkIndex);
+                    break;
+                case DELETE:
+                    int deleteIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    deleteTask(deleteIndex);
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    addTask(input, command);
+                    break;
+                case INVALID:
+                default:
+                    ui.showResponse("Command not recognized. Please try again...");
                 }
             } catch (BingBongException e) {
                 ui.showResponse(e.getMessage());
@@ -102,6 +108,7 @@ public class BingBongBot {
         }
 
         taskList.add(task);
+        saveTasks();
         showAddTaskMessage(task);
     }
 
@@ -117,6 +124,7 @@ public class BingBongBot {
         }
         Task task = taskList.get(i);
         task.markAsDone();
+        saveTasks();
         ui.showResponse("Nice! I've marked this task as done:\n" + task);
     }
 
@@ -126,6 +134,7 @@ public class BingBongBot {
         }
         Task task = taskList.get(i);
         task.markAsNotDone();
+        saveTasks();
         ui.showResponse("OK, I've marked this task as not done yet:\n" + task);
     }
 
@@ -134,6 +143,7 @@ public class BingBongBot {
             throw new IndexOutOfBoundsException();
         }
         Task task = taskList.remove(i);
+        saveTasks();
         showRemoveTaskMessage(task);
     }
 
@@ -142,4 +152,13 @@ public class BingBongBot {
                 + "\n" + "Now you have " + taskList.size()
                 + " tasks in the list");
     }
+
+    private void saveTasks() {
+        try {
+            storage.save(taskList);
+        } catch (BingBongException e) {
+            ui.showResponse("Unable to save tasks in hard disk");
+        }
+    }
+
 }

@@ -1,0 +1,2 @@
+T | 0 | add eggs
+D | 0 | submit hw | Monday 2pm
