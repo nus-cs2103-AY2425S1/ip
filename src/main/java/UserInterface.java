@@ -33,13 +33,4 @@ public class UserInterface {
         System.out.println(echo);
         makeLine();
     }
-
-    public void showTasks(Task[] tasks, int taskCount) {
-        makeLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].getDescription());
-        }
-        makeLine();
-    }
 }
