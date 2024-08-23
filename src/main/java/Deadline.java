@@ -28,10 +28,16 @@ public class Deadline extends IndividualTask{
     }
     @Override
     public String saveToFileFormat() {
-        return "D | " + this.getSaveIcon() + " | " + this.getTaskDescription() + " | " + this.returnBy;
+        return "D | " +
+                this.getSaveIcon() +
+                " | " +
+                this.getTaskDescription() +
+                " | " + this.returnBy;
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.formatDateTime() + ")";
+        return "[D]" +
+                super.toString() +
+                " (by: " + this.formatDateTime() + ")";
     }
 }

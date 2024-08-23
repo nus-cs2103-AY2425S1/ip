@@ -29,6 +29,7 @@ public class Command {
 
     }
 
+
     /**
      * Executes the command on the given TaskList, using the provided Ui and Storage objects.
      * The command could be one of several options, such as listing tasks, marking tasks as done,
@@ -39,7 +40,10 @@ public class Command {
      * @param storage  The Storage object for saving the task list to a file.
      * @throws MentalHealthException If an error occurs while processing the command.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MentalHealthException {
+
+    public void execute(TaskList tasks, Ui ui, Storage storage)
+            throws MentalHealthException {
+
         String message = this.message.strip().toLowerCase();
         String[] parts = message.split(" ");
 
@@ -57,10 +61,16 @@ public class Command {
                     IndividualTask curTask = tasks.getListTask().get(number - 1);
                     if (checkMarkOrUnmark.equals("mark")) {
                         curTask.markOrUnmark("mark");
-                        System.out.println(this.indent + "Okays! I've marked this task as done:" + "\n" + this.formatMessage(curTask, tasks.getListTask().size()));
+                        System.out.println(
+                                this.indent +
+                                "Okays! I've marked this task as done:" +
+                                "\n" + this.formatMessage(curTask, tasks.getListTask().size()));
                     } else if (checkMarkOrUnmark.equals("unmark")) {
                         curTask.markOrUnmark("unmark");
-                        System.out.println(this.indent + "Okay! I've marked this task as not done:" + "\n" + this.formatMessage(curTask, tasks.getListTask().size()));
+                        System.out.println(
+                                this.indent +
+                                "Okay! I've marked this task as not done:" +
+                                "\n" + this.formatMessage(curTask, tasks.getListTask().size()));
                     } else {
                         System.out.println("Not a valid command.");
                     }
@@ -73,9 +83,12 @@ public class Command {
                 if (parts.length > 1 && parts[0].equals("delete")) {
                     int number = Integer.parseInt(parts[parts.length - 1]);
                     System.out.println("Extracted Task number: " + number);
-                    IndividualTask curTask = tasks.getListTask().get(number - 1); // Ensure curTask is defined here
+                    IndividualTask curTask = tasks.getListTask().get(number - 1);
                     tasks.deleteTask(number - 1);
-                    System.out.println(this.indent + "Alrighty! I will remove the task: " + "\n" + this.formatMessage(curTask, tasks.getListTask().size()));
+                    System.out.println(
+                            this.indent +
+                            "Alrighty! I will remove the task: " +
+                             "\n" + this.formatMessage(curTask, tasks.getListTask().size()));
                 } else {
                     System.out.println("No Task found.");
                 }
@@ -102,29 +115,40 @@ public class Command {
      * @param storage  The Storage object for saving the updated task list to a file.
      * @throws MentalHealthException If an error occurs while processing the task command.
      */
-    public void processMessage(String msg, TaskList tasks, Storage storage) throws MentalHealthException {
+
+    public void processMessage(String msg, TaskList tasks, Storage storage)
+            throws MentalHealthException {
+
         String[] message = msg.split(" ");
         if (message[0].equalsIgnoreCase(CommandType.TODO.toString().toLowerCase())) {
             if (message.length < 2 || message[1].trim().isEmpty()) {
-                throw new MentalHealthException("The description of a todo cannot be empty.");
+                throw new MentalHealthException(
+                        "The description of a todo cannot be empty.");
             }
             String type = "todo";
             String todo = this.message.substring(type.length()).trim();
             ToDo newTodo = new ToDo(todo);
             tasks.addTask(newTodo);
-            System.out.println(this.indent + "Okays! I've added this task:" + "\n" + this.formatMessage(newTodo, tasks.getListTask().size()));
+            System.out.println(
+                    this.indent +
+                    "Okays! I've added this task:" +
+                     "\n" + this.formatMessage(newTodo, tasks.getListTask().size()));
         }
         else if (message[0].equalsIgnoreCase(CommandType.DEADLINE.toString().toLowerCase())) {
             String[] parts = this.message.split(" /by ", 2);
             if (parts.length == 2) {
                 String type = "deadline";
-                String description = parts[0].substring(type.length()).trim(); // get the action
-                String by = parts[1].trim(); // get the date
+                String description = parts[0].substring(type.length()).trim();
+                String by = parts[1].trim();
                 Deadline newDeadline = new Deadline(description, by);
                 tasks.addTask(newDeadline);
-                System.out.println(this.indent + "Okays! I've added this task:" + "\n" + this.formatMessage(newDeadline, tasks.getListTask().size()));
+                System.out.println(
+                        this.indent +
+                        "Okays! I've added this task:" +
+                        "\n" + this.formatMessage(newDeadline, tasks.getListTask().size()));
             } else {
-                throw new MentalHealthException("The string doesn't contain the expected format for a deadline.");
+                throw new MentalHealthException(
+                        "The string doesn't contain the expected format for a deadline.");
             }
 
         }
@@ -132,14 +156,17 @@ public class Command {
             String[] parts = this.message.split(" /from ", 2);
             if (parts.length == 2) {
                 String type = "event";
-                String description = parts[0].substring(type.length()).trim(); // get the action
-                String[] secondPart = parts[1].split(" /to ", 2); //split at /to
+                String description = parts[0].substring(type.length()).trim();
+                String[] secondPart = parts[1].split(" /to ", 2);
                 if (secondPart.length == 2) {
                     String from =  secondPart[0].trim();
                     String to = secondPart[1].trim();
                     Event newEvent = new Event(description, from, to);
                     tasks.addTask(newEvent);
-                    System.out.println(this.indent + "Okays! I've added this task:" + "\n" + this.formatMessage(newEvent, tasks.getListTask().size()));
+                    System.out.println(
+                            this.indent +
+                            "Okays! I've added this task:" +
+                            "\n" + this.formatMessage(newEvent, tasks.getListTask().size()));
                 } else {
                     throw new MentalHealthException("The string doesn't contain the '/to' part.");
                 }
@@ -171,7 +198,13 @@ public class Command {
      * @return The formatted task message.
      */
     public String formatMessage(IndividualTask task, int num) {
-        return this.indent + this.separator + "\n" + this.indent + task + "\n" + this.indent + "Now you have " + num + " tasks in the list." + "\n" + this.indent  + this.separator;
+        return  this.indent +
+                this.separator +
+                "\n" + this.indent
+                + task + "\n" +
+                this.indent +
+                "Now you have " +
+                num + " tasks in the list." + "\n" + this.indent  + this.separator;
     }
 
 }
