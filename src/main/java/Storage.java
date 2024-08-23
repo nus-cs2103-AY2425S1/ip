@@ -49,7 +49,7 @@ public class Storage {
         return tasks;
     }
 
-    public void save(List<Task> tasks) throws BingBongException {
+    public void save(TaskList tasks) throws BingBongException {
         File file = new File(filePath);
 
         // Ensure the parent directory exists
