@@ -41,6 +41,16 @@ public class TaskList {
         this.tasklist.get(idx-1).uncomplete();
     }
 
+    public Task delete(int idx) {
+        if (idx < 1 || idx > this.tasklist.size()) {
+            return null;
+        }
+
+        Task deleted = this.tasklist.get(idx-1);
+        this.tasklist.remove(idx-1);
+        return deleted;
+    }
+
     public int getSize() {
         return this.tasklist.size();
     }

@@ -43,6 +43,23 @@ public class Bob {
         Bob.prettyPrint(new String[] { "OK, I've marked this task as not done yet:", Bob.taskList.describeTask(idx) });
     }
 
+    private static void deleteTask(String input) {
+        String[] inputs = Bob.splitInput(input, new String[] {"delete"});
+        int idx;
+        try {
+            idx = Integer.parseInt(inputs[0]);
+        } catch(NumberFormatException e) {
+            throw new TaskIndexException(inputs[0]);
+        }
+        if (idx <= 0 || idx > Bob.taskList.getSize()) {
+            throw new TaskIndexException(inputs[0]);
+        }
+        Task deleted = Bob.taskList.delete(idx);
+        Bob.prettyPrint(new String[] {"Noted. I've removed this task:",
+                deleted.toString(),
+                String.format("Now you have %d tasks in the list.", Bob.taskList.getSize())});
+    }
+
     private static String[] splitInput(String input, String[] splits) {
         String[] result = new String[splits.length];
         int[] splitIdxs = new int[splits.length + 1];
@@ -150,6 +167,8 @@ public class Bob {
                         continue;
                     }
                     case("delete"):
+                        Bob.deleteTask(input);
+                        continue;
                     default:
                         throw new UnknownCommandException(arguments[0]);
                 }
