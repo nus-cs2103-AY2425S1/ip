@@ -101,6 +101,7 @@ public class Bonnie {
             name = component1[0];
         } else {
             System.out.println("Error: Unknown command entered.");
+            return;
         }
         System.out.println(String.format("Hey %s, I have added \"%s\" into your task list!\n", username, name));
         System.out.println(String.format("You now have %d tasks to complete!", tasklist.size()));
