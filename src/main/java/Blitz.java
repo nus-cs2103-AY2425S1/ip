@@ -1,3 +1,6 @@
+import exceptions.InvalidTaskException;
+import exceptions.NoTaskDescriptionException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,19 +43,19 @@ public class Blitz{
                 System.out.println("Come on, that is not a number bro. Don't worry, try again.");
             }
         }else {
-            Task newTask = Task.createTask(userInput);
-
-            if (newTask == null) {
-                System.out.println("THAT IS AN INVALID TASK");
-                return;
+            try {
+                Task newTask = Task.createTask(userInput);
+                inputHistory.add(newTask);
+                System.out.println("----------------\n" +
+                        "Alrighty! The following task has been added:\n " +
+                        newTask + "\n" +
+                        "Oh my goodness you have " + inputHistory.size() + " tasks remaining\n" +
+                        "----------------\n");
+            } catch (InvalidTaskException e) {
+                System.out.println("THAT IS AN INVALID TASK LAH");
+            } catch (NoTaskDescriptionException e) {
+                System.out.println("Wah, no description then I record what?");
             }
-
-            inputHistory.add(newTask);
-            System.out.println("----------------\n" +
-                    "Alrighty! The following task has been added:\n " +
-                    newTask + "\n" +
-                    "Oh my goodness you have " + inputHistory.size() + " tasks remaining\n" +
-                    "----------------\n");
         }
     }
 
