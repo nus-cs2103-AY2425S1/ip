@@ -1,13 +1,19 @@
 Hello I'm Bobby
 What can I do for you today?
-added: [T][ ] read book
+Task added successfully:
+  [T][ ] read book
+Now you have 1 tasks in the list.
 Nice! I've marked this task as done: [T][X] read book
 OK, I've marked this task as not done yet: [T][ ] read book
 1.[T][ ] read book
-added: [D][ ] return book (by: Sunday)
+Task added successfully:
+  [D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
 1.[T][ ] read book
 2.[D][ ] return book (by: Sunday)
-added: [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Task added successfully:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
 1.[T][ ] read book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -21,4 +27,11 @@ OOPS!!! I am sorry, but I do not know what that means!
 OOPS!!! The task number provided is invalid.
 OOPS!!! The description or deadline of a deadline task cannot be empty.
 OOPS!!! The description, start time, or end time of an event cannot be empty.
+Task removed successfully:
+  [T][X] read book
+Now you have 2 tasks in the list.
+OOPS!!! The task number provided is invalid.
+OOPS!!! The task number provided is invalid.
+1.[D][X] return book (by: Sunday)
+2.[E][X] project meeting (from: Mon 2pm to: 4pm)
 Bye. Hope to see you again soon!

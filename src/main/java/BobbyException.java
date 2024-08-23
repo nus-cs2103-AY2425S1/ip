@@ -10,6 +10,11 @@ class InvalidTaskNumberException extends BobbyException {
     }
 }
 
+class InvalidCommandFormatException extends BobbyException {
+    public InvalidCommandFormatException(String command, String input) {
+        super(String.format("You must provide a %s to %s", input, command));
+    }
+}
 class EmptyTodoException extends BobbyException {
     public EmptyTodoException() {
         super("The description of todo cannot be empty!");

@@ -1,5 +1,5 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Bobby {
 
     /**
@@ -26,46 +26,62 @@ public class Bobby {
         System.out.println(input);
     }
 
-    private static Task[] tasks = new Task[100];
-    private static int count = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void addTask(Task task) {
-        if (count < tasks.length) {
-            tasks[count] = task;
-            count++;
-            System.out.println("added: " + task);
-        } else {
-            System.out.println("Task list is full! Cannot add more tasks.");
-        }
+        tasks.add(task);
+        System.out.println("Task added successfully:");
+        System.out.println("  " + task);
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
     }
 
     private static void printTasks() {
-        if (count == 0) {
+        if (tasks.size() == 0) {
             System.out.println("No tasks added to the list yet.");
         } else {
-            for (int i = 0; i < count; i++) {
-                System.out.println(String.format("%d.%s", i + 1, tasks[i]));
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(String.format("%d.%s", i + 1, tasks.get(i)));
             }
         }
     }
+    private static void deleteTask(String userInput) throws BobbyException {
+        String[] parts = userInput.split(" ");
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new InvalidCommandFormatException("delete", "task number");
+        }
+        try {
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            Task removedTask = tasks.remove(taskNumber);
+            System.out.println("Task removed successfully:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-private static void handleMarkTask(String userInput) throws InvalidTaskNumberException {
-    int taskNumber = Integer.parseInt(userInput.substring(5).trim()) - 1;
-    if (taskNumber < 0 || taskNumber >= count) {
-        throw new InvalidTaskNumberException();
-    }
-    tasks[taskNumber].markTask();
-    System.out.println("Nice! I've marked this task as done: " + tasks[taskNumber]);
-}
-
-    private static void handleUnmarkTask(String userInput) throws InvalidTaskNumberException {
-        int taskNumber = Integer.parseInt(userInput.substring(7).trim()) - 1;
-        if (taskNumber < 0 || taskNumber >= count) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskNumberException();
         }
-        tasks[taskNumber].unmarkTask();
-        System.out.println("OK, I've marked this task as not done yet: " + tasks[taskNumber]);
     }
+
+
+    private static void handleTaskStatusUpdate(String userInput, boolean mark) throws BobbyException {
+    String[] parts = userInput.split(" ");
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new InvalidCommandFormatException(mark ? "mark" : "unmark", "task number");
+        }
+        try {
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            if (mark) {
+                tasks.get(taskNumber).markTask();
+                System.out.println("Nice! I've marked this task as done: " + tasks.get(taskNumber));
+            } else {
+                tasks.get(taskNumber).unmarkTask();
+                System.out.println("OK, I've marked this task as not done yet: " + tasks.get(taskNumber));
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException();
+        }
+
+}
+
     private static void handleTask(String userInput) throws BobbyException {
         if (userInput.startsWith("todo ")) {
             String description = userInput.substring(5).trim();
@@ -109,10 +125,12 @@ public static void main(String[] args) {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 printTasks();
-            } else if (userInput.startsWith("mark ")) {
-                handleMarkTask(userInput);
-            } else if (userInput.startsWith("unmark ")) {
-                handleUnmarkTask(userInput);
+            } else if (userInput.startsWith("mark")) {
+                handleTaskStatusUpdate(userInput, true);
+            } else if (userInput.startsWith("unmark")) {
+                handleTaskStatusUpdate(userInput, false);
+            } else if (userInput.startsWith("delete")) {
+                deleteTask(userInput);
             } else {
                 handleTask(userInput);
             }

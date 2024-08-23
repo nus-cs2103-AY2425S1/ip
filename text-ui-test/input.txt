@@ -14,4 +14,8 @@ todo
 mark 4
 deadline asdf
 event asldfkjals
+delete 1
+delete asdf
+delete 3
+list
 bye
