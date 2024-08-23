@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Kira {
 
     public static void main(String[] args) {
@@ -10,12 +12,31 @@ public class Kira {
         System.out.println("Hello from\n" + logo);
          */
 
-        System.out.println("____________________________________________________________\n" +
+        Scanner scanner = new Scanner(System.in);
+
+        String line = "____________________________________________________________\n";
+
+        System.out.println(line +
                 " Hello! I'm Kira\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
+                line);
+
+        while (true) {
+            String userInput = scanner.nextLine();
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                System.out.println(line +
+                        "Bye. Hope to see you again soon!\n" +
+                        line);
+                break;
+            }
+
+            Echo echo = new Echo(userInput);
+            echo.output();
+
+        }
+
+
 
     }
 }
