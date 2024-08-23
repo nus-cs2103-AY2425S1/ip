@@ -24,9 +24,12 @@ public class Murphy {
                 scanner.close();
                 return;
             }
+
             if (input.equals("list")) {
                 Murphy.list();
-            } else if (input.startsWith("mark ")) {
+            }
+
+            else if (input.startsWith("mark ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
                     System.out.println("mark usage: \"mark [task number]\"");
@@ -47,7 +50,9 @@ public class Murphy {
                     continue;
                 }
                 Murphy.markItem(index);
-            } else if (input.startsWith("unmark ")){
+            }
+
+            else if (input.startsWith("unmark ")){
                 String[] split = input.split(" ");
                 if (split.length > 2) {
                     System.out.println("unmark usage: \"unmark [task number]\"");
@@ -68,7 +73,32 @@ public class Murphy {
                     continue;
                 }
                 Murphy.unmarkItem(index);
-            } else if(input.startsWith("todo ")){
+            }
+
+            else if (input.startsWith("delete ")){
+                String[] split = input.split(" ");
+                if (split.length > 2) {
+                    System.out.println("delete usage: \"delete [task number]\"");
+                    prLine();
+                    continue;
+                }
+                int index;
+                try {
+                    index = Integer.parseInt(split[1]);
+                } catch (NumberFormatException e) {
+                    System.out.println("delete usage: \"delete [task number]\"");
+                    prLine();
+                    continue;
+                }
+                try {
+                    Murphy.deleteItem(index);
+                } catch (MurphyException e) {
+                    System.out.println(e.getMessage());
+                    prLine();
+                }
+            }
+
+            else if(input.startsWith("todo ")){
                 try {
                     Task todo = new Todo(input.substring(5));
                     Murphy.addItem(todo);
@@ -77,7 +107,9 @@ public class Murphy {
                     System.out.println("todo usage: \"todo [description]\"");
                     prLine();
                 }
-            } else if(input.startsWith("deadline ")) {
+            }
+
+            else if(input.startsWith("deadline ")) {
                 if (!input.contains("/by ")) {
                     System.out.println("deadline usage: \"deadline [description] /by [by when]\"");
                     prLine();
@@ -92,7 +124,9 @@ public class Murphy {
                     System.out.println("deadline usage: \"deadline [description] /by [by when]\"");
                     prLine();
                 }
-            } else if (input.startsWith("event ")) {
+            }
+
+            else if (input.startsWith("event ")) {
                 if (!input.contains("/from ") || !input.contains("/to ")) {
                     System.out.println("event usage: \"event [description] /from [by when] /to [to when]\"");
                     prLine();
@@ -108,7 +142,9 @@ public class Murphy {
                     System.out.println("event usage: \"event [description] /from [by when] /to [to when]\"");
                     prLine();
                 }
-            } else {
+            }
+
+            else {
                 System.out.println("Command not found");
                 prLine();
             }
@@ -125,7 +161,13 @@ public class Murphy {
     }
 
     private static void list() {
-        for (int i = 0, sz = Murphy.tasks.size(); i < sz; i++) {
+        int sz = Murphy.tasks.size();
+        if (sz == 0) {
+            System.out.println("Your list is currently empty. Add some tasks to get started!");
+            prLine();
+            return;
+        }
+        for (int i = 0; i < sz; i++) {
             System.out.println((i+1) + ". " + Murphy.tasks.get(i));
         }
         prLine();
@@ -150,6 +192,17 @@ public class Murphy {
         Murphy.tasks.get(index - 1).unmark();
         System.out.println("I've unmarked this task. Guess Murphy struck?");
         System.out.println(Murphy.tasks.get(index - 1));
+        prLine();
+    }
+
+    private static void deleteItem(int index) throws MurphyException {
+        if (index <= 0 || index > Murphy.tasks.size()) {
+            throw new MurphyException("The task number you chose is out of the range of tasks!");
+        }
+        Task task = Murphy.tasks.remove(index - 1);
+        System.out.println("Got it. I've deleted this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + Murphy.tasks.size() + " task(s) in the list.");
         prLine();
     }
 }

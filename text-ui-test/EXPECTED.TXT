@@ -32,5 +32,12 @@ ____________________
 2. [D][ ] homework (by: Sunday)
 3. [E][ ] dinner (from: 6pm to: 9pm)
 ____________________
+Got it. I've deleted this task:
+[E][ ] dinner (from: 6pm to: 9pm)
+Now you have 2 task(s) in the list.
+____________________
+1. [T][ ] test todo
+2. [D][ ] homework (by: Sunday)
+____________________
 Bye. Hope to see you again soon!
 ____________________
