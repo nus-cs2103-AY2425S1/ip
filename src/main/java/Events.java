@@ -1,12 +1,13 @@
 public class Events extends Task{
-    String time;
-    Events(String content, String time) {
+    String start, end;
+    Events(String content, String start, String end) {
         super(content);
-        this.time = time;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (" + this.time + ")";
+        return "[E]" + super.toString() + " (from: " + this.start + " to " + this.end + ")";
     }
 }
