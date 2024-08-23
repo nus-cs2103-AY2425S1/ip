@@ -8,6 +8,7 @@ public class Denim {
     static final String TASK_TODO = "todo";
     static final String TASK_DEADLINE = "deadline";
     static final String TASK_EVENT = "event";
+    static final String TASK_DELETE = "delete";
 
     static final String horizontalLine = "____________________________________________________________";
     static final String chatBotName = "Denim";
@@ -54,6 +55,9 @@ public class Denim {
                 break;
             case TASK_UNMARK:
                 handleUnmark(argument);
+                break;
+            case TASK_DELETE:
+                handleDelete(argument);
                 break;
             case TASK_TODO:
                 handleTodo(argument);
@@ -122,6 +126,38 @@ public class Denim {
 
             taskList[index].setDone(false);
             System.out.printf("Okay, I've marked this task as not done yet: \n %s\n", taskList[index]);
+        } catch (NumberFormatException e) {
+            throw new DenimException("y u do dis! Argument must be a valid numb3r! ( =ω=)..nyaa");
+        }
+    }
+
+    static void handleDelete(String argument) throws DenimException {
+        if (argument.isEmpty()) {
+            throw new DenimException("I do not know what you are trying to delete! >.<");
+        }
+
+        try {
+            int index = Integer.parseInt(argument) - 1;
+
+            if (index < 0 || index >= taskSize) {
+                throw new DenimException("OOPS!!! The task number is out of range. >=C");
+            }
+
+            Task deletedTask = taskList[index];
+
+            // Shift elements after deletion
+            for (int i = index; i < taskSize - 1; i++) {
+                taskList[i] = taskList[i + 1];
+            }
+
+            // Nullify the last element and reduce the task size
+            taskList[taskSize - 1] = null;
+            taskSize--;
+
+            String deleteMessage = String.format("%s%nGot it. I've deleted this task:%n   " +
+                    "%s%nNow you have %d tasks in the list.%n%s%n", horizontalLine,
+                    deletedTask, taskSize, horizontalLine);
+            System.out.println(deleteMessage);
         } catch (NumberFormatException e) {
             throw new DenimException("y u do dis! Argument must be a valid numb3r! ( =ω=)..nyaa");
         }
