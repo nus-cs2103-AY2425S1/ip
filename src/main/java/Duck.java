@@ -61,26 +61,26 @@ public class Duck {
         try {
             Instruction instruction = Instruction.valueOf(getInstruction(message));
             switch (instruction) {
-                case LIST:
-                    listInstruction();
-                    break;
-                case MARK, UNMARK:
-                    updateStatus(message);
-                    break;
-                case DELETE:
-                    deleteTask(message);
-                    break;
-                case TODO:
-                    toDoInstruction(message);
-                    break;
-                case DEADLINE:
-                    deadlineInstruction(message);
-                    break;
-                case EVENT:
-                    eventInstruction(message);
-                    break;
-                default:
-                    break;
+            case LIST:
+                listInstruction();
+                break;
+            case MARK, UNMARK:
+                updateStatus(message);
+                break;
+            case DELETE:
+                deleteTask(message);
+                break;
+            case TODO:
+                toDoInstruction(message);
+                break;
+            case DEADLINE:
+                deadlineInstruction(message);
+                break;
+            case EVENT:
+                eventInstruction(message);
+                break;
+            default:
+                break;
             }
 
         } catch (IllegalArgumentException e) {
@@ -132,8 +132,8 @@ public class Duck {
             String to = matcher.group(3);
             return new Event(description, from, to);
         } else {
-            throw new DukeException("Give me a valid event format!\n" +
-                    "event {description} /from {start} /to {end}");
+            throw new DukeException("Give me a valid event format!\n"
+                    + "event {description} /from {start} /to {end}");
         }
 
     }
@@ -162,7 +162,7 @@ public class Duck {
         addTask(event);
     }
 
-    public static boolean checkUpdateTaskFormat(String message) {
+    public static boolean isCorrectUpdateFormat(String message) {
         String[] words = message.split(" ");
         return words.length == 2 && isInteger(words[1]);
     }
@@ -177,9 +177,9 @@ public class Duck {
     }
 
     public static void updateStatus(String message) throws DukeException {
-        if (!checkUpdateTaskFormat(message)) {
-            throw new DukeException("Update tasks with correct format please >:(\n" +
-                    "mark/unmark {index of task to update}");
+        if (!isCorrectUpdateFormat(message)) {
+            throw new DukeException("Update tasks with correct format please >:(\n"
+                    + "mark/unmark {index of task to update}");
         }
 
         String[] words = message.split(" ");
@@ -197,16 +197,16 @@ public class Duck {
     }
 
     public static void deleteTask(String message) throws DukeException {
-        if (!checkUpdateTaskFormat(message)) {
-            throw new DukeException("Delete tasks with correct format please >:(\n" +
-                    "delete {index of task to delete}");
+        if (!isCorrectUpdateFormat(message)) {
+            throw new DukeException("Delete tasks with correct format please >:(\n"
+                    + "delete {index of task to delete}");
         }
 
         String[] words = message.split(" ");
 
         try {
-            System.out.println("Noted. I've removed this task:\n" +
-                    tasks.get(Integer.parseInt(words[1]) - 1));
+            System.out.println("Noted. I've removed this task:\n"
+                    + tasks.get(Integer.parseInt(words[1]) - 1));
             tasks.remove(Integer.parseInt(words[1]) - 1);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
         } catch (NumberFormatException e) {
