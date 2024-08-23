@@ -1,8 +1,7 @@
-public class Task {
+abstract class Task {
     private final String description;
     private boolean isDone;
 
-    // Protected as we still want Brock (in same package) to access
     protected Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -21,6 +20,10 @@ public class Task {
     }
 
     protected String getStatusIcon() {
-        return isDone ? "X" : "";
-    }
+        return this.isDone ? "X" : " ";
+    };
+
+    abstract protected String getTaskType();
+
+    abstract protected String getExtraInfo();
 }

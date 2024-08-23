@@ -17,67 +17,169 @@ public class Brock {
         return Character.getNumericValue(targetItemNumber) - 1;
     }
 
+    // Helper function to create task and return the created task
+    private static Task createTask(String command) {
+        String[] commandWords = command.split(" ");
+        String firstWord = commandWords[0];
+        int commandLength = commandWords.length;
+
+        Task task;
+        StringBuilder description = new StringBuilder();
+        if (firstWord.equals("todo")) {
+            for (int i = 1; i < commandLength; i++) {
+                description.append(commandWords[i])
+                        .append(" ");
+            }
+            task = new ToDos(description.toString());
+
+        } else if (firstWord.equals("deadline")) {
+            for (int i = 1; i < commandLength; i++) {
+                if (commandWords[i].equals("/by")) {
+                    break;
+                }
+                description.append(commandWords[i])
+                        .append(" ");
+            }
+            StringBuilder dueDate = new StringBuilder();
+            boolean dueDateActive = false;
+            for (String word : commandWords) {
+                if (dueDateActive) {
+                    dueDate.append(word)
+                            .append(" ");
+                }
+                if (word.equals("/by")) {
+                    dueDateActive = true;
+                }
+            }
+            // Need to trim away the trailing whitespace
+            task = new Deadlines(description.toString(),
+                    dueDate.toString().trim());
+
+        } else {
+            StringBuilder startDate = new StringBuilder();
+            StringBuilder endDate = new StringBuilder();
+            boolean startDateActive = false;
+            boolean endDateActive = false;
+            for (String word : commandWords) {
+                if (word.equals("/from")) {
+                    startDateActive = true;
+                    continue;
+                }
+                if (word.equals("/to")) {
+                    startDateActive = false;
+                    endDateActive = true;
+                    continue;
+                }
+                if (startDateActive) {
+                    startDate.append(word)
+                            .append(" ");
+                }
+                if (endDateActive) {
+                    endDate.append(word)
+                            .append(" ");
+                }
+            }
+            for (int i = 1; i < commandLength; i++) {
+                if (commandWords[i].equals("/from")) {
+                    break;
+                }
+                description.append(commandWords[i])
+                        .append(" ");
+            }
+            // Need to trim away the trailing whitespace
+            task = new Events(description.toString(),
+                    startDate.toString(),
+                    endDate.toString().trim());
+        }
+        return task;
+    }
+
+    // Helper function to count number of tasks currently
+    private static int numTasks() {
+        int count = 0;
+        for (int i = 0; i < 100; i++) {
+            if (Brock.tasks[i] != null) {
+                count += 1;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+    // Helper function to get task details
+    private static String getDetails(Task task) {
+        return "[" + task.getTaskType() + "]"
+                + "[" + task.getStatusIcon() + "] "
+                + task.getDescription()
+                + task.getExtraInfo()
+                + '\n';
+    }
+
     public static void main(String[] args) {
         // Create a scanner object
         // Reads from standard system input
         Scanner scanner = new Scanner(System.in);
 
         // Initial message
-        String initialPart1 = "Hello! I'm Brock\n";
-        String initialPart2 = "What can I do for you?\n";
-        String initial = initialPart1 + initialPart2;
-        displayResponse(initial);
+        displayResponse("""
+                Hello! I'm Brock
+                What can I do for you?
+                """);
 
         // Main loop
         while (true) {
             String command = scanner.nextLine();
             if (command.equals("bye")) {
-                String byeMessage = "Bye. Hope to see you again soon!\n";
-                displayResponse(byeMessage);
+                displayResponse("Bye. Hope to see you again soon!\n");
                 break;
 
             } else if (command.equals("list")) {
                 // Use SB as it is a faster way to append strings
                 StringBuilder tasksString = new StringBuilder();
                 for (int i = 0; i < 100; i++) {
-                    if (tasks[i] == null) {
+                    Task currTask = Brock.tasks[i];
+                    if (currTask == null) {
                         break;
                     }
                     String itemNumber = i + 1 + ".";
                     tasksString.append(itemNumber)
-                            .append("[")
-                            .append(tasks[i].getStatusIcon())
-                            .append("] ")
-                            .append(tasks[i].getDescription());
+                            .append(getDetails(currTask));
                 }
-                displayResponse(tasksString.toString());
+                int totalTasks = numTasks();
+                displayResponse((totalTasks == 1
+                        ? "Here is the task in your list:\n"
+                        : "Here are the tasks in your list:\n")
+                        + tasksString);
 
             } else if (command.startsWith("mark")) {
                 Task targetTask = Brock.tasks[getTargetIndex(command)];
                 targetTask.markAsDone();
-
-                String responsePart1 = "Nice! I've marked this task as done:\n";
-                String responsePart2 = "  [" + targetTask.getStatusIcon() + "] "
-                        + targetTask.getDescription();
-                String response = responsePart1 + responsePart2;
-                displayResponse(response);
+                displayResponse("Nice! I've marked this task as done:\n"
+                        + "  "
+                        + getDetails(targetTask));
 
             } else if (command.startsWith("unmark")) {
                 Task targetTask = Brock.tasks[getTargetIndex(command)];
                 targetTask.markAsUndone();
-
-                String responsePart1 = "OK, I've marked this task as not done yet:\n";
-                String responsePart2 = "  [" + targetTask.getStatusIcon() + "] "
-                        + targetTask.getDescription();
-                String response = responsePart1 + responsePart2;
-                displayResponse(response);
+                displayResponse("OK, I've marked this task as not done yet:\n"
+                        + "  "
+                        + getDetails(targetTask));
 
             } else {
-                displayResponse("added: " + command + '\n');
-
-                Task task = new Task(command + '\n');
+                Task task = createTask(command);
                 Brock.tasks[tasksIndex] = task;
                 tasksIndex++;
+
+                int totalTasks = numTasks();
+                displayResponse("Got it. I've added this task:\n"
+                        + "  "
+                        + getDetails(task)
+                        + "Now you have "
+                        + totalTasks
+                        + (totalTasks == 1
+                        ? " task in the list\n"
+                        : " tasks in the list\n"));
             }
         }
     }
