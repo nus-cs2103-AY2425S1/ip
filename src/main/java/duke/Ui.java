@@ -5,6 +5,9 @@ import duke.tasks.Task;
 import java.util.List;
 
 public class Ui {
+    public static final String BOT_NAME = "DailyTasks";
+    public static final String GREETING = "Hello! I'm " + BOT_NAME + ", your awesome task planner!";
+    public static final String GOODBYE = "Bye. Hope to see you again soon!";
     public static final String SPACING = "    ";
     public static final String BORDER = "____________________________________________________________";
 
@@ -14,6 +17,14 @@ public class Ui {
 
     private static String formatSingleTask(int i, Task task) {
         return Ui.SPACING + " " + i + "." + task.toString() + "\n";
+    }
+
+    public void showWelcome() {
+        System.out.println(Ui.formatOutputMessage(GREETING));
+    }
+
+    public void showGoodbye() {
+        System.out.println(Ui.formatOutputMessage(GOODBYE));
     }
 
     public static String formatTaskListings(List<Task> tasks, boolean filtered) {

@@ -20,7 +20,7 @@ public class Storage {
     private static final String STATE_FILE_DIRECTORY = "./data";
     private static final String STATE_FILE = "save.txt";
 
-    public static List<Task> loadStateFileToTasksList() throws IOException {
+    public List<Task> loadStateFileToTasksList() throws IOException {
         Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
         Path filePath = dirPath.resolve(Storage.STATE_FILE);
 
@@ -71,7 +71,6 @@ public class Storage {
             };
         } else {
             String[] times = taskInformation[3].split("-");
-            System.out.println(times[0] + " " + times[1]);
             String from = times[0];
             String to = times[1];
 
