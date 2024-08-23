@@ -17,6 +17,7 @@ public class Nah {
 
     private void exit() {
         System.out.println(byeLine);
+        System.out.println("____________________________________________________________ \n");
     }
 
     private void add(Task newTask) {
