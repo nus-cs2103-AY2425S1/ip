@@ -27,30 +27,55 @@ public class ChoaticBot {
 
         while (true) {
             String userInput = scanner.nextLine();
+            String[] processInput = userInput.split(" ");
+            String action = processInput[0];
+            String otherText = "";
+
+            for (int i = 1; i < processInput.length; i++) {
+                otherText= otherText.concat(processInput[i] + " ");
+            }
+
             if (Objects.equals(userInput, "bye")) {
                 System.out.println(byeMsg);
                 break;
             }
 
             // Listing out list
-            if (Objects.equals(userInput, "list")) {
+            if (action.equals("list")) {
                 printLine();
                 chatBot.tasklist.listTask();
                 printLine();
-            } else if (Objects.equals((userInput.split(" ")[0]), "mark")) {
+            } else if (action.equals("mark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]);
                 printLine();
                 chatBot.tasklist.markTask(index);
                 printLine();
-            } else if (Objects.equals((userInput.split(" ")[0]), "unmark"))  {
+            } else if (action.equals("unmark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]);
                 printLine();
                 chatBot.tasklist.unmarkTask(index);
                 printLine();
-            } else {
-                //Adding task to task list
+            } else if (action.equals("todo")) {
                 printLine();
-                chatBot.tasklist.addTask(userInput);
+                ToDos newToDos = new ToDos(otherText);
+                chatBot.tasklist.addTask(newToDos);
+                printLine();
+            } else if (action.equals("deadline")) {
+                printLine();
+                String[] processAgain = otherText.split("/");
+                String taskName = processAgain[0];
+                String deadline = processAgain[1];
+                Deadlines newDeadline = new Deadlines(taskName, deadline);
+                chatBot.tasklist.addTask(newDeadline);
+                printLine();
+            } else if (action.equals("event")) {
+                printLine();
+                String[] processAgain = otherText.split("/");
+                String taskName = processAgain[0];
+                String from = processAgain[1];
+                String to = processAgain[2];
+                Events newEvent = new Events(taskName, from, to);
+                chatBot.tasklist.addTask(newEvent);
                 printLine();
             }
         }

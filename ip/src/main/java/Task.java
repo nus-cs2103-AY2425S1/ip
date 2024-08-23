@@ -16,6 +16,10 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         String marker = isCompleted ? "[X]" : "[ ]";

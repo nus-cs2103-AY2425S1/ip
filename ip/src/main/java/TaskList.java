@@ -9,11 +9,12 @@ public class TaskList {
         this.numberOfTask = 0;
     }
 
-    public void addTask(String name) {
-        Task newTask = new Task(name);
-        this.tasklist[numberOfTask] = newTask;
+    public void addTask(Task task) {
+        this.tasklist[numberOfTask] = task;
         numberOfTask++;
-        System.out.println("added: " + name + "\n");
+        System.out.println("added: " + task + "\n"
+                + "You have " + numberOfTask + " tasks in the list");
+
     }
 
     public void listTask() {
