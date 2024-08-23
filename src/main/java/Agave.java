@@ -85,7 +85,7 @@ public class Agave {
             String description = split[0].substring(8).trim();
             String by = split[1].trim();
             if (description.isEmpty() || by.isEmpty()) {
-                throw new AgaveException("The description and deadline of a task cannot be empty.");
+                throw new AgaveException("The description and deadline of a task cannot be empty");
             }
             taskManager.addTask(new Deadline(description, by));
             System.out.println("Added deadline: ");
