@@ -32,6 +32,7 @@ public class Talker {
             } finally {
                 System.out.println(LINE);
                 input = reader.nextLine();
+                System.out.println(LINE);
             }
         }
 
