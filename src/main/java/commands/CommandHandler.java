@@ -6,18 +6,13 @@ import tasks.Task;
 import tasks.TaskList;
 import tasks.ToDo;
 
-public class CommandHandler {
+public abstract class CommandHandler {
     private static final String LINE = "____________________________________________________________\n";
     private static final String EXIT = "Bye. Hope to see you again soon!\n";
     private static final String GREET = """
                         Hello! I'm NathanBot
                         What can I do for you?
                        """;
-    private TaskList taskList;
-
-    public CommandHandler(TaskList taskList) {
-        this.taskList = taskList;
-    }
 
     public static void handleGreet() {
         System.out.println(LINE + GREET + LINE);
