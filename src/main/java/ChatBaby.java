@@ -8,7 +8,7 @@ public class ChatBaby {
         greet();
 
         while (true) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
 
             if (input.equals("bye")) {
                 bye();
@@ -16,17 +16,17 @@ public class ChatBaby {
             } else if (input.equals("list")) {
                 printTasks(tasks);
             } else if (input.startsWith("mark")) {
-                markTask(tasks, input);
+                markTask(input, tasks);
             } else if (input.startsWith("unmark")) {
-                unmarkTask(tasks, input);
-            } else if (input.startsWith("todo ")) {
-                addTodoTask(tasks, input.substring(5));
-            } else if (input.startsWith("deadline ")) {
-                addDeadlineTask(tasks, input.substring(9));
-            } else if (input.startsWith("event ")) {
-                addEventTask(tasks, input.substring(6));
+                unmarkTask(input, tasks);
+            } else if (input.startsWith("todo")) {
+                handleTaskCommand(tasks, "todo", input, 5);
+            } else if (input.startsWith("deadline")) {
+                handleTaskCommand(tasks, "deadline", input, 9);
+            } else if (input.startsWith("event")) {
+                handleTaskCommand(tasks, "event", input, 6);
             } else {
-                addTask(tasks, input);
+                printUnknownCommandError();
             }
         }
     }
@@ -53,57 +53,109 @@ public class ChatBaby {
         System.out.println("____________________________________________________________");
     }
 
-    public static void markTask(ArrayList<Task> tasks, String input) {
-        int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-        tasks.get(taskNumber).markAsDone();
-        System.out.println("____________________________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
-                + tasks.get(taskNumber).toString()
-                + "\n____________________________________________________________");
+    private static void markTask(String input, ArrayList<Task> tasks) {
+        try {
+            int index = Integer.parseInt(input.substring(5).trim()) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                tasks.get(index).markAsDone();
+                System.out.println("____________________________________________________________\n"
+                        + "Nice! I've marked this task as done:\n"
+                        + tasks.get(index).toString() + "\n"
+                        + "____________________________________________________________");
+            } else {
+                printInvalidTaskIndexError();
+            }
+        } catch (NumberFormatException e) {
+            printInvalidTaskIndexError();
+        }
     }
 
-    public static void unmarkTask(ArrayList<Task> tasks, String input) {
-        int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-        tasks.get(taskNumber).unMarkAsDone();
-        System.out.println("____________________________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n"
-                + tasks.get(taskNumber).toString()
-                + "\n____________________________________________________________");
+    private static void unmarkTask(String input, ArrayList<Task> tasks) {
+        try {
+            int index = Integer.parseInt(input.substring(7).trim()) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                tasks.get(index).unMarkAsDone();
+                System.out.println("____________________________________________________________\n"
+                        + "OK, I've marked this task as not done yet:\n"
+                        + tasks.get(index).toString() + "\n"
+                        + "____________________________________________________________");
+            } else {
+                printInvalidTaskIndexError();
+            }
+        } catch (NumberFormatException e) {
+            printInvalidTaskIndexError();
+        }
     }
 
-    public static void addTask(ArrayList<Task> tasks, String name) {
-        tasks.add(new Task(name));
+    private static void handleTaskCommand(ArrayList<Task> tasks, String type, String input, int prefixLength) {
+        if (input.length() <= prefixLength) {
+            printEmptyDescriptionError(type);
+            return;
+        }
+
+        String description = input.substring(prefixLength).trim();
+        if (description.isEmpty()) {
+            printEmptyDescriptionError(type);
+            return;
+        }
+
+        Task newTask;
+        switch (type) {
+            case "todo":
+                newTask = new ToDo(description);
+                break;
+            case "deadline":
+                String[] deadlineParts = description.split("/by ");
+                if (deadlineParts.length == 2) {
+                    newTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                } else {
+                    printEmptyDescriptionError(type);
+                    return;
+                }
+                break;
+            case "event":
+                String[] eventParts = description.split("/from ");
+                if (eventParts.length == 2) {
+                    String[] eventDetails = eventParts[1].split("/to ");
+                    if (eventDetails.length == 2) {
+                        newTask = new Event(eventParts[0].trim(), eventDetails[0].trim(), eventDetails[1].trim());
+                    } else {
+                        printEmptyDescriptionError(type);
+                        return;
+                    }
+                } else {
+                    printEmptyDescriptionError(type);
+                    return;
+                }
+                break;
+            default:
+                printUnknownCommandError();
+                return;
+        }
+
+        tasks.add(newTask);
         System.out.println("____________________________________________________________\n"
-                + "added: " + name + "\n"
+                + "Got it. I've added this task:\n"
+                + newTask.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.\n"
                 + "____________________________________________________________");
     }
 
-    public static void addTodoTask(ArrayList<Task> tasks, String name) {
-        tasks.add(new ToDo(name));
+    private static void printInvalidTaskIndexError() {
         System.out.println("____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
-                + "  " + tasks.get(tasks.size() - 1)
-                + "\nNow you have " + tasks.size() + " tasks in the list."
-                + "\n____________________________________________________________");
+                + "Oh no!!! The task index is invalid.\n"
+                + "____________________________________________________________");
     }
 
-    public static void addDeadlineTask(ArrayList<Task> tasks, String input) {
-        String[] parts = input.split(" /by ");
-        tasks.add(new Deadline(parts[0], parts[1]));
+    private static void printEmptyDescriptionError(String type) {
         System.out.println("____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
-                + "  " + tasks.get(tasks.size() - 1)
-                + "\nNow you have " + tasks.size() + " tasks in the list."
-                + "\n____________________________________________________________");
+                + "Oh no!!! The description of a " + type + " cannot be empty.\n"
+                + "____________________________________________________________");
     }
 
-    public static void addEventTask(ArrayList<Task> tasks, String input) {
-        String[] parts = input.split(" /from | /to ");
-        tasks.add(new Event(parts[0], parts[1], parts[2]));
+    private static void printUnknownCommandError() {
         System.out.println("____________________________________________________________\n"
-                + "Got it. I've added this task:\n"
-                + "  " + tasks.get(tasks.size() - 1)
-                + "\nNow you have " + tasks.size() + " tasks in the list."
-                + "\n____________________________________________________________");
+                + "Oh no!!! I'm sorry, but I don't understand that command.\n"
+                + "____________________________________________________________");
     }
 }
