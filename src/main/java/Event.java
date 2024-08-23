@@ -18,4 +18,9 @@ public class Event extends Task {
     public String toString() {
         return "[" + getTaskType() + "]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String getFileString() {
+        return getTaskType() + " | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + start + " | " + end;
+    }
 }

@@ -27,8 +27,7 @@ public class BobbyBot {
 
     private static void runBot(Scanner myScanner) throws DukeException {
         try {
-            Task[] taskList = TaskFile.getTasksFromFile();
-            tasks = new ArrayList<>(List.of(taskList));
+            tasks = TaskFile.getTasksFromFile();
         } catch (IOException e) {
             printInput("Error reading from file. Starting with an empty task list.");
         }

@@ -13,4 +13,9 @@ public class ToDo extends Task {
     public String toString() {
         return "[" + getTaskType() + "]" + super.toString();
     }
+
+    @Override
+    public String getFileString() {
+        return getTaskType() + " | " + (getIsDone() ? "1" : "0") + " | " + getDescription();
+    }
 }

@@ -8,7 +8,7 @@ public class TaskFile {
     private static final String DATA_FOLDER_PATH = "./data";
     private static final String FILE_PATH = DATA_FOLDER_PATH + "/bobbybot.txt";
 
-    protected static Task[] getTasksFromFile() throws IOException {
+    protected static ArrayList<Task> getTasksFromFile() throws IOException {
         File taskListFile = getTaskListFile();
         Scanner fileScanner = new Scanner(taskListFile);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -24,10 +24,10 @@ public class TaskFile {
                 newTask = new ToDo(description);
                 break;
             case "D":
-                newTask = new Deadline(description, taskDetails[3]);
+                newTask = new Deadline(description, taskDetails[3].trim());
                 break;
             case "E":
-                newTask = new Event(description, taskDetails[3], taskDetails[4]);
+                newTask = new Event(description, taskDetails[3].trim(), taskDetails[4].trim());
                 break;
             default:
                 continue;
@@ -35,20 +35,14 @@ public class TaskFile {
             newTask.setIsDone(isDone);
             tasks.add(newTask);
         }
-        return tasks.toArray(new Task[0]);
+        return tasks;
     }
 
     protected static void saveTasksToFile(Task[] tasks) throws IOException {
         File taskListFile = getTaskListFile();
         FileWriter fileWriter = new FileWriter(taskListFile);
         for (Task task : tasks) {
-            String taskFileString = String.format(
-                    "%s | %d | %s",
-                    task.getTaskType(),
-                    task.getIsDone() ? 1 : 0,
-                    task.getDescription()
-            );
-            fileWriter.write(taskFileString + "\n");
+            fileWriter.write(task.getFileString() + "\n");
         }
         fileWriter.close();
     }
