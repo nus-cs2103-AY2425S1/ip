@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Task{
+class Task {
     protected String description;
     protected boolean isDone;
 
@@ -9,26 +9,65 @@ class Task{
         this.description = description;
         this.isDone = false;
     }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
     //void since method does not return anything
-    public void mark(){
+    public void mark() {
         this.isDone = true;
     }
-    public void unmark(){
+
+    public void unmark() {
         this.isDone = false;
     }
-}
 
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+}
+class ToDos extends Task {
+
+    public ToDos(String description) {
+        super(description);
+    }
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+class Deadline extends Task {
+    protected String by;
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+class Event extends Task {
+    protected String from, to;
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
 public class Tars {
+    static String line = "    _____________________________________________";
     public static void main(String[] args) {
         //welcome/introduction message
-        System.out.println("    _____________________________________________");
-        System.out.println("    Hello! I'm Tars\n" + "    What can I do for you");
-        System.out.println("    _____________________________________________");
+        System.out.println(line + "\n" + "    Hello! I'm Tars\n" + "    What can I do for you" + "\n" + line );
 
-        Scanner scanner = new Scanner(System.in); //initalising scanner to read inputs from user
+        Scanner scanner = new Scanner(System.in); //initalising input scanner
         String entry = scanner.nextLine(); //storing string input in a variable
         String[] entryParts = entry.split(" "); //when mark/unmark is given as input with TASK number
 
@@ -36,15 +75,15 @@ public class Tars {
 
         //while loop to ensure termination of programme only when "bye" input
         while(!entryParts[0].equals("bye")) {
-            System.out.println("    _____________________________________________");
+            System.out.println(line);
 
-            //using for loop to list all entries from arraylist
+            //for loop to list all entries from arraylist
             if(entryParts[0].equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < itemsList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + "[" + itemsList.get(i).getStatusIcon()
-                            + "] " + itemsList.get(i).description);
+                    System.out.println("    " + (i + 1) + ". " + itemsList.get(i));
                 }
-                System.out.println("    _____________________________________________");
+                System.out.println(line);
 
                 entry = scanner.nextLine();
                 entryParts = entry.split(" "); //updating variable to next input entryParts
@@ -53,37 +92,94 @@ public class Tars {
                 itemsList.get(index - 1).mark(); //marking TASK as done
 
                 System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("    [" + itemsList.get(index - 1).getStatusIcon() + "] " + itemsList.get(index - 1).description);
-                System.out.println("    _____________________________________________");
+                System.out.println("        " + itemsList.get(index - 1) + "\n" + line);
 
                 entry = scanner.nextLine();
-                entryParts = entry.split(" "); //updating variable to next input entryParts
+                entryParts = entry.split(" ");
             } else if(entryParts[0].equals("unmark")){
-                Integer index = Integer.parseInt(entryParts[entryParts.length - 1]); //to convert string format of number to Integer
+                Integer index = Integer.parseInt(entryParts[entryParts.length - 1]); //convert str format of number to Integer
                 itemsList.get(index - 1).unmark(); //unmarking TASK as not done
 
                 System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("    [" + itemsList.get(index - 1).getStatusIcon() + "] " + itemsList.get(index - 1).description);
-                System.out.println("    _____________________________________________");
+                System.out.println("        " + itemsList.get(index - 1) + "\n" + line);
+
+                entry = scanner.nextLine();
+                entryParts = entry.split(" "); //updating variable to next input entryParts
+            } else if(entryParts[0].equals("todo")){
+                StringBuilder strBuild = new StringBuilder();
+
+                for(int i = 1; i < entryParts.length; i++){
+                    strBuild.append(entryParts[i]).append(" ");
+                }
+
+                ToDos todo = new ToDos(strBuild.toString().trim());
+                itemsList.add(todo);
+
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("        " + todo);
+                System.out.println("    Now you have " + itemsList.size() + " tasks in the list");
+                System.out.println(line);
+
+                entry = scanner.nextLine();
+                entryParts = entry.split(" "); //updating variable to next input entryParts
+            } else if(entryParts[0].equals("deadline")){
+                StringBuilder strBuild = new StringBuilder();
+                StringBuilder dateStr = new StringBuilder();
+
+                for(int i = 1; i < entryParts.length - 1; i++) {
+                    if (i < entryParts.length - 2) {
+                        strBuild.append(entryParts[i]).append(" ");
+                    } else {
+                        dateStr.append(entryParts[entryParts.length - 1]);
+                    }
+                }
+
+                Deadline deadlineTask = new Deadline(strBuild.toString().trim(), dateStr.toString());
+                itemsList.add(deadlineTask);
+
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("        " + deadlineTask);
+                System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
+
+                entry = scanner.nextLine();
+                entryParts = entry.split(" "); //updating variable to next input entryParts
+            } else if(entryParts[0].equals("event")) {
+                StringBuilder strBuild = new StringBuilder();
+                StringBuilder toStr = new StringBuilder();
+                StringBuilder forStr = new StringBuilder();
+
+                for(int i = 1; i < entryParts.length; i++) {
+                    if (i < entryParts.length - 5) {
+                        strBuild.append(entryParts[i]).append(" ");
+                    } else if (i > entryParts.length - 5 && i < entryParts.length - 2) {
+                        forStr.append(entryParts[i]).append(" ");
+                    } else if (i > entryParts.length - 2){
+                        toStr.append(entryParts[i]);
+                    }
+                }
+
+                Event eventTask = new Event(strBuild.toString(), forStr.toString().trim(), toStr.toString());
+                itemsList.add(eventTask);
+
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("        " + eventTask);
+                System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
 
                 entry = scanner.nextLine();
                 entryParts = entry.split(" "); //updating variable to next input entryParts
             }
             else {
                 Task t = new Task(entry);
-                itemsList.add(t); //adding Task to list
+                itemsList.add(t); //adding a Task to list
 
-                System.out.println("    added: " + entry);
-                System.out.println("    _____________________________________________");
+                System.out.println("    added: " + entry + "\n" + line);
 
                 entry = scanner.nextLine();
                 entryParts = entry.split(" "); //updating variable to next input entryParts
             }
         }
-
+        
         //exit message when given input "bye"
-        System.out.println("    _____________________________________________");
-        System.out.println("    Bye. Hope to see you again soon!");
-        System.out.println("    _____________________________________________");
+        System.out.println(line + "\n" + "    Bye. Hope to see you again soon!" + "\n" + line);
     }
 }
