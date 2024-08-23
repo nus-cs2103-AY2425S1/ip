@@ -20,7 +20,7 @@ public class Task {
     }
 
     public String getDescription() {
-        return this.getStatusIcon() + " " + this.description + "\n";
+        return this.getStatusIcon() + " " + this.description;
     }
 
     public String getTaskType() {

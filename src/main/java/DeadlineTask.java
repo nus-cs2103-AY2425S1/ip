@@ -13,6 +13,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getDescription() {
-        return this.getTaskType() + super.getDescription().replace("\n", "") + String.format("(by:%s)\n", this.deadline) ;
+        return this.getTaskType() + super.getDescription().replace("\n", "") + String.format("(by:%s)", this.deadline) ;
     }
 }
