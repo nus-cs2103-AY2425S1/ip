@@ -38,7 +38,7 @@ public class Dash {
                     for (int i = 0; i < length; i++) {
                         Task t = list.get(i);
                         int num = i + 1;
-                        System.out.println(num +"." + t);
+                        System.out.println(num + "." + t);
                     }
                     System.out.println(horizontalLine);
                 } else if (input.startsWith("mark")) {                          //mark command
@@ -140,6 +140,21 @@ public class Dash {
                     System.out.println("Got it. I've added this task:\n" + t);
                     System.out.println("Now you have " + num + " tasks in the list.");
                     System.out.println(horizontalLine);
+                } else if (input.startsWith("delete")) {
+                    String[] string = input.split(" ", 2);
+                    int deleteNum = Integer.parseInt(string[1]);
+                    int num = list.size() - 1;
+                    if (deleteNum > num || deleteNum < 1) {
+                        System.out.println(horizontalLine);
+                        throw new WrongIndexException("Index is out of bounds.");
+                    } else {
+                        Task t = list.remove(deleteNum - 1);
+                        System.out.println(horizontalLine);
+                        System.out.println("Noted. I've removed this task.");
+                        System.out.println(t);
+                        System.out.println("Now you have " + num + " tasks in the list.");
+                        System.out.println(horizontalLine);
+                    }
                 } else {
                     throw new UnknownCommandException("Unknown command.");
                 }
