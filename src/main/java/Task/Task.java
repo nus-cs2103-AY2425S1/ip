@@ -1,6 +1,6 @@
 package Task;
 
-public class Task {
+abstract public class Task {
     private String title;
     private boolean done;
 
