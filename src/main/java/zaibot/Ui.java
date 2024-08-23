@@ -12,9 +12,9 @@ public class Ui {
     private enum Message {
         SEPARATOR("-----------------------------------------------------------"),
         GOODBYE("See you whenever."),
-        MARK("zaibot.task.Task done. Finally."),
-        UNMARK("zaibot.task.Task unmarked. Seriously?"),
-        DELETE("zaibot.task.Task removed. Bye bye."),
+        MARK("Task done. Finally."),
+        UNMARK("Task unmarked. Seriously?"),
+        DELETE("Task removed. Bye bye."),
         GREETING("Hi, or whatever. What do you want from me today?"),
         ADD("Another day, another task. Added."),
         TASKTOTAL("You have %d task(s). Get moving.");
