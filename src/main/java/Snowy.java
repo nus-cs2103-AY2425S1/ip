@@ -103,14 +103,14 @@ public class Snowy {
                 String str = String.format("%d. %s", i+1, task);
                 System.out.println(str + "\n" + line + "\n");
             } else {
-                throw new SnowyException("Invalid task index.");
+                throw new SnowyException("Invalid index.");
             }
         }
         public void displayList() throws SnowyException {
-            System.out.println(line+"\nYour list of tasks");
             if (taskList.isEmpty()) {
-                throw new SnowyException("No tasks, make a list first");
+                throw new SnowyException("No tasks, make a list first.");
             }
+            System.out.println(line+"\nYour list of tasks");
             for (int i = 0; i < taskList.size(); i++) {
                 String str = String.format("%d. %s",i+1, taskList.get(i));
                 System.out.println(str);
@@ -126,10 +126,10 @@ public class Snowy {
                 Task task = taskList.get(index - 1);
                 System.out.println("Removed task:\n " + task);
                 taskList.remove(index - 1);
-                System.out.printf("\nNow you have %d task(s) in your list\n", this.taskList.size());
+                System.out.printf("\nNow you have %d task(s) in your list.\n", this.taskList.size());
 
             } else {
-                throw new SnowyException("Invalid index");
+                throw new SnowyException("Invalid index.");
             }
         }
 

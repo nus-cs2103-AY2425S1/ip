@@ -1,7 +1,33 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+ Hello I'm Snowy
+ What can I do for you?
+
+____________________________________________________________
+Please provide a description
+____________________________________________________________
+Added a to do to your list of tasks
+ [E][ ] borrow book
+Now you have 1 task(s) in your list
+____________________________________________________________
+____________________________________________________________
+Added an event to your list of tasks
+ [E][ ]  project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 task(s) in your list
+____________________________________________________________
+____________________________________________________________
+Added a task with deadline to your list of tasks
+ [D][ ] return book (by: Sunday)
+Now you have 3 task(s) in your list
+____________________________________________________________
+____________________________________________________________
+Your list of tasks
+1. [E][ ] borrow book
+2. [E][ ]  project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] return book (by: Sunday)
+____________________________________________________________
+Removed task:
+ [E][ ] borrow book
+
+Now you have 2 task(s) in your list.
+____________________________________________________________
 
