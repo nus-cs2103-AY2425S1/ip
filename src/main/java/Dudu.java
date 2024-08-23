@@ -50,14 +50,15 @@ public class Dudu {
                     String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, count));
                     System.out.println(output);
                 } else if (input.matches("^deadline\\s/by\\s.+")) {
-                    String[] details = input.split("deadline ")[1].split(" /by ");
+                    String[] details = getDetails(input, "deadline").split(" /by ");
+
                     Deadline task = new Deadline(details[0], details[1]);
                     tasks[count] = task;
                     count++;
                     String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, count));
                     System.out.println(output);
                 } else if (input.matches("^event\\s/from\\s.+\\sto\\s.+")) {
-                    String details = input.split("event ")[1];
+                    String details = getDetails(input, "event");
                     String description = details.split("/from ")[0];
                     String[] date = details.split("/from ")[1].split(" /to ");
                     Event task = new Event(description, date[0], date[1]);
