@@ -1,3 +1,5 @@
+package Exception;
+
 public class PurrfessorDipsyException extends Exception {
     private final ErrorType errorType;
     public enum ErrorType {
