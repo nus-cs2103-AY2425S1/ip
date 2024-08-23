@@ -2,12 +2,25 @@ public class Task {
     private String task;
     private boolean doneFlag;
 
-    private String statusWhenDone = "[X] ";
-    private String statusWhenNotDone = "[ ] ";
-
     public Task(String task) {
         this.task = task;
         this.doneFlag = false;
+    }
+
+    public String taskString() {
+        return this.task;
+    }
+
+    public boolean taskIsDone() {
+        return this.doneFlag;
+    }
+
+    public String statusWhenDone() {
+        return "[X] ";
+    }
+
+    public String statusWhenNotDone() {
+        return "[ ] ";
     }
 
     public void markTaskDone() {
@@ -20,10 +33,11 @@ public class Task {
 
     @Override
     public String toString() {
-        if (doneFlag) {
-            return statusWhenDone + this.task;
+        String typeOfTask = "[ ] ";
+        if (this.doneFlag) {
+            return typeOfTask + statusWhenDone() + this.task;
         } else {
-            return statusWhenNotDone + this.task;
+            return typeOfTask + statusWhenNotDone() + this.task;
         }
     }
 }
