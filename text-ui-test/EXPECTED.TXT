@@ -1,7 +1,114 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+______________________________________________________________________
+AYO WHAT'S UP IT'S ME YOUR
+
+ ('-. .-.               _ (`-.    ('-. .-. .-')                .-') _
+( OO )  /              ( (OO  ) _(  OO)\  ( OO )              (  OO) )
+,--. ,--.  ,--.   ,--._.`     \(,------.;-----.\  .-'),-----. /     '._
+|  | |  |   \  `.'  /(__...--'' |  .---'| .-.  | ( OO'  .-.  '|'--...__)
+|   .|  | .-')     /  |  /  | | |  |    | '-' /_)/   |  | |  |'--.  .--'
+|       |(OO  \   /   |  |_.' |(|  '--. | .-. `. \_) |  |\|  |   |  |
+|  .-.  | |   /  /\_  |  .___.' |  .--' | |  \  |  \ |  | |  |   |  |
+|  | |  | `-./  /.__) |  |      |  `---.| '--'  /   `'  '-'  '   |  |
+`--' `--'   `--'      `--'      `------'`------'      `-----'    `--'
+
+What can I do for you, my wonderful homie?
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+but I don't think we're vibing when you say 'read'.
+Mind if I ask you for anything else, homie?
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+drop the name of the task, bro I gotta know!
+______________________________________________________________________
+
+______________________________________________________________________
+HECK YEAH, ADDED: [T][ ] read book !
+YOU'VE NOW GOT 1 TASKS TO GO!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+make sure you got the due date for that SWAGGIN' deadline you got!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+make sure you got the due date for that SWAGGIN' deadline you got!
+______________________________________________________________________
+
+______________________________________________________________________
+HECK YEAH, ADDED: [D][ ] return book (by: June 6th)!
+YOU'VE NOW GOT 2 TASKS TO GO!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+make sure you got that start time AND end time for that AWESOME event you got!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+make sure you got that start time AND end time for that AWESOME event you got!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+make sure you got that start time AND end time for that AWESOME event you got!
+______________________________________________________________________
+
+______________________________________________________________________
+HECK YEAH, ADDED: [E][ ] project meeting (from: Mon 2PM to: 5PM)!
+YOU'VE NOW GOT 3 TASKS TO GO!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+try indicating the index of the task you wanna mark CONQUERED as a number!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+try indicating the index of an existing task you wanna mark CONQUERED!
+______________________________________________________________________
+
+______________________________________________________________________
+AIGHT, ABSOLUTELY CONQUERED THIS TASK:
+  [T][X] read book
+______________________________________________________________________
+
+______________________________________________________________________
+AIGHT, ABSOLUTELY CONQUERED THIS TASK:
+  [D][X] return book (by: June 6th)
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+try indicating the index of the task you wanna TAKE ON AGAIN as a number!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+try indicating the index of an existing task you wanna TAKE ON AGAIN!
+______________________________________________________________________
+
+______________________________________________________________________
+AIGHT, LET'S GET READY TO CONQUER THIS TASK:
+  [D][ ] return book (by: June 6th)
+______________________________________________________________________
+
+______________________________________________________________________
+ALRIGHT, Here's that list!
+1. [T][X] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Mon 2PM to: 5PM)
+______________________________________________________________________
+
+______________________________________________________________________
+Alright homie, it's been a BLAST hanging out with you. Have a wonderful
+day, and catch you soon again you ABSOLUTE BALLER!
+______________________________________________________________________
 

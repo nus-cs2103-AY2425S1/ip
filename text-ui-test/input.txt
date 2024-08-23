@@ -1,0 +1,19 @@
+read book
+todo
+todo read book
+deadline
+deadline return book
+deadline return book /by June 6th
+event
+event project meeting
+event project meeting /from Mon 2PM
+event project meeting /from Mon 2PM /to 5PM
+mark
+mark 5
+mark 1
+mark 2
+unmark
+unmark 5
+unmark 2
+list
+bye
