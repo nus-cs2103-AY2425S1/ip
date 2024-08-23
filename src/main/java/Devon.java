@@ -1,4 +1,8 @@
+import java.util.Scanner
+
 public class Devon {
+
+    private Scanner userInput = new Scanner(System.in);
 
     private void printLongLine() {
         String LINE_SEPARATOR = "____________________";
