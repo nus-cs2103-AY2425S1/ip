@@ -11,6 +11,16 @@ import javax.sound.sampled.Line;
 
 public class Karen {
     private static List<Task> tasks = new ArrayList<>();
+    private static enum Keywords {
+        MARK,
+        UNMARK,
+        LIST,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        BYE
+    }
     public static void main(String[] args) {
         final String LINE = "_______________________\n";
         String output = LINE +
@@ -24,6 +34,7 @@ public class Karen {
         while (true) {
             String input = scanner.nextLine();
             String[] command = input.split(" ", 2); //[keyword, parameters;
+            Keywords keyword = Keywords.valueOf(command[0].toUpperCase());
 
             output = "";
 
