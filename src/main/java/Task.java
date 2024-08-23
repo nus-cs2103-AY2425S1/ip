@@ -21,6 +21,7 @@ public class Task {
         return this.isDone ? "[X]" : "[ ]";
     }
 
+    @Override
     public String toString() {
         return this.getStatus() + " " + this.taskDesc;
     }

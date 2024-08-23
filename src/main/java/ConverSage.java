@@ -50,10 +50,40 @@ public class ConverSage {
                 System.out.println(undoneTask);
                 System.out.println(horizontalLine);
 
+            } else if (input.startsWith("todo ")) {
+                String taskDesc = input.substring(5);
+                Task newTask = new ToDo(taskDesc);
+                taskList.add(newTask);
+
+                System.out.println("Understood, I've added this task: ");
+                System.out.println("  " + newTask);
+                System.out.println("You have " + taskList.size() + " tasks in your list" );
+
+            } else if (input.startsWith("deadline ")) {
+                String[] deadlineTaskParts = input.substring(9).split(" /by ");
+                String taskDesc = deadlineTaskParts[0];
+                String deadline = deadlineTaskParts[1];
+                Task newTask = new Deadline(taskDesc, deadline);
+                taskList.add(newTask);
+
+                System.out.println("Understood, I've added this task: ");
+                System.out.println("  " + newTask);
+                System.out.println("You have " + taskList.size() + " tasks in your list" );
+
+            } else if (input.startsWith("event ")) {
+                String[] eventTaskParts = input.substring(6).split(" /from | /to ");
+                String taskDesc = eventTaskParts[0];
+                String from = eventTaskParts[1];
+                String to = eventTaskParts[2];
+                Task newTask = new Event(taskDesc, from, to);
+                taskList.add(newTask);
+
+                System.out.println("Understood, I've added this task: ");
+                System.out.println("  " + newTask);
+                System.out.println("You have " + taskList.size() + " tasks in your list" );
+
             } else {
-                System.out.println("added: " + input);
-                System.out.println(horizontalLine);
-                taskList.add(new Task(input));
+                System.out.println("Invalid command");
             }
 
         }
