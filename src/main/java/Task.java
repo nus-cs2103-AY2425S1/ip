@@ -31,7 +31,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String taskMessage = String.format("[ %s ] %s", getStatusIcon(), getDescription());
+        String taskMessage = String.format("[%s] %s", getStatusIcon(), getDescription());
         return taskMessage;
     }
 }
