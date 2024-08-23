@@ -98,32 +98,68 @@ public class Grok {
                 task.markDone();
                 System.out.println(padMessage("Nice! I've marked this task as done:\n  " + task));
             } else if (userInput.contains("todo")) {
-                Task newTask = new Todo(userInput.substring(5));
+                if (userInput.length() < 6) {
+                    System.out.println(padMessage("Todo command usage: todo (task description here)"));
+                    continue;
+                }
+                Task newTask;
+                try {
+                    newTask = new Todo(userInput.substring(5));
+                } catch (GrokInvalidUserInputException e) {
+                    System.out.println(padMessage("OOPS! " + e.getMessage()));
+                    continue;
+                }
 
                 tasks.add(newTask);
                 System.out.println(padMessage(addTaskMessage(newTask, tasks)));
             } else if (userInput.contains("deadline")) {
+                if (userInput.length() < 10 || !userInput.contains("/by")) {
+                    System.out.println(padMessage(
+                        "Deadline command usage: deadline (task description here) /by (due date and time)"
+                    ));
+                    continue;
+                }
+
                 String[] components = userInput.split("/by");
                 String description = components[0].substring(9);
                 String due = components[1];
 
-                Task newTask = new Deadline(description, due);
+                Task newTask;
+                try {
+                    newTask = new Deadline(description, due);;
+                } catch (GrokInvalidUserInputException e) {
+                    System.out.println(padMessage("OOPS! " + e.getMessage()));
+                    continue;
+                }
 
                 tasks.add(newTask);
                 System.out.println(padMessage(addTaskMessage(newTask, tasks)));
             } else if (userInput.contains("event")) {
+                if (userInput.length() < 7 || !userInput.contains("/from") || !userInput.contains("/to")) {
+                    System.out.println(padMessage(
+                            "Event command usage: event (task description here) /from (start date and time) /to (end date and time)"
+                    ));
+                    continue;
+                }
+
                 String[] components = userInput.split("/from");
                 String[] subcomponents = components[1].split("/to");
                 String description = components[0];
                 String from = subcomponents[0];
                 String to = subcomponents[1];
 
-                Task newTask = new Event(description, from, to);
+                Task newTask;
+                try {
+                    newTask = new Event(description, from, to);
+                } catch (GrokInvalidUserInputException e) {
+                    System.out.println(padMessage("OOPS! " + e.getMessage()));
+                    continue;
+                }
 
                 tasks.add(newTask);
                 System.out.println(padMessage(addTaskMessage(newTask, tasks)));
             } else {
-                System.out.println(padMessage("Sorry, I don't recognize your input :(\n"));
+                System.out.println(padMessage("OOPS! Sorry, I don't recognize your input :(\n"));
             }
         }
 

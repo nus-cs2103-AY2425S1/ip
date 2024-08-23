@@ -1,7 +1,7 @@
 public class Deadline extends Task {
     protected String due;
 
-    public Deadline(String description, String due) {
+    public Deadline(String description, String due) throws GrokInvalidUserInputException {
         super(description);
         this.due = due;
     }
