@@ -15,7 +15,9 @@ public class Parser {
                 text = parts[1];
             }
             switch (command) {
-                case "list": System.out.println(storage);
+                case "list":
+                    if (storage.size()>0) System.out.println(storage);
+                    else System.out.println("it's empty... what do u want me to list? :(");
                     break;
                 case "bye":
                     System.out.println("It's finally over... *yawn*\nI'm heading to bed\nExiting the program...");
@@ -51,12 +53,17 @@ public class Parser {
                         System.out.println("it has to be from 1 to " + storage.size());
                     }
                     break;
-                case "add":
+                case "todo":
                     if(!text.isEmpty()){
                         storage.add(text);
                         System.out.println("Added " + '\"'+ text + "\"" + " as a new task I guess");
+                        System.out.println(String.format("you have %s task now",storage.size()));
                     } else System.out.println("bruh? type a task to add I'm not adding a blank...");
-                    break;
+                break;
+//                case "event":
+//                    storage.event(text);
+//                case "deadline":
+//                    storage.deadline(text);
                 default:
                     System.out.println("what? type an actual command pls...");
             }
