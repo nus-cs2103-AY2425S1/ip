@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class Bob {
 
     private static void dialogue(String input) {
-        System.out.println("_______________________________\n");
+        System.out.println("___________________________________\n");
         System.out.println(input);
-        System.out.println("_______________________________\n");
+        System.out.println("___________________________________\n");
     }
 
     public static void main(String[] args) {
