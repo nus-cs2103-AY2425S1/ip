@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Devon {
 
     private Scanner scanner = new Scanner(System.in);
-    private String[] tasks = new String[100];
+    private Task[] tasks = new Task[100];
     private int taskCount = 0;
 
     private void printLongLine() {
@@ -37,18 +37,25 @@ public class Devon {
         }
     }
 
-    private void addToList(String task) {
-        this.tasks[taskCount] = task;
+    private void addToList(String taskDescription) {
+        this.tasks[taskCount] = new Task(taskDescription);
         taskCount++;
         this.printLongLine();
-        System.out.println("\t" + "added: " + task);
+        System.out.println("\t" + "added: " + taskDescription);
         this.printLongLine();
     }
 
     private void printList() {
         this.printLongLine();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            String formattedEntry = String.format("\t" + "%d. %s", i + 1, tasks[i]);
+            Task current = tasks[i];
+            String formattedEntry = String.format(
+                    "\t" + "%d. [%s] %s",
+                    i + 1,
+                    current.getStatusIcon(),
+                    current.getDescription()
+            );
             System.out.println(formattedEntry);
         }
         this.printLongLine();
