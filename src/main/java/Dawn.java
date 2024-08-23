@@ -2,11 +2,10 @@ import java.util.Scanner;
 
 public class Dawn {
     public static void main(String[] args) {
-        String logo = "Dawn 🌙";
         String divider = "--".repeat(30);
 
         System.out.println(divider);
-        System.out.printf("%s speaking, what can I do for you? \n", logo);
+        System.out.println("Dawn 🌙 speaking, what can I do for you?");
         respond();
         System.out.println(divider);
     }
@@ -14,11 +13,11 @@ public class Dawn {
     private static Task[] tasks = new Task[100];
     private static int counter = 0;
 
-    private static void respond() {
-        String input = scanner.next();
+    private static void respond() { //provide responses to the user input
+        String input = scanner.nextLine();
 
         if (input.equals("bye")) {
-            System.out.println("Byeeee~ nice chatting with you! See you next time, tschüss :)");
+            System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
         } else if (input.equals("list")) {
             System.out.println("listing all tasks...");
             for (int i = 0; i < counter; i++) {
@@ -26,23 +25,35 @@ public class Dawn {
             }
             respond();
         } else if (input.contains("mark")) {
-            int ind = scanner.nextInt();
+            int ind = scanner.nextInt(); // checkkkkkkkk!!!
             mark(input, ind);
             respond();
         } else {
-            tasks[counter] = new Task(input);
+            Task t;
+            String[] s = input.split("/");
+            int indexOfSpace = s[0].indexOf(" ");
+            s[0] = s[0].substring(indexOfSpace + 1); // remove the command word e.g. todo
+            if (input.contains("todo")) {
+                t = new ToDo(s[0]);
+            } else if (input.contains("deadline")) {
+                t = new Deadline(s[0], s[1]);
+            } else {
+                t = new Event(s[0], s[1], s[2]);
+            }
+            tasks[counter] = t;
             counter++;
-            System.out.printf("added TASK <%s> to the list \n", input);
+            System.out.println("Gotcha! I've added this task: \n" + t.getDesc());
+            System.out.printf("Now you have %d task(s) in the list \n", counter);
             respond();
         }
     }
 
-    private static void mark(String input, int ind) {
+    private static void mark(String input, int ind) { // mark the tasks accordingly
         if (input.contains("unmark")) {
             tasks[ind].markAsNotDone();
         } else {
             tasks[ind].markAsDone();
         }
-        System.out.printf("[%s] %s \n", tasks[ind].getStatusIcon(), tasks[ind].getDesc());
+        System.out.println(tasks[ind].getDesc());
     }
 }

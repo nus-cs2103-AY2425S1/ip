@@ -1,6 +1,11 @@
 public class Task {
     protected String desc;
     protected boolean isDone;
+
+    public Task() {
+        this.desc = "";
+        this.isDone = false;
+    }
     public Task(String description) {
         this.desc = description;
         this.isDone = false;
