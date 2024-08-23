@@ -72,6 +72,7 @@ public class Bro {
                     }
                     if (!secondArg.contains("/by")) {
                         reply("Wrong usage of deadline command");
+                        reply("Usage: deadline <task> /by <deadline>");
                         break;
                     }
                     String[] deadlineInputs = secondArg.split("/by");
@@ -89,6 +90,7 @@ public class Bro {
                     }
                     if (!secondArg.contains("/from") || !secondArg.contains("/to")) {
                         reply("Wrong usage of event command");
+                        reply("Usage: deadline <task> /from <startTime> /to <endTime>");
                         break;
                     }
 
@@ -103,11 +105,12 @@ public class Bro {
                         addTaskReply(eventTask, taskList.getNumberOfTask());
                         break;
                     } catch (Exception e) {
-                        reply("Error: " + e.getMessage());
+                        reply("Wrong usage of event command");
+                        reply("Usage: deadline <task> /from <startTime> /to <endTime>");
                         break;
                     }
                 default:
-                    reply("I don't respond to that.");
+                    reply("Bro. I don't respond to that.");
             }
         }
         reply(GOODBYE_MESSAGE);
