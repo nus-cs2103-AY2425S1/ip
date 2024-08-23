@@ -181,7 +181,7 @@ public class Echo {
         } catch (FileNotFoundException e) {
             System.out.println("The data file not found: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("There was an error loading the data: " + e.getMessage());
+            System.out.println("There is no data in the file");
         }
     }
 
