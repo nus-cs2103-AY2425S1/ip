@@ -41,7 +41,14 @@ public class Stobberi {
                 + listOfTasks.get(listOfTasks.size() - 1))
                 + "Now you have " + listOfTasks.size() + " in the list.");
     }
-    private static void addTask(String firstWord, String task) {
+    private static void addTask(String firstWord, String task) throws StobberiException {
+        if (task.isEmpty()) {
+            throw new EmptyStobberiException(displayForm("That's not a task?! Try again. "));
+        }
+
+        if (!firstWord.equals("todo") && !firstWord.equals("deadline") && !firstWord.equals("event")) {
+            throw new NoSuchTaskStobberiException(displayForm("Huh! There is no such task?? "));
+        }
 
         if (firstWord.equals("todo")) {
             listOfTasks.add(new ToDos(task));
@@ -81,7 +88,11 @@ public class Stobberi {
                         continue;
                     }
                 }
-                addTask(firstWord, restOfTask);
+                try {
+                    addTask(firstWord, restOfTask);
+                } catch (StobberiException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             temp = scanner.nextLine();
         }
