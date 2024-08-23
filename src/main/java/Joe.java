@@ -73,10 +73,18 @@ public class Joe {
                     newTask = new ToDo(s);
                 } else if (s.startsWith("deadline")) {
                     String[] params = s.substring(8).split("/");
-                    newTask = new Deadline(params);
+                    if (params.length < 2) {
+                        throw new IllegalArgumentException("Deadline: You did not provide a due date/time.");
+                    }
+                    newTask = new Deadline(params[0], params[1]);
                 } else if (s.startsWith("event")) {
                     String[] params = s.substring(5).split("/");
-                    newTask = new Event(params);
+                    if (params.length < 2) {
+                        throw new IllegalArgumentException("Event: Did not provide start and end date/time");
+                    } else if (params.length < 3) {
+                        throw new IllegalArgumentException("Event: Did not provide end date/time");
+                    }
+                    newTask = new Event(params[0], params[1], params[2]);
                 } else {
                     throw new InvalidCommandException(s);
                 }

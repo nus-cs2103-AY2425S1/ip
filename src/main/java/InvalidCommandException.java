@@ -1,6 +1,10 @@
 public class InvalidCommandException extends RuntimeException {
     private String userCmd;
 
+    /**
+     * Constructor for InvalidCommandException.
+     * @param userCmd
+     */
     public InvalidCommandException(String userCmd) {
         this.userCmd = userCmd;
     }
