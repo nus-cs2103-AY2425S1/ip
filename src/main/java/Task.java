@@ -5,7 +5,10 @@ public class Task {
     protected final String name;
     protected boolean isDone;
 
-    Task(String name) {
+    Task(String name) throws TorneInvalidCommandException {
+        if (name == null || name.isEmpty()) {
+            throw new TorneInvalidCommandException("Task cannot have an empty name");
+        }
         this.name = name.trim();
     }
 

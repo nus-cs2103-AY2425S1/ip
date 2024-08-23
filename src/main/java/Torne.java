@@ -31,7 +31,7 @@ public class Torne {
      *
      * @param input string input by the user
      */
-    private void parseCommand(String input) {
+    private void parseCommand(String input) throws TorneException {
         // empty command - do nothing
         if (input.isBlank()) {
             return;
@@ -52,9 +52,7 @@ public class Torne {
         // Check if input is a command, if not, give error message
         if (!COMMANDS.containsKey(command)) {
             // Command is not found in COMMANDS
-            // add whole input
-            OUTPUT.error(String.format("Command %s is not valid.", command));
-            return;
+            throw new TorneInvalidCommandException(String.format("Command %s is not valid.", command));
         }
 
         // now get available arguments based on command
@@ -88,14 +86,13 @@ public class Torne {
             // TODO: what to do when only an argument flag provided - presumably that can be expected behavior...
             // For now, raise an error
             if (argParts.length == 1) {
-                OUTPUT.error("No value entered for flag /" +argParts[0]);
-                return;
+                throw new TorneInvalidCommandException("No value entered for flag " + argParts[0]);
             }
 
             if (!availableArgs.contains(argParts[0].substring(1))) {
                 // argument flag is invalid for the given command
-                OUTPUT.error(String.format("Argument flag /%s is invalid for command %s", argParts[0], command));
-                return;
+                throw new TorneInvalidCommandException(
+                        String.format("Argument flag %s is invalid for command %s", argParts[0], command));
             }
 
             // add to argMap
@@ -218,7 +215,7 @@ Aww, bye to you as well :c""";
      *
      * @param name name of task to be added
      */
-    private void addTaskTodo(String name) {
+    private void addTaskTodo(String name) throws TorneException {
         Task toAdd = new TaskTodo(name);
         addTask(toAdd);
     }
@@ -229,7 +226,7 @@ Aww, bye to you as well :c""";
      * @param name name of task to be added
      * @param by date/time to do the task by
      */
-    private void addTaskDeadline(String name, String by) {
+    private void addTaskDeadline(String name, String by) throws TorneException {
         Task toAdd = new TaskDeadline(name, by);
         addTask(toAdd);
     }
@@ -242,7 +239,7 @@ Aww, bye to you as well :c""";
      * @param from starting datetime
      * @param to ending datetime
      */
-    private void addTaskEvent(String name, String from, String to) {
+    private void addTaskEvent(String name, String from, String to) throws TorneException {
         Task toAdd = new TaskEvent(name, from, to);
         addTask(toAdd);
     }
@@ -381,7 +378,12 @@ Aww, bye to you as well :c""";
             }
 
             // else, parse and handle the input :D
-            torne.parseCommand(input);
+            try {
+                torne.parseCommand(input);
+            } catch (TorneException e) {
+                OUTPUT.error(e.toString());
+            }
+
         }
 
     }

@@ -2,7 +2,7 @@
  * Task with no date/time attached.
  */
 public class TaskTodo extends Task {
-    TaskTodo(String name) {
+    TaskTodo(String name) throws TorneInvalidCommandException {
         super(name);
     }
 
