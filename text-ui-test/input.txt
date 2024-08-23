@@ -4,14 +4,15 @@ event project meeting /from Mon 2pm /to 4pm
 deadline return book /by Sunday
 todo
 deadline buy apples
-list
 event go school /from Monday
 mark 2
 list
 unmark 4
+delete 0
 todo buy apples
 list
 unmark 2
 boo
+delete 3
 list
 bye
