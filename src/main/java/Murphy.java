@@ -1,8 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Murphy {
-    private static final Task[] tasks = new Task[100];
-    private static int numOfTasks = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         /*
             String logo = " ____        _        \n"
@@ -41,7 +41,7 @@ public class Murphy {
                     prLine();
                     continue;
                 }
-                if (index > Murphy.numOfTasks || index <= 0) {
+                if (index > Murphy.tasks.size() || index <= 0) {
                     System.out.println("The task number you chose is outside of the range of tasks!");
                     prLine();
                     continue;
@@ -62,7 +62,7 @@ public class Murphy {
                     prLine();
                     continue;
                 }
-                if (index > Murphy.numOfTasks || index <= 0) {
+                if (index > Murphy.tasks.size() || index <= 0) {
                     System.out.println("The task number you chose is outside of the range of tasks!");
                     prLine();
                     continue;
@@ -125,8 +125,8 @@ public class Murphy {
     }
 
     private static void list() {
-        for (int i = 0; i < Murphy.numOfTasks; i++) {
-            System.out.println((i+1) + ". " + Murphy.tasks[i]);
+        for (int i = 0, sz = Murphy.tasks.size(); i < sz; i++) {
+            System.out.println((i+1) + ". " + Murphy.tasks.get(i));
         }
         prLine();
     }
@@ -134,22 +134,22 @@ public class Murphy {
     private static void addItem(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        Murphy.tasks[Murphy.numOfTasks++] = task;
-        System.out.println("Now you have " + Murphy.numOfTasks + " task(s) in the list.");
+        Murphy.tasks.add(task);
+        System.out.println("Now you have " + Murphy.tasks.size() + " task(s) in the list.");
         prLine();
     }
 
     private static void markItem(int index) {
-        Murphy.tasks[index - 1].mark();
+        Murphy.tasks.get(index - 1).mark();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(Murphy.tasks[index - 1]);
+        System.out.println(Murphy.tasks.get(index - 1));
         prLine();
     }
 
     private static void unmarkItem(int index) {
-        Murphy.tasks[index - 1].unmark();
+        Murphy.tasks.get(index - 1).unmark();
         System.out.println("I've unmarked this task. Guess Murphy struck?");
-        System.out.println(Murphy.tasks[index - 1]);
+        System.out.println(Murphy.tasks.get(index - 1));
         prLine();
     }
 }
