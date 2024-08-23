@@ -20,28 +20,46 @@ public class Meerkat {
             String taskName = sc.nextLine();
             // splits string based on space
             String[] strArray = taskName.split(" ", 2);
+
             // create new specific task with appropriate params
             if (strArray[0].equalsIgnoreCase("todo")) {
-                String name = strArray[1];
-                Task thisTask = new Todo(name);
-                listOfTasks.add(thisTask);
-                System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                try {
+                    String name = strArray[1];
+                    Task thisTask = new Todo(name);
+                    listOfTasks.add(thisTask);
+                    System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(lines + "\nbruh. i need more info to create your todo task.\n" + lines);
+                }
+
+            // create new deadline task
             } else if (strArray[0].equalsIgnoreCase("deadline")) {
-                String[] todoStringArray = taskName.split(" /by ");
-                String duedate = todoStringArray[1];
-                String name = todoStringArray[0].split(" ", 2)[1];
-                Task thisTask = new Deadline(name, duedate);
-                listOfTasks.add(thisTask);
-                System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                try {
+                    String[] todoStringArray = taskName.split(" /by ");
+                    String duedate = todoStringArray[1];
+                    String name = todoStringArray[0].split(" ", 2)[1];
+                    Task thisTask = new Deadline(name, duedate);
+                    listOfTasks.add(thisTask);
+                    System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(lines + "\nbruh. i need more info to create your deadline task.\n" + lines);
+                }
+
+
+            // create new event task
             } else if (strArray[0].equalsIgnoreCase("event")) {
-                String[] eventStringArray = taskName.split(" /from ");
-                String[] duration = eventStringArray[1].split(" /to ");
-                String start = duration[0];
-                String end = duration[1];
-                String name = eventStringArray[0].split(" ", 2)[1];
-                Task thisTask = new Event(name, start, end);
-                listOfTasks.add(thisTask);
-                System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                try {
+                    String[] eventStringArray = taskName.split(" /from ");
+                    String[] duration = eventStringArray[1].split(" /to ");
+                    String start = duration[0];
+                    String end = duration[1];
+                    String name = eventStringArray[0].split(" ", 2)[1];
+                    Task thisTask = new Event(name, start, end);
+                    listOfTasks.add(thisTask);
+                    System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(lines + "\nbruh. i need more info to create your event task.\n" + lines);
+                }
             }
 
             // to end program
@@ -79,14 +97,16 @@ public class Meerkat {
                     int num = Integer.parseInt(strArray[1]);
                     if (num > 0 && num <= listOfTasks.size()) {
                         listOfTasks.get(num - 1).markAsIncomplete();
-                        System.out.println(lines + "\nOK, I've marked this task as not done yet:\n" + listOfTasks.get(num-1) + "\n" + lines);
-                    // task number is not within range
+                        System.out.println(lines + "\nOK, I've marked this task as not done yet:\n" + listOfTasks.get(num - 1) + "\n" + lines);
+                        // task number is not within range
                     } else {
                         System.out.println(lines + "\nThis task does not exist! Unable to unmark.\n" + lines);
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(lines + "\nThis task does not exist! Unable to unmark.\n" + lines);
                 }
+            } else {
+                System.out.println(lines + "\ni have nooo idea what you are sayin\n" + lines);
             }
         }
         System.exit(0);
