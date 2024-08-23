@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -57,20 +58,22 @@ public class Fence {
             if (command.equals("bye")) {
                 fence.exit();
                 break;
-            }
-            if (command.equals("list")) {
+            } else if (command.equals("list")) {
                 fence.list();
                 continue;
-            }
-            if (firstWord.equals("todo")) {
-                String desc = st.nextToken();
-                while (st.hasMoreTokens()) {
-                    desc = desc + " " + st.nextToken();
+            } else if (firstWord.equals("todo")) {
+                try {
+                    String desc = st.nextToken();
+                    while (st.hasMoreTokens()) {
+                        desc = desc + " " + st.nextToken();
+                    }
+                    fence.add(new Todo(desc));
+                    fence.count();
+                } catch (NoSuchElementException e) {
+                    System.out.println("doing nothing");
                 }
-                fence.add(new Todo(desc));
-                fence.count();
-            }
-            if (firstWord.equals("deadline")) {
+
+            } else if (firstWord.equals("deadline")) {
                 String desc = st.nextToken();
                 String by = "";
                 boolean descDone = false;
@@ -89,8 +92,7 @@ public class Fence {
                 }
                 fence.add(new Deadline(desc, by));
                 fence.count();
-            }
-            if (firstWord.equals("event")) {
+            } else if (firstWord.equals("event")) {
                 String desc = st.nextToken();
                 String from = "";
                 String to = "";
@@ -118,14 +120,16 @@ public class Fence {
                 }
                 fence.add(new Event(desc, from, to));
                 fence.count();
-            }
-            if (firstWord.equals("mark") || firstWord.equals("unmark")) {
+            } else if (firstWord.equals("mark") || firstWord.equals("unmark")) {
                 int i = Integer.parseInt(st.nextToken());
                 if (firstWord.equals("mark")) {
                     fence.mark(i);
                 } else {
                     fence.unmark(i);
                 }
+            } else {
+                System.out.println("fence has been programmed to track your tasks and has lost all ability " +
+                        "to do other things ");
             }
         }
     }
