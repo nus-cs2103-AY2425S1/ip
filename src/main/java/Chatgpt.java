@@ -65,6 +65,7 @@ public class Chatgpt {
 
     private static void markTask(int id) {
         tasks.get(id).markDone();
+        System.out.println("Nice! I've marked this task as done:");
     }
     private static void unmarkTask(int id) {
         tasks.get(id).unmarkDone();
