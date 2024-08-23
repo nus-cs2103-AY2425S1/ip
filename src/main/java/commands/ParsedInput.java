@@ -1,4 +1,4 @@
-package botty;
+package commands;
 
 import exceptions.ArgumentNotFoundException;
 import exceptions.BottyException;
