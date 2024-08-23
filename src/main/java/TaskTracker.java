@@ -77,7 +77,12 @@ public class TaskTracker {
         System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
     }
 
-    public void delete(int i) {
+    public void delete(int i) throws InvalidIndexException {
+        if (this.counter == 0) {
+            System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before deleting them.");
+        } else if (i < 0 || i >= this.counter) {
+            throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
+        }
         System.out.println("Alright I have removed this task: ");
         System.out.println(this.taskList.get(i));
         this.taskList.remove(i);
