@@ -11,6 +11,12 @@ public class SecondMind {
         System.out.println(line);
     }
 
+    private static void printErrorMessage(Exception e) {
+        printLineSeparator();
+        System.out.println(e);
+        printLineSeparator
+    }
+
     private static void greetUser() {
         printLineSeparator();
         System.out.println("Hello from\n" + logo);
@@ -76,11 +82,11 @@ public class SecondMind {
             System.out.println("You have a grand total of " + taskCount + " task(s)");
             printLineSeparator();
         } catch (EmptyCommandException e) {
-            System.out.println(e);
+            printErrorMessage(e);
         } catch (EmptyToDoException e) {
-            System.out.println(e);
+            printErrorMessage(e);
         } catch (UnknownCommandException e) {
-            System.out.println(e);
+            printErrorMessage(e);
         }
     }
 
