@@ -233,7 +233,6 @@ public class Shnoop {
 
                 String taskType = getTaskType(input);
                 String taskDesc = getTaskDetails(input);
-                System.out.println(taskType + " & " + taskDesc);
                 Task newTask;
 
                 switch (taskType) {
