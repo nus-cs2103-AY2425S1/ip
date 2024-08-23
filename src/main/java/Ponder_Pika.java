@@ -1,3 +1,7 @@
+import Task.Todo;
+import Task.Task;
+import Task.Deadline;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -6,13 +10,17 @@ public class Ponder_Pika {
 
     private final List<Task> myList = new ArrayList<>();
 
+    public void printDivider() {
+        System.out.println("...........................................................");
+    }
+
     private void greet() {
         String logo = "Ponder_Pika";
 
-        System.out.println("------------------------------------------------");
+        System.out.println("----------------------------------------------------------");
         System.out.println("Hello I'm " + logo);
         System.out.println("\nIt is a great day to ponder! How may I help you?");
-        System.out.println("------------------------------------------------");
+        System.out.println("----------------------------------------------------------");
     }
 
     private static void bidBye() {
@@ -22,45 +30,54 @@ public class Ponder_Pika {
     public void echo() {
         greet();
         Scanner scan = new Scanner(System.in);
-        String userCommand = "";
+        String userCommand;
 
         while(scan.hasNext()) {
             userCommand = scan.nextLine().trim();
 
-            String[] commands = userCommand.split(" ");
+            String[] commands = userCommand.split(" ", 2);
 
-            switch (commands[0]) {
+            switch (commands[0].toLowerCase()) {
                 case "list":
                     for (int i = 0; i < myList.size(); i++) {
                         System.out.println(i+1 + ". " + myList.get(i).toString());
                     }
-                    System.out.println("................................................");
+                    printDivider();
                     break;
                 case "bye":
-                    System.out.println("------------------------------------------------");
+                    System.out.println("------------------------------------------------------------");
                     Ponder_Pika.bidBye();
-                    System.out.println("\n------------------------------------------------");
+                    System.out.println("\n----------------------------------------------------------");
                     break;
                 case "mark":
                     int markIndex = Integer.parseInt(commands[1]);
                     myList.get(markIndex - 1).markDone();
-                    System.out.println("Your Task has been marked as done.");
+                    System.out.println("Your task has been marked as done.");
                     System.out.println(myList.get(markIndex- 1).toString());
-                    System.out.println("------------------------------------------------");
+                    printDivider();
                     break;
                 case "unmark":
                     int unMarkIndex = Integer.parseInt(commands[1]);
                     myList.get(unMarkIndex - 1).markUndone();
-                    System.out.println("Your Task has been marked as done.");
+                    System.out.println("Your task has been undone.");
                     System.out.println(myList.get(unMarkIndex - 1).toString());
-                    System.out.println("------------------------------------------------");
+                    printDivider();
+                    break;
+                case "todo":
+                    Task todo = new Todo(commands[1]);
+                    myList.add(todo);
+                    System.out.println("        Pika! I have added your task: " + commands[1]);
+                    printDivider();
+                    break;
+                case "deadline":
+                    String[] args = commands[1].split("/by ");
+                    Task deadline = new Deadline(args[0].trim(), args[1].trim());
+                    myList.add(deadline);
+                    System.out.println("        Pika! I have added your task: " + commands[1]);
+                    printDivider();
                     break;
                 default:
-                    Task newTask = new Task(userCommand);
-                    myList.add(newTask);
-                    System.out.println("        Pika! I have added your task: " + userCommand);
-                    System.out.println("................................................");
-                    break;
+                    System.out.println("Invalid command");
             }
 
             if(userCommand.equals("bye")) {
