@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Devon {
 
-    private Scanner scanner = new Scanner(System.in);
-    private Task[] tasks = new Task[100];
-    private int taskCount = 0;
+    protected Scanner scanner = new Scanner(System.in);
+    protected Task[] tasks = new Task[100];
+    protected int taskCount = 0;
 
     private void printLongLine() {
         String LINE_SEPARATOR = "____________________";
@@ -66,7 +66,7 @@ public class Devon {
 
     private void printList() {
         this.printLongLine();
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("\t" + "Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             Task current = tasks[i];
             String formattedEntry = String.format(
