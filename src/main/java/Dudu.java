@@ -34,11 +34,17 @@ public class Dudu {
                     System.out.println(output);
                 } else if (input.matches("mark\\s\\d+")) {
                     int pos = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
+                    if (pos < 0 || pos >= count) {
+                        throw new IllegalArgumentException("Please input a valid count");
+                    }
                     tasks[pos].markCompleted();
                     String output = LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", tasks[pos]));
                     System.out.println(output);
                 } else if (input.matches("unmark\\s\\d+")) {
                     int pos = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
+                    if (pos < 0 || pos >= count) {
+                        throw new IllegalArgumentException("Please input a valid count");
+                    }
                     tasks[pos].markUncompleted();
                     String output = LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", tasks[pos]));
                     System.out.println(output);
@@ -81,6 +87,8 @@ public class Dudu {
                     String output = LineWrapper.wrap("Please use \"help\" to get the list of commands");
                     System.out.println(output);
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e);
             } catch (MissingDescriptionException e) {
                 System.out.println(e);
             } catch (MissingDateTimeException e) {
