@@ -16,6 +16,6 @@ public class TaskEvent extends Task {
         String status = isDone ? "X" : " ";
 
         // format based on the toString output of `Task`
-        return String.format("[D]%s (from: %s to: %s)", super.toString(), from, to);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
     }
 }
