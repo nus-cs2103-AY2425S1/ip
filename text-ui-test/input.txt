@@ -1,0 +1,8 @@
+deadline hw /by someday
+todo chores
+event bday /start tmr /end the next day
+todo misc stuff
+mark 1
+mark 2
+unmark 1
+list

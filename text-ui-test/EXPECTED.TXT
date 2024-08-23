@@ -1,7 +1,27 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ____________________________________________________________
+ Hello! I'm Donk, the super intelligent chatbot
+ What can I do for you?
+____________________________________________________________
 
+    Got it. I've added this task:
+        [D] [ ] hw  (due:  someday)
+    You now have 1 tasks
+    Got it. I've added this task:
+        [T] [ ] chores
+    You now have 2 tasks
+    Got it. I've added this task:
+        [E] [ ] bday  (from:  tmr  to  the next day)
+    You now have 3 tasks
+    Got it. I've added this task:
+        [T] [ ] misc stuff
+    You now have 4 tasks
+    Yo I've marked this thingy as done
+    [D] [X] hw  (due:  someday)
+    Yo I've marked this thingy as done
+    [T] [X] chores
+    Aights now it's unmarked again
+    [D] [ ] hw  (due:  someday)
+    1: [D] [ ] hw  (due:  someday)
+    2: [T] [X] chores
+    3: [E] [ ] bday  (from:  tmr  to  the next day)
+    4: [T] [ ] misc stuff
