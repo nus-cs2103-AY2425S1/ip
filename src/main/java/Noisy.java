@@ -2,7 +2,11 @@ import java.util.Scanner;
 
 public class Noisy {
 
+
     public static void main(String[] args) {
+        String[] taskList = new String[100];
+        int currentPointer = 0;
+        String echoMessage = "____________________________________________________________\n";
         String welcomeMessage = "____________________________________________________________\n"
                 + " Hello! I'm Noisy\n"
                 + " What can I do for you?\n"
@@ -21,10 +25,13 @@ public class Noisy {
                 scanner.close();
                 break;
             }
-            String echoMessage = "____________________________________________________________\n"
-                    + " " + input + "\n"
-                    + "____________________________________________________________";
-            System.out.println(echoMessage);
+            if (input.equals("list")) {
+                System.out.println(echoMessage + "____________________________________________________________");
+                continue;
+            }
+            taskList[currentPointer] = input;
+            currentPointer++;
+            echoMessage += currentPointer + ". " + input + "\n";
         }
     }
 }
