@@ -4,9 +4,12 @@ public class MarkCommand implements Command {
     private final int itemIndex;
     private final List<Task> items;
 
-    public MarkCommand(List<Task> items, int itemIndex) {
+    public MarkCommand(List<Task> items, String input) {
+        String[] split = input.split(" ");
+        int index = Integer.parseInt(split[1]) - 1;
+
         this.items = items;
-        this.itemIndex = itemIndex;
+        this.itemIndex = index;
     }
 
     @Override

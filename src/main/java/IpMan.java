@@ -6,14 +6,6 @@ public class IpMan {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final List<Task> items = new ArrayList<>();
 
-    private static String[] safeSplit(String input, int noArgs) {
-        String[] split = input.split(" ");
-        if (split.length < noArgs) {
-            throw new IllegalArgumentException(String.format("Expected %d arguments. Found %d.", noArgs, split.length));
-        }
-        return split;
-    }
-
     public static void main(String[] args) {
         // Hello
         System.out.println(HORIZONTAL_LINE);
@@ -32,13 +24,9 @@ public class IpMan {
             } else if (input.equals("list")) {
                 command = new ListCommand(items);
             } else if (input.startsWith("mark")) {
-                String[] split = safeSplit(input, 2);
-                int index = Integer.parseInt(split[1]) - 1;
-                command = new MarkCommand(items, index);
+                command = new MarkCommand(items, input);
             } else if (input.startsWith("unmark")) {
-                String[] split = safeSplit(input, 2);
-                int index = Integer.parseInt(split[1]) - 1;
-                command = new UnmarkCommand(items, index);
+                command = new UnmarkCommand(items, input);
             } else {
                 command = new CreateTaskCommand(items, input);
             }
