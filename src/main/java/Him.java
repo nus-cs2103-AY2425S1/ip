@@ -12,7 +12,7 @@ public class Him {
         try {
             list.complete(index);
             System.out.println("\nHim: LET'S GOOOOO! " + list.taskAt(index) + " has been completed!\n");
-        } catch (Task.AlreadyCompletedException | HimList.TaskDoesNotExistException e) {
+        } catch (AlreadyCompletedException | TaskDoesNotExistException e) {
             System.out.println("\nHim: " + e.getMessage() + "\n");
         }
     }

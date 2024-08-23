@@ -11,13 +11,7 @@ public class HimList {
         list.add(item);
     }
 
-    public class TaskDoesNotExistException extends Exception {
-        public TaskDoesNotExistException(int index) {
-            super("Task " + (index + 1) + " does not exist");
-        }
-    }
-
-    public void complete(int index) throws Task.AlreadyCompletedException, TaskDoesNotExistException {
+    public void complete(int index) throws AlreadyCompletedException, TaskDoesNotExistException {
         try {
             Task task = list.get(index);
             if (task == null) throw new TaskDoesNotExistException(index);
