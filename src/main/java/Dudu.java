@@ -49,7 +49,7 @@ public class Dudu {
                     count++;
                     String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, count));
                     System.out.println(output);
-                } else if (input.matches("^deadline\\s/by\\s.+")) {
+                } else if (input.matches("^deadline.*")) {
                     String[] details = getDetails(input, "deadline").split(" /by ");
                     if (details[0].trim().isEmpty()) {
                         throw new MissingDescriptionException("Missing description");
@@ -62,14 +62,14 @@ public class Dudu {
                     count++;
                     String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, count));
                     System.out.println(output);
-                } else if (input.matches("^event\\s/from\\s.+\\sto\\s.+")) {
-                    String details = getDetails(input, "event");
-                    String description = details.split("/from")[0].trim();
-                    if (description.isEmpty()) {
+                } else if (input.matches("^event.*")) {
+                    String[] details = getDetails(input, "event").split("/from");
+                    if (details.length <= 1 || details[0].trim().isEmpty()) {
                         throw new MissingDescriptionException("Missing description");
                     }
-                    String[] date = details.split("/from ")[1].split(" /to ");
-                    if (date[0].trim().isEmpty() || date[1].trim().isEmpty()) {
+                    String description = details[0];
+                    String[] date = details[1].split(" /to ");
+                    if (date.length <= 1 || date[0].trim().isEmpty() || date[1].trim().isEmpty()) {
                         throw new MissingDateTimeException("Missing by or from time");
                     }
                     Event task = new Event(description, date[0], date[1]);
