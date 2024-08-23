@@ -64,11 +64,11 @@ public class Torne {
         String argsStr = input.substring(command.length());
 
         // Split string to get arguments + their argument values
-        String[] args = argsStr.split("\s(?=\\\\)|$");
+        String[] args = argsStr.split("\s(?=/)|$");
 
         // add a default arg
         // System.out.println(args.length);
-        if (args.length > 0 && !args[0].isEmpty() && args[0].charAt(0) != '\\') {
+        if (args.length > 0 && !args[0].isEmpty() && args[0].charAt(0) != '/') {
             // the arg array is always nonEmpty, so, to determine the existence of a default arg,
             // we check if the first arg is nonEmpty does not start with a '\'
             argMap.put("", args[0]);
@@ -84,13 +84,13 @@ public class Torne {
             // TODO: what to do when only an argument flag provided - presumably that can be expected behavior...
             // For now, raise an error
             if (argParts.length == 1) {
-                OUTPUT.error("No value entered for flag \\" +argParts[0]);
+                OUTPUT.error("No value entered for flag /" +argParts[0]);
                 return;
             }
 
             if (!availableArgs.contains(argParts[0].substring(1))) {
                 // argument flag is invalid for the given command
-                OUTPUT.error(String.format("Argument flag \\%s is invalid for command %s", argParts[0], command));
+                OUTPUT.error(String.format("Argument flag /%s is invalid for command %s", argParts[0], command));
                 return;
             }
 
@@ -163,8 +163,11 @@ Aww, bye to you as well :c""";
      */
     private void addTask(Task task) {
         TASK_HANDLER.addTask(task);
+        int count = TASK_HANDLER.getTaskCount();
+
         String message = "Alright, I'll add this task:\n" + task
-                + String.format("\nNow you have %d tasks!", TASK_HANDLER.getTaskCount());
+                + String.format("\nNow you have %d task", count)
+                + ((count > 1) ? "s!" : "!");
         OUTPUT.writeText(message);
     }
 
@@ -210,7 +213,7 @@ Aww, bye to you as well :c""";
         if (TASK_HANDLER.getTaskCount() == 0) {
             message = "You currently have no tasks!\nSo quiet...";
         } else {
-            message = String.format("You currently have %d tasks:", TASK_HANDLER.getTaskCount())
+            message = String.format("You currently have %d tasks:\n", TASK_HANDLER.getTaskCount())
                     + TASK_HANDLER.getTaskListString();
         }
 
