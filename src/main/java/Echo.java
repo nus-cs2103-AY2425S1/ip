@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 public class Echo {
     public static void main(String[] args) {
+        List<String> tasks = new ArrayList<>();
         Scanner myObj = new Scanner(System.in);
         String logo = "____________________________________________________________\n";
         System.out.println("Hello, I'm Echo\n" + logo);
@@ -11,8 +14,15 @@ public class Echo {
 
             if(Objects.equals(input, "bye")){
                 System.out.println("Bye bye...");
+            } else if(Objects.equals(input, "list")) {
+                int count = 1;
+                for (String task : tasks) {
+                    System.out.println(count + ". " + task);
+                    count++;
+                }
             } else {
-                System.out.println(input);
+                tasks.add(input);
+                System.out.println("added: " + input);
             }
         }
     }
