@@ -18,7 +18,7 @@ public class BuddyBot {
         for (int i = 0; i < 100; i++) {
             if (input.equals("bye")) {
                 break;
-            } else if (input.equals("list")) { //LIST command
+            } else if (input.equals("list")) { // LIST command
                 System.out.println("Here are the tasks in your list:" + "\n");
                 read(myList);
                 i--;
@@ -37,34 +37,50 @@ public class BuddyBot {
                     input = myObj.nextLine();
                 }
             } else {
-                if (input.startsWith("deadline")) { //DEADLINE case
-                    String[] parts = input.substring(9).split("/by");
+                if (input.startsWith("deadline")) { // DEADLINE case
+                    String[] parts = input.substring(8).split("/by");
                     String description = parts[0].trim();
-                    String time = parts[1].trim();
-                    Deadline additionD = new Deadline(description, time);
-                    myList[i] = additionD;
-                    System.out.println("Got it. I've added this task: \n" + additionD);
-                    System.out.println("Now you have " + count(myList) + " tasks in the list.");
-                    input = myObj.nextLine();
+                    if (description.isEmpty()) { // empty field exception
+                        System.out.println("This field cannot be empty");
+                        input = myObj.nextLine();
+                    } else {
+                        String time = parts[1].trim();
+                        Deadline additionD = new Deadline(description, time);
+                        myList[i] = additionD;
+                        System.out.println("Got it. I've added this task: \n" + additionD);
+                        System.out.println("Now you have " + count(myList) + " tasks in the list.");
+                        input = myObj.nextLine();
+                    }
                 } else if (input.startsWith("event")) {
-                    String[] parts = input.substring(6).split("/from|/to");
+                    String[] parts = input.substring(5).split("/from|/to");
                     String description = parts[0].trim();
-                    String start = parts[1].trim();
-                    String end = parts[2].trim();
-                    Event additionE = new Event(description, start, end);
-                    myList[i] = additionE;
-                    System.out.println("Got it. I've added this task: \n" + additionE);
-                    System.out.println("Now you have " + count(myList) + " tasks in the list.");
-                    input = myObj.nextLine();
-                } else if (input.startsWith("todo")){ //NORMAL case (TODOs)
-                    String description = input.substring(5);
-
+                    if (description.isEmpty()) { // empty field exception
+                        System.out.println("This field cannot be empty");
+                        input = myObj.nextLine();
+                    } else {
+                        String start = parts[1].trim();
+                        String end = parts[2].trim();
+                        Event additionE = new Event(description, start, end);
+                        myList[i] = additionE;
+                        System.out.println("Got it. I've added this task: \n" + additionE);
+                        System.out.println("Now you have " + count(myList) + " tasks in the list.");
+                        input = myObj.nextLine();
+                    }
+                } else if (input.startsWith("todo")) { //NORMAL case (TODOs)
+                    String description = input.substring(4).trim();
+                    if (description.isEmpty()) { // empty field exception
+                        System.out.println("This field cannot be empty");
+                        input = myObj.nextLine();
+                    } else {
                         Task additionT = new Task(description);
                         myList[i] = additionT;
                         System.out.println("Got it. I've added this task: \n" + additionT);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
                         input = myObj.nextLine();
-
+                    }
+                } else {
+                    System.out.println("Sorry I don't understand...");
+                    input = myObj.nextLine();
                 }
             }
         }
