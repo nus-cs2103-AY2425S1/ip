@@ -1,78 +1,120 @@
 import java.util.Scanner;
 
 public class Denim {
+
+    static final String TASK_MARK = "mark";
+    static final String TASK_UNMARK = "unmark";
+    static final String TASK_LIST = "list";
+    static final String TASK_TODO = "todo";
+    static final String TASK_DEADLINE = "deadline";
+    static final String TASK_EVENT = "event";
+
+    static final String horizontalLine = "____________________________________________________________";
+    static final String chatBotName = "Denim";
+    static Task[] taskList = new Task[100];
+    static int taskSize = 0;
+
     public static void main(String[] args) {
-
-        final String TASK_MARK = "mark";
-        final String TASK_UNMARK = "unmark";
-        final String TASK_LIST = "list";
-
-        String horizontalLine = "____________________________________________________________";
-        String chatBotName = "Denim";
-        String greetingMessage = String.format("%s%n Hello! I'm %s!%n What can I do for you? %n%s%n",
-                horizontalLine, chatBotName, horizontalLine);
-
-        Task[] taskList = new Task[100];
-        int taskSize = 0;
-
-        System.out.println(greetingMessage);
-
+        displayGreetingMessage();
         // Scans User Input in the CLI
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        String[] inputComponents;
-        String command;
-        String argument;
-
-
-
-        // Splits the input into its components: an argument and the command and process.
         while (!input.equals("bye")) {
-            inputComponents = input.split(" ", 2);
-            command = inputComponents[0];
-            argument = inputComponents.length > 1 ? inputComponents[1] : "";
-            switch (command) {
-            case TASK_LIST:
-                System.out.println(horizontalLine);
-                for (int i = 0; i < taskSize; i++) {
-                    System.out.printf("%d. %s\n", i + 1, taskList[i].toString());
-                }
-                System.out.println(horizontalLine);
-                input = sc.nextLine();
-                break;
-            case TASK_MARK:
-                int markTaskIndex = Integer.parseInt(argument) - 1;
-                Task markTask = taskList[markTaskIndex];
-                markTask.setDone(true);
-                String taskMarkMessage = String.format("Okay, I've marked this task as done: \n %s",
-                        markTask);
-                System.out.println(taskMarkMessage);
-                input = sc.nextLine();
-                break;
-            case TASK_UNMARK:
-                int unmarkTaskIndex = Integer.parseInt(argument) - 1;
-                Task unmarkTask = taskList[unmarkTaskIndex];
-                unmarkTask.setDone(false);
-                String taskUnmarkMessage = String.format("Okay, I've marked this task as not done yet: \n %s",
-                        unmarkTask);
-                System.out.println(taskUnmarkMessage);
-                input = sc.nextLine();
-                break;
-            default:
-                Task newTask = new Task(input);
-                taskList[taskSize++] = newTask;
-                String addMessage = String.format("%s%n added: %s%n%s", horizontalLine, newTask.getDescription(),
-                        horizontalLine);
-                System.out.println(addMessage);
-                input = sc.nextLine();
-                break;
-            }
+            processInput(input);
+            input = sc.nextLine();
         }
+        displayExitMessage();
+        sc.close();
+    }
 
+    static void displayGreetingMessage() {
+        String greetingMessage = String.format("%s%n Hello! I'm %s!%n What can I do for you? %n%s%n",
+                horizontalLine, chatBotName, horizontalLine);
+        System.out.println(greetingMessage);
+    }
+
+    static void displayExitMessage() {
         String byeMessage = String.format("%s%n %s%n%s", horizontalLine, "Bye. Hope to see you again soon!",
                 horizontalLine);
         System.out.println(byeMessage);
-        sc.close();
+    }
+
+    static void processInput(String input) {
+        String[] inputComponents = input.split(" ", 2);
+        String command = inputComponents[0];
+        String argument = inputComponents.length > 1 ? inputComponents[1] : "";
+
+        switch (command) {
+        case TASK_LIST:
+            handleList();
+            break;
+        case TASK_MARK:
+            handleMark(argument);
+            break;
+        case TASK_UNMARK:
+            handleUnmark(argument);
+            break;
+        case TASK_TODO:
+            handleTodo(argument);
+            break;
+        case TASK_DEADLINE:
+            handleDeadline(argument);
+            break;
+        case TASK_EVENT:
+            handleEvent(argument);
+            break;
+        default:
+            handleDefault(input);
+            break;
+        }
+    }
+
+    static void handleList() {
+        System.out.println(horizontalLine);
+        for (int i = 0; i < taskSize; i++) {
+            System.out.printf("%d. %s\n", i + 1, taskList[i].toString());
+        }
+        System.out.println(horizontalLine);
+    }
+
+    static void handleTaskAddition(Task task) {
+        taskList[taskSize++] = task;
+        System.out.printf("%s%nGot it. I've added this task:%n   %s%nNow you have %d tasks in the list.%n%s%n",
+                horizontalLine, task, taskSize, horizontalLine);
+    }
+
+    static void handleMark(String argument) {
+        int index = Integer.parseInt(argument) - 1;
+        taskList[index].setDone(true);
+        System.out.printf("Okay, I've marked this task as done: \n %s\n", taskList[index]);
+    }
+
+    static void handleUnmark(String argument) {
+        int index = Integer.parseInt(argument) - 1;
+        taskList[index].setDone(false);
+        System.out.printf("Okay, I've marked this task as not done yet: \n %s\n", taskList[index]);
+    }
+
+    static void handleTodo(String argument) {
+        Task toDoTask = new Todo(argument);
+        handleTaskAddition(toDoTask);
+    }
+
+    static void handleDeadline(String argument) {
+        String[] components = argument.split(" /by ");
+        Task deadlineTask = new Deadline(components[0], components[1]);
+        handleTaskAddition(deadlineTask);
+    }
+
+    static void handleEvent(String argument) {
+        String[] components = argument.split(" /from | /to ");
+        Task eventTask = new Event(components[0], components[1], components[2]);
+        handleTaskAddition(eventTask);
+    }
+
+    static void handleDefault(String input) {
+        Task newTask = new Task(input);
+        handleTaskAddition(newTask);
     }
 }
 
