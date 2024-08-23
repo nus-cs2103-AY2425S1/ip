@@ -20,17 +20,18 @@ public class ChatBaby {
             } else if (input.startsWith("unmark")) {
                 unmarkTask(input, tasks);
             } else if (input.startsWith("todo")) {
-                handleTaskCommand(tasks, "todo", input, 5);
+                handleTaskCommand(tasks, TaskType.TODO, input, 5);
             } else if (input.startsWith("deadline")) {
-                handleTaskCommand(tasks, "deadline", input, 9);
+                handleTaskCommand(tasks, TaskType.DEADLINE, input, 9);
             } else if (input.startsWith("event")) {
-                handleTaskCommand(tasks, "event", input, 6);
+                handleTaskCommand(tasks, TaskType.EVENT, input, 6);
             } else if (input.startsWith("delete")) {
                 deleteTask(input, tasks);
             } else {
                 printUnknownCommandError();
             }
         }
+        scanner.close();
     }
 
     public static void greet() {
@@ -89,7 +90,7 @@ public class ChatBaby {
         }
     }
 
-    private static void handleTaskCommand(ArrayList<Task> tasks, String type, String input, int prefixLength) {
+    private static void handleTaskCommand(ArrayList<Task> tasks, TaskType type, String input, int prefixLength) {
         if (input.length() <= prefixLength) {
             printEmptyDescriptionError(type);
             return;
@@ -103,10 +104,10 @@ public class ChatBaby {
 
         Task newTask;
         switch (type) {
-            case "todo":
+            case TODO:
                 newTask = new ToDo(description);
                 break;
-            case "deadline":
+            case DEADLINE:
                 String[] deadlineParts = description.split("/by ");
                 if (deadlineParts.length == 2) {
                     newTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
@@ -115,7 +116,7 @@ public class ChatBaby {
                     return;
                 }
                 break;
-            case "event":
+            case EVENT:
                 String[] eventParts = description.split("/from ");
                 if (eventParts.length == 2) {
                     String[] eventDetails = eventParts[1].split("/to ");
@@ -148,11 +149,11 @@ public class ChatBaby {
             int index = Integer.parseInt(input.substring(7).trim()) - 1;
             if (index >= 0 && index < tasks.size()) {
                 Task removedTask = tasks.remove(index);
-                System.out.println("____________________________________________________________");
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(removedTask.toString());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                System.out.println("____________________________________________________________\n"
+                        + "Noted. I've removed this task:\n"
+                        + removedTask.toString() + "\n"
+                        + "Now you have " + tasks.size() + " tasks in the list.\n"
+                        + "____________________________________________________________");
             } else {
                 printInvalidTaskIndexError();
             }
@@ -167,9 +168,9 @@ public class ChatBaby {
                 + "____________________________________________________________");
     }
 
-    private static void printEmptyDescriptionError(String type) {
+    private static void printEmptyDescriptionError(TaskType type) {
         System.out.println("____________________________________________________________\n"
-                + "Oh no!!! The description of a " + type + " cannot be empty.\n"
+                + "Oh no!!! The description of a " + type.name().toLowerCase() + " cannot be empty.\n"
                 + "____________________________________________________________");
     }
 
