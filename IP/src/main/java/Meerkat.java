@@ -7,7 +7,7 @@ public class Meerkat {
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
         String lines = "____________________________________________________________";
         String greeting = """
-                Hello! I'm a meerkat from singapore
+                Hello! I'm a meerkat
                 What can I do for you?
                 """;
         String bye = """
@@ -25,14 +25,14 @@ public class Meerkat {
                 String name = strArray[1];
                 Task thisTask = new Todo(name);
                 listOfTasks.add(thisTask);
-                System.out.println(lines + "\nGot it. I've added this task:\n" + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
             } else if (strArray[0].equalsIgnoreCase("deadline")) {
                 String[] todoStringArray = taskName.split(" /by ");
                 String duedate = todoStringArray[1];
                 String name = todoStringArray[0].split(" ", 2)[1];
                 Task thisTask = new Deadline(name, duedate);
                 listOfTasks.add(thisTask);
-                System.out.println(lines + "\nGot it. I've added this task:\n" + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
             } else if (strArray[0].equalsIgnoreCase("event")) {
                 String[] eventStringArray = taskName.split(" /from ");
                 String[] duration = eventStringArray[1].split(" /to ");
@@ -41,7 +41,7 @@ public class Meerkat {
                 String name = eventStringArray[0].split(" ", 2)[1];
                 Task thisTask = new Event(name, start, end);
                 listOfTasks.add(thisTask);
-                System.out.println(lines + "\nGot it. I've added this task:\n" + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+                System.out.println(lines + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
             }
 
             // to end program
