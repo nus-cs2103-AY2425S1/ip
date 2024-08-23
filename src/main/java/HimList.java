@@ -25,6 +25,11 @@ public class HimList {
         return list.get(index).toString();
     }
 
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {

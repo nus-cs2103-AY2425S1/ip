@@ -30,7 +30,11 @@ public class Him {
         while (!command.equals("bye")) {
             switch (command) {
                 case "list":
-                    System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
+                    if (list.isEmpty()) {
+                        System.out.println("\nHim: How about you add some tasks first\n");
+                    } else {
+                        System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
+                    }
                     break;
                 case "mark":
                     complete(Integer.parseInt(input[1]) - 1);
@@ -70,6 +74,9 @@ public class Him {
                     } finally {
                         break;
                     }
+                }
+                default: {
+                    System.out.println("\nHim: " + command + "? What are you saying????\n");
                 }
             }
             System.out.print("User: ");
