@@ -47,6 +47,14 @@ public class Dudu {
                     tasks.get(pos).markUncompleted();
                     String output = LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", tasks.get(pos)));
                     System.out.println(output);
+                } else if (input.matches("^delete\\s\\d+")) {
+                    int pos = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
+                    if (pos < 0 || pos >= tasks.size()) {
+                        throw new IllegalArgumentException("Please input a valid count");
+                    }
+                    tasks.remove(pos);
+                    String output = LineWrapper.wrap(String.format(" Noted. I've removed this task:\n    %s", tasks.get(pos)));
+                    System.out.println(output);
                 } else if (input.matches("^todo.*")) {
                     String description = getDetails(input, "todo");
                     ToDo task = new ToDo(description);
