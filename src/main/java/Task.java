@@ -27,4 +27,9 @@ public class Task {
     public void markNotDone() {
         this.done = false;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %s", title, this.done?"done":"not done");
+    }
 }

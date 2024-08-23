@@ -45,16 +45,46 @@ public class AVA {
     /**
      * method to print AVA's response to given PrintStream
      * @param out PrintStream to print AVA's response to
+     * //TODO:shift tasklist display to tasklist
+     * //TODO:refactor mark and unmark to remove redundancy
      */
     public void respond(PrintStream out){
         if(currentInput.equals("list")){
             List<Task> list = taskManager.getTasks();
             int count = list.size();
             for(int i = 1; i <=count;i++){
-                out.println(i + ". " + list.get(i-1).getTitle());
+                out.println(i + ". " + list.get(i-1));
             }
 
-        } else {
+        } else if(currentInput.startsWith("mark")){
+            int taskId;
+            try{
+                taskId = Integer.parseInt(currentInput.substring(5));
+            } catch(NumberFormatException e){
+                out.println("I am sorry, but you need to provide me a task id to mark or unmark something.");
+                return;
+            }
+            Task task = taskManager.getTasks().get(taskId-1);
+                task.markDone();
+                //TODO: use string format
+                out.println("Alright I have marked this task as done");
+                out.println(taskId +". " + task);
+            }
+         else if(currentInput.startsWith("unmark")){
+            int taskId;
+            try{
+                taskId = Integer.parseInt(currentInput.substring(5));
+            } catch(NumberFormatException e){
+                out.println("I am sorry, but you need to provide me a task id to mark or unmark something.");
+                return;
+            }
+            Task task = taskManager.getTasks().get(taskId-1);
+            task.markNotDone();
+            //TODO: use string format
+            out.println("Alright I have marked this task as not done");
+            out.println(taskId +". " + task);
+        }
+        else{
             taskManager.addTask(currentInput);
             out.println("----------------------------------------------------------------");
             out.println("Added " + currentInput);
