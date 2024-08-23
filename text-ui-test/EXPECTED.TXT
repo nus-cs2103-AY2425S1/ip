@@ -37,14 +37,17 @@ ____________________________________________________________
 Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>
 ____________________________________________________________
 ____________________________________________________________
-1. [T][ ] a
-2. [T][ ] b
-3. [D][ ] homework (by: 5pm)
-4. [E][ ] A (from: 1 to: 2)
-5. [E][ ] B (from: 3 to: 4)
+Invalid event format. Usage: event <description> /from <fromDate> /to <toDate>
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number. There are  tasks in your list.
+  1. [T][ ] a
+  2. [T][ ] b
+  3. [D][ ] homework (by: 5pm)
+  4. [E][ ] A (from: 1 to: 2)
+  5. [E][ ] B (from: 3 to: 4)
+____________________________________________________________
+____________________________________________________________
+Invalid task number. There are 5 tasks in your list.
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -59,17 +62,17 @@ Nice! I've marked this task as done:
   [T][X] b
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number. There are  tasks in your list.
+Invalid task number. There are 5 tasks in your list.
 ____________________________________________________________
 ____________________________________________________________
-1. [T][X] a
-2. [T][X] b
-3. [D][ ] homework (by: 5pm)
-4. [E][ ] A (from: 1 to: 2)
-5. [E][ ] B (from: 3 to: 4)
+  1. [T][X] a
+  2. [T][X] b
+  3. [D][ ] homework (by: 5pm)
+  4. [E][ ] A (from: 1 to: 2)
+  5. [E][ ] B (from: 3 to: 4)
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number. There are  tasks in your list.
+Invalid task number. There are 5 tasks in your list.
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -80,14 +83,14 @@ This task is already marked as not done:
   [D][ ] homework (by: 5pm)
 ____________________________________________________________
 ____________________________________________________________
-Invalid task number. There are  tasks in your list.
+Invalid task number. There are 5 tasks in your list.
 ____________________________________________________________
 ____________________________________________________________
-1. [T][ ] a
-2. [T][X] b
-3. [D][ ] homework (by: 5pm)
-4. [E][ ] A (from: 1 to: 2)
-5. [E][ ] B (from: 3 to: 4)
+  1. [T][ ] a
+  2. [T][X] b
+  3. [D][ ] homework (by: 5pm)
+  4. [E][ ] A (from: 1 to: 2)
+  5. [E][ ] B (from: 3 to: 4)
 ____________________________________________________________
 ____________________________________________________________
 Unknown command: unknown
