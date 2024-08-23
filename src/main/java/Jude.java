@@ -2,6 +2,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Represents a Jude, the personal assistant chatbot.
+ *
+ * This class helps a person to keep track of various things.
+ *
+ * @author Judy Park
+ **/
 public class Jude {
     public static void main(String[] args) {
 
