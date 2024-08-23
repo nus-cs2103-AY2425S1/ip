@@ -28,8 +28,11 @@ public class DailyTasks {
     public static void main(String[] args) {
         DailyTasks dailyTasks = new DailyTasks();
 
-        dailyTasks.start();
-        dailyTasks.end();
+        try {
+            dailyTasks.start();
+        } finally {
+            dailyTasks.end();
+        }
     }
 
     private void start() {
