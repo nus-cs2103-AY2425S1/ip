@@ -18,6 +18,10 @@ public class TaskList implements Iterable<Task> {
         return count;
     }
 
+    public int getCount() {
+        return tasks.size();
+    }
+
     @Override
     public Iterator<Task> iterator() {
         return tasks.iterator();
@@ -41,6 +45,11 @@ public class TaskList implements Iterable<Task> {
 
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public Task removeTask(int index) throws TaskListIndexOutOfBoundsException {
+        checkTask(index);
+        return tasks.remove(index);
     }
 
     public Task getTask(int index) throws TaskListIndexOutOfBoundsException {
