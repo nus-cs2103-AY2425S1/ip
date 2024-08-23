@@ -23,6 +23,10 @@ public class Nebula {
                 int taskNum = parser.splitCommandAndTaskNumber(command);
                 System.out.println(taskList.markTask(taskNum));
             }
+            else if(command.startsWith("unmark")) {
+                int taskNum = parser.splitCommandAndTaskNumber(command);
+                System.out.println(taskList.unmarkTask(taskNum));
+            }
             else {
                 Task newTask = new Task(command);
                 taskList.addTask(newTask);

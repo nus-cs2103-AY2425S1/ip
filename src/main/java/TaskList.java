@@ -46,4 +46,13 @@ public class TaskList {
         t.setDone(true);
         return ui.displayMarkedTask(t);
     }
+
+    public String unmarkTask(int taskNum) {
+        Task t = taskList[taskNum - 1];
+        if (!t.isDone()){
+            return ui.displayAlreadyUnmarkedTask();
+        }
+        t.setDone(false);
+        return ui.displayUnmarkedTask(t);
+    }
 }

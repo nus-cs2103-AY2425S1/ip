@@ -4,7 +4,11 @@ public class Ui {
     private static  final String GOODBYE = "Bye! Hope to see you again soon :)";
     private static final String MARKED = "Nice! This task has successfully been marked: ";
 
+    private static final String UNMARKED = "Nice! This task has successfully been unmarked: ";
+
     private static final String ALREADY_MARKED = "This task has already been marked!";
+
+    private static final String ALREADY_UNMARKED = "This task has already been unmarked!";
 
     /**
      * Returns greeting message
@@ -50,5 +54,13 @@ public class Ui {
 
     public String displayAlreadyMarkedTask() {
         return DIVIDER + "\n" + ALREADY_MARKED + "\n" + DIVIDER;
+    }
+
+    public String displayUnmarkedTask(Task task) {
+        return DIVIDER + "\n" + UNMARKED + "\n" + "  " + "[" + task.getStatusIcon() + "] " + task.getDescription() + "\n" + DIVIDER;
+    }
+
+    public String displayAlreadyUnmarkedTask() {
+        return DIVIDER + "\n" + ALREADY_UNMARKED + "\n" + DIVIDER;
     }
 }
