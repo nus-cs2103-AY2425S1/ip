@@ -45,6 +45,34 @@ public class Garfield {
                 continue;
             }
 
+            if (userInput.toLowerCase().startsWith("mark")) {
+                String[] output = userInput.trim().split("\\s+");
+                if (output.length == 2) {
+                    int taskId = Integer.parseInt(output[1]);
+                    if (taskId <= taskList.size()) {
+                        Task task = taskList.get(taskId - 1);
+                        task.markAsDone();
+                        Garfield.speak("Nice. You actually did something. I’ve marked that task as done:\n\n\t"
+                        + task);
+                        continue;
+                    }
+                }
+            }
+
+            if (userInput.toLowerCase().startsWith("unmark")) {
+                String[] output = userInput.trim().split("\\s+");
+                if (output.length == 2) {
+                    int taskId = Integer.parseInt(output[1]);
+                    if (taskId <= taskList.size()) {
+                        Task task = taskList.get(taskId - 1);
+                        task.markAsDone();
+                        Garfield.speak("Oh, having second thoughts? OK, I’ve marked that task as not done yet:\n\n\t"
+                                + task + "\n\nClearly, you're still undecided.");
+                        continue;
+                    }
+                }
+            }
+
             Garfield.speak("Fine. I'll add '" + userInput + "' to the list.");
             taskList.add(new Task(userInput));
 
