@@ -7,6 +7,6 @@ public class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + "( " + deadline + ")";
+        return "[D] " + super.toString() + "(" + deadline + ")";
     }
 }

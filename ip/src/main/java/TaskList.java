@@ -25,11 +25,11 @@ public class TaskList {
 
     public void markTask(int index) {
         this.tasklist[index - 1].complete();
-        System.out.println("Marked as done: \n" + this.tasklist[index - 1]);
+        System.out.println("Marked as done:\n" + this.tasklist[index - 1]);
     }
 
     public void unmarkTask(int index) {
         this.tasklist[index - 1].uncomplete();
-        System.out.println("Marked as undone: \n" + this.tasklist[index - 1]);
+        System.out.println("Marked as undone:\n" + this.tasklist[index - 1]);
     }
 }

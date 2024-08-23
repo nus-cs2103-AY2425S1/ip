@@ -13,7 +13,7 @@ public class ChoaticBot {
 
     public static void main(String[] args) {
         ChoaticBot chatBot = new ChoaticBot();
-        String welcomeMsg = "____________________________________________________________ \n"
+        String welcomeMsg = "____________________________________________________________\n"
                 + "Hello! I'm ChoaticBot\n"
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n";
@@ -32,8 +32,10 @@ public class ChoaticBot {
             String otherText = "";
 
             for (int i = 1; i < processInput.length; i++) {
-                otherText= otherText.concat(processInput[i] + " ");
+                otherText = otherText.concat(processInput[i] + " ");
             }
+
+            otherText = otherText.trim();
 
             if (Objects.equals(userInput, "bye")) {
                 System.out.println(byeMsg);
