@@ -10,7 +10,8 @@ public class TaskManager {
 
     public void addTask(Task task) {
         tasks.add(task);
-        printLines("added: " + task.getTaskItem());
+        printLines("Got it, I've added this task to your list!\n" +
+                "      " + task.toString() + "\n" + "    Wah bro... " + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
     }
 
     public int getTaskSize() {

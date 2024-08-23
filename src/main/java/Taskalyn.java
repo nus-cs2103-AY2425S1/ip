@@ -1,3 +1,5 @@
+import jdk.jfr.Event;
+
 import java.util.Scanner;
 
 public class Taskalyn {
@@ -17,11 +19,9 @@ public class Taskalyn {
         while (true) {
             String input = scanner.nextLine().trim();
 
-            String[] completeString = input.split(" ");
+            String[] completeString = input.split(" ", 2);
 
             String command = completeString[0];
-
-            boolean isError = false;
 
             switch (command) {
                 case "bye":
@@ -40,14 +40,14 @@ public class Taskalyn {
                                 taskManager.completeTask(i);
                             }
                             else {
-                                isError = true;
+                                taskManager.printLines("Aw, that task doesn't exist. Try again!");
                             }
                         } catch (NumberFormatException e) {
-                            isError = true;
+                            taskManager.printLines("Aw... mark command must be followed by an integer");
                         }
                     }
                     else {
-                        isError = true;
+                        taskManager.printLines("Aw... mark command must have just 2 arguments: the command, and the task number.");
                     }
                     break;
 
@@ -59,25 +59,68 @@ public class Taskalyn {
                                 taskManager.incompleteTask(i);
                             }
                             else {
-                                isError = true;
+                                taskManager.printLines("Aw, that task doesn't exist. Try again!");
                             }
                         } catch (NumberFormatException e) {
-                            isError = true;
+                            taskManager.printLines("Aw... unmark command must be followed by an integer");
                         }
                     }
                     else {
-                        isError = true;
+                        taskManager.printLines("Aw... unmark command must have just 2 arguments: the command, and the task number.");
+                    }
+                    break;
+
+                case "todo":
+                    if (completeString.length == 2) {
+                        taskManager.addTask(new TodoTask(completeString[1]));
+                    }
+                    else {
+                        taskManager.printLines("Aw... task command must contain 2 arguments: todo and the task at hand!");
+                    }
+                    break;
+
+                case "deadline":
+                    if (completeString.length == 2) {
+                        if (completeString[1].contains("/by")) {
+                            String[] deadlineString = completeString[1].split(" /by ", 2);
+                            if (deadlineString.length == 2) {
+                                taskManager.addTask(new DeadlineTask(deadlineString[0], deadlineString[1]));
+                            }
+                            else {
+                                taskManager.printLines("Aw... deadline command must contain just the task, /by, and the deadline after deadline command!");
+                            }
+                        }
+                        else {
+                            taskManager.printLines("Aw... your deadline commands doesn't have a deadline date set!");
+                        }
+                    }
+                    else {
+                        taskManager.printLines("Aw... your deadline command is incomplete. Try this: deadline {task} /by {deadline}");
+                    }
+                    break;
+
+                case "event":
+                    if (completeString.length == 2) {
+                        if (completeString[1].contains("/from")) {
+                            String[] eventString = completeString[1].split(" /from ", 2);
+                            if (eventString.length == 2) {
+                                String taskString = eventString[0];
+                                if (eventString[1].contains("/to")) {
+                                    String[] dates = eventString[1].split(" /to ", 2);
+                                    if (dates.length == 2) {
+                                        String fromDate = dates[0];
+                                        String toDate = dates[1];
+                                        taskManager.addTask(new EventTask(taskString, fromDate, toDate));
+                                    }
+                                }
+                            }
+                        }
                     }
                     break;
 
                 default:
-                    taskManager.addTask(new Task(input));
+                    taskManager.printLines("Sorry bro, no clue what you're saying!");
                     break;
-            }
-
-            if (isError) {
-                taskManager.addTask(new Task(input));
-                isError = false;
             }
 
             if (command.equals("bye")) {
