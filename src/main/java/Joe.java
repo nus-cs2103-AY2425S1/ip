@@ -189,10 +189,10 @@ public class Joe {
 
         Scanner reader = new Scanner(System.in);
         String userIn = reader.nextLine().strip();
-        while (!userIn.equalsIgnoreCase("bye")) {
-            if (userIn.equalsIgnoreCase("/help")) {
+        while (!userIn.equals("bye")) {
+            if (userIn.equals("/help")) {
                 help();
-            } else if (userIn.equalsIgnoreCase("list")) {
+            } else if (userIn.equals("list")) {
                 list();
             } else if (userIn.toLowerCase().startsWith("mark")) {
                 mark(getDigits(userIn));
