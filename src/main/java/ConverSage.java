@@ -58,6 +58,7 @@ public class ConverSage {
                 System.out.println("Understood, I've added this task: ");
                 System.out.println("  " + newTask);
                 System.out.println("You have " + taskList.size() + " tasks in your list" );
+                System.out.println(horizontalLine);
 
             } else if (input.startsWith("deadline ")) {
                 String[] deadlineTaskParts = input.substring(9).split(" /by ");
@@ -69,7 +70,7 @@ public class ConverSage {
                 System.out.println("Understood, I've added this task: ");
                 System.out.println("  " + newTask);
                 System.out.println("You have " + taskList.size() + " tasks in your list" );
-
+                System.out.println(horizontalLine);
             } else if (input.startsWith("event ")) {
                 String[] eventTaskParts = input.substring(6).split(" /from | /to ");
                 String taskDesc = eventTaskParts[0];
@@ -81,7 +82,7 @@ public class ConverSage {
                 System.out.println("Understood, I've added this task: ");
                 System.out.println("  " + newTask);
                 System.out.println("You have " + taskList.size() + " tasks in your list" );
-
+                System.out.println(horizontalLine);
             } else {
                 System.out.println("Invalid command");
             }
