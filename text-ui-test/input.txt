@@ -3,6 +3,7 @@ mark 1
 list
 todo borrow book
 list
+delete 2
 deadline return book /by
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
@@ -11,6 +12,7 @@ blah
 mark 1
 list
 mark 2
+delete 1
 list
 unmark 1
 list
