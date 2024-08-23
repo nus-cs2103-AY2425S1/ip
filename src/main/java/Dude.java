@@ -26,7 +26,7 @@ public class Dude {
 
     public void readAndReact(){
         input = scanner.nextLine();
-        String[] splitInput = input.split(" ");
+        String[] splitInput = input.split(" ", 2);
 
         if(splitInput[0].equals("bye")){
             exit();
@@ -42,18 +42,36 @@ public class Dude {
             unmark(Integer.parseInt(splitInput[1]));
         }
         else{
-            add(input);
+            addTask(splitInput[0], splitInput[1]);
         }
 
         readAndReact();
     }
 
-    public void add(String taskDes){
-        this.tasks[taskPointer] = new Task(taskDes);
+    public void addTask(String taskType, String taskDes){
+        Task newTask = null;
+        if(taskType.equals("todo")){
+            newTask = new ToDo(taskDes);
+        }
+        else if(taskType.equals("deadline")){
+            String[] splitDes = taskDes.split("/", 2);
+            String[] splitBy = splitDes[1].split(" ", 2);
+            newTask = new Deadline(splitDes[0], splitBy[1]);
+        }
+        else if(taskType.equals("event")){
+            String[] splitDes = taskDes.split("/", 3);
+            String[] splitFrom = splitDes[1].split(" ", 2);
+            String[] splitTo = splitDes[2].split(" ", 2);
+            newTask = new Event(splitDes[0], splitFrom[1], splitTo[1]);
+        }
+
+        this.tasks[taskPointer] = newTask;
         taskPointer++;
 
         System.out.println(line);
-        System.out.println("added: " + taskDes);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + taskPointer + " tasks in the list.");
         System.out.println(line);
     }
 
