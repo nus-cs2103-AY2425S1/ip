@@ -16,10 +16,12 @@ public class Bonnie {
         System.out.println(String.format(
                 "Hey %s! Welcome to the Bonnie chat bot! Please input a command to continue!\n" +
                 "1. bye : leaves the conversation with Bonnie\n" +
-                "2. mark/unmark {task number}: marks or unmarks that task as done\n" +
-                "3. todo {task name}: Bonnie adds a todo task into your task list\n" +
-                "4. deadline {task name} /by {deadline}: Bonnie adds a task with a deadline to your task list.\n" +
-                "5. event {task name} /from {start} /to {end}: Bonnie adds an event with a start/end time to your task list.\n" +
+                "2. list: displays the list of tasks that you have, with the task number\n" +
+                "3. mark/unmark {task number}: marks or unmarks that task as done\n" +
+                "4. todo {task name}: Bonnie adds a todo task into your task list\n" +
+                "5. deadline {task name} /by {deadline}: Bonnie adds a task with a deadline to your task list.\n" +
+                "6. event {task name} /from {start} /to {end}: Bonnie adds an event with a start/end time to your task list.\n" +
+                "7. delete {task number}: Bonnie deletes the task with that number from your task list.\n" +
                 "Bonnie wants to remind you that you should substitute items with curly braces with the actual information.\n" +
                 "Also, do remember to use the forward slashes! \"/from\" is valid but \"from\" is NOT valid!\n" +
                 "Example: \"event clean floor /from 18th September 5pm /to 18th September 6pm\" is a valid command\n", my_username));
@@ -47,6 +49,11 @@ public class Bonnie {
                     // Mark task "taskNum" as not done
                     tasklist.get(taskNum - 1).unmarkAsDone();
                 }
+            } else if (check_delete_command(input)) {
+                String[] arr = input.split(" ", 2);
+                Integer taskNum = Integer.valueOf(arr[1]);
+                System.out.println(String.format("You have successfully deleted task %d!", taskNum));
+                tasklist.remove(taskNum - 1);
             } else {
                 // Want to parse and add task into task list
                 parseAndAddTask(input);
@@ -59,11 +66,30 @@ public class Bonnie {
         if ((arr[0].equals("mark") || arr[0].equals("unmark")) && arr.length == 2) {
             try {
                 Integer taskNum = Integer.valueOf(arr[1]);
-                if (taskNum < tasklist.size() && taskNum >= 0) {
+                if (taskNum <= tasklist.size() && taskNum >= 1) {
                     return true;
                 } else {
                     System.out.println("You might have tried to mark or unmark a task that does not exist.\n" +
                                        "If so, please delete this wrongly added task using the delete command.\n");
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean check_delete_command(String targetString) {
+        String[] arr = targetString.split(" ");
+        if (arr[0].equals("delete") && arr.length == 2) {
+            try {
+                Integer taskNum = Integer.valueOf(arr[1]);
+                if (taskNum <= tasklist.size() && taskNum >= 1) {
+                    return true;
+                } else {
+                    System.out.println("You might have tried to delete a task that does not exist.\n");
                     return false;
                 }
             } catch (NumberFormatException e) {
