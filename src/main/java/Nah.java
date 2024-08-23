@@ -1,9 +1,11 @@
+import java.util.Scanner;
+
 public class Nah {
-    static String greetLine = "____________________________________________________________ \n"
+    static String greetLine = "____________________________________________________________\n"
             + " Hello! I'm NAH \n"
             + " What can I do for you? \n"
-            + "____________________________________________________________";
-    static String byeLine = " Bye. Hope to see you again soon!";
+            + "____________________________________________________________\n";
+    static String byeLine = " Bye. Hope to see you again soon!\n";
     void greet() {
         System.out.println(greetLine);
     }
@@ -24,7 +26,21 @@ public class Nah {
 
         nah.greet();
 
-        nah.exit();
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            input = scanner.nextLine();
+            System.out.println("____________________________________________________________ \n");
+            if (input.equals("bye")) {
+                nah.exit();
+                break;
+            }
+
+            else {
+                System.out.println(" " + input + "\n");
+            }
+        }
         System.out.println("____________________________________________________________ \n");
     }
 }
