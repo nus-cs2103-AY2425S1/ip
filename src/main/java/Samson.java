@@ -24,10 +24,13 @@ public class Samson {
                 } else if (userInput.startsWith("mark")) {
                     String[] chunk = userInput.split(" ");
                     // handle edge error where user does not input task number
-                    if (chunk.length != 2) {
+                    if (chunk.length != 2 ) {
                         throw new SamException("Please provide valid Task Number");
                     }
                     int taskNum = Integer.parseInt(chunk[1]);
+                    if (taskNum > taskManager.checkSize()) {
+                        throw new SamException("Please provide valid Task Number");
+                    }
                     taskManager.markTask(taskNum);
                 } else if (userInput.startsWith("unmark")) {
                     String[] chunk = userInput.split(" ");
@@ -35,6 +38,9 @@ public class Samson {
                         throw new SamException("Please provide valid Task Number");
                     }
                     int taskNum = Integer.parseInt(chunk[1]);
+                    if (taskNum > taskManager.checkSize()) {
+                        throw new SamException("Please provide valid Task Number");
+                    }
                     taskManager.unmarkTask(taskNum);
                 } else if (userInput.startsWith("todo")) {
                     if (userInput.length() <= 5) {
@@ -68,7 +74,7 @@ public class Samson {
                     taskManager.deleteTask(taskNum);
                 } else {
                     throw new SamException("I'm sorry, but I don't know what that means :-( \n " +
-                            "Kindly provide the tasks starting with 'todo', 'event' or 'deadline'!!");
+                            "Kindly provide the tasks starting with 'todo', 'event', 'deadline'!!");
                 }
             } catch (SamException e) {
                 System.out.println("____________________________________________________________");

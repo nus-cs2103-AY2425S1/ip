@@ -4,7 +4,6 @@ public class TaskManager {
     private ArrayList<Task> tasks;
     private boolean taskStatus;
     public TaskManager() {
-        taskCount = 0;
         tasks = new ArrayList<>();
     }
     public void addTask(Task task) {
@@ -48,6 +47,10 @@ public class TaskManager {
         System.out.println("   " + removedTask.toString());
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+    }
+
+    public int checkSize() {
+        return tasks.size();
     }
 
     public String checkStatus() {
