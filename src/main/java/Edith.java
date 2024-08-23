@@ -5,7 +5,7 @@ public class Edith {
         Scanner scanner = new Scanner(System.in);
 
         String horizontal = "____________________________________________________________";
-        String greeting = " heyyy im edith! \n what can I do for you?";
+        String greeting = " heyyy im edith!\n what can I do for you?";
         String farewell = " bye!! see you soon love <3";
         String linebreak = "\n";
 
@@ -91,7 +91,7 @@ public class Edith {
 
                 todoList.add(task);
                 System.out.println(horizontal + linebreak +
-                        " " + "nice! i've added this task: " + linebreak +
+                        " " + "nice! i've added this task:" + linebreak +
                         " " + task.toString() + linebreak +
                         " there are currently " + todoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
                         horizontal);
