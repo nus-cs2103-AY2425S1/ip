@@ -1,18 +1,21 @@
 import java.util.Scanner;
 
+enum ChatCommand {
+    bye,
+    list,
+    mark,
+    unmark,
+    todo,
+    deadline,
+    event,
+    delete
+}
+
 public class Bro {
     final static String GREETING_MESSAGE = """
                  Hello! I'm Bro
                  What can I do for you?""";
     final static String GOODBYE_MESSAGE = "Goodbye.";
-    final static String EXIT_COMMAND = "bye";
-    final static String LIST_COMMAND = "list";
-    final static String MARK_COMMAND = "mark";
-    final static String UNMARK_COMMAND = "unmark";
-    final static String ADD_TODO_COMMAND = "todo";
-    final static String ADD_DEADLINE_COMMAND = "deadline";
-    final static String ADD_EVENT_COMMAND = "event";
-    final static String DELETE_COMMAND = "delete";
 
     public static void main(String[] args) {
         reply(GREETING_MESSAGE);
@@ -24,20 +27,25 @@ public class Bro {
             // Read from standard input
             String input = sc.nextLine();
             String[] inputArgs = input.split(" ", 2);
-            String cmd = inputArgs[0];
+            ChatCommand cmd = null;
+            try {
+                cmd = ChatCommand.valueOf(inputArgs[0]);
+            } catch (IllegalArgumentException e) {
+                reply("Bro. I don't understand that");
+            }
             String secondArg = "";
             if (inputArgs.length > 1) {
                 secondArg = inputArgs[1];
             }
 
             switch (cmd) {
-                case EXIT_COMMAND:
+                case bye:
                     isConversing = false;
                     break;
-                case LIST_COMMAND:
+                case list:
                     taskList.printAllTasks();
                     break;
-                case MARK_COMMAND:
+                case mark:
                     try {
                         int taskId = Integer.parseInt(secondArg);
                         Task task = taskList.markTask(taskId);
@@ -47,7 +55,7 @@ public class Bro {
                         reply("Error: " + e.getMessage());
                         break;
                     }
-                case UNMARK_COMMAND:
+                case unmark:
                     try {
                         int taskId = Integer.parseInt(secondArg);
                         Task task = taskList.unmarkTask(taskId);
@@ -57,7 +65,7 @@ public class Bro {
                         reply("Error: " + e.getMessage());
                         break;
                     }
-                case ADD_TODO_COMMAND:
+                case todo:
                     if (secondArg.isEmpty()) {
                         reply("Bro I can't add a empty task");
                         break;
@@ -65,7 +73,7 @@ public class Bro {
                     Task todoTask = taskList.addTask(new TodoTask(secondArg));
                     addTaskReply(todoTask, taskList.getNumberOfTask());
                     break;
-                case ADD_DEADLINE_COMMAND:
+                case deadline:
                     // Input validation
                     if (secondArg.isEmpty()) {
                         reply("Bro I Can't add a empty task");
@@ -83,7 +91,7 @@ public class Bro {
                     Task deadlineTask = taskList.addTask(new DeadlineTask(taskContent, deadline));
                     addTaskReply(deadlineTask, taskList.getNumberOfTask());
                     break;
-                case ADD_EVENT_COMMAND:
+                case event:
                     // Input validation
                     if (secondArg.isEmpty()) {
                         reply("Bro I Can't add a empty task");
@@ -110,7 +118,7 @@ public class Bro {
                         reply("Usage: deadline <task> /from <startTime> /to <endTime>");
                         break;
                     }
-                case DELETE_COMMAND:
+                case delete:
                     try {
                         int taskId = Integer.parseInt(secondArg);
                         Task task = taskList.deleteTask(taskId);
@@ -120,8 +128,6 @@ public class Bro {
                         reply("There was an error bro.");
                         break;
                     }
-                default:
-                    reply("Bro. I don't respond to that.");
             }
         }
         reply(GOODBYE_MESSAGE);
