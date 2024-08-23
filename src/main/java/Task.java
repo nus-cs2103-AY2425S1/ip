@@ -27,7 +27,7 @@ public class Task {
         this.doneFlag = true;
     }
 
-    public void unmarkTaskDone() {
+    public void markTaskUndone() {
         this.doneFlag = false;
     }
 

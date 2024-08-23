@@ -86,7 +86,7 @@ public class Edith {
     public void unmark(int index) {
         int num = index + 1;
         String message = "Sure, I've marked task " + num + " as not done yet:";
-        listOfTasks.get(index).unmarkTaskDone();
+        listOfTasks.get(index).markTaskUndone();
 
         System.out.println(indentation + message);
         System.out.println(indentation + listOfTasks.get(index) + lineBreak);
