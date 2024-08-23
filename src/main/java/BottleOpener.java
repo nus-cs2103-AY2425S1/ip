@@ -72,6 +72,20 @@ public class BottleOpener {
                         System.out.println(spacer + "Please provide an appropriate index!\n" + spacer);
                     }
                     break;
+                case "delete":
+                    try {
+                        int num = Integer.parseInt(userInput[1]);
+                        tasks.remove(num - 1);
+                        index--;
+                        System.out.println(spacer + "I have removed the item!\n" + spacer);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(spacer + "Please tell me which item to delete!\n" + spacer);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(spacer + "Please provide an appropriate number!\n" + spacer);
+                    } catch (NumberFormatException e) {
+                        System.out.println(spacer + "Please provide an appropriate index!\n" + spacer);
+                    }
+                    break;
                 default:
                     try {
                         String des = userInput[1];
