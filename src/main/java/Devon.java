@@ -12,28 +12,47 @@ public class Devon {
     }
 
     private void introduction() {
-        this.printLongLine();
+        printLongLine();
         System.out.println("\t" + "Hello! I'm Devon.");
         System.out.println("\t" + "What can I do for you?");
-        this.printLongLine();
+        printLongLine();
     }
 
     private void goodbye() {
-        this.printLongLine();
+        printLongLine();
         System.out.println("\t" + "Bye. Hope to see you again soon!");
-        this.printLongLine();
+        printLongLine();
+    }
+
+    private String detectCommand(String msg) {
+        String[] parts = msg.split(" ");
+        return parts[0];
+    }
+
+    private String detectContent(String msg) {
+        String[] parts = msg.split(" ");
+        return parts.length > 1 ? parts[1] : "Error";
     }
 
     private void receiveUserInput() {
-        String input = this.scanner.nextLine();
-        if (input.equals("bye")) {
-            this.goodbye();
-        } else if (input.equals("list")) {
-            this.printList();
-            this.receiveUserInput();
+        String input = scanner.nextLine();
+        String command = detectCommand(input);
+        if (command.equals("bye")) {
+            goodbye();
+        } else if (command.equals("list")) {
+            printList();
+            receiveUserInput();
+        } else if (command.equals("mark")) {
+            int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+            markAsDone(tasks[taskIndex]);
+            receiveUserInput();
+        } else if (command.equals("unmark")) {
+            int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+            markAsUndone(tasks[taskIndex]);
+            receiveUserInput();
         } else {
-            this.addToList(input);
-            this.receiveUserInput();
+            addToList(input);
+            receiveUserInput();
         }
     }
 
@@ -51,14 +70,25 @@ public class Devon {
         for (int i = 0; i < taskCount; i++) {
             Task current = tasks[i];
             String formattedEntry = String.format(
-                    "\t" + "%d. [%s] %s",
+                    "\t" + "%d. %s",
                     i + 1,
-                    current.getStatusIcon(),
-                    current.getDescription()
+                    current.getFormattedTask()
             );
             System.out.println(formattedEntry);
         }
         this.printLongLine();
+    }
+
+    void markAsDone(Task task) {
+        printLongLine();
+        task.markAsDone();
+        printLongLine();
+    }
+
+    void markAsUndone(Task task) {
+        printLongLine();
+        task.markAsUndone();
+        printLongLine();
     }
 
     public static void main(String[] args) {
