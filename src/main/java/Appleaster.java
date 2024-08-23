@@ -61,32 +61,68 @@ public class Appleaster {
                 taskList.listTasks();
                 break;
             case "mark":
-                if (parts.length > 1) {
-                    try {
-                        int index = Integer.parseInt(parts[1]) - 1;
-                        taskList.markTask(index, true);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please provide a valid task number.");
-                    }
-                } else {
-                    System.out.println("Please specify a task number to mark.");
-                }
-                break;
             case "unmark":
-                if (parts.length > 1) {
-                    try {
-                        int index = Integer.parseInt(parts[1]) - 1;
-                        taskList.markTask(index, false);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please provide a valid task number.");
-                    }
-                } else {
-                    System.out.println("Please specify a task number to unmark.");
-                }
+                handleMarkUnmark(command, parts);
+                break;
+            case "todo":
+                handleTodo(parts);
+                break;
+            case "deadline":
+                handleDeadline(parts);
+                break;
+            case "event":
+                handleEvent(parts);
                 break;
             default:
-                taskList.addTask(input);
+                System.out.println("I'm not sure what you mean. Please try again.");
                 break;
+        }
+    }
+
+    private static void handleMarkUnmark(String command, String[] parts) {
+        if (parts.length > 1) {
+            try {
+                int index = Integer.parseInt(parts[1]) - 1;
+                taskList.markTask(index, command.equals("mark"));
+            } catch (NumberFormatException e) {
+                System.out.println("Please provide a valid task number.");
+            }
+        } else {
+            System.out.println("Please specify a task number to " + command + ".");
+        }
+    }
+
+    private static void handleTodo(String[] parts) {
+        if (parts.length > 1) {
+            taskList.addTask(new Todo(parts[1]));
+        } else {
+            System.out.println("The description of a todo cannot be empty.");
+        }
+    }
+
+    private static void handleDeadline(String[] parts) {
+        if (parts.length > 1) {
+            String[] deadlineParts = parts[1].split(" /by ");
+            if (deadlineParts.length == 2) {
+                taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            } else {
+                System.out.println("Please provide a deadline in the format: deadline <description> /by <deadline>");
+            }
+        } else {
+            System.out.println("The description of a deadline cannot be empty.");
+        }
+    }
+
+    private static void handleEvent(String[] parts) {
+        if (parts.length > 1) {
+            String[] eventParts = parts[1].split(" /from | /to ");
+            if (eventParts.length == 3) {
+                taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+            } else {
+                System.out.println("Please provide an event in the format: event <description> /from <start> /to <end>");
+            }
+        } else {
+            System.out.println("The description of an event cannot be empty.");
         }
     }
 }
