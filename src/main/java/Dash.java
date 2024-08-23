@@ -1,9 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Dash {
     public static void main(String[] args) {
         //Initialise scanner for user input
         Scanner scanner = new Scanner(System.in);
+
+        //Initialise array list to store date
+        ArrayList<String> list = new ArrayList<>();
 
         //Greeting
         String logo = " .----------------.  .----------------.  .----------------.  .----------------.\n" +
@@ -26,10 +30,20 @@ public class Dash {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(horizontalLine);
+                int length = list.size();
+                for (int i = 0; i < length; i++) {
+                    int num = i + 1;
+                    System.out.println(num +". " + list.get(i));
+                }
+                System.out.println(horizontalLine);
+            } else {
+                System.out.println(horizontalLine);
+                System.out.println("added: " + input);
+                list.add(input);
+                System.out.println(horizontalLine);
             }
-            System.out.println(horizontalLine);
-            System.out.println(input);
-            System.out.println(horizontalLine);
         }
 
         //Exit
