@@ -1,3 +1,9 @@
+package cheese;
+
+import cheese.task.Deadline;
+import cheese.task.Event;
+import cheese.task.Task;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

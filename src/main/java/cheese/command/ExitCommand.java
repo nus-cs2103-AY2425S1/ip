@@ -1,5 +1,11 @@
+package cheese.command;
+
+import cheese.Storage;
+import cheese.TaskList;
+import cheese.Ui;
+
 public class ExitCommand extends Command {
-    ExitCommand() {
+    public ExitCommand() {
         super();
     }
 

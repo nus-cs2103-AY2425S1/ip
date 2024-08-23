@@ -1,7 +1,15 @@
+package cheese.command;
+
+import cheese.CheeseException;
+import cheese.Storage;
+import cheese.TaskList;
+import cheese.Ui;
+import cheese.task.Task;
+
 public class MarkCommand extends UpdateCommand{
     private final boolean done;
     private final int idx;
-    MarkCommand(int idx, boolean done) {
+    public MarkCommand(int idx, boolean done) {
         super(idx, false);
         this.idx = idx;
         this.done = done;

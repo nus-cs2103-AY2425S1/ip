@@ -1,3 +1,10 @@
+package cheese.command;
+
+import cheese.CheeseException;
+import cheese.Storage;
+import cheese.TaskList;
+import cheese.Ui;
+
 public class Command {
     private boolean exitChat;
 

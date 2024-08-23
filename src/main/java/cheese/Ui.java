@@ -1,9 +1,13 @@
+package cheese;
+
+import cheese.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
     private static final String GREETING = "Hello! I'm Wheely Big Cheese\nWhat can I do for you?";
     private static final String ENDING = "Schwooo Weeeeee!!! Shutting down.....";
-    private static final String ERROR = "Command not gouda.... ";
+    private static final String ERROR = "Cheese.Command not gouda.... ";
     private Scanner sc;
 
     Ui() {
@@ -40,7 +44,7 @@ public class Ui {
 
     /**
      * Say a newly added/deleted task
-     * @param t Task
+     * @param t Cheese.Task
      * @param tasks tasklist
      * @param delete note delete/add task
      */

@@ -1,5 +1,7 @@
+package cheese;
+
 public class CheeseException extends Exception{
-    CheeseException(String message) {
+    public CheeseException(String message) {
         super(message);
     }
 }

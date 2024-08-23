@@ -1,5 +1,8 @@
+package cheese.task;
+
+import cheese.CheeseException;
+
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -11,22 +14,22 @@ public class Deadline extends Task{
         this.date = date;
     }
 
-    Deadline(String[] data) throws CheeseException {
+    public Deadline(String[] data) throws CheeseException {
         super(data);
         if(data.length != 4) throw new CheeseException("Incorrect data format");
         date = parseDate(data[3]);
     }
 
     /**
-     * Factory method to ensure correct creation of Deadline
+     * Factory method to ensure correct creation of Cheese.Deadline
      * @param input String
-     * @return Deadline
+     * @return Cheese.Deadline
      * @throws CheeseException custom exception
      */
     public static Deadline of(String input) throws CheeseException {
         String[] tokens = input.replace("deadline", "").strip().split("/by");
-        if (tokens.length < 2) throw new CheeseException("Deadline needs a /by");
-        if (tokens[1].isBlank()) throw new CheeseException("Deadline needs a date!");
+        if (tokens.length < 2) throw new CheeseException("Cheese.Deadline needs a /by");
+        if (tokens[1].isBlank()) throw new CheeseException("Cheese.Deadline needs a date!");
         return new Deadline(tokens[0].strip(), Task.parseDate(tokens[1]));
     }
 

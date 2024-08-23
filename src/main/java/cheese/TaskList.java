@@ -1,3 +1,7 @@
+package cheese;
+
+import cheese.task.Task;
+
 import java.util.ArrayList;
 
 /**

@@ -1,6 +1,14 @@
+package cheese.command;
+
+import cheese.CheeseException;
+import cheese.Storage;
+import cheese.TaskList;
+import cheese.Ui;
+import cheese.task.Task;
+
 public class AddCommand extends Command {
     private final Task task;
-    AddCommand(Task task) {
+    public AddCommand(Task task) {
         super();
         this.task = task;
     }

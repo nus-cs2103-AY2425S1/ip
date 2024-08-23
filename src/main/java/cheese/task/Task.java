@@ -1,19 +1,22 @@
+package cheese.task;
+
+import cheese.CheeseException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Task {
     private String name;
     private boolean done;
 
-    Task(String name) throws CheeseException {
+    public Task(String name) throws CheeseException {
         if (name.isBlank()) throw new CheeseException("Cheese needs to have a name");
         this.name = name;
         done = false;
     }
 
-    Task(String[] data) throws CheeseException {
+    public Task(String[] data) throws CheeseException {
         if (data.length < 3) throw new CheeseException("Incorrect data format");
         done = Objects.equals(data[1], "1");
         name = data[2];

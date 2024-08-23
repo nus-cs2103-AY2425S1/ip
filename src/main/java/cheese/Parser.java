@@ -1,3 +1,11 @@
+package cheese;
+
+import cheese.command.*;
+import cheese.task.Deadline;
+import cheese.task.Event;
+import cheese.task.Task;
+import cheese.task.ToDo;
+
 public class Parser {
     /**
      * Get idx of item in list from user input

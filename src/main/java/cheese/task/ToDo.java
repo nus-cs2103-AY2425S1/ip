@@ -1,12 +1,16 @@
+package cheese.task;
+
+import cheese.CheeseException;
+
 public class ToDo extends Task{
     private ToDo(String name) throws CheeseException {
         super(name);
     }
 
     /**
-     * Factory method to ensure correct creation of ToDo
+     * Factory method to ensure correct creation of Cheese.ToDo
      * @param input String
-     * @return ToDo
+     * @return Cheese.ToDo
      * @throws CheeseException custom exception
      */
     public static ToDo of(String input) throws CheeseException {

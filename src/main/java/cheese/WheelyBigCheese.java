@@ -1,3 +1,7 @@
+package cheese;
+
+import cheese.command.Command;
+
 public class WheelyBigCheese {
     public static final String LIST_FILE_PATH = "./data/list.txt";
 
@@ -35,7 +39,6 @@ public class WheelyBigCheese {
                 ui.say(e);
             }
         } while (!exitChat);
-        ui.bye();
     }
 
     public static void main(String[] args) {
