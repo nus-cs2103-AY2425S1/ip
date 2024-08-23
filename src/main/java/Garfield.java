@@ -6,13 +6,13 @@ public class Garfield {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
-        String logo = """
-                 ██████╗  █████╗ ██████╗ ███████╗██╗███████╗██╗     ██████╗
-                ██╔════╝ ██╔══██╗██╔══██╗██╔════╝██║██╔════╝██║     ██╔══██╗
-                ██║  ███╗███████║██████╔╝█████╗  ██║█████╗  ██║     ██║  ██║
-                ██║   ██║██╔══██║██╔══██╗██╔══╝  ██║██╔══╝  ██║     ██║  ██║
-                ╚██████╔╝██║  ██║██║  ██║██║     ██║███████╗███████╗██████╔╝
-                 ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═════╝
+        String logo = """          
+                   _____             __ _      _     _
+                  / ____|           / _(_)    | |   | |
+                 | |  __  __ _ _ __| |_ _  ___| | __| |
+                 | | |_ |/ _` | '__|  _| |/ _ \\ |/ _` |
+                 | |__| | (_| | |  | | | |  __/ | (_| |
+                  \\_____|\\__,_|_|  |_| |_|\\___|_|\\__,_|
                 """;
 
         String initialGreeting = "Hey. I'm\n\n" + logo
@@ -53,7 +53,7 @@ public class Garfield {
                     if (taskId <= taskList.size()) {
                         Task task = taskList.get(taskId - 1);
                         task.markAsDone();
-                        Garfield.speak("Nice. You actually did something. I’ve marked that task as done:\n\n\t"
+                        Garfield.speak("Nice. You actually did something. I've marked that task as done:\n\n\t"
                         + task);
                         continue;
                     }
@@ -67,7 +67,7 @@ public class Garfield {
                     if (taskId <= taskList.size()) {
                         Task task = taskList.get(taskId - 1);
                         task.markAsUndone();
-                        Garfield.speak("Oh, having second thoughts? OK, I’ve marked that task as not done yet:\n\n\t"
+                        Garfield.speak("Oh, having second thoughts? OK, I've marked that task as not done yet:\n\n\t"
                                 + task + "\n\nClearly, you're still undecided.");
                         continue;
                     }
