@@ -4,7 +4,7 @@ import java.lang.StringBuilder;
 
 public class Garfield {
 
-    private static ArrayList<String> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
         String logo = """
                  ██████╗  █████╗ ██████╗ ███████╗██╗███████╗██╗     ██████╗
@@ -35,7 +35,8 @@ public class Garfield {
                 } else {
                     StringBuilder listSummary = new StringBuilder("Ugh, here's what you've got so far:\n\n");
                     for (int i = 0; i < taskList.size(); i++) {
-                        listSummary.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+                        listSummary.append((i + 1)).append(". ")
+                                .append(taskList.get(i).toString()).append("\n");
 
                     }
                     listSummary.append("\nCan we be done now?");
@@ -45,7 +46,7 @@ public class Garfield {
             }
 
             Garfield.speak("Fine. I'll add '" + userInput + "' to the list.");
-            taskList.add(userInput);
+            taskList.add(new Task(userInput));
 
         }
 
