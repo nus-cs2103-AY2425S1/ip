@@ -65,6 +65,9 @@ public class Appleaster {
             case "event":
                 handleEvent(parts);
                 break;
+            case "delete":
+                handleDelete(parts);
+                break;                
             default:
                 throw new AppleasterException("I don't recognize that command. Here are the commands I know: todo, deadline, event, list, mark, unmark.");
         }
@@ -83,6 +86,23 @@ public class Appleaster {
             throw new AppleasterException("There is no task with the number " + parts[1] + ". Please check the task list and try again.");
         }
     }
+
+    private static void handleDelete(String[] parts) throws AppleasterException {
+        if (parts.length < 2) {
+            throw new AppleasterException("Please provide a task number to delete. For example: delete 1");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            Task deletedTask = taskList.deleteTask(index);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + deletedTask);
+            System.out.printf("Now you have %d task%s in the list.%n", taskList.getTaskCount(), taskList.getTaskCount() == 1 ? "" : "s");
+        } catch (NumberFormatException e) {
+            throw new AppleasterException("The task number should be a valid integer. You provided: " + parts[1]);
+        } catch (IndexOutOfBoundsException e) {
+            throw new AppleasterException("There is no task with the number " + parts[1] + ". Please check the task list and try again.");
+        }
+    }    
 
     private static void handleTodo(String[] parts) throws AppleasterException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {

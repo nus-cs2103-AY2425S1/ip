@@ -39,4 +39,15 @@ public class TaskList {
         }
         System.out.println("  " + task);
     }
+
+    public Task deleteTask(int index) throws AppleasterException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new AppleasterException("Task " + (index + 1) + " does not exist. Please choose a number between 1 and " + tasks.size() + ".");
+        }
+        return tasks.remove(index);
+    }
+
+    public int getTaskCount() {
+        return tasks.size();
+    }
 }
