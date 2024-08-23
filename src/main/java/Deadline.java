@@ -29,4 +29,12 @@ public class Deadline extends Task{
         return super.unmarkDoneToString() + "\n" + " ".repeat(5) + "[D] [ ] " + description + " (by: " + by + ")";
     }
 
+    @Override
+    public String deleteTask() {
+        if (isDone) {
+            return super.deleteTask() + "\n" + " ".repeat(5) + "[D] [X] " + description + " (by: " + by + ")";
+        }
+        return super.deleteTask() + "\n" + " ".repeat(5) + "[D] [ ] " + description + " (by: " + by + ")";
+    }
+
 }

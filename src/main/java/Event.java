@@ -31,4 +31,12 @@ public class Event extends Task{
         return super.unmarkDoneToString() + "\n" + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
     }
 
+    @Override
+    public String deleteTask() {
+        if (isDone) {
+            return super.deleteTask() + "\n" + " ".repeat(5) + "[E] [X] " + description + " (" + start + " - " + end + ")";
+        }
+        return super.deleteTask() + "\n" + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
+    }
+
 }

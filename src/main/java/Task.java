@@ -41,4 +41,10 @@ public class Task {
                 I have added this task into the list for you and
                 that brings your total number of tasks to""" + " " + String.valueOf(taskCount);
     }
+
+    public String deleteTask() {
+        taskCount--;
+        return "Alright! I have removed this task for you." + "\n" +
+                "You now have " + taskCount + " tasks left in your list.";
+    }
 }

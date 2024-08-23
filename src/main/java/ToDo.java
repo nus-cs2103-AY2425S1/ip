@@ -27,4 +27,12 @@ public class ToDo extends Task{
         return super.unmarkDoneToString() + "\n" + " ".repeat(5) + "[T] [ ] " + description;
     }
 
+    @Override
+    public String deleteTask() {
+        if (isDone) {
+            return super.deleteTask() + "\n" + " ".repeat(5) + "[T] [X] " + description;
+        }
+        return super.deleteTask() + "\n" + " ".repeat(5) + "[T] [ ] " + description;
+    }
+
 }
