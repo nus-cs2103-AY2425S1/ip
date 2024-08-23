@@ -173,6 +173,11 @@ public class Bob {
                 } else if (userInput.startsWith("delete")) {
                     String[] words = userInput.split(" ");
                     int index = Integer.parseInt(words[1]) - 1;
+
+                    if (index >= messages.size()) {
+                        throw new BobException("The task you want to delete does not exist.");
+                    }
+
                     Task removed = messages.remove(index);
                     dialogue("Noted. I've removed this task: \n" + removed + "\nNow you have " + messages.size() + " tasks in the list.");
                 
