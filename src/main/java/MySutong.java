@@ -16,64 +16,85 @@ public class MySutong {
         while (true) {
             input = scanner.nextLine();
 
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                System.out.println(horizontalLine);
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+            try {
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    System.out.println(horizontalLine);
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                    System.out.println(horizontalLine);
+                } else if (input.startsWith("mark ")) {
+                    int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+                    if (taskNumber >= 0 && taskNumber < taskCount) {
+                        tasks[taskNumber].markAsDone();
+                        System.out.println(horizontalLine);
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(tasks[taskNumber]);
+                        System.out.println(horizontalLine);
+                    } else {
+                        throw new InvalidTaskNumberException("Task number " + (taskNumber + 1) + " is out of range.");
+                    }
+                } else if (input.startsWith("unmark ")) {
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskNumber >= 0 && taskNumber < taskCount) {
+                        tasks[taskNumber].unmark();
+                        System.out.println(horizontalLine);
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(tasks[taskNumber]);
+                        System.out.println(horizontalLine);
+                    } else {
+                        throw new InvalidTaskNumberException("Task number " + (taskNumber + 1) + " is out of range.");
+                    }
+                } else if (input.startsWith("todo ")) {
+                    String description = input.substring(5).trim();
+                    if (description.isEmpty()) {
+                        throw new NoDescriptionException("The description of a todo cannot be empty.");
+                    }
+                    tasks[taskCount] = new Todo(description);
+                    System.out.println(horizontalLine);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskCount]);
+                    taskCount = taskCount + 1;
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(horizontalLine);
+                } else if (input.startsWith("deadline ")) {
+                    String[] parts = input.substring(9).split("/by");
+                    if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                        throw new NoDescriptionException("The description or deadline of a task cannot be empty.");
+                    }
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+                    tasks[taskCount] = new Deadline(description, by);
+                    System.out.println(horizontalLine);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskCount]);
+                    taskCount = taskCount + 1;
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(horizontalLine);
+                } else if (input.startsWith("event ")) {
+                    String[] parts = input.substring(6).split("/from|/to");
+                    if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+                        throw new NoDescriptionException("The description, start time, or end time of an event cannot be empty.");
+                    }
+                    String description = parts[0].trim();
+                    String from = parts[1].trim();
+                    String to = parts[2].trim();
+                    tasks[taskCount] = new Event(description, from, to);
+                    System.out.println(horizontalLine);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskCount]);
+                    taskCount = taskCount + 1;
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(horizontalLine);
+                } else {
+                    throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
                 }
+            } catch (SutongException e) {
                 System.out.println(horizontalLine);
-            } else if (input.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-                if (taskNumber >= 0 && taskNumber < taskCount) {
-                    tasks[taskNumber].markAsDone();
-                    System.out.println(horizontalLine);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(tasks[taskNumber]);
-                    System.out.println(horizontalLine);
-                }
-            } else if (input.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-                if (taskNumber >= 0 && taskNumber < taskCount) {
-                    tasks[taskNumber].unmark();
-                    System.out.println(horizontalLine);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(tasks[taskNumber]);
-                    System.out.println(horizontalLine);
-                }
-            } else if (input.startsWith("todo ")) {
-                String description = input.substring(5).trim();
-                tasks[taskCount] = new Todo(description);
-                System.out.println(horizontalLine);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount]);
-                taskCount = taskCount + 1;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println(horizontalLine);
-            } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split("/by");
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                tasks[taskCount] = new Deadline(description, by);
-                System.out.println(horizontalLine);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount]);
-                taskCount = taskCount + 1;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println(horizontalLine);
-            } else if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split("/from|/to");
-                String description = parts[0].trim();
-                String from = parts[1].trim();
-                String to = parts[2].trim();
-                tasks[taskCount] = new Event(description, from, to);
-                System.out.println(horizontalLine);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount]);
-                taskCount = taskCount + 1;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println("Error: " + e.getMessage());
                 System.out.println(horizontalLine);
             }
         }
@@ -152,5 +173,29 @@ class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
+
+class SutongException extends Exception {
+    public SutongException(String message) {
+        super(message);
+    }
+}
+
+class NoDescriptionException extends SutongException {
+    public NoDescriptionException(String message) {
+        super(message);
+    }
+}
+
+class InvalidTaskNumberException extends SutongException {
+    public InvalidTaskNumberException(String message) {
+        super(message);
+    }
+}
+
+class UnknownCommandException extends SutongException {
+    public UnknownCommandException(String message) {
+        super(message);
     }
 }
