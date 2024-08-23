@@ -40,7 +40,7 @@ public class Vuewee {
           // Mark task as done if user types "mark <task number>"
           case "mark": {
             if (inputParts.length < 2) {
-              throw new InvalidTaskDescriptionException("mark", "mark <task number>");
+              throw new NoTaskParametersFoundException("mark", "mark <task number>");
             }
             try {
               int taskNumber = Integer.parseInt(inputParts[1]) - 1;
@@ -53,7 +53,7 @@ public class Vuewee {
 
           case "unmark": {
             if (inputParts.length < 2) {
-              throw new InvalidTaskDescriptionException("unmark", "unmark <task number>");
+              throw new NoTaskParametersFoundException("unmark", "unmark <task number>");
             }
             try {
               int taskNumber = Integer.parseInt(inputParts[1]) - 1;
@@ -67,7 +67,7 @@ public class Vuewee {
           // (Usage: todo <description>)
           case "todo": {
             if (inputParts.length < 2) {
-              throw new InvalidTaskDescriptionException("todo", "todo <description>");
+              throw new NoTaskParametersFoundException("todo", "todo <description>");
             }
             taskList.addTask(new TodoTask(inputParts[1]));
             break;
@@ -75,7 +75,7 @@ public class Vuewee {
           // Add deadline task to task list
           // (Usage: deadline <description> /by <date>)
           case "deadline": {
-            final InvalidTaskDescriptionException DEADLINE_ERROR = new InvalidTaskDescriptionException("deadline",
+            final NoTaskParametersFoundException DEADLINE_ERROR = new NoTaskParametersFoundException("deadline",
                 "deadline <description> /by <date>");
 
             if (inputParts.length < 2) {
@@ -92,7 +92,7 @@ public class Vuewee {
           // Add event task to task list
           // (Usage: event <description> /from <fromDate> /to <toDate>)
           case "event": {
-            final InvalidTaskDescriptionException EVENT_ERROR = new InvalidTaskDescriptionException("event",
+            final NoTaskParametersFoundException EVENT_ERROR = new NoTaskParametersFoundException("event",
                 "event <description> /from <fromDate> /to <toDate>");
             if (inputParts.length < 2) {
               throw EVENT_ERROR;
