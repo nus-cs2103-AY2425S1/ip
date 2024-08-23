@@ -32,7 +32,7 @@ public class Parser {
                     }
                     if(0 < i && i <= storage.size()) {
                         storage.mark(i);
-                        System.out.println(String.format("marked %s as completed",i));
+                        System.out.println(String.format("marked %s as completed\nuse \"list\" to see changes",i));
                     }else {
                         System.out.println("that number isn't a valid task dude...");
                         System.out.println("it has to be from 1 to " + storage.size());
@@ -47,7 +47,7 @@ public class Parser {
                     }
                     if(0 < i && i <= storage.size()) {
                         storage.unmark(i);
-                        System.out.println(String.format("marked %s as uncompleted",i));
+                        System.out.println(String.format("marked %s as uncompleted\nuse \"list\" to see changes",i));
                     }else {
                         System.out.println("that number isn't a valid task dude...");
                         System.out.println("it has to be from 1 to " + storage.size());
@@ -91,6 +91,21 @@ public class Parser {
                         }
 
                     } else System.out.println("bruh? type something to add I'm not adding a blank...");
+                    break;
+                case "delete":
+                    try {
+                        i = Integer.valueOf(text);
+                    } catch (NumberFormatException e) {
+                        System.out.println("sorry bud that ain't a number\ni don't know which task u're referring to...");
+                        break;
+                    }
+                    if(0 < i && i <= storage.size()) {
+                        storage.delete(i);
+                        System.out.println(String.format("deleted %s\nuse \"list\" to see changes",i));
+                    }else {
+                        System.out.println("that number isn't a valid task dude...");
+                        System.out.println("it has to be from 1 to " + storage.size());
+                    }
                     break;
                 default:
                     System.out.println("what? type an actual command pls...");

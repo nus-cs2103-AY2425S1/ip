@@ -17,5 +17,14 @@ deadline thing2
 deadline thing2 /by
 deadline thing2 /by 0
 list
+delete 4
+mark 4
+unmark 4
+delete 3
+list
+mark 2
+list
+unmark 2
+list
 whatsup?
 bye

@@ -22,11 +22,8 @@ public class Storage {
         thing += j + ". " + store.get(store.size()-1).toString();
         return thing;
     }
-    public void mark(int i){
-        store.get(i-1).complete();
-    }
-    public void unmark(int i){
-        store.get(i-1).uncomplete();
-    }
+    public void mark(int i){store.get(i-1).complete();}
+    public void unmark(int i){store.get(i-1).uncomplete();}
+    public void delete(int i){store.remove(i-1);}
     public int size() {return store.size();}
 }
