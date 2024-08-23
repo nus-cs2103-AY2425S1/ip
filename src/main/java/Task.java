@@ -2,6 +2,7 @@ public class Task {
     private String description;
     private Task[] tasks;
     private int taskCount;
+    private boolean isDone;
 
     public Task() {
         this.tasks = new Task[100];
@@ -9,10 +10,23 @@ public class Task {
     }
     public Task(String description) {
         this.description = description;
+        this.isDone = false;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getStatus() {
+        return isDone ? "[X] " : "[ ] ";
+    }
+
+    public void markAsDone() {
+        isDone = true;
+    }
+
+    public void unmarkAsDone() {
+        isDone = false;
     }
 
     public void addTask(Task task) {
