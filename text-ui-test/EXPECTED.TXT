@@ -2,6 +2,12 @@ Him: Hello! I'm Him
      What can I do for you?
 
 User:
+Him: How about you add some tasks first
+
+User:
+Him: nonsense? What are you saying????
+
+User:
 Him: added "read book" to list
 
 User:
@@ -48,3 +54,4 @@ Him: Sure! Here's your list!
 
 User:
 Him: WAIT NO! DON'T LEAVE ME ALON-
+
