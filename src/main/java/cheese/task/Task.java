@@ -53,8 +53,20 @@ public class Task {
         return d;
     }
 
+    /**
+     * Setter to set task as done
+     * @param done boolean
+     */
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    /**
+     * Getter for name. For searching tasks by name
+     * @return name of task
+     */
+    public String getName() {
+        return name;
     }
 
     /**
