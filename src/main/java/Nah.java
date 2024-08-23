@@ -6,6 +6,9 @@ public class Nah {
             + " What can I do for you? \n"
             + "____________________________________________________________\n";
     static String byeLine = " Bye. Hope to see you again soon!\n";
+
+    String[] task = new String[100];
+    int taskCount = 0;
     void greet() {
         System.out.println(greetLine);
     }
@@ -13,6 +16,12 @@ public class Nah {
     void exit() {
         System.out.println(byeLine);
     }
+
+    void add(String input) {
+        task[taskCount] = input;
+        taskCount  ++;
+    }
+
     public static void main(String[] args) {
         String logo = "| \\   | |      /\\      | |  | | \n"
                 + "| |\\  | |     / /\\     | |==| | \n"
@@ -38,7 +47,8 @@ public class Nah {
             }
 
             else {
-                System.out.println(" " + input + "\n");
+                nah.add(input);
+                System.out.println(" added " + input + "\n");
             }
         }
         System.out.println("____________________________________________________________ \n");
