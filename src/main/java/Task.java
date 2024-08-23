@@ -37,6 +37,8 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        int firstSpaceIndex = this.description.indexOf(' ');
+        String removeFirstWord = this.description.substring(firstSpaceIndex + 1);
+        return "[" + this.getStatusIcon() + "] " + removeFirstWord;
     }
 }
