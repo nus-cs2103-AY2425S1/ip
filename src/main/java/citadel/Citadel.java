@@ -35,27 +35,45 @@ public class Citadel {
             try {
                 input = ui.nextLine();
                 Commands command = Parser.parseCommand(input);
+
+                switch (command) {
+                case BYE:
+                    break;
+
+                case LIST:
+                    ui.printTasks(items);
+                    continue;
+
+                case MARK:
+                    new MarkTask(input, items).run();
+                    break;
+
+                case UNMARK:
+                    new UnmarkTask(input, items).run();
+                    break;
+
+                case DELETE:
+                    new DeleteTask(input, items).run();
+                    break;
+
+                case DEADLINE:
+                    new HandleDeadline(input, items).run();
+                    break;
+
+                case EVENT:
+                    new HandleEvent(input, items).run();
+                    break;
+
+                case TODO:
+                    new HandleTodo(input, items).run();
+                    break;
+
+                default:
+                    throw new CitadelInvalidCommandException();
+                }
+
                 if (command.equals(Commands.BYE)) {
                     break;
-                }
-                if (command.equals(Commands.LIST)) {
-                    ui.printTasks(items);
-                } else if (command.equals(Commands.MARK)) {
-                    new MarkTask(input, items).run();
-                } else if (command.equals(Commands.UNMARK)) {
-                    new UnmarkTask(input, items).run();
-                } else if (command.equals(Commands.DELETE)) {
-                    new DeleteTask(input, items).run();
-                } else {
-                    if (command.equals(Commands.DEADLINE)) {
-                        new HandleDeadline(input, items).run();
-                    } else if (command.equals(Commands.EVENT)) {
-                        new HandleEvent(input, items).run();
-                    } else if (command.equals(Commands.TODO)) {
-                        new HandleTodo(input, items).run();
-                    } else {
-                        throw new CitadelInvalidCommandException();
-                    }
                 }
             } catch (CitadelException e) {
                 ui.printCitadelException(e);
@@ -65,6 +83,7 @@ public class Citadel {
                 ui.printException(e);
             }
         }
+
 
         ui.printGoodbye();
         db.saveData(items);
