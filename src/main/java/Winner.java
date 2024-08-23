@@ -24,7 +24,7 @@ public class Winner {
                             "hi" + "\n" +
                             "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i)todo.*")) {
+                } else if (input.matches("(?i).*todo.*")) {
                     String description = input.split("todo", 2)[1].trim().toLowerCase();
                     if (description.isEmpty()) {
                         throw new WinnerException("""
@@ -38,8 +38,8 @@ public class Winner {
                             newToDo.addTaskToString() + "\n" +
                             "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i)deadline.*")) {
-                    String[] parts = input.split("(?i)deadline | (?i)by");
+                } else if (input.matches("(?i).*deadline.*")) {
+                    String[] parts = input.split("(?i)deadline | \\bby\\b");
                     if (parts.length != 3) {
                         throw new WinnerException("""
                                 Oh no! You are missing a task and a deadline.
@@ -66,8 +66,8 @@ public class Winner {
                             newDeadline.addTaskToString() + "\n" +
                             "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i)event.*")) {
-                    String[] parts = input.split("(?i)event | (?i)from | (?i)to");
+                } else if (input.matches("(?i).*event.*")) {
+                    String[] parts = input.split("(?i)event | \\bfrom\\b | \\bto\\b");
                     if (parts.length != 4) {
                         throw new WinnerException("""
                                 Oh no! You are missing a task, start and end day/date/time.
@@ -112,7 +112,7 @@ public class Winner {
                     }
                     System.out.println(" ".repeat(10) + "-".repeat(100) + "\n");
 
-                } else if (input.matches("(?i)mark.*")) {
+                } else if (input.matches("(?i).*mark.*")) {
                     int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
                     if (taskNumber < 1 || taskNumber > tasks.size()) {
                         throw new WinnerException("""
@@ -129,7 +129,7 @@ public class Winner {
                             task.markDoneToString() + "\n" +
                             "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i)unmark.*")) {
+                } else if (input.matches("(?i).*unmark.*")) {
                     int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
                     if (taskNumber < 1 || taskNumber > tasks.size()) {
                         throw new WinnerException("""
@@ -146,7 +146,21 @@ public class Winner {
                             task.unmarkDoneToString() + "\n" +
                             "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i)bye")) {
+                } else if (input.matches("(?i).*delete.*")) {
+                    int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+                    if (taskNumber < 1 || taskNumber > tasks.size()) {
+                        throw new WinnerException("""
+                                Oh no! I cannot remove this task from the list because the number is invalid.
+                                Please tell me which task to remove in this form :
+                                delete (task number)""");
+                    }
+                    Task task = tasks.get(taskNumber - 1);
+                    tasks.remove(taskNumber - 1);
+                    System.out.println(("-".repeat(100) + "\n" +
+                            task.deleteTask() + "\n" +
+                            "-".repeat(100)).indent(10));
+
+                } else if (input.matches("(?i).*bye.*")) {
                     System.out.println(("-".repeat(100) + "\n" +
                             "Hope I have been of service!" + "\n" +
                             "Thank you and see you again soon :D" + "\n" +
