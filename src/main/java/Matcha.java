@@ -2,41 +2,65 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class Matcha {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final String divider = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/matcha.txt";
     public static void main(String[] args) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(FILE_PATH);
+
+        try {
+            tasks = storage.loadTasks();
+        } catch (DukeException e) {
+            System.out.println(divider);
+            System.out.println(e);
+            System.out.println(divider);
+        }
+
         Matcha.greet(); //greet users
         while (true) {
-            String input = scanner.nextLine(); //read user input
-            if (input.equalsIgnoreCase("bye")) { //exit system if user inputs "bye"
+            //read user input
+            String input = scanner.nextLine();
+
+            //exit system if user inputs "bye"
+            if (input.equalsIgnoreCase("bye")) {
                 Matcha.bye();
                 break;
             }
-            String[] inputWords = input.split(" ", 2); //split user input
-            String keyword = inputWords[0]; //get command of user input
+
+            //split user input
+            String[] inputWords = input.split(" ", 2);
+            //get command of user input
+            String keyword = inputWords[0];
+
             System.out.println(divider);
             try {
                 switch (keyword.toLowerCase()) {
                 case "list":
-                    Matcha.listTasks();
+                    Matcha.listTasks(tasks);
                     break;
                 case "mark":
-                    Matcha.markTask(input.split(" "));
+                    Matcha.markTask(input.split(" "), tasks);
+                    storage.saveTasks(tasks);
                     break;
                 case "unmark":
-                    Matcha.unmarkTask(input.split(" "));
+                    Matcha.unmarkTask(input.split(" "), tasks);
+                    storage.saveTasks(tasks);
                     break;
                 case "todo":
-                    Matcha.createTodo(inputWords);
+                    Matcha.createTodo(inputWords, tasks);
+                    storage.saveTasks(tasks);
                     break;
                 case "deadline":
-                    Matcha.createDeadline(inputWords);
+                    Matcha.createDeadline(inputWords, tasks);
+                    storage.saveTasks(tasks);
                     break;
                 case "event":
-                    Matcha.createEvent(inputWords);
+                    Matcha.createEvent(inputWords, tasks);
+                    storage.saveTasks(tasks);
                     break;
                 case "delete":
-                    Matcha.deleteTask(input.split(" "));
+                    Matcha.deleteTask(input.split(" "), tasks);
+                    storage.saveTasks(tasks);
                     break;
                 default:
                     throw new DukeException("Hmm, I'm sorry but I am unfamiliar with this command :(");
@@ -47,7 +71,8 @@ public class Matcha {
                 System.out.println(divider);
             }
         }
-        scanner.close(); //once user has exited program, close scanner
+        //once user has exited program, close scanner
+        scanner.close();
     }
 
     public static void greet() {
@@ -63,17 +88,17 @@ public class Matcha {
         System.out.println(divider);
     }
 
-    public static void createTodo(String[] inputWords) throws DukeException {
+    public static void createTodo(String[] inputWords, ArrayList<Task> tasks) throws DukeException {
         if (inputWords.length < 2) {
             throw new DukeException("Please specify the Todo description!");
         }
         System.out.println("Alright, I have added this Todo:");
         Todo todo = new Todo(inputWords[1]);
         tasks.add(todo);
-        Matcha.printTask(todo);
+        Matcha.printTask(todo, tasks);
     }
 
-    public static void createDeadline(String[] inputWords) throws DukeException {
+    public static void createDeadline(String[] inputWords, ArrayList<Task> tasks) throws DukeException {
         if (inputWords.length < 2) {
             throw new DukeException("Please include the Deadline details!");
         }
@@ -89,10 +114,10 @@ public class Matcha {
         System.out.println("Alright, I have added this Deadline:");
         Deadline deadline = new Deadline(deadlineDesc, by);
         tasks.add(deadline);
-        Matcha.printTask(deadline);
+        Matcha.printTask(deadline, tasks);
     }
 
-    public static void createEvent(String[] inputWords) throws DukeException {
+    public static void createEvent(String[] inputWords, ArrayList<Task> tasks) throws DukeException {
         if (inputWords.length < 2) {
             throw new DukeException("Please include the Event details!");
         }
@@ -108,10 +133,10 @@ public class Matcha {
         System.out.println("Alright, I have added this Event:");
         Event event = new Event(eventDesc, from, to);
         tasks.add(event);
-        Matcha.printTask(event);
+        Matcha.printTask(event, tasks);
     }
 
-    public static void markTask(String[] inputWords) throws DukeException {
+    public static void markTask(String[] inputWords, ArrayList<Task> tasks) throws DukeException {
         if (inputWords.length != 2) {
             throw new DukeException("Please enter the task number of the task you want to\nmark as done.");
         }
@@ -132,7 +157,7 @@ public class Matcha {
         System.out.println(tasks.get(taskNum).toString());
     }
 
-    public static void unmarkTask(String[] inputWords) throws DukeException {
+    public static void unmarkTask(String[] inputWords, ArrayList<Task> tasks) throws DukeException {
         if (inputWords.length != 2) {
             throw new DukeException("Please enter the task number of the task you want to\nmark as not done.");
         }
@@ -153,7 +178,7 @@ public class Matcha {
         System.out.println(tasks.get(taskNum).toString());
     }
 
-    public static void deleteTask(String[] inputWords) throws DukeException {
+    public static void deleteTask(String[] inputWords, ArrayList<Task> tasks) throws DukeException {
         if (inputWords.length != 2) {
             throw new DukeException("Please enter the task number of the task you want to delete.");
         }
@@ -172,15 +197,15 @@ public class Matcha {
         System.out.println("Alright, I have removed this task for you:");
         Task taskToRemove = tasks.get(taskNum);
         tasks.remove(taskNum);
-        Matcha.printTask(taskToRemove);
+        Matcha.printTask(taskToRemove, tasks);
     }
 
-    public static void printTask(Task task) {
+    public static void printTask(Task task, ArrayList<Task> tasks) {
         System.out.println(task);
         System.out.println("You have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void listTasks() {
+    public static void listTasks(ArrayList<Task> tasks) {
         System.out.println("Here are your tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             String task = (i + 1) + ". " + tasks.get(i);
