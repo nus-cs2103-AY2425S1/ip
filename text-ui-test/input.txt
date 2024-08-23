@@ -8,6 +8,8 @@ unmark 1
 list
 mark 4
 mark 3 papers
+delete 3
+list
 womp
 deadline
 deadline /by
