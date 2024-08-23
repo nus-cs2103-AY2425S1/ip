@@ -1,6 +1,35 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Bobby {
+    enum Command {
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+
+        public static Command fromString(String input) {
+            String command = input.split(" ")[0].toLowerCase();
+            switch (command) {
+                case "bye":
+                    return BYE;
+                case "list":
+                    return LIST;
+                case "mark":
+                    return MARK;
+                case "unmark":
+                    return UNMARK;
+                case "delete":
+                    return DELETE;
+                case "todo":
+                    return TODO;
+                case "deadline":
+                    return DEADLINE;
+                case "event":
+                    return EVENT;
+                default:
+                    return UNKNOWN;
+            }
+        }
+    }
+
 
     /**
      * This function greets the user.
@@ -20,6 +49,7 @@ public class Bobby {
 
     /**
      * This function takes in the user input and prints out the input.
+     *
      * @param String input
      */
     private static void echo(String input) {
@@ -44,6 +74,7 @@ public class Bobby {
             }
         }
     }
+
     private static void deleteTask(String userInput) throws BobbyException {
         String[] parts = userInput.split(" ");
         if (parts.length < 2 || parts[1].isEmpty()) {
@@ -63,7 +94,7 @@ public class Bobby {
 
 
     private static void handleTaskStatusUpdate(String userInput, boolean mark) throws BobbyException {
-    String[] parts = userInput.split(" ");
+        String[] parts = userInput.split(" ");
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new InvalidCommandFormatException(mark ? "mark" : "unmark", "task number");
         }
@@ -80,7 +111,7 @@ public class Bobby {
             throw new InvalidTaskNumberException();
         }
 
-}
+    }
 
     private static void handleTask(String userInput) throws BobbyException {
         if (userInput.startsWith("todo ")) {
@@ -114,30 +145,44 @@ public class Bobby {
         }
     }
 
-public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    greet();
-    while (true) {
-        String userInput = scanner.nextLine();
-        try {
-            if (userInput.equalsIgnoreCase("bye")) {
-                exit();
-                break;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                printTasks();
-            } else if (userInput.startsWith("mark")) {
-                handleTaskStatusUpdate(userInput, true);
-            } else if (userInput.startsWith("unmark")) {
-                handleTaskStatusUpdate(userInput, false);
-            } else if (userInput.startsWith("delete")) {
-                deleteTask(userInput);
-            } else {
-                handleTask(userInput);
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        greet();
+        boolean isRunning = true;
+        while (isRunning) {
+            String userInput = scanner.nextLine();
+            Command command = Command.fromString(userInput);
+            try {
+                switch (command) {
+                    case BYE:
+                        exit();
+                        isRunning = false;
+                        break;
+                    case LIST:
+                        printTasks();
+                        break;
+                    case MARK:
+                        handleTaskStatusUpdate(userInput, true);
+                        break;
+                    case UNMARK:
+                        handleTaskStatusUpdate(userInput, false);
+                        break;
+                    case DELETE:
+                        deleteTask(userInput);
+                        break;
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
+                        handleTask(userInput);
+                        break;
+                    default:
+                        throw new InvalidInputException();
+                }
+            } catch (BobbyException e) {
+                System.out.println("OOPS!!! " + e.getMessage());
             }
-        } catch (BobbyException e) {
-            System.out.println("OOPS!!! " + e.getMessage());
         }
+        scanner.close();
     }
-    scanner.close();
-}
+
 }
