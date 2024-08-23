@@ -30,6 +30,7 @@ public class DailyTasks {
             dailyTasks.start(scanner);
 
             FileManager.saveTasksListToStateFile(dailyTasks.taskManager.getTasks());
+            System.out.println("saved");
         } catch (IOException e) {
             System.out.println("IOException occurred");
         }
@@ -62,8 +63,6 @@ public class DailyTasks {
                 handleDeleteTask(userInput);
             } else { // we try to add a task (todos/ deadline/ event) else throw an exception
                 taskManager.addTask(userInput);
-                System.out.println(Formatter.formatAddTask(taskManager.getTasks().size(),
-                        taskManager.getLastTask()));
             }
         } catch (UnknownMessageException | EmptyTodoDescriptionException e) {
             System.out.println(Formatter.formatOutputMessage("Please enter a valid task!"));

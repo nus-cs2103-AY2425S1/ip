@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.InvalidDeadlineException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -60,7 +61,12 @@ public class FileManager {
             task = new ToDos(description);
         } else if (taskInformation[0].equals("D")) {
             String by = taskInformation[3];
-            task = new Deadline(description, by);
+            try {
+                task = new Deadline(description, by);
+            } catch (InvalidDeadlineException e) {
+                System.out.println("error converting task back to deadline");
+                return null;
+            };
         } else {
             String[] times = taskInformation[3].split("-");
             String from = times[0];

@@ -1,7 +1,9 @@
 package duke.tasks;
 
 import duke.DailyTasks;
+import duke.Formatter;
 import duke.exceptions.EmptyTodoDescriptionException;
+import duke.exceptions.InvalidDeadlineException;
 import duke.exceptions.UnknownMessageException;
 
 import java.util.ArrayList;
@@ -109,7 +111,12 @@ public class TaskManager {
             String[] deadlineInfo = userInput.split("/by");
             String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
             String deadlineDate = deadlineInfo[1].trim();
-            tasks.add(new Deadline(deadlineDescription, deadlineDate));
+            try {
+                tasks.add(new Deadline(deadlineDescription, deadlineDate));
+            } catch (InvalidDeadlineException e) {
+                System.out.println(e.getMessage() + " Please enter a valid deadline");
+                return;
+            }
             break;
         case EVENT:
             String[] eventInfo = userInput.split("/from");
@@ -122,6 +129,8 @@ public class TaskManager {
         default:
             throw new UnknownMessageException("Unknown task type.");
         }
+        System.out.println(Formatter.formatAddTask(this.getTasks().size(),
+                this.getLastTask()));
     }
 
     /**
