@@ -3,20 +3,31 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Lumina class represents a simple chatbot.
+ * It uses predefined set of responses and can be extended for more complex behaviour
+ */
 public class Lumina {
 
     private static final String ECHO_EXIT_STRING = "bye";
     private static final String ECHO_LIST_STRING = "list";
     private static final String ECHO_MARK_TASK_STRING = "mark";
     private static final String ECHO_UNMARK_TASK_STRING = "unmark";
+    private static final String ECHO_TODO_TASK = "todo";
+    private static final String ECHO_DEADLINE_TASK = "deadline";
+    private static final String ECHO_EVENT_TASK = "event";
     private static final int indentWidth = 2;
 
     // task description and whether the task is done
     private ArrayList<Task> tasks;
-    // Cosntructor
+
+    /**
+     * Constructor for the chatbot
+     */
     public Lumina() {
         tasks = new ArrayList<>();
     }
+
 
     private String indentMessage(String msg) {
         String[] lines = msg.split("\n");
@@ -55,8 +66,13 @@ public class Lumina {
         System.exit(0);
     }
 
-    private void addTask(String desc) {
-        this.tasks.add(new Task(desc));
+    private void addTask(Task task) {
+        StringBuilder addTaskMessage = new StringBuilder();
+        addTaskMessage.append("Got it. I've added this task:\n");
+        addTaskMessage.append(indentMessage(task.toString())).append("\n");
+        this.tasks.add(task);
+        addTaskMessage.append(String.format("Now you have %d tasks in the list.", tasks.size()));
+        this.printMessage(addTaskMessage.toString());
     }
 
     private void listTasks() {
@@ -92,6 +108,149 @@ public class Lumina {
         this.tasks.get(index).markAsNotDone();
         taskNotDoneMessage.append(indentMessage(this.tasks.get(index).toString()));
         this.printMessage(taskNotDoneMessage.toString());
+    }
+
+
+
+    private void handleTodoTask(String msg) {
+        String[] msgSplit = msg.split(" ");
+        if(msgSplit.length < 2) {
+            throw new IllegalArgumentException("Invalid task");
+        }
+        if(!msgSplit[0].equals(ECHO_TODO_TASK)) {
+            throw new IllegalArgumentException("Invalid task");
+        }
+        StringBuilder builder = new StringBuilder();
+        for(int i = 1; i < msgSplit.length; i++) {
+            builder.append(msgSplit[i]);
+            if(i < msgSplit.length - 1) {
+                builder.append(" ");
+            }
+        }
+        Task task = new TodoTask(builder.toString());
+        this.addTask(task);
+
+    }
+
+    private void handleDeadlineTask(String msg) {
+        String[] msgSplit = msg.split(" ");
+        if(msgSplit.length < 4) { // need desc and bydatetime
+            throw new IllegalArgumentException("Invalid task");
+        }
+        if(!msgSplit[0].equals(ECHO_DEADLINE_TASK)) {
+            throw new IllegalArgumentException("Invalid task");
+        }
+
+        StringBuilder builder = new StringBuilder();
+        String desc = "", byDateTime = "";
+        boolean by = false;
+
+        for(int i = 1; i < msgSplit.length; i++) {
+            if(msgSplit[i].equals("/by")) {
+                if(by) {
+                    throw new IllegalArgumentException("Invalid task");
+                }
+                by = true;
+                desc = builder.toString();
+                builder = new StringBuilder();
+                continue;
+            }
+            builder.append(msgSplit[i]);
+            if (i < msgSplit.length - 1) {
+                builder.append(" ");
+            }
+        }
+
+        if (!by) {
+            throw new IllegalArgumentException("Invalid task");
+        }
+        byDateTime = builder.toString();
+        Task task = new DeadlineTask(desc, byDateTime);
+        this.addTask(task);
+    }
+
+    private void handleEventTask(String msg) {
+        String[] msgSplit = msg.split(" ");
+        if(msgSplit.length < 6) { // need desc, startDateTime, endDateTime
+            throw new IllegalArgumentException("Invalid task");
+        }
+        if(!msgSplit[0].equals(ECHO_EVENT_TASK)) {
+            throw new IllegalArgumentException("Invalid task");
+        }
+
+        enum Type {
+            DESC, FROM, TO
+        }
+
+        Type currentType = Type.DESC;
+
+        StringBuilder builder = new StringBuilder();
+        String desc = "", startDateTime = "", endDateTime = "";
+        boolean from = false;
+        boolean to = false;
+        for(int i = 1; i < msgSplit.length; i++) {
+            if(msgSplit[i].equals("/from")) {
+                if (from) {
+                    throw new IllegalArgumentException("Invalid task");
+                }
+                switch (currentType) {
+                    case DESC:
+                        desc = builder.toString();
+                        break;
+                    case FROM:
+                        startDateTime = builder.toString();
+                        break;
+                    case TO:
+                        endDateTime = builder.toString();
+                        break;
+                }
+                builder = new StringBuilder();
+                from = true;
+                currentType = Type.FROM;
+                continue;
+            }
+            if (msgSplit[i].equals("/to")) {
+                if (to) {
+                    throw new IllegalArgumentException("Invalid task");
+                }
+                switch (currentType) {
+                    case DESC:
+                        desc = builder.toString();
+                        break;
+                    case FROM:
+                        startDateTime = builder.toString();
+                        break;
+                    case TO:
+                        endDateTime = builder.toString();
+                        break;
+                }
+                builder = new StringBuilder();
+                to = true;
+                currentType = Type.TO;
+                continue;
+            }
+            builder.append(msgSplit[i]);
+            if (i < msgSplit.length - 1) {
+                builder.append(" ");
+            }
+        }
+
+        if (!from || !to) {
+            throw new IllegalArgumentException("Invalid task");
+        }
+        switch (currentType) {
+            case DESC:
+                desc = builder.toString();
+                break;
+            case FROM:
+                startDateTime = builder.toString();
+                break;
+            case TO:
+                endDateTime = builder.toString();
+                break;
+        }
+        Task task = new EventTask(desc, startDateTime, endDateTime);
+        this.addTask(task);
     }
 
     private void echo(Scanner sc) {
@@ -136,8 +295,31 @@ public class Lumina {
                 }
                 continue;
             }
-            this.addTask(msg);
-            this.printMessage("added: " + msg);
+            if (msg.contains(Lumina.ECHO_TODO_TASK)) {
+                try {
+                    this.handleTodoTask(msg);
+                } catch(IllegalArgumentException e) {
+                    this.printMessage(e.getMessage() + ". Try again");
+                }
+                continue;
+            }
+            if (msg.contains(Lumina.ECHO_EVENT_TASK)) {
+                try {
+                    this.handleEventTask(msg);
+                } catch (IllegalArgumentException e) {
+                    this.printMessage(e.getMessage() + ". Try again");
+                }
+                continue;
+            }
+            if (msg.contains(Lumina.ECHO_DEADLINE_TASK)) {
+                try {
+                    this.handleDeadlineTask(msg);
+                } catch (IllegalArgumentException e) {
+                    this.printMessage(e.getMessage() + ". Try again");
+                }
+                continue;
+            }
+            this.addTask(new Task(msg));
         }
     }
 
