@@ -63,7 +63,7 @@ public class Meerkat {
             }
 
             // to end program
-            if (taskName.equalsIgnoreCase("bye")) {
+            else if (taskName.equalsIgnoreCase("bye")) {
                 System.out.println(lines + "\n" + bye + lines);
                 break;
 
@@ -104,6 +104,19 @@ public class Meerkat {
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(lines + "\nThis task does not exist! Unable to unmark.\n" + lines);
+                }
+            } else if (strArray.length == 2 && strArray[0].equals("delete")) {
+                try {
+                    int num = Integer.parseInt(strArray[1]);
+                    if (num > 0 && num <= listOfTasks.size()) {
+                        System.out.println(lines + "\nroger that sir, I've removed this task:\n" + listOfTasks.get(num - 1) + "\n" + lines);
+                        listOfTasks.remove(num - 1);
+                        // task number is not within range
+                    } else {
+                        System.out.println(lines + "\nThis task does not exist! Unable to delete.\n" + lines);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(lines + "\nThis task does not exist! Unable to delete.\n" + lines);
                 }
             } else {
                 System.out.println(lines + "\ni have nooo idea what you are sayin\n" + lines);
