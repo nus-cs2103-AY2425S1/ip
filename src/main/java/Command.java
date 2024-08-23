@@ -6,7 +6,7 @@ import java.util.HashMap;
  * This class represents a command by its name (the command itself) and a collection of its objects,
  * as parsed by the Parser.
  */
-public class Command {
+public abstract class Command {
 
     private final String name;
     private final HashMap<String, String> optionMap;
@@ -24,6 +24,18 @@ public class Command {
      */
     public boolean toContinue() {
         return this.continueLoop;
+    }
+
+    public void setContinueLoop(boolean continueLoop) {
+        this.continueLoop = continueLoop;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public HashMap<String, String> getOptionMap() {
+        return this.optionMap;
     }
 
     /**
@@ -54,36 +66,7 @@ public class Command {
         Task task;
 
         try {
-
-            switch (this.name) {
-                case "bye":
-                    Ui.printMessage("GOODBYE");
-                    this.continueLoop = false;
-                    break;
-                case "list":
-                    Ui.printTaskList(tasks);
-                    break;
-                case "mark":
-                    task = tasks.markTask(this.getNumberForTask(tasks));
-                    Ui.displayTask(task, "mark", tasks);
-                    break;
-                case "unmark":
-                    task = tasks.unmarkTask(this.getNumberForTask(tasks));
-                    Ui.displayTask(task, "mark", tasks);
-                    break;
-                case "delete":
-                    tasks.removeTask(this.getNumberForTask(tasks));
-                    Ui.displayTasksNumber(tasks);
-                    break;
-                case "todo":
-                case "deadline":
-                case "event":
-                    task = createTask(tasks);
-                    Ui.displayTask(task, "add", tasks);
-                    break;
-                default:
-                    throw new ZaibotException("Invalid command.\n");
-            }
+            this.runCommandSpecificLogic(tasks, storage);
         }
         catch (ZaibotException e) {
             Ui.displayError(e);
@@ -92,6 +75,14 @@ public class Command {
             storage.saveToFile(tasks);
         }
     }
+
+    /**
+     * This abstract method is to implement the command-specific logic
+     * @param tasks The list of tasks
+     * @param storage The storage object
+     * @throws ZaibotException if there is an issue processing the command.
+     */
+    public abstract void runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException;
 
     /**
      * Processes a task addition given the command and the task name.
