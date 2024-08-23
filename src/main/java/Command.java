@@ -1,3 +1,3 @@
-public abstract class Command {
-    public abstract void execute();
+public interface Command {
+    String execute(ParsedInput parsedInput) throws BottyException;
 }
