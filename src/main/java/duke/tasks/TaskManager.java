@@ -1,9 +1,13 @@
 package duke.tasks;
 
 import duke.DailyTasks;
+import duke.Formatter;
 import duke.exceptions.EmptyTodoDescriptionException;
+import duke.exceptions.InvalidDeadlineException;
+import duke.exceptions.InvalidEventException;
 import duke.exceptions.UnknownMessageException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +71,18 @@ public class TaskManager {
         return tasks.get(tasks.size() - 1);
     }
 
+    public List<Task> getTasksOccurring(LocalDateTime dateTime) {
+        List<Task> tasksOccurringOnDateTime = new ArrayList<>();
+
+        for (Task task : this.tasks) {
+            if (task.occurring(dateTime)) {
+                tasksOccurringOnDateTime.add(task);
+            }
+        }
+
+        return tasksOccurringOnDateTime;
+    }
+
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
@@ -109,7 +125,12 @@ public class TaskManager {
             String[] deadlineInfo = userInput.split("/by");
             String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
             String deadlineDate = deadlineInfo[1].trim();
-            tasks.add(new Deadline(deadlineDescription, deadlineDate));
+            try {
+                tasks.add(new Deadline(deadlineDescription, deadlineDate));
+            } catch (InvalidDeadlineException e) {
+                System.out.println(e.getMessage() + " Please enter a valid deadline");
+                return;
+            }
             break;
         case EVENT:
             String[] eventInfo = userInput.split("/from");
@@ -117,11 +138,18 @@ public class TaskManager {
             String[] eventTime = eventInfo[1].split("/to");
             String start = eventTime[0].trim();
             String end = eventTime[1].trim();
-            tasks.add(new Event(eventDescription, start, end));
+            try {
+                tasks.add(new Event(eventDescription, start, end));
+            } catch (InvalidEventException e) {
+                System.out.println(e.getMessage() + " Please enter a valid event");
+                return;
+            }
             break;
         default:
             throw new UnknownMessageException("Unknown task type.");
         }
+        System.out.println(Formatter.formatAddTask(this.getTasks().size(),
+                this.getLastTask()));
     }
 
     /**
