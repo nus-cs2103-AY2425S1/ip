@@ -23,4 +23,21 @@ public class Ui {
     public String echo(String echoMessage) {
         return DIVIDER + "\n" + echoMessage + "\n" + DIVIDER;
     }
+
+    public String displayList() {
+        String displayList = DIVIDER + "\n";
+        int taskLength = TaskList.getTaskListLength();
+        Task[] list = TaskList.getTaskList();
+        if(taskLength == 0) {
+            return displayList + "Your task list is empty!" + "\n" + DIVIDER;
+        }
+        for (int i = 0; i < taskLength; i++) {
+            displayList += (i + 1) + "." + list[i] + "\n";
+            if(i == taskLength - 1) {
+                displayList += DIVIDER;
+                break;
+            }
+        }
+        return displayList;
+    }
 }
