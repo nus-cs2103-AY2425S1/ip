@@ -10,6 +10,7 @@
     3.[E][ ] new year (begins: January /by February, ends: Saturday)
     Task marked as complete: Do homework
     Task marked as complete: new year
+    Invalid task number!
     1.[T][ ] Visit Grandma
     2.[D][X] Do homework (by: Friday)
     3.[E][X] new year (begins: January /by February, ends: Saturday)

@@ -12,12 +12,12 @@ public class Vecrosen {
     }
 
     public static void main(String[] args) {
-        speak("Hello, I'm Vecrosen");
+        speak("Hello, I'm Vecrosen.");
         speak("What can I do for you?");
         ArrayList<Task> list = new ArrayList<Task>();
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             String input;
-            Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
             if (input.equals("bye")) break;
             else if (input.matches("mark \\d+")) {
