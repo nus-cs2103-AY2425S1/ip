@@ -14,21 +14,19 @@ public class Appleaster {
         "Farewell! I'll be here, hanging on my digital tree, waiting for your return!"
     };
 
-    private static final int MAX_TASKS = 100;
-    private static String[] tasks = new String[MAX_TASKS];
-    private static int taskCount = 0;
+    private static final String LOGO = "   _____                .__                          __                \n"
+                                     + "  /  _  \\ ______ ______ |  |   ____ _____    _______/  |_  ___________ \n"
+                                     + " /  /_\\  \\\\____ \\\\____ \\|  | _/ __ \\\\__  \\  /  ___/\\   __\\/ __ \\_  __ \\\n"
+                                     + "/    |    \\  |_> >  |_> >  |_\\  ___/ / __ \\_\\___ \\  |  | \\  ___/|  | \\/\n"
+                                     + "\\____|__  /   __/|   __/|____/\\___  >____  /____  > |__|  \\___  >__|   \n"
+                                     + "        \\/|__|   |__|             \\/     \\/     \\/            \\/       \n";
+
+    private static TaskList taskList = new TaskList();
+    private static Random random = new Random();
 
     public static void main(String[] args) {
-        String logo = "   _____                .__                          __                \n"
-                    + "  /  _  \\ ______ ______ |  |   ____ _____    _______/  |_  ___________ \n"
-                    + " /  /_\\  \\\\____ \\\\____ \\|  | _/ __ \\\\__  \\  /  ___/\\   __\\/ __ \\_  __ \\\n"
-                    + "/    |    \\  |_> >  |_> >  |_\\  ___/ / __ \\_\\___ \\  |  | \\  ___/|  | \\/\n"
-                    + "\\____|__  /   __/|   __/|____/\\___  >____  /____  > |__|  \\___  >__|   \n"
-                    + "        \\/|__|   |__|             \\/     \\/     \\/            \\/       \n";
-        Random random = new Random();
-        
         System.out.println("------------------------------------");
-        System.out.println(logo);
+        System.out.println(LOGO);
         System.out.println(GREETINGS[random.nextInt(GREETINGS.length)]);
         System.out.println("What can I do for you?");
         System.out.println("------------------------------------");
@@ -55,29 +53,40 @@ public class Appleaster {
     }
 
     private static void processInput(String input) {
-        if (input.equalsIgnoreCase("list")) {
-            listTasks();
-        } else {
-            addTask(input);
-        }
-    }
+        String[] parts = input.split("\\s+", 2);
+        String command = parts[0].toLowerCase();
 
-    private static void addTask(String task) {
-        if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = task;
-            System.out.println("added: " + task);
-        } else {
-            System.out.println("Task list is full. Cannot add more tasks.");
-        }
-    }
-
-    private static void listTasks() {
-        if (taskCount == 0) {
-            System.out.println("No tasks in the list.");
-        } else {
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
-            }
+        switch (command) {
+            case "list":
+                taskList.listTasks();
+                break;
+            case "mark":
+                if (parts.length > 1) {
+                    try {
+                        int index = Integer.parseInt(parts[1]) - 1;
+                        taskList.markTask(index, true);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please provide a valid task number.");
+                    }
+                } else {
+                    System.out.println("Please specify a task number to mark.");
+                }
+                break;
+            case "unmark":
+                if (parts.length > 1) {
+                    try {
+                        int index = Integer.parseInt(parts[1]) - 1;
+                        taskList.markTask(index, false);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please provide a valid task number.");
+                    }
+                } else {
+                    System.out.println("Please specify a task number to unmark.");
+                }
+                break;
+            default:
+                taskList.addTask(input);
+                break;
         }
     }
 }
