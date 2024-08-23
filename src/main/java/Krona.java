@@ -31,26 +31,38 @@ public class Krona {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[taskIndex]);
             } else if (words[0].startsWith("todo")) {
-                tasks[allTasks] = new ToDo(words[1]);
-                allTasks++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[allTasks - 1]);
-                System.out.println("Now you have " + allTasks + " tasks in the list.");
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    System.out.println("The description of the todo is empty. Please add a description.");
+                } else {
+                    tasks[allTasks] = new ToDo(words[1]);
+                    allTasks++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[allTasks - 1]);
+                    System.out.println("Now you have " + allTasks + " tasks in the list.");
+                }
             } else if (words[0].startsWith("deadline")) {
-                String[] parts = words[1].split("/by ", 2);
-                tasks[allTasks] = new Deadline(parts[0], parts[1]);
-                allTasks++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[allTasks - 1]);
-                System.out.println("Now you have " + allTasks + " tasks in the list.");
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    System.out.println("The description of the deadline is empty. Please add a description.");
+                } else {
+                    String[] parts = words[1].split("/by ", 2);
+                    tasks[allTasks] = new Deadline(parts[0], parts[1]);
+                    allTasks++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[allTasks - 1]);
+                    System.out.println("Now you have " + allTasks + " tasks in the list.");
+                }
             } else if (words[0].startsWith("event")) {
-                String[] parts = words[1].split("/from ", 2);
-                String[] time = parts[1].split("/to ", 2);
-                tasks[allTasks] = new Event(parts[0], time[0], time[1]);
-                allTasks++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[allTasks - 1]);
-                System.out.println("Now you have " + allTasks + " tasks in the list.");
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    System.out.println("The description of the event is empty. Please add a description.");
+                } else {
+                    String[] parts = words[1].split("/from ", 2);
+                    String[] time = parts[1].split("/to ", 2);
+                    tasks[allTasks] = new Event(parts[0], time[0], time[1]);
+                    allTasks++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[allTasks - 1]);
+                    System.out.println("Now you have " + allTasks + " tasks in the list.");
+                }
             } else {
                 System.out.println("Unknown command. Please try again.");
             }
