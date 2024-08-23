@@ -15,19 +15,20 @@ public class Task {
         return description;
     }
 
-    public String getFormattedTask() {
-        return String.format("[%s] %s", getStatusIcon(), getDescription());
-    }
-
     public void markAsDone() {
         isDone = true;
         System.out.println("\t" + "Nice! I've marked this task as done:");
-        System.out.println("\t\t" + getFormattedTask());
+        System.out.println("\t\t" + this);
     }
 
     public void markAsUndone() {
         isDone = false;
         System.out.println("\t" + "OK, I've marked this task as not done yet:");
-        System.out.println("\t\t" + getFormattedTask());
+        System.out.println("\t\t" + this);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getStatusIcon(), getDescription());
     }
 }

@@ -72,7 +72,7 @@ public class Devon {
             String formattedEntry = String.format(
                     "\t" + "%d. %s",
                     i + 1,
-                    current.getFormattedTask()
+                    current
             );
             System.out.println(formattedEntry);
         }
