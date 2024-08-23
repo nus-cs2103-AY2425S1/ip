@@ -1,6 +1,7 @@
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.sql.SQLOutput;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Toothless represents a simple chat application.
@@ -15,12 +16,14 @@ public class Toothless {
             "  |_|\\___/ \\___/ \\__|_| |_|_|\\___||___/___/\n";
     private String divider = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
     private Scanner sc = new Scanner(System.in);
+    private ArrayList<String> list;
 
     /**
      * Constructor for Toothless.
+     * Initializes the task list.
      */
     private Toothless() {
-        System.out.println("Welcome to the dragon's den!\n" + toothlessLogo);
+        list = new ArrayList<>();
     }
 
     /**
@@ -34,18 +37,33 @@ public class Toothless {
     }
 
     /**
-     * Echoes the user's input.
-     * @param input The user's input.
+     * Adds a task to the task list.
+     * @param input The task to be added.
      */
-    public void Echo(String input) {
-        System.out.println("Toothless: \n" + input + "\n\n" + divider);
+    public void addTask(String input) {
+        list.add(input);
+        System.out.println("Toothless: \n Your task [" + input + "] added to the quest board!\n\n" + divider);
     }
 
     /**
+     * Prints the tasks on the task list.
+     */
+    public void printTask() {
+        System.out.println("Toothless: \nHere are the tasks on the quest board:\n\n" +
+                "|-------------Quest Board -----------------|\n");
+
+        for(int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + ". " + list.get(i));
+        }
+
+        System.out.println("\n|-----------------------------------------|\n\n" + divider);
+    }
+    /**
      * Begins the chat application.
-     * The user can type in messages and Toothless will echo them back.
+     * The user can add tasks to the task list.
      */
     public void beginChat() {
+        System.out.println("Welcome to the dragon's den!\n" + toothlessLogo);
         System.out.println("Toothless: \n" +
                 "Greetings, Dragon Rider! \n\n" +
                 "I'm Toothless, your friendly dragon companion. \n" +
@@ -58,8 +76,11 @@ public class Toothless {
             if (userInput.equals("bye")) {
                 printGoodbyeMessage();
                 break;
+            } else if (userInput.equals("list")) {
+                printTask();
+            } else {
+                addTask(userInput);
             }
-            Echo(userInput);
         }
 
     }
