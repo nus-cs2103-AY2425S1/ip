@@ -7,10 +7,6 @@ public class TaskList {
         this.tasklist = new ArrayList<>();
     }
 
-//    public void addTask(String name) {
-//        this.tasklist.add(new Task(name));
-//    }
-
     public ToDo todo(String name) {
         ToDo todo = new ToDo(name);
         this.tasklist.add(todo);

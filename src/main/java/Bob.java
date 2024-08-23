@@ -50,6 +50,9 @@ public class Bob {
 
         for (int i = 0; i < splits.length; i++) {
             int splitIdx = input.indexOf(splits[i]);
+            if (splitIdx < 0 || input.length() < splitIdx + splits[i].length() + 2) {
+                throw new MissingParamException(splits[i]);
+            }
             splitIdxs[i] = splitIdx;
         }
 
@@ -94,40 +97,55 @@ public class Bob {
         Scanner scanner = new Scanner(System.in);
 
         outerLoop:
-        while (true) {
+        while(true) {
             input = scanner.nextLine();
             arguments = input.split(" ");
-
-            switch (arguments[0]) {
-                case ("bye"):
-                    Bob.prettyPrint(Bob.farewell);
-                    break outerLoop;
-                case ("list"):
-                    Bob.listCommands();
-                    continue;
-                case ("mark"): {
-                    int idx = Integer.parseInt(arguments[1]);
-                    Bob.markTask(idx);
-                    continue;
+            try {
+                switch(arguments[0]) {
+                    case("bye"):
+                        if (arguments.length > 1) throw new ExtraParamException(input.substring(4));
+                        Bob.prettyPrint(Bob.farewell);
+                        break outerLoop;
+                    case("list"):
+                        if (arguments.length > 1) throw new ExtraParamException(input.substring(5));
+                        Bob.listCommands();
+                        continue;
+                    case("mark"): {
+                        int idx;
+                        try {
+                            idx = Integer.parseInt(arguments[1]);
+                        } catch(NumberFormatException e) {
+                            throw new TaskIndexException(input.substring(5));
+                        }
+                        Bob.markTask(idx);
+                        continue;
+                    }
+                    case("unmark"): {
+                        int idx;
+                        try {
+                            idx = Integer.parseInt(arguments[1]);
+                        } catch(NumberFormatException e) {
+                            throw new TaskIndexException(input.substring(5));
+                        }
+                        Bob.unmarkTask(idx);
+                        continue;
+                    }
+                    case("todo"):
+                        Bob.todo(input);
+                        continue;
+                    case("deadline"): {
+                        Bob.deadline(input);
+                        continue;
+                    }
+                    case("event"): {
+                        Bob.event(input);
+                        continue;
+                    }
+                    default:
+                        throw new UnknownCommandException(arguments[0]);
                 }
-                case ("unmark"): {
-                    int idx = Integer.parseInt(arguments[1]);
-                    Bob.unmarkTask(idx);
-                    continue;
-                }
-                case ("todo"):
-                    Bob.todo(input);
-                    continue;
-                case ("deadline"): {
-                    Bob.deadline(input);
-                    continue;
-                }
-                case ("event"): {
-                    Bob.event(input);
-                    continue;
-                }
-                default:
-                    System.out.println("ERROR: UNKNOWN COMMAND!");
+            } catch(MissingParamException | ExtraParamException | UnknownCommandException | TaskIndexException e) {
+                Bob.prettyPrint(e.getLines());
             }
         }
     }
