@@ -20,6 +20,13 @@ public class Nah {
     void add(String input) {
         task[taskCount] = input;
         taskCount  ++;
+        System.out.println(" added " + input + "\n");
+    }
+
+    void readTask() {
+        for (int i = 1; i <= taskCount; i ++) {
+            System.out.println( " " + i + ". " + task[i - 1] + "\n");
+        }
     }
 
     public static void main(String[] args) {
@@ -45,10 +52,11 @@ public class Nah {
                 nah.exit();
                 break;
             }
-
+            else if(input.equals("list")) {
+                nah.readTask();
+            }
             else {
                 nah.add(input);
-                System.out.println(" added " + input + "\n");
             }
         }
         System.out.println("____________________________________________________________ \n");
