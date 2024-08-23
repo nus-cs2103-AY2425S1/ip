@@ -23,10 +23,17 @@ public class Edith {
         System.out.println(indentation + exit + lineBreak);
     }
 
-    public void add(String task) {
-        Task newTask = new Task(task);
-        listOfTasks.add(newTask);
-        System.out.println(indentation + "added: " + task + lineBreak);
+    public void add(String string) {
+        String message1 = "Got it. I've added this task:";
+        Task task = new Task(string);
+
+        listOfTasks.add(task);
+        int numOfTasks = listOfTasks.size();
+        String message2 = "There are now " + numOfTasks + " tasks in your list.";
+
+        System.out.println(indentation + message1);
+        System.out.println(indentation + task);
+        System.out.println(indentation + message2 + lineBreak);
     }
 
     public void list() {
