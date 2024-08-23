@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The Command class represents a command issued by the user.
  * It handles the execution of various commands related to task management,
@@ -51,7 +53,7 @@ public class Command {
             case "bye":
                 return;
             case "list":
-                tasks.getTasks();
+                tasks.getTasks(tasks.getListTask());
                 return;
             case "mark":
                 if (parts.length > 1) {
@@ -93,6 +95,18 @@ public class Command {
                     System.out.println("No Task found.");
                 }
                 storage.saveTasksToFile(tasks.getListTask());
+                return;
+            case "find":
+                String keyWord = parts[parts.length - 1];
+                ArrayList<IndividualTask> allTasks = tasks.getListTask();
+                ArrayList<IndividualTask> matchingTasks = new ArrayList<>();
+                for (IndividualTask task : allTasks) {
+                    if (task.getTaskDescription().toLowerCase().contains(keyWord.toLowerCase())) {
+                        matchingTasks.add(task);
+                    }
+                }
+                System.out.println(this.indent + "Here are your matching tasks!");
+                tasks.getTasks(matchingTasks);
                 return;
         }
         if (!this.message.isEmpty()) {

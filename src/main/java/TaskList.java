@@ -38,7 +38,7 @@ public class TaskList {
      * Displays all tasks in the list with their corresponding numbers.
      * The tasks are printed with indentation and separated by a visual separator.
      */
-    public void getTasks() {
+    public void getTasks(ArrayList<IndividualTask> tasks) {
         System.out.println(this.indent + this.separator);
 
         for (int i = 0; i < tasks.size(); i++) {

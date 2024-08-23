@@ -20,6 +20,10 @@ public class Parser {
             return new Command(
                     CommandType.DELETE.toString().toLowerCase(),
                     command);
+        } else if (command.strip().toLowerCase().contains(CommandType.FIND.toString().toLowerCase())) {
+            return new Command(
+                    CommandType.FIND.toString().toLowerCase(),
+                    command);
         } else {
             return new Command(command,command);
         }
