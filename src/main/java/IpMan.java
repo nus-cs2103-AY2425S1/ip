@@ -34,6 +34,8 @@ public class IpMan {
                     command = new CreateDeadlineCommand(items, input);
                 } else if (input.startsWith("event")) {
                     command = new CreateEventCommand(items, input);
+                } else if (input.startsWith("delete")) {
+                    command = new DeleteCommand(items, input);
                 } else {
                     System.out.println("Sorry, I don't recognise that command. Try again!");
                     continue;
