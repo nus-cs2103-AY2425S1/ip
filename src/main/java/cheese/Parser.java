@@ -71,6 +71,8 @@ public class Parser {
         case "delete":
             int j = getIdx(inputTokens, size);
             return new UpdateCommand(j, true);
+        case "find":
+            return new FindCommand(inputTokens);
         default:
             return new AddCommand(new Task(input));
         }
