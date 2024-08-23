@@ -95,6 +95,20 @@ public class BottleOpener {
                                     System.out.println(spacer + "Please provide a deadline!\n" + spacer);
                                 }
                                 break;
+                            case "event":
+                                try {
+                                    String[] activity = des.split(" /", 3);
+                                    String action = activity[0];
+                                    String start = activity[1];
+                                    String end = activity[2];
+                                    Task newEvent = new Event(action, start, end);
+                                    tasks.add(index, newEvent);
+                                    index++;
+                                    System.out.println(spacer + String.format("added: %s%n", newEvent) + spacer);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    System.out.println(spacer + "Please provide start and end time!\n" + spacer);
+                                }
+                                break;
                             default:
                                 System.out.println(spacer + "Invalid command!\n" + spacer);
                                 break;
@@ -102,9 +116,7 @@ public class BottleOpener {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(spacer + "Please add a description!\n" + spacer);
                     }
-
-
-
+                    
             }
 
         }
