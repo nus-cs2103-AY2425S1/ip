@@ -1,5 +1,6 @@
 public class Task {
     private final String description;
+    private final boolean isDone;
 
     /**
      * Constructor for Task class, task initialized with user inputted description
@@ -8,6 +9,7 @@ public class Task {
      */
     public Task (String description) {
         this.description = description;
+        this.isDone = false;
     }
 
     /**
@@ -15,5 +17,13 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     *
+     * Returns whether the Task has been completed or not
+     */
+    public boolean isDone() {
+        return this.isDone;
     }
 }
