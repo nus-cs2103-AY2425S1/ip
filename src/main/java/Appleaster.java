@@ -10,7 +10,6 @@ public class Appleaster {
                                      + "        \\/|__|   |__|             \\/     \\/     \\/            \\/       \n";
 
     private static TaskList taskList = new TaskList();
-    private static Random random = new Random();
 
     public static void main(String[] args) {
         System.out.println("------------------------------------");
@@ -30,7 +29,12 @@ public class Appleaster {
             }
             
             System.out.println("------------------------------------");
-            processInput(input);
+            try {
+                processInput(input);
+            } catch (AppleasterException e) {
+                System.out.println("Oops! " + e.getMessage());
+                System.out.println("Please try again with a valid command.");
+            }
             System.out.println("------------------------------------");
         }
         System.out.println("------------------------------------");
@@ -40,7 +44,7 @@ public class Appleaster {
         scanner.close();
     }
 
-    private static void processInput(String input) {
+    private static void processInput(String input) throws AppleasterException {
         String[] parts = input.split("\\s+", 2);
         String command = parts[0].toLowerCase();
 
@@ -62,55 +66,62 @@ public class Appleaster {
                 handleEvent(parts);
                 break;
             default:
-                System.out.println("I'm not sure what you mean. Please try again.");
-                break;
+                throw new AppleasterException("I don't recognize that command. Here are the commands I know: todo, deadline, event, list, mark, unmark.");
         }
     }
 
-    private static void handleMarkUnmark(String command, String[] parts) {
-        if (parts.length > 1) {
-            try {
-                int index = Integer.parseInt(parts[1]) - 1;
-                taskList.markTask(index, command.equals("mark"));
-            } catch (NumberFormatException e) {
-                System.out.println("Please provide a valid task number.");
-            }
-        } else {
-            System.out.println("Please specify a task number to " + command + ".");
+    private static void handleMarkUnmark(String command, String[] parts) throws AppleasterException {
+        if (parts.length < 2) {
+            throw new AppleasterException("Please provide a task number to " + command + ". For example: " + command + " 1");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            taskList.markTask(index, command.equals("mark"));
+        } catch (NumberFormatException e) {
+            throw new AppleasterException("The task number should be a valid integer. You provided: " + parts[1]);
+        } catch (IndexOutOfBoundsException e) {
+            throw new AppleasterException("There is no task with the number " + parts[1] + ". Please check the task list and try again.");
         }
     }
 
-    private static void handleTodo(String[] parts) {
-        if (parts.length > 1) {
-            taskList.addTask(new Todo(parts[1]));
-        } else {
-            System.out.println("The description of a todo cannot be empty.");
+    private static void handleTodo(String[] parts) throws AppleasterException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new AppleasterException("The description of a todo cannot be empty. Please provide a description after 'todo'.");
         }
+        taskList.addTask(new Todo(parts[1]));
     }
 
-    private static void handleDeadline(String[] parts) {
-        if (parts.length > 1) {
-            String[] deadlineParts = parts[1].split(" /by ");
-            if (deadlineParts.length == 2) {
-                taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
-            } else {
-                System.out.println("Please provide a deadline in the format: deadline <description> /by <deadline>");
-            }
-        } else {
-            System.out.println("The description of a deadline cannot be empty.");
+    private static void handleDeadline(String[] parts) throws AppleasterException {
+        if (parts.length < 2) {
+            throw new AppleasterException("Please provide a deadline in the format: deadline <description> /by <deadline>");
         }
+        String[] deadlineParts = parts[1].split(" /by ");
+        if (deadlineParts.length != 2) {
+            throw new AppleasterException("Invalid deadline format. Please use: deadline <description> /by <deadline>");
+        }
+        if (deadlineParts[0].trim().isEmpty()) {
+            throw new AppleasterException("The description of a deadline cannot be empty.");
+        }
+        if (deadlineParts[1].trim().isEmpty()) {
+            throw new AppleasterException("The deadline date/time cannot be empty.");
+        }
+        taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
     }
 
-    private static void handleEvent(String[] parts) {
-        if (parts.length > 1) {
-            String[] eventParts = parts[1].split(" /from | /to ");
-            if (eventParts.length == 3) {
-                taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
-            } else {
-                System.out.println("Please provide an event in the format: event <description> /from <start> /to <end>");
-            }
-        } else {
-            System.out.println("The description of an event cannot be empty.");
+    private static void handleEvent(String[] parts) throws AppleasterException {
+        if (parts.length < 2) {
+            throw new AppleasterException("Please provide an event in the format: event <description> /from <start> /to <end>");
         }
+        String[] eventParts = parts[1].split(" /from | /to ");
+        if (eventParts.length != 3) {
+            throw new AppleasterException("Invalid event format. Please use: event <description> /from <start> /to <end>");
+        }
+        if (eventParts[0].trim().isEmpty()) {
+            throw new AppleasterException("The description of an event cannot be empty.");
+        }
+        if (eventParts[1].trim().isEmpty() || eventParts[2].trim().isEmpty()) {
+            throw new AppleasterException("The start and end times of an event cannot be empty.");
+        }
+        taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
     }
 }
