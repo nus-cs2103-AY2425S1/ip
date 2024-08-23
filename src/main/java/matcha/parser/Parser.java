@@ -1,4 +1,4 @@
-package matcha;
+package matcha.parser;
 import matcha.command.AddTaskCommand;
 import matcha.command.Command;
 import matcha.command.DeleteTaskCommand;

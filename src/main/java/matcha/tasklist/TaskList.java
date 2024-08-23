@@ -1,4 +1,4 @@
-package matcha;
+package matcha.tasklist;
 import java.util.ArrayList;
 import matcha.task.Task;
 

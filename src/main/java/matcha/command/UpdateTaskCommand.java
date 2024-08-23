@@ -1,7 +1,7 @@
 package matcha.command;
-import matcha.TaskList;
-import matcha.Ui;
-import matcha.Storage;
+import matcha.tasklist.TaskList;
+import matcha.ui.Ui;
+import matcha.storage.Storage;
 import matcha.exception.MatchaException;
 
 public class UpdateTaskCommand extends Command{

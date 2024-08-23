@@ -1,4 +1,4 @@
-package matcha;
+package matcha.ui;
 import java.util.Scanner;
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
