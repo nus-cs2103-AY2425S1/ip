@@ -63,7 +63,16 @@ public class Vecrosen {
                 String begin = input.substring(beginStart + 7);
                 list.add(new Event(desc, begin, end));
                 speak("Event added: " + desc);
-            } else if (input.startsWith("todo")) {
+            } else if (input.matches("delete \\d+")) {
+                int itemNo = Integer.parseInt(input.substring(7));
+                if (itemNo < 1 || itemNo > list.size()) speak("Invalid task number!");
+                else {
+                    speak("Removing task: " + list.get(itemNo - 1).getDescription());
+                    list.remove(itemNo - 1);
+                    speak("You now have " + list.size() + " tasks left in record.");
+                }
+            } // TODO: make helper function
+            else if (input.startsWith("todo")) {
                 speak("Invalid format.");
                 speak("Usage: todo [description]");
             } else if (input.startsWith("deadline")) {
@@ -78,9 +87,12 @@ public class Vecrosen {
             } else if (input.startsWith("unmark")) {
                 speak("Invalid format.");
                 speak("Usage: unmark [taskID]");
+            } else if (input.startsWith("delete")) {
+                speak("Invalid format.");
+                speak("Usage: delete [taskID]");
             } else {
                 speak("Sorry, I don't understand.");
-                speak("Commands: todo deadline event mark unmark list bye");
+                speak("Commands: todo deadline event mark unmark delete list bye");
             }
         }
         speak("Bye. Hope to see you again soon!");
