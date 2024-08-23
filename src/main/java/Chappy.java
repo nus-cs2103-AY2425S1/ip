@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Chappy {
 
-    private static String[] userInputArray = new String[100];
+    private static Task[] userInputArray = new Task[100];
     private static int userInputArrayPointer = 0;
 
     public static void main(String[] args) {
@@ -47,12 +47,30 @@ public class Chappy {
                     if (userInputArray[i] == null) {
                         break;
                     }
-                    System.out.println(i+1 + ". " + userInputArray[i]);
+                    System.out.println(i+1 + ".[" + userInputArray[i].getStatusIcon() + "] " + userInputArray[i].toString());
                 }
                 System.out.println("____________________________________________________________");
-            } else {
+            } else if (userInput.toLowerCase().contains("unmark")) {
+                int t = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                userInputArray[t].markAsNotDone();
                 System.out.println("____________________________________________________________");
-                userInputArray[userInputArrayPointer] = userInput;
+                System.out.println("Aww.. I've marked this task as not done yet..");
+                System.out.println("[" + userInputArray[t].getStatusIcon() + "] " + userInputArray[t].toString());
+                System.out.println("____________________________________________________________");
+
+            }  else if (userInput.toLowerCase().contains("mark")) {
+                int t = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                userInputArray[t].markAsDone();
+                System.out.println("____________________________________________________________");
+                System.out.println("Fantastic! I've marked this task as done!");
+                System.out.println("[" + userInputArray[t].getStatusIcon() + "] " + userInputArray[t].toString());
+                System.out.println("____________________________________________________________");
+            }
+            
+            else if (userInput != "") {
+                System.out.println("____________________________________________________________");
+                Task t = new Task(userInput);
+                userInputArray[userInputArrayPointer] = t;
                 userInputArrayPointer++;
                 System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
