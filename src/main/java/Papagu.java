@@ -76,6 +76,12 @@ public class Papagu {
                     taskList.addTask(newEvent);
                     System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                } else if (userInput.contains("delete")) {
+                    String[] parts = userInput.split(" ");
+                    int num = Integer.parseInt(parts[1]) - 1;
+                    System.out.println("____________________________________________________________");
+                    taskList.deleteTask(num);
+                    System.out.println("____________________________________________________________");
                 } else {
                     throw new IllegalInputException("I'm sorry, but I don't know what that means :-(" + "\n" 
                     + "Please enter a valid command."
