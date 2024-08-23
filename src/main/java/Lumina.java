@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,12 +7,15 @@ public class Lumina {
 
     private static final String ECHO_EXIT_STRING = "bye";
     private static final String ECHO_LIST_STRING = "list";
+    private static final String ECHO_MARK_TASK_STRING = "mark";
+    private static final String ECHO_UNMARK_TASK_STRING = "unmark";
     private static final int indentWidth = 2;
 
-    private ArrayList<String> messages;
+    // task description and whether the task is done
+    private ArrayList<Task> tasks;
     // Cosntructor
     public Lumina() {
-        messages = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     private String indentMessage(String msg) {
@@ -50,20 +55,43 @@ public class Lumina {
         System.exit(0);
     }
 
-    private void addMessage(String msg) {
-        this.messages.add(msg);
+    private void addTask(String desc) {
+        this.tasks.add(new Task(desc));
     }
 
-    private void listMessages() {
-        StringBuilder listedMessage = new StringBuilder();
-        for (int i = 0; i < this.messages.size(); i++) {
-            listedMessage.append(Integer.toString(i + 1) + ". ");
-            listedMessage.append(this.messages.get(i));
-            if (i < this.messages.size() - 1) {
-                listedMessage.append("\n");
+    private void listTasks() {
+        StringBuilder listedTaskMessage = new StringBuilder();
+        listedTaskMessage.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            listedTaskMessage.append(Integer.toString(i + 1)).append(".");
+            listedTaskMessage.append(this.tasks.get(i));
+            if (i < this.tasks.size() - 1) {
+                listedTaskMessage.append("\n");
             }
         }
-        this.printMessage(listedMessage.toString());
+        this.printMessage(listedTaskMessage.toString());
+    }
+
+    private void markTaskDone(int index) {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new IllegalArgumentException("Task index out of bounds");
+        }
+        StringBuilder taskDoneMessage = new StringBuilder();
+        taskDoneMessage.append("Nice! I've marked this task as done:\n");
+        this.tasks.get(index).markAsDone();
+        taskDoneMessage.append(indentMessage(this.tasks.get(index).toString()));
+        this.printMessage(taskDoneMessage.toString());
+    }
+
+    private void markTaskNotDone(int index) {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new IllegalArgumentException("Task index out of bounds");
+        }
+        StringBuilder taskNotDoneMessage = new StringBuilder();
+        taskNotDoneMessage.append("OK, I've marked this task as not done yet:\n");
+        this.tasks.get(index).markAsNotDone();
+        taskNotDoneMessage.append(indentMessage(this.tasks.get(index).toString()));
+        this.printMessage(taskNotDoneMessage.toString());
     }
 
     private void echo(Scanner sc) {
@@ -76,10 +104,39 @@ public class Lumina {
                 break;
             }
             if (msg.equals(Lumina.ECHO_LIST_STRING)) {
-                this.listMessages();
+                this.listTasks();
                 continue;
             }
-            this.addMessage(msg);
+            // first check unmark since mark contains unmark
+            if (msg.contains(Lumina.ECHO_UNMARK_TASK_STRING)) {
+                try {
+                    String[] msgSplit = msg.split(" ");
+                    if (msgSplit.length == 2) {
+                        int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
+                        this.markTaskNotDone(taskIndex);
+                    } else {
+                        throw new IllegalArgumentException("Wrong number of parameters found");
+                    }
+                } catch(IllegalArgumentException e) {
+                    this.printMessage(e.getMessage() + ". Try again");
+                }
+                continue;
+            }
+            if (msg.contains(Lumina.ECHO_MARK_TASK_STRING)) {
+                try {
+                    String[] msgSplit = msg.split(" ");
+                    if (msgSplit.length == 2) {
+                        int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
+                        this.markTaskDone(taskIndex);
+                    } else {
+                        throw new IllegalArgumentException("Wrong number of parameters found");
+                    }
+                } catch(IllegalArgumentException e) {
+                    this.printMessage(e.getMessage() + ". Try again");
+                }
+                continue;
+            }
+            this.addTask(msg);
             this.printMessage("added: " + msg);
         }
     }
