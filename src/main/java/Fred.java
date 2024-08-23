@@ -5,25 +5,26 @@ public class Fred {
     static String line = "____________________________________________________________";
     static String name = "Fred";
     static ArrayList<Task> taskList = new ArrayList<>();
-    static int taskCount = 0;
     public static void main(String[] args) {
         greet();
         getInput();
     }
 
-    private static void greet() {
-        String greeting = "Hello! I'm " + name + "\n" +
-                "What can I do for you?";
+    public static void say(String message) {
         System.out.println(line);
-        System.out.println(greeting);
+        System.out.println(message);
         System.out.println(line);
     }
 
+    private static void greet() {
+        String message = "Hello! I'm " + name + "\n" +
+                "What can I do for you?";
+        say(message);
+    }
+
     private static void sayFarewell() {
-        String farewell = "Bye. Hope to see you again soon!";
-        System.out.println(line);
-        System.out.println(farewell);
-        System.out.println(line);
+        String message = "Bye. Hope to see you again soon!";
+        say(message);
     }
 
     private static void exit(){
@@ -38,9 +39,7 @@ public class Fred {
             if (input.equals("bye")) {
                 break;
             }
-            System.out.println(line);
-            System.out.println(input);
-            System.out.println(line);
+            say(input);
         }
         sayFarewell();
         exit();
@@ -54,14 +53,13 @@ public class Fred {
             try {
                 determineAction(input);
             } catch (Exception e) {
-                System.out.println(line);
-                System.out.println(e.getMessage());
-                System.out.println(line);
+                say(e.getMessage());
             }
         }
     }
 
     private static void determineAction(String input) throws FredException {
+        input = input.strip();
         String[] inputParts = input.split(" ", 2);
         if (inputParts.length == 1) {
             if (inputParts[0].isEmpty()) {
@@ -71,21 +69,42 @@ public class Fred {
                 exit();
             } else if (inputParts[0].equals("list")) {
                 printTaskList();
+            } else if (inputParts[0].equals("mark") || inputParts[0].equals("unmark")) {
+                throw new InvalidTaskNumberException();
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
                 throw new EmptyTaskDescriptionException();
             } else {
                 throw new UnknownCommandException();
             }
         } else if (inputParts.length == 2) {
-            if (inputParts[0].equals("mark")) {
-                markTaskAsDone(inputParts[1]);
-            } else if (inputParts[0].equals("unmark")) {
-                markTaskAsNotDone(inputParts[1]);
+            String message;
+            inputParts[1] = inputParts[1].strip();
+            if (inputParts[0].equals("mark") || inputParts[0].equals("unmark") || inputParts[0].equals("delete")) {
+                int taskNumber;
+                Task task;
+                try {
+                    taskNumber = Integer.parseInt(inputParts[1]) - 1;
+                    task = taskList.get(taskNumber);
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    throw new InvalidTaskNumberException();
+                }
+                if (inputParts[0].equals("mark")) {
+                    markTaskAsDone(task, taskNumber);
+                    message = String.format("Nice! I've marked this task as done:\n" +
+                            "   %s", taskList.get(taskNumber));
+                } else if (inputParts[0].equals("unmark")) {
+                    markTaskAsNotDone(task, taskNumber);
+                    message = String.format("OK, I've marked this task as not done yet:\n" +
+                            "   %s", taskList.get(taskNumber));
+                } else {
+                    deleteFromTaskList(task);
+                    message = String.format("Noted. I've removed this task:\n" +
+                            "   %s", task);
+                }
+                say(message);
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
                 addToTaskList(inputParts[0], inputParts[1]);
-            } else if (inputParts[0].equals("delete")) {
-                deleteTaskFromTaskList(inputParts[1]);
-            }else {
+            } else {
                 throw new UnknownCommandException();
             }
         }
@@ -125,62 +144,15 @@ public class Fred {
         System.out.println(line);
     }
 
-    private static void markTaskAsDone(String taskNumberString) throws InvalidTaskNumberException {
-        int taskNumber;
-        try {
-            taskNumber = Integer.parseInt(taskNumberString) - 1;
-        } catch (NumberFormatException e) {
-            throw new InvalidTaskNumberException();
-        }
-        Task taskToMark;
-        try {
-            taskToMark = taskList.get(taskNumber);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberException();
-        }
-        taskToMark.markAsDone();
-        System.out.println(line);
-        System.out.println(String.format("Nice! I've marked this task as done:\n" +
-                "   %s", taskList.get(taskNumber)));
-        System.out.println(line);
+    private static void markTaskAsDone(Task task, int taskNumber) {
+        task.markAsDone();
     }
 
-    private static void markTaskAsNotDone(String taskNumberString) throws InvalidTaskNumberException {
-        int taskNumber;
-        try {
-            taskNumber = Integer.parseInt(taskNumberString) - 1;
-        } catch (NumberFormatException e) {
-            throw new InvalidTaskNumberException();
-        }
-        Task taskToMark;
-        try {
-            taskToMark = taskList.get(taskNumber);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberException();
-        }
-        taskToMark.markAsNotDone();
-        System.out.println(line);
-        System.out.println(String.format("OK, I've marked this task as not done yet:\n" +
-                "   %s", taskList.get(taskNumber)));
-        System.out.println(line);
+    private static void markTaskAsNotDone(Task task, int taskNumber) {
+        task.markAsNotDone();
     }
 
-    private static void deleteTaskFromTaskList(String taskNumberString) throws InvalidTaskNumberException {
-        int taskNumber;
-        try {
-            taskNumber = Integer.parseInt(taskNumberString) - 1;
-        } catch (NumberFormatException e) {
-            throw new InvalidTaskNumberException();
-        }
-        Task taskToDelete;
-        try {
-            taskToDelete = taskList.remove(taskNumber);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberException();
-        }
-        System.out.println(line);
-        System.out.println(String.format("Noted. I've removed this task:\n" +
-                "   %s", taskToDelete));
-        System.out.println(line);
+    private static void deleteFromTaskList(Task task) {
+        taskList.remove(task);
     }
 }
