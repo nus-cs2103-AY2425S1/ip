@@ -101,14 +101,28 @@ AIGHT, LET'S GET READY TO CONQUER THIS TASK:
 ______________________________________________________________________
 
 ______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+try indicating the index of the task you wanna delete as a number!
+______________________________________________________________________
+
+______________________________________________________________________
+I might be tripping bro, my bad, my bad -
+try indicating the index of an existing task you wanna delete!
+______________________________________________________________________
+
+______________________________________________________________________
+Say no more, BABY BYE BYE BYE to this task:
+ [D][ ] return book (by: June 6th)!
+YOU'VE NOW GOT 2 TASKS TO GO!
+______________________________________________________________________
+
+______________________________________________________________________
 ALRIGHT, Here's that list!
 1. [T][X] read book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Mon 2PM to: 5PM)
+2. [E][ ] project meeting (from: Mon 2PM to: 5PM)
 ______________________________________________________________________
 
 ______________________________________________________________________
 Alright homie, it's been a BLAST hanging out with you. Have a wonderful
 day, and catch you soon again you ABSOLUTE BALLER!
 ______________________________________________________________________
-
