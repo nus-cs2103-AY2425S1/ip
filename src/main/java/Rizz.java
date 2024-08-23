@@ -108,7 +108,13 @@ public class Rizz {
                     String to = parts[2].trim();
                     this.addEvent(description, from, to);
                 }
-
+            } else if (textInput.startsWith("delete ")) {
+                    try {
+                        int index = Integer.parseInt(textInput.split(" ")[1].trim());
+                        this.deleteTask(index);
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        System.out.println("\tOOPS!!! The deletion command is empty / incorrectly formatted.");
+                    }
             } else {
                 System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -131,6 +137,13 @@ public class Rizz {
         this.arrList.add(new Deadline(text, time));
         System.out.println("\tadded deadline: " + text);
         System.out.printf("\tYou have %d tasks in the list.\n", this.arrList.size());
+    }
+
+    private void deleteTask(int index) {
+            Task task = arrList.remove(index - 1);
+            System.out.println("\tNoted. I've removed this task:");
+            System.out.println("\t " + task);
+            System.out.printf("\tNow you have %d tasks in the list.\n\n", arrList.size());
     }
 
     public static void main(String[] args) {
