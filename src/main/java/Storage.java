@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -33,27 +35,32 @@ public class Storage {
         boolean isTaskDone = taskInfo[1].equals("1");
         Task task;
 
-        switch (taskType) {
-        case "T":
-            task = new Todo(taskInfo[2]);
-            if(isTaskDone) {
-                task.markDone();
+        try {
+            switch (taskType) {
+            case "T":
+                task = new Todo(taskInfo[2]);
+                if(isTaskDone) {
+                    task.markDone();
+                }
+                break;
+            case "D":
+                task = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
+                if(isTaskDone) {
+                    task.markDone();
+                }
+                break;
+            case "E":
+                task = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
+                        LocalDateTime.parse(taskInfo[4]));
+                if(isTaskDone) {
+                    task.markDone();
+                }
+                break;
+            default:
+                throw new DukeException("Oh no! Task data was saved in the wrong format.");
             }
-            break;
-        case "D":
-            task = new Deadline(taskInfo[2], taskInfo[3]);
-            if(isTaskDone) {
-                task.markDone();
-            }
-            break;
-        case "E":
-            task = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
-            if(isTaskDone) {
-                task.markDone();
-            }
-            break;
-        default:
-            throw new DukeException("Oh no! Task data was saved in the wrong format.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format! Please format the Date as 'YYYY-MM-DD' and Time as 'HHMM'");
         }
 
         return task;

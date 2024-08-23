@@ -1,4 +1,8 @@
+import java.time.format.DateTimeFormatter;
+
 public class Task {
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
     protected String description;
     protected boolean isDone;
 
@@ -6,6 +10,15 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public static DateTimeFormatter getInputFormat() {
+        return INPUT_FORMAT;
+    }
+
+    public static DateTimeFormatter getOutputFormat() {
+        return OUTPUT_FORMAT;
+    }
+
 
     public void markDone() throws DukeException {
         if (this.isDone) {
