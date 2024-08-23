@@ -12,8 +12,9 @@ public class Message {
         System.out.println(GOODBYE);
     }
 
-    public static void echo(String input) {
-        System.out.println(String.format("Added %s to your list!", input));
+    public static void echo(Task task, int total) {
+        System.out.println(String.format("Got it. I've added this task:\n%s\nto your list!"
+                        + "\nYou now have " + total + " tasks.", task));
     }
 
     public static void displayList(Task[] list, int counter) {

@@ -30,11 +30,23 @@ public class TalkaBot {
                     && input.length() > 7
                     && this.isValidNumber(input.substring(7))) {
                 this.unmark(this.list[Integer.parseInt(input.substring(7)) - 1]);
-            } else {
+            } else if (input.toLowerCase().startsWith("todo ")) {
+                this.list[this.counter] = new ToDo(input.substring(5));
+                Message.echo(this.list[this.counter], this.counter + 1);
+                this.counter++;
+            } else if (input.toLowerCase().startsWith("deadline ")) {
+                this.list[this.counter] = new Deadline(input.substring(9));
+                Message.echo(this.list[this.counter], this.counter + 1);
+                this.counter++;
+            } else if (input.toLowerCase().startsWith("event ")) {
+                this.list[this.counter] = new Event(input.substring(6));
+                Message.echo(this.list[this.counter], this.counter + 1);
+                this.counter++;
+            } /*else {
                 this.list[this.counter] = new Task(input);
                 Message.echo(input);
                 this.counter++;
-            }
+            }*/
         }
         Message.goodbye();
     }
