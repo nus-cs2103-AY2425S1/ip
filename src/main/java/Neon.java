@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -6,12 +7,12 @@ import java.util.Scanner;
 public class Neon {
     private static final String NAME = "Neon";
     private static final String DASH_BREAK = "-----------------------------------";
-    private static Task[] list = new Task[100];
-    private static int lastListIndex = 1;
+    private static ArrayList<Task> list = new ArrayList<>();
+    private static int lastListIndex = 0;
     private static void greetingLine() {
         System.out.println(DASH_BREAK);
-        String greeting = "hello I'm " + NAME + "!\n"
-                + "what can I help you with?\n";
+        String greeting = "hello i'm " + NAME + "!\n"
+                + "what can i help you with?\n";
         System.out.println(greeting);
         System.out.println(DASH_BREAK);
     }
@@ -36,8 +37,8 @@ public class Neon {
                     System.out.println("found no description of task! do try again");
                     break;
                 }
-                Todo newTodo = new Todo(taskTodo, false, lastListIndex);
-                list[lastListIndex] = newTodo;
+                Todo newTodo = new Todo(taskTodo, false);
+                list.add(newTodo);
                 lastListIndex++;
                 System.out.println("adding todo to list : " + taskTodo);
                 break;
@@ -49,9 +50,9 @@ public class Neon {
                     break;
                 }
                 Deadline newDeadline = new Deadline(partsDeadline[0],
-                        false, lastListIndex,
+                        false,
                         removeSpace(partsDeadline[1]));
-                list[lastListIndex] = newDeadline;
+                    list.add(newDeadline);
                 lastListIndex++;
                 System.out.println("adding deadline to list : " + newDeadline.getName());
                 break;
@@ -66,9 +67,9 @@ public class Neon {
                     break;
                 }
 
-                Event newEvent = new Event(partsEvent[0], false, lastListIndex,
+                Event newEvent = new Event(partsEvent[0], false,
                         partsEvent[1], removeSpace(partsEvent[2]));
-                list[lastListIndex] = newEvent;
+                list.add(newEvent);
                 lastListIndex++;
                 System.out.println("adding event to list : " + newEvent.getName());
                 break;
@@ -98,14 +99,14 @@ public class Neon {
 
         System.out.println(message);
 
-        for(int i = 1; i < lastListIndex; i++) {
-            System.out.println(list[i].toString());
+        for(int i = 0; i < lastListIndex; i++) {
+            System.out.println(i + 1 + ". " + list.get(i).toString());
         }
         System.out.println(DASH_BREAK);
     }
 
     private static void markItem(int taskNumber) {
-        Task currTask = list[taskNumber];
+        Task currTask = list.get(taskNumber - 1);
         currTask.check();
 
         System.out.println(DASH_BREAK);
@@ -114,12 +115,21 @@ public class Neon {
     }
 
     private static void unmarkItem(int taskNumber) {
-        Task currTask = list[taskNumber];
+        Task currTask = list.get(taskNumber - 1);
         currTask.uncheck();
 
         System.out.println(DASH_BREAK);
-        System.out.println("checking task number : " + taskNumber);
+        System.out.println("unchecking task number : " + taskNumber);
         System.out.println(DASH_BREAK);
+    }
+
+    private static void deleteItem(int taskNumber) {
+        System.out.println(DASH_BREAK);
+        System.out.println("deleting task number : " + taskNumber);
+        System.out.println(DASH_BREAK);
+
+        list.remove(taskNumber - 1);
+        lastListIndex--;
     }
 
     public static void main(String[] args) {
@@ -154,6 +164,9 @@ public class Neon {
                     break;
                 case "unmark":
                     unmarkItem(number);
+                    break;
+                case "delete":
+                    deleteItem(number);
                     break;
                 default:
                     mainChat(String.valueOf(answer));

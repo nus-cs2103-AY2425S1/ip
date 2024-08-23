@@ -1,12 +1,12 @@
 public class Todo extends Task {
     private final String taskType = "T";
-    public Todo(String name, boolean completed, int index) {
-        super(name, completed, index);
+    public Todo(String name, boolean completed) {
+        super(name, completed);
     }
 
     @Override
     public String toString() {
-        return this.getIndex() + ". [" + this.getTaskType() + "]["+ this.checkMark() + "] " + this.getName();
+        return "[" + this.getTaskType() + "]["+ this.checkMark() + "] " + this.getName();
     }
 
     public String getTaskType() {

@@ -1,13 +1,11 @@
 public abstract class Task {
     private String name;
     private boolean completed;
-    private int index;
     private String taskType;
 
-    public Task(String name, boolean completed, int index) {
+    public Task(String name, boolean completed) {
         this.name = name;
         this.completed = completed;
-        this.index = index;
     }
 
     public String checkMark() {
@@ -28,10 +26,6 @@ public abstract class Task {
 
     public String getName() {
         return this.name;
-    }
-
-    public int getIndex() {
-        return this.index;
     }
 
     @Override
