@@ -4,6 +4,9 @@ import cheese.task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Takes in user input and formats the response
+ */
 public class Ui {
     private static final String GREETING = "Hello! I'm Wheely Big Cheese\nWhat can I do for you?";
     private static final String ENDING = "Schwooo Weeeeee!!! Shutting down.....";
@@ -21,6 +24,7 @@ public class Ui {
     public String readCommand() {
         return sc.nextLine();
     }
+
     /**
      * Format the output of the bot
      * @param s String to say

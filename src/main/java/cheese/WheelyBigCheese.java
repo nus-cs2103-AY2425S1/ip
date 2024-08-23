@@ -2,6 +2,9 @@ package cheese;
 
 import cheese.command.Command;
 
+/**
+ * Main class of chat bot
+ */
 public class WheelyBigCheese {
     public static final String LIST_FILE_PATH = "./list.txt";
 

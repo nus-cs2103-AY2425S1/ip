@@ -6,6 +6,9 @@ import cheese.task.Event;
 import cheese.task.Task;
 import cheese.task.ToDo;
 
+/**
+ * Parses user input
+ */
 public class Parser {
     /**
      * Get idx of item in list from user input

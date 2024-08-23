@@ -6,6 +6,9 @@ import cheese.TaskList;
 import cheese.Ui;
 import cheese.task.Task;
 
+/**
+ * Command to update a command
+ */
 public class UpdateCommand extends Command{
     private final boolean isDelete;
     private final int idx;
@@ -16,6 +19,13 @@ public class UpdateCommand extends Command{
         this.isDelete = isDelete;
     }
 
+    /**
+     * Currently only support deleting a task
+     * @param tasks list of tasks
+     * @param ui format response
+     * @param storage store data
+     * @throws CheeseException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
         Task t = tasks.get(idx);

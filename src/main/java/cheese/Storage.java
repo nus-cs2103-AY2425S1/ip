@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manipulate file that store task information
+ */
 public class Storage {
     private String filePath;
 
@@ -76,7 +79,7 @@ public class Storage {
 
     /**
      * Update task and save to file
-     * @param idx    idx of task
+     * @param idx idx of task
      * @param tasks tasklist
      * @param delete if delete task
      * @throws CheeseException Missing/Incorrect input

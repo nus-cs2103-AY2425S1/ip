@@ -7,6 +7,7 @@ import java.util.ArrayList;
 /**
  * contains the task list
  * e.g., it has operations to add/delete tasks in the list
+ * All operations are the same as ArrayList
  */
 public class TaskList {
     private ArrayList<Task> tasks;

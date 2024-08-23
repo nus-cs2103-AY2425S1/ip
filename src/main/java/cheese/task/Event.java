@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Task with 2 dates
+ */
 public class Event extends Task{
     private LocalDate startDate;
     private LocalDate endDate;
@@ -16,6 +19,11 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
+    /**
+     * Takes in csv data (from Storage) that is split
+     * @param data arr of String
+     * @throws CheeseException
+     */
     public Event(String[] data) throws CheeseException {
         super(data);
         if(data.length != 5) throw new CheeseException("Incorrect data format");
@@ -41,6 +49,10 @@ public class Event extends Task{
         return LocalDate.now().until(startDate, ChronoUnit.DAYS);
     }
 
+    /**
+     * To display task in bot
+     * @return String
+     */
     @Override
     public String toString() {
         return "[E]" +
@@ -52,6 +64,10 @@ public class Event extends Task{
                ")";
     }
 
+    /**
+     * To display task as csv to be saved be Storage
+     * @return String
+     */
     @Override
     public String dataString() {
         String s = super.dataString();

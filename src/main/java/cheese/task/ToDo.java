@@ -2,6 +2,9 @@ package cheese.task;
 
 import cheese.CheeseException;
 
+/**
+ * Basically same as Task
+ */
 public class ToDo extends Task{
     private ToDo(String name) throws CheeseException {
         super(name);

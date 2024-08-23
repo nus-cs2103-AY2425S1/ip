@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Task with a dateline
+ */
 public class Deadline extends Task{
     private LocalDate date;
 
@@ -14,6 +17,11 @@ public class Deadline extends Task{
         this.date = date;
     }
 
+    /**
+     * Takes in csv data (from Storage) that is split
+     * @param data String array
+     * @throws CheeseException
+     */
     public Deadline(String[] data) throws CheeseException {
         super(data);
         if(data.length != 4) throw new CheeseException("Incorrect data format");
@@ -33,10 +41,18 @@ public class Deadline extends Task{
         return new Deadline(tokens[0].strip(), Task.parseDate(tokens[1]));
     }
 
+    /**
+     * Helper function to calculate days from dateline
+     * @return long
+     */
     public long daysLeft() {
         return LocalDate.now().until(date, ChronoUnit.DAYS);
     }
 
+    /**
+     * To display task in bot
+     * @return String
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() +
@@ -44,6 +60,10 @@ public class Deadline extends Task{
                    "(by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * To display task as csv to be saved be Storage
+     * @return String
+     */
     @Override
     public String dataString() {
         String s = super.dataString();
