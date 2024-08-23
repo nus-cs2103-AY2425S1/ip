@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class ChatBaby {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> textEntered = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         greet();
 
         String input = scanner.nextLine();
@@ -16,14 +16,30 @@ public class ChatBaby {
 
             else if (input.equals("list")) {
                 System.out.println("____________________________________________________________\n");
-                for (int i = 0; i < textEntered.size(); i++) {
-                    System.out.println((i + 1) + ". " + textEntered.get(i));
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i).toString());
                 }
                 System.out.println("\n____________________________________________________________");
             }
 
+            else if (input.length() >= 6 && input.substring(0, 4).equals("mark")) {
+                tasks.get(Integer.parseInt(input.substring(5)) - 1).markAsDone();
+                System.out.println("____________________________________________________________\n"
+                        + "Nice! I've marked this task as done:\n"
+                        +  tasks.get(Integer.parseInt(input.substring(5)) - 1).toString());
+                System.out.println();
+            }
+
+            else if (input.length() >= 8 && input.substring(0, 6).equals("unmark")) {
+                tasks.get(Integer.parseInt(input.substring(7)) - 1).unMarkAsDone();
+                System.out.println("____________________________________________________________\n"
+                        + "OK, I've marked this task as not done yet:\n"
+                        +  tasks.get(Integer.parseInt(input.substring(7)) - 1).toString());
+                System.out.println();
+            }
+
             else {
-                textEntered.add(input);
+                tasks.add(new Task(input));
                 System.out.println("____________________________________________________________\n"
                         + "added: " + input + "\n"
                         + "____________________________________________________________");
