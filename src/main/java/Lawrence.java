@@ -27,7 +27,7 @@ public class Lawrence {
                             String.format("I've marked the task as complete:\n%s", completeTask));
                     break;
                 case "unmark":
-                    Task incompleteTask = tasks.unCompleteTask(Integer.parseInt(inputComponents[1]));
+                    Task incompleteTask = tasks.uncompleteTask(Integer.parseInt(inputComponents[1]));
                     displayMessage(
                             String.format("Changed your mind? The task is set to incomplete:\n%s", incompleteTask));
                     break;
@@ -62,6 +62,10 @@ public class Lawrence {
     }
 
     private static void displayTasks() {
+        if (tasks.getSize() < 1) {
+            displayMessage("You have no tasks at the moment.");
+            return;
+        }
         displayMessage(String.format("Here's your laundry list:%n%s", tasks.toString()));
     }
 

@@ -17,7 +17,7 @@ public class Tasks {
         return t;
     }
 
-    public Task unCompleteTask(int taskNumber) {
+    public Task uncompleteTask(int taskNumber) {
         Task t = list.get(taskNumber - 1);
         t.setComplete(false);
         return t;
@@ -29,12 +29,16 @@ public class Tasks {
 
     @Override
     public String toString() {
+        if (list.isEmpty()) {
+            return "";
+        }
+
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             result.append(String.format("%d.%s%n", i + 1, list.get(i)));
         }
 
         // exclude the last newline character from getting printed
-        return result.substring(0, result.length() - 1);
+        return result.substring(0, result.length() - 2);
     }
 }
