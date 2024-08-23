@@ -59,7 +59,8 @@ public class Storage {
      * @throws IOException Invalid file name
      */
     public void writeToFile(String filename) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+        try (BufferedWriter writer = new
+                BufferedWriter(new FileWriter(filename))) {
             for (Input i : input) {
                 writer.write(i.toString());
                 writer.newLine();
@@ -85,7 +86,8 @@ public class Storage {
      * @param str String from user on which task to mark
      */
     public void mark(String str) {
-        int i = Integer.parseInt(str.substring(5));
+        int i = Integer.parseInt(
+                str.substring(5));
         if (i > counter) {
             ui.invalidInput();
         } else {
@@ -147,9 +149,11 @@ public class Storage {
             }
 
         }
-        System.out.println("Here are the list of tasks found: ");
+        System.out.println("Here are the list " +
+                "of tasks found: ");
         for (int i = 0; i < arr.size(); i++) {
-            System.out.println((i+1) + ". " + arr.get(i).toString());
+            System.out.println((i+1) + ". "
+                    + arr.get(i).toString());
         }
     }
 
