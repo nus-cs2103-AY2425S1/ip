@@ -27,21 +27,15 @@ public class Tick {
             this.checklist.add(task);
         } else if (command.startsWith("deadline")) {
             String[] parts = command.substring(9).split(" /by ");
-            if (parts[0].isEmpty()) {
-                throw new TickException("The description of a deadline cannot be empty.");
-            } else if (parts[1].isEmpty()) {
-                throw new TickException("The deadline of a deadline cannot be empty.");
+            if (parts.length < 2) {
+                throw new TickException("Please specify BOTH the description and deadline of a deadline.");
             }
             Deadline task = new Deadline(parts[0], parts[1]);
             this.checklist.add(task);
         } else if (command.startsWith("event")) {
             String[] parts = command.substring(6).split(" /from | /to ");
-            if (parts[0].isEmpty()) {
-                throw new TickException("The description of an event cannot be empty.");
-            } else if (parts[1].isEmpty()) {
-                throw new TickException("The start time of an event cannot be empty.");
-            } else if (parts[2].isEmpty()) {
-                throw new TickException("The end time of an event cannot be empty.");
+            if (parts.length < 3) {
+                throw new TickException("Please specify the description, start time and end time of an event.");
             }
             Event task = new Event(parts[0], parts[1], parts[2]);
             this.checklist.add(task);
@@ -52,20 +46,30 @@ public class Tick {
     }
 
     public void displayList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.checklist.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, this.checklist.get(i));
+        if (this.checklist.isEmpty()) {
+            System.out.println("You have no tasks in your list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < this.checklist.size(); i++) {
+                System.out.printf("%d.%s\n", i + 1, this.checklist.get(i));
+            }
         }
     }
 
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index) throws TickException {
+        if (index < 1 || index > this.checklist.size()) {
+            throw new TickException("The task number is out of range.");
+        }
         Task task = this.checklist.get(index - 1);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
     }
 
-    public void markTaskAsUndone(int index) {
+    public void markTaskAsUndone(int index) throws TickException {
+        if (index < 1 || index > this.checklist.size()) {
+            throw new TickException("The task number is out of range.");
+        }
         Task task = this.checklist.get(index - 1);
         task.markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:");
@@ -79,14 +83,23 @@ public class Tick {
                 this.displayList();
                 break;
             case "mark":
+                if (commandParts.length < 2) {
+                    throw new TickException("Please specify the task number to mark as done.");
+                }
                 this.markTaskAsDone(Integer.parseInt(commandParts[1]));
                 break;
             case "unmark":
+                if (commandParts.length < 2) {
+                    throw new TickException("Please specify the task number to mark as not done yet.");
+                }
                 this.markTaskAsUndone(Integer.parseInt(commandParts[1]));
                 break;
             case "todo":
             case "deadline":
             case "event":
+                if (commandParts.length < 2) {
+                    throw new TickException("Please specify task arguments.");
+                }
                 this.addTaskToList(command);
                 break;
             default:
