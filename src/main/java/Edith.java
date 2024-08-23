@@ -1,12 +1,16 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Edith {
+    private static final String prompt = "Your next instruction: ";
+
     private final String lineBreak = "\n_______________________________________________________________________\n";
     private final String greeting = "Hello! I am EDITH, your personal chatbot companion:)"
             + "\nHow may I assist you?";
-    private static final String prompt = "Your next instruction: ";
-    private static final String indentation = "    ";
+    private final String indentation = "    ";
     private final String exit = "It has been my pleasure helping you. Hope to see you again soon!";
+
+    private ArrayList<String> listOfTasks = new ArrayList<>();
 
     public Edith() {
     }
@@ -21,6 +25,11 @@ public class Edith {
 
     public void echo(String message) {
         System.out.println(indentation + message + lineBreak);
+    }
+
+    public void add(String task) {
+        listOfTasks.add(task);
+        System.out.println(indentation + "added: " + task + lineBreak);
     }
 
     public static void main(String[] args) {
@@ -39,7 +48,7 @@ public class Edith {
                 break;
             }
 
-            edith.echo(userInput);
+            edith.add(userInput);
         }
 
         scanner.close();
