@@ -36,10 +36,10 @@ public class Chappy {
         System.out.println("Good day sir! \n" + logo + "\nat your service!");
         System.out.println("I shall await your next request.");
         System.out.println("____________________________________________________________");
-
-        while(true) {
-            Scanner scannerObj = new Scanner(System.in); 
-            String userInput = scannerObj.nextLine();
+        Scanner scannerObj = new Scanner(System.in);
+        String userInput;
+        while(scannerObj.hasNext()) {
+            userInput = scannerObj.nextLine();
             
             if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println("____________________________________________________________");
