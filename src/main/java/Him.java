@@ -36,25 +36,40 @@ public class Him {
                     complete(Integer.parseInt(input[1]) - 1);
                     break;
                 case "todo": {
-                    ToDo newToDo = new ToDo(input[1]);
-                    list.add(newToDo);
-                    System.out.println("\nHim: added \"" + newToDo + "\" to list\n");
-                    break;
+                    try {
+                        ToDo newToDo = new ToDo(input[1]);
+                        list.add(newToDo);
+                        System.out.println("\nHim: added \"" + newToDo + "\" to list\n");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("\nHim: ToDos need a description!\n");
+                    } finally {
+                        break;
+                    }
                 }
                 case "deadline": {
-                    String[] details = input[1].split("/by");
-                    Deadline newDeadline = new Deadline(details[0].trim(), details[1].trim());
-                    list.add(newDeadline);
-                    System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
-                    break;
+                    try {
+                        String[] details = input[1].split("/by");
+                        Deadline newDeadline = new Deadline(details[0].trim(), details[1].trim());
+                        list.add(newDeadline);
+                        System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("\nHim: Deadlines need a description and a due date!\n");
+                    } finally {
+                        break;
+                    }
                 }
                 case "event": {
-                    String[] details = input[1].split("/");
-                    Event newEvent = new Event(details[0].trim(), details[1].substring(details[1].indexOf(" ")).trim(),
-                            details[2].substring(details[2].indexOf(" ")).trim());
-                    list.add(newEvent);
-                    System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
-                    break;
+                    try {
+                        String[] details = input[1].split("/");
+                        Event newEvent = new Event(details[0].trim(), details[1].substring(details[1].indexOf(" ")).trim(),
+                                details[2].substring(details[2].indexOf(" ")).trim());
+                        list.add(newEvent);
+                        System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("\nHim: Events need a description, a start time and an end time!\n");
+                    } finally {
+                        break;
+                    }
                 }
             }
             System.out.print("User: ");
