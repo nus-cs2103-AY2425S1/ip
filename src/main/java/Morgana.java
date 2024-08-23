@@ -17,17 +17,12 @@ public class Morgana {
         Scanner sc = new Scanner(System.in);
         String line;
         while (!(line = sc.nextLine()).equals("bye")) {
-            if (line.equals("list")) {
-                listTasks();
-            } else if (line.startsWith("mark")) {
-                markTaskAsDone(Integer.parseInt(line.split(" ")[1]) - 1);
-            } else if (line.startsWith("unmark")) {
-                markTaskAsNotDone(Integer.parseInt(line.split(" ")[1]) - 1);
-            } else {
-                tasks.add(new Task(line));
-                System.out.print(HORIZONTAL_LINE);
-                System.out.printf("added: %s%n", line);
-                System.out.println(HORIZONTAL_LINE);
+            String[] input = line.split(" ", 2);
+            switch (input[0]) {
+                case "list" -> listTasks();
+                case "mark" -> markTaskAsDone(Integer.parseInt(line.split(" ")[1]) - 1);
+                case "unmark" -> markTaskAsNotDone(Integer.parseInt(line.split(" ")[1]) - 1);
+                default -> addTask(input);
             }
         }
 
@@ -63,5 +58,32 @@ public class Morgana {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.printf("%d. %s%n", index + 1, task);
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void addTask(String[] input) {
+        Task task = createTask(input[0], input[1]);
+        tasks.add(task);
+
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.printf("%s%n", task);
+        System.out.printf("Now you have %d task%s in the list.%n",
+                tasks.size(), tasks.size() > 1 ? "s" : "");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static Task createTask(String command, String args) {
+        return switch (command) {
+            case "todo" -> new Todo(args);
+            case "deadline" -> {
+                String[] parts = args.split(" /by ");
+                yield new Deadline(parts[0], parts[1]);
+            }
+            case "event" -> {
+                String[] parts = args.split(" /from | /to ");
+                yield new Event(parts[0], parts[1], parts[2]);
+            }
+            default -> null;
+        };
     }
 }
