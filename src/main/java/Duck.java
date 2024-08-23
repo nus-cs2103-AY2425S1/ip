@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Duck class is a chatbot that helps with tasks such as todo, event and deadline.
+ */
 public class Duck {
     public static void main(String[] args) throws EmptyToDoException, InvalidCommandException {
         Scanner scanner = new Scanner(System.in);
