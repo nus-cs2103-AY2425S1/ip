@@ -9,7 +9,7 @@ public class TaskList {
 
     /**
      * Retrieves the internal task list
-     * @return zaibot.task.Task list as an ArrayList<zaibot.task.Task>
+     * @return Task list as an ArrayList of Tasks
      */
     public ArrayList<Task> retrieveTasks() {
         return tasks;
@@ -17,7 +17,7 @@ public class TaskList {
 
     /**
      * Adds a task into the task list
-     * @param task zaibot.task.Task to be added
+     * @param task Task to be added
      */
     public void addTask(Task task) {
         tasks.add(task);
@@ -76,6 +76,9 @@ public class TaskList {
         return task;
     }
 
+    public void clearTasks() {
+        this.tasks.clear();
+    }
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
