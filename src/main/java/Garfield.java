@@ -1,6 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.lang.StringBuilder;
 
 public class Garfield {
+
+    private static ArrayList<String> taskList = new ArrayList<>();
     public static void main(String[] args) {
         String logo = """
                  ██████╗  █████╗ ██████╗ ███████╗██╗███████╗██╗     ██████╗
@@ -11,28 +15,47 @@ public class Garfield {
                  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═════╝
                 """;
 
-        Garfield.line(75);
-        System.out.println("Meowlo! I'm\n\n" + logo);
-        System.out.println("What can I do for you?");
-        Garfield.line(75);
+        String initialGreeting = "Hey. I'm\n\n" + logo
+                + "\nLet's get this over with. What do you want?";
+        Garfield.speak(initialGreeting);
 
-        // for loop
+        // Loop to get user input
         Scanner inputScanner = new Scanner(System.in);
         String userInput;
         while (true) {
             userInput = inputScanner.nextLine();
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
-            } else {
-                Garfield.line(75);
-                System.out.println(userInput);
-                Garfield.line(75);
             }
+
+            if (userInput.equalsIgnoreCase("list")) {
+                if (taskList.isEmpty()) {
+                    Garfield.speak("Your list is empty. Just like my lasagna pan. "
+                            + "Are we done here, or are you going to add something?");
+                } else {
+                    StringBuilder listSummary = new StringBuilder("Ugh, here's what you've got so far:\n\n");
+                    for (int i = 0; i < taskList.size(); i++) {
+                        listSummary.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+
+                    }
+                    listSummary.append("\nCan we be done now?");
+                    Garfield.speak(listSummary.toString());
+                }
+                continue;
+            }
+
+            Garfield.speak("Fine. I'll add '" + userInput + "' to the list.");
+            taskList.add(userInput);
+
         }
 
-        Garfield.line(75);
-        System.out.println("Bye. Hope you bring me more tuna next time. Meow!");
-        Garfield.line(75);
+        Garfield.speak("Finally. Try not to come back too soon.");
+    }
+
+    private static void speak(String message) {
+        Garfield.line(70);
+        System.out.println(message);
+        Garfield.line(70);
     }
 
     private static void line(int length) {
