@@ -6,7 +6,7 @@ public class TrackBot {
         System.out.println("************************************************************");
         System.out.println("Hello from TrackBot!\n" + "How may I assist you?");
 
-        //Solution below inspired by https://www.javatpoint.com/chatbot-application-in-java
+        // Solution below inspired by https://www.javatpoint.com/chatbot-application-in-java
         while (true) {
             String userInput = scanner.nextLine();
 
@@ -20,25 +20,25 @@ public class TrackBot {
                 } else if (userInput.toLowerCase().startsWith("mark")) {
                     String input = userInput.substring(4).trim();
                     if (input.isEmpty()) {
-                        System.out.println("Correct usage: mark <task number>");
+                        throw TrackBotException.invalidFormat("mark", "mark <task number>");
                     } else {
                         try {
                             int num = Integer.parseInt(input) - 1;
                             toDoList.markTask(num);
                         } catch (NumberFormatException e) {
-                            System.out.println("Please enter a valid task number.");
+                            throw TrackBotException.invalidFormat("mark", "mark <task number>");
                         }
                     }
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
                     String input = userInput.substring(6).trim();
                     if (input.isEmpty()) {
-                        System.out.println("Correct usage: unmark <task number>");
+                        throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
                     } else {
                         try {
                             int num = Integer.parseInt(input) - 1;
                             toDoList.unmarkTask(num);
                         } catch (NumberFormatException e) {
-                            System.out.println("Please enter a valid task number.");
+                            throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
                         }
                     }
                 } else if (userInput.toLowerCase().startsWith("todo")) {
@@ -62,6 +62,18 @@ public class TrackBot {
                     }
                     Event event = new Event(parts[0], parts[1], parts[2]);
                     toDoList.addToList(event);
+                } else if (userInput.toLowerCase().startsWith("delete")) {
+                    String input = userInput.substring(6).trim();
+                    if (input.isEmpty()) {
+                        throw TrackBotException.invalidFormat("delete", "delete <task number>");
+                    } else {
+                        try {
+                            int num = Integer.parseInt(input) - 1;
+                            toDoList.deleteFromList(num);
+                        } catch (NumberFormatException e) {
+                            throw TrackBotException.invalidFormat("delete", "delete <task number>");
+                        }
+                    }
                 } else {
                     throw new TrackBotException("Sorry, I did not understand that command.");
                 }

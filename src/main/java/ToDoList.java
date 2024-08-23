@@ -51,12 +51,18 @@ public class ToDoList {
         System.out.println("````````````````````````````````````````````````````````````");
     }
 
-//       public String deleteFromList(String str) {
-//        if (list.contains(str)) {
-//            list.remove(str);
-//            return "Successfully deleted " + str + " from list.";
-//        } else {
-//            return "Failed to delete " + str + " from list.";
-//        }
-//    }
+       public void deleteFromList(int num) throws TrackBotException {
+        if (num < 0 || num > list.size() - 1) {
+            throw new TrackBotException("Invalid task number.");
+        }
+        String deletedTask = list.get(num).toString();
+
+        list.remove(num);
+        System.out.println("````````````````````````````````````````````````````````````");
+        System.out.println("Successfully deleted task " + (num + 1) + " from list.");
+        System.out.println("  " + deletedTask);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println("````````````````````````````````````````````````````````````");
+
+    }
 }
