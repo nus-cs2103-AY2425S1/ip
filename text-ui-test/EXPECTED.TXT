@@ -2,6 +2,7 @@ ____________________________________________________________
  Hello I'm Snowy
  What can I do for you?
 
+Please provide a task number.
 ____________________________________________________________
 Please provide a description
 ____________________________________________________________
@@ -10,24 +11,29 @@ Added a to do to your list of tasks
 Now you have 1 task(s) in your list
 ____________________________________________________________
 ____________________________________________________________
-Added an event to your list of tasks
- [E][ ]  project meeting (from: Mon 2pm to: 4pm)
-Now you have 2 task(s) in your list
-____________________________________________________________
+Please provide a deadline.
 ____________________________________________________________
 Added a task with deadline to your list of tasks
  [D][ ] return book (by: Sunday)
+Now you have 2 task(s) in your list
+____________________________________________________________
+____________________________________________________________
+Please provide a description
+____________________________________________________________
+Added an event to your list of tasks
+ [E][ ]  project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 task(s) in your list
 ____________________________________________________________
 ____________________________________________________________
 Your list of tasks
 1. [E][ ] borrow book
-2. [E][ ]  project meeting (from: Mon 2pm to: 4pm)
-3. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Sunday)
+3. [E][ ]  project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 Removed task:
  [E][ ] borrow book
 
 Now you have 2 task(s) in your list.
 ____________________________________________________________
+
 
