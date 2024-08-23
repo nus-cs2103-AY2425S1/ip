@@ -7,6 +7,44 @@ import java.util.Scanner;
 
 public class MrTracker {
 
+    public enum PrefixString {
+        BYE("bye"),
+        LIST("list"),
+        MARK("mark "),
+        UNMARK("unmark "),
+        TODO("todo "),
+        DEADLINE("deadline "),
+        EVENT("event "),
+        DELETE("delete ");
+
+        private final String prefix;
+
+        PrefixString (String prefix) {
+            this.prefix = prefix;
+        }
+
+        public static PrefixString checkPrefixString (String input) {
+            for (PrefixString item: PrefixString.values()) {
+
+                if (item.equals(BYE)) {
+                    if (input.equals("bye")) {
+                        return item;
+                    }
+                } else if (item.equals(LIST)) {
+                    if (input.equals("list")) {
+                        return item;
+                    }
+                } else {
+                    if (input.startsWith(item.prefix)) {
+                        return item;
+                    }
+                }
+            }
+            return null;
+        }
+
+    }
+
     public static void printLine () {
         int length = 75;
         for (int i = 0; i < length; i++) {
@@ -137,55 +175,68 @@ public class MrTracker {
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you? \n");
         MrTracker.printLine();
-        while (true) {
+        mainLoop: while (true) {
             String input = sc.nextLine();
             MrTracker.printLine();
-            String lowerInput = input.toLowerCase();
-            if (lowerInput.equals("bye")) {
-                sc.close();
-                break;
 
-            } else if (lowerInput.equals("list")) {
-                MrTracker.printTaskList(taskList);
-
-            } else if (input.startsWith("mark ")) {
-                // if an int is passed
-                if (MrTracker.checkValidIndex(input, 5)) {
-                    int index = MrTracker.checkIndex(input, 5);
-                    // if index is outside of acceptable range,
-                    markAndUnmark(taskList, input, index, true);
-                } else {
-                    // MrTracker.addTask(taskList, input);
-                    System.out.println(input.substring(5) + " is not a valid index");
+            PrefixString pref = PrefixString.checkPrefixString(input);
+            if (pref != null) {
+                switch (pref) {
+                    case BYE:
+                        sc.close();
+                        break mainLoop;
+    
+                    case LIST:
+                        MrTracker.printTaskList(taskList);
+                        break;
+    
+                    case MARK:
+                        if (MrTracker.checkValidIndex(input, 5)) {
+                            int index = MrTracker.checkIndex(input, 5);
+                            // if index is outside of acceptable range,
+                            markAndUnmark(taskList, input, index, true);
+                        } else {
+                            // MrTracker.addTask(taskList, input);
+                            System.out.println(input.substring(5) + " is not a valid index");
+                        }
+    
+                        break;
+    
+                    case UNMARK:
+                        if (MrTracker.checkValidIndex(input, 7)) {
+                            int index = MrTracker.checkIndex(input, 7);
+                            // if index is outside of acceptable range,
+                            markAndUnmark(taskList, input, index, false);
+                        } else {
+                            // MrTracker.addTask(taskList, input);
+                            System.out.println(input.substring(7) + " is not a valid index");
+                        }
+    
+                        break;
+    
+                    case TODO:
+                        MrTracker.addTodo(taskList, input.substring(5));
+                        break;
+    
+                    case DEADLINE:
+                        MrTracker.addDeadLine(taskList, input.substring(9));
+                        break;
+    
+                    case EVENT:
+                        MrTracker.addEvent(taskList, input.substring(6));
+                        break;
+    
+                    case DELETE:
+                        MrTracker.deleteTask(input.substring(7), taskList);
+                        break;
+    
                 }
-
-            } else if (input.startsWith("unmark ")) {
-
-                if (MrTracker.checkValidIndex(input, 7)) {
-                    int index = MrTracker.checkIndex(input, 7);
-                    // if index is outside of acceptable range,
-                    markAndUnmark(taskList, input, index, false);
-                } else {
-                    // MrTracker.addTask(taskList, input);
-                    System.out.println(input.substring(7) + " is not a valid index");
-                }
-
-            } else if (input.startsWith("todo ")) {
-                MrTracker.addTodo(taskList, input.substring(5));
-            } else if (input.startsWith("deadline ")) {
-                MrTracker.addDeadLine(taskList, input.substring(9));
-            } else if (input.startsWith("event ")) {
-                MrTracker.addEvent(taskList, input.substring(6));
-
-            } else if (input.startsWith("delete ")) {
-                MrTracker.deleteTask(input.substring(7), taskList);
             } else {
-                // MrTracker.addTask(taskList, input);
                 System.out.println(input + " is not a valid command!");
             }
 
-
             MrTracker.printLine();
+            
         }
         System.out.println("Bye. Hope to see you again soon! \n");
         MrTracker.printLine();
