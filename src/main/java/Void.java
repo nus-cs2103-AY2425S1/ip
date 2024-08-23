@@ -47,6 +47,9 @@ public class Void {
         //Tab string format
         String format = "\t%s%n";
 
+        String[] tasks = new String[100];
+        int taskCounter = 0;
+
         // Display a random greeting
         System.out.printf(format, "------------------------------------------------------------------");
         System.out.printf(format, greetings[(int) (Math.random() * greetings.length)]);
@@ -63,10 +66,19 @@ public class Void {
                 //Display a random exit
                 System.out.printf(format, exits[(int) (Math.random() * exits.length)]);
                 break;  // Exit loop when bye
+            } else if (input.equals("list")){
+                System.out.printf(format, "------------------------------------------------------------------");
+                for (int i = 0; i < taskCounter; i++) {
+                    System.out.printf(format, (i + 1) + ". " + tasks[i]);  // Echoes it
+                }
+                System.out.printf(format, "------------------------------------------------------------------");
             } else {
+                tasks[taskCounter] = input;
+                taskCounter++;
                 System.out.printf(format, "------------------------------------------------------------------");
-                System.out.printf(format, input);  // Echoes it
+                System.out.printf(format, "added: " + input);  // Echoes it
                 System.out.printf(format, "------------------------------------------------------------------");
+
             }
         }
 
