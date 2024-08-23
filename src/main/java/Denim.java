@@ -3,13 +3,15 @@ import java.util.Scanner;
 
 public class Denim {
 
-    static final String TASK_MARK = "mark";
-    static final String TASK_UNMARK = "unmark";
-    static final String TASK_LIST = "list";
-    static final String TASK_TODO = "todo";
-    static final String TASK_DEADLINE = "deadline";
-    static final String TASK_EVENT = "event";
-    static final String TASK_DELETE = "delete";
+    enum Command {
+        MARK,
+        UNMARK,
+        LIST,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
 
     static final String horizontalLine = "____________________________________________________________";
     static final String chatBotName = "Denim";
@@ -40,36 +42,45 @@ public class Denim {
         System.out.println(byeMessage);
     }
 
+    static Command parseCommand(String input) throws DenimException {
+        try {
+            return Command.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new DenimException("Unknown Command!");
+        }
+    }
+
     static void processInput(String input) {
         String[] inputComponents = input.split(" ", 2);
         String command = inputComponents[0];
         String argument = inputComponents.length > 1 ? inputComponents[1] : "";
 
         try {
-            switch (command) {
-            case TASK_LIST:
+            Command cmd = parseCommand(command);
+            switch (cmd) {
+            case LIST:
                 handleList();
                 break;
-            case TASK_MARK:
+            case MARK:
                 handleMark(argument);
                 break;
-            case TASK_UNMARK:
+            case UNMARK:
                 handleUnmark(argument);
                 break;
-            case TASK_DELETE:
+            case DELETE:
                 handleDelete(argument);
                 break;
-            case TASK_TODO:
+            case TODO:
                 handleTodo(argument);
                 break;
-            case TASK_DEADLINE:
+            case DEADLINE:
                 handleDeadline(argument);
                 break;
-            case TASK_EVENT:
+            case EVENT:
                 handleEvent(argument);
                 break;
             default:
-                handleDefault(input);
+                handleDefault();
                 break;
             }
         } catch (DenimException e) {
@@ -196,7 +207,7 @@ public class Denim {
         handleTaskAddition(eventTask);
     }
 
-    static void handleDefault(String input) throws DenimException {
+    static void handleDefault() throws DenimException {
         throw new DenimException("Invalid Command!");
     }
 }
