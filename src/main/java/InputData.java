@@ -11,7 +11,8 @@ public class InputData {
     public String add(Task input) {
         this.arr[this.index] = input;
         this.index++;
-        return String.format("added: %s", input);
+        return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
+                input, this.index);
     }
 
     public String mark(int index) {

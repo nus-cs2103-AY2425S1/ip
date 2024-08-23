@@ -23,14 +23,37 @@ public class Potong {
                 continue;
             }
             if (userInput.startsWith("mark")) {
-                int index = Integer.valueOf(userInput.substring(5, 6));
+                int index = Integer.valueOf(userInput.substring(5));
                 System.out.println(data.mark(index));
                 System.out.println(Potong.LINE);
                 continue;
             }
             if (userInput.startsWith("unmark")) {
-                int index = Integer.valueOf(userInput.substring(7, 8));
+                int index = Integer.valueOf(userInput.substring(7));
                 System.out.println(data.unmark(index));
+                System.out.println(Potong.LINE);
+                continue;
+            }
+            if (userInput.startsWith("todo")) {
+                String todo = userInput.substring(5);
+                System.out.println(data.add(new ToDoTask(todo)));
+                System.out.println(Potong.LINE);
+                continue;
+            }
+            if (userInput.startsWith("deadline")) {
+                String desc = userInput.substring(9);
+                String task = desc.split("/", 2)[0].trim();
+                String deadline = desc.split("/", 2)[1].trim().substring(3);
+                System.out.println(data.add(new DeadlineTask(task, deadline)));
+                System.out.println(Potong.LINE);
+                continue;
+            }
+            if (userInput.startsWith("event")) {
+                String desc = userInput.substring(6);
+                String task = desc.split("/", 3)[0].trim();
+                String start = desc.split("/", 3)[1].trim().substring(5);
+                String end = desc.split("/", 3)[2].trim().substring(3);
+                System.out.println(data.add(new EventTask(task, start, end)));
                 System.out.println(Potong.LINE);
                 continue;
             }
