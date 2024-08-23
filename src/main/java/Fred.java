@@ -1,3 +1,4 @@
+import java.nio.InvalidMarkException;
 import java.util.Scanner;
 
 public class Fred {
@@ -77,11 +78,9 @@ public class Fred {
             }
         } else if (inputParts.length == 2) {
             if (inputParts[0].equals("mark")) {
-                int index = Integer.parseInt(inputParts[1]) - 1;
-                markTaskAsDone(index);
+                markTaskAsDone(inputParts[1]);
             } else if (inputParts[0].equals("unmark")) {
-                int index = Integer.parseInt(inputParts[1]) - 1;
-                markTaskAsNotDone(index);
+                markTaskAsNotDone(inputParts[1]);
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
                 addToTaskList(inputParts[0], inputParts[1]);
             } else {
@@ -129,19 +128,31 @@ public class Fred {
         System.out.println(line);
     }
 
-    private static void markTaskAsDone(int index) {
-        taskList[index].markAsDone();
+    private static void markTaskAsDone(String taskNumberString) throws InvalidTaskNumberException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(taskNumberString) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
+        }
+        taskList[taskNumber].markAsDone();
         System.out.println(line);
         System.out.println(String.format("Nice! I've marked this task as done:\n" +
-                "   %s", taskList[index]));
+                "   %s", taskList[taskNumber]));
         System.out.println(line);
     }
 
-    private static void markTaskAsNotDone(int index) {
-        taskList[index].markAsNotDone();
+    private static void markTaskAsNotDone(String taskNumberString) throws InvalidTaskNumberException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(taskNumberString) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
+        }
+        taskList[taskNumber].markAsNotDone();
         System.out.println(line);
         System.out.println(String.format("OK, I've marked this task as not done yet:\n" +
-                "   %s", taskList[index]));
+                "   %s", taskList[taskNumber]));
         System.out.println(line);
     }
 }
