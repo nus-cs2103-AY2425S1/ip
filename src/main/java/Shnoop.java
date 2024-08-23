@@ -186,7 +186,8 @@ public class Shnoop {
      * @param input Input given by user.
      * @return String action code.
      */
-    public String parseInput(String input) {
+    public String parseInput(String input) throws UndefinedTaskException, IncompleteEventOrDeadlineException,
+            EmptyDescriptionException, UnmarkableArrayException {
         switch (mode) {
 
         // For Level-1 echo mode.
@@ -205,9 +206,13 @@ public class Shnoop {
         case "todo":
 
             // For mark specific
-            String parseInputMarkResult = parseInputMark(input);
-            if (parseInputMarkResult != "not_mark_or_unmark") {
-                return parseInputMarkResult; // Exit if it is mark or unmark command
+            try {
+                String parseInputMarkResult = parseInputMark(input);
+                if (parseInputMarkResult != "not_mark_or_unmark") {
+                    return parseInputMarkResult; // Exit if it is mark or unmark command
+                }
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException npe) {
+                throw new UnmarkableArrayException();
             }
 
             // Other than mark or unmark
@@ -235,25 +240,33 @@ public class Shnoop {
                 String taskDesc = getTaskDetails(input);
                 Task newTask;
 
-                switch (taskType) {
-                case ("todo_task"):
-                    newTask = new Todo(taskDesc);
-                    break;
-                case ("event_task"):
-                    newTask = new Event(taskDesc);
-                    break;
-                case ("deadline_task"):
-                    newTask = new Deadline(taskDesc);
-                    break;
-                default:
-                    newTask = new Task(taskDesc);
-                    break;
+                try {
+                    switch (taskType) {
+                    case ("todo_task"):
+                        newTask = new Todo(taskDesc);
+                        break;
+                    case ("event_task"):
+                        newTask = new Event(taskDesc);
+                        break;
+                    case ("deadline_task"):
+                        newTask = new Deadline(taskDesc);
+                        break;
+                    default:
+                        throw new UndefinedTaskException();
+                    }
+
+                    addTask(newTask);
+                    System.out.println("✿ Shnoop ✿: " + x + " I'll add that in for ya. \nTask Added: " + newTask);
+                    System.out.println("✿ Shnoop ✿: You've got " + arrPointer + " doggy-dogs on the stereo.");
+                    return "add_task";
+                } catch (EmptyDescriptionException e) {
+                    throw new EmptyDescriptionException();
+                } catch (IncompleteEventOrDeadlineException f) {
+                    throw new IncompleteEventOrDeadlineException();
+                } catch (UndefinedTaskException g) {
+                    throw new UndefinedTaskException();
                 }
 
-                addTask(newTask);
-                System.out.println("✿ Shnoop ✿: " + x + " I'll add that in for ya. \nTask Added: " + newTask);
-                System.out.println("✿ Shnoop ✿: You've got " + arrPointer + " doggy-dogs on the stereo.");
-                return "add_task";
             }
 
         // If mode is NIL, indicate bug
@@ -287,7 +300,12 @@ public class Shnoop {
 
         while (!shnoop.isCompleted()) {
             input = scanner.nextLine();
-            String result = shnoop.parseInput(input);
+            try {
+                String result = shnoop.parseInput(input);
+            } catch (UndefinedTaskException | IncompleteEventOrDeadlineException | EmptyDescriptionException
+                    | UnmarkableArrayException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
