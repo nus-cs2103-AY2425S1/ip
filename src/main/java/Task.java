@@ -31,7 +31,6 @@ public class Task {
 
     public void addTask(Task task) {
         if(taskCount < tasks.length) {
-            System.out.println("Got it, adding: " + task.getDescription());
             tasks[taskCount] = task;
             taskCount++;
         } else {
@@ -45,5 +44,14 @@ public class Task {
 
     public int getTaskCount() {
         return taskCount;
+    }
+
+    public void showNumberOfTasks() {
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    @Override
+    public String toString() {
+        return getStatus() + " " + getDescription();
     }
 }

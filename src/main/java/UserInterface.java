@@ -38,7 +38,7 @@ public class UserInterface {
         makeLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].getStatus() + tasks[i].getDescription());
+            System.out.println((i + 1) + ". " + tasks[i].toString());
         }
         makeLine();
     }
