@@ -1,8 +1,6 @@
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Interactions {
-
+public class Ui {
     static void printTask(ArrayList<Task> tasks) {
         System.out.println("_____________________________________");
         System.out.println("Here are the tasks in your list:");
@@ -12,56 +10,31 @@ public class Interactions {
         System.out.println("_____________________________________");
     }
 
-    static void markTask(ArrayList<Task> tasks, int index) {
-        if (index >= 1 && index <= tasks.size()) {
-            tasks.get(index - 1).markDone();
-            System.out.println("_____________________________________");
+    static void noTask(){
+        System.out.println("_____________________________________");
+        System.out.println("No Task Found");
+        System.out.println("_____________________________________");
+    }
+
+    static void markTask(ArrayList<Task> tasks, int index, Boolean isToMark){
+        System.out.println("_____________________________________");
+        if (isToMark){
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks.get(index - 1));
-        } else {
-            System.out.println("_____________________________________");
-            System.out.println("No Task Found");
-        }
-        System.out.println("_____________________________________");
-    }
-
-    static void unmarkTask(ArrayList<Task> tasks, int index) {
-        if (index >= 1 && index <= tasks.size()) {
-            tasks.get(index - 1).markNotDone();
-            System.out.println("_____________________________________");
+        }else{
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks.get(index - 1));
-        } else {
-            System.out.println("_____________________________________");
-            System.out.println("No Task Found");
         }
+        System.out.println("  " + tasks.get(index - 1));
         System.out.println("_____________________________________");
     }
 
-    static void deleteTask(ArrayList<Task> tasks, int index) {
-        if (index >= 1 && index <= tasks.size()) {
-            Task removedTask = tasks.remove(index - 1);
-            System.out.println("_____________________________________");
+    static void alterTask(ArrayList<Task> tasks, Task task, Boolean isAdd){
+        System.out.println("_____________________________________");
+        if (isAdd){
+            System.out.println("Got it. I've added this task:");
+        }else{
             System.out.println("Noted. I've removed this task:");
-            System.out.println("  " + removedTask);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        } else {
-            System.out.println("_____________________________________");
-            System.out.println("No Task Found");
         }
-        System.out.println("_____________________________________");
-    }
-
-    static void addTask(ArrayList<Task> tasks, Task.TaskType type, String desc, LocalDateTime... args) {
-        Task newTask = switch (type) {
-            case TODO -> new Task.ToDo(desc);
-            case DEADLINE -> new Task.Deadline(desc, args[0]);
-            case EVENT -> new Task.Event(desc, args[0], args[1]);
-        };
-        tasks.add(newTask);
-        System.out.println("_____________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + newTask);
+        System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("_____________________________________");
     }
@@ -99,5 +72,4 @@ public class Interactions {
         }
         System.out.println("_____________________________________");
     }
-
 }

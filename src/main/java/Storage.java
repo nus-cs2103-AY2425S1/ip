@@ -2,7 +2,7 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class DBHandler {
+public class Storage {
 
     private static final String filePath = "./data/db.txt";
 
