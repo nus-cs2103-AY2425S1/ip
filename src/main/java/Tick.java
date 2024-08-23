@@ -3,7 +3,7 @@ import java.util.*;
 public class Tick {
     private static final String separator = "____________________________________________________________\n";
     private static final String botName = "Tick";
-    private ArrayList<String> checklist = new ArrayList<>();
+    private ArrayList<Task> checklist = new ArrayList<>();
 
     public void greet() {
         System.out.print(Tick.separator);
@@ -18,17 +18,48 @@ public class Tick {
         System.out.println(Tick.separator);
     }
 
-    public void addToList(String command) {
-        this.checklist.add(command);
-        System.out.print(Tick.separator);
-        System.out.printf("added: %s\n", command);
-        System.out.println(Tick.separator);
+    public void addToList(String description) {
+        Task task = new Task(description);
+        this.checklist.add(task);
+        System.out.printf("added: %s\n", description);
     }
 
     public void displayList() {
-        System.out.print(Tick.separator);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.checklist.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, this.checklist.get(i));
+        }
+    }
+
+    public void markTaskAsDone(int index) {
+        Task task = this.checklist.get(index - 1);
+        task.markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
+    }
+
+    public void markTaskAsUndone(int index) {
+        Task task = this.checklist.get(index - 1);
+        task.markAsUndone();
+        System.out.println("Ok, I've marked this task as not done yet:");
+        System.out.println(task);
+    }
+
+    public void runCommand(String command) {
+        System.out.print(Tick.separator);
+        String[] commandParts = command.split(" ");
+        switch (commandParts[0]) {
+            case "list":
+                this.displayList();
+                break;
+            case "mark":
+                this.markTaskAsDone(Integer.parseInt(commandParts[1]));
+                break;
+            case "unmark":
+                this.markTaskAsUndone(Integer.parseInt(commandParts[1]));
+                break;
+            default:
+                this.addToList(command);
         }
         System.out.println(Tick.separator);
     }
@@ -41,11 +72,8 @@ public class Tick {
             String command = scn.nextLine();
             if (command.equals("bye")) {
                 break;
-            } else if (command.equals("list")) {
-                bot.displayList();
-                continue;
             }
-            bot.addToList(command);
+            bot.runCommand(command);
         }
         bot.exit();
     }
