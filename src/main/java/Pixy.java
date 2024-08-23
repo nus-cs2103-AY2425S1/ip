@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class Pixy {
 
     private List<Task> list = new ArrayList<>(); // Array List to store the tasks
+    Scanner sc = new Scanner(System.in);
     private String inputTask() {    // method to input tasks
-        Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
-        return sc.next();
+
+        return sc.nextLine();
     }
     private void addToList(Task task) { // add to list method
         list.add(task);
@@ -48,10 +48,11 @@ public class Pixy {
         }
     }
     public void run() { // method to execute all the commands inputted by user until bye encountered
+        Scanner sc = new Scanner(System.in);
         while (true) {
 
             try {
-                String command = inputTask();
+                String command = sc.nextLine();
                 System.out.println("____________________________________________________________\n");
                 if (command.equalsIgnoreCase("list")) {
                     printList();
