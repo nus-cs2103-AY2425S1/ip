@@ -83,7 +83,7 @@ public class Command {
                 break;
             case MARK:
                 try {
-                    task = todoList.get(Integer.parseInt(params) - 1);
+                    task = todoList.get(Integer.parseInt(params.trim()) - 1);
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     throw new InvalidTaskException();
                 }
@@ -92,7 +92,7 @@ public class Command {
                 break;
             case UNMARK:
                 try {
-                    task = todoList.get(Integer.parseInt(params) - 1);
+                    task = todoList.get(Integer.parseInt(params.trim()) - 1);
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     throw new InvalidTaskException();
                 }
