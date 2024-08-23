@@ -22,8 +22,7 @@ public class TaskList {
         if (!Objects.equals(task.description.trim(), "")) {
             this.taskList.add(task);
             FormattedPrinting.addTask(task, this);
-        }
-        else {
+        } else {
             FormattedPrinting.descriptionEmptyError();
         }
     }
@@ -32,8 +31,7 @@ public class TaskList {
         if (!Objects.equals(task.description.trim(), "")) {
             this.taskList.remove(task);
             FormattedPrinting.deleteTask(task, this);
-        }
-        else {
+        } else {
             FormattedPrinting.descriptionEmptyError();
         }
     }

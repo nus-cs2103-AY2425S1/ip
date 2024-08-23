@@ -32,8 +32,7 @@ public class FormattedPrinting {
     public static void printList(TaskList taskList) {
         if (taskList.getSize() == 0) {
             emptyList();
-        }
-        else {
+        } else {
             StringBuilder currentList = new StringBuilder();
             currentList.append("Here are the tasks in your list:\n");
             for (int i = 1; i < taskList.getSize() + 1; i++) {

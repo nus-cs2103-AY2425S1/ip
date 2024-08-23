@@ -32,8 +32,7 @@ public abstract class Task {
         if (this.isDone) {
             this.isDone = false;
             FormattedPrinting.printUnmarked(this);
-        }
-        else {
+        } else {
             FormattedPrinting.unmarkError();
         }
     }
