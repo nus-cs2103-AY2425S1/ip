@@ -44,14 +44,33 @@ public class Atreides {
                                       + list.get(index);
                     System.out.println(new Response(response));
                 } else {
-                    list.add(new Task(msg));
-                    System.out.println(new Response("added: " + msg));
+                    Task newTask = new Task("");
+                    if (words[0].equals("todo")) {
+                        newTask = new ToDo(msg.substring(5));
+                    }
+                    else if (words[0].equals("deadline")) {
+                        String[] parts = msg.split(" /by ");
+                        String by = parts[parts.length - 1];
+                        String description = parts[0].split("deadline ")[1];
+                        newTask = new Deadline(description, by);
+                    } else {
+                        String[] parts = msg.split(" /from ");
+                        String[] startEnd = parts[parts.length - 1].split(" /to ");
+                        String description = parts[0].split("event ")[1];
+                        newTask = new Events(description, startEnd);
+                    }
+                    list.add(newTask);
+                    String plural = list.size() == 1 ? " task" : " tasks";
+                    String response = "Task added\n"
+                                        + newTask + "\n"
+                                        + list.size() + plural + " in list\n";
+                    System.out.println(new Response(response));
                 }
             }
             msg = scanner.nextLine();
         }
-        String outro = "May thy knife chip and shatter.\n"
-                       + "Praise be Muad Dib\n";
+        String outro = "Praise be Muad Dib\n"
+                       + "GoodBye\n";
         System.out.println(new Response(outro));
         scanner.close();
     }
