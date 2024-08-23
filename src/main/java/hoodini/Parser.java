@@ -148,37 +148,37 @@ public class Parser {
                 Case cases = Case.getCase(command);
 
                 switch(cases) {
-                    case BYE:
-                        end();
-                        return;
-                    case LIST:
-                        store.output();
-                        break;
-                    case TODO:
-                        handleToDo(str);
-                        break;
-                    case DEADLINE:
-                        handleDeadline(str);
-                        break;
-                    case EVENT:
-                        handleEvent(str);
-                        break;
-                    case MARK:
-                        store.mark(str);
-                        break;
-                    case UNMARK:
-                        store.unmark(str);
-                        break;
-                    case DELETE:
-                        store.delete(str);
-                        break;
-                    case FIND:
-                        store.find(str);
-                        break;
-                    case ERROR:
-                    default:
-                        throw new InvalidInputException("Whoopsie! " +
-                                "I am unable to understand your request!");
+                case BYE:
+                    end();
+                    return;
+                case LIST:
+                    store.output();
+                    break;
+                case TODO:
+                    handleToDo(str);
+                    break;
+                case DEADLINE:
+                    handleDeadline(str);
+                    break;
+                case EVENT:
+                    handleEvent(str);
+                    break;
+                case MARK:
+                    store.mark(str);
+                    break;
+                case UNMARK:
+                    store.unmark(str);
+                    break;
+                case DELETE:
+                    store.delete(str);
+                    break;
+                case FIND:
+                    store.find(str);
+                    break;
+                case ERROR:
+                default:
+                    throw new InvalidInputException("Whoopsie! " +
+                            "I am unable to understand your request!");
                 }
 
             }
