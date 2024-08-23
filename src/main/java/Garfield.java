@@ -23,7 +23,8 @@ public class Garfield {
         Scanner inputScanner = new Scanner(System.in);
         String userInput;
         while (true) {
-            userInput = inputScanner.nextLine();
+            userInput = inputScanner.nextLine().strip();
+
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             }
@@ -73,8 +74,17 @@ public class Garfield {
                 }
             }
 
-            Garfield.speak("Fine. I'll add '" + userInput + "' to the list.");
-            taskList.add(new Task(userInput));
+            if (userInput.toLowerCase().startsWith("todo")) {
+                String todoDescription = userInput.substring(5);
+                if (!todoDescription.isBlank()) {
+                    Todo newTodo = new Todo(todoDescription);
+                    taskList.add(newTodo);
+                    Garfield.speak("Fine. I'll add '" + todoDescription + "' to the list.\n\n\t"
+                    + newTodo + "\n\nJust what you needed to boost your list to a grand total of "
+                    + taskList.size() + " task" + ((taskList.size() == 1)? "" : "s") + ". Lucky you.");
+                    continue;
+                }
+            }
 
         }
 
