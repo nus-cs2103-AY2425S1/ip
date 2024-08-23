@@ -38,15 +38,19 @@ public class BuddyBot {
                 }
             } else {
                 if (input.startsWith("deadline")) { //DEADLINE case
-                    String time = findDeadline(input);
-                    Deadline additionD = new Deadline(input, time);
+                    String[] parts = input.substring(9).split("/by");
+                    String description = parts[0].trim();
+                    String time = parts[1].trim();
+                    Deadline additionD = new Deadline(description, time);
                     myList[i] = additionD;
                     System.out.println("added: " + additionD);
                     input = myObj.nextLine();
                 } else if (input.startsWith("event")) {
-                    String start = findStart(input);
-                    String end = findEnd(input);
-                    Event additionE = new Event(input, start, end);
+                    String[] parts = input.substring(6).split("/from|/to");
+                    String description = parts[0].trim();
+                    String start = parts[1].trim();
+                    String end = parts[2].trim();
+                    Event additionE = new Event(description, start, end);
                     myList[i] = additionE;
                     System.out.println("added: " + additionE);
                     input = myObj.nextLine();
@@ -72,19 +76,22 @@ public class BuddyBot {
         }
     }
 
-    public static String findDeadline(String str) {
-            int first = str.indexOf('(');
-            int last = str.indexOf(')');
-            return str.substring(first + 1, last);
-    }
-
-    public static String findStart(String str) {
-       return Pattern.quote("start:") + "(.*?)" + Pattern.quote("end:");
-        //return str.substring((str.indexOf("start:"), str.indexOf("end"));)
-    }
-
-    public static String findEnd(String str) {
-        return str.substring(str.indexOf("end: "), str.length());
-    }
+    /*public static String findTask(String str) {
+        if (str.contains("/")) {
+            if (str.startsWith("deadline")) {
+                String[] parts = str.substring(9).split("/by");
+                String description = parts[0].trim();
+                String time = parts[1].trim();
+            } else if (str.startsWith("event")) {
+                String[] parts = str.substring(6).split("/from|/to");
+                String description = parts[0].trim();
+                String start = parts[1].trim();
+                String end = parts[2].trim();
+            }
+        } else if (str.contains(
+            return str.substring(5);
+        }
+        return "";
+    }*/
 
 }

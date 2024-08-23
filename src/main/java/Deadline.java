@@ -10,6 +10,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() { //prototype in case of future modification
-        return super.toString();
+        return super.toString() + " by:" + this.by;
     }
 }
