@@ -32,17 +32,26 @@ public class Blitz{
             return;
         }
 
+        String[] words = strippedInput.split(" ");
         if (strippedInput.equals("list")) {
             displayList(inputHistory);
         } else if (strippedInput.startsWith("mark") || strippedInput.startsWith("unmark")){
-            String[] words = strippedInput.split(" ");
             try {
                 int taskNumber = Integer.parseInt(words[1]);
                 changeTaskStatus(words[0], inputHistory.get(taskNumber - 1));
             } catch (NumberFormatException e) {
                 System.out.println("Come on, that is not a number bro. Don't worry, try again.");
             }
-        }else {
+        } else if (strippedInput.startsWith("delete")) {
+            int deleteIndex = Integer.parseInt(words[1]);
+            Task taskToDelete = inputHistory.get(deleteIndex - 1);
+            inputHistory.remove(taskToDelete);
+            System.out.println("----------------\n" +
+                    "WOOHOO! The following task has been ELIMINATED:\n " +
+                    taskToDelete + "\n" +
+                    "HUH you still have " + inputHistory.size() + " tasks remaining??\n" +
+                    "----------------\n");
+        } else {
             try {
                 Task newTask = Task.createTask(userInput);
                 inputHistory.add(newTask);
