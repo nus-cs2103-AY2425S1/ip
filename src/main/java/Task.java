@@ -1,5 +1,5 @@
 public class Task {
-    private boolean isCompleted = false;
+    private boolean isComplete = false;
     private final String name;
 
     public Task(String name) {
@@ -7,15 +7,15 @@ public class Task {
     }
 
     public void mark() {
-        this.isCompleted = true;
+        this.isComplete = true;
     }
 
     public void unmark() {
-        this.isCompleted = false;
+        this.isComplete = false;
     }
 
     @Override
     public String toString() {
-        return "[" + (isCompleted ? "X" : " ") + "] " + this.name;
+        return "[" + (isComplete ? "X" : " ") + "] " + this.name;
     }
 }

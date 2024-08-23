@@ -2,17 +2,32 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HypeBot {
-    private static final String bufferLine = "______________________________________________________________________\n";
-    private static final ArrayList<Task> commandList = new ArrayList<>();
+    private static final String BUFFER_LINE = "______________________________________________________________________\n";
+    private static final ArrayList<Task> TASKS = new ArrayList<>();
 
+    /**
+     * Returns message formatted with buffer lines.
+     *
+     * @param message String to be reformatted.
+     * @return Reformatted string with buffer lines.
+     */
     private static String addBufferLine(String message) {
-        return bufferLine + message + bufferLine;
+        return BUFFER_LINE + message + BUFFER_LINE;
     }
 
+    /**
+     * Returns error message formatted with buffer lines.
+     *
+     * @param message Error message to be reformatted.
+     * @return Reformatted string with buffer lines.
+     */
     private static String addBufferLineError(String message) {
-        return bufferLine + "I might be tripping bro, my bad, my bad - \n" + message + bufferLine;
+        return BUFFER_LINE + "I might be tripping bro, my bad, my bad - \n" + message + BUFFER_LINE;
     }
 
+    /**
+     * Greets the user upon init and prompts the user for a command.
+     */
     private static void greet() {
         String logo = """
                  ('-. .-.               _ (`-.    ('-. .-. .-')                .-') _  \s
@@ -30,6 +45,9 @@ public class HypeBot {
                 + "\nWhat can I do for you, my wonderful homie?\n"));
     }
 
+    /**
+     * Greets the user goodbye upon the command 'bye'.
+     */
     private static void exit() {
         System.out.println(addBufferLine("""
                 Alright homie, it's been a BLAST hanging out with you. \
@@ -38,43 +56,73 @@ public class HypeBot {
                 """));
     }
 
+    /**
+     * Prints out all the tasks user has saved in TASKS.
+     */
     private static void list() {
         StringBuilder list = new StringBuilder("ALRIGHT, Here's that list!\n");
-        for (int i = 0; i < commandList.size(); i++) {
-            list.append(i + 1).append(". ").append(commandList.get(i)).append("\n");
+        for (int i = 0; i < TASKS.size(); i++) {
+            list.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
         }
         System.out.println(addBufferLine(list.toString()));
     }
 
+    /**
+     * Adds task requested by user to TASKS.
+     * Informs user how many total tasks saved.
+     *
+     * @param task Task to add to TASKS.
+     */
     private static void add(Task task) {
-        commandList.add(task);
+        TASKS.add(task);
         System.out.println(addBufferLine("HECK YEAH, ADDED: "
                 + task
                 + "!\nYOU'VE NOW GOT "
-                + commandList.size()
+                + TASKS.size()
                 + " TASKS TO GO!\n"));
     }
 
+    /**
+     * Takes in task number and marks corresponding task as incomplete.
+     * If task number not found in list, throws IndexOutOfBoundsException.
+     *
+     * @param idx Task number to mark incomplete.
+     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
+     */
     private static void unmark(int idx) throws IndexOutOfBoundsException {
-        commandList.get(idx).unmark();
+        TASKS.get(idx).unmark();
         System.out.println(addBufferLine("AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  "
-                + commandList.get(idx)
+                + TASKS.get(idx)
                 + "\n"));
     }
 
+    /**
+     * Takes in task number and marks corresponding task as complete.
+     * If task number not found in list, throws IndexOutOfBoundsException.
+     *
+     * @param idx Task number to mark complete.
+     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
+     */
     private static void mark(int idx) throws IndexOutOfBoundsException {
-        commandList.get(idx).mark();
+        TASKS.get(idx).mark();
         System.out.println(addBufferLine("AIGHT, ABSOLUTELY CONQUERED THIS TASK:\n  "
-                + commandList.get(idx)
+                + TASKS.get(idx)
                 + "\n"));
     }
 
+    /**
+     * Takes in task number and deletes corresponding task from TASKS.
+     * If task number not found in list, throws IndexOutOfBoundsException.
+     *
+     * @param idx Task number to delete.
+     * @throws IndexOutOfBoundsException Thrown if task number invalid (too low / too high).
+     */
     private static void delete(int idx) throws IndexOutOfBoundsException {
-        Task removed = commandList.remove(idx);
+        Task removed = TASKS.remove(idx);
         System.out.println(addBufferLine("Say no more, BABY BYE BYE BYE to this task:\n "
             + removed
             + "!\nYOU'VE NOW GOT "
-            + commandList.size()
+            + TASKS.size()
             + " TASKS TO GO!\n"));
     }
 
