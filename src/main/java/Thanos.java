@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Thanos {
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
-    private static void customPrint(String s) {
+    private static void printWithDivider(String s) {
         System.out.print(s);
         System.out.println("-".repeat(50));
     }
@@ -31,27 +31,27 @@ public class Thanos {
             Task task = tasks.get(i);
             sb.append(String.format("%d.%s\n", i + 1, task));
         }
-        customPrint(sb.toString());
+        printWithDivider(sb.toString());
     }
 
-    private static void markTask(String argument) throws InvalidCommandException{
+    private static void markTask(String argument) throws InvalidCommandException {
         if (argument.isEmpty()) {
             throw new InvalidCommandException(
-                "No task index provided. Please use the correct format: 'mark [task index]'"
+                    "No task index provided. Please use the correct format: 'mark [task index]'"
             );
         }
 
         if (argument.split(" ").length != 1) {
             throw new InvalidCommandException(
-                "Invalid input format. Please use the correct format: 'mark [task index]'"
+                    "Invalid input format. Please use the correct format: 'mark [task index]'"
             );
         }
 
         try {
             int index = Integer.parseInt(argument) - 1;
             Task task = tasks.get(index);
-            task.setIsDone(true);
-            customPrint(String.format("Nice! I've marked this task as done:\n  %s\n", task));
+            task.setDone(true);
+            printWithDivider(String.format("Nice! I've marked this task as done:\n  %s\n", task));
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
@@ -59,24 +59,24 @@ public class Thanos {
         }
     }
 
-    private static void unmarkTask(String argument) throws InvalidCommandException{
+    private static void unmarkTask(String argument) throws InvalidCommandException {
         if (argument.isEmpty()) {
             throw new InvalidCommandException(
-                "No task index provided. Please use the correct format: 'unmark [task index]'"
+                    "No task index provided. Please use the correct format: 'unmark [task index]'"
             );
         }
 
         if (argument.split(" ").length != 1) {
             throw new InvalidCommandException(
-                "Invalid input format. Please use the correct format: 'unmark [task index]'"
+                    "Invalid input format. Please use the correct format: 'unmark [task index]'"
             );
         }
 
         try {
             int index = Integer.parseInt(argument) - 1;
             Task task = tasks.get(index);
-            task.setIsDone(false);
-            customPrint(String.format("OK, I've marked this task as not done yet:\n  %s\n", task));
+            task.setDone(false);
+            printWithDivider(String.format("OK, I've marked this task as not done yet:\n  %s\n", task));
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
@@ -85,15 +85,15 @@ public class Thanos {
     }
 
     private static void printTaskAdded(Task task) {
-        customPrint(String.format(
-            "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size()
+        printWithDivider(String.format(
+                "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size()
         ));
     }
 
-    private static void addTodo(String argument) throws InvalidCommandException{
+    private static void addTodo(String argument) throws InvalidCommandException {
         if (argument.isEmpty()) {
             throw new InvalidCommandException(
-                "No task description provided. Please use the correct format: 'todo [task]'"
+                    "No task description provided. Please use the correct format: 'todo [task]'"
             );
         }
         Todo todo = new Todo(argument);
@@ -101,11 +101,11 @@ public class Thanos {
         printTaskAdded(todo);
     }
 
-    private static void addDeadline(String argument) throws InvalidCommandException{
+    private static void addDeadline(String argument) throws InvalidCommandException {
         String[] detailsArr = argument.split(" /by ");
         if (detailsArr.length != 2) {
             throw new InvalidCommandException(
-                "Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'"
+                    "Invalid input format. Please use the correct format: 'deadline [task] /by [due date]'"
             );
         }
         Deadline deadline = new Deadline(detailsArr[0], detailsArr[1]);
@@ -116,16 +116,15 @@ public class Thanos {
     private static void addEvent(String argument) throws InvalidCommandException {
         String[] detailsArr = argument.split(" /from ");
         if (detailsArr.length != 2) {
-            throw new InvalidCommandException(
-                "Invalid input format. Please use the correct format: 'event [task] /from [start time] /to [end time]'"
-            );
+            throw new InvalidCommandException("Invalid input format." +
+                    "Please use the correct format: 'event [task] /from [start time] /to [end time]'");
         }
 
         String description = detailsArr[0];
         String[] fromToArr = detailsArr[1].split(" /to ");
         if (fromToArr.length != 2) {
             throw new InvalidCommandException(
-                "Invalid input format. Please ensure both start and end times are provided."
+                    "Invalid input format. Please ensure both start and end times are provided."
             );
         }
 
@@ -134,24 +133,24 @@ public class Thanos {
         printTaskAdded(event);
     }
 
-    private static void deleteTask(String argument) throws InvalidCommandException{
+    private static void deleteTask(String argument) throws InvalidCommandException {
         if (argument.isEmpty()) {
             throw new InvalidCommandException(
-                "No task index provided. Please use the correct format: 'delete [task index]'"
+                    "No task index provided. Please use the correct format: 'delete [task index]'"
             );
         }
 
         if (argument.split(" ").length != 1) {
             throw new InvalidCommandException(
-                "Invalid input format. Please use the correct format: 'delete [task index]'"
+                    "Invalid input format. Please use the correct format: 'delete [task index]'"
             );
         }
 
         try {
             int index = Integer.parseInt(argument) - 1;
             Task task = tasks.remove(index);
-            customPrint(String.format(
-                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size())
+            printWithDivider(String.format(
+                    "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size())
             );
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
@@ -161,7 +160,7 @@ public class Thanos {
     }
 
     public static void main(String[] args) {
-        customPrint("Hello! I'm Thanos!\nWhat can I do for you?\n");
+        printWithDivider("Hello! I'm Thanos!\nWhat can I do for you?\n");
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -171,37 +170,37 @@ public class Thanos {
                 CommandType commandType = CommandType.getCommandType(inputArr[0]);
                 String argument = inputArr[1];
                 switch (commandType) {
-                    case BYE:
-                        customPrint("Bye. Hope to see you again soon!\n");
-                        return;
-                    case LIST:
-                        listTasks();
-                        break;
-                    case MARK:
-                        markTask(argument);
-                        break;
-                    case UNMARK:
-                        unmarkTask(argument);
-                        break;
-                    case TODO:
-                        addTodo(argument);
-                        break;
-                    case DEADLINE:
-                        addDeadline(argument);
-                        break;
-                    case EVENT:
-                        addEvent(argument);
-                        break;
-                    case DELETE:
-                        deleteTask(argument);
-                        break;
-                    default:
-                        throw new InvalidCommandException(
+                case BYE:
+                    printWithDivider("Bye. Hope to see you again soon!\n");
+                    return;
+                case LIST:
+                    listTasks();
+                    break;
+                case MARK:
+                    markTask(argument);
+                    break;
+                case UNMARK:
+                    unmarkTask(argument);
+                    break;
+                case TODO:
+                    addTodo(argument);
+                    break;
+                case DEADLINE:
+                    addDeadline(argument);
+                    break;
+                case EVENT:
+                    addEvent(argument);
+                    break;
+                case DELETE:
+                    deleteTask(argument);
+                    break;
+                default:
+                    throw new InvalidCommandException(
                             "Oops! I don't recognise the command you entered. Please enter a valid command."
-                        );
+                    );
                 }
             } catch (InvalidCommandException e) {
-                customPrint(e.getMessage() + "\n");
+                printWithDivider(e.getMessage() + "\n");
             }
         }
     }
