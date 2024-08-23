@@ -5,20 +5,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the loading and saving of tasks from and to a file.
+ * It is responsible for managing the persistence of the task list.
+ */
 public class Storage {
 
-    private ArrayList<IndividualTask> list = new ArrayList<IndividualTask>();
+    private ArrayList<IndividualTask> list = new ArrayList<>();
     private String path;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * It automatically attempts to load tasks from the specified file.
+     *
+     * @param path The file path where tasks are stored.
+     */
     public Storage(String path) {
         this.path = path;
         this.loadTasksFromFile();
     }
+
+    /**
+     * Loads tasks from the specified file into the task list.
+     * If the directory or file does not exist, it provides instructions for creating them.
+     * The tasks are read from the file and converted into IndividualTask objects,
+     * which are added to the task list.
+     */
     public void loadTasksFromFile() {
         File directory = new File("./data");
         File file = new File(path);
         if (!directory.exists()) {
-            System.out.println("No existing directory found. Create a directory data and a file 'duke.txt' inside that directory. Starting with an empty task list.");
+            System.out.println("No existing directory found. Create a directory 'data' and a file 'duke.txt' inside that directory. Starting with an empty task list.");
             return;
         }
         if (!file.exists()) {
@@ -53,11 +70,23 @@ public class Storage {
             System.out.println("There is no data in the file");
         }
     }
+
+    /**
+     * Returns the list of tasks that have been loaded from the file.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<IndividualTask> load() {
         return this.list;
     }
 
-    public void saveTasksToFile(ArrayList<IndividualTask> curList)  {
+    /**
+     * Saves the current list of tasks to the specified file.
+     * The tasks are written to the file in a format that can be loaded back into the application.
+     *
+     * @param curList The current list of tasks to be saved.
+     */
+    public void saveTasksToFile(ArrayList<IndividualTask> curList) {
         try {
             FileWriter writer = new FileWriter(path);
             for (IndividualTask task : curList) {

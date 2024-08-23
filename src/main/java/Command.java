@@ -1,3 +1,8 @@
+/**
+ * The Command class represents a command issued by the user.
+ * It handles the execution of various commands related to task management,
+ * such as adding, marking, deleting tasks, and handling custom commands.
+ */
 public class Command {
     private String command;
     private String message;
@@ -5,15 +10,35 @@ public class Command {
     private String indent = "      ";
     private String separator = "------------------------------";
 
+    /**
+     * Constructs a Command object with the specified command and message.
+     *
+     * @param command The command to be executed (e.g., "bye", "list", "mark", etc.).
+     * @param message The full message provided by the user, which may contain additional information.
+     */
     public Command(String command, String message) {
         this.command = command;
         this.message = message;
     }
 
+    /**
+     * Constructs a Command object without any initial command or message.
+     * This can be used when the command and message will be set later.
+     */
     public Command() {
 
     }
 
+    /**
+     * Executes the command on the given TaskList, using the provided Ui and Storage objects.
+     * The command could be one of several options, such as listing tasks, marking tasks as done,
+     * deleting tasks, or processing specific task commands like "todo", "deadline", or "event".
+     *
+     * @param tasks    The TaskList object that contains all the tasks.
+     * @param ui       The Ui object for displaying messages to the user.
+     * @param storage  The Storage object for saving the task list to a file.
+     * @throws MentalHealthException If an error occurs while processing the command.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MentalHealthException {
         String message = this.message.strip().toLowerCase();
         String[] parts = message.split(" ");
@@ -68,6 +93,15 @@ public class Command {
         }
     }
 
+    /**
+     * Processes specific task-related commands such as "todo", "deadline", and "event".
+     * This method parses the message to extract task details and then creates and adds the appropriate task to the TaskList.
+     *
+     * @param msg      The message containing the command and task details.
+     * @param tasks    The TaskList object to which the new task will be added.
+     * @param storage  The Storage object for saving the updated task list to a file.
+     * @throws MentalHealthException If an error occurs while processing the task command.
+     */
     public void processMessage(String msg, TaskList tasks, Storage storage) throws MentalHealthException {
         String[] message = msg.split(" ");
         if (message[0].equalsIgnoreCase(CommandType.TODO.toString().toLowerCase())) {
@@ -118,14 +152,24 @@ public class Command {
         storage.saveTasksToFile(tasks.getListTask());
     }
 
-
-
-
-
+    /**
+     * Checks if the command is an exit command.
+     * The exit command is identified as "bye".
+     *
+     * @return true if the command is "bye", false otherwise.
+     */
     public boolean isExit() {
         return this.command.equals("bye");
     }
 
+    /**
+     * Formats a task message for display, including the task's number in the list and the task details.
+     * The formatted message is surrounded by a separator for clarity.
+     *
+     * @param task The task to be formatted.
+     * @param num  The number of tasks currently in the list.
+     * @return The formatted task message.
+     */
     public String formatMessage(IndividualTask task, int num) {
         return this.indent + this.separator + "\n" + this.indent + task + "\n" + this.indent + "Now you have " + num + " tasks in the list." + "\n" + this.indent  + this.separator;
     }
