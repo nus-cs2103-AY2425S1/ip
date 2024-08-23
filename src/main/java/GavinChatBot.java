@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GavinChatBot{
     // array to hold Task objects
-    static Task[] tasks = new Task[100];
-    static int taskCount = 0;
+    // static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>();
+    // static int taskCount = 0;
     public static void main(String[] args) {
 
         String horizontalLine = "___________________________________________________________________________________\n";
@@ -23,7 +25,7 @@ public class GavinChatBot{
             try {
                 input = scanner.nextLine();
                 // skip adding tasks for "list" or "bye"
-                if (input.equalsIgnoreCase("list") || input.equalsIgnoreCase("bye") || input.startsWith("mark") || input.startsWith("unmark") || input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+                if (input.equalsIgnoreCase("list") || input.equalsIgnoreCase("bye") || input.startsWith("mark") || input.startsWith("unmark") || input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event") || input.startsWith("delete")) {
                     handleInput(input);
                 } else {
                     /*
@@ -57,11 +59,13 @@ public class GavinChatBot{
             // print out list of items
             System.out.println(horizontalLine);
             System.out.println("Here are the tasks in your list: ");
-            for (int i = 0; i < tasks.length; i++) {
+            for (int i = 0; i < tasks.size(); i++) {
+                /*
                 if (tasks[i] == null) {
                     break;
                 }
-                System.out.println(i + 1 + ". " + tasks[i]);
+                 */
+                System.out.println(i + 1 + ". " + tasks.get(i));
             }
             System.out.println(horizontalLine);
             //System.exit(1);
@@ -75,6 +79,8 @@ public class GavinChatBot{
             deadlineTask(input);
         } else if (input.startsWith("event")) {
             eventTask(input);
+        } else if (input.startsWith("delete")) {
+            deleteTask(input);
         }
     }
 
@@ -84,14 +90,14 @@ public class GavinChatBot{
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
         // throw an error if taskNumber is negative, or greater than the current task count
-        if (taskNumber < 0 || taskNumber >= taskCount) {
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
             throw new GavinException("Task number is invalid!!!");
         }
 
-        tasks[taskNumber].markAsDone();
+        tasks.get(taskNumber).markAsDone();
         System.out.println(horizontalLine);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].description);
+        System.out.println(" " + tasks.get(taskNumber));
         System.out.println(horizontalLine);
     }
 
@@ -101,13 +107,13 @@ public class GavinChatBot{
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
 
         // throw an error if taskNumber is negative, or greater than the current task count
-        if (taskNumber < 0 || taskNumber >= taskCount) {
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
             throw new GavinException("Task number is invalid!!!");
         }
-        tasks[taskNumber].markAsNotDone();
+        tasks.get(taskNumber).markAsNotDone();
         System.out.println(horizontalLine);
         System.out.println("OK, I've marked this task as not done yet!");
-        System.out.println("[" + tasks[taskNumber].getStatusIcon() + "]" + " " + tasks[taskNumber].description);
+        System.out.println(" " + tasks.get(taskNumber));
         System.out.println(horizontalLine);
     }
 
@@ -120,9 +126,8 @@ public class GavinChatBot{
         }
 
         String taskDescription = inputParts[1];
-        tasks[taskCount] = new ToDos(taskDescription);
-        taskCount++;
-        printAddTaskMessage(tasks[taskCount - 1], taskCount);
+        tasks.add(new ToDos(taskDescription));
+        printAddTaskMessage(tasks.get(tasks.size() - 1));
     }
 
     public static void deadlineTask(String input) throws GavinException {
@@ -139,9 +144,8 @@ public class GavinChatBot{
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
             throw new GavinException("A deadline must have a /by date!!!");
         }
-        tasks[taskCount] = new Deadline(taskDescription, deadlineDay);
-        taskCount++;
-        printAddTaskMessage(tasks[taskCount - 1], taskCount);
+        tasks.add(new Deadline(taskDescription, deadlineDay));
+        printAddTaskMessage(tasks.get(tasks.size() - 1));
     }
 
     public static void eventTask(String input) throws GavinException {
@@ -160,17 +164,35 @@ public class GavinChatBot{
         if (timeParts.length < 2) {
             throw new GavinException("An event must have a /from and /to time!!!");
         }
-        tasks[taskCount] = new Event(taskDescription, fromTime, toTime);
-        taskCount++;
-        printAddTaskMessage(tasks[taskCount - 1], taskCount);
+        tasks.add(new Event(taskDescription, fromTime, toTime));
+        printAddTaskMessage(tasks.get(tasks.size() - 1));
     }
 
-    private static void printAddTaskMessage(Task task, int taskCount) {
+    public static void deleteTask(String input) throws GavinException {
+        String horizontalLine = "___________________________________________________________________________________\n";
+
+        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+
+        // throw an error if taskNumber is negative, or greater than the current task count
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+            throw new GavinException("Task number is invalid!!!");
+        }
+
+        Task removedTask = tasks.remove(taskNumber);
+
+        System.out.println(horizontalLine);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + removedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(horizontalLine);
+    }
+
+    private static void printAddTaskMessage(Task task) {
         String horizontalLine = "___________________________________________________________________________________\n";
         System.out.println(horizontalLine);
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(horizontalLine);
 
     }
