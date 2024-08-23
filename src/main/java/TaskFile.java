@@ -8,7 +8,7 @@ public class TaskFile {
     private static final String DATA_FOLDER_PATH = "./data";
     private static final String FILE_PATH = DATA_FOLDER_PATH + "/bobbybot.txt";
 
-    protected static ArrayList<Task> getTasksFromFile() throws IOException {
+    protected static ArrayList<Task> getTasksFromFile() throws Exception {
         File taskListFile = getTaskListFile();
         Scanner fileScanner = new Scanner(taskListFile);
         ArrayList<Task> tasks = new ArrayList<>();

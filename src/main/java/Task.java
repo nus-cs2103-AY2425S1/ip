@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
 
     private final String description;
@@ -22,7 +24,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return String.format("[%s] %s", getStatusIcon(), description);
     }
 
     public String getDescription() {

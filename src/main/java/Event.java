@@ -1,12 +1,22 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    private final String start;
-    private final String end;
+    private final LocalDate start;
+    private final LocalDate end;
 
-    public Event(String description, String start, String end) {
+    private final DateTimeFormatter EVENT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+    public Event(String description, String start, String end) throws DukeException {
         super(description);
-        this.start = start;
-        this.end = end;
+        try {
+            this.start = LocalDate.parse(start);
+            this.end = LocalDate.parse(end);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please enter a valid start and/or end date in the format yyyy-mm-dd.");
+        }
     }
 
     @Override
@@ -16,7 +26,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return String.format(
+                "[%s]%s (from: %s to: %s)",
+                getTaskType(),
+                super.toString(),
+                start.format(EVENT_DATE_FORMAT),
+                end.format(EVENT_DATE_FORMAT)
+        );
     }
 
     @Override
