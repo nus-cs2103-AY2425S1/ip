@@ -1,3 +1,5 @@
+import exceptions.*;
+
 public class InputManager {
     private TaskManager taskManager;
     private MessageBuilder messageBuilder;
@@ -9,13 +11,15 @@ public class InputManager {
 
     public void handleInput(String input) {
         input = input.trim();
+        if (input.isEmpty()) {
+            messageBuilder.sendMessage(new EmptyInputException().getMessage());
+            return;
+        }
+
         String command = input.split("\\s+")[0];
         String args = input.substring(command.length()).trim();
 
         try {
-            if (input.isEmpty()) {
-                throw new PukeException("OOPS!!! You need to enter a command.");
-            }
             switch (command.toLowerCase()) {
                 case "todo":
                     handleTodo(args);
@@ -39,69 +43,69 @@ public class InputManager {
                     messageBuilder.sendMessage(taskManager.listTasks());
                     break;
                 default:
-                    throw new PukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new UnknownCommandException();
             }
         } catch (PukeException e) {
             messageBuilder.sendMessage(e.getMessage());
         }
     }
 
-    private void handleTodo(String input) throws PukeException {
+    private void handleTodo(String input) throws EmptyDescriptionException {
         if (input.isEmpty()) {
-            throw new PukeException("OOPS!!! The description of a todo cannot be empty.");
+            throw new EmptyDescriptionException("todo");
         }
         messageBuilder.sendMessage(taskManager.addTask("todo", input));
     }
 
-    private void handleDeadline(String input) throws PukeException {
+    private void handleDeadline(String input) throws EmptyDescriptionException, MissingTimeException {
         if (input.isEmpty()) {
-            throw new PukeException("OOPS!!! The description of a deadline cannot be empty.");
+            throw new EmptyDescriptionException("deadline");
         }
         String[] parts = input.split(" /by ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new PukeException("OOPS!!! The deadline must have a specified time.");
+            throw new MissingTimeException();
         }
         messageBuilder.sendMessage(taskManager.addTask("deadline", parts[0].trim(), parts[1].trim()));
     }
 
-    private void handleEvent(String input) throws PukeException {
+    private void handleEvent(String input) throws EmptyDescriptionException, MissingEventTimeException {
         if (input.isEmpty()) {
-            throw new PukeException("OOPS!!! The description of a event cannot be empty.");
+            throw new EmptyDescriptionException("event");
         }
         String[] parts = input.split(" /from | /to ");
         if (parts.length < 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-            throw new PukeException("OOPS!!! An event must have both start and end times specified.");
+            throw new MissingEventTimeException();
         }
         messageBuilder.sendMessage(taskManager.addTask("event", parts[0].trim(), parts[1].trim(), parts[2].trim()));
     }
 
     private void handleDelete(String numberString) throws PukeException {
         if (numberString.isEmpty()) {
-            throw new PukeException("OOPS!!! You must specify a task number to delete!!");
+            throw new EmptyInputException("OOPS!!! You must specify a task number to delete!!");
         }
         try {
             int taskNumber = Integer.parseInt(numberString);
             if (taskNumber < 1 || taskNumber > taskManager.getTaskCount()) {
-                throw new PukeException("OOPS!!! The task number " + taskNumber + " is out of bounds.");
+                throw new TaskNumberOutOfBoundsException(taskNumber);
             }
             messageBuilder.sendMessage(taskManager.deleteTask(taskNumber));
         } catch (NumberFormatException e) {
-            throw new PukeException("Invalid task number format!!!!");
+            throw new InvalidTaskNumberFormatException();
         }
     }
 
     private void handleMarking(String numberString, boolean isDone) throws PukeException {
         if (numberString.isEmpty()) {
-            throw new PukeException("OOPS!!! You must specify a task number to " + (isDone ? "mark" : "unmark") + ".");
+            throw new MissingTaskNumberException(isDone);
         }
         try {
             int taskNumber = Integer.parseInt(numberString);
             if (taskNumber < 1 || taskNumber > taskManager.getTaskCount()) {
-                throw new PukeException("OOPS!!! The task number " + taskNumber + " is out of bounds.");
+                throw new TaskNumberOutOfBoundsException(taskNumber);
             }
             messageBuilder.sendMessage(taskManager.markTask(taskNumber, isDone));
         } catch (NumberFormatException e) {
-            throw new PukeException("Invalid task number format!!!!");
+            throw new InvalidTaskNumberFormatException();
         }
     }
 }
