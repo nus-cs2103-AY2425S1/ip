@@ -7,9 +7,10 @@ public class TaskManager {
         this.tasks = new ArrayList<>();
     }
 
-    protected void listTasks() {
+    protected void listTasks() throws TaskManagerException {
         if (this.tasks.isEmpty()) {
-            System.out.println("\uD83C\uDF31 No tasks added yet! Why not plant the first seed? \uD83C\uDF31");
+            throw new TaskManagerException("\uD83C\uDF31 No tasks added yet! Why not plant the first seed? \uD83C\uDF31",
+                    TaskManagerException.ErrorType.EMPTY_LIST);
         } else {
             System.out.println("Here's a rundown of all your tasks! \uD83D\uDE0A");
             for (int i = 0; i < this.tasks.size(); i++) {
@@ -24,15 +25,15 @@ public class TaskManager {
         }
     }
 
-    protected void addTask(String userInput, String taskType) {
+    protected void addTask(String userInput, String taskType) throws TaskManagerException {
         String taskInfo;
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
-        } catch(Exception e) {
-            System.out.println("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
+        } catch (Exception e) {
+            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                     "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
-                    "/ {Input task description here}\" to add a task)");
-            return;
+                    "/ {Input task description here}\" to add a task)",
+                    TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
         }
 
         String taskDescription;
@@ -52,10 +53,10 @@ public class TaskManager {
                     }
                     t = new Deadline(taskDescription, taskInfoArray[1]);
                 } catch (Exception e) {
-                    System.out.println("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
+                    throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
-                            "/{Input task description here}\" to add a task)");
-                    return;
+                            "/ {Input task description here}\" to add a task)",
+                            TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
                 }
                 break;
             case "event":
@@ -72,10 +73,10 @@ public class TaskManager {
                     }
                     t = new Event(taskInfoArray[0], taskInfoArray[1], taskInfoArray[2]);
                 } catch (Exception e) {
-                    System.out.println("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
+                    throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
                             "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
-                            "/{Input task description here}\" to add a task)");
-                    return;
+                            "/ {Input task description here}\" to add a task)",
+                            TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
                 }
                 break;
             default:
@@ -96,7 +97,7 @@ public class TaskManager {
         System.out.println("\uD83C\uDFAF You now have " + this.tasks.size() + " tasks in the list. Keep going!");
     }
 
-    protected void toggleTaskStatus(String userInput, boolean markAsDone) {
+    protected void toggleTaskStatus(String userInput, boolean markAsDone) throws TaskManagerException {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -123,14 +124,16 @@ public class TaskManager {
                 }
                 System.out.println("  " + tasks.get(taskNumber).toString());
             } else {
-                System.out.println("\uD83D\uDEAB Oops! That task number is out of range. " +
-                        "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)");
+                throw new TaskManagerException("\uD83D\uDEAB Oops! That task number is out of range. " +
+                        "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
+                        TaskManagerException.ErrorType.TASK_OUT_OF_RANGE);
             }
         } catch (Exception e) {
-            System.out.println("\uD83D\uDE15 Hmm, something went wrong. Please enter a task number after mark/unmark. " +
-                    "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)");
+            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. " +
+                    "Please enter a task number after mark/unmark. " +
+                    "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
+                    TaskManagerException.ErrorType.INVALID_MARK_TASK_NUMBER);
         }
     }
-
 
 }

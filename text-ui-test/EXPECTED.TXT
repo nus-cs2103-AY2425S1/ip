@@ -23,7 +23,7 @@ The input you provided is invalid! (💡 Tip: You can use the following commands
 😕 Hmm, something went wrong. Please enter a task number after mark/unmark. (💡 Tip: You can type "list" to see task numbers)
 😕 Hmm, something went wrong. Please enter a task number after mark/unmark. (💡 Tip: You can type "list" to see task numbers)
 The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
-😕 Hmm, something went wrong. Did you add task correctly? (💡 Tip: Use "add {Specify Task Type e.g. todo, deadline, or event} /{Input task description here}" to add a task)
+😕 Hmm, something went wrong. Did you add task correctly? (💡 Tip: Use "add {Specify Task Type e.g. todo, deadline, or event} / {Input task description here}" to add a task)
 Well, seems like you did not input anything! Please try again.
 The input you provided is invalid! (💡 Tip: You can use the following commands "add", "list","mark", "unmark".)
 🎉 Got it! I've added: "Finish homework" to your list!

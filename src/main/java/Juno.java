@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Juno {
     private String logo;
@@ -53,25 +52,29 @@ public class Juno {
             String addEventTaskString = "add event";
             String listTaskString = "list";
             String exitString = "bye";
-            if (userInput.equalsIgnoreCase(exitString)) {
-                this.farewellMessage();
-                break;
-            } else if (userInput.equalsIgnoreCase(listTaskString)) {
-                this.taskManager.listTasks();
-            } else if (userInput.isEmpty()) {
-                this.invalidUserInput();
-            } else if (userInput.startsWith(markTaskString)) {
-                this.taskManager.toggleTaskStatus(userInput, true);
-            } else if (userInput.startsWith(unmarkTaskString)) {
-                this.taskManager.toggleTaskStatus(userInput, false);
-            } else if (userInput.startsWith(addTodoTaskString)) {
-                this.taskManager.addTask(userInput, "todo");
-            } else if (userInput.startsWith(addDeadlineTaskString)) {
-                this.taskManager.addTask(userInput, "deadline");
-            } else if (userInput.startsWith(addEventTaskString)) {
-                this.taskManager.addTask(userInput, "event");
-            } else {
-                this.invalidFunctionInput();
+            try {
+                if (userInput.equalsIgnoreCase(exitString)) {
+                    this.farewellMessage();
+                    break;
+                } else if (userInput.equalsIgnoreCase(listTaskString)) {
+                    this.taskManager.listTasks();
+                } else if (userInput.isEmpty()) {
+                    this.invalidUserInput();
+                } else if (userInput.startsWith(markTaskString)) {
+                    this.taskManager.toggleTaskStatus(userInput, true);
+                } else if (userInput.startsWith(unmarkTaskString)) {
+                    this.taskManager.toggleTaskStatus(userInput, false);
+                } else if (userInput.startsWith(addTodoTaskString)) {
+                    this.taskManager.addTask(userInput, "todo");
+                } else if (userInput.startsWith(addDeadlineTaskString)) {
+                    this.taskManager.addTask(userInput, "deadline");
+                } else if (userInput.startsWith(addEventTaskString)) {
+                    this.taskManager.addTask(userInput, "event");
+                } else {
+                    this.invalidFunctionInput();
+                }
+            } catch (TaskManagerException e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -94,10 +97,8 @@ public class Juno {
                 "(\uD83D\uDCA1 Tip: You can use the following commands \"add\", \"list\",\"mark\", \"unmark\".)");
     }
 
-
     public static void main(String[] args) {
         Juno junoChatBot = new Juno();
         junoChatBot.startBot();
-
     }
 }
