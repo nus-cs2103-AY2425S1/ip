@@ -1,9 +1,9 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Tick {
     private static final String separator = "____________________________________________________________\n";
     private static final String botName = "Tick";
-    private String[] checklist = new String[100];
+    private ArrayList<String> checklist = new ArrayList<>();
 
     public void greet() {
         System.out.print(Tick.separator);
@@ -18,7 +18,8 @@ public class Tick {
         System.out.println(Tick.separator);
     }
 
-    public void echo(String command) {
+    public void addToList(String command) {
+        this.checklist.add(command);
         System.out.print(Tick.separator);
         System.out.printf("added: %s\n", command);
         System.out.println(Tick.separator);
@@ -26,22 +27,10 @@ public class Tick {
 
     public void displayList() {
         System.out.print(Tick.separator);
-        for (int i = 0; i < 100; i++) {
-            if (this.checklist[i] == null) {
-                break;
-            }
-            System.out.printf("%d. %s\n", i + 1, this.checklist[i]);
+        for (int i = 0; i < this.checklist.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, this.checklist.get(i));
         }
         System.out.println(Tick.separator);
-    }
-
-    private void addToList(String command) {
-        for (int i = 0; i < 100; i++) {
-            if (this.checklist[i] == null) {
-                this.checklist[i] = command;
-                break;
-            }
-        }
     }
 
     public static void main(String[] args) {
@@ -56,7 +45,6 @@ public class Tick {
                 bot.displayList();
                 continue;
             }
-            bot.echo(command);
             bot.addToList(command);
         }
         bot.exit();
