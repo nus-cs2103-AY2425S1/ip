@@ -16,6 +16,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (isCompleted ? "X" : " ") + "] " + this.name + "\n";
+        return "[" + (isCompleted ? "X" : " ") + "] " + this.name;
     }
 }
