@@ -43,7 +43,8 @@ public class BuddyBot {
                     String time = parts[1].trim();
                     Deadline additionD = new Deadline(description, time);
                     myList[i] = additionD;
-                    System.out.println("added: " + additionD);
+                    System.out.println("Got it. I've added this task: \n" + additionD);
+                    System.out.println("Now you have " + count(myList) + " tasks in the list.");
                     input = myObj.nextLine();
                 } else if (input.startsWith("event")) {
                     String[] parts = input.substring(6).split("/from|/to");
@@ -52,14 +53,18 @@ public class BuddyBot {
                     String end = parts[2].trim();
                     Event additionE = new Event(description, start, end);
                     myList[i] = additionE;
-                    System.out.println("added: " + additionE);
+                    System.out.println("Got it. I've added this task: \n" + additionE);
+                    System.out.println("Now you have " + count(myList) + " tasks in the list.");
                     input = myObj.nextLine();
+                } else if (input.startsWith("todo")){ //NORMAL case (TODOs)
+                    String description = input.substring(5);
 
-                } else { //NORMAL case (TODOs)
-                    Task additionT = new Task(input);
-                    myList[i] = additionT;
-                    System.out.println("Got it. I've added this task: \n" + additionT);
-                    input = myObj.nextLine();
+                        Task additionT = new Task(description);
+                        myList[i] = additionT;
+                        System.out.println("Got it. I've added this task: \n" + additionT);
+                        System.out.println("Now you have " + count(myList) + " tasks in the list.");
+                        input = myObj.nextLine();
+
                 }
             }
         }
@@ -76,22 +81,13 @@ public class BuddyBot {
         }
     }
 
-    /*public static String findTask(String str) {
-        if (str.contains("/")) {
-            if (str.startsWith("deadline")) {
-                String[] parts = str.substring(9).split("/by");
-                String description = parts[0].trim();
-                String time = parts[1].trim();
-            } else if (str.startsWith("event")) {
-                String[] parts = str.substring(6).split("/from|/to");
-                String description = parts[0].trim();
-                String start = parts[1].trim();
-                String end = parts[2].trim();
+    public static int count(Task[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
+                return i;
             }
-        } else if (str.contains(
-            return str.substring(5);
         }
-        return "";
-    }*/
+        return 0;
+    }
 
 }
