@@ -48,10 +48,10 @@ public class WenJie {
                     int taskNo = Integer.parseInt(parts[1]) - 1;
                     taskList[taskNo].setStatusIcon(true);
                     String output =
-                            " ____________________________________________________________\n" +
-                            " Nice! I've marked this task as done:\n " +
+                            "____________________________________________________________\n" +
+                            "Nice! I've marked this task as done:\n" +
                             taskList[taskNo] + "\n" +
-                            " ____________________________________________________________";
+                            "____________________________________________________________";
                     System.out.println(output);
                     break;
                 }
@@ -65,6 +65,62 @@ public class WenJie {
                             taskList[taskNo] + "\n" +
                             " ____________________________________________________________";
                     System.out.println(output);
+                    break;
+                }
+
+                case "todo": {
+                    ToDo temp = new ToDo(input.substring(5));
+
+                    String output =
+                            "____________________________________________________________\n" +
+                            "Got it. I've added this task:\n" +
+                            temp + "\n" +
+                            "Now you have " + (currentPointer + 1)+" tasks in the list.\n" +
+                            "____________________________________________________________\n";
+                    System.out.println(output);
+                    taskList[currentPointer] = temp;
+                    currentPointer++;
+                    break;
+                }
+
+                case "event": {
+                    String from = "", to = "";
+
+                    for (int i = 0; i < parts.length; i++) {
+                        if (parts[i].charAt(0) == '/') {
+                            int j = i + 1;
+                            while(parts[j].charAt(0) != '/') {
+                                from += parts[j] + " ";
+                                j++;
+                            }
+                            j++;
+                            while(j < parts.length) {
+                                to += parts[j];
+                                j++;
+                            }
+
+                            break;
+                        }
+                    }
+                    int endIndex = 0;
+                    for (int i = 0; i < input.length(); i++) {
+                        if (input.charAt(i) == '/') {
+                            endIndex = i;
+                            break;
+                        }
+                    }
+
+                    String desc = input.substring(6, endIndex);
+                    Event temp = new Event(desc, from, to);
+                    taskList[currentPointer] = temp;
+                    String output =
+                            "____________________________________________________________\n" +
+                            "Got it. I've added this task:\n" +
+                            temp + "\n" +
+                            "Now you have " + (currentPointer + 1)+" tasks in the list.\n" +
+                            "____________________________________________________________\n";
+                    System.out.println(output);
+                    currentPointer++;
                     break;
                 }
 
