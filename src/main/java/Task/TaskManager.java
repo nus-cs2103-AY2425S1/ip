@@ -4,9 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
-    private List<Task> tasks;
+    private final List<Task> tasks;
     public TaskManager() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>(){
+            @Override
+            public String toString() {
+                StringBuilder out = new StringBuilder();
+                for(int i = 1; i <=size();i++){
+                    out.append(i);
+                    out.append(". ");
+                    out.append(get(i - 1));
+                    out.append("\n");
+                }
+                return out.toString();
+            }
+        };
     }
 
     public List<Task> getTasks() {
@@ -31,10 +43,4 @@ public class TaskManager {
         }
     }
 
-//    @Override
-//    public String toString() {
-//        for(int i = 1; i <=tasks.size();i++){
-//            out.println(i + ". " + list.get(i-1));
-//        }
-//    }
 }

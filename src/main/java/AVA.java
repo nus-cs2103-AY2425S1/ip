@@ -49,14 +49,13 @@ public class AVA {
     /**
      * method to print AVA's response to given PrintStream
      * @param out PrintStream to print AVA's response to
-     * //TODO:shift tasklist display to tasklist
      * //TODO:refactor mark and unmark to remove redundancy
      */
     public void respond(PrintStream out){
         if(currentInput.equals("list")){
             List<Task> list = taskManager.getTasks();
-
-
+            out.println("Here are your tasks:");
+            out.println(list);
         } else if(currentInput.startsWith("mark")){
             int taskId;
             try{
