@@ -1,0 +1,9 @@
+todo Buy Christmas gifts
+deadline Finish wrapping /by Dec 24
+event Christmas party /from Dec 25 6PM /to Dec 25 11PM
+list
+mark 1
+unmark 1
+delete 2
+list
+bye

@@ -1,7 +1,41 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Gotcha. I've added this task:
+  [T][ ] Buy Christmas gifts
+Now you have 1 task in the list. Jingle bells!
+____________________________________________________________
+Gotcha. I've added this task:
+  [D][ ] Finish wrapping (by: Dec 24)
+Now you have 2 tasks in the list. Let it snow!
+____________________________________________________________
+Gotcha. I've added this task:
+  [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
+Now you have 3 tasks in the list. Feliz Navidad!
+____________________________________________________________
+Ho Ho Ho! Here are the tasks in your Christmas list:
+1. [T][ ] Buy Christmas gifts
+2. [D][ ] Finish wrapping (by: Dec 24)
+3. [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
+____________________________________________________________
+Sleigh! I've marked this task as done:
+  [T][X] Buy Christmas gifts
+____________________________________________________________
+Alright-o, I've marked this task as not done yet:
+  [T][ ] Buy Christmas gifts
+____________________________________________________________
+Aww okay. I've removed this task:
+  [D][ ] Finish wrapping (by: Dec 24)
+Now you have 2 tasks in the list.
+____________________________________________________________
+Ho Ho Ho! Here are the tasks in your Christmas list:
+1. [T][ ] Buy Christmas gifts
+2. [E][ ] Christmas party (from: Dec 25 6PM to: Dec 25 11PM)
+____________________________________________________________
+Bye~ Hope to see you again!
+Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •
+•。★Christmas★ 。* 。
+° 。 ° ˛˚˛ * Π__。˚
+˚ ˛ •˛•˚ */__/~＼。˚ ˚ ˛
+˚ ˛ •˛• ˚ ｜ 田田 ｜門｜ ˚
+And a happy new year!
+____________________________________________________________
 
