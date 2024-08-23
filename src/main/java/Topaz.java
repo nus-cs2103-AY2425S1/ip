@@ -33,9 +33,14 @@ public class Topaz {
                     addDeadline(prompt);
                 } else if (prompt.startsWith("event")) {
                     addEvent(prompt);
+                } else if (prompt.startsWith("delete")) {
+                    int index = Integer.parseInt(prompt.substring(7));
+                    deleteTask(index);
                 } else {
                     throw new TopazException(prompt);
                 }
+            } catch (IndexOutOfBoundsException e) {
+                handleIoBException(e);
             } catch (InvalidTaskException | TopazException e) {
                 handleException(e);
             }
@@ -101,6 +106,15 @@ public class Topaz {
         System.out.println("____________________________________________________________");
     }
 
+    private static void deleteTask(int index) {
+        Task task = taskList.remove(index - 1);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("    " + task.getStatus());
+        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
     private static void addTodo(String prompt) throws InvalidTaskException {
         try {
             String description = prompt.substring(5);
@@ -162,6 +176,12 @@ public class Topaz {
         System.out.println("____________________________________________________________");
     }
 
+    private static void handleIoBException(Exception e) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Please enter valid information after the keyword!");
+        System.out.println("Try again!");
+        System.out.println("____________________________________________________________");
+    }
     private static void showHelp() {
         String guide = """
                  1. Adding Tasks

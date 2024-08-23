@@ -13,4 +13,6 @@ drhbsfg
 deadline return book by Monday
 event dinner from 10pm to 12am
 help
+delete 2
+list
 bye

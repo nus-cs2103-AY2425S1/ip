@@ -103,6 +103,18 @@ ____________________________________________________________
    1) Mark task as done: mark <index of task in list>
    2) Mark task as undo: unmark <index of task in list>
 ____________________________________________________________
+____________________________________________________________
+ Noted. I've removed this task:
+    [D][ ] return book (by: Sunday)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Who works for money these days? Money is a means, not an end. Work should make you happy... That's the most fundamental principle.
+ Don't forget your work~
+1. [T][ ] read book
+2. [E][X] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] do homework (by: no idea :-p)
+____________________________________________________________
  Ugh, why do they have to call me for such a trivial matter... Sorry, something just came up at work, I've got to get going!
  Bye. Hope to see you again soon!
 ____________________________________________________________
