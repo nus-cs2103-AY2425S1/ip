@@ -47,7 +47,7 @@ public class Lumina {
     }
 
     private void printSeparator() {
-        System.out.println("____________________________________________________________");
+        System.out.println("__________________________________________________________________");
     }
 
     private void printMessage(String msg) {
@@ -88,9 +88,9 @@ public class Lumina {
         this.printMessage(listedTaskMessage.toString());
     }
 
-    private void markTaskDone(int index) {
+    private void markTaskDone(int index) throws LuminaException{
         if (index < 0 || index >= this.tasks.size()) {
-            throw new IllegalArgumentException("Task index out of bounds");
+            throw new LuminaException("Oh no! Lumina detected index out of bounds! Please try again");
         }
         StringBuilder taskDoneMessage = new StringBuilder();
         taskDoneMessage.append("Nice! I've marked this task as done:\n");
@@ -99,9 +99,9 @@ public class Lumina {
         this.printMessage(taskDoneMessage.toString());
     }
 
-    private void markTaskNotDone(int index) {
+    private void markTaskNotDone(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new IllegalArgumentException("Task index out of bounds");
+            throw new LuminaException("Oh no! Lumina detected index out of bounds! Please try again");
         }
         StringBuilder taskNotDoneMessage = new StringBuilder();
         taskNotDoneMessage.append("OK, I've marked this task as not done yet:\n");
@@ -112,13 +112,15 @@ public class Lumina {
 
 
 
-    private void handleTodoTask(String msg) {
+    private void handleTodoTask(String msg) throws LuminaException{
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 2) {
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your ToDo Task!" +
+                    " Please try again");
         }
         if(!msgSplit[0].equals(ECHO_TODO_TASK)) {
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your ToDo Task!" +
+                    " Please try again");
         }
         StringBuilder builder = new StringBuilder();
         for(int i = 1; i < msgSplit.length; i++) {
@@ -132,13 +134,15 @@ public class Lumina {
 
     }
 
-    private void handleDeadlineTask(String msg) {
+    private void handleDeadlineTask(String msg) throws LuminaException{
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 4) { // need desc and bydatetime
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Deadline Task!" +
+                    " Please try again");
         }
         if(!msgSplit[0].equals(ECHO_DEADLINE_TASK)) {
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Deadline Task!" +
+                    " Please try again");
         }
 
         StringBuilder builder = new StringBuilder();
@@ -148,7 +152,8 @@ public class Lumina {
         for(int i = 1; i < msgSplit.length; i++) {
             if(msgSplit[i].equals("/by")) {
                 if(by) {
-                    throw new IllegalArgumentException("Invalid task");
+                    throw new LuminaException("Oh no! Lumina detected invalid format for your Deadline Task!" +
+                            " Please try again");
                 }
                 by = true;
                 desc = builder.toString();
@@ -162,20 +167,27 @@ public class Lumina {
         }
 
         if (!by) {
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Deadline Task!" +
+                    " Please try again");
         }
         byDateTime = builder.toString();
+        if (desc.trim().isEmpty() || byDateTime.trim().isEmpty()) {
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Deadline Task!" +
+                    " Please try again");
+        }
         Task task = new DeadlineTask(desc, byDateTime);
         this.addTask(task);
     }
 
-    private void handleEventTask(String msg) {
+    private void handleEventTask(String msg) throws LuminaException{
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 6) { // need desc, startDateTime, endDateTime
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Event Task!" +
+                    " Please try again");
         }
         if(!msgSplit[0].equals(ECHO_EVENT_TASK)) {
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Event Task!" +
+                    " Please try again");
         }
 
         enum Type {
@@ -191,7 +203,8 @@ public class Lumina {
         for(int i = 1; i < msgSplit.length; i++) {
             if(msgSplit[i].equals("/from")) {
                 if (from) {
-                    throw new IllegalArgumentException("Invalid task");
+                    throw new LuminaException("Oh no! Lumina detected invalid format for your Event Task!" +
+                            " Please try again");
                 }
                 switch (currentType) {
                     case DESC:
@@ -211,7 +224,8 @@ public class Lumina {
             }
             if (msgSplit[i].equals("/to")) {
                 if (to) {
-                    throw new IllegalArgumentException("Invalid task");
+                    throw new LuminaException("Oh no! Lumina detected invalid format for your Event Task!" +
+                            " Please try again");
                 }
                 switch (currentType) {
                     case DESC:
@@ -236,7 +250,8 @@ public class Lumina {
         }
 
         if (!from || !to) {
-            throw new IllegalArgumentException("Invalid task");
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Event Task!" +
+                    " Please try again");
         }
         switch (currentType) {
             case DESC:
@@ -248,6 +263,10 @@ public class Lumina {
             case TO:
                 endDateTime = builder.toString();
                 break;
+        }
+        if (desc.trim().isEmpty() || startDateTime.trim().isEmpty() || endDateTime.trim().isEmpty()) {
+            throw new LuminaException("Oh no! Lumina detected invalid format for your Event Task!" +
+                    " Please try again");
         }
         Task task = new EventTask(desc, startDateTime, endDateTime);
         this.addTask(task);
@@ -274,10 +293,11 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         this.markTaskNotDone(taskIndex);
                     } else {
-                        throw new IllegalArgumentException("Wrong number of parameters found");
+                        throw new LuminaException("Oh no! Lumina detected unexpected number of parameters in " +
+                                "your command! Please try again");
                     }
-                } catch(IllegalArgumentException e) {
-                    this.printMessage(e.getMessage() + ". Try again");
+                } catch(LuminaException e) {
+                    this.printMessage(e.getMessage());
                 }
                 continue;
             }
@@ -288,38 +308,40 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         this.markTaskDone(taskIndex);
                     } else {
-                        throw new IllegalArgumentException("Wrong number of parameters found");
+                        throw new LuminaException("Oh no! Lumina detected unexpected number of parameters in " +
+                                "your command! Please try again");
                     }
-                } catch(IllegalArgumentException e) {
-                    this.printMessage(e.getMessage() + ". Try again");
+                } catch(LuminaException e) {
+                    this.printMessage(e.getMessage());
                 }
                 continue;
             }
             if (msg.contains(Lumina.ECHO_TODO_TASK)) {
                 try {
                     this.handleTodoTask(msg);
-                } catch(IllegalArgumentException e) {
-                    this.printMessage(e.getMessage() + ". Try again");
+                } catch(LuminaException e) {
+                    this.printMessage(e.getMessage());
                 }
                 continue;
             }
             if (msg.contains(Lumina.ECHO_EVENT_TASK)) {
                 try {
                     this.handleEventTask(msg);
-                } catch (IllegalArgumentException e) {
-                    this.printMessage(e.getMessage() + ". Try again");
+                } catch (LuminaException e) {
+                    this.printMessage(e.getMessage());
                 }
                 continue;
             }
             if (msg.contains(Lumina.ECHO_DEADLINE_TASK)) {
                 try {
                     this.handleDeadlineTask(msg);
-                } catch (IllegalArgumentException e) {
-                    this.printMessage(e.getMessage() + ". Try again");
+                } catch (LuminaException e) {
+                    this.printMessage(e.getMessage());
                 }
                 continue;
             }
-            this.addTask(new Task(msg));
+            // exception
+            this.printMessage("Oh no! I don't know what to do with this command!");
         }
     }
 
