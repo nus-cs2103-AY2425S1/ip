@@ -27,5 +27,6 @@ Good day sir!
 at your service!
 I shall await your next request.
 ____________________________________________________________
-It's been a pleasure serving you! Farewell sir.
+Alright sir! I've added this task:
+[T][ ] borrow book
 ____________________________________________________________
