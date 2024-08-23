@@ -1,9 +1,9 @@
 package matcha.command;
 import matcha.exception.MatchaException;
 import matcha.task.Task;
-import matcha.Storage;
-import matcha.TaskList;
-import matcha.Ui;
+import matcha.storage.Storage;
+import matcha.tasklist.TaskList;
+import matcha.ui.Ui;
 
 public class DeleteTaskCommand extends Command{
     private String[] inputWords;

@@ -6,9 +6,9 @@ import matcha.task.Task;
 import matcha.task.Deadline;
 import matcha.task.Event;
 import matcha.task.Todo;
-import matcha.TaskList;
-import matcha.Storage;
-import matcha.Ui;
+import matcha.tasklist.TaskList;
+import matcha.storage.Storage;
+import matcha.ui.Ui;
 
 public class AddTaskCommand extends Command{
     private String commandType;
