@@ -23,6 +23,7 @@ public class PrintFormatter {
 
     static void printTaskList(List<Task> taskList) {
         for (int i = 1; i < taskList.size() + 1; i++) {
+            System.out.print("\t".repeat(1));
             System.out.println(i + ". " + taskList.get(i));
         }
     }
