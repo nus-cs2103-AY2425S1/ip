@@ -18,7 +18,7 @@ public class TaskManager {
     }
 
     public void listTasks() {
-        String taskString = "";
+        String taskString = "Here are the tasks in your list:\n" + "    ";
 
         for (int i=0; i<tasks.size(); i++) {
             if (i != tasks.size() - 1) {
@@ -33,18 +33,18 @@ public class TaskManager {
     }
 
     public void completeTask(int taskId) {
-        if (taskId < tasks.size() + 1) {
+        if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setComplete();
-            printLines("Nice, I've marked this task as complete:\n   " +
-                    tasks.get(taskId - 1).toString());
+            printLines("Nice, I've marked this task as complete:\n" +
+                    "       " + tasks.get(taskId - 1).toString());
         }
     }
 
     public void incompleteTask(int taskId) {
-        if (taskId < tasks.size() + 1) {
+        if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setIncomplete();
-            printLines("Ok, I've marked this task as incomplete:\n   " +
-                    tasks.get(taskId - 1).toString());
+            printLines("Ok, I've marked this task as incomplete:\n" +
+                    "       " + tasks.get(taskId - 1).toString());
         }
     }
 

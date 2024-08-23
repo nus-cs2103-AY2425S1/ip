@@ -14,32 +14,14 @@ public class Taskalyn {
                 "    What can I do for you?");
 
         // Conditions
-//        while (true) {
-//            String input = scanner.nextLine();
-//            if (input.equals("bye")) {
-//                taskManager.printLines("Bye. Hope to see you again soon!");
-//                break;
-//            } else if (input.equals("list")) {
-//                taskManager.listTasks();
-//            } else if (input.startsWith("mark ")) {
-//                String[] completeString = input.split(" ");
-//
-//                if (completeString.length == 2 && isInteger completeString[1].) {
-//
-//                }
-//            } else if () {
-//
-//            } else {
-//                taskManager.addTask(new Task(input));
-//                taskManager.printLines(input);
-//            }
-//        }
         while (true) {
             String input = scanner.nextLine().trim();
 
             String[] completeString = input.split(" ");
 
             String command = completeString[0];
+
+            boolean isError = false;
 
             switch (command) {
                 case "bye":
@@ -57,8 +39,11 @@ public class Taskalyn {
                             if (i <= taskManager.getTaskSize() + 1) {
                                 taskManager.completeTask(i);
                             }
+                            else {
+                                isError = true;
+                            }
                         } catch (NumberFormatException e) {
-                            taskManager.printLines("Oops, there's an error.");
+                            isError = true;
                         }
                     }
                     break;
@@ -70,8 +55,11 @@ public class Taskalyn {
                             if (i <= taskManager.getTaskSize() + 1) {
                                 taskManager.incompleteTask(i);
                             }
+                            else {
+                                isError = true;
+                            }
                         } catch (NumberFormatException e) {
-                            taskManager.printLines("Oops, there's an error.");
+                            isError = true;
                         }
                     }
                     break;
@@ -79,6 +67,11 @@ public class Taskalyn {
                 default:
                     taskManager.addTask(new Task(input));
                     break;
+            }
+
+            if (isError) {
+                taskManager.addTask(new Task(input));
+                isError = false;
             }
 
             if (command.equals("bye")) {
