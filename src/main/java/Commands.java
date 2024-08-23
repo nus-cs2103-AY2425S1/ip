@@ -1,3 +1,4 @@
+package ip.derrick ;
 public enum Commands {
     BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
     public static Commands fromString(String command) {

@@ -1,3 +1,4 @@
+package ip.derrick ;
 public class CommandHandler {
 
     private Commands command;
