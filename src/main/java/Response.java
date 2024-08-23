@@ -10,7 +10,7 @@ public class Response {
     public String toString() {
         String output = LINE.indent(4) + "\n"
                         + this.msg.indent(4) + "\n"
-                        + LINE.indent(4) + "\n";
+                        + LINE.indent(4);
         return output;
     }
 }
