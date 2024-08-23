@@ -53,7 +53,7 @@ public class Skibidi {
     }
 
     void markTask(int taskId) throws InvalidItemException {
-        if (taskId < 0 || taskId > tasks.size()) {
+        if (taskId < 0 || taskId >= tasks.size()) {
             throw new InvalidItemException();
         }
         Task task = tasks.get(taskId);
@@ -63,7 +63,7 @@ public class Skibidi {
     }
 
     void unmarkTask(int taskId) throws InvalidItemException {
-        if (taskId < 0 || taskId > tasks.size()) {
+        if (taskId < 0 || taskId >= tasks.size()) {
             throw new InvalidItemException();
         }
         Task task = tasks.get(taskId);
@@ -73,7 +73,7 @@ public class Skibidi {
     }
 
     void deleteTask(int taskId) throws InvalidItemException {
-        if (taskId < 0 || taskId > tasks.size()) {
+        if (taskId < 0 || taskId >= tasks.size()) {
             throw new InvalidItemException();
         }
         Task task = tasks.get(taskId);
