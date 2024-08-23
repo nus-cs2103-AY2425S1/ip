@@ -19,7 +19,7 @@ public class Task {
         if (!this.isDone) {
             throw new ConverSageException("This task is already marked as not done...");
         }
-        this.isDone = true;
+        this.isDone = false;
         return "[ ] " + this.taskDesc;
     }
 
