@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Potong {
@@ -12,6 +13,7 @@ public class Potong {
         InputData data = new InputData();
         while (true) {
             String userInput = input.nextLine();
+            System.out.println(Potong.LINE);
             if (userInput.equals("bye")) {
                 break;
             }
@@ -20,7 +22,19 @@ public class Potong {
                 System.out.println(Potong.LINE);
                 continue;
             }
-            System.out.println(data.add(userInput));
+            if (userInput.startsWith("mark")) {
+                int index = Integer.valueOf(userInput.substring(5, 6));
+                System.out.println(data.mark(index));
+                System.out.println(Potong.LINE);
+                continue;
+            }
+            if (userInput.startsWith("unmark")) {
+                int index = Integer.valueOf(userInput.substring(7, 8));
+                System.out.println(data.unmark(index));
+                System.out.println(Potong.LINE);
+                continue;
+            }
+            System.out.println(data.add(new Task(userInput)));
             System.out.println(Potong.LINE);
         }
         System.out.println("Bye. Hope to see you again soon!\n");
