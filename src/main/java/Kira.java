@@ -6,7 +6,6 @@ public class Kira {
 
         Scanner scanner = new Scanner(System.in);
         List list = new List();
-
         String line = "____________________________________________________________\n";
 
         System.out.println(line +
@@ -29,9 +28,20 @@ public class Kira {
                 continue;
             }
 
-            Task task = new Task(userInput);
-            list.addTaskToList(task);
+            String[] strings = userInput.split(" ");
 
+            if (strings[0].equals("mark")) {
+                int index = Integer.parseInt(strings[1]) - 1;
+                Task task = list.getTask(index);
+                task.markAsDone();
+            } else if (strings[0].equals("unmark")) {
+                int index = Integer.parseInt(strings[1]) - 1;
+                Task task = list.getTask(index);
+                task.markAsUndone();
+            } else {    // add task
+                Task task = new Task(userInput);
+                list.addTaskToList(task);
+            }
         }
     }
 }
