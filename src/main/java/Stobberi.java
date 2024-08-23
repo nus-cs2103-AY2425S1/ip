@@ -45,16 +45,17 @@ public class Stobberi {
 
         if (firstWord.equals("todo")) {
             listOfTasks.add(new ToDos(task));
+            displayLastAdded();
         } else if (firstWord.equals("deadline")) {
             String[] parts = task.split("/by ");
             listOfTasks.add(new Deadlines(parts[0], parts[1]));
+            displayLastAdded();
         } else if (firstWord.equals("event")) {
             String[] parts = task.split("/from ");
             String[] secondParts = parts[1].split("/to ");
             listOfTasks.add(new Events(parts[0], secondParts[0], secondParts[1]));
+            displayLastAdded();
         }
-
-        displayLastAdded();
     }
 
     private static void createList() {
