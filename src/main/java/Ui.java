@@ -3,34 +3,43 @@ public class Ui {
     private static  final String GREETING = "Hello! I'm Nebula, what can I do for you today?";
     private static  final String GOODBYE = "Bye! Hope to see you again soon :)";
     private static final String MARKED = "Nice! This task has successfully been marked: ";
-
     private static final String UNMARKED = "Nice! This task has successfully been unmarked: ";
-
     private static final String ALREADY_MARKED = "This task has already been marked!";
-
     private static final String ALREADY_UNMARKED = "This task has already been unmarked!";
 
     /**
-     * Returns greeting message
+     * Returns the greeting message to be displayed to the user
+     *
+     * @return A string containing the greeting message
      */
     public String greeting() {
         return DIVIDER + "\n" + GREETING + "\n" + DIVIDER;
     }
 
     /**
-     * Returns goodbye message
+     * Returns the goodbye message to be displayed to the user
+     *
+     * @return A string containing the goodbye message
      */
     public String goodbye() {
         return DIVIDER + "\n" + GOODBYE + "\n" + DIVIDER;
     }
 
     /**
-     * Returns a copy of the message typed by the user
+     * Returns a message indicating that a new task has been added
+     *
+     * @param taskDescription The description of the task that was added
+     * @return A string containing the message that a task was added with the task description
      */
     public String displayAddedTask(String taskDescription) {
         return DIVIDER + "\n" + "added: " + taskDescription + "\n" + DIVIDER;
     }
 
+    /**
+     * Returns a string representation of the current task list
+     *
+     * @return A string containing the formatted list of tasks. If the list is empty, a message indicating that the list is empty is returned
+     */
     public String displayList() {
         String displayList = DIVIDER + "\n";
         int taskLength = TaskList.getTaskListLength();
@@ -48,18 +57,40 @@ public class Ui {
         return displayList;
     }
 
+    /**
+     * Returns a message indicating that a task has been marked as completed
+     *
+     * @param task The task that has been marked as completed
+     * @return A string containing the message "marked" along with the task description and its status icon
+     */
     public String displayMarkedTask(Task task) {
         return DIVIDER + "\n" + MARKED + "\n" + "  " + "[" + task.getStatusIcon() + "] " + task.getDescription() + "\n" + DIVIDER;
     }
 
+    /**
+     * Returns a message indicating that a task was already marked as completed
+     *
+     * @return A string containing a message indicating that the task was already marked
+     */
     public String displayAlreadyMarkedTask() {
         return DIVIDER + "\n" + ALREADY_MARKED + "\n" + DIVIDER;
     }
 
+    /**
+     * Returns a message indicating that a task has been unmarked
+     *
+     * @param task The task that has been unmarked
+     * @return A string containing the message "unmarked" along with the task description and its status icon
+     */
     public String displayUnmarkedTask(Task task) {
         return DIVIDER + "\n" + UNMARKED + "\n" + "  " + "[" + task.getStatusIcon() + "] " + task.getDescription() + "\n" + DIVIDER;
     }
 
+    /**
+     * Returns a message indicating that a task was already unmarked
+     *
+     * @return A string containing a message indicating that the task was already unmarked
+     */
     public String displayAlreadyUnmarkedTask() {
         return DIVIDER + "\n" + ALREADY_UNMARKED + "\n" + DIVIDER;
     }

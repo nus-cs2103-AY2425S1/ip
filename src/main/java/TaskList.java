@@ -5,7 +5,8 @@ public class TaskList {
     private Ui ui;
 
     /**
-     * Constructor for TaskList class, taskList initialized with array of Tasks
+     * Constructs a TaskList with an initial capacity of 100 tasks
+     * The TaskList is initialized with an empty array of Tasks, a length of 0, and a new Ui instance
      */
     public TaskList() {
         taskList = new Task[100];
@@ -14,30 +15,39 @@ public class TaskList {
     }
 
     /**
+     * Returns the list of tasks represented by the TaskList
      *
-     * Returns the list of Tasks
+     * @return An array of Task objects representing the current list of tasks
      */
     public static Task[] getTaskList() {
         return taskList;
     }
 
     /**
+     * Returns the number of tasks currently in the TaskList
      *
-     * Returns the length of the list of Tasks
+     * @return The number of tasks in the TaskList
      */
     public static int getTaskListLength() {
         return length;
     }
 
     /**
+     * Adds a new task to the TaskList
      *
-     * @param task adds a new Task to the TaskList
+     * @param task The Task object to be added to the TaskList
      */
     public void addTask(Task task) {
         taskList[length] = task;
         length++;
     }
 
+    /**
+     * Marks a task as completed based on its index in the TaskList
+     *
+     * @param taskNum The index of the task (1-based) to be marked as completed
+     * @return A string message indicating the result of the marking operation
+     */
     public String markTask(int taskNum) {
         Task t = taskList[taskNum - 1];
         if (t.isDone()){
@@ -47,6 +57,12 @@ public class TaskList {
         return ui.displayMarkedTask(t);
     }
 
+    /**
+     * Unmarks a task as not completed based on its index in the TaskList
+     *
+     * @param taskNum The index of the task (1-based) to be unmarked
+     * @return A string message indicating the result of the unmarking operation
+     */
     public String unmarkTask(int taskNum) {
         Task t = taskList[taskNum - 1];
         if (!t.isDone()){

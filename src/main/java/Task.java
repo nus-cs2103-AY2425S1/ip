@@ -3,9 +3,10 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructor for Task class, task initialized with user inputted description
+     * Constructs a Task with the specified description
+     * The task is initialized with the given description and is marked as not done
      *
-     * @param description description of the task command inputted by the user
+     * @param description The description of the task provided by the user
      */
     public Task (String description) {
         this.description = description;
@@ -13,24 +14,38 @@ public class Task {
     }
 
     /**
-     * Returns the description of the task
+     * Returns the description of this task
+     *
+     * @return The description of the task
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
+     * Checks if the task has been completed
      *
-     * Returns whether the Task has been completed or not
+     * @return true if the task is completed, false otherwise
      */
     public boolean isDone() {
         return this.isDone;
     }
 
+    /**
+     * Sets the completion status of the task
+     *
+     * @param isDone true to mark the task as completed, false to mark it as not completed
+     */
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns the status icon representing the completion state of the task
+     * Returns "X" if the task is completed, otherwise returns " "
+     *
+     * @return A string representing the status icon of the task
+     */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
