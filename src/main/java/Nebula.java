@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Nebula {
     public static void main(String[] args) {
         Ui ui = new Ui();
+        TaskList taskList = new TaskList();
 
         System.out.println(ui.greeting());
 
@@ -13,12 +14,17 @@ public class Nebula {
                 System.out.println(ui.goodbye());
                 break;
             }
-            if(command.equals("list")) {
+            else if(command.equals("list")) {
                 System.out.println(ui.displayList());
-                break;
             }
-            String echoCommand = ui.echo(command);
-            System.out.println(echoCommand);
+            else {
+                Task newTask = new Task(command);
+                taskList.addTask(newTask);
+
+                String echoCommand = ui.echo(command);
+                System.out.println(echoCommand);
+            }
+
         }
 
 

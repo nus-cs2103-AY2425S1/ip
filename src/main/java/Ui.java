@@ -1,6 +1,6 @@
 public class Ui {
     private static final String DIVIDER = "---------------------------------------------------";
-    private static  final String GREETING = "Hello! I'm Gemini, what can I do for you today?";
+    private static  final String GREETING = "Hello! I'm Nebula, what can I do for you today?";
     private static  final String GOODBYE = "Bye! Hope to see you again soon :)";
 
     /**
@@ -21,7 +21,7 @@ public class Ui {
      * Returns a copy of the message typed by the user
      */
     public String echo(String echoMessage) {
-        return DIVIDER + "\n" + echoMessage + "\n" + DIVIDER;
+        return DIVIDER + "\n" + "added: " + echoMessage + "\n" + DIVIDER;
     }
 
     public String displayList() {
@@ -32,7 +32,7 @@ public class Ui {
             return displayList + "Your task list is empty!" + "\n" + DIVIDER;
         }
         for (int i = 0; i < taskLength; i++) {
-            displayList += (i + 1) + "." + list[i] + "\n";
+            displayList += (i + 1) + ". " + list[i].getDescription() + "\n";
             if(i == taskLength - 1) {
                 displayList += DIVIDER;
                 break;
