@@ -35,6 +35,9 @@ public class TaskList {
     @Override
     public String toString() {
         // suggested by Copilot
+        if (taskList.isEmpty()) {
+            return "You have no tasks in the list.\n";
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             sb.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n");

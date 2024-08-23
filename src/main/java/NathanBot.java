@@ -11,7 +11,7 @@ public class NathanBot {
         CommandHandler.handleGreet();
 
         try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
+            while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
                 CommandType commandType = CommandType.fromInput(input);
 
