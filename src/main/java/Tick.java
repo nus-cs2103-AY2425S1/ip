@@ -45,6 +45,16 @@ public class Tick {
         System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
     }
 
+    public void removeTaskFromList(int index) throws TickException {
+        if (index < 1 || index > this.checklist.size()) {
+            throw new TickException("The task number is out of range.");
+        }
+        Task task = this.checklist.remove(index - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
+    }
+
     public void displayList() {
         if (this.checklist.isEmpty()) {
             System.out.println("You have no tasks in your list.");
@@ -83,17 +93,35 @@ public class Tick {
                 this.displayList();
                 break;
             case "mark":
-                if (commandParts.length < 2) {
-                    throw new TickException("Please specify the task number to mark as done.");
+                try {
+                    if (commandParts.length < 2) {
+                        throw new TickException("Please specify the task number to mark as done.");
+                    }
+                    this.markTaskAsDone(Integer.parseInt(commandParts[1]));
+                    break;
+                } catch (NumberFormatException e) {
+                    throw new TickException("Please specify a valid number!");
                 }
-                this.markTaskAsDone(Integer.parseInt(commandParts[1]));
-                break;
             case "unmark":
-                if (commandParts.length < 2) {
-                    throw new TickException("Please specify the task number to mark as not done yet.");
+                try {
+                    if (commandParts.length < 2) {
+                        throw new TickException("Please specify the task number to mark as not done yet.");
+                    }
+                    this.markTaskAsUndone(Integer.parseInt(commandParts[1]));
+                    break;
+                } catch (NumberFormatException e) {
+                    throw new TickException("Please specify a valid number!");
                 }
-                this.markTaskAsUndone(Integer.parseInt(commandParts[1]));
-                break;
+            case "delete":
+                try {
+                    if (commandParts.length < 2) {
+                        throw new TickException("Please specify the task number to delete.");
+                    }
+                    this.removeTaskFromList(Integer.parseInt(commandParts[1]));
+                    break;
+                } catch (NumberFormatException e) {
+                    throw new TickException("Please specify a valid number!");
+                }
             case "todo":
             case "deadline":
             case "event":
