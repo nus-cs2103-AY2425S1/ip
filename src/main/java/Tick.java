@@ -18,16 +18,31 @@ public class Tick {
         System.out.println(Tick.separator);
     }
 
-    public void addTaskToList(String command) {
+    public void addTaskToList(String command) throws TickException {
         if (command.startsWith("todo")) {
+            if (command.substring(5).isEmpty()) {
+                throw new TickException("The description of a todo cannot be empty.");
+            }
             ToDo task = new ToDo(command.substring(5));
             this.checklist.add(task);
         } else if (command.startsWith("deadline")) {
             String[] parts = command.substring(9).split(" /by ");
+            if (parts[0].isEmpty()) {
+                throw new TickException("The description of a deadline cannot be empty.");
+            } else if (parts[1].isEmpty()) {
+                throw new TickException("The deadline of a deadline cannot be empty.");
+            }
             Deadline task = new Deadline(parts[0], parts[1]);
             this.checklist.add(task);
         } else if (command.startsWith("event")) {
             String[] parts = command.substring(6).split(" /from | /to ");
+            if (parts[0].isEmpty()) {
+                throw new TickException("The description of an event cannot be empty.");
+            } else if (parts[1].isEmpty()) {
+                throw new TickException("The start time of an event cannot be empty.");
+            } else if (parts[2].isEmpty()) {
+                throw new TickException("The end time of an event cannot be empty.");
+            }
             Event task = new Event(parts[0], parts[1], parts[2]);
             this.checklist.add(task);
         }
@@ -57,8 +72,7 @@ public class Tick {
         System.out.println(task);
     }
 
-    public void runCommand(String command) {
-        System.out.println(Tick.separator);
+    public void runCommand(String command) throws TickException {
         String[] commandParts = command.split(" ");
         switch (commandParts[0]) {
             case "list":
@@ -76,9 +90,8 @@ public class Tick {
                 this.addTaskToList(command);
                 break;
             default:
-                System.out.println("Invalid command!");
+                throw new TickException("I'm sorry, but I don't know what that means :-(");
         }
-        System.out.println(Tick.separator);
     }
 
     public static void main(String[] args) {
@@ -90,7 +103,13 @@ public class Tick {
             if (command.equals("bye")) {
                 break;
             }
-            bot.runCommand(command);
+            System.out.println(Tick.separator);
+            try {
+                bot.runCommand(command);
+            } catch (TickException e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println(Tick.separator);
         }
         bot.exit();
     }
