@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class represents a chatbot, name Nen2
+ * @author Gan Ren Yick (A0276246X)
+ */
+
 public class Nen2 {
     private final static String logo = " _   _                 __\n"
             + "| \\ | |  ___  _ ___   |_  \\ \n"

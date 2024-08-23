@@ -1,3 +1,8 @@
+/**
+ * This class represents a Task, super class of Todo, Event and Deadline
+ * @author Gan Ren Yick (A0276246X)
+ */
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -7,6 +12,14 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     *
+     * @param text input by user
+     * @return an instant of task which can be either Deadline, Todo or Event type depend on text
+     * @throws InvalidInputException is thrown when user input is not recognised
+     * @throws ArgumentMissingException is thrown when argument(s) of task(Event and Deadline) is missing
+     * @throws EmptyDescriptionException is thrown when description of tasks is missing
+     */
     public static Task of(String text) throws InvalidInputException, ArgumentMissingException, EmptyDescriptionException {
         String action = text.split(" ")[0];
         return switch (action) {
@@ -44,14 +57,20 @@ public abstract class Task {
         return out.substring(1);
     }
 
-    public String getStatusIcon() {
+    protected String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * mark the task as done
+     */
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * mark the task as not done
+     */
     public void markAsNotDone() {
         isDone = false;
     }

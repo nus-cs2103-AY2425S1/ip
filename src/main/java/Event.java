@@ -1,3 +1,8 @@
+/**
+ * This class represents an Event Task
+ * @author Gan Ren Yick (A0276246X)
+ */
+
 public class Event extends Task {
     protected String from;
     protected String to;

@@ -1,3 +1,8 @@
+/**
+ * This class represents a Deadline Task
+ * @author Gan Ren Yick (A0276246X)
+ */
+
 public class Deadline extends Task {
 
     protected String by;
