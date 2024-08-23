@@ -42,9 +42,23 @@ ____________________________________________________________
    [D][ ] return book (by: Sunday)
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-   [ ] blah
- Now you have 5 tasks in the list.
+ OOPS!!! I'm sorry, but I don't know what that means :-(
+ Kindly provide the tasks starting with 'todo', 'event' or 'deadline'!!
+____________________________________________________________
+____________________________________________________________
+ OOPS!!! Please provide valid Task Number
+____________________________________________________________
+____________________________________________________________
+ OOPS!!! Please provide valid Task Number
+____________________________________________________________
+____________________________________________________________
+ OOPS!!! Please provide your description!!!!!!!!!
+____________________________________________________________
+____________________________________________________________
+ OOPS!!! Please provide the description and deadline of your task
+____________________________________________________________
+____________________________________________________________
+ OOPS!!! The description, start, and end time of an event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
@@ -52,7 +66,6 @@ Here are the tasks in your list:
  2. [D][ ] return book (by: Sunday)
  3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
  4. [D][ ] do homework (by: no idea :-p)
- 5. [ ] blah
 ____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!
