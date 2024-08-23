@@ -99,6 +99,10 @@ public class HypeBot {
                     list();
                     break;
                 case "todo":
+                    if (taskName.isEmpty()) {
+                        System.out.println(addBufferLineError("drop the name of the task, bro I gotta know!\n"));
+                        break;
+                    }
                     ToDo newTodo = new ToDo(taskName);
                     add(newTodo);
                     break;
