@@ -54,9 +54,7 @@ public class Bonnie {
                 }
             } else {
                 // Want to parse and add task into task list
-                // parseAndAddTask(input) has the added feature of returning the description of the task
-                // without any by/from/to information
-                String taskName = parseAndAddTask(input);
+                parseAndAddTask(input);
             }
         }
     }
