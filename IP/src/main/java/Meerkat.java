@@ -19,9 +19,30 @@ public class Meerkat {
         while (true) {
             String taskName = sc.nextLine();
             // splits string based on space
-            String[] strArray = taskName.split(" ");
-            // create new task with name
-            Task thisTask = new Task(taskName);
+            String[] strArray = taskName.split(" ", 2);
+            // create new specific task with appropriate params
+            if (strArray[0].equalsIgnoreCase("todo")) {
+                String name = strArray[1];
+                Task thisTask = new Todo(name);
+                listOfTasks.add(thisTask);
+                System.out.println(lines + "\nGot it. I've added this task:\n" + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+            } else if (strArray[0].equalsIgnoreCase("deadline")) {
+                String[] todoStringArray = taskName.split(" /by ");
+                String duedate = todoStringArray[1];
+                String name = todoStringArray[0].split(" ", 2)[1];
+                Task thisTask = new Deadline(name, duedate);
+                listOfTasks.add(thisTask);
+                System.out.println(lines + "\nGot it. I've added this task:\n" + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+            } else if (strArray[0].equalsIgnoreCase("event")) {
+                String[] eventStringArray = taskName.split(" /from ");
+                String[] duration = eventStringArray[1].split(" /to ");
+                String start = duration[0];
+                String end = duration[1];
+                String name = eventStringArray[0].split(" ", 2)[1];
+                Task thisTask = new Event(name, start, end);
+                listOfTasks.add(thisTask);
+                System.out.println(lines + "\nGot it. I've added this task:\n" + thisTask + "\nNow you have " + listOfTasks.size() + " tasks in the list\n" + lines);
+            }
 
             // to end program
             if (taskName.equalsIgnoreCase("bye")) {
@@ -31,6 +52,7 @@ public class Meerkat {
             // to display list of items
             } else if (taskName.equalsIgnoreCase("list")) {
                 System.out.println(lines);
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i < listOfTasks.size() + 1; i++) {
                     System.out.println(i + "." + listOfTasks.get(i-1).toString());
                 }
@@ -50,6 +72,7 @@ public class Meerkat {
                 } catch (NumberFormatException e) {
                     System.out.println(lines + "\nThis task does not exist! Unable to mark.\n" + lines);
                 }
+
             // mark item as not done
             } else if (strArray.length == 2 && strArray[0].equals("unmark")) {
                 try {
@@ -65,11 +88,6 @@ public class Meerkat {
                     System.out.println(lines + "\nThis task does not exist! Unable to unmark.\n" + lines);
                 }
             }
-            else {
-                listOfTasks.add(thisTask);
-                System.out.println(lines + "\nadded: " + taskName + "\n" + lines);
-            }
-
         }
         System.exit(0);
     }
