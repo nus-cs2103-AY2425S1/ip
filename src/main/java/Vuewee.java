@@ -43,7 +43,7 @@ public class Vuewee {
               throw new NoTaskParametersFoundException("mark", "mark <task number>");
             }
             try {
-              int taskNumber = Integer.parseInt(inputParts[1]) - 1;
+              int taskNumber = Integer.parseInt(inputParts[1]);
               taskList.markTask(taskNumber, true);
             } catch (NumberFormatException e) {
               System.out.println("Invalid task number: " + inputParts[1]);
