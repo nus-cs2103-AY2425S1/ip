@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // ToDos: tasks without any date/time attached to it e.g., visit new theme park
@@ -6,14 +7,14 @@ import java.util.Scanner;
 // e.g., (a) team project meeting 2/10/2019 2-4pm (b) orientation week 4/10/2019 to 11/10/2019
 public class Pebble {
     public static void main(String[] args) {
-        Task[] taskList = new Task[100]; // Array to store Task objects
-        int totalTasks = 0;
+        // Array to store Task objects
+        ArrayList<Task> taskList = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
 
         // Introduction text
         System.out.println("    ____________________________________________________________");
-        System.out.println("    Hello! I'm Duke");
+        System.out.println("    Hello! I'm Pebble");
         System.out.println("    What can I do for you?");
         System.out.println("    ____________________________________________________________");
 
@@ -32,8 +33,8 @@ public class Pebble {
                 if (input.equals("list")) {
                     System.out.println("    ____________________________________________________________");
                     System.out.println("    Here are the tasks in your list:");
-                    for (int i = 0; i < totalTasks; i++) {
-                        System.out.println("    " + (i + 1) + "." + taskList[i].toString());
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println("    " + (i + 1) + "." + taskList.get(i).toString());
                     }
                     System.out.println("    ____________________________________________________________");
                     continue;
@@ -42,11 +43,11 @@ public class Pebble {
                 // Mark task as done
                 if (input.startsWith("mark ")) {
                     int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-                    if (taskNumber >= 0 && taskNumber < totalTasks) {
-                        taskList[taskNumber].markAsDone();
+                    if (taskNumber >= 0 && taskNumber < taskList.size()) {
+                        taskList.get(taskNumber).markAsDone();
                         System.out.println("    ____________________________________________________________");
                         System.out.println("    Nice! I've marked this task as done:");
-                        System.out.println("      " + taskList[taskNumber].toString());
+                        System.out.println("      " + taskList.get(taskNumber).toString());
                         System.out.println("    ____________________________________________________________");
                     } else {
                         System.out.println("    ____________________________________________________________");
@@ -59,11 +60,11 @@ public class Pebble {
                 // Unmark task as not done
                 if (input.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-                    if (taskNumber >= 0 && taskNumber < totalTasks) {
-                        taskList[taskNumber].unmarkAsNotDone();
+                    if (taskNumber >= 0 && taskNumber < taskList.size()) {
+                        taskList.get(taskNumber).unmarkAsNotDone();
                         System.out.println("    ____________________________________________________________");
                         System.out.println("    OK, I've marked this task as not done yet:");
-                        System.out.println("      " + taskList[taskNumber].toString());
+                        System.out.println("      " + taskList.get(taskNumber).toString());
                         System.out.println("    ____________________________________________________________");
                     } else {
                         System.out.println("    ____________________________________________________________");
@@ -83,13 +84,12 @@ public class Pebble {
                     ToDo newTodo = new ToDo(description);
 
                     // Add to list
-                    taskList[totalTasks] = newTodo;
-                    totalTasks++;
+                    taskList.add(newTodo);
 
                     System.out.println("    ____________________________________________________________");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("      " + newTodo.toString());
-                    System.out.println("    Now you have " + totalTasks + " tasks in this list.");
+                    System.out.println("    Now you have " + taskList.size() + " tasks in this list.");
                     System.out.println("    ____________________________________________________________");
                     continue;
                 }
@@ -106,13 +106,12 @@ public class Pebble {
                     Deadline newDeadline = new Deadline(description, by);
 
                     // Add to list
-                    taskList[totalTasks] = newDeadline;
-                    totalTasks++;
+                    taskList.add(newDeadline);
 
                     System.out.println("    ____________________________________________________________");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("      " + newDeadline.toString());
-                    System.out.println("    Now you have " + totalTasks + " tasks in this list.");
+                    System.out.println("    Now you have " + taskList.size() + " tasks in this list.");
                     System.out.println("    ____________________________________________________________");
                     continue;
                 }
@@ -132,14 +131,32 @@ public class Pebble {
                     Event newEvent = new Event(description, from, to);
 
                     // Add to list
-                    taskList[totalTasks] = newEvent;
-                    totalTasks++;
+                    taskList.add(newEvent);
 
                     System.out.println("    ____________________________________________________________");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("      " + newEvent.toString());
-                    System.out.println("    Now you have " + totalTasks + " tasks in this list.");
+                    System.out.println("    Now you have " + taskList.size() + " tasks in this list.");
                     System.out.println("    ____________________________________________________________");
+                    continue;
+                }
+
+                // delete
+                if (input.startsWith("delete")) {
+                    // skip the first 7 letters and get number, minus one to be zero indexed
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskNumber >= 0 && taskNumber < taskList.size()) {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("    Noted. I've removed this task:");
+                        System.out.println("      " + taskList.get(taskNumber).toString());
+                        System.out.println("    Now you have " + (taskList.size() - 1)  + " tasks in this list.");
+                        System.out.println("    ____________________________________________________________");
+                        taskList.remove(taskNumber);
+                    } else {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("    Invalid task number.");
+                        System.out.println("    ____________________________________________________________");
+                    }
                     continue;
                 }
 
