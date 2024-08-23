@@ -9,7 +9,7 @@ public class Michael {
         System.out.println(border);
     }
 
-    private static ArrayList<String> texts = new ArrayList<>(); // store user inputs
+    private static ArrayList<Task> tasks = new ArrayList<>(); // store user inputs
 
     public static void main(String[] args) {
         Scanner user = new Scanner(System.in); // scanner for user input
@@ -24,15 +24,25 @@ public class Michael {
                 break;
             }
 
-            if (input.equals("list")) { // list user inputs thus far
+            if (input.length() > 4 && input.substring(0, 4).equals("mark")) {
+                int index = Integer.valueOf(input.substring(5));
+                Task target = tasks.get(index - 1);
+                target.doTask();
+                printer("Nice! I've marked this task as done:\n" + "  " + target);
+            } else if (input.length() > 6 && input.substring(0, 6).equals("unmark")) {
+                int index = Integer.valueOf(input.substring(7));
+                Task target = tasks.get(index - 1);
+                target.undoTask();
+                printer("OK, I've marked this task as not done yet:\n" + "  " + target);
+            } else if (input.equals("list")) { // list user inputs thus far
                 String list = "";
-                for (int i = 0; i < texts.size(); i++) {
-                    String elem = String.valueOf(i + 1) + ". " + texts.get(i) + "\n";
+                for (int i = 0; i < tasks.size(); i++) {
+                    String elem = String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
                     list = list.concat(elem);
                 }
                 printer(list.substring(0, list.length() - 1)); // substring to remove last line break
             } else {
-                texts.add(input);
+                tasks.add(new Task(input));
                 printer("added: " + input);
             }
         }
