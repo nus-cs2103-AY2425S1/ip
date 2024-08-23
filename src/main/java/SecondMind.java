@@ -14,7 +14,7 @@ public class SecondMind {
     private static void printErrorMessage(Exception e) {
         printLineSeparator();
         System.out.println(e);
-        printLineSeparator
+        printLineSeparator();
     }
 
     private static void greetUser() {
@@ -98,7 +98,15 @@ public class SecondMind {
         printLineSeparator();
     }
 
-    private static void markAsDone(int taskNumber) {
+    private static void markAsDone(int taskNumber) throws InvalidTaskNumberException {
+        if (taskNumber <= 0) {
+            printLineSeparator();
+            System.out.println("Warning! Task numbering starts from 1!");
+            printLineSeparator();
+            return;
+        } else if (taskNumber > taskCount) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
         Task curr = taskList[taskNumber-1];
         curr.markAsDone();
         printLineSeparator();
@@ -107,7 +115,15 @@ public class SecondMind {
         printLineSeparator();
     }
 
-    private static void markAsUndone(int taskNumber) {
+    private static void markAsUndone(int taskNumber) throws InvalidTaskNumberException {
+        if (taskNumber <= 0) {
+            printLineSeparator();
+            System.out.println("Warning! Task numbering starts from 1!");
+            printLineSeparator();
+            return;
+        } else if (taskNumber > taskCount) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
         Task curr = taskList[taskNumber-1];
         curr.markAsUndone();
         printLineSeparator();
@@ -122,9 +138,27 @@ public class SecondMind {
         if (command.equals("bye")) {
             return true;
         } else if (command.equals("mark")) {
-            markAsDone(Integer.parseInt(newInput[1]));
+            try {
+                markAsDone(Integer.parseInt(newInput[1]));
+            } catch (NumberFormatException e) {
+                printErrorMessage(new Exception("Warning! Invalid number format has been detected!"));
+            } catch (InvalidTaskNumberException e) {
+                printLineSeparator();
+                System.out.println(e);
+                System.out.println("There are " + taskCount + " tasks in your task list.");
+                printLineSeparator();
+            }
         } else if (command.equals("unmark")) {
-            markAsUndone(Integer.parseInt(newInput[1]));
+            try {
+                markAsUndone(Integer.parseInt(newInput[1]));
+            } catch (NumberFormatException e) {
+                printErrorMessage(new Exception("Warning! Invalid number format has been detected!"));
+            } catch (InvalidTaskNumberException e) {
+                printLineSeparator();
+                System.out.println(e);
+                System.out.println("There are " + taskCount + " tasks in your task list.");
+                printLineSeparator();
+            }
         } else if (command.equals("list")) {
             printTaskList();
         } else {
