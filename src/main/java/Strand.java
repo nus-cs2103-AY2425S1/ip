@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -9,6 +12,8 @@ public class Strand {
     private static final String horizontalLine = "～～～～～～～～～～～～～～～～～～～～～～～～><>";
 
     private static final ArrayList<Task> strandList = new ArrayList<>();
+
+    private static final String FILENAME = "./data/strand.txt";
     enum Commands {
         TODO,
         DEADLINE,
@@ -53,12 +58,37 @@ public class Strand {
      *
      * @return A string listing all tasks, each with its index and status icon.
      */
-    private static String listAll() {
+    private static String listAllTasks() {
         return(
                 strandList.stream()
                         .map((x) -> (strandList.indexOf(x) + 1) + "." + x.toString() + "\n")
                         .reduce((a, b) -> a + b).orElse("")
         );
+    }
+
+    private static void writeToFile() {
+        try {
+            File file = new File(FILENAME);
+            if(!file.exists()) {
+                File parentFile = file.getParentFile();
+                if(parentFile != null && !parentFile.exists()) {
+                    if(!parentFile.mkdir()) {
+                        throw new IOException("Error creating parent file");
+                    }
+                }
+                if(!file.createNewFile()) {
+                    throw new IOException("Error creating data file");
+                }
+
+            }
+            FileWriter fileWriter = new FileWriter(FILENAME);
+            String fileContents = listAllTasks();
+            fileWriter.write(fileContents);
+            fileWriter.close();
+        } catch (IOException e) {
+            output("An error has occurred while writing to file: " + e.getMessage());
+        }
+
     }
 
     /**
@@ -110,12 +140,19 @@ public class Strand {
         if (desc.isEmpty()) {
             throw new StrandDescNotFoundException("Description", type);
         }
-        switch (type.toLowerCase()) {
-            case "todo": {
+        String uppercaseInput = type.toUpperCase();
+        Commands command;
+        try {
+            command = Commands.valueOf(uppercaseInput);
+        } catch (IllegalArgumentException e) {
+            throw new StrandWrongCommandException();
+        }
+        switch (command) {
+            case TODO: {
                 strandList.add(new Todo(desc));
                 break;
             }
-            case "deadline": {
+            case DEADLINE: {
                 if (!desc.contains(" /by ")) {
                     throw new StrandDescNotFoundException("Deadline", type);
                 }
@@ -124,7 +161,7 @@ public class Strand {
                 strandList.add(new Deadline(description, deadline));
                 break;
             }
-            case "event": {
+            case EVENT: {
                 if (!desc.contains(" /from ")) {
                     throw new StrandDescNotFoundException("Start time", type);
                 }
@@ -194,14 +231,17 @@ public class Strand {
         switch (command) {
             case TODO, DEADLINE, EVENT: {
                 addTask(input);
+                writeToFile();
                 break;
             }
             case DELETE: {
                 deleteTask(input);
+                writeToFile();
                 break;
             }
             case MARK, UNMARK : {
                 mark(input);
+                writeToFile();
                 break;
             }
             case BYE: {
@@ -210,7 +250,7 @@ public class Strand {
                 break;
             }
             case LIST : {
-                output(listAll());
+                output(listAllTasks());
                 break;
             }
             default: {
