@@ -24,9 +24,8 @@ public class Task {
         dateStr = dateStr.strip();
         try {
             d = LocalDate.parse(dateStr);
-            System.out.println(LocalDate.now());
         } catch (DateTimeParseException e) {
-            System.out.println(dateStr);
+            System.out.println(e.getMessage());
             throw new CheeseException("Wrong format for date. YYYY-MM-DD");
         }
         return d;

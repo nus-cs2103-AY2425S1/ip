@@ -31,7 +31,7 @@ public class Event extends Task{
         if (words.length < 2) throw new CheeseException("Event needs /from .... /to");
         String[] dates = words[1].split("/to");
         if (dates.length < 2) throw new CheeseException("Event needs also needs a /to");
-        return new Event(words[0], parseDate(dates[0].strip()), parseDate(dates[1].strip()));
+        return new Event(words[0].strip(), parseDate(dates[0].strip()), parseDate(dates[1].strip()));
     }
 
     public long daysLeft() {
@@ -42,7 +42,7 @@ public class Event extends Task{
     public String toString() {
         return "[E]" +
                super.toString() +
-               " in " + daysLeft() + " days." +
+               " in " + daysLeft() + " days " +
                "(" +
                    startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "-" +
                    endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
