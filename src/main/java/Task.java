@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private boolean isDone = false;
     private final String name;
 
@@ -14,10 +14,13 @@ public class Task {
         this.isDone = false;
     }
 
+    abstract char getTaskType();
+
     @Override
     public String toString() {
         return String.format(
-            "[%s] %s",
+            "[%c][%s] %s",
+            getTaskType(),
             this.isDone ? "X" : " ",
             this.name
         );
