@@ -51,6 +51,19 @@ public class TaskList {
         System.out.println("You have " + tasks.size() + " tasks in the list.");
     }
 
-
-
+    /**
+     * Finds tasks that contain the given keyword and adds it to an ArrayList.
+     *
+     * @param keyword The keyword to search for.
+     * @return An ArrayList of tasks that contain the keyword.
+     */
+    public ArrayList<Task> findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.containsKeyword(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

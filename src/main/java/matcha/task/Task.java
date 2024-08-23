@@ -43,6 +43,17 @@ public class Task {
     public String toSaveString() {
         return (this.isDone ? "1" : "0") + " | " + this.description;
     }
+
+    /**
+     * Checks if keyword is present in the task description.
+     *
+     * @param keyword The keyword to search for.
+     * @return Returns true if keyword is found. Otherwise, returns false.
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return this.getStatusIcon() + this.description;
