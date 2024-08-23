@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Matcha {
@@ -67,6 +69,8 @@ public class Matcha {
                 }
             } catch (DukeException e) {
                 System.out.println(e);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format! Please format the Date as 'YYYY-MM-DD' and Time as 'HHMM'");
             } finally {
                 System.out.println(divider);
             }
@@ -111,8 +115,8 @@ public class Matcha {
         String deadlineDesc = deadlineInfo[0].strip();
         String by = deadlineInfo[1].strip();
 
+        Deadline deadline = new Deadline(deadlineDesc, LocalDateTime.parse(by, Task.getInputFormat()));
         System.out.println("Alright, I have added this Deadline:");
-        Deadline deadline = new Deadline(deadlineDesc, by);
         tasks.add(deadline);
         Matcha.printTask(deadline, tasks);
     }
@@ -130,8 +134,10 @@ public class Matcha {
         String from = inputWords[1].split(" /from ")[1].split(" /to ")[0];
         String to = inputWords[1].split(" /to ")[1];
 
+
+        Event event = new Event(eventDesc, LocalDateTime.parse(from, Task.getInputFormat()),
+                LocalDateTime.parse(to, Task.getInputFormat()));
         System.out.println("Alright, I have added this Event:");
-        Event event = new Event(eventDesc, from, to);
         tasks.add(event);
         Matcha.printTask(event, tasks);
     }
