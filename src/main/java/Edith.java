@@ -32,6 +32,21 @@ public class Edith {
         System.out.println(indentation + "added: " + task + lineBreak);
     }
 
+    public void list() {
+        String emptyListMessage = "Great news, you have no outstanding task! Have a break!";
+        String filledListMessage = "Here are the tasks in your list:";
+
+        if (listOfTasks.isEmpty()) {
+            System.out.println(indentation + emptyListMessage + lineBreak);
+        } else {
+            System.out.println(indentation + filledListMessage);
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                System.out.println(indentation + (i+1) + ") " + listOfTasks.get(i));
+            }
+            System.out.println(lineBreak);
+        }
+    }
+
     public static void main(String[] args) {
         Edith edith = new Edith();
         edith.greet();
@@ -46,9 +61,11 @@ public class Edith {
             if (userInput.equalsIgnoreCase("bye")) {
                 edith.exit();
                 break;
+            } else if (userInput.equalsIgnoreCase("list")) {
+                edith.list();
+            } else {
+                edith.add(userInput);
             }
-
-            edith.add(userInput);
         }
 
         scanner.close();
