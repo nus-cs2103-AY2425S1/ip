@@ -19,8 +19,13 @@ public class Grok {
     private static String padMessage(String msg) {
         return indent(padHorizontalLines(msg));
     }
+
+    private static String addTaskMessage(Task t, ArrayList<Task> tasks) {
+        return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
+    }
+
     public static void main(String[] args) {
-        ArrayList<Task> commands = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
@@ -31,21 +36,22 @@ public class Grok {
             } else if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
-                if (commands.isEmpty()) {
+                if (tasks.isEmpty()) {
                     System.out.println(padMessage("You have yet to enter your items."));
                     continue;
                 }
 
                 StringBuilder listOfCommands = new StringBuilder();
-                for (int i = 0; i < commands.size(); i++) {
-                    listOfCommands.append(i + 1);
-                    listOfCommands.append(". ");
-                    listOfCommands.append(commands.get(i));
-                    listOfCommands.append("\n");
+                for (int i = 0; i < tasks.size(); i++) {
+                    listOfCommands
+                            .append(i + 1)
+                            .append(". ")
+                            .append(tasks.get(i))
+                            .append("\n");
                 }
 
                 System.out.println(padMessage(
-                        listOfCommands.substring(0, Math.max(0, listOfCommands.length() - 2))
+                        listOfCommands.substring(0, Math.max(0, listOfCommands.length() - 1))
                 ));
             } else if (userInput.contains("unmark")) {
                 if (userInput.length() < 8) {
@@ -61,12 +67,12 @@ public class Grok {
                     continue;
                 }
 
-                if (commands.isEmpty() || taskIndex <= 0 || taskIndex > commands.size()) {
+                if (tasks.isEmpty() || taskIndex <= 0 || taskIndex > tasks.size()) {
                     System.out.println(padMessage("Please enter a valid task index to unmark."));
                     continue;
                 }
 
-                Task task = commands.get(taskIndex - 1);
+                Task task = tasks.get(taskIndex - 1);
                 task.markUndone();
                 System.out.println(padMessage("Ok, I've marked this task as not done yet:\n  " + task));
             } else if (userInput.contains("mark")) {
@@ -83,17 +89,41 @@ public class Grok {
                     continue;
                 }
 
-                if (commands.isEmpty() || taskIndex <= 0 || taskIndex > commands.size()) {
+                if (tasks.isEmpty() || taskIndex <= 0 || taskIndex > tasks.size()) {
                     System.out.println(padMessage("Please enter a valid task index to mark."));
                     continue;
                 }
 
-                Task task = commands.get(taskIndex - 1);
+                Task task = tasks.get(taskIndex - 1);
                 task.markDone();
                 System.out.println(padMessage("Nice! I've marked this task as done:\n  " + task));
+            } else if (userInput.contains("todo")) {
+                Task newTask = new Todo(userInput.substring(5));
+
+                tasks.add(newTask);
+                System.out.println(padMessage(addTaskMessage(newTask, tasks)));
+            } else if (userInput.contains("deadline")) {
+                String[] components = userInput.split("/by");
+                String description = components[0].substring(9);
+                String due = components[1];
+
+                Task newTask = new Deadline(description, due);
+
+                tasks.add(newTask);
+                System.out.println(padMessage(addTaskMessage(newTask, tasks)));
+            } else if (userInput.contains("event")) {
+                String[] components = userInput.split("/from");
+                String[] subcomponents = components[1].split("/to");
+                String description = components[0];
+                String from = subcomponents[0];
+                String to = subcomponents[1];
+
+                Task newTask = new Event(description, from, to);
+
+                tasks.add(newTask);
+                System.out.println(padMessage(addTaskMessage(newTask, tasks)));
             } else {
-                System.out.println(padMessage("added: ".concat(userInput)));
-                commands.add(new Task(userInput));
+                System.out.println(padMessage("Sorry, I don't recognize your input :(\n"));
             }
         }
 
