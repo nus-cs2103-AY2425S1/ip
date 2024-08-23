@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Muller {
@@ -6,12 +7,20 @@ public class Muller {
         System.out.println(logo + "\nHello! I'm Muller\nWhat can I do for you?\n"
                                 + logo);
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> list = new ArrayList<>();
         while(true){
             String in = sc.nextLine();
             if(in.equals("bye")){
                 break;
+            } else if (in.equals("list")) {
+                System.out.println(logo);
+                for(int i = 1; i <= list.size(); i++){
+                    System.out.println(i + ": " + list.get(i-1));
+                }
+                System.out.println(logo);
             } else {
-                System.out.println(logo + "\n" + in + "\n" + logo);
+                System.out.println(logo + "\n" + "added: " + in+ "\n" + logo);
+                list.add(in);
             }
         }
 
