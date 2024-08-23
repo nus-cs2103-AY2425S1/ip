@@ -7,6 +7,12 @@ public class Shnoop {
     private ArrayList<Task> tasks;
     private int arrPointer;
     private String[] quotes;
+    public enum TaskTypes {
+        TODO,
+        EVENT,
+        DEADLINE,
+        UNDEFINED
+    }
     public Shnoop() {
     }
 
@@ -165,16 +171,16 @@ public class Shnoop {
         return "task_not_removed";
     }
 
-    public String getTaskType(String str) {
+    public TaskTypes getTaskType(String str) {
         int length = str.length();
         if (startsWithTodo(str, length)) {
-            return "todo_task";
+            return TaskTypes.TODO;
         } else if (startsWithEvent(str, length)) {
-            return "event_task";
+            return TaskTypes.EVENT;
         } else if (startsWithDeadline(str, length)) {
-            return "deadline_task";
+            return TaskTypes.DEADLINE;
         } else {
-            return "undefined_task";
+            return TaskTypes.UNDEFINED;
         }
     }
 
@@ -185,15 +191,15 @@ public class Shnoop {
      * @return String excluding task type.
      */
     public String getTaskDetails(String str) {
-        String taskType = getTaskType(str);
+        TaskTypes taskType = getTaskType(str);
         int length = str.length();
 
         switch (taskType) {
-        case ("todo_task"):
+        case TODO:
             return str.substring(5, length);
-        case ("event_task"):
+        case EVENT:
             return str.substring(6, length);
-        case ("deadline_task"):
+        case DEADLINE:
             return str.substring(9, length);
         default:
             return str;
@@ -261,19 +267,19 @@ public class Shnoop {
             default:
                 String x = getRandomQuote(arrPointer % 3);
 
-                String taskType = getTaskType(input);
+                TaskTypes taskType = getTaskType(input);
                 String taskDesc = getTaskDetails(input);
                 Task newTask;
 
                 try {
                     switch (taskType) {
-                    case ("todo_task"):
+                    case TODO:
                         newTask = new Todo(taskDesc);
                         break;
-                    case ("event_task"):
+                    case EVENT:
                         newTask = new Event(taskDesc);
                         break;
-                    case ("deadline_task"):
+                    case DEADLINE:
                         newTask = new Deadline(taskDesc);
                         break;
                     default:
