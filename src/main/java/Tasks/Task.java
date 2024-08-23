@@ -1,4 +1,6 @@
-abstract class Task {
+package Tasks;
+
+public abstract class Task {
     private final String description;
     private boolean isDone;
 
@@ -7,23 +9,23 @@ abstract class Task {
         this.isDone = false;
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
-    protected void markAsDone() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
-    protected void markAsUndone() {
+    public void markAsUndone() {
         this.isDone = false;
     }
 
-    protected String getStatusIcon() {
+    public String getStatusIcon() {
         return this.isDone ? "X" : " ";
     };
 
-    abstract protected String getTaskType();
+    abstract public String getTaskType();
 
-    abstract protected String getExtraInfo();
+    abstract public String getExtraInfo();
 }

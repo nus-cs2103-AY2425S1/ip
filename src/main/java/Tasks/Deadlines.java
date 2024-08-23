@@ -1,16 +1,20 @@
+package Tasks;
+
+import Tasks.Task;
+
 public class Deadlines extends Task {
     private String dueDate;
-    protected Deadlines(String description, String dueDate) {
+    public Deadlines(String description, String dueDate) {
         super(description);
         this.dueDate = dueDate;
     }
 
     @Override
-    protected String getTaskType() {
+    public String getTaskType() {
         return "D";
     }
 
-    protected String getExtraInfo() {
+    public String getExtraInfo() {
         return "(by: " + this.dueDate + ")";
     }
 }

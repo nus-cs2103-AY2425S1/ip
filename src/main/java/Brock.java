@@ -1,6 +1,17 @@
+import Exceptions.BrockException;
+
+import Tasks.Deadlines;
+import Tasks.Events;
+import Tasks.Task;
+import Tasks.ToDos;
+
 import java.util.Scanner;
 
 public class Brock {
+    enum Action {
+        MARK,
+        UNMARK
+    }
     private static final String horizontalLine = "________________________________________________\n";
     private static final Task[] tasks = new Task[100];
     private static int tasksIndex = 0;
@@ -17,8 +28,58 @@ public class Brock {
         return Character.getNumericValue(targetItemNumber) - 1;
     }
 
+    private static boolean isInteger(String commandWord) {
+        try {
+            Integer.parseInt(commandWord);
+        } catch(NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private static void validateStatus(String command, Action action) throws BrockException {
+        String actionName = action == Action.MARK
+                ? "Mark"
+                : "Unmark";
+        String[] commandWords = command.split(" ");
+        int commandLength = commandWords.length;
+
+        if (commandLength == 1) {
+            throw new BrockException("Missing task number!\n");
+        }
+        if (commandLength > 2 || !isInteger(commandWords[1])) {
+            throw new BrockException(actionName
+                    + " command is in the form "
+                    + actionName.toLowerCase()
+                    + " <task-number>!\n");
+        }
+
+        int taskNumber = Integer.parseInt(commandWords[1]);
+        int totalTasks = numTasks();
+        if (taskNumber > totalTasks || taskNumber < 1) {
+            throw new BrockException("Task number does not exist!\n");
+        }
+    }
+
+    private static void handleStatus(String command, Action action) throws BrockException {
+        validateStatus(command, action);
+
+        Task targetTask = Brock.tasks[getTargetIndex(command)];
+        if (action == Action.MARK) {
+            targetTask.markAsDone();
+            displayResponse("Nice! I've marked this task as done:\n"
+                    + "  "
+                    + getDetails(targetTask));
+        } else {
+            targetTask.markAsUndone();
+            displayResponse("OK, I've marked this task as not done yet:\n"
+                    + "  "
+                    + getDetails(targetTask));
+        }
+    }
+
     // Helper function to create task and return the created task
-    private static Task createTask(String command) {
+    private static Task createTask(String command) throws BrockException {
         String[] commandWords = command.split(" ");
         String firstWord = commandWords[0];
         int commandLength = commandWords.length;
@@ -51,11 +112,15 @@ public class Brock {
                     dueDateActive = true;
                 }
             }
-            // Need to trim away the trailing whitespace
+
+            if (dueDate.isEmpty()) {
+                throw new BrockException("Missing due date! Remember it is specified after /by!\n");
+            }
+            // Trim away the trailing whitespace
             task = new Deadlines(description.toString(),
                     dueDate.toString().trim());
 
-        } else {
+        } else if (firstWord.equals("event")){
             StringBuilder startDate = new StringBuilder();
             StringBuilder endDate = new StringBuilder();
             boolean startDateActive = false;
@@ -86,10 +151,24 @@ public class Brock {
                 description.append(commandWords[i])
                         .append(" ");
             }
-            // Need to trim away the trailing whitespace
+
+            if (startDate.isEmpty()) {
+                throw new BrockException("Missing start date! Remember it is specified after /from!\n");
+            }
+            if (endDate.isEmpty()) {
+                throw new BrockException("Missing end date! Remember it is specified after /to!\n");
+            }
+            // Trim away the trailing whitespace
             task = new Events(description.toString(),
                     startDate.toString(),
                     endDate.toString().trim());
+
+        } else {
+            throw new BrockException("Invalid command!\n");
+        }
+
+        if (description.isEmpty()) {
+            throw new BrockException("Description is missing!\n");
         }
         return task;
     }
@@ -129,7 +208,11 @@ public class Brock {
 
         // Main loop
         while (true) {
-            String command = scanner.nextLine();
+            // Trim away leading & trailing whitespaces
+            // Replace multiple whitespaces with a single one
+            String command = scanner.nextLine()
+                    .trim()
+                    .replaceAll(" +", " ");
             if (command.equals("bye")) {
                 displayResponse("Bye. Hope to see you again soon!\n");
                 break;
@@ -153,33 +236,38 @@ public class Brock {
                         + tasksString);
 
             } else if (command.startsWith("mark")) {
-                Task targetTask = Brock.tasks[getTargetIndex(command)];
-                targetTask.markAsDone();
-                displayResponse("Nice! I've marked this task as done:\n"
-                        + "  "
-                        + getDetails(targetTask));
+                try {
+                    handleStatus(command, Action.MARK);
+                } catch (BrockException e) {
+                    displayResponse(e.getMessage());
+                }
 
             } else if (command.startsWith("unmark")) {
-                Task targetTask = Brock.tasks[getTargetIndex(command)];
-                targetTask.markAsUndone();
-                displayResponse("OK, I've marked this task as not done yet:\n"
-                        + "  "
-                        + getDetails(targetTask));
+                try {
+                    handleStatus(command, Action.UNMARK);
+                } catch (BrockException e) {
+                    displayResponse(e.getMessage());
+                }
 
             } else {
-                Task task = createTask(command);
-                Brock.tasks[tasksIndex] = task;
-                tasksIndex++;
+                Task task;
+                try {
+                    task = createTask(command);
+                    Brock.tasks[tasksIndex] = task;
+                    tasksIndex++;
 
-                int totalTasks = numTasks();
-                displayResponse("Got it. I've added this task:\n"
-                        + "  "
-                        + getDetails(task)
-                        + "Now you have "
-                        + totalTasks
-                        + (totalTasks == 1
-                        ? " task in the list\n"
-                        : " tasks in the list\n"));
+                    int totalTasks = numTasks();
+                    displayResponse("Got it. I've added this task:\n"
+                            + "  "
+                            + getDetails(task)
+                            + "Now you have "
+                            + totalTasks
+                            + (totalTasks == 1
+                            ? " task in the list\n"
+                            : " tasks in the list\n"));
+                } catch (BrockException e) {
+                    displayResponse(e.getMessage());
+                }
             }
         }
     }
