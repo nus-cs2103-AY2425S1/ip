@@ -82,7 +82,7 @@ public class Maga {
             // using list command
             input = input.toLowerCase();
             if(input.equals("list")) {
-                System.out.println("Oh dear here are all the tasks in the list, so many, yuuge\n");
+                System.out.println("Take a look, all the tasks you have here, so many, yuuuuuuge\n");
                 for (int i = 0; i < count; i++) {
                     int temp = i + 1;
                     System.out.println(temp + ". " + arr[i].getTaskType() + arr[i].getStatusIcon()
@@ -95,9 +95,15 @@ public class Maga {
 
             // marking things as done and undone
             if (input.startsWith("mark ")) {
-                System.out.println("Ya boi Donald took the liberty to mark this done:\n");
+                System.out.println("Ya boi Donald took the LIBERTY to mark this done:\n");
                 char[] charArray = input.toCharArray();
                 Task temp = arr[Character.getNumericValue(charArray[charArray.length - 1]) - 1];
+                if (temp == null) {
+                    System.out.println("You're trying to mark a task that DOESN'T EXIST, like bad people on JAN 6. " +
+                            "Some of the kindest and most lovely souls I've met");
+                    input = scanner.nextLine();
+                    continue;
+                }
                 temp.markAsDone();
                 System.out.println(temp.getTaskType() + temp.getStatusIcon() + temp.getDescription());
                 input = scanner.nextLine();
@@ -105,9 +111,15 @@ public class Maga {
             }
 
             if (input.toLowerCase().startsWith("unmark ")) {
-                System.out.println("Here's the task promised but not completed, just like the dems\n");
+                System.out.println("Here's the task promised but not completed, just like the DEMS\n");
                 char[] charArray = input.toCharArray();
                 Task temp = arr[Character.getNumericValue(charArray[charArray.length - 1]) - 1];
+                if (temp == null) {
+                    System.out.println("Stop trying to unmark tasks like ILLEGAL ALIENS after" +
+                            " I'm president: NOT HERE!");
+                    input = scanner.nextLine();
+                    continue;
+                }
                 temp.markAsUndone();
                 System.out.println(temp.getStatusIcon() + temp.getDescription());
                 input = scanner.nextLine();
@@ -127,7 +139,13 @@ public class Maga {
                 String descrip = input.substring(9).trim();
                 String[] descripArray = descrip.split("/");
                 tempTask = new DeadlineTask(descripArray[0], descripArray[1], descripArray[2]);
+            } else { // if it's not mark, list, or creating a task
+                System.out.println("HEY! SLEEPY JOE and CROOKED KAMALA " +
+                        "might be demented but you're not! Specify a command!");
+                input = scanner.nextLine();
+                continue;
             }
+
 
             arr[count] = tempTask;
             count++;
@@ -136,7 +154,7 @@ public class Maga {
             input = scanner.nextLine();
         }
 
-        System.out.println("Yeah goodbye. Remember a vote for me is a vote for America!");
+        System.out.println("Yeah I'ma see you in my next RALLY! A vote for me is a vote for America!");
     }
 
 }
