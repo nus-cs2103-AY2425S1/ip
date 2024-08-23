@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Storage {
-    private ArrayList<Task> list = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public void add(String str) throws MelException {
         Task task;
@@ -21,9 +21,9 @@ public class Storage {
             System.out.println(e);
             return;
         }
-        list.add(task);
+        tasks.add(task);
         System.out.println("  " + task);
-        System.out.println("Mel counts " + list.size()
+        System.out.println("Mel counts " + tasks.size()
                 + " stuffs memorized XD");
     }
 
@@ -34,14 +34,14 @@ public class Storage {
         try {
             if (Objects.equals(m, "mark")) {
                 System.out.println("Mel sees you completed your task!");
-                list.get(idx).mark();
+                tasks.get(idx).mark();
             } else {
                 System.out.println("Mel wonders how you undid your task...");
-                list.get(idx).unmark();
+                tasks.get(idx).unmark();
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Mel's brain explodes in anger?! " +
-                    "Mel recalls only " + list.size() + " things");
+                    "Mel recalls only " + tasks.size() + " things");
         }
     }
 
@@ -50,23 +50,23 @@ public class Storage {
         int idx = Integer.parseInt(temp[1]) - 1;
         try {
             System.out.println("Mel helps you forget:\n"
-                    + "  " + list.get(idx));
-            list.remove(idx);
-            System.out.println("Mel counts " + list.size()
+                    + "  " + tasks.get(idx));
+            tasks.remove(idx);
+            System.out.println("Mel counts " + tasks.size()
                     + " stuffs memorized XD");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Mel's brain explodes in anger?! " +
-                    "Mel recalls only " + list.size() + " things");
+                    "Mel recalls only " + tasks.size() + " things");
         }
     }
 
     public void printAll() {
-        if (list.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.println("Mel remembers... nothing?!");
         } else {
             System.out.println("Mel remembers all your stuff~");
             int i = 0;
-            for (Task t : list) {
+            for (Task t : tasks) {
                 System.out.println(++i + "." + t);
             }
         }

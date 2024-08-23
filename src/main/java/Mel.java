@@ -2,17 +2,17 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Mel {
-    public static void main(String[] args) {
-        final String logo = " __    __        __  \n"
-                          + "|   \\/   | ____ |  | \n"
-                          + "| |\\  /| |/ __ \\|  | \n"
-                          + "| | \\/ | |  ___/|  | \n"
-                          + "|_|    |_|\\____||__| ";
-        final String line = "____________________________________";
+    private static final String logo = " __    __        __  \n"
+            + "|   \\/   | ____ |  | \n"
+            + "| |\\  /| |/ __ \\|  | \n"
+            + "| | \\/ | |  ___/|  | \n"
+            + "|_|    |_|\\____||__| ";
+    private static final String line = "____________________________________";
 
+    public static void main(String[] args) {
         System.out.println(logo + "\n" + line + "\n"
-                            + "Hihi! Mel here (:\n"
-                            + "What you need?\n" + line);
+                + "Hihi! Mel here (:\n"
+                + "What you need?\n" + line);
 
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
