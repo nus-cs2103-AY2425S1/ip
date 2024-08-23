@@ -16,7 +16,7 @@ public class Toothless {
             "  |_|\\___/ \\___/ \\__|_| |_|_|\\___||___/___/\n";
     private String divider = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
     private Scanner sc = new Scanner(System.in);
-    private ArrayList<String> list;
+    private ArrayList<Task> list;
 
     /**
      * Constructor for Toothless.
@@ -41,7 +41,7 @@ public class Toothless {
      * @param input The task to be added.
      */
     public void addTask(String input) {
-        list.add(input);
+        list.add(new Task(input));
         System.out.println("Toothless: \n Your task [" + input + "] added to the quest board!\n\n" + divider);
     }
 
@@ -53,11 +53,36 @@ public class Toothless {
                 "|-------------Quest Board -----------------|\n");
 
         for(int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i));
+            System.out.println(i + 1 + ". " + list.get(i).toString());
         }
 
         System.out.println("\n|-----------------------------------------|\n\n" + divider);
     }
+
+    /**
+     * Marks a task as done.
+     * @param index The index of the task to be marked as done.
+     */
+    public void markDone(int index) {
+        int fixedIndex = index - 1;
+        Task currentTask = list.get(fixedIndex);
+        currentTask.markAsDone();
+        System.out.println("Toothless: \nGood job! You had completed this quest!:\n" +
+              currentTask.toString() + "\n\n" + divider);
+    }
+
+    /**
+     * Mark a task as undone.
+     * @param index The index of the task to be marked as undone.
+     */
+    public void markUndone(int index) {
+        int fixedIndex = index - 1;
+        Task currentTask = list.get(fixedIndex);
+        currentTask.markAsUndone();
+        System.out.println("Toothless: \nOops! Quest is back in play! :\n" +
+                currentTask.toString() + "\n\n" + divider);
+    }
+
     /**
      * Begins the chat application.
      * The user can add tasks to the task list.
@@ -78,6 +103,14 @@ public class Toothless {
                 break;
             } else if (userInput.equals("list")) {
                 printTask();
+            } else if (userInput.startsWith("mark")) {
+                String[] splitNum = userInput.split(" ");
+                int index = Integer.parseInt(splitNum[1]);
+                markDone(index);
+            } else if (userInput.startsWith("unmark")) {
+                String[] splitNum = userInput.split(" ");
+                int index = Integer.parseInt(splitNum[1]);
+                markUndone(index);
             } else {
                 addTask(userInput);
             }
