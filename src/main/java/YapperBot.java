@@ -100,7 +100,7 @@ public class YapperBot {
                         }
                         String[] eventInput = userInput.substring(6).split(" /from | /to ");
                         if (eventInput.length < 3 || eventInput[0].trim().isEmpty()) {
-                            throw new YapperBotException("Umm, you need to provide a description with a time frame.\nEg. deadline play bball /from Monday 2pm /to Monday 4pm");
+                            throw new YapperBotException("Umm, you need to provide a description with a time frame.\nEg. event play bball /from Monday 2pm /to Monday 4pm");
                         }
                         String eventDescription = eventInput[0];
                         String from = eventInput[1];
