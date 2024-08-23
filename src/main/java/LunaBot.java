@@ -1,11 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LunaBot {
 
     // Array of strings to store list of tasks
-    private final static Task[] list =  new Task[100];
-    // Count to keep track of number of tasks
-    private static int count = 0;
+    private final static ArrayList<Task> taskList =  new ArrayList<>();
+
     public static void main(String[] args) {
 
         // Greet the user
@@ -27,17 +27,26 @@ public class LunaBot {
                     System.out.println(" Bye. Hope to see you again soon!");
                     System.out.println("___________________________________________________________________");
                     break;
-                } else if (input.equals("list")) {
+                }
+                else if (input.equals("list")) {
                     printTaskList();
-                } else if (input.startsWith("mark ")) {
+                }
+                else if (input.startsWith("mark ")) {
                     markTask(input);
-                } else if (input.startsWith("unmark ")) {
+                }
+                else if (input.startsWith("unmark ")) {
                     unmarkTask(input);
-                } else if (input.startsWith("todo ")) {
+                }
+                else if (input.startsWith("delete ")) {
+                    deleteTask(input);
+                }
+                else if (input.startsWith("todo ")) {
                     addTodo(input);
-                } else if (input.startsWith("deadline ")) {
+                }
+                else if (input.startsWith("deadline ")) {
                     addDeadline(input);
-                } else if (input.startsWith("event ")) {
+                }
+                else if (input.startsWith("event ")) {
                     addEvent(input);
                 }
                 else {
@@ -56,13 +65,13 @@ public class LunaBot {
 
     private static void printTaskList() {
         System.out.println("___________________________________________________________________");
-        if (count == 0) {
+        if (taskList.isEmpty()) {
             System.out.println("Your task list is currently empty");
         }
         else {
             System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < count; i++) {
-                System.out.println(" " + (i + 1) + ". " + list[i]);
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println(" " + (i + 1) + ". " + taskList.get(i));
             }
         }
         System.out.println("___________________________________________________________________");
@@ -78,13 +87,13 @@ public class LunaBot {
             }
             int taskNumber = Integer.parseInt(taskNumString) - 1;
             // Checks if task number provided is valid and within range
-            if (taskNumber < 0 || taskNumber >= count) {
+            if (taskNumber < 0 || taskNumber >= taskList.size()) {
                 throw new LunaBotException("Invalid task number provided");
             }
-            list[taskNumber].markAsDone();
+            taskList.get(taskNumber).markAsDone();
             System.out.println("___________________________________________________________________");
             System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + list[taskNumber]);
+            System.out.println("   " + taskList.get(taskNumber));
             System.out.println("___________________________________________________________________");
         }
         // Checks if user inputs and int
@@ -103,18 +112,37 @@ public class LunaBot {
             }
             int taskNumber = Integer.parseInt(taskNumString) - 1;
             // Checks if task number provided is valid and within range
-            if (taskNumber < 0 || taskNumber >= count) {
+            if (taskNumber < 0 || taskNumber >= taskList.size()) {
                 throw new LunaBotException("Invalid task number provided");
             }
-            list[taskNumber].unmarkAsDone();
+            taskList.get(taskNumber).unmarkAsDone();
             System.out.println("___________________________________________________________________");
             System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + list[taskNumber]);
+            System.out.println("   " + taskList.get(taskNumber));
             System.out.println("___________________________________________________________________");
         }
         // Checks if user inputs and int
         catch (NumberFormatException e) {
             throw new LunaBotException("Invalid task number format");
+        }
+    }
+
+    private static void deleteTask(String input) throws LunaBotException {
+        try {
+            int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+            if (taskNumber < 0 || taskNumber >= taskList.size()) {
+                throw new LunaBotException("Invalid task number provided");
+            }
+            Task deleted = taskList.remove(taskNumber);
+            System.out.println("____________________________________________________________");
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("   " + deleted);
+            System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        }
+        catch (NumberFormatException e) {
+            throw new LunaBotException("Invalid task number format");
+
         }
     }
 
@@ -125,12 +153,11 @@ public class LunaBot {
         if (description.isEmpty()) {
             throw new LunaBotException("Description of task cannot be empty");
         }
-        list[count] = new ToDo(description);
-        count++;
+        taskList.add(new ToDo(description));
         System.out.println("___________________________________________________________________");
         System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + list[count - 1]);
-        System.out.println(" Now you have " + count + " tasks in the list");
+        System.out.println("   " + taskList.get(taskList.size() - 1));
+        System.out.println(" Now you have " + taskList.size() + " tasks in the list");
         System.out.println("___________________________________________________________________");
     }
 
@@ -147,12 +174,11 @@ public class LunaBot {
         }
         String description = arr[0];
         String by = arr[1];
-        list[count] = new Deadline(description, by);
-        count++;
+        taskList.add(new Deadline(description, by));
         System.out.println("___________________________________________________________________");
         System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + list[count - 1]);
-        System.out.println(" Now you have " + count + " tasks in the list");
+        System.out.println("   " + taskList.get(taskList.size() - 1));
+        System.out.println(" Now you have " + taskList.size() + " tasks in the list");
         System.out.println("___________________________________________________________________");
     }
 
@@ -173,12 +199,11 @@ public class LunaBot {
         String description = arr[0];
         String from = arr[1];
         String to = arr[2];
-        list[count] = new Event(description, from, to);
-        count++;
+        taskList.add(new Event(description, from, to));
         System.out.println("___________________________________________________________________");
         System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + list[count - 1]);
-        System.out.println(" Now you have " + count + " tasks in the list");
+        System.out.println("   " + taskList.get(taskList.size() - 1));
+        System.out.println(" Now you have " + taskList.size() + " tasks in the list");
         System.out.println("___________________________________________________________________");
     }
 }
