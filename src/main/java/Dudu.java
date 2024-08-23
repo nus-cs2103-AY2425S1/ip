@@ -70,13 +70,16 @@ public class Dudu {
                     System.out.println(output);
                 } else if (input.matches("^event.*")) {
                     String[] details = getDetails(input, "event").split("/from");
-                    if (details.length <= 1 || details[0].trim().isEmpty()) {
+                    if (details[0].trim().isEmpty()) {
                         throw new MissingDescriptionException("Missing description");
                     }
                     String description = details[0];
+                    if (details.length == 1) {
+                        throw new MissingDateTimeException("Missing by time");
+                    }
                     String[] date = details[1].split(" /to ");
                     if (date.length <= 1 || date[0].trim().isEmpty() || date[1].trim().isEmpty()) {
-                        throw new MissingDateTimeException("Missing by or from time");
+                        throw new MissingDateTimeException("Missing to or from time");
                     }
                     Event task = new Event(description, date[0], date[1]);
                     tasks[count] = task;
@@ -100,8 +103,8 @@ public class Dudu {
     }
 
     public static String getDetails(String input, String task) throws MissingDescriptionException {
-        String[] details = input.split(task + " ");
-        if (details.length <= 1) {
+        String[] details = input.split(task, 2);
+        if (details.length <= 1 || details[1].trim().isEmpty()) {
             throw new MissingDescriptionException(String.format("Please key in a description after %s", task));
         }
         return details[1];
