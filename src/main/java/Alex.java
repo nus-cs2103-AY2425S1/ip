@@ -3,8 +3,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Alex {
-    //create separation line
-    private static String line = "____________________________________________________________";
+    private static String line = "____________________________________________________________"; //create separation line
+
+    private static ArrayList<Task> list = new ArrayList<>(); //Create an arrayList to store all the Task objects
+
+    private static int size = 0; //keeps track of the size of the arrayList
     public static void main(String[] args) {
         boolean sayHi = true;
         while (true) {
@@ -21,12 +24,6 @@ public class Alex {
     private static void run(boolean sayHi) throws AlexException {
         //Create a Scanner object
         Scanner inputScanner = new Scanner(System.in);
-
-        //Create an arrayList to store all the Task objects
-        ArrayList<Task> list = new ArrayList<>();
-
-        //keeps track of the size of the arrayList
-        int size = 0;
 
         //Greet user
         String greeting =
@@ -60,8 +57,29 @@ public class Alex {
                 System.out.println(line);
             } else if (response.equals("mark") || response.equals("unmark")) {
                 //mark and unmark tasks
+
+                if (!lineScanner.hasNext()) {
+                    throw new AlexException("Oh no! Please provide an integer number after 'mark' or 'unmark' indicating the task number to mark or unmark!");
+                }
                 String taskNumberStr = lineScanner.next();
-                int taskNumber = Integer.valueOf(taskNumberStr);
+                int taskNumber = 0;
+
+                //handles exception where user write too much
+                if (lineScanner.hasNext()) {
+                    throw new AlexException("Wait! Please only provide a number after 'mark' or 'unmark'!");
+                }
+
+                //handles case where user doesn't provide a number or not an integer
+                try {
+                    taskNumber = Integer.valueOf(taskNumberStr);
+                } catch (NumberFormatException e) {
+                    throw new AlexException("Oh no! Please only provide an integer number after 'mark' or 'unmark' indicating the task number to mark or unmark!");
+                }
+
+                if (taskNumber < 1 || taskNumber > size) {
+                    throw new AlexException("Oh no! Please provide a correct task number to mark or unmark!");
+                }
+
                 Task task = list.get(taskNumber - 1);
                 if (response.equals("mark")) {
                     task.markAsDone();
@@ -106,19 +124,39 @@ public class Alex {
                 } else if (response.equals("event")) {
                     String description = "";
                     String start = "";
-                    //boolean startTime = true;
+                    boolean isStart = false;
+                    boolean isEnd = false;
+
+                    if (!lineScanner.hasNext()) {
+                        throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide a task!");
+                    }
 
                     while (lineScanner.hasNext()) {
                         String next = lineScanner.next();
                         if (next.equals("/from")) {
                             description = String.join(" ", arrOfStr);
                             arrOfStr.clear();
+                            if (lineScanner.hasNext()) {
+                                isStart = true;
+                            }
+                            if (isEnd) {
+                                throw new AlexException("Oh no! Alex doesn't like that /to comes before /from :( You should write the start time first before the end time");
+                            }
                         } else if (next.equals("/to")) {
                             start = String.join(" ", arrOfStr);
                             arrOfStr.clear();
+                            if (lineScanner.hasNext()) {
+                                isEnd = true;
+                            }
                         } else {
                             arrOfStr.add(next);
                         }
+                    }
+                    if (!isStart) {
+                        throw new AlexException("Oh no! Alex doesn't like that no start time is provided :( You have to provide a start time with '/from' followed by the time!");
+                    }
+                    if (!isEnd) {
+                        throw new AlexException("Oh no! Alex doesn't like that no end time is provided :( You have to provide an end time with '/to' followed by the time!");
                     }
                     task = new Event(size + 1, description, false, start, String.join(" ", arrOfStr));
                 } else {
