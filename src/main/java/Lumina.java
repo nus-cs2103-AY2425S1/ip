@@ -1,12 +1,16 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lumina {
 
     private static final String ECHO_EXIT_STRING = "bye";
+    private static final String ECHO_LIST_STRING = "list";
     private static final int indentWidth = 2;
+
+    private ArrayList<String> messages;
     // Cosntructor
     public Lumina() {
-
+        messages = new ArrayList<>();
     }
 
     private String indentMessage(String msg) {
@@ -30,9 +34,9 @@ public class Lumina {
         System.out.println("____________________________________________________________");
     }
 
-    private void printMessage(String message) {
+    private void printMessage(String msg) {
         this.printSeparator();
-        System.out.println(indentMessage(message));
+        System.out.println(indentMessage(msg));
         this.printSeparator();
     }
 
@@ -46,15 +50,37 @@ public class Lumina {
         System.exit(0);
     }
 
+    private void addMessage(String msg) {
+        this.messages.add(msg);
+    }
+
+    private void listMessages() {
+        StringBuilder listedMessage = new StringBuilder();
+        for (int i = 0; i < this.messages.size(); i++) {
+            listedMessage.append(Integer.toString(i + 1) + ". ");
+            listedMessage.append(this.messages.get(i));
+            if (i < this.messages.size() - 1) {
+                listedMessage.append("\n");
+            }
+        }
+        this.printMessage(listedMessage.toString());
+    }
+
     private void echo(Scanner sc) {
         String msg;
         while(true) {
+            System.out.println();
             msg = sc.nextLine();
             if (msg.equals(Lumina.ECHO_EXIT_STRING)) {
                 this.exit();
                 break;
             }
-            this.printMessage(msg);
+            if (msg.equals(Lumina.ECHO_LIST_STRING)) {
+                this.listMessages();
+                continue;
+            }
+            this.addMessage(msg);
+            this.printMessage("added: " + msg);
         }
     }
 
