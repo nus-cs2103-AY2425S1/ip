@@ -13,26 +13,31 @@ public class Topaz {
 
         while (true) {
             String prompt = scanner.nextLine();
-            if (prompt.contains("bye")) {
-                goodbyeUser();
-                break;
-            } else if (prompt.equals("list")) {
-                listTasks();
-            } else if (prompt.startsWith("mark")) {
-                int index = Integer.parseInt(prompt.substring(5));
-                markTask(index);
-            } else if (prompt.startsWith("unmark")) {
-                int index = Integer.parseInt(prompt.substring(7));
-                unmarkTask(index);
-            } else if (prompt.startsWith("todo")) {
-                String description = prompt.substring(5);
-                addTodo(description);
-            } else if (prompt.startsWith("deadline")) {
-                addDeadline(prompt);
-            } else if (prompt.startsWith("event")) {
-                addEvent(prompt);
-            } else {
-                echo(prompt);
+            try {
+                if (prompt.equalsIgnoreCase("help")) {
+                    showHelp();
+                } else if (prompt.contains("bye")) {
+                    goodbyeUser();
+                    break;
+                } else if (prompt.equals("list")) {
+                    listTasks();
+                } else if (prompt.startsWith("mark")) {
+                    int index = Integer.parseInt(prompt.substring(5));
+                    markTask(index);
+                } else if (prompt.startsWith("unmark")) {
+                    int index = Integer.parseInt(prompt.substring(7));
+                    unmarkTask(index);
+                } else if (prompt.startsWith("todo")) {
+                    addTodo(prompt);
+                } else if (prompt.startsWith("deadline")) {
+                    addDeadline(prompt);
+                } else if (prompt.startsWith("event")) {
+                    addEvent(prompt);
+                } else {
+                    throw new TopazException(prompt);
+                }
+            } catch (InvalidTaskException | TopazException e) {
+                handleException(e);
             }
         }
 
@@ -82,7 +87,7 @@ public class Topaz {
         Task task = taskList.get(index - 1);
         task.setDone();
         System.out.println("____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(" Another project over the finish line! I've marked this task as done:");
         System.out.println("    " + task.getStatus());
         System.out.println("____________________________________________________________");
     }
@@ -96,12 +101,17 @@ public class Topaz {
         System.out.println("____________________________________________________________");
     }
 
-    private static void addTodo(String description) {
-        Todo todo = new Todo(description);
-        addTasks(todo);
+    private static void addTodo(String prompt) throws InvalidTaskException {
+        try {
+            String description = prompt.substring(5);
+            Todo todo = new Todo(description);
+            addTasks(todo);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskException("todo");
+        }
     }
 
-    private static void addDeadline(String input) {
+    private static void addDeadline(String input) throws InvalidTaskException{
         String deadlinePattern = "deadline (.*?) /by";
         String byPattern = "/by (.*)";
 
@@ -116,10 +126,12 @@ public class Topaz {
             String by = byMatcher.group(1).trim();
             Deadline deadline = new Deadline(description, by);
             addTasks(deadline);
+        } else {
+            throw new InvalidTaskException("deadline");
         }
     }
 
-    private static void addEvent(String input) {
+    private static void addEvent(String input) throws InvalidTaskException{
         String eventPattern = "event (.*?) /from";
         String fromPattern = "/from (.*?) /to";
         String toPattern = "/to (.*)";
@@ -138,6 +150,43 @@ public class Topaz {
             String to = toMatcher.group(1).trim();
             Event event = new Event(description, from, to);
             addTasks(event);
+        } else {
+            throw new InvalidTaskException("event");
         }
+    }
+
+    private static void handleException(Exception e) {
+        System.out.println("____________________________________________________________");
+        System.out.println(e);
+        System.out.println("Try again!");
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void showHelp() {
+        String guide = """
+                 1. Adding Tasks
+                    1) ToDos: Tasks without specific dates/times.
+                    Command: todo <description>
+                    Example: todo borrow book
+                    Response: Confirms the addition and displays the task.
+                    
+                    2) Deadlines: Tasks that must be completed by a specific date/time.         
+                    Command: deadline <description> /by <date/time>
+                    Example: deadline return book /by Sunday
+                    Response: Confirms the addition and shows the deadline.
+                    
+                    3) Events: Tasks that start and end at specific date/times.         
+                    Command: event <description> /from <start date/time> /to <end date/time>
+                    Example: event project meeting /from Mon 2pm /to 4pm
+                    Response: Confirms the addition and shows the event details.
+                 2. Viewing All Tasks
+                    Command: list
+                    Response: Displays all tasks in your list with their types and statuses.
+                 3. Mark task status
+                    1) Mark task as done: mark <index of task in list>
+                    2) Mark task as undo: unmark <index of task in list>""";
+        System.out.println("____________________________________________________________");
+        System.out.println(guide);
+        System.out.println("____________________________________________________________");
     }
 }

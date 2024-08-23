@@ -27,7 +27,7 @@ ____________________________________________________________
  Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
- Nice! I've marked this task as done:
+ Another project over the finish line! I've marked this task as done:
     [D][X] return book (by: Sunday)
 ____________________________________________________________
 ____________________________________________________________
@@ -43,7 +43,7 @@ ____________________________________________________________
 4. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
- Nice! I've marked this task as done:
+ Another project over the finish line! I've marked this task as done:
     [E][X] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
@@ -53,6 +53,55 @@ ____________________________________________________________
 2. [D][ ] return book (by: Sunday)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 4. [D][ ] do homework (by: no idea :-p)
+____________________________________________________________
+____________________________________________________________
+Please enter the description of the todo task you want to create.
+Try again!
+____________________________________________________________
+____________________________________________________________
+Unmatching input pattern for event. Better cut our losses...
+Please follow the format and add the time after "from" and "to",
+eg.event project meeting /from Mon 2pm /to 4pm
+Try again!
+____________________________________________________________
+____________________________________________________________
+Steady... Your put an invalid command: "drhbsfg", type "help" to see how to use the chatbot.
+Try again!
+____________________________________________________________
+____________________________________________________________
+Unmatching input pattern for deadline. Better cut our losses...
+Please follow the format and add the deadline after "by",
+eg.deadline return book /by Sunday
+Try again!
+____________________________________________________________
+____________________________________________________________
+Unmatching input pattern for event. Better cut our losses...
+Please follow the format and add the time after "from" and "to",
+eg.event project meeting /from Mon 2pm /to 4pm
+Try again!
+____________________________________________________________
+____________________________________________________________
+1. Adding Tasks
+   1) ToDos: Tasks without specific dates/times.
+   Command: todo <description>
+   Example: todo borrow book
+   Response: Confirms the addition and displays the task.
+
+   2) Deadlines: Tasks that must be completed by a specific date/time.
+   Command: deadline <description> /by <date/time>
+   Example: deadline return book /by Sunday
+   Response: Confirms the addition and shows the deadline.
+
+   3) Events: Tasks that start and end at specific date/times.
+   Command: event <description> /from <start date/time> /to <end date/time>
+   Example: event project meeting /from Mon 2pm /to 4pm
+   Response: Confirms the addition and shows the event details.
+2. Viewing All Tasks
+   Command: list
+   Response: Displays all tasks in your list with their types and statuses.
+3. Mark task status
+   1) Mark task as done: mark <index of task in list>
+   2) Mark task as undo: unmark <index of task in list>
 ____________________________________________________________
  Ugh, why do they have to call me for such a trivial matter... Sorry, something just came up at work, I've got to get going!
  Bye. Hope to see you again soon!
