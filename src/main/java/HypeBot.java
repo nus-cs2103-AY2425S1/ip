@@ -5,6 +5,14 @@ public class HypeBot {
     private static final String bufferLine = "______________________________________________________________________\n";
     private static final ArrayList<Task> commandList = new ArrayList<>();
 
+    private static String addBufferLine(String message) {
+        return bufferLine + message + bufferLine;
+    }
+
+    private static String addBufferLineError(String message) {
+        return bufferLine + "I might be tripping bro, my bad, my bad - \n" + message + bufferLine;
+    }
+
     private static void greet() {
         String logo = """
                  ('-. .-.               _ (`-.    ('-. .-. .-')                .-') _  \s
@@ -17,54 +25,48 @@ public class HypeBot {
                 |  | |  | `-./  /.__) |  |      |  `---.| '--'  /   `'  '-'  '   |  |  \s
                 `--' `--'   `--'      `--'      `------'`------'      `-----'    `--'  \s
                 """;
-        System.out.println(bufferLine
-                + "AYO WHAT'S UP IT'S ME YOUR\n\n"
+        System.out.println(addBufferLine("AYO WHAT'S UP IT'S ME YOUR\n\n"
                 + logo
-                + "\nWhat can I do for you, my wonderful homie?\n"
-                + bufferLine);
+                + "\nWhat can I do for you, my wonderful homie?\n"));
     }
 
     private static void exit() {
-        System.out.println(bufferLine
-                + "Alright homie, it's been a BLAST hanging out with you. "
-                + "Have a wonderful\nday, and catch you soon again you ABSOLUTE BALLER!\n"
-                + bufferLine);
+        System.out.println(addBufferLine("""
+                Alright homie, it's been a BLAST hanging out with you. \
+                Have a wonderful
+                day, and catch you soon again you ABSOLUTE BALLER!
+                """));
     }
 
     private static void list() {
-        System.out.println(bufferLine + "ALRIGHT, Here's that list!\n");
+        StringBuilder list = new StringBuilder("ALRIGHT, Here's that list!\n");
         for (int i = 0; i < commandList.size(); i++) {
-            System.out.println(i + 1 + ". " + commandList.get(i));
+            list.append(i + 1).append(". ").append(commandList.get(i)).append("\n");
         }
-        System.out.println(bufferLine);
+        System.out.println(addBufferLine(list.toString()));
     }
 
-    private static void add(String taskName) {
-        commandList.add(new Task(taskName));
-        System.out.println(bufferLine
-                + "HECK YEAH, ADDED: "
-                + taskName
-                + "!\n"
-                + "YOU'VE NOW GOT "
+    private static void add(Task task) {
+        commandList.add(task);
+        System.out.println(addBufferLine("HECK YEAH, ADDED: "
+                + task
+                + "!\nYOU'VE NOW GOT "
                 + commandList.size()
-                + "TASKS TO GO!\n"
-                + bufferLine);
+                + " TASKS TO GO!\n"));
     }
 
-    private static void unmark(int idx) {
+    private static void unmark(int idx) throws IndexOutOfBoundsException {
         commandList.get(idx).unmark();
-        System.out.println(bufferLine
-                + "AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  "
+        System.out.println(addBufferLine("AIGHT, LET'S GET READY TO CONQUER THIS TASK:\n  "
                 + commandList.get(idx)
-                + bufferLine);
+                + "\n"));
     }
 
-    private static void mark(int idx) {
+    private static void mark(int idx) throws IndexOutOfBoundsException {
         commandList.get(idx).mark();
-        System.out.println(bufferLine
-                + "AIGHT, ABSOLUTELY CONQUERED THIS TASK:\n  "
+        System.out.println(addBufferLine("AIGHT, ABSOLUTELY CONQUERED THIS TASK:\n  "
                 + commandList.get(idx)
-                + bufferLine);
+                + "\n"));
     }
 
     public static void main(String[] args) {
@@ -74,43 +76,79 @@ public class HypeBot {
         boolean canExit = false;
 
         while (!canExit) {
-            String command = sc.nextLine();
+            String line = sc.nextLine();
 
-            if (command.trim().isEmpty()) {
+            if (line.trim().isEmpty()) {
                 continue;
             }
 
-            String commandLowerCase = command.toLowerCase();
-            if (commandLowerCase.equals("bye")) {
-                canExit = true;
-            } else if (commandLowerCase.equals("list")) {
-                list();
-            } else if (commandLowerCase.contains("unmark")) {
-                try {
-                    Integer idx = Integer.parseInt(commandLowerCase.split(" ")[1]) - 1;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(bufferLine
-                            + "I might be tripping bro, my bad, my bad - \n"
-                            + "try indicating the index of the task you wanna TAKE ON AGAIN!\n"
-                            + bufferLine);
-                    continue;
-                }
-                int idx = Integer.parseInt(commandLowerCase.split(" ")[1]) - 1;
-                unmark(idx);
-            } else if (commandLowerCase.contains("mark")) {
-                try {
-                    Integer idx = Integer.parseInt(commandLowerCase.split(" ")[1]) - 1;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(bufferLine
-                            + "I might be tripping bro, my bad, my bad - \n"
-                            + "try indicating the index of the task you wanna mark CONQUERED!\n"
-                            + bufferLine);
-                    continue;
-                }
-                int idx = Integer.parseInt(commandLowerCase.split(" ")[1]) - 1;
-                mark(idx);
-            }  else {
-                add(command);
+            String[] splitLineForDates = line.split("/");
+            String[] commandAndTaskName = splitLineForDates[0].split(" ");
+            String command = commandAndTaskName[0];
+            StringBuilder taskNameBuilder = new StringBuilder();
+            for (int i = 1; i < commandAndTaskName.length; i++) {
+                taskNameBuilder.append(commandAndTaskName[i]).append(" ");
+            }
+            String taskName = taskNameBuilder.toString();
+
+            switch (command) {
+                case "bye":
+                    canExit = true;
+                    break;
+                case "list":
+                    list();
+                    break;
+                case "todo":
+                    ToDo newTodo = new ToDo(taskName);
+                    add(newTodo);
+                    break;
+                case "deadline":
+                    if (splitLineForDates.length < 2) {
+                        System.out.println(addBufferLineError("make sure you got the due date for that SWAGGIN' "
+                                + "deadline you got!\n"));
+                        break;
+                    }
+                    Deadline newDeadline = new Deadline(taskName, splitLineForDates[1]);
+                    add(newDeadline);
+                    break;
+                case "event":
+                    if (splitLineForDates.length < 3) {
+                        System.out.println(addBufferLineError("make sure you got that start time AND end time for "
+                                + "that AWESOME event you got!\n"));
+                        break;
+                    }
+                    Event newEvent = new Event(taskName, splitLineForDates[1], splitLineForDates[2]);
+                    add(newEvent);
+                    break;
+                case "mark":
+                    try {
+                        int idx = Integer.parseInt(taskName.strip()) - 1;
+                        mark(idx);
+                    } catch (NumberFormatException e) {
+                        System.out.println(addBufferLineError("try indicating the index of the task you wanna mark "
+                                + "CONQUERED as a number!\n"));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(addBufferLineError("try indicating the index of an existing task you wanna "
+                                + "mark CONQUERED!\n"));
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        int idx = Integer.parseInt(taskName.strip()) - 1;
+                        unmark(idx);
+                    } catch (NumberFormatException e) {
+                        System.out.println(addBufferLineError("try indicating the index of the task you wanna TAKE "
+                                + "ON AGAIN "
+                                + "as a number!\n"));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(addBufferLineError("try indicating the index of an existing task you wanna "
+                                + "TAKE ON AGAIN!\n"));
+                    }
+                    break;
+                default:
+                    System.out.println(addBufferLineError("but I don't think we're vibing when you say '"
+                            + command
+                            + "'.\nMind if I ask you for anything else, homie?\n"));
             }
         }
 
