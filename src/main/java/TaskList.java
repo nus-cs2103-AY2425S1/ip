@@ -20,6 +20,7 @@ public class TaskList {
 
     public void addTask(Task task) {
         if (!Objects.equals(task.description.trim(), "")) {
+            Storage.appendToListFile(task);
             this.taskList.add(task);
             FormattedPrinting.addTask(task, this);
         } else {
@@ -27,9 +28,14 @@ public class TaskList {
         }
     }
 
+    public void loadTask(Task task) {
+        this.taskList.add(task);
+    }
+
     public void deleteTask(Task task) {
         if (!Objects.equals(task.description.trim(), "")) {
             this.taskList.remove(task);
+            Storage.deleteTaskFromFile(this);
             FormattedPrinting.deleteTask(task, this);
         } else {
             FormattedPrinting.descriptionEmptyError();
@@ -38,5 +44,19 @@ public class TaskList {
 
     public int getSize() {
         return this.taskList.size();
+    }
+
+    public void clearList() {
+        this.taskList.clear();
+        FormattedPrinting.clearList();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (Task task : this.taskList) {
+            output.append(task.convertToFileFormat()).append("\n");
+        }
+        return output.toString();
     }
 }

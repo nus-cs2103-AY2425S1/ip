@@ -2,25 +2,33 @@ import java.util.Scanner;
 
 public class MortalReminder {
 
+    private final Scanner inputScanner = new Scanner(System.in);
+    private TaskList taskList = new TaskList();
+    private final Processor processor = new Processor();
+
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
-        FormattedPrinting.Welcome();
+        mortalReminder.welcome();
         mortalReminder.ProcessInputs();
-        FormattedPrinting.GoodBye();
+        mortalReminder.goodbye();
     }
 
     private void ProcessInputs() {
 
-        Scanner inputScanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
-        Parser parser = new Parser();
-        CommandExecutor commandExecutor = new CommandExecutor();
-
         boolean continueScanning = true;
         while (continueScanning) {
             String input = inputScanner.nextLine();
-            Command command = parser.parseInputFromUser(input);
-            continueScanning = commandExecutor.HandleCommand(command, taskList, continueScanning);
+            Command command = Parser.parseInputFromUser(input);
+            continueScanning = this.processor.HandleCommand(command, this.taskList, continueScanning);
         }
+    }
+
+    private void welcome() {
+        this.taskList = Storage.loadTaskListFromFile(this.taskList);
+        FormattedPrinting.welcome();
+    }
+
+    private void goodbye() {
+        FormattedPrinting.goodbye();
     }
 }

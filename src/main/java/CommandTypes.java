@@ -7,5 +7,6 @@ public enum CommandTypes {
     DEADLINE,
     EVENT,
     BYE,
+    CLEAR_TASKS,
     UNKNOWN
 }

@@ -6,9 +6,22 @@ public class ToDo extends Task {
         this.description = description;
     }
 
+    // the following constructor was created using ChatGPT autocomplete
+    public ToDo(String description, boolean isDone) {
+        super(description);
+        this.type = "T";
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     @Override
     public String getDescription() {
         return this.description;
+    }
+
+    @Override
+    public String convertToFileFormat() {
+        return this.type + "|" + this.isDone + "|" + this.description;
     }
 
 }
