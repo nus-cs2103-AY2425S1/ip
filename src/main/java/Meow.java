@@ -37,7 +37,7 @@ public class Meow {
 
     static private void errorMsg(String msg) {
         System.out.println("    " + "_____________________________________________________________________");
-        System.out.println("     MEOW ERROR: " + msg);
+        System.out.println("     " + msg);
         System.out.println("    " + "_____________________________________________________________________\n");
     }
 
@@ -51,10 +51,10 @@ public class Meow {
                     throw new Meowception("100");
                 }
             } catch (Meowception err) {
-                System.out.println("    " + err);
+                errorMsg(err.toString());
             } catch (StringIndexOutOfBoundsException e) {
                 Meowception err = new Meowception("100");
-                System.out.println("    " + err);
+                errorMsg(err.toString());
             }
             // errorMsg("Meow meow you need to enter a task number to mark !!!");
             
@@ -68,10 +68,10 @@ public class Meow {
                     throw new Meowception("100");
                 }
             } catch (Meowception err) {
-                System.out.println("    " + err);        
+                errorMsg(err.toString());       
             } catch (StringIndexOutOfBoundsException e) {
                 Meowception err = new Meowception("100");
-                System.out.println("    " + err);
+                errorMsg(err.toString());
             }
             
                 
@@ -81,28 +81,36 @@ public class Meow {
 
         } else if (inputType.startsWith("todo")) {
             // Cleaning data so that it identifies todo, "todo " and subsequent "todo         ...   "
-            if (inputType.length() == 4) {
-                errorMsg("Meow meow you need to enter a task in your todo !!!");
-            } else if (inputType.length() == 5) {
-                if (inputType.charAt(4) != ' ') {
-                    errorMsg("No command exists like that silly goose");
-                } else {
-                    errorMsg("Meow meow you need to enter a task in your todo !!!");
-                }
-            } else {
-                addTodoTask(inputType.substring(5)); // adds task but cleans out the "todo "
-            }
+            // if (inputType.length() == 4) {
+            //     errorMsg("Meow meow you need to enter a task in your todo !!!");
+            // } else if (inputType.length() == 5) {
+            //     if (inputType.charAt(4) != ' ') {
+            //         errorMsg("No command exists like that silly goose");
+            //     } else {
+            //         errorMsg("Meow meow you need to enter a task in your todo !!!");
+            //     }
+            // } else {
+            //     addTodoTask(inputType.substring(5)); // adds task but cleans out the "todo "
+            // }
+            try {
+                addTodoTask(inputType.substring(5));
+            } catch (Meowception e) {
+                errorMsg(e.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                errorMsg(err.toString());
+            } 
             
-        } else if (inputType.startsWith("deadline")) {
+        } else if (inputType.startsWith("deadline")){
             // Cleaning data so that it identifies deadline correctly and the task.
-            if (inputType.length() > 9) {
-                if (inputType.charAt(8) == ' ') {
-                    addDeadlineTask(inputType.substring(9));
-                    return;
-                }
-            }
-            errorMsg("Meow meow you need to enter a task in your deadline !!!");
-
+            try {
+                addDeadlineTask(inputType.substring(9));
+            } catch (Meowception err) {
+                errorMsg(err.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                errorMsg(err.toString());
+            } 
             
         } else if (inputType.startsWith("event") && inputType.length() > 5) {
             // Lazy clean so nice for event. no way we introduce a new command called eventsmth...
@@ -118,10 +126,11 @@ public class Meow {
         }
     }
 
-    static private void addTodoTask(String command) {
+    static private void addTodoTask(String command) throws Meowception{
+        
         if (command.trim().isEmpty()) {
-            errorMsg("Your todo task can't be blank silly goose, write something NEOW MEOW");
-            return;
+            throw new Meowception("100");
+            //errorMsg("Your todo task can't be blank silly goose, write something NEOW MEOW");
         }
         else {
             taskList.add(new Todo (command));
@@ -129,20 +138,27 @@ public class Meow {
         }
     }
 
-    static private void addDeadlineTask(String command) {
+    static private void addDeadlineTask(String command) throws Meowception {
         if (command.contains("/by ")) {
             if (command.substring(command.indexOf("/by") + 3 ).trim().isEmpty()) {
-                errorMsg("Meow meow you need to enter a deadline for your task");
-                return;
+                throw new Meowception("200");
+                // errorMsg("Meow meow you need to enter a deadline for your task");
+                // return;
             } else {
                 String taskName = command.substring(0, command.indexOf("/by ") - 1);
+                if (taskName.trim().isEmpty()) {
+                    throw new Meowception("100");
+                    // errorMsg("Meow meow you need to enter a task name for your deadline");
+                    // return;
+                }
                 String by = command.substring(command.indexOf("/by ") + 4);
+                
                 taskList.add(new Deadline(taskName, by));
                 addingTaskMessage(command, taskList.get(taskList.size() - 1));
             }
             
         } else {
-            errorMsg("meow meow you need to enter a deadline for your task");
+           throw new Meowception("200");
         }
         
     }
