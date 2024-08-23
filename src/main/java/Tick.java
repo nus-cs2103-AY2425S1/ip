@@ -1,19 +1,19 @@
 import java.util.*;
 
 public class Tick {
-    private static final String separator = "____________________________________________________________\n";
+    private static final String separator = "____________________________________________________________";
     private static final String botName = "Tick";
     private ArrayList<Task> checklist = new ArrayList<>();
 
     public void greet() {
-        System.out.print(Tick.separator);
-        System.out.printf("Hello! I'm %s\n", Tick.botName);
+        System.out.println(Tick.separator);
+        System.out.printf("Hello! I'm %s!\n", Tick.botName);
         System.out.println("What can I do for you?");
         System.out.println(Tick.separator);
     }
 
     public void exit() {
-        System.out.print(Tick.separator);
+        System.out.println(Tick.separator);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(Tick.separator);
     }
@@ -39,7 +39,7 @@ public class Tick {
     public void displayList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.checklist.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, this.checklist.get(i));
+            System.out.printf("%d.%s\n", i + 1, this.checklist.get(i));
         }
     }
 
@@ -53,12 +53,12 @@ public class Tick {
     public void markTaskAsUndone(int index) {
         Task task = this.checklist.get(index - 1);
         task.markAsUndone();
-        System.out.println("Ok, I've marked this task as not done yet:");
+        System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
     }
 
     public void runCommand(String command) {
-        System.out.print(Tick.separator);
+        System.out.println(Tick.separator);
         String[] commandParts = command.split(" ");
         switch (commandParts[0]) {
             case "list":
@@ -84,8 +84,8 @@ public class Tick {
     public static void main(String[] args) {
         Tick bot = new Tick();
         bot.greet();
+        Scanner scn = new Scanner(System.in);
         while (true) {
-            Scanner scn = new Scanner(System.in);
             String command = scn.nextLine();
             if (command.equals("bye")) {
                 break;
