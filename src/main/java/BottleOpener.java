@@ -116,7 +116,7 @@ public class BottleOpener {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(spacer + "Please add a description!\n" + spacer);
                     }
-                    
+
             }
 
         }
