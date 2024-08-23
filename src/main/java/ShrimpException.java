@@ -1,12 +1,11 @@
 public class ShrimpException extends Exception {
 
     //fields used by task, formatted
-    private static final String description = AnsiCode.ITALIC + "description" + AnsiCode.RESET;
-    private static final String by = AnsiCode.ITALIC + "by" + AnsiCode.RESET;
-    private static final String from = AnsiCode.ITALIC + "from" + AnsiCode.RESET;
-    private static final String to = AnsiCode.ITALIC + "to" + AnsiCode.RESET;
+    private static final String description = AnsiCode.ITALIC + "description" + AnsiCode.RESET + AnsiCode.RED;
+    private static final String by = AnsiCode.ITALIC + "by" + AnsiCode.RESET + AnsiCode.RED;
+    private static final String from = AnsiCode.ITALIC + "from" + AnsiCode.RESET + AnsiCode.RED;
+    private static final String to = AnsiCode.ITALIC + "to" + AnsiCode.RESET + AnsiCode.RED;
 
-    ShrimpException() {};
 
     ShrimpException(String errorMessage) {
         super(errorMessage);
@@ -20,7 +19,7 @@ public class ShrimpException extends Exception {
     }
 
     public static class MissingArgumentException extends ShrimpException {
-        private static final String errorMessage_toDo = "Oh nyoo~ I need a " + description + "to make a TODO...";
+        private static final String errorMessage_toDo = "Oh nyoo~ I need a " + description + " to make a TODO...";
         private static final String errorMessage_mark = "Oh nyoo~ You didn't indicate which task to mark...";
         private static final String errorMessage_unmark = "Oh nyoo~ You didn't indicate which task to unmark...";
         private static final String errorMessage_deadline = "Oh nyoo~ I need a " + description + " and a " + by +
@@ -45,16 +44,23 @@ public class ShrimpException extends Exception {
         }
     }
 
-    public static class InvalidArgumentException extends ShrimpException {
+    public static class NumberFormatException extends ShrimpException {
         private static final String errorMessage = "Oh nyoo~ Your values seems wrong, maybe try again?";
-        InvalidArgumentException() {
+        NumberFormatException() {
             super(errorMessage);
         };
     }
 
     public static class EmptyArrayException extends ShrimpException {
-        private static final String errorMessage = "Oh nyoo~ There's no tasks for me to show...";
+        private static final String errorMessage = "Oh nyoo~ There's no tasks for me to interact with...";
         EmptyArrayException() {
+            super(errorMessage);
+        };
+    }
+
+    public static class ArrayIndexOutOfBoundException extends ShrimpException {
+        private static final String errorMessage = "Oh nyoo~ I cannot find the task that you're looking for... ";
+        ArrayIndexOutOfBoundException() {
             super(errorMessage);
         };
     }
