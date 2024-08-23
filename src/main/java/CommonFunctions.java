@@ -1,3 +1,6 @@
+import java.lang.reflect.WildcardType;
+import java.util.List;
+
 /**
  * A class that holds commonly used functions within the Chat Bot
  * @author Colin Hia Qingxuan
@@ -9,9 +12,19 @@ public class CommonFunctions {
      */
     public static void WrappedLinePrint(String s) {
         String HORIZONTAL_LINE = "_______________________________________";
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("\n" + s + "\n");
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println(HORIZONTAL_LINE + "\n" + s + "\n" + HORIZONTAL_LINE);
+    }
+
+    /**
+     * Public method that prints a list in the specified format.
+     * @param list The list to be printed.
+     */
+    public static <E> void PrintList(List<E> list) {
+        String output = "\n";
+        for (int i = 0; i < list.size(); i++) {
+            output += String.format("%d. %s\n", i + 1, list.get(i));
+        }
+        WrappedLinePrint(output);
     }
 
 }
