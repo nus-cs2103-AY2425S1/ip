@@ -49,6 +49,10 @@ public class Nave {
         Pattern markPattern = Pattern.compile("^(mark|unmark) (\\d+)$");
         Matcher markMatcher = markPattern.matcher(input);
 
+        //Regex checking for delete
+        Pattern deletePattern = Pattern.compile("^delete (\\d+)$");
+        Matcher deleteMatcher = deletePattern.matcher(input);
+
         //Regex checking for tasks
         Pattern taskPattern = Pattern.compile("^(todo|deadline|event)\\s?(.*)$");
         Matcher taskMatcher = taskPattern.matcher(input);
@@ -65,6 +69,8 @@ public class Nave {
                     : tasks.unmarkItem(taskNumber);
         } else if (taskMatcher.matches()) {
             response = tasks.addTask(taskMatcher.group(1), taskMatcher.group(2));
+        } else if (deleteMatcher.matches()) {
+            response = tasks.deleteItem(Integer.parseInt(deleteMatcher.group(1)));
         } else {
             response = "I don't know what you want me to do! Try using /help";
         }

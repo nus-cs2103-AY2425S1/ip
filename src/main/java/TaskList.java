@@ -77,4 +77,14 @@ public class TaskList {
             return "This task does not exist!";
         }
     }
+
+    public String deleteItem(int place) {
+        try {
+            Task deleted = list.remove(place - 1);
+            return "I have taken this item off the list:\n" + deleted +
+                    "\n" + countTasks();
+        } catch (IndexOutOfBoundsException e) {
+            return "This task does not exist!";
+        }
+    }
 }
