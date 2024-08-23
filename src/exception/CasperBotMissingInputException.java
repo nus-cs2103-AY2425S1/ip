@@ -1,4 +1,4 @@
-package main.java.exception;
+package exception;
 
 public class CasperBotMissingInputException extends CasperBotException {
     public CasperBotMissingInputException(String key, String command) {
