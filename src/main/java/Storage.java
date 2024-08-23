@@ -28,9 +28,10 @@ public class Storage {
         }
         BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()));
         try  {
-            String line;
-            while ((line = reader.readLine()) != null) {
+            String line = reader.readLine();
+            while (line  != null) {
                 Task task = getTask(line);
+                line = reader.readLine();
                 tasks.add(task);
             }
         } finally {
