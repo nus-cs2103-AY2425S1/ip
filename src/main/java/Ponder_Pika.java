@@ -1,10 +1,10 @@
-import Task.Todo;
-import Task.Task;
-import Task.Deadline;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import Task.Event;
+import Task.Deadline;
+import Task.Task;
+import Task.Todo;
 
 public class Ponder_Pika {
 
@@ -66,14 +66,24 @@ public class Ponder_Pika {
                 case "todo":
                     Task todo = new Todo(commands[1]);
                     myList.add(todo);
-                    System.out.println("        Pika! I have added your task: " + commands[1]);
+                    System.out.println("        Pika! I have added your todo: " + commands[1]);
                     printDivider();
                     break;
                 case "deadline":
                     String[] args = commands[1].split("/by ");
                     Task deadline = new Deadline(args[0].trim(), args[1].trim());
                     myList.add(deadline);
-                    System.out.println("        Pika! I have added your task: " + commands[1]);
+                    System.out.println("        Pika! I have added a deadline: " + args[0].trim() + " by " + args[1].trim());
+                    printDivider();
+                    break;
+                case "event":
+                    String eventDetails = commands[1].trim();
+                    String[] desc = eventDetails.split("/from");
+                    String detail = desc[1].trim();
+                    String[] time = detail.split("/to");
+                    Task event = new Event(desc[0].trim(), time[0].trim(), time[1].trim());
+                    myList.add(event);
+                    System.out.println("        Pika! I have added your event: " + desc[0].trim() + " from " + time[0].trim() + " to " + time[1].trim() );
                     printDivider();
                     break;
                 default:
