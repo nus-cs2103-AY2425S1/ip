@@ -34,6 +34,41 @@ public class ChaCha {
                 System.out.println(list.printList());
             }
 
+            else if (cmd.startsWith("todo ")) {
+                String[] arr = cmd.split(" ");
+                String description = arr[1];
+                System.out.println("     ____________________________________________________________ \n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + list.addToDo(description).printTask() + "\n" +
+                        "     Now you have " + list.getTotal() + " tasks in the list.\n" +
+                        "     ____________________________________________________________");
+            }
+
+            else if (cmd.startsWith("deadline ")) {
+                String temp = cmd.substring(9);
+                String[] arr = temp.split(" /");
+                String description = arr[0];
+                String date = arr[1].substring(3);
+                System.out.println("     ____________________________________________________________ \n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + list.addDeadline(description, date).printTask() + "\n" +
+                        "     Now you have " + list.getTotal() + " tasks in the list.\n" +
+                        "     ____________________________________________________________");
+            }
+
+            else if (cmd.startsWith("event ")) {
+                String temp = cmd.substring(6);
+                String[] arr = temp.split(" /");
+                String description = arr[0];
+                String startTime = arr[1].substring(5);
+                String endTime = arr[2].substring(3);
+                System.out.println("     ____________________________________________________________ \n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + list.addEvent(description, startTime, endTime).printTask() + "\n" +
+                        "     Now you have " + list.getTotal() + " tasks in the list.\n" +
+                        "     ____________________________________________________________");
+            }
+
             else if (cmd.startsWith("mark ")) {
                 int index = Integer.parseInt(cmd.substring(5));
                 System.out.println(list.markDone(index));
@@ -45,7 +80,7 @@ public class ChaCha {
             }
 
             else {
-                System.out.println(list.addTask(cmd));
+                System.out.println("error");
             }
 
             scanner = new Scanner(System.in);
