@@ -87,6 +87,10 @@ public class Task {
         System.out.println(this);
     }
 
+    public String savedString() {
+        return (this.completed ? "1" : "0") + " | " + this.name;
+    }
+
     @Override
     public String toString() {
         return (completed ? done : undone) + this.name;

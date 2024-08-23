@@ -92,6 +92,7 @@ public class SumoDE {
 
         // loop ended, cleaning up
         System.out.println(goodbye);
+        tasks.finaliseChange();
         sc.close();
 
     }
