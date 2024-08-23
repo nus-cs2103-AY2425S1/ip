@@ -1,10 +1,10 @@
 public class IllegalCommandArgumentException extends IllegalCommandException {
-  private String command;
+  private CommandType command;
   private boolean hasDescription;
   private boolean isIntegerDescription;
   private CommandOption[] options;
 
-  public IllegalCommandArgumentException(String command, boolean hasDescription, boolean isIntegerDescription,
+  public IllegalCommandArgumentException(CommandType command, boolean hasDescription, boolean isIntegerDescription,
       CommandOption[] options) {
     super();
     this.command = command;
@@ -16,7 +16,7 @@ public class IllegalCommandArgumentException extends IllegalCommandException {
   @Override
   public String getMessage() {
     // Create a usage string for the command
-    StringBuilder usage = new StringBuilder(command);
+    StringBuilder usage = new StringBuilder(CommandType.toString(command));
     if (hasDescription) {
       usage.append(isIntegerDescription ? " <value>" : " <description>");
     }
@@ -28,6 +28,6 @@ public class IllegalCommandArgumentException extends IllegalCommandException {
       usage.append(">");
     }
 
-    return "Invalid " + command + " format. Usage: " + usage.toString();
+    return "Invalid " + CommandType.toString(command) + " format. Usage: " + usage.toString();
   }
 }

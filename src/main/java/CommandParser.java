@@ -4,7 +4,7 @@ import java.util.Map;
 public class CommandParser {
   private String argument; // Input text after command title
 
-  private String command;
+  private CommandType command;
 
   // Only description or integer description is allowed
   private String description;
@@ -12,17 +12,9 @@ public class CommandParser {
 
   private Map<String, String> options = new HashMap<>();
 
-  private final static String[] COMMANDS = {
-      "list", "mark", "unmark", "delete", "todo", "deadline", "event", "find", "bye"
-  };
-
   public CommandParser(String input) throws IllegalCommandException {
     String[] parts = input.split(" ", 2);
-    this.command = parts[0];
-
-    if (!java.util.Arrays.asList(COMMANDS).contains(this.command)) {
-      throw new IllegalCommandException("Unknown command: " + this.command);
-    }
+    this.command = CommandType.fromString(parts[0]);
     this.argument = parts.length > 1 ? parts[1] : "";
   }
 
@@ -81,7 +73,7 @@ public class CommandParser {
     }
   }
 
-  public String getCommand() {
+  public CommandType getCommand() {
     return this.command;
   }
 
