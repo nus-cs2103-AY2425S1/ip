@@ -57,6 +57,11 @@ public class ChoaticBot {
                 printLine();
                 chatBot.tasklist.unmarkTask(index);
                 printLine();
+            } else if (action.equals("delete")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+                printLine();
+                chatBot.tasklist.deleteTask(index);
+                printLine();
             } else if (action.equals("todo")) {
                 printLine();
                 if (otherText.isEmpty()) {
