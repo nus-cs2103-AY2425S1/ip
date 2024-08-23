@@ -65,120 +65,121 @@ public class Tars {
     static String line = "    _____________________________________________";
     public static void main(String[] args) {
         //welcome/introduction message
-        System.out.println(line + "\n" + "    Hello! I'm Tars\n" + "    What can I do for you" + "\n" + line );
+        System.out.println(line + "\n" + "    Hello! I'm Tars\n" + "    What can I do for you" + "\n" + line);
 
         Scanner scanner = new Scanner(System.in); //initalising input scanner
-        String entry = scanner.nextLine(); //storing string input in a variable
-        String[] entryParts = entry.split(" "); //when mark/unmark is given as input with TASK number
+        //String entry = scanner.nextLine(); //storing string input in a variable
+        //String[] entryParts = entry.split(" "); //when mark/unmark is given as input with TASK number
 
         ArrayList<Task> itemsList = new ArrayList<>(); //store all input entries
 
         //while loop to ensure termination of programme only when "bye" input
-        while(!entryParts[0].equals("bye")) {
-            System.out.println(line);
+        while (true) {
+            String entry = scanner.nextLine();
+            String[] entryParts = entry.split(" ");
 
-            //for loop to list all entries from arraylist
-            if(entryParts[0].equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < itemsList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + itemsList.get(i));
-                }
-                System.out.println(line);
-
-                entry = scanner.nextLine();
-                entryParts = entry.split(" "); //updating variable to next input entryParts
-            } else if(entryParts[0].equals("mark")){
-                Integer index = Integer.parseInt(entryParts[entryParts.length - 1]); //to convert string format of number to Integer
-                itemsList.get(index - 1).mark(); //marking TASK as done
-
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("        " + itemsList.get(index - 1) + "\n" + line);
-
-                entry = scanner.nextLine();
-                entryParts = entry.split(" ");
-            } else if(entryParts[0].equals("unmark")){
-                Integer index = Integer.parseInt(entryParts[entryParts.length - 1]); //convert str format of number to Integer
-                itemsList.get(index - 1).unmark(); //unmarking TASK as not done
-
-                System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("        " + itemsList.get(index - 1) + "\n" + line);
-
-                entry = scanner.nextLine();
-                entryParts = entry.split(" "); //updating variable to next input entryParts
-            } else if(entryParts[0].equals("todo")){
-                StringBuilder strBuild = new StringBuilder();
-
-                for(int i = 1; i < entryParts.length; i++){
-                    strBuild.append(entryParts[i]).append(" ");
-                }
-
-                ToDos todo = new ToDos(strBuild.toString().trim());
-                itemsList.add(todo);
-
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("        " + todo);
-                System.out.println("    Now you have " + itemsList.size() + " tasks in the list");
-                System.out.println(line);
-
-                entry = scanner.nextLine();
-                entryParts = entry.split(" "); //updating variable to next input entryParts
-            } else if(entryParts[0].equals("deadline")){
-                StringBuilder strBuild = new StringBuilder();
-                StringBuilder dateStr = new StringBuilder();
-
-                for(int i = 1; i < entryParts.length - 1; i++) {
-                    if (i < entryParts.length - 2) {
-                        strBuild.append(entryParts[i]).append(" ");
-                    } else {
-                        dateStr.append(entryParts[entryParts.length - 1]);
+            try {
+                if(entryParts.length < 2){
+                    if(entry.equals("todo") || entry.equals("deadline") || entry.equals("event")){
+                        throw new TarsException(line + "\n" + "    OOPS! Describe the task/event/deadline/todo or list"
+                                + "\n" + line);
+                    } else if (entryParts[0].equals("list")) {
+                        System.out.println(line + "\n" + "    Here are the tasks in your list:");
+                        for (int i = 0; i < itemsList.size(); i++) {
+                            System.out.println("    " + (i + 1) + ". " + itemsList.get(i));
+                        }
+                        System.out.println(line);
+                    }  else if(entry.equals("bye")){
+                        break;
+                    } else{
+                        throw new TarsException(line + "\n" + "    OOPS! Only accept a task/event/deadline/todo as input"
+                                + "\n" + line);
                     }
-                }
+                } else if (entryParts[0].equals("mark")) {
+                    Integer index = Integer.parseInt(entryParts[entryParts.length - 1]); //to convert string format of number to Integer
+                    itemsList.get(index - 1).mark(); //marking TASK as done
 
-                Deadline deadlineTask = new Deadline(strBuild.toString().trim(), dateStr.toString());
-                itemsList.add(deadlineTask);
+                    System.out.println(line);
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("        " + itemsList.get(index - 1) + "\n" + line);
+                } else if (entryParts[0].equals("unmark")) {
+                    Integer index = Integer.parseInt(entryParts[entryParts.length - 1]); //convert str format of number to Integer
+                    itemsList.get(index - 1).unmark(); //unmarking TASK as not done
 
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("        " + deadlineTask);
-                System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
+                    System.out.println(line);
+                    System.out.println("    OK, I've marked this task as not done yet:");
+                    System.out.println("        " + itemsList.get(index - 1) + "\n" + line);
+                } else if (entryParts[0].equals("todo")) {
+                    StringBuilder strBuild = new StringBuilder();
 
-                entry = scanner.nextLine();
-                entryParts = entry.split(" "); //updating variable to next input entryParts
-            } else if(entryParts[0].equals("event")) {
-                StringBuilder strBuild = new StringBuilder();
-                StringBuilder toStr = new StringBuilder();
-                StringBuilder forStr = new StringBuilder();
-
-                for(int i = 1; i < entryParts.length; i++) {
-                    if (i < entryParts.length - 5) {
+                    for (int i = 1; i < entryParts.length; i++) {
                         strBuild.append(entryParts[i]).append(" ");
-                    } else if (i > entryParts.length - 5 && i < entryParts.length - 2) {
-                        forStr.append(entryParts[i]).append(" ");
-                    } else if (i > entryParts.length - 2){
-                        toStr.append(entryParts[i]);
                     }
+
+                    ToDos todo = new ToDos(strBuild.toString().trim());
+                    itemsList.add(todo);
+
+                    System.out.println(line);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("        " + todo);
+                    System.out.println("    Now you have " + itemsList.size() + " tasks in the list");
+                    System.out.println(line);
+                } else if (entryParts[0].equals("deadline")) {
+                    StringBuilder strBuild = new StringBuilder();
+                    StringBuilder dateStr = new StringBuilder();
+
+                    for (int i = 1; i < entryParts.length - 1; i++) {
+                        if (i < entryParts.length - 2) {
+                            strBuild.append(entryParts[i]).append(" ");
+                        } else {
+                            dateStr.append(entryParts[entryParts.length - 1]);
+                        }
+                    }
+
+                    Deadline deadlineTask = new Deadline(strBuild.toString().trim(), dateStr.toString());
+                    itemsList.add(deadlineTask);
+
+                    System.out.println(line);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("        " + deadlineTask);
+                    System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
+                } else if (entryParts[0].equals("event")) {
+                    StringBuilder strBuild = new StringBuilder();
+                    StringBuilder toStr = new StringBuilder();
+                    StringBuilder forStr = new StringBuilder();
+
+                    for (int i = 1; i < entryParts.length; i++) {
+                        if (i < entryParts.length - 5) {
+                            strBuild.append(entryParts[i]).append(" ");
+                        } else if (i > entryParts.length - 5 && i < entryParts.length - 2) {
+                            forStr.append(entryParts[i]).append(" ");
+                        } else if (i > entryParts.length - 2) {
+                            toStr.append(entryParts[i]);
+                        }
+                    }
+
+                    Event eventTask = new Event(strBuild.toString(), forStr.toString().trim(), toStr.toString());
+                    itemsList.add(eventTask);
+
+                    System.out.println(line);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("        " + eventTask);
+                    System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
+                } else if(!entryParts[0].equals("todo") || !entryParts[0].equals("deadline") || !entryParts[0].equals("event") || !entry.equals("list")){
+                    throw new TarsException(line + "\n" + "    Please state a todo/deadline/event task to be recorded"
+                            + "\n" + line);
+                } else{
+                    Task t = new Task(entry);
+                    itemsList.add(t); //adding a Task to list
+
+                    System.out.println(line);
+                    System.out.println("    added: " + entry + "\n" + line);
                 }
-
-                Event eventTask = new Event(strBuild.toString(), forStr.toString().trim(), toStr.toString());
-                itemsList.add(eventTask);
-
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("        " + eventTask);
-                System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
-
-                entry = scanner.nextLine();
-                entryParts = entry.split(" "); //updating variable to next input entryParts
-            }
-            else {
-                Task t = new Task(entry);
-                itemsList.add(t); //adding a Task to list
-
-                System.out.println("    added: " + entry + "\n" + line);
-
-                entry = scanner.nextLine();
-                entryParts = entry.split(" "); //updating variable to next input entryParts
+            } catch (TarsException e) {
+                System.out.println(e.getMessage());
             }
         }
-        
+
         //exit message when given input "bye"
         System.out.println(line + "\n" + "    Bye. Hope to see you again soon!" + "\n" + line);
     }
