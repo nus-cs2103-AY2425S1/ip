@@ -45,6 +45,9 @@ public class HypeBot {
                 + "HECK YEAH, ADDED: "
                 + taskName
                 + "!\n"
+                + "YOU'VE NOW GOT "
+                + commandList.size()
+                + "TASKS TO GO!\n"
                 + bufferLine);
     }
 
