@@ -58,4 +58,19 @@ public class UserInterface {
                 task.getDescription());
         makeLine();
     }
+
+    public void showError(String error) {
+        makeLine();
+        System.out.println("Uhoh: " + error);
+        makeLine();
+    }
+
+    public void showTaskAdded(Task task, int taskCount) {
+        makeLine();
+        System.out.println("Got it. I've added this task:\n" +
+                task.getStatus() +
+                task.getDescription());
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        makeLine();
+    }
 }
