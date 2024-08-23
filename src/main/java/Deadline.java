@@ -1,13 +1,14 @@
 public class Deadline extends Task {
     private String due;
 
-    public Deadline(String... params) throws IllegalArgumentException {
-        super(params[0].strip());
-        if (params.length < 2) {
-            throw new IllegalArgumentException("Deadline: You did not provide a due date/time.");
-        }
-
-        StringBuilder str = new StringBuilder(params[1].strip());
+    /**
+     * Constructor for Deadline.
+     * @param description
+     * @param due
+     */
+    public Deadline(String description, String due) {
+        super(description.strip());
+        StringBuilder str = new StringBuilder(due.strip());
         str.insert(str.indexOf(" "), ':');
         this.due = str.toString();
     }
