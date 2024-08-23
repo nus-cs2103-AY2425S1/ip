@@ -80,7 +80,7 @@ public class Kotori {
         printLine();
     }
 
-    public static void printMessages(String[] inputs) {
+    public static void printMessages(String... inputs) {
         printLine();
         for (String s : inputs) {
             System.out.println("    " + s);
