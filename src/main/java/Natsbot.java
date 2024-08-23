@@ -49,7 +49,7 @@ public class Natsbot {
                 if (index <= tasks.size() && index > 0) {
                     Task task = tasks.get(index - 1);
                     task.isDone = true;
-                    System.out.println("Cool! I've marked this task as done:\n" + task.toString());
+                    System.out.println("Cool! I've marked this task as done:\n" + task);
                 } else {
                     System.out.println("Invalid task number.\n");
                 }
@@ -57,13 +57,13 @@ public class Natsbot {
                 // Adds a new to do to the list of tasks
                 Todo additionalTask = new Todo(input.substring(5));
                 tasks.add(additionalTask);
-                System.out.println("Got it. I've added this task:\n" + additionalTask.toString());
+                System.out.println("Got it. I've added this task:\n" + additionalTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (matcherDeadline.matches()) {
                 // Adds a new Deadline to the list of tasks
                 Deadline additionalTask = new Deadline(input.substring(9, input.indexOf("/by") - 1), input.substring(input.indexOf("/by") + 4));
                 tasks.add(additionalTask);
-                System.out.println("Got it. I've added this task:\n" + additionalTask.toString());
+                System.out.println("Got it. I've added this task:\n" + additionalTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (matcherEventTime.matches()) {
                 // Adds a new task to the list of tasks
@@ -73,7 +73,7 @@ public class Natsbot {
                         input.substring(input.indexOf("/to") + 3)
                 );
                 tasks.add(additionalTask);
-                System.out.println("Got it. I've added this task:\n" + additionalTask.toString());
+                System.out.println("Got it. I've added this task:\n" + additionalTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else {
                 System.out.println("Type 'todo', 'deadline ... /by ...', or 'event ... from ... to ...' followed by a task to add it,\n'list' to see tasks, or type 'bye' to exit the program.\n");
