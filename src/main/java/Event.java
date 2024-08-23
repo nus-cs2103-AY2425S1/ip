@@ -1,3 +1,9 @@
+/**
+ * Event is a class that encapsulates the characteristics of an Event Task.
+ * It extends from the class Task,
+ * and contains additional characteristics of
+ * startTime and endTime
+ */
 public class Event extends Task {
 
     private String startTime;

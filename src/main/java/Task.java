@@ -1,3 +1,7 @@
+/**
+ * Task is a class that encapsulates the characteristics of a Task.
+ * It contains the field, description and isDone.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

@@ -1,3 +1,9 @@
+/**
+ * Deadline is a class that encapsulates the characteristics of a Deadline Task.
+ * It extends from the class Task,
+ * and contains an additional characteristic of
+ * date.
+ */
 public class Deadline extends Task {
     private String date;
 
