@@ -1,3 +1,7 @@
+package duke;
+
+import duke.CommandType;
+
 public class Parser {
 
     public Parser() {

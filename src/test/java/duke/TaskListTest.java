@@ -1,3 +1,6 @@
+package duke;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +25,8 @@ public class TaskListTest {
     @Test
     public void testAddTask() {
         taskList.addTask(task1);
-        assertEquals(1, taskList.getListTask().size());
-        assertEquals(task1, taskList.getListTask().get(0));
+        Assertions.assertEquals(1, taskList.getListTask().size());
+        Assertions.assertEquals(task1, taskList.getListTask().get(0));
     }
 
     @Test
@@ -31,8 +34,8 @@ public class TaskListTest {
         taskList.addTask(task1);
         taskList.addTask(task2);
         taskList.deleteTask(0);
-        assertEquals(1, taskList.getListTask().size());
-        assertEquals(task2, taskList.getListTask().get(0));
+        Assertions.assertEquals(1, taskList.getListTask().size());
+        Assertions.assertEquals(task2, taskList.getListTask().get(0));
     }
 
     @Test

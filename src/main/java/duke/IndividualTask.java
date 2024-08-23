@@ -1,13 +1,15 @@
+package duke;
+
 /**
- * The IndividualTask class represents an abstract task with a description and a status indicating whether the task is done.
- * This class is intended to be extended by specific types of tasks (e.g., ToDo, Deadline, Event).
+ * The duke.IndividualTask class represents an abstract task with a description and a status indicating whether the task is done.
+ * This class is intended to be extended by specific types of tasks (e.g., duke.ToDo, duke.Deadline, duke.Event).
  */
 abstract public class IndividualTask {
     private String taskDescription;
     private boolean isTaskDone = false;
 
     /**
-     * Constructs an IndividualTask with the specified task description.
+     * Constructs an duke.IndividualTask with the specified task description.
      *
      * @param taskDescription The description of the task.
      */

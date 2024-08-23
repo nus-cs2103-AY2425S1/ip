@@ -1,3 +1,6 @@
+package duke;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -29,7 +32,7 @@ public class CommandTest {
         command.execute(taskList, ui, storage);
 
         // Verify that the tasks were listed correctly
-        assertEquals(2, taskList.getListTask().size());
+        Assertions.assertEquals(2, taskList.getListTask().size());
     }
 
     @Test
@@ -39,7 +42,7 @@ public class CommandTest {
 
         command.execute(taskList, ui, storage);
 
-        assertTrue(taskList.getListTask().get(0).getIcon().equals("X"));
+        Assertions.assertTrue(taskList.getListTask().get(0).getIcon().equals("X"));
     }
 
     @Test
@@ -50,8 +53,8 @@ public class CommandTest {
 
         command.execute(taskList, ui, storage);
 
-        assertEquals(1, taskList.getListTask().size());
-        assertEquals("Task 2", taskList.getListTask().get(0).getTaskDescription());
+        Assertions.assertEquals(1, taskList.getListTask().size());
+        Assertions.assertEquals("Task 2", taskList.getListTask().get(0).getTaskDescription());
     }
 
     @Test
@@ -60,8 +63,8 @@ public class CommandTest {
 
         command.processMessage("todo Finish homework", taskList, storage);
 
-        assertEquals(1, taskList.getListTask().size());
-        assertEquals("Finish homework", taskList.getListTask().get(0).getTaskDescription());
+        Assertions.assertEquals(1, taskList.getListTask().size());
+        Assertions.assertEquals("Finish homework", taskList.getListTask().get(0).getTaskDescription());
     }
 
     @Test
@@ -70,8 +73,8 @@ public class CommandTest {
 
         command.processMessage("deadline Submit report /by 2/12/2019 1800", taskList, storage);
 
-        assertEquals(1, taskList.getListTask().size());
-        assertEquals("Submit report", taskList.getListTask().get(0).getTaskDescription());
+        Assertions.assertEquals(1, taskList.getListTask().size());
+        Assertions.assertEquals("Submit report", taskList.getListTask().get(0).getTaskDescription());
     }
 
     @Test
@@ -80,14 +83,14 @@ public class CommandTest {
 
         command.processMessage("event Attend meeting /from 1800 /to 2000", taskList, storage);
 
-        assertEquals(1, taskList.getListTask().size());
-        assertEquals("Attend meeting", taskList.getListTask().get(0).getTaskDescription());
+        Assertions.assertEquals(1, taskList.getListTask().size());
+        Assertions.assertEquals("Attend meeting", taskList.getListTask().get(0).getTaskDescription());
     }
 
     @Test
     public void testIsExitCommand() {
         Command command = new Command("bye", "");
 
-        assertTrue(command.isExit());
+        Assertions.assertTrue(command.isExit());
     }
 }

@@ -5,7 +5,7 @@ What can I do for you?
 Enter your message:
       Okays! I've added this task:
       ------------------------------
-      [D][ ] return book (by: Sunday)
+      [D][ ] return book (by: 2/12/2019 1800)
       Now you have 1 tasks in the list.
       ------------------------------
 Enter your message:
@@ -18,7 +18,7 @@ Enter your message:
 Extracted Task number: 1
       Okays! I've marked this task as done:
       ------------------------------
-      [D][X] return book (by: Sunday)
+      [D][X] return book (by: 2/12/2019 1800)
       Now you have 2 tasks in the list.
       ------------------------------
 Enter your message:
@@ -32,7 +32,7 @@ Enter your message:
 Extracted Task number: 1
       Okay! I've marked this task as not done:
       ------------------------------
-      [D][ ] return book (by: Sunday)
+      [D][ ] return book (by: 2/12/2019 1800)
       Now you have 2 tasks in the list.
       ------------------------------
 Enter your message:
@@ -50,7 +50,7 @@ Enter your message:
       ------------------------------
 Enter your message:
       ------------------------------
-      1.[D][ ] return book (by: Sunday)
+      1.[D][ ] return book (by: 2/12/2019 1800)
       2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
       3.[T][ ] borrow book
       ------------------------------

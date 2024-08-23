@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The Storage class handles the loading and saving of tasks from and to a file.
+ * The duke.Storage class handles the loading and saving of tasks from and to a file.
  * It is responsible for managing the persistence of the task list.
  */
 public class Storage {
@@ -17,7 +19,7 @@ public class Storage {
     private String path;
 
     /**
-     * Constructs a Storage object with the specified file path.
+     * Constructs a duke.Storage object with the specified file path.
      * It automatically attempts to load tasks from the specified file.
      *
      * @param path The file path where tasks are stored.
@@ -30,7 +32,7 @@ public class Storage {
     /**
      * Loads tasks from the specified file into the task list.
      * If the directory or file does not exist, it provides instructions for creating them.
-     * The tasks are read from the file and converted into IndividualTask objects,
+     * The tasks are read from the file and converted into duke.IndividualTask objects,
      * which are added to the task list.
      */
     public void loadTasksFromFile() {

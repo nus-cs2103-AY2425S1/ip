@@ -1,7 +1,9 @@
+package duke;
+
 import java.util.ArrayList;
 
 /**
- * The Command class represents a command issued by the user.
+ * The duke.Command class represents a command issued by the user.
  * It handles the execution of various commands related to task management,
  * such as adding, marking, deleting tasks, and handling custom commands.
  */
@@ -13,7 +15,7 @@ public class Command {
     private String separator = "------------------------------";
 
     /**
-     * Constructs a Command object with the specified command and message.
+     * Constructs a duke.Command object with the specified command and message.
      *
      * @param command The command to be executed (e.g., "bye", "list", "mark", etc.).
      * @param message The full message provided by the user, which may contain additional information.
@@ -24,7 +26,7 @@ public class Command {
     }
 
     /**
-     * Constructs a Command object without any initial command or message.
+     * Constructs a duke.Command object without any initial command or message.
      * This can be used when the command and message will be set later.
      */
     public Command() {
@@ -33,13 +35,13 @@ public class Command {
 
 
     /**
-     * Executes the command on the given TaskList, using the provided Ui and Storage objects.
+     * Executes the command on the given duke.TaskList, using the provided duke.Ui and duke.Storage objects.
      * The command could be one of several options, such as listing tasks, marking tasks as done,
      * deleting tasks, or processing specific task commands like "todo", "deadline", or "event".
      *
-     * @param tasks    The TaskList object that contains all the tasks.
-     * @param ui       The Ui object for displaying messages to the user.
-     * @param storage  The Storage object for saving the task list to a file.
+     * @param tasks    The duke.TaskList object that contains all the tasks.
+     * @param ui       The duke.Ui object for displaying messages to the user.
+     * @param storage  The duke.Storage object for saving the task list to a file.
      * @throws MentalHealthException If an error occurs while processing the command.
      */
 
@@ -122,11 +124,11 @@ public class Command {
 
     /**
      * Processes specific task-related commands such as "todo", "deadline", and "event".
-     * This method parses the message to extract task details and then creates and adds the appropriate task to the TaskList.
+     * This method parses the message to extract task details and then creates and adds the appropriate task to the duke.TaskList.
      *
      * @param msg      The message containing the command and task details.
-     * @param tasks    The TaskList object to which the new task will be added.
-     * @param storage  The Storage object for saving the updated task list to a file.
+     * @param tasks    The duke.TaskList object to which the new task will be added.
+     * @param storage  The duke.Storage object for saving the updated task list to a file.
      * @throws MentalHealthException If an error occurs while processing the task command.
      */
 

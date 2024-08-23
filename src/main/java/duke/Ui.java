@@ -1,20 +1,22 @@
+package duke;
+
 import java.util.Scanner;
 
 /**
- * The Ui class handles all interactions with the user.
+ * The duke.Ui class handles all interactions with the user.
  * It is responsible for displaying messages and reading input from the user.
  */
 public class Ui {
     private final static String SEPARATOR = "------------------------------";
     private final static String GREETING_MESSAGE = "Hello! " +
-            "I'm your friendly ChatBot assistant called MentalHealth :)\n" +
+            "I'm your friendly ChatBot assistant called duke.MentalHealth :)\n" +
             "What can I do for you?";
     private final static String GOODBYE_MESSAGE = "Bye. " +
             "Hope to see you again soon! " +
             "If you ever need help don't forget to reach out :)";
 
     /**
-     * Constructs a Ui object.
+     * Constructs a duke.Ui object.
      */
 
     public Ui() {

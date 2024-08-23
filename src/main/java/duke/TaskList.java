@@ -1,7 +1,9 @@
+package duke;
+
 import java.util.ArrayList;
 
 /**
- * The TaskList class manages a list of tasks. It provides methods to add, delete, and display tasks,
+ * The duke.TaskList class manages a list of tasks. It provides methods to add, delete, and display tasks,
  * as well as to retrieve the list of tasks.
  */
 public class TaskList {
@@ -16,7 +18,7 @@ public class TaskList {
 
 
     /**
-     * Constructs a TaskList with the specified list of tasks.
+     * Constructs a duke.TaskList with the specified list of tasks.
      *
      * @param tasks The initial list of tasks.
      * @throws MentalHealthException If there is an issue initializing the task list.
@@ -28,7 +30,7 @@ public class TaskList {
     }
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty duke.TaskList.
      */
     public TaskList() {
 
@@ -50,7 +52,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of tasks managed by this TaskList.
+     * Returns the list of tasks managed by this duke.TaskList.
      *
      * @return The list of tasks.
      */

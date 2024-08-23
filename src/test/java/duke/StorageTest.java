@@ -1,5 +1,8 @@
+package duke;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +38,7 @@ public class StorageTest {
         assertEquals(tasksToSave.size(), loadedTasks.size());
 
         for (int i = 0; i < tasksToSave.size(); i++) {
-            assertEquals( tasksToSave.get(i).toString(), loadedTasks.get(i).toString());
+            Assertions.assertEquals( tasksToSave.get(i).toString(), loadedTasks.get(i).toString());
         }
     }
 
