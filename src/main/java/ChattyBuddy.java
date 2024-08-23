@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class ChattyBuddy {
     public static void main(String[] args) {
         String break_line = "——————————————————————————";
@@ -10,6 +11,15 @@ public class ChattyBuddy {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm ChattyBuddy");
         System.out.println("What can I do for you?");
+        System.out.println(break_line);
+        Scanner userInput = new Scanner(System.in);
+        String response = userInput.nextLine();
+        while (!response.equals("bye")) {
+            System.out.println(break_line);
+            System.out.println(response);
+            System.out.println(break_line);
+            response = userInput.nextLine();
+        }
         System.out.println(break_line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(break_line);
