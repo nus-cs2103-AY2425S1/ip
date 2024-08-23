@@ -1,3 +1,9 @@
+package zaibot.command;
+
+import zaibot.*;
+import zaibot.exception.ZaibotException;
+import zaibot.task.Task;
+
 import java.util.HashMap;
 
 public class TaskUpdateCommand extends Command {

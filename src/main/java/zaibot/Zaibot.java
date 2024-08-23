@@ -1,3 +1,8 @@
+package zaibot;
+
+import zaibot.command.Command;
+import zaibot.exception.ZaibotException;
+
 public class Zaibot {
 
     private final TaskList taskList = new TaskList();

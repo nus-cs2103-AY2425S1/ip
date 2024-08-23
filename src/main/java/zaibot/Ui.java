@@ -1,3 +1,8 @@
+package zaibot;
+
+import zaibot.exception.ZaibotException;
+import zaibot.task.Task;
+
 import java.util.Scanner;
 
 /**
@@ -7,9 +12,9 @@ public class Ui {
     private enum Message {
         SEPARATOR("-----------------------------------------------------------"),
         GOODBYE("See you whenever."),
-        MARK("Task done. Finally."),
-        UNMARK("Task unmarked. Seriously?"),
-        DELETE("Task removed. Bye bye."),
+        MARK("zaibot.task.Task done. Finally."),
+        UNMARK("zaibot.task.Task unmarked. Seriously?"),
+        DELETE("zaibot.task.Task removed. Bye bye."),
         GREETING("Hi, or whatever. What do you want from me today?"),
         ADD("Another day, another task. Added."),
         TASKTOTAL("You have %d task(s). Get moving.");
@@ -98,8 +103,8 @@ public class Ui {
      * @throws ZaibotException If the update task is not part of the values for task above.
      */
     public static void displayTask(Task task,
-                                         String type,
-                                         TaskList taskList) throws ZaibotException {
+                                   String type,
+                                   TaskList taskList) throws ZaibotException {
         switch (type) {
             case "mark":
             case "unmark":

@@ -1,3 +1,9 @@
+package zaibot.command;
+
+import zaibot.Storage;
+import zaibot.TaskList;
+import zaibot.Ui;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
         super("bye", null);

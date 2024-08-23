@@ -1,3 +1,7 @@
+package zaibot;
+
+import zaibot.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -5,7 +9,7 @@ public class TaskList {
 
     /**
      * Retrieves the internal task list
-     * @return Task list as an ArrayList<Task>
+     * @return zaibot.task.Task list as an ArrayList<zaibot.task.Task>
      */
     public ArrayList<Task> retrieveTasks() {
         return tasks;
@@ -13,7 +17,7 @@ public class TaskList {
 
     /**
      * Adds a task into the task list
-     * @param task Task to be added
+     * @param task zaibot.task.Task to be added
      */
     public void addTask(Task task) {
         tasks.add(task);
