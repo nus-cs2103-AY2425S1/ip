@@ -101,8 +101,8 @@ public class Bob {
         dialogue("Hello! I'm Bob\n"
                 + "What can I do for you?");
 
-        try {
-            while (true) {
+        while (true) {
+            try {
                 String userInput = scanner.nextLine();
 
                 if (userInput.equalsIgnoreCase("bye")) {
@@ -165,7 +165,7 @@ public class Bob {
                     String description = words[0].substring(6);
                     String from = words2[0];
                     String to = words2[1];
-                    
+
                     Event event = new Event(description, from, to);
                     messages.add(event);
                     dialogue("Got it. I've added this task: \n" + event + "\nNow you have " + messages.size() + " tasks in the list.");
@@ -180,15 +180,15 @@ public class Bob {
 
                     Task removed = messages.remove(index);
                     dialogue("Noted. I've removed this task: \n" + removed + "\nNow you have " + messages.size() + " tasks in the list.");
-                
+
                 } else {
                     throw new BobException("I'm sorry, but I don't know what that means :(");
                 }
+            } catch (BobException e) {
+                dialogue(e.getMessage());
             }
-        } catch (BobException e) {
-            dialogue(e.getMessage());
         }
-        
+
         scanner.close();
     }
 }
