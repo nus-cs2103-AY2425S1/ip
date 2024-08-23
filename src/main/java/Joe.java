@@ -35,18 +35,26 @@ public class Joe {
                     break;
                 case MARK:
                 case UNMARK:
+                case DELETE:
                     int idx = Integer.parseInt(inputArr[1]); // gets the task index to mark or unmark
                     if (idx > tasks.size() || idx < 1) { // check that task index is valid
                         System.out.println("\t" + "Please input a valid task index");
                         break;
                     }
                     Task task = tasks.get(idx - 1);
-                    if (command == Commands.MARK) {
-                        task.markDone();
-                        System.out.printf("\tNice! I've marked this task as done:\n\t  %s\n", task);
-                    } else {
-                        task.unmarkDone();
-                        System.out.printf("\tOK, I've marked this task as not done yet:\n\t  %s\n", task);
+                    switch (command) {
+                        case MARK:
+                            task.markDone();
+                            System.out.printf("\tNice! I've marked this task as done:\n\t  %s\n", task);
+                            break;
+                        case UNMARK:
+                            task.unmarkDone();
+                            System.out.printf("\tOK, I've marked this task as not done yet:\n\t  %s\n", task);
+                            break;
+                        case DELETE:
+                            tasks.remove(idx - 1);
+                            System.out.printf("\tNoted. I've removed this task:\n\t  %s\n", task);
+                            break;
                     }
                     break;
                 case TODO:
