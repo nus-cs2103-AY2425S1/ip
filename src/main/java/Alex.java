@@ -55,9 +55,7 @@ public class Alex {
                     System.out.println(i + "." + list.get(i - 1));
                 }
                 System.out.println(line);
-            } else if (response.equals("mark") || response.equals("unmark")) {
-                //mark and unmark tasks
-
+            } else if (response.equals("mark") || response.equals("unmark")) {  //mark and unmark tasks
                 if (!lineScanner.hasNext()) {
                     throw new AlexException("Oh no! Please provide an integer number after 'mark' or 'unmark' indicating the task number to mark or unmark!");
                 }
@@ -88,7 +86,32 @@ public class Alex {
                     task.markAsUndone();
                     System.out.println(line + "\nOK, I've marked this task as not done yet: \n" + task + "\n" + line);
                 }
-                //room for error handling
+            } else if (response.equals("delete")) {
+                if (!lineScanner.hasNext()) {
+                    throw new AlexException("Oh no! Please provide an integer number after 'delete' indicating the task number to delete!");
+                }
+                String taskNumberStr = lineScanner.next();
+                int taskNumber = 0;
+
+                //handles exception where user write too much
+                if (lineScanner.hasNext()) {
+                    throw new AlexException("Wait! Please only provide a number after 'delete'!");
+                }
+
+                //handles case where user doesn't provide a number or not an integer
+                try {
+                    taskNumber = Integer.valueOf(taskNumberStr);
+                } catch (NumberFormatException e) {
+                    throw new AlexException("Oh no! Please only provide an integer number after 'delete' indicating the task number to delete!");
+                }
+
+                if (taskNumber < 1 || taskNumber > size) {
+                    throw new AlexException("Oh no! Please provide a correct task number to delete!");
+                }
+                Task task = list.get(taskNumber - 1);
+                list.remove(taskNumber - 1);
+                size--;
+                message(line, "Noted. I've removed this task: ", task, size);
             } else {
                 ArrayList<String> arrOfStr = new ArrayList<>();
                 Task task = new Task(0, "", false);
@@ -164,7 +187,7 @@ public class Alex {
                 }
                 list.add(task);
                 size++;
-                message(line, task, size);
+                message(line, "Got it. I've added this task: ", task, size);
             }
         }
 
@@ -178,9 +201,9 @@ public class Alex {
         System.out.println(farewell);
     }
 
-    private static void message(String line, Task task, int size) {
+    private static void message(String line, String str, Task task, int size) {
         System.out.println(line);
-        System.out.println("Got it. I've added this task: ");
+        System.out.println(str);
         System.out.println(task);
         System.out.println("Now you have " + size + " tasks in the list");
         System.out.println(line);
