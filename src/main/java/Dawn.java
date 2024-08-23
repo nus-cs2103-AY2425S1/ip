@@ -11,8 +11,7 @@ public class Dawn {
         System.out.println(divider);
     }
     private static Scanner scanner = new Scanner(System.in);
-    private static String[] tasks = new String[100];
-    private static Boolean[] status = new Boolean[100];
+    private static Task[] tasks = new Task[100];
     private static int counter = 0;
 
     private static void respond() {
@@ -23,7 +22,7 @@ public class Dawn {
         } else if (input.equals("list")) {
             System.out.println("listing all tasks...");
             for (int i = 0; i < counter; i++) {
-                System.out.printf("%d. %s  \n", i + 1, tasks[i]);
+                System.out.printf("%d. %s  \n", i + 1, tasks[i].getDesc());
             }
             respond();
         } else if (input.contains("mark")) {
@@ -31,8 +30,7 @@ public class Dawn {
             mark(input, ind);
             respond();
         } else {
-            tasks[counter] = input;
-            status[counter] = false;
+            tasks[counter] = new Task(input);
             counter++;
             System.out.printf("added TASK <%s> to the list \n", input);
             respond();
@@ -41,13 +39,10 @@ public class Dawn {
 
     private static void mark(String input, int ind) {
         if (input.contains("unmark")) {
-            status[ind] = false;
-            System.out.println("ok, I've unmarked this task :( ");
-            System.out.printf("[ ] %s \n", tasks[ind]);
+            tasks[ind].markAsNotDone();
         } else {
-            status[ind] = true;
-            System.out.println("i've marked this task as done!: ");
-            System.out.printf("[X] %s \n", tasks[ind]);
+            tasks[ind].markAsDone();
         }
+        System.out.printf("[%s] %s \n", tasks[ind].getStatusIcon(), tasks[ind].getDesc());
     }
 }
