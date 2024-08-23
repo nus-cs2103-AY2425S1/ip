@@ -1,11 +1,13 @@
 public class Nave {
     public static void main(String[] args) {
-        String greeting = "-----------------------------------------------------------------\n" +
-                "Hello! :) I'm Nave, your personal task management assistant.\n" +
-                "What can I do for you today?\n" +
-                "-----------------------------------------------------------------\n" +
-                "Goodbye :( Come visit me again!\n" +
-                "-----------------------------------------------------------------\n";
+        String greeting = """
+                -----------------------------------------------------------------
+                Hello! :) I'm Nave, your personal task management assistant.
+                What can I do for you today?
+                -----------------------------------------------------------------
+                Goodbye :( Come visit me again!
+                -----------------------------------------------------------------
+                """;
         System.out.println(greeting);
     }
 }
