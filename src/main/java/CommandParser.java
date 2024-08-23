@@ -16,12 +16,12 @@ public class CommandParser {
       "list", "mark", "unmark", "delete", "todo", "deadline", "event", "find", "bye"
   };
 
-  public CommandParser(String input) throws IllegalArgumentException {
+  public CommandParser(String input) throws IllegalCommandException {
     String[] parts = input.split(" ", 2);
     this.command = parts[0];
 
     if (!java.util.Arrays.asList(COMMANDS).contains(this.command)) {
-      throw new IllegalArgumentException("Unknown command: " + this.command);
+      throw new IllegalCommandException("Unknown command: " + this.command);
     }
     this.argument = parts.length > 1 ? parts[1] : "";
   }

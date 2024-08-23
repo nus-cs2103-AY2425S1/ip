@@ -1,4 +1,4 @@
-public class IllegalCommandArgumentException extends IllegalArgumentException {
+public class IllegalCommandArgumentException extends IllegalCommandException {
   private String command;
   private boolean hasDescription;
   private boolean isIntegerDescription;

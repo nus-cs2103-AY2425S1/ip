@@ -38,9 +38,9 @@ public class TaskList {
   }
 
   // Display all tasks in the list
-  public void displayTasks() throws EmptyListException {
+  public void displayTasks() throws IllegalCommandException {
     if (this.length() == 0) {
-      throw new EmptyListException();
+      throw new IllegalCommandException("You have no tasks in your list.");
     }
 
     for (int i = 0; i < this.tasks.size(); i++) {
@@ -51,11 +51,11 @@ public class TaskList {
 
   // Mark a task as done or not done
   public void markTask(int taskNumber, boolean done)
-      throws RedundantMarkException, RedundantUnmarkException, IndexOutOfBoundsException {
+      throws IllegalCommandException {
     taskNumber--; // Adjust task number to match array index
 
     if (taskNumber >= this.tasks.size() || taskNumber < 0) {
-      throw new IndexOutOfBoundsException(
+      throw new IllegalCommandException(
           "Invalid task number. There are " + this.tasks.size() + " " + this.taskWord() + " in your list.");
     }
 
@@ -63,13 +63,13 @@ public class TaskList {
     if (done) {
       boolean success = task.markAsDone();
       if (!success) {
-        throw new RedundantMarkException(task);
+        throw new IllegalCommandException(task, true);
       }
       System.out.println("Nice! I've marked this task as done:");
     } else {
       boolean success = task.markAsUndone();
       if (!success) {
-        throw new RedundantUnmarkException(task);
+        throw new IllegalCommandException(task, false);
       }
       System.out.println("OK, I've marked this task as not done yet:");
     }

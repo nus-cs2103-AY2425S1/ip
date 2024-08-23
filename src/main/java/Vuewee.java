@@ -63,7 +63,7 @@ public class Vuewee {
             break;
           }
           // Delete task from task list
-          // (Usage: delete <task number>)
+          // (Usage: delete <taskNumber>)
           case "delete": {
             parser.parse(true, true);
             taskList.deleteTask(parser.getIntParam());
@@ -75,9 +75,8 @@ public class Vuewee {
           }
         }
       } catch (
-          TaskListException
-          | IndexOutOfBoundsException
-          | IllegalArgumentException e) {
+          IndexOutOfBoundsException
+          | IllegalCommandException e) {
         System.out.println(e.getMessage());
       }
       System.out.println("____________________________________________________________");
