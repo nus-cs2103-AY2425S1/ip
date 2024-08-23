@@ -7,68 +7,6 @@ public class Shrimp {
     public static void main(String[] args) {
         //program initialise
         programStart();
-
-        //scans for user's command
-        Scanner sc = new Scanner(System.in);
-        String userInput, output;
-        TaskList taskList = new TaskList();
-
-        while (true) {
-            userInput = sc.nextLine();  //read the next line of user input
-            Task newTask = new Task(userInput); //creates a new Task object
-
-            CommandParser.CommandType commandType = CommandParser.parseCommand(userInput);
-
-            switch (commandType) {
-                case BYE: //exits the program
-                    programExit();
-                    return;
-
-                case LIST:
-                    System.out.println(PARTITION);
-                    System.out.println("Gotchaaa~ Here's the list so far:");
-                    for (int i = 0; i < taskList.getCount(); i++) {
-                        Task task = taskList.getTask(i);
-                        output =  String.format("%s.%s %s", i + 1,
-                                task.getHasCompleted() ? "[X]" : "[ ]", task);
-                        System.out.println(output);
-                    }
-                    System.out.println(PARTITION);
-                    break;
-
-                case ADD:
-                    taskList.addTask(newTask);
-                    output = "rawr! '" + userInput + "' has been added to the list~";
-                    System.out.println(PARTITION);
-                    System.out.println(output);
-                    System.out.println(PARTITION);
-                    break;
-
-                case MARK:
-                    int indexMark = getTaskNumber(userInput);
-                    Task oldTaskMark = taskList.getTask(indexMark);
-                    Task updatedTaskMark = new Task(oldTaskMark.toString(), true);
-                    taskList.replaceTask(indexMark, updatedTaskMark);
-                    output = "heya~ I've checked this task as complete! Feels good, right?";
-                    System.out.println(PARTITION);
-                    System.out.println(output);
-                    System.out.println("    [X] " + updatedTaskMark);
-                    System.out.println(PARTITION);
-                    break;
-
-                case UNMARK:
-                    int indexUnmark = getTaskNumber(userInput);
-                    Task oldTaskUnmark = taskList.getTask(indexUnmark);
-                    Task updatedTaskUnmark = new Task(oldTaskUnmark.toString());
-                    taskList.replaceTask(indexUnmark, updatedTaskUnmark);
-                    output = "Whoops~ I've unchecked the task as incomplete! Be careful next time~";
-                    System.out.println(PARTITION);
-                    System.out.println(output);
-                    System.out.println("    [ ] " + updatedTaskUnmark);
-                    System.out.println(PARTITION);
-                    break;
-            }
-        }
     }
 
     static void programStart() {
@@ -87,6 +25,103 @@ public class Shrimp {
         System.out.println(PARTITION);
         System.out.println(output);
         System.out.println(PARTITION);
+        chatBotRun();
+    }
+
+    static void chatBotRun() {
+        //scans for user's command
+        Scanner sc = new Scanner(System.in);
+        String userInput, output;
+        TaskList taskList = new TaskList();
+
+        while (true) {
+            userInput = sc.nextLine();  //read the next line of user input
+
+            CommandParser.CommandType commandType = CommandParser.parseCommand(userInput);
+
+            switch (commandType) {
+                case BYE: //exits the program
+                    programExit();
+                    return;
+
+                case LIST:
+                    System.out.println(PARTITION);
+                    System.out.println("Gotchaaa~ Here's the list so far:");
+                    for (int i = 0; i < taskList.getCount(); i++) {
+                        Task task = taskList.getTask(i);
+                        output =  String.format("    %s.%s", i + 1, task);
+                        System.out.println(output);
+                    }
+                    System.out.printf("Lemme count~ You now have %s item(s) in your list!%n", taskList.getCount());
+                    System.out.println(PARTITION);
+                    break;
+
+                case MARK:
+                    int indexMark = getTaskNumber(userInput);
+                    Task oldTaskMark = taskList.getTask(indexMark);
+                    Task updatedTaskMark = oldTaskMark.markAsDone();
+                    taskList.replaceTask(indexMark, updatedTaskMark);
+                    output = "heya~ I've checked this task as complete! Feels good, right?";
+                    System.out.println(PARTITION);
+                    System.out.println(output);
+                    System.out.println("    " + updatedTaskMark);
+                    System.out.println(PARTITION);
+                    break;
+
+                case UNMARK:
+                    int indexUnmark = getTaskNumber(userInput);
+                    Task oldTaskUnmark = taskList.getTask(indexUnmark);
+                    Task updatedTaskUnmark = oldTaskUnmark.markAsNotDone();
+                    taskList.replaceTask(indexUnmark, updatedTaskUnmark);
+                    output = "Whoops~ I've unchecked the task as incomplete! Be careful next time~";
+                    System.out.println(PARTITION);
+                    System.out.println(output);
+                    System.out.println("    " + updatedTaskUnmark);
+                    System.out.println(PARTITION);
+                    break;
+
+                case ADD:
+                    Todo newTodo = new Todo(userInput); //creates a new Task object
+                    taskList.addTask(newTodo);
+                    output = "rawr! '" + userInput + "' has been added to the list~";
+                    System.out.println(PARTITION);
+                    System.out.println(output);
+                    System.out.println(PARTITION);
+                    break;
+
+                case DEADLINE:
+                    String[] deadlineDetails = userInput.split("/by ");
+                    String deadlineDescription = deadlineDetails[0].substring(9); // Extracting the task description
+                    String by = deadlineDetails[1];
+                    Task newDeadline = new Deadline(deadlineDescription, by);
+                    taskList.addTask(newDeadline);
+                    System.out.println(PARTITION);
+                    System.out.println("Gotchaa~ I've added this task:");
+                    System.out.println("    " + newDeadline);
+                    System.out.println("You now have " + taskList.getCount() + " task(s) in the list~");
+                    System.out.println(PARTITION);
+                    break;
+
+                case EVENT:
+                    String[] eventDetails = userInput.split("/from | /to ");
+                    String eventDescription = eventDetails[0].substring(6); // Extracting the task description
+                    String from = eventDetails[1];
+                    String to = eventDetails[2];
+                    Task newEvent = new Event(eventDescription, from, to);
+                    taskList.addTask(newEvent);
+                    System.out.println(PARTITION);
+                    System.out.println("Gotchaa~ I've added this task:");
+                    System.out.println("    " + newEvent);
+                    System.out.println("You now have " + taskList.getCount() + " task(s) in the list~");
+                    System.out.println(PARTITION);
+                    break;
+
+                default:
+                    System.out.println(PARTITION);
+                    System.out.println("Oh nyoo~ I don't recognise that, can you try again?");
+                    System.out.println(PARTITION);
+            }
+        }
     }
 
     static void programExit() {
