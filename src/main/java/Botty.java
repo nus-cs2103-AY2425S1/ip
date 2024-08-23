@@ -20,8 +20,8 @@ public class Botty {
 
     private static final String bottySymbol = "Botty: ";
     private static final String bottyIndentation = "       ";
-    private static TaskManager taskManager;
-
+    private TaskManager taskManager;
+    
     public static void main(String[] args) {
         Botty botty = new Botty();
 
@@ -29,13 +29,10 @@ public class Botty {
     }
 
     public void beginInteraction() {
-        System.out.println(logo);
-        System.out.println();
-
-        reply("Hello, I am Botty the Bot, how may I be of service today?");
-
         Scanner inputScanner = new Scanner(System.in);
         taskManager = new TaskManager();
+
+        displayIntroduction();
 
         boolean exitFlag = false;
 
@@ -85,6 +82,15 @@ public class Botty {
         inputScanner.close();
         reply("Thank you for your continued patronage. Goodbye!");
     }
+
+    private void displayIntroduction() {
+        System.out.println(logo);
+        System.out.println();
+
+        reply("Hello, I am Botty the Bot, how may I be of service today?");
+    }
+
+
     private void reply(String content) {
         String[] strings = content.split("\n");
         System.out.println(bottySymbol + strings[0]);
