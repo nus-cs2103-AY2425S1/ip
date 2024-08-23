@@ -37,7 +37,7 @@ public class Vecrosen {
                 for (int i = 0; i < list.size(); ++i) {
                     speak((i+1) + "." + list.get(i).toString());
                 }
-            } else if (input.startsWith("todo ")) {
+            } else if (input.matches("todo .+")) {
                 String desc = input.substring(5);
                 list.add(new Task(desc));
                 speak("Todo added: " + desc);
@@ -55,8 +55,32 @@ public class Vecrosen {
                 String end = input.substring(endStart + 5);
                 list.add(new Event(desc, begin, end));
                 speak("Event added: " + desc);
+            } else if (input.matches("event .+ /end .+ /begin .+")) {
+                int beginStart = input.indexOf("/begin ");
+                int endStart = input.indexOf("/end ");
+                String desc = input.substring(6, endStart - 1);
+                String end = input.substring(endStart + 5, beginStart - 1);
+                String begin = input.substring(beginStart + 7);
+                list.add(new Event(desc, begin, end));
+                speak("Event added: " + desc);
+            } else if (input.startsWith("todo")) {
+                speak("Invalid format.");
+                speak("Usage: todo [description]");
+            } else if (input.startsWith("deadline")) {
+                speak("Invalid format.");
+                speak("Usage: deadline [description] /by [deadline]");
+            } else if (input.startsWith("event")) {
+                speak("Invalid format.");
+                speak("Usage: event [description] /begin [startTime] /end [endTime]");
+            } else if (input.startsWith("mark")) {
+                speak("Invalid format.");
+                speak("Usage: mark [taskID]");
+            } else if (input.startsWith("unmark")) {
+                speak("Invalid format.");
+                speak("Usage: unmark [taskID]");
             } else {
                 speak("Sorry, I don't understand.");
+                speak("Commands: todo deadline event mark unmark list bye");
             }
         }
         speak("Bye. Hope to see you again soon!");
