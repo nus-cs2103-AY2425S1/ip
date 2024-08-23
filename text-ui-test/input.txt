@@ -1,0 +1,23 @@
+test
+list
+todo desc
+list
+mark
+mark 2
+mark test
+mark 1
+unmark
+unmark 2
+unmark test
+unmark 1
+deadline test
+deadline desc /by date
+event test
+event desc /from date
+event desc /to date
+event desc /from date /to date
+delete
+delete 4
+delete task
+delete 2
+bye
