@@ -65,6 +65,7 @@ public class Muller {
         }
 
         System.out.println(logo + "\nBye. Hope to see you again soon!\n" + logo);
+        sc.close();
     }
 
     public static class Task {
