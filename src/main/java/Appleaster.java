@@ -2,18 +2,6 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Appleaster {
-    private static final String[] GREETINGS = {
-        "Hello there! I'm feeling particularly crisp today!",
-        "Greetings, human! Ready for some apple-solutely amazing conversation?",
-        "Hi! I'm so excited to chat, I'm practically bobbing!"
-    };
-    
-    private static final String[] GOODBYES = {
-        "See you later! Stay fresh and don't let anyone apple-sauce you around!",
-        "Goodbye! Remember, an apple a day keeps the doctor away, but I hope to see you sooner!",
-        "Farewell! I'll be here, hanging on my digital tree, waiting for your return!"
-    };
-
     private static final String LOGO = "   _____                .__                          __                \n"
                                      + "  /  _  \\ ______ ______ |  |   ____ _____    _______/  |_  ___________ \n"
                                      + " /  /_\\  \\\\____ \\\\____ \\|  | _/ __ \\\\__  \\  /  ___/\\   __\\/ __ \\_  __ \\\n"
@@ -27,7 +15,7 @@ public class Appleaster {
     public static void main(String[] args) {
         System.out.println("------------------------------------");
         System.out.println(LOGO);
-        System.out.println(GREETINGS[random.nextInt(GREETINGS.length)]);
+        System.out.println("Greetings, human! Ready for some apple-solutely amazing conversation?");
         System.out.println("What can I do for you?");
         System.out.println("------------------------------------");
         
@@ -46,7 +34,7 @@ public class Appleaster {
             System.out.println("------------------------------------");
         }
         System.out.println("------------------------------------");
-        System.out.println(GOODBYES[random.nextInt(GOODBYES.length)]);
+        System.out.println("Goodbye! Remember, an apple a day keeps the doctor away, but I hope to see you sooner!");
         System.out.println("------------------------------------");
         
         scanner.close();

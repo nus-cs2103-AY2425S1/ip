@@ -1,7 +1,118 @@
-Hello from
+------------------------------------
    _____                .__                          __                
   /  _  \ ______ ______ |  |   ____ _____    _______/  |_  ___________ 
  /  /_\  \\____ \\____ \|  | _/ __ \\__  \  /  ___/\   __\/ __ \_  __ \
 /    |    \  |_> >  |_> >  |_\  ___/ / __ \_\___ \  |  | \  ___/|  | \/
 \____|__  /   __/|   __/|____/\___  >____  /____  > |__|  \___  >__|   
         \/|__|   |__|             \/     \/     \/            \/       
+
+Greetings, human! Ready for some apple-solutely amazing conversation?
+What can I do for you?
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [T][ ] Read a book
+Now you have 1 tasks in the list.
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [D][ ] Complete project report (by: next Monday)
+Now you have 2 tasks in the list.
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [E][ ] Team meeting (from: Tuesday 2pm to: 4pm)
+Now you have 3 tasks in the list.
+------------------------------------
+------------------------------------
+Here are the tasks in your list:
+1.[T][ ] Read a book
+2.[D][ ] Complete project report (by: next Monday)
+3.[E][ ] Team meeting (from: Tuesday 2pm to: 4pm)
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [T][ ] Go for a run
+Now you have 4 tasks in the list.
+------------------------------------
+------------------------------------
+Nice! I've marked this task as done:
+  [T][X] Read a book
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [D][ ] Submit expense claims (by: Friday)
+Now you have 5 tasks in the list.
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [E][ ] Annual company picnic (from: Saturday 10am to: 6pm)
+Now you have 6 tasks in the list.
+------------------------------------
+------------------------------------
+Here are the tasks in your list:
+1.[T][X] Read a book
+2.[D][ ] Complete project report (by: next Monday)
+3.[E][ ] Team meeting (from: Tuesday 2pm to: 4pm)
+4.[T][ ] Go for a run
+5.[D][ ] Submit expense claims (by: Friday)
+6.[E][ ] Annual company picnic (from: Saturday 10am to: 6pm)
+------------------------------------
+------------------------------------
+OK, I've marked this task as not done yet:
+  [T][ ] Read a book
+------------------------------------
+------------------------------------
+Nice! I've marked this task as done:
+  [E][X] Team meeting (from: Tuesday 2pm to: 4pm)
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [T][ ] Buy groceries
+Now you have 7 tasks in the list.
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [D][ ] Renew library membership (by: end of month)
+Now you have 8 tasks in the list.
+------------------------------------
+------------------------------------
+Got it. I've added this task:
+  [E][ ] Doctor's appointment (from: Wednesday 3pm to: 4pm)
+Now you have 9 tasks in the list.
+------------------------------------
+------------------------------------
+Here are the tasks in your list:
+1.[T][ ] Read a book
+2.[D][ ] Complete project report (by: next Monday)
+3.[E][X] Team meeting (from: Tuesday 2pm to: 4pm)
+4.[T][ ] Go for a run
+5.[D][ ] Submit expense claims (by: Friday)
+6.[E][ ] Annual company picnic (from: Saturday 10am to: 6pm)
+7.[T][ ] Buy groceries
+8.[D][ ] Renew library membership (by: end of month)
+9.[E][ ] Doctor's appointment (from: Wednesday 3pm to: 4pm)
+------------------------------------
+------------------------------------
+Nice! I've marked this task as done:
+  [D][X] Complete project report (by: next Monday)
+------------------------------------
+------------------------------------
+Nice! I've marked this task as done:
+  [D][X] Submit expense claims (by: Friday)
+------------------------------------
+------------------------------------
+Here are the tasks in your list:
+1.[T][ ] Read a book
+2.[D][X] Complete project report (by: next Monday)
+3.[E][X] Team meeting (from: Tuesday 2pm to: 4pm)
+4.[T][ ] Go for a run
+5.[D][X] Submit expense claims (by: Friday)
+6.[E][ ] Annual company picnic (from: Saturday 10am to: 6pm)
+7.[T][ ] Buy groceries
+8.[D][ ] Renew library membership (by: end of month)
+9.[E][ ] Doctor's appointment (from: Wednesday 3pm to: 4pm)
+------------------------------------
+------------------------------------
+Goodbye! Remember, an apple a day keeps the doctor away, but I hope to see you sooner!
+------------------------------------

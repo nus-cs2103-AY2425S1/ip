@@ -1,0 +1,19 @@
+todo Read a book
+deadline Complete project report /by next Monday
+event Team meeting /from Tuesday 2pm /to 4pm
+list
+todo Go for a run
+mark 1
+deadline Submit expense claims /by Friday
+event Annual company picnic /from Saturday 10am /to 6pm
+list
+unmark 1
+mark 3
+todo Buy groceries
+deadline Renew library membership /by end of month
+event Doctor's appointment /from Wednesday 3pm /to 4pm
+list
+mark 2
+mark 5
+list
+bye
