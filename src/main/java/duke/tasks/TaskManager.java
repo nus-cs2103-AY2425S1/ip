@@ -4,6 +4,7 @@ import duke.DailyTasks;
 import duke.Formatter;
 import duke.exceptions.EmptyTodoDescriptionException;
 import duke.exceptions.InvalidDeadlineException;
+import duke.exceptions.InvalidEventException;
 import duke.exceptions.UnknownMessageException;
 
 import java.util.ArrayList;
@@ -124,7 +125,12 @@ public class TaskManager {
             String[] eventTime = eventInfo[1].split("/to");
             String start = eventTime[0].trim();
             String end = eventTime[1].trim();
-            tasks.add(new Event(eventDescription, start, end));
+            try {
+                tasks.add(new Event(eventDescription, start, end));
+            } catch (InvalidEventException e) {
+                System.out.println(e.getMessage() + " Please enter a valid event");
+                return;
+            }
             break;
         default:
             throw new UnknownMessageException("Unknown task type.");

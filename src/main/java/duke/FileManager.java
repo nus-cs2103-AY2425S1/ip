@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exceptions.InvalidDeadlineException;
+import duke.exceptions.InvalidEventException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -61,18 +62,25 @@ public class FileManager {
             task = new ToDos(description);
         } else if (taskInformation[0].equals("D")) {
             String by = taskInformation[3];
+
             try {
                 task = new Deadline(description, by);
             } catch (InvalidDeadlineException e) {
-                System.out.println("error converting task back to deadline");
+                System.out.println(e.getMessage() + "error converting task back to deadline");
                 return null;
             };
         } else {
             String[] times = taskInformation[3].split("-");
+            System.out.println(times[0] + " " + times[1]);
             String from = times[0];
             String to = times[1];
 
-            task = new Event(description, from, to);
+            try {
+                task = new Event(description, from, to);
+            } catch (InvalidEventException e) {
+                System.out.println(e.getMessage() + "error converting task back to event");
+                return null;
+            };
         }
 
         if (taskInformation[1].equals("1")) {

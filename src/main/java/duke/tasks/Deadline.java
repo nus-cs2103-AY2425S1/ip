@@ -21,6 +21,7 @@ public class Deadline extends Task {
         inputFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")); // e.g., "2/12/2019 1800"
         inputFormatters.add(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")); // e.g., "Dec 2 2019, 6:00 PM"
         inputFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy")); // e.g., "2/12/2019"
+        inputFormatters.add(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")); // e.g., "Jul 2 2019, 5:00 pm"
 
         // Try to parse the input using different formatters
         for (DateTimeFormatter formatter : inputFormatters) {
@@ -32,14 +33,13 @@ public class Deadline extends Task {
                 } else {
                     parsedDateTime = LocalDateTime.parse(by, formatter);
                 }
-                break; // If successful, break out of the loop
             } catch (DateTimeParseException e) {
                 // Continue trying with the next formatter
             }
         }
 
         if (parsedDateTime == null) {
-            throw new InvalidDeadlineException("Your deadline is invalid.");
+            throw new InvalidDeadlineException("Your deadline is invalid. ");
         }
     }
 
