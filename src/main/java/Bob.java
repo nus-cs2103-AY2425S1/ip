@@ -170,6 +170,12 @@ public class Bob {
                     messages.add(event);
                     dialogue("Got it. I've added this task: \n" + event + "\nNow you have " + messages.size() + " tasks in the list.");
 
+                } else if (userInput.startsWith("delete")) {
+                    String[] words = userInput.split(" ");
+                    int index = Integer.parseInt(words[1]) - 1;
+                    Task removed = messages.remove(index);
+                    dialogue("Noted. I've removed this task: \n" + removed + "\nNow you have " + messages.size() + " tasks in the list.");
+                
                 } else {
                     throw new BobException("I'm sorry, but I don't know what that means :(");
                 }
