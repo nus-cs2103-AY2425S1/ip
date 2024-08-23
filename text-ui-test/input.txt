@@ -23,4 +23,7 @@ unmark 69
 list
 delete 4
 delete 3
+delete all my enemies
+mark attendance
+unmark attendance
 bye
