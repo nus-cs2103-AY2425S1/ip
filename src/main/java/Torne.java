@@ -13,12 +13,15 @@ public class Torne {
     private static final Map<String, String[]> COMMANDS = Map.of(
             "bye", NO_ARGS,
             "list", NO_ARGS,
+            "help", NO_ARGS,
             "mark",DEFAULT_ARG,
             "unmark", DEFAULT_ARG,
             "todo", NO_ARGS,
-            "deadline", new String[]{"by"},
-            "event", new String[]{"from", "to"}
+            "deadline", new String[]{"", "by"},
+            "event", new String[]{"", "from", "to"}
     );
+
+    private String helpMessage;
 
     /**
      * Parses the string command and arguments that the user entered. The correct operation is then called. If the input
@@ -107,6 +110,9 @@ public class Torne {
         case "list":
             listTasks();
             break;
+        case "help":
+            showHelp();
+            break;
         case "mark":
             mark(defaultArg);
             break;
@@ -152,6 +158,38 @@ How may I help you today?""";
         String exitText = """
 Aww, bye to you as well :c""";
         OUTPUT.writeText(exitText);
+    }
+
+    /**
+     * Shows a help message to the user.
+     * The help message lists out all available commands and their options
+     */
+    private void showHelp() {
+        if (helpMessage != null) {
+            // has already been generated
+            OUTPUT.writeText(helpMessage);
+            return;
+        }
+
+        StringBuilder helpMessageBuilder = new StringBuilder("This is the list of Torne commands and options:");
+
+        for (var entry : COMMANDS.entrySet()) {
+            String cmd = entry.getKey();
+            String[] args = entry.getValue();
+            helpMessageBuilder.append("\n").append(ChatOutput.INDENT).append(cmd);
+
+            for (String arg : args) {
+                if (arg.isEmpty()) {
+                    // default arg
+                    helpMessageBuilder.append(" [<value>]");
+                    continue;
+                }
+                helpMessageBuilder.append(String.format(" [/%s <value>]", arg));
+            }
+        }
+        // memoize
+        helpMessage = helpMessageBuilder.toString();
+        OUTPUT.writeText(helpMessage);
     }
 
     // ==================== TASK RELATED ============================================

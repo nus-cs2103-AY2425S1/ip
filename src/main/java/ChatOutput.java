@@ -5,6 +5,7 @@
  */
 public class ChatOutput {
     private static final String BORDER_LINE = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    public static final String INDENT = "    ";
 
     /**
      * Takes in a text string, wraps it inside a pair of borderlines, and outputs it to the console
