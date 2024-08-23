@@ -1,14 +1,20 @@
 package matcha.command;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 import matcha.exception.MatchaException;
+
 import matcha.task.Task;
 import matcha.task.Deadline;
 import matcha.task.Event;
 import matcha.task.Todo;
+
 import matcha.tasklist.TaskList;
+
 import matcha.storage.Storage;
+
 import matcha.ui.Ui;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class AddTaskCommand extends Command{
     private String commandType;
@@ -66,6 +72,7 @@ public class AddTaskCommand extends Command{
             throw new MatchaException("Invalid format to add Deadline.\nPlease use '/by' to specify the " +
                     "time of the Deadline.");
         }
+
         //extract deadline description and 'by'
         String[] deadlineInfo = inputWords[1].split(" /by ", 2);
         String deadlineDesc = deadlineInfo[0].strip();
@@ -83,13 +90,11 @@ public class AddTaskCommand extends Command{
     }
 
     private Event createEvent() throws MatchaException {
-        if (inputWords.length < 2) {
-            throw new MatchaException("Please include the Event details!");
-        }
         if (!inputWords[1].contains(" /from ") || !inputWords[1].contains(" /to ")) {
             throw new MatchaException("Invalid format to add Event.\nPlease use '/from' and '/to' to specify the " +
                     "Event duration.");
         }
+
         //extract event description, 'from' and 'to'
         String eventDesc = inputWords[1].split(" /from")[0];
         String from = inputWords[1].split(" /from ")[1].split(" /to ")[0];

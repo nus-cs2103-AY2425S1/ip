@@ -1,6 +1,8 @@
 package matcha.task;
-import java.time.format.DateTimeFormatter;
+
 import matcha.exception.MatchaException;
+
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

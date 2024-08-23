@@ -1,5 +1,7 @@
 package matcha.ui;
+
 import java.util.Scanner;
+
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
     private final Scanner scanner;

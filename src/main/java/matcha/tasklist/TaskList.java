@@ -1,6 +1,8 @@
 package matcha.tasklist;
-import java.util.ArrayList;
+
 import matcha.task.Task;
+
+import java.util.ArrayList;
 
 public class TaskList {
 
