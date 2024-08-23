@@ -66,7 +66,7 @@ public class TaskList {
     public String[] describeTasks() {
         ArrayList<String> results = new ArrayList<>();
         this.tasklist.forEach((task) -> results.add(task.toString()));
-        return results.toArray(results.toArray(new String[0]));
+        return results.toArray(new String[0]);
     }
 
     public String toString() {

@@ -5,17 +5,17 @@
     ____________________________________________________________
      Got it. I've added this task:
       [T][ ] Read a Book
-     Now you have 5 tasks in the list.
+     Now you have 1 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
       [D][ ] Do Homework (by: Sunday 4pm)
-     Now you have 5 tasks in the list.
+     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
       [E][ ] Go for lecture (from: Friday 4pm to: Friday 6pm)
-     Now you have 5 tasks in the list.
+     Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Here are the tasks in your list:
