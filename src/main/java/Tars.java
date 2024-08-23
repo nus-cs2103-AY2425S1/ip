@@ -68,15 +68,15 @@ public class Tars {
         System.out.println(line + "\n" + "    Hello! I'm Tars\n" + "    What can I do for you" + "\n" + line);
 
         Scanner scanner = new Scanner(System.in); //initalising input scanner
-        //String entry = scanner.nextLine(); //storing string input in a variable
-        //String[] entryParts = entry.split(" "); //when mark/unmark is given as input with TASK number
-
         ArrayList<Task> itemsList = new ArrayList<>(); //store all input entries
+
 
         //while loop to ensure termination of programme only when "bye" input
         while (true) {
             String entry = scanner.nextLine();
             String[] entryParts = entry.split(" ");
+
+            String task = itemsList.size() > 1 ? "tasks" : "task";
 
             try {
                 if(entryParts.length < 2){
@@ -165,9 +165,15 @@ public class Tars {
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("        " + eventTask);
                     System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
-                } else if(!entryParts[0].equals("todo") || !entryParts[0].equals("deadline") || !entryParts[0].equals("event") || !entry.equals("list")){
-                    throw new TarsException(line + "\n" + "    Please state a todo/deadline/event task to be recorded"
-                            + "\n" + line);
+                } else if(entryParts[0].equals("delete")){
+                    Integer index = Integer.parseInt(entryParts[entryParts.length - 1]);
+                    Task temp = itemsList.get(index - 1);
+                    itemsList.remove(itemsList.get(index - 1));
+
+                    System.out.println(line);
+                    System.out.println("    Noted. I've removed this task:");
+                    System.out.println("        " + temp);
+                    System.out.println("    Now you have " + itemsList.size() + " tasks in the list" + "\n" + line);
                 } else{
                     Task t = new Task(entry);
                     itemsList.add(t); //adding a Task to list
