@@ -4,6 +4,7 @@ public class Devon {
 
     private Scanner scanner = new Scanner(System.in);
     private String[] tasks = new String[100];
+    private int taskCount = 0;
 
     private void printLongLine() {
         String LINE_SEPARATOR = "____________________";
@@ -27,15 +28,29 @@ public class Devon {
         String input = this.scanner.nextLine();
         if (input.equals("bye")) {
             this.goodbye();
+        } else if (input.equals("list")) {
+            this.printList();
+            this.receiveUserInput();
         } else {
-            this.echo(input);
+            this.addToList(input);
             this.receiveUserInput();
         }
     }
 
-    private void echo(String msg) {
+    private void addToList(String task) {
+        this.tasks[taskCount] = task;
+        taskCount++;
         this.printLongLine();
-        System.out.println("\t" + msg);
+        System.out.println("\t" + "added: " + task);
+        this.printLongLine();
+    }
+
+    private void printList() {
+        this.printLongLine();
+        for (int i = 0; i < taskCount; i++) {
+            String formattedEntry = String.format("\t" + "%d. %s", i + 1, tasks[i]);
+            System.out.println(formattedEntry);
+        }
         this.printLongLine();
     }
 
