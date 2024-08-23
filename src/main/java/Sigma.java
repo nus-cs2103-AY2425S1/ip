@@ -33,6 +33,20 @@ public class Sigma {
         }
     }
 
+    public static void handleDelete(String userInput) {
+        Pattern pattern = Pattern.compile("(delete) (\\d+)");
+        Matcher matcher = pattern.matcher(userInput);
+
+        if (matcher.find()) {
+            int taskNumber = Integer.parseInt(matcher.group(2)) - 1;
+            if (taskNumber >= 0 && taskNumber < items.size()) {
+                Task task = items.get(taskNumber);
+                items.remove(task);
+                System.out.println("task removed:\n" + task + "\nNow you have " + items.size() + " tasks in the list");
+            }
+        }
+    }
+
     public static void main(String[] args) throws SigmaException {
         items = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -53,6 +67,11 @@ public class Sigma {
 
             if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
                 handleMarkUnmark(userInput);
+                continue;
+            }
+
+            if (userInput.startsWith("delete")) {
+                handleDelete(userInput);
                 continue;
             }
 
