@@ -1,4 +1,4 @@
-public class Duke {
+public class ChattyBuddy {
     public static void main(String[] args) {
         String break_line = "——————————————————————————";
         String logo = " ____        _        \n"
