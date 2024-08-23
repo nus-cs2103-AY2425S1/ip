@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class SumoTaskList {
 
     private final List<Task> tasks;
-    private FileWriter writer;
+    private String filePath;
 
     public SumoTaskList(String filePath) throws IOException {
         this.tasks = new ArrayList<>();
@@ -26,7 +26,7 @@ public class SumoTaskList {
                         + "Please exit and try again if u wanna save");
             }
         }
-        this.writer = new FileWriter(filePath, true);
+        this.filePath = filePath;
 
     }
 
@@ -69,6 +69,7 @@ public class SumoTaskList {
                 }
                 tasks.get(index-1).mark();
             }
+            this.save();
             break;
             case UNMARK:
             {
@@ -84,6 +85,7 @@ public class SumoTaskList {
                 }
                 tasks.get(index - 1).unmark();
             }
+            this.save();
             break;
             case DELETE:
             {
@@ -106,6 +108,7 @@ public class SumoTaskList {
                 );
                 tasks.remove(index - 1);
             }
+            this.save();
             break;
             case TODO:
             case DEADLINE:
@@ -118,12 +121,7 @@ public class SumoTaskList {
                         + "There are now "
                         + (tasks.size())
                         + " task(s) in total!");
-                try {
-                    writer.write(newlyAdded.savedString() + "\n");
-                } catch (IOException e) {
-                    System.out.println("Sumo cannot save file. Neither can I save you. :(");
-                }
-
+                this.save();
                 break;
             default:
                 throw new UnknownCommandException(command);
@@ -132,13 +130,18 @@ public class SumoTaskList {
 
     }
 
-    public void finaliseChange() {
+    public void save() {
         try {
-            writer.close();
+            FileWriter fw = new FileWriter(this.filePath, false);
+            for (Task task : tasks) {
+                fw.write(task.savedString() + "\n");
+                System.out.println(task.savedString());
+            }
+            fw.close();
         } catch (IOException e) {
-            System.out.println("DIE. SUMO UNABLE TO SAVED EVERYTHING IN THIS SESSION!");
+            System.out.println("Sumo cannot save latest change.");
         }
-
     }
+
 
 }
