@@ -15,6 +15,10 @@ public class Task {
         return "[ ] " + name;
     }
 
+    public boolean isDone() {
+        return done;
+    }
+
     public void setDone() {
         this.done = true;
     }

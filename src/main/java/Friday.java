@@ -14,19 +14,18 @@ public class Friday {
         System.out.println("Loading........\n" + logo);
         printLine();
 
-        TaskList master = new TaskList(100);
-
         System.out.println("""
                 Hello! I'm Friday!
                 What would you like to do?
                 """);
 
+        TaskList master = new TaskList(100);
         boolean bye = false;
+        Scanner sc = new Scanner(System.in);
+
         while(!bye) {
-            Scanner sc = new Scanner(System.in);
             System.out.print("Your input > ");
-            String input = getInput(sc);
-            String[] parsed = input.split(" ", 2);
+            String[] parsed = getInput(sc);
             printLine();
             switch (parsed[0]) {
                 case "Bye":
@@ -56,7 +55,7 @@ public class Friday {
                     }
                 case "Add":
                 case "add":
-                    master.addTask(new Task(parsed[1]));
+                    master.addTask(parsed[1]);
                     printLine();
                     break;
                 case "mark":
@@ -77,6 +76,7 @@ public class Friday {
             }
         }
         terminate();
+        sc.close();
     }
 
     public static void printLine() {
@@ -88,7 +88,8 @@ public class Friday {
         printLine();
     }
 
-    public static String getInput(Scanner sc) {
-        return sc.nextLine();
+    public static String[] getInput(Scanner sc) {
+        String input = sc.nextLine();
+        return input.split(" ", 2);
     }
 }
