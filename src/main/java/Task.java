@@ -1,3 +1,11 @@
+/**
+ * Represents a Task with a description and completion status.
+ *
+ * This class allows for marking the task as done or not done,
+ * and provides a textual representation of the task.
+ *
+ * @author Judy Park
+ */
 public class Task {
     private String description;
     private boolean isDone;
