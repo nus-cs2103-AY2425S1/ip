@@ -54,10 +54,45 @@ public class Sigma {
                 handleMarkUnmark(userInput);
                 continue;
             }
-            Task task = new Task(userInput, false);
-            items.add(task);
-            System.out.println("added: " + userInput);
+
+            if (userInput.startsWith("todo")) {
+                String description = userInput.substring(5).trim(); // trims todo away from the input
+                Task task = new ToDo(description, false);
+                items.add(task);
+                System.out.println("added todo task:\n [T][ ] " + description);
+                continue;
+            }
+
+            if (userInput.startsWith("deadline")) {
+                Pattern pattern = Pattern.compile("deadline (.+) /by (.+)");
+                Matcher matcher = pattern.matcher(userInput);
+                if (matcher.find()) {
+                    String description = matcher.group(1);
+                    String by = matcher.group(2);
+                    Task task = new Deadline(description, false, by);
+                    items.add(task);
+                    System.out.println("added deadline task:\n  [D][ ] " + description + " (by: " + by + ")");
+                }
+                continue;
+            }
+
+            if (userInput.startsWith("event")) {
+                Pattern pattern = Pattern.compile("event (.+) /from (.+) /to (.+)");
+                Matcher matcher = pattern.matcher(userInput);
+                if (matcher.find()) {
+                    String description = matcher.group(1);
+                    String from = matcher.group(2);
+                    String to = matcher.group(3);
+                    Task task = new Event(description, false, from, to);
+                    items.add(task);
+                    System.out.println("added event task:\n  [E][ ] " + description + " (from: " + from + " to: " + to + ")");
+                }
+                continue;
+            }
+
+            System.out.println("erm, what the sigma? i don't recognise that command.");
+
         }
-        System.out.println("Bye! See you soon");
+        System.out.println("leaving so soon? dattebayo!");
     }
 }
