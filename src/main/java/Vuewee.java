@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Vuewee {
   public static void main(String[] args) {
@@ -15,22 +13,15 @@ public class Vuewee {
     while (true) {
       String input = scanner.nextLine();
 
-      String[] inputParts = input.split(" ", 2);
-
-      if (inputParts.length == 0) {
-        throw new Error("Unknown error occured. Input error.");
-      }
-
-      String command = inputParts[0];
-
       // Exit the loop if user types "bye"
-      if (command.equals("bye")) {
+      if (input.trim().equals("bye")) {
         break;
       }
 
-      System.out.println("____________________________________________________________");
       try {
-        switch (command) {
+        System.out.println("____________________________________________________________");
+        CommandParser parser = new CommandParser(input);
+        switch (parser.getCommand()) {
           // List all tasks with done status if user types "list"
           case "list": {
             taskList.displayTasks();
@@ -39,105 +30,72 @@ public class Vuewee {
 
           // Mark task as done if user types "mark <task number>"
           case "mark": {
-            if (inputParts.length < 2) {
-              throw new NoTaskParametersFoundException("mark", "mark <task number>");
-            }
+            parser.parse(true);
+
             try {
-              int taskNumber = Integer.parseInt(inputParts[1]);
+              int taskNumber = Integer.parseInt(parser.getDescription());
               taskList.markTask(taskNumber, true);
             } catch (NumberFormatException e) {
-              System.out.println("Invalid task number: " + inputParts[1]);
+              System.out.println("Invalid task number: " + parser.getDescription());
             }
             break;
           }
 
           case "unmark": {
-            if (inputParts.length < 2) {
-              throw new NoTaskParametersFoundException("unmark", "unmark <task number>");
-            }
+            parser.parse(true);
+
             try {
-              int taskNumber = Integer.parseInt(inputParts[1]);
+              int taskNumber = Integer.parseInt(parser.getDescription());
               taskList.markTask(taskNumber, false);
             } catch (NumberFormatException e) {
-              System.out.println("Invalid task number: " + inputParts[1]);
+              System.out.println("Invalid task number: " + parser.getDescription());
             }
             break;
           }
           // Add todo task to task list
           // (Usage: todo <description>)
           case "todo": {
-            if (inputParts.length < 2) {
-              throw new NoTaskParametersFoundException("todo", "todo <description>");
-            }
-            taskList.addTask(new TodoTask(inputParts[1]));
+            parser.parse(true);
+            taskList.addTask(new TodoTask(parser.getDescription()));
             break;
           }
           // Add deadline task to task list
           // (Usage: deadline <description> /by <date>)
           case "deadline": {
-            final NoTaskParametersFoundException DEADLINE_ERROR = new NoTaskParametersFoundException("deadline",
-                "deadline <description> /by <date>");
-
-            if (inputParts.length < 2) {
-              throw DEADLINE_ERROR;
-            }
-
-            String[] deadlineParts = inputParts[1].split(" /by ");
-            if (deadlineParts.length != 2) {
-              throw DEADLINE_ERROR;
-            }
-            taskList.addTask(new DeadlineTask(deadlineParts[0], deadlineParts[1]));
+            parser.parse(true, new CommandOption[] { new CommandOption("by", "date") });
+            taskList.addTask(new DeadlineTask(parser.getDescription(), parser.getOption("by")));
             break;
           }
           // Add event task to task list
           // (Usage: event <description> /from <fromDate> /to <toDate>)
           case "event": {
-            final NoTaskParametersFoundException EVENT_ERROR = new NoTaskParametersFoundException("event",
-                "event <description> /from <fromDate> /to <toDate>");
-            if (inputParts.length < 2) {
-              throw EVENT_ERROR;
-            }
-
-            String paramsInput = inputParts[1];
-            Pattern fromPattern = Pattern.compile("/from (.+?)(?:$| /to| /from)");
-            Pattern toPattern = Pattern.compile("/to (.+?)(?:$| /from| /to)");
-
-            Matcher fromMatcher = fromPattern.matcher(paramsInput);
-            Matcher toMatcher = toPattern.matcher(paramsInput);
-
-            if (!fromMatcher.find() || !toMatcher.find()) {
-              throw EVENT_ERROR;
-            }
-
-            // Extract description, from date and to date using regex results
-            String description = paramsInput.substring(0, Math.min(fromMatcher.start(), toMatcher.start())).trim();
-            String fromDate = fromMatcher.group(1);
-            String toDate = toMatcher.group(1);
-
-            if (description.length() == 0) {
-              throw EVENT_ERROR;
-            }
-
-            taskList.addTask(new EventTask(description, fromDate, toDate));
+            parser.parse(true,
+                new CommandOption[] { new CommandOption("from", "fromDate"), new CommandOption("to", "toDate") });
+            taskList.addTask(new EventTask(parser.getDescription(), parser.getOption("from"), parser.getOption("to")));
             break;
           }
           // Delete task from task list
           // (Usage: delete <task number>)
           case "delete": {
+            parser.parse(true);
             try {
-              int taskNumber = Integer.parseInt(inputParts[1]);
+              int taskNumber = Integer.parseInt(parser.getDescription());
               taskList.deleteTask(taskNumber);
             } catch (NumberFormatException e) {
-              System.out.println("Invalid task number: " + inputParts[1]);
+              System.out.println("Invalid task number: " + parser.getDescription());
             }
             break;
           }
           default: {
-            System.out.println("Unknown command: " + command);
+            System.out.println("Unknown command: " + parser.getCommand());
             break;
           }
         }
-      } catch (TaskListException | IndexOutOfBoundsException e) {
+
+      } catch (
+          TaskListException
+          | IndexOutOfBoundsException
+          | IllegalArgumentException e) {
         System.out.println(e.getMessage());
       }
       System.out.println("____________________________________________________________");
