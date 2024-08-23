@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Devon {
 
     private Scanner scanner = new Scanner(System.in);
+    private String[] tasks = new String[100];
 
     private void printLongLine() {
         String LINE_SEPARATOR = "____________________";
