@@ -99,6 +99,22 @@ public class Garfield {
                 }
             }
 
+            if (userInput.toLowerCase().startsWith("event")) {
+                String eventDescription = userInput.substring(6);
+                String[] eventArgs = eventDescription.split("/from");
+                eventDescription = eventArgs[0];
+                eventArgs = eventArgs[1].split("/to");
+                if (!eventDescription.isBlank() && !eventArgs[0].isBlank() && !eventArgs[1].isBlank()) {
+                    Event newEvent = new Event(eventDescription.strip(),
+                            eventArgs[0].strip(), eventArgs[1].strip());
+                    taskList.add(newEvent);
+                    Garfield.speak("Fine. I'll add '" + eventDescription + "' to the list.\n\n\t"
+                            + newEvent + "\n\nYour list is now at " + taskList.size() + " task"
+                            + ((taskList.size() == 1)? "" : "s") + ". Maybe you'll get around to actually doing them.");
+                    continue;
+                }
+            }
+
         }
 
         Garfield.speak("Finally. Try not to come back too soon.");
