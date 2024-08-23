@@ -27,6 +27,7 @@ public class ShrimpException extends Exception {
         private static final String errorMessage_event = "Oh nyoo~ I need a " + description + ", a " + from +
                 " and a " + to + " to make a DEADLINE...";
         private static final String errorMessage_default = "Oh nyoo~ There seems to an issue somewhere! :<";
+        private static final String errorMessage_delete = "Oh nyoo~ You didn't indicate which task to delete...";
 
         MissingArgumentException(CommandParser.CommandType command) {
             super(switchErrorMessage(command));
@@ -39,6 +40,7 @@ public class ShrimpException extends Exception {
                 case UNMARK -> errorMessage_unmark;
                 case DEADLINE -> errorMessage_deadline;
                 case EVENT -> errorMessage_event;
+                case DELETE -> errorMessage_delete;
                 default -> errorMessage_default;
             };
         }
