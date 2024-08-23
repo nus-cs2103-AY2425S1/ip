@@ -3,8 +3,17 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+/**
+ * The {@code Snipe} class represents a task management system that interacts with the user via command-line input.
+ * It supports commands for adding, deleting, marking, unmarking, and listing tasks.
+ */
 public class Snipe {
+
+    /** The name of the application. */
     private static final String NAME = "Snipe";
+
+    /** The ASCII art logo for the application. */
     private static final String LOGO
             = "  _________      .__               \n"
             + " /   _____/ ____ |__|_____   ____  \n"
@@ -12,8 +21,16 @@ public class Snipe {
             + " /        \\   |  \\  |  |_> >  ___/ \n"
             + "/_______  /___|  /__|   __/ \\___  >\n"
             + "        \\/     \\/   |__|        \\/ \n";
+
+    /** A horizontal line used for formatting output. */
     private static final String HORIZONTAL_LINE = "_".repeat(60);
+
+    /** The list of tasks managed by the application. */
     private static ArrayList<Task> list = new ArrayList<Task>();
+
+    /**
+     * Enumeration of command types that can be executed by the application.
+     */
     public enum CommandType {
         LIST,
         HELP,
@@ -25,15 +42,29 @@ public class Snipe {
         EVENT,
         BYE
     }
+
+    /**
+     * Initializes the chat, greeting the user and handling user input.
+     */
     public void initChat() {
         greetUser();
         handleUserInput();
     }
 
+    /**
+     * Greets the user with an opening message and the application name.
+     */
     private void greetUser() {
         String OPENING_MESSAGE = "Hello! I'm\n" + NAME +"\nWhat can I do for you?";
         printWithLines(OPENING_MESSAGE);
     }
+
+    /**
+     * Determines the {@link CommandType} based on the user input.
+     *
+     * @param userInput The input provided by the user.
+     * @return The corresponding {@link CommandType}, or {@code null} if the command is not recognized.
+     */
     private CommandType getCommandType(String userInput) {
         String[] split = userInput.split(" ");
         if (checkForHelp(split)) {
@@ -46,6 +77,13 @@ public class Snipe {
             return null;  // Return null if the command is not recognized
         }
     }
+
+    /**
+     * Checks if the user's input includes a request for help.
+     *
+     * @param split The split array of user input.
+     * @return {@code true} if the input contains "HELP", otherwise {@code false}.
+     */
     private boolean checkForHelp(String[] split) {
         for (String str: split) {
             if (str.equalsIgnoreCase("HELP")) {
@@ -54,6 +92,10 @@ public class Snipe {
         }
         return false;
     }
+
+    /**
+     * Continuously handles user input, executing commands until the user exits.
+     */
     private void handleUserInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -70,39 +112,58 @@ public class Snipe {
             }
         }
     }
-private void handleSpecialInputs(CommandType commandType, String userInput) {
-    try {
-        switch (commandType) {
-            case LIST:
-                returnList();
-                break;
-            case HELP:
-                displayHelp();
-                break;
-            case DELETE:
-                deleteTask(userInput);
-                break;
-            case MARK:
-            case UNMARK:
-                markAndUnmarkTask(commandType, userInput);
-                break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                Task newTask = addTask(commandType, userInput);
-                list.add(newTask);
-                printWithLines(" Got it. I've added this task:\n  " + newTask + listLength());
-                break;
-            default:
-                throw new SnipeException("Unknown command. Type 'help' for a list of commands.");
+
+    /**
+     * Handles the execution of special commands based on the {@link CommandType}.
+     *
+     * @param commandType The type of command to be executed.
+     * @param userInput   The input provided by the user.
+     */
+    private void handleSpecialInputs(CommandType commandType, String userInput) {
+        try {
+            switch (commandType) {
+                case LIST:
+                    returnList();
+                    break;
+                case HELP:
+                    displayHelp();
+                    break;
+                case DELETE:
+                    deleteTask(userInput);
+                    break;
+                case MARK:
+                case UNMARK:
+                    markAndUnmarkTask(commandType, userInput);
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    Task newTask = addTask(commandType, userInput);
+                    list.add(newTask);
+                    printWithLines(" Got it. I've added this task:\n  " + newTask + listLength());
+                    break;
+                default:
+                    throw new SnipeException("Unknown command. Type 'help' for a list of commands.");
+            }
+        } catch (SnipeException e) {
+            printWithLines(e.getMessage());
         }
-    } catch (SnipeException e) {
-        printWithLines(e.getMessage());
     }
-}
+
+    /**
+     * Returns a string indicating the number of tasks in the list.
+     *
+     * @return A string showing the number of tasks currently in the list.
+     */
     private String listLength() {
         return String.format("\n Now you have %d %s in the list.", list.size(), list.size() == 1 ? "task" : "tasks");
     }
+
+    /**
+     * Displays help instructions by reading from a file.
+     *
+     * @throws SnipeException if the file cannot be read.
+     */
     private void displayHelp() throws SnipeException{
         String filePath = "src/main/txt/helpinstructions.txt"; // Instructions manual
         try {
@@ -112,6 +173,13 @@ private void handleSpecialInputs(CommandType commandType, String userInput) {
             System.out.println("Error reading the file: " + e.getMessage());
         }
     }
+
+    /**
+     * Deletes a task from the list based on user input.
+     *
+     * @param userInput The input provided by the user, including the task number to delete.
+     * @throws SnipeException if the task number is invalid or the list item does not exist.
+     */
     private void deleteTask(String userInput) throws SnipeException{
         String[] split = userInput.split(" ", 2);
         if (split.length < 2 || split[1].trim().isEmpty()) {
@@ -130,7 +198,15 @@ private void handleSpecialInputs(CommandType commandType, String userInput) {
             printWithLines(message);
         }
     }
-    private void markAndUnmarkTask(CommandType commandtype, String userInput) throws SnipeException {
+
+    /**
+     * Marks or unmarks a task as completed or not completed based on user input.
+     *
+     * @param commandType The command type, either MARK or UNMARK.
+     * @param userInput   The input provided by the user, including the task number.
+     * @throws SnipeException if the task number is invalid or the list item does not exist.
+     */
+    private void markAndUnmarkTask(CommandType commandType, String userInput) throws SnipeException {
         String [] split = userInput.split(" ", 2);
         if (split.length < 2 || split[1].trim().isEmpty()) {
             throw new SnipeException("Please input a number. Use 'help for correct syntax");
@@ -141,21 +217,30 @@ private void handleSpecialInputs(CommandType commandType, String userInput) {
                     + listLength());
         } else {
             Task task = list.get(index);
-            boolean successful = task.getStatus() ^ commandtype == CommandType.MARK;
+            boolean successful = task.getStatus() ^ commandType == CommandType.MARK;
             if (successful) {
                 task.changeStatus();
                 String markAndNotDone = "Nice! I've marked this task as done:\n" +
                         task.toString();
                 String unmarkAndDone = "OK, I've marked this task as not done yet:\n" +
                         task.toString();
-                printWithLines(commandtype == CommandType.MARK ? markAndNotDone : unmarkAndDone);
+                printWithLines(commandType == CommandType.MARK ? markAndNotDone : unmarkAndDone);
             } else {
                 String markAndDone = "This task is already marked done!";
                 String unmarkAndNotDone = "This task is currently not done yet!";
-                printWithLines(commandtype == CommandType.MARK ? markAndDone : unmarkAndNotDone);
+                printWithLines(commandType == CommandType.MARK ? markAndDone : unmarkAndNotDone);
             }
         }
     }
+
+    /**
+     * Adds a new task to the list based on the command type and user input.
+     *
+     * @param commandType The command type (TODO, DEADLINE, or EVENT).
+     * @param userInput   The input provided by the user, including the task details.
+     * @return The created {@link Task} object.
+     * @throws SnipeException If the input is invalid or incomplete.
+     */
     private Task addTask(CommandType commandType, String userInput) throws SnipeException {
         String[] split = userInput.split(" ", 2);
         if (split.length < 2 || split[1].trim().isEmpty()) {
@@ -182,6 +267,10 @@ private void handleSpecialInputs(CommandType commandType, String userInput) {
                 throw new SnipeException("Invalid task type.");
         }
     }
+
+    /**
+     * Displays the list of tasks currently managed by the application.
+     */
     private void returnList() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
@@ -191,16 +280,34 @@ private void handleSpecialInputs(CommandType commandType, String userInput) {
         }
         System.out.println(HORIZONTAL_LINE);
     }
+
+    /**
+     * Prints a message between two horizontal lines for better readability.
+     *
+     * @param message The message to be printed.
+     */
     private void printWithLines(String message) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(message);
         System.out.println(HORIZONTAL_LINE);
     }
+
+    /**
+     * Exits the chat and closes the scanner.
+     *
+     * @param scanner The {@link Scanner} object used for input.
+     */
     private void exitChat(Scanner scanner) {
         String CLOSING_MESSAGE = "Bye. Hope to see you again soon!";
         printWithLines(CLOSING_MESSAGE);
         scanner.close();
     }
+
+    /**
+     * The main method that starts the application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         Snipe snipe = new Snipe();
         snipe.initChat();
