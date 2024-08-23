@@ -1,10 +1,19 @@
-public class Duke {
+import java.sql.SQLOutput;
+
+public class Muffin {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = " __  __       __  __ _\n" +
+                "|  \\/  |_  _ / _|/ _(_)_ _  \n" +
+                "| |\\/| | || |  _|  _| | ' \\ \n" +
+                "|_|  |_|\\_,_|_| |_| |_|_||_|\n";
+
+        String helloMsg = "Hello~ I'm Muffin \n" +
+                "What can I do for you?";
+
+        String byeMsg = "Goodbye~ Hope to see you again soon!";
+
+        System.out.println(logo + "\n" + helloMsg);
+
+        System.out.println("\n" + byeMsg);
     }
 }
