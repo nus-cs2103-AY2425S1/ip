@@ -50,7 +50,7 @@ public class ListOfTask {
                 "     Here are the tasks in your list: \n";
         for (int i = 0; i < this.tasks.size(); i++) {
             int label = i + 1;
-            output += "     " + label + "." + this.tasks.get(i).printTask() + "\n";
+            output += "     " + label + ". " + this.tasks.get(i).printTask() + "\n";
         }
 
         return output +

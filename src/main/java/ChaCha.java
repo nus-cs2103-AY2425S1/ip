@@ -14,7 +14,7 @@ public class ChaCha {
                 "     ____________________________________________________________ \n";
 
         String exit = "     ____________________________________________________________ \n" +
-                "     Bye. Hope to talk to you again soon! \n" +
+                "     Bye! Hope to talk to you again soon! \n" +
                 "     ____________________________________________________________";
 
         System.out.println(greeting);

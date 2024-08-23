@@ -1,0 +1,32 @@
+todo
+todo read book
+deadline
+deadline return book
+deadline return book /jibcd
+deadline return book /by Sunday
+event
+event /from 2pm /to 3pm
+event meeting /to 3pm
+event meeting /hod /to 3pm
+event meeting /from 2pm /to 3pm
+todo tutorial
+todo lab
+todo grocery
+list
+mark
+mark 2
+mark j
+mark 4
+mark 8
+unmark
+unmark j
+unmark 10
+unmark 2
+list
+delete
+delete h
+delete 11
+delete 1
+list
+help
+bye
