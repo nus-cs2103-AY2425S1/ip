@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Shnoop {
     private boolean completion = false;
     private String mode;
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
     private int arrPointer;
     private String[] quotes;
     public Shnoop() {
@@ -16,7 +18,7 @@ public class Shnoop {
     public Shnoop(String input) {
         if (input == "todo") {
             mode = "todo";
-            tasks = new Task[100];
+            tasks = new ArrayList<Task>();
             arrPointer = 0;
             quotes = new String[] {
                     "You're unforgettable.",
@@ -29,7 +31,8 @@ public class Shnoop {
     }
 
     public void addTask(Task task) {
-        tasks[arrPointer++] = task;
+        tasks.add(task);
+        arrPointer++;
     }
 
     /**
@@ -74,25 +77,25 @@ public class Shnoop {
     public String parseInputMark(String input) {
         if (input.length() >= 6 && input.substring(0, 5).equals("mark ")) {
             if (canBeInteger(input.substring(5, input.length()))) {
-                boolean result = tasks[convertStrToInteger(input.substring(5, input.length())) - 1].markTask();
+                boolean result = tasks.get(convertStrToInteger(input.substring(5, input.length())) - 1).markTask();
                 if (result) {
                     System.out.println("✿ Shnoop ✿: Warm, wet and wild! I've marked this task as done: ");
                 } else {
                     System.out.println("✿ Shnoop ✿: Daisy dukes! This task was already done my love: ");
                 }
-                System.out.println(tasks[convertStrToInteger(input.substring(5, input.length())) - 1]
+                System.out.println(tasks.get(convertStrToInteger(input.substring(5, input.length())) - 1)
                         .getTaskWithStatus());
                 return "mark_task";
             }
         } else if (input.length() >= 8 && input.substring(0, 7).equals("unmark ")) {
             if (canBeInteger(input.substring(7, input.length()))) {
-                boolean result = tasks[convertStrToInteger(input.substring(7, input.length())) - 1].unmarkTask();
+                boolean result = tasks.get(convertStrToInteger(input.substring(7, input.length())) - 1).unmarkTask();
                 if (result) {
                     System.out.println("✿ Shnoop ✿: Melted this popsicle! I've unmarked this task as done: ");
                 } else {
                     System.out.println("✿ Shnoop ✿: Daisy dukes! This task was never done my love: ");
                 }
-                System.out.println(tasks[convertStrToInteger(input.substring(7, input.length())) - 1]
+                System.out.println(tasks.get(convertStrToInteger(input.substring(7, input.length())) - 1)
                         .getTaskWithStatus());
                 return "mark_task";
             }
@@ -144,6 +147,24 @@ public class Shnoop {
         return (length >= 9 && str.toLowerCase().startsWith("deadline "));
     }
 
+    public boolean startsWithDelete(String str, int length) {
+        return (length >= 7 && str.toLowerCase().startsWith("delete "));
+    }
+
+    public String parseInputDelete(String str, int length) {
+        String temp = (str.substring(7, length));
+        if (canBeInteger(temp)) {
+            int ptr = convertStrToInteger(temp);
+            Task element = tasks.get(ptr - 1);
+            tasks.remove(ptr - 1);
+            System.out.println("✿ Shnoop ✿: I know a place, where the grass is really greener. "
+                    + "I'll send this task there\n" + "Goodbye " + element + "!");
+            return "task_removed";
+        }
+
+        return "task_not_removed";
+    }
+
     public String getTaskType(String str) {
         int length = str.length();
         if (startsWithTodo(str, length)) {
@@ -187,7 +208,7 @@ public class Shnoop {
      * @return String action code.
      */
     public String parseInput(String input) throws UndefinedTaskException, IncompleteEventOrDeadlineException,
-            EmptyDescriptionException, UnmarkableArrayException {
+            EmptyDescriptionException, UnmarkableArrayException, IndexOutOfBoundsException {
         switch (mode) {
 
         // For Level-1 echo mode.
@@ -210,26 +231,30 @@ public class Shnoop {
                 String parseInputMarkResult = parseInputMark(input);
                 if (parseInputMarkResult != "not_mark_or_unmark") {
                     return parseInputMarkResult; // Exit if it is mark or unmark command
+                } else if (startsWithDelete(input, input.length())) {
+                    return parseInputDelete(input, input.length());
                 }
-            } catch (NullPointerException | ArrayIndexOutOfBoundsException npe) {
+            } catch (NullPointerException | IndexOutOfBoundsException npe) {
                 throw new UnmarkableArrayException();
             }
 
-            // Other than mark or unmark
+
+            // Other than mark or unmark or delete
             switch (input) {
 
             case "bye":
-                System.out.println("\n✿ Shnoop ✿: I'll check ya later, cause you represent. Don't worry we got it on lock. ♡");
+                System.out.println("\n✿ Shnoop ✿: I'll check ya later, cause you represent. "
+                        + "Don't worry we got it on lock. ♡");
                 completion = true;
                 return "exit";
 
             case "list":
                 System.out.println("✿ Shnoop ✿: Find, fresh, fierce and ready.");
-                for (int i = 0; i < tasks.length; i ++) {
-                    if (tasks[i] == null) {
+                for (int i = 0; i < tasks.size(); i ++) {
+                    if (tasks.get(i) == null) {
                         break;
                     }
-                    System.out.println((i + 1) + ". " + tasks[i].toString());
+                    System.out.println((i + 1) + ". " + tasks.get(i).toString());
                 }
                 return "list";
 
