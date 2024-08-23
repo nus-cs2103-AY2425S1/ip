@@ -12,8 +12,9 @@ public class Lawrence {
         String userInput;
         while (true) {
             userInput = sc.nextLine();  // Get next user input
-            String[] components = userInput.split(" ");
-            switch (components[0]) {
+            String[] inputComponents = userInput.split(" ", 2);
+            String command = inputComponents[0];
+            switch (command) {
                 case "bye":
                     displayMessage("That's all folks! Hope to see you again soon!");
                     return;
@@ -21,21 +22,37 @@ public class Lawrence {
                     displayTasks();
                     break;
                 case "mark":
-                    Task completeTask = tasks.completeTask(Integer.parseInt(components[1]));
+                    Task completeTask = tasks.completeTask(Integer.parseInt(inputComponents[1]));
                     displayMessage(
                             String.format("I've marked the task as complete:\n%s", completeTask));
                     break;
                 case "unmark":
-                    Task incompleteTask = tasks.unCompleteTask(Integer.parseInt(components[1]));
+                    Task incompleteTask = tasks.unCompleteTask(Integer.parseInt(inputComponents[1]));
                     displayMessage(
                             String.format("Changed your mind? The task is set to incomplete:\n%s", incompleteTask));
                     break;
+                case "todo":
+                    String todoDescription = inputComponents[1];
+                    addTask(new ToDo(todoDescription));
+                    break;
+                case "deadline":
+                    String[] deadlineComponents = inputComponents[1].split(" /by ");
+                    addTask(new Deadline(deadlineComponents[0], deadlineComponents[1]));
+                    break;
+                case "event":
+                    String[] eventComponents = inputComponents[1].split(" /from | /to ");
+                    addTask(new Event(eventComponents[0], eventComponents[1], eventComponents[2]));
+                    break;
                 default:
-                    Task t = new Task(userInput);
-                    tasks.addTask(t);
-                    displayMessage(String.format("Alright, added task: %s to the list.", t));
+                    displayMessage("Unable to recognise command. Please try again.");
             }
         }
+    }
+
+    private static void addTask(Task t) {
+        tasks.add(t);
+        displayMessage(String.format("Alright, added task:%n%s to the list.%n"
+                + "There are currently %d tasks in the list", t, tasks.getSize()));
     }
 
     private static void greetUser() {

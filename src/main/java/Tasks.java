@@ -7,7 +7,7 @@ public class Tasks {
         list = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    public void add(Task task) {
         list.add(task);
     }
 
@@ -21,6 +21,10 @@ public class Tasks {
         Task t = list.get(taskNumber - 1);
         t.setComplete(false);
         return t;
+    }
+
+    public int getSize() {
+        return list.size();
     }
 
     @Override
