@@ -1,31 +1,33 @@
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.Queue;
+import java.util.*;
 
 public class Ponder_Pika {
 
-    static Queue<String> myList = new LinkedList<>();
+    private final List<String> myList = new ArrayList<>();
 
-    public static void greet() {
+    private void greet() {
+        String logo = "Ponder_Pika";
+
+        System.out.println("------------------------------------------------");
+        System.out.println("Hello I'm " + logo);
+        System.out.println("------------------------------------------------");
         System.out.println("\nIt is a great day to ponder! How may I help you?");
     }
 
-    public static void bidBye() {
+    private static void bidBye() {
         System.out.println("\nBye! See you real soon!");
     }
 
-    public static void echo() {
-
+    public void echo() {
+        greet();
         Scanner scan = new Scanner(System.in);
         String userCommand = "";
 
         while(true) {
-            userCommand = scan.nextLine();
+            userCommand = scan.nextLine().trim();
 
             if (userCommand.equals("list")) {
-                String[] listArray = myList.toArray(new String[myList.size()]);
-                for (int i = 0; i < listArray.length; i++) {
-                    System.out.println(i+1 + ". " + listArray[i]);
+                for (int i = 0; i < myList.size(); i++) {
+                    System.out.println(i+1 + ". " + myList.get(i));
                 }
                 System.out.println("................................................");
             } else if (!userCommand.equals("bye")) {
@@ -43,13 +45,7 @@ public class Ponder_Pika {
     }
 
     public static void main(String[] args) {
-        String logo = "Ponder_Pika";
-
-        System.out.println("------------------------------------------------");
-        System.out.println("Hello I'm " + logo);
-        Ponder_Pika.greet();
-        System.out.println("------------------------------------------------");
-
-        Ponder_Pika.echo();
+        Ponder_Pika bot = new Ponder_Pika();
+        bot.echo();
     }
 }
