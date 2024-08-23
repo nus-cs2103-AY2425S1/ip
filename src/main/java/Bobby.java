@@ -29,7 +29,7 @@ public class Bobby {
     private static Task[] tasks = new Task[100];
     private static int count = 0;
 
-    private static void add_task(Task task) {
+    private static void addTask(Task task) {
         if (count < tasks.length) {
             tasks[count] = task;
             count++;
@@ -39,7 +39,7 @@ public class Bobby {
         }
     }
 
-    private static void print_task() {
+    private static void printTasks() {
         if (count == 0) {
             System.out.println("No tasks added to the list yet.");
         } else {
@@ -49,46 +49,77 @@ public class Bobby {
         }
     }
 
+private static void handleMarkTask(String userInput) throws InvalidTaskNumberException {
+    int taskNumber = Integer.parseInt(userInput.substring(5).trim()) - 1;
+    if (taskNumber < 0 || taskNumber >= count) {
+        throw new InvalidTaskNumberException();
+    }
+    tasks[taskNumber].markTask();
+    System.out.println("Nice! I've marked this task as done: " + tasks[taskNumber]);
+}
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        greet();
-        while (true) {
-            // Ask the user for input
-            System.out.print("Enter something (type 'bye' to quit):\n");
-            String userInput = scanner.nextLine();
+    private static void handleUnmarkTask(String userInput) throws InvalidTaskNumberException {
+        int taskNumber = Integer.parseInt(userInput.substring(7).trim()) - 1;
+        if (taskNumber < 0 || taskNumber >= count) {
+            throw new InvalidTaskNumberException();
+        }
+        tasks[taskNumber].unmarkTask();
+        System.out.println("OK, I've marked this task as not done yet: " + tasks[taskNumber]);
+    }
+    private static void handleTask(String userInput) throws BobbyException {
+        if (userInput.startsWith("todo ")) {
+            String description = userInput.substring(5).trim();
+            if (description.isEmpty()) {
+                throw new EmptyTodoException();
+            }
+            Task task = new Todo(description);
+            addTask(task);
+        } else if (userInput.startsWith("deadline ")) {
+            String[] parts = userInput.substring(9).split(" /by ");
+            if (parts.length < 2) {
+                throw new EmptyDeadlineException();
+            }
+            String description = parts[0];
+            String by = parts[1];
+            Task task = new Deadline(description, by);
+            addTask(task);
+        } else if (userInput.startsWith("event ")) {
+            String[] parts = userInput.substring(6).split(" /from | /to ");
+            if (parts.length < 3) {
+                throw new EmptyEventException();
+            }
+            String description = parts[0];
+            String from = parts[1];
+            String to = parts[2];
+            Task task = new Event(description, from, to);
+            addTask(task);
+        } else {
+            throw new InvalidInputException();
+        }
+    }
+
+public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    greet();
+    while (true) {
+        String userInput = scanner.nextLine();
+        try {
             if (userInput.equalsIgnoreCase("bye")) {
                 exit();
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
-                print_task();
+                printTasks();
             } else if (userInput.startsWith("mark ")) {
-
-                int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-                tasks[taskNumber].markTask();
-                System.out.println("Nice! I've marked this task as done: " + tasks[taskNumber]);
+                handleMarkTask(userInput);
             } else if (userInput.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-                tasks[taskNumber].unmarkTask();
-                System.out.println("OK, I've marked this task as not done yet: " + tasks[taskNumber]);
-            } else if (userInput.startsWith("todo ")){
-                String description = userInput.substring(5);
-                Task task = new Todo(description);
-                add_task(task);
-            } else if (userInput.startsWith("deadline ")) {
-                String[] parts = userInput.substring(9).split(" /by ");
-                String description = parts[0];
-                String by = parts[1];
-                Task task = new Deadline(description, by);
-                add_task(task);
-            } else if (userInput.startsWith("event ")) {
-                String[] parts = userInput.substring(6).split(" /from | /to ");
-                String description = parts[0];
-                String from = parts[1];
-                String to = parts[2];
-                Task task = new Event(description, from, to);
-                add_task(task);
+                handleUnmarkTask(userInput);
+            } else {
+                handleTask(userInput);
             }
+        } catch (BobbyException e) {
+            System.out.println("OOPS!!! " + e.getMessage());
         }
     }
+    scanner.close();
+}
 }
