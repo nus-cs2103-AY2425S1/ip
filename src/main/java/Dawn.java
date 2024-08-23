@@ -6,17 +6,20 @@ public class Dawn {
 
         System.out.println(divider);
         System.out.println("Dawn 🌙 speaking, what can I do for you?");
-        respond();
+        try {
+            respond();
+        } catch (DawnException ex) {
+            System.err.print(ex);
+        }
         System.out.println(divider);
     }
     private static Scanner scanner = new Scanner(System.in);
     private static Task[] tasks = new Task[100];
     private static int counter = 0;
 
-    private static void respond() { //provide responses to the user input
+    private static void respond() throws DawnException { //provide responses to the user input
         if (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-
             if (input.equals("bye")) {
                 System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
             } else if (input.equals("list")) {
@@ -33,13 +36,21 @@ public class Dawn {
                 Task t;
                 String[] s = input.split("/");
                 int indexOfSpace = s[0].indexOf(" ");
+                if (s[0].split(" ").length <= 1) {
+                    if (input.contains("todo") || input.contains("deadline") || input.contains("event")) {
+                        throw new DawnException("You might be missing the task description, please check again\n");
+                    }
+                    throw new DawnException("Am I supposed to know what that means? Try something else\n");
+                }
                 s[0] = s[0].substring(indexOfSpace + 1); // remove the command word e.g. todo
                 if (input.contains("todo")) {
                     t = new ToDo(s[0]);
                 } else if (input.contains("deadline")) {
                     t = new Deadline(s[0], s[1]);
-                } else {
+                } else if (input.contains("event")) {
                     t = new Event(s[0], s[1], s[2]);
+                } else {
+                    throw new DawnException("Am I supposed to know what that means? Try something else\n");
                 }
                 tasks[counter] = t;
                 counter++;
