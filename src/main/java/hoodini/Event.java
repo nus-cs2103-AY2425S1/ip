@@ -14,8 +14,10 @@ public class Event extends Input{
      * @param input String input by user
      */
     public Event(String input) {
-        super(input.split(" ", 2)[1].split("/", 2)[0]);
-        this.from = input.split("/from", 2)[1].split("/to", 2)[0];
+        super(input.split(" ", 2)[1]
+                .split("/", 2)[0]);
+        this.from = input.split("/from", 2)[1]
+                .split("/to", 2)[0];
         this.to = input.split("/to", 2)[1];
     }
 
