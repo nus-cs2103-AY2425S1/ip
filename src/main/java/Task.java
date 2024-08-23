@@ -7,12 +7,18 @@ public class Task {
         this.isDone = false;
     }
 
-    public String markAsDone() {
+    public String markAsDone() throws ConverSageException {
+        if (this.isDone) {
+            throw new ConverSageException("This task is already marked as done...");
+        }
         this.isDone = true;
         return "[X] " + this.taskDesc;
     }
 
-    public String markAsUndone() {
+    public String markAsUndone() throws ConverSageException {
+        if (!this.isDone) {
+            throw new ConverSageException("This task is already marked as not done...");
+        }
         this.isDone = true;
         return "[ ] " + this.taskDesc;
     }
