@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -11,16 +11,16 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
+    public void markDone() {
+        this.isDone = true;
     }
 
-    public String formatTask() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+    public void unmarkDone() {
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        return this.description;
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }
