@@ -66,7 +66,7 @@ public class Garfield {
                     int taskId = Integer.parseInt(output[1]);
                     if (taskId <= taskList.size()) {
                         Task task = taskList.get(taskId - 1);
-                        task.markAsDone();
+                        task.markAsUndone();
                         Garfield.speak("Oh, having second thoughts? OK, I’ve marked that task as not done yet:\n\n\t"
                                 + task + "\n\nClearly, you're still undecided.");
                         continue;
@@ -82,6 +82,19 @@ public class Garfield {
                     Garfield.speak("Fine. I'll add '" + todoDescription + "' to the list.\n\n\t"
                     + newTodo + "\n\nJust what you needed to boost your list to a grand total of "
                     + taskList.size() + " task" + ((taskList.size() == 1)? "" : "s") + ". Lucky you.");
+                    continue;
+                }
+            }
+
+            if (userInput.toLowerCase().startsWith("deadline")) {
+                String deadlineDescription = userInput.substring(9);
+                String[] deadlineArgs = deadlineDescription.split("/by");
+                if (!deadlineArgs[0].isBlank() && !deadlineArgs[1].isBlank()) {
+                    Deadline newDeadline= new Deadline(deadlineArgs[0].strip(), deadlineArgs[1].strip());
+                    taskList.add(newDeadline);
+                    Garfield.speak("Fine. I'll add '" + deadlineArgs[0].strip() + "' to the list.\n\n\t"
+                            + newDeadline + "\n\nNow your list is up to " + taskList.size() + " task"
+                            + ((taskList.size() == 1)? "" : "s") + ". Because who doesn't love more deadlines.");
                     continue;
                 }
             }
