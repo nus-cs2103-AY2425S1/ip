@@ -10,12 +10,13 @@ public class Deadline extends Task {
         super(description, TaskType.DEADLINE);
 
         // check for errors
-        if (description.equals(" ") || by.equals(" ")) {
+        if (description.equals(" ") || by.equals(" ")
+                || description.isEmpty() || by.isEmpty()) {
             String msg = "";
-            if (description.equals(" ")) {
+            if (description.equals(" ") || description.isEmpty()) {
                 msg += " Description,";
             }
-            if (by.equals(" ")) {
+            if (by.equals(" ") || by.isEmpty()) {
                 msg += " By";
             }
 
@@ -44,8 +45,10 @@ public class Deadline extends Task {
 
     @Override
     public String save() {
+
         return super.save()
                 + "|"
                 + this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
     }
 }

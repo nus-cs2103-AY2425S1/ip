@@ -11,15 +11,16 @@ public class Event extends Task {
         super(description, TaskType.EVENT);
 
         // check for errors
-        if (description.equals(" ") || from.equals(" ") || to.equals(" ")) {
+        if (description.equals(" ") || from.equals(" ") || to.equals(" ")
+                || description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             String msg = "";
-            if (description.equals(" ")) {
+            if (description.equals(" ") || description.isEmpty()) {
                 msg += " Description,";
             }
-            if (from.equals(" ")) {
+            if (from.equals(" ") || from.isEmpty()) {
                 msg += " From,";
             }
-            if (to.equals(" ")) {
+            if (to.equals(" ") || to.isEmpty()) {
                 msg += " To";
             }
 
@@ -36,6 +37,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+
         return "[E]"
                 + super.toString()
                 + "(from: "
@@ -43,6 +45,7 @@ public class Event extends Task {
                 + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy "))
                 + ")";
+
     }
 
     @Override

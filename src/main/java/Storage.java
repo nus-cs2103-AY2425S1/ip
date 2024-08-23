@@ -82,7 +82,7 @@ public class Storage {
         this.write();
     }
 
-    public void update(int index, Task task) {
+    public void update(int index, Task task) throws IndexOutOfBoundsException{
         this.data.set(index, task.save());
         this.write();
     }
