@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.lang.StringBuilder;
 
 public class Dudu {
@@ -16,14 +16,16 @@ public class Dudu {
         System.out.println(welcomeMessage);
 
         Scanner sc = new Scanner(System.in);
+        boolean terminate = false;
 
-        while (sc.hasNextLine()) {
+        while (!terminate) {
             try {
                 String[] input = sc.nextLine().split(" ", 2);
                 Command command = Command.valueOf(input[0].trim().toUpperCase());
                 switch (command) {
                     case BYE: {
                         System.out.println(goodbyeMessage);
+                        terminate = true;
                         break;
                     } case LIST: {
                         printTasks();
@@ -101,8 +103,6 @@ public class Dudu {
                 System.out.println(e);
             }
         }
-
-        System.out.println(goodbyeMessage);
     }
 
     public static String getContent(String[] input) throws MissingDescriptionException {
