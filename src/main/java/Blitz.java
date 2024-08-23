@@ -27,6 +27,13 @@ public class Blitz{
 
         if (strippedInput.equals("list")) {
             displayList(inputHistory);
+        } else if (strippedInput.startsWith("mark") || strippedInput.startsWith("unmark")){
+            String[] words = strippedInput.split(" ");
+            try {
+                int taskNumber = Integer.parseInt(words[1]);
+                changeTaskStatus(words[0], inputHistory.get(taskNumber - 1));
+            } catch (NumberFormatException e) {
+                System.out.println("Come on, that is not a number bro. Don't worry, try again.");
             }
         }else {
             inputHistory.add(new Task(strippedInput));
