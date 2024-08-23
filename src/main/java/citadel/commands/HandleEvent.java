@@ -10,8 +10,8 @@ import citadel.ui.TextUI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class handleEvent extends Command {
-    public handleEvent(String input, TaskList tasks) {
+public class HandleEvent extends Command {
+    public HandleEvent(String input, TaskList tasks) {
         super(input, tasks);
     }
 

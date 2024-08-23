@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import citadel.commands.Commands;
-import citadel.commands.deleteTask;
-import citadel.commands.handleDeadline;
-import citadel.commands.handleEvent;
-import citadel.commands.handleTodo;
-import citadel.commands.markTask;
-import citadel.commands.unmarkTask;
+import citadel.commands.DeleteTask;
+import citadel.commands.HandleDeadline;
+import citadel.commands.HandleEvent;
+import citadel.commands.HandleTodo;
+import citadel.commands.MarkTask;
+import citadel.commands.UnmarkTask;
 
 import citadel.Task.TaskList;
 
@@ -41,18 +41,18 @@ public class Citadel {
                 if (command.equals(Commands.LIST)) {
                     ui.printTasks(items);
                 } else if (command.equals(Commands.MARK)) {
-                    new markTask(input, items).run();
+                    new MarkTask(input, items).run();
                 } else if (command.equals(Commands.UNMARK)) {
-                    new unmarkTask(input, items).run();
+                    new UnmarkTask(input, items).run();
                 } else if (command.equals(Commands.DELETE)) {
-                    new deleteTask(input, items).run();
+                    new DeleteTask(input, items).run();
                 } else {
                     if (command.equals(Commands.DEADLINE)) {
-                        new handleDeadline(input, items).run();
+                        new HandleDeadline(input, items).run();
                     } else if (command.equals(Commands.EVENT)) {
-                        new handleEvent(input, items).run();
+                        new HandleEvent(input, items).run();
                     } else if (command.equals(Commands.TODO)) {
-                        new handleTodo(input, items).run();
+                        new HandleTodo(input, items).run();
                     } else {
                         throw new CitadelInvalidCommandException();
                     }

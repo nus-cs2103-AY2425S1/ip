@@ -1,12 +1,13 @@
 package citadel.commands;
 
+import citadel.Task.Task;
 import citadel.Task.TaskList;
 import citadel.exception.CitadelInvalidArgException;
 import citadel.exception.CitadelException;
 import citadel.ui.TextUI;
 
-public class unmarkTask extends Command {
-    public unmarkTask(String input, TaskList tasks) {
+public class DeleteTask extends Command {
+    public DeleteTask(String input, TaskList tasks) {
         super(input, tasks);
     }
 
@@ -15,11 +16,10 @@ public class unmarkTask extends Command {
         try {
             String[] words = input.split(" ");
             int index = Integer.parseInt(words[1]);
-            tasks.get(index - 1).unMark();
-            TextUI.printUnmark(tasks, index);
+            Task t = tasks.remove(index - 1);
+            TextUI.printDelete(tasks, t);
         } catch (IndexOutOfBoundsException e) {
             throw new CitadelInvalidArgException();
         }
-    }
+    };
 }
-

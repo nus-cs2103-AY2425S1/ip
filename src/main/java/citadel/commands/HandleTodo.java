@@ -7,8 +7,8 @@ import citadel.ui.TextUI;
 import citadel.exception.CitadelTaskNoInput;
 
 
-public class handleTodo extends Command {
-    public handleTodo(String input, TaskList tasks) {
+public class HandleTodo extends Command {
+    public HandleTodo(String input, TaskList tasks) {
         super(input, tasks);
     }
 
