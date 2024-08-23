@@ -1,8 +1,16 @@
 public class Event extends Task {
     protected String from;
     protected String to;
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws MurphyException{
         super(description);
+        String fromTrimmed = from.trim();
+        String toTrimmed = to.trim();
+        if (fromTrimmed.isEmpty()) {
+            throw new MurphyException("Event from date cannot be empty!");
+        }
+        if (toTrimmed.isEmpty()) {
+            throw new MurphyException("Event to date cannot be empty!");
+        }
         this.from = from;
         this.to = to;
     }

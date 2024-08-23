@@ -29,18 +29,20 @@ public class Murphy {
             } else if (input.startsWith("mark ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
-                    //Murphy.addItem(input);
+                    System.out.println("mark usage: \"mark [task number]\"");
+                    prLine();
                     continue;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(split[1]);
                 } catch (NumberFormatException e) {
-                    //Murphy.addItem(input);
+                    System.out.println("mark usage: \"mark [task number]\"");
+                    prLine();
                     continue;
                 }
                 if (index > Murphy.numOfTasks || index <= 0) {
-                    System.out.println("Out of the range of tasks!");
+                    System.out.println("The task number you chose is outside of the range of tasks!");
                     prLine();
                     continue;
                 }
@@ -48,44 +50,64 @@ public class Murphy {
             } else if (input.startsWith("unmark ")){
                 String[] split = input.split(" ");
                 if (split.length > 2) {
-                    //Murphy.addItem(input);
+                    System.out.println("unmark usage: \"unmark [task number]\"");
+                    prLine();
                     continue;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(split[1]);
                 } catch (NumberFormatException e) {
-                    //Murphy.addItem(input);
+                    System.out.println("unmark usage: \"unmark [task number]\"");
+                    prLine();
                     continue;
                 }
                 if (index > Murphy.numOfTasks || index <= 0) {
-                    System.out.println("Out of the range of tasks!");
+                    System.out.println("The task number you chose is outside of the range of tasks!");
                     prLine();
                     continue;
                 }
                 Murphy.unmarkItem(index);
             } else if(input.startsWith("todo ")){
-                Task todo = new Todo(input.substring(5));
-                Murphy.addItem(todo);
+                try {
+                    Task todo = new Todo(input.substring(5));
+                    Murphy.addItem(todo);
+                } catch (MurphyException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("todo usage: \"todo [description]\"");
+                    prLine();
+                }
             } else if(input.startsWith("deadline ")) {
                 if (!input.contains("/by ")) {
-                    System.out.println("Provide a by time for deadline");
+                    System.out.println("deadline usage: \"deadline [description] /by [by when]\"");
                     prLine();
                     continue;
                 }
                 String[] split = input.split("/by ");
-                Task deadline = new Deadline(split[0].substring(9).trim(), split[1]);
-                Murphy.addItem(deadline);
+                try {
+                    Task deadline = new Deadline(split[0].substring(9).trim(), split[1]);
+                    Murphy.addItem(deadline);
+                } catch (MurphyException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("deadline usage: \"deadline [description] /by [by when]\"");
+                    prLine();
+                }
             } else if (input.startsWith("event ")) {
                 if (!input.contains("/from ") || !input.contains("/to ")) {
-                    System.out.println("Provide a from and to time for event");
+                    System.out.println("event usage: \"event [description] /from [by when] /to [to when]\"");
                     prLine();
                     continue;
                 }
                 String[] split = input.split("/from ");
                 String[] split2 = split[1].split("/to ");
-                Task event = new Event(split[0].substring(6).trim(), split2[0].trim(), split2[1]);
-                Murphy.addItem(event);
+                try {
+                    Task event = new Event(split[0].substring(6).trim(), split2[0].trim(), split2[1]);
+                    Murphy.addItem(event);
+                } catch (MurphyException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("event usage: \"event [description] /from [by when] /to [to when]\"");
+                    prLine();
+                }
             } else {
                 System.out.println("Command not found");
                 prLine();

@@ -2,7 +2,11 @@ abstract public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws MurphyException {
+        String trimmed = description.trim();
+        if (trimmed.isEmpty()) {
+            throw new MurphyException("Description for task cannot be empty!");
+        }
         this.description = description;
         this.isDone = false;
     }
