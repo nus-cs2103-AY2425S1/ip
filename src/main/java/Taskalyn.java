@@ -46,6 +46,9 @@ public class Taskalyn {
                             isError = true;
                         }
                     }
+                    else {
+                        isError = true;
+                    }
                     break;
 
                 case "unmark":
@@ -61,6 +64,9 @@ public class Taskalyn {
                         } catch (NumberFormatException e) {
                             isError = true;
                         }
+                    }
+                    else {
+                        isError = true;
                     }
                     break;
 
