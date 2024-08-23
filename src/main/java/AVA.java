@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.List;
 
 public class AVA {
 
@@ -7,7 +8,22 @@ public class AVA {
      * Current user input being processed by AVA.
      * Note this requires there be only 1 AVA instance
      */
-    public String currentInput;
+    private String currentInput;
+
+    /**
+     * TaskManager for AVA
+     * its initialized on ava's creation
+     *
+     * final to avoid unnecessary modifications
+     */
+    private final TaskManager taskManager;
+
+    /**
+     * default constructor for AVA
+     */
+    public AVA() {
+        taskManager = new TaskManager();
+    }
 
     /**
      * Main function which decides if AVA is running or not
@@ -31,10 +47,19 @@ public class AVA {
      * @param out PrintStream to print AVA's response to
      */
     public void respond(PrintStream out){
-        out.println("----------------------------------------------------------------");
-        out.println("You said "+currentInput);
-        out.println("----------------------------------------------------------------");
+        if(currentInput.equals("list")){
+            List<Task> list = taskManager.getTasks();
+            int count = list.size();
+            for(int i = 1; i <=count;i++){
+                out.println(i + ". " + list.get(i-1).getTitle());
+            }
 
+        } else {
+            taskManager.addTask(currentInput);
+            out.println("----------------------------------------------------------------");
+            out.println("Added " + currentInput);
+            out.println("----------------------------------------------------------------");
+        }
     }
     /**
      * Main Driver method running AVA
