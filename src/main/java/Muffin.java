@@ -9,11 +9,11 @@ public class Muffin {
         Scanner sc = new Scanner(System.in);
         Task[] list = new Task[100];
         String logo = " __  __       __  __ _\n" +
-                "|  \\/  |_  _ / _|/ _(_)_ _  \n" +
-                "| |\\/| | || |  _|  _| | ' \\ \n" +
+                "|  \\/  |_  _ / _|/ _(_)_ _\n" +
+                "| |\\/| | || |  _|  _| | ' \\\n" +
                 "|_|  |_|\\_,_|_| |_| |_|_||_|\n";
 
-        String helloMsg = "Hello~ I'm Muffin \n" +
+        String helloMsg = "Hello~ I'm Muffin\n" +
                 "What can I do for you?";
 
         System.out.println(logo + "\n" + helloMsg);
