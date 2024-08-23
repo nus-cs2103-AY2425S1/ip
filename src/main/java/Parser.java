@@ -63,7 +63,7 @@ public class Parser {
                 case "event":
                     if(!text.isEmpty()){
                         try{
-                            if (text.contains(" /from ") && text.contains(" /to ")) {
+                            if (text.contains("/from") && text.contains("/to")) {
                                 storage.event(text);
                                 System.out.println("Wow " + '\"' + text + "\"" + " is an event in your life huh?");
                                 System.out.println(String.format("you have %s tasks now", storage.size()));

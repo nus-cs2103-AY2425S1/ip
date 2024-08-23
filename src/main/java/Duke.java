@@ -1,7 +1,7 @@
 public class Duke {
 
     public static void lnDiv() {
-        System.out.println("_________________________________________________________");
+        System.out.println("___________________________________________________________________________");
     }
     public static void main(String[] args) {
 

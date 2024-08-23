@@ -14,8 +14,8 @@ public class Event extends Task {
             }
         }
 
-        if (from == null || to == null) {
-            throw new IllegalArgumentException("Event must include both 'from' and 'to' times.");
+        if (parts[0].trim().isEmpty() || from == null || to == null) {
+            throw new IllegalArgumentException("Event must include both task description and 'from' and 'to' times");
         }
     }
 
