@@ -109,14 +109,17 @@ Below is the list of tasks:
 Do you need anything else from SUMO?
 ------------------------------------
 Sumo understood your command but dunno what you want! Please utilise "deadline" the correct way.
+The correct syntax is deadline <task name> /by <date>.
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
 Sumo understood your command but dunno what you want! Please utilise "event" the correct way.
+The correct syntax is event <task name> /from <date> /to <date>.
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
 Sumo understood your command but dunno what you want! Please utilise "event" the correct way.
+The correct syntax is event <task name> /from <date> /to <date>.
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
@@ -156,6 +159,21 @@ Do you need anything else from SUMO?
 Sumo removed this task for you.
 [E][X]watch CS2103T lecture (from: now to: tomorrow)
 There are now 2 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo understood your command but dunno what you want! Please utilise "delete" the correct way.
+The correct syntax is delete <task index>.
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo understood your command but dunno what you want! Please utilise "mark" the correct way.
+The correct syntax is mark <task index>.
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo understood your command but dunno what you want! Please utilise "unmark" the correct way.
+The correct syntax is unmark <task index>.
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
