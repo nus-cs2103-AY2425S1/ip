@@ -27,8 +27,15 @@ public class IpMan {
                 command = new MarkCommand(items, input);
             } else if (input.startsWith("unmark")) {
                 command = new UnmarkCommand(items, input);
+            } else if (input.startsWith("todo")) {
+                command = new CreateToDoCommand(items, input);
+            } else if (input.startsWith("deadline")) {
+                command = new CreateDeadlineCommand(items, input);
+            } else if (input.startsWith("event")) {
+                command = new CreateEventCommand(items, input);
             } else {
-                command = new CreateTaskCommand(items, input);
+                System.out.println("Sorry, I don't recognise that command. Try again!");
+                continue;
             }
 
             command.execute();
