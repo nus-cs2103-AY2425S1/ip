@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class Lewis {
     private static boolean exit = false;
     protected static TaskList taskList = new TaskList();
-    private static void parse(String input) {
+
+    private final static String[] commands = new String[] {"help","mark","unmark","echo","todo","deadline","event","bye","hello","list"};
+    private static void parse(String input) throws LewisException {
         StringBuilder str = new StringBuilder();
         int curr = 0;
         while (curr < input.length() && input.charAt(curr) != ' ') {
@@ -22,6 +24,7 @@ public class Lewis {
                     todoDescript.append(input.charAt(curr));
                     curr++;
                 }
+                if (todoDescript.isEmpty() || todoDescript.toString().matches("^\\s*$")) throw new LewisException("Hey, a todo can't be empty!");
                 taskList.add(new Todo(todoDescript.toString()));
                 System.out.println("I've got it, I've added this todo to your tasklist.");
                 System.out.println(taskList.get(taskList.len));
@@ -33,22 +36,25 @@ public class Lewis {
                 while (curr < input.length() && input.charAt(curr) != '/'){
                     deadlineDescript.append(input.charAt(curr++));
                 }
-                if (curr + 3 >= input.length()) {System.out.println("Please type your command in the following form:\n" +
-                        "deadline [String] /by [String]"); return;}
+                if (deadlineDescript.isEmpty() || deadlineDescript.toString().matches("^\\s*$")) throw new LewisException("Hey, a task can't be empty!");
+                if (curr + 3 >= input.length()) {throw new LewisException("Please type your command in the following form:\n" +
+                        "deadline [String] /by [String]");
+                }
                 StringBuilder temp = new StringBuilder();
                 for (int i = 0; i < 3; i++) {
                     temp.append(input.charAt(curr++));
                 }
-                if (!temp.toString().equals("/by")) {System.out.println("Please type your command in the following form:\n" +
-                        "deadline [String] /by [String]"); return;}
+                if (!temp.toString().equals("/by")) {throw new LewisException("Please type your command in the following form:\n" +
+                        "deadline [String] /by [String]");}
                 curr++;
                 while (curr < input.length()) {
                     deadline.append(input.charAt(curr++));
                 }
+                if (deadline.isEmpty() || deadline.toString().matches("^\\s*$")) throw new LewisException("Hey, fill in the deadline!");
                 taskList.add(new Deadline(deadlineDescript.toString(), deadline.toString()));
                 System.out.println("I've got it, I've added this deadline to your tasklist.");
                 System.out.println(taskList.get(taskList.len));
-                System.out.printf("Now you have %d task(s) on our list!\n", taskList.len);
+                System.out.printf("Now you have %d task%s on our list!\n", taskList.len, (taskList.len == 1 ? "" : "s"));
             }
             case "event" -> {
                 StringBuilder eventDescript = new StringBuilder();
@@ -58,29 +64,31 @@ public class Lewis {
                 while (curr < input.length() && input.charAt(curr) != '/') {
                     eventDescript.append(input.charAt(curr++));
                 }
+                if (eventDescript.isEmpty() || eventDescript.toString().matches("^\\s*$")) throw new LewisException("Hey, an event can't be empty!");
 
-                if (curr + 5 >= input.length()) {System.out.println("Please type your command in the following form:\n" +
-                        "event [String] /from [String] /to [String]"); return;}
+                if (curr + 5 >= input.length()) {throw new LewisException("Please type your command in the following form:\n" +
+                        "event [String] /from [String] /to [String]");}
                 StringBuilder temp = new StringBuilder();
                 for (int i = 0; i < 5; i++) {
                     temp.append(input.charAt(curr++));
                 }
-                if (!temp.toString().equals("/from")) {System.out.println("Please type your command in the following form:\n" +
-                        "event [String] /from [String] /to [String]"); return;}
+                if (!temp.toString().equals("/from")) {throw new LewisException("Please type your command in the following form:\n" +
+                        "event [String] /from [String] /to [String]");}
                 curr++;
-
-                /* Find the to string */
+                /* Find the 'from' string */
                 while (curr < input.length() && input.charAt(curr) != '/') {
                     from.append(input.charAt(curr++));
                 }
-                if (curr + 3 >= input.length()) {System.out.println("Please type your command in the following form:\n" +
-                        "event [String] /from [String] /to [String]"); return;}
+                if (from.isEmpty() || from.toString().matches("^\\s*$")) throw new LewisException("Hey, the \"from\" field can't be empty!");
+                /* Checking for "/by" */
+                if (curr + 3 >= input.length()) {throw new LewisException("Please type your command in the following form:\n" +
+                        "event [String] /from [String] /to [String]");}
                 StringBuilder temp2 = new StringBuilder();
                 for (int i = 0; i < 3; i++) {
                     temp2.append(input.charAt(curr++));
                 }
-                if (!temp2.toString().equals("/to")) {System.out.println("Please type your command in the following form:\n" +
-                        "event [String] /from [String] /to [String]"); return;}
+                if (!temp2.toString().equals("/to")) {throw new LewisException("Please type your command in the following form:\n" +
+                        "event [String] /from [String] /to [String]");}
                 curr++;
 
                 /* Find the to string */
@@ -88,7 +96,7 @@ public class Lewis {
                     to.append(input.charAt(curr));
                     curr++;
                 }
-
+                if (to.isEmpty() || to.toString().matches("^\\s*$")) throw new LewisException("Hey, the \"to\" field can't be empty!");
                 taskList.add(new Event(eventDescript.toString(), from.toString(), to.toString()));
                 System.out.println("I've got it, I've added this event to your tasklist.");
                 System.out.println(taskList.get(taskList.len));
@@ -115,17 +123,18 @@ public class Lewis {
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢃⠘⡄⠀⠀⠉⠀⠀⣠⣾⠁⠀⠀⣧⣿⣿⡿⠃⠸⠿⣿⣿⣿⣿⣿⣿⠟⠁⣼⣾⠀⠀⠀⠀⢠⠇⠀⠀
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠹⣀⣀⣤⣶⣿⡿⠃⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⢻⣿⣷⣦⣤⣤⠎⠀⠀⠀
                         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣤⣿⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀""");
-
+                System.exit(0);
             }
             case "echo" -> {
                 if (curr >= input.length()) {
-                    System.out.println("You have to give me something to echo!");
+                    throw new LewisException("You have to give me something to echo!");
                 }
                 StringBuilder echo = new StringBuilder();
                 while (curr < input.length()) {
                     echo.append(input.charAt(curr));
                     curr++;
                 }
+
                 System.out.printf("\nLewis says: \"%s\"%n",echo);
             }
             case "mark" -> {
@@ -138,10 +147,10 @@ public class Lewis {
                 try {
                     index = Integer.parseInt(taskToMark.toString());
                     if (index >= 1 && index <= taskList.len) {taskList.update(index, Task.Status.DONE);}
-                    else {System.out.printf("Hey, please type a valid number between %d and %d.", 1, taskList.len);}
+                    else {throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));}
                 }
                 catch (NumberFormatException e) {
-                    System.out.printf("Hey, please type a valid number between %d and %d.", 1, taskList.len);
+                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));
                 }
 
             }
@@ -157,7 +166,7 @@ public class Lewis {
                     taskList.update(index, Task.Status.NOT_DONE);
                 }
                 catch (NumberFormatException e) {
-                    System.out.printf("Hey, please type a valid number between %d and %d.", taskList.curr, taskList.end);
+                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", taskList.curr, taskList.end));
                 }
 
             }
@@ -174,10 +183,10 @@ public class Lewis {
                         System.out.printf("You are about to remove this task:\n%s",taskList.get(index));
                         taskList.remove(index);
                     }
-                    else {System.out.printf("Hey, please type a valid number between %d and %d.", 1, taskList.len);}
+                    else {throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));}
                 }
                 catch (NumberFormatException e) {
-                    System.out.printf("Hey, please type a valid number between %d and %d.", 1, taskList.len);
+                    throw new LewisException(String.format("Hey, please type a valid number between %d and %d.", 1, taskList.len));
                 }
 
             }
@@ -192,7 +201,6 @@ public class Lewis {
                 In future versions, I'll be able to handle task scheduling and other services to make your life easier.
                 Isn't that swell?""");
     }
-    private final static String[] commands = new String[] {"help","mark","unmark","echo","todo","deadline","event","bye","hello","list"};
 
     public static void main(String[] args) {
         Arrays.sort(commands);
@@ -203,10 +211,16 @@ public class Lewis {
             Utilities.printLine();
             //System.out.println("\n");
             String command = scanner.nextLine();
-            parse(command);
-            //System.out.println("\n");
-            Utilities.printLine();
-            System.out.println("What would you like to do next?");
+            try {
+                parse(command);
+            } catch (LewisException e) {
+                System.out.println(e.getMessage());
+                continue;
+            } finally {
+                //System.out.println("\n");
+                Utilities.printLine();
+                System.out.println("What would you like to do next?");
+            }
         }
         System.exit(0);
     }

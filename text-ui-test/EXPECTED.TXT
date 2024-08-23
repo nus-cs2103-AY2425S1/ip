@@ -1,7 +1,131 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+------------------------------
+Hello! My name is Lewis, a chatbot.
+How can I help you?
+------------------------------
+Here is the list of valid commands that I know now:
+[bye, deadline, echo, event, hello, help, list, mark, todo, unmark]
+------------------------------
+What would you like to do next?
+------------------------------
+Hello there! I am Lewis, a simple chatbot and I'm here to help you.
+In future versions, I'll be able to handle task scheduling and other services to make your life easier.
+Isn't that swell?
+------------------------------
+What would you like to do next?
+------------------------------
+You have to give me something to echo!
+------------------------------
+What would you like to do next?
+------------------------------
 
+Lewis says: "Whoosh"
+------------------------------
+What would you like to do next?
+------------------------------
+Hey, a todo can't be empty!
+------------------------------
+What would you like to do next?
+------------------------------
+I've got it, I've added this todo to your tasklist.
+[T][ ] read book
+Now you have 1 task(s) on our list!
+------------------------------
+What would you like to do next?
+------------------------------
+Hey, a task can't be empty!
+------------------------------
+What would you like to do next?
+------------------------------
+Please type your command in the following form:
+deadline [String] /by [String]
+------------------------------
+What would you like to do next?
+------------------------------
+Please type your command in the following form:
+deadline [String] /by [String]
+------------------------------
+What would you like to do next?
+------------------------------
+I've got it, I've added this deadline to your tasklist.
+[D][ ] do work (Deadline: 5 o'clock)
+Now you have 2 tasks on our list!
+------------------------------
+What would you like to do next?
+------------------------------
+Hey, an event can't be empty!
+------------------------------
+What would you like to do next?
+------------------------------
+Please type your command in the following form:
+event [String] /from [String] /to [String]
+------------------------------
+What would you like to do next?
+------------------------------
+I've got it, I've added this event to your tasklist.
+[E][ ] watch movie (From:5pm To:6pm)
+Now you have 3 task(s) on our list!
+------------------------------
+What would you like to do next?
+------------------------------
+1. [T][ ] read book
+2. [D][ ] do work (Deadline: 5 o'clock)
+3. [E][ ] watch movie (From:5pm To:6pm)
+
+------------------------------
+What would you like to do next?
+------------------------------
+Status updated successfully:
+Old: [T][ ] read book
+New: [T][X] read book
+------------------------------
+What would you like to do next?
+------------------------------
+Status updated successfully:
+Old: [E][ ] watch movie (From:5pm To:6pm)
+New: [E][X] watch movie (From:5pm To:6pm)
+------------------------------
+What would you like to do next?
+------------------------------
+1. [T][X] read book
+2. [D][ ] do work (Deadline: 5 o'clock)
+3. [E][X] watch movie (From:5pm To:6pm)
+
+------------------------------
+What would you like to do next?
+------------------------------
+Status updated successfully:
+Old: [T][X] read book
+New: [T][ ] read book
+------------------------------
+What would you like to do next?
+------------------------------
+Status updated successfully:
+Old: [D][ ] do work (Deadline: 5 o'clock)
+New: [D][X] do work (Deadline: 5 o'clock)
+------------------------------
+What would you like to do next?
+------------------------------
+1. [T][ ] read book
+2. [D][X] do work (Deadline: 5 o'clock)
+3. [E][X] watch movie (From:5pm To:6pm)
+
+------------------------------
+What would you like to do next?
+------------------------------
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠒⠒⠢⢄⡀⠀⠀⢠⡏⠉⠉⠉⠑⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠙⢦⠀⡇⡇⠀⠀⠀⠀⠀⠀⠈⠱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠊⠉⠉⠙⠒⢤⡀⠀⣼⠀⠀⢀⣶⣤⠀⠀⠀⢣⡇⡇⠀⠀⢴⣶⣦⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣠⠤⢄⠀⠀⢰⡇⠀⠀⣠⣀⠀⠀⠈⢦⡿⡀⠀⠈⡟⣟⡇⠀⠀⢸⡇⡆⠀⠀⡼⢻⣠⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⢀⠖⠉⠀⠀⠀⣱⡀⡞⡇⠀⠀⣿⣿⢣⠀⠀⠈⣧⣣⠀⠀⠉⠋⠀⠀⠀⣸⡇⠇⠀⠀⠈⠉⠀⠀⠀⢀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⣠⠏⠀⠀⣴⢴⣿⣿⠗⢷⡹⡀⠀⠘⠾⠾⠀⠀⠀⣿⣿⣧⡀⠀⠀⠀⢀⣴⠇⣇⣆⣀⢀⣀⣀⣀⣀⣤⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⣿⠀⠀⢸⢻⡞⠋⠀⠀⠀⢿⣷⣄⠀⠀⠀⠀⠀⣠⡇⠙⢿⣽⣷⣶⣶⣿⠋⢰⣿⣿⣿⣿⣿⣿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⡿⡄⠀⠈⢻⣝⣶⣶⠀⠀⠀⣿⣿⣱⣶⣶⣶⣾⡟⠀⠀⠀⢈⡉⠉⢩⡖⠒⠈⠉⡏⡴⡏⠉⠉⠉⠉⠉⠉⠉⠉⡇⠀⠀⢀⣴⠒⠢⠤⣀
+⢣⣸⣆⡀⠀⠈⠉⠁⠀⠀⣠⣷⠈⠙⠛⠛⠛⠉⢀⣴⡊⠉⠁⠈⢢⣿⠀⠀⠀⢸⠡⠀⠁⠀⠀⠀⣠⣀⣀⣀⣀⡇⠀⢰⢁⡇⠀⠀⠀⢠
+⠀⠻⣿⣟⢦⣤⡤⣤⣴⣾⡿⢃⡠⠔⠒⠉⠛⠢⣾⢿⣿⣦⡀⠀⠀⠉⠀⠀⢀⡇⢸⠀⠀⠀⠀⠀⠿⠿⠿⣿⡟⠀⢀⠇⢸⠀⠀⠀⠀⠘
+⠀⠀⠈⠙⠛⠿⠿⠿⠛⠋⢰⡋⠀⠀⢠⣤⡄⠀⠈⡆⠙⢿⣿⣦⣀⠀⠀⠀⣜⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⢀⠃⠀⡸⠀⠇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢣⠀⠀⠈⠛⠁⠀⢴⠥⡀⠀⠙⢿⡿⡆⠀⠀⢸⠀⢸⢰⠀⠀⠀⢀⣿⣶⣶⡾⠀⢀⠇⣸⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡀⢇⠀⠀⠀⢀⡀⠀⠀⠈⢢⠀⠀⢃⢱⠀⠀⠀⡇⢸⢸⠀⠀⠀⠈⠉⠉⠉⢱⠀⠼⣾⣿⣿⣷⣦⠴⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠘⡄⠀⠀⢹⣿⡇⠀⠀⠈⡆⠀⢸⠈⡇⢀⣀⣵⢨⣸⣦⣤⣤⣄⣀⣀⣀⡞⠀⣠⡞⠉⠈⠉⢣⡀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢃⠘⡄⠀⠀⠉⠀⠀⣠⣾⠁⠀⠀⣧⣿⣿⡿⠃⠸⠿⣿⣿⣿⣿⣿⣿⠟⠁⣼⣾⠀⠀⠀⠀⢠⠇⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠹⣀⣀⣤⣶⣿⡿⠃⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⢻⣿⣷⣦⣤⣤⠎⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣤⣿⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀

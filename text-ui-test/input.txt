@@ -1,0 +1,21 @@
+help
+hello
+echo
+echo Whoosh
+todo
+todo read book
+deadline
+deadline do work
+deadline do work /by
+deadline do work /by 5 o'clock
+event
+event watch movie
+event watch movie /from 5pm /to 6pm
+list
+mark 1
+mark 3
+list
+unmark 1
+mark 2
+list
+bye
