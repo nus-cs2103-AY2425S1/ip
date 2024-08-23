@@ -1,4 +1,9 @@
     ____________________________________________________________
+    Hey! I'm Taskalyn, your personal Task Manager :)
+    What can I do for you?
+    ____________________________________________________________
+
+    ____________________________________________________________
     Got it, I've added this task to your list!
       [T][ ] read a book
     Wah bro... 1 task already!
