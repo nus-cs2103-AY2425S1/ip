@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class PurrfessorDipsy {
     private static final ArrayList<Task> taskTable = new ArrayList<>();
