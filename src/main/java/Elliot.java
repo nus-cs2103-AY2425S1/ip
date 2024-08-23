@@ -1,21 +1,29 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Elliot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+        TaskList taskList = new TaskList();
+
         IntroSay();
         while(running) {
             System.out.print("> ");
             String userInput = CaptureUserInput(scanner);
             Say("");
             switch(userInput.toLowerCase()) {
+                case "list":
+                    taskList.PrintList();
+                    Say("");
+                    break;
                 case "bye":
                     ByeSay();
                     running = false;
                     break;
                 default:
-                    Say(userInput.strip()+"\n");
+                    taskList.AddTask(userInput.strip());
+                    Say("added: " + userInput.strip() + "\n");
             }
         }
     }
