@@ -46,6 +46,11 @@ public class WenJie {
                     }
 
                     case "mark": {
+
+                        if (parts.length <= 1) {
+                            throw new NoNumberInputtedException();
+                        }
+
                         int taskNo = Integer.parseInt(parts[1]) - 1;
 
                         if (taskNo + 1 > taskList.size()) {
@@ -63,6 +68,11 @@ public class WenJie {
                     }
 
                     case "unmark": {
+
+                        if (parts.length <= 1) {
+                            throw new NoNumberInputtedException();
+                        }
+
                         int taskNo = Integer.parseInt(parts[1]) - 1;
 
                         if (taskNo + 1 > taskList.size()) {
@@ -179,6 +189,32 @@ public class WenJie {
                                         temp + "\n" +
                                         "Now you have " + taskList.size() +" tasks in the list.\n" +
                                         "____________________________________________________________\n";
+                        System.out.println(output);
+                        break;
+                    }
+
+                    case "delete": {
+
+                        if (parts.length <= 1) {
+                            throw new NoNumberInputtedException();
+                        }
+
+                        int taskNo = Integer.parseInt(parts[1]) - 1;
+
+                        if (taskNo + 1 > taskList.size()) {
+                            throw new OutOfBoundsException();
+                        }
+
+                        Task taskToRemove = taskList.get(taskNo);
+                        taskList.remove(taskNo);
+
+                        String output =
+                                "____________________________________________________________\n" +
+                                "Noted. I've removed this task:\n" +
+                                taskToRemove + "\n" +
+                                "Now you have " + taskList.size() + " tasks in the list.\n" +
+                                "____________________________________________________________";
+
                         System.out.println(output);
                         break;
                     }
