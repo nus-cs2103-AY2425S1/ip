@@ -146,18 +146,26 @@ public class streams {
         }
     }
 
+    enum TaskType {
+        DEADLINE, EVENT, TO
+    }
     static class Task {
         private boolean isDone;
         private String description;
-        public Task(String description) {
+        private TaskType type;
+        public Task(String description, TaskType type) {
             this.description = description;
             this.isDone = false;
+            this.type = type;
         }
         public void markAsDone() {
             this.isDone = true;
         }
         public void markAsNotDone() {
             this.isDone = false;
+        }
+        public TaskType getType() {
+            return type;
         }
         @Override
         public String toString() {
@@ -167,7 +175,7 @@ public class streams {
 
     static class ToDoTask extends Task {
         public ToDoTask(String description) {
-            super(description);
+            super(description,TaskType.TO);
         }
         @Override
         public String toString() {
@@ -178,7 +186,7 @@ public class streams {
     static class DeadlineTask extends Task {
         private String by;
         public DeadlineTask(String description, String by) {
-            super(description);
+            super(description, TaskType.DEADLINE);
             this.by = by;
         }
         @Override
@@ -191,7 +199,7 @@ public class streams {
         private String from;
         private String to;
         public EventTask(String description, String from, String to) {
-            super(description);
+            super(description, TaskType.EVENT);
             this.from = from;
             this.to = to;
         }
