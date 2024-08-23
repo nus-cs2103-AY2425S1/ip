@@ -1,16 +1,15 @@
 package duke.commands;
 
-import duke.Parser;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.tasks.Task;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 public class FilterTaskCommand extends Command {
-    LocalDateTime dateTime;
+    private final LocalDateTime dateTime;
 
     public FilterTaskCommand(LocalDateTime dateTime) {
         super();

@@ -1,9 +1,5 @@
 package duke;
 
-import duke.commands.*;
-import duke.exceptions.EmptyTodoDescriptionException;
-import duke.exceptions.UnknownMessageException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,8 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import duke.commands.AddTaskCommand;
+import duke.commands.Command;
+import duke.commands.DeleteTaskCommand;
+import duke.commands.FilterTaskCommand;
+import duke.commands.ListTaskCommand;
+import duke.commands.MarkTaskCommand;
+
 public class Parser {
-    public static List<DateTimeFormatter> inputFormatters = new ArrayList<>();
+    private static final List<DateTimeFormatter> inputFormatters = new ArrayList<>();
     static {
         inputFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")); // e.g., "2/12/2019 1800"
         inputFormatters.add(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")); // e.g., "Dec 2 2019, 6:00 PM"

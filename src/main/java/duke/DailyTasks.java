@@ -1,11 +1,11 @@
 package duke;
 
-import duke.commands.Command;
-import duke.tasks.*;
-
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
+
+import duke.commands.Command;
+import duke.tasks.Task;
 
 public class DailyTasks {
     private final TaskList taskList;
@@ -47,7 +47,6 @@ public class DailyTasks {
                 break;
             }
 
-//            handleCommand(userInput);
             Command command = Parser.parseUserInput(userInput);
             command.execute(this.taskList, this.ui, this.storage);
         }

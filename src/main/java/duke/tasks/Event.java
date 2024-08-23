@@ -1,10 +1,10 @@
 package duke.tasks;
 
-import duke.Parser;
-import duke.exceptions.InvalidEventException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.Parser;
+import duke.exceptions.InvalidEventException;
 
 public class Event extends Task {
 
@@ -47,11 +47,17 @@ public class Event extends Task {
 
     @Override
     public boolean occurring(LocalDateTime taskDate) {
-        return taskDate != null && taskDate.isAfter(this.parsedFromDateTime) && taskDate.isBefore(this.parsedToDateTime);
+        return (
+                taskDate != null && taskDate.isAfter(this.parsedFromDateTime)
+                        && taskDate.isBefore(this.parsedToDateTime)
+            );
     }
 
     @Override
     public String toString() {
-        return "[E]" + " [" + this.getStatusIcon() + "] " + super.toString() + " (from: " + this.getFrom() + " to: " + this.getTo() + ")";
+        return "[E]" + " [" + this.getStatusIcon()
+                + "] " + super.toString()
+                + " (from: " + this.getFrom()
+                + " to: " + this.getTo() + ")";
     }
 }

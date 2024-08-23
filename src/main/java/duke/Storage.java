@@ -1,12 +1,5 @@
 package duke;
 
-import duke.exceptions.InvalidDeadlineException;
-import duke.exceptions.InvalidEventException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDos;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,38 +9,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.exceptions.InvalidDeadlineException;
+import duke.exceptions.InvalidEventException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDos;
+
 public class Storage {
     private static final String STATE_FILE_DIRECTORY = "./data";
     private static final String STATE_FILE = "save.txt";
-
-    public List<Task> loadStateFileToTasksList() throws IOException {
-        Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
-        Path filePath = dirPath.resolve(Storage.STATE_FILE);
-
-        if (Files.notExists(dirPath)) { // create the SAVE_DIRECTORY folder if it doesn't exist
-            Files.createDirectories(dirPath);
-        }
-
-        if (Files.notExists(filePath)) { // create an empty file initially
-            Files.createFile(filePath);
-        }
-
-        List<String> lines = new ArrayList<>();
-        BufferedReader reader = Files.newBufferedReader(filePath);
-        String line;
-        while ((line = reader.readLine()) != null) {
-            lines.add(line);
-        }
-        reader.close();
-
-        // convert the state file `lines` to an arraylist of tasks
-        List<Task> tasks = new ArrayList<>();
-        for (String state : lines) {
-            tasks.add(Storage.convertStateToTask(state));
-        }
-
-        return tasks;
-    }
 
     private static Task convertStateToTask(String state) {
         // format of state file below
@@ -68,7 +39,7 @@ public class Storage {
             } catch (InvalidDeadlineException e) {
                 System.out.println(e.getMessage() + "error converting task back to deadline");
                 return null;
-            };
+            }
         } else {
             String[] times = taskInformation[3].split("-");
             String from = times[0];
@@ -79,7 +50,7 @@ public class Storage {
             } catch (InvalidEventException e) {
                 System.out.println(e.getMessage() + "error converting task back to event");
                 return null;
-            };
+            }
         }
 
         if (taskInformation[1].equals("1")) {
@@ -89,7 +60,7 @@ public class Storage {
         return task;
     }
 
-    public static void saveTasksListToStateFile (List<Task> tasks) throws IOException {
+    public static void saveTasksListToStateFile(List<Task> tasks) throws IOException {
         Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
         Path filePath = dirPath.resolve(Storage.STATE_FILE);
 
@@ -130,5 +101,34 @@ public class Storage {
         }
 
         return str.toString();
+    }
+
+    public List<Task> loadStateFileToTasksList() throws IOException {
+        Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
+        Path filePath = dirPath.resolve(Storage.STATE_FILE);
+
+        if (Files.notExists(dirPath)) { // create the SAVE_DIRECTORY folder if it doesn't exist
+            Files.createDirectories(dirPath);
+        }
+
+        if (Files.notExists(filePath)) { // create an empty file initially
+            Files.createFile(filePath);
+        }
+
+        List<String> lines = new ArrayList<>();
+        BufferedReader reader = Files.newBufferedReader(filePath);
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+        }
+        reader.close();
+
+        // convert the state file `lines` to an arraylist of tasks
+        List<Task> tasks = new ArrayList<>();
+        for (String state : lines) {
+            tasks.add(Storage.convertStateToTask(state));
+        }
+
+        return tasks;
     }
 }

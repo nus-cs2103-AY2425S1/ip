@@ -7,7 +7,7 @@ public class InvalidDeadlineException extends Exception {
      * 1. 2/12/2019 1800
      * 2. 2/12/2019
      *
-     * @param e: description of the exception
+     * @param e description of the exception
      */
     public InvalidDeadlineException(String e) {
         super(e);

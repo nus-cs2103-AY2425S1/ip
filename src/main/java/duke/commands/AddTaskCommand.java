@@ -5,10 +5,10 @@ import duke.TaskList;
 import duke.Ui;
 import duke.exceptions.EmptyTodoDescriptionException;
 import duke.exceptions.UnknownMessageException;
-import duke.tasks.Task;
 
 public class AddTaskCommand extends Command {
-    String userInput;
+    private final String userInput;
+
     public AddTaskCommand(String userInput) {
         super();
         this.userInput = userInput;
