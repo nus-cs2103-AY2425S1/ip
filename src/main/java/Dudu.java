@@ -51,11 +51,11 @@ public class Dudu {
                     System.out.println(output);
                 } else if (input.matches("^deadline.*")) {
                     String[] details = getDetails(input, "deadline").split(" /by ");
-                    if (details[0].trim().isEmpty()) {
-                        throw new MissingDescriptionException("Missing description");
+                    if (details.length <= 1 || details[1].trim().isEmpty()) {
+                        throw new MissingDescriptionException("Missing by time");
                     }
-                    if (details[1].trim().isEmpty()) {
-                        throw new MissingDateTimeException("Missing by time");
+                    if (details[0].trim().isEmpty()) {
+                        throw new MissingDescriptionException("Missing description after deadline");
                     }
                     Deadline task = new Deadline(details[0], details[1]);
                     tasks[count] = task;
