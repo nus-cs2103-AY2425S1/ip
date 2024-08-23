@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Maga {
-    public static class Task {
+    public static abstract class Task {
         protected String description;
         protected boolean isDone;
 
@@ -25,6 +25,44 @@ public class Maga {
         public String getDescription() {
             return description;
         }
+
+        public abstract String getTaskType();
+    }
+
+    public static class TodoTask extends Task {
+        public TodoTask(String description) {
+            super(description);
+        }
+
+        public String getTaskType() {
+            return "[T]";
+        }
+    }
+    public static class EventTask extends Task {
+        protected String time;
+
+        public EventTask(String description, String time) {
+            super(description);
+            this.time = time;
+        }
+
+        public String getTaskType() {
+            return "[E]";
+        }
+    }
+    public static class DeadlineTask extends Task{
+        protected String from;
+        protected String to;
+
+        public DeadlineTask(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        public String getTaskType() {
+            return "[D]";
+        }
     }
     public static void main(String[] args) {
         String logo = "  __  __                    \n"
@@ -42,11 +80,13 @@ public class Maga {
         int count = 0;
         while(!input.equalsIgnoreCase("bye")) {
             // using list command
-            if(input.equalsIgnoreCase("list")) {
+            input = input.toLowerCase();
+            if(input.equals("list")) {
                 System.out.println("Oh dear here are all the tasks in the list, so many, yuuge\n");
                 for (int i = 0; i < count; i++) {
                     int temp = i + 1;
-                    System.out.println(temp + ". " + arr[i].getStatusIcon() + arr[i].getDescription());
+                    System.out.println(temp + ". " + arr[i].getTaskType() + arr[i].getStatusIcon()
+                            + arr[i].getDescription());
                 }
 
                 input = scanner.nextLine();
@@ -54,12 +94,12 @@ public class Maga {
             }
 
             // marking things as done and undone
-            if (input.toLowerCase().startsWith("mark ")) {
+            if (input.startsWith("mark ")) {
                 System.out.println("Ya boi Donald took the liberty to mark this done:\n");
                 char[] charArray = input.toCharArray();
                 Task temp = arr[Character.getNumericValue(charArray[charArray.length - 1]) - 1];
                 temp.markAsDone();
-                System.out.println(temp.getStatusIcon() + temp.getDescription());
+                System.out.println(temp.getTaskType() + temp.getStatusIcon() + temp.getDescription());
                 input = scanner.nextLine();
                 continue;
             }
@@ -75,12 +115,28 @@ public class Maga {
             }
 
             // adding things as per normal
-            arr[count] = new Task(input);
+            Task tempTask = new TodoTask("");
+            if(input.startsWith("todo")) {
+                String descrip = input.substring(5).trim();
+                tempTask = new TodoTask(descrip);
+            } else if(input.startsWith("event")) {
+                String descrip = input.substring(6).trim();
+                String[] descripArray = descrip.split("/");
+                tempTask = new EventTask(descripArray[0], descripArray[1]);
+            } else if(input.startsWith("deadline")) {
+                String descrip = input.substring(9).trim();
+                String[] descripArray = descrip.split("/");
+                tempTask = new DeadlineTask(descripArray[0], descripArray[1], descripArray[2]);
+            }
+
+            arr[count] = tempTask;
             count++;
-            System.out.println("added: " + input);
+            System.out.println("Another task for the American people added:\n" + tempTask.getTaskType()
+            + tempTask.getStatusIcon() + tempTask.getDescription());
             input = scanner.nextLine();
         }
 
         System.out.println("Yeah goodbye. Remember a vote for me is a vote for America!");
     }
+
 }
