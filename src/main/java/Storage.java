@@ -1,8 +1,13 @@
-import java.io.*;
+
+// Do not use wildcard imports
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +28,7 @@ public class Storage {
         }
         BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()));
         try  {
-            String line;
+            String line = reader.readLine();
             while ((line = reader.readLine()) != null) {
                 Task task = getTask(line);
                 tasks.add(task);

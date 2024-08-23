@@ -1,26 +1,29 @@
 
 public abstract class Task {
     String name;
-    boolean done;
-
+    boolean isDone;
 
     Task(String command){
         this.name = command;
-        this.done = false;
+        this.isDone = false;
+    }
+
+    void setDone(boolean isDone){
+        this.isDone = isDone;
     }
 
 
     public void markDone(){
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark(){
-        this.done = false;
+        this.isDone = false;
     }
     @Override
     public String toString(){
         StringBuilder stringbuilder = new StringBuilder();
-        if (this.done){
+        if (this.isDone){
             stringbuilder.append("[X] ");
         }else{
             stringbuilder.append("[ ] ");

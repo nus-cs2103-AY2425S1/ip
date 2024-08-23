@@ -16,7 +16,7 @@ public class Event extends Task{
 
     @Override
     public String toFileFormat() {
-        return String.format("E | %d | %s | %s | %s", this.done ? 1 : 0, this.name, this.from, this.to);
+        return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0, this.name, this.from, this.to);
     }
 
 

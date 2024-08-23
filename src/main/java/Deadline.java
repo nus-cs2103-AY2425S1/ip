@@ -13,6 +13,6 @@ public class Deadline extends Task{
 
     @Override
     public String toFileFormat(){
-        return String.format("D | %d | %s | %s", this.done ? 1 : 0, this.name, this.ddl);
+        return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.name, this.ddl);
     }
 }
