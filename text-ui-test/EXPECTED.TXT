@@ -1,3 +1,5 @@
+    Hello, I'm Vecrosen.
+    What can I do for you?
     Todo added: Visit Grandma
     Deadline added: Do homework
     Invalid format.

@@ -12,7 +12,8 @@ public class Vecrosen {
     }
 
     public static void main(String[] args) {
-        speak("Hello, I'm Vecrosen\nWhat can I do for you?");
+        speak("Hello, I'm Vecrosen");
+        speak("What can I do for you?");
         ArrayList<Task> list = new ArrayList<Task>();
         while (true) {
             String input;
