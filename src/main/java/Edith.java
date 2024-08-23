@@ -10,7 +10,7 @@ public class Edith {
     private final String indentation = "    ";
     private final String exit = "It has been my pleasure helping you. Hope to see you again soon!";
 
-    private ArrayList<String> listOfTasks = new ArrayList<>();
+    private ArrayList<Task> listOfTasks = new ArrayList<>();
 
     public Edith() {
     }
@@ -23,12 +23,9 @@ public class Edith {
         System.out.println(indentation + exit + lineBreak);
     }
 
-    public void echo(String message) {
-        System.out.println(indentation + message + lineBreak);
-    }
-
     public void add(String task) {
-        listOfTasks.add(task);
+        Task newTask = new Task(task);
+        listOfTasks.add(newTask);
         System.out.println(indentation + "added: " + task + lineBreak);
     }
 
