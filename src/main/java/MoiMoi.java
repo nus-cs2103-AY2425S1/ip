@@ -3,47 +3,35 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MoiMoi {
 
-    private static final String logo = "               __\n" +
-            "              / >)\n" +
-            "     _.----._/ /\n" +
-            "    /         /\n" +
-            " __/ (  | (  |\n" +
-            "/__.-'|_|--|_|\n\n";
-    private static final String moiMoiHeader = "⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆\n";
-    private static final String userHeader = "⋆⭒˚.⋆User⋆⭒˚.⋆";
-    private static final String greeting = MoiMoi.logo + MoiMoi.moiMoiHeader
-            + "Hello, master! How may I help you today? ><\n\n" + MoiMoi.userHeader;
-    private static final String exitMessage = MoiMoi.moiMoiHeader
-            + "I'll always be here for you~ See ya, master! ^^\n";
     private Storage storage;
-    private ArrayList<Task> tasks;
-    private Scanner sc;
+    private TaskList tasks;
+    private Ui ui;
 
     public MoiMoi(String path) {
         try {
-            storage = new Storage(path);
-            tasks = storage.load();
+            this.storage = new Storage(path);
+            this.ui = new Ui();
+            this.tasks = new TaskList(this.storage.load());
         } catch (MoiMoiException e) {
-            System.out.println(e.getMessage());
-            tasks = new ArrayList<Task>();
+            this.ui.showMoiMoiException(e);
+            this.tasks = new TaskList(new ArrayList<Task>());
         }
-        sc = new Scanner(System.in);
     }
 
     public void run() {
 
-        System.out.println(MoiMoi.greeting);
+        this.ui.showGreeting();
 
-        String input = sc.nextLine();
+        this.ui.showUserHeader();
+        String input = this.ui.getInput();
         String command = Parser.inputToCommand(input);
 
         while (!command.equals("bye")) {
             try {
-                System.out.print("\n" + MoiMoi.moiMoiHeader);
+                this.ui.showMoiMoiHeader();
                 switch (command) {
                 case "todo":
                     this.todo(Parser.inputToArgs(input));
@@ -73,27 +61,27 @@ public class MoiMoi {
                     throw new InvalidCommandException();
                 }
             } catch (MoiMoiException e) {
-                System.out.println(e.getMessage());
+                this.ui.showMoiMoiException(e);
             }
-            System.out.println("\n" + MoiMoi.userHeader);
-            input = sc.nextLine();
+            this.ui.showUserHeader();
+            input = this.ui.getInput();
             command = Parser.inputToCommand(input);
         }
 
         try {
             storage.save(tasks);
         } catch (StorageIOException e) {
-            System.out.println(e.getMessage());
+            this.ui.showMoiMoiException(e);
         }
 
-        System.out.print("\n" + MoiMoi.exitMessage);
+        this.ui.showExitMessage();
 
     }
 
     public void todo(String description) {
         Todo task = new Todo(description);
         this.tasks.add(task);
-        System.out.println("Aight! Todo task added: " + task.stringUI()
+        this.ui.showCompletionMessage("Aight! Todo task added: " + task.stringUI()
                 + "\nWe have " + tasks.size() + " tasks in the bag~");
     }
 
@@ -108,7 +96,7 @@ public class MoiMoi {
             Deadline task = new Deadline(desc, by);
 
             this.tasks.add(task);
-            System.out.println("Got it! Deadline task added: " + task.stringUI()
+            this.ui.showCompletionMessage("Got it! Deadline task added: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks in the bag~");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
@@ -131,7 +119,7 @@ public class MoiMoi {
             Event task = new Event(desc, from, to);
 
             this.tasks.add(task);
-            System.out.println("Here you go! Event task added: " + task.stringUI()
+            this.ui.showCompletionMessage("Here you go! Event task added: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks in the bag~");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
@@ -142,10 +130,10 @@ public class MoiMoi {
 
     public void delete(String index) throws InvalidIndexException {
         try {
-            int i = Integer.parseInt(index) - 1;
+            int i = Integer.parseInt(index);
             Task task = tasks.get(i);
-            tasks.remove(i);
-            System.out.println("Aju nice! I've got rid of this task: " + task.stringUI()
+            tasks.delete(i);
+            this.ui.showCompletionMessage("Aju nice! I've got rid of this task: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks left in the bag~");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
@@ -154,9 +142,9 @@ public class MoiMoi {
 
     public void mark(String index) throws InvalidIndexException {
         try {
-            Task task = tasks.get(Integer.parseInt(index) - 1);
+            Task task = tasks.get(Integer.parseInt(index));
             task.mark();
-            System.out.println("YAY!! One down!!\n" + task.stringUI());
+            this.ui.showCompletionMessage("YAY!! One down!!\n" + task.stringUI());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }
@@ -164,35 +152,22 @@ public class MoiMoi {
 
     public void unmark(String index) throws InvalidIndexException {
         try {
-            Task task = tasks.get(Integer.parseInt(index) - 1);
+            Task task = tasks.get(Integer.parseInt(index));
             task.unmark();
-            System.out.println("Oof, it's OK! Let's get it done soon ;)\n" + task.stringUI());
+            this.ui.showCompletionMessage("Oof, it's OK! Let's get it done soon ;)\n" + task.stringUI());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }
     }
 
     public void list() {
-        System.out.println("Here's your list of tasks!");
-        int index = 1;
-        for (Task task : this.tasks) {
-            System.out.println(index + ". " + task.stringUI());
-            index = index + 1;
-        }
+        this.ui.showList(tasks);
     }
 
     public void filter(String dateString) throws InvalidDateTimeException {
         try {
             LocalDate date = LocalDate.parse(dateString);
-            System.out.println("Here's your list of tasks, occurring on "
-                    + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "!");
-            int index = 1;
-            for (Task task : this.tasks) {
-                if (task.occurringOn(date)) {
-                    System.out.println(index + ". " + task.stringUI());
-                }
-                index = index + 1;
-            }
+            this.ui.showList(tasks, date);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException("date");
         }
