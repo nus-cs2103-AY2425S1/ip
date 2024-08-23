@@ -18,9 +18,11 @@ public class PacMan {
     }
 
 
-    private static void addList(String item) {
-        Task newTask = new Task(item);
+    private static void addList(Task newTask) {
+        echo("Got it. I've added this task:");
+        echo("  " + newTask);
         list.add(newTask);
+        echo("Now you have " + list.size() + " tasks in the list.");
     }
 
     private static void printList() {
@@ -41,30 +43,58 @@ public class PacMan {
         echo("  " + list.get(index - 1));
     }
 
+    private static void addTodo(String task) {
+        addList(new Todo(task));
+    }
+
+    private static void addDeadline(String task) {
+        String[] splitter = task.split("/", 2);
+        String taskName = splitter[0];
+        String from = splitter[1].split(" ", 2)[1];
+        addList(new Deadline(taskName, from));
+    }
+
+    private static void addEvent(String task) {
+        String[] splitter = task.split("/", 3);
+        String taskName = splitter[0];
+        String from = splitter[1].split(" ", 2)[1];
+        String to = splitter[2].split(" ", 2)[1];
+        addList(new Event(taskName, from, to));
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         greet();
         while (true) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
+            String type = input.split(" ", 2)[0];
+            if (type.equals("bye")) {
                 break;
-            } else if (input.equals("list")) {
+            } else if (type.equals("list")) {
                 printList();
-            } else if (input.split(" ")[0].equals("mark")) {
+            } else if (type.equals("mark")) {
                 try {
                     markTask(Integer.parseInt(input.split(" ")[1]));
                 } catch (NumberFormatException e) {
-                    echo("Invalid index input");
+                    echo("OOPS!!! Invalid argument");
                 }
-            } else if (input.split(" ")[0].equals("unmark")) {
+            } else if (type.equals("unmark")) {
                 try {
                     unmarkTask(Integer.parseInt(input.split(" ")[1]));
                 } catch (NumberFormatException e) {
-                    echo("Invalid index input");
+                    echo("OOPS!!! Invalid argument");
                 }
+            } else if (type.equals("todo")) {
+                String task = input.split(" ", 2)[1];
+                addTodo(task);
+            } else if (type.equals("deadline")) {
+                String task = input.split(" ", 2)[1];
+                addDeadline(task);
+            } else if (type.equals("event")) {
+                String task = input.split(" ", 2)[1];
+                addEvent(task);
             } else {
-                echo(input);
-                addList(input);
+                addList(new Task(input));
             }
         }
         exit();
