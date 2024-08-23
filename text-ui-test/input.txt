@@ -3,9 +3,22 @@ todo read book
 deadline return book /by June 6th
 event project meeting /from Aug 6th 2pm /to 4pm
 list
+mark bleh
 mark 1
 list
-todo read book
+unmark 400
 unmark 1
 list
+todo
+deadline homework
+event interview
+event interview /from today 4pm
+event interview /to 6pm /from today 4pm
+mark 1
+delete 1
+delete 1
+list
+mark 2
+delete 1
+delete 1
 bye

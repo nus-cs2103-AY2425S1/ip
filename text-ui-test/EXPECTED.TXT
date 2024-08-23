@@ -1,69 +1,148 @@
 	_____________________________________________________________
-	Heyo! My name is EKuD!! You can call me Eku-chan :)
-	How may I be of assistance
+	 Hey! My name is EkuD!!
+	 You can call me Eku-Chan!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	Look at all these tasks:
+	 Would Ya look at: No tasks to be found. Shocking ain't it!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	added: [T][ ] read book
-	And another one... 1 tasks to complete.
+	 added: [T][ ] read book
+	 And another one; 1 out of 1 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
-	added: [D][ ] return book (by: June 6th)
-	And another one... 2 tasks to complete.
+	 added: [D][ ] return book (by: June 6th)
+	 And another one; 2 out of 2 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
-	added: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	And another one... 3 tasks to complete.
+	 added: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 And another one; 3 out of 3 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
-	Look at all these tasks:
-	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 Look at all these tasks:
+	 1. [T][ ] read book
+	 2. [D][ ] return book (by: June 6th)
+	 3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 	_____________________________________________________________
 
 	_____________________________________________________________
-	Wowie!! You've completed your task!
-	I shall mark it as complete in celebration!
+	 Now look what you've done!!
+	 I thought it was obvious... But 'bleh' is clearly not an Integer!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Wowie!! You've completed your task!
+	 I shall mark it as complete in celebration!
 	   [T][X] read book
-	Woohoo!! Only 2 more to go!
+	 Woohoo!! Only 2 out of 3 tasks more to go!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	Look at all these tasks:
-	1. [T][X] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 Look at all these tasks:
+	 1. [T][X] read book
+	 2. [D][ ] return book (by: June 6th)
+	 3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 	_____________________________________________________________
 
 	_____________________________________________________________
-	added: [T][ ] read book
-	And another one... 3 tasks to complete.
+	 Whats this? You tried an invalid list index!?
+	 Pfft... That's so hilarious!
+	 Lemme spell it out for ya.
+	 Your number must be between 1 and 3 and clearly 400 isn't
 	_____________________________________________________________
 
 	_____________________________________________________________
-	Oh ho ho, did you forget something?
-	It's OK, I will take note of your incompetence...
+	 Oh ho ho, did you perhaps forget something?
+	 It's OK, I already noted down your incompetence...
 	   [T][ ] read book
-	OOPSIES! We back to 4 tasks left to complete.
+	 Tsk Tsk... Back to 3 out of 3 incomplete tasks you go!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	Look at all these tasks:
-	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	4. [T][ ] read book
+	 Look at all these tasks:
+	 1. [T][ ] read book
+	 2. [D][ ] return book (by: June 6th)
+	 3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 	_____________________________________________________________
 
 	_____________________________________________________________
-	I hope you enjoyed your stay!
-	See you next time!
+	 I think you tried TODO nothing.
+	 I can only help to remind you of something todo.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whoopsies!! Looks like you forgot your deadline!
+	 I'll say this once: next time mark your deadline with '/deadline'.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Woah Woah! Calm down buddy!
+	 Could you first tell when this event starts using '/from'?
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Dude, stop being overzealous! Surely this event doesn't last forever?
+	 Think hard about it and you can tell me when it ends again with '/to'.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 added: [E][ ] interview (from: today 4pm to: 6pm)
+	 And another one; 4 out of 4 tasks to complete...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Wowie!! You've completed your task!
+	 I shall mark it as complete in celebration!
+	   [T][X] read book
+	 Woohoo!! Only 3 out of 4 tasks more to go!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Great work on completing your task!
+	 Proceeding with task removal directive...
+	   deleted: [T][X] read book
+	 Now get a move on, you have 3 out of 3 incomplete tasks remaining!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 I'm going to assume that task wasn't meant to be there...
+	 Proceeding with task removal directive...
+	   deleted: [D][ ] return book (by: June 6th)
+	 Now get a move on, you have 2 out of 2 incomplete tasks remaining!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	 1. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 2. [E][ ] interview (from: today 4pm to: 6pm)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Wowie!! You've completed your task!
+	 I shall mark it as complete in celebration!
+	   [E][X] interview (from: today 4pm to: 6pm)
+	 Woohoo!! Only 1 out of 2 tasks more to go!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 I'm going to assume that task wasn't meant to be there...
+	 Proceeding with task removal directive...
+	   deleted: [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	 I've ran the numbers, and it says that all 1 tasks are complete!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Great work on completing your task!
+	 Proceeding with task removal directive...
+	   deleted: [E][X] interview (from: today 4pm to: 6pm)
+	 Well, looks like there is nothing left for you do!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 I hope you enjoyed your stay!
+	 See you next time! NOT!!
 	_____________________________________________________________
