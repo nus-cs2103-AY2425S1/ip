@@ -4,6 +4,11 @@ public class ToDo extends IndividualTask {
     }
 
     @Override
+    public String saveToFileFormat() {
+        return "T | " + this.getSaveIcon() + " | " + this.getTaskDescription();
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
