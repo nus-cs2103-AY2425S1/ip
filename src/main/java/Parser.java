@@ -13,4 +13,8 @@ public class Parser {
     public String splitCommandAndTaskDescription(String command) {
         return command.split(" ", 2)[1];
     }
+
+    public String[] splitCommandAndDeadline(String command) {
+        return command.split("/by ", 2);
+    }
 }

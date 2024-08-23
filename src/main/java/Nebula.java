@@ -33,6 +33,14 @@ public class Nebula {
                 String addedTask = taskList.addTask(newTask);
                 System.out.println(addedTask);
             }
+            else if(command.startsWith("deadline")) {
+                String taskInformation = parser.splitCommandAndTaskDescription(command);
+                String taskDescription = parser.splitCommandAndDeadline(taskInformation)[0];
+                String taskDeadline = parser.splitCommandAndDeadline(taskInformation)[1];
+                Task newTask = new Deadline(taskDescription, taskDeadline);
+                String addedTask = taskList.addTask(newTask);
+                System.out.println(addedTask);
+            }
 
         }
 
