@@ -11,7 +11,7 @@ public class Asura {
         return formattedMsg.indent(3);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AsuraException {
         Scanner scanner = new Scanner(System.in);
         String introduction = """
                 Hello! I'm Asura!
@@ -37,7 +37,7 @@ public class Asura {
                 case "mark":
                     if (1 >= input.length) {
                         // if user inputted mark by itself
-                        System.out.println(formatResponse("Oops! Something is wrong."));
+                        throw new AsuraException("Please indicate a task to mark.");
                     } else {
                         int selection = Integer.parseInt(input[1]) - 1;
                         tasks.get(selection).markAsDone();
@@ -48,7 +48,7 @@ public class Asura {
                 case "unmark":
                     if (1 >= input.length) {
                         // if user inputted mark by itself
-                        System.out.println(formatResponse("Oops! Something is wrong."));
+                        throw new AsuraException("Please indicate a task to unmark.");
                     } else {
                         int selection = Integer.parseInt(input[1]) - 1;
                         tasks.get(selection).markAsNotDone();
@@ -57,6 +57,9 @@ public class Asura {
                     }
                     break;
                 case "todo":
+                    if (1 >= input.length) {
+                        throw new AsuraException("The description todo cannot be empty.");
+                    }
                     String taskString = String.join(" ", Arrays.asList(input).subList(1, input.length));
                     Todo newTodo = new Todo(taskString);
                     tasks.add(newTodo);
@@ -66,38 +69,51 @@ public class Asura {
                 case "deadline":
                     List<String> inputArray = Arrays.asList(input);
                     int byIndex = inputArray.indexOf("/by");
-                    if (byIndex > 1) {
+                    try {
                         List<String> descriptionArray = inputArray.subList(1, byIndex);
+                        if (descriptionArray.isEmpty()) {
+                            throw new AsuraException("The description todo cannot be empty.");
+                        }
                         List<String> dateArray = inputArray.subList(byIndex + 1, inputArray.size());
+                        if (dateArray.isEmpty()) {
+                            throw new AsuraException("The date cannot be empty.");
+                        }
                         Deadline newDeadline = new Deadline(String.join(" ", descriptionArray), String.join(" ", dateArray));
                         tasks.add(newDeadline);
                         output.append("Got it. I've added this task:\n").append(newDeadline.toString()).append("\n").append("Now you have ").append(tasks.size()).append(" tasks in your list.\n");
                         System.out.println(formatResponse(output.toString()));
-                    }
-                    else {
-                        System.out.println(formatResponse("Sorry! I don't understand the input."));
+                    } catch (Exception e) {
+                        throw new AsuraException(e.getMessage());
                     }
                     break;
                 case "event":
                     inputArray = Arrays.asList(input);
                     int fromIndex = inputArray.indexOf("/from");
                     int toIndex = inputArray.indexOf("/to");
-                    if (fromIndex > 1 && toIndex > 3) {
+                    try {
                         List<String> descriptionArray = inputArray.subList(1, fromIndex);
+                        if (descriptionArray.isEmpty()) {
+                            throw new AsuraException("The description todo cannot be empty.");
+                        }
                         List<String> fromArray = inputArray.subList(fromIndex + 1, toIndex);
+                        if (fromArray.isEmpty()) {
+                            throw new AsuraException("The from date cannot be empty.");
+                        }
                         List<String> toArray = inputArray.subList(toIndex + 1, inputArray.size());
+                        if (toArray.isEmpty()) {
+                            throw new AsuraException("The to date cannot be empty.");
+                        }
                         Event newEvent = new Event(String.join(" ", descriptionArray), String.join(" ", fromArray), String.join(" ", toArray));
                         tasks.add(newEvent);
                         output.append("Got it. I've added this task:\n").append(newEvent.toString()).append("\n").append("Now you have ").append(tasks.size()).append(" tasks in your list.\n");
                         System.out.println(formatResponse(output.toString()));
                     }
-                    else {
-                        System.out.println(formatResponse("Sorry! I don't understand the input."));
+                    catch (Exception e) {
+                        throw new AsuraException(e.getMessage());
                     }
                     break;
                 default:
-                    System.out.println(formatResponse("Sorry! I don't understand the input."));
-                    break;
+                    throw new AsuraException("Invalid input");
             }
 
             input = scanner.nextLine().split(" ");
