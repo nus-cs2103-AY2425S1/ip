@@ -1,8 +1,28 @@
 # Hoshi User Guide
 
-// Update the title above to match the actual product name
 
 // Product screenshot goes here
+
+```
+__    __    ______        _______. __    __   __  
+|  |  |  |  /  __  \      /       ||  |  |  | |  |
+|  |__|  | |  |  |  |    |   (----`|  |__|  | |  |
+|   __   | |  |  |  |     \   \    |   __   | |  |
+|  |  |  | |  `--'  | .----)   |   |  |  |  | |  |
+|__|  |__|  \______/  |_______/    |__|  |__| |__|
+
+
+____________________________________________________________
+Hello! Im Hoshi!
+What can I do for you?
+____________________________________________________________
+
+```
+
+## About Hoshi
+
+Hoshi is a user-friendly chatbot that keeps tracks of your todos, events and deadlines! 
+It is  currently still in development and features are yet to be finalized.
 
 // Product intro goes here
 
