@@ -21,6 +21,26 @@ public class Agave {
                 ui.showBye();
             } else if (userInput.equalsIgnoreCase("list")) {
                 ui.showTasks(taskManager.getTasks(), taskManager.getTaskCount());
+            } else if (userInput.startsWith("mark")) {
+                try {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                    if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
+                        taskManager.getTasks()[taskNumber - 1].markAsDone();
+                        ui.showMarkedTask(taskManager.getTasks()[taskNumber - 1]);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid task number.");
+                }
+            } else if (userInput.startsWith("unmark")) {
+                try {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                    if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
+                        taskManager.getTasks()[taskNumber - 1].unmarkAsDone();
+                        ui.showUnmarkedTask(taskManager.getTasks()[taskNumber - 1]);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid task number.");
+                }
             } else {
                 taskManager.addTask(new Task(userInput));
                 ui.showEcho(userInput);
