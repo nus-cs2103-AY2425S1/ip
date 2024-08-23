@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConverSage {
@@ -17,16 +19,43 @@ public class ConverSage {
         Scanner scanner = new Scanner(System.in);
         String input;
 
+        List<Task> taskList = new ArrayList<>();
+
         while (true) {
             input = scanner.nextLine();
             System.out.println(horizontalLine);
-            if (input.equalsIgnoreCase("bye")) {
+
+            if (input.equalsIgnoreCase("list")) {
+                for (int i = 1; i <= taskList.size(); i++) {
+                    System.out.println(i + ". " + taskList.get(i-1));
+                }
+                System.out.println(horizontalLine);
+            } else if (input.equalsIgnoreCase("bye")) {
                 System.out.println("Goodbye. We shall meet again soon.");
                 System.out.println(horizontalLine);
                 break;
+            } else if (input.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task currTask = taskList.get(taskIndex);
+                String doneTask = currTask.markAsDone();
+                System.out.println("Good job. I've marked this task as done.");
+                System.out.println(doneTask);
+                System.out.println(horizontalLine);
+
+            } else if (input.startsWith("unmark ")) {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task currTask = taskList.get(taskIndex);
+                String undoneTask = currTask.markAsUndone();
+                System.out.println("I've marked this task as not done yet, get to it quickly.");
+                System.out.println(undoneTask);
+                System.out.println(horizontalLine);
+
+            } else {
+                System.out.println("added: " + input);
+                System.out.println(horizontalLine);
+                taskList.add(new Task(input));
             }
-            System.out.println(input);
-            System.out.println(horizontalLine);
+
         }
     }
 }
