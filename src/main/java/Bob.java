@@ -71,7 +71,7 @@ public class Bob {
         ToDo todo = Bob.taskList.todo(inputs[0]);
         Bob.prettyPrint(new String[] { "Got it. I've added this task:",
                 " " + todo.toString(),
-                "Now you have 5 tasks in the list." });
+                String.format("Now you have %d tasks in the list.", Bob.taskList.getSize()) });
     }
 
     private static void deadline(String input) {
@@ -79,7 +79,7 @@ public class Bob {
         Deadline deadline = Bob.taskList.deadline(inputs[0], inputs[1]);
         Bob.prettyPrint(new String[] { "Got it. I've added this task:",
                 " " + deadline.toString(),
-                "Now you have 5 tasks in the list." });
+                String.format("Now you have %d tasks in the list.", Bob.taskList.getSize()) });
     }
 
     private static void event(String input) {
@@ -87,7 +87,7 @@ public class Bob {
         Event event = Bob.taskList.event(inputs[0], inputs[1], inputs[2]);
         Bob.prettyPrint(new String[] { "Got it. I've added this task:",
                 " " + event.toString(),
-                "Now you have 5 tasks in the list." });
+                String.format("Now you have %d tasks in the list.", Bob.taskList.getSize()) });
     }
 
     public static void main(String[] args) {
@@ -117,6 +117,9 @@ public class Bob {
                         } catch(NumberFormatException e) {
                             throw new TaskIndexException(input.substring(5));
                         }
+                        if (idx <= 0 || idx > Bob.taskList.getSize()) {
+                            throw new TaskIndexException(input.substring(5));
+                        }
                         Bob.markTask(idx);
                         continue;
                     }
@@ -125,6 +128,9 @@ public class Bob {
                         try {
                             idx = Integer.parseInt(arguments[1]);
                         } catch(NumberFormatException e) {
+                            throw new TaskIndexException(input.substring(5));
+                        }
+                        if (idx <= 0 || idx > Bob.taskList.getSize()) {
                             throw new TaskIndexException(input.substring(5));
                         }
                         Bob.unmarkTask(idx);

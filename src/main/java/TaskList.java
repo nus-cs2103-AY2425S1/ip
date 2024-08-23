@@ -41,6 +41,10 @@ public class TaskList {
         this.tasklist.get(idx-1).uncomplete();
     }
 
+    public int getSize() {
+        return this.tasklist.size();
+    }
+
     public String describeTask(int idx) {
         if (idx < 1 || idx > this.tasklist.size()) {
             return "Error finding task!";
