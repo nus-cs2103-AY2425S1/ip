@@ -1,0 +1,11 @@
+todo hello world
+mark 1
+unmark 1
+deadline lorem ipsum /by Monday
+mark 2
+event hello /from A /to B
+unmark -999
+mark 3
+mark 3
+unmark 1
+bye
