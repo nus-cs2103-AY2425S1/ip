@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 public class ScoobyDoo {
     public static final String name = "Scooby-Doo";
-    private static final String[] list = new String[100];
-    private static int listNum = 0;
+    public static final TaskList taskList = new TaskList(100);
 
     public static void main(String[] args) {
         //greeting
@@ -18,22 +17,36 @@ public class ScoobyDoo {
                 printFormattedResponse("Bye. Hope to see you again soon!");
                 break;
             }
+
             if (input.equals("list")) {
                 String listString = "";
-                for (int i = 0; i < listNum; i++) {
-                    listString = listString.concat( String.format("%d. %s\n", i + 1, list[i]));
+                for (int i = 0; i < taskList.getNumOfTasks(); i++) {
+                    listString = listString.concat(taskList.getTask(i).getTaskString(i + 1));
                 }
                 printFormattedResponse(listString);
                 continue;
             }
 
-            if (checkListSize(listNum)) {
-                addTask(input);
+            if (matchesMark(input) != 0) {
+                int num = matchesMark(input);
+                taskList.getTask(num - 1).markAsDone();
+                String response = String.format("Nice! I've marked this task as done:\n [x] %s",
+                        taskList.getTask(num - 1).getDescription());
+                printFormattedResponse(response);
+                continue;
+            }
+
+            if (matchesUnmark(input) != 0) {
+                int num = matchesUnmark(input);
+                taskList.getTask(num - 1).markAsUndone();
+                String response = String.format("OK, I've marked this task as not done yet:\n [ ] %s",
+                        taskList.getTask(num - 1).getDescription());
+                printFormattedResponse(response);
+                continue;
+            }
+            if (taskList.addTask(input)) {
                 printFormattedResponse("Added: " + input);
-            }
-            else {
-                printFormattedResponse("Too many tasks !!!");
-            }
+            } else printFormattedResponse("Too many tasks !!!");
         }
         scanIn.close();
     }
@@ -52,14 +65,33 @@ public class ScoobyDoo {
 
     }
 
-    //return true if list size less than 100
-    private static boolean checkListSize(int num) {
-        return !(num > 100);
+    //if returns 0 means no matches
+    private static int matchesMark(String input) {
+        if (input.startsWith("mark")) {
+            String[] inputArr = input.split(" ");
+            if (inputArr.length == 2) {
+                try {
+                    return Integer.parseInt(inputArr[1]);
+                } catch (NumberFormatException e){
+                    return 0;
+                }
+            }
+        }
+      return 0;
     }
 
-    private static void addTask(String task) {
-        list[listNum] = task;
-        listNum++;
+    private static int matchesUnmark(String input) {
+        if (input.startsWith("unmark")) {
+            String[] inputArr = input.split(" ");
+            if (inputArr.length == 2) {
+                try {
+                    return Integer.parseInt(inputArr[1]);
+                } catch (NumberFormatException e){
+                    return 0;
+                }
+            }
+        }
+        return 0;
     }
 }
 
