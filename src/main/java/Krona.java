@@ -12,6 +12,7 @@ public class Krona {
             String input = sc.nextLine();
             String[] words = input.split(" ", 2);
 
+            try {
             if (words[0].equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
@@ -22,14 +23,22 @@ public class Krona {
                 }
             } else if (words[0].equals("mark")) {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
-                tasks[taskIndex].markDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[taskIndex]);
+                if (taskIndex >= 0 && taskIndex < allTasks && tasks[taskIndex] != null) {
+                    tasks[taskIndex].markDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(tasks[taskIndex]);
+                } else {
+                    System.out.println("There is no task with that number.");
+                }
             } else if (words[0].equals("unmark")) {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
-                tasks[taskIndex].markNotDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[taskIndex]);
+                if (taskIndex >= 0 && taskIndex < allTasks && tasks[taskIndex] != null) {
+                    tasks[taskIndex].markNotDone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(tasks[taskIndex]);
+                } else {
+                    System.out.println("There is no task with that number.");
+                }
             } else if (words[0].startsWith("todo")) {
                 if (words.length < 2 || words[1].trim().isEmpty()) {
                     System.out.println("The description of the todo is empty. Please add a description.");
@@ -63,8 +72,12 @@ public class Krona {
                     System.out.println(tasks[allTasks - 1]);
                     System.out.println("Now you have " + allTasks + " tasks in the list.");
                 }
-            } else {
+            }
+             else {
                 System.out.println("Unknown command. Please try again.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("There is no task with that number.");
             }
         }
     }
