@@ -19,10 +19,12 @@ public class Nah {
         System.out.println(byeLine);
     }
 
-    private void add(String input) {
-        task[taskCount] = new Task(input);
+    private void add(Task newTask) {
+        task[taskCount] = newTask;
         taskCount ++;
-        System.out.println(" added " + input + "\n");
+        System.out.println(" Got it. I've added this task: \n"
+                        + "   " + newTask.toString() + "\n"
+                        + " Now you have " + taskCount + " tasks in the list.");
     }
 
     private void readTask() {
@@ -84,8 +86,23 @@ public class Nah {
                     nah.unMark(i);
                     break;
                 }
+                case "todo": {
+                    nah.add(new ToDos(command[1]));
+                    break;
+                }
+                case "deadline": {
+                    String[] description = command[1].split("/by", 2);
+                    nah.add(new Deadlines(description[0], description[1]));
+                    break;
+                }
+                case "event": {
+                    String[] start = command[1].split("/from", 2);
+                    String[] end = start[1].split("/to", 2);
+                    nah.add(new Events(start[0],end[0],end[1]));
+                    break;
+                }
                 default:
-                    nah.add(input);
+                    nah.add(new Task(input));
                     break;
 
             }
