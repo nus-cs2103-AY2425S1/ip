@@ -67,7 +67,7 @@ public class Sinatra {
               Tasks.add(new ToDo(message.substring(5, message.length()), false));
               System.out.println("Got it. I've added this task:");
                 System.out.println("  "+Tasks.getLast());
-                System.out.println("Now, you have " + Tasks.size() + " tasks in the list.");
+                System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
 
         } else if (message.length() > 4 && message.substring(0, 8).equals("deadline")) {
             String[] parts = message.substring(9).split(" /by ");
@@ -76,7 +76,7 @@ public class Sinatra {
             Tasks.add(new Deadline(content, false, by));
                   System.out.println("Got it. I've added this task:");
                 System.out.println("  "+Tasks.getLast());
-                System.out.println("Now, you have " + Tasks.size() + " tasks in the list.");
+                System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
             
 
         } else if (message.length() > 5 && message.substring(0, 5).equals("event")) {
@@ -88,7 +88,7 @@ public class Sinatra {
             Tasks.add(new Event(content, false, from, to));
                  System.out.println("Got it. I've added this task:");
                 System.out.println("  "+Tasks.getLast());
-                System.out.println("Now, you have " + Tasks.size() + " tasks in the list.");
+                System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
             
 
         } 
