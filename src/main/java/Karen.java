@@ -7,6 +7,8 @@ import main.java.Event;
 import main.java.Task;
 import main.java.Todo;
 
+import javax.sound.sampled.Line;
+
 public class Karen {
     private static List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
@@ -99,18 +101,33 @@ public class Karen {
                                 + LINE;
                     }
                 } else if(command[0].equals("deadline")) {
-                    String[] params = command[1].split("/by ", 2);
-                    task = new Deadline(params[0], params[1]);
+                    try {
+                        String[] params = command[1].split("/by ", 2);
+                        task = new Deadline(params[0], params[1]);
+                    } catch (Exception e) {
+                        output += LINE
+                                + "Invalid input! Deadlines must follow this syntax: deadline <name> /by <due date>\n"
+                                + LINE;
+                    }
                 } else if(command[0].equals("event")) {
-                    String[] params = command[1].split("/from ", 2);
-                    String name = params[0];
-                    String[] fromTo = params[1].split("/to ",2);
-                    task = new Event(name, fromTo[0], fromTo[1]);
+                    try {
+                        String[] params = command[1].split("/from ", 2);
+                        String name = params[0];
+                        String[] fromTo = params[1].split("/to ",2);
+                        task = new Event(name, fromTo[0], fromTo[1]);
+                    } catch (Exception e) {
+                        output += LINE
+                                + "Error! Events must follow this syntax: " +
+                                "event <name> /from <start time> /to <end time>\n"
+                                + LINE;
+                    }
+                } else {
+                    output += LINE
+                            + "Sorry! I don't understand :(\n"
+                            + LINE;
                 }
 
-                if (task == null) {
-                    System.out.println("Sorry i don't understand!");
-                } else {
+                if (task != null) {
                     tasks.add(task);
                     output += LINE +
                             "Got it! Added this task:\n\t" +
