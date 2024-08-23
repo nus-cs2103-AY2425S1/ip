@@ -43,7 +43,7 @@ public class Ui {
      * @return A string containing the formatted list of tasks. If the list is empty, a message indicating that the list is empty is returned
      */
     public String displayList() {
-        String displayList = DIVIDER + "\n";
+        String displayList = DIVIDER + "\n" + "Here are the tasks in your list: " + "\n";
         int taskLength = TaskList.getTaskListLength();
         Task[] list = TaskList.getTaskList();
         if(taskLength == 0) {
