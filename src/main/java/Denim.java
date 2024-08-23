@@ -44,28 +44,34 @@ public class Denim {
         String command = inputComponents[0];
         String argument = inputComponents.length > 1 ? inputComponents[1] : "";
 
-        switch (command) {
-        case TASK_LIST:
-            handleList();
-            break;
-        case TASK_MARK:
-            handleMark(argument);
-            break;
-        case TASK_UNMARK:
-            handleUnmark(argument);
-            break;
-        case TASK_TODO:
-            handleTodo(argument);
-            break;
-        case TASK_DEADLINE:
-            handleDeadline(argument);
-            break;
-        case TASK_EVENT:
-            handleEvent(argument);
-            break;
-        default:
-            handleDefault(input);
-            break;
+        try {
+            switch (command) {
+            case TASK_LIST:
+                handleList();
+                break;
+            case TASK_MARK:
+                handleMark(argument);
+                break;
+            case TASK_UNMARK:
+                handleUnmark(argument);
+                break;
+            case TASK_TODO:
+                handleTodo(argument);
+                break;
+            case TASK_DEADLINE:
+                handleDeadline(argument);
+                break;
+            case TASK_EVENT:
+                handleEvent(argument);
+                break;
+            default:
+                handleDefault(input);
+                break;
+            }
+        } catch (DenimException e) {
+            String errorMessage = String.format("%s%n I don't Understand what you mean T.T!\n Error: %s%n%s",
+                    horizontalLine, e.getMessage(), horizontalLine);
+            System.out.println(errorMessage);
         }
     }
 
@@ -83,38 +89,86 @@ public class Denim {
                 horizontalLine, task, taskSize, horizontalLine);
     }
 
-    static void handleMark(String argument) {
-        int index = Integer.parseInt(argument) - 1;
-        taskList[index].setDone(true);
-        System.out.printf("Okay, I've marked this task as done: \n %s\n", taskList[index]);
+    static void handleMark(String argument) throws DenimException {
+        if (argument.isEmpty()) {
+            throw new DenimException("I do not know what you are trying to mark! ಠ▃ಠ");
+        }
+
+        try {
+            int index = Integer.parseInt(argument) - 1;
+
+            if (index < 0 || index >= taskSize) {
+                throw new DenimException("OOPS!!! The task number is out of range. >=C");
+            }
+
+            taskList[index].setDone(true);
+            System.out.printf("Okay, I've marked this task as done: \n %s\n", taskList[index]);
+        } catch (NumberFormatException e) {
+            throw new DenimException("y u do dis! Argument must be a valid numb3r! ( =ω=)..nyaa");
+        }
     }
 
-    static void handleUnmark(String argument) {
-        int index = Integer.parseInt(argument) - 1;
-        taskList[index].setDone(false);
-        System.out.printf("Okay, I've marked this task as not done yet: \n %s\n", taskList[index]);
+    static void handleUnmark(String argument) throws DenimException {
+        if (argument.isEmpty()) {
+            throw new DenimException("I do not know what you are trying to unmark! (◡︿◡✿)");
+        }
+
+        try {
+            int index = Integer.parseInt(argument) - 1;
+
+            if (index < 0 || index >= taskSize) {
+                throw new DenimException("OOPS!!! The task number is out of range. >=C");
+            }
+
+            taskList[index].setDone(false);
+            System.out.printf("Okay, I've marked this task as not done yet: \n %s\n", taskList[index]);
+        } catch (NumberFormatException e) {
+            throw new DenimException("y u do dis! Argument must be a valid numb3r! ( =ω=)..nyaa");
+        }
     }
 
-    static void handleTodo(String argument) {
+    static void handleTodo(String argument) throws DenimException {
+        if (argument.isEmpty()) {
+            throw new DenimException("The description of a todo cannot be empty! >.<");
+        }
         Task toDoTask = new Todo(argument);
         handleTaskAddition(toDoTask);
     }
 
-    static void handleDeadline(String argument) {
+    static void handleDeadline(String argument) throws DenimException {
         String[] components = argument.split(" /by ");
+
+        if (argument.isEmpty()) {
+            throw new DenimException("The description of a deadline cannot be empty! >.<");
+        }
+
+        if (components.length < 2) {
+            throw new DenimException("(,,◕　⋏　◕,,) Deadlines must include a 'by' slot!\n"
+                    + " Example Usage: deadline homework /by 6pm wednesday");
+        }
+
         Task deadlineTask = new Deadline(components[0], components[1]);
         handleTaskAddition(deadlineTask);
     }
 
-    static void handleEvent(String argument) {
+    static void handleEvent(String argument) throws DenimException {
         String[] components = argument.split(" /from | /to ");
+
+        if (argument.isEmpty()) {
+            throw new DenimException("The description of an event cannot be empty! >.<");
+        }
+
+        if (components.length < 3) {
+            throw new DenimException("!I'm Tired X.X T.T! The event must include both '/from' and '/to' time slots.\n"
+            + " Example Usage: event dinner /from 6pm /to 8pm");
+        }
+
         Task eventTask = new Event(components[0], components[1], components[2]);
         handleTaskAddition(eventTask);
     }
 
-    static void handleDefault(String input) {
-        Task newTask = new Task(input);
-        handleTaskAddition(newTask);
+    static void handleDefault(String input) throws DenimException {
+        throw new DenimException("Invalid Command!");
     }
 }
 
