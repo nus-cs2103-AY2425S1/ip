@@ -28,12 +28,12 @@ public class Storage {
                     break;
                 case "D":
                     String by = taskData[3];
-                    task = new Deadline(description, by);
+                    task = new Deadline(description, DateTimeHandler.parse(by));
                     break;
                 case "E":
                     String from = taskData[3];
                     String to = taskData[4];
-                    task = new Event(description, from, to);
+                    task = new Event(description, DateTimeHandler.parse(from), DateTimeHandler.parse(to));
                     break;
                 default:
                     throw new BingBongException("Unknown task type in file.");

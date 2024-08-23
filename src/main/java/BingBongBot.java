@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +95,8 @@ public class BingBongBot {
             }
             String description = parts[0];
             String by = parts[1];
-            task = new Deadline(description, by);
+            LocalDateTime byDateTime = parseDateTime(by);
+            task = new Deadline(description, byDateTime);
         } else if (type == CommandType.EVENT) {
             String[] parts = command.substring(6).trim().split(" /from | /to ");
             if (parts.length < 3) {
@@ -102,7 +105,9 @@ public class BingBongBot {
             String description = parts[0];
             String from = parts[1];
             String to = parts[2];
-            task = new Event(description, from, to);
+            LocalDateTime fromDateTime = parseDateTime(from);
+            LocalDateTime toDateTime = parseDateTime(to);
+            task = new Event(description, fromDateTime, toDateTime);
         } else {
             throw new BingBongException("Invalid task type.");
         }
@@ -158,6 +163,14 @@ public class BingBongBot {
             storage.save(taskList);
         } catch (BingBongException e) {
             ui.showResponse("Unable to save tasks in hard disk");
+        }
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) throws BingBongException {
+        try {
+            return DateTimeHandler.parse(dateTime);
+        } catch (DateTimeParseException e) {
+            throw new BingBongException("Invalid date/time format. Please use the format: d/M/yyyy HHmm");
         }
     }
 
