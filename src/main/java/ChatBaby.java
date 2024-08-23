@@ -1,6 +1,16 @@
+import java.util.Scanner;
+
 public class ChatBaby {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         greet();
+
+        String input = scanner.nextLine();
+        while (!input.equals("bye")) {
+            echo(input);
+            input = scanner.nextLine();
+        }
+
         bye();
     }
 
@@ -12,7 +22,14 @@ public class ChatBaby {
     }
 
     public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!\n"
+        System.out.println("____________________________________________________________\n"
+                + "Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________");
+    }
+
+    public static void echo(String input) {
+        System.out.println("____________________________________________________________\n"
+                + input + "\n"
                 + "____________________________________________________________");
     }
 }
