@@ -4,14 +4,17 @@ public class Task {
     // Status of task
     protected boolean complete;
 
+    protected TaskType taskType;
+
     /**
      * Constructor for Task, marks task as incomplete to start
      *
      * @param description description of task
      */
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
         this.complete = false;
+        this.taskType = type;
     }
 
     /**
@@ -29,7 +32,7 @@ public class Task {
      */
     public String mark() {
         this.complete = true;
-        return String.format("Nice! I've marked this task as done: \n %s", this);
+        return String.format("Nice! I've marked this task as done:\n%s", this);
     }
 
     /**
@@ -39,7 +42,7 @@ public class Task {
      */
     public String unmark() {
         this.complete = false;
-        return String.format("OK, I've marked this task as not done yet: \n %s", this);
+        return String.format("OK, I've marked this task as not done yet:\n%s", this);
     }
 
     /**

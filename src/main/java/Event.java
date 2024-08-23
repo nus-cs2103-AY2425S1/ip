@@ -12,7 +12,7 @@ public class Event extends Task {
      * @param to ending date/time
      */
     public Event(String description, String from, String to) {
-        super(description);
+        super(description, TaskType.EVENT);
         this.from = from;
         this.to = to;
     }

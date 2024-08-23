@@ -36,7 +36,6 @@ public class Talker {
             }
         }
 
-        System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.print(LINE);
     }
@@ -113,7 +112,7 @@ public class Talker {
 
             System.out.println("Noted. I've removed this task:");
             System.out.println(removed);
-            System.out.printf("Now you have %d tasks in the list. \n", list.size());
+            System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (NumberFormatException e) {
             throw new TalkerException("Delete format wrong. Try again with: delete <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -130,7 +129,7 @@ public class Talker {
             list.add(newTask);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
-            System.out.printf("Now you have %d tasks in the list. \n", list.size());
+            System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException("ToDo must have a description");
         }
@@ -149,7 +148,7 @@ public class Talker {
             list.add(newTask);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
-            System.out.printf("Now you have %d tasks in the list. \n", list.size());
+            System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException("Deadline format wrong. Try again with: deadline <description> /by <deadline>");
         }
@@ -170,7 +169,7 @@ public class Talker {
             list.add(newTask);
             System.out.println("Got it. I've added this task:");
             System.out.println(newTask);
-            System.out.printf("Now you have %d tasks in the list. \n", list.size());
+            System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
                     "Event format wrong. Try again with: event <description> /from <start> /to <end>");
