@@ -6,6 +6,9 @@ import matcha.storage.Storage;
 import matcha.tasklist.TaskList;
 import matcha.ui.Ui;
 
+/**
+ * Represents the main class of the Matcha program.
+ */
 public class Matcha {
     private static final String FILE_PATH = "./data/matcha.txt";
     private Ui ui;
@@ -13,6 +16,11 @@ public class Matcha {
     private TaskList tasks;
     private Parser parser;
 
+    /**
+     * Constructor for Matcha class.
+     *
+     * @param filePath File path with saved task file.
+     */
     public Matcha(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
@@ -24,6 +32,9 @@ public class Matcha {
         }
     }
 
+    /**
+     * Runs the program to allow users to interact with Matcha.
+     */
     public void run() {
         //greet users
         ui.greet();
@@ -47,6 +58,11 @@ public class Matcha {
         ui.closeScanner();
     }
 
+    /**
+     * Main method to start the Matcha program.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Matcha(FILE_PATH).run();
     }

@@ -14,7 +14,18 @@ import matcha.task.Todo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Parser object which is responsible for parsing user input and file data.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input User input.
+     * @return Command object corresponding to the user input.
+     * @throws MatchaException If the user input not a valid Command.
+     */
     public static Command parseCommand(String input) throws MatchaException {
         String[] inputWords = input.split(" ", 2);
         String commandType = inputWords[0];
@@ -41,6 +52,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the data from the file and returns the corresponding Task object.
+     *
+     * @param data Input from the file.
+     * @return Task object corresponding to the data.
+     * @throws MatchaException If the data is in the wrong format.
+     */
     public static Task parseFileData(String data) throws MatchaException {
         String[] taskInfo = data.split(" \\| ");
         String taskType = taskInfo[0];
