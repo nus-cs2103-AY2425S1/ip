@@ -1,39 +1,99 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Jude {
     public static void main(String[] args) {
 
         // Initialize the variables
         String name = "Jude";
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int listSize = 0;
-        Scanner scanner = new Scanner(System.in);
+        BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
 
         // Initiate the chat
         System.out.println("Hello I'm " + name);
         System.out.println("What can I do for you, poyo?");
 
-        // Receive first user input
-        String userInput = scanner.nextLine();
 
-        // Terminate input if is bye, iterate otherwise.
-        while (!userInput.equals("bye")) {
-
-            // If the input is list, shows the list of tasks saved.
-            if (userInput.equals("list")) {
-                for (int i = 0; i < listSize; i++) {
-                    System.out.printf("%d. %s\n", (i + 1), list[i]);
-                }
-            } else {
-                list[listSize++] = userInput;
-                System.out.println("added: " + userInput);
+        while (true) {
+            String userInput;
+            String[] commands;
+            // Iterate receiving until the valid input
+            try {
+                userInput = bi.readLine();
+                commands = userInput.split(" ");
+            } catch (IOException e) {
+                System.out.println("IO operation was failed or interrupted. Please try again, poyo...");
+                continue;
             }
-            userInput = scanner.nextLine();
+
+            // Check if the command is "bye"
+            if (commands[0].equals("bye")) {
+                break; // Terminate the iteration
+
+                // Check if the command is "list"
+            } else if (commands[0].equals("list")) {
+                // Print the list of tasks saved
+                for (int i = 0; i < listSize; i++) {
+                    System.out.printf("%d. %s\n", (i + 1), list[i].toStringMarked());
+                }
+
+
+                // Check if the command is "mark"
+            } else if (commands[0].equals("mark")) {
+                // Get the valid index of the list with the given number
+                int index;
+                try {
+                    index = Integer.parseInt(commands[1]) - 1;
+                } catch (NumberFormatException e) {
+                    System.out.println("The command for mark should be followed by a number. Please try again, poyo...");
+                    continue;
+                }
+
+                if (index >= listSize || index < 0) {
+                    System.out.println("The task number provided is not valid." +
+                            " Please provide your instruction again., poyo...");
+                    continue;
+                }
+
+                // Mark the task as done
+                Task task = list[index];
+                task.markAsDone();
+                System.out.printf("Poyo! I've marked this task as done:\n%s\n", task.toStringMarked());
+
+                // Check if the command is "unmark"
+            } else if (commands[0].equals("unmark")) {
+                // Get the valid index of the list with the given number
+                int index;
+                try {
+                    index = Integer.parseInt(commands[1]) - 1;
+                } catch (NumberFormatException e) {
+                    System.out.println("The command for unmark should be followed by a number. Please try again, poyo...");
+                    continue;
+                }
+
+                if (index >= listSize || index < 0) {
+                    System.out.println("The task number provided is not valid." +
+                            " Please provide your instruction again, poyo...");
+                    continue;
+                }
+
+                // Unmark the task as done
+                Task task = list[index];
+                task.unmarkAsDone();
+                System.out.printf("Poyo! I've unmarked this task as not done:\n%s\n", task.toStringMarked());
+
+                // Handle unknown commands
+            } else {
+                Task task = new Task(userInput);
+                list[listSize++] = task;
+                System.out.println("Poyo! added: " + task);
+            }
         }
 
         // Terminate the chat
-        System.out.println("Bye. Hope to see you again soon, poyo!");
-        scanner.close();
+        System.out.println("Poyo. Hope to see you again soon!");
     }
 }
 
