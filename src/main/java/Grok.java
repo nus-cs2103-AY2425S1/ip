@@ -37,7 +37,7 @@ public class Grok {
                 break;
             } else if (userInput.equals("list")) {
                 if (tasks.isEmpty()) {
-                    System.out.println(padMessage("You have yet to enter your items."));
+                    System.out.println(padMessage("There are no tasks in the list."));
                     continue;
                 }
 
@@ -158,6 +158,33 @@ public class Grok {
 
                 tasks.add(newTask);
                 System.out.println(padMessage(addTaskMessage(newTask, tasks)));
+            } else if (userInput.contains("delete")) {
+                if (userInput.length() < 8) {
+                    System.out.println(padMessage(
+                            "Delete command usage: delete (task index to delete)"
+                    ));
+                    continue;
+                }
+
+                int taskIndex;
+                try {
+                    taskIndex = Integer.parseInt(userInput.substring(7));
+                } catch (NumberFormatException e) {
+                    System.out.println(padMessage("Please enter the task index number to delete."));
+                    continue;
+                }
+
+                if (tasks.isEmpty() || taskIndex <= 0 || taskIndex > tasks.size()) {
+                    System.out.println(padMessage("Please enter a valid task index to delete."));
+                    continue;
+                }
+
+                Task task = tasks.remove(taskIndex - 1);
+                System.out.println(padMessage(
+                        "Noted. I've removed this task:\n  "
+                                + task
+                                + "\nNow you have " + tasks.size() + " tasks in the list."
+                ));
             } else {
                 System.out.println(padMessage("OOPS! Sorry, I don't recognize your input :(\n"));
             }
