@@ -25,12 +25,16 @@ public class Gumball {
         while (true){
             command = input.nextLine();
             if(command.equals("bye")) break;
-            execute(command);
+            try {
+                execute(command);
+            } catch (InputErrorException e) {
+                print(e.getMessage());
+            }
         }
         outro();
     }
 
-    public void execute(String command) {
+    public void execute(String command) throws InputErrorException{
         if (command.equals("bye")) {
 
         } else if (command.equals("list")) {
@@ -46,11 +50,11 @@ public class Gumball {
         } else if (command.startsWith("event")) {
             addToList(new Events(command));
         } else {
-
+            throw(new InputErrorException("Sorry I don't know how to do that"));
         }
     }
 
-    public void addToList(Task task) {
+    public void addToList(Task task) throws InputErrorException {
         print("Got it. I've added this task:\n" + list.add(task) +
                 String.format("\nNow you have %d tasks in the list.",list.getN()));
     }
