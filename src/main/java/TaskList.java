@@ -1,37 +1,41 @@
-public class TaskList {
-    private Task[] list;
-    private int listPointer = 0;
+import java.util.ArrayList;
 
-    public TaskList(int size) {
-        list = new Task[size];
+public class TaskList {
+    private ArrayList<Task> list;
+
+    public TaskList() {
+        list = new ArrayList<Task>();
     }
 
     public void addTask(Task task) {
-        list[listPointer] = task;
-        listPointer++;
+        list.add(task);
+    }
+
+    public Task deleteTask(int index) {
+        return list.remove(index-1);
     }
 
     public void markTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException{
-        list[taskNumber-1].updateStatus(true);
+        list.get(taskNumber-1).updateStatus(true);
     }
 
     public void unmarkTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
-        list[taskNumber-1].updateStatus(false);
+        list.get(taskNumber-1).updateStatus(false);
     }
 
     public String printTask(int taskNumber) throws IndexOutOfBoundsException, NullPointerException {
-        return list[taskNumber-1].toString();
+        return list.get(taskNumber-1).toString();
     }
 
     public String size() {
-        return "" + listPointer;
+        return "" + list.size();
     }
 
     @Override
     public String toString() {
         String output = "";
-        for (int i = 0; i < listPointer; i++) {
-            output += (i+1) + "." + list[i].toString();
+        for (int i = 0; i < list.size(); i++) {
+            output += (i+1) + "." + list.get(i).toString();
         }
         return output;
     }

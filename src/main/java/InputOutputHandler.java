@@ -2,7 +2,7 @@ public class InputOutputHandler {
     TaskList taskList;
 
     public InputOutputHandler(String input) {
-        taskList = new TaskList(100);
+        taskList = new TaskList();
     }
 
     public boolean parseInput(String input) throws ElysiaException, StringIndexOutOfBoundsException {
@@ -63,7 +63,18 @@ public class InputOutputHandler {
                 output = "Added the task below to your list~\n" + newEvent.toString();
                 output += "Wow! You now have " + taskList.size() + " tasks in your list!";
             }
-        }   else {
+        } else if (input.startsWith("delete")) {
+            if (input.equals("delete")) {
+                output = "Hmph! What do you even want me to delete?";
+            }   else {
+                int index = Integer.parseInt(input.substring(7));
+                Task deletedTask = taskList.deleteTask(index);
+                output = "You don't need this task below anymore? Ok deleting it~\n";
+                output += deletedTask.toString();
+                output += "Wow! You now have " + taskList.size() + " tasks in your list!";
+            }
+        }
+        else {
             throw new ElysiaException("unknown command");
         }
         Message.print(output);
