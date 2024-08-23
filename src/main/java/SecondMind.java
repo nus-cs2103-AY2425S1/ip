@@ -148,7 +148,7 @@ public class SecondMind {
         taskList.remove(taskNumber-1);
         printLineSeparator();
         System.out.println("I've removed the following task:");
-        System.out.println(curr);
+        System.out.println("\t" + curr);
         System.out.println("You have a grand total of " + taskCount() + " task(s)");
         printLineSeparator();
     }
@@ -172,6 +172,17 @@ public class SecondMind {
         } else if (command.equals("unmark")) {
             try {
                 markAsUndone(Integer.parseInt(newInput[1]));
+            } catch (NumberFormatException e) {
+                printErrorMessage(new Exception("Warning! Invalid number format has been detected!"));
+            } catch (InvalidTaskNumberException e) {
+                printLineSeparator();
+                System.out.println(e);
+                System.out.println("There are " + taskCount() + " tasks in your task list.");
+                printLineSeparator();
+            }
+        } else if (command.equals("delete")) {
+            try {
+                delete(Integer.parseInt(newInput[1]));
             } catch (NumberFormatException e) {
                 printErrorMessage(new Exception("Warning! Invalid number format has been detected!"));
             } catch (InvalidTaskNumberException e) {
