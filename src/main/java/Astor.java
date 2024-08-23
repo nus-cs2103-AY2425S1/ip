@@ -74,7 +74,46 @@ public class Astor {
             } else if (input.isEmpty()) {
                 System.out.println("Please type something!\n" +
                         "--------------------------------------");
-            }else {
+            } else if (input.startsWith("todo ")) {
+                String s = input.substring(5).trim();
+                if (s.isEmpty()) {
+                    System.out.println("Please be specific about what to do!\n" +
+                            "--------------------------------------");
+                } else {
+                    Task task = new Todo(s);
+                    list.add(task);
+                    System.out.println("Got it. I've added this task:\n  " +
+                            task + "\nNow you have " + list.size() + " tasks in the list.\n" +
+                            "--------------------------------------");
+                }
+            } else if (input.startsWith("deadline ")) {
+                String s = input.substring(9).trim();
+                if (s.isEmpty()) {
+                    System.out.println("Please be specific about what to do!\n" +
+                            "--------------------------------------");
+                } else {
+                    String[] stringArr = s.split("/by");
+                    Task task = new Deadline(stringArr[0].trim(), stringArr[1].trim());
+                    list.add(task);
+                    System.out.println("Got it. I've added this task:\n  " +
+                            task + "\nNow you have " + list.size() + " tasks in the list.\n" +
+                            "--------------------------------------");
+                }
+            } else if (input.startsWith("event ")) {
+                String s = input.substring(6).trim();
+                if (s.isEmpty()) {
+                    System.out.println("Please be specific about what to do!\n" +
+                            "--------------------------------------");
+                } else {
+                    String[] stringArr = s.split("/from");
+                    String[] stringArr2 = stringArr[1].split("/to");
+                    Task task = new Event(stringArr[0].trim(), stringArr2[0].trim(), stringArr2[1].trim());
+                    list.add(task);
+                    System.out.println("Got it. I've added this task:\n  " +
+                            task + "\nNow you have " + list.size() + " tasks in the list.\n" +
+                            "--------------------------------------");
+                }
+            } else {
                 Task task = new Task(input);
                 list.add(task);
                 System.out.println("added: " + input + "\n--------------------------------------");
