@@ -1,11 +1,15 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class SecondMind {
     private static final String line = "____________________________________________________________";
     private static final String logo = "SecondMind";
-    private static Task[] taskList = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
+
+    private static int taskCount() {
+        return taskList.size();
+    }
 
     private static void printLineSeparator() {
         System.out.println(line);
@@ -75,11 +79,10 @@ public class SecondMind {
     private static void addToTaskList(String task) {
         try {
             Task curr = createTask(task);
-            taskList[taskCount] = curr;
-            taskCount++;
+            taskList.add(curr);
             printLineSeparator();
             System.out.println("Got it. I have added the following task:\n\t" + curr);
-            System.out.println("You have a grand total of " + taskCount + " task(s)");
+            System.out.println("You have a grand total of " + taskCount() + " task(s)");
             printLineSeparator();
         } catch (EmptyCommandException e) {
             printErrorMessage(e);
@@ -92,8 +95,8 @@ public class SecondMind {
 
     private static void printTaskList() {
         printLineSeparator();
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(String.format("%d. %s", i+1, taskList[i]));
+        for (int i = 0; i < taskCount(); i++) {
+            System.out.println(String.format("%d. %s", i+1, taskList.get(i)));
         }
         printLineSeparator();
     }
@@ -104,10 +107,10 @@ public class SecondMind {
             System.out.println("Warning! Task numbering starts from 1!");
             printLineSeparator();
             return;
-        } else if (taskNumber > taskCount) {
+        } else if (taskNumber > taskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
         }
-        Task curr = taskList[taskNumber-1];
+        Task curr = taskList.get(taskNumber-1);
         curr.markAsDone();
         printLineSeparator();
         System.out.println("Well done! You have completed the following task:");
@@ -121,10 +124,10 @@ public class SecondMind {
             System.out.println("Warning! Task numbering starts from 1!");
             printLineSeparator();
             return;
-        } else if (taskNumber > taskCount) {
+        } else if (taskNumber > taskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
         }
-        Task curr = taskList[taskNumber-1];
+        Task curr = taskList.get(taskNumber-1);
         curr.markAsUndone();
         printLineSeparator();
         System.out.println("I've marked the following task as incomplete:");
@@ -145,7 +148,7 @@ public class SecondMind {
             } catch (InvalidTaskNumberException e) {
                 printLineSeparator();
                 System.out.println(e);
-                System.out.println("There are " + taskCount + " tasks in your task list.");
+                System.out.println("There are " + taskCount() + " tasks in your task list.");
                 printLineSeparator();
             }
         } else if (command.equals("unmark")) {
@@ -156,7 +159,7 @@ public class SecondMind {
             } catch (InvalidTaskNumberException e) {
                 printLineSeparator();
                 System.out.println(e);
-                System.out.println("There are " + taskCount + " tasks in your task list.");
+                System.out.println("There are " + taskCount() + " tasks in your task list.");
                 printLineSeparator();
             }
         } else if (command.equals("list")) {
