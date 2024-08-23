@@ -14,35 +14,57 @@ public class TaskList {
 
     public Task addTask(String input) {
 
-        String taskName = input.split(" ", 2)[1];
-
-        String name;
+        String[] taskInfo = input.split(" ", 2);
         Task t;
 
         if (input.contains("todo")) {
-            name = taskName.trim();
+            if (taskInfo.length <= 1) {
+                throw new TarsException("Add a name to your ToDo task");
+            }
+
+            String name = taskInfo[1].trim();
+
             t = new ToDo(name);
             taskList.add(t);
 
         } else if (input.contains("deadline")) {
+            if (taskInfo.length <= 1) {
+                throw new TarsException("Add a name to your deadline");
+            }
 
-            String[] split = taskName.split("/", 2);
-            name = split[0].trim();
-            String date = split[1].split(" ", 2)[1];
+            String[] split = taskInfo[1].split("/", 2);
+
+            String name = split[0].trim();
+            String[] date = split.length > 1
+                          ? split[1].split(" ", 2)
+                          : null;
 
             t = new Deadline(name, date);
             taskList.add(t);
 
-        } else {
-            String[] split = taskName.split("/", 3);
+        } else if (input.contains("event")) {
+            if (taskInfo.length <= 1) {
+                throw new TarsException("event? What is that even supposed to mean?\nAdd a name, start time and end time");
+            }
 
-            name = split[0].trim();
-            String startDate = split[1].split(" ", 2)[1].trim();
-            String endDate = split[2].split(" ", 2)[1].trim();
+            String[] split = taskInfo[1].split("/", 3);
+
+            String name = split[0].trim();
+
+            String[] startDate = split.length > 1
+                                ? split[1].split(" ", 2)
+                                : null;
+
+            String[] endDate = split.length > 2
+                                ? split[2].split(" ", 2)
+                                : null;
 
             t = new Event(name, startDate, endDate);
             taskList.add(t);
 
+        } else {
+
+            throw new TarsException("Hmm, that one flew right over my circuits. Try using words in my vocabulary next time");
         }
 
         return t;

@@ -22,10 +22,6 @@ public class Tars {
         return res.outro();
     }
 
-
-
-
-
     public static void main(String[] args) {
 
         Tars tars = new Tars();

@@ -5,7 +5,7 @@ public class Response {
 
     private String formatResponse(String input) {
 
-        String separator = '\n' + "-".repeat(Math.min(input.length(), 110))+'\n';
+        String separator = '\n' + "-".repeat(Math.min(input.length() + 5, 110))+'\n';
         return separator + input + separator;
     }
 
@@ -14,7 +14,12 @@ public class Response {
             return formatResponse(markTasks(input));
 
         } else {
-            return formatResponse(addTask(input));
+            try {
+                return formatResponse(addTask(input));
+            } catch (TarsException e) {
+                return formatResponse(e.getMessage());
+
+            }
         }
 
     }
