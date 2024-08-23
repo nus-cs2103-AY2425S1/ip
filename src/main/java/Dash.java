@@ -25,22 +25,22 @@ public class Dash {
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm\n" + logo + "\nWhat can I do for you?");
 
-        //Echo loop
+        //Main loop
         while (true) {
             String input = scanner.nextLine();
             try {
                 if (input.equals("bye")) {
                     break;
-                } else if (input.equals("list")) {
+                } else if (input.equals("list")) {                              //list command
                     System.out.println(horizontalLine);
                     int length = list.size();
                     for (int i = 0; i < length; i++) {
                         Task t = list.get(i);
                         int num = i + 1;
-                        System.out.println(num +". [" + t.getStatusIcon() + "] " + t);
+                        System.out.println(num +"." + t);
                     }
                     System.out.println(horizontalLine);
-                } else if (input.startsWith("mark")) {
+                } else if (input.startsWith("mark")) {                          //mark command
                     String[] string = input.split(" ", 2);
                     int markNum = Integer.parseInt(string[1]);
                     int num = list.size();
@@ -51,10 +51,10 @@ public class Dash {
                         t.markTaskAsDone();
                         System.out.println(horizontalLine);
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("   ["+ t.getStatusIcon() + "] " + t);
+                        System.out.println(t);
                         System.out.println(horizontalLine);
                     }
-                } else if (input.startsWith("unmark")) {
+                } else if (input.startsWith("unmark")) {                       //unmark command
                     String[] string = input.split(" ", 2);
                     int unmarkNum = Integer.parseInt(string[1]);
                     int num = list.size();
@@ -65,15 +65,48 @@ public class Dash {
                         t.unmarkTask();
                         System.out.println(horizontalLine);
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("   ["+ t.getStatusIcon() + "] " + t);
+                        System.out.println(t);
                         System.out.println(horizontalLine);
                     }
-                } else {
+                } else if (input.startsWith("todo")) {
                     System.out.println(horizontalLine);
-                    Task t = new Task(input);
+                    String[] string = input.split(" ", 2);
+                    Todo t = new Todo(string[1]);
                     list.add(t);
-                    System.out.println("added: " + t);
+                    int num = list.size();
+                    System.out.println("Got it. I've added this task:\n" + t);
+                    System.out.println("Now you have " + num + " tasks in the list.");
                     System.out.println(horizontalLine);
+                } else if (input.startsWith("deadline")) {
+                    System.out.println(horizontalLine);
+                    String[] string = input.split("/", 2); //"deadline XX" and "by XX"
+                    String[] string3 = string[1].split(" ", 2); //"by" and "XX"
+                    String date = string3[1];
+                    String[] string2 = string[0].split(" ", 2); //"deadline" and "XX"
+                    String desc = string2[1];
+                    Deadline t = new Deadline(desc, date);
+                    list.add(t);
+                    int num = list.size();
+                    System.out.println("Got it. I've added this task:\n" + t);
+                    System.out.println("Now you have " + num + " tasks in the list.");
+                    System.out.println(horizontalLine);
+                } else if (input.startsWith("event")) {
+                    System.out.println(horizontalLine);
+                    String[] string = input.split("/", 3); //"event XX" and "from XX" and "to XX"
+                    String[] fromString = string[1].split(" ", 2); //"from" and "XX"
+                    String[] toString = string[2].split(" ", 2); //"to" and "XX"
+                    String from = fromString[1];
+                    String to = toString[1];
+                    String[] eventString = string[0].split(" ", 2); //"event" and "XX"
+                    String desc = eventString[1];
+                    Event t = new Event(desc, from, to);
+                    list.add(t);
+                    int num = list.size();
+                    System.out.println("Got it. I've added this task:\n" + t);
+                    System.out.println("Now you have " + num + " tasks in the list.");
+                    System.out.println(horizontalLine);
+                } else {
+                    System.out.println("Wrong command.");
                 }
             } catch (Exception e) {
                 System.out.println("ERROR: " + e.getMessage());
