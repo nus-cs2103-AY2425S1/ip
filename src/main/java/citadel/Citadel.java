@@ -22,16 +22,13 @@ public class Citadel {
     public static TextUI ui = new TextUI();
 
     public static void main(String[] args) throws IOException {
-
-        String input;
         ui.printStart();
-
         items = db.getTasks();
         ui.printTasks(items);
 
         while (true) {
             try {
-                input = ui.nextLine();
+                String input = ui.nextLine();
                 Commands command = Parser.parseCommand(input);
 
                 switch (command) {
@@ -81,7 +78,6 @@ public class Citadel {
                 ui.printException(e);
             }
         }
-
 
         ui.printGoodbye();
         db.saveData(items);

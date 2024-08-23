@@ -27,7 +27,6 @@ public class Storage {
                 System.out.println("File already exists. "
                                     + db.getAbsolutePath());
             }
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -53,7 +52,6 @@ public class Storage {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return tasks;
     }
 
@@ -72,14 +70,12 @@ public class Storage {
     private static Task createDeadline(String input) throws CitadelException {
         Task t;
         String[] words = input.split(" \\(by: ");
-
         if (words.length < 2) {
             throw new CitadelTaskNoInput();
         }
         String task = words[0].trim();
         String deadline = words[1]
                         .substring(0, words[1].length() - 1).trim();
-
         if (task.isEmpty() || deadline.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
@@ -94,26 +90,20 @@ public class Storage {
     private static Task createEvent(String input) throws CitadelException {
         Task t;
         String[] words = input.split(" \\(from: ");
-
         if (words.length < 2) {
             throw new CitadelTaskNoInput();
         }
-
         String task = words[0].trim();
         String[] timeline = words[1].split(" to: ");
-
         if (timeline.length < 2) {
             throw new CitadelTaskNoInput();
         }
-
         String from = timeline[0].trim();
         String to = timeline[1].substring(0,
                     timeline[1].length() - 1).trim();
-
         if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
-
         LocalDateTime fromFormatted = LocalDateTime
                                         .parse(from,
                                         DateTimeFormatter
