@@ -1,6 +1,10 @@
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Queue;
 
-public class Ponder_Picka {
+public class Ponder_Pika {
+
+    static Queue<String> myList = new LinkedList<>();
 
     public static void greet() {
         System.out.println("\nIt is a great day to ponder! How may I help you?");
@@ -16,31 +20,31 @@ public class Ponder_Picka {
         String userCommand = "";
 
         while(true) {
-            userCommand = scan.next();
+            userCommand = scan.nextLine();
 
             if (!userCommand.equals("bye")) {
-                System.out.println("        " + userCommand);
+                myList.add(userCommand);
+                System.out.println("        added: " + userCommand);
                 System.out.println("................................................");
             }
             else {
                 System.out.println("\n------------------------------------------------");
-                Ponder_Picka.bidBye();
+                Ponder_Pika.bidBye();
                 System.out.println("\n------------------------------------------------");
                 break;
             }
         }
 
-
     }
 
     public static void main(String[] args) {
-        String logo = "Ponder_Picka";
+        String logo = "Ponder_Pika";
 
         System.out.println("------------------------------------------------");
         System.out.println("Hello I'm " + logo);
-        Ponder_Picka.greet();
+        Ponder_Pika.greet();
         System.out.println("------------------------------------------------");
 
-        Ponder_Picka.echo();
+        Ponder_Pika.echo();
     }
 }
