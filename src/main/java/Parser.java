@@ -67,7 +67,8 @@ public class Parser {
                                 storage.event(text);
                                 System.out.println("Wow " + '\"' + text + "\"" + " is an event in your life huh?");
                                 System.out.println(String.format("you have %s tasks now", storage.size()));
-                            }  System.out.println("The description of an event must include '/from' and '/to' :/");
+                                break;
+                            } System.out.println("The description of an event must include '/from' and '/to' :/");
                         } catch (IllegalArgumentException e) {
                                 System.out.println(e.getMessage());
                             }

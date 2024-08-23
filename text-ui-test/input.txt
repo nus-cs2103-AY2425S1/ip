@@ -1,2 +1,21 @@
 todo thing
+todo
 list
+event
+Event /to /from
+event /to 0 /from
+event /from  /to 100
+event /from 0 /to 100
+event thing1 /from 0 /to
+event thing1 /from  /to 100
+event thing1 /from 0 /to 100
+List
+deadline
+deadline /by
+Deadline /by 0
+deadline thing2
+deadline thing2 /by
+deadline thing2 /by 0
+list
+whatsup?
+bye

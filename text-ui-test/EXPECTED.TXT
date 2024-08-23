@@ -1,7 +1,61 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ _   _       _                 _
+| \ | | ___ | |_    ____ ____ | |_
+|  \| |/ _ \  __|  / _` | '_ \| __|
+| |\  | (_) | |_  | (_| | |_) | |_
+|_| \_|\___/ \__|  \__, | .__/ \__|
+                   |___/|_|
+hi, I'm Not-gpt,
+do you really need me to do sth for you?
+___________________________________________________________________________
+*the first word will always be read as the command*
+___________________________________________________________________________
+Added "thing" as a new task I guess
+you have 1 tasks now
+___________________________________________________________________________
+bruh? type something to add I'm not adding a blank...
+___________________________________________________________________________
+1. [T][ ] thing
+___________________________________________________________________________
+bruh? type something to add I'm not adding a blank...
+___________________________________________________________________________
+Event must include both task description and 'from' and 'to' times
+___________________________________________________________________________
+Event must include both task description and 'from' and 'to' times
+___________________________________________________________________________
+Event must include both task description and 'from' and 'to' times
+___________________________________________________________________________
+Event must include both task description and 'from' and 'to' times
+___________________________________________________________________________
+Event must include both task description and 'from' and 'to' times
+___________________________________________________________________________
+Event must include both task description and 'from' and 'to' times
+___________________________________________________________________________
+Wow "thing1 /from 0 /to 100" is an event in your life huh?
+you have 2 tasks now
+___________________________________________________________________________
+1. [T][ ] thing
+2. [E][ ] thing1 (from: 0 to: 100)
+___________________________________________________________________________
+bruh? type something to add I'm not adding a blank...
+___________________________________________________________________________
+Deadline must include both a task description and a 'by' time.
+___________________________________________________________________________
+Deadline must include both a task description and a 'by' time.
+___________________________________________________________________________
+The description of a deadline must include '/by' :/
+___________________________________________________________________________
+Deadline must include both a task description and a 'by' time.
+___________________________________________________________________________
+lol "thing2 /by 0" is a new deadline, better finish it quick...
+you have 3 tasks now
+___________________________________________________________________________
+1. [T][ ] thing
+2. [E][ ] thing1 (from: 0 to: 100)
+3. [D][ ] thing2 (by: 0)
+___________________________________________________________________________
+what? type an actual command pls...
+___________________________________________________________________________
+It's finally over... *yawn*
+I'm heading to bed
+Exiting the program...
+___________________________________________________________________________
