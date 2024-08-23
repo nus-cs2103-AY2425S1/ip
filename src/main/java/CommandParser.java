@@ -1,6 +1,6 @@
 public class CommandParser {
     public enum CommandType {
-        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR
+        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE
     }
 
     public static CommandType parseCommand(String userInput) {
@@ -18,7 +18,9 @@ public class CommandParser {
             return CommandType.EVENT;
         } else if (userInput.startsWith("todo")) {
             return CommandType.ADD;
-        } else {
+        } else if (userInput.startsWith("delete")) {
+            return CommandType.DELETE;
+        }else {
             return CommandType.ERROR;
         }
     }
