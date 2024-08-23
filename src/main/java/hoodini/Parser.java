@@ -10,6 +10,12 @@ public class Parser {
 
     private Storage store;
     private Ui ui;
+
+    /**
+     * Constructor for a new Parser object
+     * @param store Tasklist to store tasks
+     * @param ui Handles messages to the user
+     */
     public Parser(Storage store, Ui ui) {
         this.store = store;
         this.ui = ui;
@@ -23,7 +29,7 @@ public class Parser {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home,
                 "Desktop", "hoodini.txt");
-        if(java.nio.file.Files.exists(path)) {
+        if (java.nio.file.Files.exists(path)) {
             try {
                 readFromFile(path.toString());
             } catch (InvalidTaskException e) {
@@ -54,7 +60,7 @@ public class Parser {
             String str1 = str.substring(4);
             Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
                     str1.split("by: ")[1]
-                            .replace(")","")
+                            .replace(")", "")
                             .trim());
             deadline.markdone();
             store.add(deadline);
@@ -63,7 +69,7 @@ public class Parser {
             String str1 = str.substring(4);
             Deadline deadline = new Deadline(str1.split(" ")[0] + " ",
                     str1.split("by: ")[1]
-                            .replace(")","")
+                            .replace(")", "")
                             .trim());
             store.add(deadline);
 
@@ -73,7 +79,7 @@ public class Parser {
     private void handleFileEvent(String str) {
         if (str.startsWith("[X]")) {
             String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ",
+            Event event = new Event(str1.split(" ", 2)[0] + " ",
                     str1.split("from:")[1].split(" to: ")[0],
                     str1.split("to:")[1].replace(")", ""));
             event.markdone();
@@ -81,7 +87,7 @@ public class Parser {
 
         } else {
             String str1 = str.substring(4);
-            Event event = new Event(str1.split(" ",2)[0] + " ",
+            Event event = new Event(str1.split(" ", 2)[0] + " ",
                     str1.split("from:")[1].split(" to: ")[0],
                     str1.split("to:")[1].replace(")", ""));
             store.add(event);
@@ -109,8 +115,8 @@ public class Parser {
                 } else if (str.startsWith("[E]")) {
                     handleFileEvent(str.substring(4));
                 } else {
-                    throw new InvalidTaskException("Whoopsie! " +
-                            "There are invalid tasks in the file");
+                    throw new InvalidTaskException("Whoopsie! "
+                            + "There are invalid tasks in the file");
                 }
             }
         } catch (java.io.FileNotFoundException e) {
@@ -141,8 +147,8 @@ public class Parser {
     public void handleInput() {
         Scanner sc = new Scanner(System.in);
 
-        try{
-            while(true) {
+        try {
+            while (true) {
                 String str = sc.nextLine();
                 String command = str.split(" ")[0];
                 Case cases = Case.getCase(command);
@@ -177,8 +183,8 @@ public class Parser {
                     break;
                 case ERROR:
                 default:
-                    throw new InvalidInputException("Whoopsie! " +
-                            "I am unable to understand your request!");
+                    throw new InvalidInputException("Whoopsie! "
+                            + "I am unable to understand your request!");
                 }
 
             }

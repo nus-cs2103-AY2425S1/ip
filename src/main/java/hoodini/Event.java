@@ -3,7 +3,7 @@ package hoodini;
 /**
  * Event class to handle Events that the user inputs
  */
-public class Event extends Input{
+public class Event extends Input {
 
     private String from;
     private String to;
@@ -36,14 +36,13 @@ public class Event extends Input{
     }
 
     /**
-     *
-     * @return String which represent the Event,
-     * formatted to the requirements.
+     * Returns the string representation of Event.
+     * @return String which represent the Event
      */
     @Override
     public String toString() {
-        String str = "[E] " + super.toString() + "(from:" +
-                this.from + " to:" + this.to + ")";
+        String str = "[E] " + super.toString() + "(from:"
+                + this.from + " to:" + this.to + ")";
         return str;
     }
 }

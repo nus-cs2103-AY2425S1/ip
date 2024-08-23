@@ -1,4 +1,8 @@
 package hoodini;
+
+/**
+ * Class to handle interations with user
+ */
 public class Ui {
     /**
      * Default Constructor to create new UI object.
@@ -13,8 +17,8 @@ public class Ui {
      * prints the welcome statement.
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm Hoodini\n" +
-                "How may I assist you?");
+        System.out.println("Hello! I'm Hoodini\n"
+                + "How may I assist you?");
     }
 
     /**
@@ -23,8 +27,8 @@ public class Ui {
      * prints the parting statement.
      */
     public void showGoodbye() {
-        System.out.println("Bye! " +
-                "Come back to Hoodini soon!");
+        System.out.println("Bye! "
+                + "Come back to Hoodini soon!");
     }
 
     /**
@@ -33,8 +37,8 @@ public class Ui {
      * prints the no file statement.
      */
     public void noFileFound() {
-        System.out.println("File not found, " +
-                "I will create a new file for you!");
+        System.out.println("File not found, "
+                + "I will create a new file for you!");
     }
 
     /**
@@ -47,11 +51,11 @@ public class Ui {
      *                number of items in list
      */
     public void store(Input input, int counter) {
-        System.out.println("Noted. " +
-                "I have added this task:");
+        System.out.println("Noted. "
+                + "I have added this task:");
         System.out.println(input);
-        System.out.println("You have " +
-                counter + " tasks in the list.");
+        System.out.println("You have "
+                + counter + " tasks in the list.");
     }
 
     /**
@@ -66,27 +70,27 @@ public class Ui {
      *
      */
     public void delete(Input input, int counter) {
-        System.out.println("Noted. " +
-                "I have deleted this task:");
+        System.out.println("Noted. "
+                + "I have deleted this task:");
         System.out.println(input);
-        System.out.println("You have " +
-                counter + " tasks in the list.");
+        System.out.println("You have "
+                + counter + " tasks in the list.");
     }
 
     /**
      * Handles invalid input message
      */
     public void invalidInput() {
-        System.out.println("Invalid number, " +
-                "enter a valid number");
+        System.out.println("Invalid number, "
+                + "enter a valid number");
     }
 
     /**
      * Handles invalid task message
      */
     public void invalidTask() {
-        System.out.println("Invalid task, " +
-                "please enter a valid task");
+        System.out.println("Invalid task, "
+                + "please enter a valid task");
     }
 
     /**
@@ -94,8 +98,8 @@ public class Ui {
      */
     public void empty() {
 
-        System.out.println("Whoopsie! " +
-                "Please enter a task");
+        System.out.println("Whoopsie! "
+                + "Please enter a task");
     }
 
 }

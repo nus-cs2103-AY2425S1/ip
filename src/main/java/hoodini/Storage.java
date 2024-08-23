@@ -1,7 +1,7 @@
 package hoodini;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,12 +12,12 @@ import java.util.regex.Pattern;
  * Has a method to write tasks to a text file
  */
 public class Storage {
+    private static int counter = 0;
     private ArrayList<Input> input;
     private Ui ui;
-    private static int counter = 0;
 
     /**
-     * Constructor for a new Storage object. 
+     * Constructor for a new Storage object.
      * Takes in a UI object to handle messages
      * @param ui Handles messages to the user.
      */
@@ -32,7 +32,7 @@ public class Storage {
      * @param input Object to be stored in the task list
      */
     public void store(Input input) {
-        if(input.empty()) {
+        if (input.empty()) {
             ui.invalidTask();
         } else {
             this.input.add(input);
@@ -74,10 +74,10 @@ public class Storage {
      * No params required.
      */
     public void output() {
-        System.out.println("Here are the list of tasks " +
-                "that needs to be completed: ");
+        System.out.println("Here are the list of tasks "
+                + "that needs to be completed: ");
         for (int i = 0; i < counter; i++) {
-            System.out.println((i+1) + ". " + input.get(i));
+            System.out.println((i + 1) + ". " + input.get(i));
         }
     }
 
@@ -91,7 +91,7 @@ public class Storage {
         if (i > counter) {
             ui.invalidInput();
         } else {
-            input.get(i-1).done();
+            input.get(i - 1).done();
 
         }
 
@@ -107,8 +107,8 @@ public class Storage {
         if (i > counter) {
             ui.invalidInput();
         } else {
-            Input input1 = input.get(i-1);
-            input.remove(i-1);
+            Input input1 = input.get(i - 1);
+            input.remove(i - 1);
             counter--;
             ui.delete(input1, counter);
 
@@ -126,7 +126,7 @@ public class Storage {
         if (i > counter) {
             ui.invalidInput();
         } else {
-            input.get(i-1).unDone();
+            input.get(i - 1).unDone();
 
         }
 
@@ -141,18 +141,18 @@ public class Storage {
         String regex = str.substring(5);
         Pattern pattern = Pattern.compile(regex);
         ArrayList<Input> arr = new ArrayList<>();
-        for(int i = 0; i < counter; i++) {
+        for (int i = 0; i < counter; i++) {
             Input found = input.get(i);
             Matcher matcher = pattern.matcher(found.toString());
-            if(matcher.find()) {
+            if (matcher.find()) {
                 arr.add(found);
             }
 
         }
-        System.out.println("Here are the list " +
-                "of tasks found: ");
+        System.out.println("Here are the list "
+                + "of tasks found: ");
         for (int i = 0; i < arr.size(); i++) {
-            System.out.println((i+1) + ". "
+            System.out.println((i + 1) + ". "
                     + arr.get(i).toString());
         }
     }

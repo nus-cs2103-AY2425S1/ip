@@ -15,16 +15,16 @@ public class Deadline extends Input {
      * @param input User input, parses user input and stores the deadline.
      * @throws DateTimeParseException If the date is not in the correct format.
      */
-    public Deadline(String input) throws DateTimeParseException{
-        super(input.split(" ",2)[1]
-                .split("/",2)[0]);
+    public Deadline(String input) throws DateTimeParseException {
+        super(input.split(" ", 2)[1]
+                .split("/", 2)[0]);
         try {
             this.deadline = LocalDate.parse(
                     input.split("/by")[1]
                             .trim());
         } catch (DateTimeParseException e) {
-            System.out.println("Please enter the date " +
-                    "in the format yyyy-mm-dd");
+            System.out.println("Please enter the date "
+                    + "in the format yyyy-mm-dd");
         }
 
 
@@ -48,8 +48,8 @@ public class Deadline extends Input {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-        String str = "[D] " + super.toString() + "(by: " +
-                this.deadline.format(formatter) + ")";
+        String str = "[D] " + super.toString() + "(by: "
+                + this.deadline.format(formatter) + ")";
         return str;
     }
 

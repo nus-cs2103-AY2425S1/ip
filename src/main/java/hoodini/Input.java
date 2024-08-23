@@ -38,12 +38,12 @@ abstract class Input {
      */
 
     public void done() {
-        if(this.done) {
+        if (this.done) {
             System.out.println("This has already been marked");
         } else {
             this.done = true;
-            System.out.print("I have marked the task " +
-                    "as done:\n" + this + "\n");
+            System.out.print("I have marked the task "
+                    + "as done:\n" + this + "\n");
         }
     }
 
@@ -53,20 +53,21 @@ abstract class Input {
      */
 
     public void unDone() {
-        if(!this.done) {
+        if (!this.done) {
             System.out.println("This has already been unmarked");
         } else {
             this.done = false;
-            System.out.print("I have marked the task " +
-                    "as undone: \n" + this +"\n");
+            System.out.print("I have marked the task "
+                    + "as undone: \n" + this + "\n");
 
         }
     }
 
 
-
-
-
+    /**
+     * toString method for input object
+     * @return String representation of the input object
+     */
 
     @Override
     public String toString() {

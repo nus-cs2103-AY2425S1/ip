@@ -2,7 +2,7 @@ package hoodini;
 /**
  * Represents a ToDo task.
  */
-public class ToDo extends Input{
+public class ToDo extends Input {
 
     /**
      * Constructor for ToDo class.
