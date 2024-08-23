@@ -1,3 +1,5 @@
+//Test cases
+
 Hello! I'm Alex, your friendly assistant!
 What can I do for you?
 ____________________________________________________________
