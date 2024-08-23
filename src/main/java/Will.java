@@ -77,9 +77,8 @@ public class Will {
                 try {
                     String[] parts = userInput.substring(9).split(" /by ");
                     String desc = parts[0].trim();
-                    String by = parts[1].trim();
                     if(!desc.isEmpty()){
-                        Interactions.addTask(tasks, Task.TaskType.DEADLINE, desc, by);
+                        Interactions.addTask(tasks, Task.TaskType.DEADLINE, desc, Utils.parseDateTime(parts[1].trim()));
                     }else{
                         Interactions.blankMsg("deadline");
                     }
@@ -93,10 +92,8 @@ public class Will {
                 try{
                     String[] parts = userInput.substring(6).split(" /from | /to ");
                     String desc = parts[0].trim();
-                    String from = parts[1].trim();
-                    String to = parts[2].trim();
                     if(!desc.isEmpty()){
-                        Interactions.addTask(tasks, Task.TaskType.EVENT, desc, from, to);
+                        Interactions.addTask(tasks, Task.TaskType.EVENT, desc, Utils.parseDateTime(parts[1].trim()), Utils.parseDateTime(parts[2].trim()));
                     }else{
                         Interactions.blankMsg("event");
                     }

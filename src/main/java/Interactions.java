@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Interactions {
@@ -51,7 +52,7 @@ public class Interactions {
         System.out.println("_____________________________________");
     }
 
-    static void addTask(ArrayList<Task> tasks, Task.TaskType type, String desc, String... args) {
+    static void addTask(ArrayList<Task> tasks, Task.TaskType type, String desc, LocalDateTime... args) {
         Task newTask = switch (type) {
             case TODO -> new Task.ToDo(desc);
             case DEADLINE -> new Task.Deadline(desc, args[0]);

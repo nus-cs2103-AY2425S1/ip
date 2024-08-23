@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
 
     enum TaskType {
@@ -41,9 +44,9 @@ public class Task {
     }
 
     static class Deadline extends Task {
-        String by;
+        LocalDateTime by;
 
-        Deadline(String desc, String by) {
+        Deadline(String desc, LocalDateTime by) {
             super(desc);
             this.by = by;
         }
@@ -55,15 +58,16 @@ public class Task {
 
         @Override
         public String toString() {
-            return super.toString() + " (by: " + by + ")";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+            return super.toString() + " (by: " + by.format(formatter) + ")";
         }
     }
 
     static class Event extends Task {
-        String from;
-        String to;
+        LocalDateTime from;
+        LocalDateTime to;
 
-        Event(String desc, String from, String to) {
+        Event(String desc, LocalDateTime from, LocalDateTime to) {
             super(desc);
             this.from = from;
             this.to = to;
@@ -76,7 +80,8 @@ public class Task {
 
         @Override
         public String toString() {
-            return super.toString() + " (from: " + from + " to: " + to + ")";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+            return super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
         }
     }
 
