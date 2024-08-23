@@ -2,12 +2,10 @@ public class Agave {
 
     private UserInterface ui;
     private boolean isRunning;
-    private Task taskManager;
 
     public Agave() {
         this.ui = new UserInterface();
         this.isRunning = true;
-        this.taskManager = new Task();
     }
 
     public void run() {
@@ -19,10 +17,7 @@ public class Agave {
             if (userInput.equalsIgnoreCase("bye")) {
                 isRunning = false;
                 ui.showBye();
-            } else if (userInput.equalsIgnoreCase("list")) {
-                ui.showTasks(taskManager.getTasks(), taskManager.getTaskCount());
             } else {
-                taskManager.addTask(new Task(userInput));
                 ui.showEcho(userInput);
             }
         }
