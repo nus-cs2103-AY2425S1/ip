@@ -14,6 +14,15 @@ public class TaskManager {
                 "      " + task.toString() + "\n" + "    Wah bro... " + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
     }
 
+    public void deleteTask(int taskId) {
+        if (taskId <= tasks.size() + 1) {
+            Task task = tasks.get(taskId - 1);
+            tasks.remove(task);
+            printLines("Awesome bro! One task gone :D\n" +
+                    "      " + task.toString() + "\n" + "    Wah bro... " + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
+        }
+    }
+
     public int getTaskSize() {
         return tasks.size();
     }

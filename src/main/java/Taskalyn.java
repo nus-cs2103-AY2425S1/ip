@@ -33,13 +33,33 @@ public class Taskalyn {
                         taskManager.listTasks();
                         break;
 
+                    case "delete":
+                        if (completeString.length != 2) {
+                            throw new CommandFormatException("Aw... delete command must have just 2 arguments: the command, and the task number.");
+                        }
+                        try {
+                            Integer i = Integer.parseInt(completeString[1]);
+                            if (i > 0 && i <= taskManager.getTaskSize() + 1) {
+                                taskManager.deleteTask(i);
+                            } else {
+                                throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new CommandFormatException("Aw... delete command must be followed by an integer");
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
+                        } catch (Exception e) {
+                            throw new CommandFormatException("Aw... delete command must have just 2 arguments: the command, and the task number.");
+                        }
+                        break;
+
                     case "mark":
                         if (completeString.length != 2) {
                             throw new CommandFormatException("Aw... mark command must have just 2 arguments: the command, and the task number.");
                         }
                         try {
                             Integer i = Integer.parseInt(completeString[1]);
-                            if (i <= taskManager.getTaskSize() + 1) {
+                            if (i > 0 && i <= taskManager.getTaskSize() + 1) {
                                 taskManager.completeTask(i);
                             } else {
                                 throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
@@ -59,7 +79,7 @@ public class Taskalyn {
                         }
                         try {
                             Integer i = Integer.parseInt(completeString[1]);
-                            if (i <= taskManager.getTaskSize() + 1) {
+                            if (i > 0 && i <= taskManager.getTaskSize() + 1) {
                                 taskManager.incompleteTask(i);
                             } else {
                                 throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
