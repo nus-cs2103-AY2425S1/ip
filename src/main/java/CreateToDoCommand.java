@@ -8,7 +8,7 @@ public class CreateToDoCommand implements Command {
         this.items = items;
 
         // Remove the command from the input
-        this.name = input.split(" ", 2)[1];
+        this.name = Parser.parseInput(input).args();
     }
 
     @Override

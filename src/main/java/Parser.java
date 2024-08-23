@@ -1,6 +1,16 @@
 import java.util.StringJoiner;
 
 public class Parser {
+    public record Input(String command, String args) {}
+
+    public static Input parseInput(String input) {
+        String[] split = input.split(" ", 2);
+        if (split.length <= 1) {
+            return new Input(input, "");
+        }
+        return new Input(split[0], split[1]);
+    }
+
     public static String[] extractArgs(String inputArgs, String[] args) {
         // The values ot the arguments. One additional space is used for the
         // text before all the arguments, i.e. <command> TEXT <arg1> ARG1 VAL...

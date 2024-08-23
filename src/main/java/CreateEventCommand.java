@@ -11,7 +11,7 @@ public class CreateEventCommand implements Command {
         this.items = items;
 
         // Remove the command from the input
-        String inputArgs = input.split(" ", 2)[1];
+        String inputArgs = Parser.parseInput(input).args();
         String[] args = Parser.extractArgs(inputArgs, new String[] { "/from", "/to" });
 
         this.name = args[0];
