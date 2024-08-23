@@ -4,6 +4,7 @@ public class Shnoop {
     private String mode;
     private Task[] tasks;
     private int arrPointer;
+    private String[] quotes;
     public Shnoop() {
     }
 
@@ -17,6 +18,11 @@ public class Shnoop {
             mode = "todo";
             tasks = new Task[100];
             arrPointer = 0;
+            quotes = new String[] {
+                    "You're unforgettable.",
+                    "Coded, tanned, fit and ready.",
+                    "You're undeniable."
+            };
         } else {
             mode = "echo";
         }
@@ -60,6 +66,52 @@ public class Shnoop {
     }
 
     /**
+     * Does the required code for a mark or unmark CLI input.
+     *
+     * @param input Given by the user.
+     * @return String indicating the action that was done.
+     */
+    public String parseInputMark(String input) {
+        if (input.length() >= 6 && input.substring(0, 5).equals("mark ")) {
+            if (canBeInteger(input.substring(5, input.length()))) {
+                boolean result = tasks[convertStrToInteger(input.substring(5, input.length())) - 1].markTask();
+                if (result) {
+                    System.out.println("✿ Shnoop ✿: Warm, wet and wild! I've marked this task as done: ");
+                } else {
+                    System.out.println("✿ Shnoop ✿: Daisy dukes! This task was already done my love: ");
+                }
+                System.out.println(tasks[convertStrToInteger(input.substring(5, input.length())) - 1]
+                        .getTaskWithStatus());
+                return "mark_task";
+            }
+        } else if (input.length() >= 8 && input.substring(0, 7).equals("unmark ")) {
+            if (canBeInteger(input.substring(7, input.length()))) {
+                boolean result = tasks[convertStrToInteger(input.substring(7, input.length())) - 1].unmarkTask();
+                if (result) {
+                    System.out.println("✿ Shnoop ✿: Melted this popsicle! I've unmarked this task as done: ");
+                } else {
+                    System.out.println("✿ Shnoop ✿: Daisy dukes! This task was never done my love: ");
+                }
+                System.out.println(tasks[convertStrToInteger(input.substring(7, input.length())) - 1]
+                        .getTaskWithStatus());
+                return "mark_task";
+            }
+        }
+
+        return "not_mark_or_unmark";
+    }
+
+    /**
+     * Returns a quote from the quote bank.
+     *
+     * @param idx Should be a changing number.
+     * @return Quote from quote bank.
+     */
+    public String getRandomQuote(int idx) {
+        return quotes[idx];
+    }
+
+    /**
      * Returns String representing action done.
      * Performs a series of actions depending on input and mode.
      *
@@ -68,6 +120,7 @@ public class Shnoop {
      */
     public String parseInput(String input) {
         switch (mode) {
+
         // For Level-1 echo mode.
         case "echo":
             switch (input) {
@@ -82,39 +135,21 @@ public class Shnoop {
 
         // For Level-2 Add, List mode.
         case "todo":
+
             // For mark specific
-            if (input.length() >= 6 && input.substring(0, 5).equals("mark ")) {
-                if (canBeInteger(input.substring(5, input.length()))) {
-                    boolean result = tasks[convertStrToInteger(input.substring(5, input.length())) - 1].markTask();
-                    if (result) {
-                        System.out.println("✿ Shnoop ✿: Warm, wet and wild! I've marked this task as done: ");
-                    } else {
-                        System.out.println("✿ Shnoop ✿: Daisy dukes! This task was already done my love: ");
-                    }
-                    System.out.println(tasks[convertStrToInteger(input.substring(5, input.length())) - 1]
-                            .getTaskWithStatus());
-                    return "mark_task";
-                }
-            } else if (input.length() >= 8 && input.substring(0, 7).equals("unmark ")) {
-                if (canBeInteger(input.substring(7, input.length()))) {
-                    boolean result = tasks[convertStrToInteger(input.substring(7, input.length())) - 1].unmarkTask();
-                    if (result) {
-                        System.out.println("✿ Shnoop ✿: Melted this popsicle! I've unmarked this task as done: ");
-                    } else {
-                        System.out.println("✿ Shnoop ✿: Daisy dukes! This task was never done my love: ");
-                    }
-                    System.out.println(tasks[convertStrToInteger(input.substring(7, input.length())) - 1]
-                            .getTaskWithStatus());
-                    return "mark_task";
-                }
+            String parseInputMarkResult = parseInputMark(input);
+            if (parseInputMarkResult != "not_mark_or_unmark") {
+                return parseInputMarkResult; // Exit if it is mark or unmark command
             }
 
-            // Other than marks
+            // Other than mark or unmark
             switch (input) {
+
             case "bye":
                 System.out.println("\n✿ Shnoop ✿: I'll check ya later, cause you represent. Don't worry we got it on lock. ♡");
                 completion = true;
                 return "exit";
+
             case "list":
                 System.out.println("✿ Shnoop ✿: Find, fresh, fierce and ready.");
                 for (int i = 0; i < tasks.length; i ++) {
@@ -124,24 +159,16 @@ public class Shnoop {
                     System.out.println((i + 1) + ". " + tasks[i].getTaskWithStatus());
                 }
                 return "list";
+
             default:
-                String x = "";
-                int x1 = arrPointer % 3;
-                switch (x1) {
-                case 1:
-                    x = "You're unforgettable.";
-                    break;
-                case 2:
-                    x = "Toned, tanned, fit and ready.";
-                    break;
-                default:
-                    x = "You're undeniable.";
-                }
+                String x = getRandomQuote(arrPointer % 3);
 
                 addTask(new Task(input));
                 System.out.println("✿ Shnoop ✿: " + x + " I'll add that in for ya. \nTask Added: " + input);
                 return "add_task";
             }
+
+        // If mode is NIL, indicate bug
         default:
             return "empty_input_bug";
         }
