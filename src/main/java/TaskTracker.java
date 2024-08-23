@@ -1,9 +1,11 @@
+import java.util.*;
+
 public class TaskTracker {
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
     private int counter;
 
     public TaskTracker() {
-        this.taskList = new Task[100];
+        this.taskList = new ArrayList<Task>();
         this.counter = 0;
     }
     public int getCounter() {
@@ -15,10 +17,10 @@ public class TaskTracker {
         } else {
             System.out.println("Here are your tasks!!! Remember to complete them!!!");
             for (int i = 0; i < this.counter; i++) {
-                if (this.taskList[i].getIsDone() == false) {
-                    System.out.println("" + (i + 1) + ". [ ] " + this.taskList[i]);
+                if (this.taskList.get(i).getIsDone() == false) {
+                    System.out.println("" + (i + 1) + ". [ ] " + this.taskList.get(i));
                 } else {
-                    System.out.println("" + (i + 1) + ". [X] " + this.taskList[i]);
+                    System.out.println("" + (i + 1) + ". [X] " + this.taskList.get(i));
                 }
 
             }
@@ -32,7 +34,9 @@ public class TaskTracker {
             throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
         }
         else {
-            this.taskList[z].mark();
+            Task newTask = this.taskList.get(z);
+            newTask.mark();
+            this.taskList.set(z, newTask);
         }
     }
 
@@ -43,31 +47,41 @@ public class TaskTracker {
             throw new InvalidIndexException("You have entered an invalid task number! Please try again.");
         }
         else {
-            this.taskList[q].unmark();
+            Task newTask = this.taskList.get(q);
+            newTask.unmark();
+            this.taskList.set(q, newTask);
         }
     }
 
     public void updateListToDo(String s) {
-        taskList[this.counter] = new ToDo(s);
+        this.taskList.add(new ToDo(s));
         this.counter++;
         System.out.println("Gotcha!! Added this task to your list:");
-        System.out.println(taskList[this.counter - 1]);
+        System.out.println(this.taskList.get(this.counter - 1));
         System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
     }
 
     public void updateListDeadline(String s, String t) {
-        taskList[this.counter] = new Deadline(s, t);
+        this.taskList.add(new Deadline(s, t));
         this.counter++;
         System.out.println("Gotcha!! Added this task to your list:");
-        System.out.println(taskList[this.counter - 1]);
+        System.out.println(this.taskList.get(this.counter - 1));
         System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
     }
 
     public void updateListEvent(String s, String t, String u) {
-        taskList[this.counter] = new Event(s, t, u);
+        this.taskList.add(new Event(s, t, u));
         this.counter++;
         System.out.println("Gotcha!! Added this task to your list:");
-        System.out.println(taskList[this.counter - 1]);
+        System.out.println(this.taskList.get(this.counter - 1));
         System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
+    }
+
+    public void delete(int i) {
+        System.out.println("Alright I have removed this task: ");
+        System.out.println(this.taskList.get(i));
+        this.taskList.remove(i);
+        counter--;
+        System.out.println("You currently have " + counter + " task/s on hand. Please remember to complete them!");
     }
 }
