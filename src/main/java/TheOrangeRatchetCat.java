@@ -21,10 +21,6 @@ public class TheOrangeRatchetCat {
         List<Task> items = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine(); // Reads a line of text
-        // Perhaps you could try and take out the Try block and
-        // Wrap the specific if conditions in the try-catch block.
-        // Such as for unmark, mark and todo
-        // Try to catch error for the other 3 conditions as well
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 input = TheOrangeRatchetCat.checkList(input, items, scanner);
@@ -61,7 +57,6 @@ public class TheOrangeRatchetCat {
                     continue;
                 }
             }
-            // Make sure to handle incorrect string inputs for event (not just event, but for other tasks as well)
             if (input.startsWith("event")) {
                 try {
                     input = TheOrangeRatchetCat.addingEvent(input, items, scanner);
@@ -107,13 +102,13 @@ public class TheOrangeRatchetCat {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.description);
             System.out.println("____________________________________________________________");
-            return scanner.nextLine(); // Reads the next line of input text again
+            return scanner.nextLine();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine(); // Reads the next line of input text again
+            return scanner.nextLine();
         } catch (NumberFormatException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine(); // Reads the next line of input text again
+            return scanner.nextLine();
         }
     }
 
@@ -132,7 +127,7 @@ public class TheOrangeRatchetCat {
             return scanner.nextLine();
         } catch (NumberFormatException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine(); // Reads the next line of input text again
+            return scanner.nextLine();
         }
     }
 
