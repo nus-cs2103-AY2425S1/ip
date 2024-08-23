@@ -1,5 +1,5 @@
 public class InvalidTaskNumberException extends FredException{
-    InvalidTaskNumberException(String message) {
+    InvalidTaskNumberException() {
         super("OOPS!!! That's not a valid task number!");
     }
 }
