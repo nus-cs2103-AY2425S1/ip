@@ -84,8 +84,8 @@ public class Botty {
     private static void addToTaskList(Task task) {
         taskList.add(task);
 
-        reply("I have added the following task to the list!",
-                task.toString(),
+        reply("I have added the following task to the list!\n" +
+                task + "\n" +
                 "You now have " + taskList.size() + " tasks.");
 
     }
@@ -108,12 +108,13 @@ public class Botty {
         }
         Task task = taskList.get(taskIndex);
         task.setCompleted(completion);
-        reply(completion
+        reply((completion
                 ? "Congrats on completing that! Let me just mark that as done for you."
-                : "It's okay, we can get that done later. I'll mark that as undone for you.",
-                task.toString());
+                : "It's okay, we can get that done later. I'll mark that as undone for you.") + "\n" +
+                task);
     }
-    private static void reply(String... strings) {
+    private static void reply(String content) {
+        String[] strings = content.split("\n");
         System.out.println(bottySymbol + strings[0]);
         for (int i = 1; i < strings.length; i++) {
             System.out.println(bottyIndentation + strings[i]);
@@ -124,14 +125,14 @@ public class Botty {
         if (taskList.isEmpty()) {
             reply("Your list is empty! Add a task with the todo, deadline or event command.");
         } else {
-            String[] content = new String[taskList.size() + 1];
-            content[0] = "Here you go!";
+            StringBuilder content = new StringBuilder("Here you go!\n");
 
-            for (int i = 1; i < taskList.size() + 1; i++) {
-                content[i] = i + ". " + taskList.get(i - 1);
+            for (int i = 1; i < taskList.size(); i++) {
+                content.append(i).append(". ").append(taskList.get(i - 1)).append("\n");
             }
 
-            reply(content);
+            content.append(taskList.size()).append(". ").append(taskList.get(taskList.size() - 1));
+            reply(content.toString());
         }
     }
     private static void handleMark(String argument) throws BottyException {
@@ -184,8 +185,8 @@ public class Botty {
                     taskList.size());
         }
         Task task = taskList.remove(taskIndex);
-        reply("Got it! I have removed the following task:",
-                task.toString(),
+        reply("Got it! I have removed the following task:\n" +
+                task + "\n" +
                 "You have " + taskList.size() + " tasks left!");
     }
 }
