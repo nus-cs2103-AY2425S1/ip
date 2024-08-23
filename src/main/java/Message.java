@@ -9,4 +9,8 @@ public class Message {
     public static void Goodbye() {
         System.out.println(GOODBYE);
     }
+
+    public static void Echo(String input) {
+        System.out.println(String.format("%s????? What does that mean?", input));
+    }
 }
