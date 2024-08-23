@@ -1,10 +1,10 @@
-import java.nio.InvalidMarkException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Fred {
     static String line = "____________________________________________________________";
     static String name = "Fred";
-    static Task[] taskList = new Task[100];
+    static ArrayList<Task> taskList = new ArrayList<>();
     static int taskCount = 0;
     public static void main(String[] args) {
         greet();
@@ -106,24 +106,19 @@ public class Fred {
             String to = taskDetailsArr[2].substring(3);
             task = new Event(description, from, to);
         }
-        taskList[taskCount] = task;
-        taskCount++;
+        taskList.add(task);
         System.out.println(line);
         System.out.println(String.format("Got it. I've added this task:\n" +
                 "   %s\n" +
-                "Now you have %d tasks in the list.", task, taskCount));
+                "Now you have %d tasks in the list.", task, taskList.size()));
         System.out.println(line);
     }
 
     private static void printTaskList() {
         int index = 1;
         System.out.println(line);
-        while (taskList[index - 1] != null) {
-            System.out.println(String.format("%d.%s", index, taskList[index - 1]));
-            index++;
-            if (index > taskList.length) {
-                break;
-            }
+        for (Task task : taskList) {
+            System.out.println(String.format("%s.%s", index++, task));
         }
         System.out.println(line);
     }
@@ -135,10 +130,10 @@ public class Fred {
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException();
         }
-        taskList[taskNumber].markAsDone();
+        taskList.get(taskNumber).markAsDone();
         System.out.println(line);
         System.out.println(String.format("Nice! I've marked this task as done:\n" +
-                "   %s", taskList[taskNumber]));
+                "   %s", taskList.get(taskNumber)));
         System.out.println(line);
     }
 
@@ -149,10 +144,10 @@ public class Fred {
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException();
         }
-        taskList[taskNumber].markAsNotDone();
+        taskList.get(taskNumber).markAsNotDone();
         System.out.println(line);
         System.out.println(String.format("OK, I've marked this task as not done yet:\n" +
-                "   %s", taskList[taskNumber]));
+                "   %s", taskList.get(taskNumber)));
         System.out.println(line);
     }
 }
