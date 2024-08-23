@@ -22,6 +22,7 @@ public class Morgana {
                 case "list" -> listTasks();
                 case "mark" -> markTaskAsDone(Integer.parseInt(line.split(" ")[1]) - 1);
                 case "unmark" -> markTaskAsNotDone(Integer.parseInt(line.split(" ")[1]) - 1);
+                case "delete" -> deleteTask(Integer.parseInt(input[1]) - 1);
                 default -> addTask(input);
             }
         }
@@ -57,6 +58,15 @@ public class Morgana {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.printf("%d. %s%n", index + 1, task);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void deleteTask(int index) {
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.printf("%d. %s%n", index + 1, tasks.remove(index));
+        System.out.printf("Now you have %d task%s in the list.%n",
+                tasks.size(), tasks.size() > 1 ? "s" : "");
         System.out.println(HORIZONTAL_LINE);
     }
 
