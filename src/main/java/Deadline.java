@@ -3,7 +3,7 @@ public class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, String by) throws SpongebobException{
-        super(description);
+        super(description, TaskType.DEADLINE);
         this.by = by;
 
         if (description.equals(" ") || by.equals(" ")) {
