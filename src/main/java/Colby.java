@@ -6,14 +6,14 @@ public class Colby {
         Task[] store = new Task[100];
         int n = 0;
 
-        String logo = "  ____      _ _           \n"
-                    + " / ___|___ | | |__  _   _ \n"
+        String logo = "  ____      _ _\n"
+                    + " / ___|___ | | |__  _   _\n"
                     + "| |   / _ \\| | '_ \\| | | |\n"
                     + "| |__| (_) | | |_) | |_| |\n"
                     + "\\____\\___/|_|_.__/ \\__, /\n"
-                    + "                   |___/ \n";
+                    + "                   |___/\n";
 
-        System.out.println("Hello! I'm \n"+ logo + "\n" + "What can I do for you?\n");
+        System.out.println("Hello! I'm\n"+ logo + "\n" + "What can I do for you?\n");
         while (true) {
             String task = "";
             if (scanner.hasNextLine()) {
@@ -55,7 +55,7 @@ public class Colby {
                     lastWord = "task";
                 }
 
-                System.out.println("  Alright, I have added this task to the list: \n"
+                System.out.println("  Alright, I have added this task to the list:\n"
                         + "    " + store[n].toString() + "\n"
                         + "  Your list now has " + (n + 1) + " " + lastWord + " :)");
                 n++;
@@ -69,7 +69,7 @@ public class Colby {
                     lastWord = "task";
                 }
 
-                System.out.println("  Alright, I have added this task to the list: \n"
+                System.out.println("  Alright, I have added this task to the list:\n"
                         + "    " + store[n].toString() + "\n"
                         + "  Your list now has " + (n + 1) + " " + lastWord + " :)");
                 n++;
@@ -85,7 +85,7 @@ public class Colby {
                     lastWord = "task";
                 }
 
-                System.out.println("  Alright, I have added this task to the list: \n"
+                System.out.println("  Alright, I have added this task to the list:\n"
                         + "    " + store[n].toString() + "\n"
                         + "  Your list now has " + (n + 1) + " " + lastWord+ " :)");
                 n++;
