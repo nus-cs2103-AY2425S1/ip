@@ -38,8 +38,14 @@ public class HandleEvent extends Command {
             throw new CitadelTaskNoInput();
         }
 
-        LocalDateTime fromFormatted = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        LocalDateTime toFormatted = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime fromFormatted = LocalDateTime
+                                        .parse(from,
+                                                DateTimeFormatter
+                                                .ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime toFormatted = LocalDateTime
+                                        .parse(to,
+                                                DateTimeFormatter
+                                                .ofPattern("dd/MM/yyyy HH:mm"));
 
         if (fromFormatted.isAfter(toFormatted)) {
             System.out.println("The start time must be before the end time!");
