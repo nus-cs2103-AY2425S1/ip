@@ -2,12 +2,15 @@ public class TaskList {
     private static Task[] taskList;
     private static int length;
 
+    private Ui ui;
+
     /**
      * Constructor for TaskList class, taskList initialized with array of Tasks
      */
     public TaskList() {
         taskList = new Task[100];
         length = 0;
+        ui = new Ui();
     }
 
     /**
@@ -33,5 +36,14 @@ public class TaskList {
     public void addTask(Task task) {
         taskList[length] = task;
         length++;
+    }
+
+    public String markTask(int taskNum) {
+        Task t = taskList[taskNum - 1];
+        if (t.isDone()){
+            return ui.displayAlreadyMarkedTask();
+        }
+        t.setDone(true);
+        return ui.displayMarkedTask(t);
     }
 }

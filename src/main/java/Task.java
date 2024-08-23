@@ -1,6 +1,6 @@
 public class Task {
     private final String description;
-    private final boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructor for Task class, task initialized with user inputted description
@@ -25,5 +25,13 @@ public class Task {
      */
     public boolean isDone() {
         return this.isDone;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
+    public String getStatusIcon() {
+        return isDone ? "X" : " ";
     }
 }
