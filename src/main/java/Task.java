@@ -5,11 +5,11 @@ public class Task {
         this.description = description;
     }
 
-    private void mark() {
+    void mark() {
         isDone = true;
     }
 
-    private void unMark() {
+    void unMark() {
         isDone = false;
     }
 
