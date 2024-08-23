@@ -29,25 +29,32 @@ public class Him {
         String command = input[0];
         while (!command.equals("bye")) {
             switch (command) {
-                case "list" -> System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
-                case "mark" -> complete(Integer.parseInt(input[1]) - 1);
-                case "todo" -> {
+                case "list":
+                    System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
+                    break;
+                case "mark":
+                    complete(Integer.parseInt(input[1]) - 1);
+                    break;
+                case "todo": {
                     ToDo newToDo = new ToDo(input[1]);
                     list.add(newToDo);
                     System.out.println("\nHim: added \"" + newToDo + "\" to list\n");
+                    break;
                 }
-                case "deadline" -> {
+                case "deadline": {
                     String[] details = input[1].split("/by");
                     Deadline newDeadline = new Deadline(details[0].trim(), details[1].trim());
                     list.add(newDeadline);
                     System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
+                    break;
                 }
-                case "event" -> {
+                case "event": {
                     String[] details = input[1].split("/");
                     Event newEvent = new Event(details[0].trim(), details[1].substring(details[1].indexOf(" ")).trim(),
                             details[2].substring(details[2].indexOf(" ")).trim());
                     list.add(newEvent);
                     System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
+                    break;
                 }
             }
             System.out.print("User: ");
