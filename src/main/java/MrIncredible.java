@@ -1,8 +1,4 @@
 import java.util.Scanner;
-import Tasks.Task;
-import Tasks.Event;
-import Tasks.ToDo;
-import Tasks.Deadline;
 
 public class MrIncredible {
     private static final Scanner scanner = new Scanner(System.in);
