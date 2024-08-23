@@ -16,17 +16,17 @@ abstract public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println(String.format("%s has been successfully marked as done!", description));
+        System.out.println(String.format("%s has been successfully marked as done!\n", description));
     }
 
     public void unmarkAsDone() {
         this.isDone = false;
-        System.out.println(String.format("%s has been successfully marked as not done!", description));
+        System.out.println(String.format("%s has been successfully marked as not done!\n", description));
     }
 
     @Override
     public String toString() {
-        return isDone ? String.format("✅: %s", this.description)
-                : String.format("❌: %s", this.description);
+        return isDone ? String.format("[X]: %s", this.description)
+                : String.format("[ ]: %s", this.description);
     }
 }

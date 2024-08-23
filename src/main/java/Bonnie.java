@@ -14,10 +14,10 @@ public class Bonnie {
 
     public static void main(String[] args) {
         System.out.println("Hello I'm Bonnie, what is your name?");
-        Scanner scanner_obj = new Scanner(System.in);
-        String my_username = scanner_obj.nextLine();
-        System.out.println(String.format("Hey %s! Welcome to the Bonnie chat bot! Please input a command to continue!\n", my_username));
-        System.out.println(
+        Scanner scannerObj = new Scanner(System.in);
+        String my_username = scannerObj.nextLine();
+        System.out.println(String.format(
+                "Hey %s! Welcome to the Bonnie chat bot! Please input a command to continue!\n" +
                 "1. bye : leaves the conversation with Bonnie\n" +
                 "2. mark/unmark {task number}: marks or unmarks that task as done\n" +
                 "3. todo {task name}: Bonnie adds a todo task into your task list\n" +
@@ -25,13 +25,11 @@ public class Bonnie {
                 "5. event {task name} /from {start} /to {end}: Bonnie adds an event with a start/end time to your task list.\n" +
                 "Bonnie wants to remind you that you should substitute items with curly braces with the actual information.\n" +
                 "Also, do remember to use the forward slashes! \"/from\" is valid but \"from\" is NOT valid!\n" +
-                "Example: \"event clean floor /from 18th September 5pm /to 18th September 6pm\" is a valid command\n"
-                );
+                "Example: \"event clean floor /from 18th September 5pm /to 18th September 6pm\" is a valid command\n", my_username));
         username = my_username;
 
         while (true) {
-            Scanner repeated_scanner = new Scanner(System.in);
-            String input = repeated_scanner.nextLine();
+            String input = scannerObj.nextLine();
             if (input.equals("bye")) {
                 System.out.println("Bye " + username + "\n");
                 return;
@@ -81,21 +79,21 @@ public class Bonnie {
 
     public static void parseAndAddTask(String input) {
         // Want to split the string according to spaces 1st
-        String[] split_string = input.split(" ", 2);
+        String[] splitString = input.split(" ", 2);
         String name;
-        if (split_string[0].equals("todo")) {
-            String taskName = split_string[1];
+        if (splitString[0].equals("todo")) {
+            String taskName = splitString[1];
             tasklist.add(new Todo(taskName));
             name = taskName;
-        } else if (split_string[0].equals("deadline")) {
-            String[] components = split_string[1].split("/by", 2);
+        } else if (splitString[0].equals("deadline")) {
+            String[] components = splitString[1].split("/by", 2);
             tasklist.add(new Deadline(components[0], components[1]));
             name = components[0];
-        } else if (split_string[0].equals("event")) {
+        } else if (splitString[0].equals("event")) {
             // Idea is that original string is in the form {event_name} /from {start} /to {end}
             // Hence first split will get event name and the {start} /to {end}
             // Second split will split the {start} /to {end} to get the actual start and end
-            String[] component1 = split_string[1].split("/from", 2);
+            String[] component1 = splitString[1].split("/from", 2);
             String[] component2 = component1[1].split("/to", 2);
             tasklist.add(new Event(component1[0], component2[0], component2[1]));
             name = component1[0];
@@ -103,8 +101,8 @@ public class Bonnie {
             System.out.println("Error: Unknown command entered.");
             return;
         }
-        System.out.println(String.format("Hey %s, I have added \"%s\" into your task list!\n", username, name));
-        System.out.println(String.format("You now have %d tasks to complete!", tasklist.size()));
+        System.out.println(String.format("Hey %s, I have added \"%s\" into your task list!\n" +
+                                         "You now have %d tasks to complete!\n", username, name, tasklist.size()));
     }
 
 }
