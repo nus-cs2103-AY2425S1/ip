@@ -2,7 +2,7 @@ package Task.Tasks;
 
 import Task.Task;
 
-class Todo extends Task {
+public class Todo extends Task {
     public Todo(String title) {
         super(title);
     }
@@ -14,5 +14,13 @@ class Todo extends Task {
      */
     public Todo(String title, boolean done) {
         super(title, done);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Todo: ");
+        sb.append(super.toString());
+        return sb.toString();
     }
 }

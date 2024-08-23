@@ -7,6 +7,8 @@ import java.util.List;
 
 public class AVA {
 
+    //TODO: add verbose toggle
+
     /**
      * Current user input being processed by AVA.
      * Note this requires there be only 1 AVA instance

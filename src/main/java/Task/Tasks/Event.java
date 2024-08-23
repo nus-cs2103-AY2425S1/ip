@@ -2,7 +2,7 @@ package Task.Tasks;
 
 import Task.Task;
 
-class Event extends Task {
+public class Event extends Task {
 
     String startTime = "";
     String endTime = "";
@@ -13,5 +13,17 @@ class Event extends Task {
         this.endTime = endTime;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Event: ");
+        sb.append(super.toString());
+        sb.append("[From :");
+        sb.append(startTime);
+        sb.append(" To : ");
+        sb.append(endTime);
+        sb.append("]");
+        return sb.toString();
+    }
 
 }
