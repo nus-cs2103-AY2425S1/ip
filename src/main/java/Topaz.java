@@ -41,7 +41,7 @@ public class Topaz {
 
     private static void greetUser() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Topaz — I work in the IPC's Strategic Investment Department. Long time no see! How have you been? Clocking in a lot of overtime?");
+        System.out.println(" Hello! I'm Topaz - I work in the IPC's Strategic Investment Department. Long time no see! How have you been? Clocking in a lot of overtime?");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
     }
@@ -61,7 +61,7 @@ public class Topaz {
     private static void addTasks(Task task) {
         task.addToList(taskList);
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task: ");
+        System.out.println(" Got it. I've added this task:");
         System.out.println("    " + task.getStatus());
         System.out.println(" Hard work pays off~");
         System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
@@ -82,7 +82,7 @@ public class Topaz {
         Task task = taskList.get(index - 1);
         task.setDone();
         System.out.println("____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done: ");
+        System.out.println(" Nice! I've marked this task as done:");
         System.out.println("    " + task.getStatus());
         System.out.println("____________________________________________________________");
     }
