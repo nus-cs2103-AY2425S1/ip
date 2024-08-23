@@ -223,7 +223,7 @@ public class BitBot {
     }
 
     /**
-     * Handles the displaying of the list
+     * Handles the displaying of the list in order
      * @param arrayList the list of tasks
      */
     private static void handleList (ArrayList<Task> arrayList) {
@@ -321,11 +321,15 @@ public class BitBot {
                     else if (Objects.equals(keyWord, "deadline")) {
                         handleDeadline(arrayList, textPart, partsOfInput, indexBy, by, sb, task);
                     }
+                    // the same concept as above for the keyword "todo"
                     else if (Objects.equals(keyWord, "todo")) {
                         handleTodo(arrayList, textPart, partsOfInput, sb, task);
-                    } else if (Objects.equals(keyWord, "list")) {
+                    }
+                    // the same concept as above for the keyword "list"
+                    else if (Objects.equals(keyWord, "list")) {
                        handleList(arrayList);
                     } else if (Objects.equals(keyWord, "bye")) {
+                        //do nothing and move on to switch case below.
                     }
                     // if it does not fall in any of this keyword,
                     // throw an error saying there is no such keyword.
