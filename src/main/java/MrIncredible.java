@@ -1,33 +1,76 @@
 import java.util.Scanner;
+import Tasks.Task;
+import Tasks.Event;
+import Tasks.ToDo;
+import Tasks.Deadline;
 
 public class MrIncredible {
     private static final Scanner scanner = new Scanner(System.in);
     private static final TaskStorage taskStorage = new TaskStorage();
     public static void main(String[] args) {
-
         MrIncredible.greet();
-        // Start an infinite loop to handle user input
+
         while (true) {
-            // Read user input
             String input = scanner.nextLine();
 
-            // Exit condition
             if (input.equals("bye")) {
                 MrIncredible.sayBye();
                 break;
             } else if (input.equals("list")) {
-                //Handle list command
                 MrIncredible.listTasks();
-            } else if (input.length() >= 4 && input.substring(0,4).equals("mark")) {
+            } else if (input.length() >= 4 && input.substring(0, 4).equals("mark")) {
                 MrIncredible.markTask(input);
-            }
-            else { // Handle other inputs as task
+            } else if (input.startsWith("todo ")) {
+                MrIncredible.addToDoTask(input.substring(5));
+            } else if (input.startsWith("deadline ")) {
+                MrIncredible.addDeadlineTask(input.substring(9));
+            } else if (input.startsWith("event ")) {
+                MrIncredible.addEventTask(input.substring(6));
+            } else {
                 MrIncredible.addTask(input);
             }
         }
 
-        // Close the scanner
         scanner.close();
+    }
+
+    public static void addToDoTask(String description) {
+        ToDo task = new ToDo(description);
+        taskStorage.addTask(task);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + task);
+        System.out.println("     Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void addDeadlineTask(String input) {
+        String[] parts = input.split(" /by ");
+        String description = parts[0];
+        String by = parts[1];
+
+        Deadline task = new Deadline(description, by);
+        taskStorage.addTask(task);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + task);
+        System.out.println("     Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public static void addEventTask(String input) {
+        String[] parts = input.split(" /from | /to ");
+        String description = parts[0];
+        String from = parts[1];
+        String to = parts[2];
+
+        Event task = new Event(description, from, to);
+        taskStorage.addTask(task);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + task);
+        System.out.println("     Now you have " + taskStorage.getTaskCount() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
     }
 
     public static void greet() {

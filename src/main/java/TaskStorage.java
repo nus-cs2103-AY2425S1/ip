@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import Tasks.Task;
 public class TaskStorage {
     private final ArrayList<Task> tasks;
 
@@ -22,6 +22,8 @@ public class TaskStorage {
     public Task getTask(int taskNumber) {
         return tasks.get(taskNumber - 1);
     }
+
+    public int getTaskCount() { return tasks.toArray().length;}
 
     // Method to list all tasks
     public void listTasks() {
