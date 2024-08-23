@@ -83,7 +83,7 @@ public class Yapper {
     private static void printWelcomeMessage() {
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Yapper");
-        System.out.println(" What can I do for you?");
+        System.out.println(" What can I do for you Boss?");
         System.out.println("____________________________________________________________");
     }
 
@@ -95,13 +95,13 @@ public class Yapper {
 
     private static void handleBye() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(" Bye Boss!. Yapper wants to see you again soon!");
         System.out.println("____________________________________________________________");
     }
 
     private static void handleList() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
+        System.out.println(" Here are the tasks in your list Boss!:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + "." + tasks.get(i));
         }
@@ -118,7 +118,7 @@ public class Yapper {
         }
         tasks.get(taskNumber).markAsDone();
         System.out.println("____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(" Nice Boss! I've marked this task as done:");
         System.out.println("   " + tasks.get(taskNumber));
         System.out.println("____________________________________________________________");
     }
@@ -133,7 +133,7 @@ public class Yapper {
         }
         tasks.get(taskNumber).markAsNotDone();
         System.out.println("____________________________________________________________");
-        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println(" OK Boss! I've marked this task as not done yet:");
         System.out.println("   " + tasks.get(taskNumber));
         System.out.println("____________________________________________________________");
     }
@@ -145,9 +145,9 @@ public class Yapper {
         Task task = new Todo(userInputParts[1]);
         tasks.add(task);
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
+        System.out.println(" Got it Boss! I've added this task:");
         System.out.println("   " + task);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -162,9 +162,9 @@ public class Yapper {
         Task task = new Deadline(details[0], details[1]);
         tasks.add(task);
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
+        System.out.println(" Got it Boss. I've added this task:");
         System.out.println("   " + task);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -174,18 +174,18 @@ public class Yapper {
         }
         String[] details = userInputParts[1].split(" /from ");
         if (details.length < 2) {
-            throw new YapperException("Please specify the event time using the format: event [task] /from [start time] /to [end time]");
+            throw new YapperException("Boss Please specify the event time using the format: event [task] /from [start time] /to [end time]");
         }
         String[] fromTo = details[1].split(" /to ");
         if (fromTo.length < 2) {
-            throw new YapperException("Please specify both the start and end time for the event.");
+            throw new YapperException("Boss Please specify both the start and end time for the event dehhh");
         }
         Task task = new Event(details[0], fromTo[0], fromTo[1]);
         tasks.add(task);
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
+        System.out.println(" Okay Boss! I've added this task:");
         System.out.println("   " + task);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(" Okay look here Boss!" + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -199,9 +199,9 @@ public class Yapper {
         }
         Task removedTask = tasks.remove(taskNumber);
         System.out.println("____________________________________________________________");
-        System.out.println(" Noted. I've removed this task:");
+        System.out.println(" Okay bOSS ur task got removed");
         System.out.println("   " + removedTask);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 }
