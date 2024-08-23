@@ -1,17 +1,36 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatBaby {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> textEntered = new ArrayList<>();
         greet();
 
         String input = scanner.nextLine();
-        while (!input.equals("bye")) {
-            echo(input);
+        while (true) {
+            if (input.equals("bye")) {
+                bye();
+                break;
+            }
+
+            else if (input.equals("list")) {
+                System.out.println("____________________________________________________________\n");
+                for (int i = 0; i < textEntered.size(); i++) {
+                    System.out.println((i + 1) + ". " + textEntered.get(i));
+                }
+                System.out.println("\n____________________________________________________________");
+            }
+
+            else {
+                textEntered.add(input);
+                System.out.println("____________________________________________________________\n"
+                        + "added: " + input + "\n"
+                        + "____________________________________________________________");
+            }
+
             input = scanner.nextLine();
         }
-
-        bye();
     }
 
     public static void greet() {
