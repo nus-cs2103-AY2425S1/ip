@@ -17,7 +17,6 @@ public class PacMan {
         echo("Good bye. Hope to see you soon!");
     }
 
-
     private static void addList(Task newTask) {
         echo("Got it. I've added this task:");
         echo("  " + newTask);
@@ -26,6 +25,7 @@ public class PacMan {
     }
 
     private static void printList() {
+        echo("Here are the tasks in your list:");
         for (int index = 1; index <= list.size(); index = index + 1) {
             echo(index + "." + list.get(index - 1));
         }

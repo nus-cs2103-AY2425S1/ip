@@ -1,0 +1,9 @@
+todo CS2103T iP
+deadline CS2103T iP /by 23 August 2024 16:00
+event CS2103T briefing /from 23 August 2024 16:00 /to 23 August 2024 18:00
+mark 2
+mark 3
+list
+unmark 3
+list
+bye
