@@ -12,8 +12,22 @@ public class Maga {
                 " US of A trust me everyone says I'm the best. How can I help you serve the American people?" );
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        String[] arr = new String[100];
+        int count = 0;
         while(!input.equalsIgnoreCase("bye")) {
-            System.out.println(input);
+            if(input.equalsIgnoreCase("list")) {
+                for (int i = 0; i < count; i++) {
+                    int temp = i + 1;
+                    System.out.println(temp + ". " + arr[i]);
+                }
+
+                input = scanner.nextLine();
+                continue;
+            }
+
+            arr[count] = input;
+            count++;
+            System.out.println("added: " + input);
             input = scanner.nextLine();
         }
 
