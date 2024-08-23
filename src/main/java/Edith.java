@@ -44,6 +44,22 @@ public class Edith {
         }
     }
 
+    public void mark(int index) {
+        String message = "Alright, great job! I've marked task " + index + " as done:";
+        listOfTasks.get(index).markTaskDone();
+
+        System.out.println(indentation + message);
+        System.out.println(indentation + listOfTasks.get(index) + lineBreak);
+    }
+
+    public void unmark(int index) {
+        String message = "Sure, I've marked task " + index + " as not done yet:";
+        listOfTasks.get(index).unmarkTaskDone();
+
+        System.out.println(indentation + message);
+        System.out.println(indentation + listOfTasks.get(index) + lineBreak);
+    }
+
     public static void main(String[] args) {
         Edith edith = new Edith();
         edith.greet();
