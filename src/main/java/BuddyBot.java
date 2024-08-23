@@ -1,6 +1,7 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class BuddyBot {
     public static void main(String[] args) {
@@ -11,7 +12,7 @@ public class BuddyBot {
         System.out.println(" Hello! I'm BuddyBot");
         System.out.println(" What can I do for you?");
 
-        Task[] myList = new Task[100];
+        ArrayList<Task> myList = new ArrayList<Task>(100);
         //taking in user input
         String input = myObj.nextLine();
 
@@ -27,10 +28,10 @@ public class BuddyBot {
                 String last = input.substring(input.replaceAll("[0-9]+$","").length());
                 try { // Non-integer exception
                     int num = Integer.parseInt(last);
-                    myList[num - 1].isDone = true;
+                    myList.get(num - 1).isDone = true;
                     System.out.println("Nice! I've marked this task as done:");
                     read(myList);
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("This is an invalid input!");
                 } finally {
                     i--;
@@ -42,11 +43,12 @@ public class BuddyBot {
                     String description = parts[0].trim();
                     if (description.isEmpty()) { // empty field exception
                         System.out.println("This field cannot be empty");
+                        i--;
                         input = myObj.nextLine();
                     } else {
                         String time = parts[1].trim();
                         Deadline additionD = new Deadline(description, time);
-                        myList[i] = additionD;
+                        myList.add(i, additionD);
                         System.out.println("Got it. I've added this task: \n" + additionD);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
                         input = myObj.nextLine();
@@ -56,12 +58,13 @@ public class BuddyBot {
                     String description = parts[0].trim();
                     if (description.isEmpty()) { // empty field exception
                         System.out.println("This field cannot be empty");
+                        i--;
                         input = myObj.nextLine();
                     } else {
                         String start = parts[1].trim();
                         String end = parts[2].trim();
                         Event additionE = new Event(description, start, end);
-                        myList[i] = additionE;
+                        myList.add(i, additionE);
                         System.out.println("Got it. I've added this task: \n" + additionE);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
                         input = myObj.nextLine();
@@ -70,16 +73,32 @@ public class BuddyBot {
                     String description = input.substring(4).trim();
                     if (description.isEmpty()) { // empty field exception
                         System.out.println("This field cannot be empty");
+                        i--;
                         input = myObj.nextLine();
                     } else {
                         Task additionT = new Task(description);
-                        myList[i] = additionT;
+                        myList.add(i, additionT);
                         System.out.println("Got it. I've added this task: \n" + additionT);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
                         input = myObj.nextLine();
                     }
+                } else if (input.startsWith("delete")) {
+                    try {
+                        String index = input.substring(6).trim();
+                        int num = Integer.parseInt(index);
+                        Task removed = myList.get(num - 1);
+                        delete(myList, num);
+                        System.out.println("Got it. I've removed this task: \n" + removed);
+                        System.out.println("Now you have " + count(myList) + " tasks in the list.");
+                    } catch (NumberFormatException | IndexOutOfBoundsException  e) { // non-integer input
+                        System.out.println("This is an invalid input!");
+                    } finally {
+                        i--;
+                        input = myObj.nextLine();
+                    }
                 } else {
                     System.out.println("Sorry I don't understand...");
+                    i--;
                     input = myObj.nextLine();
                 }
             }
@@ -87,23 +106,32 @@ public class BuddyBot {
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
-    public static void read(Task[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == null) {
+    public static void read(ArrayList<Task> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) == null) {
                 break;
             } else {
-                System.out.println(i+ 1 + "." + arr[i].toString() + "\n");
+                System.out.println(i+ 1 + "." + arr.get(i).toString() + "\n");
             }
         }
     }
 
-    public static int count(Task[] arr) {
-        for (int i = 0; i < arr.length; i++) {
+    public static int count(ArrayList<Task> arr) {
+        /*for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null) {
                 return i;
             }
         }
-        return 0;
+        return 0;*/
+        return arr.size();
+    }
+
+    public static void delete(ArrayList<Task> arr, int num) {
+        if (num > arr.size()) {
+            throw new ArrayIndexOutOfBoundsException();
+        } else {
+            arr.remove(num - 1);
+        }
     }
 
 }
