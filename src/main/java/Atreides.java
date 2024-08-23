@@ -7,10 +7,10 @@ public class Atreides {
                     +  "    / \\  | |          (_)   | |\n"
                     +  "   /   \\ | |_ _ __ ___ _  __| | ___  ___\n"
                     +  "  / / \\ \\| __| '__/ _ \\ |/ _` |/ _ \\/ __|\n"
-                    +  " / _____ \\ |_| | |  __/ | (_| |  __/\\__ \\ \n"
+                    +  " / _____ \\ |_| | |  __/ | (_| |  __/\\__ \\\n"
                     +  "/_/     \\_\\__|_|  \\___|_|\\__,_|\\___||___/\n";
 
-        String intro = "Glory to house\n" + logo + "\n";
+        String intro = "Glory to house\n" + logo;
         System.out.println(new Response(intro));
         Scanner scanner = new Scanner(System.in);
         String msg = scanner.nextLine();
