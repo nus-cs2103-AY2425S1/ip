@@ -31,23 +31,27 @@ public class TextUI {
     }
 
     public void printTaskCount(TaskList items) {
-        System.out.println("Now you have " + items.size() + " tasks in the list");
+        System.out.println("Now you have " + items.size()
+                            + " tasks in the list");
     }
     public void printCitadelException(CitadelException e) {
         System.out.println(e.toString());
     }
     public void printDateTimeParseException() {
-        System.out.println("Incorrect Date Format! Please write the date in this format: dd/MM/yyyy HH:mm!");
+        System.out.println("Incorrect Date Format! Please write the date "
+                            + "in this format: dd/MM/yyyy HH:mm!");
     }
     public void printException(Exception e) {
-        System.out.println("Error occurred: " + e.getMessage());
+        System.out.println("Error occurred: "
+                            + e.getMessage());
     }
     public void printGoodbye() {
         System.out.println(GOODBYE);
     }
     public static void printTask(Task t, TaskList items) {
         System.out.println("Got it! I have added: " + t);
-        System.out.println("Now you have " + items.size() + " tasks in the list");
+        System.out.println("Now you have " + items.size()
+                            + " tasks in the list");
     }
 
     public static void printMark(TaskList tasks, int index) {
@@ -61,7 +65,8 @@ public class TextUI {
     public static void printDelete(TaskList tasks, Task t) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(t);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        System.out.println("Now you have " + tasks.size()
+                            + " tasks in the list");
     }
 }
 
