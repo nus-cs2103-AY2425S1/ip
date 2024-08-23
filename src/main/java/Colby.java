@@ -15,7 +15,12 @@ public class Colby {
 
         System.out.println("Hello! I'm \n"+ logo + "\n" + "What can I do for you?\n");
         while (true) {
-            String task = scanner.nextLine();
+            String task = "";
+            if (scanner.hasNextLine()) {
+                task = scanner.nextLine();
+            } else {
+                break;
+            }
 
             if (task.equalsIgnoreCase("bye")) {
                 System.out.println("  Bye bye! Hope to see you again soon! :)");
@@ -34,15 +39,15 @@ public class Colby {
 
                 store[change - 1].markAsDone();
 
-                System.out.println("Great job! I have now marked this task as done!");
-                System.out.println("  [" + store[change - 1].getStatusIcon() + "] " + store[change - 1].description);
+                System.out.println("  Great job! I have now marked this task as done!");
+                System.out.println("    [" + store[change - 1].getStatusIcon() + "] " + store[change - 1].description);
             } else if (task.split(" ")[0].equalsIgnoreCase("unmark")) {
                 Integer change = Integer.parseInt(task.split(" ")[1]);
 
                 store[change - 1].markAsUndone();
 
-                System.out.println("Alright, I have marked this task as not done yet.");
-                System.out.println("  [" + store[change - 1].getStatusIcon() + "] " + store[change - 1].description);
+                System.out.println("  Alright, I have marked this task as not done yet.");
+                System.out.println("    [" + store[change - 1].getStatusIcon() + "] " + store[change - 1].description);
             } else if (task.split(" ")[0].equalsIgnoreCase("todo")) {
                 store[n] = new ToDo(task);
                 String lastWord = "tasks";
@@ -64,7 +69,7 @@ public class Colby {
                     lastWord = "task";
                 }
 
-                System.out.println("Alright, I have added this task to the list: \n"
+                System.out.println("  Alright, I have added this task to the list: \n"
                         + "    " + store[n].toString() + "\n"
                         + "  Your list now has " + (n + 1) + " " + lastWord + " :)");
                 n++;
@@ -80,7 +85,7 @@ public class Colby {
                     lastWord = "task";
                 }
 
-                System.out.println("Alright, I have added this task to the list: \n"
+                System.out.println("  Alright, I have added this task to the list: \n"
                         + "    " + store[n].toString() + "\n"
                         + "  Your list now has " + (n + 1) + " " + lastWord+ " :)");
                 n++;
