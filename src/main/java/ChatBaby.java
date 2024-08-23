@@ -25,6 +25,8 @@ public class ChatBaby {
                 handleTaskCommand(tasks, "deadline", input, 9);
             } else if (input.startsWith("event")) {
                 handleTaskCommand(tasks, "event", input, 6);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input, tasks);
             } else {
                 printUnknownCommandError();
             }
@@ -139,6 +141,24 @@ public class ChatBaby {
                 + newTask.toString() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.\n"
                 + "____________________________________________________________");
+    }
+
+    private static void deleteTask(String input, ArrayList<Task> tasks) {
+        try {
+            int index = Integer.parseInt(input.substring(7).trim()) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                Task removedTask = tasks.remove(index);
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(removedTask.toString());
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else {
+                printInvalidTaskIndexError();
+            }
+        } catch (NumberFormatException e) {
+            printInvalidTaskIndexError();
+        }
     }
 
     private static void printInvalidTaskIndexError() {
