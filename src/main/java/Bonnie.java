@@ -57,8 +57,6 @@ public class Bonnie {
                 // parseAndAddTask(input) has the added feature of returning the description of the task
                 // without any by/from/to information
                 String taskName = parseAndAddTask(input);
-                System.out.println(String.format("Hey %s, I have added \"%s\" into your task list!\n", username, taskName));
-                System.out.println(String.format("You now have %d tasks to complete!", tasklist.size()));
             }
         }
     }
@@ -83,17 +81,18 @@ public class Bonnie {
         }
     }
 
-    public static String parseAndAddTask(String input) {
+    public static void parseAndAddTask(String input) {
         // Want to split the string according to spaces 1st
         String[] split_string = input.split(" ", 2);
+        String name;
         if (split_string[0].equals("todo")) {
             String taskName = split_string[1];
             tasklist.add(new Todo(taskName));
-            return taskName;
+            name = taskName;
         } else if (split_string[0].equals("deadline")) {
             String[] components = split_string[1].split("/by", 2);
             tasklist.add(new Deadline(components[0], components[1]));
-            return components[0];
+            name = components[0];
         } else if (split_string[0].equals("event")) {
             // Idea is that original string is in the form {event_name} /from {start} /to {end}
             // Hence first split will get event name and the {start} /to {end}
@@ -101,11 +100,12 @@ public class Bonnie {
             String[] component1 = split_string[1].split("/from", 2);
             String[] component2 = component1[1].split("/to", 2);
             tasklist.add(new Event(component1[0], component2[0], component2[1]));
-            return component1[0];
+            name = component1[0];
         } else {
-            tasklist.add(new Task(input));
-            return input;
+            System.out.println("Error: Unknown command entered.");
         }
+        System.out.println(String.format("Hey %s, I have added \"%s\" into your task list!\n", username, name));
+        System.out.println(String.format("You now have %d tasks to complete!", tasklist.size()));
     }
 
 }
