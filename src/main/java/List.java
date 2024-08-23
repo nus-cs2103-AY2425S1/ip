@@ -14,12 +14,12 @@ public class List {
 
         System.out.print(initialise);
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = RapGod.scanner;
         String input = "";
         ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
-            System.out.print("Add task: ");
+            System.out.print("Add task:\n");
             input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("List")) {

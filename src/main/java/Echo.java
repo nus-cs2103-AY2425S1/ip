@@ -11,15 +11,15 @@ public class Echo {
 
         System.out.print(initialise);
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = RapGod.scanner;
         String input = "";
 
         while (true) {
-            System.out.print("You: ");
+            System.out.print("You:\n");
             input = scanner.nextLine();
             if (!input.equalsIgnoreCase("Bye")) {
                 System.out.println("-----------------------------------------------");
-                System.out.printf("RapGod: %s, yo!\n", input);
+                System.out.printf("RapGod:\n%s, yo!\n", input);
                 System.out.println("-----------------------------------------------");
 
             } else {

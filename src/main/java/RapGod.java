@@ -1,15 +1,17 @@
 import java.util.Scanner;
 
 public class RapGod {
+
+    public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         String logo = """
-                ██████╗  █████╗ ██████╗  ██████╗  ██████╗ ██████╗\s
-                ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗██╔══██╗
-                ██████╔╝███████║██████╔╝██║  ███╗██║   ██║██║  ██║
-                ██╔══██╗██╔══██║██╔═══╝ ██║   ██║██║   ██║██║  ██║
-                ██║  ██║██║  ██║██║     ╚██████╔╝╚██████╔╝██████╔╝
-                ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝      ╚═════╝  ╚═════╝ ╚═════╝\s
-                                                                 \s                      
+                 I'm beginning to feel like a
+                 ____              ____           _\s
+                |  _ \\ __ _ _ __  / ___| ___   __| |
+                | |_) / _` | '_ \\| |  _ / _ \\ / _` |
+                |  _ < (_| | |_) | |_| | (_) | (_| |
+                |_| \\_\\__,_| .__/ \\____|\\___/ \\__,_|
+                           |_|                     \s
                 """;
 
         String header = """
@@ -34,10 +36,8 @@ public class RapGod {
         System.out.println(logo);
         System.out.print(introduction);
 
-        Scanner scanner = new Scanner(System.in);
-
         while(true) {
-            System.out.print("Option: ");
+            System.out.print("Option:\n");
             String option = scanner.nextLine();
             if (option.equalsIgnoreCase("echo")) {
                 Echo.run();
@@ -49,9 +49,11 @@ public class RapGod {
                 System.out.println("-----------------------------------------------");
                 System.out.println("Bye! Hope to see you again soon!");
                 System.out.println("-----------------------------------------------");
+                break;
             } else {
                 System.out.println("Option does not exist. Try again.");
             }
+
         }
 
     }
