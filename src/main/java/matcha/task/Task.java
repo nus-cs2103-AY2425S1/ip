@@ -1,4 +1,6 @@
+package matcha.task;
 import java.time.format.DateTimeFormatter;
+import matcha.exception.MatchaException;
 
 public class Task {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -20,16 +22,16 @@ public class Task {
     }
 
 
-    public void markDone() throws DukeException {
+    public void markDone() throws MatchaException {
         if (this.isDone) {
-            throw new DukeException("Task is already marked as done!");
+            throw new MatchaException("Task is already marked as done!");
         }
         this.isDone = true;
     }
 
-    public void markNotDone() throws DukeException {
+    public void markNotDone() throws MatchaException {
         if (!this.isDone) {
-            throw new DukeException("Task is already marked as not done!");
+            throw new MatchaException("Task is already marked as not done!");
         }
         this.isDone = false;
     }

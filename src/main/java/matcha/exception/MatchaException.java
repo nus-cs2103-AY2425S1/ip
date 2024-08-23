@@ -1,5 +1,6 @@
-public class DukeException extends Exception{
-    public DukeException(String msg) {
+package matcha.exception;
+public class MatchaException extends Exception{
+    public MatchaException(String msg) {
         super(msg);
     }
 

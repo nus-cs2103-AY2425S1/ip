@@ -1,4 +1,6 @@
+package matcha;
 import java.util.ArrayList;
+import matcha.task.Task;
 
 public class TaskList {
 
@@ -33,6 +35,10 @@ public class TaskList {
     }
 
     public void listTasks() {
+        if (tasks.size() <= 0) {
+            System.out.println("You have no tasks in the list.");
+            return;
+        }
         System.out.println("Here are your tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             String task = (i + 1) + ". " + tasks.get(i);

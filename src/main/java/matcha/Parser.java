@@ -1,5 +1,14 @@
+package matcha;
+import matcha.command.AddTaskCommand;
+import matcha.command.Command;
+import matcha.command.DeleteTaskCommand;
+import matcha.command.ExitCommand;
+import matcha.command.ListTaskCommand;
+import matcha.command.UpdateTaskCommand;
+import matcha.exception.MatchaException;
+
 public class Parser {
-    public Command parse(String input) throws DukeException {
+    public Command parse(String input) throws MatchaException {
         String[] inputWords = input.split(" ", 2);
         String commandType = inputWords[0];
 
@@ -21,7 +30,7 @@ public class Parser {
             return new ExitCommand();
 
         default:
-            throw new DukeException("Hmm, I'm sorry but I am unfamiliar with this command :(");
+            throw new MatchaException("Hmm, I'm sorry but I am unfamiliar with this command :(");
         }
     }
 }

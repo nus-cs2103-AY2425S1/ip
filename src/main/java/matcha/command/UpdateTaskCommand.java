@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package matcha.command;
+import matcha.TaskList;
+import matcha.Ui;
+import matcha.Storage;
+import matcha.exception.MatchaException;
 
 public class UpdateTaskCommand extends Command{
     private String commandType;
@@ -9,9 +13,9 @@ public class UpdateTaskCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
         if (inputWords.length != 2) {
-            throw new DukeException("Please enter the task number of the task you want to " + commandType + ".");
+            throw new MatchaException("Please enter the task number of the task you want to " + commandType + ".");
         }
 
         switch(commandType) {
@@ -26,21 +30,21 @@ public class UpdateTaskCommand extends Command{
             storage.saveTasks(tasks.getTasks());
             break;
         default:
-            throw new DukeException("Invalid command to update tasks!");
+            throw new MatchaException("Invalid command to update tasks!");
         }
     }
 
-    private void markTask(TaskList tasks) throws DukeException {
+    private void markTask(TaskList tasks) throws MatchaException {
         int taskNum = 0;
 
         try {
             taskNum = Integer.parseInt(inputWords[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the task number of the task you want to\nmark as done.");
+            throw new MatchaException("Please enter the task number of the task you want to\nmark as done.");
         }
 
         if (taskNum < 0 || taskNum >= tasks.getSize()) {
-            throw new DukeException("This task does not exist!");
+            throw new MatchaException("This task does not exist!");
         }
 
         tasks.getTask(taskNum).markDone();
@@ -49,17 +53,17 @@ public class UpdateTaskCommand extends Command{
         System.out.println(tasks.getTask(taskNum).toString());
     }
 
-    private void unmarkTask(TaskList tasks) throws DukeException {
+    private void unmarkTask(TaskList tasks) throws MatchaException {
         int taskNum = 0;
 
         try {
             taskNum = Integer.parseInt(inputWords[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the task number of the task you want to\nmark as not done.");
+            throw new MatchaException("Please enter the task number of the task you want to\nmark as not done.");
         }
 
         if (taskNum < 0 || taskNum >= tasks.getSize()) {
-            throw new DukeException("This task does not exist!");
+            throw new MatchaException("This task does not exist!");
         }
 
         tasks.getTask(taskNum).markNotDone();

@@ -1,5 +1,7 @@
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+package matcha;
+import matcha.command.Command;
+import matcha.exception.MatchaException;
+
 public class Matcha {
     private static final String FILE_PATH = "./data/matcha.txt";
     private Ui ui;
@@ -13,7 +15,7 @@ public class Matcha {
         parser = new Parser();
         try {
             tasks = new TaskList(storage.loadTasks());
-        } catch (DukeException e) {
+        } catch (MatchaException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -32,7 +34,7 @@ public class Matcha {
                 Command command = parser.parse(input);
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
-            } catch (DukeException e) {
+            } catch (MatchaException e) {
                 System.out.println(e);
             } finally {
                 ui.printDivider();

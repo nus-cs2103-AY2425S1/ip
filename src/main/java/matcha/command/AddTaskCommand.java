@@ -1,5 +1,14 @@
+package matcha.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import matcha.exception.MatchaException;
+import matcha.task.Task;
+import matcha.task.Deadline;
+import matcha.task.Event;
+import matcha.task.Todo;
+import matcha.TaskList;
+import matcha.Storage;
+import matcha.Ui;
 
 public class AddTaskCommand extends Command{
     private String commandType;
@@ -10,9 +19,9 @@ public class AddTaskCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
         if (inputWords.length < 2) {
-            throw new DukeException("Please include the " + commandType + " details!");
+            throw new MatchaException("Please include the " + commandType + " details!");
         }
         
         switch(commandType) {
@@ -48,13 +57,13 @@ public class AddTaskCommand extends Command{
             break;
 
         default:
-            throw new DukeException("Invalid command to add tasks!");
+            throw new MatchaException("Invalid command to add tasks!");
         }
     }
 
-    private Deadline createDeadline() throws DukeException {
+    private Deadline createDeadline() throws MatchaException {
         if (!inputWords[1].contains(" /by ")) {
-            throw new DukeException("Invalid format to add Deadline.\nPlease use '/by' to specify the " +
+            throw new MatchaException("Invalid format to add Deadline.\nPlease use '/by' to specify the " +
                     "time of the Deadline.");
         }
         //extract deadline description and 'by'
@@ -67,18 +76,18 @@ public class AddTaskCommand extends Command{
         try {
             formattedBy = LocalDateTime.parse(by, Task.getInputFormat());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date/time format! Please use 'yyyy-MM-dd HH:mm' format.");
+            throw new MatchaException("Invalid date/time format! Please use 'yyyy-MM-dd HH:mm' format.");
         }
 
         return new Deadline(deadlineDesc, formattedBy);
     }
 
-    private Event createEvent() throws DukeException {
+    private Event createEvent() throws MatchaException {
         if (inputWords.length < 2) {
-            throw new DukeException("Please include the Event details!");
+            throw new MatchaException("Please include the Event details!");
         }
         if (!inputWords[1].contains(" /from ") || !inputWords[1].contains(" /to ")) {
-            throw new DukeException("Invalid format to add Event.\nPlease use '/from' and '/to' to specify the " +
+            throw new MatchaException("Invalid format to add Event.\nPlease use '/from' and '/to' to specify the " +
                     "Event duration.");
         }
         //extract event description, 'from' and 'to'
@@ -93,7 +102,7 @@ public class AddTaskCommand extends Command{
             formattedFrom = LocalDateTime.parse(from, Task.getInputFormat());
             formattedTo = LocalDateTime.parse(to, Task.getInputFormat());
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date/time format! Please use 'yyyy-MM-dd HH:mm' format.");
+            throw new MatchaException("Invalid date/time format! Please use 'yyyy-MM-dd HH:mm' format.");
         }
 
         return new Event(eventDesc, formattedFrom, formattedTo);

@@ -1,3 +1,10 @@
+package matcha.command;
+import matcha.exception.MatchaException;
+import matcha.task.Task;
+import matcha.Storage;
+import matcha.TaskList;
+import matcha.Ui;
+
 public class DeleteTaskCommand extends Command{
     private String[] inputWords;
     public DeleteTaskCommand(String[] inputWords) {
@@ -5,20 +12,20 @@ public class DeleteTaskCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
         if (inputWords.length != 2) {
-            throw new DukeException("Please enter the task number of the task you want to delete.");
+            throw new MatchaException("Please enter the task number of the task you want to delete.");
         }
 
         int taskNum = 0;
         try {
             taskNum = Integer.parseInt(inputWords[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the task number of the task you want to delete.");
+            throw new MatchaException("Please enter the task number of the task you want to delete.");
         }
 
         if (taskNum < 0 || taskNum >= tasks.getSize()) {
-            throw new DukeException("This task does not exist!");
+            throw new MatchaException("This task does not exist!");
         }
 
         System.out.println("Alright, I have removed this task for you:");
