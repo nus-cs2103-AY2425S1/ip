@@ -126,6 +126,30 @@ public class Maga {
                 continue;
             }
 
+            // deleting things
+            if(input.startsWith("delete")) {
+                String descrip = input.substring(7).trim();
+                int tempInt;
+                try {
+                    tempInt = Integer.parseInt(descrip);
+                } catch (Exception NumberFormatException) {
+                    System.out.println("You can only delete a task number! No one calls amendments by their names!!");
+                    input = scanner.nextLine();
+                    continue;
+                }
+
+                Task tempTask = arr[tempInt - 1];
+                count--;
+                System.out.print("I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
+                        tempTask.getDescription() + "\nYou have " + count + " task(s) now!");
+                for (int i = count; i < 99; i++) {
+                    arr[i + 1] = arr[i - 1];
+                }
+                input = scanner.nextLine();
+                continue;
+
+            }
+
             // adding things as per normal
             Task tempTask = new TodoTask("");
             if(input.startsWith("todo")) {
@@ -134,12 +158,23 @@ public class Maga {
             } else if(input.startsWith("event")) {
                 String descrip = input.substring(6).trim();
                 String[] descripArray = descrip.split("/");
+                if (descripArray.length != 2) {
+                    System.out.println("An event needs a date!! Don't be Crooked Kamala!!");
+                    input = scanner.nextLine();
+                    continue;
+                }
                 tempTask = new EventTask(descripArray[0], descripArray[1]);
             } else if(input.startsWith("deadline")) {
                 String descrip = input.substring(9).trim();
                 String[] descripArray = descrip.split("/");
+                if (descripArray.length != 3) {
+                    System.out.println("A deadline needs a start and end!! Filibusters are a threat to the " +
+                            "American people!!");
+                    input = scanner.nextLine();
+                    continue;
+                }
                 tempTask = new DeadlineTask(descripArray[0], descripArray[1], descripArray[2]);
-            } else { // if it's not mark, list, or creating a task
+            } else { // if it's not mark, list, delete or creating a task
                 System.out.println("HEY! SLEEPY JOE and CROOKED KAMALA " +
                         "might be demented but you're not! Specify a command!");
                 input = scanner.nextLine();
@@ -150,7 +185,7 @@ public class Maga {
             arr[count] = tempTask;
             count++;
             System.out.println("Another task for the American people added:\n" + tempTask.getTaskType()
-            + tempTask.getStatusIcon() + tempTask.getDescription());
+            + tempTask.getStatusIcon() + tempTask.getDescription() + "\nYou have " + count + " task(s) now!");
             input = scanner.nextLine();
         }
 
