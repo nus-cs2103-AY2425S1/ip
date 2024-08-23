@@ -32,6 +32,7 @@ public class Parser {
 
         }
     }
+
     private void handleFileToDo(String str) {
         if (str.startsWith("[X]")) {
             String str1 = "todo " + str.substring(4);
