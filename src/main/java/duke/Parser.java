@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DateTimeParser {
+public class Parser {
     public static List<DateTimeFormatter> inputFormatters = new ArrayList<>();
     static {
         inputFormatters.add(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")); // e.g., "2/12/2019 1800"
@@ -19,7 +19,7 @@ public class DateTimeParser {
 
     // Helper method to parse a date string with multiple formats
     public static LocalDateTime parseDateTime(String dateTimeStr) {
-        for (DateTimeFormatter formatter : DateTimeParser.inputFormatters) {
+        for (DateTimeFormatter formatter : Parser.inputFormatters) {
             try {
                 if (Objects.equals(formatter, DateTimeFormatter.ofPattern("d/M/yyyy"))) {
                     LocalDate parsedDate = LocalDate.parse(dateTimeStr, formatter);

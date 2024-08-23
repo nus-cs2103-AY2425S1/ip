@@ -16,13 +16,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileManager {
+public class Storage {
     private static final String STATE_FILE_DIRECTORY = "./data";
     private static final String STATE_FILE = "save.txt";
 
     public static List<Task> loadStateFileToTasksList() throws IOException {
-        Path dirPath = Paths.get(FileManager.STATE_FILE_DIRECTORY);
-        Path filePath = dirPath.resolve(FileManager.STATE_FILE);
+        Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
+        Path filePath = dirPath.resolve(Storage.STATE_FILE);
 
         if (Files.notExists(dirPath)) { // create the SAVE_DIRECTORY folder if it doesn't exist
             Files.createDirectories(dirPath);
@@ -43,7 +43,7 @@ public class FileManager {
         // convert the state file `lines` to an arraylist of tasks
         List<Task> tasks = new ArrayList<>();
         for (String state : lines) {
-            tasks.add(FileManager.convertStateToTask(state));
+            tasks.add(Storage.convertStateToTask(state));
         }
 
         return tasks;
@@ -91,14 +91,14 @@ public class FileManager {
     }
 
     public static void saveTasksListToStateFile (List<Task> tasks) throws IOException {
-        Path dirPath = Paths.get(FileManager.STATE_FILE_DIRECTORY);
-        Path filePath = dirPath.resolve(FileManager.STATE_FILE);
+        Path dirPath = Paths.get(Storage.STATE_FILE_DIRECTORY);
+        Path filePath = dirPath.resolve(Storage.STATE_FILE);
 
         BufferedWriter writer = Files.newBufferedWriter(filePath);
         List<String> stateFile = new ArrayList<>();
 
         for (Task task : tasks) {
-            stateFile.add(FileManager.convertTaskToState(task));
+            stateFile.add(Storage.convertTaskToState(task));
         }
 
         for (String line : stateFile) {

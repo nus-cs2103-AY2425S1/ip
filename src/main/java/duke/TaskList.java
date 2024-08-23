@@ -1,11 +1,11 @@
-package duke.tasks;
+package duke;
 
-import duke.DailyTasks;
-import duke.Formatter;
+import duke.Ui;
 import duke.exceptions.EmptyTodoDescriptionException;
 import duke.exceptions.InvalidDeadlineException;
 import duke.exceptions.InvalidEventException;
 import duke.exceptions.UnknownMessageException;
+import duke.tasks.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
  * to invalid task inputs or operations.
  * </p>
  */
-public class TaskManager {
+public class TaskList {
 
     /**
      * The list of tasks being managed by the {@code TaskManager}.
@@ -31,7 +31,7 @@ public class TaskManager {
     /**
      * Constructs a new {@code TaskManager} with an empty task list.
      */
-    public TaskManager() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
@@ -148,7 +148,7 @@ public class TaskManager {
         default:
             throw new UnknownMessageException("Unknown task type.");
         }
-        System.out.println(Formatter.formatAddTask(this.getTasks().size(),
+        System.out.println(Ui.formatAddTask(this.getTasks().size(),
                 this.getLastTask()));
     }
 

@@ -1,6 +1,6 @@
 package duke.tasks;
 
-import duke.DateTimeParser;
+import duke.Parser;
 import duke.exceptions.InvalidEventException;
 
 import java.time.LocalDateTime;
@@ -18,13 +18,13 @@ public class Event extends Task {
         parsedToDateTime = null;
 
         // Parse the 'from' field
-        parsedFromDateTime = DateTimeParser.parseDateTime(from);
+        parsedFromDateTime = Parser.parseDateTime(from);
         if (parsedFromDateTime == null) {
             throw new InvalidEventException("Invalid 'from' date and time format.");
         }
 
         // Parse the 'to' field
-        parsedToDateTime = DateTimeParser.parseDateTime(to);
+        parsedToDateTime = Parser.parseDateTime(to);
         if (parsedToDateTime == null) {
             throw new InvalidEventException("Invalid 'to' date and time format.");
         }

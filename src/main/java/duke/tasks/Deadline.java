@@ -1,5 +1,5 @@
 package duke.tasks;
-import duke.DateTimeParser;
+import duke.Parser;
 import duke.exceptions.InvalidDeadlineException;
 
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) throws InvalidDeadlineException {
         super(description);
 
-        parsedDateTime = DateTimeParser.parseDateTime(by);
+        parsedDateTime = Parser.parseDateTime(by);
 
         if (parsedDateTime == null) {
             throw new InvalidDeadlineException("Your deadline is invalid. ");

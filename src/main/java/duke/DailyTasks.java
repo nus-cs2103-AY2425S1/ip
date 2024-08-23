@@ -14,10 +14,10 @@ public class DailyTasks {
     public static final String GREETING = "Hello! I'm " + BOT_NAME + ", your awesome task planner!";
     public static final String GOODBYE = "Bye. Hope to see you again soon!";
 
-    private final TaskManager taskManager;
+    private final TaskList taskList;
 
     public DailyTasks() {
-        this.taskManager = new TaskManager();
+        this.taskList = new TaskList();
     }
 
     public static void main(String[] args) {
@@ -25,12 +25,12 @@ public class DailyTasks {
         DailyTasks dailyTasks = new DailyTasks();
 
         try {
-            List<Task> tasks = FileManager.loadStateFileToTasksList();
-            dailyTasks.taskManager.setTasks(tasks);
+            List<Task> tasks = Storage.loadStateFileToTasksList();
+            dailyTasks.taskList.setTasks(tasks);
 
             dailyTasks.start(scanner);
 
-            FileManager.saveTasksListToStateFile(dailyTasks.taskManager.getTasks());
+            Storage.saveTasksListToStateFile(dailyTasks.taskList.getTasks());
             System.out.println("saved");
         } catch (IOException e) {
             System.out.println("IOException occurred");
@@ -38,13 +38,13 @@ public class DailyTasks {
     }
 
     private void start(Scanner scanner) {
-        System.out.println(Formatter.formatOutputMessage(GREETING));
+        System.out.println(Ui.formatOutputMessage(GREETING));
 
         while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine().trim();
 
             if (userInput.equals("bye")) {
-                System.out.println(Formatter.formatOutputMessage(GOODBYE));
+                System.out.println(Ui.formatOutputMessage(GOODBYE));
                 break;
             }
 
@@ -55,7 +55,7 @@ public class DailyTasks {
     private void handleCommand(String userInput) {
         try {
             if (userInput.equals("list")) {
-                System.out.println(Formatter.formatTaskListings(taskManager.getTasks(), false));
+                System.out.println(Ui.formatTaskListings(taskList.getTasks(), false));
             } else if (userInput.startsWith("unmark")) {
                 handleMarkingTask(userInput, false);
             } else if (userInput.startsWith("mark")) {
@@ -65,10 +65,10 @@ public class DailyTasks {
             } else if (userInput.startsWith("filter")) {
                 handleFilterTask(userInput);
             } else { // we try to add a task (todos/ deadline/ event) else throw an exception
-                taskManager.addTask(userInput);
+                taskList.addTask(userInput);
             }
         } catch (UnknownMessageException | EmptyTodoDescriptionException e) {
-            System.out.println(Formatter.formatOutputMessage("Please enter a valid task!"));
+            System.out.println(Ui.formatOutputMessage("Please enter a valid task!"));
         }
     }
 
@@ -76,13 +76,13 @@ public class DailyTasks {
         int index = parseTaskIndex(userInput);
 
         if (index != -1) {
-            Task task = taskManager.getTask(index);
+            Task task = taskList.getTask(index);
             if (markAsDone) {
                 task.setDone();
-                System.out.println(Formatter.formatMarkTask(task));
+                System.out.println(Ui.formatMarkTask(task));
             } else {
                 task.setNotDone();
-                System.out.println(Formatter.formatUnmarkTask(task));
+                System.out.println(Ui.formatUnmarkTask(task));
             }
         }
     }
@@ -91,16 +91,16 @@ public class DailyTasks {
         int index = parseTaskIndex(userInput);
 
         if (index != -1) {
-            Task task = taskManager.deleteTask(index);
-            System.out.println(Formatter.formatDeleteTask(task, taskManager.getTasks().size()));
+            Task task = taskList.deleteTask(index);
+            System.out.println(Ui.formatDeleteTask(task, taskList.getTasks().size()));
         }
     }
 
     private void handleFilterTask(String userInput) {
         String dateString = userInput.split(" ", 2)[1];
-        LocalDateTime dateTime = DateTimeParser.parseDateTime(dateString);
-        List<Task> tasks = this.taskManager.getTasksOccurring(dateTime);
-        System.out.println(Formatter.formatTaskListings(tasks, true));
+        LocalDateTime dateTime = Parser.parseDateTime(dateString);
+        List<Task> tasks = this.taskList.getTasksOccurring(dateTime);
+        System.out.println(Ui.formatTaskListings(tasks, true));
     }
 
     private int parseTaskIndex(String userInput) {
