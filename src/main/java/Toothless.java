@@ -23,7 +23,7 @@ public class Toothless {
      * Initializes the task list.
      */
     private Toothless() {
-        list = new ArrayList<>();
+        this.list = new ArrayList<>();
     }
 
     /**
@@ -36,13 +36,31 @@ public class Toothless {
                 "See you soon! \n\n" + divider);
     }
 
+    public String[] splitFirst(String task) {
+        String[] result = task.split(" ", 2);
+        return result;
+    }
     /**
      * Adds a task to the task list.
      * @param input The task to be added.
      */
     public void addTask(String input) {
-        list.add(new Task(input));
-        System.out.println("Toothless: \n Your task [" + input + "] added to the quest board!\n\n" + divider);
+        String splitDescription[] = splitFirst(input);
+        String taskType = splitDescription[0];
+        String description = splitDescription[1];
+
+        if(taskType.equals("todo")) {
+            list.add(new ToDos(description));
+        } else if(taskType.equals("deadline")) {
+            String[] splitDeadline = description.split("/by");
+            list.add(new Deadline(splitDeadline[0], splitDeadline[1]));
+        } else if(taskType.equals("event")) {
+            String[] splitEventDate = description.split("/");
+            list.add(new Events(splitEventDate[0], splitEventDate[1], splitEventDate[2]));
+        }
+
+        System.out.println("Toothless: \nYour task [" + input + "] added to the quest board!\n" +
+                "Now there is " + list.size() + " quests in your quest board.\n\n" + divider);
     }
 
     /**
