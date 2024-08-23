@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class SumoDE {
@@ -6,7 +7,17 @@ public class SumoDE {
     public static void main(String[] args) {
 
         // Initialisation
-        SumoTaskList tasks = new SumoTaskList();
+        SumoTaskList tasks;
+        try {
+
+            tasks = new SumoTaskList("data\\taskSaved.txt");
+        } catch (IOException e) {
+            // Note: this will only happen when file don't exist and we cannot create new file in the path.
+            // New File will be created when file doesn't exist in first place.
+            tasks = new SumoTaskList();
+            System.out.println("Welp! Sumo unable to save data due to unknown error!\n"
+                    + "Please exit and try again if u wanna save");
+        }
 
         String logo = """
                            ___
