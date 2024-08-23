@@ -8,14 +8,20 @@ public class Potong {
         System.out.println("What can I do for you?\n");
         System.out.println(Potong.LINE);
 
+        Scanner input = new Scanner(System.in);
+        InputData data = new InputData();
         while (true) {
-            Scanner input = new Scanner(System.in);
             String userInput = input.nextLine();
-            System.out.println(userInput);
-            System.out.println(Potong.LINE);
             if (userInput.equals("bye")) {
                 break;
             }
+            if (userInput.equals("list")) {
+                System.out.println(data.toString());
+                System.out.println(Potong.LINE);
+                continue;
+            }
+            System.out.println(data.add(userInput));
+            System.out.println(Potong.LINE);
         }
         System.out.println("Bye. Hope to see you again soon!\n");
         System.out.println(Potong.LINE);
