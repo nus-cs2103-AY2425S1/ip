@@ -4,12 +4,25 @@ public class Event extends Task {
 
     public Event(String name, String startTime, String endTime) {
         super(name);
-        this.startTime = startTime;
-        this.endTime = endTime;
+
+        String[] startParts = startTime.split(" ");
+        StringBuilder startSB = new StringBuilder(startParts[0]).append(": ");
+        for (int i = 1; i < startParts.length; i++) {
+            startSB.append(startParts[i]).append(" ");
+        }
+        this.startTime = startSB.toString();
+
+        String[] endParts = endTime.split(" ");
+        StringBuilder endSB = new StringBuilder(endParts[0]).append(": ");
+        for (int i = 1; i < endParts.length - 1; i++) {
+            endSB.append(endParts[i]).append(" ");
+        }
+        endSB.append(endParts[endParts.length - 1]);
+        this.endTime = endSB.toString();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + "(" + startTime + endTime + ")";
     }
 }

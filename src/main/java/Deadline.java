@@ -3,11 +3,17 @@ public class Deadline extends Task {
 
     public Deadline(String name, String dueDate) {
         super(name);
-        this.dueDate = dueDate;
+        String[] dateParts = dueDate.split(" ");
+        StringBuilder dateSB = new StringBuilder(dateParts[0]).append(": ");
+        for (int i = 1; i < dateParts.length - 1; i++) {
+            dateSB.append(dateParts[i]).append(" ");
+        }
+        dateSB.append(dateParts[dateParts.length - 1]);
+        this.dueDate = dateSB.toString();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + dueDate + ")";
+        return "[D]" + super.toString() + "(" + dueDate + ")";
     }
 }
