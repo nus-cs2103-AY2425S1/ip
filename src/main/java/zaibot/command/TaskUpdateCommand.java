@@ -42,7 +42,7 @@ public class TaskUpdateCommand extends Command {
                 break;
             case "unmark":
                 task = tasks.unmarkTask(this.getNumberForTask(tasks));
-                Ui.displayTask(task, "mark", tasks);
+                Ui.displayTask(task, "unmark", tasks);
                 break;
             case "delete":
                 tasks.removeTask(this.getNumberForTask(tasks));
