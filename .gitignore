@@ -1,3 +1,6 @@
+# Ignore class files as per CS2103T requirements
+*.class
+
 # IDEA files
 /.idea/
 /out/
