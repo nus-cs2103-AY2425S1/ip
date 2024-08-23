@@ -17,6 +17,20 @@ public class Echo {
         while (true) {
             System.out.print("You:\n");
             input = scanner.nextLine();
+
+            try {
+                if (input == null || input.trim().isEmpty()) {
+                    throw new NoInputException();
+                } else if (RapGod.RUDE_WORDS.contains(input)) {
+                    throw new RudeInputException();
+                }
+            } catch (NoInputException | RudeInputException exc) {
+                System.out.println("-----------------------------------------------");
+                System.out.println("RapGod:\n" + exc.getMessage());
+                System.out.println("-----------------------------------------------");
+                continue;
+            }
+
             if (!input.equalsIgnoreCase("Bye")) {
                 System.out.println("-----------------------------------------------");
                 System.out.printf("RapGod:\n%s, yo!\n", input);

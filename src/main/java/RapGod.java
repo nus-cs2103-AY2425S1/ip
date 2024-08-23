@@ -1,8 +1,16 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class RapGod {
 
     public static Scanner scanner = new Scanner(System.in);
+    public static final ArrayList<String> RUDE_WORDS = new ArrayList<>(Arrays.asList(
+            "damn", "hell", "shit", "fuck",
+            "bitch", "asshole", "dickhead",
+            "idiot", "moron", "stupid",
+            "loser", "jerk", "creep"
+    ));
     public static void main(String[] args) {
         String logo = """
                  I'm beginning to feel like a
@@ -39,6 +47,20 @@ public class RapGod {
         while(true) {
             System.out.print("Option:\n");
             String option = scanner.nextLine();
+
+            try {
+                if (option == null || option.trim().isEmpty()) {
+                    throw new NoInputException();
+                } else if (RapGod.RUDE_WORDS.contains(option)) {
+                    throw new RudeInputException();
+                }
+            } catch (NoInputException | RudeInputException exc) {
+                System.out.println("-----------------------------------------------");
+                System.out.println("RapGod:\n" + exc.getMessage());
+                System.out.println("-----------------------------------------------");
+                continue;
+            }
+
             if (option.equalsIgnoreCase("echo")) {
                 Echo.run();
                 break;
