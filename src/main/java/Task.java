@@ -1,8 +1,5 @@
 package main.java;
-
-import java.util.HashMap;
-
-public class Task {
+public abstract class Task {
     private String description;
     private String taskType;
     private boolean isDone;
