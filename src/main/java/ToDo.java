@@ -1,18 +1,18 @@
 public class ToDo extends Task{
 
     /**
-     * Constructor to creat a task to complete
+     * Create a task to be completed.
      *
-     * @param task without any date/time attached to it
+     * @param task without any date/time attached to it.
      */
     public ToDo(String task) {
         this.task = task;
     }
 
     /**
-     * Method that shows the information of the task
+     * Returns the information of the task.
      *
-     * @return information the task in "[T][-] Task" format
+     * @return information the task in "[T][-] Task" format.
      */
     @Override
     public String toString() {

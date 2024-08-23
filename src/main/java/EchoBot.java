@@ -15,7 +15,8 @@ public class EchoBot {
     }
 
     /**
-     * Send  greet message to users
+     * Sends a greet message to the user.
+     *
      */
     public static void greet() {
         System.out.println("Hello from\n" + Logo);
@@ -26,29 +27,47 @@ public class EchoBot {
     }
 
     /**
-     * List all tasks in the task list of EchoBot
+     * Returns all tasks in the task list of EchoBot.
+     *
      */
     public static void listAllTask() {
         dashline();
         String tasks = "";
+
+        // Get task from task list
         for (int i = 0; i < allTasks.size(); i++) {
             tasks += (i + 1) + ". " + allTasks.get(i).toString();
             tasks += (i == allTasks.size() - 1) ? "" : "\n";
         }
+
         System.out.println(tasks);
         dashline();
     }
 
-    public static void deleteTask(int deleteIdx) {
+    /**
+     * Deletes a task from task list.
+     * Deletes the target task from task list according to the index
+     * and print the current list size.
+     *
+     * @param deleteIdx index of the task to be deleted.
+     * @throws IllegalArgumentException If the index is out of bounds.
+     */
+    public static void deleteTask(int deleteIdx) throws IllegalArgumentException {
         dashline();
         System.out.println("Noted. I've removed this task:");
         System.out.println(allTasks.get(deleteIdx));
+
+        // Remove the task from list and return the size of list
         allTasks.remove(deleteIdx);
         System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
+
         dashline();
     }
 
-
+    /**
+     * Sends goodbye message to user and exits.
+     *
+     */
     public static void bye() {
         dashline();
         System.out.println("Bye. Hope to see you again soon!");
@@ -56,45 +75,52 @@ public class EchoBot {
     }
 
     public static void main(String[] args) {
+        // Create a scanner to get user input
         Scanner scanner = new Scanner(System.in);
+
+        // Send greet message to user
         EchoBot.greet();
+
+        // Echos commands entered by the user
         while (true) {
             String userInput = scanner.nextLine();
             String[] cmdParts = userInput.split(" ");
             String CMD = cmdParts[0].toUpperCase();
+
             try {
                 switch (Command.valueOf(CMD)) {
-                    case BYE:
-                        EchoBot.bye();
-                        return;
-                    case LIST:
-                        EchoBot.listAllTask();
-                        break;
-                    case MARK:
-                        dashline();
-                        int markIdx = Integer.parseInt(cmdParts[1]) - 1;
-                        Task markTask = allTasks.get(markIdx);
-                        markTask.mark();
-                        dashline();
-                        break;
-                    case UNMARK:
-                        dashline();
-                        int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
-                        Task unmarkTask = allTasks.get(unmarkIdx);
-                        unmarkTask.unmark();
-                        dashline();
-                        break;
-                    case DELETE:
-                        int deleteIdx = Integer.parseInt(cmdParts[1]) - 1;
-                        EchoBot.deleteTask(deleteIdx);
-                        break;
-                    default:
-                        dashline();
-                        Task task = Task.creatTask(userInput);
-                        allTasks.add(task);
-                        System.out.println(task);
-                        System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
-                        dashline();
+                case BYE:
+                    EchoBot.bye();
+                    // When the user input "bye", the bot exits
+                    return;
+                case LIST:
+                    EchoBot.listAllTask();
+                    break;
+                case MARK:
+                    dashline();
+                    int markIdx = Integer.parseInt(cmdParts[1]) - 1;
+                    Task markTask = allTasks.get(markIdx);
+                    markTask.setMark();
+                    dashline();
+                    break;
+                case UNMARK:
+                    dashline();
+                    int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
+                    Task unmarkTask = allTasks.get(unmarkIdx);
+                    unmarkTask.setUnmark();
+                    dashline();
+                    break;
+                case DELETE:
+                    int deleteIdx = Integer.parseInt(cmdParts[1]) - 1;
+                    EchoBot.deleteTask(deleteIdx);
+                    break;
+                default:
+                    dashline();
+                    Task task = Task.creatTask(userInput);
+                    allTasks.add(task);
+                    System.out.println(task);
+                    System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
+                    dashline();
                 }
             } catch (IndexOutOfBoundsException e) {
                 String msg = "Input Error: " + e.getMessage();

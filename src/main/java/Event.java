@@ -3,12 +3,13 @@ public class Event extends Task{
     private String endTime;
 
     /**
-     * Constructor to creat a task that start at a specific date/time
-     * and ends at a specific date/time
+     * Creates an event task object.
+     * An event will start at a specific date/time
+     * and ends at a specific date/time.
      *
-     * @param task task information of the event
-     * @param startTime start time of the event
-     * @param endTime end time of the event
+     * @param task task information of the event.
+     * @param startTime start time of the event.
+     * @param endTime end time of the event.
      */
     public Event(String task, String startTime, String endTime) {
         this.task = task;
@@ -17,9 +18,9 @@ public class Event extends Task{
     }
 
     /**
-     * Method that shows the information of the task
+     * Returns the information of the task.
      *
-     * @return information the task in "[E][-] Task (from: 'start time' to: 'end time')" format
+     * @return information the task in "[E][-] Task (from: 'start time' to: 'end time')" format.
      */
     @Override
     public String toString() {
