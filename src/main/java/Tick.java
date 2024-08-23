@@ -18,10 +18,22 @@ public class Tick {
         System.out.println(Tick.separator);
     }
 
-    public void addToList(String description) {
-        Task task = new Task(description);
-        this.checklist.add(task);
-        System.out.printf("added: %s\n", description);
+    public void addTaskToList(String command) {
+        if (command.startsWith("todo")) {
+            ToDo task = new ToDo(command.substring(5));
+            this.checklist.add(task);
+        } else if (command.startsWith("deadline")) {
+            String[] parts = command.substring(9).split(" /by ");
+            Deadline task = new Deadline(parts[0], parts[1]);
+            this.checklist.add(task);
+        } else if (command.startsWith("event")) {
+            String[] parts = command.substring(6).split(" /from | /to ");
+            Event task = new Event(parts[0], parts[1], parts[2]);
+            this.checklist.add(task);
+        }
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this.checklist.get(this.checklist.size() - 1));
+        System.out.printf("Now you have %d tasks in the list.\n", this.checklist.size());
     }
 
     public void displayList() {
@@ -58,8 +70,13 @@ public class Tick {
             case "unmark":
                 this.markTaskAsUndone(Integer.parseInt(commandParts[1]));
                 break;
+            case "todo":
+            case "deadline":
+            case "event":
+                this.addTaskToList(command);
+                break;
             default:
-                this.addToList(command);
+                System.out.println("Invalid command!");
         }
         System.out.println(Tick.separator);
     }
