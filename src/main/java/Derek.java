@@ -58,7 +58,10 @@ public class Derek implements Bot {
                         + "Please enter your commands correctly for Derek (he's a little slow):\n"
                         + "todo (task)\n"
                         + "event (task) /from (start time) /to (end time) \n"
-                        + "deadline (task) /by (date) \n");
+                        + "deadline (task) /by (date) \n"
+                        + "mark (task number)"
+                        + "unmark (task number)"
+                        + "delete (task number");
                 acceptCommands();
             } else if (response.equalsIgnoreCase("N")) {
                 System.out.println(leavingMessage);
