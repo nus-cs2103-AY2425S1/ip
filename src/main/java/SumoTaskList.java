@@ -1,13 +1,37 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class SumoTaskList {
 
     private final List<Task> tasks;
+    private boolean ableToSave;
+
+    public SumoTaskList(String filePath) throws IOException {
+        this.tasks = new ArrayList<>();
+        File f = new File(filePath);
+
+        if (f.exists()) {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                tasks.add(Task.createFromData(s.nextLine()));
+            }
+        } else {
+            if(!f.createNewFile()) {
+                System.out.println("Welp! Sumo unable to save data due to unknown error!\n"
+                        + "Please exit and try again if u wanna save");
+            }
+        }
+
+        ableToSave = true;
+    }
 
     public SumoTaskList() {
         this.tasks = new ArrayList<>();
+        ableToSave = false;
     }
 
     private void printTask() {

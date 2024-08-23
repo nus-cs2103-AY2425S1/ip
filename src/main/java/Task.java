@@ -8,6 +8,22 @@ public class Task {
         this.name = name;
     }
 
+    public static Task createFromData(String inputFromFile) {
+        String[] components = inputFromFile.split(" \\| ");
+        Task returned = switch (components[0]) {
+            case "T" -> new Todo(components[2]);
+            case "E" -> new Event(components[2], components[3], components[4]);
+            case "D" -> new Deadline(components[2], components[3]);
+            default -> throw new IllegalArgumentException();
+        };
+
+        if (components[1].equals("1")) {
+            returned.mark();
+        }
+
+        return returned;
+    }
+
     public static Task of(Command command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
         switch(command) {
             case TODO:
