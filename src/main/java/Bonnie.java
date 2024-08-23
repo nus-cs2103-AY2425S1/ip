@@ -1,10 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import src.main.java.Deadline;
-import src.main.java.Event;
-import src.main.java.Task;
-import src.main.java.Todo;
+import src.main.java.*;
 
 public class Bonnie {
 
@@ -12,7 +9,7 @@ public class Bonnie {
     private static String username;
     private static ArrayList<Task> tasklist = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException {
         System.out.println("Hello I'm Bonnie, what is your name?");
         Scanner scannerObj = new Scanner(System.in);
         String my_username = scannerObj.nextLine();
@@ -77,16 +74,22 @@ public class Bonnie {
         }
     }
 
-    public static void parseAndAddTask(String input) {
+    public static void parseAndAddTask(String input) throws EmptyTodoException, UnknownCommandException, DeadlineFormatException {
         // Want to split the string according to spaces 1st
         String[] splitString = input.split(" ", 2);
         String name;
         if (splitString[0].equals("todo")) {
+            if (splitString.length == 1) {
+                throw new EmptyTodoException();
+            }
             String taskName = splitString[1];
             tasklist.add(new Todo(taskName));
             name = taskName;
         } else if (splitString[0].equals("deadline")) {
             String[] components = splitString[1].split("/by", 2);
+            if (components.length < 2) {
+                throw new DeadlineFormatException();
+            }
             tasklist.add(new Deadline(components[0], components[1]));
             name = components[0];
         } else if (splitString[0].equals("event")) {
@@ -98,8 +101,7 @@ public class Bonnie {
             tasklist.add(new Event(component1[0], component2[0], component2[1]));
             name = component1[0];
         } else {
-            System.out.println("Error: Unknown command entered.");
-            return;
+            throw new UnknownCommandException(input);
         }
         System.out.println(String.format("Hey %s, I have added \"%s\" into your task list!\n" +
                                          "You now have %d tasks to complete!\n", username, name, tasklist.size()));
