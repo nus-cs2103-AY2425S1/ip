@@ -1,0 +1,32 @@
+make list
+Task 1 /by Sunday
+Task 2
+Event 1 /from 9am /to 3pm
+Task 3 /by tomorrow
+mark 2
+mark 6
+list
+unmark 2
+mark 1
+Task 4 /from 11am /to 12pm
+Event 2 /from 2pm /to 5pm
+mark 5
+unmark 4
+list
+Task 5 /by next Friday
+mark 3
+Event 3 /from 6pm /to 8pm
+Task 6 /by Monday
+mark 6
+unmark 5
+list
+Task 7 /by the end of the month
+Event 4 /from 7am /to 8am
+Event 5 /from 7am
+mark 7
+Task 8
+unmark 6
+list
+mark 8
+unmark 7
+bye

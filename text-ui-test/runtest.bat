@@ -15,7 +15,20 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+java -classpath ..\bin RapGod < input.txt > ACTUAL.TXT
+
+REM preprocess.bat
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+FC ACTUAL.TXT EXPECTED.TXT > NUL
+
+REM check the errorlevel to determine if the files are identical
+IF ERRORLEVEL 1 (
+    echo ********** FAILED **********
+    exit /b 1
+) ELSE (
+    echo ********** PASSED **********
+)
+
+REM End of script

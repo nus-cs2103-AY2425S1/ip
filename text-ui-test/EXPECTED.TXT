@@ -1,7 +1,189 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+-----------------------------------------------
+ I'm beginning to feel like a:
+-----------------------------------------------
 
+ I'm beginning to feel like a
+ ____              ____           _ 
+|  _ \ __ _ _ __  / ___| ___   __| |
+| |_) / _` | '_ \| |  _ / _ \ / _` |
+|  _ < (_| | |_) | |_| | (_) | (_| |
+|_| \_\__,_| .__/ \____|\___/ \__,_|
+           |_|                      
+
+-----------------------------------------------
+Hello. I'm RapGod
+What can I do for you today?
+
+[OPTIONS]
+'Echo' to echo
+'Make List' to create a list
+'Bye' to exit
+-----------------------------------------------
+Option:
+-----------------------------------------------
+Initialising List Bot...
+Type 'List' to show full list
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[D] [ ] Task 1  (by: Sunday)
+Now you have 1 tasks in the list
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[T] [ ] Task 2
+Now you have 2 tasks in the list
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[E] [ ] Event 1  (from: 9am  to: 3pm)
+Now you have 3 tasks in the list
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[D] [ ] Task 3  (by: tomorrow)
+Now you have 4 tasks in the list
+-----------------------------------------------
+Add task:
+Nice! I've marked this task as done:
+[T] [X] Task 2
+Add task:
+No such task exists.
+Add task:
+-----------------------------------------------
+Displaying List:
+1. [D] [ ] Task 1  (by: Sunday)
+2. [T] [X] Task 2
+3. [E] [ ] Event 1  (from: 9am  to: 3pm)
+4. [D] [ ] Task 3  (by: tomorrow)
+-----------------------------------------------
+Add task:
+OK, I've marked this task as not done yet:
+[T] [ ] Task 2
+Add task:
+Nice! I've marked this task as done:
+[D] [X] Task 1  (by: Sunday)
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[E] [ ] Task 4  (from: 11am  to: 12pm)
+Now you have 5 tasks in the list
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[E] [ ] Event 2  (from: 2pm  to: 5pm)
+Now you have 6 tasks in the list
+-----------------------------------------------
+Add task:
+Nice! I've marked this task as done:
+[E] [X] Task 4  (from: 11am  to: 12pm)
+Add task:
+OK, I've marked this task as not done yet:
+[D] [ ] Task 3  (by: tomorrow)
+Add task:
+-----------------------------------------------
+Displaying List:
+1. [D] [X] Task 1  (by: Sunday)
+2. [T] [ ] Task 2
+3. [E] [ ] Event 1  (from: 9am  to: 3pm)
+4. [D] [ ] Task 3  (by: tomorrow)
+5. [E] [X] Task 4  (from: 11am  to: 12pm)
+6. [E] [ ] Event 2  (from: 2pm  to: 5pm)
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[D] [ ] Task 5  (by: next Friday)
+Now you have 7 tasks in the list
+-----------------------------------------------
+Add task:
+Nice! I've marked this task as done:
+[E] [X] Event 1  (from: 9am  to: 3pm)
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[E] [ ] Event 3  (from: 6pm  to: 8pm)
+Now you have 8 tasks in the list
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[D] [ ] Task 6  (by: Monday)
+Now you have 9 tasks in the list
+-----------------------------------------------
+Add task:
+Nice! I've marked this task as done:
+[E] [X] Event 2  (from: 2pm  to: 5pm)
+Add task:
+OK, I've marked this task as not done yet:
+[E] [ ] Task 4  (from: 11am  to: 12pm)
+Add task:
+-----------------------------------------------
+Displaying List:
+1. [D] [X] Task 1  (by: Sunday)
+2. [T] [ ] Task 2
+3. [E] [X] Event 1  (from: 9am  to: 3pm)
+4. [D] [ ] Task 3  (by: tomorrow)
+5. [E] [ ] Task 4  (from: 11am  to: 12pm)
+6. [E] [X] Event 2  (from: 2pm  to: 5pm)
+7. [D] [ ] Task 5  (by: next Friday)
+8. [E] [ ] Event 3  (from: 6pm  to: 8pm)
+9. [D] [ ] Task 6  (by: Monday)
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[D] [ ] Task 7  (by: the end of the month)
+Now you have 10 tasks in the list
+-----------------------------------------------
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[E] [ ] Event 4  (from: 7am  to: 8am)
+Now you have 11 tasks in the list
+-----------------------------------------------
+Add task:
+Please add both /from and /to.
+Add task:
+Nice! I've marked this task as done:
+[D] [X] Task 5  (by: next Friday)
+Add task:
+-----------------------------------------------
+Got it. I've added this task: 
+[T] [ ] Task 8
+Now you have 12 tasks in the list
+-----------------------------------------------
+Add task:
+OK, I've marked this task as not done yet:
+[E] [ ] Event 2  (from: 2pm  to: 5pm)
+Add task:
+-----------------------------------------------
+Displaying List:
+1. [D] [X] Task 1  (by: Sunday)
+2. [T] [ ] Task 2
+3. [E] [X] Event 1  (from: 9am  to: 3pm)
+4. [D] [ ] Task 3  (by: tomorrow)
+5. [E] [ ] Task 4  (from: 11am  to: 12pm)
+6. [E] [ ] Event 2  (from: 2pm  to: 5pm)
+7. [D] [X] Task 5  (by: next Friday)
+8. [E] [ ] Event 3  (from: 6pm  to: 8pm)
+9. [D] [ ] Task 6  (by: Monday)
+10. [D] [ ] Task 7  (by: the end of the month)
+11. [E] [ ] Event 4  (from: 7am  to: 8am)
+12. [T] [ ] Task 8
+-----------------------------------------------
+Add task:
+Nice! I've marked this task as done:
+[E] [X] Event 3  (from: 6pm  to: 8pm)
+Add task:
+OK, I've marked this task as not done yet:
+[D] [ ] Task 5  (by: next Friday)
+Add task:
+-----------------------------------------------
+Bye! Hope to see you again soon!
+-----------------------------------------------
