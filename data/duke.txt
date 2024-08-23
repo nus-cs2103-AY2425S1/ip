@@ -1,0 +1,6 @@
+T | 0 | borrow book
+T | 1 | study
+T | 1 | play
+D | 1 | return book | Sunday
+E | 0 | project meeting | Mon 2pm | 4pm
+T | 0 | sleep

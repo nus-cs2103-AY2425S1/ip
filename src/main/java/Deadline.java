@@ -6,6 +6,10 @@ public class Deadline extends IndividualTask{
         this.returnBy = returnBy;
     }
     @Override
+    public String saveToFileFormat() {
+        return "D | " + this.getSaveIcon() + " | " + this.getTaskDescription() + " | " + this.returnBy;
+    }
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.returnBy + ")";
     }

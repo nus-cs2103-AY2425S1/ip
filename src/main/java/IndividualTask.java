@@ -1,4 +1,4 @@
-public class IndividualTask {
+abstract public class IndividualTask {
     private String taskDescription;
     private boolean isTaskDone = false;
 
@@ -13,6 +13,13 @@ public class IndividualTask {
         return "";
     }
 
+    public String getSaveIcon() {
+        if (this.isTaskDone) {
+            return "1";
+        }
+        return "0";
+    }
+
     public void markOrUnmark(String msg) {
         this.isTaskDone = msg.equals("mark");
     }
@@ -20,6 +27,8 @@ public class IndividualTask {
     public String getTaskDescription() {
         return this.taskDescription;
     }
+
+    public abstract String saveToFileFormat();
 
     @Override
     public String toString() {
