@@ -8,7 +8,7 @@ public class Blitz{
                 "What can I do for you?");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> inputHistory = new ArrayList<>();
+        ArrayList<Task> inputHistory = new ArrayList<>();
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -17,18 +17,44 @@ public class Blitz{
                 System.out.println("----------------\n" +
                         "Till we meet again, GOODBYE!");
                 break;
-            } else if (strippedInput.equals("list")) {
-                System.out.println("---------------\n");
-                inputHistory.forEach(str -> System.out.println((inputHistory.indexOf(str) + 1) +
-                        ". " +
-                        str));
-                System.out.println("---------------\n");
             } else {
-                inputHistory.add(userInput);
-                System.out.println("----------------\n" +
-                        "added: " + userInput + "\n" +
-                        "----------------\n");
+                actionBasedOnInput(inputHistory, strippedInput);
             }
         }
+    }
+
+    public static void actionBasedOnInput(ArrayList<Task> inputHistory, String strippedInput) {
+
+        if (strippedInput.equals("list")) {
+            displayList(inputHistory);
+            }
+        }else {
+            inputHistory.add(new Task(strippedInput));
+            System.out.println("----------------\n" +
+                    "added: " + strippedInput + "\n" +
+                    "----------------\n");
+        }
+    }
+
+    public static void changeTaskStatus(String action, Task task) {
+        System.out.println("---------------");
+        if (action.equals("mark")) {
+            task.changeStatus(true);
+            System.out.println("GOOD RIDDANCE! Finally, this task is done:\n" +
+                    task);
+        } else {
+            task.changeStatus(false);
+            System.out.println("Alright, this task is not done yet faster finish leh:\n" +
+                    task);
+        }
+        System.out.println("---------------");
+    }
+
+    public static void displayList(ArrayList<Task> inputHistory) {
+        System.out.println("---------------");
+        inputHistory.forEach(task -> System.out.println((inputHistory.indexOf(task) + 1) +
+                ". " +
+                task));
+        System.out.println("---------------\n");
     }
 }
