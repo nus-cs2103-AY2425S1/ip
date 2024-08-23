@@ -79,7 +79,7 @@ public class Ontos {
                 System.out.println(line 
                 + taskAdded 
                 + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                + " Now you have" + tasks.size() + " tasks in the list.\n" 
+                + " Now you have " + tasks.size() + " tasks in the list.\n" 
                 + line);
             } else if (input.startsWith("deadline")) {
                 try {
@@ -98,7 +98,7 @@ public class Ontos {
                 System.out.println(line 
                 + taskAdded 
                 + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                + " Now you have" + tasks.size() + " tasks in the list.\n" 
+                + " Now you have " + tasks.size() + " tasks in the list.\n" 
                 + line);
             } else if (input.startsWith("event")) {
                 try {
@@ -119,7 +119,7 @@ public class Ontos {
                 System.out.println(line 
                 + taskAdded 
                 + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                + " Now you have" + tasks.size() + " tasks in the list.\n" 
+                + " Now you have " + tasks.size() + " tasks in the list.\n" 
                 + line);
             } else if (input.startsWith("delete")) {
                 int index = 0;
@@ -140,7 +140,7 @@ public class Ontos {
                 }
                 System.out.println(line 
                 + " Noted. I've removed this task:\n" 
-                + task.toString() + "\n"
+                + " " + task.toString() + "\n"
                 + line);
             } else {
                 System.out.println(line + " OOPS!!! I'm sorry, but I don't know what that means :-(" + line);
