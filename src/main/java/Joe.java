@@ -14,7 +14,13 @@ public class Joe {
             String[] inputArr = userInput.split(" ");
             if (inputArr.length == 0) continue;
             String commandStr = inputArr[0].toUpperCase();
-            Commands command = Commands.valueOf(commandStr);
+            Commands command;
+            try {
+                command = Commands.valueOf(commandStr);
+            } catch (IllegalArgumentException e) {
+                System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+                continue;
+            }
             switch (command) {
                 case BYE:
                     System.out.println("\t" + "Bye. Hope to see you again soon!");
@@ -49,12 +55,16 @@ public class Joe {
                     Task newTask = null;
                     switch (command) {
                         case TODO:
+                            if (inputArr.length == 1) {
+                                System.out.println("\tOOPS!!! The description of a todo cannot be empty.");
+                                continue;
+                            }
                             newTask = new Todo(String.join(" ", Arrays.copyOfRange(inputArr, 1, inputArr.length)));
                             break;
                         case DEADLINE:
                             int byIdx = Arrays.asList(inputArr).indexOf("/by");
                             if (byIdx == -1) {
-                                System.out.println("Please input a valid command");
+                                System.out.println("\tOops! Try adding it like this: deadline {task description} /by {duedate}");
                                 continue;
                             }
                             String taskDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, byIdx));
@@ -65,7 +75,7 @@ public class Joe {
                             int fromIdx = Arrays.asList(inputArr).indexOf("/from");
                             int toIdx = Arrays.asList(inputArr).indexOf("/to");
                             if (fromIdx == -1) {
-                                System.out.println("Please input a valid command");
+                                System.out.println("\tOops! Let's try again with this format: event {task description} /from {start date} /to {end date}");
                                 continue;
                             }
                             String eventDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, fromIdx));
