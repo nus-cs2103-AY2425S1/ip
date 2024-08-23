@@ -1,5 +1,5 @@
-public class UnknownCommandException extends Exception {
+public class UnknownCommandException extends YapperException {
     public UnknownCommandException() {
-        super("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        super("Oi, but I don't know what that means :-(");
     }
 }
