@@ -39,15 +39,22 @@ public class Dawn {
                 if (s[0].split(" ").length <= 1) {
                     if (input.contains("todo") || input.contains("deadline") || input.contains("event")) {
                         throw new DawnException("You might be missing the task description, please check again\n");
+                    } else {
+                        throw new DawnException("Am I supposed to know what that means? Try something else\n");
                     }
-                    throw new DawnException("Am I supposed to know what that means? Try something else\n");
                 }
                 s[0] = s[0].substring(indexOfSpace + 1); // remove the command word e.g. todo
                 if (input.contains("todo")) {
                     t = new ToDo(s[0]);
                 } else if (input.contains("deadline")) {
+                    if (s.length < 2) {
+                        throw new DawnException("Please include a deadline for your task after \"\\\"!\n");
+                    }
                     t = new Deadline(s[0], s[1]);
                 } else if (input.contains("event")) {
+                    if (s.length < 3) {
+                        throw new DawnException("Please include the start and end times for your event after \"\\\"!\n");
+                    }
                     t = new Event(s[0], s[1], s[2]);
                 } else {
                     throw new DawnException("Am I supposed to know what that means? Try something else\n");
