@@ -24,11 +24,34 @@ public class Edith {
     }
 
     public void add(String string) {
-        String message1 = "Got it. I've added this task:";
-        Task task = new Task(string);
+        Task task;
 
+        if (string.startsWith("todo ")) {
+            String taskString = string.substring(5);
+            task = new ToDo(taskString);
+            addHelper(task);
+        }
+        if (string.startsWith("deadline ")) {
+            String[] parts = string.split(" /by ");
+            String taskString = parts[0].substring(9).trim();
+            String dueDate = parts[1].trim();
+            task = new Deadline(taskString, dueDate);
+            addHelper(task);
+        }
+        if (string.startsWith("event ")) {
+            String[] parts = string.split(" /from | /to ");
+            String taskString = parts[0].substring(6).trim();
+            String startTime = parts[1].trim();
+            String endTime = parts[2].trim();
+            task = new Event(taskString, startTime, endTime);
+            addHelper(task);
+        }
+    }
+
+    public void addHelper(Task task) {
         listOfTasks.add(task);
         int numOfTasks = listOfTasks.size();
+        String message1 = "Got it. I've added this task:";
         String message2 = "There are now " + numOfTasks + " tasks in your list.";
 
         System.out.println(indentation + message1);
