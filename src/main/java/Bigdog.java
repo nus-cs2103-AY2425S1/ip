@@ -19,9 +19,10 @@ public class Bigdog {
             System.out.print("OK, I've marked this task as not done yet:\n" + toDoList[ind] + "\n");
         } else {
             // Add and Echo user input
-            toDoList[taskCounter] = new Task(str);
+            toDoList[taskCounter] = Task.of(str);
+            System.out.println("added: " + toDoList[taskCounter]);
             taskCounter++;
-            System.out.println("added: " + str);
+            System.out.printf("Now you have %s tasks in the list.\n", taskCounter);
         }
     }
 
