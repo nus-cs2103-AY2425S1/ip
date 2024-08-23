@@ -2,8 +2,17 @@ public class Event extends Task {
     private final String startDateTime;
     private final String endDateTime;
 
-    public Event(String description, String startDateTime, String endDateTime) {
+    public Event(String description, String startDateTime, String endDateTime) throws EmptyArgumentException {
         super(description);
+        if (description.isEmpty()) {
+            throw new EmptyArgumentException("description");
+        }
+        if (startDateTime.isEmpty()) {
+            throw new EmptyArgumentException("start date time");
+        }
+        if (endDateTime.isEmpty()) {
+            throw new EmptyArgumentException("end date time");
+        }
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
@@ -11,20 +20,5 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
-    }
-
-    public static Event generateFromString(String string) {
-        // [description] /from [start] /to [end]
-        String regex ="^(.*?)\\s+/from\\s+(.*?)\\s+/to(.*)$";
-
-        if (string == null || !string.matches(regex)) {
-            return null;
-        }
-
-        String description = string.replaceAll(regex, "$1").trim();
-        String from = string.replaceAll(regex, "$2").trim();
-        String to = string.replaceAll(regex, "$3").trim();
-
-        return new Event(description, from, to);
     }
 }

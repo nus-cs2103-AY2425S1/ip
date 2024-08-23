@@ -12,14 +12,14 @@ deadline Empty deadline /by
 deadline Task number 2 /by tomorrow
 event No duration
 event Empty start end time /from /to
-event Wrong order /to paris /from brazil
+event Flipped order /to paris /from brazil
 event Task number 3 /from 8am /to 8pm
 delete 0
-delete 4
+delete 5
 mark 0
-mark 4
+mark 5
 unmark 0
-unmark 4
+unmark 5
 mark 1
 mark 3
 unmark 3

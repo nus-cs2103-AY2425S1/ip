@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.Scanner;
 
 public class Botty {
@@ -21,7 +22,8 @@ public class Botty {
     private static final String bottySymbol = "Botty: ";
     private static final String bottyIndentation = "       ";
     private TaskManager taskManager;
-    
+    private Scanner inputScanner;
+
     public static void main(String[] args) {
         Botty botty = new Botty();
 
@@ -29,24 +31,20 @@ public class Botty {
     }
 
     public void beginInteraction() {
-        Scanner inputScanner = new Scanner(System.in);
+        inputScanner = new Scanner(System.in);
         taskManager = new TaskManager();
 
         displayIntroduction();
-
         boolean exitFlag = false;
-
         while (!exitFlag) {
             try {
                 System.out.println();
 
                 String userInput = inputScanner.nextLine();
 
-                String[] splitInput = userInput.trim().split(" ", 2);
-                String command = splitInput[0].toLowerCase();
-                String argument = splitInput.length > 1 ? splitInput[1] : null;
+                ParsedInput parsedInput = ParsedInput.parse(userInput);
 
-                switch (command) {
+                switch (parsedInput.getCommand()) {
                     case "bye":
                         exitFlag = true;
                         break;
@@ -54,25 +52,25 @@ public class Botty {
                         handleList();
                         break;
                     case "mark":
-                        handleMark(argument);
+                        handleMark(parsedInput);
                         break;
                     case "unmark":
-                        handleUnmark(argument);
+                        handleUnmark(parsedInput);
                         break;
                     case "todo":
-                        handleTodo(argument);
+                        handleTodo(parsedInput);
                         break;
                     case "deadline":
-                        handleDeadline(argument);
+                        handleDeadline(parsedInput);
                         break;
                     case "event":
-                        handleEvent(argument);
+                        handleEvent(parsedInput);
                         break;
                     case "delete":
-                        handleDelete(argument);
+                        handleDelete(parsedInput);
                         break;
                     default:
-                        throw new BottyException("I'm sorry, that is not a command I am familiar with.");
+                        throw new UnknownCommandException(parsedInput.getCommand());
                 }
             } catch (BottyException exception) {
                 reply(exception.getMessage());
@@ -89,7 +87,6 @@ public class Botty {
 
         reply("Hello, I am Botty the Bot, how may I be of service today?");
     }
-
 
     private void reply(String content) {
         String[] strings = content.split("\n");
@@ -120,7 +117,8 @@ public class Botty {
     private void handleList() throws TaskListEmptyException {
         reply("Here you go!\n" + taskManager.list());
     }
-    private void handleMark(String argument) throws BottyException {
+    private void handleMark(ParsedInput parsedInput) throws BottyException {
+        String argument = parsedInput.getArgument("main");
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to mark with its number!");
@@ -131,7 +129,8 @@ public class Botty {
 
         reply("Congrats on completing that! Let me just mark that as done for you.\n" + task);
     }
-    private void handleUnmark(String argument) throws BottyException {
+    private void handleUnmark(ParsedInput parsedInput) throws BottyException {
+        String argument = parsedInput.getArgument("main");
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to unmark with its number!");
@@ -141,30 +140,36 @@ public class Botty {
 
         reply("It's okay, we can get that done later. I'll mark that as undone for you.\n" + task);
     }
-    private void handleTodo(String argument) throws BottyException {
-        Todo todo = Todo.generateFromString(argument);
-        if (todo == null) {
+    private void handleTodo(ParsedInput parsedInput) throws BottyException {
+        try {
+            Todo todo = new Todo(parsedInput.getArgument("main"));
+            addToTaskList(todo);
+        } catch (ArgumentNotFoundException | EmptyArgumentException ex) {
             throw new BottyException("I am unable to add that todo! Please ensure that the description is not blank");
         }
-        addToTaskList(todo);
     }
-    private void handleDeadline(String argument) throws BottyException {
-        Deadline deadline = Deadline.generateFromString(argument);
-        if (deadline == null) {
+    private void handleDeadline(ParsedInput parsedInput) throws BottyException {
+        try {
+            Deadline deadline = new Deadline(parsedInput.getArgument("main"), parsedInput.getArgument("by"));
+            addToTaskList(deadline);
+        } catch (ArgumentNotFoundException | EmptyArgumentException ex) {
             throw new BottyException("I am unable to add that deadline! Please provide details " +
                     "in the following format: [description] /by [deadline]");
         }
-        addToTaskList(deadline);
     }
-    private void handleEvent(String argument) throws BottyException {
-        Event event = Event.generateFromString(argument);
-        if (event == null) {
+    private void handleEvent(ParsedInput parsedInput) throws BottyException {
+        try {
+            Event event = new Event(parsedInput.getArgument("main"),
+                    parsedInput.getArgument("from"),
+                    parsedInput.getArgument("to"));
+            addToTaskList(event);
+        } catch (ArgumentNotFoundException | EmptyArgumentException ex) {
             throw new BottyException("I am unable to add that event! Please provide details in " +
                     "the following format: [description] /from [start] /to [end]");
         }
-        addToTaskList(event);
     }
-    private void handleDelete(String argument) throws BottyException {
+    private void handleDelete(ParsedInput parsedInput) throws BottyException {
+        String argument = parsedInput.getArgument("main");
         if (argument == null || !isNumber(argument)) {
             throw new BottyException("I don't quite know what you want me to do. " +
                     "Do indicate which task to delete with its number!");

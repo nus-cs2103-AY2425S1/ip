@@ -17,7 +17,7 @@
 
 Botty: Hello, I am Botty the Bot, how may I be of service today?
 
-Botty: I'm sorry, that is not a command I am familiar with.
+Botty: I'm sorry, that is not a command I am familiar with. (testing)
 
 Botty: I don't quite know what you want me to do. Do indicate which task to mark with its number!
 
@@ -49,51 +49,56 @@ Botty: I am unable to add that event! Please provide details in the following fo
 
 Botty: I am unable to add that event! Please provide details in the following format: [description] /from [start] /to [end]
 
-Botty: I am unable to add that event! Please provide details in the following format: [description] /from [start] /to [end]
+Botty: I have added the following task to the list!
+       [E] [ ] Flipped order (from: brazil to: paris)
+       You now have 3 tasks.
 
 Botty: I have added the following task to the list!
        [E] [ ] Task number 3 (from: 8am to: 8pm)
-       You now have 3 tasks.
+       You now have 4 tasks.
 
-Botty: I don't see a task with that number! Try a number from 1 to 3
+Botty: I don't see a task with that number! Try a number from 1 to 4
 
-Botty: I don't see a task with that number! Try a number from 1 to 3
+Botty: I don't see a task with that number! Try a number from 1 to 4
 
-Botty: I don't see a task with that number! Try a number from 1 to 3
+Botty: I don't see a task with that number! Try a number from 1 to 4
 
-Botty: I don't see a task with that number! Try a number from 1 to 3
+Botty: I don't see a task with that number! Try a number from 1 to 4
 
-Botty: I don't see a task with that number! Try a number from 1 to 3
+Botty: I don't see a task with that number! Try a number from 1 to 4
 
-Botty: I don't see a task with that number! Try a number from 1 to 3
+Botty: I don't see a task with that number! Try a number from 1 to 4
 
 Botty: Congrats on completing that! Let me just mark that as done for you.
        [T] [X] Task number 1
 
 Botty: Congrats on completing that! Let me just mark that as done for you.
-       [E] [X] Task number 3 (from: 8am to: 8pm)
+       [E] [X] Flipped order (from: brazil to: paris)
 
 Botty: It's okay, we can get that done later. I'll mark that as undone for you.
-       [E] [ ] Task number 3 (from: 8am to: 8pm)
+       [E] [ ] Flipped order (from: brazil to: paris)
 
 Botty: Got it! I have removed the following task:
        [D] [ ] Task number 2 (by: tomorrow)
-       You have 2 tasks left!
+       You have 3 tasks left!
 
 Botty: Congrats on completing that! Let me just mark that as done for you.
-       [E] [X] Task number 3 (from: 8am to: 8pm)
+       [E] [X] Flipped order (from: brazil to: paris)
 
 Botty: It's okay, we can get that done later. I'll mark that as undone for you.
-       [E] [ ] Task number 3 (from: 8am to: 8pm)
+       [E] [ ] Flipped order (from: brazil to: paris)
 
 Botty: Here you go!
        1. [T] [X] Task number 1
-       2. [E] [ ] Task number 3 (from: 8am to: 8pm)
+       2. [E] [ ] Flipped order (from: brazil to: paris)
+       3. [E] [ ] Task number 3 (from: 8am to: 8pm)
 
 Botty: Got it! I have removed the following task:
        [T] [X] Task number 1
-       You have 1 tasks left!
+       You have 2 tasks left!
 
-Botty: I don't see a task with that number! Try a number from 1 to 1
+Botty: Got it! I have removed the following task:
+       [E] [ ] Task number 3 (from: 8am to: 8pm)
+       You have 1 tasks left!
 
 Botty: Thank you for your continued patronage. Goodbye!
