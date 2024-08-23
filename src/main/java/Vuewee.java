@@ -114,6 +114,10 @@ public class Vuewee {
             String fromDate = fromMatcher.group(1);
             String toDate = toMatcher.group(1);
 
+            if (description.length() == 0) {
+              throw EVENT_ERROR;
+            }
+
             taskList.addTask(new EventTask(description, fromDate, toDate));
             break;
           }
