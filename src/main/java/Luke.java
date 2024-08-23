@@ -1,12 +1,10 @@
 public class Luke {
     public static void main(String[] args) {
-        String logo = """
-                .____           __          \s
-                |    |    __ __|  | __ ____ \s
-                |    |   |  |  \\  |/ // __ \\\s
-                |    |___|  |  /    <\\  ___/\s
-                |_______ \\____/|__|_ \\\\___  >
-                        \\/          \\/    \\/""";
+        String logo = " .____           __\n"
+                + "|    |    __ __|  | __ ____\n"
+                + "|    |   |  |  \\  |/ // __ \\\n"
+                + "|    |___|  |  /    <\\  ___/\n"
+                + "|_______ \\____/|__|_ \\\\___  >\n";
         System.out.println("Hello from\n" + logo);
 
         System.out.println("""

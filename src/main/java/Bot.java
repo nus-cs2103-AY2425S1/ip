@@ -13,60 +13,66 @@ public class Bot {
     }
 
     public void acceptCommand() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner scanner = new Scanner(System.in);
+            if (!(scanner.hasNextLine())) {
+                break;
+            }
             String input = scanner.nextLine();
             List<String> inputList = Arrays.asList(input.split(" "));
             String command = inputList.get(0).strip();
-//            System.out.println("inputList size: " + inputList.size());
             String args = String.join(" ", inputList.subList(1, inputList.size())).strip();
-//            System.out.println("command: " + command);
-//            System.out.println("args: " + args);
 //            Consider implementing the 1010X approach to calling functions
 //            Watch the data directed programming lecture
-            if (Objects.equals(command, "bye")) {
-                System.out.println("""
+            switch (command) {
+                case "bye" -> {
+                    System.out.println("""
                         ____________________________________________________________
                         yeah bye bye to you too human being
                         ____________________________________________________________
                         """);
-                System.exit(0);
-            } else if (Objects.equals(command, "list")) {
-                showList();
-            } else if (Objects.equals(command, "mark")
-                    || Objects.equals(command, "unmark")) {
-                // need to handle the case where a non-integer is passed to mark (NumberFormatException)
-                int taskToMark = Integer.parseInt(args);
-                try {
-                    markTask(taskToMark, command);
-                } catch (IndexOutOfBoundsException e) {
-                    taskNotFound(taskToMark);
+                    return;
                 }
-            } else if (Objects.equals(command, "delete")) {
-                int taskToDelete = Integer.parseInt(args);
-                try {
-                    deleteTask(taskToDelete);
-                } catch (IndexOutOfBoundsException e) {
-                    taskNotFound(taskToDelete);
+                case "list" -> {
+                    showList();
                 }
-            } else {
-                try {
-                    addToList(command, args);
-                } catch (UnknownCommandException e) {
-                    System.out.println(DIVIDER
-                            + "hmmm i didn't quite understand what you said. try again?\n"
-                            + DIVIDER);
-                } catch (NoDescriptionException e) {
-                    String aOrAn = (Objects.equals(command, "event"))
-                            ? " an "
-                            : " a ";
-                    System.out.println(DIVIDER
-                            + "uhhh the description of" + aOrAn
-                            + command + " can't be empty :( try again?\n"
-                            + DIVIDER);
+                case "mark", "unmark" -> {
+                    int taskToMark = Integer.parseInt(args);
+                    // also need to handle the case where a non-integer is passed to mark (NumberFormatException)
+                    try {
+                        markTask(taskToMark, command);
+                    } catch (IndexOutOfBoundsException e) {
+                        taskNotFound(taskToMark);
+                    }
+                }
+                case "delete" -> {
+                    int taskToDelete = Integer.parseInt(args);
+                    try {
+                        deleteTask(taskToDelete);
+                    } catch (IndexOutOfBoundsException e) {
+                        taskNotFound(taskToDelete);
+                    }
+                }
+                default -> {
+                    try {
+                        addToList(command, args);
+                    } catch (UnknownCommandException e) {
+                        System.out.println(DIVIDER
+                                + "hmmm i didn't quite understand what you said. try again?\n"
+                                + DIVIDER);
+                    } catch (NoDescriptionException e) {
+                        String aOrAn = (Objects.equals(command, "event"))
+                                ? " an "
+                                : " a ";
+                        System.out.println(DIVIDER
+                                + "uhhh the description of" + aOrAn
+                                + command + " can't be empty :( try again?\n"
+                                + DIVIDER);
+                    }
                 }
             }
         }
+        scanner.close();
     }
 
     public String listSizeUpdateMessage() {
