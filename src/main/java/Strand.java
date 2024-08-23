@@ -6,9 +6,19 @@ public class Strand {
 
     private static boolean running = false;
 
-    private static final String horizontalLine = "----------------------------------------><>";
+    private static final String horizontalLine = "～～～～～～～～～～～～～～～～～～～～～～～～><>";
 
     private static final ArrayList<Task> strandList = new ArrayList<>();
+    enum Commands {
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        MARK,
+        UNMARK,
+        BYE,
+        LIST
+    }
 
     /**
      * Prints a string with an indentation of 4 spaces.
@@ -169,31 +179,37 @@ public class Strand {
      * @throws StrandException If the command is invalid or an error occurs during processing.
      */
     private static void inputs(String input) throws StrandException {
-        String[] split = input.toLowerCase().split("\\s+");
+        String[] split = input.toUpperCase().split("\\s+");
         if(split.length == 0) {
             throw new StrandWrongCommandException();
         }
-        String lowercaseInput = split[0];
+        String uppercaseInput = split[0];
+        Commands command;
+        try {
+            command = Commands.valueOf(uppercaseInput);
+        } catch (IllegalArgumentException e) {
+            throw new StrandWrongCommandException();
+        }
 
-        switch (lowercaseInput) {
-            case "todo", "deadline", "event": {
+        switch (command) {
+            case TODO, DEADLINE, EVENT: {
                 addTask(input);
                 break;
             }
-            case "delete": {
+            case DELETE: {
                 deleteTask(input);
                 break;
             }
-            case "mark", "unmark" : {
+            case MARK, UNMARK : {
                 mark(input);
                 break;
             }
-            case "bye" : {
+            case BYE: {
                 output("Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)");
                 running = false;
                 break;
             }
-            case "list" : {
+            case LIST : {
                 output(listAll());
                 break;
             }

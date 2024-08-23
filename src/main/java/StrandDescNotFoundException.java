@@ -8,6 +8,6 @@ public class StrandDescNotFoundException extends StrandException{
     @Override
     public String toString() {
         return this.part + " not found " + super.toString()
-                + "\nPlease include a " + this.part +" for this " + this.task + " task ";
+                + "\nPlease include a " + this.part +" for this " + this.task + " task";
     }
 }

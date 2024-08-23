@@ -1,43 +1,115 @@
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    Hello from Strand
+    ヾ(⌐■_■)ノ♪ Welcome! I'm Strand
     What can I do for you?
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    Got it. I've added this task:
-      [T][ ] borrow book
+    (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
+      [T][ ] read book
     Now you have 1 tasks in the list.
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    1.[T][ ] borrow book
-
-    ----------------------------------------><>
-
-    ----------------------------------------><>
-
-    Got it. I've added this task:
+    (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
       [D][ ] return book (by: Sunday)
     Now you have 2 tasks in the list.
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    Got it. I've added this task:
+    (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
       [E][ ] project meeting (from: Mon 2pm to: 4pm)
     Now you have 3 tasks in the list.
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
-    Bye. Hope to see you again soon!
+    1.[T][ ] read book
+    2.[D][ ] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
-    ----------------------------------------><>
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ( ﾟヮﾟ) You finished a task?! Congrats! I've marked this task as done:
+    [D][X] return book (by: Sunday)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ಠ_ಠ ...OK, I've marked this task as not done yet:
+    [D][ ] return book (by: Sunday)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    Index out of range (×_×;）Please input a number within range (minimum 1, maximum 3)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    Index out of range (×_×;）Please input a number within range (minimum 1, maximum 3)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
+      [D][ ] do homework (by: no idea :-p)
+    Now you have 4 tasks in the list.
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    Description not found (×_×;）
+    Please include a Description for this todo task
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    Command not found (×_×;）
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    1.[T][ ] read book
+    2.[D][ ] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    4.[D][ ] do homework (by: no idea :-p)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    (☞ﾟ∀ﾟ)☞ Task removed:
+    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 3 tasks in the list.
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    Index out of range (×_×;）Please input a number within range (minimum 1, maximum 3)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
