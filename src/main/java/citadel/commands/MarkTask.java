@@ -1,13 +1,13 @@
-package Citadel.Commands;
+package citadel.commands;
 
-import Citadel.Task.TaskList;
-import Citadel.exception.CitadelException;
-import Citadel.exception.CitadelInvalidArgException;
-import Citadel.ui.TextUI;
+import citadel.Task.TaskList;
+import citadel.exception.CitadelException;
+import citadel.exception.CitadelInvalidArgException;
+import citadel.ui.TextUI;
 
 
-public class markTask extends Command {
-    public markTask(String input, TaskList tasks) {
+public class MarkTask extends Command {
+    public MarkTask(String input, TaskList tasks) {
         super(input, tasks);
     }
 

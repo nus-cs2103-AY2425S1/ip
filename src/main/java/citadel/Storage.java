@@ -1,18 +1,17 @@
-package Citadel;
+package citadel;
 
 import java.io.*;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import Citadel.Task.Task;
-import Citadel.Task.TaskList;
-import Citadel.Task.Deadline;
-import Citadel.Task.Event;
-import Citadel.Task.ToDo;
-
-import Citadel.exception.CitadelException;
-import Citadel.exception.CitadelTaskNoInput;
+import citadel.Task.Task;
+import citadel.Task.TaskList;
+import citadel.Task.Deadline;
+import citadel.Task.Event;
+import citadel.Task.ToDo;
+import citadel.exception.CitadelException;
+import citadel.exception.CitadelTaskNoInput;
 
 public class Storage {
     private String filePath;
@@ -22,11 +21,12 @@ public class Storage {
         File db = new File(filePath);
         try {
             if (db.createNewFile()) {
-                System.out.println("File created: " + db.getName());
+                System.out.println("File created: "
+                                    + db.getName());
             } else {
-                System.out.println("File already exists. " + db.getAbsolutePath());
+                System.out.println("File already exists. "
+                                    + db.getAbsolutePath());
             }
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -52,12 +52,12 @@ public class Storage {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return tasks;
     }
 
     public void saveData(TaskList tasks) throws IOException {
-            FileWriter fileWriter = new FileWriter(this.filePath, false);
+            FileWriter fileWriter = new FileWriter(this.filePath,
+                                            false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < tasks.size(); i++) {
                 bufferedWriter.write(tasks.get(i).toString());
@@ -70,18 +70,19 @@ public class Storage {
     private static Task createDeadline(String input) throws CitadelException {
         Task t;
         String[] words = input.split(" \\(by: ");
-
         if (words.length < 2) {
             throw new CitadelTaskNoInput();
         }
         String task = words[0].trim();
-        String deadline = words[1].substring(0, words[1].length() - 1).trim();
-
+        String deadline = words[1]
+                        .substring(0, words[1].length() - 1).trim();
         if (task.isEmpty() || deadline.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
 
-        LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline,
+                                          DateTimeFormatter
+                                          .ofPattern("dd/MM/yyyy HH:mm"));
         t = new Deadline(task, deadlineFormatted);
         return t;
     }
@@ -89,27 +90,28 @@ public class Storage {
     private static Task createEvent(String input) throws CitadelException {
         Task t;
         String[] words = input.split(" \\(from: ");
-
         if (words.length < 2) {
             throw new CitadelTaskNoInput();
         }
-
         String task = words[0].trim();
         String[] timeline = words[1].split(" to: ");
-
         if (timeline.length < 2) {
             throw new CitadelTaskNoInput();
         }
-
         String from = timeline[0].trim();
-        String to = timeline[1].substring(0, timeline[1].length() - 1).trim();
-
+        String to = timeline[1].substring(0,
+                    timeline[1].length() - 1).trim();
         if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
-
-        LocalDateTime fromFormatted = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        LocalDateTime toFormatted = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime fromFormatted = LocalDateTime
+                                        .parse(from,
+                                        DateTimeFormatter
+                                        .ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime toFormatted = LocalDateTime
+                                    .parse(to,
+                                    DateTimeFormatter
+                                    .ofPattern("dd/MM/yyyy HH:mm"));
         t = new Event(task, fromFormatted, toFormatted);
         return t;
     }

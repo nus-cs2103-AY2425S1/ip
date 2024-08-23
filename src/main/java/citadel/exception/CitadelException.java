@@ -1,4 +1,4 @@
-package Citadel.exception;
+package citadel.exception;
 
 public abstract class CitadelException extends Exception {
 

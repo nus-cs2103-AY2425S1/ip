@@ -1,4 +1,4 @@
-package Citadel.Task;
+package citadel.Task;
 
 public class ToDo extends Task {
     public ToDo(String description) {

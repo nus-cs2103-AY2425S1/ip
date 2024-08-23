@@ -1,4 +1,4 @@
-package Citadel.Task;
+package citadel.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,15 +12,19 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.formatTime(this.dateTime) + ")";
+        return "[D]" + super.toString()
+                + " (by: " + this.formatTime(this.dateTime) + ")";
     }
 
     public String printTask() {
         return "[D]" + super.toString() + " (by: "
-                + this.dateTime.format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm")) + ")";
+                + this.dateTime
+                .format(DateTimeFormatter.ofPattern("dd MM yyyy HH:mm"))
+                + ")";
     }
 
     private String formatTime(LocalDateTime time) {
-        return time.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        return time
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 }

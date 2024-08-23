@@ -1,17 +1,17 @@
-package Citadel.Commands;
+package citadel.commands;
 
-import Citadel.Task.Task;
-import Citadel.Task.TaskList;
-import Citadel.Task.Event;
-import Citadel.exception.CitadelException;
-import Citadel.exception.CitadelTaskNoInput;
-import Citadel.ui.TextUI;
+import citadel.Task.Task;
+import citadel.Task.TaskList;
+import citadel.Task.Event;
+import citadel.exception.CitadelException;
+import citadel.exception.CitadelTaskNoInput;
+import citadel.ui.TextUI;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class handleEvent extends Command {
-    public handleEvent(String input, TaskList tasks) {
+public class HandleEvent extends Command {
+    public HandleEvent(String input, TaskList tasks) {
         super(input, tasks);
     }
 
@@ -38,8 +38,14 @@ public class handleEvent extends Command {
             throw new CitadelTaskNoInput();
         }
 
-        LocalDateTime fromFormatted = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        LocalDateTime toFormatted = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime fromFormatted = LocalDateTime
+                                        .parse(from,
+                                                DateTimeFormatter
+                                                .ofPattern("dd/MM/yyyy HH:mm"));
+        LocalDateTime toFormatted = LocalDateTime
+                                        .parse(to,
+                                                DateTimeFormatter
+                                                .ofPattern("dd/MM/yyyy HH:mm"));
 
         if (fromFormatted.isAfter(toFormatted)) {
             System.out.println("The start time must be before the end time!");

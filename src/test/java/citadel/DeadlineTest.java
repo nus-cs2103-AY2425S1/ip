@@ -1,8 +1,8 @@
-package Citadel;
+package citadel;
 
-import Citadel.Commands.handleDeadline;
-import Citadel.Task.TaskList;
-import Citadel.exception.CitadelException;
+import citadel.commands.HandleDeadline;
+import citadel.Task.TaskList;
+import citadel.exception.CitadelException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ public void TestDeadline() {
     try {
         String input = "deadline sleep /by 11/01/2024 13:00";
         TaskList tasks = new TaskList();
-        new handleDeadline(input, tasks).run();
+        new HandleDeadline(input, tasks).run();
         System.out.println(tasks.get(0).printTask());
         assertEquals("[D][ ] sleep (by: 11/01/2024 13:00)", tasks.get(0).toString());
         assertEquals("[D][ ] sleep (by: 11 01 2024 13:00)", tasks.get(0).printTask());

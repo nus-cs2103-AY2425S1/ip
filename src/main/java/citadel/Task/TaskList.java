@@ -1,4 +1,4 @@
-package Citadel.Task;
+package citadel.Task;
 
 import java.util.ArrayList;
 

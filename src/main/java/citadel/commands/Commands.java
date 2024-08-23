@@ -1,4 +1,4 @@
-package Citadel.Commands;
+package citadel.commands;
 
 public enum Commands {
     BYE, LIST,
