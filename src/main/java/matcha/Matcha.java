@@ -16,7 +16,6 @@ public class Matcha {
     public Matcha(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
-        parser = new Parser();
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (MatchaException e) {
@@ -35,7 +34,7 @@ public class Matcha {
                 //read user input
                 String input = ui.readInput();
                 ui.printDivider();
-                Command command = parser.parse(input);
+                Command command = Parser.parseCommand(input);
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (MatchaException e) {

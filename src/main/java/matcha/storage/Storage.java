@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import matcha.parser.Parser;
 import matcha.task.Task;
 import matcha.task.Todo;
 import matcha.task.Deadline;
@@ -15,7 +17,6 @@ import matcha.exception.MatchaException;
 
 public class Storage {
     private static String FILE_PATH;
-
     public Storage(String filePath) {
         Storage.FILE_PATH = filePath;
     }
@@ -36,42 +37,7 @@ public class Storage {
        return file;
     }
 
-    public Task parseData(String data) throws MatchaException {
-        String[] taskInfo = data.split(" \\| ");
-        String taskType = taskInfo[0];
-        boolean isTaskDone = taskInfo[1].equals("1");
-        Task task;
 
-        try {
-            switch (taskType) {
-            case "T":
-                task = new Todo(taskInfo[2]);
-                if(isTaskDone) {
-                    task.markDone();
-                }
-                break;
-            case "D":
-                task = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
-                if(isTaskDone) {
-                    task.markDone();
-                }
-                break;
-            case "E":
-                task = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
-                        LocalDateTime.parse(taskInfo[4]));
-                if(isTaskDone) {
-                    task.markDone();
-                }
-                break;
-            default:
-                throw new MatchaException("Oh no! Task data was saved in the wrong format.");
-            }
-        } catch (DateTimeParseException e) {
-            throw new MatchaException("Invalid date format! Please format the Date as 'YYYY-MM-DD' and Time as 'HHMM'");
-        }
-
-        return task;
-    }
 
     public ArrayList<Task> loadTasks() throws MatchaException {
         try {
@@ -81,7 +47,7 @@ public class Storage {
 
           //parse each line of file and add to tasks
           while (scanner.hasNext()) {
-                Task task = parseData(scanner.nextLine());
+                Task task = Parser.parseFileData(scanner.nextLine());
                 tasks.add(task);
           }
 
