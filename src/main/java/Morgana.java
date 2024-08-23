@@ -20,8 +20,8 @@ public class Morgana {
             String[] input = line.trim().split(" ", 2);
             switch (input[0]) {
                 case "list" -> listTasks();
-                case "mark" -> markTaskAsDone(Integer.parseInt(line.split(" ")[1]) - 1);
-                case "unmark" -> markTaskAsNotDone(Integer.parseInt(line.split(" ")[1]) - 1);
+                case "mark" -> markTaskAsDone(Integer.parseInt(input[1]) - 1);
+                case "unmark" -> markTaskAsNotDone(Integer.parseInt(input[1]) - 1);
                 case "delete" -> deleteTask(Integer.parseInt(input[1]) - 1);
                 default -> addTask(input);
             }

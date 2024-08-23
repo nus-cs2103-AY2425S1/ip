@@ -1,8 +1,10 @@
 abstract class Task {
+    private final TaskType type;
     private final String description;
     private boolean isDone = false;
 
-    public Task(String description) {
+    public Task(TaskType type, String description) {
+        this.type = type;
         this.description = description;
     }
 
@@ -16,6 +18,6 @@ abstract class Task {
 
     @Override
     public String toString() {
-        return "[%s] %s".formatted(isDone ? "X" : " ", description);
+        return "[%s][%s] %s".formatted(type, isDone ? "X" : " ", description);
     }
 }
