@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Devon {
 
     protected Scanner scanner = new Scanner(System.in);
-    protected Task[] tasks = new Task[100];
+    protected ArrayList<Task> tasks = new ArrayList<>();
     protected int taskCount = 0;
 
     private void start() {
@@ -78,7 +79,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= taskCount) {
             throw new DevonInvalidTaskNumberException(taskIndex + 1);
         }
-        markAsDone(tasks[taskIndex]);
+        markAsDone(tasks.get(taskIndex));
     }
 
     void unmarkAction(String input) throws DevonInvalidTaskNumberException {
@@ -86,7 +87,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= taskCount) {
             throw new DevonInvalidTaskNumberException(taskIndex + 1);
         }
-        markAsUndone(tasks[taskIndex]);
+        markAsUndone(tasks.get(taskIndex));
     }
 
     void deadlineAction(String input) throws DevonInvalidDeadlineException {
@@ -123,7 +124,7 @@ public class Devon {
     }
 
     private void addToList(Task task) {
-        this.tasks[taskCount] = task;
+        tasks.add(task);
         taskCount++;
         this.printLongLine();
         System.out.println("\t" + "Got it. I've added this task:");
@@ -136,7 +137,7 @@ public class Devon {
         this.printLongLine();
         System.out.println("\t" + "Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            Task current = tasks[i];
+            Task current = tasks.get(i);
             String formattedEntry = String.format(
                     "\t" + "%d. %s",
                     i + 1,
