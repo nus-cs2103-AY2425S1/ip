@@ -37,8 +37,7 @@ public class Danny {
         System.out.println("What can I do for you?");
         System.out.println(seperator);
         Scanner input = new Scanner(System.in);
-        List<String> arr = new ArrayList<String>();
-        List<Boolean> tickArr = new ArrayList<Boolean>();
+        List<Task> arr = new ArrayList<Task>();
         String in = input.nextLine();
         String text;
         while(!Objects.equals(in, "bye")){
@@ -47,21 +46,13 @@ public class Danny {
                 case "list":
                     System.out.println("These are all your unfinished tasks:");
                     for (int i = 0; i < arr.size(); i++) {
-                        text = (i+1) + ". ";
-                        if(tickArr.get(i)){
-                            text += "[X] ";
-                        }
-                        else{
-                            text += "[ ] ";
-                        }
-                        text += arr.get(i);
+                        text = (i+1) + "." + arr.get(i).getDescription();
                         System.out.println(text);
                     }
                     break;
                 case "add":
-                    arr.add(in);
-                    tickArr.add(false);
-                    System.out.println("added: " + in);
+                    arr.add(new Task(in.substring(4)));
+                    System.out.println("added: " + in.substring(4));
                     break;
                 case "mark":
                     int i = 0;
@@ -76,9 +67,9 @@ public class Danny {
                         System.out.println(e.getMessage());
                         break;
                     }
-                    tickArr.set(i, true);
                     System.out.println("I have marked this task as done");
-                    text = (i+1) + ". [X] " + arr.get(i);
+                    arr.get(i).setDone();
+                    text = (i+1) + "." + arr.get(i).getDescription();
                     System.out.println(text);
                     break;
                 case "unmark":
@@ -94,9 +85,9 @@ public class Danny {
                         System.out.println(e.getMessage());
                         break;
                     }
-                    tickArr.set(i, false);
+                    arr.get(i).setUnDone();
                     System.out.println("I have marked this task as undone");
-                    text = (i+1) + ". [ ] " + arr.get(i);
+                    text = (i+1) + "." + arr.get(i).getDescription();
                     System.out.println(text);
                     break;
                 default:
