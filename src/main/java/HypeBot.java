@@ -69,6 +69,15 @@ public class HypeBot {
                 + "\n"));
     }
 
+    private static void delete(int idx) throws IndexOutOfBoundsException {
+        Task removed = commandList.remove(idx);
+        System.out.println(addBufferLine("Say no more, BABY BYE BYE BYE to this task:\n "
+            + removed
+            + "!\nYOU'VE NOW GOT "
+            + commandList.size()
+            + " TASKS TO GO!\n"));
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -147,6 +156,18 @@ public class HypeBot {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(addBufferLineError("try indicating the index of an existing task you wanna "
                                 + "TAKE ON AGAIN!\n"));
+                    }
+                    break;
+                case "delete":
+                    try {
+                        int idx = Integer.parseInt(taskName.strip()) - 1;
+                        delete(idx);
+                    } catch (NumberFormatException e) {
+                        System.out.println(addBufferLineError("try indicating the index of the task you wanna delete "
+                                + "as a number!\n"));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(addBufferLineError("try indicating the index of an existing task you wanna "
+                                + "delete!\n"));
                     }
                     break;
                 default:
