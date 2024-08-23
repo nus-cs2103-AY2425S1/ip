@@ -2,8 +2,6 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected char eventType;
-    protected String datetime;
-
     public Task(String description, char eventType) {
         this.description = description;
         this.isDone = false;

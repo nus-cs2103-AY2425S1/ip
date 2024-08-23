@@ -20,7 +20,6 @@ public class Gravitas {
 
     public static void main(String[] args) {
         int count = 0;
-        Storage s = new Storage();
         String name = "Gravitas";
         String greet = "____________________________________________________________\nHello! I'm " + name + "\nWhat can I do for you?\n____________________________________________________________\n";
         String header = "____________________________________________________________";
@@ -37,8 +36,7 @@ public class Gravitas {
         String deleteMsg = "Noted. I've removed this task:";
         String emptyDelete = "OOPS!!! The description of a delete cannot be empty.";
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = s.loadTasks();
-        Gravitas.numOfTask = tasks.size();
+        ArrayList<Task> tasks = new ArrayList<>();
         System.out.println(greet);
 
         while (true) {
@@ -83,9 +81,11 @@ public class Gravitas {
                     String[] deadline = msg.split("/by ", 2);
                     String[] editedMsg = deadline[0].split(" ", 2);
                     String formattedMsg = editedMsg[1] + "(by: " + deadline[1] + ")";
+
                     Deadline d = new Deadline(formattedMsg);
                     tasks.add(d);
                     Gravitas.numOfTask += 1;
+
                     System.out.println(added);
                     Gravitas.printTask(d);
                 } else if (msgFrag[0].equals("event")) {
@@ -121,19 +121,18 @@ public class Gravitas {
 
                     if (msgFrag.length <= 1) {
                         throw new DukeException(emptyDelete);
-                    } else if (index >= tasks.size() || index < 0) {
+                    } else if (index >= Gravitas.numOfTask || index < 0) {
                         throw new DukeException(outOfBound);
                     }
+
                     Task t = tasks.get(index);
                     Gravitas.numOfTask -= 1;
                     System.out.println(deleteMsg);
                     Gravitas.printTask(t);
                     tasks.remove(index);
-
                 } else {
                     throw new DukeException(err);
                 }
-                s.saveTask(tasks);
             } catch (DukeException e) {
                 System.out.println(e);
             } finally {
