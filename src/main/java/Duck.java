@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duck {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmptyToDoException, InvalidCommandException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
@@ -35,27 +35,30 @@ public class Duck {
                 System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println(task);
             } else if (userCommand.startsWith("todo")) {
-                Task task = new ToDo(userCommand);
+                if (userCommand.equals("todo")) {
+                    throw new EmptyToDoException("Cannot have empty todo");
+                }
+                Task task = new ToDo(userCommand.split(" ", 2)[1]);
                 list.add(task);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(task);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else if (userCommand.startsWith("event")) {
                 String[] commandParts = userCommand.split("/from|/to");
-                Task task = new Event(commandParts[0], commandParts[1], commandParts[1]);
+                Task task = new Event(commandParts[0].split(" ", 2)[1], commandParts[1], commandParts[1]);
                 list.add(task);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(task);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else if (userCommand.startsWith("deadline")) {
                 String[] commandParts = userCommand.split("/by");
-                Task task = new Deadline(commandParts[0], commandParts[1]);
+                Task task = new Deadline(commandParts[0].split(" ", 2)[1], commandParts[1]);
                 list.add(task);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(task);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else {
-                System.out.println("nothing");
+                throw new InvalidCommandException("Invalid command");
             }
         }
 
