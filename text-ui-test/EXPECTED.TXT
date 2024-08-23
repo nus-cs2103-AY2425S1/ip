@@ -177,6 +177,18 @@ The correct syntax is unmark <task index>.
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
+Sumo removed this task for you.
+[T][ ]Read Book
+There are now 1 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo removed this task for you.
+[D][X]finish CS2103T IP (by: today)
+There are now 0 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
 ------------------------------------
 Goodbye! Sumo hope to see you again!
 ------------------------------------
