@@ -10,11 +10,33 @@ import citadel.ui.TextUI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents the command to handle the creation of an event task in the Citadel application.
+ * This class extends {@link Command} and provides functionality to add an event task to the task list.
+ */
 public class HandleEvent extends Command {
+
+    /**
+     * Constructs a new {@code HandleEvent} command with the specified input and task list.
+     *
+     * @param input The user input associated with the event command.
+     * @param tasks The task list to which the event task will be added.
+     */
     public HandleEvent(String input, TaskList tasks) {
         super(input, tasks);
     }
 
+    /**
+     * Executes the handle event command.
+     * <p>
+     * This method parses the user input to extract the task description, start time, and end time,
+     * creates a new {@link Event} task, adds it to the task list, and displays a confirmation message.
+     * If the input is incomplete or improperly formatted, a {@link CitadelTaskNoInput} exception is thrown.
+     * If the start time is after the end time, a warning message is displayed instead of creating the event.
+     * </p>
+     *
+     * @throws CitadelException If the input is invalid or an error occurs during the creation of the event task.
+     */
     @Override
     public void run() throws CitadelException {
         Task t;
@@ -39,13 +61,13 @@ public class HandleEvent extends Command {
         }
 
         LocalDateTime fromFormatted = LocalDateTime
-                                        .parse(from,
-                                                DateTimeFormatter
-                                                .ofPattern("dd/MM/yyyy HH:mm"));
+                .parse(from,
+                        DateTimeFormatter
+                                .ofPattern("dd/MM/yyyy HH:mm"));
         LocalDateTime toFormatted = LocalDateTime
-                                        .parse(to,
-                                                DateTimeFormatter
-                                                .ofPattern("dd/MM/yyyy HH:mm"));
+                .parse(to,
+                        DateTimeFormatter
+                                .ofPattern("dd/MM/yyyy HH:mm"));
 
         if (fromFormatted.isAfter(toFormatted)) {
             System.out.println("The start time must be before the end time!");
@@ -54,5 +76,5 @@ public class HandleEvent extends Command {
             this.tasks.add(t);
             TextUI.printTask(t, tasks);
         }
-    };
+    }
 }

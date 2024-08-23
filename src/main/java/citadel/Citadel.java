@@ -18,7 +18,6 @@ import citadel.ui.TextUI;
 public class Citadel {
     public static TaskList items = new TaskList();
     public static Storage db = new Storage("data/citadel");
-
     public static TextUI ui = new TextUI();
 
     public static void main(String[] args) throws IOException {
