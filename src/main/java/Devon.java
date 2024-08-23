@@ -7,6 +7,12 @@ public class Devon {
     protected Task[] tasks = new Task[100];
     protected int taskCount = 0;
 
+    private void start() {
+        introduction();
+        receiveUserInput();
+        goodbye();
+    }
+
     private void printLongLine() {
         String LINE_SEPARATOR = "____________________";
         System.out.println("\t" + LINE_SEPARATOR);
@@ -38,40 +44,82 @@ public class Devon {
     }
 
     private void receiveUserInput() {
-        String input = scanner.nextLine();
-        String command = detectCommand(input);
-        if (command.equals("bye")) {
-            goodbye();
-        } else if (command.equals("list")) {
-            printList();
-            receiveUserInput();
-        } else if (command.equals("mark")) {
-            int taskIndex = Integer.parseInt(detectContent(input)) - 1;
-            markAsDone(tasks[taskIndex]);
-            receiveUserInput();
-        } else if (command.equals("unmark")) {
-            int taskIndex = Integer.parseInt(detectContent(input)) - 1;
-            markAsUndone(tasks[taskIndex]);
-            receiveUserInput();
-        } else if (command.equals("deadline")) {
-            String[] parts = detectContent(input).split("/by", 2);
-            String description = parts[0].trim();
-            String by = parts[1].trim();
-            addToList(new Deadline(description, by));
-            receiveUserInput();
-        } else if (command.equals("event")) {
-            String[] partsFrom = detectContent(input).split("/from", 2);
-            String[] partsTo = partsFrom[1].split("/to", 2);
-            String description = partsFrom[0].trim();
-            String from = partsTo[0].trim();
-            String to = partsTo[1].trim();
-            addToList(new Event(description, from, to));
-            receiveUserInput();
-        } else { // todo
-            String description = detectContent(input);
-            addToList(new Todo(description));
-            receiveUserInput();
+        while (true) {
+            String input = scanner.nextLine();
+            String command = detectCommand(input);
+            try {
+                if (command.equals("bye")) {
+                    break;
+                } else if (command.equals("list")) {
+                    printList();
+                } else if (command.equals("mark")) {
+                    markAction(input);
+                } else if (command.equals("unmark")) {
+                    unmarkAction(input);
+                } else if (command.equals("deadline")) {
+                    deadlineAction(input);
+                } else if (command.equals("event")) {
+                    eventAction(input);
+                } else if (command.equals("todo")) {
+                    todoAction(input);
+                } else {
+                    unknownAction();
+                }
+            } catch (DevonException e) {
+                printLongLine();
+                System.out.println("\t" + e);
+                printLongLine();
+            }
         }
+    }
+
+    void markAction(String input) throws DevonInvalidTaskNumberException {
+        int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+        if (taskIndex < 0 || taskIndex >= taskCount) {
+            throw new DevonInvalidTaskNumberException(taskIndex + 1);
+        }
+        markAsDone(tasks[taskIndex]);
+    }
+
+    void unmarkAction(String input) throws DevonInvalidTaskNumberException {
+        int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+        if (taskIndex < 0 || taskIndex >= taskCount) {
+            throw new DevonInvalidTaskNumberException(taskIndex + 1);
+        }
+        markAsUndone(tasks[taskIndex]);
+    }
+
+    void deadlineAction(String input) throws DevonInvalidDeadlineException {
+        String content = detectContent(input);
+        if (!content.contains("/by")) {
+            throw new DevonInvalidDeadlineException();
+        }
+        String[] parts = content.split("/by", 2);
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        addToList(new Deadline(description, by));
+    }
+
+    void eventAction(String input) throws DevonInvalidEventException {
+        String content = detectContent(input);
+        if (!(content.contains("/from") && content.contains("/to"))) {
+            throw new DevonInvalidEventException();
+        }
+        String[] partsFrom = content.split("/from", 2);
+        String[] partsTo = partsFrom[1].split("/to", 2);
+        String description = partsFrom[0].trim();
+        String from = partsTo[0].trim();
+        String to = partsTo[1].trim();
+        addToList(new Event(description, from, to));
+    }
+
+    void todoAction(String input) {
+        String description = detectContent(input).trim();
+        addToList(new Todo(description));
+    }
+
+    void unknownAction() throws DevonUnknownCommandException {
+        throw new DevonUnknownCommandException();
     }
 
     private void addToList(Task task) {
@@ -79,7 +127,7 @@ public class Devon {
         taskCount++;
         this.printLongLine();
         System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t" + task);
+        System.out.println("\t\t" + task);
         System.out.println("\t" + "Now you have " + taskCount + " tasks in the list.");
         this.printLongLine();
     }
@@ -113,7 +161,6 @@ public class Devon {
 
     public static void main(String[] args) {
         Devon bot = new Devon();
-        bot.introduction();
-        bot.receiveUserInput();
+        bot.start();
     }
 }
