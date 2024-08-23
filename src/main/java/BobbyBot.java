@@ -1,11 +1,13 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BobbyBot {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static final String chatBotName = "BobbyBot";
 
     public static void main(String[] args) {
@@ -13,10 +15,24 @@ public class BobbyBot {
             runBot(myScanner);
         } catch (DukeException e) {
             printInput(e.getMessage());
+        } finally {
+            try {
+                TaskFile.saveTasksToFile(tasks.toArray(new Task[0]));
+            } catch (IOException e) {
+                printInput("Error saving to file.");
+            }
         }
+
     }
 
     private static void runBot(Scanner myScanner) throws DukeException {
+        try {
+            Task[] taskList = TaskFile.getTasksFromFile();
+            tasks = new ArrayList<>(List.of(taskList));
+        } catch (IOException e) {
+            printInput("Error reading from file. Starting with an empty task list.");
+        }
+
         printInput("Hello! I'm " + chatBotName, "What can I do for you?");
         while (true) {
             final String input = myScanner.nextLine();
