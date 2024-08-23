@@ -1,28 +1,37 @@
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Bob {
     private static final List<Task> taskList = new ArrayList<>();
     private static int numTasks = 0;
 
-    public static void main(String[] args) {
-        System.out.println("Hello! I'm Bob the bot!\nHow can I help you?");
+    public static void main(String[] args) throws IOException {
 
-        Scanner scanner = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter responses = new PrintWriter(new BufferedWriter(
+                new OutputStreamWriter(System.out)));
+
+       responses.println("Hello! I'm Bob the bot!\nHow can I help you?");
 
         while (true) {
-            String userInput = scanner.nextLine();
+            String userInput = br.readLine();
 
             // Exit program
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Bye! Hope to see you again :)");
+                responses.println("Bye! Hope to see you again :)");
                 break;
             }
 
             // Get input history
             if (userInput.equalsIgnoreCase("list")) {
-                System.out.println(actionResponse(userInput) + getTaskList());
+                responses.println(actionResponse(userInput) + getTaskList());
 
             // Mark task as done
             } else if (userInput.startsWith("mark")) {
@@ -30,7 +39,7 @@ public class Bob {
                 int taskNum = Integer.parseInt(parts[1]);
                 Task currTask = taskList.get(taskNum - 1);
                 currTask.markAsDone();
-                System.out.println(actionResponse(parts[0]) + currTask);
+                responses.println(actionResponse(parts[0]) + currTask);
 
             // Mark task as undone
             } else if (userInput.startsWith("unmark")) {
@@ -38,18 +47,21 @@ public class Bob {
                 int taskNum = Integer.parseInt(parts[1]);
                 Task currTask = taskList.get(taskNum - 1);
                 currTask.markAsUndone();
-                System.out.println(actionResponse(parts[0]) + currTask);
+                responses.println(actionResponse(parts[0]) + currTask);
 
             // Create Task
             } else {
                 Task task = createTask(userInput);
                 addTask(task);
-                System.out.println(actionResponse(userInput) + task
-                        + "\nNow you have " + numTasks + " tasks in your list.");
+                String word = "tasks";
+                if (numTasks == 1) {
+                    word = "task";
+                }
+                responses.println(actionResponse(userInput) + task
+                        + "\nNow you have " + numTasks + " " + word + " in your list.");
             }
         }
-
-        scanner.close();
+        responses.flush();
     }
 
     static void addTask(Task task) {
@@ -61,9 +73,9 @@ public class Bob {
         if (userInput.startsWith("list")) {
             return "Your list of tasks:\n";
         } else if (userInput.startsWith("mark")) {
-            return "Good Job! Marking this task as done:\n";
+            return "Good Job! Marking this task as done:\n ";
         } else if (userInput.startsWith("unmark")) {
-            return "Okay, marking this task as not done yet:\n";
+            return "Okay, marking this task as not done yet:\n ";
         } else {
             return "Adding this task:\n ";
         }
