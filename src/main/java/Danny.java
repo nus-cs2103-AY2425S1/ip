@@ -131,6 +131,21 @@ public class Danny {
                     text = (i+1) + "." + arr.get(i).toString();
                     System.out.println(text);
                     break;
+                case "delete":
+                    try{
+                        i = handleIntInput(in,arr.size());
+                    }
+                    catch (Exception e) {
+                        System.out.println(cat);
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    System.out.println("I have removed this task from the list");
+                    text = (i+1) + "." + arr.get(i).toString();
+                    System.out.println(text);
+                    arr.remove(i);
+                    break;
+
                 default:
                     System.out.println("Unknown Command Detected!");
                     break;

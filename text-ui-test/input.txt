@@ -14,4 +14,8 @@ unmark 1
 list
 mark a
 unmark a
+delete 1
+list
+delete a
+delete 9
 bye
