@@ -1,4 +1,11 @@
-public class MarkCommand extends Command{
+package Spongebob.command;
+
+import Spongebob.storage.Storage;
+import Spongebob.storage.TaskList;
+import Spongebob.Ui;
+import Spongebob.task.Task;
+
+public class MarkCommand extends Command {
 
     private String[] arguments;
     private int index;
@@ -19,7 +26,7 @@ public class MarkCommand extends Command{
             }
         }
         this.index = Integer.parseInt(arguments[1]) - 1;
-        Task task = taskList.cache.get(index);
+        Task task = taskList.getCache().get(index);
 
         try {
             if (this.arguments[0].equals("mark")) {

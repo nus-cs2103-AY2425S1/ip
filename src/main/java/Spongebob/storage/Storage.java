@@ -1,3 +1,11 @@
+package Spongebob.storage;
+
+import Spongebob.exception.SpongebobException;
+import Spongebob.task.Deadline;
+import Spongebob.task.Event;
+import Spongebob.task.Task;
+import Spongebob.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,7 +24,7 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    public List<Task> load() throws SpongebobException{
+    public List<Task> load() throws SpongebobException {
         this.data = new ArrayList<>();
         List<Task> res = new ArrayList<>();
         List<String> args;

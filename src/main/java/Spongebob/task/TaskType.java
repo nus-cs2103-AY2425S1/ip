@@ -1,3 +1,5 @@
+package Spongebob.task;
+
 public enum TaskType {
     TODO,
     DEADLINE,

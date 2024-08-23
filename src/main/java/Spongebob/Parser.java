@@ -1,3 +1,7 @@
+package Spongebob;
+
+import Spongebob.command.*;
+
 public class Parser {
 
     String[] arguments;

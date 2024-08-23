@@ -1,5 +1,9 @@
-import java.io.File;
-import java.util.*;
+package Spongebob;
+
+import Spongebob.command.Command;
+import Spongebob.exception.SpongebobException;
+import Spongebob.storage.Storage;
+import Spongebob.storage.TaskList;
 
 public class Spongebob {
 

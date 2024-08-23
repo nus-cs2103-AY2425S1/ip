@@ -1,4 +1,15 @@
-public class AddCommand extends Command{
+package Spongebob.command;
+
+import Spongebob.exception.SpongebobException;
+import Spongebob.storage.Storage;
+import Spongebob.storage.TaskList;
+import Spongebob.Ui;
+import Spongebob.task.Deadline;
+import Spongebob.task.Event;
+import Spongebob.task.Task;
+import Spongebob.task.Todo;
+
+public class AddCommand extends Command {
 
     private String[] arguments;
 

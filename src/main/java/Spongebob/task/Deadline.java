@@ -1,3 +1,7 @@
+package Spongebob.task;
+
+import Spongebob.exception.SpongebobException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,7 +10,7 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
-    public Deadline(String description, String by) throws SpongebobException{
+    public Deadline(String description, String by) throws SpongebobException {
         super(description, TaskType.DEADLINE);
 
         // check for errors

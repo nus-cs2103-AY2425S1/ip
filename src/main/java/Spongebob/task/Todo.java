@@ -1,3 +1,7 @@
+package Spongebob.task;
+
+import Spongebob.exception.SpongebobException;
+
 public class Todo extends Task {
 
     public Todo(String description) throws SpongebobException {

@@ -1,10 +1,15 @@
+package Spongebob.storage;
+
+import Spongebob.exception.SpongebobException;
+import Spongebob.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 public class TaskList {
 
-    List<Task> cache;
+    private List<Task> cache;
 
     public TaskList() {
         this.cache = new ArrayList<>();
@@ -12,6 +17,10 @@ public class TaskList {
 
     public TaskList(Storage storage) throws SpongebobException {
         this.cache = storage.load();
+    }
+
+    public List<Task> getCache() {
+        return this.cache;
     }
 
     public void update(int index, Task task) throws IndexOutOfBoundsException{

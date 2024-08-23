@@ -1,3 +1,7 @@
+package Spongebob;
+
+import Spongebob.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
