@@ -26,4 +26,6 @@ delete 3
 delete all my enemies
 mark attendance
 unmark attendance
+delete 1
+delete 1
 bye
