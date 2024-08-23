@@ -1,10 +1,15 @@
 package duke.exceptions;
 
+/**
+ * Represents an exception that is thrown when a Todo task is created without a description.
+ * This exception is used to signal that the task description cannot be empty.
+ */
 public class EmptyTodoDescriptionException extends Exception {
+
     /**
-     * Creates a duke.exceptions.EmptyTodoException when the user enters a todo without specifying the description.
+     * Constructs an EmptyTodoDescriptionException with a specified error message.
      *
-     * @param e description of the exception
+     * @param e The error message describing the exception.
      */
     public EmptyTodoDescriptionException(String e) {
         super(e);

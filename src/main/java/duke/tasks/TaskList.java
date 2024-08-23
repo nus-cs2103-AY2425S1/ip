@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,11 +8,7 @@ import duke.exceptions.EmptyTodoDescriptionException;
 import duke.exceptions.InvalidDeadlineException;
 import duke.exceptions.InvalidEventException;
 import duke.exceptions.UnknownMessageException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.TaskEnum;
-import duke.tasks.ToDos;
+import duke.ui.Ui;
 
 /**
  * The {@code TaskManager} class is responsible for managing a collection of tasks.
