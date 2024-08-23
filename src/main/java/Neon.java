@@ -32,6 +32,10 @@ public class Neon {
         switch (first) {
             case "todo":
                 String taskTodo = removeSpace(answer.replace("todo ", ""));
+                if (taskTodo.isEmpty()) {
+                    System.out.println("found no description of task! do try again");
+                    break;
+                }
                 Todo newTodo = new Todo(taskTodo, false, lastListIndex);
                 list[lastListIndex] = newTodo;
                 lastListIndex++;
@@ -40,6 +44,10 @@ public class Neon {
             case "deadline":
                 String taskDeadline = answer.replace("deadline ", "");
                 String[] partsDeadline = taskDeadline.split("\\s*/by\\s*");
+                if (partsDeadline.length == 1) {
+                    System.out.println("found no description of task! do try again");
+                    break;
+                }
                 Deadline newDeadline = new Deadline(partsDeadline[0],
                         false, lastListIndex,
                         removeSpace(partsDeadline[1]));
@@ -50,6 +58,13 @@ public class Neon {
             case "event":
                 String taskEvent = answer.replace("event ", "");
                 String[] partsEvent = taskEvent.split("\\s*/from\\s*|\\s*/to\\s*");
+                if (partsEvent.length == 1) {
+                    System.out.println("found no description of task! do try again");
+                    break;
+                } else if (partsEvent.length < 3 || partsEvent[1].isEmpty()) {
+                    System.out.println("dates are incomplete! do try again");
+                    break;
+                }
 
                 Event newEvent = new Event(partsEvent[0], false, lastListIndex,
                         partsEvent[1], removeSpace(partsEvent[2]));
@@ -66,6 +81,9 @@ public class Neon {
     }
 
     private static String removeSpace(String line) {
+        if (line.isEmpty()) {
+            return line;
+        }
         return line.substring(0, line.length() - 1);
     }
     private static void printList() {
