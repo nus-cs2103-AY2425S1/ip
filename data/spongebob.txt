@@ -1,1 +1,3 @@
-TODO|false|lmao
+TODO|false|borrow book
+DEADLINE|true|return book|20/12/2023
+EVENT|false|go japan|10/10/2024|10/12/2024

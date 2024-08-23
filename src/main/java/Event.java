@@ -1,12 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     public Event(String description, String from, String to) throws SpongebobException{
         super(description, TaskType.EVENT);
-        this.from = from;
-        this.to = to;
 
         // check for errors
         if (description.equals(" ") || from.equals(" ") || to.equals(" ")) {
@@ -23,15 +25,30 @@ public class Event extends Task {
 
             throw new SpongebobException("Barnacles! You missed out " + msg + "!");
         }
+
+        try {
+            this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Barnacles! Please enter date at dd/mm/yyyy!");
+        }
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + from + "to:" + to + ")";
+        return "[E]"
+                + super.toString()
+                + "(from: "
+                + this.from.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
+                + " to: "
+                + this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy "))
+                + ")";
     }
 
     @Override
     public String save() {
-        return super.save() + "|" + this.from + "|" + this.to;
+        return super.save() + "|"
+                + this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "|"
+                + this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }
