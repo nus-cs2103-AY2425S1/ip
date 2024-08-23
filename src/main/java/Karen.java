@@ -37,7 +37,24 @@ public class Karen {
             Keywords keyword = Keywords.valueOf(command[0].toUpperCase());
 
             output = "";
-
+            switch (keyword) {
+                case BYE:
+                    break;
+                case LIST:
+                    break;
+                case MARK:
+                    break;
+                case UNMARK:
+                    break;
+                case TODO:
+                    break;
+                case DEADLINE:
+                    break;
+                case EVENT:
+                    break;
+                case DELETE:
+                    break;
+            }
             if (command[0].equals("bye")) {
                 //End program
                 System.out.print(
