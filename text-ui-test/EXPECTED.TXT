@@ -17,13 +17,13 @@ We have 1 tasks in the bag~
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Got it! Deadline task added: [D][ ] return book (by: Sunday)
+Got it! Deadline task added: [D][ ] return book (by: 22-08-2024 17:00)
 We have 2 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Here you go! Event task added: [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Here you go! Event task added: [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 We have 3 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
@@ -31,8 +31,8 @@ We have 3 tasks in the bag~
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Here's your list of tasks!
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: 22-08-2024 17:00)
+3. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
@@ -44,7 +44,7 @@ YAY!! One down!!
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 YAY!! One down!!
-[D][X] return book (by: Sunday)
+[D][X] return book (by: 22-08-2024 17:00)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
@@ -56,13 +56,13 @@ YAY!! One down!!
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Oof, it's OK! Let's get it done soon ;)
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: 22-08-2024 17:00)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Oof, it's OK! Let's get it done soon ;)
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
@@ -100,43 +100,148 @@ Uh-oh :'( I need more information to help you out! Pass me some more arguments~
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
+Uh-oh :'( I need more information to help you out! Pass me some more arguments~
+** Pro-tip: double-check your slash command(s) ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
+** Pro-tip: pass me an integer in the range of existing task indices ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
+** Pro-tip: pass me an integer in the range of existing task indices ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
+** Pro-tip: pass me an integer in the range of existing task indices ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
+** Pro-tip: pass me an integer in the range of existing task indices ;)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Here's your list of tasks!
 1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: 22-08-2024 17:00)
+3. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Aju nice! I've got rid of this task: [D][ ] return book (by: Sunday)
+Aju nice! I've got rid of this task: [D][ ] return book (by: 22-08-2024 17:00)
 We have 2 tasks left in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( Need some fixing on the date range here!
+** Pro-tip: the starting time shouldn't be later than the ending time ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Here you go! Event task added: [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+We have 3 tasks in the bag~
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Here you go! Event task added: [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+We have 4 tasks in the bag~
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Got it! Deadline task added: [D][ ] iP (by: 22-08-2024 17:17)
+We have 5 tasks in the bag~
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Got it! Deadline task added: [D][ ] tP (by: 23-08-2024 17:17)
+We have 6 tasks in the bag~
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 Here's your list of tasks!
 1. [T][X] borrow book
-2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+3. [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+4. [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+5. [D][ ] iP (by: 22-08-2024 17:17)
+6. [D][ ] tP (by: 23-08-2024 17:17)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Uh-oh :'( The date format doesn't make sense to me.. This calls for a fix!
+** Pro-tip: pass me valid dates in the format 'yyyy-MM-dd' ;)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Here's your list of tasks, occurring on 22-08-2024!
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+4. [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+5. [D][ ] iP (by: 22-08-2024 17:17)
+
+⋆⭒˚.⋆User⋆⭒˚.⋆
+
+⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+Here's your list of tasks!
+1. [T][X] borrow book
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+3. [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+4. [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+5. [D][ ] iP (by: 22-08-2024 17:17)
+6. [D][ ] tP (by: 23-08-2024 17:17)
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 

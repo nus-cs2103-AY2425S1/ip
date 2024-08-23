@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Task {
 
     protected String typeIcon;
@@ -20,6 +23,10 @@ public class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    public boolean occurringOn(LocalDate date) {
+        return false;
     }
 
     public String stringUI() {
