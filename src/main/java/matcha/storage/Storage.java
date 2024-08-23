@@ -1,18 +1,19 @@
 package matcha.storage;
+
+import matcha.parser.Parser;
+
+import matcha.task.Task;
+
+import matcha.exception.MatchaException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import matcha.parser.Parser;
-import matcha.task.Task;
-import matcha.task.Todo;
-import matcha.task.Deadline;
-import matcha.task.Event;
-import matcha.exception.MatchaException;
+
 
 /**
  * Represents a Storage object that saves and loads tasks from a file.
@@ -38,7 +39,7 @@ public class Storage {
     private static File initFile() throws IOException {
        File file = new File(FILE_PATH);
 
-       if(!file.getParentFile().exists()) {
+       if (!file.getParentFile().exists()) {
            //create directory if it does not exist
            file.getParentFile().mkdirs();
        }

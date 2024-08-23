@@ -1,4 +1,5 @@
 package matcha.ui;
+
 import java.util.Scanner;
 
 /**

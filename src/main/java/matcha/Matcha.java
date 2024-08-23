@@ -1,9 +1,15 @@
 package matcha;
+
 import matcha.command.Command;
+
 import matcha.exception.MatchaException;
+
 import matcha.parser.Parser;
+
 import matcha.storage.Storage;
+
 import matcha.tasklist.TaskList;
+
 import matcha.ui.Ui;
 
 /**
