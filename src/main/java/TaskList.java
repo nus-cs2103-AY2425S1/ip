@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
     private int taskCount;
+    private Storage storage;
 
     /**
      * Constructs a TaskList instance.
@@ -13,6 +14,36 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.taskCount = 0;
+    }
+
+    /**
+     * Constructs a TaskList and loads tasks from storage.
+     * If the storage file does not exist, an empty list is created.
+     * @param tasks The list of tasks.
+     * @param storage The storage object for saving and loading tasks.
+     */
+    public TaskList(ArrayList<Task> tasks, Storage storage) {
+        assert tasks != null : "Oops! List of tasks should not be empty.";
+        this.tasks = tasks;
+        this.storage = storage;
+        this.taskCount = tasks.size();
+    }
+
+    /**
+     * Sets the storage object for this TaskList.
+     *
+     * @param storage The storage object.
+     */
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
+
+    /**
+     * Returns the list of tasks.
+     * @return The list of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     /**
@@ -24,6 +55,7 @@ public class TaskList {
     public void markTaskAsDone(int taskNumber) throws OllieException {
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             tasks.get(taskNumber).markAsDone(true);
+            storage.saveTasks(tasks);
             messageWrapper("Nice! ☺ I've marked this task as done ☺ :\n  " + tasks.get(taskNumber));
         } else {
             throw new OllieException("Please enter a valid task number within the list ☺");
@@ -39,6 +71,7 @@ public class TaskList {
     public void unmarkTaskAsDone(int taskNumber) throws OllieException {
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             tasks.get(taskNumber).markAsDone(false);
+            storage.saveTasks(tasks);
             messageWrapper("OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber));
         } else {
             throw new OllieException("Please enter a valid task number within the list ☺");
@@ -66,6 +99,11 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
         taskCount = tasks.size();
+        if (storage != null) {
+            storage.saveTasks(tasks);
+        } else {
+            System.out.println("Oops! Storage is not initialized. Task not saved.");
+        }
         printTaskAdded(task);
     }
 
@@ -93,6 +131,7 @@ public class TaskList {
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             Task removedTask = tasks.remove(taskNumber);
             taskCount = tasks.size();
+            storage.saveTasks(tasks);
             messageWrapper("Noted. I've removed this task:\n  " + removedTask +
                     "\nNow you have " + taskCount + " tasks in the list.");
         } else {

@@ -5,19 +5,21 @@ import java.util.Scanner;
  */
 public class Ollie {
     private TaskList taskList;
+    private Storage storage;
 
     /**
      * Constructs an Ollie instance with a new TaskList.
      */
     public Ollie() {
-        this.taskList = new TaskList();
+        this.storage = new Storage("./data/ollie.txt");
+        this.taskList = new TaskList(storage.loadTasks(), storage);
     }
 
     /**
      * Greets the user with a welcome message.
      */
     public void greeting() {
-        System.out.println("Hello there! ☺ I'm OLLIE ☺" ) ;
+        System.out.println("Hello there! ☺ I'm OLLIE ☺");
         System.out.println("What can I do for you today? ☺");
     }
 
@@ -32,7 +34,7 @@ public class Ollie {
     /**
      * Parses the task number from the user's command.
      *
-     * @param userCommand The command entered by the user.
+     * @param userCommand  The command entered by the user.
      * @param prefixLength The length of the prefix to trim.
      * @return The parsed task number.
      * @throws OllieException If the task number is invalid.
