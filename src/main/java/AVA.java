@@ -4,19 +4,19 @@ public class AVA {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String currentInput="";
+        String currentInput;
         // Greet the user
         System.out.println("""
                           Hi,  I'm AVA (Artificial Virtual Assistant).
                        I am a virtual personal assistant created by Nikhil.
-                        I am currently an infant and can't do much 🙁 but  
+                        I am currently an infant and can't do much 🙁 but
                           don't worry I should soon be very capable 😉.
                 
                 ----------------------------------------------------------------
                        I'll repeat what you say, but if you want to leave
                                      you can just say Bye .🙂
                             
-                ----------------------------------------------------------------                 
+                ----------------------------------------------------------------
                 """);
         currentInput = scanner.nextLine();
         // Process user input until user says bye
