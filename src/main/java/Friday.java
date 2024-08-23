@@ -1,14 +1,15 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Friday {
     public static void main(String[] args) {
-        String logo = "___________        .__     .___                \n"
-                + "\\_   _____/_______ |__|  __| _/_____    ___.__.\n"
-                + " |    __)  \\_  __ \\|  | / __ | \\__  \\  <   |  |\n"
-                + " |     \\    |  | \\/|  |/ /_/ |  / __ \\_ \\___  |\n"
-                + " \\___  /    |__|   |__|\\____ | (____  / / ____|\n"
-                + "     \\/                     \\/      \\/  \\/     \n";
+        String logo = """
+                ___________        .__     .___               \s
+                \\_   _____/_______ |__|  __| _/_____    ___.__.
+                 |    __)  \\_  __ \\|  | / __ | \\__  \\  <   |  |
+                 |     \\    |  | \\/|  |/ /_/ |  / __ \\_ \\___  |
+                 \\___  /    |__|   |__|\\____ | (____  / / ____|
+                     \\/                     \\/      \\/  \\/    \s
+                """;
 
         System.out.println("Loading........\n" + logo);
         printLine();
@@ -41,7 +42,7 @@ public class Friday {
                     break;
                 case "List":
                 case "list":
-                    System.out.println("Friday > Here's everything!\n" + master.toString());
+                    System.out.println("Friday > Here's everything!\n" + master);
                     break;
                 case "Remove":
                 case "remove":
@@ -58,6 +59,17 @@ public class Friday {
                     master.addTask(new Task(parsed[1]));
                     printLine();
                     break;
+                case "mark":
+                case "unmark":
+                    try {
+                        int index = Integer.parseInt(parsed[1]);
+                        master.doneTask(parsed[0], index-1);
+                        printLine();
+                        break;
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        System.out.println("Friday > Input the task number to mark/unmark the task\n");
+                        break;
+                    }
                 default:
                     System.out.println("Friday > Try add/remove <task>\n");
                     printLine();

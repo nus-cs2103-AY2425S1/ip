@@ -30,4 +30,14 @@ public class TaskList {
         }
         return ans;
     }
+
+    public void doneTask(String action, int task) {
+        if (action.equals("mark") || action.equals("Mark")) {
+            this.parent.get(task).setDone();
+            System.out.println("Friday > Good job! Marked as done :)");
+        } else {
+            this.parent.get(task).setUndone();
+            System.out.println("Friday > Oh man! Marked as undone :(");
+        }
+    }
 }
