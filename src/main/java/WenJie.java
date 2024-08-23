@@ -83,6 +83,38 @@ public class WenJie {
                     break;
                 }
 
+                case "deadline": {
+                    String by = "";
+                    for (int i = 0; i < parts.length; i++) {
+                        if (parts[i].charAt(0) == '/') {
+                            for (int j = i + 1; j < parts.length; j++){
+                                by += parts[j] + " ";
+                            }
+                            break;
+                        }
+                    }
+                    int endIndex = 0;
+                    for (int i = 0; i < input.length(); i++) {
+                        if (input.charAt(i) == '/') {
+                            endIndex = i;
+                            break;
+                        }
+                    }
+
+                    String desc = input.substring(9, endIndex);
+                    Deadline temp = new Deadline(desc, by);
+                    taskList[currentPointer] = temp;
+                    String output =
+                            "____________________________________________________________\n" +
+                            "Got it. I've added this task:\n" +
+                            temp + "\n" +
+                            "Now you have " + (currentPointer + 1)+" tasks in the list.\n" +
+                            "____________________________________________________________\n";
+                    System.out.println(output);
+                    currentPointer++;
+                    break;
+                }
+
                 case "event": {
                     String from = "", to = "";
 
