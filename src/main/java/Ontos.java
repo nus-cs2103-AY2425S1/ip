@@ -29,7 +29,7 @@ public class Ontos {
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < elements; i++) {
                     int j = i + 1;
-                    System.out.println(" " + j + ": " + inputs[i]);
+                    System.out.println(" " + j + ". " + inputs[i]);
                 }
                 System.out.println(line);
             } else {
