@@ -12,6 +12,8 @@ abstract public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public abstract String toFileFormat();
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
