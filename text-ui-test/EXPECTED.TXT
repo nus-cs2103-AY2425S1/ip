@@ -3,9 +3,28 @@ Hello! I'm CasperBot.
 What can I do for you?
 ------------------------------------------
 ------------------------------------------
+Error: Missing description
+description is required for ToDo command
+------------------------------------------
+------------------------------------------
+Error: Index out of bounds
+Ensure that the index is within the length of the task list
+------------------------------------------
+------------------------------------------
+You currently have no tasks in your list!
+------------------------------------------
+------------------------------------------
 Got it. I've added this task:
   [T][ ] borrow book
 Now you have 1 tasks in the list.
+------------------------------------------
+------------------------------------------
+Here are the tasks in your list:
+1. [T][ ] borrow book
+------------------------------------------
+------------------------------------------
+Error: Missing /by
+/by is required for Deadline command
 ------------------------------------------
 ------------------------------------------
 Got it. I've added this task:
@@ -22,6 +41,10 @@ Here are the tasks in your list:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+------------------------------------------
+------------------------------------------
+Error: Invalid command
+Here are the list of valid commands: mark, unmark, delete, list, todo, event, deadline
 ------------------------------------------
 ------------------------------------------
 Nice! I've marked this task as done:
@@ -54,16 +77,8 @@ Here are the tasks in your list:
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ------------------------------------------
 ------------------------------------------
-Got it. I've added this task:
-  [T][ ] exercise
-Now you have 4 tasks in the list.
-------------------------------------------
-------------------------------------------
-Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4. [T][ ] exercise
+Error: Index out of bounds
+Ensure that the index is within the length of the task list
 ------------------------------------------
 ------------------------------------------
 Bye. Hope to see you again soon!
