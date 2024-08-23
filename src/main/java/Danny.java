@@ -1,8 +1,16 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
 public class Danny {
+    enum Command{
+        List,
+        Todo,
+        Deadline,
+        Event,
+        Mark,
+        Unmark,
+        Delete,
+        Unknown
+    }
     static String cat = """
                   |\\      _,,,---,,_
             ZZZzz /,`.-'`'    -.  ;-;;,_
@@ -10,7 +18,27 @@ public class Danny {
                 '---''(_/--'  `-'\\_)
             """;
     static String seperator = "____________________________________________________________";
-
+    public static Command checkCommand(String in){
+        in = in.toLowerCase().split(" ")[0];
+        switch(in){
+            case "list":
+                return Command.List;
+            case "todo":
+                return Command.Todo;
+            case "deadline":
+                return Command.Deadline;
+            case "event":
+                return Command.Event;
+            case "mark":
+                return Command.Mark;
+            case "unmark":
+                return Command.Unmark;
+            case "delete":
+                return Command.Delete;
+            default:
+                return Command.Unknown;
+        }
+    }
     public static int handleIntInput(String in, int size) throws Exception{
         int i = -1;
         i = Integer.parseInt(in.split(" ")[1])-1;
@@ -19,7 +47,6 @@ public class Danny {
         }
         return i;
     }
-
     public static void checkTodo(String in) throws Exception{
         if(in.length()<=4){
             throw new Exception("Please Enter Something for Todo!");
@@ -50,15 +77,16 @@ public class Danny {
 
         while(!Objects.equals(in, "bye")){
             System.out.println(seperator);
-            switch (in.split(" ")[0]){
-                case "list":
+            Command c = checkCommand(in);
+            switch (c){
+                case List:
                     System.out.println("These are all your unfinished tasks:");
                     for (int i = 0; i < arr.size(); i++) {
                         text = (i+1) + "." + arr.get(i).toString();
                         System.out.println(text);
                     }
                     break;
-                case "todo":
+                case Todo:
                     try{
                         checkTodo(in);
                     }
@@ -71,7 +99,7 @@ public class Danny {
                     arr.add(add);
                     System.out.println("added: " + add.toString());
                     break;
-                case "deadline":
+                case Deadline:
                     try{
                         checkDeadline(in);
                     }
@@ -86,7 +114,7 @@ public class Danny {
                     arr.add(add);
                     System.out.println("added: " + add.toString());
                     break;
-                case "event":
+                case Event:
                     try{
                         checkEvent(in);
                     }
@@ -102,7 +130,7 @@ public class Danny {
                     arr.add(add);
                     System.out.println("added: " + add.toString());
                     break;
-                case "mark":
+                case Mark:
                     int i = 0;
                     try{
                         i = handleIntInput(in,arr.size());
@@ -117,7 +145,7 @@ public class Danny {
                     text = (i+1) + "." + arr.get(i).toString();
                     System.out.println(text);
                     break;
-                case "unmark":
+                case Unmark:
                     try{
                         i = handleIntInput(in,arr.size());
                     }
@@ -131,7 +159,7 @@ public class Danny {
                     text = (i+1) + "." + arr.get(i).toString();
                     System.out.println(text);
                     break;
-                case "delete":
+                case Delete:
                     try{
                         i = handleIntInput(in,arr.size());
                     }
@@ -145,8 +173,7 @@ public class Danny {
                     System.out.println(text);
                     arr.remove(i);
                     break;
-
-                default:
+                case Unknown:
                     System.out.println("Unknown Command Detected!");
                     break;
             }
