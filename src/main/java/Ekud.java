@@ -44,18 +44,24 @@ public class Ekud {
 
     public void addToList(Task task) {
         tasks.addTask(task);
-        String confirmation = String.format("added: %s\nAnd another one; %s tasks to complete...",
+        String confirmation = String.format("added: %s\nAnd another one; %d out of %d tasks to complete...",
                 task,
-                tasks.getIncompleteCount());
+                tasks.getIncompleteCount(),
+                tasks.getCount());
         FormatPrinter.printIndent(confirmation, OUTPUT_PREFIX);
     }
 
     public void echoList() {
-        System.out.println("\t Look at all these tasks:");
-        int i = 1;
-        for (Task task: tasks) {
-            System.out.printf("\t %d. %s\n", i, task);
-            i++;
+        if (tasks.isEmpty()) {
+            System.out.printf("%sWould Ya look at: No tasks to be found. Shocking ain't it!\n",
+                    OUTPUT_PREFIX);
+        } else {
+            System.out.println(OUTPUT_PREFIX + "Look at all these tasks:");
+            int i = 1;
+            for (Task task : tasks) {
+                System.out.printf("%s%d. %s\n", OUTPUT_PREFIX, i, task);
+                i++;
+            }
         }
     }
 
@@ -73,13 +79,19 @@ public class Ekud {
 
     public void markList(int listIndex) throws TaskListIndexOutOfBoundsException {
         tasks.markComplete(listIndex);
+        String listStatus = tasks.isAllComplete()
+                            ? String.format("WOOHOO!! YOU DID IT! Everything is complete!! All %d of them",
+                                    tasks.getCount())
+                            : String.format("Woohoo!! Only %d out of %d tasks more to go",
+                                    tasks.getIncompleteCount(),
+                                    tasks.getCount());
         String message = String.format("""
                         Wowie!! You've completed your task!
                         I shall mark it as complete in celebration!
                           %s
-                        Woohoo!! Only %d more to go!""",
+                        %s!""",
                 tasks.getTask(listIndex),
-                tasks.getIncompleteCount());
+                listStatus);
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
     }
 
@@ -89,9 +101,10 @@ public class Ekud {
                         Oh ho ho, did you perhaps forget something?
                         It's OK, I already noted down your incompetence...
                           %s
-                        Tsk Tsk... Back to %d incomplete tasks you go!""",
+                        Tsk Tsk... Back to %d out of %d incomplete tasks you go!""",
                 tasks.getTask(listIndex),
-                tasks.getIncompleteCount());
+                tasks.getIncompleteCount(),
+                tasks.getCount());
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
     }
 
@@ -100,16 +113,27 @@ public class Ekud {
         String completeResponse = removed.isDone()
                                   ? "Great work on completing your task!"
                                   : "I'm going to assume that task wasn't meant to be there...";
+        String listStatus;
+        if (tasks.isEmpty()) {
+            listStatus = "Well, looks like there is nothing left for you do!";
+        } else if (tasks.isAllComplete()) {
+            listStatus = String.format("I've ran the numbers, and it says that all %d tasks are complete!",
+                    tasks.getCount());
+        } else {
+            listStatus = String.format("Now get a move on, "
+                            + "you have %d out of %d incomplete tasks remaining!",
+                   tasks.getIncompleteCount(),
+                   tasks.getCount());
+        }
         String message = String.format("""
                         %s
                         Proceeding with task removal directive...
-                          %s
-                        Now get a move on, you have %d/%d incomplete tasks remaining!
+                          deleted: %s
+                        %s
                         """,
                 completeResponse,
                 removed,
-                tasks.getIncompleteCount(),
-                tasks.getCount());
+                listStatus);
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
     }
 
