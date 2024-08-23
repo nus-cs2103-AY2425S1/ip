@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Devon {
 
-    private Scanner userInput = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     private void printLongLine() {
         String LINE_SEPARATOR = "____________________";
@@ -10,24 +10,37 @@ public class Devon {
     }
 
     private void introduction() {
-        printLongLine();
+        this.printLongLine();
         System.out.println("\t" + "Hello! I'm Devon.");
         System.out.println("\t" + "What can I do for you?");
-        printLongLine();
+        this.printLongLine();
     }
 
     private void goodbye() {
+        this.printLongLine();
         System.out.println("\t" + "Bye. Hope to see you again soon!");
-        printLongLine();
+        this.printLongLine();
+    }
+
+    private void receiveUserInput() {
+        String input = this.scanner.nextLine();
+        if (input.equals("bye")) {
+            this.goodbye();
+        } else {
+            this.echo(input);
+            this.receiveUserInput();
+        }
     }
 
     private void echo(String msg) {
+        this.printLongLine();
         System.out.println("\t" + msg);
+        this.printLongLine();
     }
 
     public static void main(String[] args) {
         Devon bot = new Devon();
         bot.introduction();
-        bot.goodbye();
+        bot.receiveUserInput();
     }
 }
