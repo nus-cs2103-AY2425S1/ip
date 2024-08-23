@@ -3,16 +3,9 @@ import java.util.Scanner;
 public class Kira {
 
     public static void main(String[] args) {
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-         */
 
         Scanner scanner = new Scanner(System.in);
+        List list = new List();
 
         String line = "____________________________________________________________\n";
 
@@ -31,12 +24,14 @@ public class Kira {
                 break;
             }
 
-            Echo echo = new Echo(userInput);
-            echo.output();
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println(list.displayList());
+                continue;
+            }
+
+            Task task = new Task(userInput);
+            list.addTaskToList(task);
 
         }
-
-
-
     }
 }
