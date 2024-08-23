@@ -6,7 +6,7 @@ import exceptions.BottyException;
 import tasks.Task;
 
 public class DeleteCommand implements Command {
-    private TaskManager taskManager;
+    private final TaskManager taskManager;
     public DeleteCommand(TaskManager taskManager) {
         this.taskManager = taskManager;
     }

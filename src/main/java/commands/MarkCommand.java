@@ -7,7 +7,7 @@ import tasks.Task;
 
 public class MarkCommand implements Command {
 
-    private TaskManager taskManager;
+    private final TaskManager taskManager;
     public MarkCommand(TaskManager taskManager) {
         this.taskManager = taskManager;
     }

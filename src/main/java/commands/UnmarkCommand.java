@@ -6,7 +6,7 @@ import exceptions.BottyException;
 import tasks.Task;
 
 public class UnmarkCommand implements Command {
-    private TaskManager taskManager;
+    private final TaskManager taskManager;
     public UnmarkCommand(TaskManager taskManager) {
         this.taskManager = taskManager;
     }

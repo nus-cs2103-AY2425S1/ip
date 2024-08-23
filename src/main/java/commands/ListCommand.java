@@ -5,7 +5,7 @@ import botty.TaskManager;
 import exceptions.TaskListEmptyException;
 
 public class ListCommand implements Command {
-    private TaskManager taskManager;
+    private final TaskManager taskManager;
     public ListCommand(TaskManager taskManager) {
         this.taskManager = taskManager;
     }

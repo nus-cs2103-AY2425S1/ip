@@ -4,7 +4,7 @@ import botty.TaskManager;
 import tasks.Task;
 
 public abstract class AddTaskCommand implements Command {
-    private TaskManager taskManager;
+    private final TaskManager taskManager;
     public AddTaskCommand(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
