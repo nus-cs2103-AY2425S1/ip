@@ -5,12 +5,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Xizi {
     private static final String FILE_PATH = "./data/xizi.txt";
     private static final String DIVIDER = "____________________________________________________________";
