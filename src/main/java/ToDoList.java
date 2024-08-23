@@ -21,12 +21,22 @@ public class ToDoList {
         todoList.get(taskNumber - 1).uncheck();
     }
 
-    public String getTask(int taskNumber) {
+    public String getTask(int taskNumber) throws InvalidTaskNumberException {
+        if (taskNumber > todoList.size() || taskNumber < 1) {
+            throw new InvalidTaskNumberException();
+        }
         return todoList.get(taskNumber - 1).toString();
     }
 
     public int getNumberofTasks() {
         return this.todoList.size();
+    }
+
+    public void delete(int taskNumber) throws InvalidTaskNumberException {
+        if (taskNumber > todoList.size() || taskNumber < 1) {
+            throw new InvalidTaskNumberException();
+        }
+        todoList.remove(taskNumber - 1);
     }
 
     @Override

@@ -54,6 +54,18 @@ public class Edith {
                 }
             }
 
+            else if (Objects.equals(words.get(0), "delete")) {
+                try {
+                    delete(words, todoList);
+                } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+                    System.out.println(horizontal + linebreak +
+                            e.getMessage() + linebreak +
+                            horizontal);
+                } finally {
+                    command = scanner.nextLine();
+                }
+            }
+
             else {
                 try {
                     otherCommand();
@@ -79,7 +91,7 @@ public class Edith {
                 toDoList.mark(taskNumber); // may throw InvalidTaskNumberException
                 System.out.println(horizontal + linebreak +
                         " " + "yay! i've marked this task as done #productive:" + linebreak +
-                        " " + toDoList.getTask(taskNumber) + linebreak +
+                        "   " + toDoList.getTask(taskNumber) + linebreak +
                         horizontal);
             }
 
@@ -87,7 +99,7 @@ public class Edith {
                 toDoList.unmark(taskNumber); // may throw InvalidTaskNumberException
                 System.out.println(horizontal + linebreak +
                         " " + "aw, i've marked this task as undone:" + linebreak +
-                        " " + toDoList.getTask(taskNumber) + linebreak +
+                        "   " + toDoList.getTask(taskNumber) + linebreak +
                         horizontal);
             }
         } catch (ArrayIndexOutOfBoundsException e) { // if there is a missing task number
@@ -165,5 +177,20 @@ public class Edith {
 
     public static void otherCommand() throws InvalidCommandException {
         throw new InvalidCommandException();
+    }
+
+    public static void delete(List<String> commands, ToDoList toDoList) throws InvalidTaskNumberException,
+            MissingTaskNumberException {
+        try {
+            int taskNumber = Integer.parseInt(commands.get(1));
+            System.out.println(horizontal + linebreak +
+                    " okay! i've deleted this task:" + linebreak +
+                    "   " + toDoList.getTask(taskNumber) + linebreak +
+                    " you currently have " + (toDoList.getNumberofTasks() - 1) + " tasks in your todo list"
+                    + linebreak + horizontal);
+            toDoList.delete(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            throw new MissingTaskNumberException();
+        }
     }
 }
