@@ -83,7 +83,9 @@ public class Fred {
                 markTaskAsNotDone(inputParts[1]);
             } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
                 addToTaskList(inputParts[0], inputParts[1]);
-            } else {
+            } else if (inputParts[0].equals("delete")) {
+                deleteTaskFromTaskList(inputParts[1]);
+            }else {
                 throw new UnknownCommandException();
             }
         }
@@ -130,7 +132,13 @@ public class Fred {
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException();
         }
-        taskList.get(taskNumber).markAsDone();
+        Task taskToMark;
+        try {
+            taskToMark = taskList.get(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException();
+        }
+        taskToMark.markAsDone();
         System.out.println(line);
         System.out.println(String.format("Nice! I've marked this task as done:\n" +
                 "   %s", taskList.get(taskNumber)));
@@ -144,10 +152,35 @@ public class Fred {
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException();
         }
-        taskList.get(taskNumber).markAsNotDone();
+        Task taskToMark;
+        try {
+            taskToMark = taskList.get(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException();
+        }
+        taskToMark.markAsNotDone();
         System.out.println(line);
         System.out.println(String.format("OK, I've marked this task as not done yet:\n" +
                 "   %s", taskList.get(taskNumber)));
+        System.out.println(line);
+    }
+
+    private static void deleteTaskFromTaskList(String taskNumberString) throws InvalidTaskNumberException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(taskNumberString) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
+        }
+        Task taskToDelete;
+        try {
+            taskToDelete = taskList.remove(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException();
+        }
+        System.out.println(line);
+        System.out.println(String.format("Noted. I've removed this task:\n" +
+                "   %s", taskToDelete));
         System.out.println(line);
     }
 }
