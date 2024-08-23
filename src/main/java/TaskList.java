@@ -1,10 +1,11 @@
-public class List {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Task[] list;
-    private int itemCount;
-    public List() {
-        this.list = new Task[100];
-        this.itemCount = 0;
+public class TaskList {
+
+    private List<Task> list;
+    public TaskList() {
+        this.list = new ArrayList<Task>();
     }
 
     public void answer(String response) throws InvalidCommandException, InvalidNumberException {
@@ -63,6 +64,15 @@ public class List {
                     throw new InvalidNumberException();
                 }
                 break;
+            case "delete":
+                try {
+                    index = Integer.parseInt(response.substring(response.indexOf(' ') + 1, response.indexOf(' ') + 2)) - 1;
+                    this.delete(index);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException();
+                } catch (NumberFormatException e) {
+                    throw new InvalidNumberException();
+                }
             case "list":
                 this.listOut();
                 break;
@@ -72,32 +82,35 @@ public class List {
     }
 
     public void add(Task task) {
-        this.list[itemCount] = task;
-        this.itemCount++;
+        this.list.add(task);
         System.out.println("I've added the task: ");
         System.out.println(task);
-        System.out.println("Now you have " + this.itemCount + " tasks in the list");
+        System.out.println("Now you have " + this.list.size() + " tasks in the list");
     }
 
     public void listOut() {
-        for (int i = 1; i <= itemCount; i++) {
-            System.out.println(i + "." + this.list[i - 1].toString());
+        for (int i = 1; i <= this.list.size(); i++) {
+            System.out.println(i + "." + this.list.get(i - 1));
         }
     }
 
     public void printTask(int index) {
-        System.out.println(this.list[index].toString());
+        System.out.println(this.list.get(index));
     }
 
     public void markTask(int index) {
-        this.list[index].mark();
+        this.list.get(index).mark();
         System.out.println("You have marked the following task as done!");
-        System.out.println(this.list[index]);
+        System.out.println(this.list.get(index));
     }
 
     public void unmarkTask(int index) {
-        this.list[index].unmark();
+        this.list.get(index).unmark();
         System.out.println("You have unmarked the following task!");
-        System.out.println(this.list[index]);
+        System.out.println(this.list.get(index));
+    }
+
+    public void delete(int index) {
+        
     }
 }

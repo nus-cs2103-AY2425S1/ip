@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Peridot {
 
-    private static List list = new List();
+    private static TaskList list = new TaskList();
     public static void botSay(String string) {
         System.out.println("Peridot: " + string);
     }
