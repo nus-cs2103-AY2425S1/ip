@@ -111,27 +111,29 @@ public class Bob {
                         Bob.listCommands();
                         continue;
                     case("mark"): {
+                        String[] inputs = Bob.splitInput(input, new String[] {"mark"});
                         int idx;
                         try {
-                            idx = Integer.parseInt(arguments[1]);
+                            idx = Integer.parseInt(inputs[0]);
                         } catch(NumberFormatException e) {
-                            throw new TaskIndexException(input.substring(5));
+                            throw new TaskIndexException(inputs[0]);
                         }
                         if (idx <= 0 || idx > Bob.taskList.getSize()) {
-                            throw new TaskIndexException(input.substring(5));
+                            throw new TaskIndexException(inputs[0]);
                         }
                         Bob.markTask(idx);
                         continue;
                     }
                     case("unmark"): {
+                        String[] inputs = Bob.splitInput(input, new String[] {"unmark"});
                         int idx;
                         try {
-                            idx = Integer.parseInt(arguments[1]);
+                            idx = Integer.parseInt(inputs[0]);
                         } catch(NumberFormatException e) {
-                            throw new TaskIndexException(input.substring(5));
+                            throw new TaskIndexException(inputs[0]);
                         }
                         if (idx <= 0 || idx > Bob.taskList.getSize()) {
-                            throw new TaskIndexException(input.substring(5));
+                            throw new TaskIndexException(inputs[0]);
                         }
                         Bob.unmarkTask(idx);
                         continue;
@@ -147,6 +149,7 @@ public class Bob {
                         Bob.event(input);
                         continue;
                     }
+                    case("delete"):
                     default:
                         throw new UnknownCommandException(arguments[0]);
                 }
