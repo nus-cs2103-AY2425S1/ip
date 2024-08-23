@@ -1,5 +1,5 @@
 ____________________
-Hello! I'm Lawrence and I'm here to steal your credit card information.
+Hello! I'm Lawrence and I'm here to establish another GST hike.
 What can I do for you?
 ____________________
 ____________________
@@ -8,24 +8,27 @@ ____________________
 ____________________
 Alright, added task:
 [T][ ] Text UI Testing to the list.
-There are currently 1 tasks in the list
+There is currently 1 task in the list.
 ____________________
 ____________________
-Unable to recognise command. Please try again.
+Unable to recognise command 'test'. Please try again.
 ____________________
 ____________________
 I've marked the task as complete:
 [T][X] Text UI Testing
 ____________________
 ____________________
+Task does not exist. Number must be within the range 1 to 1. Please try again.
+____________________
+____________________
 Alright, added task:
 [D][ ] cs2103 iP (by: 4pm today) to the list.
-There are currently 2 tasks in the list
+There are currently 2 tasks in the list.
 ____________________
 ____________________
 Alright, added task:
 [E][ ] cs2103 weekly briefing (from: 4pm to: 6pm) to the list.
-There are currently 3 tasks in the list
+There are currently 3 tasks in the list.
 ____________________
 ____________________
 Changed your mind? The task is set to incomplete:
@@ -50,6 +53,9 @@ I've marked the task as complete:
 [E][X] cs2103 weekly briefing (from: 4pm to: 6pm)
 ____________________
 ____________________
+Task does not exist. Number must be within the range 1 to 3. Please try again.
+____________________
+____________________
 Changed your mind? The task is set to incomplete:
 [D][ ] cs2103 iP (by: 4pm today)
 ____________________
@@ -60,7 +66,7 @@ Here's your laundry list:
 3.[E][X] cs2103 weekly briefing (from: 4pm to: 6pm)
 ____________________
 ____________________
-Unable to recognise command. Please try again.
+Unable to recognise command 'test'. Please try again.
 ____________________
 ____________________
 That's all folks! Hope to see you again soon!

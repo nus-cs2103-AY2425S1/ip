@@ -2,6 +2,7 @@ list
 todo Text UI Testing
 test
 mark 1
+mark 2
 deadline cs2103 iP /by 4pm today
 event cs2103 weekly briefing /from 4pm /to 6pm
 unmark 1
@@ -9,6 +10,7 @@ mark 2
 mark 1
 list
 mark 3
+mark 4
 unmark 2
 list
 test
