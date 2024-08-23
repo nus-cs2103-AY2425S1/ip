@@ -47,7 +47,7 @@ public class Parser {
                     }
                     if(0 < i && i <= storage.size()) {
                         storage.unmark(i);
-                        System.out.println(String.format("marked %s as completed",i));
+                        System.out.println(String.format("marked %s as uncompleted",i));
                     }else {
                         System.out.println("that number isn't a valid task dude...");
                         System.out.println("it has to be from 1 to " + storage.size());
@@ -55,15 +55,42 @@ public class Parser {
                     break;
                 case "todo":
                     if(!text.isEmpty()){
-                        storage.add(text);
+                        storage.todo(text);
                         System.out.println("Added " + '\"'+ text + "\"" + " as a new task I guess");
-                        System.out.println(String.format("you have %s task now",storage.size()));
-                    } else System.out.println("bruh? type a task to add I'm not adding a blank...");
+                        System.out.println(String.format("you have %s tasks now",storage.size()));
+                    } else System.out.println("bruh? type something to add I'm not adding a blank...");
                 break;
-//                case "event":
-//                    storage.event(text);
-//                case "deadline":
-//                    storage.deadline(text);
+                case "event":
+                    if(!text.isEmpty()){
+                        try{
+                            if (text.contains(" /from ") && text.contains(" /to ")) {
+                                storage.event(text);
+                                System.out.println("Wow " + '\"' + text + "\"" + " is an event in your life huh?");
+                                System.out.println(String.format("you have %s tasks now", storage.size()));
+                            }  System.out.println("The description of an event must include '/from' and '/to' :/");
+                        } catch (IllegalArgumentException e) {
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+
+                    } else System.out.println("bruh? type something to add I'm not adding a blank...");
+                break;
+                case "deadline":
+                    if(!text.isEmpty()){
+                        try{
+                            if (text.contains("/by")) {
+                                storage.deadline(text);
+                                System.out.println("lol " + '\"' + text + "\"" + " is a new deadline, better finish it quick...");
+                                System.out.println(String.format("you have %s tasks now", storage.size()));
+                                break;
+                            }
+                            System.out.println("The description of a deadline must include '/by' :/");
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                    } else System.out.println("bruh? type something to add I'm not adding a blank...");
+                    break;
                 default:
                     System.out.println("what? type an actual command pls...");
             }

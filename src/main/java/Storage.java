@@ -3,8 +3,14 @@ import java.util.ArrayList;
 public class Storage {
     private ArrayList<Task> store = new ArrayList<>();
 
-    public void add(String s){
-        store.add(new Task(s));
+    public void todo(String s){
+        store.add(new Todo(s));
+    }
+    public void event(String s){
+        store.add(new Event(s));
+    }
+    public void deadline(String s){
+        store.add(new Deadline(s));
     }
     public String toString() {
         String thing = "";
