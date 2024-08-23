@@ -74,25 +74,22 @@ public class streams {
             System.out.println("added todo: " + description);
         }
     }
+
     private static void handleDeadline(String cmd, ArrayList<Task> todo) {
         try {
             if (cmd.length() <= 9) {
                 System.out.println("the description of a deadline cannot be empty");
                 return;
             }
-            String description = cmd.substring(9).trim();
-            if (description.isEmpty()) {
-                System.out.println("the description of a deadline cannot be empty");
-            }
-            if (cmd.length() <= 9) {
-                System.out.println("the format for deadlines is 'deadline [description] /by [date]'");
-                return;
-            }
             String[] sub = cmd.substring(9).trim().split(" /by ");
-            String by = sub[1].trim();
             if (sub.length != 2) {
                 System.out.println("the format for deadlines is 'deadline [description] /by [date]'");
                 return;
+            }
+            String description = sub[0].trim();
+            String by = sub[1].trim();
+            if (description.isEmpty()) {
+                System.out.println("the description of a deadline cannot be empty");
             } else {
                 todo.add(new DeadlineTask(description, by));
                 System.out.println("added deadline: " + description + " (by: " + by + ")");
@@ -105,11 +102,7 @@ public class streams {
     private static void handleEvent(String cmd, ArrayList<Task> todo) {
         try {
             if (cmd.length() <= 6) {
-                System.out.println("the description of a deadline cannot be empty");
-                return;
-            }
-            if (cmd.length() <= 6) {
-                System.out.println("the format for events is 'event [description] /from [date] /to [date]'");
+                System.out.println("the description of an event cannot be empty");
                 return;
             }
             String[] sub = cmd.substring(6).trim().split(" /from ");
@@ -117,7 +110,7 @@ public class streams {
                 System.out.println("the format for events is 'event [description] /from [date] /to [date]'");
                 return;
             }
-            String description = cmd.substring(6).trim();
+            String description = sub[0].trim();
             String[] time = sub[1].split(" /to ");
             if (time.length != 2) {
                 System.out.println("the format for events is 'event [description] /from [date] /to [date]'");
