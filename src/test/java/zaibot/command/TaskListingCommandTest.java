@@ -29,8 +29,7 @@ public class TaskListingCommandTest {
         TaskListingCommand command = new TaskListingCommand();
         try {
             command.execute(tasks, storage);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Ui.displayError(e);
         } finally {
             Assertions.assertEquals("",

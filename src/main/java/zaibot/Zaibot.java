@@ -23,8 +23,7 @@ public class Zaibot {
                 command.execute(taskList, storage);
                 continueLoop = command.toContinue();
                 Ui.printSeparator();
-            }
-            catch (ZaibotException e) {
+            } catch (ZaibotException e) {
                 Ui.displayError(e);
             }
         }

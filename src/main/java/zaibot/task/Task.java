@@ -14,6 +14,7 @@ public class Task {
 
     /**
      * Sets the completion status of the task.
+     *
      * @param status The status to change to
      */
     public void setCompletionStatus(boolean status) {
@@ -23,6 +24,7 @@ public class Task {
     /**
      * This gets the formatter, which will be used for input for all the tasks if
      * they have a date portion
+     *
      * @return A DateTimeFormatter with the pattern currently chosen.
      */
     public static DateTimeFormatter getFormatter() {
@@ -31,6 +33,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task when saved.
+     *
      * @return a string in the format TYPE | COMPLETION \ NAME | ....
      */
     public String toSaveString() {

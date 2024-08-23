@@ -26,8 +26,7 @@ public class ExitCommandTest {
         ExitCommand exitCommand = new ExitCommand();
         try {
             exitCommand.execute(tasks, storage);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Ui.displayError(e);
         }
         Assertions.assertEquals("See you whenever.", outputStreamCaptor.toString().trim());

@@ -33,8 +33,7 @@ public class Storage {
     public Storage(TaskList taskList) {
         try {
             Files.createDirectories(Paths.get("../data"));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Ui.displayError(e);
         }
         this.link = "../data/tasks.txt";
@@ -43,6 +42,7 @@ public class Storage {
 
     /**
      * Saves the tasklist to the file on disk.
+     *
      * @param taskList The list of tasks.
      */
     public void saveToFile(TaskList taskList) {
@@ -61,14 +61,14 @@ public class Storage {
                 first = false;
             }
             writer.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
      * Reads the tasks from the file on disk and updates the task list.
+     *
      * @param taskList The task list.
      */
     public void readFromFile(TaskList taskList) {
@@ -85,8 +85,7 @@ public class Storage {
                 line = reader.readLine();
             }
             reader.close();
-        }
-        catch (IOException | ZaibotException e) {
+        } catch (IOException | ZaibotException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -94,6 +93,7 @@ public class Storage {
     /**
      * Parses a line from the file in the format specified
      * Helper function for the readFromFile function.
+     *
      * @param input A line from the file on disk
      * @return The zaibot.task.Task object with data from the input line
      * @throws ZaibotException if the line is not formatted as expected.
@@ -106,7 +106,7 @@ public class Storage {
         Status status = Status.valueOf(tokens[1].toUpperCase());
         String name = tokens[2];
 
-         task = switch (tokens[0].trim()) {
+        task = switch (tokens[0].trim()) {
             case "T" -> new ToDoTask(name);
             case "D" -> new DeadlineTask(name, LocalDateTime.parse(tokens[3]));
             case "E" -> new EventTask(name, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]));
