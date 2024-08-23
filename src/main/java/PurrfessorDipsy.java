@@ -1,3 +1,8 @@
+import Task.Deadline;
+import Task.Event;
+import Task.Task;
+import Task.ToDo;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
