@@ -1,10 +1,21 @@
 public class Task {
     private String task;
+    private boolean done;
     public Task(String s){
         task = s;
+        done = false;
+    }
+    public void complete(){
+        done = true;
+    }
+    public void uncomplete(){
+        done = false;
     }
     public String toString() {
-        return task;
+        String status;
+        if(done) status = "[X] ";
+        else status = "[ ] ";
+        return status + task;
     }
     public boolean isReal(){
         return task != "";
