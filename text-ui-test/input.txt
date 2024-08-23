@@ -1,0 +1,6 @@
+todo read a book
+event party /from 7pm /to 9pm
+deadline CS2103T IP /by today!
+event mahjong /from 5pm /to 6pm
+list
+bye

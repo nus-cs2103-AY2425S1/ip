@@ -5,6 +5,6 @@ public class ToDo extends Task {
 
     @Override
     public String getDesc() {
-        return String.format("[T][%s] %s", super.getStatusIcon(), super.getDesc());
+        return String.format("  [T][%s] %s", super.getStatusIcon(), super.getDesc());
     }
 }

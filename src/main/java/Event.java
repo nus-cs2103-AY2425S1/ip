@@ -11,7 +11,7 @@ public class Event extends Task {
 
     @Override
     public String getDesc() {
-        return String.format("[E][%s] %s (from: %s to: %s)",
+        return String.format("  [E][%s] %s (from: %s to: %s)",
                 super.getStatusIcon(), super.getDesc(), this.start, this.end);
     }
 }

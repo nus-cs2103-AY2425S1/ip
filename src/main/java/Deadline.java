@@ -9,6 +9,6 @@ public class Deadline extends Task {
 
     @Override
     public String getDesc() {
-        return String.format("[D][%s] %s (by: %s)", super.getStatusIcon(), super.getDesc(), this.deadline);
+        return String.format("  [D][%s] %s (by: %s)", super.getStatusIcon(), super.getDesc(), this.deadline);
     }
 }
