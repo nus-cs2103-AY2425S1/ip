@@ -18,6 +18,11 @@ public class Task {
         this.isDone = status;
     }
 
+    /**
+     * This gets the formatter, which will be used for input for all the tasks if
+     * they have a date portion
+     * @return A DateTimeFormatter with the pattern currently chosen.
+     */
     public static DateTimeFormatter getFormatter() {
         return formatter;
     }

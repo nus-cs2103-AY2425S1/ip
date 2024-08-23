@@ -1,9 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Storage {
 
@@ -22,41 +20,24 @@ public class Storage {
         }
     }
 
-    private static final ArrayList<Task> tasks = new ArrayList<>();
     private String link;
 
-    public Storage() {
+    public Storage(TaskList taskList) {
         try {
             Files.createDirectories(Paths.get("../data"));
         }
         catch (IOException e) {
-            e.printStackTrace();
+            Ui.displayError(e);
         }
         this.link = "../data/tasks.txt";
-        readFromFile();
+        readFromFile(taskList);
     }
 
-    public ArrayList<Task> retrieveTasks() {
-        return tasks;
-    }
-
-    public static void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    public static int getNumberOfTasks() {
-        return tasks.size();
-    }
-
-    public static Task getTask(int number) {
-        return tasks.get(number - 1);
-    }
-
-    public static Task removeTask(int number) {
-        return tasks.remove(number - 1);
-    }
-
-    public void saveToFile() {
+    /**
+     * Saves the tasklist to the file on disk.
+     * @param taskList The list of tasks.
+     */
+    public void saveToFile(TaskList taskList) {
         File file = new File(link);
         BufferedWriter writer;
 
@@ -64,7 +45,7 @@ public class Storage {
             file.createNewFile();
             writer = new BufferedWriter(new FileWriter(file));
             boolean first = true;
-            for (Task task : tasks) {
+            for (Task task : taskList.retrieveTasks()) {
                 if (!first) {
                     writer.newLine();
                 }
@@ -78,7 +59,11 @@ public class Storage {
         }
     }
 
-    public void readFromFile() {
+    /**
+     * Reads the tasks from the file on disk and updates the task list.
+     * @param taskList The task list.
+     */
+    public void readFromFile(TaskList taskList) {
         File file = new File(this.link);
         BufferedReader reader;
 
@@ -87,7 +72,7 @@ public class Storage {
             reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
             while (line != null) {
-                tasks.add(parseInput(line));
+                taskList.addTask(parseLine(line));
                 // read next line
                 line = reader.readLine();
             }
@@ -98,7 +83,14 @@ public class Storage {
         }
     }
 
-    public Task parseInput(String input) throws ZaibotException {
+    /**
+     * Parses a line from the file in the format specified
+     * Helper function for the readFromFile function.
+     * @param input A line from the file on disk
+     * @return The Task object with data from the input line
+     * @throws ZaibotException if the line is not formatted as expected.
+     */
+    public Task parseLine(String input) throws ZaibotException {
         String[] tokens = input.split(" \\| ");
 
         Task task;
