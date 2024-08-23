@@ -224,5 +224,6 @@ public class Ekud {
             }
         }
         ekud.sayGoodbye();
+        sc.close();
     }
 }
