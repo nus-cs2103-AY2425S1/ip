@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 class Task {
     protected String description;
     protected boolean isDone;
@@ -12,7 +11,7 @@ class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void markAsDone() {
@@ -29,8 +28,48 @@ class Task {
     }
 }
 
-public class Sammy {
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
 
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    private String deadline;
+
+    public Deadline(String description, String deadline) {
+        super(description);
+        this.deadline = deadline;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + deadline + ")";
+    }
+}
+
+class Event extends Task {
+    private String startTime;
+    private String endTime;
+
+    public Event(String description, String startTime, String endTime) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+    }
+}
+
+public class Sammy {
     public static void main(String[] args) {
         String line = "____________________________________________________________";
         Scanner scanner = new Scanner(System.in);
@@ -78,10 +117,43 @@ public class Sammy {
                 } else {
                     System.out.println("Invalid task number.");
                 }
-            } else {
-                tasks.add(new Task(input));
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5).trim();
+                tasks.add(new Todo(description));
                 System.out.println(line);
-                System.out.println(" added: " + input);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println(" " + tasks.get(tasks.size() - 1));
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println(line);
+            } else if (input.startsWith("deadline ")) {
+                int byIndex = input.indexOf("/by ");
+                if (byIndex != -1) {
+                    String description = input.substring(9, byIndex).trim();
+                    String by = input.substring(byIndex + 4).trim();
+                    tasks.add(new Deadline(description, by));
+                    System.out.println(line);
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(line);
+                }
+            } else if (input.startsWith("event ")) {
+                int fromIndex = input.indexOf("/from ");
+                int toIndex = input.indexOf("/to ");
+                if (fromIndex != -1 && toIndex != -1) {
+                    String description = input.substring(6, fromIndex).trim();
+                    String from = input.substring(fromIndex + 6, toIndex).trim();
+                    String to = input.substring(toIndex + 4).trim();
+                    tasks.add(new Event(description, from, to));
+                    System.out.println(line);
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(line);
+                }
+            } else {
+                System.out.println(line);
+                System.out.println("Invalid command. Please try again.");
                 System.out.println(line);
             }
         }
