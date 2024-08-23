@@ -44,6 +44,30 @@ public class WenJie {
                     break;
                 }
 
+                case "mark": {
+                    int taskNo = Integer.parseInt(parts[1]) - 1;
+                    taskList[taskNo].setStatusIcon(true);
+                    String output =
+                            " ____________________________________________________________\n" +
+                            " Nice! I've marked this task as done:\n " +
+                            taskList[taskNo] + "\n" +
+                            " ____________________________________________________________";
+                    System.out.println(output);
+                    break;
+                }
+
+                case "unmark": {
+                    int taskNo = Integer.parseInt(parts[1]) - 1;
+                    taskList[taskNo].setStatusIcon(false);
+                    String output =
+                            " ____________________________________________________________\n" +
+                            " OK, I've marked this task as not done yet:\n " +
+                            taskList[taskNo] + "\n" +
+                            " ____________________________________________________________";
+                    System.out.println(output);
+                    break;
+                }
+
 
                 default :
                     String output =
