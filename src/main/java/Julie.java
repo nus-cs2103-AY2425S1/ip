@@ -1,11 +1,18 @@
+import java.util.Scanner;
 public class Julie {
     private static final String NAME = "Julie";
-    private static final String HORIZONTAL_LINE = "_______________________________________";
+    private static boolean run = true;
     public static void main(String[] args) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hi!! My name is: " + NAME + "!\nHow may I help?");
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Bye!! See you soon!!");
-        System.out.println(HORIZONTAL_LINE);
+        CommonFunctions.WrappedLinePrint("Hi!! My name is: " + NAME + "!\nHow may I help?");
+        Scanner sc = new Scanner(System.in);
+        while (run) {
+            String input = sc.next();
+            if (input.equals("bye")) {
+                run = false;
+            } else {
+                System.out.println(input);
+            }
+        }
+        CommonFunctions.WrappedLinePrint("Bye!! See you soon!!");
     }
 }
