@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList {
     List<Task> taskList = new ArrayList<>();
@@ -11,6 +13,7 @@ public class TaskList {
     public int noOfTasks() {
         return taskList.size();
     }
+
 
     public Task addTask(String input) {
 
@@ -70,11 +73,40 @@ public class TaskList {
         return t;
     }
 
+
     public Task findTask(String input) {
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(input);
 
-        int taskNo = Character.getNumericValue(input.charAt(input.length() - 1)) - 1;
+        if (matcher.find()) {
+            int i = Integer.parseInt(matcher.group());
+            if (taskList.size() < i) {
+                throw new TarsException("Task not in list. Check again");
+            }
+            return taskList.get(i - 1);
+        }
 
-        return taskList.get(taskNo);
+        throw new TarsException("Provide a number at the end");
+    }
+
+    public Task deleteTask(String input) {
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(input);
+        Task t;
+
+        if (matcher.find()) {
+            int i = Integer.parseInt(matcher.group());
+            if (taskList.size() < i) {
+                throw new TarsException("Task not in list. Check again");
+            }
+            t = taskList.get(i - 1);
+            taskList.remove(t);
+
+            return t;
+
+        }
+
+        throw new TarsException("Provide a number at the end");
     }
 
     @Override

@@ -11,7 +11,18 @@ public class Response {
 
     public String generateResponse(String input) {
         if (input.contains("mark")) {
-            return formatResponse(markTasks(input));
+            try {
+                return formatResponse(markTasks(input));
+            } catch (TarsException e) {
+                return formatResponse(e.getMessage());
+            }
+
+        } else if (input.contains("delete")) {
+            try {
+                return formatResponse(deleteTask(input));
+            } catch (TarsException e) {
+                return formatResponse(e.getMessage());
+            }
 
         } else {
             try {
@@ -21,6 +32,13 @@ public class Response {
 
             }
         }
+
+    }
+
+    private String deleteTask(String input) {
+        Task t = taskList.deleteTask(input);
+
+        return String.format("Wow you're freeing yourself up\n   %s\nYou now have %s tasks left", t, taskList.noOfTasks());
 
     }
 

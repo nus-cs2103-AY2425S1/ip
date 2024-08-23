@@ -2,10 +2,6 @@ import java.util.Scanner;
 public class Tars {
     private final static Response res = new Response();
 
-    public String getResponse(String input) {
-        return res.generateResponse(input);
-    }
-
     public String introMessage() {
         String logo = """
                 ________________ __________  _________
@@ -44,7 +40,7 @@ public class Tars {
                     break;
 
                 default:
-                    System.out.println(tars.getResponse(userInput));
+                    System.out.println(res.generateResponse(userInput));
                     break;
 
             }
