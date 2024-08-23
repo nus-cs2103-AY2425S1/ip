@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Stobberi {
-    private static String nameOfChatBot = "Stobberi";
-    private static String helloGreeting =
+    private static final String nameOfChatBot = "Stobberi";
+    private static final String helloGreeting =
             "Hello! I'm " + nameOfChatBot + ".\n"
             + "What can I do for you?";
-    private static String goodByeGreeting = "Bye. Hope to see you again soon! :)\n";
-    private static ArrayList<Task> listOfTasks= new ArrayList<Task>();
+    private static final String goodByeGreeting = "Bye. Hope to see you again soon! :)\n";
+    private static ArrayList<Task> listOfTasks= new ArrayList<>();
 
     private static String displayForm(String phrase) {
         return
@@ -60,17 +60,15 @@ public class Stobberi {
 
         if (firstWord.equals("todo")) {
             listOfTasks.add(new ToDos(task));
-            displayLastAdded();
         } else if (firstWord.equals("deadline")) {
             String[] parts = task.split("/by ");
             listOfTasks.add(new Deadlines(parts[0], parts[1]));
-            displayLastAdded();
-        } else if (firstWord.equals("event")) {
+        } else if (firstWord.equals("event")) { // can be removed
             String[] parts = task.split("/from ");
             String[] secondParts = parts[1].split("/to ");
             listOfTasks.add(new Events(parts[0], secondParts[0], secondParts[1]));
-            displayLastAdded();
         }
+        displayLastAdded();
     }
 
     private static void createList() {
