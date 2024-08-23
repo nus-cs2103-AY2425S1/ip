@@ -18,12 +18,13 @@ public class Blitz{
                         "Till we meet again, GOODBYE!");
                 break;
             } else {
-                actionBasedOnInput(inputHistory, strippedInput);
+                actionBasedOnInput(inputHistory, userInput);
             }
         }
     }
 
-    public static void actionBasedOnInput(ArrayList<Task> inputHistory, String strippedInput) {
+    public static void actionBasedOnInput(ArrayList<Task> inputHistory, String userInput) {
+        String strippedInput = userInput.toLowerCase().trim();
         if (strippedInput.isEmpty()) {
             return;
         }
@@ -39,9 +40,18 @@ public class Blitz{
                 System.out.println("Come on, that is not a number bro. Don't worry, try again.");
             }
         }else {
-            inputHistory.add(new Task(strippedInput));
+            Task newTask = Task.createTask(userInput);
+
+            if (newTask == null) {
+                System.out.println("THAT IS AN INVALID TASK");
+                return;
+            }
+
+            inputHistory.add(newTask);
             System.out.println("----------------\n" +
-                    "added: " + strippedInput + "\n" +
+                    "Alrighty! The following task has been added:\n " +
+                    newTask + "\n" +
+                    "Oh my goodness you have " + inputHistory.size() + " tasks remaining\n" +
                     "----------------\n");
         }
     }
