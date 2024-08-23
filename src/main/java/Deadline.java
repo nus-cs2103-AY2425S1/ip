@@ -14,7 +14,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String mark = isDone() ? "X" : " ";
-        return String.format("[D][%s] %s (%s)", mark, getDescription(), due);
+        return String.format("[D]%s (%s)", super.toString(), due);
     }
 }

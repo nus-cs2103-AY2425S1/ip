@@ -38,4 +38,10 @@ public class Task {
     public boolean isDone() {
         return done;
     }
+
+    @Override
+    public String toString() {
+        char mark = done ? 'X' : ' ';
+        return String.format("[%c] %s", mark, description);
+    }
 }

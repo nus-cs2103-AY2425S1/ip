@@ -10,7 +10,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        String mark = isDone() ? "X" : " ";
-        return String.format("[T][%s] %s", mark, getDescription());
+        return String.format("[T]%s", super.toString());
     }
 }
