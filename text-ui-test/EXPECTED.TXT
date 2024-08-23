@@ -9,20 +9,28 @@ Miao! Got it. I've added this task to my cat brain:
 [D][ ] return book (by: June 6th)
 Now you have 2 task(s) in the list!
 Miao! Got it. I've added this task to my cat brain:
-[E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
+[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 3 task(s) in the list!
-[T][ ] borrow book
-[D][ ] return book (by: June 6th)
-[E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
-NYA! Good job on this task:
-[T][X] borrow book
-1.X[T][X] borrow book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
-MRAWWW! Don't forget to return to this task:
-[T][ ] borrow book
+HERE ARE THE CURRENT TASKS:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting(from: Aug 6th 2pm to: 4pm)
-
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+NYA! Good job on this task:
+[T][X] borrow book
+HERE ARE THE CURRENT TASKS:
+1. [T][X] borrow book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+MRAWWW! Don't forget to return to this task:
+[T][ ] borrow book
+HERE ARE THE CURRENT TASKS:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Noted, Miao! I've removed this task:
+[T][ ] borrow book
+Now you have 2 task(s) in the list!
+HERE ARE THE CURRENT TASKS:
+1. [D][ ] return book (by: June 6th)
+2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 Bye. Come back with treats, MIAO!

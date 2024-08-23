@@ -23,10 +23,11 @@ public class Tira {
             if (command.equals("bye")) { //BYE
                 break;
             } else if (firstWord.equals("list")) { //LIST
+                printer.println("HERE ARE THE CURRENT TASKS:");
+                printer.flush();
                 for (int i = 0; i < taskList.size(); i++) {
                     Task currTask = taskList.get(i);
-                    printer.print((i + 1) + "." +
-                            currTask.getStatusIcon() +
+                    printer.print((i + 1) + ". " +
                             taskList.get(i).toString() + "\n");
                     printer.flush();
                 }
@@ -36,7 +37,7 @@ public class Tira {
                 }
                 int currNum = Integer.parseInt(splitCommand[1]) - 1;
                 taskList.get(currNum).markStatus();
-                printer.print("NYA! Good job on this task: " + "\n" +
+                printer.print("NYA! Good job on this task:" + "\n" +
                         taskList.get(currNum).toString() + "\n");
                 printer.flush();
             } else if (firstWord.equals("unmark")) { //UNMARK
@@ -45,7 +46,7 @@ public class Tira {
                 }
                 int currNum2 = Integer.parseInt(splitCommand[1]) - 1;
                 taskList.get(currNum2).unmarkStatus();
-                printer.print("MRAWWW! Don't forget to return to this task: " + "\n" +
+                printer.print("MRAWWW! Don't forget to return to this task:" + "\n" +
                         taskList.get(currNum2).toString() + "\n");
                 printer.flush();
             } else if (firstWord.equals("todo")) {//todo
@@ -75,6 +76,15 @@ public class Tira {
                 String[] dateCommands2 = command.split("/");
                 Task eventTask = new Event(dateCommands2[0].substring(6), dateCommands2[1], dateCommands2[2]);
                 Tira.addTask(eventTask, taskList);
+            } else if (firstWord.equals("delete")){
+                if (splitCommand.length < 2) {
+                    throw new TiraException("MRAW?? WHERE IS THE TASK?");
+                }
+                int indexToDelete = Integer.parseInt(splitCommand[1]);
+                Task taskToRemove = taskList.get(indexToDelete - 1);
+                taskList.remove(indexToDelete - 1);
+                printer.println("Noted, Miao! I've removed this task:\n" + taskToRemove +
+                        "\nNow you have " + taskList.size() + " task(s) in the list!");
             } else {
                 throw new TiraException("MRA..OW? I think your brain is not braining. Rethink what you want of me...");
             }
