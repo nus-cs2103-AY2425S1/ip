@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Toothless {
 
     private String toothlessLogo =
-            " _____            _   _     _           \n" +
-            "|_   _|___   ___ | |_| |__ | | ___  ___ ___ \n" +
+            " _____            _   _     _\n" +
+            "|_   _|___   ___ | |_| |__ | | ___  ___ ___\n" +
             "  | |/ _ \\ / _ \\| __| '_ \\| |/ _ \\/ __/ __|\n" +
             "  | | (_) | (_) | |_| | | | |  __/\\__ \\__ \\\n" +
             "  |_|\\___/ \\___/ \\__|_| |_|_|\\___||___/___/\n";
@@ -30,10 +30,10 @@ public class Toothless {
      * Prints a goodbye message.
      */
     public void printGoodbyeMessage() {
-        System.out.println("Toothless: \n" +
-                "Until next time, dragon rider! \n" +
-                "Toothless the Night Fury, signing off. \n" +
-                "See you soon! \n\n" + divider);
+        System.out.println("Toothless:\n" +
+                "Until next time, dragon rider!\n" +
+                "Toothless the Night Fury, signing off.\n" +
+                "See you soon!\n\n" + divider);
     }
 
     public String[] splitFirst(String task) {
@@ -55,11 +55,12 @@ public class Toothless {
             String[] splitDeadline = description.split("/by");
             list.add(new Deadline(splitDeadline[0], splitDeadline[1]));
         } else if(taskType.equals("event")) {
-            String[] splitEventDate = description.split("/");
-            list.add(new Events(splitEventDate[0], splitEventDate[1], splitEventDate[2]));
+            String[] splitEvent = description.split("/from");
+            String[] splitTiming = splitEvent[1].split("/to");
+            list.add(new Events(splitEvent[0], splitTiming[0], splitTiming[1]));
         }
 
-        System.out.println("Toothless: \nYour task [" + input + "] added to the quest board!\n" +
+        System.out.println("Toothless:\nYour task [" + input + "] added to the quest board!\n" +
                 "Now there is " + list.size() + " quests in your quest board.\n\n" + divider);
     }
 
@@ -67,7 +68,7 @@ public class Toothless {
      * Prints the tasks on the task list.
      */
     public void printTask() {
-        System.out.println("Toothless: \nHere are the tasks on the quest board:\n\n" +
+        System.out.println("Toothless:\nHere are the tasks on the quest board:\n\n" +
                 "|-------------Quest Board -----------------|\n");
 
         for(int i = 0; i < list.size(); i++) {
@@ -85,7 +86,7 @@ public class Toothless {
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsDone();
-        System.out.println("Toothless: \nGood job! You had completed this quest!:\n" +
+        System.out.println("Toothless:\nGood job! You had completed this quest!:\n" +
               currentTask.toString() + "\n\n" + divider);
     }
 
@@ -97,7 +98,7 @@ public class Toothless {
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsUndone();
-        System.out.println("Toothless: \nOops! Quest is back in play! :\n" +
+        System.out.println("Toothless:\nOops! Quest is back in play! :\n" +
                 currentTask.toString() + "\n\n" + divider);
     }
 
@@ -107,13 +108,13 @@ public class Toothless {
      */
     public void beginChat() {
         System.out.println("Welcome to the dragon's den!\n" + toothlessLogo);
-        System.out.println("Toothless: \n" +
-                "Greetings, Dragon Rider! \n\n" +
-                "I'm Toothless, your friendly dragon companion. \n" +
-                "What adventure shall we embark on today? \n\n" + divider);
+        System.out.println("Toothless:\n" +
+                "Greetings, Dragon Rider!\n\n" +
+                "I'm Toothless, your friendly dragon companion.\n" +
+                "What adventure shall we embark on today?\n\n" + divider);
 
         while(true) {
-            System.out.println("You : ");
+            System.out.println("You :");
             String userInput = sc.nextLine();
             System.out.println("\n" + divider);
             if (userInput.equals("bye")) {
@@ -138,7 +139,6 @@ public class Toothless {
 
     public static void main(String[] args) {
         Toothless toothless = new Toothless();
-
         toothless.beginChat();
     }
 }
