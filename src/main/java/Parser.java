@@ -14,7 +14,11 @@ public class Parser {
         return command.split(" ", 2)[1];
     }
 
-    public String[] splitCommandAndDeadline(String command) {
+    public String[] splitDeadlineCommand(String command) {
         return command.split("/by ", 2);
+    }
+
+    public String[] splitEventCommand(String command) {
+        return command.split(" /", 3);
     }
 }

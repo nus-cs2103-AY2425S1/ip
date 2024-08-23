@@ -35,9 +35,25 @@ public class Nebula {
             }
             else if(command.startsWith("deadline")) {
                 String taskInformation = parser.splitCommandAndTaskDescription(command);
-                String taskDescription = parser.splitCommandAndDeadline(taskInformation)[0];
-                String taskDeadline = parser.splitCommandAndDeadline(taskInformation)[1];
+                String taskDescription = parser.splitDeadlineCommand(taskInformation)[0];
+                String taskDeadline = parser.splitDeadlineCommand(taskInformation)[1];
                 Task newTask = new Deadline(taskDescription, taskDeadline);
+                String addedTask = taskList.addTask(newTask);
+                System.out.println(addedTask);
+            }
+            else if(command.startsWith("event")) {
+                String taskInformation = parser.splitCommandAndTaskDescription(command);
+
+                String taskDescription = parser.splitEventCommand(taskInformation)[0];
+
+                String startInfo = parser.splitEventCommand(taskInformation)[1];
+                String endInfo = parser.splitEventCommand(taskInformation)[2];
+
+                String taskStart = parser.splitCommandAndTaskDescription(startInfo);
+                String taskEnd = parser.splitCommandAndTaskDescription(endInfo);
+
+
+                Task newTask = new Event(taskDescription, taskStart, taskEnd);
                 String addedTask = taskList.addTask(newTask);
                 System.out.println(addedTask);
             }
