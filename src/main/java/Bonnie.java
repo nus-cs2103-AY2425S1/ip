@@ -25,8 +25,8 @@ public class Bonnie {
                 return;
             } else if (input.equals("list")) {
                 String list = "Your current tasks are\n";
-                for (String task : tasklist) {
-                    list += String.format("1. %s\n", task);
+                for (int i = 1; i <= tasklist.size(); i++) {
+                    list += String.format("%d. %s\n", i, tasklist.get(i - 1));
                 }
                 System.out.println(list);
             } else {
