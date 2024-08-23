@@ -22,26 +22,33 @@ public class Duke {
         String userInput;
         while (true) {
             userInput = scanner.nextLine();
-
-            if (userInput.equals("list")){
-                Reply.printMessage(taskList.printList());
-            } else if (userInput.equals("bye")) {
-                break;
-            } else if (userInput.startsWith("mark")) {
-                handleMarkTask(userInput, true);
-            } else if (userInput.startsWith("unmark")){
-                handleMarkTask(userInput, false);
-            } else if (userInput.startsWith("todo")){
-                handleAddTodo(userInput);
-            } else if (userInput.startsWith("deadline")){
-                handleAddDeadline(userInput);
-            } else if (userInput.startsWith("event")) {
-                handleAddEvent(userInput);
-            } else {
-                Reply.printMessage("Invalid input");
+            try {
+                if (userInput.equals("list")) {
+                    Reply.printMessage(taskList.printList());
+                } else if (userInput.equals("bye")) {
+                    break;
+                } else if (userInput.startsWith("mark")) {
+                    handleMarkTask(userInput, true);
+                } else if (userInput.startsWith("unmark")) {
+                    handleMarkTask(userInput, false);
+                } else if (userInput.startsWith("todo")) {
+                    handleAddTodo(userInput);
+                } else if (userInput.startsWith("deadline")) {
+                    handleAddDeadline(userInput);
+                } else if (userInput.startsWith("event")) {
+                    handleAddEvent(userInput);
+                } else {
+                    throw new InvalidInputException();
+                }
+            } catch (InvalidInputException e) {
+                Reply.printMessage(e.toString());
+            } catch (MissingTaskNameException e) {
+                Reply.printMessage(e.toString());
+            } catch (MissingDateException e) {
+                Reply.printMessage(e.toString());
             }
-        }
 
+        }
         scanner.close();
     }
 
@@ -51,13 +58,11 @@ public class Duke {
      * @param message input of user
      * @param mark boolean to mark or unmark task
      */
-    public static void handleMarkTask(String message, boolean mark) {
+    public static void handleMarkTask(String message, boolean mark) throws InvalidInputException {
         String[] split = message.split(" ");
         if (split.length > 2) {
-            Reply.printMessage("Invalid input");
-            return;
+           throw new InvalidInputException();
         }
-
         try {
             if (mark) {
                 taskList.markTask(Integer.parseInt(split[1]));
@@ -76,8 +81,11 @@ public class Duke {
      *
      * @param message input of user
      */
-    public static void handleAddTodo(String message) {
-        String taskName = message.replace("todo ", "").trim();
+    public static void handleAddTodo(String message) throws MissingTaskNameException {
+        String taskName = message.replace("todo", "").trim();
+        if (taskName.isEmpty()) {
+            throw new MissingTaskNameException("todo");
+        }
         taskList.addTask(new Todo(taskName));
     }
 
@@ -86,15 +94,18 @@ public class Duke {
      *
      * @param message input of user
      */
-    public static void handleAddDeadline(String message) {
+    public static void handleAddDeadline(String message) throws MissingDateException, MissingTaskNameException {
+
         String[] parts = message.split(" /by ");
-        if (parts.length == 2) {
-            String taskName = parts[0].replace("deadline ", "").trim();
-            String by = parts[1].trim();
-            taskList.addTask(new Deadline(taskName, by));
-        } else {
-            Reply.printMessage("Invalid input");
+        String taskName = parts[0].replace("deadline", "").trim();
+        if (taskName.isEmpty()) {
+            throw new MissingTaskNameException("deadline");
         }
+        if (parts.length != 2) {
+            throw new MissingDateException("deadline");
+        }
+        String by = parts[1].trim();
+        taskList.addTask(new Deadline(taskName, by));
     }
 
     /**
@@ -102,16 +113,18 @@ public class Duke {
      *
      * @param message input of user
      */
-    public static void handleAddEvent(String message) {
+    public static void handleAddEvent(String message) throws MissingDateException, MissingTaskNameException{
         String[] parts = message.split(" /from | /to ");
-        if (parts.length == 3) {
-            String taskName = parts[0].replace("event ", "").trim();
-            String from = parts[1].trim();
-            String to = parts[2].trim();
-            taskList.addTask(new Event(taskName, from, to));
-        } else {
-            Reply.printMessage("Invalid input");
+        String taskName = parts[0].replace("event", "").trim();
+        if (taskName.isEmpty()) {
+            throw new MissingTaskNameException("deadline");
         }
+        if (parts.length != 3) {
+            throw new MissingDateException("event");
+        }
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        taskList.addTask(new Event(taskName, from, to));
     }
 }
 

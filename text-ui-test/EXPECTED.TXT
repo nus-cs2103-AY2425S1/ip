@@ -18,13 +18,16 @@
      Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Invalid input
+     OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
-     Invalid input
+     OOPS!!! The description of a deadline cannot be empty.
     ____________________________________________________________
     ____________________________________________________________
-     Invalid input
+     OOPS!!! Deadlines needs to be followed by a date in the format: 'submit report /by 11/10/2019 5pm'.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!!! Events needs to be followed by both a start and end date/time in the format: 'team project meeting /from 2/10/2019 2pm /to 4pm'.
     ____________________________________________________________
     ____________________________________________________________
      Here are the tasks in your list:
@@ -41,6 +44,9 @@
      1.[T][X] borrow book
      2.[D][ ] return book (by: Sunday)
      3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
      OK, I've marked this task as not done yet:
