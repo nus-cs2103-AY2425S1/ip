@@ -1,3 +1,8 @@
+package myapp.command;
+
+import myapp.core.*;
+import myapp.task.TaskList;
+
 public abstract class Command {
     public Command() {}
 

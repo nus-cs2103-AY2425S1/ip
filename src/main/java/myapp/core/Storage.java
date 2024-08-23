@@ -1,3 +1,7 @@
+package myapp.core;
+
+import myapp.task.*;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

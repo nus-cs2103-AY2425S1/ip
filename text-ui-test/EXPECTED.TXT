@@ -1,6 +1,6 @@
 ____________________________________________________________
 
-BingBong: Hello! I'm BingBong
+myapp.core.BingBong: Hello! I'm myapp.core.BingBong
 What can I do for you?
 ____________________________________________________________
 

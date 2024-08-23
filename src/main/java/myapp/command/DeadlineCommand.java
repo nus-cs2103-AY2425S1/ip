@@ -1,3 +1,12 @@
+package myapp.command;
+
+import myapp.core.BingBongUI;
+import myapp.core.Storage;
+import myapp.task.Deadline;
+import myapp.task.Task;
+import myapp.task.TaskList;
+
+
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends AddCommand {

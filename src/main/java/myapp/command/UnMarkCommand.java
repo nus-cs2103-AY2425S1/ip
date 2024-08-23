@@ -1,7 +1,14 @@
-public class MarkCommand extends Command {
+package myapp.command;
+
+import myapp.core.BingBongUI;
+import myapp.core.Storage;
+import myapp.task.TaskList;
+import myapp.task.Task;
+
+public class UnMarkCommand extends Command {
 
     int index;
-    public MarkCommand(int i) {
+    public UnMarkCommand(int i) {
         super();
         this.index = i;
     }
@@ -13,9 +20,9 @@ public class MarkCommand extends Command {
             throw new IndexOutOfBoundsException();
         }
         Task task = tasks.get(index);
-        task.markAsDone();
+        task.markAsNotDone();
         saveTasks(tasks, ui, storage);
-        ui.showResponse("Nice! I've marked this task as done:\n" + task);
+        ui.showResponse("OK, I've marked this task as not done yet:\n" + task);
     }
 
     @Override

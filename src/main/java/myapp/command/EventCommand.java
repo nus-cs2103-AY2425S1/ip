@@ -1,3 +1,12 @@
+package myapp.command;
+
+import myapp.core.BingBongUI;
+import myapp.core.Storage;
+import myapp.task.TaskList;
+import myapp.task.Task;
+import myapp.task.Event;
+
+
 import java.time.LocalDateTime;
 
 public class EventCommand extends AddCommand {

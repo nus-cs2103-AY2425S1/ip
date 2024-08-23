@@ -1,3 +1,5 @@
+package myapp.core;
+
 public class BingBong {
     public static void main(String[] args) {
         BingBongUI ui = new BingBongUI();
