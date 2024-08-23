@@ -13,70 +13,118 @@ public class ShoAI {
 
         while (true) {
             String input = scanner.nextLine();
-            String[] words = input.split(" ", 2);
-            String command = words[0];
+            try {
+                if (handleInput(input)) {
+                    break;  // Exit the loop if the user says "bye"
+                }
+            } catch (ShoAIException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(e.getMessage());
+                System.out.println("____________________________________________________________");
+            }
+        }
 
-            if (command.equals("bye")) {
+        scanner.close();
+    }
+
+    private static boolean handleInput(String input) throws ShoAIException {
+        String[] words = input.split(" ", 2);
+        String command = words[0];
+
+        switch (command) {
+            case "bye":
                 System.out.println("____________________________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
-                break;
-            } else if (command.equals("list")) {
+                return true; // Return true to exit the loop
+            case "list":
                 System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + "." + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
-            } else if (command.startsWith("mark")) {
-                int index = Integer.parseInt(words[1]) - 1;
-                tasks[index].markAsDone();
+                break;
+            case "mark":
+                if (words.length < 2) {
+                    throw new ShoAIException("Please specify the task number to mark.");
+                }
+                int markIndex = Integer.parseInt(words[1]) - 1;
+                if (markIndex < 0 || markIndex >= taskCount) {
+                    throw new ShoAIException("Task number " + (markIndex + 1) + " does not exist.");
+                }
+                tasks[markIndex].markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[index]);
+                System.out.println(tasks[markIndex]);
                 System.out.println("____________________________________________________________");
-            } else if (command.startsWith("unmark")) {
-                int index = Integer.parseInt(words[1]) - 1;
-                tasks[index].markAsNotDone();
+                break;
+            case "unmark":
+                if (words.length < 2) {
+                    throw new ShoAIException("Please specify the task number to unmark.");
+                }
+                int unmarkIndex = Integer.parseInt(words[1]) - 1;
+                if (unmarkIndex < 0 || unmarkIndex >= taskCount) {
+                    throw new ShoAIException("Task number " + (unmarkIndex + 1) + " does not exist.");
+                }
+                tasks[unmarkIndex].markAsNotDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[index]);
+                System.out.println(tasks[unmarkIndex]);
                 System.out.println("____________________________________________________________");
-            } else if (command.equals("todo")) {
-                String description = words[1];
-                tasks[taskCount] = new Todo(description);
+                break;
+            case "todo":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new ShoAIException("The description of a todo cannot be empty.");
+                }
+                tasks[taskCount] = new Todo(words[1]);
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(tasks[taskCount - 1]);
                 System.out.println("Now you have " + taskCount + " task" + (taskCount > 1 ? "s" : "") + " in the list.");
                 System.out.println("____________________________________________________________");
-            } else if (command.equals("deadline")) {
-                String[] parts = words[1].split(" /by ");
-                tasks[taskCount] = new Deadline(parts[0], parts[1]);
+                break;
+            case "deadline":
+                if (words.length < 2) {
+                    throw new ShoAIException("The description of a deadline cannot be empty.");
+                }
+                String[] deadlineParts = words[1].split(" /by ");
+                if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+                    throw new ShoAIException("The deadline description or date/time cannot be empty.");
+                }
+                tasks[taskCount] = new Deadline(deadlineParts[0], deadlineParts[1]);
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(tasks[taskCount - 1]);
                 System.out.println("Now you have " + taskCount + " task" + (taskCount > 1 ? "s" : "") + " in the list.");
                 System.out.println("____________________________________________________________");
-            } else if (command.equals("event")) {
-                String[] parts = words[1].split(" /from ");
-                String[] timeParts = parts[1].split(" /to ");
-                tasks[taskCount] = new Event(parts[0], timeParts[0], timeParts[1]);
+                break;
+            case "event":
+                if (words.length < 2) {
+                    throw new ShoAIException("The description of an event cannot be empty.");
+                }
+                String[] eventParts = words[1].split(" /from ");
+                if (eventParts.length < 2) {
+                    throw new ShoAIException("The event description or start time cannot be empty.");
+                }
+                String[] timeParts = eventParts[1].split(" /to ");
+                if (timeParts.length < 2 || eventParts[0].trim().isEmpty() || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
+                    throw new ShoAIException("The event description, start time, or end time cannot be empty.");
+                }
+                tasks[taskCount] = new Event(eventParts[0], timeParts[0], timeParts[1]);
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(tasks[taskCount - 1]);
                 System.out.println("Now you have " + taskCount + " task" + (taskCount > 1 ? "s" : "") + " in the list.");
                 System.out.println("____________________________________________________________");
-            } else {
-                System.out.println("____________________________________________________________");
-                System.out.println("Sorry, I don't understand that command.");
-                System.out.println("____________________________________________________________");
-            }
+                break;
+            default:
+                throw new ShoAIException("Sorry, I don't understand that command.");
         }
 
-        scanner.close();
+        return false; // Continue the loop for other commands
     }
 }
