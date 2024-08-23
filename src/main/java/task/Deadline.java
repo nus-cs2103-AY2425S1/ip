@@ -8,7 +8,6 @@ public class Deadline extends Task {
         super(description);
         this.dueDate = dueDate;
         this.type = "[D]";
-        System.out.println("Successfully added task: " + this.toString());
         super.outputTaskCount();
     }
 

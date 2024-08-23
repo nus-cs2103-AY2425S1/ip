@@ -3,30 +3,34 @@ What can I do for you?
 For commands, type $help.
 Successfully added task: [T][ ] - Complete automated test cases
 You have 1 tasks pending.
+[T][ ] - Complete automated test cases
 Successfully added task: [D][ ] - Add possible test cases (due on 5pm)
 You have 2 tasks pending.
+[D][ ] - Add possible test cases (due on 5pm)
 Successfully added task: [E][ ] - Add event test case (Monday 3pm to 3.15pm)
 You have 3 tasks pending.
+[E][ ] - Add event test case (Monday 3pm to 3.15pm)
 Successfully added task: [E][ ] - Add delete test case (3.15pm to 3.30pm)
 You have 4 tasks pending.
+[E][ ] - Add delete test case (3.15pm to 3.30pm)
 Successfully added task: [T][ ] - Add UI
 You have 5 tasks pending.
+[T][ ] - Add UI
 Successfully added task: [D][ ] - Complete test case creation by (due on 5pm)
 You have 6 tasks pending.
-Task List:
-	1: [T][ ] - Complete automated test cases
-	2: [D][ ] - Add possible test cases (due on 5pm)
-	3: [E][ ] - Add event test case (Monday 3pm to 3.15pm)
-	4: [E][ ] - Add delete test case (3.15pm to 3.30pm)
-	5: [T][ ] - Add UI
-	6: [D][ ] - Complete test case creation by (due on 5pm)
-Successfully marked task: [T][x] - Add UI
-Successfully marked task: [T][x] - Add UI
-Task List:
-	1: [T][ ] - Complete automated test cases
-	2: [D][ ] - Add possible test cases (due on 5pm)
-	3: [E][ ] - Add event test case (Monday 3pm to 3.15pm)
-	4: [E][ ] - Add delete test case (3.15pm to 3.30pm)
-	5: [D][ ] - Complete test case creation by (due on 5pm)
-Successfully marked task: [D][x] - Add possible test cases(due on 5pm)
+[D][ ] - Complete test case creation by (due on 5pm)
+[T][ ] - Complete automated test cases
+[D][ ] - Add possible test cases (due on 5pm)
+[E][ ] - Add event test case (Monday 3pm to 3.15pm)
+[E][ ] - Add delete test case (3.15pm to 3.30pm)
+[T][ ] - Add UI
+[D][ ] - Complete test case creation by (due on 5pm)
+Completed: [T][x] - Add UI
+Deleted: [T][x] - Add UI
+[T][ ] - Complete automated test cases
+[D][ ] - Add possible test cases (due on 5pm)
+[E][ ] - Add event test case (Monday 3pm to 3.15pm)
+[E][ ] - Add delete test case (3.15pm to 3.30pm)
+[D][ ] - Complete test case creation by (due on 5pm)
+Completed: [D][x] - Add possible test cases (due on 5pm)
 Bye. Hope to smell you again!

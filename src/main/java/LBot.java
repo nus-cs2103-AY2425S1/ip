@@ -1,138 +1,164 @@
+import exception.*;
 import task.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class LBot {
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    static PrintFormatter printFormatter = new PrintFormatter();
 
     public static void main(String[] args) {
         String greeting = "Hello! I'm LBot, your dedicated personal assistant ;)\nWhat can I do for you?\nFor commands, type $help.";
-        String exitMsg = "Bye. Hope to smell you again!";
         // Initialise Scanner object
         Scanner scanner = new Scanner(System.in);
-        System.out.println(greeting);
+        PrintFormatter.print(greeting);
         String userInput = "";
         ArrayList<Task> taskList = new ArrayList<Task>();
         while (true) {
-            userInput = scanner.nextLine();
-            // current assumption: each input has a command
-            /*
-                Commands:
-                1. Add task
-                    1. To do $t
-                    2. Event $e
-                    3. Deadline $d
-                    4. Delete $del
-                2. List tasks $l
-                3. Mark tasks as complete $m
-             */
-            String command = userInput.split("\\s+")[0]; // split by space
-            switch (command) {
-                case "$bye":
-                    System.out.println(exitMsg);
-                    scanner.close();
-                    System.exit(0);
-                    break;
-                case "$t":
-                    try {
-                        // get details of task, remove command
-                        String taskDescription = userInput.substring(command.length() + 1);
-                        Task todo = new Todo(taskDescription);
-                        taskList.add(todo);
-                    } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Please specify your task.");
-                    }
-                    break;
-                case "$d":
-                    try {
-                        // remove command
-                        String taskDescription = userInput.substring(command.length() + 1);
-                        // split description and date
-                        int dateIndex = taskDescription.lastIndexOf('$');
-                        String task = taskDescription.substring(0, dateIndex - 1);
-                        String dueDate = taskDescription.substring(dateIndex + 1);
-                        Task deadline = new Deadline(task, dueDate);
-                        taskList.add(deadline);
-                    } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Please check that your command is in the correct format. Type $help for information :)");
-                    }
-                    break;
-                case "$e":
-                    try {
-                        // remove command
-                        String taskDescription = userInput.substring(command.length() + 1);
-                        // split description and dates
-                        int endEventIndex = taskDescription.lastIndexOf('$');
-                        String endEvent = taskDescription.substring(endEventIndex + 1).trim();
-                        taskDescription = taskDescription.substring(0, endEventIndex - 1).trim();
-                        int startEventIndex = taskDescription.lastIndexOf('$');
-                        String startEvent = taskDescription.substring(startEventIndex + 1).trim();
-                        taskDescription = taskDescription.substring(0, startEventIndex - 1).trim();
-                        Task event = new Event(taskDescription, startEvent, endEvent);
-                        taskList.add(event);
-                    } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Please check that your command is in the correct format. Type $help for information :)");
-                    }
-                    break;
-                case "$l":
-                    if (taskList.isEmpty()) {
-                        System.out.println("No tasks found");
-                        break;
-                    }
-                    System.out.println("Task List:");
-                    for (int i = 1; i < taskList.size() + 1; i++) {
-                        System.out.println("\t" + i + ": " + taskList.get(i - 1));
-                    }
-                    break;
-                case "$m":
-                    try {
-                        int taskNo = Integer.parseInt(userInput.substring(command.length() + 1)) - 1;
-                        taskList.get(taskNo).setComplete(true);
-                        System.out.println("Successfully marked task: " + taskList.get(taskNo));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Task does not exist");
-                    } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Specify a task to mark.");
-                    }
-                    break;
-                case "$del":
-                    try {
-                        int taskNo = Integer.parseInt(userInput.substring(command.length() + 1)) - 1;
-                        Task task = taskList.get(taskNo);
-                        taskList.remove(taskNo);
-                        task.deleteTask();
-                        System.out.println("Successfully marked task: " + task);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Task does not exist!");
-                    } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Specify a task to delete.");
-                    }
-                    break;
-                case "$help":
-                    System.out.println("""
-                            Welcome to LBot. Here are the commands supported!
-                            $t (description) - Add a todo
-                                $t Create a Todo
-                            $d (description) $(Date)- Add a deadline
-                                $d Finish LBot $20/08/2024
-                            $e (description) $(start) $(end) - Add an event
-                                $e Go Shopping $3pm $5pm
-                            $del (task no.) - Deletes a task
-                                $del 1
-                            $l - Lists all tasks
-                                $l
-                            $m (task no.) - Mark a task as complete
-                                $m 1
-                            $help - Shows the help page
-                            $bye - Say bye to LBot
-                            """);
-                    break;
-                default:
-                    System.out.println("Unknown command. Please check your input.");
+            try {
+                userInput = scanner.nextLine();
+                if (userInput.isEmpty()) {
+                    // TODO Update Exception Strings to Enums, need to figure out where to place the Enum
+                    throw new IncorrectArgumentException("Please enter a valid command");
+                }
+                parseCommand(userInput, taskList);
+            } catch (LBotException e) {
+                printFormatter.printException(e.getMessage());
             }
         }
     }
+
+    /**
+     * Separate user input into command and arguments
+     *
+     * @param input
+     * @throws LBotException
+     */
+    static void parseCommand(String input, ArrayList<Task> taskList) throws LBotException {
+        // gets command
+        Dictionary<String, String> dict = new Hashtable<>();
+        String command = input.split(" ")[0];
+        String taskDescription = "";
+        switch (command) {
+            case "$t":
+                try {
+                    taskDescription = input.substring(command.length() + 1).trim();
+                    if (taskDescription.isEmpty()) {
+                        throw new InvalidCommandException("Seems like you entered an incomplete command!");
+                    }
+                    Task todo = new Todo(taskDescription);
+                    taskList.add(todo);
+                    PrintFormatter.printAdded(todo);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException("Seems like you entered an incomplete command!");
+                }
+                break;
+            case "$d":
+                try {
+                    taskDescription = input.substring(command.length() + 1).trim();
+                    if (taskDescription.isEmpty()) {
+                        throw new InvalidCommandException("Seems like you entered an incomplete command!");
+                    }
+                    dict = parseDate(taskDescription);
+                    taskDescription = dict.get("input");
+                    String dueDate = dict.get("date");
+                    Task deadline = new Deadline(taskDescription, dueDate);
+                    taskList.add(deadline);
+                    printFormatter.printAdded(deadline);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException("Seems like you entered an incomplete command!");
+                }
+                break;
+            case "$e":
+                try {
+                    taskDescription = input.substring(command.length() + 1).trim();
+                    if (taskDescription.isEmpty() | taskDescription.split("\\$").length < 2) {
+                        throw new InvalidCommandException("Seems like you entered an incomplete command!");
+                    }
+                    dict = parseDate(taskDescription);
+                    taskDescription = dict.get("input");
+                    String endDate = dict.get("date");
+                    dict = parseDate(taskDescription);
+                    taskDescription = dict.get("input");
+                    String startDate = dict.get("date");
+                    Task event = new Event(taskDescription, startDate, endDate);
+                    taskList.add(event);
+                    printFormatter.printAdded(event);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidCommandException("Seems like you entered an incomplete command!");
+                }
+                break;
+            case "$l":
+                if (taskList.isEmpty()) {
+                    throw new ParseCommandException("No tasks added yet.");
+                }
+                printFormatter.printTaskList(taskList);
+                break;
+            case "$m":
+                if (taskList.isEmpty()) {
+                    throw new ParseCommandException("No tasks added yet.");
+                }
+                try {
+                    int taskNo = Integer.parseInt(input.substring(command.length() + 1)) - 1;
+                    taskList.get(taskNo).setComplete(true);
+                    printFormatter.printCompleted(taskList.get(taskNo));
+                } catch (Exception e) {
+                    throw new IncorrectArgumentException("Please enter a valid task number!");
+                }
+                break;
+            case "$del":
+                if (taskList.isEmpty()) {
+                    throw new ParseCommandException("No tasks added yet.");
+                }
+                try {
+                    int taskNo = Integer.parseInt(input.substring(command.length() + 1)) - 1;
+                    Task task = taskList.get(taskNo);
+                    taskList.remove(task);
+                    task.deleteTask();
+                    printFormatter.printDeleted(task);
+                } catch (Exception e) {
+                    throw new IncorrectArgumentException("Please enter a valid task number!");
+                }
+                break;
+            case "$help":
+                printFormatter.print("""
+                        Welcome to LBot. Here are the commands supported!
+                        $t (description) - Add a todo
+                            $t Create a Todo
+                        $d (description) $(Date)- Add a deadline
+                            $d Finish LBot $20/08/2024
+                        $e (description) $(start) $(end) - Add an event
+                            $e Go Shopping $3pm $5pm
+                        $del (task no.) - Deletes a task
+                            $del 1
+                        $l - Lists all tasks
+                            $l
+                        $m (task no.) - Mark a task as complete
+                            $m 1
+                        $help - Shows the help page
+                        $bye - Say bye to LBot""");
+                break;
+            case "$bye":
+                printFormatter.print("Bye. Hope to smell you again!");
+                System.exit(0);
+                break;
+            default:
+                throw new InvalidCommandException("Command not found. Type $help for more information.");
+        }
+    }
+
+    static Dictionary<String, String> parseDate(String input) throws LBotException {
+        Dictionary<String, String> dict = new Hashtable<>();
+        int dateIndex = input.lastIndexOf("$");
+        // +1 to start after the $
+        String date = input.substring(dateIndex + 1).trim();
+        input = input.substring(0, dateIndex);
+        dict.put("date", date);
+        dict.put("input", input);
+        return dict;
+    }
+
 }
+

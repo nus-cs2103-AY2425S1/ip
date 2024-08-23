@@ -9,7 +9,6 @@ public class Event extends Task {
         this.startDate = startDate;
         this.endDate = endDate;
         this.type = "[E]";
-        System.out.println("Successfully added task: " + this.toString());
         super.outputTaskCount();
     }
 
