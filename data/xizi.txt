@@ -1,1 +1,1 @@
-E | 1 | project meeting | Mon 2pm | 4pm
+E | 0 | Project meeting | Aug 15 2024, 2:00pm | Aug 15 2024, 4:00pm

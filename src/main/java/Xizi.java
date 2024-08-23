@@ -1,13 +1,17 @@
 //https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class Xizi {
     private static final String FILE_PATH = "./data/xizi.txt";
     private static final String DIVIDER = "____________________________________________________________";
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     // Enums for command types
     private enum CommandType {
@@ -169,11 +173,12 @@ public class Xizi {
             if (taskDescription.isEmpty() || deadline.isEmpty()) {
                 throw new XiziException("The description or time of a deadline cannot be empty.Type help to see the formats required.");
             }
-            actions.addTask(new Deadline(taskDescription, deadline));
-            storage.appendTask(new Deadline(taskDescription, deadline));
+            Deadline newTask = new Deadline(taskDescription, LocalDateTime.parse(deadline, INPUT_DATE_FORMAT));
+            actions.addTask(newTask);
+            storage.appendTask(newTask);
             System.out.println(DIVIDER);
             System.out.println("Got it. I've added this task:");
-            System.out.println("  [D][ ] " + taskDescription + " (by: " + deadline + ")");
+            System.out.println(newTask.toString());
             System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
             System.out.println(DIVIDER);
         }
@@ -188,11 +193,12 @@ public class Xizi {
             if (taskDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
                 throw new XiziException("The description, from or to time of an event cannot be empty.Type help to see the formats required.");
             }
-            actions.addTask(new Event(taskDescription, fromTime, toTime));
-            storage.appendTask(new Event(taskDescription, fromTime, toTime));
+            Event newTask = new Event(taskDescription,  LocalDateTime.parse(fromTime,INPUT_DATE_FORMAT),  LocalDateTime.parse(toTime, INPUT_DATE_FORMAT));
+            actions.addTask(newTask);
+            storage.appendTask(newTask);
             System.out.println(DIVIDER);
             System.out.println("Got it. I've added this task:");
-            System.out.println("  [E][ ] " + taskDescription + " (from: " + fromTime + " to: " + toTime + ")");
+            System.out.println(newTask.toString());
             System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
             System.out.println(DIVIDER);
         }

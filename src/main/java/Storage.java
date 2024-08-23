@@ -1,4 +1,3 @@
-
 // Do not use wildcard imports
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -8,7 +7,10 @@ import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Storage {
@@ -28,7 +30,7 @@ public class Storage {
         }
         BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()));
         try  {
-            String line = reader.readLine();
+            String line;
             while ((line = reader.readLine()) != null) {
                 Task task = getTask(line);
                 tasks.add(task);
@@ -42,16 +44,20 @@ public class Storage {
 
     private static Task getTask(String line) throws XiziException {
         String[] parts = line.split(" \\| ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"); // same as output format in xizi class
         Task task;
         switch (parts[0]) {
         case "T":
             task = new Todo(parts[2]);
             break;
         case "D":
-            task = new Deadline(parts[2], parts[3]);
+            LocalDateTime ddl = LocalDateTime.parse(parts[3], formatter);
+            task = new Deadline(parts[2], ddl);
             break;
         case "E":
-            task = new Event(parts[2], parts[3], parts[4]);
+            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+            task = new Event(parts[2], from, to);
             break;
         default:
             throw new XiziException("File data corrupted: Unknown task type.");

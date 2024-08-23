@@ -6,9 +6,9 @@ public class Deadline extends Task{
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        this.ddl = LocalDateTime.parse(deadline,INPUT_DATE_FORMAT);
+        this.ddl = deadline;
     }
 
     @Override

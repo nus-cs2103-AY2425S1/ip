@@ -7,10 +7,10 @@ public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
-        this.from = LocalDateTime.parse(from, INPUT_DATE_FORMAT);
-        this.to = LocalDateTime.parse(to, INPUT_DATE_FORMAT);
+        this.from = from;
+        this.to = to;
     }
 
     @Override
