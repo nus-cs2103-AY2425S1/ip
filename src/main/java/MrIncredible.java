@@ -7,27 +7,45 @@ public class MrIncredible {
         MrIncredible.greet();
 
         while (true) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
 
             if (input.equals("bye")) {
                 MrIncredible.sayBye();
                 break;
             } else if (input.equals("list")) {
                 MrIncredible.listTasks();
-            } else if (input.length() >= 4 && input.substring(0, 4).equals("mark")) {
+            } else if (input.startsWith("mark ")) {
                 MrIncredible.markTask(input);
             } else if (input.startsWith("todo ")) {
-                MrIncredible.addToDoTask(input.substring(5));
+                if (input.length() > 5) {
+                    MrIncredible.addToDoTask(input.substring(5).trim());
+                } else {
+                    MrIncredible.handleError("The description of a todo cannot be empty.");
+                }
             } else if (input.startsWith("deadline ")) {
-                MrIncredible.addDeadlineTask(input.substring(9));
+                if (input.length() > 9 && input.contains(" /by ")) {
+                    MrIncredible.addDeadlineTask(input.substring(9).trim());
+                } else {
+                    MrIncredible.handleError("The deadline description or date is missing or improperly formatted. Use: deadline <description> /by <time>");
+                }
             } else if (input.startsWith("event ")) {
-                MrIncredible.addEventTask(input.substring(6));
+                if (input.length() > 6 && input.contains(" /from ") && input.contains(" /to ")) {
+                    MrIncredible.addEventTask(input.substring(6).trim());
+                } else {
+                    MrIncredible.handleError("The event description, start, or end time is missing or improperly formatted. Use: event <description> /from <start> /to <end>");
+                }
             } else {
-                MrIncredible.addTask(input);
+                MrIncredible.handleError("Sorry, I don't recognize that command. Please try again.");
             }
         }
 
         scanner.close();
+    }
+
+    public static void handleError(String errorMessage) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    OOPS!!! " + errorMessage);
+        System.out.println("    ____________________________________________________________");
     }
 
     public static void addToDoTask(String description) {
