@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -90,32 +93,50 @@ public class MoiMoi {
                 + "\nWe have " + tasks.size() + " tasks in the bag~");
     }
 
-    public void deadline(String description) throws MissingArgumentException {
+    public void deadline(String description) throws MoiMoiException {
         try {
             String[] descBy = description.split(" /by ", 2);
-            Deadline task = new Deadline(descBy[0], descBy[1]);
+            String desc = descBy[0];
+            String byString = descBy[1];
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime by = LocalDateTime.parse(byString, formatter);
+            Deadline task = new Deadline(desc, by);
+
             this.tasks.add(task);
             System.out.println("Got it! Deadline task added: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks in the bag~");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
         }
     }
 
-    public void event(String description) throws MissingArgumentException {
+    public void event(String description) throws MoiMoiException {
         try {
             String[] descFromTo = description.split(" /from ", 2);
+            String desc = descFromTo[0];
             String[] fromTo = descFromTo[1].split(" /to ", 2);
-            Event task = new Event(descFromTo[0], fromTo[0], fromTo[1]);
+            String fromString = fromTo[0];
+            String toString = fromTo[1];
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime from = LocalDateTime.parse(fromString, formatter);
+            LocalDateTime to = LocalDateTime.parse(toString, formatter);
+            Event task = new Event(desc, from, to);
+
             this.tasks.add(task);
             System.out.println("Here you go! Event task added: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks in the bag~");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
         }
     }
 
-    public void delete(String index) throws InvalidArgumentException {
+    public void delete(String index) throws InvalidIndexException {
         try {
             int i = Integer.parseInt(index) - 1;
             Task task = tasks.get(i);
@@ -123,27 +144,27 @@ public class MoiMoi {
             System.out.println("Aju nice! I've got rid of this task: " + task.stringUI()
                     + "\nWe have " + tasks.size() + " tasks left in the bag~");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException();
+            throw new InvalidIndexException();
         }
     }
 
-    public void mark(String index) throws InvalidArgumentException {
+    public void mark(String index) throws InvalidIndexException {
         try {
             Task task = tasks.get(Integer.parseInt(index) - 1);
             task.mark();
             System.out.println("YAY!! One down!!\n" + task.stringUI());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException();
+            throw new InvalidIndexException();
         }
     }
 
-    public void unmark(String index) throws InvalidArgumentException {
+    public void unmark(String index) throws InvalidIndexException {
         try {
             Task task = tasks.get(Integer.parseInt(index) - 1);
             task.unmark();
             System.out.println("Oof, it's OK! Let's get it done soon ;)\n" + task.stringUI());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException();
+            throw new InvalidIndexException();
         }
     }
 

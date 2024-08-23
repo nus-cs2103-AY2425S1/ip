@@ -1,6 +1,6 @@
 todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2024-08-22 17:00
+event project meeting /from 2024-08-22 18:00 /to 2024-08-22 18:30
 list
 mark 1
 mark 2
@@ -12,12 +12,21 @@ lost
 make 1
 deadline
 event project meeting
-event project meeting /start Mon 2pm /end 4pm
+event project meeting /start 2024-08-22 18:00 /to 2024-08-22 18:30
+event project meeting /from 2024-08-22 18:00 /end 2024-08-22 18:30
 mark a
 delete a
 mark 100
 delete -1
 list
 delete 2
+deadline return book /by 2024-08-40 17:00
+event project meeting /from 2024-08-22 18:00 /to 2024-08-22 40:30
+deadline return book /by 2024-8-22 17:00
+event project meeting /from 2024-08-2 18:00 /to 2024-08-22 18:30
+deadline return book /by 2024-08-22 5:00
+event project meeting /from 2024/08/22 18:00 /to 2024/08/22 18:30
+event meeting /from 2024-08-22 18:00 /to 2024-08-22 17:00
+event meeting /from 2024-08-22 18:00 /to 2024-08-22 18:00
 list
 bye

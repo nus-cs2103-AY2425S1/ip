@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,18 +42,22 @@ public class Storage {
         }
     }
 
-    private Task createTask(String[] taskInfo) throws StorageCorruptedException {
+    private Task createTask(String[] taskInfo) throws MoiMoiException {
         try {
             Task task;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             switch (taskInfo[0]) {
             case "T":
                 task = new Todo(taskInfo[2]);
                 break;
             case "D":
-                task = new Deadline(taskInfo[2], taskInfo[3]);
+                LocalDateTime by = LocalDateTime.parse(taskInfo[3], formatter);
+                task = new Deadline(taskInfo[2], by);
                 break;
             case "E":
-                task = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                LocalDateTime from = LocalDateTime.parse(taskInfo[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(taskInfo[4], formatter);
+                task = new Event(taskInfo[2], from, to);
                 break;
             default:
                 throw new StorageCorruptedException();
@@ -64,7 +71,7 @@ public class Storage {
             }
 
             return task;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new StorageCorruptedException();
         }
     }
