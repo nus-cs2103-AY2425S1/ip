@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private ArrayList<IndividualTask> list = new ArrayList<IndividualTask>();
+    private ArrayList<IndividualTask> tasks = new ArrayList<IndividualTask>();
     private String path;
 
     public Storage(String path) {
@@ -18,11 +18,15 @@ public class Storage {
         File directory = new File("./data");
         File file = new File(path);
         if (!directory.exists()) {
-            System.out.println("No existing directory found. Create a directory data and a file 'duke.txt' inside that directory. Starting with an empty task list.");
+            System.out.println("No existing directory found. " +
+                    "Create a directory data and a file 'duke.txt' inside that directory. " +
+                    "Starting with an empty task list.");
             return;
         }
         if (!file.exists()) {
-            System.out.println("No existing data file found. Create a file 'duke.txt' in the data directory. Starting with an empty task list.");
+            System.out.println("No existing data file found. " +
+                    "Create a file 'duke.txt' in the data directory. " +
+                    "Starting with an empty task list.");
             return;
         }
         try {
@@ -43,7 +47,7 @@ public class Storage {
                     if (isTaskDone) {
                         task.markOrUnmark("mark");
                     }
-                    list.add(task);
+                    this.tasks.add(task);
                 }
             }
             scanner.close();
@@ -54,7 +58,7 @@ public class Storage {
         }
     }
     public ArrayList<IndividualTask> load() {
-        return this.list;
+        return this.tasks;
     }
 
     public void saveTasksToFile(ArrayList<IndividualTask> curList)  {

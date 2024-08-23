@@ -16,10 +16,17 @@ public class Event extends IndividualTask{
 
     @Override
     public String saveToFileFormat() {
-        return "E | " + this.getSaveIcon() + " | " + this.getTaskDescription() + " | " + this.from + " | " + this.to;
+        return "E | " +
+                this.getSaveIcon() +
+                " | " +
+                this.getTaskDescription() +
+                " | " + this.from +
+                " | " + this.to;
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" +
+                super.toString() +
+                " (from: " + this.from + " to: " + this.to + ")";
     }
 }
