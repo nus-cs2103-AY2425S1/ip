@@ -1,8 +1,10 @@
 package duke;
 
 /**
- * The duke.IndividualTask class represents an abstract task with a description and a status indicating whether the task is done.
- * This class is intended to be extended by specific types of tasks (e.g., duke.ToDo, duke.Deadline, duke.Event).
+ * The duke.IndividualTask class represents an abstract task with a description
+ * and a status indicating whether the task is done.
+ * This class is intended to be extended by specific types of tasks
+ * (e.g., duke.ToDo, duke.Deadline, duke.Event).
  */
 abstract public class IndividualTask {
     private String taskDescription;
@@ -45,7 +47,8 @@ abstract public class IndividualTask {
 
     /**
      * Marks the task as done or not done based on the provided message.
-     * If the message is "mark", the task is marked as done; otherwise, it is marked as not done.
+     * If the message is "mark", the task is marked as done; otherwise,
+     * it is marked as not done.
      *
      * @param msg A string indicating whether to mark or unmark the task.
      */

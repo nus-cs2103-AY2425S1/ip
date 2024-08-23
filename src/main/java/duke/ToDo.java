@@ -1,7 +1,8 @@
 package duke;
 
 /**
- * The duke.ToDo class represents a task that only has a description and does not have a specific date or time associated with it.
+ * The duke.ToDo class represents a task that only has a description and
+ * does not have a specific date or time associated with it.
  * This class extends the duke.IndividualTask class.
  */
 public class ToDo extends IndividualTask {
@@ -28,7 +29,8 @@ public class ToDo extends IndividualTask {
 
     /**
      * Returns a string representation of the duke.ToDo task.
-     * The format is: "[T][ ] [TaskDescription]" or "[T][X] [TaskDescription]" depending on whether the task is marked as done.
+     * The format is: "[T][ ] [TaskDescription]" or
+     * "[T][X] [TaskDescription]" depending on whether the task is marked as done.
      *
      * @return The string representation of the duke.ToDo task.
      */
