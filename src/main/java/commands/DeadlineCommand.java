@@ -1,3 +1,12 @@
+package commands;
+
+import botty.ParsedInput;
+import botty.TaskManager;
+import exceptions.ArgumentNotFoundException;
+import exceptions.BottyException;
+import exceptions.EmptyArgumentException;
+import tasks.Deadline;
+
 public class DeadlineCommand extends AddTaskCommand {
     public DeadlineCommand(TaskManager taskManager) {
         super(taskManager);

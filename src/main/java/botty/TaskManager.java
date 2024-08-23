@@ -1,3 +1,9 @@
+package botty;
+
+import exceptions.TaskListEmptyException;
+import exceptions.TaskNumberNotFoundException;
+import tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskManager {

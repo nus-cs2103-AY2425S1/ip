@@ -1,3 +1,7 @@
+package tasks;
+
+import exceptions.EmptyArgumentException;
+
 public class Event extends Task {
     private final String startDateTime;
     private final String endDateTime;

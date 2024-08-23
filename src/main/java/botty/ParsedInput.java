@@ -1,3 +1,9 @@
+package botty;
+
+import exceptions.ArgumentNotFoundException;
+import exceptions.BottyException;
+import exceptions.EmptyCommandException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

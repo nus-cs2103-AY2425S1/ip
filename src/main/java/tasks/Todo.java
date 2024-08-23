@@ -1,3 +1,7 @@
+package tasks;
+
+import exceptions.EmptyArgumentException;
+
 public class Todo extends Task {
     public Todo(String description) throws EmptyArgumentException {
         super(description);

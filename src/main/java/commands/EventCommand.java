@@ -1,3 +1,12 @@
+package commands;
+
+import botty.ParsedInput;
+import botty.TaskManager;
+import exceptions.ArgumentNotFoundException;
+import exceptions.BottyException;
+import exceptions.EmptyArgumentException;
+import tasks.Event;
+
 public class EventCommand extends AddTaskCommand {
     public EventCommand(TaskManager taskManager) {
         super(taskManager);

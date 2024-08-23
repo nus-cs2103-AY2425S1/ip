@@ -1,3 +1,7 @@
+package tasks;
+
+import exceptions.EmptyArgumentException;
+
 public class Deadline extends Task {
     private final String endDateTime;
 

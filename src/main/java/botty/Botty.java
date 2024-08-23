@@ -1,3 +1,9 @@
+package botty;
+
+import commands.*;
+import exceptions.BottyException;
+import exceptions.UnknownCommandException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -20,9 +26,8 @@ public class Botty {
             "       \\ \\__\\ \\ \\__\\ \\__\\ \\_______\\       \\ \\_______\\ \\_______\\   \\ \\__\\\n" +
             "        \\|__|  \\|__|\\|__|\\|_______|        \\|_______|\\|_______|    \\|__|";
 
-    private static final String bottySymbol = "Botty: ";
+    private static final String bottySymbol = "botty.Botty: ";
     private static final String bottyIndentation = "       ";
-    private TaskManager taskManager;
     private Scanner inputScanner;
     private Map<String, Command> commands;
     public Botty(Map<String, Command> commands) {
@@ -47,7 +52,7 @@ public class Botty {
 
     public void beginInteraction() {
         inputScanner = new Scanner(System.in);
-        taskManager = new TaskManager();
+        TaskManager taskManager = new TaskManager();
 
         displayIntroduction();
 
@@ -82,7 +87,7 @@ public class Botty {
         System.out.println(logo);
         System.out.println();
 
-        reply("Hello, I am Botty the Bot, how may I be of service today?");
+        reply("Hello, I am botty.Botty the Bot, how may I be of service today?");
     }
 
     private void reply(String content) {
