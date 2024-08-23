@@ -13,6 +13,7 @@ public class Ruby {
 
         while (true) {
             String command = scanner.nextLine().trim();
+
             if (command.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
@@ -39,11 +40,36 @@ public class Ruby {
                 } else {
                     System.out.println("     Invalid task number.");
                 }
-            } else {
-                tasks[taskCount] = new Task(command);
+            } else if (command.startsWith("todo ")) {
+                String description = command.substring(5);
+                tasks[taskCount] = new Todo(description);
                 taskCount++;
-                System.out.println("     added: " + command);
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + tasks[taskCount - 1]);
+                System.out.println("     Now you have " + taskCount + " tasks in the list.");
+            } else if (command.startsWith("deadline ")) {
+                String[] parts = command.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + tasks[taskCount - 1]);
+                System.out.println("     Now you have " + taskCount + " tasks in the list.");
+            } else if (command.startsWith("event ")) {
+                String[] parts = command.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + tasks[taskCount - 1]);
+                System.out.println("     Now you have " + taskCount + " tasks in the list.");
+            } else {
+                System.out.println("     I'm sorry, I don't understand that command.");
             }
         }
+        scanner.close();
     }
 }
