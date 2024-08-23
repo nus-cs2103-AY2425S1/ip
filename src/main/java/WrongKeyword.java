@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class WrongKeyword {
+public class WrongKeyword extends Exception{
+    public WrongKeyword(String message) {
+        super(message);
+    }
 }

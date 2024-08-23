@@ -1,5 +1,5 @@
-public class DanielException extends Exception{
-    public DanielException(String message) {
+public class MissingArg extends Exception{
+    public MissingArg(String message) {
         super(message);
     }
 }
