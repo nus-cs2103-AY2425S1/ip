@@ -45,7 +45,8 @@ public class Edith {
     }
 
     public void mark(int index) {
-        String message = "Alright, great job! I've marked task " + index + " as done:";
+        int num = index + 1;
+        String message = "Alright, great job! I've marked task " + num + " as done:";
         listOfTasks.get(index).markTaskDone();
 
         System.out.println(indentation + message);
@@ -53,7 +54,8 @@ public class Edith {
     }
 
     public void unmark(int index) {
-        String message = "Sure, I've marked task " + index + " as not done yet:";
+        int num = index + 1;
+        String message = "Sure, I've marked task " + num + " as not done yet:";
         listOfTasks.get(index).unmarkTaskDone();
 
         System.out.println(indentation + message);
@@ -88,7 +90,7 @@ public class Edith {
                     edith.invalidTaskException(index);
                 }
             } else if (userInput.startsWith("unmark ")) {
-                int index = Integer.parseInt(userInput.substring(5).trim()) - 1;
+                int index = Integer.parseInt(userInput.substring(7).trim()) - 1;
                 try {
                     edith.unmark(index);
                 } catch (NumberFormatException e) {
