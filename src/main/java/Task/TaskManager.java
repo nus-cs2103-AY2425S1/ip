@@ -1,3 +1,5 @@
+package Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,4 +31,10 @@ public class TaskManager {
         }
     }
 
+    @Override
+    public String toString() {
+        for(int i = 1; i <=tasks.size();i++){
+            out.println(i + ". " + list.get(i-1));
+        }
+    }
 }

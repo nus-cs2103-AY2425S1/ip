@@ -1,3 +1,6 @@
+import Task.Task;
+import Task.TaskManager;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.List;
@@ -11,7 +14,7 @@ public class AVA {
     private String currentInput;
 
     /**
-     * TaskManager for AVA
+     * Task.TaskManager for AVA
      * its initialized on ava's creation
      *
      * final to avoid unnecessary modifications
@@ -42,6 +45,7 @@ public class AVA {
         currentInput = s;
     }
 
+    //todo:have a non printstream version
     /**
      * method to print AVA's response to given PrintStream
      * @param out PrintStream to print AVA's response to
@@ -51,10 +55,7 @@ public class AVA {
     public void respond(PrintStream out){
         if(currentInput.equals("list")){
             List<Task> list = taskManager.getTasks();
-            int count = list.size();
-            for(int i = 1; i <=count;i++){
-                out.println(i + ". " + list.get(i-1));
-            }
+
 
         } else if(currentInput.startsWith("mark")){
             int taskId;
