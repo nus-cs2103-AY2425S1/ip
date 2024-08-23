@@ -107,6 +107,17 @@ public class MrTracker {
         }
     }
 
+    public static void deleteTask(String strIndex) {
+        try {
+            int index = Integer.parseInt(strIndex);
+        } catch (NumberFormatException ex) {
+            System.out.println("Please provide a valid number");
+        }
+        
+        
+
+    }
+
 
     public static void main(String[] args) {
         String name = "Mr Tracker";
@@ -156,6 +167,8 @@ public class MrTracker {
             } else if (input.startsWith("event ")) {
                 MrTracker.addEvent(taskList, input.substring(6));
 
+            } else if (input.startsWith("delete ")) {
+                MrTracker.deleteTask(input.substring(7));
             } else {
                 // MrTracker.addTask(taskList, input);
                 System.out.println(input + " is not a valid command!");
