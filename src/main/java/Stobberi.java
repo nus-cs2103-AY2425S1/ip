@@ -14,6 +14,48 @@ public class Stobberi {
                 + phrase
                 + "\n___________________________________________\n";
     }
+    private static void displayList() {
+        String list = "Here are the tasks in your list:\n";
+        for (int i = 1; i < listOfTasks.size() + 1; i++) {
+            list += i + ". " + listOfTasks.get(i - 1) + "\n";
+        }
+        System.out.println(displayForm(list));
+    }
+    private static void markTask(int number) {
+        listOfTasks.get(number - 1).setDone();
+        String done = "Nice! I've marked this task as done:\n" +
+                "  ";
+        done += listOfTasks.get(number - 1).toString();
+        System.out.println(displayForm(done));
+    }
+    private static void unmarkTask(int number) {
+        listOfTasks.get(number - 1).setNotDone();
+        String done = "OK, I've marked this task as not done yet:\n" +
+                "  ";
+        done += listOfTasks.get(number - 1).toString();
+        System.out.println(displayForm(done));
+    }
+    private static void displayLastAdded() {
+        System.out.println(displayForm(
+                "Got it. I've added this task:\n    "
+                + listOfTasks.get(listOfTasks.size() - 1))
+                + "Now you have " + listOfTasks.size() + " in the list.");
+    }
+    private static void addTask(String firstWord, String task) {
+
+        if (firstWord.equals("todo")) {
+            listOfTasks.add(new ToDos(task));
+        } else if (firstWord.equals("deadline")) {
+            String[] parts = task.split("/by ");
+            listOfTasks.add(new Deadlines(parts[0], parts[1]));
+        } else if (firstWord.equals("event")) {
+            String[] parts = task.split("/from ");
+            String[] secondParts = parts[1].split("/to ");
+            listOfTasks.add(new Events(parts[0], secondParts[0], secondParts[1]));
+        }
+
+        displayLastAdded();
+    }
 
     private static void createList() {
         Scanner scanner = new Scanner(System.in);
@@ -21,36 +63,24 @@ public class Stobberi {
 
         while (!temp.equals("bye")) {
             if (temp.equals("list")) {
-                String list = "Here are the tasks in your list:\n";
-                for (int i = 1; i < listOfTasks.size() + 1; i++) {
-                    list += i + ". " + listOfTasks.get(i - 1) + "\n";
-                }
-                System.out.println(displayForm(list));
+                displayList();
             } else {
                 String[] parts = temp.split(" ");
+                String firstWord = parts[0];
+                String restOfTask = String.join(" ", java.util.Arrays.copyOfRange(parts, 1, parts.length));
                 if (parts.length == 2 && parts[1].matches("\\d+")) {
                     int number = Integer.parseInt(parts[1]);
-                    if (parts[0].equals("mark")) {
-                        listOfTasks.get(number - 1).setDone();
-                        String done = "Nice! I've marked this task as done:\n" +
-                                "  ";
-                        done += listOfTasks.get(number - 1).toString();
-                        System.out.println(displayForm(done));
+                    if (firstWord.equals("mark")) {
+                        markTask(number);
                         temp = scanner.nextLine();
                         continue;
-                    } else if (parts[0].equals("unmark")) {
-                        listOfTasks.get(number - 1).setNotDone();
-                        String done = "OK, I've marked this task as not done yet:\n" +
-                                "  ";
-                        done += listOfTasks.get(number - 1).toString();
-                        System.out.println(displayForm(done));
+                    } else if (firstWord.equals("unmark")) {
+                        unmarkTask(number);
                         temp = scanner.nextLine();
                         continue;
                     }
                 }
-
-                listOfTasks.add(new Task(temp));
-                System.out.println(displayForm("added: " + temp));
+                addTask(firstWord, restOfTask);
             }
             temp = scanner.nextLine();
         }
