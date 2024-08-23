@@ -20,7 +20,47 @@ public class Elysia {
 
             @Override
             public String toString() {
-                return "[" + (isDone ? "X" : " ") + "] " + description + "\n";
+                return "[" + (isDone ? "X" : " ") + "] " + description;
+            }
+        }
+
+        class Todo extends Task {
+            public Todo(String description) {
+                super(description);
+            }
+
+            @Override
+            public String toString() {
+                return "[T]" + super.toString() + "\n";
+            }
+        }
+
+        class Deadline extends Task {
+            protected String by;
+            public Deadline(String description, String by) {
+                super(description);
+                this.by = by;
+            }
+
+            @Override
+            public String toString() {
+                return "[D]" + super.toString() + " (by: " + by + ")\n";
+            }
+        }
+
+        class Event extends Task {
+            protected String from;
+            protected String to;
+
+            public Event(String description, String from, String to) {
+                super(description);
+                this.from = from;
+                this.to = to;
+            }
+
+            @Override
+            public String toString() {
+                return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")\n";
             }
         }
 
@@ -47,6 +87,10 @@ public class Elysia {
 
             public String printTask(int taskNumber) {
                 return list[taskNumber-1].toString();
+            }
+
+            public String size() {
+                return "" + listPointer;
             }
 
             @Override
@@ -91,10 +135,32 @@ public class Elysia {
                 output = "Making a pretty girl undo her work is not good for her health! \n";
                 output += tasklist.printTask(taskNumber);
                 System.out.println(lines + "\n" + output + lines + "\n");
+            } else if (input.startsWith("todo")) {
+                Todo newTodo = new Todo(input);
+                tasklist.addTask(newTodo);
+                output = "Added the task below to your list~\n" + newTodo.toString();
+                output += "Wow! You now have " + tasklist.size() + " tasks in your list!\n";
+                System.out.println(lines + "\n" + output + lines + "\n");
+            } else if (input.startsWith("deadline")) {
+                int index = input.indexOf("/");
+                Deadline newDeadline = new Deadline(input.substring(9,index),
+                        input.substring(index + 4));
+                tasklist.addTask(newDeadline);
+                output = "Added the task below to your list~\n" + newDeadline.toString();
+                output += "Wow! You now have " + tasklist.size() + " tasks in your list!\n";
+                System.out.println(lines + "\n" + output + lines + "\n");
+            } else if (input.startsWith("event")) {
+                int index0 = input.indexOf("/");
+                int index1 = input.lastIndexOf("/");
+                Event newEvent = new Event(input.substring(6,index0),
+                        input.substring(index0 + 6, index1),
+                        input.substring(index1+4));
+                tasklist.addTask(newEvent);
+                output = "Added the task below to your list~\n" + newEvent.toString();
+                output += "Wow! You now have " + tasklist.size() + " tasks in your list!\n";
+                System.out.println(lines + "\n" + output + lines + "\n");
             } else {
-                Task newTask = new Task(input);
-                tasklist.addTask(newTask);
-                output = "Added " + input + " to your list~";
+                output = "something went wrong :(";
                 System.out.println(lines + "\n" + output + "\n" + lines + "\n");
             }
         }
