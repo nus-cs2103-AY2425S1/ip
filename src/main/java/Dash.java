@@ -7,7 +7,7 @@ public class Dash {
         Scanner scanner = new Scanner(System.in);
 
         //Initialise array list to store date
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
 
         //Greeting
         String logo = " .----------------.  .----------------.  .----------------.  .----------------.\n" +
@@ -26,23 +26,57 @@ public class Dash {
         System.out.println("Hello! I'm\n" + logo + "\nWhat can I do for you?");
 
         //Echo loop
-        while(true) {
+        while (true) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                System.out.println(horizontalLine);
-                int length = list.size();
-                for (int i = 0; i < length; i++) {
-                    int num = i + 1;
-                    System.out.println(num +". " + list.get(i));
+            try {
+                if (input.equals("bye")) {
+                    break;
+                } else if (input.equals("list")) {
+                    System.out.println(horizontalLine);
+                    int length = list.size();
+                    for (int i = 0; i < length; i++) {
+                        Task t = list.get(i);
+                        int num = i + 1;
+                        System.out.println(num +". [" + t.getStatusIcon() + "] " + t);
+                    }
+                    System.out.println(horizontalLine);
+                } else if (input.startsWith("mark")) {
+                    String[] string = input.split(" ", 2);
+                    int markNum = Integer.parseInt(string[1]);
+                    int num = list.size();
+                    if (markNum > num || markNum < 1) {
+                        System.out.println("Invalid index provided.");
+                    } else {
+                        Task t = list.get(markNum - 1);
+                        t.markTaskAsDone();
+                        System.out.println(horizontalLine);
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("   ["+ t.getStatusIcon() + "] " + t);
+                        System.out.println(horizontalLine);
+                    }
+                } else if (input.startsWith("unmark")) {
+                    String[] string = input.split(" ", 2);
+                    int unmarkNum = Integer.parseInt(string[1]);
+                    int num = list.size();
+                    if (unmarkNum > num || unmarkNum < 1) {
+                        System.out.println("Invalid index provided.");
+                    } else {
+                        Task t = list.get(unmarkNum - 1);
+                        t.unmarkTask();
+                        System.out.println(horizontalLine);
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println("   ["+ t.getStatusIcon() + "] " + t);
+                        System.out.println(horizontalLine);
+                    }
+                } else {
+                    System.out.println(horizontalLine);
+                    Task t = new Task(input);
+                    list.add(t);
+                    System.out.println("added: " + t);
+                    System.out.println(horizontalLine);
                 }
-                System.out.println(horizontalLine);
-            } else {
-                System.out.println(horizontalLine);
-                System.out.println("added: " + input);
-                list.add(input);
-                System.out.println(horizontalLine);
+            } catch (Exception e) {
+                System.out.println("ERROR: " + e.getMessage());
             }
         }
 
