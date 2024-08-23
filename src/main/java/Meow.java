@@ -20,6 +20,9 @@ public class Meow {
     + "\n    What can I do for you Meow?"
     + "\n    _____________________________________________________________________";
     private static ArrayList<Task> taskList = new ArrayList<>();
+    public enum Command {
+        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE
+    }
     public static void main(String[] args) throws Meowception {
         System.out.println(openingMessage);
         Scanner sc = new Scanner(System.in);
@@ -28,7 +31,7 @@ public class Meow {
         // User input cycle is here.
 
         while (!input.equals("bye")) {
-            outputTask(input);
+            commandValidation(input);
             input = sc.nextLine();
         }
 
@@ -41,107 +44,137 @@ public class Meow {
         System.out.println("    " + "_____________________________________________________________________\n");
     }
 
-    private static void outputTask(String inputType) throws Meowception {
-        if (inputType.startsWith("mark")) {
-            try {
-                if (!inputType.substring(5).trim().isEmpty()) {
-                    markTask(inputType);
-                    return;
-                } else {
-                    throw new Meowception("100");
-                }
-            } catch (Meowception err) {
-                errorMsg(err.toString());
-            } catch (StringIndexOutOfBoundsException e) {
-                Meowception err = new Meowception("100");
-                errorMsg(err.toString());
-            }
-            // errorMsg("Meow meow you need to enter a task number to mark !!!");
+    private static void commandValidation(String inputType) throws Meowception {
+        try {
             
-            
-        } else if (inputType.startsWith("unmark")) {
-            try {
-                if (!inputType.substring(7).trim().isEmpty()) {
-                    unmarkTask(inputType);
-                    return;
-                } else {
-                    throw new Meowception("100");
-                }
-            } catch (Meowception err) {
-                errorMsg(err.toString());       
-            } catch (StringIndexOutOfBoundsException e) {
-                Meowception err = new Meowception("100");
-                errorMsg(err.toString());
-            }
-            
-                
-        } else if (inputType.equals("list")) { 
+            String[] parts = inputType.split(" ");
 
-            displayList();
-
-        } else if (inputType.startsWith("todo")) {
-            // Cleaning data so that it identifies todo, "todo " and subsequent "todo         ...   "
-            // if (inputType.length() == 4) {
-            //     errorMsg("Meow meow you need to enter a task in your todo !!!");
-            // } else if (inputType.length() == 5) {
-            //     if (inputType.charAt(4) != ' ') {
-            //         errorMsg("No command exists like that silly goose");
-            //     } else {
-            //         errorMsg("Meow meow you need to enter a task in your todo !!!");
-            //     }
-            // } else {
-            //     addTodoTask(inputType.substring(5)); // adds task but cleans out the "todo "
-            // }
-            try {
-                addTodoTask(inputType.substring(5));
-            } catch (Meowception e) {
-                errorMsg(e.toString());
-            } catch (StringIndexOutOfBoundsException e) {
-                Meowception err = new Meowception("100");
+            System.out.println(parts[0]);
+            Command userCommand = Command.valueOf(parts[0].toUpperCase());
+            outputTask(userCommand, inputType);
+        } catch (StringIndexOutOfBoundsException e) {
+            Meowception err = new Meowception("404");
                 errorMsg(err.toString());
-            } 
-            
-        } else if (inputType.startsWith("deadline")){
-            // Cleaning data so that it identifies deadline correctly and the task.
-            try {
-                addDeadlineTask(inputType.substring(9));
-            } catch (Meowception err) {
-                errorMsg(err.toString());
-            } catch (StringIndexOutOfBoundsException e) {
-                Meowception err = new Meowception("100");
-                errorMsg(err.toString());
-            } 
-            
-        } else if (inputType.startsWith("event") && inputType.length() > 5) {
-            // Lazy clean so nice for event. no way we introduce a new command called eventsmth...
-            try {
-                addEventTask(inputType.substring(6));
-            } catch (Meowception err) {
-                errorMsg(err.toString());
-            } catch (StringIndexOutOfBoundsException e) {
-                Meowception err = new Meowception("100");
-                errorMsg(err.toString());
-            }
-            
-
-        } else if (inputType.startsWith("delete")) {
-            try {
-                if (!inputType.substring(6).trim().isEmpty()) {
-                    rmvTask(inputType);
-                } else {
-                    throw new Meowception("100");
-                }
-            } catch (Meowception err) {
-                errorMsg(err.toString());
-            } catch (StringIndexOutOfBoundsException e) {
-                Meowception err = new Meowception("100");
-                errorMsg(err.toString());
-
-            }
-            
-        } else {
-            errorMsg(new Meowception("001").toString());
+        } catch (IllegalArgumentException e) {
+            Meowception err = new Meowception("001");
+            errorMsg(err.toString());
         }
+    }
+
+    private static void outputTask(Command cmd,String inputType) throws Meowception {
+        
+
+        switch (cmd) {
+            case MARK:
+                try {
+                    if (!inputType.substring(5).trim().isEmpty()) {
+                        markTask(inputType);
+                        return;
+                    } else {
+                        throw new Meowception("100");
+                    }
+                } catch (Meowception err) {
+                    errorMsg(err.toString());
+                } catch (StringIndexOutOfBoundsException e) {
+                    Meowception err = new Meowception("100");
+                    errorMsg(err.toString());
+                }
+                // errorMsg("Meow meow you need to enter a task number to mark !!!");
+                break;
+                
+            case UNMARK:
+                try {
+                    if (!inputType.substring(7).trim().isEmpty()) {
+                        unmarkTask(inputType);
+                        return;
+                    } else {
+                        throw new Meowception("100");
+                    }
+                } catch (Meowception err) {
+                    errorMsg(err.toString());       
+                } catch (StringIndexOutOfBoundsException e) {
+                    Meowception err = new Meowception("100");
+                    errorMsg(err.toString());
+                }
+                break;
+                    
+            case LIST:
+    
+                displayList();
+                break;
+    
+            case TODO:
+                // Cleaning data so that it identifies todo, "todo " and subsequent "todo         ...   "
+                // if (inputType.length() == 4) {
+                //     errorMsg("Meow meow you need to enter a task in your todo !!!");
+                // } else if (inputType.length() == 5) {
+                //     if (inputType.charAt(4) != ' ') {
+                //         errorMsg("No command exists like that silly goose");
+                //     } else {
+                //         errorMsg("Meow meow you need to enter a task in your todo !!!");
+                //     }
+                // } else {
+                //     addTodoTask(inputType.substring(5)); // adds task but cleans out the "todo "
+                // }
+                try {
+                    addTodoTask(inputType.substring(5));
+                } catch (Meowception e) {
+                    errorMsg(e.toString());
+                } catch (StringIndexOutOfBoundsException e) {
+                    Meowception err = new Meowception("100");
+                    errorMsg(err.toString());
+                } 
+                break;
+                
+            case DEADLINE:
+                // Cleaning data so that it identifies deadline correctly and the task.
+                try {
+                    addDeadlineTask(inputType.substring(9));
+                } catch (Meowception err) {
+                    errorMsg(err.toString());
+                } catch (StringIndexOutOfBoundsException e) {
+                    Meowception err = new Meowception("100");
+                    errorMsg(err.toString());
+                } 
+                break;
+                
+            case EVENT:
+                // Lazy clean so nice for event. no way we introduce a new command called eventsmth...
+                try {
+                    addEventTask(inputType.substring(6));
+                } catch (Meowception err) {
+                    errorMsg(err.toString());
+                } catch (StringIndexOutOfBoundsException e) {
+                    Meowception err = new Meowception("100");
+                    errorMsg(err.toString());
+                }
+                break;
+                
+    
+            case DELETE:
+                try {
+                    if (!inputType.substring(6).trim().isEmpty()) {
+                        rmvTask(inputType);
+                    } else {
+                        throw new Meowception("100");
+                    }
+                } catch (Meowception err) {
+                    errorMsg(err.toString());
+                } catch (StringIndexOutOfBoundsException e) {
+                    Meowception err = new Meowception("100");
+                    errorMsg(err.toString());
+    
+                }
+                break;
+                
+            // case DEFAULT:
+            //     errorMsg(new Meowception("001").toString());
+            // }
+        }
+
+
+
+        
     }
 
     static private void addTodoTask(String command) throws Meowception{
