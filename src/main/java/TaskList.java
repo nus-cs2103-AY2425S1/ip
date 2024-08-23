@@ -1,24 +1,60 @@
-import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
-    ArrayList<String> taskList;
+    private final ImList<Task> taskList;
 
-    TaskList() {
-        taskList = new ArrayList<String>();
+    public TaskList() {
+        taskList = new ImList<Task>();
     }
 
-    public void PrintList() {
+    private TaskList(ImList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    public TaskList addTask(Task task) {
+        return new TaskList(taskList.add(task));
+    }
+
+    public TaskList markTaskAsDone(int taskIndex) {
+        return taskIndex <= taskList.size() && taskIndex >= 0
+            ? new TaskList(taskList
+                .set(taskIndex, taskList
+                    .get(taskIndex)
+                    .markAsDone()))
+            : this;
+    }
+
+    public TaskList markTaskAsUndone(int taskIndex) {
+        return taskIndex <= taskList.size() && taskIndex >= 0
+            ? new TaskList(taskList
+                .set(taskIndex, taskList
+                    .get(taskIndex)
+                    .markAsUndone()))
+            : this;
+    }
+
+    public Task get(int taskIndex) {
+        return taskIndex <= taskList.size() && taskIndex >= 0
+            ? taskList.get(taskIndex)
+            : new Task("");
+    }
+
+    public int size() {
+        return taskList.size();
+    }
+
+    @Override
+    public String toString() {
+        String outputString;
         if (taskList.size() > 0) {
+            outputString = "Here are your tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println((i+1) + ". " + taskList.get(i));
+                outputString += (i+1) + "." + taskList.get(i) + "\n";
             }
         } else {
-            System.out.println("No tasks! What tasks would you like to add?");
+            outputString = "No tasks! What tasks would you like to add?\n";
         }
-    }
-
-    public void AddTask(String task) {
-        taskList.add(task);
+        return outputString;
     }
 
 }
