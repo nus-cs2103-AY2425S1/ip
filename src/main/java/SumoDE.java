@@ -77,5 +77,6 @@ public class SumoDE {
         // loop ended, cleaning up
         System.out.println(goodbye);
         sc.close();
+
     }
 }
