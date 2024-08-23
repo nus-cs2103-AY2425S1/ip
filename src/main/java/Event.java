@@ -8,6 +8,7 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
 
+        // check for errors
         if (description.equals(" ") || from.equals(" ") || to.equals(" ")) {
             String msg = "";
             if (description.equals(" ")) {

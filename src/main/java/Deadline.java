@@ -6,6 +6,7 @@ public class Deadline extends Task {
         super(description, TaskType.DEADLINE);
         this.by = by;
 
+        // check for errors
         if (description.equals(" ") || by.equals(" ")) {
             String msg = "";
             if (description.equals(" ")) {
