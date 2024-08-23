@@ -27,7 +27,7 @@ public class Darwin {
         in = in.trim();
         int spaceIdx = in.indexOf(" ");
         if (spaceIdx == -1) {
-            return new String[] {in, null};
+            return new String[] {in, ""};
         }
         String cmd = in.substring(0, spaceIdx);
         String args = in.substring(spaceIdx + 1).trim();
@@ -36,32 +36,45 @@ public class Darwin {
     private int getTaskCount() {
         return this.taskList.size();
     }
-    private static Task createTask(String cmd, String taskArgs) {
+    private static Task createTask(String cmd, String taskArgs) throws DarwinIllegalCommandException, DarwinIllegalArgumentException {
         String[] taskArgsArr = taskArgs.split(" /by| /from| /to", 3);
-        // TODO: handle wrong args
-        String taskName = taskArgsArr[0];
-
+        String taskName = taskArgsArr[0].trim();
         switch (cmd.toLowerCase()) {
             case Darwin.TODO:
+                if (taskArgsArr.length != 1 || taskName.isEmpty()) {
+                    throw new DarwinIllegalArgumentException();
+                }
                 return new ToDo(taskName);
             case Darwin.DEADLINE:
+                if (taskArgsArr.length != 2) {
+                    throw new DarwinIllegalArgumentException();
+                }
                 String taskDeadline = taskArgsArr[1].trim();
                 return new Deadline(taskName, taskDeadline);
             case Darwin.EVENT:
                 // assume that /from will be before /to
+                if (taskArgsArr.length != 3) {
+                    throw new DarwinIllegalArgumentException();
+                }
                 String taskStart = taskArgsArr[1].trim();
                 String taskEnd = taskArgsArr[2].trim();
                 return new Event(taskName, taskStart, taskEnd);
             default:
-                throw new IllegalArgumentException("Wrong task format");
+                throw new DarwinIllegalCommandException();
         }
     }
     private void addTask(String cmd, String taskArgs) {
-        Task task = Darwin.createTask(cmd, taskArgs);
-        this.taskList.add(task);
-        String added = String.format("%s\n  %s\n%s", Darwin.ADD_TASK_MSG, task.getTaskInfo(),
-                String.format(Darwin.TASK_COUNT_MSG, this.getTaskCount()));
-        Darwin.reply(added);
+        try {
+            Task task = Darwin.createTask(cmd, taskArgs);
+            this.taskList.add(task);
+            String added = String.format("%s\n  %s\n%s", Darwin.ADD_TASK_MSG, task.getTaskInfo(),
+                    String.format(Darwin.TASK_COUNT_MSG, this.getTaskCount()));
+            Darwin.reply(added);
+        } catch (DarwinIllegalArgumentException e) {
+            Darwin.reply("Wrong task description, ensure that it follows the different task types");
+        } catch (DarwinIllegalCommandException e) {
+            Darwin.reply("Wrong command, valid commands are todo, deadline, event");
+        }
     }
 
     private void getTaskList() {

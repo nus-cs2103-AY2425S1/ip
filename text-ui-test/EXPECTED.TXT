@@ -50,5 +50,17 @@ Invalid task number
 Invalid task number
 --------------------------------------------------
 --------------------------------------------------
+Wrong command, valid commands are todo, deadline, event
+--------------------------------------------------
+--------------------------------------------------
+Wrong task description, ensure that it follows the different task types
+--------------------------------------------------
+--------------------------------------------------
+Wrong task description, ensure that it follows the different task types
+--------------------------------------------------
+--------------------------------------------------
+Wrong task description, ensure that it follows the different task types
+--------------------------------------------------
+--------------------------------------------------
 Bye. Hope to see you again soon!
 --------------------------------------------------

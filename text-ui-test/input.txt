@@ -8,4 +8,8 @@ unmark 1
 list
 mark 4
 mark 3 papers
+womp
+deadline
+deadline /by
+event /from
 bye
