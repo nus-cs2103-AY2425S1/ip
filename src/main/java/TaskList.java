@@ -1,13 +1,15 @@
+import java.util.ArrayList;
+
 public class TaskList {
-    public Task[] tasks;
+    public ArrayList<Task> tasks;
     public int n = 0;
 
     public TaskList() {
-        tasks = new Task[100];
+        tasks = new ArrayList<Task>();
     }
 
     public String add(Task adding) throws InputErrorException{
-        tasks[n] = (adding);
+        tasks.add(adding);
         n++;
         return getSpecific(n);
     }
@@ -17,9 +19,11 @@ public class TaskList {
     }
 
     public void mark(int i) throws InputErrorException{
-        try {
-            tasks[i - 1].markDone();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        if(tasks.isEmpty()) {
+            throw new InputErrorException("Sorry your task list is currently empty");
+        } try {
+            tasks.get(i - 1).markDone();
+        } catch (IndexOutOfBoundsException e) {
             throw new InputErrorException("Sorry you do not have that many Tasks in your list");
         } catch (NullPointerException e) {
             throw new InputErrorException("Sorry your task list is currently empty");
@@ -27,14 +31,16 @@ public class TaskList {
     }
 
     public String getSpecific(int i) throws InputErrorException {
-        try {
+        if(tasks.isEmpty()) {
+            throw new InputErrorException("Sorry your task list is currently empty");
+        } try {
             String temp = "";
-            Task task = tasks[i - 1];
+            Task task = tasks.get(i - 1);
             temp = temp + task.getTaskType();
             temp = temp + task.getStatusIcon() + " ";
             temp = temp + task.getDescription();
             return temp;
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch(IndexOutOfBoundsException e) {
             throw new InputErrorException("Sorry you do not have that many Tasks in your list");
         } catch (NullPointerException e) {
             throw new InputErrorException("Sorry your task list is currently empty.");
@@ -44,7 +50,7 @@ public class TaskList {
     public String get() {
         String temp = "";
         for (int i = 0; i < n; i++) {
-            Task task = tasks[i];
+            Task task = tasks.get(i);
             temp = String.format("%s %d.", temp, i + 1);
             temp = temp + task.getTaskType();
             temp = temp + task.getStatusIcon() + " ";
@@ -54,5 +60,12 @@ public class TaskList {
             }
         }
         return temp;
+    }
+
+    public String delete(int i) throws InputErrorException {
+        String str = getSpecific(i-1);
+        tasks.remove(i-1);
+        n--;
+        return str;
     }
 }

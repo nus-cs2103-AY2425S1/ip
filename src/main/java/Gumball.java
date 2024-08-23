@@ -43,6 +43,11 @@ public class Gumball {
             int num = Integer.parseInt(command.replaceAll("[^0-9]", ""));
             list.mark(num);
             print("Nice! I've marked this task as done:\n" + list.getSpecific(num));
+        } else if (command.startsWith("delete ")) {
+            int num = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+            String temp = list.delete(num);
+            print("Nice! I've deleted this task:\n" + temp
+                    + String.format("\nNow you have %d tasks in the list.",list.getN()));
         } else if (command.startsWith("todo")) {
             addToList(new ToDos(command));
         } else if (command.startsWith("deadline")) {
