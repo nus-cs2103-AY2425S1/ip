@@ -1,12 +1,10 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Storage {
     private final static String storageListFilePath = "src/main/text-files/listStorage.txt";
-    private final static String tempFile = "src/main/text-files/tempFile.txt";
 
     public static void appendToListFile(Task task) {
         try {
@@ -42,11 +40,9 @@ public class Storage {
     public static TaskList loadTaskListFromFile(TaskList taskList) {
         try {
             File f = new File(storageListFilePath);
-            // Check if the file already exists and create if it is not
-            if (!f.exists()) {
-                if (!f.createNewFile()) {
-                    FormattedPrinting.fileCorrupted();
-                }
+            // Check if the file/folder already exists and create if it is not
+            if ((!f.getParentFile().mkdirs() || !f.createNewFile()) && !f.exists()) {
+                FormattedPrinting.fileCorrupted();
             }
             Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
