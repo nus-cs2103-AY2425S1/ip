@@ -1,11 +1,11 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Assistinator {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int count = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         String command = "";
 
         System.out.println("______________________________________________");
@@ -20,8 +20,8 @@ public class Assistinator {
                 if (command.startsWith("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                 } else if (Objects.equals(command, "list")) {
-                    for (int i = 0; i < count; i++) {
-                        System.out.println((i + 1)+ "." + tasks[i].toString());
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1)+ "." + tasks.get(i).toString());
                     }
                 } else if (command.startsWith("mark")) {
                     int index;
@@ -30,10 +30,10 @@ public class Assistinator {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new AssitinatorExceptions("Please follow format: mark {task number}");
                     }
-                    if (index >= 0 && index < count) {
-                        tasks[index].markAsDone();
-                        for (int i = 0; i < count; i++) {
-                            System.out.println((i + 1)+ "." + tasks[i].toString());
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).markAsDone();
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1)+ "." + tasks.get(i).toString());
                         }
                     }
                 } else if (command.startsWith("unmark")) {
@@ -43,10 +43,10 @@ public class Assistinator {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new AssitinatorExceptions("Please follow format: unmark {task number}");
                     }
-                    if (index >= 0 && index < count) {
-                        tasks[index].markAsUndone();
-                        for (int i = 0; i < count; i++) {
-                            System.out.println((i + 1)+ "." + tasks[i].toString());
+                    if (index >= 0 && index < tasks.size()) {
+                        tasks.get(index).markAsUndone();
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1)+ "." + tasks.get(i).toString());
                         }
                     }
                 } else if (command.startsWith("todo")) {
@@ -54,10 +54,9 @@ public class Assistinator {
                     if (description.equals("todo")) {
                         throw new AssitinatorExceptions("Please follow format: todo {task description}");
                     }
-                    tasks[count] = new Todo(command.substring(command.indexOf(' ') + 1));
+                    tasks.add(new Todo(command.substring(command.indexOf(' ') + 1)));
                     System.out.println("Task added successfully");
-                    count++;
-                    System.out.printf("Number of Tasks: %d%n", count);
+                    System.out.printf("Number of Tasks: %d%n", tasks.size());
                 } else if (command.startsWith("deadline")) {
                     String[] description = command.split(" /");
                     if (description.length != 2 || description[1].equals("by")) {
@@ -65,17 +64,18 @@ public class Assistinator {
                                 "Please follow format: deadline {task description} /by {deadline}"
                         );
                     }
-                    tasks[count] = new Deadline(
-                            description[0].substring(
-                                    description[0].indexOf(' ') + 1
-                            ),
-                            description[1].substring(
-                                    description[1].indexOf(' ') + 1
+                    tasks.add(
+                            new Deadline(
+                                description[0].substring(
+                                        description[0].indexOf(' ') + 1
+                                ),
+                                description[1].substring(
+                                        description[1].indexOf(' ') + 1
+                                )
                             )
                     );
                     System.out.println("Task added successfully");
-                    count++;
-                    System.out.printf("Number of Tasks: %d%n", count);
+                    System.out.printf("Number of Tasks: %d%n", tasks.size());
                 } else if (command.startsWith("event")) {
                     String[] description = command.split(" /");
                     if (description.length != 3 ||
@@ -84,20 +84,32 @@ public class Assistinator {
                                 "Please follow format: event {task description} /from {start} /to {end}"
                         );
                     }
-                    tasks[count] = new Event(
-                            description[0].substring(
-                                    description[0].indexOf(' ') + 1
-                            ),
-                            description[1].substring(
-                                    description[1].indexOf(' ') + 1
-                            ),
-                            description[2].substring(
-                                    description[2].indexOf(' ') + 1
+                    tasks.add(
+                            new Event(
+                                description[0].substring(
+                                        description[0].indexOf(' ') + 1
+                                ),
+                                description[1].substring(
+                                        description[1].indexOf(' ') + 1
+                                ),
+                                description[2].substring(
+                                        description[2].indexOf(' ') + 1
+                                )
                             )
                     );
                     System.out.println("Task added successfully");
-                    count++;
-                    System.out.printf("Number of Tasks: %d%n", count);
+                    System.out.printf("Number of Tasks: %d%n", tasks.size());
+                } else if (command.startsWith("delete")) {
+                    int index;
+                    try {
+                        index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new AssitinatorExceptions("Please follow format: delete {task number}");
+                    }
+                    tasks.remove(index);
+                    System.out.printf(
+                            "Task %d deleted successfully. Number of Tasks: %d%n", index + 1, tasks.size()
+                    );
                 } else {
                     throw new AssitinatorExceptions("Command does not exist");
                 }
