@@ -8,38 +8,39 @@ public class brainRot {
         int mem = 0;
             Scanner reader = new Scanner(System.in);
 
-        String greeting = """
-                ____________________________________________________________\s
-                Hello! I'm fanumTaxRizzlerOhioSigmaLooksmaxxer
-                What can I do for you?
-                ____________________________________________________________\s
-                """;
+        String greeting = "____________________________________________________________\n"
+                + "Hello! I'm fanumTaxRizzlerOhioSigmaLooksmaxxer\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________";
 
         String goodBye = "Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________";
 
         System.out.println(greeting);
 //        reader.next(" ");
-        String answer = reader.nextLine();
 
         //logic to check if "bye" or "list" has been said
-        while(!answer.equals("bye")) {
+        while(reader.hasNextLine()) {
+            String answer = reader.nextLine();
+
             try {
                 if (answer.equals("list")) {
-                    System.out.println("""
-                            ____________________________________________________________\s
-                            Here are the tasks in your list:
-                            """);
+                    System.out.println("____________________________________________________________\n"
+                            + "Here are the tasks in your list:");
 
                     for (int i = 0; i < mem; i++) {
                         System.out.println((i+1) + "." + arr.get(i).toString());
                     }
-                    System.out.println("____________________________________________________________ \n");
+                    System.out.println("____________________________________________________________\n");
 
                     answer = reader.nextLine();
 
 
-                } else if (answer.startsWith("unmark")) {
+                } else if (answer.equals("bye")) {
+                    System.out.println(goodBye);
+                    break;
+
+                }else if (answer.startsWith("unmark")) {
                     int index = answer.charAt(7) - 48;
                     arr.get(index).unmark();
 
@@ -55,7 +56,7 @@ public class brainRot {
                     System.out.println(index);
                         arr.remove(index-1);
                         mem--;
-                        System.out.println("Now you have " + (mem) + " tasks in the list. \n"
+                        System.out.println("Now you have " + (mem) + " tasks in the list.\n"
                             + "____________________________________________________________");
                         answer = reader.nextLine();
 
@@ -104,7 +105,7 @@ public class brainRot {
                             // Throw custom exception for invalid commands
                             throw new UnknownCommandException("Unknown command: " + answer);
                         }
-                        System.out.println("Now you have " + (mem) + " tasks in the list. \n"
+                        System.out.println("Now you have " + (mem) + " tasks in the list.\n"
                                 + "____________________________________________________________");
 
                         answer = reader.nextLine();
@@ -127,8 +128,8 @@ public class brainRot {
                 answer = reader.nextLine();
 
             }
-
+            reader.close();
         }
-        System.out.println(goodBye);
+
     }
 }
