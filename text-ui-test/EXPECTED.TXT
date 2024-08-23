@@ -16,7 +16,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
-      [D][ ] return book (by: Sunday)
+      [D][ ] return book (by: Dec 02 2019, 18:00)
     Now you have 2 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -24,7 +24,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
-      [E][ ] project meeting (from: Mon 2pm to: 4pm)
+      [E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
     Now you have 3 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -32,22 +32,22 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     1.[T][ ] read book
-    2.[D][ ] return book (by: Sunday)
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    2.[D][ ] return book (by: Dec 02 2019, 18:00)
+    3.[E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ( ﾟヮﾟ) You finished a task?! Congrats! I've marked this task as done:
-    [D][X] return book (by: Sunday)
+    [D][X] return book (by: Dec 02 2019, 18:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ಠ_ಠ ...OK, I've marked this task as not done yet:
-    [D][ ] return book (by: Sunday)
+    [D][ ] return book (by: Dec 02 2019, 18:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
@@ -66,7 +66,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
-      [D][ ] do homework (by: no idea :-p)
+      [D][ ] do homework (by: Sept 09 9090, 00:00)
     Now you have 4 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -74,7 +74,7 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     Description not found (×_×;）
-    Please include a Description for this todo task
+    Please include a Description for this task
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
@@ -87,16 +87,16 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     1.[T][ ] read book
-    2.[D][ ] return book (by: Sunday)
-    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-    4.[D][ ] do homework (by: no idea :-p)
+    2.[D][ ] return book (by: Dec 02 2019, 18:00)
+    3.[E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
+    4.[D][ ] do homework (by: Sept 09 9090, 00:00)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     (☞ﾟ∀ﾟ)☞ Task removed:
-    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    [E][ ] project meeting from: Dec 02 2020, 18:00 to: Dec 02 3030, 00:00)
     Now you have 3 tasks in the list.
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
@@ -104,6 +104,13 @@
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 
     Index out of range (×_×;）Please input a number within range (minimum 1, maximum 3)
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    ～～～～～～～～～～～～～～～～～～～～～～～～><>
+
+    tomorrow is not a valid date (×_×;）
+    Please include a date of the correct format (e.g. 2/12/2019 1800)
 
     ～～～～～～～～～～～～～～～～～～～～～～～～><>
 

@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
+
 /**
  * The Event class represents a task that occurs within a specific time range.
  */
 public class Event extends Task {
 
-    protected String startDate;
-    protected String endDate;
+    protected LocalDateTime startDate;
+    protected LocalDateTime endDate;
 
     /**
      * Constructs a new Event task with the specified description, start date, and end date.
@@ -13,10 +15,10 @@ public class Event extends Task {
      * @param start The start date and time of the event.
      * @param end The end date and time of the event.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws StrandException {
         super(description);
-        this.startDate = start;
-        this.endDate = end;
+        this.startDate = this.parseDate(start);
+        this.endDate = this.parseDate(end);
     }
 
     @Override
@@ -31,6 +33,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.getType() + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
+        return String.format("%s%s from: %s to: %s)",
+                this.getType(),
+                super.toString(),
+                this.parseOutputDate(this.startDate),
+                this.parseOutputDate(this.endDate));
     }
 }

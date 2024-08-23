@@ -8,7 +8,7 @@ public class Todo extends Task {
      *
      * @param description The description of the task.
      */
-    public Todo(String description) {
+    public Todo(String description) throws  StrandException{
         super(description);
     }
 
@@ -24,6 +24,8 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return this.getType() + super.toString();
+        return String.format("%s%s",
+                this.getType(),
+                super.toString());
     }
 }
