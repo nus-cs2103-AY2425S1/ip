@@ -111,9 +111,9 @@ public class JackBean {
                     System.out.println("6. unmark <task number> - to mark a task as undone");
                     System.out.println("7. bye - to exit the program");
                     System.out.println("8. help - to see this message again");
-                    System.out.println("9. maybe some easter eggs in the future? :)");
+                    System.out.println("9. delete <task number> - to delete a task");
+                    System.out.println("10. maybe some easter eggs in the future? :)");
                     System.out.println(horizontalLine);
-
                 } else if (input.equalsIgnoreCase("list")) {
                     System.out.println(horizontalLine);
                     System.out.println("Yo homie!, here are the tasks in your list:");
