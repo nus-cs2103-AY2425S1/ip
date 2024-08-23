@@ -1,12 +1,22 @@
-todo read book
-todo write essay
-deadline submit assignment by Friday
-event project meeting from 2pm to 4pm
+list
+todo Read a book
+deadline Complete assignment /by next Monday
+event Team meeting /from 2pm /to 4pm
 list
 mark 2
 list
 unmark 2
+delete 1
 list
-deadline finish report by tomorrow
-event conference from Monday to Wednesday
+todo Buy groceries
+deadline Submit report /by Friday
+event Birthday party /from Saturday 6pm /to Sunday 2am
+list
+mark 3
+delete 2
+list
+todo Walk the dog
+deadline Pay bills /by end of month
+event Family dinner /from Sunday 7pm /to 9pm
+list
 bye

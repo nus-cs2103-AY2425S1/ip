@@ -3,63 +3,113 @@ Hello! I'm Orion
 What can I do for you?
 ────────────────────────────────────────
 ────────────────────────────────────────
-Got it. I've added this task:
-  [T][ ] read book
-Now you have 1 tasks in the list.
+There are no tasks.
+────────────────────────────────────────
+────────────────────────────────────────
+     Got it. I've added this task:
+[T][ ] Read a book
+Now you have 1 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Got it. I've added this task:
-  [T][ ] write essay
+  [D][ ] Complete assignment (by: next Monday)
 Now you have 2 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
-Got it. I've added this task:
-  [D][ ] submit assignment (by: Friday)
-Now you have 3 tasks in the list.
+     Got it. I've added this task:
+[T][ ] Team meeting (from: 4pm to: 2pm)
+Now you have 3 tasks in the list
+────────────────────────────────────────
+────────────────────────────────────────
+Here are the tasks in your list:
+1.[T][ ] Read a book
+2.[D][ ] Complete assignment (by: next Monday)
+3.[T][ ] Team meeting (from: 4pm to: 2pm)
+────────────────────────────────────────
+────────────────────────────────────────
+Marked task as done: [D][x] Complete assignment (by: next Monday)
+────────────────────────────────────────
+────────────────────────────────────────
+Here are the tasks in your list:
+1.[T][ ] Read a book
+2.[D][x] Complete assignment (by: next Monday)
+3.[T][ ] Team meeting (from: 4pm to: 2pm)
+────────────────────────────────────────
+────────────────────────────────────────
+The program threw an exception. It is:Your input was unmark 2 .However, the correct way to use mark  is to type mark 1 to mark the list shown by 1
+────────────────────────────────────────
+────────────────────────────────────────
+Noted. I've removed this task:
+  [T][ ] Read a book
+Now you have 2 tasks in the list.
+────────────────────────────────────────
+────────────────────────────────────────
+Here are the tasks in your list:
+1.[D][x] Complete assignment (by: next Monday)
+2.[T][ ] Team meeting (from: 4pm to: 2pm)
+────────────────────────────────────────
+────────────────────────────────────────
+     Got it. I've added this task:
+[T][ ] Buy groceries
+Now you have 3 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Got it. I've added this task:
-  [E][ ] project meeting (from: 2pm to: 4pm)
+  [D][ ] Submit report (by: Friday)
+Now you have 4 tasks in the list.
+────────────────────────────────────────
+────────────────────────────────────────
+     Got it. I've added this task:
+[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
+Now you have 5 tasks in the list
+────────────────────────────────────────
+────────────────────────────────────────
+Here are the tasks in your list:
+1.[D][x] Complete assignment (by: next Monday)
+2.[T][ ] Team meeting (from: 4pm to: 2pm)
+3.[T][ ] Buy groceries
+4.[D][ ] Submit report (by: Friday)
+5.[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
+────────────────────────────────────────
+────────────────────────────────────────
+Marked task as done: [T][x] Buy groceries
+────────────────────────────────────────
+────────────────────────────────────────
+Noted. I've removed this task:
+  [T][ ] Team meeting (from: 4pm to: 2pm)
 Now you have 4 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
-1.[T][ ] read book
-2.[T][ ] write essay
-3.[D][ ] submit assignment (by: Friday)
-4.[E][ ] project meeting (from: 2pm to: 4pm)
+1.[D][x] Complete assignment (by: next Monday)
+2.[T][x] Buy groceries
+3.[D][ ] Submit report (by: Friday)
+4.[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
 ────────────────────────────────────────
 ────────────────────────────────────────
-Nice! I've marked this task as done:
-  [T][X] write essay
-────────────────────────────────────────
-────────────────────────────────────────
-Here are the tasks in your list:
-1.[T][ ] read book
-2.[T][X] write essay
-3.[D][ ] submit assignment (by: Friday)
-4.[E][ ] project meeting (from: 2pm to: 4pm)
-────────────────────────────────────────
-────────────────────────────────────────
-OK, I've marked this task as not done yet:
-  [T][ ] write essay
-────────────────────────────────────────
-────────────────────────────────────────
-Here are the tasks in your list:
-1.[T][ ] read book
-2.[T][ ] write essay
-3.[D][ ] submit assignment (by: Friday)
-4.[E][ ] project meeting (from: 2pm to: 4pm)
+     Got it. I've added this task:
+[T][ ] Walk the dog
+Now you have 5 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
 Got it. I've added this task:
-  [D][ ] finish report (by: tomorrow)
-Now you have 5 tasks in the list.
-────────────────────────────────────────
-────────────────────────────────────────
-Got it. I've added this task:
-  [E][ ] conference (from: Monday to: Wednesday)
+  [D][ ] Pay bills (by: end of month)
 Now you have 6 tasks in the list.
+────────────────────────────────────────
+────────────────────────────────────────
+     Got it. I've added this task:
+[T][ ] Family dinner (from: 9pm to: Sunday 7pm)
+Now you have 7 tasks in the list
+────────────────────────────────────────
+────────────────────────────────────────
+Here are the tasks in your list:
+1.[D][x] Complete assignment (by: next Monday)
+2.[T][x] Buy groceries
+3.[D][ ] Submit report (by: Friday)
+4.[T][ ] Birthday party (from: Sunday 2am to: Saturday 6pm)
+5.[T][ ] Walk the dog
+6.[D][ ] Pay bills (by: end of month)
+7.[T][ ] Family dinner (from: 9pm to: Sunday 7pm)
 ────────────────────────────────────────
 ────────────────────────────────────────
 Bye. Hope to see you again soon!
