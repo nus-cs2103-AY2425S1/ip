@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -25,7 +26,9 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+
 }
+
 
 application {
     mainClass.set("seedu.duke.Duke")
@@ -39,7 +42,9 @@ shadowJar {
     archiveClassifier = null
 }
 
-
+checkstyle {
+    toolVersion = '10.2'
+}
 
 run{
     standardInput = System.in
