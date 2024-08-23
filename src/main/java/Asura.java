@@ -21,8 +21,8 @@ public class Asura {
         List<Task> tasks = new ArrayList<>();
 
         System.out.println(formatResponse(introduction));
-        String[] input = scanner.nextLine().split(" ");
-        String prefix = input[0];
+        List<String> input = Arrays.asList(scanner.nextLine().split(" "));
+        String prefix = input.get(0);
 
         while (!prefix.equals("bye")) {
             StringBuilder output = new StringBuilder();
@@ -35,46 +35,45 @@ public class Asura {
                     System.out.println(formatResponse(output.toString()));
                     break;
                 case "mark":
-                    if (1 >= input.length) {
+                    if (1 >= input.size()) {
                         // if user inputted mark by itself
                         throw new AsuraException("Please indicate a task to mark.");
                     } else {
-                        int selection = Integer.parseInt(input[1]) - 1;
+                        int selection = Integer.parseInt(input.get(1)) - 1;
                         tasks.get(selection).markAsDone();
                         output.append("Nice! I've marked this task as done:").append("\n").append(tasks.get(selection).toString());
                         System.out.println(formatResponse(output.toString()));
                     }
                     break;
                 case "unmark":
-                    if (1 >= input.length) {
+                    if (1 >= input.size()) {
                         // if user inputted mark by itself
                         throw new AsuraException("Please indicate a task to unmark.");
                     } else {
-                        int selection = Integer.parseInt(input[1]) - 1;
+                        int selection = Integer.parseInt(input.get(1)) - 1;
                         tasks.get(selection).markAsNotDone();
                         output.append("OK, I've marked this task as not done yet:").append("\n").append(tasks.get(selection).toString());
                         System.out.println(formatResponse(output.toString()));
                     }
                     break;
                 case "todo":
-                    if (1 >= input.length) {
+                    if (1 >= input.size()) {
                         throw new AsuraException("The description todo cannot be empty.");
                     }
-                    String taskString = String.join(" ", Arrays.asList(input).subList(1, input.length));
+                    String taskString = String.join(" ", input.subList(1, input.size()));
                     Todo newTodo = new Todo(taskString);
                     tasks.add(newTodo);
                     output.append("Got it. I've added this task:\n").append(newTodo.toString()).append("\n").append("Now you have ").append(tasks.size()).append(" tasks in your list.\n");
                     System.out.println(formatResponse(output.toString()));
                     break;
                 case "deadline":
-                    List<String> inputArray = Arrays.asList(input);
-                    int byIndex = inputArray.indexOf("/by");
+                    int byIndex = input.indexOf("/by");
                     try {
-                        List<String> descriptionArray = inputArray.subList(1, byIndex);
+                        List<String> descriptionArray = input.subList(1, byIndex);
                         if (descriptionArray.isEmpty()) {
                             throw new AsuraException("The description todo cannot be empty.");
                         }
-                        List<String> dateArray = inputArray.subList(byIndex + 1, inputArray.size());
+                        List<String> dateArray = input.subList(byIndex + 1, input.size());
                         if (dateArray.isEmpty()) {
                             throw new AsuraException("The date cannot be empty.");
                         }
@@ -87,19 +86,18 @@ public class Asura {
                     }
                     break;
                 case "event":
-                    inputArray = Arrays.asList(input);
-                    int fromIndex = inputArray.indexOf("/from");
-                    int toIndex = inputArray.indexOf("/to");
+                    int fromIndex = input.indexOf("/from");
+                    int toIndex = input.indexOf("/to");
                     try {
-                        List<String> descriptionArray = inputArray.subList(1, fromIndex);
+                        List<String> descriptionArray = input.subList(1, fromIndex);
                         if (descriptionArray.isEmpty()) {
                             throw new AsuraException("The description todo cannot be empty.");
                         }
-                        List<String> fromArray = inputArray.subList(fromIndex + 1, toIndex);
+                        List<String> fromArray = input.subList(fromIndex + 1, toIndex);
                         if (fromArray.isEmpty()) {
                             throw new AsuraException("The from date cannot be empty.");
                         }
-                        List<String> toArray = inputArray.subList(toIndex + 1, inputArray.size());
+                        List<String> toArray = input.subList(toIndex + 1, input.size());
                         if (toArray.isEmpty()) {
                             throw new AsuraException("The to date cannot be empty.");
                         }
@@ -112,12 +110,22 @@ public class Asura {
                         throw new AsuraException(e.getMessage());
                     }
                     break;
+                case "delete":
+                    if (1 >= input.size()) {
+                        throw new AsuraException("Please indicate a task to delete.");
+                    } else {
+                        int selection = Integer.parseInt(input.get(1)) - 1;
+                        output.append("Noted! I've removed this task :").append("\n").append(tasks.get(selection).toString()).append("\n").append("Now you have ").append(tasks.size() - 1).append(" tasks in your list.\n");
+                        tasks.remove(selection);
+                        System.out.println(formatResponse(output.toString()));
+                    }
+                    break;
                 default:
                     throw new AsuraException("Invalid input");
             }
 
-            input = scanner.nextLine().split(" ");
-            prefix = input[0];
+            input = Arrays.asList(scanner.nextLine().split(" "));
+            prefix = input.get(0);
         }
         System.out.println(formatResponse(goodbye));
     }
