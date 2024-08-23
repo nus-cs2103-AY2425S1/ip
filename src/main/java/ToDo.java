@@ -1,7 +1,8 @@
 public class ToDo extends Task {
 
-    public ToDo(String taskDesc) {
+    public ToDo(String taskDesc) throws ConverSageException {
         super(taskDesc);
+
     }
 
     @Override
