@@ -10,9 +10,7 @@ import citadel.commands.HandleEvent;
 import citadel.commands.HandleTodo;
 import citadel.commands.MarkTask;
 import citadel.commands.UnmarkTask;
-
 import citadel.Task.TaskList;
-
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidCommandException;
 import citadel.ui.TextUI;
