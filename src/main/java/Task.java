@@ -1,10 +1,10 @@
 
-public class Message {
+public class Task {
 
     private String content;
     private Boolean status;
 
-    public Message(String content,Boolean status) {
+    public Task(String content,Boolean status) {
         this.content = content;
         this.status = status;
     }
