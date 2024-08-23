@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Muffin {
     enum Command {
-        BYE, LIST, MARK, UNMARK, ADD
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT
     }
 
     public static void main(String[] args) {
@@ -22,14 +22,35 @@ public class Muffin {
 
     public static void command(Scanner sc, int count, Task[] list) {
         String userInput = sc.nextLine();
-        String[] words = userInput.split(" ");
+
+        // Find the index of the first space
+        int firstSpaceIndex = userInput.indexOf(" ");
+
+        // If a space is found, split the first word
+        String firstWord = userInput;
+        String remainingString = "";
+        if (firstSpaceIndex != -1) {
+            firstWord = userInput.substring(0, firstSpaceIndex);
+            remainingString = userInput.substring(firstSpaceIndex + 1);
+        }
+
+        String[] parts = remainingString.split("/");
+        for (int i = 1; i < parts.length; i++) {
+            // Trim to remove any leading/trailing spaces
+            parts[i] = parts[i].trim();
+
+            // Remove the first word in each split part
+            int spaceIndex = parts[i].indexOf(" ");
+            if (spaceIndex != -1) {
+                parts[i] = parts[i].substring(spaceIndex + 1).trim();
+            }
+        }
 
         Command command;
         try {
-            String firstWord = words[0].trim().toUpperCase();
-            command = Command.valueOf(firstWord);
+            command = Command.valueOf(firstWord.toUpperCase());
         } catch (IllegalArgumentException e) {
-            command = Command.ADD;
+            return;
         }
 
         switch(command) {
@@ -38,7 +59,7 @@ public class Muffin {
                 break;
 
             case LIST:
-                System.out.println("Here are the tasks in your list:\n");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < count; i++) {
                     System.out.println((i+1) + "." + list[i]);
                 }
@@ -46,22 +67,37 @@ public class Muffin {
                 break;
 
             case MARK:
-                Task t = list[Integer.parseInt(words[1]) - 1];
+                Task t = list[Integer.parseInt(remainingString) - 1];
                 t.isDone = true;
-                System.out.println("Yay! Marked as done:\n" + t);
+                System.out.println("Yay! Marked as done:\n" + "\t" + t);
                 command(sc, count, list);
                 break;
 
             case UNMARK:
-                Task m = list[Integer.parseInt(words[1]) - 1];
+                Task m = list[Integer.parseInt(remainingString) - 1];
                 m.isDone = false;
-                System.out.println("Ok. Marked as not done yet:\n" + m);
+                System.out.println("Ok. Marked as not done yet:\n" + "\t" + m);
                 command(sc, count, list);
                 break;
 
-            case ADD:
-                list[count] = new Task(userInput);
-                System.out.println("added: " + userInput);
+            case TODO:
+                list[count] = new Todo(remainingString);
+                System.out.println("Ok. Added this task:\n" + "\t" + list[count]);
+                System.out.println("Now you have " + (count + 1) + " tasks in your list.");
+                command(sc, ++count, list);
+                break;
+
+            case DEADLINE:
+                list[count] = new Deadline(parts[0], parts[1]);
+                System.out.println("Ok. Added this task:\n" + "\t" + list[count]);
+                System.out.println("Now you have " + (count + 1) + " tasks in your list.");
+                command(sc, ++count, list);
+                break;
+
+            case EVENT:
+                list[count] = new Event(parts[0], parts[1], parts[2]);
+                System.out.println("Ok. Added this task:\n" + "\t" + list[count]);
+                System.out.println("Now you have " + (count + 1) + " tasks in your list.");
                 command(sc, ++count, list);
                 break;
         }
