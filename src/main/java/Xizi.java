@@ -5,21 +5,52 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Xizi {
     private static final String FILE_PATH = "./data/xizi.txt";
     private static final String DIVIDER = "____________________________________________________________";
-    private static final Pattern MARK_PATTERN = Pattern.compile("^mark (\\d+)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern UNMARK_PATTERN = Pattern.compile("^unmark (\\d+)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern DELETE_PATTERN = Pattern.compile("^delete\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern TODO_PATTERN = Pattern.compile("^todo\\s*(.*)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline\\s*(.*?)\\s*/by\\s*(.*?)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern EVENT_PATTERN = Pattern.compile("^event\\s*(.*?)\\s*/from\\s*(.*?)\\s*/to\\s*(.*?)$", Pattern.CASE_INSENSITIVE);
 
+    // Enums for command types
+    private enum CommandType {
+        MARK("^mark (\\d+)$"),
+        UNMARK("^unmark (\\d+)$"),
+        DELETE("^delete\\s+(\\d+)$"),
+        TODO("^todo\\s*(.*)$"),
+        DEADLINE("^deadline\\s*(.*?)\\s*/by\\s*(.*?)$"),
+        EVENT("^event\\s*(.*?)\\s*/from\\s*(.*?)\\s*/to\\s*(.*?)$"),
+        LIST("^list$"),
+        BYE("^bye$"),
+        HELP("^help$"),
+        UNKNOWN("");
+
+        private final Pattern pattern;
+
+        CommandType(String regex) {
+            this.pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        }
+
+        public Matcher matcher(String input) {
+            return pattern.matcher(input);
+        }
+
+        public static CommandType fromInput(String input) {
+            for (CommandType type : values()) {
+                if (type.matcher(input).matches()) {
+                    return type;
+                }
+            }
+            return UNKNOWN;
+        }
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList actions;
-
         Storage storage = new Storage(FILE_PATH);
 
         try {
@@ -30,141 +61,169 @@ public class Xizi {
             actions = new TaskList();
         }
 
-
-
         System.out.println(DIVIDER);
         System.out.println(" Hello! I'm Xizi.");
         System.out.println(" What can I do for you?");
         System.out.println(DIVIDER);
 
         while (true) {
-            String userInput = scanner.nextLine().trim(); // Normalize input
+            String userInput = scanner.nextLine().trim();
+            CommandType commandType = CommandType.fromInput(userInput);
 
-            Matcher markMatcher = MARK_PATTERN.matcher(userInput);
-            Matcher unmarkMatcher = UNMARK_PATTERN.matcher(userInput);
-            Matcher deleteMatcher = DELETE_PATTERN.matcher(userInput);
-            Matcher todoMatcher = TODO_PATTERN.matcher(userInput);
-            Matcher deadlineMatcher = DEADLINE_PATTERN.matcher(userInput);
-            Matcher eventMatcher = EVENT_PATTERN.matcher(userInput);
             try {
-                if (deleteMatcher.matches()) {
-                    int taskNumber = Integer.parseInt(deleteMatcher.group(1)) - 1;
-                    if (taskNumber < 0 || taskNumber >= actions.getSize()) {
-                        throw new XiziException("The task number does not exist. You have "+ actions.getSize()+" tasks in total.");
-                    }
-                    Task deleted = actions.deleteTask(taskNumber);
-                    storage.saveTasks(actions.getItem());
-                    System.out.println(DIVIDER);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println("  " + deleted);
-                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-                    System.out.println(DIVIDER);
-                    continue;
-
+                switch (commandType) {
+                    case DELETE:
+                        handleDelete(actions, storage, userInput);
+                        break;
+                    case MARK:
+                        handleMark(actions, storage, userInput);
+                        break;
+                    case UNMARK:
+                        handleUnmark(actions, storage, userInput);
+                        break;
+                    case TODO:
+                        handleTodo(actions, storage, userInput);
+                        break;
+                    case DEADLINE:
+                        handleDeadline(actions, storage, userInput);
+                        break;
+                    case EVENT:
+                        handleEvent(actions, storage, userInput);
+                        break;
+                    case LIST:
+                        handleList(actions);
+                        break;
+                    case BYE:
+                        handleBye(scanner);
+                        return;
+                    case HELP:
+                        printHelp();
+                        break;
+                    default:
+                        throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
                 }
-                if (markMatcher.matches()) {
-                    int taskNumber = Integer.parseInt(markMatcher.group(1)) - 1;
-                    if (taskNumber < 0 || taskNumber >= actions.getSize()) {
-                        throw new XiziException("The task number does not exist.");
-                    }
-                    System.out.println(DIVIDER);
-                    System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println(actions.markTask(taskNumber));
-                    System.out.println(DIVIDER);
-                    storage.saveTasks(actions.getItem());
-                    continue;
-                }
-
-                if (unmarkMatcher.matches()) {
-                    int taskNumber = Integer.parseInt(unmarkMatcher.group(1)) - 1;
-                    if (taskNumber < 0 || taskNumber >= actions.getSize()) {
-                        throw new XiziException("The task number does not exist.");
-                    }
-                    System.out.println(DIVIDER);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(actions.unmarkTask(taskNumber));
-                    System.out.println(DIVIDER);
-                    storage.saveTasks(actions.getItem());
-                    continue;
-                }
-                if (todoMatcher.matches()) {
-                    String taskDescription = todoMatcher.group(1).trim();
-                    if (taskDescription.isEmpty()) {
-                        throw new XiziException("The description of a todo cannot be empty. Type help to see the formats required.");
-                    }
-                    actions.addTask(new Todo(taskDescription));
-                    storage.appendTask(new Todo(taskDescription));
-                    System.out.println(DIVIDER);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  [T][ ] " + taskDescription);
-                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-                    System.out.println(DIVIDER);
-                    continue;
-                }
-
-                if (deadlineMatcher.matches()) {
-                    String taskDescription = deadlineMatcher.group(1).trim();
-                    String deadline = deadlineMatcher.group(2).trim();
-                    if (taskDescription.isEmpty() || deadline.isEmpty()) {
-                        throw new XiziException("The description or time of a deadline cannot be empty.Type help to see the formats required.");
-                    }
-                    actions.addTask(new Deadline(taskDescription, deadline));
-                    storage.appendTask(new Deadline(taskDescription, deadline));
-                    System.out.println(DIVIDER);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  [D][ ] " + taskDescription + " (by: " + deadline + ")");
-                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-                    System.out.println(DIVIDER);
-                    continue;
-                }
-
-                if (eventMatcher.matches()) {
-                    String taskDescription = eventMatcher.group(1).trim();
-                    String fromTime = eventMatcher.group(2).trim();
-                    String toTime = eventMatcher.group(3).trim();
-                    if (taskDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
-                        throw new XiziException("The description, from or to time of an event cannot be empty.Type help to see the formats required.");
-                    }
-                    actions.addTask(new Event(taskDescription, fromTime, toTime));
-                    storage.appendTask(new Event(taskDescription, fromTime, toTime));
-                    System.out.println(DIVIDER);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  [E][ ] " + taskDescription + " (from: " + fromTime + " to: " + toTime + ")");
-                    System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
-                    System.out.println(DIVIDER);
-                    continue;
-                }
-
-
-
-                switch (userInput) {
-                case "list":
-                    System.out.println(DIVIDER);
-                    System.out.println("Here are the tasks in your list:");
-                    actions.printActions();
-                    System.out.println(DIVIDER);
-                    continue;
-
-
-                case "bye":
-                    System.out.println(DIVIDER);
-                    System.out.println(" Bye. Hope to see you again soon!");
-                    System.out.println(DIVIDER);
-                    scanner.close();
-                    return; // Exit the program
-                case "help":
-                    printHelp();
-                    continue;
-                default:
-                    throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
-
-
-            }} catch (IOException | XiziException e){
+            } catch (IOException | XiziException e) {
                 printErrorMessage(e.getMessage());
-
             }
         }
     }
+
+    // Handler methods for each command
+    private static void handleDelete(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
+        Matcher matcher = CommandType.DELETE.matcher(userInput);
+        if (matcher.matches()) {
+            int taskNumber = Integer.parseInt(matcher.group(1)) - 1;
+            validateTaskNumber(taskNumber, actions);
+            Task deleted = actions.deleteTask(taskNumber);
+            storage.saveTasks(actions.getItem());
+            System.out.println(DIVIDER);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + deleted);
+            System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+            System.out.println(DIVIDER);
+        }
+    }
+
+    private static void handleMark(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
+        Matcher matcher = CommandType.MARK.matcher(userInput);
+        if (matcher.matches()) {
+            int taskNumber = Integer.parseInt(matcher.group(1)) - 1;
+            validateTaskNumber(taskNumber, actions);
+            System.out.println(DIVIDER);
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println(actions.markTask(taskNumber));
+            System.out.println(DIVIDER);
+            storage.saveTasks(actions.getItem());
+        }
+    }
+
+    private static void handleUnmark(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
+        Matcher matcher = CommandType.UNMARK.matcher(userInput);
+        if (matcher.matches()) {
+            int taskNumber = Integer.parseInt(matcher.group(1)) - 1;
+            validateTaskNumber(taskNumber, actions);
+            System.out.println(DIVIDER);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(actions.unmarkTask(taskNumber));
+            System.out.println(DIVIDER);
+            storage.saveTasks(actions.getItem());
+        }
+    }
+
+    private static void handleTodo(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
+        Matcher matcher = CommandType.TODO.matcher(userInput);
+        if (matcher.matches()) {
+            String taskDescription = matcher.group(1).trim();
+            if (taskDescription.isEmpty()) {
+                throw new XiziException("The description of a todo cannot be empty. Type help to see the formats required.");
+            }
+            actions.addTask(new Todo(taskDescription));
+            storage.appendTask(new Todo(taskDescription));
+            System.out.println(DIVIDER);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  [T][ ] " + taskDescription);
+            System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+            System.out.println(DIVIDER);
+        }
+    }
+
+    private static void handleDeadline(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
+        Matcher matcher = CommandType.DEADLINE.matcher(userInput);
+        if (matcher.matches()) {
+            String taskDescription = matcher.group(1).trim();
+            String deadline = matcher.group(2).trim();
+            if (taskDescription.isEmpty() || deadline.isEmpty()) {
+                throw new XiziException("The description or time of a deadline cannot be empty.Type help to see the formats required.");
+            }
+            actions.addTask(new Deadline(taskDescription, deadline));
+            storage.appendTask(new Deadline(taskDescription, deadline));
+            System.out.println(DIVIDER);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  [D][ ] " + taskDescription + " (by: " + deadline + ")");
+            System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+            System.out.println(DIVIDER);
+        }
+    }
+
+    private static void handleEvent(TaskList actions, Storage storage, String userInput) throws IOException, XiziException {
+        Matcher matcher = CommandType.EVENT.matcher(userInput);
+        if (matcher.matches()) {
+            String taskDescription = matcher.group(1).trim();
+            String fromTime = matcher.group(2).trim();
+            String toTime = matcher.group(3).trim();
+            if (taskDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
+                throw new XiziException("The description, from or to time of an event cannot be empty.Type help to see the formats required.");
+            }
+            actions.addTask(new Event(taskDescription, fromTime, toTime));
+            storage.appendTask(new Event(taskDescription, fromTime, toTime));
+            System.out.println(DIVIDER);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  [E][ ] " + taskDescription + " (from: " + fromTime + " to: " + toTime + ")");
+            System.out.println("Now you have " + actions.getSize() + " tasks in the list.");
+            System.out.println(DIVIDER);
+        }
+    }
+
+    private static void handleList(TaskList actions) {
+        System.out.println(DIVIDER);
+        System.out.println("Here are the tasks in your list:");
+        actions.printActions();
+        System.out.println(DIVIDER);
+    }
+
+    private static void handleBye(Scanner scanner) {
+        System.out.println(DIVIDER);
+        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(DIVIDER);
+        scanner.close();
+    }
+
+    private static void validateTaskNumber(int taskNumber, TaskList actions) throws XiziException {
+        if (taskNumber < 0 || taskNumber >= actions.getSize()) {
+            throw new XiziException("The task number does not exist. You have " + actions.getSize() + " tasks in total.");
+        }
+    }
+
     private static void printErrorMessage(String message) {
         System.out.println(DIVIDER);
         System.out.println(" OOPS!!! " + message);
@@ -183,32 +242,30 @@ public class Xizi {
         System.out.println("     Example: todo read a book");
         System.out.println();
         System.out.println("3. deadline <task_description> /by <deadline>");
-        System.out.println("   - Adds a new task with a deadline.");
+        System.out.println("   - Adds a new 'deadline' task.");
         System.out.println("     Example: deadline submit report /by Monday");
         System.out.println();
         System.out.println("4. event <task_description> /from <start_time> /to <end_time>");
-        System.out.println("   - Adds a new event with a start and end time.");
-        System.out.println("     Example: event project meeting /from 2pm /to 4pm");
+        System.out.println("   - Adds a new 'event' task.");
+        System.out.println("     Example: event project meeting /from Monday 2pm /to Monday 4pm");
         System.out.println();
         System.out.println("5. mark <task_number>");
-        System.out.println("   - Marks the specified task as done.");
-        System.out.println("     Example: mark 2");
+        System.out.println("   - Marks the specified task as completed.");
+        System.out.println("     Example: mark 3");
         System.out.println();
         System.out.println("6. unmark <task_number>");
-        System.out.println("   - Unmarks the specified task (sets it as not done).");
-        System.out.println("     Example: unmark 2");
+        System.out.println("   - Unmarks the specified task as not completed.");
+        System.out.println("     Example: unmark 3");
         System.out.println();
         System.out.println("7. delete <task_number>");
         System.out.println("   - Deletes the specified task.");
         System.out.println("     Example: delete 3");
         System.out.println();
-        System.out.println("8. help");
-        System.out.println("   - Displays this help message with all available commands and formats.");
+        System.out.println("8. bye");
+        System.out.println("   - Exits the program.");
         System.out.println();
-        System.out.println("9. bye");
-        System.out.println("   - Exits the application.");
+        System.out.println("9. help");
+        System.out.println("   - Displays this help message.");
         System.out.println(DIVIDER);
     }
-
-
 }
