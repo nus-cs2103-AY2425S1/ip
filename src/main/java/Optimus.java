@@ -15,9 +15,9 @@ public class Optimus {
             if (text.equals("bye")){
                 break;
             }
-            else if (text.equals("list")){
-                for (int j = 0; j < tasks.length; j++) {
-                    System.out.println(j + ". " + text);
+            if (text.equals("list")){
+                for (int j = 0; j < i; j++) {
+                    System.out.println(j + 1 + ". " + tasks[j]);
                 }
             }
             else {
