@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Task {
     private String description;
     private boolean isMarked;
@@ -23,8 +26,8 @@ public class Task {
         return this.description;
     }
 
-    public String toSaveString() {
-        return (this.isMarked ? "1" : "0") + Constants.SAVE_FILE_DELIMITER + this.description;
+    public ArrayList<String> toSaveArray() {
+        return new ArrayList<String>(Arrays.asList((this.isMarked ? "1" : "0"), this.description));
     }
 
     @Override

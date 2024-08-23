@@ -1,5 +1,5 @@
-public class InvalidSaveFormatException extends Exception {
+public class InvalidSaveFormatException extends BarneyException {
     public InvalidSaveFormatException(String message) {
-        super(message);
+        super("Invalid Save File Format: " + message);
     }
 }

@@ -1,15 +1,10 @@
-public final class Constants {
-    private Constants() {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    }
-
-    public static final String SAVE_FILE_DELIMITER = "###";
-    public static final String SAVE_FILE_PATH = "list.txt";
-
-    public static final String LONG_LINE = "____________________________________________________________";
-
-    public static final String DATE_TIME_RETURN_FORMAT = "yyyy-MM-dd";
-    public static final String[] DATE_TIME_PARSE_FORMATS = {
+public class BarneyDateTime {
+    private static final String DATE_TIME_RETURN_FORMAT = "yyyy-MM-dd";
+    private static final String[] DATE_TIME_PARSE_FORMATS = {
             // Date Formats
             "yyyy-MM-dd", // 2024-08-21
             "dd/MM/yyyy", // 21/08/2024
@@ -43,4 +38,17 @@ public final class Constants {
             "EEE, MMM d, yyyy h:mm a" // Short format with day of week
     };
 
+    public static LocalDate parseDate(String dateString) {
+        for (String format : DATE_TIME_PARSE_FORMATS) {
+            try {
+                return LocalDate.parse(dateString, DateTimeFormatter.ofPattern(format));
+            } catch (DateTimeParseException e) {
+            }
+        }
+        return null;
+    }
+
+    public static String formatDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern(DATE_TIME_RETURN_FORMAT));
+    }
 }
