@@ -25,8 +25,9 @@ public class Friday {
             Scanner sc = new Scanner(System.in);
             System.out.print("Your input > ");
             String input = getInput(sc);
+            String[] parsed = input.split(" ", 2);
             printLine();
-            switch (input) {
+            switch (parsed[0]) {
                 case "Bye":
                 case "bye":
                     bye = true;
@@ -42,8 +43,23 @@ public class Friday {
                 case "list":
                     System.out.println("Friday > Here's everything!\n" + master.toString());
                     break;
+                case "Remove":
+                case "remove":
+                    try {
+                        int index = Integer.parseInt(parsed[1]);
+                        master.removeTask(index-1);
+                        break;
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        System.out.println("Friday > Input the task number to remove the task\n");
+                        break;
+                    }
+                case "Add":
+                case "add":
+                    master.addTask(new Task(parsed[1]));
+                    printLine();
+                    break;
                 default:
-                    master.addTask(new Task(input));
+                    System.out.println("Friday > Try add/remove <task>\n");
                     printLine();
                     break;
             }

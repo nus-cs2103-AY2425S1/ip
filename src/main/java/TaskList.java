@@ -15,10 +15,11 @@ public class TaskList {
         System.out.println("Friday > Successfully added: " + task.toString());
     }
 
-    public void removeTask(Task task) {
+    public void removeTask(int task) {
+        Task temp = parent.get(task);
         this.parent.remove(task);
         noOfTasks--;
-        System.out.println("Friday > Successfully removed: " + task.toString());
+        System.out.println("Friday > Successfully removed: " + temp.toString());
     }
 
     @Override
