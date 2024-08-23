@@ -1,4 +1,4 @@
-package Citadel;
+package citadel;
 
 import org.junit.jupiter.api.Test;
 

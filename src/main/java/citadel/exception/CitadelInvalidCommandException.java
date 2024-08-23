@@ -1,4 +1,4 @@
-package Citadel.exception;
+package citadel.exception;
 
 public class CitadelInvalidCommandException extends CitadelException {
     @Override

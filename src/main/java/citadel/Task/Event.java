@@ -1,4 +1,4 @@
-package Citadel.Task;
+package citadel.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

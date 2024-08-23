@@ -1,4 +1,4 @@
-todo Get Intern at Citadel
+todo Get Intern at citadel
 deadline return book /by Sunday
 event Sprint Review /from Mon 2pm /to 6pm
 list

@@ -1,4 +1,4 @@
-package Citadel.Task;
+package citadel.Task;
 
 public abstract class Task {
     protected String description;

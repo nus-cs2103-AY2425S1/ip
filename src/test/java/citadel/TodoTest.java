@@ -1,8 +1,8 @@
-package Citadel;
+package citadel;
 
-import Citadel.Commands.handleTodo;
-import Citadel.Task.TaskList;
-import Citadel.exception.CitadelException;
+import citadel.commands.handleTodo;
+import citadel.Task.TaskList;
+import citadel.exception.CitadelException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

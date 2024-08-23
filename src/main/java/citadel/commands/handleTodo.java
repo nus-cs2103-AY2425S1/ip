@@ -1,10 +1,10 @@
-package Citadel.Commands;
+package citadel.commands;
 
-import Citadel.Task.Task;
-import Citadel.Task.ToDo;
-import Citadel.Task.TaskList;
-import Citadel.ui.TextUI;
-import Citadel.exception.CitadelTaskNoInput;
+import citadel.Task.Task;
+import citadel.Task.ToDo;
+import citadel.Task.TaskList;
+import citadel.ui.TextUI;
+import citadel.exception.CitadelTaskNoInput;
 
 
 public class handleTodo extends Command {

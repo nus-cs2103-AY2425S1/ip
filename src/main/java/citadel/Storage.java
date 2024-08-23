@@ -1,18 +1,18 @@
-package Citadel;
+package citadel;
 
 import java.io.*;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import Citadel.Task.Task;
-import Citadel.Task.TaskList;
-import Citadel.Task.Deadline;
-import Citadel.Task.Event;
-import Citadel.Task.ToDo;
+import citadel.Task.Task;
+import citadel.Task.TaskList;
+import citadel.Task.Deadline;
+import citadel.Task.Event;
+import citadel.Task.ToDo;
 
-import Citadel.exception.CitadelException;
-import Citadel.exception.CitadelTaskNoInput;
+import citadel.exception.CitadelException;
+import citadel.exception.CitadelTaskNoInput;
 
 public class Storage {
     private String filePath;
