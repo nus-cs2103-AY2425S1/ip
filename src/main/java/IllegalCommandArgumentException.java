@@ -1,12 +1,15 @@
 public class IllegalCommandArgumentException extends IllegalArgumentException {
   private String command;
   private boolean hasDescription;
+  private boolean isIntegerDescription;
   private CommandOption[] options;
 
-  public IllegalCommandArgumentException(String command, boolean hasDescription, CommandOption[] options) {
+  public IllegalCommandArgumentException(String command, boolean hasDescription, boolean isIntegerDescription,
+      CommandOption[] options) {
     super();
     this.command = command;
     this.hasDescription = hasDescription;
+    this.isIntegerDescription = isIntegerDescription;
     this.options = options;
   }
 
@@ -15,7 +18,7 @@ public class IllegalCommandArgumentException extends IllegalArgumentException {
     // Create a usage string for the command
     StringBuilder usage = new StringBuilder(command);
     if (hasDescription) {
-      usage.append(" <description>");
+      usage.append(isIntegerDescription ? " <value>" : " <description>");
     }
     for (CommandOption option : options) {
       usage.append(" /");

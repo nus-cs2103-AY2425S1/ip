@@ -12,44 +12,32 @@ public class Vuewee {
     // Echo input from user until user types "bye"
     while (true) {
       String input = scanner.nextLine();
-
-      // Exit the loop if user types "bye"
-      if (input.trim().equals("bye")) {
-        break;
-      }
-
       try {
         System.out.println("____________________________________________________________");
+
         CommandParser parser = new CommandParser(input);
+
+        // Exit the loop if user types "bye"
+        if (parser.getCommand().equals("bye")) {
+          break;
+        }
+
         switch (parser.getCommand()) {
           // List all tasks with done status if user types "list"
           case "list": {
             taskList.displayTasks();
             break;
           }
-
           // Mark task as done if user types "mark <task number>"
           case "mark": {
-            parser.parse(true);
-
-            try {
-              int taskNumber = Integer.parseInt(parser.getDescription());
-              taskList.markTask(taskNumber, true);
-            } catch (NumberFormatException e) {
-              System.out.println("Invalid task number: " + parser.getDescription());
-            }
+            parser.parse(true, true);
+            taskList.markTask(parser.getIntParam(), true);
             break;
           }
-
+          // Unmark task as done if user types "unmark <task number>"
           case "unmark": {
-            parser.parse(true);
-
-            try {
-              int taskNumber = Integer.parseInt(parser.getDescription());
-              taskList.markTask(taskNumber, false);
-            } catch (NumberFormatException e) {
-              System.out.println("Invalid task number: " + parser.getDescription());
-            }
+            parser.parse(true, true);
+            taskList.markTask(parser.getIntParam(), false);
             break;
           }
           // Add todo task to task list
@@ -62,14 +50,14 @@ public class Vuewee {
           // Add deadline task to task list
           // (Usage: deadline <description> /by <date>)
           case "deadline": {
-            parser.parse(true, new CommandOption[] { new CommandOption("by", "date") });
+            parser.parse(true, false, new CommandOption[] { new CommandOption("by", "date") });
             taskList.addTask(new DeadlineTask(parser.getDescription(), parser.getOption("by")));
             break;
           }
           // Add event task to task list
           // (Usage: event <description> /from <fromDate> /to <toDate>)
           case "event": {
-            parser.parse(true,
+            parser.parse(true, false,
                 new CommandOption[] { new CommandOption("from", "fromDate"), new CommandOption("to", "toDate") });
             taskList.addTask(new EventTask(parser.getDescription(), parser.getOption("from"), parser.getOption("to")));
             break;
@@ -77,21 +65,15 @@ public class Vuewee {
           // Delete task from task list
           // (Usage: delete <task number>)
           case "delete": {
-            parser.parse(true);
-            try {
-              int taskNumber = Integer.parseInt(parser.getDescription());
-              taskList.deleteTask(taskNumber);
-            } catch (NumberFormatException e) {
-              System.out.println("Invalid task number: " + parser.getDescription());
-            }
+            parser.parse(true, true);
+            taskList.deleteTask(parser.getIntParam());
             break;
           }
           default: {
-            System.out.println("Unknown command: " + parser.getCommand());
+            System.out.println("Unhandled unknown command: " + parser.getCommand());
             break;
           }
         }
-
       } catch (
           TaskListException
           | IndexOutOfBoundsException
@@ -101,7 +83,6 @@ public class Vuewee {
       System.out.println("____________________________________________________________");
     }
 
-    System.out.println("____________________________________________________________");
     System.out.println("Bye. Hope to see you again soon!");
     System.out.println("____________________________________________________________");
     scanner.close();
