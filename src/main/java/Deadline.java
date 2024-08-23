@@ -9,6 +9,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDateTime getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + DateTimeHandler.format(by) + ")";

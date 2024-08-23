@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -31,6 +32,10 @@ public class BingBongBot {
                 case BYE:
                     isRunning = false;
                     ui.showGoodbye();
+                    break;
+                case LIST_ON:
+                    String date = input.substring(8).trim();  // Extract the date after "list on "
+                    listTasksOnDate(date);
                     break;
                 case LIST:
                     listTasks();
@@ -79,6 +84,42 @@ public class BingBongBot {
             ui.showResponse(list.toString());
         }
     }
+
+    private void listTasksOnDate(String date) throws BingBongException {
+        LocalDate queryDate;
+        try {
+            queryDate = DateTimeHandler.parseDate(date);
+        } catch (DateTimeParseException e) {
+            throw new BingBongException("Invalid date format. Please use the format: d/M/yyyy.");
+        }
+
+        StringBuilder list = new StringBuilder("Tasks on " + DateTimeHandler.format(queryDate) + ":\n");
+        boolean hasTasks = false;
+
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().toLocalDate().equals(queryDate)) {
+                    list.append(taskList.indexOf(task) + 1).append(". ").append(deadline).append("\n");
+                    hasTasks = true;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getFrom().toLocalDate().equals(queryDate) ||
+                        event.getTo().toLocalDate().equals(queryDate)) {
+                    list.append(taskList.indexOf(task) + 1).append(". ").append(event).append("\n");
+                    hasTasks = true;
+                }
+            }
+        }
+
+        if (!hasTasks) {
+            ui.showResponse("No tasks found on " + DateTimeHandler.format(queryDate) + ".");
+        } else {
+            ui.showResponse(list.toString());
+        }
+    }
+
 
     private void addTask(String command, CommandType type) throws BingBongException {
         Task task;
