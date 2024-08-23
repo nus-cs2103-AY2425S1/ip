@@ -1,5 +1,10 @@
 import java.io.*;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Path;
@@ -19,7 +24,7 @@ public class Oliver {
                 Files.createDirectory(directoryPath);
                 Files.createFile(dataPath);
             } catch (IOException e) {
-                System.out.println("\tError occurred when creating directory/file");
+                System.out.println("\tError occurred when creating directory/file.");
             }
         }
         // Read the saved tasks into the arraylist
@@ -118,30 +123,48 @@ public class Oliver {
         }
     }
 
-    public static void handleDeadline(String input) {
+    public static void handleDeadline(String input) { // Date is required, time is optional
         try {
             String[] parts = input.split("/by ");
-            String time = parts[1];
+            String[] dateAndTime = parts[1].split(" ");
+
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+            // Time set to default if no time is provided in the input
+            String timeStr = dateAndTime.length == 1 ? "0000" : dateAndTime[1];
+            LocalDate date = LocalDate.parse(dateAndTime[0]);
+            LocalTime time = LocalTime.parse(timeStr, timeFormatter);
+            LocalDateTime dateTime = LocalDateTime.of(date, time);
+
             String action = parts[0].trim();
-            Deadline d = new Deadline(action.split(" ", 2)[1], time);
+            Deadline d = new Deadline(action.split(" ", 2)[1], dateTime);
             tasks.add(d);
             addSuccess(d);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\tMissing arguments for this command.");
+        } catch (DateTimeParseException e) {
+            System.out.println("\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm");
+            System.out.println("\tNote that date is required but time is optional.");
         }
     }
 
-    public static void handleEvent(String input) {
+    public static void handleEvent(String input) { // Both date and time are required
         try {
             String[] parts = input.split("/from |/to ");
             String action = parts[0].trim();
-            String start = parts[1].trim();
-            String end = parts[2].trim();
+            String startDateAndTime = parts[1].trim();
+            String endDateAndTime = parts[2].trim();
+
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime start = LocalDateTime.parse(startDateAndTime, dateFormatter);
+            LocalDateTime end = LocalDateTime.parse(endDateAndTime, dateFormatter);
+
             Event e = new Event(action.split(" ", 2)[1], start, end);
             tasks.add(e);
             addSuccess(e);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\tMissing arguments for this command.");
+        } catch (DateTimeParseException e) {
+            System.out.println("\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm" + e);
         }
     }
 
@@ -177,9 +200,9 @@ public class Oliver {
                 if (data[0].equals("T")) {
                     t = new ToDo(data[2]);
                 } else if (data[0].equals("D")) {
-                    t = new Deadline(data[2], data[3]);
+                    t = new Deadline(data[2], LocalDateTime.parse(data[3]));
                 } else {
-                    t = new Event(data[2], data[3], data[4]);
+                    t = new Event(data[2], LocalDateTime.parse(data[3]), LocalDateTime.parse(data[4]));
                 }
                 if (data[1].equals("X")) {
                     t.markAsDone();
@@ -187,7 +210,7 @@ public class Oliver {
                 tasks.add(t);
             }
         } catch (IOException e) {
-            System.out.println("\tError occurred when reading data into list");
+            System.out.println("\tError occurred when reading data into list.");
         }
     }
 
