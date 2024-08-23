@@ -2,34 +2,45 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> list;
-    private int count = 0;
 
     public TaskList() {
         this.list = new ArrayList<>();
     }
-    public String addTodo(String item) {
-        Todo curr = new Todo(item, ++count);
-        list.add(curr);
-        return "Ok! I've added a new todo task:\n" + curr +
-                "\n" + countTasks();
-    }
 
-    public String addDeadline(String item, String dueDate) {
-        Deadline curr = new Deadline(item, ++count, dueDate);
-        list.add(curr);
-        return "Ok! I've added a new task with a deadline:\n" + curr +
-                "\n" + countTasks();
-    }
-
-    public String addEvent(String item, String fromDate, String toDate) {
-        Event curr = new Event(item, ++count, fromDate, toDate);
-        list.add(curr);
-        return "Ok! I've added a new event:\n" + curr +
-                "\n" + countTasks();
+    public String addTask(String taskType, String input) {
+        Task newTask;
+        String response;
+        try {
+            switch (taskType) {
+                case "todo":
+                    newTask = Todo.handleInput(input);
+                    response = "Ok! I've added a new todo task:\n" + newTask +
+                            "\n";
+                    break;
+                case "deadline":
+                    newTask = Deadline.handleInput(input);
+                    response = "Ok! I've added a new task with a deadline:\n" + newTask +
+                            "\n";
+                    break;
+                case "event":
+                    newTask = Event.handleInput(input);
+                    response = "Ok! I've added a new event:\n" + newTask +
+                            "\n";
+                    break;
+                default:
+                    response = "";
+                    newTask = null;
+                    break;
+            }
+            list.add(newTask);
+            return response + countTasks();
+        } catch (WrongInputException e) {
+            return e.toString();
+        }
     }
 
     public String countTasks() {
-        return "You have " + count + " tasks in total.";
+        return "You have " + list.size() + " tasks in total.";
     }
 
     public String listItems() {
@@ -38,7 +49,7 @@ public class TaskList {
         }
         StringBuilder fullList = new StringBuilder("Here are your tasks:\n");
         for (Task t : list) {
-            String currItem = t.getCount() + "." + t + "\n";
+            String currItem = list.indexOf(t) + 1 + "." + t + "\n";
             fullList.append(currItem);
         }
         fullList.append("That's all, you can do this!");

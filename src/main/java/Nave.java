@@ -49,19 +49,9 @@ public class Nave {
         Pattern markPattern = Pattern.compile("^(mark|unmark) (\\d+)$");
         Matcher markMatcher = markPattern.matcher(input);
 
-        //Regex checking for todos
-        Pattern todoPattern = Pattern.compile("^todo ([\\w\\s]+)$");
-        Matcher todoMatcher = todoPattern.matcher(input);
-
-        //Regex checking for deadlines
-        Pattern deadlinePattern =
-                Pattern.compile("^deadline ([\\w\\s]+) /by ([\\w\\s]+)$");
-        Matcher deadlineMatcher = deadlinePattern.matcher(input);
-
-        //Regex checking for events
-        Pattern eventPattern =
-                Pattern.compile("^event ([\\w\\s]+) /from ([\\w\\s]+) /to ([\\w\\s]+)$");
-        Matcher eventMatcher = eventPattern.matcher(input);
+        //Regex checking for tasks
+        Pattern taskPattern = Pattern.compile("^(todo|deadline|event)\\s?(.*)$");
+        Matcher taskMatcher = taskPattern.matcher(input);
 
         if (input.equals("list")) {
             response = tasks.listItems();
@@ -73,16 +63,9 @@ public class Nave {
             response = markOrNot.equals("mark")
                     ? tasks.markItem(taskNumber)
                     : tasks.unmarkItem(taskNumber);
-        } else if (todoMatcher.matches()) {
-            response = tasks.addTodo(todoMatcher.group(1));
-        } else if (deadlineMatcher.matches()) {
-            response = tasks.addDeadline(deadlineMatcher.group(1),
-                    deadlineMatcher.group(2));
-        } else if (eventMatcher.matches()) {
-            response = tasks.addEvent(eventMatcher.group(1),
-                    eventMatcher.group(2), eventMatcher.group(3));
-        }
-        else {
+        } else if (taskMatcher.matches()) {
+            response = tasks.addTask(taskMatcher.group(1), taskMatcher.group(2));
+        } else {
             response = "I don't know what you want me to do! Try using /help";
         }
         return formatResponse(response);

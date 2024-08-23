@@ -22,7 +22,7 @@ Here are your tasks:
 That's all, you can do this!
 -----------------------------------------------------------------
 -----------------------------------------------------------------
-I don't know what you want me to do! Try using /help
+You forgot to specify a due date!
 -----------------------------------------------------------------
 -----------------------------------------------------------------
 Ok! I've added a new task with a deadline:

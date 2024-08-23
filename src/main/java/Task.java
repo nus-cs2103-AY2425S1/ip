@@ -1,11 +1,9 @@
 abstract public class Task {
     private final String name;
     private boolean done;
-    private final int count;
 
-    public Task(String name, int count) {
+    public Task(String name) {
         this.name = name;
-        this.count = count;
         this.done = false;
     }
 
@@ -25,10 +23,6 @@ abstract public class Task {
             done = false;
             return true;
         }
-    }
-
-    public int getCount() {
-        return this.count;
     }
 
     public String toString() {
