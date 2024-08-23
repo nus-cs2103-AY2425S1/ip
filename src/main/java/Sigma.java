@@ -33,7 +33,7 @@ public class Sigma {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SigmaException {
         items = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -57,7 +57,11 @@ public class Sigma {
             }
 
             if (userInput.startsWith("todo")) {
-                String description = userInput.substring(5).trim(); // trims todo away from the input
+                String description = userInput.substring(4).trim(); // trims the input away
+                if (description.isEmpty()) { // handle empty input
+                    System.out.println("todo...todo what? let's try this again");
+                    continue;
+                }
                 Task task = new ToDo(description, false);
                 items.add(task);
                 System.out.println("added todo task:\n [T][ ] " + description);
@@ -73,6 +77,8 @@ public class Sigma {
                     Task task = new Deadline(description, false, by);
                     items.add(task);
                     System.out.println("added deadline task:\n  [D][ ] " + description + " (by: " + by + ")");
+                } else {
+                    System.out.println("is the deadline in the room with us? let's try again");
                 }
                 continue;
             }
@@ -87,6 +93,8 @@ public class Sigma {
                     Task task = new Event(description, false, from, to);
                     items.add(task);
                     System.out.println("added event task:\n  [E][ ] " + description + " (from: " + from + " to: " + to + ")");
+                } else {
+                    System.out.println("bro really thinks bro can make an empty event and get away with it");
                 }
                 continue;
             }
