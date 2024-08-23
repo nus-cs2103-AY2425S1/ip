@@ -59,6 +59,7 @@ public class Dude {
 
     public void list(){
         System.out.println(line);
+        System.out.println("Here are the tasks in your list:");
 
         for(int i = 1; i <= taskPointer; i ++){
             System.out.println(i + "." + tasks[i - 1]);
