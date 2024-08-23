@@ -1,23 +1,31 @@
-public class Task {
-    private final String command;
-    protected final Boolean hasCompleted;
+public abstract class Task {
+    private final String description;
+    private final Boolean hasCompleted;
 
-    Task(String command) {
-        this.command = command;
+    Task(String description) {
+        this.description = description;
         this.hasCompleted = false;
     }
 
-    Task(String command, Boolean hasCompleted) {
-        this.command = command;
-        this.hasCompleted = hasCompleted;
+    Task(String description, Boolean isDone) {
+        this.description = description;
+        this.hasCompleted = isDone;
     }
 
-    Boolean getHasCompleted() {
-        return hasCompleted;
+    private String getHasCompleted() {
+        return (hasCompleted ? "X" : " "); // mark done task with X
+    }
+
+    protected String getDescription() {
+        return description;
     }
 
     @Override
     public String toString() {
-        return command;
+        return "[" + getHasCompleted() + "] " + description;
     }
+
+    public abstract Task markAsDone();
+    public abstract Task markAsNotDone();
+    public abstract String getType();
 }
