@@ -79,6 +79,13 @@ class Todo extends Task {
     }
 }
 
+class BobException extends Exception {
+
+    public BobException(String message) {
+        super(message);
+    }
+}
+
 public class Bob {
 
     private static void dialogue(String input) {
@@ -94,64 +101,83 @@ public class Bob {
         dialogue("Hello! I'm Bob\n"
                 + "What can I do for you?");
 
-        while (true) {
-            String userInput = scanner.nextLine();
+        try {
+            while (true) {
+                String userInput = scanner.nextLine();
 
-            if (userInput.equalsIgnoreCase("bye")) {
-                dialogue("Bye. Hope to see you again soon!");
-                break;
-            
-            } else if (userInput.equalsIgnoreCase("list")) {
-                String out = "Here are the tasks in your list: \n";
-                for (int i = 0; i < messages.size(); i++) {
-                    out += (i + 1) + ". " + messages.get(i) + "\n";
+                if (userInput.equalsIgnoreCase("bye")) {
+                    dialogue("Bye. Hope to see you again soon!");
+                    break;
+
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    String out = "Here are the tasks in your list: \n";
+                    for (int i = 0; i < messages.size(); i++) {
+                        out += (i + 1) + ". " + messages.get(i) + "\n";
+                    }
+                    dialogue(out);
+
+                } else if (userInput.startsWith("mark")) {
+                    String[] words = userInput.split(" ");
+                    int index = Integer.parseInt(words[1]) - 1;
+                    messages.get(index).markAsDone();
+                    dialogue("Nice! I've marked this task as done: \n" + messages.get(index));
+
+                } else if (userInput.startsWith("unmark")) {
+                    String[] words = userInput.split(" ");
+                    int index = Integer.parseInt(words[1]) - 1;
+                    messages.get(index).unmarkAsDone();
+                    dialogue("OK, I've marked this task as not done yet: \n" + messages.get(index));
+
+                } else if (userInput.startsWith("todo")) {
+                    // Example: todo read book
+
+                    if (userInput.length() == 4) {
+                        throw new BobException("The description of a todo cannot be empty.");
+                    }
+                    String description = userInput.substring(5);
+
+                    Todo todo = new Todo(description);
+                    messages.add(todo);
+                    dialogue("Got it. I've added this task: \n" + todo + "\nNow you have " + messages.size() + " tasks in the list.");
+
+                } else if (userInput.startsWith("deadline")) {
+                    // Example: deadline return book /by Sunday
+                    String[] words = userInput.split(" /by ");
+
+                    if (userInput.length() == 8) {
+                        throw new BobException("The description of a deadline cannot be empty.");
+                    }
+                    String description = words[0].substring(9);
+                    String by = words[1];
+
+                    Deadline deadline = new Deadline(description, by);
+                    messages.add(deadline);
+                    dialogue("Got it. I've added this task: \n" + deadline + "\nNow you have " + messages.size() + " tasks in the list.");
+
+                } else if (userInput.startsWith("event")) {
+                    // Example: event project meeting /from Mon 2pm /to 4pm
+                    String[] words = userInput.split(" /from ");
+                    String[] words2 = words[1].split(" /to ");
+
+                    if (userInput.length() == 5) {
+                        throw new BobException("The description of an event cannot be empty.");
+                    }
+                    String description = words[0].substring(6);
+                    String from = words2[0];
+                    String to = words2[1];
+                    
+                    Event event = new Event(description, from, to);
+                    messages.add(event);
+                    dialogue("Got it. I've added this task: \n" + event + "\nNow you have " + messages.size() + " tasks in the list.");
+
+                } else {
+                    throw new BobException("I'm sorry, but I don't know what that means :(");
                 }
-                dialogue(out);
-            
-            } else if (userInput.startsWith("mark")) {
-                String[] words = userInput.split(" ");
-                int index = Integer.parseInt(words[1]) - 1;
-                messages.get(index).markAsDone();
-                dialogue("Nice! I've marked this task as done: \n" + messages.get(index));
-           
-            } else if (userInput.startsWith("unmark")) {
-                String[] words = userInput.split(" ");
-                int index = Integer.parseInt(words[1]) - 1;
-                messages.get(index).unmarkAsDone();
-                dialogue("OK, I've marked this task as not done yet: \n" + messages.get(index));
-
-            } else if (userInput.startsWith("todo")) {
-                // Example: todo read book
-                String description = userInput.substring(5);
-                Todo todo = new Todo(description);
-                messages.add(todo);
-                dialogue("Got it. I've added this task: \n" + todo + "\nNow you have " + messages.size() + " tasks in the list.");
-
-            } else if (userInput.startsWith("deadline")) {
-                // Example: deadline return book /by Sunday
-                String[] words = userInput.split(" /by ");
-                String description = words[0].substring(9);
-                String by = words[1];
-                Deadline deadline = new Deadline(description, by);
-                messages.add(deadline);
-                dialogue("Got it. I've added this task: \n" + deadline + "\nNow you have " + messages.size() + " tasks in the list.");
-
-            } else if (userInput.startsWith("event")) {
-                // Example: event project meeting /from Mon 2pm /to 4pm
-                String[] words = userInput.split(" /from ");
-                String[] words2 = words[1].split(" /to ");
-                String description = words[0].substring(6);
-                String from = words2[0];
-                String to = words2[1];
-                Event event = new Event(description, from, to);
-                messages.add(event);
-                dialogue("Got it. I've added this task: \n" + event + "\nNow you have " + messages.size() + " tasks in the list.");
-
-            } else {
-                dialogue("What?");
             }
+        } catch (BobException e) {
+            dialogue(e.getMessage());
         }
-
+        
         scanner.close();
     }
 }
