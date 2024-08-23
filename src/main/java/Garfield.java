@@ -75,6 +75,10 @@ public class Garfield {
             }
 
             if (userInput.toLowerCase().startsWith("todo")) {
+                if (userInput.length() <= 5) {
+                    Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+                    continue;
+                }
                 String todoDescription = userInput.substring(5);
                 if (!todoDescription.isBlank()) {
                     Todo newTodo = new Todo(todoDescription);
@@ -83,10 +87,17 @@ public class Garfield {
                     + newTodo + "\n\nJust what you needed to boost your list to a grand total of "
                     + taskList.size() + " task" + ((taskList.size() == 1)? "" : "s") + ". Lucky you.");
                     continue;
+                } else {
+                    Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+                    continue;
                 }
             }
 
             if (userInput.toLowerCase().startsWith("deadline")) {
+                if (userInput.length() <= 9) {
+                    Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+                    continue;
+                }
                 String deadlineDescription = userInput.substring(9);
                 String[] deadlineArgs = deadlineDescription.split("/by");
                 if (!deadlineArgs[0].isBlank() && !deadlineArgs[1].isBlank()) {
@@ -96,10 +107,18 @@ public class Garfield {
                             + newDeadline + "\n\nNow your list is up to " + taskList.size() + " task"
                             + ((taskList.size() == 1)? "" : "s") + ". Because who doesn't love more deadlines.");
                     continue;
+                } else {
+                    Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+                    continue;
                 }
+
             }
 
             if (userInput.toLowerCase().startsWith("event")) {
+                if (userInput.length() <= 6) {
+                    Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+                    continue;
+                }
                 String eventDescription = userInput.substring(6);
                 String[] eventArgs = eventDescription.split("/from");
                 eventDescription = eventArgs[0];
@@ -112,9 +131,13 @@ public class Garfield {
                             + newEvent + "\n\nYour list is now at " + taskList.size() + " task"
                             + ((taskList.size() == 1)? "" : "s") + ". Maybe you'll get around to actually doing them.");
                     continue;
+                } else {
+                    Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+                    continue;
                 }
             }
 
+            Garfield.speak(userInput + "? I’m not sure what that means. Can you give me a bit more to work with?");
         }
 
         Garfield.speak("Finally. Try not to come back too soon.");
