@@ -55,6 +55,21 @@ public class TaskList {
     }
 
     /**
+     * Deletes a task from the TaskList.
+     * @param taskNumber The index of the task to be deleted.
+     */
+    public void deleteTask(int taskNumber) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(this.tasks[taskNumber]);
+        for (int i = taskNumber; i < this.taskCount - 1; i++) {
+            this.tasks[i] = this.tasks[i + 1];
+        }
+        this.taskCount--;
+        this.tasks[this.taskCount] = null;
+        System.out.println("Now you have " + this.taskCount + " tasks in the list.");
+    }
+
+    /**
      * Returns a string representation of the task list.
      */
     @Override
