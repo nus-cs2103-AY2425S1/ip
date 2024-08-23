@@ -1,10 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class YapperBot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int numTask = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("________________________________");
         System.out.println("Hello! I'm YapperBot");
@@ -12,30 +12,32 @@ public class YapperBot {
         System.out.println("________________________________");
 
         while (true) {
+
             String userInput = scanner.nextLine();
+
             try {
                 if (userInput.equals("bye")) {
                     break;
                 } else if (userInput.equals("list")) {
                     System.out.println("________________________________");
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < numTask; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     System.out.println("________________________________");
                 } else if (userInput.startsWith("mark")) {
                     int targetTask = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    tasks[targetTask].mark();
+                    tasks.get(targetTask).mark();
                     System.out.println("________________________________");
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks[targetTask]);
+                    System.out.println("  " + tasks.get(targetTask));
                     System.out.println("________________________________");
                 } else if (userInput.startsWith("unmark")) {
                     int targetTask = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    tasks[targetTask].unmark();
+                    tasks.get(targetTask).unmark();
                     System.out.println("________________________________");
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks[targetTask]);
+                    System.out.println("  " + tasks.get(targetTask));
                     System.out.println("________________________________");
                 } else if (userInput.startsWith("todo")) {
                     if (userInput.length() == 4) {
@@ -45,12 +47,11 @@ public class YapperBot {
                     if (description.isEmpty()) {
                         throw new YapperBotException("Umm, the description for a Todo task cannot be empty!!!");
                     }
-                    tasks[numTask] = new Todo(description);
-                    numTask++;
+                    tasks.add(new Todo(description));
                     System.out.println("________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[numTask - 1]);
-                    System.out.println("Now you have " + numTask + (numTask == 1 ? " task" : " tasks") + " in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                     System.out.println("________________________________");
                 } else if (userInput.startsWith("deadline")) {
                     if (userInput.length() == 8) {
@@ -62,12 +63,11 @@ public class YapperBot {
                     }
                     String description = input[0];
                     String by = input[1];
-                    tasks[numTask] = new Deadline(description, by);
-                    numTask++;
+                    tasks.add(new Deadline(description, by));
                     System.out.println("________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[numTask - 1]);
-                    System.out.println("Now you have " + numTask + (numTask == 1 ? " task" : " tasks") + " in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                     System.out.println("________________________________");
                 } else if (userInput.startsWith("event")) {
                     if (userInput.length() == 5) {
@@ -80,12 +80,26 @@ public class YapperBot {
                     String description = input[0];
                     String from = input[1];
                     String to = input[2];
-                    tasks[numTask] = new Event(description, from, to);
-                    numTask++;
+                    tasks.add(new Event(description, from, to));
                     System.out.println("________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[numTask - 1]);
-                    System.out.println("Now you have " + numTask + (numTask == 1 ? " task" : " tasks") + " in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                    System.out.println("________________________________");
+                } else if (userInput.startsWith("delete")) {
+                    if (userInput.length() == 6) {
+                        throw new YapperBotException("Umm, you need to provide a task number!");
+                    }
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new YapperBotException("Invalid task number! Please enter a number greater than 0 and less than " + (tasks.size() + 1) + "!");
+                    }
+                    Task targetTask = tasks.get(taskNumber);
+                    tasks.remove(targetTask);
+                    System.out.println("________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + targetTask);
+                    System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                     System.out.println("________________________________");
                 } else {
                     throw new YapperBotException("IDK what you are yapping about!!");
