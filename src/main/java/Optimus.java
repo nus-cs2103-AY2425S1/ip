@@ -21,6 +21,7 @@ public class Optimus {
                     System.out.println(j + 1 + ". " + "[" + "] " + tasks[j]);
                 }
             }
+
             else {
                 tasks[i] = text;
                 System.out.println("added: " + text);
