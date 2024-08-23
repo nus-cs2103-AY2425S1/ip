@@ -31,4 +31,20 @@ public class TaskList {
     public boolean isEmpty() {
         return this.taskList.isEmpty();
     }
+
+    /**
+     * Finds tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A {@link TaskList} containing tasks that match the keyword.
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : taskList) {
+            if (task.printTask().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -3,13 +3,7 @@ package citadel;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
-import citadel.commands.Commands;
-import citadel.commands.DeleteTask;
-import citadel.commands.HandleDeadline;
-import citadel.commands.HandleEvent;
-import citadel.commands.HandleTodo;
-import citadel.commands.MarkTask;
-import citadel.commands.UnmarkTask;
+import citadel.commands.*;
 import citadel.Task.TaskList;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidCommandException;
@@ -63,6 +57,9 @@ public class Citadel {
                     new HandleTodo(input, items).run();
                     break;
 
+                case FIND:
+                    new FindTask(input, items).run();
+                    break;
                 default:
                     throw new CitadelInvalidCommandException();
                 }
