@@ -135,6 +135,24 @@ public class SecondMind {
         printLineSeparator();
     }
 
+    private static void delete(int taskNumber) throws InvalidTaskNumberException {
+        if (taskNumber <= 0) {
+            printLineSeparator();
+            System.out.println("Warning! Task numbering starts from 1!");
+            printLineSeparator();
+            return;
+        } else if (taskNumber > taskCount()) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
+        Task curr = taskList.get(taskNumber-1);
+        taskList.remove(taskNumber-1);
+        printLineSeparator();
+        System.out.println("I've removed the following task:");
+        System.out.println(curr);
+        System.out.println("You have a grand total of " + taskCount() + " task(s)");
+        printLineSeparator();
+    }
+
     private static boolean processInput(String input) {
         String[] newInput = input.split(" ");
         String command = newInput[0];
