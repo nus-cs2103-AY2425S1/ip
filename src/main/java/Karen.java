@@ -121,6 +121,24 @@ public class Karen {
                                 "event <name> /from <start time> /to <end time>\n"
                                 + LINE;
                     }
+                } else if (command[0].equals("delete")) {
+                    try {
+                        int n = Integer.parseInt(command[1]) - 1;
+                        Task t = tasks.get(n);
+                        tasks.remove(n);
+                        output += LINE
+                                + "Alright! I've removed this task from your list:\n\t"
+                                + t.toString() + "\n"
+                                + LINE;
+                    } catch (NumberFormatException NFE) {
+                        output += LINE
+                                + "Error! Please enter a valid number after the `delete` command!\n"
+                                + LINE;
+                    } catch (IndexOutOfBoundsException IOB) {
+                        output += LINE
+                                + "Invalid index! Use 'list' to see the current tasks and their respective indices\n"
+                                + LINE;
+                    }
                 } else {
                     output += LINE
                             + "Sorry! I don't understand :(\n"
