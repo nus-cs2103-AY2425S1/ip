@@ -1,11 +1,35 @@
+import java.util.Scanner;
+
 public class ChatGPT {
+    private static String NAME = "ChatGPT";
+    private static String LINE = "________________________________________________";
     public static void main(String[] args) {
-        String name = "ChatGPT";
-        System.out.println("________________________________________________");
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        System.out.println("________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("________________________________________________");
+        Scanner userInput = new Scanner(System.in);
+
+        sendGreeting();
+        do {
+            String input = userInput.nextLine();
+            System.out.println("\t"+LINE);
+            if (input.equals("bye")) {
+                break;
+            } else {
+                System.out.println(input);
+                System.out.println("\t"+LINE);
+            }
+        } while (true);
+        sendExit();
+
+    }
+
+    private static void sendGreeting() {
+        System.out.println("\t"+LINE);
+        System.out.println("\tHello! I'm " + NAME);
+        System.out.println("\tWhat can I do for you?");
+        System.out.println("\t"+LINE);
+    }
+
+    private static void sendExit() {
+        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\t"+LINE);
     }
 }
