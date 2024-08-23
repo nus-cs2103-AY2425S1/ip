@@ -1,15 +1,25 @@
+package bobbybot;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TaskFile {
-    private static final String DATA_FOLDER_PATH = "./data";
-    private static final String FILE_PATH = DATA_FOLDER_PATH + "/bobbybot.txt";
+public class Storage {
+    private File taskListFile;
 
-    protected static ArrayList<Task> getTasksFromFile() throws Exception {
-        File taskListFile = getTaskListFile();
+    Storage(String filePath) {
+        taskListFile = new File(filePath);
+        try {
+            taskListFile.getParentFile().mkdirs();
+            taskListFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating file");
+        }
+    }
+
+    public ArrayList<Task> getTasksFromFile() throws Exception {
         Scanner fileScanner = new Scanner(taskListFile);
         ArrayList<Task> tasks = new ArrayList<>();
         while (fileScanner.hasNext()) {
@@ -38,8 +48,7 @@ public class TaskFile {
         return tasks;
     }
 
-    protected static void saveTasksToFile(Task[] tasks) throws IOException {
-        File taskListFile = getTaskListFile();
+    public void saveTasksToFile(Task[] tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(taskListFile);
         for (Task task : tasks) {
             fileWriter.write(task.getFileString() + "\n");
@@ -47,13 +56,5 @@ public class TaskFile {
         fileWriter.close();
     }
 
-    private static File getTaskListFile() throws IOException {
-        // Create data folder if it does not exist
-        new File(DATA_FOLDER_PATH).mkdirs();
-        File taskList = new File(FILE_PATH);
-        taskList.createNewFile();
-
-        return taskList;
-    }
 
 }
