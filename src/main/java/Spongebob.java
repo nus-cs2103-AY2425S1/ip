@@ -13,8 +13,10 @@ public class Spongebob {
     public static void main(String[] args) {
 
 
+        // retrieve data from storage
         storage = new Storage("data/spongebob.txt");
         try {
+            // load cache
             cache = storage.load();
         } catch (SpongebobException e) {
             System.out.println("Uh oh! Storage is Corrupted! \n");
