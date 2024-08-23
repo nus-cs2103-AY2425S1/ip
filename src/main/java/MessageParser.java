@@ -1,18 +1,37 @@
-import processor.Echo;
+import exceptions.CommandInvalidException;
 import processor.Exit;
-import response.Response;
+import processor.Processor;
+import processor.task.Add;
+import processor.task.Mark;
+import processor.task.Unmark;
+import processor.task.Delete;
 
-import java.util.function.Function;
+import java.util.Arrays;
+import java.util.List;
 
 public class MessageParser {
-  public static Function<String, Response> parse(String prompt) {
+  public static Processor parse(String prompt) throws CommandInvalidException {
 
-    switch (prompt) {
+    final List<String> prompts = Arrays.asList(prompt.split(" "));
+
+    switch (prompts.get(0)) {
+      case "mark":
+        return Mark::process;
+      case "unmark":
+        return Unmark::process;
+      case "list":
+        return processor.task.List::process;
       case "bye":
         return Exit::process;
-      default:
-        return Echo::process;
+      case "todo":
+        return Add::todo;
+      case "deadline":
+        return Add::deadline;
+      case "event":
+        return Add::event;
+      case "delete":
+        return Delete::process;
     }
-
+    throw new CommandInvalidException();
   }
 }
