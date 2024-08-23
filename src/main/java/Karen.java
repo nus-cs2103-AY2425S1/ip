@@ -49,23 +49,43 @@ public class Karen {
 
             } else if (command[0].equals("mark")) {
                 //Mark as done
-                int n = Integer.parseInt(command[1]) - 1;
-                Task marked_task = tasks.get(n);
-                marked_task.mark();
-                output += LINE +
-                        "Nice! I've marked this task as done:\n\t" +
-                        marked_task + "\n" +
-                        LINE;
+                try {
+                    int n = Integer.parseInt(command[1]) - 1;
+                    Task marked_task = tasks.get(n);
+                    marked_task.mark();
+                    output += LINE +
+                            "Nice! I've marked this task as done:\n\t" +
+                            marked_task + "\n" +
+                            LINE;
+                } catch (NumberFormatException NFE) {
+                    output += LINE
+                            + "Error! You must input a number after the 'mark' command\n"
+                            + LINE;
+                } catch (IndexOutOfBoundsException IOB) {
+                    output += LINE
+                            + "Invalid index! Use 'list' to see the tasks and their respective indices!\n"
+                            + LINE;
+                }
 
             } else if (command[0].equals("unmark")) {
                 //Unmark as done
-                int n = Integer.parseInt(command[1]) - 1;
-                Task unmarked_task = tasks.get(n);
-                unmarked_task.unmark();
-                output += LINE +
-                        "Ok! This task is now marked undone:\n\t" +
-                        unmarked_task + "\n" +
-                        LINE;
+                try {
+                    int n = Integer.parseInt(command[1]) - 1;
+                    Task unmarked_task = tasks.get(n);
+                    unmarked_task.unmark();
+                    output += LINE +
+                            "Ok! This task is now marked undone:\n\t" +
+                            unmarked_task + "\n" +
+                            LINE;
+                } catch (NumberFormatException NFE) {
+                    output += LINE
+                            + "Error! You must input a number after the 'unmark' command\n"
+                            + LINE;
+                } catch (IndexOutOfBoundsException IOB) {
+                    output += LINE
+                            + "Invalid index! Use 'list' to see the tasks and their respective indices!\n"
+                            + LINE;
+                }
 
             } else {
                 //add new Task
