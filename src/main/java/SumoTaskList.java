@@ -135,7 +135,6 @@ public class SumoTaskList {
             FileWriter fw = new FileWriter(this.filePath, false);
             for (Task task : tasks) {
                 fw.write(task.savedString() + "\n");
-                System.out.println(task.savedString());
             }
             fw.close();
         } catch (IOException e) {
