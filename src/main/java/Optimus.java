@@ -16,8 +16,9 @@ public class Optimus {
                 break;
             }
             if (text.equals("list")){
+                System.out.println("Here are the tasks in your list:");
                 for (int j = 0; j < i; j++) {
-                    System.out.println(j + 1 + ". " + tasks[j]);
+                    System.out.println(j + 1 + ". " + "[" + "] " + tasks[j]);
                 }
             }
             else {
