@@ -4,7 +4,10 @@ import java.util.List;
 public class ToDoList {
     List<Task> list = new ArrayList<Task>();
 
-    public void addToList(Task task) {
+    public void addToList(Task task) throws TrackBotException {
+        if (task == null) {
+            throw new TrackBotException("No task found.");
+        }
         list.add(task);
         System.out.println("````````````````````````````````````````````````````````````");
         System.out.println("Successfully added this task:\n  " + task.toString());
@@ -12,7 +15,10 @@ public class ToDoList {
         System.out.println("````````````````````````````````````````````````````````````");
     }
 
-    public void markTask(int num) {
+    public void markTask(int num) throws TrackBotException {
+        if (num < 0 || num > list.size() - 1) {
+            throw new TrackBotException("Invalid task number.");
+        }
         list.get(num).mark();
         System.out.println("````````````````````````````````````````````````````````````");
         System.out.println("Successfully marked task " + (num + 1) + " as done.");
@@ -21,7 +27,10 @@ public class ToDoList {
 
     }
 
-    public void unmarkTask(int num) {
+    public void unmarkTask(int num) throws TrackBotException {
+        if (num < 0 || num > list.size() - 1) {
+            throw new TrackBotException("Invalid task number.");
+        }
         list.get(num).unmark();
         System.out.println("````````````````````````````````````````````````````````````");
         System.out.println("Successfully marked task " + (num + 1) + " as not done yet.");
@@ -29,7 +38,10 @@ public class ToDoList {
         System.out.println("````````````````````````````````````````````````````````````");
     }
 
-    public void listToString() {
+    public void listToString() throws TrackBotException {
+        if (list.isEmpty()) {
+            throw new TrackBotException("The list is currently empty.");
+        }
         System.out.println("````````````````````````````````````````````````````````````\n" + "List:");
         int i = 1;
         for (Task item : list) {
