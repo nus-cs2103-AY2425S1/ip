@@ -32,8 +32,6 @@ public class ChattyBuddy {
                     System.out.printf("%d.[%s][%s] %s%n", i + 1,inputList.get(i).type,inputList.get(i).getStatusIcon(), inputList.get(i).description);
                 }
                 System.out.println(breakLine);
-                response = userInput.nextLine();
-                slicedStr = response.split(" ");
 
             // when user enters "mark xxx"
             } else if (slicedStr.length == 2 && slicedStr[0].equals("mark")) {
@@ -49,8 +47,6 @@ public class ChattyBuddy {
                     System.out.println("Oh no! No such task is found!");
                     System.out.println(breakLine);
                 }
-                response = userInput.nextLine();
-                slicedStr = response.split(" ");
 
             // when user enters "unmark xxx"
             } else if (slicedStr.length == 2 && slicedStr[0].equals("unmark")) {
@@ -66,68 +62,49 @@ public class ChattyBuddy {
                     System.out.println("Oh no! No such task is found!");
                     System.out.println(breakLine);
                 }
-                response = userInput.nextLine();
-                slicedStr = response.split(" ");
 
             // users enters "todo xxx"
             } else if (slicedStr[0].equals("todo")) {
-                String taskDetail = response.substring(5);
-                Task newTask = new Task(taskDetail);
-                newTask.setTypeStatus("T");
-                inputList.add(newTask);
+                Todo newTodo = new Todo();
+                newTodo.convertStringToTask(slicedStr);
+                inputList.add(newTodo);
                 System.out.println(breakLine);
                 System.out.println("Got it. I've added this task:");
-                System.out.printf("  [%s][%s] %s%n", newTask.type, newTask.getStatusIcon(), newTask.description);
+                System.out.printf("  [%s][%s] %s%n", newTodo.type, newTodo.getStatusIcon(), newTodo.description);
                 System.out.printf("Now you have %d tasks in the list%n", inputList.size());
                 System.out.println(breakLine);
-                response = userInput.nextLine();
-                slicedStr = response.split(" ");
 
             // users enters "deadline xxx"
             } else if (slicedStr[0].equals("deadline")) {
-                String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
-                String taskDetail = String.join(" ", task);
-                String[] deadlineTask = taskDetail.split("/");
-                String[] taskDate = deadlineTask[1].split(" ");
-                String taskDescription = deadlineTask[0] + "(by: " + taskDate[1] + ")";
-                Task newTask = new Task(taskDescription);
-                newTask.setTypeStatus("D");
-                inputList.add(newTask);
+                Deadline newDeadline = new Deadline();
+                newDeadline.convertStringToTask(slicedStr);
+                inputList.add(newDeadline);
                 System.out.println(breakLine);
                 System.out.println("Got it. I've added this task:");
-                System.out.printf("  [%s][%s] %s%n", newTask.type, newTask.getStatusIcon(), newTask.description);
+                System.out.printf("  [%s][%s] %s%n", newDeadline.type, newDeadline.getStatusIcon(), newDeadline.description);
                 System.out.printf("Now you have %d tasks in the list%n", inputList.size());
                 System.out.println(breakLine);
-                response = userInput.nextLine();
-                slicedStr = response.split(" ");
 
             // user enters "event xxx"
             } else if (slicedStr[0].equals("event")) {
-                String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
-                String taskDetail = String.join(" ", task);
-                String[] eventTask = taskDetail.split("/");
-                String startTime = eventTask[1].substring(5);
-                String endTime = eventTask[2].substring(3);
-                String taskDescription = eventTask[0] + "(from: " + startTime + "to: " + endTime + ")";
-                Task newTask = new Task(taskDescription);
-                newTask.setTypeStatus("E");
-                inputList.add(newTask);
+                Event newEvent = new Event();
+                newEvent.convertStringToTask(slicedStr);
+                inputList.add(newEvent);
                 System.out.println(breakLine);
                 System.out.println("Got it. I've added this task:");
-                System.out.printf("  [%s][%s] %s%n", newTask.type, newTask.getStatusIcon(), newTask.description);
+                System.out.printf("  [%s][%s] %s%n", newEvent.type, newEvent.getStatusIcon(), newEvent.description);
                 System.out.printf("Now you have %d tasks in the list%n", inputList.size());
                 System.out.println(breakLine);
-                response = userInput.nextLine();
-                slicedStr = response.split(" ");
 
+            // user enters a normal task
             } else {
-                inputList.add(inputList.size(), new Task(response));
+                inputList.add(inputList.size(), new Task(response, " "));
                 System.out.println(breakLine);
                 System.out.printf("added: %s%n", response);
                 System.out.println(breakLine);
-                response = userInput.nextLine();
-                slicedStr = response.split(" ");
             }
+            response = userInput.nextLine();
+            slicedStr = response.split(" ");
         }
         System.out.println(breakLine);
         System.out.println("Bye. Hope to see you again soon!");
