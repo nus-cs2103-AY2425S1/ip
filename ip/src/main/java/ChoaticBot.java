@@ -59,8 +59,12 @@ public class ChoaticBot {
                 printLine();
             } else if (action.equals("todo")) {
                 printLine();
-                ToDos newToDos = new ToDos(otherText);
-                chatBot.tasklist.addTask(newToDos);
+                if (otherText.isEmpty()) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty");
+                } else {
+                    ToDos newToDos = new ToDos(otherText);
+                    chatBot.tasklist.addTask(newToDos);
+                }
                 printLine();
             } else if (action.equals("deadline")) {
                 printLine();
@@ -78,6 +82,10 @@ public class ChoaticBot {
                 String to = processAgain[2];
                 Events newEvent = new Events(taskName, from, to);
                 chatBot.tasklist.addTask(newEvent);
+                printLine();
+            } else {
+                printLine();
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 printLine();
             }
         }
