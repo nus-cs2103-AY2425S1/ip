@@ -1,3 +1,10 @@
+package myapp.command;
+
+import myapp.core.BingBongUI;
+import myapp.core.Storage;
+import myapp.task.TaskList;
+import myapp.task.Task;
+
 public class DeleteCommand extends Command {
 
     int index;

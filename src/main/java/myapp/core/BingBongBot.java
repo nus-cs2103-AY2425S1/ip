@@ -1,6 +1,7 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+package myapp.core;
+
+import myapp.command.Command;
+import myapp.task.TaskList;
 
 public class BingBongBot {
     private final BingBongUI ui;
@@ -32,7 +33,7 @@ public class BingBongBot {
             } catch (NumberFormatException e) {
                 ui.showResponse("Invalid task number. Please enter a valid number.");
             } catch (IndexOutOfBoundsException e) {
-                ui.showResponse("Task number is out of range. Please enter a valid task number.");
+                ui.showResponse("myapp.task.Task number is out of range. Please enter a valid task number.");
             } catch (Exception e) {
                 ui.showResponse("An unexpected error occurred: " + e.getMessage());
             }

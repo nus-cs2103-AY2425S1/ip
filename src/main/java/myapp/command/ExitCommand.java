@@ -1,3 +1,10 @@
+package myapp.command;
+
+import myapp.core.BingBongUI;
+import myapp.core.Storage;
+import myapp.task.TaskList;
+
+
 public class ExitCommand extends Command {
     public ExitCommand() {
         super();

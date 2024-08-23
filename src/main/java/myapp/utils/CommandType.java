@@ -1,3 +1,5 @@
+package myapp.utils;
+
 public enum CommandType {
     TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST_ON ,LIST, BYE, INVALID;
 

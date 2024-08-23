@@ -1,3 +1,5 @@
+package myapp.core;
+
 import java.util.Scanner;
 
 public class BingBongUI {
@@ -13,7 +15,7 @@ public class BingBongUI {
 
     public void showGreeting() {
         showHorizontalLine();
-        System.out.println("BingBong: " + "Hello! I'm BingBong\n"
+        System.out.println("Hello! I'm BingBong\n"
                 + "What can I do for you?");
         showHorizontalLine();
     }

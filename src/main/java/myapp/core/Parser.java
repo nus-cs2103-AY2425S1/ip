@@ -1,3 +1,8 @@
+package myapp.core;
+
+import myapp.command.*;
+import myapp.utils.CommandType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -8,55 +13,55 @@ public class Parser {
         String description;
 
         switch (command) {
-        case BYE:
+        case CommandType.BYE:
             return new ExitCommand();
-        case LIST_ON:
+        case CommandType.LIST_ON:
             String date = input.substring(8).trim();  // Extract the date after "list on "
             return new ListOnCommand(date);
-        case LIST:
+        case CommandType.LIST:
             return new ListCommand();
-        case MARK:
+        case CommandType.MARK:
             int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             return new MarkCommand(markIndex);
-        case UNMARK:
+        case CommandType.UNMARK:
             int unMarkIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             return new UnMarkCommand(unMarkIndex);
-        case DELETE:
+        case CommandType.DELETE:
             int deleteIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             return new DeleteCommand(deleteIndex);
-        case TODO:
+        case CommandType.TODO:
             description = Parser.parseDescription(input, CommandType.TODO);
             if (description.isEmpty()) {
                 throw new BingBongException("The description of a todo cannot be empty.");
             }
             return new ToDoCommand(description);
-        case DEADLINE:
+        case CommandType.DEADLINE:
             description = Parser.parseDescription(input, CommandType.DEADLINE);
             LocalDateTime byDateTime = Parser.parseDeadlineDateTime(input);
             if (description.isEmpty()) {
                 throw new BingBongException("The description of a deadline cannot be empty.");
             }
             return new DeadlineCommand(description, byDateTime);
-        case EVENT:
+        case CommandType.EVENT:
             description = Parser.parseDescription(input, CommandType.EVENT);
             LocalDateTime[] dateTimes = Parser.parseEventDateTime(input);
             if (description.isEmpty()) {
                 throw new BingBongException("The description of an event cannot be empty.");
             }
             return new EventCommand(description, dateTimes[0], dateTimes[1]);
-        case INVALID:
+        case CommandType.INVALID:
         default:
-            throw new BingBongException("Command not recognized. Please try again...");
+            throw new BingBongException("myapp.command.Command not recognized. Please try again...");
         }
     }
 
     public static String parseDescription(String input, CommandType type) throws BingBongException {
         switch (type) {
-        case TODO:
+        case CommandType.TODO:
             return input.substring(5).trim();
-        case DEADLINE:
+        case CommandType.DEADLINE:
             return input.substring(9).trim().split(" /by ")[0].trim();
-        case EVENT:
+        case CommandType.EVENT:
             return input.substring(6).trim().split(" /from ")[0].trim();
         default:
             throw new BingBongException("Invalid command type for description parsing.");
