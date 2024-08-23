@@ -6,12 +6,12 @@ import task.EventTask;
 import task.Task;
 import task.TodoTask;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ratchet {
     private static final String INDENT = "    ";
-    private static final Task[] taskList = new Task[100];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> taskList = new ArrayList<Task>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,18 +22,14 @@ public class Ratchet {
             input = scanner.nextLine();
             command = input.split(" ")[0].toLowerCase();
             try {
-                if (command.equals("list")) {
-                    displayList();
-                } else if (command.equals("mark")) {
-                    mark(input);
-                } else if (command.equals("unmark")) {
-                    unmark(input);
-                } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                    addTask(input);
-                } else if (command.equals("bye")) {
-                    exit();
-                } else {
-                    throw new InvalidCommandException("Ratchet is unable to execute " + command + "!");
+                switch (command) {
+                    case "list" -> displayList();
+                    case "mark" -> mark(input);
+                    case "unmark" -> unmark(input);
+                    case "todo", "deadline", "event" -> addTask(input);
+                    case "delete" -> delete(input);
+                    case "bye" -> exit();
+                    default -> throw new InvalidCommandException("Ratchet is unable to execute " + command + "!");
                 }
             } catch (RatchetException e) {
                 lineBreak();
@@ -45,6 +41,11 @@ public class Ratchet {
 
     private static void lineBreak() {
         System.out.println("   ________________________________________________________");
+    }
+
+    private static String taskCount() {
+        String count = taskList.size() <= 1 ? taskList.size() + " task" : taskList.size() + " tasks";
+        return "Now you have " + count + " in the list.";
     }
 
     private static void greet() {
@@ -82,42 +83,52 @@ public class Ratchet {
             String description = split2[0].split("event ")[1];
             task = new EventTask(description, from, to);
         }
-        taskList[taskCount++] = task;
-        String count = taskCount <= 1 ? taskCount + " task" : taskCount + " tasks";
+        taskList.add(task);
         lineBreak();
         System.out.println(INDENT + "Got it. I've added this task:\n"
                 + INDENT + "  " + task + "\n"
-                + INDENT + "Now you have " + count + " in the list.");
+                + INDENT + taskCount());
         lineBreak();
     }
 
     private static void displayList() {
         lineBreak();
-        if (taskCount == 0) {
+        if (taskList.isEmpty()) {
             System.out.println(INDENT + "You have no tasks currently!");
         } else {
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(INDENT + (i + 1) + "." + taskList[i]);
+
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println(INDENT + (i + 1) + "." + taskList.get(i));
             }
         }
         lineBreak();
     }
 
     private static void mark(String input) {
-        int task = Integer.parseInt(input.split(" ")[1]) - 1;
-        taskList[task].markAsDone();
+        int num = Integer.parseInt(input.split(" ")[1]) - 1;
+        taskList.get(num).markAsDone();
         lineBreak();
         System.out.println(INDENT + "Nice! I've marked this task as done:\n"
-                + INDENT + "  " + taskList[task]);
+                + INDENT + "  " + taskList.get(num));
         lineBreak();
     }
 
     private static void unmark(String input) {
-        int task = Integer.parseInt(input.split(" ")[1]) - 1;
-        taskList[task].markAsNotDone();
+        int num = Integer.parseInt(input.split(" ")[1]) - 1;
+        taskList.get(num).markAsNotDone();
         lineBreak();
         System.out.println(INDENT + "OK, I've marked this task as not done yet:\n"
-                + INDENT + "  " + taskList[task]);
+                + INDENT + "  " + taskList.get(num));
+        lineBreak();
+    }
+
+    private static void delete(String input) {
+        int num = Integer.parseInt(input.split(" ")[1]) - 1;
+        Task task = taskList.remove(num);
+        lineBreak();
+        System.out.println(INDENT + "Noted. I've removed this task:\n"
+                + INDENT + "  " + task + "\n"
+                + INDENT + taskCount());
         lineBreak();
     }
 }

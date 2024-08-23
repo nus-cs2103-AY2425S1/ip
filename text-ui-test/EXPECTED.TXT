@@ -3,9 +3,6 @@
     What can I do for you?
    ________________________________________________________
    ________________________________________________________
-    You have no tasks currently!
-   ________________________________________________________
-   ________________________________________________________
     Got it. I've added this task:
       [T][ ] borrow book
     Now you have 1 task in the list.
@@ -19,6 +16,24 @@
     Got it. I've added this task:
       [E][ ] project meeting (from: Mon 2pm to: 4pm)
     Now you have 3 tasks in the list.
+   ________________________________________________________
+   ________________________________________________________
+    Nice! I've marked this task as done:
+      [D][X] return book (by: Sunday)
+   ________________________________________________________
+   ________________________________________________________
+    OK, I've marked this task as not done yet:
+      [D][ ] return book (by: Sunday)
+   ________________________________________________________
+   ________________________________________________________
+    1.[T][ ] borrow book
+    2.[D][ ] return book (by: Sunday)
+    3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   ________________________________________________________
+   ________________________________________________________
+    Noted. I've removed this task:
+      [D][ ] return book (by: Sunday)
+    Now you have 2 tasks in the list.
    ________________________________________________________
    ________________________________________________________
     Bye. Hope to see you again soon!
