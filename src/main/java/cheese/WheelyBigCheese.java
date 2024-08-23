@@ -3,7 +3,7 @@ package cheese;
 import cheese.command.Command;
 
 public class WheelyBigCheese {
-    public static final String LIST_FILE_PATH = "./data/list.txt";
+    public static final String LIST_FILE_PATH = "./list.txt";
 
     private Storage storage;
     private TaskList tasks;
