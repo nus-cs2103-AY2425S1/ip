@@ -1,4 +1,4 @@
-public class Reminderebot {
+public class    Reminderebot {
     private static String greetingText = "____________________________________________________________\n" +
             " Hello! I'm [Reminderebot]\n" +
             " What can I do for you?\n" +
