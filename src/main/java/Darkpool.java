@@ -45,13 +45,18 @@ public class Darkpool {
                         output("why do i have to unmark this mess\n\t\t" + taskList.get(num).toString());
                     }
 
+                    case "delete" -> {
+                        int num = taskAction(taskList, userInput);
+                        int size = taskList.size();
+                        output("i have deleted this nonsense from the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + (size - 1) + " goddamn tasks");
+                        taskList.remove(num);
+                    }
 
                     case "todo" -> {
                         if (userInput.length < 2 || Objects.equals(userInput[1], "")) {
-                            throw new DarkpoolException("you missed the task number bruh");
+                            throw new DarkpoolException("you missed the task description bruh");
                         }
                         String desc = userInput[1];
-                        output(desc.length() + "");
                         taskList.add(new Todo(desc));
                         int size = taskList.size();
                         output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + size + " goddamn tasks");
