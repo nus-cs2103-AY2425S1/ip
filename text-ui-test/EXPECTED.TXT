@@ -1,7 +1,40 @@
-____________________
-Hello! I'm Devon.
-What can I do for you?
-____________________
-Bye. Hope to see you again soon!
-____________________
-
+	____________________
+	Hello! I'm Devon.
+	What can I do for you?
+	____________________
+	____________________
+	Got it. I've added this task:
+	[T][ ] email Dean
+	Now you have 1 tasks in the list.
+	____________________
+	____________________
+	Got it. I've added this task:
+	[D][ ] submit CS2103T quiz (by: Thursday 8pm)
+	Now you have 2 tasks in the list.
+	____________________
+	____________________
+	Got it. I've added this task:
+	[E][ ] NUS Hackathon (from: Sat 8am to: 4pm)
+	Now you have 3 tasks in the list.
+	____________________
+	____________________
+	Nice! I've marked this task as done:
+		[T][X] email Dean
+	____________________
+	____________________
+	Nice! I've marked this task as done:
+		[E][X] NUS Hackathon (from: Sat 8am to: 4pm)
+	____________________
+	____________________
+	OK, I've marked this task as not done yet:
+		[T][ ] email Dean
+	____________________
+	____________________
+	Here are the tasks in your list:
+	1. [T][ ] email Dean
+	2. [D][ ] submit CS2103T quiz (by: Thursday 8pm)
+	3. [E][X] NUS Hackathon (from: Sat 8am to: 4pm)
+	____________________
+	____________________
+	Bye. Hope to see you again soon!
+	____________________

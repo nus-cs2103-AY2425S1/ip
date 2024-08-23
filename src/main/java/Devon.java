@@ -78,9 +78,9 @@ public class Devon {
         this.tasks[taskCount] = task;
         taskCount++;
         this.printLongLine();
-        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + "Got it. I've added this task:");
         System.out.println("\t" + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("\t" + "Now you have " + taskCount + " tasks in the list.");
         this.printLongLine();
     }
 
