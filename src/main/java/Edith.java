@@ -60,6 +60,10 @@ public class Edith {
         System.out.println(indentation + listOfTasks.get(index) + lineBreak);
     }
 
+    public void invalidTaskException(int index) {
+        System.out.println(indentation + "Task " + index + " does not exist. Please enter a valid task number." + lineBreak);
+    }
+
     public static void main(String[] args) {
         Edith edith = new Edith();
         edith.greet();
@@ -76,6 +80,20 @@ public class Edith {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 edith.list();
+            } else if (userInput.startsWith("mark ")) {
+                int index = Integer.parseInt(userInput.substring(5).trim()) - 1;
+                try {
+                    edith.mark(index);
+                } catch (NumberFormatException e) {
+                    edith.invalidTaskException(index);
+                }
+            } else if (userInput.startsWith("unmark ")) {
+                int index = Integer.parseInt(userInput.substring(5).trim()) - 1;
+                try {
+                    edith.unmark(index);
+                } catch (NumberFormatException e) {
+                    edith.invalidTaskException(index);
+                }
             } else {
                 edith.add(userInput);
             }
