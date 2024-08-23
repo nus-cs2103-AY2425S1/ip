@@ -1,19 +1,11 @@
-public class RapGodException extends RuntimeException{
-    public RapGodException(String message) {
-        super(message);
+public class NoInputException extends RuntimeException{
+    public NoInputException() {
+        super("I don't see your input anywhere. Are you sure you typed something?");
     }
 
-    public class NoInputException extends RapGodException {
-
-        public NoInputException(String message) {
-            super(message);
-        }
+    @Override
+    public String toString() {
+        return this.getMessage();
     }
 
-    public class RudeInputException extends RapGodException {
-
-        public RudeInputException(String message) {
-            super(message);
-        }
-    }
 }

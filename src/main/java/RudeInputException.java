@@ -1,6 +1,11 @@
-public class RapGodException extends RuntimeException{
-    public RapGodException(String message) {
-        super(message);
+public class RudeInputException extends RuntimeException{
+    public RudeInputException() {
+        super("That's a very rude thing to say!");
+    }
+
+    @Override
+    public String toString() {
+        return this.getMessage();
     }
 
 }
