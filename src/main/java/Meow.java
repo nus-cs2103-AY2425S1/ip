@@ -124,11 +124,23 @@ public class Meow {
             }
             
 
+        } else if (inputType.startsWith("delete")) {
+            try {
+                if (!inputType.substring(6).trim().isEmpty()) {
+                    rmvTask(inputType);
+                } else {
+                    throw new Meowception("100");
+                }
+            } catch (Meowception err) {
+                errorMsg(err.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                errorMsg(err.toString());
+
+            }
+            
         } else {
             errorMsg(new Meowception("001").toString());
-            // System.out.println("    " + "MEOW MEOW ENTER A TASK OR ELSE ILL EAT U");
-            // System.out.println("    " + "_____________________________________________________________________\n");
-            //addingMessage(inputType);
         }
     }
 
@@ -270,5 +282,18 @@ public class Meow {
         System.out.println("        " + t.toString());
         System.out.println("    Neow you have " + taskList.size() + " tasks in the list");
         System.out.println("    " + "_____________________________________________________________________\n");
+    }
+    static private void rmvTask(String task) throws Meowception {
+        String numberString = task.substring(task.indexOf(" ") + 1);
+        int number = Integer.parseInt(numberString);
+        if (number > taskList.size() || number < 0) {
+            throw new Meowception("404");
+        } else { // remove the task now.      
+            System.out.println("    " + "_____________________________________________________________________");
+            String icon = "[" + taskList.get(number - 1).getCompetionChar() +"]";
+            System.out.println("    Meow has REMOVED this task: \n        " + icon +taskList.get(number - 1).getTaskName());
+            System.out.println("    " + "_____________________________________________________________________\n");
+            taskList.remove(number - 1);
+        }
     }
 }
