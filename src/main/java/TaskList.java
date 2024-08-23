@@ -1,80 +1,82 @@
+import java.util.ArrayList;
+
 public class TaskList {
-  private Task[] tasks = new Task[100];
-  private int taskCount = 0;
+  private ArrayList<Task> tasks = new ArrayList<Task>();
 
   public TaskList() {
   }
 
   // Simple helper method to determine if the task count is 1 or more
   private String taskWord() {
-    return this.taskCount == 1 ? "task" : "tasks";
+    return this.tasks.size() == 1 ? "task" : "tasks";
   }
 
+  // Add a task to the list
   public void addTask(Task task) {
-    this.tasks[this.taskCount] = task;
+    this.tasks.add(task);
 
     System.out.println("Got it. I've added this task:");
-    System.out.println("  " + this.tasks[this.taskCount]);
-
-    this.taskCount++;
-
-    System.out.println("Now you have " + this.taskCount + " " + this.taskWord() + " in the list.");
+    System.out.println("  " + task.toString());
+    System.out.println("Now you have " + this.tasks.size() + " " + this.taskWord() + " in the list.");
   }
 
+  // Delete a task from the list at the specified index
   public void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
-    if (taskNumber >= this.taskCount || taskNumber < 0) {
+    taskNumber--; // Adjust task number to match array index
+
+    if (taskNumber >= this.tasks.size() || taskNumber < 0) {
       throw new IndexOutOfBoundsException(
-          "Invalid task number. There are " + (this.taskCount - 1) + " " + this.taskWord() + " in your list.");
+          "Invalid task number. There are " + this.tasks.size() + " " + this.taskWord() + " in your list.");
     }
 
-    Task task = this.tasks[taskNumber];
+    Task task = this.tasks.get(taskNumber);
     System.out.println("Noted. I've removed this task:");
     System.out.println("  " + task.toString());
+    System.out.println("Now you have " + (this.tasks.size() - 1) + " " + this.taskWord() + " in the list.");
 
-    for (int i = taskNumber; i < this.taskCount - 1; i++) {
-      this.tasks[i] = this.tasks[i + 1];
-    }
-
-    this.taskCount--;
-
-    System.out.println("Now you have " + this.taskCount + " " + this.taskWord() + " in the list.");
+    this.tasks.remove(taskNumber);
   }
 
+  // Display all tasks in the list
   public void displayTasks() throws EmptyListException {
     if (this.length() == 0) {
       throw new EmptyListException();
     }
 
-    for (int i = 0; i < this.taskCount; i++) {
-      Task task = this.tasks[i];
+    for (int i = 0; i < this.tasks.size(); i++) {
+      Task task = this.tasks.get(i);
       System.out.println("  " + (i + 1) + ". " + task.toString());
     }
   }
 
+  // Mark a task as done or not done
   public void markTask(int taskNumber, boolean done)
       throws RedundantMarkException, RedundantUnmarkException, IndexOutOfBoundsException {
-    if (taskNumber >= this.taskCount || taskNumber < 0) {
+    taskNumber--; // Adjust task number to match array index
+
+    if (taskNumber >= this.tasks.size() || taskNumber < 0) {
       throw new IndexOutOfBoundsException(
-          "Invalid task number. There are " + (this.taskCount - 1) + " " + this.taskWord() + " in your list.");
+          "Invalid task number. There are " + this.tasks.size() + " " + this.taskWord() + " in your list.");
     }
 
+    Task task = this.tasks.get(taskNumber);
     if (done) {
-      boolean success = this.tasks[taskNumber].markAsDone();
+      boolean success = task.markAsDone();
       if (!success) {
-        throw new RedundantMarkException(this.tasks[taskNumber]);
+        throw new RedundantMarkException(task);
       }
       System.out.println("Nice! I've marked this task as done:");
     } else {
-      boolean success = this.tasks[taskNumber].markAsUndone();
+      boolean success = task.markAsUndone();
       if (!success) {
-        throw new RedundantUnmarkException(this.tasks[taskNumber]);
+        throw new RedundantUnmarkException(task);
       }
       System.out.println("OK, I've marked this task as not done yet:");
     }
-    System.out.println("  " + this.tasks[taskNumber].toString());
+    System.out.println("  " + task.toString());
   }
 
   public int length() {
-    return this.taskCount;
+    return this.tasks.size();
   }
 }
