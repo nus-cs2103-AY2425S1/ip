@@ -17,6 +17,10 @@ public class Task {
         return (isDone ? "[X]" : "[ ]"); // mark done task with [X] and not done with [ ]
     }
 
+    public void getDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
