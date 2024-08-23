@@ -1,11 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MySutong {
     public static void main(String[] args) {
         String horizontalLine = "____________________________________________________________";
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm MySutong");
@@ -22,28 +22,28 @@ public class MySutong {
                 } else if (input.equals("list")) {
                     System.out.println(horizontalLine);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     System.out.println(horizontalLine);
                 } else if (input.startsWith("mark ")) {
                     int taskNumber = Integer.parseInt(input.substring(5)) - 1;
-                    if (taskNumber >= 0 && taskNumber < taskCount) {
-                        tasks[taskNumber].markAsDone();
+                    if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                        tasks.get(taskNumber).markAsDone();
                         System.out.println(horizontalLine);
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(tasks[taskNumber]);
+                        System.out.println(tasks.get(taskNumber));
                         System.out.println(horizontalLine);
                     } else {
                         throw new InvalidTaskNumberException("Task number " + (taskNumber + 1) + " is out of range.");
                     }
                 } else if (input.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
-                    if (taskNumber >= 0 && taskNumber < taskCount) {
-                        tasks[taskNumber].unmark();
+                    if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                        tasks.get(taskNumber).unmark();
                         System.out.println(horizontalLine);
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(tasks[taskNumber]);
+                        System.out.println(tasks.get(taskNumber));
                         System.out.println(horizontalLine);
                     } else {
                         throw new InvalidTaskNumberException("Task number " + (taskNumber + 1) + " is out of range.");
@@ -53,12 +53,11 @@ public class MySutong {
                     if (description.isEmpty()) {
                         throw new NoDescriptionException("The description of a todo cannot be empty.");
                     }
-                    tasks[taskCount] = new Todo(description);
+                    tasks.add(new Todo(description));
                     System.out.println(horizontalLine);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[taskCount]);
-                    taskCount = taskCount + 1;
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(horizontalLine);
                 } else if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(9).split("/by");
@@ -67,12 +66,11 @@ public class MySutong {
                     }
                     String description = parts[0].trim();
                     String by = parts[1].trim();
-                    tasks[taskCount] = new Deadline(description, by);
+                    tasks.add(new Deadline(description, by));
                     System.out.println(horizontalLine);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[taskCount]);
-                    taskCount = taskCount + 1;
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(horizontalLine);
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split("/from|/to");
@@ -82,13 +80,24 @@ public class MySutong {
                     String description = parts[0].trim();
                     String from = parts[1].trim();
                     String to = parts[2].trim();
-                    tasks[taskCount] = new Event(description, from, to);
+                    tasks.add(new Event(description, from, to));
                     System.out.println(horizontalLine);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[taskCount]);
-                    taskCount = taskCount + 1;
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(horizontalLine);
+                } else if (input.startsWith("delete ")) {
+                    int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                        Task removedTask = tasks.remove(taskNumber);
+                        System.out.println(horizontalLine);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(removedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println(horizontalLine);
+                    } else {
+                        throw new InvalidTaskNumberException("Task number " + (taskNumber + 1) + " is out of range.");
+                    }
                 } else {
                     throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
                 }
