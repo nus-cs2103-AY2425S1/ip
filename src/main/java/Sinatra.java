@@ -106,7 +106,13 @@ public class Sinatra {
                 System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
             
 
-        } 
+            } else if (message.length() >= 6 && message.substring(0, 6).equals("delete")) {
+                Task currTask = Tasks.get(Integer.parseInt(message.substring(7)) - 1);
+                Tasks.remove(currTask);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("  "+currTask);
+                System.out.println("Now you have " + Tasks.size() + " tasks in the list.");
+            }
         else {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
