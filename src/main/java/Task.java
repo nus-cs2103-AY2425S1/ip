@@ -8,11 +8,11 @@ public class Task {
         this.name = name;
     }
 
-    public static Task of(String command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
+    public static Task of(Command command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
         switch(command) {
-            case "todo":
+            case TODO:
                 return new Todo(item);
-            case "deadline":
+            case DEADLINE:
                 {
                     int spaceLocation = item.indexOf(" /by ");
                     if (spaceLocation  == -1) {
@@ -22,7 +22,7 @@ public class Task {
                     String due = item.substring(spaceLocation + 5);
                     return new Deadline(name, due);
                 }
-            case "event":
+            case EVENT:
                 {
                     int fromLocation = item.indexOf(" /from ");
                     int toLocation = item.indexOf(" /to ");

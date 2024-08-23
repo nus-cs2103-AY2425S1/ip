@@ -48,20 +48,25 @@ public class SumoDE {
 
             // Splitting command and action
             int spaceLocation = input.indexOf(" ");
-            String command;
+            String commandString;
             String item;
+            Command command;
 
             if (spaceLocation == -1) {
-                command = input.toLowerCase();  // to lower case to allow some flexibility for better experience
+                commandString = input;
                 item = "";
             } else {
-                command = input.substring(0,spaceLocation).toLowerCase();
+                commandString = input.substring(0,spaceLocation);
                 item = input.substring(spaceLocation+1);
             }
 
+
             try {
+                command = Command.valueOf(commandString.toUpperCase());
                 terminate = tasks.execute(command,item);
-            } catch (WrongSyntaxForCommandException | UnknownCommandException | NonExistentTaskException e) {
+            }catch (IllegalArgumentException e) {
+                System.out.println("Sumo dunno your command \"" + commandString +"\" ! Check spelling of your first word.");
+            }catch (WrongSyntaxForCommandException | UnknownCommandException | NonExistentTaskException e) {
                 System.out.println(e.getMessage());
             } finally {
                 if (!terminate) {
@@ -77,5 +82,6 @@ public class SumoDE {
         // loop ended, cleaning up
         System.out.println(goodbye);
         sc.close();
+
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class SumoTaskList {
 
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     public SumoTaskList() {
         this.tasks = new ArrayList<>();
@@ -21,36 +21,53 @@ public class SumoTaskList {
         }
     }
 
-    public boolean execute(String command, String item)
+    public boolean execute(Command command, String item)
             throws NonExistentTaskException, UnknownCommandException, WrongSyntaxForCommandException {
         switch(command) {
-            case "bye":
-            case "exit":  // added this to allow flexibility though not required by qn
+            case BYE:
+            case EXIT:  // added this to allow flexibility though not required by qn
                 return true;
-            case "list":
+            case LIST:
                 this.printTask();
                 break;
-            case "mark":
+            case MARK:
             {
-                int index = Integer.parseInt(item);
+                int index;
+                try {
+                    index = Integer.parseInt(item);
+                } catch (IllegalArgumentException e) {
+                    throw new WrongSyntaxForCommandException(command);
+                }
+
                 if (index > tasks.size() || index <= 0) {
                     throw new NonExistentTaskException(index);
                 }
                 tasks.get(index-1).mark();
             }
             break;
-            case "unmark":
+            case UNMARK:
             {
-                int index = Integer.parseInt(item);
+                int index;
+                try {
+                    index = Integer.parseInt(item);
+                } catch (IllegalArgumentException e) {
+                    throw new WrongSyntaxForCommandException(command);
+                }
+
                 if (index > tasks.size() || index <= 0) {
                     throw new NonExistentTaskException(index);
                 }
                 tasks.get(index - 1).unmark();
             }
             break;
-            case "delete":
+            case DELETE:
             {
-                int index = Integer.parseInt(item);
+                int index;
+                try {
+                    index = Integer.parseInt(item);
+                } catch (IllegalArgumentException e) {
+                    throw new WrongSyntaxForCommandException(command);
+                }
                 if (index > tasks.size() || index <= 0) {
                     throw new NonExistentTaskException(index);
                 }
@@ -65,9 +82,9 @@ public class SumoTaskList {
                 tasks.remove(index - 1);
             }
             break;
-            case "todo":
-            case "deadline":
-            case "event":
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 tasks.add(Task.of(command, item));  // used factory method to be more neat and OOP
                 System.out.println("Sumo has added this task for you.\n"
                         + tasks.get(tasks.size() - 1)
