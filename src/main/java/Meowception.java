@@ -12,9 +12,9 @@ public class Meowception extends Exception {
             case "100":
                 return "Meowception ERROR 100: meow meow you need to enter a task and it cant be blank silly goose meow";
             case "200":
-                return "Meowception ERROR 200: meow meow you need to enter a deadling you stupido meow";
+                return "Meowception ERROR 200: meow meow you need to enter a deadline you stupido meow";
             case "300":
-                return "Meowception ERROR 300: meow meow you need t";
+                return "Meowception ERROR 300: meow meow you need to enter a correct timefrime or else";
             case "404":
                 return "Meowception ERROR 404: meow meow task not found meow";
             default:

@@ -114,8 +114,13 @@ public class Meow {
             
         } else if (inputType.startsWith("event") && inputType.length() > 5) {
             // Lazy clean so nice for event. no way we introduce a new command called eventsmth...
-            if (inputType.charAt(5) == ' ') { // this is okay as the input type has to have length 6 or more
+            try {
                 addEventTask(inputType.substring(6));
+            } catch (Meowception err) {
+                errorMsg(err.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                errorMsg(err.toString());
             }
             
 
@@ -163,19 +168,19 @@ public class Meow {
         
     }
 
-    static private void addEventTask(String command) {
+    static private void addEventTask(String command) throws Meowception {
         if (!command.contains("/from ") || !command.contains("/to ")) {
-            errorMsg("Meow meow you need to enter a timeframe for your event");
-            
-            return;
+            //errorMsg("Meow meow you need to enter a timeframe for your event");
+            throw new Meowception("300");
         }
         else {
             if (command.substring(0, command.indexOf("/from")).trim().isEmpty()) {
-                errorMsg("Meow meow you need to enter a event name!!!");
-                return;
+                //errorMsg("Meow meow you need to enter a event name!!!");
+                throw new Meowception("100");
             } else if (command.substring(command.indexOf("/from"), command.indexOf("/to ")).trim().isEmpty()) {
-                errorMsg("Meow meow you need to enter a start time for your event");
-                return;
+                //errorMsg("Meow meow you need to enter a start time for your event");
+                //return;
+                throw new Meowception("300");
             } else {
                 String taskName = command.substring(0, command.indexOf("/from") - 1);
                 String timeframe = command.substring(command.indexOf("/from"));
