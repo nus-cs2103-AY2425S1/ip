@@ -7,10 +7,7 @@ public class Fred {
     static int taskCount = 0;
     public static void main(String[] args) {
         greet();
-        //echo();
         getInput();
-        sayFarewell();
-        exit();
     }
 
     private static void greet() {
@@ -53,43 +50,61 @@ public class Fred {
         String input;
         while (true) {
             input = scanner.nextLine();
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                printTaskList();
-            } else if (input.startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                markTaskAsDone(index);
-
-            } else if (input.startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                markTaskAsNotDone(index);
-            } else if (input.startsWith("todo ")) {
-                addToTaskList(input, "todo");
-            } else if (input.startsWith("deadline ")) {
-                addToTaskList(input, "deadline");
-            } else if (input.startsWith("event ")) {
-                addToTaskList(input, "event");
+            try {
+                determineAction(input);
+            } catch (Exception e) {
+                System.out.println(line);
+                System.out.println(e.getMessage());
+                System.out.println(line);
             }
         }
     }
 
-    private static void addToTaskList(String input, String taskType) {
-        String description = null;
+    private static void determineAction(String input) throws FredException {
+        String[] inputParts = input.split(" ", 2);
+        if (inputParts.length == 1) {
+            if (inputParts[0].isEmpty()) {
+                throw new EmptyInputException();
+            } else if (inputParts[0].equals("bye")) {
+                sayFarewell();
+                exit();
+            } else if (inputParts[0].equals("list")) {
+                printTaskList();
+            } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
+                throw new EmptyTaskDescriptionException();
+            } else {
+                throw new UnknownCommandException();
+            }
+        } else if (inputParts.length == 2) {
+            if (inputParts[0].equals("mark")) {
+                int index = Integer.parseInt(inputParts[1]) - 1;
+                markTaskAsDone(index);
+            } else if (inputParts[0].equals("unmark")) {
+                int index = Integer.parseInt(inputParts[1]) - 1;
+                markTaskAsNotDone(index);
+            } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
+                addToTaskList(inputParts[0], inputParts[1]);
+            } else {
+                throw new UnknownCommandException();
+            }
+        }
+    }
+
+    private static void addToTaskList(String taskType, String taskDetails) throws FredException {
         Task task;
+        String[] taskDetailsArr = taskDetails.split(" /", 3);
+        String description = taskDetailsArr[0];
+        if (description.isEmpty()) {
+            throw new EmptyTaskDescriptionException();
+        }
         if (taskType.equals("todo")) {
-            description = input.substring(5);
             task = new ToDo(description);
         } else if (taskType.equals("deadline")) {
-            String[] details = input.substring(9).split(" /");
-            description = details[0];
-            String by = details[1].substring(3);
+            String by = taskDetailsArr[1].substring(3);
             task = new Deadline(description, by);
         } else {
-            String[] details = input.substring(6).split(" /");
-            description = details[0];
-            String from = details[1].substring(5);
-            String to = details[2].substring(3);
+            String from = taskDetailsArr[1].substring(5);
+            String to = taskDetailsArr[2].substring(3);
             task = new Event(description, from, to);
         }
         taskList[taskCount] = task;
