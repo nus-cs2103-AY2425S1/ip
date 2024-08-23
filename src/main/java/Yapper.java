@@ -13,38 +13,40 @@ public class Yapper {
             try {
                 String userInput = scanner.nextLine();
                 String[] userInputParts = userInput.split(" ", 2);
-                String command = userInputParts[0];
+                CommandType command = getCommandType(userInputParts[0]);
 
                 switch (command) {
-                    case "bye":
+                    case BYE:
                         handleBye();
                         return;
 
-                    case "list":
+                    case LIST:
                         handleList();
                         break;
 
-                    case "mark":
+                    case MARK:
                         handleMark(userInputParts);
                         break;
 
-                    case "unmark":
+                    case UNMARK:
                         handleUnmark(userInputParts);
                         break;
 
-                    case "todo":
+                    case TODO:
                         handleTodo(userInputParts);
                         break;
 
-                    case "deadline":
+                    case DEADLINE:
                         handleDeadline(userInputParts);
                         break;
 
-                    case "event":
+                    case EVENT:
                         handleEvent(userInputParts);
                         break;
 
-              
+                    case DELETE:
+                        handleDelete(userInputParts);
+                        break;
 
                     default:
                         throw new UnknownCommandException();
@@ -52,6 +54,29 @@ public class Yapper {
             } catch (YapperException e) {
                 printErrorMessage(e.getMessage());
             }
+        }
+    }
+
+    private static CommandType getCommandType(String command) {
+        switch (command.toLowerCase()) {
+            case "bye":
+                return CommandType.BYE;
+            case "list":
+                return CommandType.LIST;
+            case "mark":
+                return CommandType.MARK;
+            case "unmark":
+                return CommandType.UNMARK;
+            case "todo":
+                return CommandType.TODO;
+            case "deadline":
+                return CommandType.DEADLINE;
+            case "event":
+                return CommandType.EVENT;
+            case "delete":
+                return CommandType.DELETE;
+            default:
+                return CommandType.UNKNOWN;
         }
     }
 
@@ -164,6 +189,19 @@ public class Yapper {
         System.out.println("____________________________________________________________");
     }
 
-
+    private static void handleDelete(String[] userInputParts) throws YapperException {
+        if (userInputParts.length < 2) {
+            throw new EmptyDescriptionException("delete");
+        }
+        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
+        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+            throw new InvalidTaskNumberException(taskNumber);
+        }
+        Task removedTask = tasks.remove(taskNumber);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + removedTask);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
 }
-
