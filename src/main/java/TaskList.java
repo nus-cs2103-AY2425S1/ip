@@ -37,9 +37,10 @@ public class TaskList {
      *
      * @param task The Task object to be added to the TaskList
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         taskList[length] = task;
         length++;
+        return ui.displayAddedTask(task);
     }
 
     /**

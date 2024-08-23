@@ -28,11 +28,13 @@ public class Ui {
     /**
      * Returns a message indicating that a new task has been added
      *
-     * @param taskDescription The description of the task that was added
+     * @param task The task that was added
      * @return A string containing the message that a task was added with the task description
      */
-    public String displayAddedTask(String taskDescription) {
-        return DIVIDER + "\n" + "added: " + taskDescription + "\n" + DIVIDER;
+    public String displayAddedTask(Task task) {
+        return DIVIDER + "\n" + "Got it! I've added this task: " + "\n"
+                + "  " + task.getDescription() + "\n" + "Now you have " + TaskList.getTaskListLength()
+                + " tasks in the list." + "\n" + DIVIDER;
     }
 
     /**

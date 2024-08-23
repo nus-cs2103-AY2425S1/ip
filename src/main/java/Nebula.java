@@ -29,9 +29,7 @@ public class Nebula {
             }
             else {
                 Task newTask = new Task(command);
-                taskList.addTask(newTask);
-
-                String addedTask = ui.displayAddedTask(command);
+                String addedTask = taskList.addTask(newTask);
                 System.out.println(addedTask);
             }
 
