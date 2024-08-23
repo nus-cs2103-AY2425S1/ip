@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ponder_Picka {
 
     public static void greet() {
@@ -8,12 +10,37 @@ public class Ponder_Picka {
         System.out.println("\nBye! See you real soon!");
     }
 
+    public static void echo() {
+
+        Scanner scan = new Scanner(System.in);
+        String userCommand = "";
+
+        while(true) {
+            userCommand = scan.next();
+
+            if (!userCommand.equals("bye")) {
+                System.out.println("        " + userCommand);
+                System.out.println("................................................");
+            }
+            else {
+                System.out.println("\n------------------------------------------------");
+                Ponder_Picka.bidBye();
+                System.out.println("\n------------------------------------------------");
+                break;
+            }
+        }
+
+
+    }
+
     public static void main(String[] args) {
         String logo = "Ponder_Picka";
-        System.out.println("Hello I'm " + logo);
 
+        System.out.println("------------------------------------------------");
+        System.out.println("Hello I'm " + logo);
         Ponder_Picka.greet();
-        System.out.println("\n-------------------------------------------------");
-        Ponder_Picka.bidBye();
+        System.out.println("------------------------------------------------");
+
+        Ponder_Picka.echo();
     }
 }
