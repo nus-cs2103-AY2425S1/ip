@@ -13,6 +13,10 @@ public class TaskList {
         return task;
     }
 
+    public Task deleteTask(int taskId) {
+        return tasks.remove(taskId - 1);
+    }
+
     public Task markTask(int taskId) throws Exception {
         Task task = tasks.get(taskId - 1);
         task.markTask();

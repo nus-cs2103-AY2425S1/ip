@@ -12,6 +12,7 @@ public class Bro {
     final static String ADD_TODO_COMMAND = "todo";
     final static String ADD_DEADLINE_COMMAND = "deadline";
     final static String ADD_EVENT_COMMAND = "event";
+    final static String DELETE_COMMAND = "delete";
 
     public static void main(String[] args) {
         reply(GREETING_MESSAGE);
@@ -107,6 +108,16 @@ public class Bro {
                     } catch (Exception e) {
                         reply("Wrong usage of event command");
                         reply("Usage: deadline <task> /from <startTime> /to <endTime>");
+                        break;
+                    }
+                case DELETE_COMMAND:
+                    try {
+                        int taskId = Integer.parseInt(secondArg);
+                        Task task = taskList.deleteTask(taskId);
+                        reply("Noted. Removed this task:\n" + task);
+                        break;
+                    } catch (Exception e) {
+                        reply("There was an error bro.");
                         break;
                     }
                 default:
