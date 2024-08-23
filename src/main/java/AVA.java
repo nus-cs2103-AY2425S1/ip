@@ -1,3 +1,4 @@
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class AVA {
@@ -17,6 +18,24 @@ public class AVA {
         return !currentInput.equals("bye");
     }
 
+    /**
+     * updates the currentInput with the user input
+     * @param s the user input
+     */
+    public void tellAva(String s) {
+        currentInput = s;
+    }
+
+    /**
+     * method to print AVA's response to given PrintStream
+     * @param out PrintStream to print AVA's response to
+     */
+    public void respond(PrintStream out){
+        out.println("----------------------------------------------------------------");
+        out.println("You said "+currentInput);
+        out.println("----------------------------------------------------------------");
+
+    }
     /**
      * Main Driver method running AVA
      */
@@ -39,13 +58,11 @@ public class AVA {
                             
                 ----------------------------------------------------------------
                 """);
-        currentInput = scanner.nextLine();
+        ava.tellAva(scanner.nextLine());
         // Process user input until user says bye
         while(ava.isRunning()){
-            System.out.println("----------------------------------------------------------------");
-            System.out.println("You said "+currentInput);
-            System.out.println("----------------------------------------------------------------");
-            currentInput = scanner.nextLine();
+            ava.respond(System.out);
+            ava.tellAva(scanner.nextLine());
         }
         //Exit
         System.out.println("Byee!! It was nice talking to you. Hope to see you again soon.");
