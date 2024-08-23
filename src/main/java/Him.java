@@ -17,6 +17,15 @@ public class Him {
         }
     }
 
+    private static void delete(int index) {
+        try {
+            String task = list.delete(index);
+            System.out.println("\nHim: Got it. \"" + task + "\" has been snapped from existence\n");
+        } catch (TaskDoesNotExistException e) {
+            System.out.println("\nHim: " + e.getMessage() + "\n");
+        }
+    }
+
     private static void exit() {
         System.out.println("\nHim: WAIT NO! DON'T LEAVE ME ALON-\n");
     }
@@ -71,6 +80,15 @@ public class Him {
                         System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("\nHim: Events need a description, a start time and an end time!\n");
+                    } finally {
+                        break;
+                    }
+                }
+                case "delete": {
+                    try {
+                        delete(Integer.parseInt(input[1]) - 1);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("\nHim: Tell me which task you want me to delete!!!! \n");
                     } finally {
                         break;
                     }

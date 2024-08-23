@@ -29,6 +29,17 @@ public class HimList {
         return list.isEmpty();
     }
 
+    public String delete(int index) throws TaskDoesNotExistException {
+        try {
+            Task task = list.get(index);
+            if (task == null) throw new TaskDoesNotExistException(index);
+            list.remove(index);
+            return task.toString();
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskDoesNotExistException(index);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
