@@ -6,9 +6,10 @@ import cheese.TaskList;
 import cheese.Ui;
 import cheese.task.Task;
 
-import java.util.ArrayList;
-
-public class FindCommand extends Command{
+/**
+ * Command to search through tasks
+ */
+public class FindCommand extends Command {
     private final String keyword;
 
     /**
@@ -17,7 +18,9 @@ public class FindCommand extends Command{
      * @throws CheeseException Ensure correct input
      */
     public FindCommand(String[] inputTokens) throws CheeseException {
-        if (inputTokens.length != 2) throw new CheeseException("FindCommand require 'find ....'");
+        if (inputTokens.length != 2) {
+            throw new CheeseException("FindCommand require 'find ....'");
+        }
         this.keyword = inputTokens[1];
     }
 
@@ -32,7 +35,9 @@ public class FindCommand extends Command{
         TaskList matchedTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
-            if (t.getName().contains(keyword)) matchedTasks.add(t);
+            if (t.getName().contains(keyword)) {
+                matchedTasks.add(t);
+            }
         }
         ui.say(matchedTasks);
     }

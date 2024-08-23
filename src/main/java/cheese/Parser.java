@@ -3,6 +3,7 @@ package cheese;
 import cheese.command.AddCommand;
 import cheese.command.Command;
 import cheese.command.ExitCommand;
+import cheese.command.FindCommand;
 import cheese.command.ListCommand;
 import cheese.command.MarkCommand;
 import cheese.command.UpdateCommand;
