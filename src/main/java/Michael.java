@@ -1,15 +1,29 @@
+import java.util.Scanner;
+
 public class Michael {
+    private static final String border = "--------------------------------------";
+    public static void printer(String text) {
+        System.out.println(border);
+        System.out.println(text);
+        System.out.println(border);
+    }
+
     public static void main(String[] args) {
-        System.out.println("--------------------------------------");
+        Scanner user = new Scanner(System.in); // scanner for user input
 
-        System.out.println("Hello! I'm Michael.");
-        System.out.println("What can I do for you?");
-        System.out.println();
+        // Greet user first
+        printer("Hello! I'm Michael. \n" + "What can I do for you?");
 
-        System.out.println("--------------------------------------");
+        // Read user's input
+        while (true) {
+            String input = user.nextLine();
+            if (input.equals("bye")) { // special bye command
+                break;
+            }
+            printer(input);
+        }
 
-        System.out.println("Bye! Hope to see you again soon!");
-
-        System.out.println("--------------------------------------");
+        // Exit
+        printer("Bye. Hope to see you again soon!");
     }
 }
