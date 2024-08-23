@@ -43,10 +43,11 @@ public class Sigma {
         while (scanner.hasNext()) {
             String userInput = scanner.nextLine();
             if (userInput.contains("list")) {
-                System.out.println("Here are your tasks:\n" + toPrettyList(items));
+                System.out.println("Here are your sussy amogus tasks:\n" + toPrettyList(items));
                 continue;
             }
             if (userInput.contains("bye")) {
+                System.out.println("leaving so soon? dattebayo!");
                 break;
             }
 
@@ -89,10 +90,7 @@ public class Sigma {
                 }
                 continue;
             }
-
             System.out.println("erm, what the sigma? i don't recognise that command.");
-
         }
-        System.out.println("leaving so soon? dattebayo!");
     }
 }
