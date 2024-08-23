@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ToDo {
+public class ToDoList {
     private ArrayList<Task> todoList = new ArrayList<>();
 
     public void add(Task task) {
@@ -19,11 +19,15 @@ public class ToDo {
         return todoList.get(taskNumber - 1).toString();
     }
 
+    public int getNumberofTasks() {
+        return this.todoList.size();
+    }
+
     @Override
     public String toString() {
         String str = "";
         for (int i = 0; i < todoList.size(); i++) {
-            str = str + (i + 1) + "." + todoList.get(i).toString() + "\n";
+            str = str + " " + (i + 1) + "." + todoList.get(i).toString() + "\n";
         }
         return str;
     }

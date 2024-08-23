@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String taskName;
     private boolean status; // false for undone, true for done
 
@@ -17,6 +17,10 @@ public class Task {
 
     public String getTaskName() {
         return this.taskName;
+    }
+
+    public boolean getStatus() {
+        return this.status;
     }
 
     @Override
