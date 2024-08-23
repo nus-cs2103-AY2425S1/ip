@@ -8,6 +8,7 @@ public class Ekud {
     public static final String END_COMMAND = "bye";
     public static final String LIST_COMMAND = "list";
     public static final String MARK_COMMNAD = "mark";
+    public static final String DELETE_COMMAND = "delete";
     public static final String UNMARK_COMMAND = "unmark";
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
@@ -42,7 +43,6 @@ public class Ekud {
     }
 
     public void addToList(Task task) {
-        // assume no more than LIST_MAX_SIZE items are added
         tasks.addTask(task);
         String confirmation = String.format("added: %s\nAnd another one; %s tasks to complete...",
                 task,
@@ -63,8 +63,7 @@ public class Ekud {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            String message = String.format(
-                    """
+            String message = String.format("""
                             Now look what you've done!!
                             I thought it was obvious... But '%s' is clearly not an Integer!""",
                     input);
@@ -74,8 +73,7 @@ public class Ekud {
 
     public void markList(int listIndex) throws TaskListIndexOutOfBoundsException {
         tasks.markComplete(listIndex);
-        String message = String.format(
-                """
+        String message = String.format("""
                         Wowie!! You've completed your task!
                         I shall mark it as complete in celebration!
                           %s
@@ -87,14 +85,31 @@ public class Ekud {
 
     public void unmarkList(int listIndex) throws TaskListIndexOutOfBoundsException {
         tasks.markIncomplete(listIndex);
-        String message = String.format(
-                """
+        String message = String.format("""
                         Oh ho ho, did you perhaps forget something?
                         It's OK, I already noted down your incompetence...
                           %s
                         Tsk Tsk... Back to %d incomplete tasks you go!""",
                 tasks.getTask(listIndex),
                 tasks.getIncompleteCount());
+        FormatPrinter.printIndent(message, OUTPUT_PREFIX);
+    }
+
+    public void deleteList(int listIndex) throws TaskListIndexOutOfBoundsException {
+        Task removed = tasks.removeTask(listIndex);
+        String completeResponse = removed.isDone()
+                                  ? "Great work on completing your task!"
+                                  : "I'm going to assume that task wasn't meant to be there...";
+        String message = String.format("""
+                        %s
+                        Proceeding with task removal directive...
+                          %s
+                        Now get a move on, you have %d/%d incomplete tasks remaining!
+                        """,
+                completeResponse,
+                removed,
+                tasks.getIncompleteCount(),
+                tasks.getCount());
         FormatPrinter.printIndent(message, OUTPUT_PREFIX);
     }
 
@@ -159,6 +174,9 @@ public class Ekud {
                     break;
                 case UNMARK_COMMAND:
                     ekud.unmarkList(ekud.readInt(argument) - 1);
+                    break;
+                case DELETE_COMMAND:
+                    ekud.deleteList(ekud.readInt(argument) - 1);
                     break;
                 case TODO_COMMAND:
                     ekud.addToList(new TodoTask(argument));
