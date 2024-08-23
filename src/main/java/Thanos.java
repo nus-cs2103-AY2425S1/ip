@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import commands.CommandType;
+import commands.InvalidCommandException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 public class Thanos {
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
