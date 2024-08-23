@@ -8,7 +8,7 @@ public class Deadline extends Task{
 
     @Override
     public String addTaskToString() {
-        return super.addTaskToString() + "\n" + "  [D] [ ] " + description + " (by: " + by + ")";
+        return super.addTaskToString() + "\n" + " ".repeat(5) + "[D] [ ] " + description + " (by: " + by + ")";
     }
 
     @Override
@@ -19,5 +19,14 @@ public class Deadline extends Task{
         return "[D] [ ] " + description + " (by: " + by + ")";
     }
 
+    @Override
+    public String markDoneToString() {
+        return super.markDoneToString() + "\n" + " ".repeat(5) + "[D] [X] " + description + " (by: " + by + ")";
+    }
+
+    @Override
+    public String unmarkDoneToString() {
+        return super.unmarkDoneToString() + "\n" + " ".repeat(5) + "[D] [ ] " + description + " (by: " + by + ")";
+    }
 
 }

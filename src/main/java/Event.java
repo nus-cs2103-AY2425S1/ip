@@ -10,7 +10,7 @@ public class Event extends Task{
 
     @Override
     public String addTaskToString() {
-        return super.addTaskToString() + "\n" + "  [E] [ ] " + description + " (" + start + " - " + end + ")";
+        return super.addTaskToString() + "\n" + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
     }
 
     @Override
@@ -19,6 +19,16 @@ public class Event extends Task{
             return "[E] [X] " + description + " (" + start + " - " + end + ")";
         }
         return "[E] [ ] " + description + " (" + start + " - " + end + ")";
+    }
+
+    @Override
+    public String markDoneToString() {
+        return super.markDoneToString() + "\n" + " ".repeat(5) + "[E] [X] " + description + " (" + start + " - " + end + ")";
+    }
+
+    @Override
+    public String unmarkDoneToString() {
+        return super.unmarkDoneToString() + "\n" + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
     }
 
 }

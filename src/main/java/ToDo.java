@@ -6,7 +6,7 @@ public class ToDo extends Task{
 
     @Override
     public String addTaskToString() {
-        return super.addTaskToString() + "\n" + "  [T] [ ] " + description;
+        return super.addTaskToString() + "\n" + " ".repeat(5) + "[T] [ ] " + description;
     }
 
     @Override
@@ -15,6 +15,16 @@ public class ToDo extends Task{
             return "[T] [X] " + description;
         }
         return "[T] [ ] " + description;
+    }
+
+    @Override
+    public String markDoneToString() {
+        return super.markDoneToString() + "\n" + " ".repeat(5) + "[T] [X] " + description;
+    }
+
+    @Override
+    public String unmarkDoneToString() {
+        return super.unmarkDoneToString() + "\n" + " ".repeat(5) + "[T] [ ] " + description;
     }
 
 }
