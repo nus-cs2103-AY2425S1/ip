@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Void {
     public static void main(String[] args) {
        /* String logo = " ____        _        \n"
@@ -18,15 +20,17 @@ public class Void {
         String[] greetings = {
                 "Hello! I'm your friendly void cat, \n",
                 "Purr... Hello, wanderer. I am \n",
-                "Mew! You have been graced by \n",
+                "Mew! Welcome human! I'm \n",
                 "Greetings from the abyss, friend, for I am \n",
                 "Meow! Happy to help, they call me \n"
         };
 
         String[] assistGreeting = {
                 "How can this void assist you today?",
-                "At your service, human."
-
+                "At your service, human.",
+                "What help does human need today?",
+                "Need any help?",
+                "What can I do for you?"
         };
 
         // Example of exits
@@ -38,19 +42,36 @@ public class Void {
                 "The void calls, but I'll return. Goodbye!"
         };
 
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        //Tab string format
+        String format = "\t%s%n";
+
         // Display a random greeting
-        System.out.println("------------------------------------------------------------------");
-        System.out.println(greetings[(int) (Math.random() * greetings.length)]);
+        System.out.printf(format, "------------------------------------------------------------------");
+        System.out.printf(format, greetings[(int) (Math.random() * greetings.length)]);
 
-        System.out.println(logo);
-        System.out.println("At your service, human");
-        System.out.println("------------------------------------------------------------------");
+        System.out.println(logo.indent(4));
+        // Display a random assist greeting
+        System.out.printf(format, assistGreeting[(int) (Math.random() * assistGreeting.length)]);
+        System.out.printf(format, "------------------------------------------------------------------");
 
-        // Display a random exit
-        System.out.println(exits[(int) (Math.random() * exits.length)]);
-        System.out.println("------------------------------------------------------------------");
+        while (true) {
+            input = scanner.nextLine();  // Reads user input
+            if (input.equals("bye")) {
+                System.out.printf(format, "------------------------------------------------------------------");
+                //Display a random exit
+                System.out.printf(format, exits[(int) (Math.random() * exits.length)]);
+                break;  // Exit loop when bye
+            } else {
+                System.out.printf(format, "------------------------------------------------------------------");
+                System.out.printf(format, input);  // Echoes it
+                System.out.printf(format, "------------------------------------------------------------------");
+            }
+        }
 
+        System.out.printf(format, "------------------------------------------------------------------");
+        scanner.close();
 
-        //System.out.println("Hello from\n" + logo);
     }
 }
