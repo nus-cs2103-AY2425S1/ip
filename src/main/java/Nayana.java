@@ -109,7 +109,7 @@ public class Nayana {
         } else if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
             int index = Integer.parseInt(command.split(" ")[1]) - 1;
             if (index < 0 || index >= size) {
-                throw new NayanaException("index for mark/unmark is out of range :(");
+                throw new NayanaException("index for mark/unmark/delete is out of range :(");
             }
             return command;
         } else if (command.startsWith("deadline")) {
@@ -138,7 +138,6 @@ public class Nayana {
         } else if (command.startsWith("todo")) {
             String[] parts = command.split("todo ");
             if (parts.length != 2) {
-                System.out.println("1");
                 throw new NayanaException("invalid format for todo");
             } else if (parts[1].trim().isEmpty()) {
                 throw new NayanaException("description cannot be empty.");
