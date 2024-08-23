@@ -74,6 +74,20 @@ public class Garfield {
                 }
             }
 
+            if (userInput.toLowerCase().startsWith("delete")) {
+                String[] output = userInput.trim().split("\\s+");
+                if (output.length == 2) {
+                    int taskId = Integer.parseInt(output[1]);
+                    if (taskId <= taskList.size()) {
+                        Task toRemove = taskList.get(taskId - 1);
+                        taskList.remove(taskId - 1);
+                        Garfield.speak("Alright you've got 1 less task.\n\n\t"
+                                + toRemove + "\n\nEnjoy the extra ‘fun’ —or whatever you call it.");
+                        continue;
+                    }
+                }
+            }
+
             if (userInput.toLowerCase().startsWith("todo")) {
                 if (userInput.length() <= 5) {
                     Garfield.speak("Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
