@@ -1,10 +1,12 @@
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
+    private static int taskCount = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        taskCount++;
     }
 
     public void markDone() {
@@ -34,5 +36,11 @@ public class Task {
             return "[X] " + description;
         }
         return "[ ] " + description;
+    }
+
+    public String addTaskToString() {
+        return """
+                I have added this task into the list for you and
+                that brings your total number of tasks to""" + " " + String.valueOf(taskCount);
     }
 }
