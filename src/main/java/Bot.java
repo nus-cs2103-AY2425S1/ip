@@ -14,23 +14,18 @@ public class Bot {
 
     public void acceptCommand() {
         Scanner scanner = new Scanner(System.in);
-        while (true) {
-            if (!(scanner.hasNextLine())) {
-                break;
-            }
+        while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
             List<String> inputList = Arrays.asList(input.split(" "));
             String command = inputList.get(0).strip();
             String args = String.join(" ", inputList.subList(1, inputList.size())).strip();
-//            Consider implementing the 1010X approach to calling functions
-//            Watch the data directed programming lecture
             switch (command) {
                 case "bye" -> {
                     System.out.println("""
-                        ____________________________________________________________
-                        yeah bye bye to you too human being
-                        ____________________________________________________________
-                        """);
+                            ____________________________________________________________
+                            yeah bye bye to you too human being
+                            ____________________________________________________________
+                            """);
                     return;
                 }
                 case "list" -> {
@@ -90,38 +85,40 @@ public class Bot {
         if (Objects.equals(args, "")) {
             throw new NoDescriptionException();
         }
-        if (Objects.equals(command, "todo")) {
-            Todo todo = new Todo(args);
-            taskList.add(todo);
-            System.out.println(DIVIDER
-                + "i've thrown this to-do into your task list:\n"
-                + INDENT + todo.taskDescription() + "\n"
-                + listSizeUpdateMessage()
-                + DIVIDER);
-        } else if (Objects.equals(command, "deadline")) {
-            String[] taskAndDeadline = args.split(" /by ");
-            String taskName = taskAndDeadline[0];
-            String deadline = taskAndDeadline[1];
-            Deadline dl = new Deadline(taskName, deadline);
-            taskList.add(dl);
-            System.out.println(DIVIDER
-                    + "the new deadline's been added to your task list:\n"
-                    + INDENT + dl.taskDescription() + "\n"
-                    + listSizeUpdateMessage()
-                    + DIVIDER);
-        } else if (Objects.equals(command, "event")) {
-            String[] taskAndTimings = args.split(" /from | /to ");
-//            System.out.println(Arrays.toString(taskAndTimings));
-            String taskName = taskAndTimings[0];
-            String from = taskAndTimings[1];
-            String to = taskAndTimings[2];
-            Event event = new Event(taskName, from, to);
-            taskList.add(event);
-            System.out.println(DIVIDER
-                    + "aaaaand this event is now in your task list:\n"
-                    + INDENT + event.taskDescription() + "\n"
-                    + listSizeUpdateMessage()
-                    + DIVIDER);
+        switch (command) {
+            case "todo" -> {
+                Todo todo = new Todo(args);
+                taskList.add(todo);
+                System.out.println(DIVIDER
+                        + "i've thrown this to-do into your task list:\n"
+                        + INDENT + todo.taskDescription() + "\n"
+                        + listSizeUpdateMessage()
+                        + DIVIDER);
+            }
+            case "deadline" -> {
+                String[] taskAndDeadline = args.split(" /by ");
+                String taskName = taskAndDeadline[0];
+                String deadline = taskAndDeadline[1];
+                Deadline dl = new Deadline(taskName, deadline);
+                taskList.add(dl);
+                System.out.println(DIVIDER
+                        + "the new deadline's been added to your task list:\n"
+                        + INDENT + dl.taskDescription() + "\n"
+                        + listSizeUpdateMessage()
+                        + DIVIDER);
+            } case "event" -> {
+                String[] taskAndTimings = args.split(" /from | /to ");
+                String taskName = taskAndTimings[0];
+                String from = taskAndTimings[1];
+                String to = taskAndTimings[2];
+                Event event = new Event(taskName, from, to);
+                taskList.add(event);
+                System.out.println(DIVIDER
+                        + "aaaaand this event is now in your task list:\n"
+                        + INDENT + event.taskDescription() + "\n"
+                        + listSizeUpdateMessage()
+                        + DIVIDER);
+            }
         }
         acceptCommand();
     }
