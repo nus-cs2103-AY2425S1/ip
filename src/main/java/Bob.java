@@ -17,6 +17,10 @@ class Task {
         this.isDone = true;
     }
 
+    public void unmarkAsDone() {
+        this.isDone = false;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -58,6 +62,16 @@ public class Bob {
                     out += (i + 1) + ". " + messages.get(i) + "\n";
                 }
                 dialogue(out);
+            } else if (userInput.startsWith("mark")) {
+                String[] words = userInput.split(" ");
+                int index = Integer.parseInt(words[1]) - 1;
+                messages.get(index).markAsDone();
+                dialogue("Nice! I've marked this task as done: \n" + messages.get(index));
+            } else if (userInput.startsWith("unmark")) {
+                String[] words = userInput.split(" ");
+                int index = Integer.parseInt(words[1]) - 1;
+                messages.get(index).unmarkAsDone();
+                dialogue("OK, I've marked this task as not done yet: \n" + messages.get(index));
             } else {
                 dialogue("Added: " + userInput);
                 messages.add(new Task(userInput));
