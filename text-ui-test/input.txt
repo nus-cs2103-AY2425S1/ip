@@ -13,5 +13,8 @@ mark 3
 mark 4
 unmark 2
 list
-test
+todo Get Deleted
+list
+delete 4
+unmark 1
 bye

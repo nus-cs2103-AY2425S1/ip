@@ -34,6 +34,13 @@ public class Lawrence {
                     }
                     markTaskAsIncomplete(inputComponents[1]);
                     break;
+                case "delete":
+                    if (inputComponents.length < 2) {
+                        displayMessage("Please specify the task you want to delete.");
+                        break;
+                    }
+                    deleteTask(inputComponents[1]);
+                    break;
                 case "todo":
                     if (inputComponents.length < 2) {
                         displayMessage("Todo description cannot be empty! Please try again.");
@@ -55,6 +62,7 @@ public class Lawrence {
                     }
                     addEvent(inputComponents[1]);
                     break;
+
                 default:
                     displayMessage(String.format("Unable to recognise command '%s'. Please try again.", command));
             }
@@ -92,14 +100,28 @@ public class Lawrence {
                 + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural));
     }
 
+    private static void deleteTask(String parameters) {
+        try {
+            int taskNumber = Integer.parseInt(parameters);
+            Task deletedTask = tasks.deleteTask(taskNumber);
+            displayMessage(
+                    String.format("Task %s has been deleted.", deletedTask));
+        } catch (NumberFormatException e) {
+            displayMessage("Please specify a number to select a task.");
+        } catch (IllegalArgumentException e) {
+            displayMessage(
+                    String.format("%s Please try again.", e.getMessage()));
+        }
+    }
+
     private static void markTaskAsComplete(String parameters) {
         try {
             int taskNumber = Integer.parseInt(parameters);
             Task completeTask = tasks.completeTask(taskNumber);
             displayMessage(
-                    String.format("I've marked the task as complete:\n%s", completeTask));
+                    String.format("I've marked the task as complete:%n%s", completeTask));
         } catch (NumberFormatException e) {
-            displayMessage("Please input a number to select a task.");
+            displayMessage("Please specify a number to select a task.");
         } catch (IllegalArgumentException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
@@ -111,19 +133,13 @@ public class Lawrence {
             int taskNumber = Integer.parseInt(parameters);
             Task incompleteTask = tasks.uncompleteTask(taskNumber);
             displayMessage(
-                    String.format("Changed your mind? The task is set to incomplete:\n%s", incompleteTask));
+                    String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask));
         } catch (NumberFormatException e) {
-            displayMessage("Please input a number to select a task.");
+            displayMessage("Please specify a number to select a task.");
         } catch (IllegalArgumentException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
         }
-    }
-
-    private static void greetUser() {
-        String greeting = String.format("Hello! I'm %s and I'm here to establish another GST hike.\n"
-                + "What can I do for you?", NAME);
-        displayMessage(greeting);
     }
 
     private static void displayTasks() {
@@ -132,6 +148,12 @@ public class Lawrence {
             return;
         }
         displayMessage(String.format("Here's your laundry list:%n%s", tasks.toString()));
+    }
+
+    private static void greetUser() {
+        String greeting = String.format("Hello! I'm %s and I'm here to establish another GST hike.%n"
+                + "What can I do for you?", NAME);
+        displayMessage(greeting);
     }
 
     private static void exitSession() {
@@ -146,6 +168,6 @@ public class Lawrence {
     }
 
     private static void displayHorizontalLine() {
-        System.out.println("____________________");
+        System.out.println("====================");
     }
 }

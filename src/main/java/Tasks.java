@@ -11,6 +11,14 @@ public class Tasks {
         list.add(task);
     }
 
+    public Task deleteTask(int taskNumber) {
+        if (taskNumber < 1 || taskNumber > list.size()) {
+            throw new IllegalArgumentException(
+                    String.format("Task does not exist. Number must be within the range 1 to %s.", list.size()));
+        }
+        return list.remove(taskNumber - 1);
+    }
+
     public Task completeTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > list.size()) {
             throw new IllegalArgumentException(
