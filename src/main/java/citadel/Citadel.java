@@ -62,6 +62,9 @@ public class Citadel {
                     new HandleTodo(input, items).run();
                     break;
 
+                case FIND:
+                    new FindTask(input, items).run();
+                    break;
                 default:
                     throw new CitadelInvalidCommandException();
                 }

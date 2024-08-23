@@ -68,9 +68,8 @@ public class TextUI {
         System.out.println("Now you have " + tasks.size()
                             + " tasks in the list");
     }
-
     public static void printFind(TaskList tasks) {
-        System.out.println("here are the matching tasks in your list:");
+        System.out.println(" Here are the matching tasks in your list:");
         new TextUI().printTasks(tasks);
     }
 }
