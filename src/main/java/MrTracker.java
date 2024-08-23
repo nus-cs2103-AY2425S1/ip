@@ -56,10 +56,10 @@ public class MrTracker {
             Task curr = taskList.get(index);
             if (isMark) {
                 curr.mark();
-                System.out.println("task " + ++index + " is marked!");
+                System.out.println("task\n  " + curr.toString() + "\nis marked!");
             } else {
                 curr.unMark();
-                System.out.println("task " + ++index + " is unmarked!");
+                System.out.println("task\n  " + curr.toString() + "\nis unmarked!");
             }
         }
     }
@@ -107,9 +107,19 @@ public class MrTracker {
         }
     }
 
-    public static void deleteTask(String strIndex) {
+    public static void deleteTask(String strIndex, ArrayList<Task> taskList) {
         try {
             int index = Integer.parseInt(strIndex);
+            if (index < 1 || index > taskList.size()) {
+                System.out.println("Task " + index + " does not exist!");
+                return;
+            }
+            index--;
+            Task currTask = taskList.get(index);
+            taskList.remove(index);
+            System.out.println("The task\n  " + currTask.toString() + "\nhas been removed! \nYou now have "
+             + taskList.size() + " tasks left.");
+            return;
         } catch (NumberFormatException ex) {
             System.out.println("Please provide a valid number");
         }
@@ -168,7 +178,7 @@ public class MrTracker {
                 MrTracker.addEvent(taskList, input.substring(6));
 
             } else if (input.startsWith("delete ")) {
-                MrTracker.deleteTask(input.substring(7));
+                MrTracker.deleteTask(input.substring(7), taskList);
             } else {
                 // MrTracker.addTask(taskList, input);
                 System.out.println(input + " is not a valid command!");
