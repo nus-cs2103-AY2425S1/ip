@@ -112,6 +112,74 @@ public class Shnoop {
     }
 
     /**
+     * Determines if String indicates a Todo task.
+     *
+     * @param str String to be checked.
+     * @param length Length of string (to avoid repeated str.length() calls).
+     * @return True if String starts with "Todo "
+     */
+    public boolean startsWithTodo(String str, int length) {
+        return (length >= 5 && str.toLowerCase().startsWith("todo "));
+    }
+
+    /**
+     * Determines if String indicates a Event task.
+     *
+     * @param str String to be checked.
+     * @param length Length of string (to avoid repeated str.length() calls).
+     * @return True if String starts with "Event "
+     */
+    public boolean startsWithEvent(String str, int length) {
+        return (length >= 6 && str.toLowerCase().startsWith("event "));
+    }
+
+    /**
+     * Determines if String indicates a Deadline task.
+     *
+     * @param str String to be checked.
+     * @param length Length of string (to avoid repeated str.length() calls).
+     * @return True if String starts with "Deadline "
+     */
+    public boolean startsWithDeadline(String str, int length) {
+        return (length >= 9 && str.toLowerCase().startsWith("deadline "));
+    }
+
+    public String getTaskType(String str) {
+        int length = str.length();
+        if (startsWithTodo(str, length)) {
+            return "todo_task";
+        } else if (startsWithEvent(str, length)) {
+            return "event_task";
+        } else if (startsWithDeadline(str, length)) {
+            return "deadline_task";
+        } else {
+            return "undefined_task";
+        }
+    }
+
+    /**
+     * Returns the relevant string excluding Todo, Event, or Deadline tag.
+     *
+     * @param str User input to sieve through.
+     * @return String excluding task type.
+     */
+    public String getTaskDetails(String str) {
+        String taskType = getTaskType(str);
+        int length = str.length();
+
+        switch (taskType) {
+        case ("todo_task"):
+            return str.substring(5, length);
+        case ("event_task"):
+            return str.substring(6, length);
+        case ("deadline_task"):
+            return str.substring(9, length);
+        default:
+            return str;
+        }
+    }
+
+    /**
      * Returns String representing action done.
      * Performs a series of actions depending on input and mode.
      *
@@ -156,15 +224,36 @@ public class Shnoop {
                     if (tasks[i] == null) {
                         break;
                     }
-                    System.out.println((i + 1) + ". " + tasks[i].getTaskWithStatus());
+                    System.out.println((i + 1) + ". " + tasks[i].toString());
                 }
                 return "list";
 
             default:
                 String x = getRandomQuote(arrPointer % 3);
 
-                addTask(new Task(input));
-                System.out.println("✿ Shnoop ✿: " + x + " I'll add that in for ya. \nTask Added: " + input);
+                String taskType = getTaskType(input);
+                String taskDesc = getTaskDetails(input);
+                System.out.println(taskType + " & " + taskDesc);
+                Task newTask;
+
+                switch (taskType) {
+                case ("todo_task"):
+                    newTask = new Todo(taskDesc);
+                    break;
+                case ("event_task"):
+                    newTask = new Event(taskDesc);
+                    break;
+                case ("deadline_task"):
+                    newTask = new Deadline(taskDesc);
+                    break;
+                default:
+                    newTask = new Task(taskDesc);
+                    break;
+                }
+
+                addTask(newTask);
+                System.out.println("✿ Shnoop ✿: " + x + " I'll add that in for ya. \nTask Added: " + newTask);
+                System.out.println("✿ Shnoop ✿: You've got " + arrPointer + " doggy-dogs on the stereo.");
                 return "add_task";
             }
 

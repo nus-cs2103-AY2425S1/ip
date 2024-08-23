@@ -5,8 +5,18 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Constructs new Deadline task by extracting /by from the String
+     *
+     * @param str Un-separated String
+     */
+    public Deadline (String str) {
+        this(str.substring(0, str.toLowerCase().indexOf("/by ")),
+                str.substring(str.toLowerCase().indexOf("/by ") + 4, str.length()));
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.getTaskWithStatus() + " (by: " + by + ")";
+        return "[D] " + super.toString() + " (by: " + by + ")";
     }
 }

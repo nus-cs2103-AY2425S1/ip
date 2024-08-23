@@ -8,7 +8,7 @@ public class Task {
     }
 
     public Task() {
-        new Task("");
+        this("");
     }
 
     public String getStatusIcon() {
@@ -53,7 +53,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return getDescription();
+        return getTaskWithStatus();
     }
 
 }
