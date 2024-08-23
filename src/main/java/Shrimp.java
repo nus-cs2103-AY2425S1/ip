@@ -88,6 +88,21 @@ public class Shrimp {
                         System.out.println("    " + updatedTaskUnmark);
                         break;
 
+                    case DELETE:
+                        int indexDelete = getTaskNumber(userInput, commandType);
+                        if (indexDelete > taskList.getCount()) {
+                            throw new ShrimpException.ArrayIndexOutOfBoundException();
+                        } else if (taskList.getCount() == 0) {
+                            throw new ShrimpException.EmptyArrayException();
+                        }
+                        Task taskDeleted = taskList.getTask(indexDelete);
+                        taskList.deleteTask(indexDelete);
+                        output = "Done! The task has been deleted!";
+                        System.out.println(output);
+                        System.out.println("    " + taskDeleted);
+                        System.out.printf("You now have %s item(s) in your list!%n", taskList.getCount());
+                        break;
+
                     case ADD:
                         if (userInput.length() <= 5) {
                             throw new ShrimpException.MissingArgumentException(commandType);
@@ -146,11 +161,13 @@ public class Shrimp {
     }
 
     // Helper method to extract task number for MARK
-    private static int getTaskNumber(String userInput, CommandParser.CommandType type) throws ShrimpException.MissingArgumentException {
+    private static int getTaskNumber(String userInput, CommandParser.CommandType type) throws ShrimpException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ShrimpException.MissingArgumentException(type);
+        } catch (NumberFormatException e) {
+            throw new ShrimpException.NumberFormatException();
         }
 
     }
