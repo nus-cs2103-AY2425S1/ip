@@ -9,8 +9,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CasperBot {
-    private enum Command {
+    private enum CommandType {
+        CREATE, TASK;
+    }
+    private enum CreateCommand {
         EVENT, TODO, DEADLINE;
+    }
+
+    private enum TaskCommand {
+        MARK, UNMARK, DELETE;
     }
     private static List<Task> list = new ArrayList<>();
     public static void main(String[] args) throws CasperBotException {
@@ -43,38 +50,40 @@ public class CasperBot {
                         }
                     }
                 }
-                else if (inputArray[0].equalsIgnoreCase("mark")) {
+                else if (isValidCommand(inputArray[0], CommandType.TASK)) {
                     try {
                         int index = Integer.parseInt(inputArray[1]) - 1;
                         if (index >= list.size()) {
                             throw new CasperBotOutOfBoundsException();
                         }
+                        TaskCommand taskCommand = TaskCommand.valueOf(inputArray[0].trim().toUpperCase());
                         Task task = list.get(index);
-                        task.markAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(task);
-                    } catch (NumberFormatException e) {
-                        throw new CasperBotNumberFormatException();
-                    }
-                }
-                else if (inputArray[0].equalsIgnoreCase("unmark")) {
-                    try {
-                        int index = Integer.parseInt(inputArray[1]) - 1;
-                        if (index >= list.size()) {
-                            throw new CasperBotOutOfBoundsException();
+                        switch (taskCommand) {
+                            case MARK:
+                                task.markAsDone();
+                                System.out.println("Nice! I've marked this task as done:");
+                                break;
+                            case UNMARK:
+                                task.markAsDone();
+                                System.out.println("OK, I've marked this task as not done yet:");
+                                break;
+                            case DELETE:
+                                list.remove(task);
+                                System.out.println("Noted. I've removed this task:");
+                                break;
                         }
-                        Task task = list.get(index);
-                        task.markAsNotDone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(task);
+                        System.out.println("  " + task);
+                        if (taskCommand == TaskCommand.DELETE) {
+                            printTaskListLength();
+                        }
                     } catch (NumberFormatException e) {
                         throw new CasperBotNumberFormatException();
                     }
                 }
-                else if (isValidTaskCommand(inputArray[0])) {
+                else if (isValidCommand(inputArray[0], CommandType.CREATE)) {
                     HashMap<String, String> hashMap = new HashMap<>();
                     parseBySlash(inputArray[1], hashMap);
-                    Command command = Command.valueOf(inputArray[0].trim().toUpperCase());
+                    CreateCommand command = CreateCommand.valueOf(inputArray[0].trim().toUpperCase());
                     switch (command) {
                         case TODO:
                             String todoDescription = hashMap.get("description");
@@ -119,7 +128,7 @@ public class CasperBot {
                             System.out.println("  " + newEvent);
                             break;
                     }
-                    System.out.printf("Now you have %d tasks in the list.\n", list.size());
+                    printTaskListLength();
                 } else if (inputArray[0].equalsIgnoreCase("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                 } else {
@@ -168,12 +177,27 @@ public class CasperBot {
         }
     }
 
-    private static boolean isValidTaskCommand(String command) {
+    private static boolean isValidCommand(String command, CommandType commandType) {
         try {
-            Command.valueOf(command.trim().toUpperCase());
+            switch (commandType) {
+                case CREATE -> {
+                    CreateCommand.valueOf(command.trim().toUpperCase());
+                }
+                case TASK -> {
+                    TaskCommand.valueOf(command.trim().toUpperCase());
+                }
+            }
             return true;
         } catch (IllegalArgumentException e) {
             return false;
+        }
+    }
+
+    private static void printTaskListLength() {
+        if (list.size() == 1) {
+            System.out.println("Now you have 1 task in the list.");
+        } else {
+            System.out.printf("Now you have %d tasks in the list.\n", list.size());
         }
     }
 }
