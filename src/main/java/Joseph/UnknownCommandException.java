@@ -1,2 +1,7 @@
-package Joseph;public class UnknownCommand {
+package Joseph;
+
+public class UnknownCommandException extends Exception {
+    public UnknownCommandException(String message) {
+        super(message);
+    }
 }
