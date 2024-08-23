@@ -1,4 +1,4 @@
-package botty;
+package tasks;
 
 import exceptions.TaskListEmptyException;
 import exceptions.TaskNumberNotFoundException;

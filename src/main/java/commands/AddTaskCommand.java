@@ -1,6 +1,6 @@
 package commands;
 
-import botty.TaskManager;
+import tasks.TaskManager;
 import tasks.Task;
 
 public abstract class AddTaskCommand implements Command {

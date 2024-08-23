@@ -1,6 +1,6 @@
 package commands;
 
-import botty.TaskManager;
+import tasks.TaskManager;
 import exceptions.TaskListEmptyException;
 
 public class ListCommand implements Command {

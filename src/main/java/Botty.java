@@ -1,5 +1,4 @@
-package botty;
-
+import tasks.TaskManager;
 import commands.*;
 import exceptions.BottyException;
 import exceptions.UnknownCommandException;
@@ -26,7 +25,7 @@ public class Botty {
             "       \\ \\__\\ \\ \\__\\ \\__\\ \\_______\\       \\ \\_______\\ \\_______\\   \\ \\__\\\n" +
             "        \\|__|  \\|__|\\|__|\\|_______|        \\|_______|\\|_______|    \\|__|";
 
-    private static final String bottySymbol = "botty.Botty: ";
+    private static final String bottySymbol = "Botty: ";
     private static final String bottyIndentation = "       ";
     private Scanner inputScanner;
     private Map<String, Command> commands;
@@ -86,7 +85,7 @@ public class Botty {
         System.out.println(logo);
         System.out.println();
 
-        reply("Hello, I am botty.Botty the Bot, how may I be of service today?");
+        reply("Hello, I am Botty the Bot, how may I be of service today?");
     }
 
     private void reply(String content) {
