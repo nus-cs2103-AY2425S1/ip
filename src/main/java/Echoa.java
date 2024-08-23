@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -9,16 +10,16 @@ public class Echoa {
      * The main method is the entry point to the application.
      * It greets the user with a series of messages and allows input.
      * The user is able to access and modify their list of task using a series of instructions,
-     * todo, deadline, event, mark, unmark, list.
+     * todo, deadline, event, mark, unmark, delete, list.
      * They can also end the chat using "bye".
      * @param args
      */
     public static void main(String[] args) throws InvalidInstructionException, InvalidTaskContentException {
 
-        String[] instructionList = {"todo", "deadline", "event", "mark", "unmark", "list", "bye"};
+        String[] instructionList = {"todo", "deadline", "event", "mark", "unmark", "delete", "list", "bye"};
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasklist = new Task[100];
+        ArrayList<Task> tasklist = new ArrayList<>();
 
         int taskcount = 0;
 
@@ -41,20 +42,27 @@ public class Echoa {
                     } else {
                         for (int i = 0; i < taskcount; i++) {
                             int index = i + 1;
-                            System.out.println(index + ". " + tasklist[i].toString());
+                            System.out.println(index + ". " + tasklist.get(i).toString());
                         }
                     }
                     System.out.println();
                 } else if (command.startsWith("mark")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    tasklist[index].markAsDone();
+                    tasklist.get(index).markAsDone();
                     System.out.println("Task marked :)");
-                    System.out.println(tasklist[index].toString() + "\n");
+                    System.out.println(tasklist.get(index).toString() + "\n");
                 } else if (command.startsWith("unmark")) {
                     int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    tasklist[index].unmarkAsUndone();
+                    tasklist.get(index).unmarkAsUndone();
                     System.out.println("Task unmarked :(");
-                    System.out.println(tasklist[index].toString() + "\n");
+                    System.out.println(tasklist.get(index).toString() + "\n");
+                } else if (command.startsWith("delete")) {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    tasklist.remove(index);
+                    taskcount--;
+                    System.out.println("Task deleted :/");
+                    System.out.println(tasklist.get(index).toString() + "\n");
+                    System.out.println("Now you have " + (taskcount) + " task(s).\n");
                 } else {
                     String[] commandArr = command.split(" ", 2);
 
@@ -66,7 +74,7 @@ public class Echoa {
                     String task = commandArr[1];
 
                     if (type.equals("todo")) {
-                        tasklist[taskcount] = new ToDo(task);
+                        tasklist.add(new ToDo(task));
                     } else if (type.equals("deadline")) {
                         String[] taskArray = task.split(" /", 2);
                         if (taskArray.length != 2) {
@@ -74,7 +82,7 @@ public class Echoa {
                         }
                         String taskDescription = taskArray[0];
                         String taskDate = taskArray[1];
-                        tasklist[taskcount] = new Deadline(taskDescription, taskDate);
+                        tasklist.add(new Deadline(taskDescription, taskDate));
                     } else if (type.equals("event")) {
                         String[] taskArray = task.split(" /", 3);
                         if (taskArray.length != 3) {
@@ -85,14 +93,14 @@ public class Echoa {
                         taskStart = taskStart.split(" ", 2)[1];
                         String taskEnd = taskArray[2];
                         taskEnd = taskEnd.split(" ", 2)[1];
-                        tasklist[taskcount] = new Event(taskDescription, taskStart, taskEnd);
+                        tasklist.add(new Event(taskDescription, taskStart, taskEnd));
                     } else {
                         throw new InvalidInstructionException(type);
                     }
 
-                    tasklist[taskcount].unmarkAsUndone();
+                    tasklist.get(taskcount).unmarkAsUndone();
                     System.out.println("Task added!");
-                    System.out.println(tasklist[taskcount].toString());
+                    System.out.println(tasklist.get(taskcount).toString());
                     System.out.println("Now you have " + (taskcount + 1) + " task(s).\n");
                     taskcount++;
                 }
@@ -107,6 +115,7 @@ public class Echoa {
             System.out.println("Please try again.");
         } catch (InvalidTaskContentException e) {
             System.out.println(e.toString());
+            System.out.println("Please try again.");
         }
     }
 }
