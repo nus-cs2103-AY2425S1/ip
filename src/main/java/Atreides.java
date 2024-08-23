@@ -14,22 +14,39 @@ public class Atreides {
         System.out.println(new Response(intro));
         Scanner scanner = new Scanner(System.in);
         String msg = scanner.nextLine();
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
         while (!(msg.toLowerCase().equals("bye"))) {
             if (msg.equals("list")) {
                 String tasks = "";
                 for (int i = 0; i < list.size(); i++) {
-                    tasks += (i+1) + ". " + list.get(i);
+                    tasks += (i+1) + "." + list.get(i);
                     if (i != list.size() - 1) {
-                        System.out.println("adding delimiter");
                         tasks += "\n";
                     }
                 }
                 System.out.println(new Response(tasks));
             }
             else {
-                list.add(msg);
-                System.out.println(new Response("added: " + msg));
+                String[] words = msg.split(" ");
+                if (words[0].equals("mark")) {
+                    int index = Integer.parseInt(words[1]) - 1;
+                    list.get(index).markDone(true);
+
+                    String response = "Thank you, one task completed: \n"
+                                       + list.get(index);
+                    System.out.println(new Response(response));
+                }
+                else if (words[0].equals("unmark")) {
+                    int index = Integer.parseInt(words[1]) -1;
+                    list.get(index).markDone(false);
+
+                    String response = "Noted, this task has been unmarked\n"
+                                      + list.get(index);
+                    System.out.println(new Response(response));
+                } else {
+                    list.add(new Task(msg));
+                    System.out.println(new Response("added: " + msg));
+                }
             }
             msg = scanner.nextLine();
         }
