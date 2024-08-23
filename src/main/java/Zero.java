@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Zero {
     public static void main(String[] args) {
+        // store tasks here
+        String[] tasks = new String[100];
+        int taskCount = 0;
 
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Zero");
@@ -18,13 +21,21 @@ public class Zero {
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else {
+            } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println(" " + input);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                // Store the task and provide feedback
+                tasks[taskCount] = input;
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + input);
                 System.out.println("____________________________________________________________");
             }
         }
-
         scanner.close();
     }
 }
