@@ -20,61 +20,90 @@ public class BottleOpener {
         boolean flag = true;
 
         while (flag) {
-            String userInput;
+            String inp = "";
 
             try {
-                userInput = br.readLine();
+                inp = br.readLine();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println(spacer + "Invalid entry!\n" + spacer);
             }
 
-            if (userInput.startsWith("bye")) {
+            String[] userInput = inp.split(" ", 2);
 
-                System.out.println(spacer + goodbye + spacer);
-                flag = false;
-                break;
+            String instruction = userInput[0].toLowerCase();
 
-            } else if (userInput.startsWith("list")) {
-
-                String output = "";
-                for (int i = 0; i < tasks.size(); i++) {
-
-                    output = output + String.format("%d. %s%n", i + 1, tasks.get(i));
-                }
-                System.out.println(spacer + output + spacer);
-
-            } else if (userInput.contains("mark")) {
-
-                String instruction = "";
-                int number = -1;
-                Task chosenTask;
-
-                try {
-                    String[] inp = userInput.split(" ", 2);
-                    instruction = inp[0];
-                    number = Integer.parseInt(inp[1]);
-                    chosenTask = tasks.get(number - 1);
-                } catch (Exception e) {
-                    System.out.println("Invalid!\n");
+            switch (instruction) {
+                case "bye":
+                    flag = false;
+                    System.out.println(spacer + goodbye + spacer);
                     break;
-                }
+                case "list":
+                    StringBuilder output = new StringBuilder();
+                    for (int i = 0; i < tasks.size(); i++) {
+                        output.append(String.format("%d. %s%n", i + 1, tasks.get(i)));
+                    }
+                    System.out.println(spacer + output + spacer);
+                    break;
+                case "mark":
+                    try {
+                        int num = Integer.parseInt(userInput[1]);
+                        Task mod = tasks.get(num - 1).markAsDone();
+                        tasks.set(num - 1, mod);
+                        System.out.println(spacer + "Good job completing it!\n" + spacer);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(spacer + "Please tell me which task to mark!\n" + spacer);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(spacer + "Please provide an appropriate number!\n" + spacer);
+                    } catch (NumberFormatException e) {
+                        System.out.println(spacer + "Please provide an appropriate index!\n" + spacer);
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        int num = Integer.parseInt(userInput[1]);
+                        Task mod = tasks.get(num - 1).markAsUndone();
+                        tasks.set(num - 1, mod);
+                        System.out.println(spacer + "I have added it back to the list!\n" + spacer);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(spacer + "Please tell me which task to mark!\n" + spacer);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(spacer + "Please provide an appropriate number!\n" + spacer);
+                    } catch (NumberFormatException e) {
+                        System.out.println(spacer + "Please provide an appropriate index!\n" + spacer);
+                    }
+                    break;
+                default:
+                    try {
+                        String des = userInput[1];
+                        switch (instruction) {
+                            case "todo":
+                                Task newTodo = new ToDo(des);
+                                tasks.add(index, newTodo);
+                                index++;
+                                System.out.println(spacer + String.format("added: %s%n", newTodo) + spacer);
+                                break;
+                            case "deadline":
+                                try {
+                                    String[] activity = des.split(" /", 2);
+                                    String action = activity[0];
+                                    String due = activity[1];
+                                    Task newDeadline = new Deadline(action, due);
+                                    tasks.add(index, newDeadline);
+                                    index++;
+                                    System.out.println(spacer + String.format("added: %s%n", newDeadline) + spacer);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    System.out.println(spacer + "Please provide a deadline!\n" + spacer);
+                                }
+                                break;
+                            default:
+                                System.out.println(spacer + "Invalid command!\n" + spacer);
+                                break;
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(spacer + "Please add a description!\n" + spacer);
+                    }
 
-                if (instruction.equals("mark")) {
-                    Task modifiedTask = chosenTask.markAsDone();
-                    tasks.set(number - 1, modifiedTask);
-                    System.out.println(spacer + modifiedTask + "\n" + spacer);
-                } else if (instruction.equals("unmark")) {
-                    Task modifiedTask = chosenTask.markAsUndone();
-                    tasks.set(number - 1, modifiedTask);
-                    System.out.println(spacer + modifiedTask + "\n" + spacer);
-                }
 
-            } else {
-
-                System.out.println(spacer + "added: " + userInput + "\n" + spacer);
-                Task newTask = new Task(userInput);
-                tasks.add(index, newTask);
-                index += 1;
 
             }
 

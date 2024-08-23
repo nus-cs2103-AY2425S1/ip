@@ -1,4 +1,4 @@
-public class Task {
+abstract class Task {
     protected String description;
     protected boolean status;
 
@@ -12,13 +12,9 @@ public class Task {
         this.status = status;
     }
 
-    public Task markAsDone() {
-        return new Task(this.description, true);
-    }
+    abstract Task markAsDone();
 
-    public Task markAsUndone() {
-        return new Task(this.description, false);
-    }
+    abstract Task markAsUndone();
 
     public String getStatusIcon() {
         return (status ? "X" : " ");
