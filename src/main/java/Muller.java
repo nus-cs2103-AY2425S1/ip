@@ -15,25 +15,26 @@ public class Muller {
             if(inputs[0].equals("bye")){
                 break;
             } else if (inputs[0].equals("mark")) {
-                try{ if (inputs.length < 2 || !isNumeric(inputs[1])) {
-                    throw new MullerException("Pick a task number!");
-                }
-                int index = Integer.parseInt(inputs[1]) - 1;
-                if (index < 0 || index >= list.size()) {
-                    throw new MullerException("Wrong task number!");
-                }
-                list.get(index).markAsDone();
-                System.out.println(logo + "\nNice! I've marked this task as done:\n");
-                System.out.println("  " + list.get(index) + "\n" + logo);
+                try {
+                    if (inputs.length < 2 || !isNumeric(inputs[1])) {
+                        throw new MullerException("Pick a task number!");
+                    }
+                    int index = Integer.parseInt(inputs[1]) - 1;
+                    if (index < 0 || index >= list.size()) {
+                        throw new MullerException("Wrong task number!");
+                    }
+                    list.get(index).markAsDone();
+                    System.out.println(logo + "\nNice! I've marked this task as done:\n");
+                    System.out.println("  " + list.get(index) + "\n" + logo);
                 } catch (MullerException e) {
                     System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
                 }
             } else if (inputs[0].equals("unmark")) {
                 try {
-                    int index = Integer.parseInt(inputs[1]) - 1;
-                    if (inputs.length < 2 || isNumeric(inputs[1])) {
-                        throw new MullerException("Pick a valid task number!");
+                    if (inputs.length < 2 || !isNumeric(inputs[1])) {
+                        throw new MullerException("Pick a task number!");
                     }
+                    int index = Integer.parseInt(inputs[1]) - 1;
                     if (index < 0 || index >= list.size()) {
                         throw new MullerException("Wrong task number!");
                     }
@@ -110,6 +111,21 @@ public class Muller {
                         System.out.println(i + ": " + list.get(i - 1));
                     }
                     System.out.println(logo);
+                } catch (MullerException e) {
+                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
+                }
+            } else if (inputs[0].equals("delete")) {
+                try {
+                    if (inputs.length < 2 || !isNumeric(inputs[1])) {
+                        throw new MullerException("Pick a task number!");
+                    }
+                    int index = Integer.parseInt(inputs[1]) - 1;
+                    if (index < 0 || index >= list.size()) {
+                        throw new MullerException("Invalid task number!");
+                    }
+                    System.out.println(logo + "\nNoted. I've removed this task:\n");
+                    System.out.println("  " + list.get(index) + "\n" + logo);
+                    list.remove(index);
                 } catch (MullerException e) {
                     System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
                 }
