@@ -9,7 +9,12 @@ public class List {
         String initialise = """
                 -----------------------------------------------
                 Initialising List Bot...
-                Type 'List' to show full list
+                Special commands
+                'List' -> Show full list
+                'Mark n' -> marks nth task as complete
+                'Unmark n' -> marks nth task as incomplete
+                '/by z' -> used to speficy a deadline z
+                '/from x /to y' -> used to specify bounds of an event from x to y
                 -----------------------------------------------
                 """;
 
@@ -20,7 +25,7 @@ public class List {
         ArrayList<Task> list = new ArrayList<Task>();
 
         while (true) {
-            System.out.print("Add task:\n");
+            System.out.print("Task:\n");
             input = scanner.nextLine();
 
             try {
@@ -40,13 +45,25 @@ public class List {
                 } else if (input.length() > 5 && input.substring(0, 5).equalsIgnoreCase("mark ")) {
                     int index = Integer.parseInt(input.substring(5));
                     list.get(index- 1).setIsDone(true);
+                    System.out.println("-----------------------------------------------");
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(list.get(index - 1));
+                    System.out.println("-----------------------------------------------");
                 } else if (input.length() > 7 && input.substring(0, 7).equalsIgnoreCase("unmark ")) {
                     int index = Integer.parseInt(input.substring(7));
                     list.get(index - 1).setIsDone(false);
+                    System.out.println("-----------------------------------------------");
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(list.get(index - 1));
+                    System.out.println("-----------------------------------------------");
+                } else if (input.length() > 7 && input.substring(0, 7).equalsIgnoreCase("delete ")) {
+                    int index = Integer.parseInt(input.substring(7));
+                    System.out.println("-----------------------------------------------");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(list.get(index - 1));
+                    list.remove(index - 1);
+                    System.out.printf("Now you have %d tasks in the list\n", list.size());
+                    System.out.println("-----------------------------------------------");
                 } else if (input.toLowerCase().contains("/from") ^ input.toLowerCase().contains("/to")) {
                     System.out.println("Please add both /from and /to.");
                 } else if (input.equalsIgnoreCase("Bye")) {
