@@ -183,9 +183,17 @@ public class Timo{
                         System.out.println(task.toString());
                         System.out.println("Now you have " + arr.size() + " tasks in the list.");
                         System.out.println("----------------------------");
-//                    } else if (input.startsWith("delete")) {
-//                        String num = String.valueOf(input.charAt(input.length() - 1));
-//                        int target = Integer.parseInt(num);
+                    } else if (input.startsWith("delete")) {
+                        String num = String.valueOf(input.charAt(input.length() - 1));
+                        int target = Integer.parseInt(num);
+                        Task task = arr.get(target - 1);
+                        arr.remove(target - 1);
+                        System.out.println("----------------------------");
+                        System.out.println("Got it. I've removed this task:");
+                        System.out.println(task.toString());
+                        System.out.println("Now you have " + arr.size() + " tasks in the list.");
+                        System.out.println("----------------------------");
+
                     } else {
                         try {
                             throw new TimoException("I'm sorry, I do not know what that means! Please try again with a different command!");
