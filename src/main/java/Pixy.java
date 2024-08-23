@@ -7,7 +7,6 @@ public class Pixy {
     private List<Task> list = new ArrayList<>(); // Array List to store the tasks
     Scanner sc = new Scanner(System.in);
     private String inputTask() {    // method to input tasks
-
         return sc.nextLine();
     }
     private void addToList(Task task) { // add to list method
@@ -52,7 +51,7 @@ public class Pixy {
         while (true) {
 
             try {
-                String command = sc.nextLine();
+                String command = inputTask();
                 System.out.println("____________________________________________________________\n");
                 if (command.equalsIgnoreCase("list")) {
                     printList();
