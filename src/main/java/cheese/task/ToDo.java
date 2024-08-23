@@ -6,6 +6,9 @@ public class ToDo extends Task{
     private ToDo(String name) throws CheeseException {
         super(name);
     }
+    public ToDo(String[] data) throws CheeseException {
+        super(data);
+    }
 
     /**
      * Factory method to ensure correct creation of Cheese.ToDo

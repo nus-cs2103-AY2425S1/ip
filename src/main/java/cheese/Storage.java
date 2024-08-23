@@ -3,6 +3,7 @@ package cheese;
 import cheese.task.Deadline;
 import cheese.task.Event;
 import cheese.task.Task;
+import cheese.task.ToDo;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -54,7 +55,7 @@ public class Storage {
     private Task loadTask(String s) throws CheeseException {
         String[] data = s.split(",");
         return switch (data[0]) {
-            case "T" -> new Task(data);
+            case "T" -> new ToDo(data);
             case "D" -> new Deadline(data);
             case "E" -> new Event(data);
             default -> throw new CheeseException("Incorrect data format");
@@ -74,8 +75,7 @@ public class Storage {
     }
 
     /**
-     * Update task and save
-     *
+     * Update task and save to file
      * @param idx    idx of task
      * @param tasks tasklist
      * @param delete if delete task
@@ -96,7 +96,6 @@ public class Storage {
         } catch (IOException e) {
             throw new CheeseException(e.getMessage());
         }
-
         boolean deleted = original.delete();
         boolean renamed = tmp.renameTo(original);
     }
