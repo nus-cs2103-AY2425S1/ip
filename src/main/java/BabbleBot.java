@@ -33,7 +33,12 @@ public class BabbleBot {
                     System.out.println(separator);
                 } else if (userInpSplit[0].equals("unmark")) {
                     //unmark code
-                    break;
+                    int index = Integer.valueOf(userInpSplit[1]) - 1;
+                    storedTasks[index].maskAsUndone();
+                    System.out.println(separator);
+                    System.out.println("OK, I've marked this task as not done yet: ");
+                    System.out.println("   " + "[" + storedTasks[index].getStatusIcon() + "] " + storedTasks[index].description);
+                    System.out.println(separator);
                 }
             }
             else {
