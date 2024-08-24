@@ -3,6 +3,8 @@ package zaibot;
 import zaibot.task.Task;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * This class is responsible for the
@@ -11,6 +13,14 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
+    public TaskList() {
+
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks.addAll(tasks);
+    }
+
     /**
      * Retrieves the internal task list
      *
@@ -18,6 +28,20 @@ public class TaskList {
      */
     public ArrayList<Task> retrieveTasks() {
         return tasks;
+    }
+
+
+    /**
+     * Retrieves the list of tasks, filtered by input
+     *
+     * @param input Any input
+     *
+     * @return A filtered task list
+     */
+    public TaskList filterTasks(String input) {
+        return new TaskList(this.tasks.stream()
+                .filter(task -> task.containsInput(input))
+                .collect(Collectors.toCollection(ArrayList::new)));
     }
 
     /**
@@ -58,7 +82,6 @@ public class TaskList {
      */
     public Task removeTask(int number) {
         return tasks.remove(number - 1);
-
     }
 
     /**

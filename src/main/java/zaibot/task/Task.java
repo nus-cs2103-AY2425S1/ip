@@ -35,6 +35,15 @@ public class Task {
     }
 
     /**
+     * Checks if the name contains the input
+     * @param input Any string
+     * @return true if it contains the input, false otherwise.
+     */
+    public boolean containsInput(String input) {
+        return this.name.contains(input);
+    }
+
+    /**
      * Returns the string representation of the task when saved.
      *
      * @return a string in the format TYPE | COMPLETION \ NAME | ....
