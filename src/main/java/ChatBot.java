@@ -34,6 +34,9 @@ public class ChatBot {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Save tasks to file. Creates tasks.ser file if not present.
+     */
     private void saveTasksToFile() {
         FileOutputStream fileOut = null;
         ObjectOutputStream out = null;
@@ -56,6 +59,10 @@ public class ChatBot {
             }
         }
     }
+
+    /**
+     * Loads tasks from saved file, if it exists.
+     */
     private void loadTasksFromFile() {
         FileInputStream fileIn = null;
         ObjectInputStream in = null;
