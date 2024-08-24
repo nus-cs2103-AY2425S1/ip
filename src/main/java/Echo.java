@@ -1,6 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
 
 public class Echo {
     private Tasks tasks;
@@ -35,24 +37,24 @@ public class Echo {
 
         // Handles command
         switch (command) {
-            case MARK:
-                return handleMark(arg);
-            case UNMARK:
-                return handleUnmark(arg);
-            case TODO:
-                return handleTodo(arg, s);
-            case DEADLINE:
-                return handleDeadline(arg, s);
-            case EVENT:
-                return handleEvent(arg, s);
-            case DELETE:
-                return handleDelete(arg);
-            case LIST:
-                return handleList();
-            case BYE:
-                return handleBye();
-            case UNKNOWN:
-                return handleUnknown();
+        case MARK:
+            return handleMark(arg);
+        case UNMARK:
+            return handleUnmark(arg);
+        case TODO:
+            return handleTodo(arg, s);
+        case DEADLINE:
+            return handleDeadline(arg, s);
+        case EVENT:
+            return handleEvent(arg, s);
+        case DELETE:
+            return handleDelete(arg);
+        case LIST:
+            return handleList();
+        case BYE:
+            return handleBye();
+        case UNKNOWN:
+            return handleUnknown();
         }
         return true;
     }
@@ -123,6 +125,7 @@ public class Echo {
             task = s.nextLine();
         }
         tasks.addTask(task.trim(), TaskType.TODO, "");
+        tasks.appendToFile();
         printSuccessMsg();
         return true;
     }
@@ -133,7 +136,7 @@ public class Echo {
             System.out.println("Enter task description: ");
             args[0] = s.nextLine();
         }
-        args[0] = args[0].trim() + " ";
+        args[0] = args[0].trim();
 
         String deadline = "";
         if (args.length < 2) { // Only task desription provided
@@ -146,6 +149,7 @@ public class Echo {
         }
 
         tasks.addTask(args[0], TaskType.DEADLINE, deadline);
+        tasks.appendToFile();
         printSuccessMsg();
         return true;
     }
@@ -164,7 +168,7 @@ public class Echo {
             System.out.println("Enter task description: ");
             args[0] = s.nextLine();
         }
-        args[0] = args[0].trim() + " ";
+        args[0] = args[0].trim();
 
         if (args.length < 2) { // No start date provided
             while (startDate.isEmpty()) {
@@ -187,6 +191,7 @@ public class Echo {
         }
 
         tasks.addTask(args[0], TaskType.EVENT, startDate + "->" + endDate);
+        tasks.appendToFile();
         printSuccessMsg();
         return true;
     }
@@ -212,7 +217,8 @@ public class Echo {
         System.out.println(
                 "____________________________________________________________\n" +
                 "Noted. I've removed this task:");
-        tasks.deleteAndPrintTask(index);
+        tasks.printTask(index);
+        tasks.deleteTask(index);
         System.out.print(
                 "____________________________________________________________\n");
         return true;
@@ -257,6 +263,72 @@ public class Echo {
 
     public static void main(String[] args) {
         Echo e = new Echo();
+
+        File directory  = new File("src/main/data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File savedTasks = new File(directory + File.separator + "savedTasks.txt");
+        if (!savedTasks.exists()) {
+            try {
+                savedTasks.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("Cannot create new 'savedTasks.txt' file.");
+                ex.printStackTrace();
+                return;
+            }
+        }
+
+        Scanner fileScanner;
+        try {
+            fileScanner = new Scanner(savedTasks);
+        } catch (FileNotFoundException ex) {
+            System.out.println("'savedTasks.txt' file not found.");
+            return;
+        }
+
+        String nextLine;
+        String[] splitLines;
+        if(fileScanner.hasNext()) {
+            nextLine = fileScanner.nextLine();
+            splitLines = nextLine.split("\\|");
+            switch(splitLines[0].trim()) {
+                case "T":
+                    e.tasks.addTask(splitLines[2].trim(), TaskType.TODO, "");
+                    break;
+                case "D":
+                    e.tasks.addTask(splitLines[2].trim(), TaskType.DEADLINE, splitLines[3].trim());
+                    break;
+                case "E":
+                    e.tasks.addTask(splitLines[2].trim(), TaskType.EVENT, splitLines[3].trim());
+                    break;
+            }
+            e.tasks.writeToFile();
+            if (Integer.valueOf(splitLines[1].trim()) == 1) {
+                e.tasks.markTask(e.tasks.getNumTasks());
+            }
+        }
+        while (fileScanner.hasNext()) {
+            nextLine = fileScanner.nextLine();
+            splitLines = nextLine.split("\\|");
+            switch(splitLines[0].trim()) {
+            case "T":
+                e.tasks.addTask(splitLines[2].trim(), TaskType.TODO, "");
+                break;
+            case "D":
+                e.tasks.addTask(splitLines[2].trim(), TaskType.DEADLINE, splitLines[3].trim());
+                break;
+            case "E":
+                e.tasks.addTask(splitLines[2].trim(), TaskType.EVENT, splitLines[3].trim());
+                break;
+            }
+            e.tasks.appendToFile();
+            if (Integer.valueOf(splitLines[1].trim()) == 1) {
+                e.tasks.markTask(e.tasks.getNumTasks());
+            }
+        }
+
         // Creates a scanner object
         Scanner scanner = new Scanner(System.in);
 
