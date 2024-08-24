@@ -30,19 +30,21 @@ public class Denim {
         sc.close();
     }
 
-    static void displayGreetingMessage() {
+
+
+    private static void displayGreetingMessage() {
         String greetingMessage = String.format("%s%n Hello! I'm %s!%n What can I do for you? %n%s%n",
                 horizontalLine, chatBotName, horizontalLine);
         System.out.println(greetingMessage);
     }
 
-    static void displayExitMessage() {
+    private static void displayExitMessage() {
         String byeMessage = String.format("%s%n %s%n%s", horizontalLine, "Bye. Hope to see you again soon!",
                 horizontalLine);
         System.out.println(byeMessage);
     }
 
-    static Command parseCommand(String input) throws DenimException {
+    private static Command parseCommand(String input) throws DenimException {
         try {
             return Command.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -50,7 +52,7 @@ public class Denim {
         }
     }
 
-    static void processInput(String input) {
+    private static void processInput(String input) {
         String[] inputComponents = input.split(" ", 2);
         String command = inputComponents[0];
         String argument = inputComponents.length > 1 ? inputComponents[1] : "";
@@ -90,7 +92,7 @@ public class Denim {
         }
     }
 
-    static void handleList() {
+    private static void handleList() {
         System.out.println(horizontalLine);
         for (int i = 0; i < taskList.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, taskList.get(i));
@@ -98,13 +100,13 @@ public class Denim {
         System.out.println(horizontalLine);
     }
 
-    static void handleTaskAddition(Task task) {
+    private static void handleTaskAddition(Task task) {
         taskList.add(task);
         System.out.printf("%s%nGot it. I've added this task:%n   %s%nNow you have %d tasks in the list.%n%s%n",
                 horizontalLine, task, taskList.size(), horizontalLine);
     }
 
-    static void handleMark(String argument) throws DenimException {
+    private static void handleMark(String argument) throws DenimException {
         if (argument.isEmpty()) {
             throw new DenimException("I do not know what you are trying to mark! ಠ▃ಠ");
         }
@@ -123,7 +125,7 @@ public class Denim {
         }
     }
 
-    static void handleUnmark(String argument) throws DenimException {
+    private static void handleUnmark(String argument) throws DenimException {
         if (argument.isEmpty()) {
             throw new DenimException("I do not know what you are trying to unmark! (◡︿◡✿)");
         }
@@ -142,7 +144,7 @@ public class Denim {
         }
     }
 
-    static void handleDelete(String argument) throws DenimException {
+    private static void handleDelete(String argument) throws DenimException {
         if (argument.isEmpty()) {
             throw new DenimException("I do not know what you are trying to delete! >.<");
         }
@@ -167,7 +169,7 @@ public class Denim {
         }
     }
 
-    static void handleTodo(String argument) throws DenimException {
+    private static void handleTodo(String argument) throws DenimException {
         if (argument.isEmpty()) {
             throw new DenimException("The description of a todo cannot be empty! >.<");
         }
@@ -175,7 +177,7 @@ public class Denim {
         handleTaskAddition(toDoTask);
     }
 
-    static void handleDeadline(String argument) throws DenimException {
+    private static void handleDeadline(String argument) throws DenimException {
         String[] components = argument.split(" /by ");
 
         if (argument.isEmpty()) {
@@ -191,7 +193,7 @@ public class Denim {
         handleTaskAddition(deadlineTask);
     }
 
-    static void handleEvent(String argument) throws DenimException {
+    private static void handleEvent(String argument) throws DenimException {
         String[] components = argument.split(" /from | /to ");
 
         if (argument.isEmpty()) {
@@ -207,7 +209,7 @@ public class Denim {
         handleTaskAddition(eventTask);
     }
 
-    static void handleDefault() throws DenimException {
+    private static void handleDefault() throws DenimException {
         throw new DenimException("Invalid Command!");
     }
 }
