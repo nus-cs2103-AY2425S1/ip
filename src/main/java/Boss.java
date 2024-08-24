@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +61,6 @@ public class Boss {
 
             for (String str : lst) {
                 String[] arr = str.split("] ");
-                System.out.println(arr[0]);
                 String s = arr[arr.length-1];
                 if (arr[0].contains("X") || arr[1].contains("X")) {
                     tasks.add(new Task(s, true));
@@ -193,11 +193,11 @@ public class Boss {
 
                         case DEADLINE:
                             try {
-                                String[] string = task.split("/by");
+                                String[] string = task.split("/by ");
                                 if (string.length == 1) {
                                     throw new BossException("Please specify a deadline date!");
                                 }
-                                Task item = new Deadline(string[0], string[1]);
+                                Task item = Deadline.of(string[0], string[1]);
                                 tasks.add(item);
                                 int i = numofTasks(fileData);
                                 printabstraction(tasks, i);
