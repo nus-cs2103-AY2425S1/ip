@@ -69,13 +69,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String completedStatus = "";
-        if (!isCompleted) {
-            completedStatus += "[ ] ";
-        } else {
-            completedStatus += "[X] ";
-        }
-        return String.format(completedStatus + name);
+        return name;
     }
 
 }
