@@ -1,13 +1,15 @@
+package tasks;
+
 /**
  * Represents a deadline task with a description and a specific deadline.
- * This class extends the Task class and provides additional functionality
+ * This class extends the Task.Task class and provides additional functionality
  * for deadline tasks.
  */
 public class DeadlinesTask extends Task {
     protected String deadline;
 
     /**
-     * Constructs a DeadlinesTask with the specified description and deadline.
+     * Constructs a tasks.DeadlinesTask with the specified description and deadline.
      *
      * @param description The description of the deadline task.
      * @param deadline The deadline associated with the task.
@@ -15,6 +17,20 @@ public class DeadlinesTask extends Task {
     public DeadlinesTask(String description, String deadline) {
         super(description);
         this.deadline = deadline;
+    }
+
+    /**
+     * Returns a string representation of the event task in a format suitable for saving.
+     * The format includes the task type, completion status, description and deadline.
+     *
+     * @return A formatted string representing the event task for saving purposes.
+     */
+    @Override
+    public String toSavedFormatting() {
+        return String.format("D | %s | %s | %s",
+                this.isDone ? "X" : " ",
+                this.description,
+                this.deadline);
     }
 
     /**

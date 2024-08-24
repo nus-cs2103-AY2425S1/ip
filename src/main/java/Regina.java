@@ -1,3 +1,9 @@
+import tasks.*;
+
+import file.FileSaver;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -8,9 +14,11 @@ public class Regina {
     private final static String NAME = "Regina";
     private final static String INDENT = "    ";
     private final static String LINE = INDENT + "********************************************************************";
-    private final TaskList listOfTasks;
-    private final Marker marker;
-    private final Scanner scanner = new Scanner(System.in);
+
+    private final Marker MARKER;
+    private final Scanner SCANNER = new Scanner(System.in);
+
+    private TaskList listOfTasks;
 
     // Enum to represent task types
     public enum TaskType {
@@ -38,55 +46,62 @@ public class Regina {
      * Constructs a Regina instance containing an empty task list and initializes the marker.
      */
     public Regina() {
-        listOfTasks = new TaskList();
-        marker = new Marker(listOfTasks);
+        try {
+            listOfTasks = FileSaver.readSavedData();
+        } catch (FileNotFoundException e) {
+            System.out.println("Saved data file is missing....");
+        } catch (ReginaException e) {
+            System.out.println("Saved data file is corrupted.....");
+        }
+        MARKER = new Marker(listOfTasks);
     }
 
     /**
      * Greets the user and provides instructions on how to interact with the chatbot.
      */
     public void greet() {
-        System.out.printf(LINE + "\n" + INDENT + "Hey there! I'm %s \n" +
-                INDENT + "I am a chatbot designed to help you track your activities.\n" +
-                INDENT + "You can add tasks using the following formats:\n" +
-                INDENT + "1. To add a To-Do task: %s <task_description>\n" +
-                INDENT + "   Example: %s Finish homework\n" +
-                INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n" +
-                INDENT + "   Example: %s Submit report /by 2023-12-01\n" +
-                INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n" +
-                INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n" +
-                INDENT + "You can also:\n" +
-                INDENT + "1. Mark a task as done: mark <task_number>\n" +
-                INDENT + "   Example: mark 1\n" +
-                INDENT + "2. Unmark a task: unmark <task_number>\n" +
-                INDENT + "   Example: unmark 1\n" +
-                INDENT + "3. Delete a task: delete <task_number>\n" +
-                INDENT + "   Example: delete 1\n" +
-                INDENT + "4. List tasks: type 'list' to see all your tasks\n" +
-                INDENT + "5. For help: type 'help'\n" +
-                INDENT + "What can I do for you?\n" + LINE + "\n", NAME, TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
+        System.out.printf(LINE + "\n" + INDENT + "Hey there! I'm %s \n"
+                + INDENT + "I am a chatbot designed to help you track your activities.\n"
+                + INDENT + "You can add tasks using the following formats:\n"
+                + INDENT + "1. To add a To-Do task: %s <task_description>\n"
+                + INDENT + "   Example: %s Finish homework\n"
+                + INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n"
+                + INDENT + "   Example: %s Submit report /by 2023-12-01\n"
+                + INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n"
+                + INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n"
+                + INDENT + "You can also:\n"
+                + INDENT + "1. Mark a task as done: mark <task_number>\n"
+                + INDENT + "   Example: mark 1\n"
+                + INDENT + "2. Unmark a task: unmark <task_number>\n"
+                + INDENT + "   Example: unmark 1\n"
+                + INDENT + "3. Delete a task: delete <task_number>\n"
+                + INDENT + "   Example: delete 1\n"
+                + INDENT + "4. List tasks: type 'list' to see all your tasks\n"
+                + INDENT + "5. For help: type 'help'\n"
+                + INDENT + "What can I do for you?\n" + LINE
+                + "\n", NAME, TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
 
     /**
      * Provides help details about the commands the user can use.
      */
     public void help() {
-        System.out.printf(LINE + "\n" + INDENT + "Here are the commands you can use: \n" +
-                INDENT + "1. To add a To-Do task: %s <task_description>\n" +
-                INDENT + "   Example: %s Finish homework\n" +
-                INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n" +
-                INDENT + "   Example: %s Submit report /by 2023-12-01\n" +
-                INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n" +
-                INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n" +
-                INDENT + "4. To mark a task as done: mark <task_number>\n" +
-                INDENT + "   Example: mark 1\n" +
-                INDENT + "5. To unmark a task: unmark <task_number>\n" +
-                INDENT + "   Example: unmark 1\n" +
-                INDENT + "6. To delete a task: delete <task_number>\n" +
-                INDENT + "   Example: delete 1\n" +
-                INDENT + "7. To view your tasks: list\n" +
-                INDENT + "8. For help: help\n" +
-                LINE + "\n", TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
+        System.out.printf(LINE + "\n" + INDENT + "Here are the commands you can use: \n"
+                + INDENT + "1. To add a To-Do task: %s <task_description>\n"
+                + INDENT + "   Example: %s Finish homework\n"
+                + INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n"
+                + INDENT + "   Example: %s Submit report /by 2023-12-01\n"
+                + INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n"
+                + INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n"
+                + INDENT + "4. To mark a task as done: mark <task_number>\n"
+                + INDENT + "   Example: mark 1\n"
+                + INDENT + "5. To unmark a task: unmark <task_number>\n"
+                + INDENT + "   Example: unmark 1\n"
+                + INDENT + "6. To delete a task: delete <task_number>\n"
+                + INDENT + "   Example: delete 1\n"
+                + INDENT + "7. To view your tasks: list\n"
+                + INDENT + "8. For help: help\n"
+                + LINE + "\n", TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
 
     /**
@@ -95,7 +110,7 @@ public class Regina {
      * @return The input string entered by the user.
      */
     public String readInput() {
-        return this.scanner.nextLine();
+        return this.SCANNER.nextLine();
     }
 
     /**
@@ -144,46 +159,47 @@ public class Regina {
         }
         Task task = null;
         switch (taskType) {
-            case "todo":
-                String todoDescription = input.substring(5).trim();
-                task = new ToDosTask(todoDescription);
-                break;
-            case "deadline":
-                String[] deadlineParts = input.substring(9).trim().split(" /by ");
-                // check if deadline was added for this task
-                if (deadlineParts.length < 2) {
-                    throw new ReginaException("So....when's the deadline for this task?");
-                }
-                String deadlineDescription = deadlineParts[0];
-                String deadline = deadlineParts[1];
-                task = new DeadlinesTask(deadlineDescription, deadline);
-                break;
-            case "event":
-                String[] eventParts = input.substring(6).trim().split(" /");
-                int length = eventParts.length;
-                // check if there is the expected number of sub-parts
-                if (length != 3) {
-                    throw new ReginaException("You need to add BOTH the start-time AND the end-time!\n" +
-                            INDENT + "Type 'help' for reference.");
-                }
-                // if correct number of sub-parts then check if format is correct
-                if (!(eventParts[1].contains("from") && eventParts[2].contains("to"))) {
-                    throw new ReginaException("OI! Use the correct format lah!\n" +
-                            INDENT +"Type 'help' for reference.");
-                }
-                String eventDescription = eventParts[0];
-                if (!eventParts[1].contains(" ")) {
-                    throw new ReginaException("NEITHER the start-time OR end-time can be left blank!\n" +
-                            INDENT + "Type 'help' for reference.");
-                }
-                String startTime = eventParts[1].substring(5).trim(); // take the substring after the word "from"
-                String endTime = eventParts[2].substring(3).trim(); // take the substring after the word "to"
-                task = new EventsTask(eventDescription, startTime, endTime);
-                break;
-            default:
-                throw new ReginaException("Unknown task type. Use: todo, deadline, or event.");
+        case "todo":
+            String todoDescription = input.substring(5).trim();
+            task = new ToDosTask(todoDescription);
+            break;
+        case "deadline":
+            String[] deadlineParts = input.substring(9).trim().split(" /by ");
+            // check if deadline was added for this task
+            if (deadlineParts.length < 2) {
+                throw new ReginaException("So....when's the deadline for this task?");
+            }
+            String deadlineDescription = deadlineParts[0];
+            String deadline = deadlineParts[1];
+            task = new DeadlinesTask(deadlineDescription, deadline);
+            break;
+        case "event":
+            String[] eventParts = input.substring(6).trim().split(" /");
+            int length = eventParts.length;
+            // check if there is the expected number of sub-parts
+            if (length != 3) {
+                throw new ReginaException("You need to add BOTH the start-time AND the end-time!\n"
+                        + INDENT + "Type 'help' for reference.");
+            }
+            // if correct number of sub-parts then check if format is correct
+            if (!(eventParts[1].contains("from") && eventParts[2].contains("to"))) {
+                throw new ReginaException("OI! Use the correct format lah!\n"
+                        + INDENT + "Type 'help' for reference.");
+            }
+            String eventDescription = eventParts[0];
+            if (!eventParts[1].contains(" ")) {
+                throw new ReginaException("NEITHER the start-time OR end-time can be left blank!\n"
+                        + INDENT + "Type 'help' for reference.");
+            }
+            String startTime = eventParts[1].substring(5).trim(); // take the substring after the word "from"
+            String endTime = eventParts[2].substring(3).trim(); // take the substring after the word "to"
+            task = new EventsTask(eventDescription, startTime, endTime);
+            break;
+        default:
+            throw new ReginaException("Unknown task type. Use: todo, deadline, or event.");
         }
         listOfTasks.add(task);
+        saveFile();
         int noOfTasks = listOfTasks.size();
         System.out.println(LINE + "\n" + INDENT + "Got it. I've added this task: \n  "
                 + INDENT
@@ -218,6 +234,7 @@ public class Regina {
         }
         Task task = listOfTasks.get(index);
         listOfTasks.remove(index);
+        saveFile();
         taskCount = listOfTasks.size(); // update the number of tasks
         System.out.printf("%s\n%sWah shiok!\n%sCan forget about %s liao!\n%sList now has %d task%s!\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), INDENT, taskCount, taskCount > 1 ? "s" : "", LINE);
@@ -251,8 +268,9 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public void mark(int index) throws ReginaException {
-        this.marker.mark(index);
+        this.MARKER.mark(index);
         Task task = this.listOfTasks.get(index);
+        saveFile();
         System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
@@ -264,10 +282,24 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public void unmark(int index) throws ReginaException {
-        this.marker.unmark(index);
+        this.MARKER.unmark(index);
         Task task = this.listOfTasks.get(index);
+        saveFile();
         System.out.printf("%s\n%sHais! Need to do this task again!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
+    }
+
+    /**
+     * Saves the current list of tasks to a file.
+     * This method attempts to persist the task data by calling the FileSaver's saveData method.
+     * If an IOException occurs during this process, an error message will be displayed to inform the user.
+     */
+    public void saveFile() {
+        try {
+            FileSaver.saveData(listOfTasks.toString());
+        } catch (IOException e) {
+            System.out.println("******Error in syncing data******");
+        }
     }
 
     /**
@@ -276,7 +308,7 @@ public class Regina {
     public void exit() {
         System.out.println(LINE + "\n" + INDENT +
                 "Bye. Hope to see you again soon!\n" + LINE);
-        this.scanner.close();
+        this.SCANNER.close();
     }
 
     public static void main(String[] args) {

@@ -1,6 +1,8 @@
+package tasks;
+
 /**
  * Represents an event task with a description, start time, and end time.
- * This class extends the Task class and provides specific functionality
+ * This class extends the Task.Task class and provides specific functionality
  * for event tasks.
  */
 public class EventsTask extends Task {
@@ -8,7 +10,7 @@ public class EventsTask extends Task {
     protected String endTime;
 
     /**
-     * Constructs an EventsTask with the specified description, start time, and end time.
+     * Constructs an tasks.EventsTask with the specified description, start time, and end time.
      *
      * @param description The description of the event task.
      * @param startTime The starting time of the event.
@@ -18,6 +20,21 @@ public class EventsTask extends Task {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    /**
+     * Returns a string representation of the event task in a format suitable for saving.
+     * The format includes the task type, completion status, description, start time, and end time.
+     *
+     * @return A formatted string representing the event task for saving purposes.
+     */
+    @Override
+    public String toSavedFormatting() {
+        return String.format("E | %s | %s | %s | %s",
+                this.isDone ? "X" : " ",
+                this.description,
+                this.startTime,
+                this.endTime);
     }
 
     /**
