@@ -2,16 +2,12 @@ import Task.Task;
 import Task.TaskManager;
 
 import java.io.PrintStream;
-import java.util.Scanner;
 import java.util.List;
 
 public class AVA {
 
-    //TODO: add verbose toggle
-
     /**
      * Current user input being processed by AVA.
-     * Note this requires there be only 1 AVA instance
      */
     private String currentInput;
 
@@ -106,36 +102,12 @@ public class AVA {
             out.println("----------------------------------------------------------------");
         }
     }
+
     /**
      * Main Driver method running AVA
      */
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        AVA ava = new AVA(); //default AVA object
-
-        // Greet the user
-        System.out.println("""
-                          Hi,  I'm AVA (Artificial Virtual Assistant).
-                       I am a virtual personal assistant created by Nikhil.
-                        I am currently an infant and can't do much 🙁 but
-                          don't worry I should soon be very capable 😉.
-                
-                ----------------------------------------------------------------
-                       I'll add what you say to a list and show it to you when
-                                          you say list,
-                          but if you want to leave you can just say bye .🙂
-                            
-                ----------------------------------------------------------------
-                """);
-        ava.tellAva(scanner.nextLine());
-        // Process user input until user says bye
-        while(ava.isRunning()){
-            ava.respond(System.out);
-            ava.tellAva(scanner.nextLine());
-        }
-        //Exit
-        System.out.println("Byee!! It was nice talking to you. Hope to see you again soon.");
+        TextUI.run();
     }
 }
 
