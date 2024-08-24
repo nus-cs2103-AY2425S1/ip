@@ -75,6 +75,17 @@ public class TaskList {
     }
 
     /**
+     * Returns tasks that have names that contain keywords
+     * @param keywords String of keyword(s) to search for
+     * @return {@code ArrayList} of tasks that match the keyword
+     */
+    public ArrayList<Task> findTasks(String keywords) {
+        ArrayList<Task> filtered = new ArrayList<>(this.tasks);
+        filtered.removeIf(x -> !x.getName().contains(keywords));
+        return filtered;
+    }
+
+    /**
      * Unmarks task as completed at specified index.
      * @param index Integer index to unmark task at
      * @return {@code Task} object that was unmarked

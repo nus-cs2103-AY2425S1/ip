@@ -39,6 +39,14 @@ public abstract class Task {
         return this.completed ? "X" : " ";
     }
 
+    /**
+     * Returns name of task.
+     * @return String representation of task name
+     */
+    public String getName() {
+        return this.taskName;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatus(), this.taskName);

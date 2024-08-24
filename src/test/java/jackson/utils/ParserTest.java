@@ -14,7 +14,11 @@ public class ParserTest {
     public void parse_validInputs_correspondingResponseReturned() {
         try {
             assertEquals(Actions.ActionType.BYE, Parser.parse("bye").getAction());
+
             assertEquals(Actions.ActionType.SECRET, Parser.parse("secret").getAction());
+
+            assertEquals(Actions.ActionType.FIND, Parser.parse("find elephant").getAction());
+            assertEquals("elephant", Parser.parse("find elephant").getMatcher().group(1));
 
             assertEquals(Actions.ActionType.UNMARK, Parser.parse("unmark 10").getAction());
             assertEquals("10", Parser.parse("unmark 10").getMatcher().group(1));
@@ -56,6 +60,12 @@ public class ParserTest {
     public void parse_invalidInputsList_exceptionThrown() {
         SyntaxException exp = assertThrows(SyntaxException.class, () -> Parser.parse("list now"));
         assertEquals("list", exp.getMessage());
+    }
+
+    @Test
+    public void parse_invalidInputsFind_exceptionThrown() {
+        SyntaxException exp = assertThrows(SyntaxException.class, () -> Parser.parse("find"));
+        assertEquals("find", exp.getMessage());
     }
 
     @Test
