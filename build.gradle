@@ -18,7 +18,6 @@ test {
 
     testLogging {
         events "passed", "skipped", "failed"
-
         showExceptions true
         exceptionFormat "full"
         showCauses true
@@ -37,6 +36,89 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
+}
+
+tasks.register('runProgram', JavaExec) {
+    group = 'application'
+    description = 'Run the program with input.txt'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('sumode.SumoDE')
+
+    def inputFile = file('text-ui-test/input.txt')
+    if (!inputFile.exists()) {
+        throw new GradleException("input.txt not found in text-ui-test directory.")
+    }
+    standardInput = inputFile.newInputStream()
+
+    def actualFile = file('text-ui-test/ACTUAL.TXT')
+
+    // Clear ACTUAL.TXT before running the program
+    if (actualFile.exists()) {
+        actualFile.delete()
+    }
+    actualFile.createNewFile()
+
+    // Redirect output to ACTUAL.TXT
+    standardOutput = new FileOutputStream(actualFile)
+    errorOutput = new FileOutputStream(actualFile)
+
+    doLast {
+        println "Program executed and output redirected to ACTUAL.TXT"
+    }
+}
+
+tasks.register('compareOutput') {
+    group = 'verification'
+    description = 'Compare the output of the program with EXPECTED.TXT'
+    dependsOn 'runProgram'
+    doLast {
+        def actualFile = file('text-ui-test/ACTUAL.TXT')
+        def expectedFile = file('text-ui-test/EXPECTED.TXT')
+
+        if (!actualFile.exists() || !expectedFile.exists()) {
+            println "One or both files do not exist: ACTUAL.TXT or EXPECTED.TXT"
+            println "Test failed."
+            return
+        }
+
+        def actualLines = actualFile.readLines()
+        def expectedLines = expectedFile.readLines()
+
+        def differencesFound = false
+
+        // Compare line by line and print differences
+        actualLines.eachWithIndex { line, index ->
+            if (index >= expectedLines.size()) {
+                println "Extra line in ACTUAL.TXT at line ${index + 1}: ${line}"
+                differencesFound = true
+            } else if (line != expectedLines[index]) {
+                println "Line ${index + 1} mismatch:"
+                println "ACTUAL.TXT   : ${line}"
+                println "EXPECTED.TXT : ${expectedLines[index]}"
+                differencesFound = true
+            }
+        }
+
+        // Handle case where expected file has extra lines
+        if (expectedLines.size() > actualLines.size()) {
+            expectedLines[actualLines.size()..-1].eachWithIndex { line, index ->
+                println "Missing line in ACTUAL.TXT at line ${actualLines.size() + index + 1}: ${line}"
+                differencesFound = true
+            }
+        }
+
+        if (differencesFound) {
+            println "Test failed."
+        } else {
+            println "Test passed successfully."
+        }
+    }
+}
+
+
+
+tasks.build {
+    dependsOn 'test', 'shadowJar', 'compareOutput'  // Ensure the build process includes testing, packaging, and output comparison
 }

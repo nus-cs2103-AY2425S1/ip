@@ -20,6 +20,17 @@ public class Storage{
         this.filePath = filePath;
         this.ui = ui;
         this.f = new File(filePath);
+
+        // Ensure parent directories exist
+        File parentDir = f.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            if (!parentDir.mkdirs()) {
+                System.out.println("ZZZ");// Attempt to create the directory
+                throw new IOException("Failed to create required directories for path: " + filePath);
+            }
+        }
+
+        // Ensure the file itself exists
         if (!f.exists()) {
             if(!f.createNewFile()) {
                 throw new IOException();
