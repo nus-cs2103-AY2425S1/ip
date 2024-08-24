@@ -4,26 +4,26 @@ import java.util.ArrayList;
 public class Hana {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
-    private static String line = "___________________________________________";
-    private static String name = "Hana";
+    private static final String LINE = "___________________________________________";
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
 
         //greet
-        System.out.println(line);
-        System.out.println(" Hello! I'm " + name);
+        System.out.println(LINE);
+		String name = "Hana";
+		System.out.println(" Hello! I'm " + name);
         System.out.println(" What can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
 
         while (true) {
             input = scanner.nextLine();
             try {
                 if (input.equalsIgnoreCase("bye")) {
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println(" Bye. Hope to see you again soon!");
-                    System.out.println(line);
+                    System.out.println(LINE);
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     listTasks();
@@ -50,13 +50,13 @@ public class Hana {
                             + "7. Delete a task: delete [task number]");
                 }
             } catch (HanaException e) {
-                System.out.println(line);
+                System.out.println(LINE);
                 System.out.println(e.getMessage());
-                System.out.println(line);
+                System.out.println(LINE);
             } catch (Exception e) {
-                System.out.println(line);
+                System.out.println(LINE);
                 System.out.println("Oops! Something went wrong. Please try again.");
-                System.out.println(line);
+                System.out.println(LINE);
             }
         }
         scanner.close();
@@ -125,11 +125,11 @@ public class Hana {
     private static void addTask(Task task) throws HanaException {
         if (tasks.size() < MAX_TASKS) {
             tasks.add(task);
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("Got it. I've added this task:");
             System.out.println("    " + task);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(line);
+            System.out.println(LINE);
         } else {
             throw new HanaException("Task list is full!");
         }
@@ -139,11 +139,11 @@ public class Hana {
         if (tasks.isEmpty()) {
             throw new HanaException("No tasks added yet.");
         } else {
-            System.out.println(line);
+            System.out.println(LINE);
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
             }
-            System.out.println(line);
+            System.out.println(LINE);
         }
     }
 
@@ -151,14 +151,14 @@ public class Hana {
         if (taskNumber > 0 && taskNumber <= tasks.size()) {
             Task task = tasks.get(taskNumber - 1);
             task.setDone(isDone);
-            System.out.println(line);
+            System.out.println(LINE);
             if (isDone) {
                 System.out.println("Nice! I've marked this task as done:");
             } else {
                 System.out.println("OK, I've marked this task as not done yet:");
             }
             System.out.println("  " + task);
-            System.out.println(line);
+            System.out.println(LINE);
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
@@ -167,11 +167,11 @@ public class Hana {
     private static void deleteTask(int taskNumber) throws HanaException {
         if (taskNumber > 0 && taskNumber <= tasks.size()) {
             Task removedTask = tasks.remove(taskNumber - 1);
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("Noted. I've removed this task:");
             System.out.println("    " + removedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(line);
+            System.out.println(LINE);
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
