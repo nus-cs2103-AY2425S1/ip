@@ -2,13 +2,13 @@
  * Event class containing name, from date and to date.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private Temporal from;
+    private Temporal to;
 
     public Event(String name, String from, String to) {
         super(name);
-        this.from = from;
-        this.to = to;
+        this.from = new Temporal(from);
+        this.to = new Temporal(to);
     }
 
     @Override
