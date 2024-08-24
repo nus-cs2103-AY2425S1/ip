@@ -11,6 +11,11 @@ public class Duck {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static final String FILE_PATH = "data/duck.txt";
 
+    enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
     enum Instruction {
         LIST,
         MARK,
@@ -22,6 +27,21 @@ public class Duck {
         BYE
     }
     public static void main(String[] args) {
+
+        try {
+            System.out.println("Initializing Duck...");
+            File f = createFileIfDoesNotExist(FILE_PATH);
+            readFromFile(f);
+            System.out.println("Quack, Duck is up!");
+            sayHi();
+            getInputTillBye();
+            System.out.println("Bye. Hope to see you again soon!");
+        } catch (DuckException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void sayHi() {
         String logo = """
                         ,---,                                  ,-.
                       .'  .' `\\                            ,--/ /|
@@ -42,17 +62,8 @@ public class Duck {
         System.out.println("Hello from\n" + logo);
 
         System.out.println("Hello! I'm Duck");
-        System.out.println("What can I do for you?\n");
-        try {
-            File f = createFileIfDoesNotExist(FILE_PATH);
-            readFromFile(f);
-            getInputTillBye();
-            System.out.println("Bye. Hope to see you again soon!");
-        } catch (DuckException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("What can I do for you, QUACK?\n");
     }
-
     // obtain user input till he inputs bye, ignoring case
     public static void getInputTillBye() {
         Scanner in = new Scanner(System.in);
@@ -177,6 +188,28 @@ public class Duck {
         return words.length == 2 && isInteger(words[1]);
     }
 
+    private static boolean hasCorrectFileFormat(String[] words, TaskType type) {
+        switch (type) {
+        case TODO:
+            return words.length == 3
+                    && hasCorrectDoneFormat(words[1])
+                    && !words[2].isEmpty();
+        case DEADLINE:
+            return words.length == 4
+                    && hasCorrectDoneFormat(words[1])
+                    && !words[2].isEmpty()
+                    && !words[3].isEmpty();
+        case EVENT:
+            return words.length == 5
+                    && hasCorrectDoneFormat(words[1])
+                    && !words[2].isEmpty()
+                    && !words[3].isEmpty()
+                    && !words[4].isEmpty();
+        default:
+            return false;
+        }
+    }
+
     public static boolean isInteger(String str) {
         try {
             Integer.parseInt(str);
@@ -238,8 +271,11 @@ public class Duck {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
+    public static boolean hasCorrectDoneFormat(String isDone) {
+        return isDone.equals("0") || isDone.equals("1");
+    }
     public static boolean getTaskDoneBoolean(String isDone) throws DuckException {
-        if (!isDone.equals("0") && !isDone.equals("1")) {
+        if (!hasCorrectDoneFormat(isDone)) {
             throw new DuckException("Invalid task status in file: " + isDone);
         }
         return isDone.equals("1");
@@ -247,33 +283,45 @@ public class Duck {
     public static void readFromFile(File f) throws DuckException {
         try {
             Scanner sc = new Scanner(f);
+            int lineNumber = 0;
             while (sc.hasNextLine()) {
+                lineNumber++;
                 String line = sc.nextLine();
                 String[] words = line.split(" \\| ");
-                Task task;
+                Task task = null;
                 switch (words[0]) {
                 case "T":
-                    task = new ToDo(
-                            getTaskDoneBoolean(words[1]),
-                            words[2]);
+                    if (hasCorrectFileFormat(words, TaskType.TODO)) {
+                        task = new ToDo(
+                                getTaskDoneBoolean(words[1]),
+                                words[2]);
+                    }
                     break;
                 case "D":
-                    task = new Deadline(
-                            getTaskDoneBoolean(words[1]),
-                            words[2],
-                            words[3]);
+                    if (hasCorrectFileFormat(words, TaskType.DEADLINE)) {
+                        task = new Deadline(
+                                getTaskDoneBoolean(words[1]),
+                                words[2],
+                                words[3]);
+                    }
                     break;
                 case "E":
-                    task = new Event(
-                            getTaskDoneBoolean(words[1]),
-                            words[2],
-                            words[3],
-                            words[4]);
+                    if (hasCorrectFileFormat(words, TaskType.EVENT)) {
+                        task = new Event(
+                                getTaskDoneBoolean(words[1]),
+                                words[2],
+                                words[3],
+                                words[4]);
+                    }
                     break;
                 default:
                     continue;
                 }
-                tasks.add(task);
+                if (task != null) {
+                    tasks.add(task);
+                } else {
+                    System.out.println("Warning: Skipping invalid line " + lineNumber + ": " + line);
+                }
             }
         } catch (FileNotFoundException e) {
             throw new DuckException("File not found: " + f.getPath());
@@ -310,7 +358,7 @@ public class Duck {
         return new File(filePath.substring(0, filePath.lastIndexOf('/')));
     }
 
-    // make appending efficient by writing to file only once
+    // make adding new task efficient by appending to file
     public static void appendTaskToFile(Task task) throws DuckException {
         try (FileWriter fw = new FileWriter(FILE_PATH, true)) {
             fw.write(task.toFileFormat() + System.lineSeparator());
@@ -329,6 +377,8 @@ public class Duck {
             throw new DuckException("Error updating file:\n" + e.getMessage());
         }
     }
+
+
 
 
 
