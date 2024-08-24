@@ -1,39 +1,111 @@
-import java.util.ArrayList;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+/**
+ * Represents the chatbot, responsible for parsing input and generating output.
+ */
 public class ChatBot {
     /**
-     * The list of tasks added.
+     * The tasks handled by the application.
      */
-    ArrayList<Task> tasks;
+    private Tasks tasks;
 
+    /**
+     * Constructor for a chatbot.
+     */
     public ChatBot() {
-        this.tasks = new ArrayList<>();
+        this.tasks = new Tasks();
     }
 
     /**
-     * Get the greeting message.
-     * @return the greeting message
+     * Formats a message according to a standardized format.
+     *
+     * @param msg The message to format.
+     * @return The formatted message.
+     */
+    private String formatMessage(String msg) {
+        return "___________________________________________________________\n"
+                + msg
+                + "\n___________________________________________________________\n";
+    }
+
+    /**
+     * Parses an input message, performs the command, and returns the response message.
+     *
+     * @param input The input message.
+     * @return The response message.
+     */
+    public String input(String input) {
+        if (Objects.equals(input, "")) {
+            return "";
+        }
+
+        String response;
+        String command = input.split(" ")[0];
+        try {
+            switch (command) {
+            case "bye":
+                response = this.exit();
+                break;
+            case "list":
+                response = this.list();
+                break;
+            case "mark":
+                response = this.mark(input);
+                break;
+            case "unmark":
+                response = this.unmark(input);
+                break;
+            case "todo":
+                response = this.todo(input);
+                break;
+            case "deadline": {
+                response = this.deadline(input);
+                break;
+            }
+            case "event": {
+                response = this.event(input);
+                break;
+            }
+            case "delete": {
+                response = this.delete(input);
+                break;
+            }
+            default:
+                throw new InvalidInputException("I'm sorry, I did not understand your message.");
+            }
+        } catch (InvalidInputException e) {
+            response = e.toString();
+        }
+
+        return this.formatMessage(response);
+    }
+
+    /**
+     * Returns the greeting message.
+     * @return The greeting message.
      */
     public String greet() {
-        return " Hello! I'm Bob\n"
-                + " What can I do for you?";
+        return this.formatMessage(" Hello! I'm Bob\n"
+                + " What can I do for you?");
     }
 
     /**
-     * Get the exit message.
-     * @return the exit message.
+     * Returns the exit message.
+     * @return The exit message.
      */
     public String exit() {
         return " Bye. Hope to see you again soon!";
     }
 
     /**
-     * Add a task to the list and get the response message.
-     * @param task the task to add
-     * @return the response message
+     * Returns the response message for a new task command.
+     *
+     * @param task The added task.
+     * @return The response message.
      */
     private String add(Task task) {
-        this.tasks.add(task);
         return String.format("""
                  Got it. I've added this task:
                     %s
@@ -42,60 +114,75 @@ public class ChatBot {
     }
 
     /**
-     * Add a new to-do task to the list and get the response message.
-     * @param name the name of the to-do task
-     * @return the response message
+     * Parses a to-do command, adds a new to-do task to the list and returns the response message.
+     * @param input the to-do command.
+     * @return The response message.
      */
-    public String todo(String name) {
-        ToDo task = new ToDo(name);
+    public String todo(String input) {
+        String name = input.substring(5);
+
+        Task task = this.tasks.todo(name);
+
         return add(task);
     }
 
     /**
-     * Add a new deadline task to the list and get the response message.
-     * @param name the name of the deadline task
-     * @param deadline the deadline of the task
-     * @return the response message
+     * Parses a deadline command, adds a new deadline task to the list and returns the response message.
+     * @param input The deadline command.
+     * @return The response message.
+     * @throws InvalidInputException If the deadline was not specified.
      */
-    public String deadline(String name, String deadline) {
-        Deadline task = new Deadline(name, deadline);
-        return add(task);
-    }
-
-    /**
-     * Add a new event task to the list and get the response message.
-     * @param name the name of the event task
-     * @param start the start of the event
-     * @param end the end of the event
-     * @return the response message
-     */
-    public String event(String name, String start, String end) {
-        Event task = new Event(name, start, end);
-        return add(task);
-    }
-
-    /**
-     * Get a task from the list by item number.
-     * @param itemNum the item number of the task
-     * @return the task to get
-     */
-    private Task get(int itemNum) throws InvalidInputException {
-        if (itemNum <= 0 || itemNum > this.tasks.size()) {
-            throw new InvalidInputException("I'm sorry, I could not find task number " + itemNum + ".");
+    public String deadline(String input) throws InvalidInputException {
+        Matcher matcher = Pattern.compile("^deadline (.*) /by (.*)$").matcher(input);
+        if (!matcher.find()) {
+            throw new InvalidInputException("Please specify the deadline using \"/by\".");
         }
 
-        return this.tasks.get(itemNum - 1);
+        String name = matcher.group(1);
+        String deadline = matcher.group(2);
+
+        Task task = this.tasks.deadline(name, deadline);
+
+        return add(task);
     }
 
     /**
-     * Remove a task from the list and get the response message.
-     * @param itemNum the item number of the task
-     * @return the response message
+     * Parses an event command, adds a new event task to the list and returns the response message.
+     * @param input The event command.
+     * @return The response message.
+     * @throws InvalidInputException If the start and/or end of the event was not specified.
      */
-    public String delete(int itemNum) throws InvalidInputException {
-        Task task = get(itemNum);
+    public String event(String input) throws InvalidInputException {
+        Matcher matcher = Pattern.compile("^event (.*) /from (.*) /to (.*)$").matcher(input);
+        if (!matcher.find()) {
+            throw new InvalidInputException("Please specify the timing using \"/from\" and \"/to\".");
+        }
 
-        this.tasks.remove(itemNum - 1);
+        String name = matcher.group(1);
+        String start = matcher.group(2);
+        String end = matcher.group(3);
+
+        Task task = this.tasks.event(name, start, end);
+
+        return add(task);
+    }
+
+    /**
+     * Parses a delete command, removes a task from the list and returns the response message.
+     * @param input The delete command.
+     * @return The response message.
+     * @throws InvalidInputException If no item number was specified or the task with the specified item number does not exist.
+     */
+    public String delete(String input) throws InvalidInputException {
+        Matcher matcher = Pattern.compile("^delete (\\d*)$").matcher(input);
+        if (matcher.find()) {
+            throw new InvalidInputException("Please specify which task to delete.");
+        }
+
+        int itemNum = Integer.parseInt(matcher.group(1));
+
+        Task task = this.tasks.delete(itemNum);
+
         return String.format("""
                 Noted. I've removed this task:
                     %s
@@ -104,34 +191,61 @@ public class ChatBot {
     }
 
     /**
-     * Mark a task as completed or not completed and get the response message.
-     * @param isCompleted whether the task is completed or not completed.
-     * @param itemNum the item number of the task
-     * @return the response message
+     * Parses a mark command, marks the task, and returns the response message.
+     * @param input The mark command.
+     * @return The response message.
+     * @throws InvalidInputException If no item number was specified or the task with the specified item number does not exist.
      */
-    public String mark(boolean isCompleted, int itemNum) throws InvalidInputException {
-        Task task = get(itemNum);
+    public String mark(String input) throws InvalidInputException {
+        Matcher matcher = Pattern.compile("^mark (\\d*)$").matcher(input);
 
-        task.mark(isCompleted);
-        if (isCompleted) {
-            return " Nice! I've marked this task as done:\n   " + task;
-        } else {
-            return " OK, I've marked this task as not done yet:\n   " + task;
+        if (!matcher.find()) {
+            throw new InvalidInputException("Please specify which task to mark.");
         }
+
+        int itemNum = Integer.parseInt(matcher.group(1));
+
+        Task task = this.tasks.mark(itemNum, true);
+
+        return " Nice! I've marked this task as done:\n   " + task;
     }
 
     /**
-     * Get the list of items added.
-     * @return the list message
+     * Parses an unmark command, unmarks the task, and returns the response message.
+     * @param input The unmark command.
+     * @return The response message.
+     * @throws InvalidInputException If no item number was specified or the task with the specified item number does not exist.
+     */
+    public String unmark(String input) throws InvalidInputException {
+        Matcher matcher = Pattern.compile("^unmark (\\d*)$").matcher(input);
+
+        if (!matcher.find()) {
+            throw new InvalidInputException("Please specify which task to unmark.");
+        }
+
+        int itemNum = Integer.parseInt(matcher.group(1));
+
+        Task task = this.tasks.mark(itemNum, false);
+
+        return " OK, I've marked this task as not done yet:\n   " + task;
+    }
+
+    /**
+     * Returns the list of tasks.
+     * @return The list of tasks.
      */
     public String list() {
         StringBuilder listMsg = new StringBuilder(" Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            listMsg
-                    .append("\n ")
-                    .append(i + 1)
-                    .append(". ")
-                    .append(tasks.get(i));
+        for (int i = 1; i <= tasks.size(); i++) {
+            try {
+                listMsg
+                        .append("\n ")
+                        .append(i)
+                        .append(". ")
+                        .append(tasks.get(i));
+            } catch (Exception e) {
+                return e.toString();
+            }
         }
         return listMsg.toString();
     }
