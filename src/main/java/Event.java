@@ -8,6 +8,20 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    /**
+     * @return task's startDate
+     */
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * @return task's endDate
+     */
+    public String getEndDate() {
+        return this.endDate;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " " + String.format("(from: %s to: %s)", startDate, endDate);
