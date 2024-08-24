@@ -62,7 +62,7 @@ public class Ontos {
                 }
 
                 try {
-                    tasks.get(index).completeTask();
+                    tasks.get(index).uncompleteTask();
                 } catch (Exception e) {
                     System.out.println(line + "I'm sorry, but this task doesn't exist.\n" + line);
                     continue;
