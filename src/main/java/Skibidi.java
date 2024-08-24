@@ -4,6 +4,7 @@ import common.Ui;
 import common.SkibidiException;
 import storage.TaskStorage;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Skibidi {
@@ -14,7 +15,12 @@ public class Skibidi {
     public Skibidi() {
         ui = new Ui();
         parser = new Parser();
-        storage = new TaskStorage();
+        try {
+            storage = new TaskStorage("data/tasks.txt");
+        } catch (IOException e) {
+            ui.printMessage("Error loading tasks: " + e.getMessage());
+            storage = null;
+        }
     }
 
     public void run() {

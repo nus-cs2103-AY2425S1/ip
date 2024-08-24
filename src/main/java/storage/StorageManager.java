@@ -48,6 +48,12 @@ public class StorageManager {
         return tasks;
     }
 
+    public void createFile() throws IOException {
+        File file = new File(filePath);
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+    }
+
     private Task parseTask(String line) {
         // Logic to parse the task from file format
         // Example: "T | 1 | read book" => Create a Todo task

@@ -15,7 +15,11 @@ public class TaskStorage {
     public TaskStorage(String filePath) throws IOException {
         tasks = new ArrayList<>(MAX_TASKS);
         storageManager = new StorageManager(filePath);
-        tasks = storageManager.loadTasks(); // Load tasks from the file
+        try {
+            tasks = storageManager.loadTasks();
+        } catch (IOException e) {
+            storageManager.createFile();
+        }
     }
 
     public void addTask(Task task) throws SkibidiException, IOException {
