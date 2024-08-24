@@ -9,14 +9,14 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
+        return ((isDone ? "[X]" : "[ ]") + " ");
     }
 
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
-    public String getTaskString() {
-        return this.description;
+    public String toString() {
+        return this.getStatusIcon() + this.description;
     }
 }

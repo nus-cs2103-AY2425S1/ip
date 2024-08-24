@@ -23,8 +23,7 @@ public class Gallium {
                 System.out.println("    " + listMessage);
                 for (int i = 1; i < Task.count; i++) {
                     Task task = taskList[i - 1];
-                    String box = task.getStatusIcon();
-                    System.out.println("\n    " + i + ". " + box + " " + task.getTaskString());
+                    System.out.println("\n    " + i + ". " + task.toString());
                 }
                 System.out.println("    " + lines + "\n    ");
                 Message = userInput.nextLine();
@@ -36,17 +35,35 @@ public class Gallium {
                     int index = Integer.parseInt(matcher.group(1));
                     Task task = taskList[index - 1];
                     task.setIsDone(isMark);
-                    String box = task.getStatusIcon();
                     System.out.println("    " + lines);
                     System.out.println("    " + (isMark ? "Nice! I've marked this task as done: "
-                            : "OK, I've marked this task as not done yet: ") + "\n" + "    " + box + " "
-                            + task.getTaskString());
+                            : "OK, I've marked this task as not done yet: ") + "\n" + "    "
+                            + task.toString());
                     System.out.println("    " + lines + "\n    ");
                     Message = userInput.nextLine();
                 }
             } else {
-                System.out.println("    " + lines + "\n    " + "added: " + Message + "\n    " + lines + "\n");
-                taskList[Task.count - 1] = new Task(Message);
+                if (Message.startsWith("todo ")) {
+                    Todo todo = new Todo(Message);
+                    System.out.println("    " + lines + "\n    " + "Got it. I've added this task: \n" + "    "
+                            + todo.toString()
+                            + "\n    Now you have " + Task.count + " tasks in the list.\n" + "    " + lines + "\n");
+                    taskList[Task.count - 1] = todo;
+                } else if (Message.startsWith("deadline ")) {
+                    Deadline deadline = new Deadline(Message);
+                    System.out
+                            .println("    " + lines + "\n    " + "Got it. I've added this task: \n"
+                                    + "    " + deadline.toString()
+                                    + "\n    Now you have " + Task.count + " tasks in the list.\n" + "    " + lines
+                                    + "\n");
+                    taskList[Task.count - 1] = deadline;
+                } else if (Message.startsWith("event ")) {
+                    Event event = new Event(Message);
+                    System.out.println("    " + lines + "\n    " + "Got it. I've added this task: \n" + "    "
+                            + event.toString()
+                            + "\n    Now you have " + Task.count + " tasks in the list.\n" + "    " + lines + "\n");
+                    taskList[Task.count - 1] = event;
+                }
                 Task.count++;
                 Message = userInput.nextLine();
             }
