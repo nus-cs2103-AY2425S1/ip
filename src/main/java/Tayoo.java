@@ -81,7 +81,7 @@ public class Tayoo {
                     if (tasklist.get(taskNumber).unmark()) {
                         printText("OK, I've marked this task as not done yet:\n" + tasklist.get(taskNumber));
                     } else {
-                        printText("Hey! You haven't even done that one yet!\n" + tasklist.get(taskNumber));
+                        printText("Hey! You haven't even done that one yetq!\n" + tasklist.get(taskNumber));
                     }
                 } catch (IndexOutOfBoundsException e) {
                     if (taskNumber <= 0) {
@@ -92,19 +92,60 @@ public class Tayoo {
                         System.out.println("Hmm... my task list doesn't contain that number... try again");
                     }
                 }
+            } else if (input.startsWith("TODO ")){
+                addTask(new ToDo(command.substring(5).trim()));
+            } else if (input.startsWith("DEADLINE ")) {
+                try {
+                    int deadlineIndex = input.indexOf("/BY ");
+
+                    if (deadlineIndex < 9) {
+                        printText("Deadline format incorrect. Format: \"deadline [taskname] /by [deadline]\"." +
+                                " Try again please");
+                        continue;
+                    }
+                    if (deadlineIndex == 9) {
+                        printText("I see the deadline but no task :(");
+                        continue;
+                    }
+
+                    addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(),
+                            command.substring(deadlineIndex + 4).trim()));
+                } catch (IndexOutOfBoundsException e) {
+                    printText("You've made a fatal error! Report it to the developer or face eternal DOOM!!");
+                }
+            } else if (input.startsWith("EVENT ")) {
+                try {
+                    int startIndex = input.indexOf("/FROM ");
+                    int endIndex = input.indexOf("/TO ");
+                    String parsedStart = command.substring(startIndex + 5, endIndex - 1).trim();
+                    String parsedEnd = command.substring(endIndex + 4).trim();
+                    addTask(new Event(command.substring(6, startIndex - 1), parsedStart, parsedEnd));
+                } catch (IndexOutOfBoundsException e) {
+                    printText("Event format incorrect. Format: \"Event [taskname] /from [start] /to [end]\". " +
+                            "Try again please");
+                }
             } else {
-                addTask(command);
+                printText("I'm not sure what that means :(");
             }
         }
     }
 
-    private static void addTask(String task) {
+    private static void addTask(Task task) {
         if (tasklist.size() >= 100) {
             printText("Too many tasks! Complete some first! >:( ");
             return;
         }
-        tasklist.add(new Task(task));
-        printText("added: " + task);
+        tasklist.add(task);
+
+        String toPrint = "Got it. I've added this task: \n" + task.toString();
+
+        if (tasklist.size() > 1) {
+            toPrint += "\n Now you have " + tasklist.size() + " tasks in your list";
+        } else {
+            toPrint += "\n Now you have " + tasklist.size() + " task in your list";
+        }
+
+        printText(toPrint);
     }
 
     private static void printTaskList() {
