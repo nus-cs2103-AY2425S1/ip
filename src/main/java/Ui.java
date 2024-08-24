@@ -31,7 +31,7 @@ public class Ui {
     }
 
     public void showExitMessage() {
-        print(Ui.MOI_MOI_HEADER + "\nI'll always be here for you~ See ya, master! ^^" + "\n");
+        print("I'll always be here for you~ See ya, master! ^^" + "\n");
     }
 
     public void showMoiMoiException(MoiMoiException e) {
