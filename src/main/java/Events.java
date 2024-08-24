@@ -1,33 +1,36 @@
-public class Events extends Task {
-    private final String fromTime;
-    private final String toTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+public class Events extends Task implements TimedTask {
+    private final LocalDateTime fromTime;
+    private final LocalDateTime toTime;
 
     public Events(String description) {
         super(description);
-        String[] descriptionString = description.split("/");
+        String[] descriptionString = description.split("/from|/to");
+        checkInitialisationDetails(descriptionString);
         this.description = descriptionString[0];
-        this.fromTime = descriptionString[1];
-        this.toTime = descriptionString[2];
+        this.fromTime = getTime(descriptionString[1].trim());
+        this.toTime = getTime(descriptionString[2].trim());
         this.type = "E";
-        if (descriptionString.length > 3) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
     }
 
     public Events(String description, String fromTime, String toTime, boolean isDone) {
         super(description);
         this.type = "E";
         this.description = description;
-        this.fromTime = fromTime;
-        this.toTime = toTime;
+        this.fromTime = LocalDateTime.parse(fromTime);
+        this.toTime = LocalDateTime.parse(toTime);
         this.isDone = isDone;
     }
 
     @Override
     public String getDescription() {
+        String fromTimeString = convertTimeToString(fromTime);
+        String toTimeString = convertTimeToString(toTime);
         return this.description
-                + "(" + this.fromTime.replaceFirst("from", "from:")
-                + this.toTime.replaceFirst("to", "to:") + ")";
+                + " (from: " + fromTimeString + ", to: " + toTimeString + ")";
     }
 
     @Override
@@ -35,4 +38,18 @@ public class Events extends Task {
         return this.type + "|" + this.isDone + "|" + this.description + "|" + this.fromTime + "|" + this.toTime;
     }
 
+    // the following function was optimised using chatGPT
+    public void checkInitialisationDetails(String[] descriptionString)
+            throws DateTimeParseException {
+        if (descriptionString.length > 3) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        getTime(descriptionString[1].trim());
+        getTime(descriptionString[2].trim());
+    }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return this.fromTime;
+    }
 }

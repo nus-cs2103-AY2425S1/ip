@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FormattedPrinting {
@@ -35,7 +36,7 @@ public class FormattedPrinting {
             StringBuilder currentList = new StringBuilder();
             currentList.append("Here are the tasks in your list:\n");
             for (int i = 1; i < taskList.getSize() + 1; i++) {
-                currentList.append(Integer.toString(i)).append(".").append(printTask(taskList.getTask(i - 1)));
+                currentList.append(i).append(".").append(printTask(taskList.getTask(i - 1)));
                 if (i < taskList.getSize()) {
                     currentList.append("\n");
                 }
@@ -126,6 +127,22 @@ public class FormattedPrinting {
     public static void fileCorrupted() {
         formatPrint("The storage file has been corrupted.\n" +
                 "Use the clear_tasks command to get rid of this!");
+    }
+
+    public static void invalidDate() {
+        formatPrint("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!.");
+    }
+
+    public static void upcomingDeadlinesEvents(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            formatPrint("There are no upcoming tasks.");
+        } else {
+            StringBuilder output = new StringBuilder("The following tasks are due soon:\n");
+            for (Task task : tasks) {
+                output.append(printTask(task)).append("\n");
+            }
+            formatPrint(output.toString());
+        }
     }
 
 }

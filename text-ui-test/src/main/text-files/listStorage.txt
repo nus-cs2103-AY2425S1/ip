@@ -1,2 +1,2 @@
-D|false|return book |by Sunday
-E|false|project meeting |from Mon 2pm |to 4pm
+D|false|return book | Sunday
+E|false|project meeting | Mon 2pm | 4pm
