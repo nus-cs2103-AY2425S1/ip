@@ -199,6 +199,11 @@ public class Parser {
 
     }
 
+    /**
+     * Method to handle ToDo tasks by user
+     * @param str Input string from user
+     * @throws InvalidTaskException Handles invalid tasks
+     */
     private void handleToDo(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("todo")) {
             throw new InvalidTaskException("Whoopsie! Please enter a task");
@@ -208,6 +213,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to handle Deadline tasks by user
+     * @param str Input string from user
+     * @throws InvalidTaskException Handles invalid tasks
+     */
     private void handleDeadline(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("deadline")) {
             throw new InvalidTaskException("Whoopsie! Please enter a task");
@@ -217,6 +227,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to handle Event tasks by user
+     * @param str Input string from user
+     * @throws InvalidTaskException Handles invalid tasks
+     */
     private void handleEvent(String str) throws InvalidTaskException {
         if (str.trim().equalsIgnoreCase("event")) {
             throw new InvalidTaskException("Whoopsie! Please enter a task");
