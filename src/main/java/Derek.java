@@ -46,10 +46,37 @@ public class Derek {
                     + "What do I call you?");
             Scanner name = new Scanner(System.in);
             this.user = name.nextLine();
-            System.out.println("\n" + "Hi! " + this.user);
+            this.firstInteraction();
         } else if (response.equalsIgnoreCase("N")) {
             System.out.println(leavingMessage);
         }
 
     }
+
+    public void firstInteraction() {
+        System.out.println("\n" + "Hi! " + user + "! So, I guess as a friend I just become your little slave!\n"
+                + "What do you want me to do?\n");
+        Scanner sc = new Scanner(System.in);
+        String task = sc.nextLine();
+        if (task.equalsIgnoreCase("bye")) {
+            System.out.println(leavingMessage);
+        } else {
+            System.out.println(task + "\n");
+            echo();
+        }
+    }
+
+    public static void echo() {
+        System.out.println("anything else?");
+        Scanner sc = new Scanner(System.in);
+        String task = sc.nextLine();
+        if (task.equalsIgnoreCase("bye")) {
+            System.out.println(leavingMessage);
+        } else {
+            System.out.println( task + "\n");
+            echo();
+        }
+    }
+
+
 }
