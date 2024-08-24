@@ -30,6 +30,15 @@ public class Message {
     }
 
     /**
+     * Print the message after detecting corrupted file and skipping the line.
+     */
+    public static void printCorruptionDetected() {
+        String content = "Corrupted command detected! Skipping command.";
+        printDialogBox(content);
+    }
+
+
+    /**
      * Print the message after unmarking a task.
      * @param task The task to be unmarked.
      */
