@@ -1,6 +1,9 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-
+import java.io.File;
 
 public class Main {
 
@@ -66,8 +69,7 @@ public class Main {
             try {
                 taskNumber = Integer.parseInt(commandDetails[1]);   // commandDetails[1] could be a string
             } catch (NumberFormatException e) {
-                System.out.println("WHOOPS! Please provide an integer value task number!");
-                return;
+                throw new JanetException("WHOOPS! Please provide an integer value task number!");
             }
             if (taskNumber <= 0) {
                 // still need to handle case when taskNumber >= taskIndex + 1 (unable to access janet.getTaskIndex())
@@ -99,8 +101,36 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+
+    /**
+     * @param listOfTasks the list of tasks (ArrayList<Task>) that Janet has.
+     * @throws IOException
+     */
+    public static void saveToJanetTextFile(ArrayList<Task> listOfTasks) throws IOException {
+        // using FileWriter to write text into a text file (janet.txt).
+        FileWriter fileWriter = new FileWriter("janet.txt");
+        for (Task task : listOfTasks) {
+            // task.symbol | task.isDone | task.description | if Deadline/Event, dueDate, start-end
+            String marked = (task.isDone()) ? "1" : "0";
+            String entry = task.getSymbol() + " | " + marked + " | " + task.getDescription();
+            if (task instanceof Deadline) {
+                entry = entry + " | " + ((Deadline) task).getDueDate();
+            } else if (task instanceof Event) {
+                entry = entry + " | " + ((Event) task).getStartDate() + "-" + ((Event) task).getEndDate();
+            }
+            fileWriter.write(entry + "\n");     // write the entry into the text file and save it
+        }
+        fileWriter.close();
+    }
+
+    public static void main(String[] args) throws IOException {
         Janet janet = new Janet();
+        // janet.txt should be checked and loaded at the start of the program
+
+        // check directory that java is currently looking at
+        File currentDirectory = new File("./");
+        System.out.println("current directory: " + currentDirectory.getAbsolutePath());
+
         System.out.println(janet.greet());
 
         Scanner input = new Scanner(System.in);
@@ -170,5 +200,8 @@ public class Main {
                 }
             }
         }
+
+        // once the program exits (user types in 'bye'), save the elements in janet.listOfTasks to the text file
+        saveToJanetTextFile(janet.getListOfTasks());
     }
 }
