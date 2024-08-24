@@ -1,27 +1,28 @@
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam and Purrtector of the Realm of Naps.
-How can I purrvide assistance? Purrhaps I can lend a paw!
+How can I purrvide assistance? Purrhaps I could lend a paw!
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-You have no tasks in your list.
+Your task list is as empty as a well-sunned nap spot.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Got it! I've added this task:
+(=ↀωↀ=)ノ Task added!
 [T][ ] borrow book
 You now have 1 tasks in your list.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+A task file has been created locally.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Got it! I've added this task:
+(=ↀωↀ=)ノ Task added!
 [D][ ] return book (by: Sunday)
 You now have 2 tasks in your list.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Got it! I've added this task:
+(=ↀωↀ=)ノ Task added!
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 You now have 3 tasks in your list.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Here are the tasks in your list:
+Time to stretch those paws and tackle your tasks!
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -31,7 +32,7 @@ Meow! I’ve scratched this task off the list!
 [D][X] return book (by: Sunday)
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Here are the tasks in your list:
+Time to stretch those paws and tackle your tasks!
 1.[T][ ] borrow book
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -41,7 +42,7 @@ Mrrreow! I’ve batted this task back onto the list.
 [D][ ] return book (by: Sunday)
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Here are the tasks in your list:
+Time to stretch those paws and tackle your tasks!
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -52,7 +53,7 @@ Purrr, I've swatted this task away:
 You now have 2 tasks in your list.
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-Here are the tasks in your list:
+Time to stretch those paws and tackle your tasks!
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――

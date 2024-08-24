@@ -39,7 +39,7 @@ public class Storage {
                 parentDir.mkdirs();
             }
             if (TASK_FILE.createNewFile()) {
-                System.out.println("Task file created.");
+                System.out.println("A task file has been created locally.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred when creating the task file.");
@@ -50,9 +50,8 @@ public class Storage {
         if (TASK_FILE.isFile()) {
             try (FileWriter writer = new FileWriter(TASK_FILE_DIRECTORY)) {
                 writer.write(formattedTasks);
-                System.out.println("Successfully written to task file.");
             } catch (IOException e) {
-                System.out.println("An error occured while writing to the task file.");
+                System.out.println("An error occurred while writing to the task file.");
             }
         } else {
             createTaskFile();
@@ -63,7 +62,6 @@ public class Storage {
     public static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         if (!TASK_FILE.isFile()) {
-            System.out.println("Task file not found. Starting with an empty task list.");
             return tasks;
         }
 
