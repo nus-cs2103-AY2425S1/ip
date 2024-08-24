@@ -28,7 +28,6 @@ public class SumoTaskList {
                 } finally {
                     line++;
                 }
-
             }
         } else {
             if(!f.createNewFile()) {
@@ -37,7 +36,6 @@ public class SumoTaskList {
             }
         }
         this.filePath = filePath;
-
     }
 
     public SumoTaskList() {
@@ -137,7 +135,6 @@ public class SumoTaskList {
                 throw new UnknownCommandException(command);
         }
         return false;
-
     }
 
     public void save() {
