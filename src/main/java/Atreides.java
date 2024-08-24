@@ -1,6 +1,8 @@
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
+
 public class Atreides {
     public static void main(String[] args) {
         String logo =  "          _            _     _\n"
@@ -15,6 +17,7 @@ public class Atreides {
         Scanner scanner = new Scanner(System.in);
         String msg = scanner.nextLine();
         ArrayList<Task> list = new ArrayList<>();
+        Set<String> commands = Set.of("mark", "unmark", "delete", "todo", "event", "deadline");
         while (!(msg.toLowerCase().equals("bye"))) {
             if (msg.equals("list")) {
                 String tasks = "";
@@ -29,11 +32,14 @@ public class Atreides {
             else {
                 try {
                     String[] words = msg.split(" ");
-                    if (words.length < 2) {
+                    if (commands.contains(words[0]) && words.length < 2) {
                         throw new AtreidesException("Description of " + words[0] + " cannot be empty");
                     }
                     if (words[0].equals("mark")) {
                         int index = Integer.parseInt(words[1]) - 1;
+                        if (index >= list.size()) {
+                            throw new AtreidesException("list does not have the index present");
+                        }
                         list.get(index).markDone(true);
 
                         String response = "Thank you, one task completed: \n"
@@ -41,11 +47,27 @@ public class Atreides {
                         System.out.println(new Response(response));
                     } else if (words[0].equals("unmark")) {
                         int index = Integer.parseInt(words[1]) - 1;
+                        if (index >= list.size()) {
+                            throw new AtreidesException("list does not have the index present");
+                        }
                         list.get(index).markDone(false);
 
                         String response = "Noted, this task has been unmarked\n"
                                 + list.get(index);
                         System.out.println(new Response(response));
+                    } else if (words[0].equals("delete")) {
+                        int index = Integer.parseInt(words[1]) - 1;
+                        if (index >= list.size()) {
+                            throw new AtreidesException("list does not have the index present");
+                        }
+                        Task remove = list.remove(index);
+                        String plural = list.size() == 1 ? " task" : " tasks";
+                        String response = "Task removed: \n" +
+                                remove.toString().indent(2) +
+                                + list.size() + plural + " in list\n";
+                        System.out.println(new Response(response));
+
+
                     } else {
                         Task newTask = new Task("");
                         if (words[0].equals("todo")) {
@@ -66,7 +88,7 @@ public class Atreides {
                         list.add(newTask);
                         String plural = list.size() == 1 ? " task" : " tasks";
                         String response = "Task added\n"
-                                + newTask + "\n"
+                                + newTask.toString().indent(2)
                                 + list.size() + plural + " in list\n";
                         System.out.println(new Response(response));
                     }
