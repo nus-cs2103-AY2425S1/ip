@@ -1,0 +1,11 @@
+list
+todo read book
+deadline submit assignment /by today 3pm
+event watch movie /from 1 Sep, 1pm /to 1 Sep, 4pm
+list
+mark 2
+mark 1
+list
+unmark 2
+list
+bye

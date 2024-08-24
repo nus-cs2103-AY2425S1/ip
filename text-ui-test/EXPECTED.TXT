@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+ /\_/\     ____________________
+ >^,^<    / Hi, I'm Mittens!   \
+  / \     \ I'm a cat! Meow :3 /
+ (___)_/   --------------------
+
+> 
+Meow?! Your list is empty!
+
+> 
+I've added "read book" to your list :3
+
+> 
+I've added "submit assignment" to your list :3
+
+> 
+I've added "watch movie" to your list :3
+
+> 
+You have 3 tasks in your list, here they are :3
+1. [T][ ] read book
+2. [D][ ] submit assignment (due today 3pm)
+3. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
+
+> 
+Meow, I scratched the check box for you:
+[D][X] submit assignment (due today 3pm)
+
+> 
+Meow, I scratched the check box for you:
+[T][X] read book
+
+> 
+You have 3 tasks in your list, here they are :3
+1. [T][X] read book
+2. [D][X] submit assignment (due today 3pm)
+3. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
+
+> 
+Meow, I unscratched the check box for you:
+[D][ ] submit assignment (due today 3pm)
+
+> 
+You have 3 tasks in your list, here they are :3
+1. [T][X] read book
+2. [D][ ] submit assignment (due today 3pm)
+3. [E][ ] watch movie (1 Sep, 1pm -- 1 Sep, 4pm)
+
+> 
+ /\_/\     _____________
+ >^,^<    ( Bye-bye! :3 )
+  / \      -------------
+ (___)_/
 
