@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Storage {
     public static final String FILEPATH = "./data/luna.txt";
 
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws LunaException {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
@@ -54,9 +54,9 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found. Create a new text file luna.txt in the data directory");
+            throw new LunaException("File not found. Create a new text file luna.txt in the data directory");
         } catch (Exception e) {
-            System.out.println("Data file is corrupted or not in expected format");
+            throw new LunaException("Data file is corrupted or not in expected format");
         }
         return tasks;
     }
