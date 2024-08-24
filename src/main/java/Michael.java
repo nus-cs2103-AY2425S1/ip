@@ -49,6 +49,12 @@ public class Michael {
                 list = list.concat(elem);
             }
             printer(list.substring(0, list.length() - 1)); // substring to remove last line break
+        } else if (input.length() > 4 && input.substring(0, 4).equals("todo")) {
+            ToDo curr = new ToDo(input.substring(5));
+            tasks.add(curr);
+            String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
+                    + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
+            printer(message);
         } else { // new task to be added
             tasks.add(new Task(input));
             printer("added: " + input);
