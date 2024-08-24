@@ -1,5 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -124,12 +127,20 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Janet janet = new Janet();
+        Path janetTextFile = Paths.get("./janet.txt");
+        Janet janet;
+        if (Files.exists(janetTextFile)) {
+            // current directory already has a janet.txt file, load this into the arraylist listOfTasks
+            janet = new Janet(new ArrayList<Task>());
+        } else {
+            janet = new Janet();
+        }
+
         // janet.txt should be checked and loaded at the start of the program
 
         // check directory that java is currently looking at
-        File currentDirectory = new File("./");
-        System.out.println("current directory: " + currentDirectory.getAbsolutePath());
+//        File currentDirectory = new File("./");
+//        System.out.println("current directory: " + currentDirectory.getAbsolutePath());
 
         System.out.println(janet.greet());
 
