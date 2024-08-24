@@ -1,4 +1,6 @@
-import SumoDE.Exception.WrongSyntaxForCommandException;
+package sumode.util;
+
+import sumode.exception.WrongSyntaxForCommandException;
 
 public class Parser {
 

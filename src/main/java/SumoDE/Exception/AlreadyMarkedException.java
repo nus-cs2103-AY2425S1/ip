@@ -1,4 +1,6 @@
-package SumoDE;
+package sumode.exception;
+
+import sumode.task.Task;
 
 public class AlreadyMarkedException extends Exception {
     public AlreadyMarkedException(Task task) {

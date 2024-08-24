@@ -1,5 +1,11 @@
+package sumode;
+
+import sumode.util.*;
+import sumode.exception.*;
 import java.io.IOException;
 import java.util.Scanner;
+
+
 
 public class SumoDE {
 

@@ -1,3 +1,5 @@
+package sumode.exception;
+
 public class NonExistentTaskException extends Exception {
     public NonExistentTaskException(int index) {
         super("Sumo cannot find task #"

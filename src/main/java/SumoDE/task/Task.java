@@ -1,9 +1,8 @@
-package SumoDE;
+package sumode.task;
 
-import SumoDE.Exception.AlreadyUnmarkedException;
-import SumoDE.Exception.UnknownCommandException;
-import SumoDE.Exception.WrongSyntaxForCommandException;
-import SumoDE.util.Parser;
+import sumode.exception.*;
+import sumode.util.Command;
+import sumode.util.Parser;
 
 public class Task {
     private boolean completed;
@@ -37,14 +36,14 @@ public class Task {
 
     public static Task of(Command command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
         switch(command) {
-            case Command.TODO:
+            case TODO:
                 return new Todo(item);
-            case Command.DEADLINE:
+            case DEADLINE:
                 {
                     String[] parsed = Parser.parseDeadline(item);
                     return new Deadline(parsed[0], parsed[1]);
                 }
-            case Command.EVENT:
+            case EVENT:
                 {
                     String[] parsed = Parser.parseEvent(item);
                     return new Event(parsed[0], parsed[1], parsed[2]);

@@ -1,4 +1,4 @@
-package SumoDE;
+package sumode.util;
 
 public enum Command {
     BYE,
