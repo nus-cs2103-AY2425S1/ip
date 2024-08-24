@@ -28,10 +28,13 @@ public class BuddyBot {
                 String last = input.substring(input.replaceAll("[0-9]+$","").length());
                 try { // Non-integer exception
                     int num = Integer.parseInt(last);
+                    if (num > myList.size() || num <= 0) {
+                        throw new ListTooShortException();
+                    }
                     myList.get(num - 1).isDone = true;
                     System.out.println("Nice! I've marked this task as done:");
                     read(myList);
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                } catch (NumberFormatException | ListTooShortException e) {
                     System.out.println("This is an invalid input!");
                 } finally {
                     i--;
@@ -77,7 +80,7 @@ public class BuddyBot {
                         input = myObj.nextLine();
                     } else {
                         Task additionT = new Task(description);
-                        myList.add(i, additionT);
+                        myList.add(additionT);
                         System.out.println("Got it. I've added this task: \n" + additionT);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
                         input = myObj.nextLine();
@@ -86,11 +89,14 @@ public class BuddyBot {
                     try {
                         String index = input.substring(6).trim();
                         int num = Integer.parseInt(index);
+                        if (num  > myList.size() || num <= 0) {
+                            throw new ListTooShortException();
+                        }
                         Task removed = myList.get(num - 1);
                         delete(myList, num);
                         System.out.println("Got it. I've removed this task: \n" + removed);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
-                    } catch (NumberFormatException | IndexOutOfBoundsException  e) { // non-integer input
+                    } catch (NumberFormatException | ListTooShortException e) { // non-integer input
                         System.out.println("This is an invalid input!");
                     } finally {
                         i--;
@@ -117,21 +123,10 @@ public class BuddyBot {
     }
 
     public static int count(ArrayList<Task> arr) {
-        /*for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == null) {
-                return i;
-            }
-        }
-        return 0;*/
         return arr.size();
     }
 
     public static void delete(ArrayList<Task> arr, int num) {
-        if (num > arr.size()) {
-            throw new ArrayIndexOutOfBoundsException();
-        } else {
-            arr.remove(num - 1);
-        }
+        arr.remove(num - 1);
     }
-
 }
