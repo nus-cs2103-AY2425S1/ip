@@ -1,6 +1,11 @@
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 public class Lama {
 
@@ -110,9 +115,15 @@ public class Lama {
                                 "deadline [description] /by [date]");
                     }
 
-                    Deadline deadline = new Deadline(half[0], half[1]);
-                    list.add(deadline);
-                    storage.addTask(deadline);
+                    try {
+                        LocalDate date = LocalDate.parse(half[1]);
+                        Deadline deadline = new Deadline(half[0], date);
+                        list.add(deadline);
+                        storage.addTask(deadline);
+
+                    } catch (DateTimeException e) {
+                        throw new LamaException("Date format should follow yyyy-MM-dd");
+                    }
 
                     System.out.println(bar);
                     System.out.println("Got it. I've added this task:");
@@ -141,9 +152,16 @@ public class Lama {
                                 "event [description] /from [start time] /to [end time]");
                     }
 
-                    Event event = new Event(first[0], time[0], time[1]);
-                    list.add(event);
-                    storage.addTask(event);
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                        LocalDateTime from = LocalDateTime.parse(time[0], formatter);
+                        LocalDateTime to = LocalDateTime.parse(time[1], formatter);
+                        Event event = new Event(first[0], from, to);
+                        list.add(event);
+                        storage.addTask(event);
+                    } catch (DateTimeException e) {
+                        throw new LamaException("Date time format should follow yyyy-MM-dd HHmm");
+                    }
 
                     System.out.println(bar);
                     System.out.println("Got it. I've added this task:");

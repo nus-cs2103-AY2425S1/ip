@@ -1,8 +1,13 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 public class Storage {
 
@@ -33,19 +38,31 @@ public class Storage {
                     break;
 
                 case "D":
-                    Deadline deadline = new Deadline(words[2], words[3]);
-                    if (words[1].equals("1")) {
-                        deadline.markAsDone();
+                    try {
+                        LocalDate date = LocalDate.parse(words[3]);
+                        Deadline deadline = new Deadline(words[2], date);
+                        if (words[1].equals("1")) {
+                            deadline.markAsDone();
+                        }
+                        list.add(deadline);
+                    } catch (DateTimeException e) {
+                        throw new LamaException("Date format should follow yyyy-mm-dd");
                     }
-                    list.add(deadline);
                     break;
 
                 case "E":
-                    Event event = new Event(words[2], words[3], words[4]);
-                    if (words[1].equals("1")) {
-                        event.markAsDone();
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                        LocalDateTime from = LocalDateTime.parse(words[3], formatter);
+                        LocalDateTime to = LocalDateTime.parse(words[4], formatter);
+                        Event event = new Event(words[2], from, to);
+                        if (words[1].equals("1")) {
+                            event.markAsDone();
+                        }
+                        list.add(event);
+                    } catch (DateTimeException e) {
+                        throw new LamaException("Date time format should follow yyyy-MM-dd HHmm");
                     }
-                    list.add(event);
                     break;
 
                 default:
