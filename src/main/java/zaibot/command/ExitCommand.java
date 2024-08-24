@@ -15,6 +15,6 @@ public class ExitCommand extends Command {
     @Override
     public void runCommandSpecificLogic(TaskList tasks, Storage storage) {
         Ui.printMessage("GOODBYE");
-        super.setContinueLoop(false);
+        super.setWillContinueLoop(false);
     }
 }

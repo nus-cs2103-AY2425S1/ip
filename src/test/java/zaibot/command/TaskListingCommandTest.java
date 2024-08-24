@@ -10,10 +10,8 @@ import zaibot.task.ToDoTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
 
 public class TaskListingCommandTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final TaskList tasks = new TaskList();
     private final Storage storage = new Storage(tasks);
@@ -25,12 +23,11 @@ public class TaskListingCommandTest {
     }
 
     @Test
-    public void testEmptyTaskList() {
+    public void execute_noTask() {
         TaskListingCommand command = new TaskListingCommand();
         try {
             command.execute(tasks, storage);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Ui.displayError(e);
         } finally {
             Assertions.assertEquals("",
@@ -39,7 +36,7 @@ public class TaskListingCommandTest {
     }
 
     @Test
-    public void testSingleTask() {
+    public void execute_oneTask() {
         tasks.addTask(new ToDoTask("one"));
         TaskListingCommand command = new TaskListingCommand();
         try {
@@ -54,7 +51,7 @@ public class TaskListingCommandTest {
     }
 
     @Test
-    public void testMultipleTasks() {
+    public void execute_multipleTasks() {
         tasks.addTask(new ToDoTask("one"));
         tasks.addTask(new ToDoTask("two"));
         tasks.addTask(new ToDoTask("three"));

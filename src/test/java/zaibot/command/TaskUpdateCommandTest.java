@@ -12,10 +12,8 @@ import zaibot.task.ToDoTask;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class TaskUpdateCommandTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final TaskList tasks = new TaskList();
     private final Storage storage = new Storage(tasks);
@@ -27,7 +25,7 @@ public class TaskUpdateCommandTest {
     }
 
     @Test
-    public void testMark() {
+    public void execute_mark_success() {
         tasks.addTask(new ToDoTask("one"));
         HashMap<String, String> optionMap = new HashMap<>();
 
@@ -50,9 +48,9 @@ public class TaskUpdateCommandTest {
     }
 
     @Test
-    public void testUnmark() {
+    public void execute_unmark_success() {
         Task task = new ToDoTask("one");
-        task.setCompletionStatus(true);
+        task.setDone(true);
         tasks.addTask(task);
 
         HashMap<String, String> optionMap = new HashMap<>();
@@ -76,7 +74,7 @@ public class TaskUpdateCommandTest {
     }
 
     @Test
-    public void testDelete() {
+    public void execute_delete_success() {
         Task task = new ToDoTask("one");
         tasks.addTask(task);
 
@@ -97,7 +95,7 @@ public class TaskUpdateCommandTest {
     }
 
     @Test
-    public void testInvalidNumber() {
+    public void execute_invalidArgument() {
         HashMap<String, String> optionMap = new HashMap<>();
 
         optionMap.put("number", "1");

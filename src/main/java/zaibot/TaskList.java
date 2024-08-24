@@ -13,6 +13,7 @@ public class TaskList {
 
     /**
      * Retrieves the internal task list
+     *
      * @return Task list as an ArrayList of Tasks
      */
     public ArrayList<Task> retrieveTasks() {
@@ -21,6 +22,7 @@ public class TaskList {
 
     /**
      * Adds a task into the task list
+     *
      * @param task Task to be added
      */
     public void addTask(Task task) {
@@ -29,6 +31,7 @@ public class TaskList {
 
     /**
      * Gets the number of tasks in the task list.
+     *
      * @return Number of tasks in task list
      */
     public int getNumberOfTasks() {
@@ -38,6 +41,7 @@ public class TaskList {
     /**
      * Gets the task in the task list based on the number.
      * Note that the number begins from one, unlike an index.
+     *
      * @param number A number, starting from 1
      * @return The task
      */
@@ -48,6 +52,7 @@ public class TaskList {
     /**
      * Removes the task in the task list based on the number.
      * Note that the number begins from one, unlike an index.
+     *
      * @param number A number, starting from 1
      * @return The task removed
      */
@@ -59,30 +64,33 @@ public class TaskList {
     /**
      * Marks the task in the task list based on the number.
      * Note that the number begins from one, unlike an index.
+     *
      * @param number A number, starting from 1
      * @return The task
      */
     public Task markTask(int number) {
         Task task = this.getTask(number);
-        task.setCompletionStatus(true);
+        task.setDone(true);
         return task;
     }
 
     /**
      * Unmark the task in the task list based on the number.
      * Note that the number begins from one, unlike an index.
+     *
      * @param number A number, starting from 1
      * @return The task
      */
     public Task unmarkTask(int number) {
         Task task = this.getTask(number);
-        task.setCompletionStatus(false);
+        task.setDone(false);
         return task;
     }
 
     public void clearTasks() {
         this.tasks.clear();
     }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

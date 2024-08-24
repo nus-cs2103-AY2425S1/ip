@@ -18,7 +18,7 @@ public class Ui {
         DELETE("Task removed. Bye bye."),
         GREETING("Hi, or whatever. What do you want from me today?"),
         ADD("Another day, another task. Added."),
-        TASKTOTAL("You have %d task(s). Get moving.");
+        TOTAL("You have %d task(s). Get moving.");
 
         private final String msg;
 
@@ -36,6 +36,7 @@ public class Ui {
 
     /**
      * Prints a message into the command line.
+     *
      * @param msg The message requested to be printed out.
      */
     public static void printMessage(String msg) {
@@ -48,6 +49,7 @@ public class Ui {
 
     /**
      * Prints the task list.
+     *
      * @param taskList The task list
      */
     public static void printTaskList(TaskList taskList) {
@@ -70,6 +72,7 @@ public class Ui {
 
     /**
      * Reads a command from the input
+     *
      * @return The command read in
      * @throws ZaibotException when there is no next line.
      */
@@ -82,6 +85,7 @@ public class Ui {
 
     /**
      * Displays the error message.
+     *
      * @param e The exception
      */
     public static void displayError(Exception e) {
@@ -90,16 +94,18 @@ public class Ui {
 
     /**
      * Displays the number of tasks.
+     *
      * @param taskList The list of tasks
      */
     public static void displayTasksNumber(TaskList taskList) {
-        System.out.println(String.format(Message.TASKTOTAL.toString(), taskList.getNumberOfTasks()));
+        System.out.println(String.format(Message.TOTAL.toString(), taskList.getNumberOfTasks()));
     }
 
     /**
      * Displays the task, and the type of update that was done to it
-     * @param task The task
-     * @param type Either "mark", "unmark", "add"
+     *
+     * @param task     The task
+     * @param type     Either "mark", "unmark", "add"
      * @param taskList The list of tasks
      * @throws ZaibotException If the update task is not part of the values for task above.
      */
@@ -107,17 +113,17 @@ public class Ui {
                                    String type,
                                    TaskList taskList) throws ZaibotException {
         switch (type) {
-            case "mark":
-            case "unmark":
-            case "add":
-                printMessage(Message.SEPARATOR);
-                System.out.println(task);
-                printMessage(type);
-                displayTasksNumber(taskList);
-                printMessage(Message.SEPARATOR);
-                break;
-            default:
-                throw new ZaibotException("Updating task not of correct format.");
+        case "mark":
+        case "unmark":
+        case "add":
+            printMessage(Message.SEPARATOR);
+            System.out.println(task);
+            printMessage(type);
+            displayTasksNumber(taskList);
+            printMessage(Message.SEPARATOR);
+            break;
+        default:
+            throw new ZaibotException("Updating task not of correct format.");
         }
     }
 }

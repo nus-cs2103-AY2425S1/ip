@@ -24,10 +24,9 @@ public class Zaibot {
                 String commandInput = Ui.readCommand();
                 Command command = Parser.parse(commandInput);
                 command.execute(taskList, storage);
-                continueLoop = command.toContinue();
+                continueLoop = command.checkContinue();
                 Ui.printSeparator();
-            }
-            catch (ZaibotException e) {
+            } catch (ZaibotException e) {
                 Ui.displayError(e);
             }
         }
