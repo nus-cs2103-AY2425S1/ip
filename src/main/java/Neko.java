@@ -1,5 +1,10 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Neko {
     private static final String EXIT_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
@@ -11,12 +16,23 @@ public class Neko {
     private static final String DELETE_COMMAND = "delete";
     private static final String GREETING_MESSAGE = "  ∧,,,∧\n( ̳̳• · ̳• )\n づ Meow! I'm Neko\nWhat can I do for you?";
     private static final String EXIT_MESSAGE = "Bye! Hope to see you again soon meow ฅ ฅ";
-    private static int numOfTask = 0;
+    private static final String FILE_PATH = "./data/neko.txt";
+    private static final String DIRECTORY_PATH = "./data";
     private static final ArrayList<Task> taskList = new ArrayList<>(100);
 
     public static void main(String[] args) {
 
+        File f = new File(FILE_PATH);
         System.out.println(GREETING_MESSAGE);
+
+        if (f.exists()) {
+            try {
+                loadFile(f);
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
@@ -33,7 +49,63 @@ public class Neko {
         scanner.close();
     }
 
-    private static void handleInput (String input) throws NekoException {
+    private static void loadFile(File f) throws FileNotFoundException {
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String str = s.nextLine();
+            char c = str.charAt(0);
+            Task task = null;
+            String[] parts;
+            boolean isDone = false;
+            String taskName;
+            switch (c) {
+            case 'T':
+                parts = str.split("\\|", 3);
+                isDone = parts[1].trim().equals("1");
+                taskName = parts[2].trim();
+                task = new Todo(taskName);
+                break;
+            case 'D':
+                parts = str.split("\\|", 4);
+                isDone = parts[1].trim().equals("1");
+                taskName = parts[2].trim();
+                String deadline = parts[3].trim();
+                task = new Deadline(taskName, deadline);
+                break;
+            case 'E':
+                parts = str.split("\\|", 5);
+                isDone = parts[1].trim().equals("1");
+                taskName = parts[2].trim();
+                String start = parts[3].trim();
+                String end = parts[4].trim();
+                task = new Event(taskName, start, end);
+                break;
+            }
+            if (task != null)  {
+                if (isDone) task.markAsDone();
+                taskList.add(task);
+            }
+        }
+    }
+
+    public static void writeFile(String text) throws IOException {
+        // Create the file if it doesn't exist
+        File directory = new File(DIRECTORY_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(FILE_PATH, true);
+        fw.write(text);
+        System.out.println("Writing..");
+        fw.close();
+    }
+
+    private static void handleInput(String input) throws NekoException {
         if (input.equals(LIST_COMMAND)) {
             listTask();
         } else if (input.startsWith(MARK_COMMAND)) {
@@ -57,6 +129,11 @@ public class Neko {
                 throw new NekoException("The description of a todo cannot be empty!");
             }
             task = new Todo(taskName);
+            try {
+                writeFile("T | 0 | " + taskName);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         } else if (input.startsWith(DEADLINE_COMMAND)) {
             String[] parts = input.split("/", 2);
 
@@ -74,6 +151,11 @@ public class Neko {
                 throw new NekoException("The deadline of a deadline cannot be empty!");
             }
             task = new Deadline(taskName, deadline);
+            try {
+                writeFile("D | 0 | " + taskName + " | " + deadline);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         } else {
             String[] parts = input.split("/", 3);
 
@@ -94,19 +176,23 @@ public class Neko {
                 throw new NekoException("The end time of an event cannot be empty!");
             }
             task = new Event(taskName, start, end);
+            try {
+                writeFile("D | 0 | " + taskName + " | " + start + " | " + end);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
         taskList.add(task);
-        numOfTask++;
         System.out.println("Got it meow. I've added this task ฅ/ᐠᓀ ﻌ ᓂマ\n "
-                + task + "\nNow you have " + numOfTask + " tasks in your list meow");
+                + task + "\nNow you have " + taskList.size() + " tasks in your list meow");
     }
     private static void listTask() {
-        if (numOfTask == 0) {
+        if (taskList.isEmpty()) {
             System.out.println("You don't have any tasks yet meow!");
             return;
         }
         System.out.println("Here are the task in your list meow:");
-        for (int i = 0; i < numOfTask; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             System.out.println(i + 1 + "." + task);
         }
@@ -114,12 +200,7 @@ public class Neko {
 
     private static void markTask(String input) throws NekoException {
         int index = Integer.parseInt(input.substring(MARK_COMMAND.length()).trim()) - 1;
-        if (index >= numOfTask) {
-            throw new NekoException("You only have " + numOfTask + " tasks now!");
-        }
-        if (index < 0 || index >= 100) {
-            throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
-        }
+        checkValidIndex(index);
         Task task = taskList.get(index);
         if (task.markAsDone()) {
             System.out.println("Nice meow! I've marked this task as done:\n " + task);
@@ -130,12 +211,7 @@ public class Neko {
 
     private static void unmarkTask(String input) throws NekoException {
         int index = Integer.parseInt(input.substring(UNMARK_COMMAND.length()).trim()) - 1;
-        if (index >= numOfTask) {
-            throw new NekoException("You only have " + numOfTask + " tasks now!");
-        }
-        if (index < 0 || index >= 100) {
-            throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
-        }
+        checkValidIndex(index);
         Task task = taskList.get(index);
         if (task.markAsNotDone()) {
             System.out.println("Ok meow, I've marked this task as not done yet:\n " + task);
@@ -146,16 +222,18 @@ public class Neko {
 
     private static void deleteTask(String input) throws NekoException {
         int index = Integer.parseInt(input.substring(DELETE_COMMAND.length()).trim()) - 1;
-        if (index >= numOfTask) {
-            throw new NekoException("You only have " + numOfTask + " tasks now!");
-        }
-        if (index < 0 || index >= 100) {
-            throw new NekoException("Invalid task number! Please enter a number between 1 and " + numOfTask + ".");
-        }
+        checkValidIndex(index);
         Task task = taskList.get(index);
         taskList.remove(index);
-        System.out.println("Noted meow. I've removed this task\n " + task +"\nNow you have " + --numOfTask + " tasks in the list.");
+        System.out.println("Noted meow. I've removed this task\n " + task +"\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
-
+    private static void checkValidIndex(int index) throws NekoException {
+        if (index >= taskList.size()) {
+            throw new NekoException("You only have " + taskList.size() + " tasks now!");
+        }
+        if (index < 0 || index >= 100) {
+            throw new NekoException("Invalid task number! Please enter a number between 1 and " + taskList.size() + ".");
+        }
+    }
 }
