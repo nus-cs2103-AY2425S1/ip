@@ -50,6 +50,12 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
+    /**
+     * Returns a string representation of the object which includes the
+     * status icon and the description of the object
+     *
+     * @return A string in the format: "[<statusIcon>] <description>"
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
