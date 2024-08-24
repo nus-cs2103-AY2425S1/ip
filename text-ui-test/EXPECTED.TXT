@@ -1,8 +1,8 @@
 Hello I'm Jude
 What can I do for you, poyo?
-Poyo! added: read book
-Poyo! added: homework
-Poyo! added: meeting
+Poyo! added: [T][ ] read book
+Poyo! added: [D][ ] homework (by: today)
+Poyo! added: [E][ ] meeting (from: 8 to: 9)
 1. [T][ ] read book
 2. [D][ ] homework (by: today)
 3. [E][ ] meeting (from: 8 to: 9)

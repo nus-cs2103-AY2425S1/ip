@@ -124,7 +124,7 @@ public class Jude {
                     continue;
                 }
                 list[listSize++] = task;
-                System.out.println("Poyo! added: " + task);
+                System.out.println("Poyo! added: " + task.toStringDetails());
                 continue;
             }
         }
