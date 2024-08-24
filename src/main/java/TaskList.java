@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
@@ -7,19 +9,103 @@ public class TaskList {
     private final Line line = new Line();
     private int taskListLength;
     private int startPointer;
+    private Save save;
 
     public TaskList() {
+        this.save = new Save();
         this.taskList = new ArrayList<Task>();
         this.startPointer = 0;
         this.taskListLength = 0;
+        loadTasksFromSave();
+    }
+
+    private String formatTaskForFile(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(task.getTaskTypeAsString()).append(" | ");
+        sb.append(task.getStatus().equals("X") ? "1" : "0").append(" | ");
+        sb.append(task.readTask());
+        if (task instanceof Deadline) {
+            sb.append(" | ").append(((Deadline) task).getBy());
+        } else if (task instanceof Event) {
+            sb.append(" | ").append(((Event) task).getStart());
+            sb.append(" | ").append(((Event) task).getEnd());
+        }
+        return sb.toString();
+    }
+
+    private void saveTasks() {
+        File file = new File(save.getPath());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : taskList) {
+                writer.write(formatTaskForFile(task));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private void loadTasksFromSave() {
+        File file = new File(save.getPath());
+        if (!file.exists()) {
+            return;  // No file to load from, start with an empty list
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = parseTask(line);
+                taskList.add(task);
+                taskListLength++;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+
+    private Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+        Task task = null;
+
+        switch (taskType) {
+        case T:
+            task = ToDo.of(description, taskType);
+            break;
+        case D:
+            try {
+                task = Deadline.of(description + "/by " + parts[3], taskType);
+            } catch (TaskCreationException e) {
+                System.out.println("Error occured while parsing task");
+            }
+            break;
+        case E:
+            try {
+                task = Event.of(description + "/from " + parts[3] + " /to " + parts[4], taskType);
+            } catch (TaskCreationException e) {
+                System.out.println("Error occured while parsing task");
+            }
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid task type: " + taskType);
+        }
+
+        if (isDone) {
+            assert task != null;
+            task.markAsDone();
+        }
+        return task;
     }
 
     public void add(String s, Task.TaskType taskType) {
         try {
             Task newTask;
-
             switch (taskType) {
-                case T:
+                 case T:
                     newTask = ToDo.of(s, taskType);
                     break;
                 case D:

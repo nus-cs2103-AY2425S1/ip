@@ -13,6 +13,14 @@ public class Event extends Task {
             return "E";
     }
 
+    public String getStart() {
+        return this.startTime;
+    }
+
+    public String getEnd() {
+        return this.endTime;
+    }
+
     @Override
     public String readTask() {
         return super.readTask() + " (from: " + this.startTime + " to: " + this.endTime + ")";
