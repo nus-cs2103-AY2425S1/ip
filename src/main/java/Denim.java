@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +23,7 @@ public class Denim {
 
     public static void main(String[] args) {
         displayGreetingMessage();
+
         // Scans User Input in the CLI
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -30,7 +35,19 @@ public class Denim {
         sc.close();
     }
 
-
+    private static void readTaskData() throws IOException {
+        File taskDataFile = new File("data/denim.txt");
+        Scanner sc = new Scanner(taskDataFile);
+        while (sc.hasNext()) {
+            System.out.println(sc.nextLine());
+        }
+    }
+    
+    private static void writeTaskData(String task) throws IOException {
+        FileWriter taskWriter = new FileWriter("data/denim.txt", true);
+        taskWriter.write(task);
+        taskWriter.close();
+    }
 
     private static void displayGreetingMessage() {
         String greetingMessage = String.format("%s%n Hello! I'm %s!%n What can I do for you? %n%s%n",
