@@ -32,7 +32,7 @@ public class Parser {
      * @return Response containing Action Type and regex Matcher object
      * @throws JacksonException Jackson-specific exception
      */
-    public static Response parse(String query) throws JacksonException {
+    public static Response parse(String query) throws SyntaxException {
         Actions.ActionType a;
         Matcher m = null;
 
