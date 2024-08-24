@@ -76,6 +76,16 @@ public class Gallium {
             } catch (GalliumException e) {
                 System.out.println("    " + lines + "\n    " + e.getMessage() + "\n    " + lines + "\n");
                 Message = userInput.nextLine();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if (Message.startsWith("deadline ")) {
+                    System.out.println("    " + lines + "\n    " + "Please put the date of the deadline!!" + "\n    "
+                            + lines + "\n");
+                } else if (Message.startsWith("event ")) {
+                    System.out
+                            .println("    " + lines + "\n    " + "Please put the from and to of the event!!" + "\n    "
+                                    + lines + "\n");
+                }
+                Message = userInput.nextLine();
             }
         }
         System.out.println("    " + lines + "\n    " + byeMessage + "\n    " + lines + "\n");
