@@ -40,7 +40,8 @@ public class Storage {
     public static TaskList loadTaskListFromFile(TaskList taskList) {
         try {
             File f = new File(storageListFilePath);
-            // Check if the file/folder already exists and create if it is not
+            // Check if the file/folder already exists and create if it is not,
+            // send warning if unable to create either if file still does not exist.
             if ((!f.getParentFile().mkdirs() || !f.createNewFile()) && !f.exists()) {
                 FormattedPrinting.fileCorrupted();
             }

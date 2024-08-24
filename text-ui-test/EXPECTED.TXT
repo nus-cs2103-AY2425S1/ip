@@ -5,7 +5,10 @@
    ______________________________________________________
    I do not recognise this command, please check again!
    Available commands are:
-   [list, mark, unmark, delete, todo, deadline, event, bye, unknown]
+   [list, mark, unmark, delete, todo, deadline, event, bye, clear_tasks, unknown]
+   ______________________________________________________
+   ______________________________________________________
+   List has been cleared.
    ______________________________________________________
    ______________________________________________________
    You have an empty description. Please try again.
