@@ -36,33 +36,30 @@ public class TaskList {
         Task task;
         Pair<String, Integer> taskDescriptionIdxPair;
         switch (command) {
-            case TODO:
-                taskDescriptionIdxPair = formSubSection(splitDescription, 1, "");
-                taskDescription = taskDescriptionIdxPair.getFirst();
-                task = new ToDo(taskDescription);
-                break;
-            case DEADLINE:
-                taskDescriptionIdxPair = formSubSection(splitDescription, 1, DEADLINE_DATE_SEPARATOR);
-                taskDescription = taskDescriptionIdxPair.getFirst();
-                Pair<String, Integer> deadlineIdxPair = formSubSection(
-                        splitDescription, taskDescriptionIdxPair.getSecond() + 1, "");
-                String deadline = deadlineIdxPair.getFirst();
-                task = new Deadline(taskDescription, deadline);
-                break;
-            case EVENT:
-                taskDescriptionIdxPair = formSubSection(splitDescription, 1, EVENT_FROM_SEPARATOR);
-                taskDescription = taskDescriptionIdxPair.getFirst();
-                Pair<String, Integer> fromIdxPair = formSubSection(
-                        splitDescription, taskDescriptionIdxPair.getSecond() + 1, EVENT_TO_SEPARATOR);
-                Pair<String, Integer> toIdxPair = formSubSection(
-                        splitDescription, fromIdxPair.getSecond() + 1, "");
-                String from = fromIdxPair.getFirst();
-                String to = toIdxPair.getFirst();
-                task = new Event(taskDescription, from, to);
-                break;
-            default:
-                taskDescription = description;
-                task = new Task(description);
+        case DEADLINE:
+            taskDescriptionIdxPair = formSubSection(splitDescription, 1, DEADLINE_DATE_SEPARATOR);
+            taskDescription = taskDescriptionIdxPair.getFirst();
+            Pair<String, Integer> deadlineIdxPair = formSubSection(
+                    splitDescription, taskDescriptionIdxPair.getSecond() + 1, "");
+            String deadline = deadlineIdxPair.getFirst();
+            task = new Deadline(taskDescription, deadline);
+            break;
+        case EVENT:
+            taskDescriptionIdxPair = formSubSection(splitDescription, 1, EVENT_FROM_SEPARATOR);
+            taskDescription = taskDescriptionIdxPair.getFirst();
+            Pair<String, Integer> fromIdxPair = formSubSection(
+                    splitDescription, taskDescriptionIdxPair.getSecond() + 1, EVENT_TO_SEPARATOR);
+            Pair<String, Integer> toIdxPair = formSubSection(
+                    splitDescription, fromIdxPair.getSecond() + 1, "");
+            String from = fromIdxPair.getFirst();
+            String to = toIdxPair.getFirst();
+            task = new Event(taskDescription, from, to);
+            break;
+        default:
+            taskDescriptionIdxPair = formSubSection(splitDescription, 1, "");
+            taskDescription = taskDescriptionIdxPair.getFirst();
+            task = new ToDo(taskDescription);
+            break;
         }
         if (taskDescription.isEmpty()) {
             throw new EmptyDescriptionException();
@@ -113,6 +110,14 @@ public class TaskList {
                 String.format("     Now you have %d %s in the list.",
                     this.items.size(), (this.items.size() == 1 ? "task" : "tasks"));
         return message;
+    }
+
+    public String getTasksForSaving() {
+        String dataString = "";
+        for (Task task : this.items) {
+            dataString += task.getTaskForSaving();
+        }
+        return dataString;
     }
 
     public int getNumItems() {
