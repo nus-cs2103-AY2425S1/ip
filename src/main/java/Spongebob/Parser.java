@@ -42,23 +42,26 @@ public class Parser {
         }
 
         switch (this.arguments[0]) {
-            case "list":
-                return new DisplayCommand();
+        case "list":
+            return new DisplayCommand();
 
-            case "mark": case "unmark":
-                return new MarkCommand(arguments);
+        case "mark": case "unmark":
+            return new MarkCommand(arguments);
 
-            case "todo": case "deadline": case "event":
-                return new AddCommand(arguments);
+        case "todo": case "deadline": case "event":
+            return new AddCommand(arguments);
 
-            case "delete":
-                return new DeleteCommand(arguments);
+        case "delete":
+            return new DeleteCommand(arguments);
 
-            case "bye":
-                return new ExitCommand();
+        case "bye":
+            return new ExitCommand();
 
-            default:
-                return new UnknownCommand();
+        case "find":
+            return new FindCommand(arguments);
+
+        default:
+            return new UnknownCommand();
 
         }
 
