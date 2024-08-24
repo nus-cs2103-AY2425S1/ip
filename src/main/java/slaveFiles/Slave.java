@@ -1,4 +1,11 @@
-import java.io.*;
+package slaveFiles;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -9,17 +16,11 @@ public class Slave {
 
     public static void main(String[] args) {
         welcome();
-        do {
-            getUserInput();
-        } while (hasMoreInputs);
         goodbye();
 
     }
 
     /**
-     * Tries to query the user's name from username.txt if it exists
-     * if it does not / user has not specified their name, set user's name as "slave driver"
-     *
      * Prints the greeting message
      */
     private static void welcome() {
@@ -67,33 +68,33 @@ public class Slave {
         }
         inputScanner.close();
         switch (command) {
-            case "bye":
-                hasMoreInputs = false;
-                break;
-            case "list":
-                listItems();
-                break;
-            case "mark":
-                markAsDone(body);
-                break;
-            case "unmark":
-                markAsIncomplete(body);
-                break;
-            case "todo":
-                addToList(0, body);
-                break;
-            case "deadline":
-                addToList(1, body);
-                break;
-            case "event":
-                addToList(2, body);
-                break;
-            case "delete":
-                deleteTask(body);
-                break;
-            default:
-                System.out.println("You're spouting gibberish...");
-                break;
+        case "bye":
+            hasMoreInputs = false;
+            break;
+        case "list":
+            listItems();
+            break;
+        case "mark":
+            markAsDone(body);
+            break;
+        case "unmark":
+            markAsIncomplete(body);
+            break;
+        case "todo":
+            addToList(0, body);
+            break;
+        case "deadline":
+            addToList(1, body);
+            break;
+        case "event":
+            addToList(2, body);
+            break;
+        case "delete":
+            deleteTask(body);
+            break;
+        default:
+            System.out.println("You're spouting gibberish...");
+            break;
         }
         pageBreakLine();
     }
@@ -120,7 +121,8 @@ public class Slave {
      * Prints out the items in the list of items provided by the user
      */
     private static void listItems() {
-        System.out.println("Can you not even remember the things you need to do? That should be your job, not mine!");
+        System.out.println("Can you not even remember the things you need to do?" +
+                " That should be your job, not mine!");
         if (list.isEmpty()) {
             System.out.println("You don't have anything on your list, and you can't even remember that?");
             return;
@@ -287,7 +289,8 @@ public class Slave {
                 writer.write(user);
                 writer.close();
             } catch (IOException ioe) {
-                System.out.println("Something went wrong, seems like the world doesn't want me to remember your name... Hope to see you never...");
+                System.out.println("Something went wrong, seems like the world doesn't want me to remember your name..." +
+                        " Hope to see you never...");
                 System.exit(1);
             }
         }

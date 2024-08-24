@@ -1,3 +1,5 @@
+package slaveFiles;
+
 public class Deadline extends Task {
     String deadline;
     public Deadline (String task, String deadline) {

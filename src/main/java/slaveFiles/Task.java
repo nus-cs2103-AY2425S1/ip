@@ -1,3 +1,5 @@
+package slaveFiles;
+
 public abstract class Task {
     private boolean completed;
     private String task;
