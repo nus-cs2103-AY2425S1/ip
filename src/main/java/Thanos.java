@@ -3,7 +3,7 @@ import java.util.Scanner;
 import static utility.Printer.printWithDivider;
 
 import commands.CommandType;
-import commands.InvalidCommandException;
+import exceptions.InvalidCommandException;
 import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
