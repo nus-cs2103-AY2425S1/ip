@@ -2,11 +2,11 @@
  * Deadline class containing name and deadline.
  */
 public class Deadline extends Task {
-    private String deadline;
+    private Temporal deadline;
 
     public Deadline(String name, String deadline) {
         super(name);
-        this.deadline = deadline;
+        this.deadline = new Temporal(deadline);
     }
 
     @Override

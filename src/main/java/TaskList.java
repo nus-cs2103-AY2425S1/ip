@@ -18,7 +18,7 @@ public class TaskList {
 
     /* Regex to read tasks from text file */
     private final Pattern TASK_FORMAT = Pattern.compile("\\[([TED])]\\[([X ])] " +
-            "([\\w ]+\\w)(?: \\((?:from|by): ([\\w ]+\\w)\\)*)?(?: \\| to: ([\\w ]+\\w)\\))?");
+            "([\\w ]+\\w)(?: \\((?:from|by): ([\\w\\d, :]+)\\)*)?(?: \\| to: ([\\w\\d, :]+)\\))?");
 
     /**
      * Constructor for task list.
@@ -119,21 +119,21 @@ public class TaskList {
                     switch (m.group(1)) {
                     case "T":
                         t = new Todo(m.group(3));
-                        if (!m.group(2).isEmpty()) {
+                        if (m.group(2).equals("X")) {
                             t.mark();
                         }
                         this.tasks.add(t);
                         break;
                     case "D":
                         t = new Deadline(m.group(3), m.group(4));
-                        if (!m.group(2).isEmpty()) {
+                        if (m.group(2).equals("X")) {
                             t.mark();
                         }
                         this.tasks.add(t);
                         break;
                     case "E":
                         t = new Event(m.group(3), m.group(4), m.group(5));
-                        if (!m.group(2).isEmpty()) {
+                        if (m.group(2).equals("X")) {
                             t.mark();
                         }
                         this.tasks.add(t);
