@@ -14,8 +14,11 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
+REM change directory to the root project directory
+cd /d ..\..\
+
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Wiggly < input.txt > ACTUAL.TXT
+java -classpath .\ip\bin Wiggly < .\ip\text-ui-test\input.txt > .\ip\text-ui-test\ACTUAL.TXT
 
 REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+FC .\ip\text-ui-test\ACTUAL.TXT .\ip\text-ui-test\EXPECTED.TXT

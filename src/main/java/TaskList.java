@@ -1,9 +1,41 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TaskList {
 
-    private List<Task> tasks;
+    private final List<Task> tasks;
+
+    public TaskList(String filePath) throws FileNotFoundException {
+        this.tasks = new ArrayList<>();
+        File taskFile = new File(filePath);
+
+        if (taskFile.exists()) {
+            Scanner s = new Scanner(taskFile);
+            int count = 0;
+
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+
+                try {
+                    this.tasks.add(Task.createFromData(line));
+                } catch (IllegalArgumentException e) {
+                    throw new IllegalArgumentException(e.getMessage() + " at line " + count);
+                } finally {
+                    count++;
+                }
+            }
+        } else {
+	        try {
+		        taskFile.createNewFile();
+	        } catch (IOException e) {
+		        System.err.println(e.getMessage());
+	        }
+        }
+    }
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -23,7 +55,7 @@ public class TaskList {
         return tasks.size();
     }
 
-    private Task getTask(int index) {
+    public Task getTask(int index) {
         return tasks.get(index);
     }
 
@@ -58,18 +90,23 @@ public class TaskList {
         return sb.toString();
     }
 
+    public String toFileFormat() {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : tasks) {
+            sb.append(task.toFileFormat()).append("\n");
+        }
+        return sb.toString();
+    }
     @Override
     public String toString() {
         int count = 1;
-        StringBuilder sb = new StringBuilder("____________________________________\n");
-        sb.append("Here are the tasks in your list:\n");
+        StringBuilder sb = new StringBuilder();
 
         for (Task task : tasks) {
             sb.append(count).append(". ").append(task.toString()).append("\n");
             count++;
         }
 
-        sb.append("_____________________________________").append("\n");
         return sb.toString();
     }
 }

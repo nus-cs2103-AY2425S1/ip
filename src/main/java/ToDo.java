@@ -1,9 +1,13 @@
 public class ToDo extends Task {
 
-    protected String by;
 
     public ToDo(String description) {
         super(description);
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "T|" + super.toFileFormat();
     }
 
     @Override

@@ -4,57 +4,67 @@ What can I do for you?
 ____________________________________
 
 ____________________________________
-Got it. I've added this task:
-[T][ ] read book
-____________________________________
-Now you have 1 tasks in the list!
-____________________________________
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][ ] return book (by: June 6th)
+3. [T][ ] read another book
+_____________________________________
 
 ____________________________________
 Got it. I've added this task:
-[D][ ] return book (by: June 6th)
-____________________________________
-Now you have 2 tasks in the list!
-____________________________________
-
-____________________________________
-Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to 4pm)
-____________________________________
-Now you have 3 tasks in the list!
-____________________________________
-
-____________________________________
-Got it. I've added this task:
-[T][ ] join sports club
+[T][ ] read another book
 ____________________________________
 Now you have 4 tasks in the list!
 ____________________________________
 
 ____________________________________
-Nice! I've marked this task as done:
-[T][X] read book
+Got it. I've added this task:
+[D][ ] return another book (by: June 6th)
+____________________________________
+Now you have 5 tasks in the list!
+____________________________________
+
+____________________________________
+Got it. I've added this task:
+[E][ ] another project meeting (from: Aug 8th 4pm to 6pm)
+____________________________________
+Now you have 6 tasks in the list!
+____________________________________
+
+____________________________________
+Got it. I've added this task:
+[T][ ] join another sports club
+____________________________________
+Now you have 7 tasks in the list!
 ____________________________________
 
 ____________________________________
 Nice! I've marked this task as done:
-[T][X] join sports club
+[T][X] read another book
+____________________________________
+
+____________________________________
+Nice! I've marked this task as done:
+[T][X] read another book
 ____________________________________
 
 ____________________________________
 Got it. I've added this task:
 [T][ ] borrow book
 ____________________________________
-Now you have 5 tasks in the list!
+Now you have 8 tasks in the list!
 ____________________________________
 
 ____________________________________
 Here are the tasks in your list:
 1. [T][X] read book
 2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Aug 6th 2pm to 4pm)
-4. [T][X] join sports club
-5. [T][ ] borrow book
+3. [T][X] read another book
+4. [T][X] read another book
+5. [D][ ] return another book (by: June 6th)
+6. [E][ ] another project meeting (from: Aug 8th 4pm to 6pm)
+7. [T][ ] join another sports club
+8. [T][ ] borrow book
 _____________________________________
 
 ____________________________________
@@ -75,8 +85,37 @@ ____________________________________
 
 ____________________________________
 Noted. I've removed this task:
-[E][ ] project meeting (from: Aug 6th 2pm to 4pm)
+[T][X] read another book
+Now you have 7 tasks in the list!
+____________________________________
+
+____________________________________
+Noted. I've removed this task:
+[T][ ] borrow book
+Now you have 6 tasks in the list!
+____________________________________
+
+____________________________________
+Noted. I've removed this task:
+[T][ ] join another sports club
+Now you have 5 tasks in the list!
+____________________________________
+
+____________________________________
+Noted. I've removed this task:
+[E][ ] another project meeting (from: Aug 8th 4pm to 6pm)
 Now you have 4 tasks in the list!
+____________________________________
+
+____________________________________
+Noted. I've removed this task:
+[D][ ] return another book (by: June 6th)
+Now you have 3 tasks in the list!
+____________________________________
+
+____________________________________
+Ok, I've marked this task as not done yet:
+[T][ ] read another book
 ____________________________________
 
 ____________________________________
