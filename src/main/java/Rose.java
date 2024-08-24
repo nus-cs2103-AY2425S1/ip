@@ -4,19 +4,37 @@ import java.util.ArrayList;
 public class Rose {
     static final String horizontal = "____________________________________________________________";
     static final String name = "Rose";
-    static ArrayList<String> tasks = new ArrayList<>();
+    static ArrayList<Task> tasks = new ArrayList<Task>();
 
-    private static void addTask(String task) {
-        tasks.add(task);
-        System.out.println((horizontal + "\nadded: " + task +
+    private static void addTask(String taskName) {
+        tasks.add(new Task(taskName));
+        System.out.println((horizontal + "\nadded: " + taskName +
                 "\n" + horizontal).indent(4));
     }
 
     private static void showList() {
         System.out.println(horizontal.indent(4));
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.print((i + ". " + tasks.get(i - 1)).indent(4));
+            System.out.print((i + ". " + tasks.get(i - 1).toString()).indent(4));
         }
+        System.out.println(horizontal.indent(4));
+    }
+
+    private static void markTask(Integer idx) {
+        System.out.println(horizontal.indent(4));
+        tasks.get(idx - 1).mark();
+        //Task updatedTask = tasks.get(idx - 1).mark();
+        //tasks.set(idx - 1, updatedTask);
+        System.out.println("Marked as done : ".indent(4));
+        System.out.println(tasks.get(idx - 1).toString().indent(4));
+        System.out.println(horizontal.indent(4));
+    }
+
+    private static void unmarkTask(Integer idx) {
+        System.out.println(horizontal.indent(4));
+        tasks.get(idx - 1).unmark();
+        System.out.println("Marked as not done :".indent(4));
+        System.out.println(tasks.get(idx - 1).toString().indent(4));
         System.out.println(horizontal.indent(4));
     }
     public static void main(String[] args) {
@@ -28,16 +46,25 @@ public class Rose {
 
         System.out.println(opening.indent(4));
 
-        String command = scanner.nextLine();
+        String input = scanner.nextLine();
+        String message = "";
 
-        while (!command.equals("bye")) {
+        while (!input.equals("bye")) {
+            String command = input.split(" ",2)[0];
+            if ((input.split(" ", 2).length > 1)) {
+                message = input.split(" ", 2)[1];
+            }
+
             if (command.equals("list")) {
                 showList();
-                command = scanner.nextLine();
-                continue;
+            } else if (command.equals("mark")) {
+                markTask(Integer.valueOf(message));
+            } else if (command.equals("unmark")) {
+                unmarkTask(Integer.valueOf(message));
+            } else {
+                addTask(input);
             }
-            addTask(command);
-            command = scanner.nextLine();
+            input = scanner.nextLine();
         }
 
         System.out.println(closing.indent(4));
