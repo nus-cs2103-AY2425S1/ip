@@ -1,24 +1,24 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
-    protected String symbol;
+    protected TaskStatus status;
+    protected  TaskType type;
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
-        this.isDone = false;
-        this.symbol = "[T]";
+        this.status = TaskStatus.NOT_DONE;
+        this.type = type;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (status == TaskStatus.DONE ? "X" : " ");
     }
 
     public void mark(Task task) {
-        task.isDone = true;
+        this.status = TaskStatus.DONE;
     }
 
     @Override
     public String toString() {
-        return this.symbol + " [" + this.getStatusIcon() + "] " + this.description;
+        return " [" + this.getStatusIcon() + "] " + this.description;
     }
 }

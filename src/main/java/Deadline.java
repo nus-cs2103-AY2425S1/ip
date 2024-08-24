@@ -3,13 +3,12 @@ public class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, TaskType.DEADLINE);
         this.by = by;
-        this.symbol = "[D]";
     }
 
     @Override
     public String toString() { //prototype in case of future modification
-        return super.toString() + " by: " + this.by;
+        return "[D]" + super.toString() + " by: " + this.by;
     }
 }

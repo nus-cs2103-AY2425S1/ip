@@ -31,7 +31,7 @@ public class BuddyBot {
                     if (num > myList.size() || num <= 0) {
                         throw new ListTooShortException();
                     }
-                    myList.get(num - 1).isDone = true;
+                    myList.get(num - 1).status = TaskStatus.DONE;
                     System.out.println("Nice! I've marked this task as done:");
                     read(myList);
                 } catch (NumberFormatException | ListTooShortException e) {
@@ -79,7 +79,7 @@ public class BuddyBot {
                         i--;
                         input = myObj.nextLine();
                     } else {
-                        Task additionT = new Task(description);
+                        Task additionT = new Todo(description);
                         myList.add(additionT);
                         System.out.println("Got it. I've added this task: \n" + additionT);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
