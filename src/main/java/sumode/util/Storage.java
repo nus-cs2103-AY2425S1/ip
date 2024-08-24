@@ -18,6 +18,12 @@ public class Storage{
     private final File f;
     private final Ui ui;
 
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath File path to save data for tasks in lists.
+     * @param ui UI for all outputs.
+     */
     public Storage (String filePath, Ui ui) throws IOException {
         this.filePath = filePath;
         this.ui = ui;

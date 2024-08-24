@@ -14,8 +14,14 @@ public class SumoTaskList {
 
     private final List<Task> tasks;
     private final Storage storage;
-    private Ui ui;
+    private final Ui ui;
 
+    /**
+     * Constructor for SumoTaskList
+     *
+     * @param storage Used to store data into local drive.
+     * @param ui UI for all output.
+     */
     public SumoTaskList(Storage storage, Ui ui) throws IOException {
         //initialising
         this.tasks = new ArrayList<>();
@@ -35,6 +41,13 @@ public class SumoTaskList {
 
     }
 
+    /**
+     * Constructor for SumoTaskList.
+     * <p>
+     * Should only be used when storage not available.
+     *
+     * @param ui UI for all output.
+     */
     public SumoTaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.storage = null;
