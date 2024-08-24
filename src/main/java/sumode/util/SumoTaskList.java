@@ -12,7 +12,7 @@ public class SumoTaskList {
 
     private final List<Task> tasks;
     private final Storage storage;
-    private Ui ui;
+    private final Ui ui;
 
     public SumoTaskList(Storage storage, Ui ui) throws IOException {
         //initialising
