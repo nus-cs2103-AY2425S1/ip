@@ -13,18 +13,28 @@ public class Megamind {
                   ||||| \s
                   ||||| \s
                 """;
-        Scanner scanner = new Scanner(System.in);
+
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello from\n" + logo);
 
         greet();
+        run();
+    }
+
+    /**
+     * Runs the program.
+     */
+    public static void run() {
+        Scanner scanner = new Scanner(System.in);
 
         // Start a loop to read commands from the user
         while (true) {
             System.out.println(HORIZONTAL_LINE);
             System.out.print("> ");
             String command = scanner.nextLine().trim();
+
+
 
             try {
                 // Exit the loop if the user types "bye"
@@ -101,6 +111,7 @@ public class Megamind {
      * Exits the program.
      */
     public static void exit() {
+        taskList.saveTasks();
         System.out.println("See you around!");
         System.out.println(HORIZONTAL_LINE);
     }

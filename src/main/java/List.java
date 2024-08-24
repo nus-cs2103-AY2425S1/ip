@@ -1,7 +1,67 @@
+import java.io.*;
 import java.util.ArrayList;
 
 public class List {
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
+
+    /**
+     * Constructor for the List class.
+     */
+    public List() {
+        loadTasks();
+    }
+
+    /**
+     * Saves tasks to the file.
+     * If the file doesn't exist, it is created.
+     */
+    public void saveTasks() {
+        // Create the directory if it doesn't exist
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();  // Create the directory including any necessary parent directories
+        }
+
+        // Save the tasks to the file
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("data/tasks.ser"))) {
+            oos.writeObject(tasks);
+            System.out.println("Tasks have been saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads tasks from the file.
+     * If the file doesn't exist, an empty task list is initialized.
+     * If loading fails, an empty task list is initialized.
+     * If loading is successful, the tasks are loaded into the task list.
+     */
+    @SuppressWarnings("unchecked")
+    public void loadTasks() {
+        // Create the directory if it doesn't exist
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();  // Create the directory including any necessary parent directories
+        }
+
+        // Check if the file exists
+        File taskFile = new File(dataDir, "tasks.ser");
+        if (!taskFile.exists()) {
+            System.out.println("No saved tasks found.");
+            tasks = new ArrayList<>();  // Initialize an empty task list if the file doesn't exist
+            return;
+        }
+
+        // Load tasks from the file if it exists
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(taskFile))) {
+            tasks = (ArrayList<Task>) ois.readObject();
+            System.out.println("Tasks have been loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            tasks = new ArrayList<>();  // Initialize an empty task list if loading fails
+        }
+    }
 
     /**
      * Adds a task to the list.

@@ -1,4 +1,8 @@
+import java.io.Serial;
+
 public class Deadline extends Task{
+    @Serial
+    private static final long serialVersionUID = 1L;
     private final String deadline;
 
     /**
