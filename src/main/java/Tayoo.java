@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tayoo {
-    private static ArrayList<String> tasklist = new ArrayList<String>(100);
+    private static ArrayList<Task> tasklist = new ArrayList<Task>(100);
+    private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE"};
     public static void main(String[] args) {
         String name = "Tayoo";
         Scanner scanner = new Scanner(System.in);
@@ -49,20 +51,49 @@ public class Tayoo {
 
     private static void awaitCommand(Scanner scanner) {
         while(true) {
-            String command = scanner.nextLine();
+            String command = scanner.nextLine().trim();
             String input = command.toUpperCase();
-            switch(input) {
-                case "BYE":
-                case "EXIT":
-                case "CLOSE":
-                case "GOODBYE":
-                    exitBot(scanner);
-                    break;
-                case "LIST":
-                    printTaskList();
-                    break;
-                default:
-                    addTask(command);
+
+            if (Arrays.asList(exitCodes).contains(input)) {
+                exitBot(scanner);
+            } else if (input.equals("LIST")) {
+                printTaskList();
+            } else if (input.startsWith("MARK ")) {
+                int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
+                try {
+                    if (tasklist.get(taskNumber).markAsDone()) {
+                        printText("Nice! I've marked this task as done:\n" + tasklist.get(taskNumber));
+                    } else {
+                        printText("Hey! You've done that one already!\n" + tasklist.get(taskNumber));
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    if (taskNumber <= 0) {
+                        System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
+                    } else if (taskNumber > 100) {
+                        System.out.println("My task list can't go that high! Try a smaller number");
+                    } else {
+                        System.out.println("Hmm... my task list doesn't contain that number... try again");
+                    }
+                }
+            } else if (input.startsWith("UNMARK ")) {
+                int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+                try {
+                    if (tasklist.get(taskNumber).unmark()) {
+                        printText("OK, I've marked this task as not done yet:\n" + tasklist.get(taskNumber));
+                    } else {
+                        printText("Hey! You haven't even done that one yet!\n" + tasklist.get(taskNumber));
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    if (taskNumber <= 0) {
+                        System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
+                    } else if (taskNumber > 100) {
+                        System.out.println("My task list can't go that high! Try a smaller number");
+                    } else {
+                        System.out.println("Hmm... my task list doesn't contain that number... try again");
+                    }
+                }
+            } else {
+                addTask(command);
             }
         }
     }
@@ -72,12 +103,12 @@ public class Tayoo {
             printText("Too many tasks! Complete some first! >:( ");
             return;
         }
-        tasklist.add(task);
+        tasklist.add(new Task(task));
         printText("added: " + task);
     }
 
     private static void printTaskList() {
-        StringBuilder toPrint = new StringBuilder();
+        StringBuilder toPrint = new StringBuilder("Here are the tasks in your list: \n");
         int length = tasklist.size();
 
         for (int i = 0; i < length; i++) {
