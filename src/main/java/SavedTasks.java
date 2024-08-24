@@ -4,6 +4,9 @@ import tasks.Task;
 import tasks.ToDo;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -133,30 +136,35 @@ public class SavedTasks {
 
         boolean isCompleted;
         Task task;
-        if (todoMatcher.find()) {
-            isCompleted = Objects.equals(todoMatcher.group(1), "X");
-            String name = todoMatcher.group(2);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        try {
+            if (todoMatcher.find()) {
+                isCompleted = Objects.equals(todoMatcher.group(1), "X");
+                String name = todoMatcher.group(2);
 
-            task = new ToDo(name);
-        } else if (deadlineMatcher.find()) {
-            isCompleted = Objects.equals(deadlineMatcher.group(1), "X");
-            String name = deadlineMatcher.group(2);
-            String deadline = deadlineMatcher.group(3);
+                task = new ToDo(name);
+            } else if (deadlineMatcher.find()) {
+                isCompleted = Objects.equals(deadlineMatcher.group(1), "X");
+                String name = deadlineMatcher.group(2);
+                LocalDateTime deadline = LocalDateTime.parse(deadlineMatcher.group(2), f);
 
-            task = new Deadline(name, deadline);
-        } else if (eventMatcher.find()) {
-            isCompleted = Objects.equals(eventMatcher.group(1), "X");
-            String name = eventMatcher.group(2);
-            String start = eventMatcher.group(3);
-            String end = eventMatcher.group(4);
+                task = new Deadline(name, deadline);
+            } else if (eventMatcher.find()) {
+                isCompleted = Objects.equals(eventMatcher.group(1), "X");
+                String name = eventMatcher.group(2);
+                LocalDateTime start = LocalDateTime.parse(eventMatcher.group(3), f);
+                LocalDateTime end = LocalDateTime.parse(eventMatcher.group(4), f);
 
-            task = new Event(name, start, end);
-        } else {
+                task = new Event(name, start, end);
+            } else {
+                throw new InvalidInputException("Could not parse task.");
+            }
+
+            if (isCompleted) {
+                task.mark(true);
+            }
+        } catch (DateTimeParseException e) {
             throw new InvalidInputException("Could not parse task.");
-        }
-
-        if (isCompleted) {
-            task.mark(true);
         }
 
         return task;
