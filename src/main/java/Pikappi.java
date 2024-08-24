@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
@@ -43,7 +42,9 @@ public class Pikappi {
             case DEADLINE:
                 String by = "";
                 try {
-                    by = substrings[3];
+                    for (int i = 3; i < substrings.length; i++) {
+                        by += substrings[i] + " ";
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new PikappiException("Pi-ka..?? When is the deadline..?");
                 }
@@ -56,7 +57,16 @@ public class Pikappi {
                 String to = "";
                 try {
                     from = substrings[3];
-                    to = substrings[5];
+                    if (!substrings[4].equals("/to")) {
+                        from += " " + substrings[4];
+                        for (int i = 6; i < substrings.length; i++) {
+                            to += substrings[i] + " ";
+                        }
+                    } else {
+                        for (int i = 5; i < substrings.length; i++) {
+                            to += substrings[i] + " ";
+                        }
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new PikappiException("Pi-ka..?? When is the event starting and ending..?");
                 }
