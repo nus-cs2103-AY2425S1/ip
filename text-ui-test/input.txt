@@ -2,6 +2,10 @@ read book
 todo go japan
 event class /from may 41st 2 /to 4
 deadline ip /by tmr
+deadline
+deadline flock/bywed
+deadline /by idk
+aaaaaaa
 list
 mark 100
 mark -1
@@ -16,5 +20,8 @@ mark 4
 list
 unmark 3
 unmark 4
+list
+delete 5
+delete 1
 list
 bye

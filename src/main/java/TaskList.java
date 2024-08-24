@@ -15,6 +15,10 @@ public class TaskList {
         return new TaskList(taskList.add(task));
     }
 
+    public TaskList deleteTask(int taskIndex) {
+        return new TaskList(taskList.remove(taskIndex));
+    }
+
     public TaskList markTaskAsDone(int taskIndex) {
         return taskIndex < taskList.size() && taskIndex >= 0
             ? new TaskList(taskList

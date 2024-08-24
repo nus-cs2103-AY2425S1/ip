@@ -16,6 +16,7 @@ public class Elliot {
             switch (command[0]) {
                 case "mark":
                 case "unmark":
+                case "delete":
                     int taskIndex;
                     try {
                         taskIndex = Integer.parseInt(command[1]);
@@ -31,6 +32,12 @@ public class Elliot {
                                     say("OK, I've marked this task as not done yet:\n"
                                             + taskList.get(taskIndex - 1).toString() + "\n");
                                     break;
+                                case "delete":
+                                    say("Noted. I've removed this task:\n"
+                                            + taskList.get(taskIndex - 1).toString() + "\n"
+                                            + "Now you have " + (taskList.size() - 1) 
+                                            + " tasks in the list.\n");
+                                    taskList = taskList.deleteTask(taskIndex - 1);
                             }
                         } else {
                             say("No such task!\n");
