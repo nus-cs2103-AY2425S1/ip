@@ -76,4 +76,10 @@ public class Ui {
         }
         System.out.println("_____________________________________");
     }
+
+    public void invalidDateMsg(){
+        System.out.println("_____________________________________");
+        System.out.println("Invalid date and time format. Please use the format 'd/M/yyyy HHmm'.");
+        System.out.println("_____________________________________");
+    }
 }

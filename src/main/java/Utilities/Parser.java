@@ -105,11 +105,11 @@ public class Parser {
     }
 
     public LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date and time format. Please use the format 'd/M/yyyy HHmm'.");
+        } catch (DateTimeParseException | NullPointerException e) {
+            new Ui().invalidDateMsg();
             return null;
         }
     }

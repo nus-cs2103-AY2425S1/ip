@@ -69,7 +69,7 @@ public class Storage {
         }
     }
 
-    private String getString(Task task) {
+    public String getString(Task task) {
         String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
         String status = task.getDone() ? "1" : "0";
         String line = taskType + " | " + status + " | " + task.getDesc();
