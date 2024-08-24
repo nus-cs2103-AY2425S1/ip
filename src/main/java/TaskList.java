@@ -40,22 +40,6 @@ public class TaskList {
     }
 
     /**
-     * Prints the list and shows task index, task type and whether it is marked or unmarked.
-     */
-    public void showList() {
-        if (this.tasks.isEmpty()) {
-            System.out.println("Nothing in list lah!");
-        } else {
-            System.out.println("Here's your list lor!");
-            Task curr;
-            for (int i = 0; i < tasks.size(); i++) {
-                curr = tasks.get(i);
-                System.out.printf("%d. %s\n", i + 1, curr);
-            }
-        }
-    }
-
-    /**
      * Marks task as completed at specified index.
      * @param index Integer index to mark task at
      * @throws OutOfListException Thrown if invalid index is given, contains current task size
@@ -79,5 +63,24 @@ public class TaskList {
         System.out.println("Walao, ok la I unmark already...");
         curr.unmark();
         System.out.printf("\t%s\n", curr);
+    }
+
+    /**
+     * Returns string representation of the list.
+     * Includes task index, task type and whether it is marked or unmarked.
+     */
+    @Override
+    public String toString() {
+        if (this.tasks.isEmpty()) {
+            return "Nothing in list lah!";
+        } else {
+            StringBuilder output = new StringBuilder("Here's your list lor!\n");
+            Task curr;
+            for (int i = 0; i < tasks.size(); i++) {
+                curr = tasks.get(i);
+                output.append(String.format("%d. %s\n", i + 1, curr));
+            }
+            return output.toString();
+        }
     }
 }

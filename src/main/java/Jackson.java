@@ -80,7 +80,7 @@ public class Jackson {
 
                 // decide what action to take based on response object received from parser
                 if (a == Actions.ACTIONS.LIST) {
-                    taskList.showList();
+                    System.out.println(taskList);
                 } else if (a == Actions.ACTIONS.TODO) {
                     t = new Todo(m.group(1));
                     taskList.addTask(t);
