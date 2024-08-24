@@ -17,7 +17,7 @@ public class Ui {
         DELETE("Task removed. Bye bye."),
         GREETING("Hi, or whatever. What do you want from me today?"),
         ADD("Another day, another task. Added."),
-        TASKTOTAL("You have %d task(s). Get moving.");
+        TOTAL("You have %d task(s). Get moving.");
 
         private final String msg;
 
@@ -97,7 +97,7 @@ public class Ui {
      * @param taskList The list of tasks
      */
     public static void displayTasksNumber(TaskList taskList) {
-        System.out.println(String.format(Message.TASKTOTAL.toString(), taskList.getNumberOfTasks()));
+        System.out.println(String.format(Message.TOTAL.toString(), taskList.getNumberOfTasks()));
     }
 
     /**

@@ -12,7 +12,6 @@ import zaibot.task.ToDoTask;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class TaskUpdateCommandTest {
     private final PrintStream standardOut = System.out;
@@ -52,7 +51,7 @@ public class TaskUpdateCommandTest {
     @Test
     public void testUnmark() {
         Task task = new ToDoTask("one");
-        task.setCompletionStatus(true);
+        task.setDone(true);
         tasks.addTask(task);
 
         HashMap<String, String> optionMap = new HashMap<>();

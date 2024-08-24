@@ -17,7 +17,7 @@ public class Task {
      *
      * @param status The status to change to
      */
-    public void setCompletionStatus(boolean status) {
+    public void setDone(boolean status) {
         this.isDone = status;
     }
 

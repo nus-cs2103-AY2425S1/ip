@@ -19,12 +19,12 @@ public abstract class Command {
 
     private final String name;
     private final HashMap<String, String> optionMap;
-    private boolean continueLoop;
+    private boolean willContinueLoop;
 
     public Command(String name, HashMap<String, String> optionMap) {
         this.name = name;
         this.optionMap = optionMap;
-        this.continueLoop = true;
+        this.willContinueLoop = true;
     }
 
     /**
@@ -32,12 +32,12 @@ public abstract class Command {
      *
      * @return true if command is "bye", false otherwise.
      */
-    public boolean toContinue() {
-        return this.continueLoop;
+    public boolean checkContinue() {
+        return this.willContinueLoop;
     }
 
-    public void setContinueLoop(boolean continueLoop) {
-        this.continueLoop = continueLoop;
+    public void setWillContinueLoop(boolean willContinueLoop) {
+        this.willContinueLoop = willContinueLoop;
     }
 
     public String getName() {
@@ -77,13 +77,8 @@ public abstract class Command {
     public void execute(TaskList tasks, Storage storage) throws ZaibotException {
         Task task;
 
-        try {
-            this.runCommandSpecificLogic(tasks, storage);
-        } catch (ZaibotException e) {
-            Ui.displayError(e);
-        } finally {
-            storage.saveToFile(tasks);
-        }
+        this.runCommandSpecificLogic(tasks, storage);
+        storage.saveToFile(tasks);
     }
 
     /**

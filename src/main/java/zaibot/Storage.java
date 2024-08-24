@@ -17,14 +17,14 @@ public class Storage {
         INCOMPLETE(false),
         COMPLETE(true);
 
-        private final boolean status;
+        private final boolean isComplete;
 
         Status(boolean status) {
-            this.status = status;
+            this.isComplete = status;
         }
 
-        public boolean getStatus() {
-            return status;
+        public boolean checkComplete() {
+            return isComplete;
         }
     }
 
@@ -41,7 +41,7 @@ public class Storage {
     }
 
     /**
-     * Saves the tasklist to the file on disk.
+     * Saves the task list to the file on disk.
      *
      * @param taskList The list of tasks.
      */
@@ -95,7 +95,7 @@ public class Storage {
      * Helper function for the readFromFile function.
      *
      * @param input A line from the file on disk
-     * @return The zaibot.task.Task object with data from the input line
+     * @return The Task object with data from the input line
      * @throws ZaibotException if the line is not formatted as expected.
      */
     public Task parseLine(String input) throws ZaibotException {
@@ -113,7 +113,7 @@ public class Storage {
             default -> throw new ZaibotException("Saved file data not in expected format.");
         };
 
-        task.setCompletionStatus(status.getStatus());
+        task.setDone(status.checkComplete());
 
         return task;
     }

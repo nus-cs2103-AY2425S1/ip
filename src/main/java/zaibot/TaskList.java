@@ -66,7 +66,7 @@ public class TaskList {
      */
     public Task markTask(int number) {
         Task task = this.getTask(number);
-        task.setCompletionStatus(true);
+        task.setDone(true);
         return task;
     }
 
@@ -79,7 +79,7 @@ public class TaskList {
      */
     public Task unmarkTask(int number) {
         Task task = this.getTask(number);
-        task.setCompletionStatus(false);
+        task.setDone(false);
         return task;
     }
 
