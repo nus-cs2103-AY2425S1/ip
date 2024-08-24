@@ -99,6 +99,11 @@ public class Count {
         }
     }
 
+    public void save(ArrayList<Task> ls) {
+        Save.saveTasks(ls);
+        reply("I have saved your tasks as Count.txt");
+    }
+
     // single word command parser
     private void parser(String command) {
         switch (command.toLowerCase()) {
@@ -113,6 +118,9 @@ public class Count {
                 break;
             case "help":
                 helpTutorial();
+                break;
+            case "save":
+                save(ls);
                 break;
             default:
                 reply("I'm sorry, I did not understand that, type 'help' for available commands.");
