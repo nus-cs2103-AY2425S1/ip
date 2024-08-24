@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Task.Task;
 
 public class Storage {
-    private static final String TASK_FILE_DIRECTORY = "./data/taskTable.txt";
+    private static final String TASK_FILE_DIRECTORY = "./data/taskTable.csv";
     private static final File TASK_FILE = new File(TASK_FILE_DIRECTORY);
 
     public static void saveTasksToLocalDisk(ArrayList<Task> tasks) {
