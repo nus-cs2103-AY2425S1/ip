@@ -17,10 +17,14 @@ public class Alexer {
             System.out.println(BREAK);
             promptLoop();
         } else {
-            System.out.println(BREAK);
-            System.out.println(GOODBYE);
-            System.out.println(BREAK);
+            printGoodbye();
         }
+    }
+
+    public void printGoodbye() {
+        System.out.println(BREAK);
+        System.out.println(GOODBYE);
+        System.out.println(BREAK);
     }
 
     public void greetUser() {
