@@ -1,6 +1,8 @@
+import java.util.Scanner;
 public class Nimbus {
-    public static String welcomeMessage = "";
-    public static String horizontalLine = "\n-------------------------------------------------";
+    private static String welcomeMessage = "";
+    private static String horizontalLine = "\n-------------------------------------------------";
+    private static String endingMessage = "BAIBAI! NIMBUS WEEEEEEEEE" + horizontalLine;
     public static void main(String[] args) {
 
         // Came up with the name and used an online ASCII art generator
@@ -16,9 +18,23 @@ public class Nimbus {
                 "|  | \\   |   (_|  |     |  |   |  |  | '--'  / ('  '-'(_.-' \\       / \n" +
                 "`--'  `--'     `--'     `--'   `--'  `------'    `-----'     `-----'  \n";
 
-        welcomeMessage += "Hello from \n" + logo;
-        System.out.println(welcomeMessage + horizontalLine);
-        System.out.println("How can I help you today~ UwU" + horizontalLine);
-        System.out.println("BAIBAI! NIMBUS WEEEEEEEEE" + horizontalLine);
+        welcomeMessage += "Hello from \n" + logo + horizontalLine + " \nHow can I help you today~ UwU" + horizontalLine;
+        System.out.println(welcomeMessage);
+        /*
+        Need to find command that accepts input
+        If is bye, send endingmessage
+         */
+
+        String userInput ="";
+        Scanner scanner = new Scanner(System.in);
+        while (!userInput.equals("bye")) {
+            userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                System.out.println("Nimbus: " + endingMessage);
+            } else {
+                System.out.println("Nimbus: " + userInput + horizontalLine);
+            }
+        }
+        scanner.close();
     }
 }

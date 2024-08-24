@@ -27,6 +27,6 @@ Nimbus is now able to say hi and bye!
 Check out the ASCII art when you start Nimbus!
 
 
-## Feature XYZ
+## Level 1
 
-// Feature details
+Nimbus is mimicking you.
