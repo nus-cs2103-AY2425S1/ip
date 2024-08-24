@@ -1,10 +1,23 @@
 todo hellotask one
-list
 deadline hellotask two /by today 5pm
 event hellotask three /from yesterday 2am /to tomorrow 4am
+deadline hellotask four /by hellotime one
 list
 mark 2
 mark 1
+list
 unmark 2
 list
+delete 2
+list
+blah
+mark
+unmark
+delete
+mark one
+mark one thousand
+todo
+deadline hellotask error one /by
+event hellotask error two /from sunday
+event hellotask error three /from /to tuesday
 bye

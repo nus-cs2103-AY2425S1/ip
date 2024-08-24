@@ -4,23 +4,25 @@ What can I do for you?
 ______________________________________________
 Got it. I've added this task:
 [T][ ] hellotask one
-Now you have 1 task in the list.
-______________________________________________
-Here are the tasks in yout list:
-1.[T][ ] hellotask one
+Now you have 1 task(s) in the list.
 ______________________________________________
 Got it. I've added this task:
 [D][ ] hellotask two (by: today 5pm)
-Now you have 2 task in the list.
+Now you have 2 task(s) in the list.
 ______________________________________________
 Got it. I've added this task:
 [E][ ] hellotask three (from: yesterday 2am to: tomorrow 4am)
-Now you have 3 task in the list.
+Now you have 3 task(s) in the list.
 ______________________________________________
-Here are the tasks in yout list:
+Got it. I've added this task:
+[D][ ] hellotask four (by: hellotime one)
+Now you have 4 task(s) in the list.
+______________________________________________
+Here are the task(s) in your list:
 1.[T][ ] hellotask one
 2.[D][ ] hellotask two (by: today 5pm)
 3.[E][ ] hellotask three (from: yesterday 2am to: tomorrow 4am)
+4.[D][ ] hellotask four (by: hellotime one)
 ______________________________________________
 Nice! I've marked this task as done:
 [D][X] hellotask two (by: today 5pm)
@@ -28,13 +30,49 @@ ______________________________________________
 Nice! I've marked this task as done:
 [T][X] hellotask one
 ______________________________________________
+Here are the task(s) in your list:
+1.[T][X] hellotask one
+2.[D][X] hellotask two (by: today 5pm)
+3.[E][ ] hellotask three (from: yesterday 2am to: tomorrow 4am)
+4.[D][ ] hellotask four (by: hellotime one)
+______________________________________________
 OK, I've marked this task as not done yet:
 [D][ ] hellotask two (by: today 5pm)
 ______________________________________________
-Here are the tasks in yout list:
+Here are the task(s) in your list:
 1.[T][X] hellotask one
 2.[D][ ] hellotask two (by: today 5pm)
 3.[E][ ] hellotask three (from: yesterday 2am to: tomorrow 4am)
+4.[D][ ] hellotask four (by: hellotime one)
+______________________________________________
+Noted. I've removed this task:
+[D][ ] hellotask two (by: today 5pm)
+Now you have 3 task(s) in the list.
+______________________________________________
+Here are the task(s) in your list:
+1.[T][X] hellotask one
+2.[E][ ] hellotask three (from: yesterday 2am to: tomorrow 4am)
+3.[D][ ] hellotask four (by: hellotime one)
+______________________________________________
+OOPS!!! I don't know what that means... :(
+______________________________________________
+OOPS!!! Please indicate which task you would like to mark.
+______________________________________________
+OOPS!!! Please indicate which task you would like to unmark.
+______________________________________________
+OOPS!!! Please indicate which task you would like to delete.
+______________________________________________
+OOPS!!! Please indicate an integer for which task you would like to mark.
+______________________________________________
+OOPS!!! Please indicate an integer for which task you would like to mark.
+______________________________________________
+OOPS!!! Todo 'description' is missing...
+______________________________________________
+OOPS!!! Deadline 'description' or 'by' input(s) is/are missing...
+______________________________________________
+OOPS!!! Event 'description', 'from' or 'to' input(s) is/are missing...
+______________________________________________
+OOPS!!! Event 'description', 'from' or 'to' input(s) is/are missing...
 ______________________________________________
 Bye! Hope to see you again soon!
 ______________________________________________
