@@ -89,7 +89,7 @@ public class Darwin {
         }
     }
 
-    private void getTaskList() {
+    private void replyTaskList() {
         StringBuilder taskList = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.taskList.size(); i++) {
             Task task = this.taskList.get(i);
@@ -132,6 +132,10 @@ public class Darwin {
         reply += "\n  " + task.getTaskInfo();
         Darwin.reply(reply);
     }
+
+    /**
+     * Initialises a chat with the user and chat bot Darwin through standard input and output
+     */
     public void initChat() {
         String startMsg = String.format("Hello! I'm %s\nWhat can I do for you?", NAME);
         String endMsg = "Bye. Hope to see you again soon!";
@@ -147,7 +151,7 @@ public class Darwin {
                 Darwin.reply(endMsg);
                 break;
             } else if (cmd.equals(Darwin.CHECK_LIST)) {
-                this.getTaskList();
+                this.replyTaskList();
             } else if (cmd.equals(Darwin.MARK) || cmd.equals(Darwin.UNMARK)) {
                 this.parseMarkUnmarkCommand(cmd, args);
             } else if (cmd.equals(Darwin.DELETE)) {

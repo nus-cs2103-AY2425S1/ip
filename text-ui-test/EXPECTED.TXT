@@ -64,6 +64,9 @@ Here are the tasks in your list:
 Wrong command, valid commands are todo, deadline, event
 --------------------------------------------------
 --------------------------------------------------
+Wrong command, valid commands are todo, deadline, event
+--------------------------------------------------
+--------------------------------------------------
 Wrong task description, ensure that it follows the different task types
 --------------------------------------------------
 --------------------------------------------------
