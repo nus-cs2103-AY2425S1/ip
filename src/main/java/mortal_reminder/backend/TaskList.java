@@ -1,3 +1,8 @@
+package mortal_reminder.backend;
+
+import mortal_reminder.io.FormattedPrinting;
+import mortal_reminder.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -19,7 +24,7 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
-        if (!Objects.equals(task.description.trim(), "")) {
+        if (!Objects.equals(task.getDescription().trim(), "")) {
             Storage.appendToListFile(task);
             this.taskList.add(task);
             FormattedPrinting.addTask(task, this);
@@ -33,7 +38,7 @@ public class TaskList {
     }
 
     public void deleteTask(Task task) {
-        if (!Objects.equals(task.description.trim(), "")) {
+        if (!Objects.equals(task.getDescription().trim(), "")) {
             this.taskList.remove(task);
             Storage.deleteTaskFromFile(this);
             FormattedPrinting.deleteTask(task, this);

@@ -1,3 +1,12 @@
+package mortal_reminder.io;
+
+import mortal_reminder.commands.Command;
+import mortal_reminder.commands.CommandTypes;
+import mortal_reminder.tasks.Deadline;
+import mortal_reminder.tasks.Events;
+import mortal_reminder.tasks.Task;
+import mortal_reminder.tasks.ToDo;
+
 import java.util.Arrays;
 
 public class Parser {

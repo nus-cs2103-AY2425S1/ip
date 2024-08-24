@@ -1,3 +1,12 @@
+package mortal_reminder;
+
+import mortal_reminder.backend.Processor;
+import mortal_reminder.backend.Storage;
+import mortal_reminder.backend.TaskList;
+import mortal_reminder.commands.Command;
+import mortal_reminder.io.FormattedPrinting;
+import mortal_reminder.io.Parser;
+
 import java.util.Scanner;
 
 public class MortalReminder {
