@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Storage {
-    private final static String storageListFilePath = "src/main/text-files/listStorage.txt";
+    protected final static String storageListFilePath = "src/main/text-files/listStorage.txt";
 
     public static void appendToListFile(Task task) {
         try {
@@ -43,9 +43,11 @@ public class Storage {
     }
 
     // loading task list from storage.
-    public static TaskList loadTaskListFromFile(TaskList taskList) {
+    public static TaskList loadTaskListFromFile() {
         try {
             File f = new File(storageListFilePath);
+            TaskList taskList = new TaskList();
+
             // Check if the file/folder already exists and create if it is not,
             // send warning if unable to create either if file still does not exist.
             if ((!f.getParentFile().mkdirs() || !f.createNewFile()) && !f.exists()) {

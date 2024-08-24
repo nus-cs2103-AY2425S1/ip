@@ -33,7 +33,7 @@ public class MortalReminder {
     }
 
     private void welcome() {
-        this.taskList = Storage.loadTaskListFromFile(this.taskList);
+        this.taskList = Storage.loadTaskListFromFile();
         FormattedPrinting.welcome();
     }
 
