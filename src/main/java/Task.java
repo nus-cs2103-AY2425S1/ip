@@ -1,4 +1,4 @@
-public class Task {
+abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -15,4 +15,6 @@ public class Task {
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;
     }
+
+    public abstract String fileString();
 }

@@ -1,3 +1,11 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -5,8 +13,14 @@ public class Hana {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static final String LINE = "___________________________________________";
+	private static final String FILE_PATH = "./data/hana.txt";
+    private static final Path FILE = Paths.get(FILE_PATH);
+    private static final Path DIR = Paths.get("./data");
 
-	public static void main(String[] args) {
+
+    public static void main(String[] args) throws HanaException {
+        load();
+
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -40,14 +54,15 @@ public class Hana {
                 } else if (input.startsWith("delete")) {
                     handleDelete(input);
                 } else {
-                    throw new HanaException("I'm sorry, I don't recognize that command. Here are some examples of what you can do:\n"
-                            + "1. List all tasks: list\n"
-                            + "2. Mark a task as done: mark [task number]\n"
-                            + "3. Unmark a task: unmark [task number]\n"
-                            + "4. Add a todo: todo [description]\n"
-                            + "5. Add a deadline: deadline [description] /by [due date]\n"
-                            + "6. Add an event: event [description] /from [start time] /to [end time]\n"
-                            + "7. Delete a task: delete [task number]");
+                    throw new HanaException("""
+                            I'm sorry, I don't recognize that command. Here are some examples of what you can do:
+                            1. List all tasks: list
+                            2. Mark a task as done: mark [task number]
+                            3. Unmark a task: unmark [task number]
+                            4. Add a todo: todo [description]
+                            5. Add a deadline: deadline [description] /by [due date]
+                            6. Add an event: event [description] /from [start time] /to [end time]
+                            7. Delete a task: delete [task number]""");
                 }
             } catch (HanaException e) {
                 System.out.println(LINE);
@@ -130,6 +145,7 @@ public class Hana {
             System.out.println("    " + task);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
+            saveTask();
         } else {
             throw new HanaException("Task list is full!");
         }
@@ -159,6 +175,7 @@ public class Hana {
             }
             System.out.println("  " + task);
             System.out.println(LINE);
+            saveTask();
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
@@ -172,8 +189,66 @@ public class Hana {
             System.out.println("    " + removedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
+            saveTask();
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
+        }
+    }
+
+    private static void load() throws HanaException {
+        if(!Files.exists(DIR)) {
+            try {
+                Files.createDirectories(DIR);
+            } catch (IOException e) {
+                throw new HanaException("Failed to create the directory for saving task");
+            }
+        }
+
+        if(!Files.exists(FILE)) {
+            try {
+                Files.createFile(FILE);
+            } catch (IOException e) {
+                throw new HanaException("Failed to create the directory for saving task");
+            }
+        }
+
+        try (BufferedReader br = Files.newBufferedReader(FILE)) {
+            String line = br.readLine();
+            while (line != null) {
+                String[] parts = line.split(" \\| ");
+                Task task;
+                switch (parts[0]) {
+                case "T":
+                    task = new ToDo(parts[2]);
+                    break;
+                case "D":
+                    task = new Deadline(parts[2], parts[3]);
+                    break;
+                case "E":
+                    task = new Event(parts[2], parts[3], parts[4]);
+                    break;
+                default:
+                    System.out.println("Failed to read saved task. File may be corrupted. Skipping line");
+                    continue;
+                    // Fallthrough
+                }
+                task.setDone(parts[1].equals("1"));
+                tasks.add(task);
+                line = br.readLine();
+            }
+        } catch (IOException e) {
+            throw new HanaException("Failed to read saved tasks. File may be corrupted.");
+        }
+    }
+
+    private static void saveTask() throws HanaException {
+        try (BufferedWriter bw = Files.newBufferedWriter(FILE)) {
+            for (Task task : tasks) {
+                bw.write(task.fileString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new HanaException("Failed to save tasks.");
         }
     }
 }
