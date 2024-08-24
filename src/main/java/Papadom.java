@@ -1,10 +1,14 @@
 import Exceptions.*;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Papadom {
     enum Command {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
@@ -131,14 +135,29 @@ public class Papadom {
      * @throws NoTaskException If the task description is empty.
      * @throws NoDateException If the deadline date is missing.
      */
-    private static String addDeadline(String details) throws NoTaskException, NoDateException {
+    private static String addDeadline(String details) throws NoTaskException, NoDateException, IncorrectDeadlineDateFormatException {
         String[] parts = details.split(" /by ");
         if (parts[0] == "") {
             throw new NoTaskException();
         } else if (parts.length == 1) {
             throw new NoDateException();
         }
-        return addToList(new Deadline(parts[0], parts[1]));
+        try {
+            // Determine if the input includes a time
+            if (parts[1].contains(" ")) {
+                // If it includes a time, parse it as LocalDateTime
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");
+                LocalDateTime dateTime = LocalDateTime.parse(parts[1], dateTimeFormatter);
+                return addToList(new Deadline(parts[0], dateTime));
+            } else {
+                // If it doesn't include a time, parse it as LocalDate
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate date = LocalDate.parse(parts[1], dateFormatter);
+                return addToList(new Deadline(parts[0], date));
+            }
+        } catch (DateTimeParseException e) {
+            throw new IncorrectDeadlineDateFormatException(); // Throw custom exception if parsing fails
+        }
     }
 
     /**
