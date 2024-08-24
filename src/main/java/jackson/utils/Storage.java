@@ -33,18 +33,19 @@ public class Storage {
      * @param taskList {@code TaskList} object that the tasks are written from
      */
     public void save(TaskList taskList) {
-        File f = new File(this.path);
+        File f = new File(this.path); // new file from path
         try {
             f.createNewFile();
             FileWriter fw = new FileWriter(f);
             for (int i = 0; i < taskList.getSize(); i++) {
-                fw.write(taskList.getTask(i).toString());
+                fw.write(taskList.getTask(i).toString()); // write each task
                 if (i < taskList.getSize() - 1) {
-                    fw.write("\n");
+                    fw.write("\n"); // add newline if not last task
                 }
             }
             fw.close();
         } catch (IOException e) {
+            // when file cannot be accessed/written to
             System.out.println("Error! Please check your file permissions!");
         }
     }
@@ -55,33 +56,34 @@ public class Storage {
      * @param taskList {@code TaskList} object to load tasks into
      */
     public void load(TaskList taskList) {
-        File f = new File(this.path);
+        File f = new File(this.path); // new file object
         Matcher m;
         Task t;
         try {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
-                m = TASK_FORMAT.matcher(sc.nextLine());
+                m = TASK_FORMAT.matcher(sc.nextLine()); // take in next task, match to regex
                 if (m.matches()) {
+                    // means task is recognised as valid format
                     switch (m.group(1)) {
-                    case "T":
+                    case "T": // todo
                         t = new Todo(m.group(3));
                         if (m.group(2).equals("X")) {
-                            t.mark();
+                            t.mark(); // mark if completed
                         }
                         taskList.addTask(t);
                         break;
-                    case "D":
+                    case "D": // deadline
                         t = new Deadline(m.group(3), m.group(4));
                         if (m.group(2).equals("X")) {
-                            t.mark();
+                            t.mark(); // mark if completed
                         }
                         taskList.addTask(t);
                         break;
-                    case "E":
+                    case "E": // event
                         t = new Event(m.group(3), m.group(4), m.group(5));
                         if (m.group(2).equals("X")) {
-                            t.mark();
+                            t.mark(); // mark if completed
                         }
                         taskList.addTask(t);
                         break;
@@ -89,14 +91,18 @@ public class Storage {
                         break;
                     }
                 } else {
+                    // no matches, we do not load the task and skip
                     System.out.println("Error with loading task, skipping to next one...");
                 }
             }
-            sc.close();
+            sc.close(); // close scanner
             System.out.println("Tasks loaded successfully!");
         } catch (IOException e) {
+            // file cannot be access or read from
+            // skip loading completely
             System.out.printf("IOException! %s! Aborting loading...\n", e);
         } catch (Exception e) {
+            // some other exception besides IOException
             System.out.printf("Unknown Error! %s! Aborting loading...\n", e);
         }
     }

@@ -38,6 +38,7 @@ public class Temporal {
         try {
             this.localDateTime = LocalDateTime.parse(dateTimeString, dateTime);
         } catch (DateTimeParseException e) {
+            // if exception thrown, means dateTimeString only contains date
             this.localDate = LocalDate.parse(dateTimeString, dateOnly);
         }
     }

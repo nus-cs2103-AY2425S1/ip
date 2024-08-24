@@ -30,7 +30,7 @@ public class Parser {
      * Either throws an Exception if error is found, else returns a Response
      * @param  query String containing user input
      * @return Response containing Action Type and regex Matcher object
-     * @throws JacksonException Jackson-specific exception
+     * @throws SyntaxException when unknown query is parsed
      */
     public static Response parse(String query) throws SyntaxException {
         Actions.ActionType a;
