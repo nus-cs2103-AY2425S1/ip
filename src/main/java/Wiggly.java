@@ -1,5 +1,5 @@
-import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Wiggly {
@@ -19,12 +19,10 @@ public class Wiggly {
     public static void main(String[] args) throws IOException {
 
 	    System.out.println(
-			    """
-					    ____________________________________
-					    Hello! I'm Wiggly
-					    What can I do for you?
-					    ____________________________________
-					    """);
+			    "____________________________________\n" +
+			    "Hello! I'm Wiggly\n" +
+			    "What can I do for you?\n" +
+			    "____________________________________\n");
 
 	    Scanner sc = new Scanner(System.in);
 	    TaskList taskList = new TaskList("./data/Wiggly.txt");
@@ -55,11 +53,9 @@ public class Wiggly {
 			    break;
 		    case BYE:
 			    System.out.println(
-					    """
-							    ____________________________________
-							    Bye. Hope to see you again soon!
-							    ____________________________________
-							    """
+					    "____________________________________\n" +
+					    "Bye. Hope to see you again soon!\n" +
+					    "____________________________________\n"
 			    );
 			    running = false;
 			    break;
@@ -68,11 +64,9 @@ public class Wiggly {
 				    int value = Integer.parseInt(parts[1]);
 				    if (value > taskList.getSize() || value <= 0) {
 					    System.out.println(
-							    """
-									    ____________________________________
-									    There's no such task number!
-									    ____________________________________
-									    """
+							    "____________________________________\n" +
+							    "There's no such task number!\n" +
+							    "____________________________________\n"
 					    );
 				    } else {
 					    System.out.println(taskList.markDone(value));
@@ -80,11 +74,9 @@ public class Wiggly {
 				    }
 			    } catch (NumberFormatException e) {
 				    System.out.println(
-						    """
-								    ____________________________________
-								    Oops, invalid number format detected
-								    ____________________________________
-								    """
+						    "____________________________________\n" +
+						    "Oops, invalid number format detected\n" +
+						    "____________________________________\n"
 				    );
 			    }
 			    break;
@@ -93,11 +85,9 @@ public class Wiggly {
 				    int value = Integer.parseInt(parts[1]);
 				    if (value > taskList.getSize() || value <= 0) {
 					    System.out.println(
-							    """
-									    ____________________________________
-									    There's no such task number!
-									    ____________________________________
-									    """
+							    "____________________________________\n" +
+							    "There's no such task number!\n" +
+							    "____________________________________\n"
 					    );
 				    } else {
 					    System.out.println(taskList.markUndone(value));
@@ -105,11 +95,9 @@ public class Wiggly {
 				    }
 			    } catch (NumberFormatException e) {
 				    System.out.println(
-						    """
-								    ____________________________________
-								    Oops, invalid number format detected
-								    ____________________________________
-								    """
+						    "____________________________________\n" +
+						    "Oops, invalid number format detected\n" +
+						    "____________________________________\n"
 				    );
 			    }
 			    break;
@@ -120,11 +108,9 @@ public class Wiggly {
 				    saveFileEditor.save(taskList);
 			    } catch (ArrayIndexOutOfBoundsException e) {
 				    System.out.println(
-						    """
-								    ____________________________________
-								    Oops, missing todo description
-								    ____________________________________
-								    """
+						    "____________________________________\n" +
+						    "Oops, missing todo description\n" +
+						    "____________________________________\n"
 				    );
 			    }
 			    break;
@@ -133,15 +119,14 @@ public class Wiggly {
 				    parts = parts[1].split(" /by ", 2);
 				    String taskDescription = parts[0];
 				    String by = parts[1];
-				    System.out.println(taskList.addTask(new Deadline(taskDescription, by)));
+				    System.out.println(taskList.addTask(new Deadline(taskDescription,
+						    LocalDate.parse(by))));
 				    saveFileEditor.save(taskList);
 			    } catch (ArrayIndexOutOfBoundsException e) {
 				    System.out.println(
-						    """
-								    ____________________________________
-								    Oops, missing deadline description or by
-								    ____________________________________
-								    """
+						    "____________________________________\n" +
+						    "Oops, missing deadline description or by\n" +
+						    "____________________________________\n"
 				    );
 			    }
 			    break;
@@ -151,15 +136,14 @@ public class Wiggly {
 				    String taskDescription = parts[0];
 				    String from = parts[1];
 				    String to = parts[2];
-				    System.out.println(taskList.addTask(new Event(taskDescription, from, to)));
+				    System.out.println(taskList.addTask(new Event(taskDescription, LocalDate.parse(from),
+						    LocalDate.parse(to))));
 				    saveFileEditor.save(taskList);
 			    } catch (ArrayIndexOutOfBoundsException e) {
 				    System.out.println(
-						    """
-								    ____________________________________
-								    Oops, missing event description, from or to
-								    ____________________________________
-								    """
+						    "____________________________________\n" +
+						    "Oops, missing event description, from or to\n" +
+						    "____________________________________\n"
 				    );
 			    }
 			    break;
@@ -168,11 +152,9 @@ public class Wiggly {
 				    int value = Integer.parseInt(parts[1]);
 				    if (value > taskList.getSize() || value <= 0) {
 					    System.out.println(
-							    """
-									    ____________________________________
-									    There's no such task number!
-									    ____________________________________
-									    """
+							    "____________________________________\n" +
+							    "There's no such task number!\n" +
+							    "____________________________________\n"
 					    );
 				    } else {
 					    System.out.println(taskList.deleteTask(value));
@@ -180,21 +162,17 @@ public class Wiggly {
 				    }
 			    } catch (NumberFormatException e) {
 				    System.out.println(
-						    """
-								    ____________________________________
-								    Oops, invalid number format detected
-								    ____________________________________
-								    """
+						    "____________________________________\n" +
+						    "Oops, invalid number format detected\n" +
+						    "____________________________________\n"
 				    );
 			    }
 			    break;
 		    case UNKNOWN:
 			    System.out.println(
-					    """
-							    ____________________________________
-							    Sorry!! I don't know this command :(
-							    ____________________________________
-							    """
+					    "____________________________________\n" +
+					    "Sorry!! I don't know this command :(\n" +
+					    "____________________________________\n"
 			    );
 			    break;
 		    }
