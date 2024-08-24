@@ -9,32 +9,8 @@ public class TaskList {
 
     private final List<Task> tasks;
 
-    public TaskList(String filePath) throws FileNotFoundException {
-        this.tasks = new ArrayList<>();
-        File taskFile = new File(filePath);
-
-        if (taskFile.exists()) {
-            Scanner s = new Scanner(taskFile);
-            int count = 0;
-
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-
-                try {
-                    this.tasks.add(Task.createFromData(line));
-                } catch (IllegalArgumentException e) {
-                    throw new IllegalArgumentException(e.getMessage() + " at line " + count);
-                } finally {
-                    count++;
-                }
-            }
-        } else {
-	        try {
-		        taskFile.createNewFile();
-	        } catch (IOException e) {
-		        System.err.println(e.getMessage());
-	        }
-        }
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public TaskList() {
@@ -43,11 +19,9 @@ public class TaskList {
 
     public String addTask(Task task) {
         tasks.add(task);
-        StringBuilder sb = new StringBuilder("____________________________________\n");
+        StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n").append(task).append("\n");
-        sb.append("____________________________________\n");
-        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!\n");
-        sb.append("____________________________________\n");
+        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!");
         return sb.toString();
     }
 
@@ -60,33 +34,30 @@ public class TaskList {
     }
 
     public String markDone(int taskNumber) {
-        StringBuilder sb = new StringBuilder("____________________________________\n");
+        StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         task.markDone();
         sb.append("Nice! I've marked this task as done:\n");
-        sb.append(task).append("\n");
-        sb.append("____________________________________\n");
+        sb.append(task);
         return sb.toString();
     }
 
     public String markUndone(int taskNumber) {
-        StringBuilder sb = new StringBuilder("____________________________________\n");
+        StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         task.markUndone();
         sb.append("Ok, I've marked this task as not done yet:\n");
-        sb.append(task).append("\n");
-        sb.append("____________________________________\n");
+        sb.append(task);
         return sb.toString();
     }
 
     public String deleteTask(int taskNumber) {
-        StringBuilder sb = new StringBuilder("____________________________________\n");
+        StringBuilder sb = new StringBuilder();
         Task task = getTask(taskNumber - 1);
         this.tasks.remove(task);
         sb.append("Noted. I've removed this task:\n");
         sb.append(task).append("\n");
-        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!\n");
-        sb.append("____________________________________\n");
+        sb.append("Now you have ").append(tasks.size()).append(" tasks in the list!");
         return sb.toString();
     }
 
