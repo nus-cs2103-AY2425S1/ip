@@ -1,0 +1,2 @@
+E | 1 | event | 1pm | 9pm
+D | 0 | d | 10pm

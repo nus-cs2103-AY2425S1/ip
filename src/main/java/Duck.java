@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -43,7 +44,7 @@ public class Duck {
         System.out.println("Hello! I'm Duck");
         System.out.println("What can I do for you?\n");
         try {
-            File f = createFileIfDoesNotExist("data/duke.txt");
+            File f = createFileIfDoesNotExist(FILE_PATH);
             readFromFile(f);
             getInputTillBye();
             System.out.println("Bye. Hope to see you again soon!");
@@ -198,6 +199,8 @@ public class Duck {
             } else {
                 tasks.get(Integer.parseInt(words[1]) - 1).markAsIncomplete();
             }
+            updateTaskInFile();
+
         } catch (NumberFormatException e) {
             throw new DuckException("Oops! you have to indicate a valid task index!\n");
         } catch (IndexOutOfBoundsException e) {
@@ -214,18 +217,23 @@ public class Duck {
         String[] words = message.split(" ");
 
         try {
+
             System.out.println("Noted. I've removed this task:\n"
                     + tasks.get(Integer.parseInt(words[1]) - 1));
             tasks.remove(Integer.parseInt(words[1]) - 1);
+            updateTaskInFile();
             System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+
+
         } catch (NumberFormatException e) {
             throw new DuckException("Oops! you have to indicate a valid task index!\n");
         } catch (IndexOutOfBoundsException e) {
             throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
         }
     }
-    public static void addTask(Task task) {
+    public static void addTask(Task task) throws DuckException {
         tasks.add(task);
+        appendTaskToFile(task);
         System.out.println("Got it. I've added this task:\n" + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
@@ -289,5 +297,27 @@ public class Duck {
     public static File getFileDirectory(String filePath) {
         return new File(filePath.substring(0, filePath.lastIndexOf('/')));
     }
+
+    // make appending efficient by writing to file only once
+    public static void appendTaskToFile(Task task) throws DuckException {
+        try (FileWriter fw = new FileWriter(FILE_PATH, true)) {
+            fw.write(task.toFileFormat() + System.lineSeparator());
+        } catch (IOException e) {
+            throw new DuckException("Error writing to file:\n" + e.getMessage());
+        }
+    }
+
+    // update the file
+    public static void updateTaskInFile() throws DuckException {
+        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                fw.write(task.toFileFormat() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new DuckException("Error updating file:\n" + e.getMessage());
+        }
+    }
+
+
 
 }
