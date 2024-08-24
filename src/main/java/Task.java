@@ -7,7 +7,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public Task(String description, boolean isDone) {
+    public Task(boolean isDone, String description) {
         this.description = description;
         this.isDone = isDone;
     }

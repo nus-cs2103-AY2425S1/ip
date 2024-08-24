@@ -254,21 +254,21 @@ public class Duck {
                 switch (words[0]) {
                 case "T":
                     task = new ToDo(
-                            words[2],
-                            getTaskDoneBoolean(words[1]));
+                            getTaskDoneBoolean(words[1]),
+                            words[2]);
                     break;
                 case "D":
                     task = new Deadline(
+                            getTaskDoneBoolean(words[1]),
                             words[2],
-                            words[3],
-                            getTaskDoneBoolean(words[1]));
+                            words[3]);
                     break;
                 case "E":
                     task = new Event(
+                            getTaskDoneBoolean(words[1]),
                             words[2],
                             words[3],
-                            words[4],
-                            getTaskDoneBoolean(words[1]));
+                            words[4]);
                     break;
                 default:
                     continue;

@@ -3,8 +3,8 @@ public class ToDo extends Task {
         super(description);
     }
 
-    public ToDo(String description, boolean isDone) {
-        super(description, isDone);
+    public ToDo(boolean isDone, String description) {
+        super(isDone, description);
     }
     @Override
     public String toFileFormat() {

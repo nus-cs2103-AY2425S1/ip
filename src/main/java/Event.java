@@ -7,8 +7,8 @@ public class Event extends Task{
         this.to = end;
     }
 
-    public Event(String description, String start, String end, boolean isDone) {
-        super(description, isDone);
+    public Event(boolean isDone, String description, String start, String end) {
+        super(isDone, description);
         this.from = start;
         this.to = end;
     }
