@@ -52,24 +52,24 @@ public class CommandManager {
         HashMap<String, String> commandMap = parseLine(line);
 
         switch (commandMap.get("command")) {
-            case "list":
-                return new ListCommand(commandMap);
-            case "mark":
-                return new MarkCommand(commandMap, true);
-            case "unmark":
-                return new MarkCommand(commandMap, false);
-            case "todo":
-                return new TodoCommand(commandMap);
-            case "deadline":
-                return new DeadlineCommand(commandMap);
-            case "event":
-                return new EventCommand(commandMap);
-            case "delete":
-                return new DeleteCommand(commandMap);
-            case "bye":
-                return new EndCommand(commandMap);
-            default:
-                throw new InvalidCommandException("Invalid command, please try again!");
+        case "list":
+            return new ListCommand(commandMap);
+        case "mark":
+            return new MarkCommand(commandMap, true);
+        case "unmark":
+            return new MarkCommand(commandMap, false);
+        case "todo":
+            return new TodoCommand(commandMap);
+        case "deadline":
+            return new DeadlineCommand(commandMap);
+        case "event":
+            return new EventCommand(commandMap);
+        case "delete":
+            return new DeleteCommand(commandMap);
+        case "bye":
+            return new EndCommand(commandMap);
+        default:
+            throw new InvalidCommandException("Invalid command, please try again!");
         }
     }
 }
