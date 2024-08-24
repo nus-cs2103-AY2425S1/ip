@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Elliot {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class Elliot {
         while(running) {
             System.out.print("> ");
             String userInput = captureUserInput(scanner).strip();
-            String[] command = userInput.toLowerCase().split(" ", 2);
+            String[] command = stripStrArray(userInput.toLowerCase().split(" ", 2));
             say("");
             switch (command[0]) {
                 case "mark":
@@ -59,19 +59,24 @@ public class Elliot {
                     Task taskToAdd;
                     switch (command[0]) {
                         case "todo":
-                            taskToAdd = new TodoTask(userInput);
+                            taskToAdd = new TodoTask(command[1]);
                             break;
                         case "deadline":
-                            commandOptions = command[1].split("/by");
-                            if(commandOptions.length < 2) {
+                            commandOptions = stripStrArray(command[1].split("/by"));
+                            if (commandOptions.length == 0) {
+                                continue;
+                            }
+                            if (commandOptions.length < 2) {
                                 taskToAdd = new DeadlineTask(commandOptions[0]);
                             } else {
                                 taskToAdd = new DeadlineTask(commandOptions[0], commandOptions[1]);
                             }
-
                             break;
                         case "event":
-                            commandOptions = command[1].split("/from|/to");
+                            commandOptions = stripStrArray(command[1].split("/from|/to"));
+                            if (commandOptions.length == 0) {
+                                continue;
+                            }
                             if (commandOptions.length < 3) {
                                 taskToAdd = new EventTask(commandOptions[0]);
                             } else {
@@ -115,5 +120,11 @@ public class Elliot {
 
     private static String captureUserInput(Scanner scanner) {
         return scanner.nextLine();
+    }
+
+    private static String[] stripStrArray(String[] strArray) {
+        return Arrays.stream(strArray)
+            .map(String::strip)
+            .toArray(String[]::new);
     }
 }

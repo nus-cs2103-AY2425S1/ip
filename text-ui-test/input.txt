@@ -1,0 +1,20 @@
+read book
+todo go japan
+event class /from may 41st 2 /to 4
+deadline ip /by tmr
+list
+mark 100
+mark -1
+mark 1
+list
+unmark 1
+mark 2
+mark 3
+list
+unmark 2
+mark 4
+list
+unmark 3
+unmark 4
+list
+bye
