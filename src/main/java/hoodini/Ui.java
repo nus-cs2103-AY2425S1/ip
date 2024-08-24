@@ -92,14 +92,6 @@ public class Ui {
         System.out.println("Invalid task, "
                 + "please enter a valid task");
     }
-
-    /**
-     * Handles empty strings
-     */
-    public void empty() {
-
-        System.out.println("Whoopsie! "
-                + "Please enter a task");
-    }
+    
 
 }
