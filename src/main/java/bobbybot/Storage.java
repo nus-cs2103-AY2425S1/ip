@@ -6,10 +6,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of the task list, using a text file.
+ */
 public class Storage {
     private File taskListFile;
 
-    Storage(String filePath) {
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath Path of the file to store the task list.
+     */
+    public Storage(String filePath) {
         taskListFile = new File(filePath);
         try {
             taskListFile.getParentFile().mkdirs();
@@ -19,6 +27,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the task list from the file.
+     *
+     * @return List of tasks read from the file.
+     * @throws Exception If there is an error reading from the file.
+     */
     public ArrayList<Task> getTasksFromFile() throws Exception {
         Scanner fileScanner = new Scanner(taskListFile);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -48,6 +62,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks List of tasks to be saved to the file.
+     * @throws IOException If there is an error writing to the file.
+     */
     public void saveTasksToFile(Task[] tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(taskListFile);
         for (Task task : tasks) {

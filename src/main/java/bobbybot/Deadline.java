@@ -4,18 +4,29 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task.
+ * A deadline task has a description and a deadline.
+ */
 public class Deadline extends Task {
 
     private final LocalDate by;
 
     private final DateTimeFormatter DEADLINE_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
-    public Deadline(String description, String by) throws DukeException {
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description Description of the task.
+     * @param by          Deadline of the task.
+     * @throws BobbyBotException If the date format is invalid.
+     */
+    public Deadline(String description, String by) throws BobbyBotException {
         super(description);
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter a valid date in the format yyyy-mm-dd.");
+            throw new BobbyBotException("Please enter a valid date in the format yyyy-mm-dd.");
         }
     }
 

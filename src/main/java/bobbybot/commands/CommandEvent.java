@@ -14,7 +14,7 @@ public class CommandEvent extends Command{
     private final String to;
 
 
-    public CommandEvent(String argument) throws DukeException{
+    public CommandEvent(String argument) throws BobbyBotException {
         Pattern r = Pattern.compile("(.*) /from (.*) /to (.*)");
         Matcher m = r.matcher(argument);
         if (m.find()) {
@@ -22,19 +22,19 @@ public class CommandEvent extends Command{
             from = m.group(2).trim();
             to = m.group(3).trim();
         } else {
-            throw new DukeException("Please specify it in this format 'event <description> /from <from> /to <to>.'");
+            throw new BobbyBotException("Please specify it in this format 'event <description> /from <from> /to <to>.'");
         }
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
         Task event = new Event(description, from, to);
         tasks.addTask(event);
         ui.printAddTask(tasks, event);
         try {
             storage.saveTasksToFile(tasks.toArray());
         } catch (IOException e) {
-            throw new DukeException("Error saving to file.");
+            throw new BobbyBotException("Error saving to file.");
         }
     }
 }
