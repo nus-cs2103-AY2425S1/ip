@@ -3,6 +3,7 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -12,22 +13,21 @@ public class Tasks {
     /**
      * The list of tasks.
      */
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
-     * The types of tasks supported.
+     * The saved tasks.
      */
-    public enum TaskType {
-        TASK_TODO,
-        TASK_DEADLINE,
-        TASK_EVENT;
-    }
+    private SavedTasks savedTasks;
 
     /**
      * Constructor for a new list of tasks.
+     *
+     * @param path The path of the file to save the list of tasks.
      */
-    public Tasks() {
-        this.tasks = new ArrayList<>();
+    public Tasks(String path) throws IOException {
+        this.savedTasks = new SavedTasks(path);
+        this.tasks = this.savedTasks.load();
     }
 
     /**
@@ -36,10 +36,11 @@ public class Tasks {
      * @param name The name of the to-do task.
      * @return The created to-do task.
      */
-    public Task todo(String name) {
+    public Task todo(String name) throws IOException {
         ToDo task = new ToDo(name);
 
         this.tasks.add(task);
+        this.savedTasks.add(task);
 
         return task;
     }
@@ -51,10 +52,11 @@ public class Tasks {
      * @param deadline The deadline of the task.
      * @return The created deadline task.
      */
-    public Task deadline(String name, String deadline) {
+    public Task deadline(String name, String deadline) throws IOException {
         Deadline task = new Deadline(name, deadline);
 
         this.tasks.add(task);
+        this.savedTasks.add(task);
 
         return task;
     }
@@ -67,10 +69,11 @@ public class Tasks {
      * @param end The end of the event.
      * @return The created event task.
      */
-    public Task event(String name, String start, String end) {
+    public Task event(String name, String start, String end) throws IOException {
         Event task = new Event(name, start, end);
 
         this.tasks.add(task);
+        this.savedTasks.add(task);
 
         return task;
     }
@@ -97,10 +100,11 @@ public class Tasks {
      * @return The deleted task with the specified item number.
      * @throws InvalidInputException If task with the specified item number does not exist.
      */
-    public Task delete(int itemNum) throws InvalidInputException {
+    public Task delete(int itemNum) throws InvalidInputException, IOException {
         Task task = this.get(itemNum);
 
         this.tasks.remove(itemNum - 1);
+        this.savedTasks.delete(itemNum);
 
         return task;
     }
@@ -112,10 +116,11 @@ public class Tasks {
      * @param isCompleted Whether to mark the task as completed or not completed.
      * @throws InvalidInputException If the task with the specified item number does not exist.
      */
-    public Task mark(int itemNum, boolean isCompleted) throws InvalidInputException {
+    public Task mark(int itemNum, boolean isCompleted) throws InvalidInputException, IOException {
         Task task = this.get(itemNum);
 
         task.mark(isCompleted);
+        this.savedTasks.update(itemNum, task);
 
         return task;
     }
