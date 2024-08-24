@@ -4,11 +4,11 @@ import myapp.command.Command;
 import myapp.task.TaskList;
 
 public class BingBongBot {
-    private final BingBongUI ui;
+    private final BingBongUi ui;
     private final Storage storage;
     private TaskList tasks;
 
-    public BingBongBot(BingBongUI ui, Storage storage) {
+    public BingBongBot(BingBongUi ui, Storage storage) {
         this.ui = ui;
         this.storage = storage;
         try {

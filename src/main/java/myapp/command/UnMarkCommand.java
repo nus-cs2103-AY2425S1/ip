@@ -1,6 +1,6 @@
 package myapp.command;
 
-import myapp.core.BingBongUI;
+import myapp.core.BingBongUi;
 import myapp.core.Storage;
 import myapp.task.TaskList;
 import myapp.task.Task;
@@ -14,7 +14,7 @@ public class UnMarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, BingBongUI ui, Storage storage)
+    public void execute(TaskList tasks, BingBongUi ui, Storage storage)
             throws IndexOutOfBoundsException {
         if (index < 0 || index >= tasks.size()) {
             throw new IndexOutOfBoundsException();

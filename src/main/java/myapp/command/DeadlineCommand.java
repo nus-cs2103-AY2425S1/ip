@@ -1,6 +1,6 @@
 package myapp.command;
 
-import myapp.core.BingBongUI;
+import myapp.core.BingBongUi;
 import myapp.core.Storage;
 import myapp.task.Deadline;
 import myapp.task.Task;
@@ -18,7 +18,7 @@ public class DeadlineCommand extends AddCommand {
     }
 
     @Override
-    public void execute(TaskList tasks, BingBongUI ui, Storage storage) {
+    public void execute(TaskList tasks, BingBongUi ui, Storage storage) {
         Task task = new Deadline(description, by);
         tasks.add(task);
         saveTasks(tasks, ui, storage);

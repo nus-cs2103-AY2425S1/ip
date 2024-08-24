@@ -1,6 +1,6 @@
 package myapp.command;
 
-import myapp.core.BingBongUI;
+import myapp.core.BingBongUi;
 import myapp.core.Storage;
 import myapp.task.TaskList;
 import myapp.task.Task;
@@ -20,7 +20,7 @@ public class EventCommand extends AddCommand {
     }
 
     @Override
-    public void execute(TaskList tasks, BingBongUI ui, Storage storage) {
+    public void execute(TaskList tasks, BingBongUi ui, Storage storage) {
         Task task = new Event(description, from, to);
         tasks.add(task);
         saveTasks(tasks, ui, storage);

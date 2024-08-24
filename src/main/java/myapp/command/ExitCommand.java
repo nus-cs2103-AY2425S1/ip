@@ -1,6 +1,6 @@
 package myapp.command;
 
-import myapp.core.BingBongUI;
+import myapp.core.BingBongUi;
 import myapp.core.Storage;
 import myapp.task.TaskList;
 
@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, BingBongUI ui, Storage storage) {
+    public void execute(TaskList tasks, BingBongUi ui, Storage storage) {
         ui.showGoodbye();
     }
 
