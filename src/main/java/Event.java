@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
 
@@ -15,13 +16,13 @@ public class Event extends Task{
 
         try {
             startDate = LocalDate.parse(start);
-        } catch (IllegalArgumentException e) {
+        } catch (DateTimeParseException e) {
             startDate = null;
         }
 
         try {
             endDate = LocalDate.parse(end);
-        } catch (IllegalArgumentException e) {
+        } catch (DateTimeParseException e) {
             endDate = null;
         }
     }
@@ -33,7 +34,8 @@ public class Event extends Task{
                 + " (from: "
                 + (startDate == null ? this.start :this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
                 + " to: "
-                + (endDate == null ? this.end :this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+                + (endDate == null ? this.end :this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + ")";
     }
 
     @Override
