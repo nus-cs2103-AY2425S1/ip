@@ -1,4 +1,7 @@
+package chatkaki;
+
 import java.util.Scanner;
+import chatkaki.commands.Command;
 
 public class ChatKaki {
 

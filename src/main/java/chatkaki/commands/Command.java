@@ -1,3 +1,5 @@
+package chatkaki.commands;
+
 import java.io.IOException;
 
 public abstract class Command {

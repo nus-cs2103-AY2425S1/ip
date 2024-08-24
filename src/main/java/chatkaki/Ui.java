@@ -1,3 +1,5 @@
+package chatkaki;
+
 public class Ui {
     public static void printMessage(String message) {
         System.out.println("\n____________________________________________________________");

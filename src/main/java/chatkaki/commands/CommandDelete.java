@@ -1,4 +1,10 @@
-public class CommandDelete extends Command{
+package chatkaki.commands;
+
+import chatkaki.Ui;
+import chatkaki.tasks.TaskList;
+import chatkaki.tasks.Task;
+
+public class CommandDelete extends Command {
 
     private String[] inputs;
 

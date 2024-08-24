@@ -1,3 +1,7 @@
+package chatkaki.tasks;
+
+import chatkaki.tasks.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

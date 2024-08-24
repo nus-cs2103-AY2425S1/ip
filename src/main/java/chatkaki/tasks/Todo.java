@@ -1,3 +1,7 @@
+package chatkaki.tasks;
+
+import chatkaki.tasks.Task;
+
 public class Todo extends Task {
 
     public Todo(boolean isDone, String description) {

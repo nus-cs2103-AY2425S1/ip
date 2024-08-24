@@ -1,3 +1,7 @@
+package chatkaki.commands;
+
+import chatkaki.Ui;
+
 public class CommandUnknown extends Command {
     private String[] inputs;
 
