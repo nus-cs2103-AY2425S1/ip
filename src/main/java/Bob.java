@@ -9,6 +9,10 @@ public class Bob {
     private static final List<Task> taskList = new ArrayList<>();
     private static int numTasks = 0;
 
+    public enum Command {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+    }
+
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,39 +22,46 @@ public class Bob {
             String userInput = br.readLine().trim();
 
             try {
-                String command = getCommand(userInput);
+                Command command = getCommand(userInput);
                 String taskDetails = getTaskDetails(userInput);
 
-                if (command.equalsIgnoreCase("bye")) {
-                    System.out.println(commandBye());
-                    break;
+                switch (command) {
+                    case BYE:
+                        System.out.println(commandBye());
+                        return;
+
+                    case LIST:
+                        System.out.println(commandList());
+                        break;
+
+                    case MARK:
+                        System.out.println(commandMark(taskDetails));
+                        break;
+
+                    case UNMARK:
+                        System.out.println(commandUnmark(taskDetails));
+                        break;
+
+                    case TODO:
+                        System.out.println(commandTodo(taskDetails));
+                        break;
+
+                    case DEADLINE:
+                        System.out.println(commandDeadline(taskDetails));
+                        break;
+
+                    case EVENT:
+                        System.out.println(commandEvent(taskDetails));
+                        break;
+
+                    case DELETE:
+                        System.out.println(commandDelete(taskDetails));
+                        break;
+
+                    case UNKNOWN:
+                    default:
+                        throw new BobException("Sorry, I do not understand. Please try something else.");
                 }
-
-                if (command.equalsIgnoreCase("list")) {
-                    System.out.println(commandList());
-
-                } else if (command.equalsIgnoreCase("mark")) {
-                    System.out.println(commandMark(taskDetails));
-
-                } else if (command.equalsIgnoreCase("unmark")) {
-                    System.out.println(commandUnmark(taskDetails));
-
-                } else if (command.equalsIgnoreCase("todo")) {
-                    System.out.println(commandTodo(taskDetails));
-
-                } else if (command.equalsIgnoreCase("deadline")) {
-                    System.out.println(commandDeadline(taskDetails));
-
-                } else if (command.equalsIgnoreCase("event")) {
-                    System.out.println(commandEvent(taskDetails));
-
-                } else if (command.equalsIgnoreCase("delete")) {
-                    System.out.println(commandDelete(taskDetails));
-
-                } else {
-                    throw new BobException("Sorry, I do not understand. Please try something else.");
-                }
-
             } catch (BobException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
@@ -59,11 +70,16 @@ public class Bob {
         }
     }
 
-    static String getCommand(String userInput) throws BobException {
+    static Command getCommand(String userInput) throws BobException {
         if (userInput.isEmpty() || userInput.equals(" ")) {
             throw new BobException("You did not key in anything...");
         }
-        return userInput.split(" ", 2)[0];
+        String commandStr = userInput.split(" ", 2)[0].toUpperCase();
+        try {
+            return Command.valueOf(commandStr);
+        } catch (IllegalArgumentException e) {
+            return Command.UNKNOWN;
+        }
     }
 
     static String getTaskDetails(String userInput) throws BobException {
