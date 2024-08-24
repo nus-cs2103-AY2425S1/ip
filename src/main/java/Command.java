@@ -1,11 +1,8 @@
-public enum Command {
-    DELETE, TODO, DEADLINE, EVENT, BYE, MARK, UNMARK, LIST, UNKNOWN;
+import java.io.IOException;
 
-    public static Command fromString(String command) {
-        try {
-            return Command.valueOf(command.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return UNKNOWN;
-        }
+public abstract class Command {
+    public abstract void execute() throws IOException;
+    public boolean isExit() {
+        return false;
     }
 }
