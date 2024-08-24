@@ -85,7 +85,7 @@ public class Duck {
 
         } catch (IllegalArgumentException e) {
             System.out.println("Hey, that's not a valid instruction! I don't know how to respond to that.");
-        } catch (DukeException e) {
+        } catch (DuckException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -94,18 +94,18 @@ public class Duck {
         return message.split(" ")[0].toUpperCase();
     }
 
-    public static ToDo parseToDo(String input) throws DukeException {
+    public static ToDo parseToDo(String input) throws DuckException {
         // Normalize to lowercase and remove the todo keyword
         String description = input.replaceFirst("(?i)^todo\\s*", "").trim();
         if (description.isEmpty()) {
-            throw new DukeException("What are you trying \"to do\", mate? " +
+            throw new DuckException("What are you trying \"to do\", mate? " +
                     "Give me a valid description instead of an empty one.\n" +
                     "todo {description}");
         }
         return new ToDo(description);
     }
 
-    public static Deadline parseDeadline(String input) throws DukeException {
+    public static Deadline parseDeadline(String input) throws DuckException {
         // Regular expression to match the pattern for deadline
         Pattern pattern = Pattern.compile("(?i)^deadline\\s+(.+)\\s+/by\\s+(.+)$");
         Matcher matcher = pattern.matcher(input);
@@ -116,12 +116,12 @@ public class Duck {
             return new Deadline(description, deadline);
         }
         else {
-            throw new DukeException("Hey, a deadline instruction should be of the following format:\n"
+            throw new DuckException("Hey, a deadline instruction should be of the following format:\n"
                     + "deadline {description} /by {deadline}");
         }
     }
 
-    public static Event parseEvent(String input) throws DukeException {
+    public static Event parseEvent(String input) throws DuckException {
         // Regular expression to match the pattern for event
         Pattern pattern = Pattern.compile("(?i)^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$");
         Matcher matcher = pattern.matcher(input);
@@ -132,7 +132,7 @@ public class Duck {
             String to = matcher.group(3);
             return new Event(description, from, to);
         } else {
-            throw new DukeException("Give me a valid event format!\n"
+            throw new DuckException("Give me a valid event format!\n"
                     + "event {description} /from {start} /to {end}");
         }
 
@@ -147,17 +147,17 @@ public class Duck {
         System.out.println();
     }
 
-    public static void toDoInstruction(String message) throws DukeException{
+    public static void toDoInstruction(String message) throws DuckException {
         ToDo todo = parseToDo(message);
         addTask(todo);
     }
 
-    public static void deadlineInstruction(String message) throws DukeException{
+    public static void deadlineInstruction(String message) throws DuckException {
         Deadline deadline = parseDeadline(message);
         addTask(deadline);
     }
 
-    public static void eventInstruction(String message) throws DukeException{
+    public static void eventInstruction(String message) throws DuckException {
         Event event = parseEvent(message);
         addTask(event);
     }
@@ -176,9 +176,9 @@ public class Duck {
         }
     }
 
-    public static void updateStatus(String message) throws DukeException {
+    public static void updateStatus(String message) throws DuckException {
         if (!isCorrectUpdateFormat(message)) {
-            throw new DukeException("Update tasks with correct format please >:(\n"
+            throw new DuckException("Update tasks with correct format please >:(\n"
                     + "mark/unmark {index of task to update}");
         }
 
@@ -190,15 +190,15 @@ public class Duck {
                 tasks.get(Integer.parseInt(words[1]) - 1).markAsIncomplete();
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("Oops! you have to indicate a valid task index!\n");
+            throw new DuckException("Oops! you have to indicate a valid task index!\n");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Oops! Index out of bound :( Input a valid task index.\n");
+            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
         }
     }
 
-    public static void deleteTask(String message) throws DukeException {
+    public static void deleteTask(String message) throws DuckException {
         if (!isCorrectUpdateFormat(message)) {
-            throw new DukeException("Delete tasks with correct format please >:(\n"
+            throw new DuckException("Delete tasks with correct format please >:(\n"
                     + "delete {index of task to delete}");
         }
 
@@ -210,9 +210,9 @@ public class Duck {
             tasks.remove(Integer.parseInt(words[1]) - 1);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
         } catch (NumberFormatException e) {
-            throw new DukeException("Oops! you have to indicate a valid task index!\n");
+            throw new DuckException("Oops! you have to indicate a valid task index!\n");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Oops! Index out of bound :( Input a valid task index.\n");
+            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
         }
     }
     public static void addTask(Task task) {
