@@ -11,6 +11,14 @@ public class Event extends Task {
     }
 
     @Override
+    public String formatForCSV() {
+        String res = super.formatForCSV();
+        res += DELIMITER + wrapInQuotes(start);
+        res += DELIMITER + wrapInQuotes(end);
+        return res;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
