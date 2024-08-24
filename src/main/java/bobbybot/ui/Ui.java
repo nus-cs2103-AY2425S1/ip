@@ -61,7 +61,22 @@ public class Ui {
     }
 
     /**
-     * Prints a descriptive message, showing all the tasks in the list.
+     * Prints the tasks that match the search query.
+     *
+     * @param tasks The list of tasks that match the search query.
+     */
+    public void listMatchingTasks(TaskList tasks) {
+        ArrayList<String> taskListString = new ArrayList<>();
+        taskListString.add("Here are the matching tasks in your list:");
+        IntStream.
+                range(0, tasks.getSize()).
+                mapToObj(i -> i + 1 + ". " + tasks.getTask(i)).
+                forEach(taskListString::add);
+        printInput(taskListString.toArray(String[]::new));
+    }
+
+    /**
+     * Prints all the tasks in the list.
      *
      * @param tasks The list of tasks.
      */

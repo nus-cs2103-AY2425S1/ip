@@ -9,6 +9,7 @@ import bobbybot.commands.CommandEvent;
 import bobbybot.commands.CommandDeadline;
 import bobbybot.commands.CommandMark;
 import bobbybot.commands.CommandUnmark;
+import bobbybot.commands.CommandFind;
 
 /**
  * Represents a parser that parses user input, translating it to a Command.
@@ -43,6 +44,8 @@ public class Parser {
             return new CommandDeadline(argument);
         case "event":
             return new CommandEvent(argument);
+        case "find":
+            return new CommandFind(argument);
         default:
             throw new BobbyBotException("I'm sorry, but I don't know what that means :-(");
         }
