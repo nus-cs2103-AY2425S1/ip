@@ -1,7 +1,33 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ ____________________________________________________________
+ Hello! I'm Chatterbox
+ What can I do for you?
+____________________________________________________________
+Added Event to Todo
+Currently 1 tasks in list
+____________________________________________________________
+Current Tasks in List:
+1. [E][ ]  project meeting  ( from Tuesday 3pm  to 4pm )
+____________________________________________________________
+Marked task as done
+[X]  project meeting  ( from Tuesday 3pm  to 4pm )
+____________________________________________________________
+Added Deadline to Todo
+Currently 2 tasks in list
+____________________________________________________________
+Current Tasks in List:
+1. [E][X]  project meeting  ( from Tuesday 3pm  to 4pm )
+2. [D][ ] problem set 1  ( by Wed 1600 )
+____________________________________________________________
+Added Task to Todo
+Currently 3 tasks in list
+____________________________________________________________
+Current Tasks in List:
+1. [E][X]  project meeting  ( from Tuesday 3pm  to 4pm )
+2. [D][ ] problem set 1  ( by Wed 1600 )
+3. [T][ ] todo buy groceries
+____________________________________________________________
+Marked task as done
+[X] todo buy groceries
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
