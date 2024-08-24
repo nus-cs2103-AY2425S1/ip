@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Barcus {
@@ -42,20 +44,66 @@ public class Barcus {
                 }
             } else if (words[0].equals("unmark")) {
                 int pos = Integer.parseInt(words[1]);
-                tasks[pos - 1].unmarkDone();
-                talk("No prob, have marked as undone: " + tasks[pos - 1]);
+                if (pos > 0 && pos <= curr) {
+                    tasks[pos - 1].unmarkDone();
+                    talk("No prob, have marked as undone: " + tasks[pos - 1]);
+                } else {
+                    talk("Error, please choose a number between 1 and " + curr);
+                }
+
             } else if (words[0].equals("mark")) {
                 int pos = Integer.parseInt(words[1]);
-                tasks[pos - 1].markDone();
-                talk("Good job! Have marked as done: " + tasks[pos - 1]);
+                if (pos > 0 && pos <= curr) {
+                    tasks[pos - 1].markDone();
+                    talk("Good job! Have marked as done: " + tasks[pos - 1]);
+                } else {
+                    talk("Error, please choose a number between 1 and " + curr);
+                }
+
+            } else if (words[0].equals("todo")) {
+                tasks[curr] = new Todo(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
+                curr++;
+                talk("Added task: " + tasks[curr - 1] + "\nThere are " + curr + " task(s) in the list.");
+
+            } else if (words[0].equals("deadline")) {
+                List<String> wordsList = Arrays.asList(words);
+                if (!wordsList.contains("/by")) {
+                    talk("Error, please include '/by' and deadline after it");
+                } else {
+                    int byI = wordsList.indexOf("/by");
+//
+//                    String[] temp = reply.split(" /by ");
+//                    String by = temp[1];
+                    tasks[curr] = new Deadline(
+                            String.join(" ", Arrays.copyOfRange(words, 1, byI)),
+                            String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length)));
+                    curr++;
+                    talk("Added task: " + tasks[curr - 1] + "\nThere are " + curr + " task(s) in the list.");
+                }
+            } else if (words[0].equals("event")) {
+                List<String> wordsList = Arrays.asList(words);
+                if (!wordsList.contains("/from") || !wordsList.contains("/to")) {
+                    talk("Error, please include '/from' and '/to' as well as dates after each of those words");
+                } else {
+                    int fromI = wordsList.indexOf("/from");
+                    int toI = wordsList.indexOf("/to");
+                    tasks[curr] = new Event(
+                            String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
+                            String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
+                            String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length))
+                    );
+                    curr++;
+                    talk("Added task: " + tasks[curr - 1] + "\nThere are " + curr + " task(s) in the list.");
+
+                }
             } else {
                 // for echo
-//                talk(reply);
+                talk(reply);
 
                 // create new task
-                tasks[curr] = new Task(reply);
-                curr++;
-                talk("Added task '" + reply + "'");
+//                tasks[curr] = new Task(reply);
+//                curr++;
+//                talk("Added task '" + reply + "'");
             }
         }
 
