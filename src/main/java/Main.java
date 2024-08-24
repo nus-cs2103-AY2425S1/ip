@@ -1,12 +1,10 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.File;
 
 public class Main {
 
@@ -126,12 +124,49 @@ public class Main {
         fileWriter.close();
     }
 
+
+    public static ArrayList<Task> textFileToArrayList(String path) {
+        ArrayList<Task> listOfTasks = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(path);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                Task task = null;
+                char taskSymbol = line.charAt(0);
+                String done = String.valueOf(line.charAt(4));
+                boolean isDone = (done.equals("1"));
+                switch (taskSymbol) {
+                    case 'T' -> {
+                        // todo object
+                        task = new ToDo(line.substring(8), "T");
+                        task.setDone(isDone);
+                    }
+                    case 'D' -> {
+                        // deadline object
+
+                    }
+                    case 'E' -> {
+                        // event object
+
+                    }
+                }
+                listOfTasks.add(task);
+            }
+            fileReader.close();
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return listOfTasks;
+    }
+
     public static void main(String[] args) throws IOException {
-        Path janetTextFile = Paths.get("./janet.txt");
         Janet janet;
-        if (Files.exists(janetTextFile)) {
+        if (Files.exists(Paths.get("./janet.txt"))) {
             // current directory already has a janet.txt file, load this into the arraylist listOfTasks
-            janet = new Janet(new ArrayList<Task>());
+            janet = new Janet(textFileToArrayList("./janet.txt"));
         } else {
             janet = new Janet();
         }
