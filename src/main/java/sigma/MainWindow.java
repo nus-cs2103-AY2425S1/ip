@@ -52,8 +52,9 @@ public class MainWindow extends AnchorPane {
         });
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Sigma instance */
     public void setSigma(Sigma s) {
+        assert s != null;
         sigma = s;
     }
 

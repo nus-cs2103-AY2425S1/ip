@@ -69,17 +69,15 @@ public class Sigma {
      * @throws SigmaFileException If there is an error saving the task list.
      */
     private void exit() throws SigmaFileException {
+        assert this.isRunning;
         try {
             this.ui.closeScanner();
             this.storage.save(taskList.getAllTasks());
             this.isRunning = false;
+            assert !this.isRunning;
         } catch (SigmaFileException e) {
             this.ui.showErrorMessage(e);
         }
-    }
-
-    public String getWelcome() {
-        return this.ui.showWelcome();
     }
 
     /**
@@ -248,11 +246,13 @@ public class Sigma {
     private String handleDeleteCommand(String userInput) throws SigmaException {
         try {
             int taskNumber = Integer.parseInt(userInput);
-            if (taskNumber < 1 || taskNumber > taskList.getSize()) {
+            if (taskNumber < 1 || taskNumber > taskList.getSize() || taskList.getSize() == 0) {
                 throw new SigmaInvalidTaskException(taskNumber);
             }
+            assert taskList.getSize() != 0;
             String s = this.ui.showDeletedTask(taskList.getTask(taskNumber), taskList.getSize() - 1);
             taskList.deleteTask(taskNumber);
+            assert taskList.getSize() == (taskList.getSize() + 1) - 1;
             return s;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SigmaInvalidArgException(CommandType.DELETE);
