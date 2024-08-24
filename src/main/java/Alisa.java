@@ -27,14 +27,20 @@ public class Alisa {
                 int index = Integer.parseInt(inputArray[1]) - 1;
                 taskList.get(index).markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index));
+                System.out.println(taskList.get(index));
                 System.out.println(divider);
             } else if (input.startsWith("unmark")) {
                 String[] inputArray = input.split(" ");
                 int index = Integer.parseInt(inputArray[1]) - 1;
                 taskList.get(index).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index));
+                System.out.println(taskList.get(index));
+                System.out.println(divider);
+            } else if (input.startsWith("todo")) {
+                Todo newTodo = new Todo(input.substring(5));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTodo);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(divider);
             }
             else if (input.equals("list")) {
@@ -42,7 +48,7 @@ public class Alisa {
                     System.out.println("The list is empty, sorry :(");
                 } else {
                     for (int i = 1; i <= taskList.size(); i++) {
-                        System.out.println(i + ".[" + taskList.get(i-1).getStatusIcon() + "] " + taskList.get(i-1));
+                        System.out.println(i + "." + taskList.get(i-1));
                     }
                     System.out.println(divider);
                 }
