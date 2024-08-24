@@ -21,10 +21,11 @@ public class Luna {
         System.out.println(greetings);
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-        boolean start = true;
+        Storage storage = new Storage();
+        ArrayList<Task> tasks = storage.loadTasks();
+        boolean isRunning = true;
 
-        while (start) {
+        while (isRunning) {
             String input = scanner.nextLine();
 
             try {
@@ -33,7 +34,7 @@ public class Luna {
                             Please enter one of the following commands:
                             "todo", "deadline", "event"
                             "mark", "unmark", "delete"
-                            "bye"
+                            "list", "bye"
                             """);
                 }
 
@@ -51,7 +52,7 @@ public class Luna {
                 case BYE:
                     String exit = "Bye! Hope to see you again soon!";
                     System.out.println(exit);
-                    start = false;
+                    isRunning = false;
                     break;
 
                 case LIST:
@@ -209,11 +210,13 @@ public class Luna {
                                     Please enter one of the following commands:
                                     "todo", "deadline", "event"
                                     "mark", "unmark", "delete"
-                                    "bye"
+                                    "list", "bye"
                                     """);
                 }
             } catch (LunaException e) {
                 System.out.println(e.getMessage());
+            } finally {
+                storage.saveTasks(tasks);
             }
         }
         scanner.close();
