@@ -15,11 +15,11 @@ public class MortalReminder {
 
     private void ProcessInputs() {
 
-        boolean continueScanning = true;
-        while (continueScanning) {
+        boolean shouldContinue = true;
+        while (shouldContinue) {
             String input = inputScanner.nextLine();
             Command command = Parser.parseInputFromUser(input);
-            continueScanning = this.processor.HandleCommand(command, this.taskList, continueScanning);
+            shouldContinue = this.processor.HandleCommand(command, this.taskList, shouldContinue);
         }
     }
 

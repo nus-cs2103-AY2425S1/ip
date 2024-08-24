@@ -10,7 +10,7 @@ public class ToDo extends Task {
     public ToDo(String description, boolean isDone) {
         super(description);
         this.type = "T";
-        this.description = description;
+        this.description = description.trim();
         this.isDone = isDone;
     }
 
