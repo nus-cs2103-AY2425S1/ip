@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class TaskList {
-    private final ArrayList<Task> taskList = new ArrayList<Task>();
+    protected final ArrayList<Task> taskList = new ArrayList<Task>();
 
     public Task getTask(int index) {
         try {
@@ -20,7 +20,6 @@ public class TaskList {
             FormattedPrinting.outOfListBounds(this);
             return null;
         }
-
     }
 
     public void addTask(Task task) {
