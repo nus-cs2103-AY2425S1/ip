@@ -1,3 +1,10 @@
+package Utilities;
+
+import Task.Deadline;
+import Task.Event;
+import Task.Task;
+import Task.ToDo;
+
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -6,9 +13,11 @@ public class Storage {
 
     private static final String filePath = "./data/db.txt";
 
-    static void load(ArrayList<Task> tasks) {
+    public void load(ArrayList<Task> tasks) {
 
-        Utils.fileChecker(filePath);
+        new FileChecker(filePath);
+
+        Parser dateTimeParser = new Parser();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             try{
@@ -21,19 +30,19 @@ public class Storage {
 
                     switch (taskType) {
                         case "T":
-                            Task.ToDo todo = new Task.ToDo(desc);
+                            ToDo todo = new ToDo(desc);
                             if (isDone) todo.markDone();
                             tasks.add(todo);
                             break;
 
                         case "D":
-                            Task.Deadline deadline = new Task.Deadline(desc, Utils.parseDateTime(parts[3].trim()));
+                            Deadline deadline = new Deadline(desc, dateTimeParser.parseDateTime(parts[3].trim()));
                             if (isDone) deadline.markDone();
                             tasks.add(deadline);
                             break;
 
                         case "E":
-                            Task.Event event = new Task.Event(desc, Utils.parseDateTime(parts[3].trim()), Utils.parseDateTime(parts[4].trim()));
+                            Event event = new Event(desc, dateTimeParser.parseDateTime(parts[3].trim()), dateTimeParser.parseDateTime(parts[4].trim()));
                             if (isDone) event.markDone();
                             tasks.add(event);
                             break;
@@ -49,7 +58,7 @@ public class Storage {
         }
     }
 
-    static void save(ArrayList<Task> tasks){
+    public void save(ArrayList<Task> tasks){
         try (FileWriter writer = new FileWriter(filePath, false)) {  // 'false' to overwrite the file
             for (Task task : tasks) {
                 String line = getString(task);
@@ -60,17 +69,17 @@ public class Storage {
         }
     }
 
-    private static String getString(Task task) {
-        String taskType = task instanceof Task.ToDo ? "T" : task instanceof Task.Deadline ? "D" : "E";
-        String status = task.isDone ? "1" : "0";
-        String line = taskType + " | " + status + " | " + task.desc;
+    private String getString(Task task) {
+        String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
+        String status = task.getDone() ? "1" : "0";
+        String line = taskType + " | " + status + " | " + task.getDesc();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-        if (task instanceof Task.Deadline deadline) {
-            line += " | " + deadline.by.format(formatter);
-        } else if (task instanceof Task.Event event) {
-            line += " | " + event.from.format(formatter) + " | " + event.to.format(formatter);
+        if (task instanceof Deadline deadline) {
+            line += " | " + deadline.getBy().format(formatter);
+        } else if (task instanceof Event event) {
+            line += " | " + event.getFrom().format(formatter) + " | " + event.getTo().format(formatter);
         }
         return line;
     }

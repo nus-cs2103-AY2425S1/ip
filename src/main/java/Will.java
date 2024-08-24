@@ -1,4 +1,11 @@
+import Task.Task;
+import Task.TaskList;
+import Utilities.Parser;
+import Utilities.Storage;
+import Utilities.Ui;
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Will {
@@ -7,11 +14,24 @@ public class Will {
 
 
         ArrayList<Task> tasks = new ArrayList<>();
-        Storage.load(tasks);
+        Storage storage = new Storage();
+        storage.load(tasks);
 
         String logo = "WILL";
-        Ui.greetMsg(logo);
+        Ui ui = new Ui();
+        ui.greetMsg(logo);
 
-        new Parser(tasks);
+        Scanner scanner = new Scanner(System.in);
+
+        TaskList taskList = new TaskList();
+        Parser dateTimeParser = new Parser();
+        Parser parser = new Parser();
+
+        while (true) {
+            String userInput = scanner.nextLine();
+            if (parser.parseCommand(tasks, userInput, taskList, ui, dateTimeParser)){
+                break;
+            }
+        }
     }
 }

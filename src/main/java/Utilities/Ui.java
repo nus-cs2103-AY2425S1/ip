@@ -1,7 +1,11 @@
+package Utilities;
+
+import Task.Task;
+
 import java.util.ArrayList;
 
 public class Ui {
-    static void printTask(ArrayList<Task> tasks) {
+    public void printTask(ArrayList<Task> tasks) {
         System.out.println("_____________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -10,13 +14,13 @@ public class Ui {
         System.out.println("_____________________________________");
     }
 
-    static void noTask(){
+    public void noTask(){
         System.out.println("_____________________________________");
-        System.out.println("No Task Found");
+        System.out.println("No Task.Task Found");
         System.out.println("_____________________________________");
     }
 
-    static void markTask(ArrayList<Task> tasks, int index, Boolean isToMark){
+    public void markTask(ArrayList<Task> tasks, int index, Boolean isToMark){
         System.out.println("_____________________________________");
         if (isToMark){
             System.out.println("Nice! I've marked this task as done:");
@@ -27,7 +31,7 @@ public class Ui {
         System.out.println("_____________________________________");
     }
 
-    static void alterTask(ArrayList<Task> tasks, Task task, Boolean isAdd){
+    public void alterTask(ArrayList<Task> tasks, Task task, Boolean isAdd){
         System.out.println("_____________________________________");
         if (isAdd){
             System.out.println("Got it. I've added this task:");
@@ -39,36 +43,36 @@ public class Ui {
         System.out.println("_____________________________________");
     }
 
-    static void defaultMsg(){
+    public void defaultMsg(){
         System.out.println("_____________________________________");
         System.out.println("I'm sorry, but I don't know what that means");
         System.out.println("_____________________________________");
     }
 
-    static void endMsg(){
+    public void endMsg(){
         System.out.println("_____________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("_____________________________________");
     }
 
-    static void greetMsg(String logo){
+    public void greetMsg(String logo){
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
         System.out.println("_____________________________________");
     }
 
-    static void blankMsg(String type){
+    public void blankMsg(String type){
         System.out.println("_____________________________________");
         switch (type){
-            case "todo":
-                System.out.println("The description of a " + type + " cannot be empty.");
-                break;
-            case "number":
-                System.out.println("The task number cannot be empty.");
-                break;
-            default:
-                System.out.println("The description and date of a " + type + " cannot be empty.");
-                break;
+        case "todo":
+            System.out.println("The description of a " + type + " cannot be empty.");
+            break;
+        case "number":
+            System.out.println("The task number cannot be empty.");
+            break;
+        default:
+            System.out.println("The description and date of a " + type + " cannot be empty.");
+            break;
         }
         System.out.println("_____________________________________");
     }

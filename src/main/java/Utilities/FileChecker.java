@@ -1,12 +1,11 @@
+package Utilities;
+
 import java.io.File;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-public class Utils {
+public class FileChecker {
 
-    static void fileChecker(String filePath) {
+    public FileChecker(String filePath) {
         File file = new File(filePath);
         File directory = new File(file.getParent());
 
@@ -24,16 +23,6 @@ public class Utils {
             }
         }catch (IOException e) {
             System.out.println("Error in file creation.");
-        }
-    }
-
-    static LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date and time format. Please use the format 'd/M/yyyy HHmm'.");
-            return null;
         }
     }
 }
