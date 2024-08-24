@@ -5,6 +5,7 @@ import Tasks.Events;
 import Tasks.Task;
 import Tasks.ToDos;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Brock {
@@ -13,12 +14,13 @@ public class Brock {
         UNMARK
     }
     private static final String horizontalLine = "________________________________________________\n";
-    private static final Task[] tasks = new Task[100];
-    private static int tasksIndex = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     // Helper function to display response with lines
     private static void displayResponse(String response) {
-        System.out.println(Brock.horizontalLine + response + Brock.horizontalLine);
+        System.out.println(Brock.horizontalLine
+                + response
+                + Brock.horizontalLine);
     }
 
     // Helper function to get target index
@@ -28,15 +30,69 @@ public class Brock {
         return Character.getNumericValue(targetItemNumber) - 1;
     }
 
-    private static boolean isInteger(String commandWord) {
+    // Helper function to process if string reflects an integer value
+    private static boolean isNotInteger(String commandWord) {
         try {
             Integer.parseInt(commandWord);
         } catch(NumberFormatException | NullPointerException e) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
+    // Helper function to count number of tasks currently
+    private static int numTasks() {
+        int count = 0;
+        for (int i = 0; i < Brock.tasks.size(); i++) {
+            if (Brock.tasks.get(i) != null) {
+                count += 1;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+    // Helper function to get task details as a string
+    private static String getDetails(Task task) {
+        return "[" + task.getTaskType() + "]"
+                + "[" + task.getStatusIcon() + "] "
+                + task.getDescription()
+                + task.getExtraInfo()
+                + '\n';
+    }
+
+    // Helper function to get task summary, detailing current number of tasks
+    private static String getTaskSummary() {
+        int totalTasks = numTasks();
+        return "Now you have "
+                + totalTasks
+                + (totalTasks == 1
+                ? " task in the list.\n"
+                : " tasks in the list.\n");
+    }
+
+    // Helper function to perform list command
+    private static void handleList() {
+        // Use SB as it is a faster way to append strings
+        StringBuilder tasksString = new StringBuilder();
+        for (int i = 0; i < Brock.tasks.size(); i++) {
+            Task currTask = Brock.tasks.get(i);
+            if (currTask == null) {
+                break;
+            }
+            String itemNumber = i + 1 + ".";
+            tasksString.append(itemNumber)
+                    .append(getDetails(currTask));
+        }
+        int totalTasks = numTasks();
+        displayResponse((totalTasks == 1
+                ? "Here is the task in your list:\n"
+                : "Here are the tasks in your list:\n")
+                + tasksString);
+    }
+
+    // Helper function to validate the status (mark/unmark) command
     private static void validateStatus(String command, Action action) throws BrockException {
         String actionName = action == Action.MARK
                 ? "Mark"
@@ -47,7 +103,7 @@ public class Brock {
         if (commandLength == 1) {
             throw new BrockException("Missing task number!\n");
         }
-        if (commandLength > 2 || !isInteger(commandWords[1])) {
+        if (commandLength > 2 || isNotInteger(commandWords[1])) {
             throw new BrockException(actionName
                     + " command is in the form "
                     + actionName.toLowerCase()
@@ -61,10 +117,12 @@ public class Brock {
         }
     }
 
+    // Helper function to validate & perform the status command (if correct)
     private static void handleStatus(String command, Action action) throws BrockException {
         validateStatus(command, action);
 
-        Task targetTask = Brock.tasks[getTargetIndex(command)];
+        int targetIndex = getTargetIndex(command);
+        Task targetTask = Brock.tasks.get(targetIndex);
         if (action == Action.MARK) {
             targetTask.markAsDone();
             displayResponse("Nice! I've marked this task as done:\n"
@@ -78,6 +136,39 @@ public class Brock {
         }
     }
 
+    // Helper function to validate the delete command
+    private static void validateDelete(String command) throws BrockException {
+        String[] commandWords = command.split(" ");
+        int commandLength = commandWords.length;
+
+        if (commandLength == 1) {
+            throw new BrockException("Missing task number!\n");
+        }
+        if (commandLength > 2 || isNotInteger(commandWords[1])) {
+            throw new BrockException("Delete command is in the form delete <task-number>!\n");
+        }
+
+        int taskNumber = Integer.parseInt(commandWords[1]);
+        int totalTasks = numTasks();
+        if (taskNumber > totalTasks || taskNumber < 1) {
+            throw new BrockException("Task number does not exist!\n");
+        }
+
+    }
+
+    // Helper function to validate & perform the delete command (if correct)
+    private static void handleDelete(String command) throws BrockException {
+        validateDelete(command);
+
+        int targetIndex = getTargetIndex(command);
+        Task removedTask = Brock.tasks.get(targetIndex);
+        Brock.tasks.remove(targetIndex);
+        displayResponse("Noted. I've removed this task:\n"
+                + "  "
+                + getDetails(removedTask)
+                + getTaskSummary());
+    }
+
     // Helper function to create task and return the created task
     private static Task createTask(String command) throws BrockException {
         String[] commandWords = command.split(" ");
@@ -86,16 +177,16 @@ public class Brock {
 
         Task task;
         StringBuilder description = new StringBuilder();
-        if (firstWord.equals("todo")) {
+        if (firstWord.equalsIgnoreCase("todo")) {
             for (int i = 1; i < commandLength; i++) {
                 description.append(commandWords[i])
                         .append(" ");
             }
             task = new ToDos(description.toString());
 
-        } else if (firstWord.equals("deadline")) {
+        } else if (firstWord.equalsIgnoreCase("deadline")) {
             for (int i = 1; i < commandLength; i++) {
-                if (commandWords[i].equals("/by")) {
+                if (commandWords[i].equalsIgnoreCase("/by")) {
                     break;
                 }
                 description.append(commandWords[i])
@@ -108,7 +199,7 @@ public class Brock {
                     dueDate.append(word)
                             .append(" ");
                 }
-                if (word.equals("/by")) {
+                if (word.equalsIgnoreCase("/by")) {
                     dueDateActive = true;
                 }
             }
@@ -120,17 +211,17 @@ public class Brock {
             task = new Deadlines(description.toString(),
                     dueDate.toString().trim());
 
-        } else if (firstWord.equals("event")){
+        } else if (firstWord.equalsIgnoreCase("event")){
             StringBuilder startDate = new StringBuilder();
             StringBuilder endDate = new StringBuilder();
             boolean startDateActive = false;
             boolean endDateActive = false;
             for (String word : commandWords) {
-                if (word.equals("/from")) {
+                if (word.equalsIgnoreCase("/from")) {
                     startDateActive = true;
                     continue;
                 }
-                if (word.equals("/to")) {
+                if (word.equalsIgnoreCase("/to")) {
                     startDateActive = false;
                     endDateActive = true;
                     continue;
@@ -145,7 +236,7 @@ public class Brock {
                 }
             }
             for (int i = 1; i < commandLength; i++) {
-                if (commandWords[i].equals("/from")) {
+                if (commandWords[i].equalsIgnoreCase("/from")) {
                     break;
                 }
                 description.append(commandWords[i])
@@ -173,28 +264,6 @@ public class Brock {
         return task;
     }
 
-    // Helper function to count number of tasks currently
-    private static int numTasks() {
-        int count = 0;
-        for (int i = 0; i < 100; i++) {
-            if (Brock.tasks[i] != null) {
-                count += 1;
-            } else {
-                break;
-            }
-        }
-        return count;
-    }
-
-    // Helper function to get task details
-    private static String getDetails(Task task) {
-        return "[" + task.getTaskType() + "]"
-                + "[" + task.getStatusIcon() + "] "
-                + task.getDescription()
-                + task.getExtraInfo()
-                + '\n';
-    }
-
     public static void main(String[] args) {
         // Create a scanner object
         // Reads from standard system input
@@ -213,38 +282,31 @@ public class Brock {
             String command = scanner.nextLine()
                     .trim()
                     .replaceAll(" +", " ");
-            if (command.equals("bye")) {
+            if (command.equalsIgnoreCase("bye")) {
                 displayResponse("Bye. Hope to see you again soon!\n");
                 break;
 
-            } else if (command.equals("list")) {
-                // Use SB as it is a faster way to append strings
-                StringBuilder tasksString = new StringBuilder();
-                for (int i = 0; i < 100; i++) {
-                    Task currTask = Brock.tasks[i];
-                    if (currTask == null) {
-                        break;
-                    }
-                    String itemNumber = i + 1 + ".";
-                    tasksString.append(itemNumber)
-                            .append(getDetails(currTask));
-                }
-                int totalTasks = numTasks();
-                displayResponse((totalTasks == 1
-                        ? "Here is the task in your list:\n"
-                        : "Here are the tasks in your list:\n")
-                        + tasksString);
+            } else if (command.equalsIgnoreCase("list")) {
+                handleList();
 
-            } else if (command.startsWith("mark")) {
+            // Case-insensitive, convert to lower case then process
+            } else if (command.toLowerCase().startsWith("mark")) {
                 try {
                     handleStatus(command, Action.MARK);
                 } catch (BrockException e) {
                     displayResponse(e.getMessage());
                 }
 
-            } else if (command.startsWith("unmark")) {
+            } else if (command.toLowerCase().startsWith("unmark")) {
                 try {
                     handleStatus(command, Action.UNMARK);
+                } catch (BrockException e) {
+                    displayResponse(e.getMessage());
+                }
+
+            } else if (command.toLowerCase().startsWith("delete")) {
+                try {
+                    handleDelete(command);
                 } catch (BrockException e) {
                     displayResponse(e.getMessage());
                 }
@@ -253,18 +315,11 @@ public class Brock {
                 Task task;
                 try {
                     task = createTask(command);
-                    Brock.tasks[tasksIndex] = task;
-                    tasksIndex++;
-
-                    int totalTasks = numTasks();
+                    Brock.tasks.add(task);
                     displayResponse("Got it. I've added this task:\n"
                             + "  "
                             + getDetails(task)
-                            + "Now you have "
-                            + totalTasks
-                            + (totalTasks == 1
-                            ? " task in the list\n"
-                            : " tasks in the list\n"));
+                            + getTaskSummary());
                 } catch (BrockException e) {
                     displayResponse(e.getMessage());
                 }
