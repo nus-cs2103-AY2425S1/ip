@@ -14,11 +14,11 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setIsDone(boolean isDone) {
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
-    public boolean getIsDone() {
+    public boolean isDone() {
         return isDone;
     }
 

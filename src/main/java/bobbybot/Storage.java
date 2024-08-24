@@ -42,7 +42,7 @@ public class Storage {
             default:
                 continue;
             }
-            newTask.setIsDone(isDone);
+            newTask.setDone(isDone);
             tasks.add(newTask);
         }
         return tasks;

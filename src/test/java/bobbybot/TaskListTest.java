@@ -22,8 +22,8 @@ public class TaskListTest {
         Task task = new TaskStub("test");
         tasks.addTask(task);
         tasks.markDone(0);
-        assertTrue(tasks.getTask(0).getIsDone());
+        assertTrue(tasks.getTask(0).isDone());
         tasks.markUndone(0);
-        assertFalse(tasks.getTask(0).getIsDone());
+        assertFalse(tasks.getTask(0).isDone());
     }
 }

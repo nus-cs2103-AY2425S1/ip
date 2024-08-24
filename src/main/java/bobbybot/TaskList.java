@@ -15,13 +15,13 @@ public class TaskList {
 
     public Task markDone(int index) {
         Task task = tasks.get(index);
-        task.setIsDone(true);
+        task.setDone(true);
         return task;
     }
 
     public Task markUndone(int index) {
         Task task = tasks.get(index);
-        task.setIsDone(false);
+        task.setDone(false);
         return task;
     }
 

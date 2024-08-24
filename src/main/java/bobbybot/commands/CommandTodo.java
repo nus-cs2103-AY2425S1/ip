@@ -1,15 +1,19 @@
 package bobbybot.commands;
 
-import bobbybot.*;
+import bobbybot.DukeException;
+import bobbybot.TaskList;
+import bobbybot.ToDo;
+import bobbybot.Task;
+import bobbybot.Storage;
 import bobbybot.ui.Ui;
 
 import java.io.IOException;
 
-public class CommandTodo extends Command{
+public class CommandTodo extends Command {
 
     private final String description;
 
-    public CommandTodo(String argument) throws DukeException{
+    public CommandTodo(String argument) throws DukeException {
         if (argument.isEmpty()) {
             throw new DukeException("The description of a todo cannot be empty.");
         }

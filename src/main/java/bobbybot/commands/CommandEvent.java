@@ -1,20 +1,24 @@
 package bobbybot.commands;
 
-import bobbybot.*;
+import bobbybot.DukeException;
+import bobbybot.TaskList;
+import bobbybot.Task;
+import bobbybot.Storage;
+import bobbybot.Event;
 import bobbybot.ui.Ui;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandEvent extends Command{
+public class CommandEvent extends Command {
 
     private final String description;
     private final String from;
     private final String to;
 
 
-    public CommandEvent(String argument) throws DukeException{
+    public CommandEvent(String argument) throws DukeException {
         Pattern r = Pattern.compile("(.*) /from (.*) /to (.*)");
         Matcher m = r.matcher(argument);
         if (m.find()) {
