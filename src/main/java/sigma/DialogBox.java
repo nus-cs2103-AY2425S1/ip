@@ -43,7 +43,6 @@ public class DialogBox extends HBox {
 
     private void setDisplayPicture(Image img) {
         displayPicture.setImage(img);
-        double radius = 25.0;
         Circle clip = new Circle(25.0, 25.0, 25.0);
         clip.setFill(new ImagePattern(img));
         displayPicture.setClip(clip);

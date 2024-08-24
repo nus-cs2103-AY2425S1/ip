@@ -78,10 +78,6 @@ public class Sigma {
         }
     }
 
-    public String getWelcome() {
-        return this.ui.showWelcome();
-    }
-
     /**
      * Handles the user's input by parsing and executing the corresponding command.
      * If an error occurs during command execution, an appropriate error message
@@ -179,9 +175,11 @@ public class Sigma {
     }
 
     /**
-     * Handles the "deadline" command, adding a new deadline task to the list.
+     * Handles the "deadline" command by creating a new deadline task and adding it to the task list.
      *
-     * @param userInput The description and due date of the deadline task.
+     * @param userInput The description and due date of the deadline task, provided in the format:
+     *                  "description /by dd/MM/yy HH:mm".
+     * @return A message confirming that the deadline task has been added.
      * @throws SigmaException If the description or due date is missing or invalid.
      */
     private String handleDeadlineCommand(String userInput) throws SigmaException {
@@ -204,32 +202,18 @@ public class Sigma {
     }
 
     /**
-     * Handles the "event" command, adding a new event task to the list.
+     * Handles the "event" command, creating a new event task and adding it to the task list.
      *
-     * @param userInput The description, start time, and end time of the event task.
+     * @param userInput The description, start time, and end time of the event task, provided in the format:
+     *                  "description /from dd/MM/yy HH:mm /to dd/MM/yy HH:mm".
+     * @return A message confirming that the event task has been added.
      * @throws SigmaException If the description, start time, or end time is missing or invalid.
      */
     private String handleEventCommand(String userInput) throws SigmaException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
             String[] parts = userInput.split(" /from ");
-            if (parts.length < 2) {
-                throw new SigmaMissingArgException(CommandType.EVENT);
-            }
-            String description = parts[0].trim();
-            String[] timeParts = parts[1].split(" /to ");
-            if (timeParts.length < 2) {
-                throw new SigmaMissingArgException(CommandType.EVENT);
-            }
-            LocalDateTime from = LocalDateTime.parse(timeParts[0], formatter);
-            LocalDateTime to = LocalDateTime.parse(timeParts[1], formatter);
-            if (description.isEmpty()) {
-                throw new SigmaMissingArgException(CommandType.EVENT);
-            }
-            if (to.isBefore(from)) {
-                throw new SigmaInvalidDateRangeException();
-            }
-            Task event = new Event(description, from, to);
+            Task event = createEvent(parts, formatter);
             taskList.addTask(event);
             return this.ui.showAddedTask(event, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
@@ -237,6 +221,37 @@ public class Sigma {
         } catch (DateTimeParseException e) {
             throw new SigmaInvalidDateException(CommandType.EVENT);
         }
+    }
+
+    /**
+     * Creates an event task from the provided input parts and date-time formatter.
+     *
+     * @param parts An array containing the description and time range of the event,
+     *              split by the "/from" and "/to" delimiters.
+     * @param formatter The formatter used to parse the date-time strings.
+     * @return The created event task.
+     * @throws SigmaMissingArgException If any required argument (description, start time, or end time) is missing.
+     * @throws SigmaInvalidDateRangeException If the end time is before the start time.
+     */
+    private static Task createEvent(String[] parts, DateTimeFormatter formatter) throws SigmaMissingArgException,
+            SigmaInvalidDateRangeException {
+        if (parts.length < 2) {
+            throw new SigmaMissingArgException(CommandType.EVENT);
+        }
+        String description = parts[0].trim();
+        String[] timeParts = parts[1].split(" /to ");
+        if (timeParts.length < 2) {
+            throw new SigmaMissingArgException(CommandType.EVENT);
+        }
+        LocalDateTime from = LocalDateTime.parse(timeParts[0], formatter);
+        LocalDateTime to = LocalDateTime.parse(timeParts[1], formatter);
+        if (description.isEmpty()) {
+            throw new SigmaMissingArgException(CommandType.EVENT);
+        }
+        if (to.isBefore(from)) {
+            throw new SigmaInvalidDateRangeException();
+        }
+        return new Event(description, from, to);
     }
 
     /**
@@ -279,6 +294,11 @@ public class Sigma {
         return this.ui.showSearchedTasks(this.taskList.search(userInput));
     }
 
+    /**
+     * Returns the current {@code CommandType} that was parsed from the user's input.
+     *
+     * @return The {@code CommandType} representing the most recent command issued by the user.
+     */
     public CommandType getCommandType() {
         return commandType;
     }

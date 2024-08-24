@@ -14,7 +14,12 @@ import javafx.util.Duration;
 import sigma.command.CommandType;
 
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI of the Sigma application.
+ * <p>
+ * The {@code MainWindow} class is responsible for managing the main user interface,
+ * handling user input, and displaying Sigma's responses in the GUI.
+ * It initializes the layout and components, and processes interactions between the user
+ * and the application.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -32,6 +37,12 @@ public class MainWindow extends AnchorPane {
     private final Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/Sigma.jpg"));
     private final Font font = new Font("Open Sans", 12);
 
+    /**
+     * Initializes the layout and components of the main window.
+     * <p>
+     * This method binds the scroll pane to the dialog container, sets up the user input prompt,
+     * and manages the enabling and disabling of the send button based on the user's input.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -52,14 +63,22 @@ public class MainWindow extends AnchorPane {
         });
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Sigma instance into the controller.
+     *
+     * @param s The Sigma instance to be used by this controller.
+     */
     public void setSigma(Sigma s) {
         sigma = s;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input and processes the response from Sigma.
+     * <p>
+     * This method creates dialog boxes for both the user input and Sigma's response,
+     * displays them in the dialog container, and clears the user input field afterward.
+     * If the command type is {@code CommandType.BYE}, the application will automatically
+     * close after a short delay.
      */
     @FXML
     private void handleUserInput() {

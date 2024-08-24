@@ -9,11 +9,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Sigma using FXML.
+ * The {@code Main} class serves as the entry point for launching the Sigma GUI
+ * application using JavaFX and FXML. This class initializes the main window
+ * and sets up the scene for user interaction.
  */
 public class Main extends Application {
     private Sigma sigma = new Sigma();
 
+    /**
+     * Starts the JavaFX application by setting up the primary stage, loading the FXML
+     * layout, and displaying the main window.
+     *
+     * @param stage The primary stage for this application, onto which the application scene
+     *              is set.
+     */
     @Override
     public void start(Stage stage) {
         try {
