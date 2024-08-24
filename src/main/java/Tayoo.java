@@ -59,38 +59,50 @@ public class Tayoo {
             } else if (input.equals("LIST")) {
                 printTaskList();
             } else if (input.startsWith("MARK ")) {
-                int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
                 try {
-                    if (tasklist.get(taskNumber).markAsDone()) {
-                        printText("Nice! I've marked this task as done:\n" + tasklist.get(taskNumber));
-                    } else {
-                        printText("Hey! You've done that one already!\n" + tasklist.get(taskNumber));
+                    int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
+                    try {
+                        if (tasklist.get(taskNumber).markAsDone()) {
+                            printText("Nice! I've marked this task as done:\n" + tasklist.get(taskNumber));
+                        } else {
+                            printText("Hey! You've done that one already!\n" + tasklist.get(taskNumber));
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        if (taskNumber < 0) {
+                            System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
+                        } else if (taskNumber > 100) {
+                            System.out.println("My task list can't go that high! Try a smaller number");
+                        } else {
+                            System.out.println("Hmm... my task list doesn't contain that number... try again");
+                        }
+                    } catch (NumberFormatException e) {
+                        printText("Hey, thats not a task number! Give me a number please!");
                     }
-                } catch (IndexOutOfBoundsException e) {
-                    if (taskNumber <= 0) {
-                        System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
-                    } else if (taskNumber > 100) {
-                        System.out.println("My task list can't go that high! Try a smaller number");
-                    } else {
-                        System.out.println("Hmm... my task list doesn't contain that number... try again");
-                    }
+                } catch (NumberFormatException e) {
+                    printText("Hey, thats not a task number! Give me a number please!");
                 }
             } else if (input.startsWith("UNMARK ")) {
-                int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
                 try {
-                    if (tasklist.get(taskNumber).unmark()) {
-                        printText("OK, I've marked this task as not done yet:\n" + tasklist.get(taskNumber));
-                    } else {
-                        printText("Hey! You haven't even done that one yetq!\n" + tasklist.get(taskNumber));
+                    int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+                    try {
+                        if (tasklist.get(taskNumber).unmark()) {
+                            printText("OK, I've marked this task as not done yet:\n" + tasklist.get(taskNumber));
+                        } else {
+                            printText("Hey! You haven't even done that one yetq!\n" + tasklist.get(taskNumber));
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        if (taskNumber <= 0) {
+                            System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
+                        } else if (taskNumber > 100) {
+                            System.out.println("My task list can't go that high! Try a smaller number");
+                        } else {
+                            System.out.println("Hmm... my task list doesn't contain that number... try again");
+                        }
+                    } catch (NumberFormatException e) {
+                        printText("Hey, thats not a task number! Give me a number please!");
                     }
-                } catch (IndexOutOfBoundsException e) {
-                    if (taskNumber <= 0) {
-                        System.out.println("Dude, your task list starts from 1! Input a number thats above 0!");
-                    } else if (taskNumber > 100) {
-                        System.out.println("My task list can't go that high! Try a smaller number");
-                    } else {
-                        System.out.println("Hmm... my task list doesn't contain that number... try again");
-                    }
+                } catch (NumberFormatException e) {
+                    printText("Hey, thats not a task number! Give me a number please!");
                 }
             } else if (input.startsWith("TODO")){
                 try {
@@ -128,6 +140,20 @@ public class Tayoo {
                     printText("Event format incorrect. Format: \"Event [taskname] /from [start] /to [end]\". " +
                             "Try again please");
                 }
+            } else if (input.startsWith("DELETE") || input.startsWith("REMOVE")) {
+                try {
+                    if (input.substring(7).trim().equals("ALL")) {
+                        deleteAll();
+                        continue;
+                    }
+
+                    int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+                    deleteTask(tasklist.get(taskNumber));
+                } catch (IndexOutOfBoundsException e) {
+                    printText("Hey, that task doesn't exist for me to delete!");
+                } catch (NumberFormatException e) {
+                    printText("Hey, thats not a task number! Give me a number please!");
+                }
             } else {
                 printText("I'm not sure what that means :(");
             }
@@ -150,6 +176,27 @@ public class Tayoo {
         }
 
         printText(toPrint);
+    }
+
+    private static void deleteTask(Task task) {
+        tasklist.remove(task);
+        String toPrint = "Noted. I've removed this task:\n" + task;
+
+        if (tasklist.size() > 1) {
+            toPrint += "\n Now you have " + tasklist.size() + " tasks in your list";
+        } else {
+            toPrint += "\n Now you have " + tasklist.size() + " task in your list";
+        }
+
+        printText(toPrint);
+    }
+
+    private static void deleteAll() {
+        int length = tasklist.size();
+        printText("Removing all tasks");
+        for (int i = 0; i < length; i++) {
+            tasklist.remove(i);
+        }
     }
 
     private static void printTaskList() {
