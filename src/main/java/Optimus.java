@@ -10,7 +10,8 @@ public class Optimus {
         int count = 0;
 
         while (true) {
-            String text = stringScanner.nextLine();
+            String text = "";
+            text = stringScanner.nextLine();
             if (text.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
