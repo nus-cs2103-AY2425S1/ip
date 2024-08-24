@@ -62,7 +62,7 @@ public class Main {
         // when mark/unmark/delete X, where X is too big (out or bounds) OR <= 0 OR when the list is empty.
         if ((commandDetails[0].equals("mark") || commandDetails[0].equals("unmark") || commandDetails[0].equals("delete")) && commandDetails.length > 1) {
             // when the command is mark/unmark X OR delete, where X is an invalid num (too big or <= 0)
-            int taskNumber = 0;
+            int taskNumber;
             try {
                 taskNumber = Integer.parseInt(commandDetails[1]);   // commandDetails[1] could be a string
             } catch (NumberFormatException e) {
@@ -99,7 +99,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws JanetException {
+    public static void main(String[] args) {
         Janet janet = new Janet();
         System.out.println(janet.greet());
 
@@ -128,45 +128,44 @@ public class Main {
                     System.out.println(e.getMessage());
                     continue;
                 }
-                if (commandDetails[0].equals("mark")) {
-                    // mark the task as done
-                    String markSuccess = janet.markAsDone(Integer.parseInt(commandDetails[1]));
-                    System.out.println(markSuccess);
-                } else if (commandDetails[0].equals("unmark")) {
-                    // unmark the task
-                    String unmarkSuccess = janet.unmark(Integer.parseInt(commandDetails[1]));
-                    System.out.println(unmarkSuccess);
-                } else if (commandDetails[0].equals("delete")) {
-                    // delete specified task
-                    String deleteSuccess = janet.deleteTask(Integer.parseInt(commandDetails[1]));
-                    System.out.println(deleteSuccess);
-                } else {
-                    // add the new task into the list of tasks
-                    // Task can be a ToDo, Deadline, Event
-                    TaskType tasktype = TaskType.valueOf(commandDetails[0].toUpperCase());  // pass user input to be TaskType enum
-                    switch (tasktype) {
-                        case TODO -> {
-                            // get the todo description and create a new Todo object
-                            String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
-                            String todoDescription = String.join(" ", todoItem);
-                            Task todo = new ToDo(todoDescription, "T");
-                            String addTaskSuccess = janet.addTaskToList(todo);
-                            System.out.println(addTaskSuccess);
-                        }
-                        case DEADLINE -> {
-                            // get the details of the deadline task and create a new Deadline object
-                            String[] deadlineDetails = findDeadlineDetails(commandDetails);
-                            Task deadline = new Deadline(deadlineDetails[0], "D", deadlineDetails[1]);
-                            String addTaskSuccess = janet.addTaskToList(deadline);
-                            System.out.println(addTaskSuccess);
-                        }
-                        case EVENT -> {
-                            // get the details of the event task and create a new Event object
-                            String[] eventDetails = findEventDetails(commandDetails);
-                            Task event = new Event(eventDetails[0], "E", eventDetails[1], eventDetails[2]);
-                            String addTaskSuccess = janet.addTaskToList(event);
-                            System.out.println(addTaskSuccess);
-                        }
+                CommandType commandType = CommandType.valueOf(commandDetails[0].toUpperCase());  // pass user input to be CommandType enum
+                switch (commandType) {
+                    case MARK -> {
+                        // mark the task as done
+                        String markSuccess = janet.markAsDone(Integer.parseInt(commandDetails[1]));
+                        System.out.println(markSuccess);
+                                  }
+                    case UNMARK -> {
+                        // unmark the task
+                        String unmarkSuccess = janet.unmark(Integer.parseInt(commandDetails[1]));
+                        System.out.println(unmarkSuccess);
+                    }
+                    case DELETE -> {
+                        // delete specified task
+                        String deleteSuccess = janet.deleteTask(Integer.parseInt(commandDetails[1]));
+                        System.out.println(deleteSuccess);
+                    }
+                    case TODO -> {
+                        // get the todo description and create a new Todo object
+                        String[] todoItem = Arrays.copyOfRange(commandDetails, 1, commandDetails.length);
+                        String todoDescription = String.join(" ", todoItem);
+                        Task todo = new ToDo(todoDescription, "T");
+                        String addTaskSuccess = janet.addTaskToList(todo);
+                        System.out.println(addTaskSuccess);
+                    }
+                    case DEADLINE -> {
+                        // get the details of the deadline task and create a new Deadline object
+                        String[] deadlineDetails = findDeadlineDetails(commandDetails);
+                        Task deadline = new Deadline(deadlineDetails[0], "D", deadlineDetails[1]);
+                        String addTaskSuccess = janet.addTaskToList(deadline);
+                        System.out.println(addTaskSuccess);
+                    }
+                    case EVENT -> {
+                        // get the details of the event task and create a new Event object
+                        String[] eventDetails = findEventDetails(commandDetails);
+                        Task event = new Event(eventDetails[0], "E", eventDetails[1], eventDetails[2]);
+                        String addTaskSuccess = janet.addTaskToList(event);
+                        System.out.println(addTaskSuccess);
                     }
                 }
             }
