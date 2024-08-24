@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
 /**
- * Class to store tasks.
+ * Class used to store tasks.
  */
 public class TaskList {
+    /* ArrayList to store tasks */
     private ArrayList<Task> tasks;
 
     /**
@@ -18,7 +19,7 @@ public class TaskList {
      * Adds task to the list and prints list adding message.
      * @param task Task object to be added
      */
-    public void add_list(Task task) {
+    public void addTask(Task task) {
         System.out.println("Ya la, adding this task to your list!");
         this.tasks.add(task);
         System.out.printf("\t%s\n", task);
@@ -30,7 +31,7 @@ public class TaskList {
      * @param index Integer index to delete at
      * @throws OutOfListException Thrown if invalid index is given, contains current task size
      */
-    public void delete_list(int index) throws OutOfListException {
+    public void deleteTask(int index) throws OutOfListException {
         if (index < 0 || index >= this.tasks.size()) throw new OutOfListException(String.valueOf(this.tasks.size()));
         Task task = this.tasks.remove(index);
         System.out.println("Deleting now hor!");
@@ -39,10 +40,9 @@ public class TaskList {
     }
 
     /**
-     * Prints the list and shows task index (starting from 1), task type (T, D or E) and whether it is marked ([X]) or
-     * unmarked ([ ]).
+     * Prints the list and shows task index, task type and whether it is marked or unmarked.
      */
-    public void show_list() {
+    public void showList() {
         if (this.tasks.isEmpty()) {
             System.out.println("Nothing in list lah!");
         } else {
@@ -56,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Marks task as completed at specified index
+     * Marks task as completed at specified index.
      * @param index Integer index to mark task at
      * @throws OutOfListException Thrown if invalid index is given, contains current task size
      */
@@ -69,7 +69,7 @@ public class TaskList {
     }
 
     /**
-     * Unmrks task as completed at specified index
+     * Unmarks task as completed at specified index.
      * @param index Integer index to unmark task at
      * @throws OutOfListException Thrown if invalid index is given, contains current task size
      */

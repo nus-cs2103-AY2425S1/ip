@@ -1,7 +1,8 @@
 import java.util.regex.Matcher;
 
 /**
- * Class to handle response. Store Action.ACTIONS and Matcher.
+ * Class to handle response.
+ * Stores {@code Action.ACTIONS} and {@code Matcher} objects.
  */
 public class Response {
     private Actions.ACTIONS a;
@@ -14,7 +15,7 @@ public class Response {
 
     /**
      * Returns action stored inside.
-     * @return Actions.ACTIONS enum type
+     * @return {@code Actions.ACTIONS} enum type
      */
     public Actions.ACTIONS getAction() {
         return this.a;
@@ -22,7 +23,7 @@ public class Response {
 
     /**
      * Returns matcher stored inside.
-     * @return Matcher enum type
+     * @return {@code Matcher} enum type
      */
     public Matcher getMatcher() {
         return this.m;
