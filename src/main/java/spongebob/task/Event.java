@@ -1,6 +1,6 @@
-package Spongebob.task;
+package spongebob.task;
 
-import Spongebob.exception.SpongebobException;
+import spongebob.exception.SpongebobException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +11,8 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-    public Event(String description, String from, String to) throws SpongebobException {
+    public Event(String description, String from, String to)
+            throws SpongebobException {
         super(description, TaskType.EVENT);
 
         // check for errors

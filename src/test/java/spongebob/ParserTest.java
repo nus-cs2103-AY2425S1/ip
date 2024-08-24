@@ -1,9 +1,6 @@
-package Spongebob;
+package spongebob;
 
-import Spongebob.command.AddCommand;
-import Spongebob.command.ExitCommand;
-import Spongebob.exception.SpongebobException;
-import Spongebob.task.Event;
+import spongebob.exception.SpongebobException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

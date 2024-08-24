@@ -1,6 +1,4 @@
-package Spongebob.task;
-
-import Spongebob.exception.SpongebobException;
+package spongebob.task;
 
 public class Task {
     protected String description;

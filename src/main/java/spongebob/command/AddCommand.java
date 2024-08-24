@@ -1,21 +1,19 @@
-package Spongebob.command;
+package spongebob.command;
 
-import Spongebob.exception.SpongebobException;
-import Spongebob.storage.Storage;
-import Spongebob.storage.TaskList;
-import Spongebob.Ui;
-import Spongebob.task.Deadline;
-import Spongebob.task.Event;
-import Spongebob.task.Task;
-import Spongebob.task.Todo;
+import spongebob.exception.SpongebobException;
+import spongebob.storage.Storage;
+import spongebob.storage.TaskList;
+import spongebob.Ui;
+import spongebob.task.Deadline;
+import spongebob.task.Event;
+import spongebob.task.Task;
+import spongebob.task.Todo;
 
 public class AddCommand extends Command {
 
     private String[] arguments;
 
     public AddCommand(String[] arguments) {
-
-
         this.arguments = arguments;
     }
 
@@ -25,16 +23,18 @@ public class AddCommand extends Command {
 
         try {
             switch (this.arguments[0]) {
-                case "todo":
-                    newTask = new Todo(arguments[1]);
-                    break;
+            case "todo":
+                newTask = new Todo(arguments[1]);
+                break;
 
-                case "deadline":
-                    newTask = new Deadline(arguments[1], arguments[2]);
-                    break;
-                case "event":
-                    newTask = new Event(arguments[1], arguments[2], arguments[3]);
-                    break;
+            case "deadline":
+                newTask = new Deadline(arguments[1], arguments[2]);
+                break;
+            case "event":
+                newTask = new Event(arguments[1],
+                            arguments[2],
+                            arguments[3]);
+                break;
             }
 
             taskList.add(newTask);

@@ -1,6 +1,6 @@
-package Spongebob.task;
+package spongebob.task;
 
-import Spongebob.exception.SpongebobException;
+import spongebob.exception.SpongebobException;
 
 public class Todo extends Task {
 

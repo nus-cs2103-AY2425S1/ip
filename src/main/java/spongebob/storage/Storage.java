@@ -1,10 +1,10 @@
-package Spongebob.storage;
+package spongebob.storage;
 
-import Spongebob.exception.SpongebobException;
-import Spongebob.task.Deadline;
-import Spongebob.task.Event;
-import Spongebob.task.Task;
-import Spongebob.task.Todo;
+import spongebob.exception.SpongebobException;
+import spongebob.task.Deadline;
+import spongebob.task.Event;
+import spongebob.task.Task;
+import spongebob.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,11 +17,11 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private String filepath;
+    private String filePath;
     private List<String> data;
 
-    public Storage(String filepath) {
-        this.filepath = filepath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     public List<Task> load() throws SpongebobException {
@@ -31,7 +31,7 @@ public class Storage {
         Task newTask;
 
         try {
-            File f = new File(filepath);
+            File f = new File(filePath);
             Scanner s = new Scanner(f);
 
             while (s.hasNext()) {
@@ -97,7 +97,7 @@ public class Storage {
 
     private void write() {
         try {
-            FileWriter fw = new FileWriter(this.filepath);
+            FileWriter fw = new FileWriter(this.filePath);
             StringBuilder res = new StringBuilder();
 
             for (String line : this.data) {

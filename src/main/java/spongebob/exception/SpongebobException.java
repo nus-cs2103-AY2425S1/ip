@@ -1,4 +1,4 @@
-package Spongebob.exception;
+package spongebob.exception;
 
 public class SpongebobException extends Exception{
 
