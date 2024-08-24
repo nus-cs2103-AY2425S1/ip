@@ -1,3 +1,7 @@
+package jackson.utils;
+
+import jackson.tasks.Task;
+
 /**
  * Class to handle UI interaction.
  * Includes printing most exceptions and displaying task lists, etc

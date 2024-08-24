@@ -1,3 +1,5 @@
+package jackson.exceptions;
+
 /**
  * Superclass for Jackson-related Exceptions to inherit from.
  */

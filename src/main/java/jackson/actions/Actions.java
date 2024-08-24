@@ -1,3 +1,5 @@
+package jackson.actions;
+
 public class Actions {
     /**
      * Class to hold Action enum types
