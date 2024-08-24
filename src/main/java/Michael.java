@@ -55,15 +55,31 @@ public class Michael {
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
             printer(message);
-        } else if (input.length() > 8 && input.substring(0, 8).equals("deadline")) {
+        } else if (input.length() > 8 && input.substring(0, 8).equals("deadline")) { // task of type deadline to be added
             String task = input.substring(9);
             String[] parts = task.split("/");
+            for (int i = 0; i < parts.length - 1; i++) {
+                String curr = parts[i];
+                parts[i] = curr.substring(0, curr.length() - 1);
+            }
             Deadline curr = new Deadline(parts[0], parts[1].substring(3));
             tasks.add(curr);
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
             printer(message);
-        } else { // new task to be added
+        } else if (input.length() > 5 && input.substring(0, 5).equals("event")) {
+            String task = input.substring(6);
+            String[] parts = task.split("/");
+            for (int i = 0; i < parts.length - 1; i++) {
+                String curr = parts[i];
+                parts[i] = curr.substring(0, curr.length() - 1);
+            }
+            Event curr = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
+            tasks.add(curr);
+            String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
+                    + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
+            printer(message);
+        } else { // other new task to be added
             tasks.add(new Task(input));
             printer("added: " + input);
         }
