@@ -1,5 +1,12 @@
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+
 public class Dook {
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Task> tasks = new ArrayList<>(100);
@@ -7,52 +14,66 @@ public class Dook {
     private static final String greeting = "Hello! I'm Dook\nWhat can I do for you?\n" + separator;
     private static final String exit = "Bye. Hope to see you again soon!\n" + separator;
 
+    private static File savedTasks = new File("data/Tasks.txt");
 
-    public static void start() {
+    public static void start() throws IOException {
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        if (!savedTasks.exists()) {
+            savedTasks.createNewFile();
+        } else {
+            loadFromFile();
+        }
         System.out.println(separator);
         System.out.println(greeting);
     }
+
     public static void end() {
         System.out.println(separator);
         System.out.println(exit);
     }
 
-    public static void list() {
+    public static void list() throws FileNotFoundException {
         System.out.println(separator);
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println(i + ". " + tasks.get(i -1 ));
+            System.out.println(i + ". " + tasks.get(i - 1));
         }
         System.out.println(separator);
     }
 
-    public static void markDone(int taskNumber) throws DookException {
+    public static void markDone(int taskNumber) throws DookException, IOException {
         if (taskNumber >= tasks.size()) {
             throw new DookException("You don't have that many tasks");
         }
         tasks.get(taskNumber).markAsDone();
+        saveToFile();
         System.out.println(separator);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks.get(taskNumber));
         System.out.println(separator);
     }
 
-    public static void unmark(int taskNumber) throws DookException {
+    public static void unmark(int taskNumber) throws DookException, IOException {
         if (taskNumber >= tasks.size()) {
             throw new DookException("You don't have that many tasks");
         }
         tasks.get(taskNumber).unmark();
+        saveToFile();
         System.out.println(separator);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks.get(taskNumber));
         System.out.println(separator);
     }
 
-    public static void createTodo(String description) throws DookException {
+    public static void createTodo(String description) throws DookException, IOException {
         if (description.isEmpty()) {
             throw new DookException("Need a description for your todo");
         }
         Task todo = new Todo(description);
         tasks.add(todo);
+        saveToFile();
         System.out.println(separator);
         System.out.println("Got it. I've added this task:");
         System.out.println(todo);
@@ -60,7 +81,7 @@ public class Dook {
         System.out.println(separator);
     }
 
-    public static void createDeadline(String description, String by) throws DookException {
+    public static void createDeadline(String description, String by) throws DookException, IOException {
         if (description.isEmpty()) {
             throw new DookException("Need a description for your deadline");
         } else if (by.isEmpty()) {
@@ -68,6 +89,7 @@ public class Dook {
         }
         Task deadline = new Deadline(description, by);
         tasks.add(deadline);
+        saveToFile();
         System.out.println(separator);
         System.out.println("Got it. I've added this task:");
         System.out.println(deadline);
@@ -75,7 +97,7 @@ public class Dook {
         System.out.println(separator);
     }
 
-    public static void createEvent(String description, String start, String end) throws DookException {
+    public static void createEvent(String description, String start, String end) throws DookException, IOException {
         if (description.isEmpty()) {
             throw new DookException("Need a description for your event");
         } else if (start.isEmpty() && end.isEmpty()) {
@@ -88,6 +110,7 @@ public class Dook {
 
         Task event = new Event(description, start, end);
         tasks.add(event);
+        saveToFile();
         System.out.println(separator);
         System.out.println("Got it. I've added this task:");
         System.out.println(event);
@@ -95,12 +118,13 @@ public class Dook {
         System.out.println(separator);
     }
 
-    public static void delete(int taskNumber) throws DookException {
-        if (taskNumber >= tasks.size()) {
+    public static void delete(int taskNumber) throws DookException, IOException {
+        if (taskNumber > tasks.size()) {
             throw new DookException("You don't have that many tasks");
         }
 
         Task removed = tasks.remove(taskNumber - 1);
+        saveToFile();
         System.out.println(separator);
         System.out.println("Noted. I've removed this task:");
         System.out.println(removed);
@@ -108,9 +132,55 @@ public class Dook {
         System.out.println(separator);
     }
 
+    public static void saveToFile() throws IOException {
+        FileWriter writer = new FileWriter(savedTasks);
+        for (Task task : tasks) {
+            writer.write(task.fileFormatted() + System.lineSeparator());
+        }
+        writer.close();
+    }
+
+    public static void loadFromFile() throws FileNotFoundException {
+        Scanner reader = new Scanner(savedTasks);
+        while (reader.hasNextLine()) {
+            String line = reader.nextLine();
+            String[] components = line.split(" \\| ");
+            String taskType = components[0];
+            boolean isDone = components[1].equals("1");
+
+            Task task;
+            switch (taskType) {
+            case "T":
+                task = new Todo(components[2]);
+                break;
+            case "D" :
+                task = new Deadline(components[2], components[3]);
+                break;
+            case "E" :
+                task = new Event(components[2], components[3], components[4]);
+                break;
+            default:
+                continue;
+            }
+            if (isDone) {
+                task.markAsDone();
+            }
+
+            tasks.add(task);
+        }
+        reader.close();
+    }
+
     public static void main(String[] args) {
 
-        start();
+        try {
+            start();
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found");
+        } catch (IOException e) {
+            System.out.println("Invalid I/O");
+        }
+
 
         String response;
 
@@ -163,6 +233,14 @@ public class Dook {
                     throw new DookException("Invalid command");
                 }
 
+            } catch (FileNotFoundException e) {
+                System.out.println(separator);
+                System.out.println(e.getMessage());
+                System.out.println(separator);
+            } catch (IOException e) {
+                System.out.println(separator);
+                System.out.println(e.getMessage());
+                System.out.println(separator);
             } catch (DookException e) {
                 System.out.println(separator);
                 System.out.println(e.getMessage());
