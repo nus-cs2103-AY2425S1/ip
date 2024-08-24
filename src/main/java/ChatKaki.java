@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class ChatKaki {
     private static final String CHATBOT_NAME = "ChatKaki";
@@ -11,10 +15,12 @@ public class ChatKaki {
     }
 
     private static void sayGreeting() {
+        readTasksFromFile();
         printMessage("Hello! I'm " + CHATBOT_NAME + "\n What can I do for you?");
     }
 
     private static void sayBye() {
+        writeTasksToFile();
         printMessage("Bye. Hope to see you again soon!");
     }
 
@@ -49,12 +55,12 @@ public class ChatKaki {
         if (inputs.length > 1) {
             switch (taskType) {
                 case TODO:
-                    addTask(new Todo(inputs[1]));
+                    addTask(new Todo(false, inputs[1]));
                     break;
                 case DEADLINE:
                     String[] deadlineParts = inputs[1].split(" /by ");
                     if (deadlineParts.length == 2) {
-                        addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                        addTask(new Deadline(false, deadlineParts[0], deadlineParts[1]));
                     } else {
                         printMessage("Invalid Deadline format, it should contain /by");
                     }
@@ -62,7 +68,7 @@ public class ChatKaki {
                 case EVENT:
                     String[] eventParts = inputs[1].split(" /from | /to ");
                     if (eventParts.length == 3) {
-                        addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                        addTask(new Event(false, eventParts[0], eventParts[1], eventParts[2]));
                     } else {
                         printMessage("Invalid Event format, it should contain /from and /to");
                     }
@@ -84,6 +90,53 @@ public class ChatKaki {
             }
         } else {
             printMessage("The description of a delete cannot be empty, add an index");
+        }
+    }
+
+    private static void readTasksFromFile() {
+        try {
+            File file = new File("data/tasks.txt");
+            if (!file.exists()) {
+                printMessage("Starting a new task list");
+                return;
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String task = scanner.nextLine();
+                String[] taskParts = task.split(",");
+                TaskType taskType = TaskType.valueOf(taskParts[0]);
+                switch (taskType) {
+                    case TODO:
+                        taskHistory.add(new Todo(Boolean.parseBoolean(taskParts[1]), taskParts[2]));
+                        break;
+                    case DEADLINE:
+                        taskHistory.add(new Deadline(Boolean.parseBoolean(taskParts[1]), taskParts[2], taskParts[3]));
+                        break;
+                    case EVENT:
+                        taskHistory.add(new Event(Boolean.parseBoolean(taskParts[1]), taskParts[2], taskParts[3], taskParts[4]));
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            printMessage(e.getMessage());
+        }
+    }
+
+    private static void writeTasksToFile() {
+        try {
+            File file = new File("data/tasks.txt");
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create the directory if it does not exist
+                file.createNewFile(); // Create the file if it does not exist
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : taskHistory) {
+                fileWriter.write(task.fileFormat() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            printMessage(e.getMessage());
         }
     }
 

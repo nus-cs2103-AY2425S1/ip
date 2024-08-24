@@ -2,8 +2,9 @@ public class Task {
     private String description;
     private boolean isDone = false;
 
-    public Task(String description) {
+    public Task(boolean isDone, String description) {
         this.description = description;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -37,6 +38,11 @@ public class Task {
         System.out.println(" " + message);
         System.out.println(" " + this);
         System.out.println("____________________________________________________________\n");
+    }
+
+
+    public String fileFormat() {
+        return (this.isDone ? "true" : "false") + ","+ this.getDescription();
     }
 
     @Override
