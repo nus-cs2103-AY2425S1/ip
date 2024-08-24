@@ -14,11 +14,23 @@ public class Hamyo {
 
         while (active) {
             String str = scanner.nextLine();
-            if (str.startsWith("add")) {
-                if (str.length() > 4) {
-                    add(str.substring(4));
+            if (str.startsWith("todo")) {
+                if (str.length() > 5) {
+                    add("todo", str.substring(5));
                 } else {
-                    System.out.println("Oh no! Usage: add [task]");
+                    System.out.println("Oh no! Usage: todo [task]");
+                }
+            } else if (str.startsWith("deadline")) {
+                if (str.length() > 9) {
+                    add("deadline", str.substring(9));
+                } else {
+                    System.out.println("Oh no! Usage: todo [task]");
+                }
+            } else if (str.startsWith("event")) {
+                if (str.length() > 6) {
+                    add("event", str.substring(6));
+                } else {
+                    System.out.println("Oh no! Usage: todo [task]");
                 }
             } else if (str.equals("list")) {
                 listItems();
@@ -69,9 +81,17 @@ public class Hamyo {
         printLine();
     }
 
-    public static void add(String task) {
-        tasks[nItems++] = new Task(task);
-        System.out.println("added: " + task);
+    public static void add(String taskType, String task) {
+        if (taskType.equals("todo")) {
+            tasks[nItems++] = new ToDo(new String[]{task});
+        } else if (taskType.equals("deadline")) {
+            tasks[nItems++] = new Deadline(task.split(" /by "));
+        } else if (taskType.equals("event")) {
+            tasks[nItems++] = new Event(task.split(" /from | /to "));
+        }
+        System.out.println("Got it. I've added this task:");
+        System.out.println(tasks[nItems - 1].toString());
+        System.out.printf("There are %d tasks in the list now.\n", nItems);
         printLine();
     }
 
