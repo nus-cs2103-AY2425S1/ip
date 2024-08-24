@@ -2,6 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -133,8 +137,9 @@ public class Duck {
 
         if (matcher.matches()) {
             String description = matcher.group(1);
-            String deadline = matcher.group(2);
-            return new Deadline(description, deadline);
+            String deadlineStr = matcher.group(2);
+//            LocalDateTime deadline = convertToDateTime(deadlineStr);
+            return new Deadline(description, deadlineStr);
         }
         else {
             throw new DuckException("Hey, a deadline instruction should be of the following format:\n"
@@ -375,6 +380,29 @@ public class Duck {
             }
         } catch (IOException e) {
             throw new DuckException("Error updating file:\n" + e.getMessage());
+        }
+    }
+
+
+    public static LocalDateTime convertToDateTime(String dateTimeStr) throws DuckException {
+        // Define the two accepted date-time formats
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+
+        try {
+            // Try to parse the input string using the first format
+            return LocalDateTime.parse(dateTimeStr, formatter1);
+        } catch (DateTimeParseException e) {
+            // If it fails, try to parse using the second format
+            try {
+                return LocalDateTime.parse(dateTimeStr, formatter2);
+            } catch (DateTimeParseException ex) {
+                // If both fail, throw a DuckException
+                throw new DuckException("""
+                        Invalid date format following the command /from /to /by!
+                        Please use one of the following formats:
+                        yyyy-MM-dd HHmm or yyyy/MM/dd HHmm""");
+            }
         }
     }
 
