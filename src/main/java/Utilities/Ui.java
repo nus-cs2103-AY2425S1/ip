@@ -5,6 +5,7 @@ import Task.Task;
 import java.util.ArrayList;
 
 public class Ui {
+
     public void printTask(ArrayList<Task> tasks) {
         System.out.println("_____________________________________");
         System.out.println("Here are the tasks in your list:");

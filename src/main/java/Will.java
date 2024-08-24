@@ -12,7 +12,6 @@ public class Will {
 
     public static void main(String[] args) {
 
-
         ArrayList<Task> tasks = new ArrayList<>();
         Storage storage = new Storage();
         storage.load(tasks);

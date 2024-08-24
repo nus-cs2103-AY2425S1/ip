@@ -22,6 +22,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             try{
                 String line;
+
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(" \\| ");
                     String taskType = parts[0].trim();
@@ -29,27 +30,27 @@ public class Storage {
                     String desc = parts[2].trim();
 
                     switch (taskType) {
-                        case "T":
-                            ToDo todo = new ToDo(desc);
-                            if (isDone) todo.markDone();
-                            tasks.add(todo);
-                            break;
+                    case "T":
+                        ToDo todo = new ToDo(desc);
+                        if (isDone) todo.markDone();
+                        tasks.add(todo);
+                        break;
 
-                        case "D":
-                            Deadline deadline = new Deadline(desc, dateTimeParser.parseDateTime(parts[3].trim()));
-                            if (isDone) deadline.markDone();
-                            tasks.add(deadline);
-                            break;
+                    case "D":
+                        Deadline deadline = new Deadline(desc, dateTimeParser.parseDateTime(parts[3].trim()));
+                        if (isDone) deadline.markDone();
+                        tasks.add(deadline);
+                        break;
 
-                        case "E":
-                            Event event = new Event(desc, dateTimeParser.parseDateTime(parts[3].trim()), dateTimeParser.parseDateTime(parts[4].trim()));
-                            if (isDone) event.markDone();
-                            tasks.add(event);
-                            break;
+                    case "E":
+                        Event event = new Event(desc, dateTimeParser.parseDateTime(parts[3].trim()), dateTimeParser.parseDateTime(parts[4].trim()));
+                        if (isDone) event.markDone();
+                        tasks.add(event);
+                        break;
 
-                        default:
-                            System.out.println("Invalid task type in db.txt: " + taskType);
-                            break;
+                    default:
+                        System.out.println("Invalid task type in db.txt: " + taskType);
+                        break;
                     }
                 }
             }catch (ArrayIndexOutOfBoundsException ignored) {}
