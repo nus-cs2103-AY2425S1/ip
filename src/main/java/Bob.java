@@ -1,6 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,70 +12,76 @@ public class Bob {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter responses = new PrintWriter(new BufferedWriter(
-                new OutputStreamWriter(System.out)));
-
-       responses.println("Hello! I'm Bob the bot!\nHow can I help you?");
+        System.out.println("Hello! I'm Bob the bot!\nHow can I help you?");
 
         while (true) {
-            String userInput = br.readLine();
+            String userInput = br.readLine().trim();
 
-            // Exit program
-            if (userInput.equalsIgnoreCase("bye")) {
-                responses.println("Bye! Hope to see you again :)");
-                break;
-            }
+            try {
+                String command = getCommand(userInput);
+                String taskDetails = getTaskDetails(userInput);
 
-            // Get input history
-            if (userInput.equalsIgnoreCase("list")) {
-                responses.println(actionResponse(userInput) + getTaskList());
-
-            // Mark task as done
-            } else if (userInput.startsWith("mark")) {
-                String[] parts = userInput.split(" ");
-                int taskNum = Integer.parseInt(parts[1]);
-                Task currTask = taskList.get(taskNum - 1);
-                currTask.markAsDone();
-                responses.println(actionResponse(parts[0]) + currTask);
-
-            // Mark task as undone
-            } else if (userInput.startsWith("unmark")) {
-                String[] parts = userInput.split(" ");
-                int taskNum = Integer.parseInt(parts[1]);
-                Task currTask = taskList.get(taskNum - 1);
-                currTask.markAsUndone();
-                responses.println(actionResponse(parts[0]) + currTask);
-
-            // Create Task
-            } else {
-                Task task = createTask(userInput);
-                addTask(task);
-                String word = "tasks";
-                if (numTasks == 1) {
-                    word = "task";
+                if (command.equalsIgnoreCase("bye")) {
+                    System.out.println(commandBye());
+                    break;
                 }
-                responses.println(actionResponse(userInput) + task
-                        + "\nNow you have " + numTasks + " " + word + " in your list.");
+
+                if (command.equalsIgnoreCase("list")) {
+                    System.out.println(commandList());
+
+                } else if (command.equalsIgnoreCase("mark")) {
+                    System.out.println(commandMark(taskDetails));
+
+                } else if (command.equalsIgnoreCase("unmark")) {
+                    System.out.println(commandUnmark(taskDetails));
+
+                } else if (command.equalsIgnoreCase("todo")) {
+                    System.out.println(commandTodo(taskDetails));
+
+                } else if (command.equalsIgnoreCase("deadline")) {
+                    System.out.println(commandDeadline(taskDetails));
+
+                } else if (command.equalsIgnoreCase("event") ){
+                    System.out.println(commandEvent(taskDetails));
+
+                } else {
+                    throw new BobException("Sorry, I do not understand. Please try something else.");
+                }
+
+            } catch (BobException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
             }
         }
-        responses.flush();
+    }
+
+    static String getCommand(String userInput) throws BobException {
+        if (userInput.isEmpty() || userInput.equals(" ")) {
+            throw new BobException("You did not key in anything...");
+        }
+        return userInput.split(" ", 2)[0];
+    }
+
+    static String getTaskDetails(String userInput) throws BobException {
+        String[] args = userInput.split(" ", 2);
+        if (args.length < 2) {
+            return "";
+        }
+        return args[1].trim();
+    }
+
+    static Task getTask(int taskNum) throws BobException {
+        try {
+            return taskList.get(taskNum - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("No such task number found. Please provide a valid task number.");
+        }
     }
 
     static void addTask(Task task) {
         taskList.add(task);
         numTasks++;
-    }
-
-    static String actionResponse(String userInput) {
-        if (userInput.startsWith("list")) {
-            return "Your list of tasks:\n";
-        } else if (userInput.startsWith("mark")) {
-            return "Good Job! Marking this task as done:\n ";
-        } else if (userInput.startsWith("unmark")) {
-            return "Okay, marking this task as not done yet:\n ";
-        } else {
-            return "Adding this task:\n ";
-        }
     }
 
     static String getTaskList() {
@@ -94,25 +97,91 @@ public class Bob {
         return tasks.toString();
     }
 
-    static Task createTask(String userInput) {
-        String[] parts = userInput.split(" ", 2);
-        String taskType = parts[0];
-        String remaining = parts[1];
+    static String commandBye() {
+        return "Bye! Hope to see you again :)";
+    }
 
-        String[] params = remaining.split(" /");
-        String description = params[0];
-        if (taskType.equalsIgnoreCase("todo")) {
-            return new ToDo(description);
+    static String commandList() {
+        return "Your list of tasks:\n" + getTaskList();
+    }
+
+    static String commandMark(String taskDetails) throws BobException {
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Please provide a task number.");
         }
-        if (taskType.equalsIgnoreCase("deadline")) {
+        try {
+            int taskNum = Integer.parseInt(taskDetails);
+            Task currTask = getTask(taskNum);
+            currTask.markAsDone();
+            return "Good Job! Marking this task as done:\n " + currTask;
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new BobException("The task number provided is invalid.");
+        }
+    }
+
+    static String commandUnmark(String taskDetails) throws BobException {
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Please provide a task number.");
+        }
+        try {
+            int taskNum = Integer.parseInt(taskDetails);
+            Task currTask = getTask(taskNum);
+            currTask.markAsUndone();
+            return "Okay, marking this task as not done yet:\n " + currTask;
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new BobException("The task number provided is invalid.");
+        }
+    }
+
+    static String commandTodo(String taskDetails) throws BobException {
+        String format = "Add ToDo task in the following format:\ntodo <description>";
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Missing details!\n" + format);
+        }
+        Task task = new ToDo(taskDetails);
+        addTask(task);
+        return "Adding ToDo task:\n " + task
+                + "\nTotal number of tasks in your list: " + numTasks;
+    }
+
+    static String commandDeadline(String taskDetails) throws BobException {
+        String format = "Add Deadline task in the following format:\n"
+                + "deadline <description> /by <due date>";
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Missing details!\n" + format);
+        }
+
+        try {
+            String[] params = taskDetails.split(" /");
+            String description = params[0];
             String by = params[1].split(" ", 2)[1];
-            return new Deadline(description, by);
+            Task task = new Deadline(description, by);
+            addTask(task);
+            return "Adding Deadline task:\n " + task
+                    + "\nTotal number of tasks in your list: " + numTasks;
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("You may have missing details or wrong format!\n" + format);
         }
-        if (taskType.equalsIgnoreCase("event")) {
+    }
+
+    static String commandEvent(String taskDetails) throws BobException {
+        String format = "Add Event task in the following format:\n"
+                + "deadline <description> /from <start date> /to <due date>";
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Missing details!\n" + format);
+        }
+
+        try {
+            String[] params = taskDetails.split(" /");
+            String description = params[0];
             String from = params[1].split(" ", 2)[1];
             String to = params[2].split(" ", 2)[1];
-            return new Event(description, from, to);
+            Task task = new Event(description, from, to);
+            addTask(task);
+            return "Adding Event task:\n " + task
+                    + "\nTotal number of tasks in your list: " + numTasks;
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("You may have missing details or wrong format!\n" + format);
         }
-        return new Task(userInput);
     }
 }

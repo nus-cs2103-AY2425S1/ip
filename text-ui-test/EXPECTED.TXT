@@ -1,30 +1,40 @@
 Hello! I'm Bob the bot!
 How can I help you?
-Adding this task:
+Adding ToDo task:
  [T][ ] borrow book
-Now you have 1 task in your list.
-Adding this task:
+Total number of tasks in your list: 1
+Adding Deadline task:
  [D][ ] return book (by: Sunday)
-Now you have 2 tasks in your list.
-Adding this task:
+Total number of tasks in your list: 2
+Adding Event task:
  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in your list.
+Total number of tasks in your list: 3
 Your list of tasks:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Good Job! Marking this task as done:
  [T][X] borrow book
-Good Job! Marking this task as done:
- [E][X] project meeting (from: Mon 2pm to: 4pm)
 Your list of tasks:
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sunday)
-3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+The task number provided is invalid.
+No such task number found. Please provide a valid task number.
+No such task number found. Please provide a valid task number.
 Okay, marking this task as not done yet:
  [T][ ] borrow book
 Your list of tasks:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
-3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Sorry, I do not understand. Please try something else.
+You may have missing details or wrong format!
+Add Deadline task in the following format:
+deadline <description> /by <due date>
+You may have missing details or wrong format!
+Add Deadline task in the following format:
+deadline <description> /by <due date>
+Sorry, I do not understand. Please try something else.
+You did not key in anything...
 Bye! Hope to see you again :)
