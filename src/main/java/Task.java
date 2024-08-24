@@ -9,12 +9,22 @@ public class Task {
         this.symbol = symbol;
     }
 
+    /**
+     * @return task's description
+     */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * @return the value of this.done, indicating whether the task is done or not done
+     * @return task's symbol
+     */
+    public String getSymbol() {
+        return this.symbol;
+    }
+
+    /**
+     * @return the value of this.done, indicating whether the task is done (marked) or not done (unmarked)
      */
     public boolean isDone() {
         return this.done;
