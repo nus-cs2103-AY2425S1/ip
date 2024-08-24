@@ -1,7 +1,9 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +21,7 @@ public class Pikappi {
     }
 
     public static void goodbye() {
+        saveTasks("./data/pikappi.txt");
         System.out.println("Pi-kapi! See you again~\n");
     }
 
@@ -153,8 +156,36 @@ public class Pikappi {
         }
     }
 
+    public static void saveTasks(String path) {
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            for (Task task : tasks) {
+                String isDone = task.isDone() ? "1" : "0";
+                String description = task.getDescription();
+                String by = "";
+                String from = "";
+                String to = "";
+                if (task instanceof DeadlineTask) {
+                    by = ((DeadlineTask) task).getBy();
+                    fileWriter.write("D | " + isDone + " | " + description + " | " + by + "\n");
+                } else if (task instanceof EventTask) {
+                    from = ((EventTask) task).getFrom();
+                    to = ((EventTask) task).getTo();
+                    fileWriter.write("E | " + isDone + " | " + description + " | " + from + " | " + to + "\n");
+                } else if (task instanceof TodoTask) {
+                    fileWriter.write("T | " + isDone + " | " + description + "\n");
+                }
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file!");
+        }
+
+    }
+
     public static void main(String[] args) throws PikappiException {
         loadTasks("./data/pikappi.txt");
+
         greet();
 
         while (true) {
