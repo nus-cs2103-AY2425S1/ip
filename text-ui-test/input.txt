@@ -1,6 +1,23 @@
+todo
 todo apple
+deadline
+deadline banana
+deadline banana /by
 deadline banana /by Wednesday
+event
+event chiku
+event chiku /from
+event chiku /from 0800hrs
+event chiku /from 0800hrs /to
 event chiku /from 0800hrs /to 1000hrs
+list
 unmark 1
 mark 1
 mark 1
+mark 2
+mark 3
+mark 4
+list
+unmark 3
+list
+invalid command

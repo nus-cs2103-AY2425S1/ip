@@ -1,4 +1,4 @@
-_______________________________________________________
+________________________________________________________________________________
 $$   $$   $$$$    $$$$ $$$$   $$   $$  $$$$$$
 $$   $$  $$  $$  $$  $$$  $$  $$   $$  $$  $$
 $$$$$$$  $$$$$$  $$  $$$  $$  $$$$$$$  $$  $$
@@ -7,23 +7,69 @@ $$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$
 
 Annyeonghaseyo! Hamyo here!
 How may I assist you today?
-_______________________________________________________
+________________________________________________________________________________
+Oh No! Usage: todo [task description]
+________________________________________________________________________________
 Got it. I've added this task:
 [T] [ ] apple
 There are 1 tasks in the list now.
-_______________________________________________________
+________________________________________________________________________________
+Oh No! Usage: deadline [task description] /by [deadline]
+________________________________________________________________________________
+Oh No! Usage: deadline [task description] /by [deadline]
+________________________________________________________________________________
+Oh No! Usage: deadline [task description] /by [deadline]
+________________________________________________________________________________
 Got it. I've added this task:
 [D] [ ] banana (by: Wednesday)
 There are 2 tasks in the list now.
-_______________________________________________________
+________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+________________________________________________________________________________
 Got it. I've added this task:
 [E] [ ] chiku (from: 0800hrs to: 1000hrs)
 There are 3 tasks in the list now.
-_______________________________________________________
-Oh no! This task was already marked as incomplete!
-_______________________________________________________
+________________________________________________________________________________
+These are your tasks:
+1. [T] [ ] apple
+2. [D] [ ] banana (by: Wednesday)
+3. [E] [ ] chiku (from: 0800hrs to: 1000hrs)
+________________________________________________________________________________
+Oh No! This task was already marked as incomplete!
+________________________________________________________________________________
 Yay! This task has been marked as completed.
 [T] [X] apple
-_______________________________________________________
-Oh no! This task was already marked as completed!
-_______________________________________________________
+________________________________________________________________________________
+Oh No! This task was already marked as completed!
+________________________________________________________________________________
+Yay! This task has been marked as completed.
+[D] [X] banana (by: Wednesday)
+________________________________________________________________________________
+Yay! This task has been marked as completed.
+[E] [X] chiku (from: 0800hrs to: 1000hrs)
+________________________________________________________________________________
+Oh No! Usage: mark [index]
+________________________________________________________________________________
+These are your tasks:
+1. [T] [X] apple
+2. [D] [X] banana (by: Wednesday)
+3. [E] [X] chiku (from: 0800hrs to: 1000hrs)
+________________________________________________________________________________
+Oki! This task has been marked as incomplete.
+[E] [ ] chiku (from: 0800hrs to: 1000hrs)
+________________________________________________________________________________
+These are your tasks:
+1. [T] [X] apple
+2. [D] [X] banana (by: Wednesday)
+3. [E] [ ] chiku (from: 0800hrs to: 1000hrs)
+________________________________________________________________________________
+Oh No! Invalid command.
+________________________________________________________________________________
