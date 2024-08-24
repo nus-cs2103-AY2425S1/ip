@@ -1,4 +1,4 @@
-# Duke User Guide
+# Nimbus User Guide
 
 // Update the title above to match the actual product name
 
@@ -20,9 +20,11 @@ Example: `keyword (optional arguments)`
 expected output
 ```
 
-## Feature ABC
+## Level 0
 
-// Feature details
+Nimbus is now able to say hi and bye!
+
+Check out the ASCII art when you start Nimbus!
 
 
 ## Feature XYZ
