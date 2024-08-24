@@ -1,7 +1,16 @@
+package myapp.blacknut;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+//import BlacknutExceptions.*;
+import myapp.blacknut.BlacknutExceptions.InvalidCommandException;
+import myapp.blacknut.BlacknutExceptions.EmptyDescriptionException;
+import myapp.blacknut.BlacknutExceptions.InvalidTaskNumberException;
+import myapp.blacknut.BlacknutExceptions.IncorrectFormatException;
 
-public class Duke {
+
+public class Blacknut {
+
     public static void main(String[] args) {
         String logo = " ____  _            _                _   \n"
                 + "|  _ \\| |          | |              | |  \n"
@@ -25,23 +34,27 @@ public class Duke {
 
             System.out.println("____________________________________________________________");
 
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                listTasks(tasks);
-            } else if (input.startsWith("mark ")) {
-                markTask(tasks, input, true);
-            } else if (input.startsWith("unmark ")) {
-                markTask(tasks, input, false);
-            } else if (input.startsWith("todo ")) {
-                addTodo(tasks, input);
-            } else if (input.startsWith("deadline ")) {
-                addDeadline(tasks, input);
-            } else if (input.startsWith("event ")) {
-                addEvent(tasks, input);
-            } else {
-                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println(" Bye. Hope to see you again soon!");
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    listTasks(tasks);
+                } else if (input.startsWith("mark ")) {
+                    markTask(tasks, input, true);
+                } else if (input.startsWith("unmark ")) {
+                    markTask(tasks, input, false);
+                } else if (input.startsWith("todo ")) {
+                    addTodo(tasks, input);
+                } else if (input.startsWith("deadline ")) {
+                    addDeadline(tasks, input);
+                } else if (input.startsWith("event ")) {
+                    addEvent(tasks, input);
+                } else {
+                    throw new InvalidCommandException("I don't know what that means. Please enter a valid command.");
+                }
+            } catch (InvalidCommandException | EmptyDescriptionException | InvalidTaskNumberException | IncorrectFormatException e) {
+                System.out.println(" ☹ OOPS!!! " + e.getMessage());
             }
 
             System.out.println("____________________________________________________________");
@@ -61,7 +74,7 @@ public class Duke {
         }
     }
 
-    private static void markTask(ArrayList<Task> tasks, String input, boolean markAsDone) {
+    private static void markTask(ArrayList<Task> tasks, String input, boolean markAsDone) throws InvalidTaskNumberException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             if (index >= 0 && index < tasks.size()) {
@@ -75,18 +88,19 @@ public class Duke {
                 }
                 System.out.println("   " + task);
             } else {
-                System.out.println(" Invalid task number. Please try again.");
+                throw new InvalidTaskNumberException("Invalid task number. Please provide a valid number from the list.");
             }
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println(" Invalid command. Please try again.");
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException("Invalid command format. Please enter a valid number after 'mark' or 'unmark'.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException("Task number out of range. Please provide a valid number from the list.");
         }
     }
 
-    private static void addTodo(ArrayList<Task> tasks, String input) {
+    private static void addTodo(ArrayList<Task> tasks, String input) throws EmptyDescriptionException {
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
-            System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
-            return;
+            throw new EmptyDescriptionException("The description of a todo cannot be empty.");
         }
         Task newTask = new Todo(description);
         tasks.add(newTask);
@@ -95,11 +109,10 @@ public class Duke {
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void addDeadline(ArrayList<Task> tasks, String input) {
+    private static void addDeadline(ArrayList<Task> tasks, String input) throws IncorrectFormatException {
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            System.out.println(" ☹ OOPS!!! The format for a deadline should be: deadline <description> /by <time>");
-            return;
+            throw new IncorrectFormatException("The format for a deadline should be: deadline <description> /by <time>");
         }
         Task newTask = new Deadline(parts[0].trim(), parts[1].trim());
         tasks.add(newTask);
@@ -108,11 +121,10 @@ public class Duke {
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void addEvent(ArrayList<Task> tasks, String input) {
+    private static void addEvent(ArrayList<Task> tasks, String input) throws IncorrectFormatException {
         String[] parts = input.substring(6).split(" /from | /to ");
         if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-            System.out.println(" ☹ OOPS!!! The format for an event should be: event <description> /from <start time> /to <end time>");
-            return;
+            throw new IncorrectFormatException("The format for an event should be: event <description> /from <start time> /to <end time>");
         }
         Task newTask = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
         tasks.add(newTask);

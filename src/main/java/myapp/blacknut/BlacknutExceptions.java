@@ -1,4 +1,4 @@
-
+package myapp.blacknut;
 public class BlacknutExceptions {
 
     public static class InvalidCommandException extends Exception {
