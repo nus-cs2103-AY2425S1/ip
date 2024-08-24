@@ -7,6 +7,13 @@ public class Event extends Task{
         this.to = end;
     }
 
+    public Event(String description, String start, String end, boolean isDone) {
+        super(description, isDone);
+        this.from = start;
+        this.to = end;
+    }
+
+
 
 
     public String getStartTime() {
@@ -18,8 +25,8 @@ public class Event extends Task{
     }
 
     @Override
-    public String toDataString() {
-        return "E | " + super.toDataString() + " | " + from + " | " + to;
+    public String toFileFormat() {
+        return "E | " + super.toFileFormat() + " | " + from + " | " + to;
     }
     @Override
     public String toString() {

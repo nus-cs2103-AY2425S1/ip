@@ -3,9 +3,12 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(String description, boolean isDone) {
+        super(description, isDone);
+    }
     @Override
-    public String toDataString() {
-        return "T | " + super.toDataString();
+    public String toFileFormat() {
+        return "T | " + super.toFileFormat();
     }
 
     @Override
