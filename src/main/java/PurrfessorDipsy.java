@@ -166,7 +166,7 @@ public class PurrfessorDipsy {
     // Other util methods used for performing commands.
     private static void saveToMemory(Task task) {
         taskTable.add(task);
-        printWithTerminalLines("ノ(=ↀωↀ=)ノ Task added! \n" + task +
+        printWithTerminalLines("Task added! \n" + task +
                 "\nYou now have " + taskTable.size() + " tasks in your list.");
         Storage.saveTasksToLocalDisk(taskTable);
     }
