@@ -10,26 +10,42 @@ public class Rose {
         System.out.println("    " + line);
     }
     private static void addTask(String taskType, String taskName) {
-        printIndented(horizontal);
-        printIndented("Got it. I've added this task: ");
-        Task newTask;
+        try {
+            Task newTask;
 
-        if (taskType.equals("event")) {
-            String[] partsA = taskName.split(" /from ");
-            String[] partsB = partsA[1].split(" /to ");
-            newTask = new Event(partsA[0], partsB[0], partsB[1]);
-        } else if (taskType.equals("deadline")) {
-            String[] parts = taskName.split(" /by ");
-            newTask = new Deadline(parts[0], parts[1]);
-        } else {
-            newTask = new Todo(taskName);
+            if (taskType.equals("event")) {
+                String[] partsA = taskName.split(" /from ");
+                if (partsA.length < 2) {
+                    throw new RoseException("Event task is missing '/from'.");
+                }
+                String[] partsB = partsA[1].split(" /to ");
+                if (partsB.length < 2) {
+                    throw new RoseException("Event task is missing '/to'.");
+                }
+                newTask = new Event(partsA[0], partsB[0], partsB[1]);
+            } else if (taskType.equals("deadline")) {
+                String[] parts = taskName.split(" /by ");
+                if (parts.length < 2) {
+                    throw new RoseException("Deadline task is missing '/by'.");
+                }
+                newTask = new Deadline(parts[0], parts[1]);
+            } else {
+                newTask = new Todo(taskName);
+            }
+
+            tasks.add(newTask);
+            printIndented(horizontal);
+            printIndented("Got it. I've added this task: ");
+            printIndented("  " + newTask.toString());
+            printIndented(String.format("Now you have %d task in the list.", tasks.size()));
+
+            printIndented(horizontal);
+
+        } catch (RoseException e) {
+            printIndented(horizontal);
+            printIndented("OOPS!!! " + e.getMessage());
+            printIndented(horizontal);
         }
-
-        tasks.add(newTask);
-        printIndented("  " + newTask.toString());
-        printIndented(String.format("Now you have %d task in the list.", tasks.size()));
-
-        printIndented(horizontal);
     }
 
     private static void showList() {
@@ -41,22 +57,35 @@ public class Rose {
     }
 
     private static void markTask(Integer idx) {
-        printIndented(horizontal);
-        tasks.get(idx - 1).mark();
-        //Task updatedTask = tasks.get(idx - 1).mark();
-        //tasks.set(idx - 1, updatedTask);
-        printIndented("Marked as done : ");
-        printIndented(tasks.get(idx - 1).toString());
-        printIndented(horizontal);
+        try {
+            tasks.get(idx - 1).mark();
+            //Task updatedTask = tasks.get(idx - 1).mark();
+            //tasks.set(idx - 1, updatedTask);
+            printIndented(horizontal);
+            printIndented("Marked as done : ");
+            printIndented(tasks.get(idx - 1).toString());
+            printIndented(horizontal);
+        } catch (IndexOutOfBoundsException e) {
+            printIndented(horizontal);
+            printIndented("OOPS!!! Task index is out of bounds.");
+            printIndented(horizontal);
+        }
     }
 
     private static void unmarkTask(Integer idx) {
-        printIndented(horizontal);
-        tasks.get(idx - 1).unmark();
-        printIndented("Marked as not done :");
-        printIndented(tasks.get(idx - 1).toString());
-        printIndented(horizontal);
+        try {
+            tasks.get(idx - 1).unmark();
+            printIndented(horizontal);
+            printIndented("Marked as not done :");
+            printIndented(tasks.get(idx - 1).toString());
+            printIndented(horizontal);
+        } catch (IndexOutOfBoundsException e) {
+            printIndented(horizontal);
+            printIndented("OOPS!!! Task index is out of bounds.");
+            printIndented(horizontal);
+        }
     }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -70,22 +99,35 @@ public class Rose {
         String message = "";
 
         while (!input.equals("bye")) {
-            String command = input.split(" ",2)[0];
+            String command = input.split(" ",2)[0].toLowerCase();
+            message = "";
             if ((input.split(" ", 2).length > 1)) {
                 message = input.split(" ", 2)[1];
             }
 
-            if (command.equals("list")) {
-                showList();
-            } else if (command.equals("mark")) {
-                markTask(Integer.valueOf(message));
-            } else if (command.equals("unmark")) {
-                unmarkTask(Integer.valueOf(message));
-            } else if (command.equals("todo") || command.equals("event") || command.equals("deadline")) {
-                addTask(command, message);
-            } else {
+            try {
+                if (command.equals("list")) {
+                    showList();
+                } else if (command.equals("mark")) {
+                    markTask(Integer.valueOf(message));
+                } else if (command.equals("unmark")) {
+                    unmarkTask(Integer.valueOf(message));
+                } else if (command.equals("todo") || command.equals("event") || command.equals("deadline")) {
+                    if (message.isEmpty()) {
+                        throw new RoseException(String.format("You need to put more details after the '%s' command",
+                                command));
+                    }
+                    addTask(command, message);
+                } else {
+                    throw new RoseException("I'm sorry, but I don't know that command :-(");
+                }
+            } catch (RoseException e) {
                 printIndented(horizontal);
-                printIndented("Oops sry idk what command is that");
+                printIndented("OOPS!!! " + e.getMessage());
+                printIndented(horizontal);
+            } catch (NumberFormatException e) {
+                printIndented(horizontal);
+                printIndented("OOPS!!! You should provide a number for the task index.");
                 printIndented(horizontal);
             }
             input = scanner.nextLine();
