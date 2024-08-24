@@ -185,6 +185,7 @@ public class Jackson {
     }
 
     public static void main(String[] args) {
+        // create instance of Jackson and run main loop
         Jackson jackson = new Jackson(EXPECTED_SIZE, PATH);
         jackson.run();
     }
