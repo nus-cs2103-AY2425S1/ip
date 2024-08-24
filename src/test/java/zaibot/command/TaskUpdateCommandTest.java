@@ -52,7 +52,7 @@ public class TaskUpdateCommandTest {
     @Test
     public void testUnmark() {
         Task task = new ToDoTask("one");
-        task.setCompletionStatus(true);
+        task.setDone(true);
         tasks.addTask(task);
 
         HashMap<String, String> optionMap = new HashMap<>();

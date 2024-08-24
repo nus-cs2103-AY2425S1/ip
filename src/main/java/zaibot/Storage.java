@@ -113,7 +113,7 @@ public class Storage {
             default -> throw new ZaibotException("Saved file data not in expected format.");
         };
 
-        task.setCompletionStatus(status.getStatus());
+        task.setDone(status.getStatus());
 
         return task;
     }

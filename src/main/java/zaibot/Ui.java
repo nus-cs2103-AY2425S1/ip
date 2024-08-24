@@ -17,7 +17,8 @@ public class Ui {
         DELETE("Task removed. Bye bye."),
         GREETING("Hi, or whatever. What do you want from me today?"),
         ADD("Another day, another task. Added."),
-        TASKTOTAL("You have %d task(s). Get moving.");
+        TASKTOTAL("You have %d task(s). Get moving."),
+        FILTER("Filtered the tasks for you. Good enough?");
 
         private final String msg;
 

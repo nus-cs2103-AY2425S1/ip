@@ -2,6 +2,9 @@ package zaibot.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents a task.
+ */
 public class Task {
     private String name;
     private boolean isDone;
@@ -14,15 +17,17 @@ public class Task {
 
     /**
      * Sets the completion status of the task.
+     *
      * @param status The status to change to
      */
-    public void setCompletionStatus(boolean status) {
+    public void setDone(boolean status) {
         this.isDone = status;
     }
 
     /**
      * This gets the formatter, which will be used for input for all the tasks if
      * they have a date portion
+     *
      * @return A DateTimeFormatter with the pattern currently chosen.
      */
     public static DateTimeFormatter getFormatter() {
@@ -30,7 +35,17 @@ public class Task {
     }
 
     /**
+     * Checks if the name contains the input
+     * @param input Any string
+     * @return true if it contains the input, false otherwise.
+     */
+    public boolean containsInput(String input) {
+        return this.name.contains(input);
+    }
+
+    /**
      * Returns the string representation of the task when saved.
+     *
      * @return a string in the format TYPE | COMPLETION \ NAME | ....
      */
     public String toSaveString() {
