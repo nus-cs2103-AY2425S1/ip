@@ -1,19 +1,22 @@
 import java.io.Serial;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
     @Serial
     private static final long serialVersionUID = 1L;
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructor for the Deadline class.
      *
      * @param description Description of the task.
      * @param deadline Deadline of the task.
+     * @exception DateTimeParseException If the deadline is not in the correct format.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws DateTimeParseException {
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
     /**
@@ -23,6 +26,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (BY: " + deadline.format(OUTPUT_FORMATTER) + ")";
     }
 }
