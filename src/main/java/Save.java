@@ -33,5 +33,4 @@ public class Save {
             System.out.println("Error loading from save file");
         }
     }
-
 }

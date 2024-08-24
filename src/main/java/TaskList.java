@@ -105,17 +105,17 @@ public class TaskList {
         try {
             Task newTask;
             switch (taskType) {
-            case T:
-                newTask = ToDo.of(s, taskType);
-                break;
-            case D:
-                newTask = Deadline.of(s, taskType);
-                break;
-            case E:
-                newTask = Event.of(s, taskType);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid task type");
+                 case T:
+                    newTask = ToDo.of(s, taskType);
+                    break;
+                case D:
+                    newTask = Deadline.of(s, taskType);
+                    break;
+                case E:
+                    newTask = Event.of(s, taskType);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid task type");
             }
             this.taskList.add(newTask);
             this.taskListLength += 1;
