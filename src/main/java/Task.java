@@ -18,9 +18,13 @@ public class Task {
         };
 
         if (components[1].equals("1")) {
-            returned.silentMark();
+            try {
+                returned.mark();
+            } catch (AlreadyMarkedException e) {
+                //do nothing as this won't happen as this is just read
+                //however I need to handle it
+            }
         }
-
         return returned;
     }
 
@@ -63,32 +67,20 @@ public class Task {
 
     }
 
-    public void mark() {
+    public void mark() throws AlreadyMarkedException{
         if (completed) {
-            System.out.println("Sumo confused. This task is marked as done in the first place!\n"
-                            + "But SUMO will mark it as done again!"
-                    );
+            throw new AlreadyMarkedException(this);
         } else {
-            System.out.println("Sumo has marked this task as done.");
             this.completed = true;
         }
-        System.out.println(this);
     }
 
-    public void silentMark() {
-        this.completed = true;
-    }
-
-    public void unmark() {
+    public void unmark() throws AlreadyUnmarkedException{
         if (!completed) {
-            System.out.println("Sumo confused. This task is not completed in the first place!\n"
-                            + "But SUMO will mark it as NOT done again!"
-                    );
+            throw new AlreadyUnmarkedException(this);
         } else {
-            System.out.println("Sumo has marked this task as NOT done.");
             this.completed = false;
         }
-        System.out.println(this);
     }
 
     public String savedString() {

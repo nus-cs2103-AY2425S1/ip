@@ -8,16 +8,16 @@ public class SumoDE {
     private final Ui ui;
 
     public SumoDE (String filePath) {
+        //handle Ui
+        this.ui = new Ui();
+
         // handle Storage
         try {
-            this.storage = new Storage(filePath);
+            this.storage = new Storage(filePath,ui);
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
-            System.out.println(
-                    "Help! Sumo unable to save data due to unknown error!\n"
-                    + "Please exit and try again if u wanna save"
-            );
+            ui.unknownSaveError();
         }
 
         //handle SumoTaskList
@@ -25,20 +25,15 @@ public class SumoDE {
             this.tasks = new SumoTaskList(); // we will use the version where we cannot save
         } else {
             try {
-                this.tasks = new SumoTaskList(this.storage);
+                this.tasks = new SumoTaskList(this.storage, ui);
             } catch (IOException e) {
                 //unlikely will happen since we already successfully initialise storage
-                System.out.println(
-                        "Help! Sumo unable to save data due to unknown error!\n"
-                        + "Please exit and try again if u wanna save"
-                );
+                ui.unknownSaveError();
                 this.tasks = new SumoTaskList(); // we will use the version where we cannot save
             }
-
         }
 
-        //handle Ui
-        this.ui = new Ui();
+
 
     }
 
@@ -72,7 +67,9 @@ public class SumoDE {
                 terminate = this.tasks.execute(command,item);
             }catch (IllegalArgumentException e) {
                 ui.unknownCommand(commandString);
-            }catch (WrongSyntaxForCommandException | UnknownCommandException | NonExistentTaskException e) {
+            }catch (WrongSyntaxForCommandException | UnknownCommandException
+                    | NonExistentTaskException | AlreadyUnmarkedException
+                    | AlreadyMarkedException e) {
                 ui.handleError(e);
             } finally {
                 if (!terminate) {

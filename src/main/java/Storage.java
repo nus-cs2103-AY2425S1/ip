@@ -9,16 +9,15 @@ public class Storage{
 
     private final String filePath;
     private final File f;
+    private final Ui ui;
 
-    public Storage (String filePath) throws IOException {
+    public Storage (String filePath, Ui ui) throws IOException {
         this.filePath = filePath;
+        this.ui = ui;
         this.f = new File(filePath);
         if (!f.exists()) {
             if(!f.createNewFile()) {
-                System.out.println(
-                        "Welp! Sumo unable to save data due to unknown error!\n"
-                        + "Please exit and try again if u wanna save"
-                );
+                throw new IOException();
             }
         }
     }
@@ -31,7 +30,7 @@ public class Storage{
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Sumo cannot save latest change.");
+            this.ui.latestSaveError();
         }
     }
 

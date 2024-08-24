@@ -10,11 +10,13 @@ public class SumoTaskList {
 
     private final List<Task> tasks;
     private Storage storage;
+    private Ui ui;
 
-    public SumoTaskList(Storage storage) throws IOException {
+    public SumoTaskList(Storage storage, Ui ui) throws IOException {
         //initialising
         this.tasks = new ArrayList<>();
         this.storage = storage;
+        this.ui = ui;
 
         //adding tasks based on data
         String[] datas = storage.load();
@@ -22,10 +24,7 @@ public class SumoTaskList {
             try {
                 tasks.add(Task.createFromData(datas[i]));
             } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                System.out.println(
-                        "Your saved file at line " + (i + 1) + " is corrupted. "
-                        + "Sumo cannot read so Sumo will skip that and continue with the rest!"
-                );
+                ui.corruptedSaveFile(i+1);
             }
         }
 
@@ -34,28 +33,19 @@ public class SumoTaskList {
 
     public SumoTaskList() {
         this.tasks = new ArrayList<>();
-
-    }
-
-    private void printTask() {
-        System.out.println("Below is the list of tasks:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task == null) {
-                break;
-            }
-            System.out.println((i+1) + ". "+ task);
-        }
+        this.storage = null;
     }
 
     public boolean execute(Command command, String item)
-            throws NonExistentTaskException, UnknownCommandException, WrongSyntaxForCommandException {
+            throws NonExistentTaskException, UnknownCommandException,
+            WrongSyntaxForCommandException, AlreadyMarkedException,
+            AlreadyUnmarkedException {
         switch(command) {
             case BYE:
             case EXIT:  // added this to allow flexibility though not required by qn
                 return true;
             case LIST:
-                this.printTask();
+                this.ui.printTask(this.tasks);
                 break;
             case MARK:
             {
@@ -69,9 +59,13 @@ public class SumoTaskList {
                 if (index > tasks.size() || index <= 0) {
                     throw new NonExistentTaskException(index);
                 }
-                tasks.get(index-1).mark();
+                tasks.get(index - 1).mark();
+                ui.mark(tasks.get(index - 1));
+
             }
-            storage.save(this.tasks);
+            if (storage != null) {
+                storage.save(this.tasks);
+            }
             break;
             case UNMARK:
             {
@@ -86,8 +80,12 @@ public class SumoTaskList {
                     throw new NonExistentTaskException(index);
                 }
                 tasks.get(index - 1).unmark();
+                ui.unmark(tasks.get(index - 1));
             }
-            storage.save(this.tasks);
+            if (storage != null) {
+                storage.save(this.tasks);
+            }
+
             break;
             case DELETE:
             {
@@ -100,30 +98,22 @@ public class SumoTaskList {
                 if (index > tasks.size() || index <= 0) {
                     throw new NonExistentTaskException(index);
                 }
-                System.out.println(
-                        "Sumo removed this task for you.\n"
-                                + tasks.get(index - 1)
-                                + "\n"
-                                + "There are now "
-                                + (tasks.size()-1)
-                                + " task(s) in total!"
-                );
+                ui.removeTask(tasks.get(index - 1), tasks.size() - 1);
                 tasks.remove(index - 1);
             }
-            storage.save(this.tasks);
+            if (storage != null) {
+                storage.save(this.tasks);
+            }
             break;
             case TODO:
             case DEADLINE:
             case EVENT:
                 Task newlyAdded = Task.of(command, item);
                 tasks.add(newlyAdded);  // used factory method to be more neat and OOP
-                System.out.println("Sumo has added this task for you.\n"
-                        + newlyAdded
-                        + "\n"
-                        + "There are now "
-                        + (tasks.size())
-                        + " task(s) in total!");
-                storage.save(this.tasks);
+                ui.addTask(newlyAdded, tasks.size());
+                if (storage != null) {
+                    storage.save(this.tasks);
+                }
                 break;
             default:
                 throw new UnknownCommandException(command);
