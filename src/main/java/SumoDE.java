@@ -5,6 +5,7 @@ public class SumoDE {
 
     private Storage storage;
     private SumoTaskList tasks;
+    private final Ui ui;
 
     public SumoDE (String filePath) {
         // handle Storage
@@ -36,40 +37,14 @@ public class SumoDE {
 
         }
 
+        //handle Ui
+        this.ui = new Ui();
+
     }
 
     public void run() {
-        String logo = """
-                           ___
-                          |* *|
-                          |\\_/|
-                  ---------------------
-                  |                   |
-                -----     SUMO      -----
-                | | |               | | |
-                -----      DE       -----
-                  |                   |
-                  ---------------------
-                  |                   |
-                  |      /-----\\      |
-                  |_____/       \\_____|
-                """;
 
-        String goodbye = """
-                ------------------------------------
-                Goodbye! Sumo hope to see you again!
-                ------------------------------------
-                """;
-
-        //Actual programme
-
-        System.out.println("------------------------------------\n" +
-                "    Hello, I am Sumo-DE\n"
-                + logo
-                + '\n'
-                + " How can Sumo help you?\n"
-                + "------------------------------------"
-        );
+        this.ui.greet();
 
         Scanner sc = new Scanner(System.in);
         boolean terminate = false;
@@ -96,22 +71,19 @@ public class SumoDE {
                 command = Command.valueOf(commandString.toUpperCase());
                 terminate = this.tasks.execute(command,item);
             }catch (IllegalArgumentException e) {
-                System.out.println("Sumo dunno your command \"" + commandString +"\" ! Check spelling of your first word.");
+                ui.unknownCommand(commandString);
             }catch (WrongSyntaxForCommandException | UnknownCommandException | NonExistentTaskException e) {
-                System.out.println(e.getMessage());
+                ui.handleError(e);
             } finally {
                 if (!terminate) {
-                    System.out.println("""
-                            ------------------------------------
-                            Do you need anything else from SUMO?
-                            ------------------------------------""");
+                    ui.next();
                 }
             }
 
         }
 
         // loop ended, cleaning up
-        System.out.println(goodbye);
+        ui.bye();
         sc.close();
     }
 
@@ -119,6 +91,5 @@ public class SumoDE {
     public static void main(String[] args) {
         SumoDE sumoDE = new SumoDE("data\\taskSaved.txt");
         sumoDE.run();
-
     }
 }
