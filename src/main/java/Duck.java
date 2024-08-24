@@ -238,6 +238,12 @@ public class Duck {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
+    public static boolean getTaskDoneBoolean(String isDone) throws DuckException {
+        if (!isDone.equals("0") && !isDone.equals("1")) {
+            throw new DuckException("Invalid task status in file: " + isDone);
+        }
+        return isDone.equals("1");
+    }
     public static void readFromFile(File f) throws DuckException {
         try {
             Scanner sc = new Scanner(f);
@@ -247,19 +253,25 @@ public class Duck {
                 Task task;
                 switch (words[0]) {
                 case "T":
-                    task = new ToDo(words[2]);
+                    task = new ToDo(
+                            words[2],
+                            getTaskDoneBoolean(words[1]));
                     break;
                 case "D":
-                    task = new Deadline(words[2], words[3]);
+                    task = new Deadline(
+                            words[2],
+                            words[3],
+                            getTaskDoneBoolean(words[1]));
                     break;
                 case "E":
-                    task = new Event(words[2], words[3], words[4]);
+                    task = new Event(
+                            words[2],
+                            words[3],
+                            words[4],
+                            getTaskDoneBoolean(words[1]));
                     break;
                 default:
                     continue;
-                }
-                if (words[1].equals("1")) {
-                    task.markAsDone();
                 }
                 tasks.add(task);
             }
