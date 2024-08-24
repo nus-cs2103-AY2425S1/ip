@@ -1,10 +1,13 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     /**
      * The deadline of the task.
      */
-    private String deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructor for a new deadline task.
@@ -12,7 +15,7 @@ public class Deadline extends Task {
      * @param name the name of the deadline task
      *
      */
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
@@ -23,6 +26,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        String deadlineString = this.deadline.format(f);
+        return String.format("[D]%s (by: %s)", super.toString(), deadlineString);
     }
 }

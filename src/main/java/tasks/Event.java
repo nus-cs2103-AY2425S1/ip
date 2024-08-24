@@ -1,15 +1,18 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     /**
      * The date-time when the event starts.
      */
-    private String start;
+    private LocalDateTime start;
 
     /**
      * The date-time when the event ends.
      */
-    private String end;
+    private LocalDateTime end;
 
     /**
      * Constructor for a new event task.
@@ -17,7 +20,7 @@ public class Event extends Task {
      * @param start the start of the event
      * @param end the end of the event
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
@@ -29,6 +32,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        String startString = this.start.format(f);
+        String endString = this.end.format(f);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), startString, endString);
     }
 }
