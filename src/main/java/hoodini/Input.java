@@ -4,11 +4,15 @@ package hoodini;
  * Abstract class as users should not be able to
  * create an input object.
  */
-abstract class Input {
+public abstract class Input {
 
     private String input;
     private boolean done;
 
+    /**
+     * Constructor for Input object
+     * @param input String input
+     */
 
     public Input(String input) {
         this.input = input;
