@@ -3,28 +3,31 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ChatKaki {
     private static final String CHATBOT_NAME = "ChatKaki";
+    private static final String DATE_FORMAT = "d/M/yyyy HHmm";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static ArrayList<Task> taskHistory = new ArrayList<>();
 
     public static void main(String[] args) {
-        sayGreeting();
-        chatService();
+        greetUser();
+        startChatService();
     }
 
-    private static void sayGreeting() {
-        readTasksFromFile();
+    private static void greetUser() {
+        loadTasksFromFile();
         printMessage("Hello! I'm " + CHATBOT_NAME + "\n What can I do for you?");
     }
 
-    private static void sayBye() {
-        writeTasksToFile();
+    private static void sayGoodbye() {
+        saveTasksToFile();
         printMessage("Bye. Hope to see you again soon!");
     }
 
-    private static void sayList() {
+    private static void listTasks() {
         StringBuilder listMessage = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < taskHistory.size(); i++) {
             listMessage.append("\n ").append(i + 1).append(". ").append(taskHistory.get(i));
@@ -32,7 +35,7 @@ public class ChatKaki {
         printMessage(listMessage.toString());
     }
 
-    private static void markTask(String[] inputs, boolean isDone) {
+    private static void updateTaskStatus(String[] inputs, boolean isDone) {
         int index = Integer.parseInt(inputs[1]);
         if (index < 1 || index > taskHistory.size()) {
             printMessage("Invalid Task number.");
@@ -51,49 +54,82 @@ public class ChatKaki {
         printMessage("Got it. I've added this task:\n " + task + "\n Now you have " + taskHistory.size() + " task" + (taskHistory.size() == 1 ? "" : "s") + " in the list.");
     }
 
-    private static void createTask(String[] inputs, TaskType taskType) {
-        if (inputs.length > 1) {
-            switch (taskType) {
-                case TODO:
-                    addTask(new Todo(false, inputs[1]));
-                    break;
-                case DEADLINE:
-                    String[] deadlineParts = inputs[1].split(" /by ");
-                    if (deadlineParts.length == 2) {
-                        addTask(new Deadline(false, deadlineParts[0], deadlineParts[1]));
-                    } else {
-                        printMessage("Invalid Deadline format, it should contain /by");
-                    }
-                    break;
-                case EVENT:
-                    String[] eventParts = inputs[1].split(" /from | /to ");
-                    if (eventParts.length == 3) {
-                        addTask(new Event(false, eventParts[0], eventParts[1], eventParts[2]));
-                    } else {
-                        printMessage("Invalid Event format, it should contain /from and /to");
-                    }
-                    break;
-            }
-        } else {
-            printMessage("The description of a " + taskType.name().toLowerCase() + " cannot be empty.");
+    private static boolean isValidDateFormat(String date) {
+        try {
+            LocalDateTime.parse(date, FORMATTER);
+            return true;
+        } catch (Exception e) {
+            printMessage("Invalid date format, it should be " + DATE_FORMAT);
+            return false;
         }
+    }
+
+    private static LocalDateTime parseDate(String date) {
+        try {
+            return LocalDateTime.parse(date, FORMATTER);
+        } catch (Exception e) {
+            printMessage("Invalid date format, it should be " + DATE_FORMAT);
+            return null;
+        }
+    }
+
+    private static void createTask(String[] inputs, TaskType taskType) {
+        if (inputs.length <= 1) {
+            printMessage("The description of a " + taskType.name().toLowerCase() + " cannot be empty.");
+            return;
+        }
+
+        switch (taskType) {
+            case TODO:
+                addTask(new Todo(false, inputs[1]));
+                break;
+            case DEADLINE:
+                createDeadlineTask(inputs[1]);
+                break;
+            case EVENT:
+                createEventTask(inputs[1]);
+                break;
+        }
+    }
+
+    private static void createDeadlineTask(String input) {
+        String[] parts = input.split(" /by ");
+        if (parts.length != 2 || !isValidDateFormat(parts[1])) {
+            printMessage("Invalid Deadline format, it should contain /by and a valid date.");
+            return;
+        }
+        LocalDateTime dateTime = parseDate(parts[1]);
+        addTask(new Deadline(false, parts[0], dateTime));
+    }
+
+    private static void createEventTask(String input) {
+        String[] parts = input.split(" /from | /to ");
+        if (parts.length != 3 || !isValidDateFormat(parts[1]) || !isValidDateFormat(parts[2])) {
+            printMessage("Invalid Event format, it should contain /from and /to with valid dates.");
+            return;
+        }
+        LocalDateTime start = parseDate(parts[1]);
+        LocalDateTime end = parseDate(parts[2]);
+        addTask(new Event(false, parts[0], start, end));
     }
 
     private static void deleteTask(String[] inputs) {
-        if (inputs.length > 1) {
-            int index = Integer.parseInt(inputs[1]) - 1;
-            if (index < 0 || index >= taskHistory.size()) {
-                printMessage("Index is out of range, there are only " + taskHistory.size() + " task(s)");
-            } else {
-                Task task = taskHistory.remove(index);
-                printMessage("Noted. I've removed this task:\n   " + task + "\nNow you have " + taskHistory.size() + " task" + (taskHistory.size() == 1 ? "" : "s") + " in the list.");
-            }
-        } else {
+        if (inputs.length <= 1) {
             printMessage("The description of a delete cannot be empty, add an index");
+            return;
         }
+
+        int index = Integer.parseInt(inputs[1]) - 1;
+        if (index < 0 || index >= taskHistory.size()) {
+            printMessage("Index is out of range, there are only " + taskHistory.size() + " task(s)");
+            return;
+        }
+
+        Task task = taskHistory.remove(index);
+        printMessage("Noted. I've removed this task:\n   " + task + "\nNow you have " + taskHistory.size() + " task" + (taskHistory.size() == 1 ? "" : "s") + " in the list.");
     }
 
-    private static void readTasksFromFile() {
+    private static void loadTasksFromFile() {
         try {
             File file = new File("data/tasks.txt");
             if (!file.exists()) {
@@ -111,10 +147,13 @@ public class ChatKaki {
                         taskHistory.add(new Todo(Boolean.parseBoolean(taskParts[1]), taskParts[2]));
                         break;
                     case DEADLINE:
-                        taskHistory.add(new Deadline(Boolean.parseBoolean(taskParts[1]), taskParts[2], taskParts[3]));
+                        LocalDateTime dateTime = parseDate(taskParts[3]);
+                        taskHistory.add(new Deadline(Boolean.parseBoolean(taskParts[1]), taskParts[2], dateTime));
                         break;
                     case EVENT:
-                        taskHistory.add(new Event(Boolean.parseBoolean(taskParts[1]), taskParts[2], taskParts[3], taskParts[4]));
+                        LocalDateTime start = parseDate(taskParts[3]);
+                        LocalDateTime end = parseDate(taskParts[4]);
+                        taskHistory.add(new Event(Boolean.parseBoolean(taskParts[1]), taskParts[2], start, end));
                         break;
                 }
             }
@@ -123,7 +162,7 @@ public class ChatKaki {
         }
     }
 
-    private static void writeTasksToFile() {
+    private static void saveTasksToFile() {
         try {
             File file = new File("data/tasks.txt");
             if (!file.exists()) {
@@ -140,7 +179,7 @@ public class ChatKaki {
         }
     }
 
-    private static void chatService() {
+    private static void startChatService() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
@@ -161,16 +200,16 @@ public class ChatKaki {
                     createTask(inputs, TaskType.EVENT);
                     break;
                 case BYE:
-                    sayBye();
+                    sayGoodbye();
                     return;
                 case MARK:
-                    markTask(inputs, true);
+                    updateTaskStatus(inputs, true);
                     break;
                 case UNMARK:
-                    markTask(inputs, false);
+                    updateTaskStatus(inputs, false);
                     break;
                 case LIST:
-                    sayList();
+                    listTasks();
                     break;
                 default:
                     printMessage("Command not found, try another one!");
