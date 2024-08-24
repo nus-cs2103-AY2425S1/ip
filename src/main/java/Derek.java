@@ -32,7 +32,7 @@ public class Derek {
     }
 
     /**
-     * Introduces Derek and initiates user interaction to become friends.
+     * Introduces Derek and initiates user interaction.
      */
     @Override
     public void introduction() {
