@@ -1,3 +1,7 @@
+package reo;
+
+import reo.Task;
+
 public class Todo extends Task {
 
     public Todo(String name, boolean isDone) {

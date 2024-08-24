@@ -1,4 +1,5 @@
-import java.util.Locale;
+package reo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 

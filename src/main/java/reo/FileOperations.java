@@ -1,3 +1,5 @@
+package reo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,11 +9,24 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** Supports the required file operations for reo.Reo. */
 public class FileOperations {
-    public static boolean intToBool(int i) {
+    /**
+     * Returns true if the parameter is 1, and false otherwise.
+     *
+     * @param i The integer used to represent true or false in the saved file.
+     * @return Boolean representation of i.
+     */
+    public static boolean convertIntToBool(int i) {
         return i == 1;
     }
 
+    /**
+     * Reads the saved file, and interprets its contents to create
+     * an ArrayList of reo.Task objects represented by the file contents.
+     *
+     * @return An ArrayList of Tasks interpreted from the file.
+     */
     public static ArrayList<Task> readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -32,19 +47,19 @@ public class FileOperations {
 
                 switch (split[0].trim()) {
                     case "T":
-                        boolean isDoneT = intToBool(Integer.parseInt(split[1].trim()));
+                        boolean isDoneT = convertIntToBool(Integer.parseInt(split[1].trim()));
                         String nameT = split[2].trim();
                         tasks.add(new Todo(nameT, isDoneT));
                         break;
                     case "E":
-                        boolean isDoneE = intToBool(Integer.parseInt(split[1].trim()));
+                        boolean isDoneE = convertIntToBool(Integer.parseInt(split[1].trim()));
                         String nameE = split[2].trim();
                         String from = split[3].trim();
                         String to = split[4].trim();
                         tasks.add(new Event(nameE, isDoneE, to, from));
                         break;
                     case "D":
-                        boolean isDoneD = intToBool(Integer.parseInt(split[1].trim()));
+                        boolean isDoneD = convertIntToBool(Integer.parseInt(split[1].trim()));
                         String nameD = split[2].trim();
                         String deadline = split[3].trim();
                         tasks.add(new Deadline(nameD, isDoneD, deadline));
@@ -60,6 +75,12 @@ public class FileOperations {
         return tasks;
     }
 
+    /**
+     * Writes to the saved file by appending the file representation
+     * of t to the end of the file.
+     *
+     * @param t The task to be converted to file representation and appended.
+     */
     public static void writeFile(Task t) {
         try {
             FileWriter fw = new FileWriter("./data/reo.txt", true);
@@ -71,7 +92,12 @@ public class FileOperations {
         }
     }
 
-    public static void removeLine(int i) {
+    /**
+     * Removes the specified line i from the saved file.
+     *
+     * @param lineNumber The line number (1-indexed) to be removed.
+     */
+    public static void removeLine(int lineNumber) {
         try {
             File f = new File("./data/reo.txt");
             File temp = new File("./data/temp.txt");
@@ -81,7 +107,7 @@ public class FileOperations {
 
             while (s.hasNext()) {
                 String line = s.nextLine();
-                if (i != lineCount) {
+                if (lineNumber != lineCount) {
                     tw.write(line + System.lineSeparator());
                 }
                 lineCount ++;
@@ -98,7 +124,13 @@ public class FileOperations {
         }
     }
 
-    public static void editLine(int i, String cmd) {
+    /**
+     * Edits the specified line i to change the recorded completion status.
+     *
+     * @param lineNumber The line number (1-indexed) to be edited.
+     * @param cmd The action to be performed on the completion status.
+     */
+    public static void editLine(int lineNumber, String cmd) {
         try {
             File f = new File("./data/reo.txt");
             File temp = new File("./data/temp.txt");
@@ -108,8 +140,7 @@ public class FileOperations {
 
             while (s.hasNext()) {
                 String line = s.nextLine();
-                if (i != lineCount) {
-                    // System.out.println(line);
+                if (lineNumber != lineCount) {
                     tw.write(line + System.lineSeparator());
                 } else {
                     String[] split = line.split("\\|");
