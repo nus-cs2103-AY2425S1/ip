@@ -9,6 +9,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Hana {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -60,8 +64,8 @@ public class Hana {
                             2. Mark a task as done: mark [task number]
                             3. Unmark a task: unmark [task number]
                             4. Add a todo: todo [description]
-                            5. Add a deadline: deadline [description] /by [due date]
-                            6. Add an event: event [description] /from [start time] /to [end time]
+                            5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
+                            6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
                             7. Delete a task: delete [task number]""");
                 }
             } catch (HanaException e) {
@@ -110,19 +114,34 @@ public class Hana {
     }
 
     private static void handleDeadline(String input) throws HanaException {
-        String[] parts = input.substring(8).split(" /by ");
-        if (parts.length < 2) {
-            throw new HanaException("Deadline task must have a description and a due date.");
+        try {
+            String[] parts = input.substring(8).split(" /by ");
+            if (parts.length < 2) {
+                throw new HanaException("Deadline task must have a description and a due date.");
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(parts[1].trim(), formatter);
+            addTask(new Deadline(parts[0].trim(), deadline));
+        } catch (DateTimeParseException e) {
+            throw new HanaException("Please provide a valid deadline command in the format: " +
+                    "deadline [description] /by [d/M/yyyy HHmm]");
         }
-        addTask(new Deadline(parts[0].trim(), parts[1].trim()));
     }
 
     private static void handleEvent(String input) throws HanaException {
-        String[] parts = input.substring(5).split(" /from | /to ");
-        if (parts.length < 3) {
-            throw new HanaException("Event task must have a description, start time, and end time.");
+        try {
+            String[] parts = input.substring(5).split(" /from | /to ");
+            if (parts.length < 3) {
+                throw new HanaException("Event task must have a description, start time, and end time.");
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime from = LocalDateTime.parse(parts[1].trim(), formatter);
+            LocalDateTime to = LocalDateTime.parse(parts[2].trim(), formatter);
+            addTask(new Event(parts[0].trim(), from, to));
+        } catch (DateTimeParseException e) {
+            throw new HanaException("Please provide a valid deadline command in the format: " +
+                    "event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]");
         }
-        addTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
     }
 
     private static void handleDelete(String input) throws HanaException {
@@ -216,16 +235,17 @@ public class Hana {
             String line = br.readLine();
             while (line != null) {
                 String[] parts = line.split(" \\| ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                 Task task;
                 switch (parts[0]) {
                 case "T":
                     task = new ToDo(parts[2]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], parts[3]);
+                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter));
                     break;
                 case "E":
-                    task = new Event(parts[2], parts[3], parts[4]);
+                    task = new Event(parts[2], LocalDateTime.parse(parts[3], formatter), LocalDateTime.parse(parts[3], formatter));
                     break;
                 default:
                     System.out.println("Failed to read saved task. File may be corrupted. Skipping line");
@@ -236,8 +256,8 @@ public class Hana {
                 tasks.add(task);
                 line = br.readLine();
             }
-        } catch (IOException e) {
-            throw new HanaException("Failed to read saved tasks. File may be corrupted.");
+        } catch (IOException | DateTimeParseException e) {
+            System.out.println("Failed to read saved tasks. File may be corrupted.");
         }
     }
 
