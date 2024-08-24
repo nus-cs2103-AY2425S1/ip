@@ -26,6 +26,10 @@ public class Cow {
         }
     }
 
+    /**
+     * Runs the Cow program by repeated asking for inputs until
+     * users says bye
+     */
     public void run() {
         Message.printGreetings();
         boolean isExit = false;

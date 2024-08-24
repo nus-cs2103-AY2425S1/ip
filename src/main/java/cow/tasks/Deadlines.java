@@ -32,6 +32,12 @@ public class Deadlines extends Task {
         this.by = parseDateTime(by);
     }
 
+    /**
+     * Parse the date time string from the .txt file
+     * @param by a date time string
+     * @return a LocalDateTime
+     * @throws MissingParametersException if arguments are invalid
+     */
     private LocalDateTime parseDateTime(String by) throws MissingParametersException {
         try {
             return this.by = LocalDateTime.parse(by, FORMAT);

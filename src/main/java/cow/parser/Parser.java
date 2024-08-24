@@ -16,6 +16,13 @@ import java.util.regex.Pattern;
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    /**
+     * Parses the string input and returns a command that can be executed
+     * to carry out its' task
+     * @param userInput full user input from the user
+     * @return command to be carried out
+     * @throws CowExceptions used to print any exception that might happen
+     */
     public static Command parse(String userInput) throws CowExceptions {
         Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
@@ -51,6 +58,12 @@ public class Parser {
         }
     }
 
+    /**
+     * parses the index used for marking, unmarking and delete commands
+     * @param args provided by command
+     * @return the parse int
+     * @throws CowExceptions exceptions due to invalid index
+     */
     private static int getMarkUnmarkInt(String args) throws CowExceptions {
         try {
             return Integer.parseInt(args.trim());
@@ -59,6 +72,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Preps the argument to create the due command
+     * @param args provided beside command
+     * @return a due command
+     */
     private static Command prepDue(String args) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         try {
@@ -70,6 +88,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Preps the argument to create the deadline command
+     * @param args provided beside command
+     * @return a deadline command
+     */
     private static Command prepareDeadline(String args) {
         Pattern pattern = Pattern.compile("^(?<desc>.+?)\\s*/by\\s*(?<by>.*)$");
         Matcher matcher = pattern.matcher(args.trim());
@@ -87,6 +110,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Preps the argument to create the event command
+     * @param args provided beside command
+     * @return an event command
+     */
     private static Command prepareEvent(String args) {
         Pattern pattern = Pattern.compile("^(?<desc>.+?)\\s*/from\\s*(?<from>.+?)\\s*/to\\s*(?<to>.+)$");
         Matcher matcher = pattern.matcher(args.trim());
@@ -99,6 +127,11 @@ public class Parser {
                 matcher.group("from"), matcher.group("to"));
     }
 
+    /**
+     * Preps the argument to create the todo command
+     * @param args provided beside command
+     * @return a todo command
+     */
     private static Command prepareTodo(String args) {
         if (args == null || args.isEmpty()) {
             return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT

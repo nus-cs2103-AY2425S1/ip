@@ -26,6 +26,12 @@ public class TodoCommand extends Command {
         return this.description;
     }
 
+    /**
+     * Creates a todo task and adds to the todo list
+     * @param todoList the list of the tasks
+     * @param fileSaver filesaver object used to write data to txt
+     * @throws CowExceptions any exceptions that might arise from the implementation
+     */
     @Override
     public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {
         Task t = new Todo(this.description);
