@@ -5,6 +5,11 @@ import zaibot.exception.ZaibotException;
 
 import java.util.HashMap;
 
+/**
+ * This class helps to parse input from the user
+ * into a Command class which will then be able to run and execute
+ * the logic needed.
+ */
 public class Parser {
     /**
      * This takes a command split by spaces, and processes them into separate commands

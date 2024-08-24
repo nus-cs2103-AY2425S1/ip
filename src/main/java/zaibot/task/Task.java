@@ -2,6 +2,9 @@ package zaibot.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents a task.
+ */
 public class Task {
     private String name;
     private boolean isDone;
