@@ -155,8 +155,7 @@ public class Command {
      */
     public String getTask(){
         int firstWord = command.indexOf(" ");
-        String task = command.substring(firstWord + 1);
-        return task;
+        return command.substring(firstWord + 1);
 
     }
 

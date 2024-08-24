@@ -82,96 +82,32 @@ public class Derek implements Bot {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            try {
-                String name = sc.nextLine();
-                Command command = new Command(name);
+            String name = sc.nextLine();
+            Command command = new Command(name);
 
-                if (command.isLeavingCommand()) {
-                    System.out.println(leavingMessage);
-                    break;  // Exit the loop and end the program
-                } else if (command.isListCommand()) {
-                    this.returnList();
-                } else if (command.isCompletedCommand(this.taskList.size())) {
-                    String[] words = name.split("\\s+");
-                    this.markCompleted(Integer.valueOf(words[1]));
-                } else if (command.isIncompleteCommand(this.taskList.size())) {
-                    String[] words = name.split("\\s+");
-                    this.markIncomplete(Integer.valueOf(words[1]));
-                } else if (command.isDeleteCommand(this.taskList.size())) {
-                    String[] words = name.split("\\s+");
-                    this.deleteTask(Integer.valueOf(words[1]));
-                } else {
-                    this.addTask(command);
-                }
-
-                System.out.println("anything else?");
-
-            } catch (IncorrectCommandException e) {
-                System.out.println(e.getMessage() + "\n");
+            if (command.isLeavingCommand()) {
+                System.out.println(leavingMessage);
+                break;  // Exit the loop and end the program
+            } else if (command.isListCommand()) {
+                this.returnList();
+            } else {
+                this.addTask(name);
             }
+
+            System.out.println("anything else?");
         }
-    }
-
-
-    /**
-     * Deletes a task from the task list.
-     * @param number the index of the task to delete
-     */
-    public void deleteTask(Integer number) {
-        Task task = taskList.get(number - 1);
-        taskList.remove(number - 1);
-        System.out.println( "phew! that list was looooonngggg... i was getting tired of remembering it!" + "\n" + task.toString());
-    }
-
-    /**
-     * Marks a task as completed.
-     * @param number the index of the task to mark as completed
-     */
-    public void markCompleted(Integer number) {
-        Task task = taskList.get(number - 1);
-        task.markCompleted();
-        String celebration = generateRandomCelebration();
-        System.out.println(celebration + " you slayed that!" + "\n" + task.toString());
-    }
-
-
-    /**
-     * Marks a task as incomplete.
-     * @param number the index of the task to mark as incomplete
-     */
-    public void markIncomplete(Integer number) {
-        Task task = taskList.get(number - 1);
-        task.markIncomplete();
-        System.out.println("You'll get 'em next time!" + "\n" + task.toString());
     }
 
 
     /**
      * Adds a task to the task list based on the user's command.
-     * @param command the command containing task details
+     * @param name the task details
      */
-    public void addTask(Command command) {
-        try {
-            String name = command.getTask();
-            Task task;
-            if (command.isDeadlineTask()) {
-                String[] information = name.split("/");
-                task = Task.deadlineTask(information[0], information[1]);
-            } else if (command.isEventTask()) {
-                String[] information = name.split("/");
-                task = Task.eventTask(information[0], information[1], information[2]);
-            } else if (command.isToDoTask()) {
-                task = Task.toDoTask(name);
-            } else {
-                throw new IncorrectCommandException("Is it a todo, event, or deadline?\nPlease enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums");
-            }
-            taskList.add(task);
-            String celebration = generateRandomCelebration();
-            System.out.println(celebration + "\n" + task + "\n");
-
-        } catch (IncorrectCommandException e) {
-            System.out.println("C'mon, I can't understand what you're saying! Help me out here!\n" + sadLogo + "\n" + e.getMessage());
-        }
+    public void addTask(String name) {
+        Task task = new Task(name);
+        taskList.add(task);
+        String celebration = generateRandomCelebration();
+        System.out.println(celebration + "\n" + task + "\n");
     }
 
     /**
