@@ -38,14 +38,54 @@ public class Optimus {
                 } else {
                     System.out.println("Invalid task number.");
                 }
-            } else {
+            } else if (text.startsWith("todo ")) {
                 if (count < 100) {
-                    record[count] = new Task(text);
-                    System.out.println("added: " + text);
+                    String description = text.substring(5);
+                    record[count] = new ToDos(description);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + record[count].toString());
                     count++;
+                    if (count == 1) {
+                        System.out.println("Now you have " + count + " task in the list.");
+                    }
+                    else if (count > 1){
+                        System.out.println("Now you have " + count + " tasks in the list.");
+                    }
+                }
+            } else if (text.startsWith("deadline ")) {
+                if (count < 100) {
+                    String[] parts = text.split(" /by ");
+                    String description = parts[0].substring(9);
+                    String by = parts.length > 1 ? parts[1] : "";
+                    record[count] = new Deadlines(description, by);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + record[count].toString());
+                    count++;
+                    if (count == 1) {
+                        System.out.println("Now you have " + count + " task in the list.");
+                    }
+                    else if (count > 1){
+                        System.out.println("Now you have " + count + " tasks in the list.");
+                    }
+                }
+            } else if (text.startsWith("event ")) {
+                if (count < 100) {
+                    String[] parts = text.split(" /from | /to ");
+                    String description = parts[0].substring(6);
+                    String from = parts.length > 1 ? parts[1] : "";
+                    String to = parts.length > 2 ? parts[2] : "";
+                    record[count] = new Events(description, from, to);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + record[count].toString());
+                    count++;
+                    if (count == 1) {
+                        System.out.println("Now you have " + count + " task in the list.");
+                    }
+                    else if (count > 1){
+                        System.out.println("Now you have " + count + " tasks in the list.");
+                    }
                 }
             }
-
         }
     }
 }
