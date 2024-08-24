@@ -86,6 +86,7 @@ public class Rose {
             } else {
                 printIndented(horizontal);
                 printIndented("Oops sry idk what command is that");
+                printIndented(horizontal);
             }
             input = scanner.nextLine();
         }
