@@ -1,3 +1,10 @@
+package moimoi.command;
+
+import moimoi.Storage;
+import moimoi.TaskList;
+import moimoi.Ui;
+import moimoi.exception.MoiMoiException;
+
 public abstract class Command {
 
     private boolean isExit;

@@ -1,3 +1,11 @@
+package moimoi.command;
+
+import moimoi.Storage;
+import moimoi.TaskList;
+import moimoi.Ui;
+import moimoi.exception.InvalidIndexException;
+import moimoi.task.Task;
+
 public class MarkCommand extends Command {
 
     String indexString;
