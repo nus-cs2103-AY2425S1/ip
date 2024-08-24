@@ -26,6 +26,9 @@ public class Papadom {
             };
         }
     }
+    private static final Ui ui = new Ui();
+    private static final Storage storage = new Storage("src/main/java/Storage/tasks.txt");
+    private static final Parser parser = new Parser();
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
     /**
@@ -33,11 +36,6 @@ public class Papadom {
      *
      * @param message The message to be printed to the console.
      */
-    public static void output(String message) {
-        System.out.println("____________________________________________________________\n"
-                + message
-                + "\n____________________________________________________________");
-    }
 
     /**
      * Returns a formatted string of all tasks in the list.
@@ -68,7 +66,7 @@ public class Papadom {
             throw new NoTaskException();
         }
         tasks.add(task);
-        addTaskToDatabase(task);
+        storage.addTaskToDatabase(task);
         String response = " Got it. I've added this task:\n  " + task.toString() + "\n"
                 + " Now you have " + (Papadom.tasks.size()) + " tasks in the list.";
         return response;
@@ -136,28 +134,8 @@ public class Papadom {
      * @throws NoDateException If the deadline date is missing.
      */
     private static String addDeadline(String details) throws NoTaskException, NoDateException, IncorrectDeadlineDateFormatException {
-        String[] parts = details.split(" /by ");
-        if (parts[0] == "") {
-            throw new NoTaskException();
-        } else if (parts.length == 1) {
-            throw new NoDateException();
-        }
-        try {
-            // Determine if the input includes a time
-            if (parts[1].contains(" ")) {
-                // If it includes a time, parse it as LocalDateTime
-                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");
-                LocalDateTime dateTime = LocalDateTime.parse(parts[1], dateTimeFormatter);
-                return addToList(new Deadline(parts[0], dateTime));
-            } else {
-                // If it doesn't include a time, parse it as LocalDate
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate date = LocalDate.parse(parts[1], dateFormatter);
-                return addToList(new Deadline(parts[0], date));
-            }
-        } catch (DateTimeParseException e) {
-            throw new IncorrectDeadlineDateFormatException(); // Throw custom exception if parsing fails
-        }
+        Deadline newDeadlineTask = parser.deadlineTaskCreator(details);
+        return addToList(newDeadlineTask);
     }
 
     /**
@@ -169,15 +147,9 @@ public class Papadom {
      * @throws NoDateException If the event dates are missing.
      */
     private static String addEvent(String details) throws NoTaskException, NoDateException {
-        String[] parts = details.split(" /from | /to ");
-        if (parts[0] == "") {
-            throw new NoTaskException();
-        } else if (parts.length <= 2) {
-            throw new NoDateException();
-        }
-        return addToList(new Event(parts[0], parts[1], parts[2]));
+        Event newEventTask = parser.eventTaskCreator(details);
+        return addToList(newEventTask);
     }
-
     /**
      * Deletes a task from the list based on the given input string.
      *
@@ -218,20 +190,8 @@ public class Papadom {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
         }
     }
-    private static void addTaskToDatabase(Task task) {
-        String filePath = "src/main/java/Storage/tasks.txt";
-        try {
-            FileWriter fw = new FileWriter(filePath, true);
-            fw.write(task.toString() + "\n");
-            fw.close();
-        } catch (IOException e) {
-            System.err.println("An error occurred while writing to the file: " + e.getMessage());
-        }
-    }
     public static void main(String[] args) {
-        Papadom.output(" Hello! I'm Papadom\n"
-                + " What can I do for you?");
-
+        ui.welcomeMessage();
         createFileIfNotPresent();
 
         while (true) {
@@ -241,35 +201,35 @@ public class Papadom {
                 Command command = Command.fromString(commandText);
                 switch (command) {
                 case LIST:
-                    output(printList());
+                    ui.output(printList());
                     break;
                 case BYE:
-                    output(" Bye. Hope to see you again soon!");
+                    ui.exitMessage();
                     return;
                 case MARK:
-                    output(markTask(text));
+                    ui.output(markTask(text));
                     break;
                 case UNMARK:
-                    output(unmarkTask(text));
+                    ui.output(unmarkTask(text));
                     break;
                 case TODO:
                     Todo todoTask = new Todo(text.substring(5));
-                    output(addToList(todoTask));
+                    ui.output(addToList(todoTask));
                     break;
                 case DEADLINE:
-                    output(addDeadline(text.substring(9)));
+                    ui.output(addDeadline(text.substring(9)));
                     break;
                 case EVENT:
-                    output(addEvent(text.substring(6)));
+                    ui.output(addEvent(text.substring(6)));
                     break;
                 case DELETE:
-                    output(deleteEvent(text));
+                    ui.output(deleteEvent(text));
                     break;
                 default:
                     throw new UnknownCommandException();
                 }
             } catch (Exception e) {
-                output(e.getMessage());
+                ui.output(e.getMessage());
             }
         }
     }
