@@ -13,7 +13,7 @@ public class Kobe {
 
         System.out.println("____________________________________________________________");
         System.out.println("Greetings! I am Kobe Bryant. \n" + logo);
-        System.out.println("How can I help you?");
+        System.out.println("How can I help you, my man?");
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
