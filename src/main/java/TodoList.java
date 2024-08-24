@@ -52,6 +52,11 @@ public class TodoList {
         return result.toString();
     }
 
+    /**
+     * Returns a filtered TodoList with elements with date equal to deadline
+     * @param date Targeted date
+     * @return A TodoList
+     */
     public TodoList getDueAt (LocalDate date) {
         TodoList filteredTodo = new TodoList();
         this.todoList.stream()

@@ -44,6 +44,12 @@ public class Message {
         printDialogBox(content);
     }
 
+    /**
+     * Prints the deadlines due at the date specified
+     * @param date The specific date to check
+     * @param todoList The list of todos
+     * @throws MissingParametersException if the command is malformed
+     */
     public static void printDue(String date, TodoList todoList) throws MissingParametersException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         try {
