@@ -105,7 +105,7 @@ public class DrBrown {
                 case "unmark":
                     try {
                         if (inputSplit.length == 1) {
-                            throw new DrBrownException("Great Scott! You can't complete a task without a count!\nUse the format: mark {count}");
+                            throw new DrBrownException("Great Scott! You can't go back in time without a count!\nUse the format: unmark {count}");
                         }
                         list = user.getList();
                         Task unmarkTask = list.get(parseInt(inputSplit[1]) - 1);
@@ -150,6 +150,26 @@ public class DrBrown {
                         scanner.close();
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case "delete":
+                    try {
+                        if (inputSplit.length == 1) {
+                            throw new DrBrownException("You can't erase something from history without a count!\nUse the format: delete {count}");
+                        }
+                        list = user.getList();
+                        Task deleteTask = list.get(parseInt(inputSplit[1]) - 1);
+                        System.out.println("That task's history has been erased! Just like Marty’s fading photo—it's gone, like it never existed!\n");
+                        System.out.println(deleteTask.toString());
+                        user.removeItem(parseInt(inputSplit[1]) - 1);
+                        System.out.println("\nYour total count is now " + user.getCount() + "! Like the time circuits, everything's in sync – keep those tasks ticking along!\"");
+                    } catch (DrBrownException e) {
+                        System.out.println(e.getMessage());
+                    } catch (NumberFormatException e) {
+                        System.out.println("That's not a number! Without the right input, we're never going to get this DeLorean off the ground!");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("You got the count wrong! That’s not how you calculate time travel – you're off by a few gigawatts!");
                     }
                     break;
 
