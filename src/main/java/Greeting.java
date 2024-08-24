@@ -10,6 +10,7 @@ public class Greeting {
     public static void byeMsg() {
         String msg = SigmaBot.HR_LINE
                 + "\t" + "Bye. Hope to see you again soon!\n"
+                + SigmaBot.HR_LINE_OUT
                 + SigmaBot.HR_LINE_OUT;
         System.out.println(msg);
     }
