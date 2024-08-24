@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import exceptions.*;
@@ -10,17 +11,19 @@ public class Command {
     private final CommandsEnum command;
     private String params;
     private final TodoList todoList;
+    private final FileSaver fs;
 
     /**
      * Creates a Command object with the given command and the target storage.
      * @param command The command string which determines the type of command
      * @param todoList The TodoList object which the command will operate on.
      */
-    public Command(String command, TodoList todoList) {
+    public Command(String command, TodoList todoList, FileSaver fs) throws IOException {
         String[] tokens = command.split(" ", 2);
         this.todoList = todoList;
+        this.fs = fs;
         if (tokens.length > 1) {
-            this.params = tokens[1];
+            this.params = tokens[1].trim();
         }
         switch (tokens[0].toLowerCase()) {
             case "list":
@@ -56,7 +59,7 @@ public class Command {
     /**
      * Executes the action based on the command and target TodoList
      */
-    public void action() throws UnknownCommandException, MissingParametersException, InvalidTaskException {
+    public void action() throws UnknownCommandException, MissingParametersException, InvalidTaskException, IOException {
         Task task;
         switch (command) {
             case LIST:
@@ -110,6 +113,7 @@ public class Command {
             default:
                 throw new UnknownCommandException();
         }
+        this.fs.saveData();
     }
 
     /**

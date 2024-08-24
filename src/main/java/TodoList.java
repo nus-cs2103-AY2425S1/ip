@@ -42,6 +42,14 @@ public class TodoList {
     public Task delete(int i) {
         return todoList.remove(i);
     }
+    public String getSaveData() {
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i < todoList.size(); i++) {
+            result.append(todoList.get(i).getSaveData());
+            if (i != todoList.size() - 1) result.append("\n");
+        }
+        return result.toString();
+    }
 
     @Override
     public String toString() {
