@@ -18,9 +18,8 @@ class King {
         //Take in user input
         Scanner scanner = new Scanner(System.in);
 
-        //Array to store tasks
+        //Arraylist to store tasks
         ArrayList<Task> tasks = new ArrayList<>();
-        //int taskcounter = 0;
 
         while(true) {
             String input = scanner.nextLine();
@@ -33,44 +32,54 @@ class King {
                 }
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("delete")) {
-                String[] parts = input.split(" ");
-                //prone to error if format is off or value after " " is not an int
-                int num = Integer.parseInt(parts[1]);
-                System.out.println("I have relieved your suffering of:\n" + tasks.get(num - 1).toString());
-                tasks.remove(num - 1);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                try {
+                    String[] parts = input.split(" ");
+                    //prone to error if format is off or value after " " is not an int
+                    int num = Integer.parseInt(parts[1]);
+                    System.out.println("I have relieved your suffering of:\n" + tasks.get(num - 1).toString());
+                    tasks.remove(num - 1);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid list number entered!");
+                }
             } else if (input.startsWith("mark")) {
-                String[] parts = input.split(" ");
-                //prone to error if format is off or value after " " is not an int
-                int num = Integer.parseInt(parts[1]);
-                tasks.get(num - 1).markAsDone();
-                System.out.println("Good job on the completion my minion!\n" + tasks.get(num - 1).toString());
-                System.out.println("____________________________________________________________");
+                try {
+                    String[] parts = input.split(" ");
+                    //prone to error if format is off or value after " " is not an int
+                    int num = Integer.parseInt(parts[1]);
+                    tasks.get(num - 1).markAsDone();
+                    System.out.println("Good job on the completion my minion!\n" + tasks.get(num - 1).toString());
+                    System.out.println("____________________________________________________________");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid list number entered!");
+                }
             } else if (input.startsWith("unmark")) {
-                String[] parts = input.split(" ");
-                //prone to error if format is off or value after " " is not an int
-                int num = Integer.parseInt(parts[1]);
-                tasks.get(num - 1).markAsUndone();
-                System.out.println("Better get to work before I execute you!\n" + tasks.get(num - 1).toString());
-                System.out.println("____________________________________________________________");
-            } else if (input.startsWith("todo")) {
+                try {
+                    String[] parts = input.split(" ");
+                    //prone to error if format is off or value after " " is not an int
+                    int num = Integer.parseInt(parts[1]);
+                    tasks.get(num - 1).markAsUndone();
+                    System.out.println("Better get to work before I execute you!\n" + tasks.get(num - 1).toString());
+                    System.out.println("____________________________________________________________");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid list number entered!");
+                }
+            } else if (input.startsWith("todo") && input.length() >= 6) {
                 String description = input.substring(5);
                 tasks.add(new Todo(description));
                 System.out.println("____________________________________________________________");
                 System.out.println("Approved. I've added this to your list of duties:\n" + tasks.get(tasks.size() - 1).toString());
-                //taskcounter++;
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("deadline")) {
                 String[] parts = input.split(" /by ");
-                if (parts.length == 2) {
+                if (parts.length == 2 && parts[0].length() >= 10) { //prevents empty description
                     String description = parts[0].substring(9); // "deadline " is 9 chars
                     String by = parts[1];
                     tasks.add(new Deadline(description, by));
                     System.out.println("____________________________________________________________");
                     System.out.println("Approved. I've added this to your list of duties:\n" + tasks.get(tasks.size() - 1).toString());
-                    //taskcounter++;
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else {
@@ -78,14 +87,13 @@ class King {
                 }
             } else if (input.startsWith("event")) {
                 String[] parts = input.split(" /from | /to ");
-                if (parts.length == 3) {
+                if (parts.length == 3 && parts[0].length() >= 7) {
                     String description = parts[0].substring(6); // "event " is 6 chars
                     String from = parts[1];
                     String to = parts[2];
                     tasks.add(new Event(description, from, to));
                     System.out.println("____________________________________________________________");
                     System.out.println("Approved. I've added this to your list of duties:\n" + tasks.get(tasks.size() - 1).toString());
-                    //taskcounter++;
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else {
