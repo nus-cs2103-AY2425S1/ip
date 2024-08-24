@@ -96,7 +96,7 @@ public class Dook {
     }
 
     public static void delete(int taskNumber) throws DookException {
-        if (taskNumber >= tasks.size()) {
+        if (taskNumber > tasks.size()) {
             throw new DookException("You don't have that many tasks");
         }
 
