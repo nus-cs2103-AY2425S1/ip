@@ -88,12 +88,33 @@ public class Slave {
             case "event":
                 addToList(2, body);
                 break;
+            case "delete":
+                deleteTask(body);
+                break;
             default:
                 System.out.println("You're spouting gibberish...");
                 break;
         }
         pageBreakLine();
     }
+
+    private static void deleteTask(String s) {
+        try {
+            int i = Integer.parseInt(s);
+            if (i < 1 || i > list.size()) {
+                throw new IllegalArgumentException("You don't have a task number " + i);
+            }
+            System.out.println("Good to know that I have less things to remember now...");
+            System.out.println("I'll forget about " + list.get(i - 1));
+            list.remove(i - 1);
+        } catch (NumberFormatException nfe) {
+            System.out.println("That's not a task number");
+        } catch (IllegalArgumentException ile) {
+            System.out.println(ile.toString());
+
+        }
+    }
+
 
     /**
      * Prints out the items in the list of items provided by the user
