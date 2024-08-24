@@ -104,6 +104,21 @@ public class Barcus {
                     talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
 
                 }
+            } else if (words[0].equals("delete")) {
+                if (words.length != 2) {
+                    talk("Uh oh, please have a number after 'delete'");
+                } else {
+                    int pos = Integer.parseInt(words[1]);
+                    if (pos > 0 && pos <= curr) {
+//                        tasks.get(pos - 1).markDone();
+//                        talk("Good job! Have marked as done: " + tasks.get(pos - 1));
+                        Task temp = tasks.remove(pos - 1);
+                        curr--;
+                        talk("Removed task: " + temp + "\nThere are " + curr + " task(s) in the list.");
+                    } else {
+                        talk("Uh oh, please choose a number between 1 and " + curr);
+                    }
+                }
             } else {
                 // for echo
 //                talk(reply);
