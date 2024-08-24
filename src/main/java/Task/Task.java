@@ -5,9 +5,14 @@ public class Task {
     protected boolean isDone;
     protected static final String DELIMITER = "|";
 
-    Task(String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {

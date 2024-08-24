@@ -10,6 +10,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     protected String getTaskType() {
         return "Event";
