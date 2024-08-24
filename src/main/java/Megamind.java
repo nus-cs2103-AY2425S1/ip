@@ -1,8 +1,9 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Megamind {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final List taskList = new List();
+    private static List taskList;
 
     public static void main(String[] args) {
         String logo = """
@@ -16,6 +17,7 @@ public class Megamind {
 
 
         System.out.println(HORIZONTAL_LINE);
+        taskList = new List();
         System.out.println("Hello from\n" + logo);
 
         greet();
@@ -94,8 +96,14 @@ public class Megamind {
                 // If the command is not recognized, print an error message
                 throw new InvalidCommandException("I'm sorry, but I don't know what that means. Use command 'help'" +
                         " if you require assistance.");
-            } catch (InvalidCommandException | TaskNotFoundException | MissingParameterException e) {
-                System.out.println(e.getMessage());
+
+            } catch (InvalidCommandException | TaskNotFoundException | MissingParameterException |
+                     DateTimeParseException e) {
+                if (e instanceof DateTimeParseException) {
+                    System.out.println("Invalid date/time format. Please use the format: dd/MM/yyyy HHmm");
+                } else {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
@@ -121,6 +129,8 @@ public class Megamind {
      */
     public static void help () {
         System.out.println("""
+                All dates and times should be in the format: dd/MM/yyyy HHmm
+                
                 Here are the commands you can use:
                 1. list - List all tasks
                 2. todo <description> - Add a to-do task
@@ -222,7 +232,7 @@ public class Megamind {
         }
 
         String[] words = command.split(" /by ");
-        String description = words[0].substring(9);
+        String description = words[0].substring(8);
         String deadline = words[1];
 
         if (description.isEmpty()) {
@@ -250,7 +260,7 @@ public class Megamind {
         }
 
         String[] words = command.split(" /from ");
-        String description = words[0].substring(6);
+        String description = words[0].substring(5);
         words = words[1].split(" /to ");
         String start = words[0];
         String end = words[1];
