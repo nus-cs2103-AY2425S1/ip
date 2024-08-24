@@ -36,7 +36,7 @@ public class Parser {
                     + " the description of a " + command + " cannot be empty.");
         }
 
-        if (command.equals("mark") || command.equals("unmark") || command.equals("to-do")) {
+        if (command.equals("mark") || command.equals("unmark") || command.equals("to-do") || command.equals("delete")) {
             // Create an array with 1 element (without using split.)
             descriptions = new String[1];
             descriptions[0] = split[1];

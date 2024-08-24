@@ -31,13 +31,15 @@ Poyo! I've unmarked this task as not done:
 [D][ ] homework (by: today)
 Poyo! I've unmarked this task as not done:
 [E][ ] meeting (from: 8 to: 9)
-1. [T][ ] read book
-2. [D][ ] homework (by: today)
-3. [E][ ] meeting (from: 8 to: 9)
+Poyo! I've deleted this task:
+[T][ ] read book
+1. [D][ ] homework (by: today)
+2. [E][ ] meeting (from: 8 to: 9)
 Poyo, the command either does not exist, or the description of a invalid cannot be empty.
 Poyo,  the command deadline must be provided with a description with the use of /by command.
 Poyo,  the command event must be provided with a description with the use of /from followed by /to command.
 Poyo,  The description of a list must be empty.
 The command for mark should be followed by a number. Please try again, poyo
 The command for unmark should be followed by a number. Please try again, poyo
+The command for delete should be followed by a number. Please try again, poyo
 Poyo. Hope to see you again soon!

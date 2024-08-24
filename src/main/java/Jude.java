@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a Jude, the personal assistant chatbot.
@@ -14,8 +16,7 @@ public class Jude {
 
         // Initialize the variables
         String name = "Jude";
-        Task[] list = new Task[100];
-        int listSize = 0;
+        List<Task> list = new ArrayList<>();
         BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
         Parser parser = new Parser();
         String userInput;
@@ -52,8 +53,8 @@ public class Jude {
             // Check if the command is "list"
             else if (command.equals("list")) {
                 // Print the list of tasks saved
-                for (int i = 0; i < listSize; i++) {
-                    System.out.printf("%d. %s\n", (i + 1), list[i].toStringDetails());
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.printf("%d. %s\n", (i + 1), list.get(i).toStringDetails());
                 }
                 continue;
             }
@@ -73,14 +74,14 @@ public class Jude {
                     continue;
                 }
                 // Handle if index is within the valid list size.
-                if (index >= listSize || index < 0) {
+                if (index >= list.size() || index < 0) {
                     System.out.println("The task number provided is not valid."
                             + " Please provide your instruction again., poyo...");
                     continue;
                 }
 
                 // Mark the task as done
-                Task task = list[index];
+                Task task = list.get(index);
                 task.markAsDone();
                 System.out.printf("Poyo! I've marked this task as done:\n%s\n", task.toStringDetails());
                 continue;
@@ -99,16 +100,36 @@ public class Jude {
                 }
 
                 // Handle if index is within the valid list size.
-                if (index >= listSize || index < 0) {
+                if (index >= list.size() || index < 0) {
                     System.out.println("The task number provided is not valid."
                             + " Please provide your instruction again, poyo...");
                     continue;
                 }
 
                 // Unmark the task as done
-                Task task = list[index];
+                Task task = list.get(index);
                 task.unmarkAsDone();
                 System.out.printf("Poyo! I've unmarked this task as not done:\n%s\n", task.toStringDetails());
+
+            } else if (command.equals("delete")) {
+                int index;
+
+                try {
+                    index = Integer.parseInt(descriptions[0]) - 1;
+                } catch (NumberFormatException e) {
+                    System.out.println("The command for delete should be followed by a number. Please try again, poyo");
+                    continue;
+                }
+
+                if (index >= list.size() || index < 0) {
+                    System.out.println("The task number provided is not valid."
+                            + " Please provide your instruction again, poyo...");
+                    continue;
+                }
+
+                Task task = list.get(index);
+                list.remove(index);
+                System.out.printf("Poyo! I've deleted this task:\n%s\n", task.toStringDetails());
 
             // Check if the command is to add a task.
             } else {
@@ -123,9 +144,8 @@ public class Jude {
                 } else {
                     continue;
                 }
-                list[listSize++] = task;
+                list.add(task);
                 System.out.println("Poyo! added: " + task.toStringDetails());
-                continue;
             }
         }
 
