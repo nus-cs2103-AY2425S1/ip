@@ -1,3 +1,2 @@
-[E] [ ] hello (from: sunday, to: monday)
-[D] [ ] hello (by: sunday)
-[T] [X] yeet
+	1. [T][X] sleep
+	2. [E][ ] studio 1101s (from: tue 8am, to: 10am)

@@ -13,11 +13,11 @@ import java.util.regex.Pattern;
 public class Fret {
     private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+");
     private static final Pattern TODO_PATTERN = Pattern.compile("todo (.+)");
-    private static final Pattern TODO_PATTERN2 = Pattern.compile("\\[T\\] \\[( |X)\\] (.+)");
+    private static final Pattern TODO_PATTERN2 = Pattern.compile("\\[T\\]\\[( |X)\\] (.+)");
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.+?) /by (.+)");
-    private static final Pattern DEADLINE_PATTERN2 = Pattern.compile("\\[D\\] \\[( |X)\\] (.+) \\(by: (.+)\\)");
+    private static final Pattern DEADLINE_PATTERN2 = Pattern.compile("\\[D\\]\\[( |X)\\] (.+) \\(by: (.+)\\)");
     private static final Pattern EVENT_PATTERN = Pattern.compile("event (.+?) /from (.+) /to (.+)");
-    private static final Pattern EVENT_PATTERN2 = Pattern.compile("\\[E\\] \\[( |X)\\] (.+) \\(from: (.+), to: (.+)\\)");
+    private static final Pattern EVENT_PATTERN2 = Pattern.compile("\\[E\\]\\[( |X)\\] (.+) \\(from: (.+), to: (.+)\\)");
     private static final Random RNG = new Random();
 
     private static final String[] ADD_TASK_PREFIXES = new String[] {
@@ -312,6 +312,18 @@ public class Fret {
         } while (!userInput.equals("bye"));
 
         // once user enters "bye", leave the loop and exit the program
+
+        // but first store the tasks back into the text file
+        try {
+            FileWriter taskFileWriter = new FileWriter(taskFile);
+            taskFileWriter.write(taskListToString(tasks, numTasks));
+            taskFileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Oops! There was an error when trying to store your tasks.");
+            input.close();
+            return;
+        }
 
         input.close();
 
