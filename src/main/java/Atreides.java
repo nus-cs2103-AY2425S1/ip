@@ -27,44 +27,52 @@ public class Atreides {
                 System.out.println(new Response(tasks));
             }
             else {
-                String[] words = msg.split(" ");
-                if (words[0].equals("mark")) {
-                    int index = Integer.parseInt(words[1]) - 1;
-                    list.get(index).markDone(true);
-
-                    String response = "Thank you, one task completed: \n"
-                                       + list.get(index);
-                    System.out.println(new Response(response));
-                }
-                else if (words[0].equals("unmark")) {
-                    int index = Integer.parseInt(words[1]) -1;
-                    list.get(index).markDone(false);
-
-                    String response = "Noted, this task has been unmarked\n"
-                                      + list.get(index);
-                    System.out.println(new Response(response));
-                } else {
-                    Task newTask = new Task("");
-                    if (words[0].equals("todo")) {
-                        newTask = new ToDo(msg.substring(5));
+                try {
+                    String[] words = msg.split(" ");
+                    if (words.length < 2) {
+                        throw new AtreidesException("Description of " + words[0] + " cannot be empty");
                     }
-                    else if (words[0].equals("deadline")) {
-                        String[] parts = msg.split(" /by ");
-                        String by = parts[parts.length - 1];
-                        String description = parts[0].split("deadline ")[1];
-                        newTask = new Deadline(description, by);
+                    if (words[0].equals("mark")) {
+                        int index = Integer.parseInt(words[1]) - 1;
+                        list.get(index).markDone(true);
+
+                        String response = "Thank you, one task completed: \n"
+                                + list.get(index);
+                        System.out.println(new Response(response));
+                    } else if (words[0].equals("unmark")) {
+                        int index = Integer.parseInt(words[1]) - 1;
+                        list.get(index).markDone(false);
+
+                        String response = "Noted, this task has been unmarked\n"
+                                + list.get(index);
+                        System.out.println(new Response(response));
                     } else {
-                        String[] parts = msg.split(" /from ");
-                        String[] startEnd = parts[parts.length - 1].split(" /to ");
-                        String description = parts[0].split("event ")[1];
-                        newTask = new Events(description, startEnd);
+                        Task newTask = new Task("");
+                        if (words[0].equals("todo")) {
+                            newTask = new ToDo(msg.substring(5));
+                        } else if (words[0].equals("deadline")) {
+                            String[] parts = msg.split(" /by ");
+                            String by = parts[parts.length - 1];
+                            String description = parts[0].split("deadline ")[1];
+                            newTask = new Deadline(description, by);
+                        } else if (words[0].equals("event")) {
+                            String[] parts = msg.split(" /from ");
+                            String[] startEnd = parts[parts.length - 1].split(" /to ");
+                            String description = parts[0].split("event ")[1];
+                            newTask = new Events(description, startEnd);
+                        } else {
+                            throw new AtreidesException("I dont know what u mean, please give me a todo, event or deadline");
+                        }
+                        list.add(newTask);
+                        String plural = list.size() == 1 ? " task" : " tasks";
+                        String response = "Task added\n"
+                                + newTask + "\n"
+                                + list.size() + plural + " in list\n";
+                        System.out.println(new Response(response));
                     }
-                    list.add(newTask);
-                    String plural = list.size() == 1 ? " task" : " tasks";
-                    String response = "Task added\n"
-                                        + newTask + "\n"
-                                        + list.size() + plural + " in list\n";
-                    System.out.println(new Response(response));
+                }
+                catch (AtreidesException e) {
+                    System.out.println(new Response(e.getDescription()));
                 }
             }
             msg = scanner.nextLine();
