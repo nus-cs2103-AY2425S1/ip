@@ -121,14 +121,14 @@ public class Diego {
                     System.out.println("____________________________________________________________");
                     String[] data = input.split(" /by");
                     if (data.length < 2) throw new NoDescriptionException();
-                    tasks.add(new Deadline(data[0].substring(9), data[1]));
+                    tasks.add(new Deadline(data[0].substring(9).trim(), data[1].trim()));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + tasks.get(taskCount));
                     taskCount++;
                     System.out.printf("Now you have %d tasks in the list%n", taskCount);
                     System.out.println("____________________________________________________________");
-
-                } else if (input.startsWith("delete")) {
+                }
+                else if (input.startsWith("delete")) {
                     System.out.println("____________________________________________________________");
                     System.out.println("Noted. I've removed this task:");
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
