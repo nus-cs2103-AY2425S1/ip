@@ -1,6 +1,9 @@
 import tasks.Task;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -146,7 +149,13 @@ public class ChatBot {
         }
 
         String name = matcher.group(1);
-        String deadline = matcher.group(2);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime deadline;
+        try {
+            deadline = LocalDateTime.parse(matcher.group(2), f);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException("Please specify the deadline using the yyyy-MM-ss HH:mm:ss format.");
+        }
 
         Task task = this.tasks.deadline(name, deadline);
 
@@ -166,8 +175,15 @@ public class ChatBot {
         }
 
         String name = matcher.group(1);
-        String start = matcher.group(2);
-        String end = matcher.group(3);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime start;
+        LocalDateTime end;
+        try {
+            start = LocalDateTime.parse(matcher.group(2), f);
+            end = LocalDateTime.parse(matcher.group(3), f);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException("Please specify the timing using the yyyy-MM-dd HH:mm:ss format.");
+        }
 
         Task task = this.tasks.event(name, start, end);
 

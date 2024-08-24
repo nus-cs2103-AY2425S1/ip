@@ -4,6 +4,7 @@ import tasks.Task;
 import tasks.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -52,7 +53,7 @@ public class Tasks {
      * @param deadline The deadline of the task.
      * @return The created deadline task.
      */
-    public Task deadline(String name, String deadline) throws IOException {
+    public Task deadline(String name, LocalDateTime deadline) throws IOException {
         Deadline task = new Deadline(name, deadline);
 
         this.tasks.add(task);
@@ -69,7 +70,7 @@ public class Tasks {
      * @param end The end of the event.
      * @return The created event task.
      */
-    public Task event(String name, String start, String end) throws IOException {
+    public Task event(String name, LocalDateTime start, LocalDateTime end) throws IOException {
         Event task = new Event(name, start, end);
 
         this.tasks.add(task);
