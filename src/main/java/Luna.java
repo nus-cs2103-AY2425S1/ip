@@ -26,7 +26,7 @@ public class Luna {
 
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
-        ArrayList<Task> tasks = storage.loadTasks();
+        TaskList tasks = new TaskList(storage.loadTasks());
         boolean isRunning = true;
 
         while (isRunning) {
@@ -60,14 +60,7 @@ public class Luna {
                     break;
 
                 case LIST:
-                    System.out.println("Here are the tasks in your list:");
-
-                    for (int i = 0; i < tasks.size(); i++) {
-                        String taskStr = String.format("%d.%s",
-                                i + 1, tasks.get(i).toString());
-
-                        System.out.println(taskStr);
-                    }
+                    tasks.list();
                     break;
 
                 case MARK:
@@ -87,10 +80,7 @@ public class Luna {
                         throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
                     }
 
-                    tasks.get(taskToMark).markAsDone();
-
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks.get(taskToMark).toString());
+                    tasks.markTaskAsDone(taskToMark);
                     break;
 
                 case UNMARK:
@@ -110,10 +100,7 @@ public class Luna {
                         throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
                     }
 
-                    tasks.get(taskToUnmark).unmark();
-
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks.get(taskToUnmark).toString());
+                    tasks.unmarkTask(taskToUnmark);
                     break;
 
                 case DELETE:
@@ -133,11 +120,7 @@ public class Luna {
                         throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
                     }
 
-                    Task removed = tasks.remove(taskToDelete);
-
-                    System.out.println("Noted, I've removed this task:\n" +
-                            "  " + removed.toString() + "\n" +
-                            "Now you have " + tasks.size() + " tasks in the list.");
+                    tasks.deleteTask(taskToDelete);
                     break;
 
                 case TODO:
@@ -146,11 +129,7 @@ public class Luna {
                     }
 
                     Todo todo = new Todo(str[1]);
-                    tasks.add(todo);
-
-                    String s = String.format("Now you have %d tasks in the list.", tasks.size());
-                    System.out.println("Got it. I've added this task:\n" +
-                            "  " + todo + "\n" + s);
+                    tasks.addTask(todo);
                     break;
 
                 case DEADLINE:
@@ -186,11 +165,7 @@ public class Luna {
                     }
 
                     Deadline deadlineTask = new Deadline(deadline[0], deadlineDateTime);
-                    tasks.add(deadlineTask);
-
-                    String deadlineString = String.format("Now you have %d tasks in the list.", tasks.size());
-                    System.out.println("Got it. I've added this task:\n" +
-                            "  " + deadlineTask + "\n" + deadlineString);
+                    tasks.addTask(deadlineTask);
                     break;
 
                 case EVENT:
@@ -233,11 +208,7 @@ public class Luna {
                     }
 
                     Event eventTask = new Event(event[0], startTime, endTime);
-                    tasks.add(eventTask);
-
-                    String eventString = String.format("Now you have %d tasks in the list.", tasks.size());
-                    System.out.println("Got it. I've added this task:\n" +
-                            "  " + eventTask + "\n" + eventString);
+                    tasks.addTask(eventTask);
                     break;
 
                 case INVALID:
@@ -252,7 +223,7 @@ public class Luna {
             } catch (LunaException e) {
                 System.out.println(e.getMessage());
             } finally {
-                storage.saveTasks(tasks);
+                storage.saveTasks(tasks.getTasks());
             }
         }
         scanner.close();
