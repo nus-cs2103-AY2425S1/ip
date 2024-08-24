@@ -1,3 +1,6 @@
+import tasks.ReginaException;
+import tasks.Task;
+
 /**
  * The Marker class provides methods to mark and unmark tasks in a task list.
  * It interacts with the TaskList to check off tasks as completed or not.

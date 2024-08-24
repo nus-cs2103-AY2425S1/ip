@@ -1,3 +1,12 @@
+import tasks.DeadlinesTask;
+import tasks.EventsTask;
+import tasks.ReginaException;
+import tasks.ToDosTask;
+import tasks.Task;
+
+import file.FileSaver;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -8,9 +17,11 @@ public class Regina {
     private final static String NAME = "Regina";
     private final static String INDENT = "    ";
     private final static String LINE = INDENT + "********************************************************************";
+
     private final TaskList listOfTasks;
     private final Marker marker;
     private final Scanner scanner = new Scanner(System.in);
+    // private final FileSaver fileSaver = new FileSaver();
 
     // Enum to represent task types
     public enum TaskType {
@@ -185,6 +196,7 @@ public class Regina {
             throw new ReginaException("Unknown task type. Use: todo, deadline, or event.");
         }
         listOfTasks.add(task);
+        saveFile();
         int noOfTasks = listOfTasks.size();
         System.out.println(LINE + "\n" + INDENT + "Got it. I've added this task: \n  "
                 + INDENT
@@ -219,6 +231,7 @@ public class Regina {
         }
         Task task = listOfTasks.get(index);
         listOfTasks.remove(index);
+        saveFile();
         taskCount = listOfTasks.size(); // update the number of tasks
         System.out.printf("%s\n%sWah shiok!\n%sCan forget about %s liao!\n%sList now has %d task%s!\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), INDENT, taskCount, taskCount > 1 ? "s" : "", LINE);
@@ -254,6 +267,7 @@ public class Regina {
     public void mark(int index) throws ReginaException {
         this.marker.mark(index);
         Task task = this.listOfTasks.get(index);
+        saveFile();
         System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
@@ -267,8 +281,17 @@ public class Regina {
     public void unmark(int index) throws ReginaException {
         this.marker.unmark(index);
         Task task = this.listOfTasks.get(index);
+        saveFile();
         System.out.printf("%s\n%sHais! Need to do this task again!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
+    }
+
+    public void saveFile() {
+        try {
+            FileSaver.saveData(listOfTasks.toString());
+        } catch (IOException e) {
+            System.out.println("Error in syncing data");
+        }
     }
 
     /**

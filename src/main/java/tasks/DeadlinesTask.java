@@ -1,13 +1,15 @@
+package tasks;
+
 /**
  * Represents a deadline task with a description and a specific deadline.
- * This class extends the Task class and provides additional functionality
+ * This class extends the Task.Task class and provides additional functionality
  * for deadline tasks.
  */
 public class DeadlinesTask extends Task {
     protected String deadline;
 
     /**
-     * Constructs a DeadlinesTask with the specified description and deadline.
+     * Constructs a tasks.DeadlinesTask with the specified description and deadline.
      *
      * @param description The description of the deadline task.
      * @param deadline The deadline associated with the task.

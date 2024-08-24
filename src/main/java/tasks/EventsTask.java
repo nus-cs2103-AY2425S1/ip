@@ -1,6 +1,8 @@
+package tasks;
+
 /**
  * Represents an event task with a description, start time, and end time.
- * This class extends the Task class and provides specific functionality
+ * This class extends the Task.Task class and provides specific functionality
  * for event tasks.
  */
 public class EventsTask extends Task {
@@ -8,7 +10,7 @@ public class EventsTask extends Task {
     protected String endTime;
 
     /**
-     * Constructs an EventsTask with the specified description, start time, and end time.
+     * Constructs an tasks.EventsTask with the specified description, start time, and end time.
      *
      * @param description The description of the event task.
      * @param startTime The starting time of the event.

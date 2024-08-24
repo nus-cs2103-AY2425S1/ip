@@ -1,3 +1,5 @@
+package tasks;
+
 /**
  * Represents a task with a description and status (done or not done).
  * This is an abstract class to be extended by specific task types
@@ -8,7 +10,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a Task with the specified description.
+     * Constructs a Task.Task with the specified description.
      *
      * @param description The description of the task.
      */

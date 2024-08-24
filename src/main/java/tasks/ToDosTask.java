@@ -1,12 +1,14 @@
+package tasks;
+
 /**
  * Represents a to-do task with a description.
- * This class extends the Task class and provides specific functionality
+ * This class extends the Task.Task class and provides specific functionality
  * for to-do tasks.
  */
 public class ToDosTask extends Task {
 
     /**
-     * Constructs a ToDosTask with the specified description.
+     * Constructs a tasks.ToDosTask with the specified description.
      *
      * @param description The description of the to-do task.
      */
