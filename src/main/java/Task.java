@@ -1,6 +1,8 @@
 package main.java;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     private Boolean done;
     private String desc;
     private Category taskType;

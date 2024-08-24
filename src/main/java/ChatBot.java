@@ -3,6 +3,12 @@ package main.java;
 import main.java.Exceptions.EmptyDescriptionError;
 import main.java.Exceptions.InvalidCommandError;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -17,6 +23,7 @@ public class ChatBot {
 
     public ChatBot(String name) {
         this.name = name;
+        loadTasksFromFile();
     }
 
     public void greet() {
@@ -27,9 +34,57 @@ public class ChatBot {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    private void saveTasksToFile() {
+        FileOutputStream fileOut = null;
+        ObjectOutputStream out = null;
+        try {
+            fileOut = new FileOutputStream("tasks.ser");
+            out = new ObjectOutputStream(fileOut);
+            out.writeObject(lst);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (fileOut != null) {
+                    fileOut.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void loadTasksFromFile() {
+        FileInputStream fileIn = null;
+        ObjectInputStream in = null;
+        try {
+            fileIn = new FileInputStream("tasks.ser");
+            in = new ObjectInputStream(fileIn);
+            lst = (ArrayList<Task>) in.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the case where the file is not found or class is not found
+            lst = new ArrayList<>();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+                if (fileIn != null) {
+                    fileIn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void addToList(Task task){
         try {
             lst.add(task);
+            saveTasksToFile();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -45,16 +100,16 @@ public class ChatBot {
     }
 
     public Task delete(int i) {
-        return lst.remove(i-1);
+        Task task = lst.remove(i-1);
+        saveTasksToFile();
+        return task;
     }
 
     public void run() throws InvalidCommandError, EmptyDescriptionError {
         greet();
         while (true){
             try {
-
                 String input = scanner.nextLine();
-
                 String [] parts = input.split(" ", 2);
 
                 if (input.equals(exitKeyword)) {
@@ -121,8 +176,13 @@ public class ChatBot {
                     } else {
                         throw new InvalidCommandError();
                     }
-                    System.out.println("Got it. I've added this task: " + "\n" + task.getDesc());
-                    System.out.println("Now you have " + lst.size() + " tasks in the list.");
+                    System.out.println("Got it. I've added this task:" + "\n" + task.getDesc());
+                    if (lst.size() == 1) {
+                        System.out.println("Now you have " + lst.size() + " task in the list.");
+                    } else {
+                        System.out.println("Now you have " + lst.size() + " tasks in the list.");
+                    }
+
                 }
 
             } catch (Exception e) {
