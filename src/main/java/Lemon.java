@@ -1,8 +1,9 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Lemon {
-    /*** Initialising ***/
+    /*** Messages ***/
     String logoMsg = "____________________________________________________________\n"
             + " Hello! I'm Lemon\n"
             + " What can I do for you?\n";
@@ -14,9 +15,12 @@ public class Lemon {
     String markMsg = " Nice! I've marked this task as done:";
     String unmarkMsg = " OK, I've marked this task as not done yet:";
     String addTaskMsg = " Got it. I've added this task:";
+    String deleteTaskMsg = " Noted. I've removed this task:";
 
-    Task[] tasks = new Task[100];
+    /*** Initialising ***/
+    ArrayList<Task> tasks = new ArrayList<>();
     int numTasks = 0;
+    
     public static void main(String[] args) {
         Lemon lemon = new Lemon();
         Scanner scan = new Scanner(System.in);
@@ -41,24 +45,24 @@ public class Lemon {
                     }
                 } else if (input.equals("mark") || input.equals("Mark")) {
                     int next = scan.nextInt();
-                    if (next > lemon.numTasks) {
+                    if (next > lemon.numTasks || next <= 0) {
                         throw new InvalidCommandException(" OOPS!!! Please select a valid task");
                     }
 
                     System.out.println(lemon.markMsg);
-                    lemon.tasks[next - 1].markDone();
+                    lemon.tasks.get(next - 1).markDone();
 
-                    System.out.println("   " + lemon.tasks[next - 1].toString());
+                    System.out.println("   " + lemon.tasks.get(next - 1).toString());
                 } else if (input.equals("unmark") || input.equals("Unmark")) {
                     int next = scan.nextInt();
-                    if (next > lemon.numTasks) {
+                    if (next > lemon.numTasks || next <= 0) {
                         throw new InvalidCommandException(" OOPS!!! Please select a valid task");
                     }
 
                     System.out.println(lemon.unmarkMsg);
-                    lemon.tasks[next - 1].unmarkDone();
+                    lemon.tasks.get(next - 1).unmarkDone();
 
-                    System.out.println("   " + lemon.tasks[next - 1].toString());
+                    System.out.println("   " + lemon.tasks.get(next - 1).toString());
                 } else if (input.equals("todo") || input.equals("TODO")) {
                     String next = scan.nextLine();
 
@@ -71,6 +75,13 @@ public class Lemon {
                     String[] next = scan.nextLine().split("/from ");
 
                     lemon.addNewTask(new Event(next[0], next[1]));
+                } else if (input.equals("delete") || input.equals("Delete")) {
+                    int next = scan.nextInt();
+                    if (next > lemon.numTasks || next <= 0) {
+                        throw new InvalidCommandException(" OOPS!!! Please select a valid task");
+                    }
+
+                    lemon.deleteTask(next);
                 } else {
                     throw new InvalidCommandException(" OOPS!!! I'm sowwy, but I don't know what that means :-(\n\n" +
                             " I can help you add tasks with \"todo\", \"deadline\", \"event\"\n" +
@@ -89,9 +100,10 @@ public class Lemon {
         System.out.println(lemon.endMsg);
     }
 
+    /*** Functions ***/
     private void printList() {
         for (int i = 0; i < numTasks; i++) {
-            System.out.println(" " + (i + 1) + "." + tasks[i].toString());
+            System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
         }
     }
 
@@ -100,9 +112,18 @@ public class Lemon {
             throw new DescriptionException(" OOPS!!! The description of a " + t.type + " cannot be empty");
         System.out.println(addTaskMsg);
 
-        tasks[numTasks] = t;
+        tasks.add(t);
         numTasks++;
 
+        System.out.println("   " + t.toString());
+        System.out.println(" Now you have " + numTasks + " tasks in the list.");
+    }
+
+    private void deleteTask(int index) {
+        Task t = tasks.remove(index - 1);
+        numTasks--;
+
+        System.out.println(deleteTaskMsg);
         System.out.println("   " + t.toString());
         System.out.println(" Now you have " + numTasks + " tasks in the list.");
     }
