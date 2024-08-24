@@ -30,10 +30,11 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) throws StorageIOException {
+    public void save(TaskList tasks) throws StorageIOException {
         try {
             FileWriter fileWriter = new FileWriter(this.path);
-            for (Task task : tasks) {
+            for (int i = 1; i <= tasks.size(); i = i + 1) {
+                Task task = tasks.get(i);
                 fileWriter.write(task.stringStorage() + "\n");
             }
             fileWriter.close();

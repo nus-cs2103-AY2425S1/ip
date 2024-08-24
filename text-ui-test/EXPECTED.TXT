@@ -11,19 +11,19 @@ Hello, master! How may I help you today? ><
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Aight! Todo task added: [T][ ] borrow book
+Aight! New task added: [T][ ] borrow book
 We have 1 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Got it! Deadline task added: [D][ ] return book (by: 22-08-2024 17:00)
+Aight! New task added: [D][ ] return book (by: 22-08-2024 17:00)
 We have 2 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Here you go! Event task added: [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+Aight! New task added: [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 We have 3 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
@@ -186,25 +186,25 @@ Uh-oh :'( Need some fixing on the date range here!
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Here you go! Event task added: [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+Aight! New task added: [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
 We have 3 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Here you go! Event task added: [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
+Aight! New task added: [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
 We have 4 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Got it! Deadline task added: [D][ ] iP (by: 22-08-2024 17:17)
+Aight! New task added: [D][ ] iP (by: 22-08-2024 17:17)
 We have 5 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Got it! Deadline task added: [D][ ] tP (by: 23-08-2024 17:17)
+Aight! New task added: [D][ ] tP (by: 23-08-2024 17:17)
 We have 6 tasks in the bag~
 
 ⋆⭒˚.⋆User⋆⭒˚.⋆
@@ -247,3 +247,4 @@ Here's your list of tasks!
 
 ⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
 I'll always be here for you~ See ya, master! ^^
+
