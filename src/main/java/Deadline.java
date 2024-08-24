@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
@@ -11,7 +12,7 @@ public class Deadline extends Task {
         this.due = due;
         try {
             dueDate = LocalDate.parse(due);
-        } catch (IllegalArgumentException e) {
+        } catch (DateTimeParseException e) {
             dueDate = null;
         }
     }
