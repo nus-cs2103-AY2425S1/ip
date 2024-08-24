@@ -12,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String formatForCSV() {
-        String res = super.formatForCSV();
+        String res = super.formatToCSV();
         res += DELIMITER + wrapInQuotes(start);
         res += DELIMITER + wrapInQuotes(end);
         return res;

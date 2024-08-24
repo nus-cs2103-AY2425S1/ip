@@ -26,7 +26,7 @@ public class Task {
         return "\"" + str + "\"";
     }
 
-    public String formatForCSV() {
+    public String formatToCSV() {
         String[] arr = new String[]{wrapInQuotes(getStatusIcon()), wrapInQuotes("Task"), wrapInQuotes("description")};
         return String.join(DELIMITER, arr);
     }
