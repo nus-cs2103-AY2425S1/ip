@@ -1,8 +1,27 @@
+import java.util.Scanner;
+
 public class Alexer {
     private static final String GOODBYE = "Goodbye! If you ever want to chat again, I'll be here.\nHave a great day!";
     private static final String BREAK = "____________________________________________________________";
 
     public static final String NAME = "Alexer";
+
+    private Scanner scanner = new Scanner(System.in);
+
+    public void promptLoop() {
+        String input = scanner.nextLine();
+
+        if (!input.equals("bye")) {
+            System.out.println(BREAK);
+            System.out.println(input);
+            System.out.println(BREAK);
+            promptLoop();
+        } else {
+            System.out.println(BREAK);
+            System.out.println(GOODBYE);
+            System.out.println(BREAK);
+        }
+    }
     public static void main(String[] args) {
         String logo = """
                      .     .                           \s
