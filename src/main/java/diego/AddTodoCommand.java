@@ -1,15 +1,14 @@
-public class AddDeadlineCommand implements Command {
+package diego;
+public class AddTodoCommand implements Command {
     private String description;
-    private String by;
 
-    public AddDeadlineCommand(String description, String by) {
+    public AddTodoCommand(String description) {
         this.description = description;
-        this.by = by;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task task = new Deadline(description, by);
+        Task task = new Todo(description);
         tasks.add(task);
         ui.showTaskAdded(task, tasks.size());
         storage.save(tasks);

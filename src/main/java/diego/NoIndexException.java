@@ -1,3 +1,4 @@
+package diego;
 public class NoIndexException extends DiegoException{
     public NoIndexException(){
         super(

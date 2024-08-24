@@ -1,3 +1,4 @@
+package diego;
 public class DeleteCommand implements Command {
     private int index;
 

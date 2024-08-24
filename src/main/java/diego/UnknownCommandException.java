@@ -1,3 +1,4 @@
+package diego;
 public class UnknownCommandException extends DiegoException{
     public UnknownCommandException(){
         super(

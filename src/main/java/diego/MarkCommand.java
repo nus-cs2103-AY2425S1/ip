@@ -1,15 +1,16 @@
-public class UnmarkCommand implements Command {
+package diego;
+public class MarkCommand implements Command {
     private int index;
 
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(index);
-        task.unMark();
-        ui.showTaskUnmarked(task);
+        task.mark();
+        ui.showTaskMarked(task);
         storage.save(tasks);
     }
 }

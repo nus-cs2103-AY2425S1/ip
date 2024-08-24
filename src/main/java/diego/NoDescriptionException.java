@@ -1,3 +1,4 @@
+package diego;
 public class NoDescriptionException extends DiegoException {
     public NoDescriptionException() {
         super(

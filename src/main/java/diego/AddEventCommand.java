@@ -1,3 +1,4 @@
+package diego;
 public class AddEventCommand implements Command {
     private String description;
     private String from;

@@ -1,3 +1,4 @@
+package diego;
 public class Ui {
 
     public void showWelcomeMessage() {

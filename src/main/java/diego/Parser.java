@@ -1,3 +1,4 @@
+package diego;
 public class Parser {
 
     public Command parseCommand(String input) throws DiegoException {
