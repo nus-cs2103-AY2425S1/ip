@@ -1,3 +1,5 @@
+package mortal_reminder.commands;
+
 public enum CommandTypes {
     LIST,
     MARK,

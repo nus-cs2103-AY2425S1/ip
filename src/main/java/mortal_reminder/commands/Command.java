@@ -1,3 +1,5 @@
+package mortal_reminder.commands;
+
 public record Command(CommandTypes commandType, String[] commandDetails) {
     // Initialise method
     public static Command initialise(CommandTypes commandType, String[] input) {

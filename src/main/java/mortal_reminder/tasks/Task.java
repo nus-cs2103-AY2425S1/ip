@@ -1,4 +1,8 @@
+package mortal_reminder.tasks;
+
 // solution is adapted from the Course Level 3 extension
+
+import mortal_reminder.io.FormattedPrinting;
 
 public abstract class Task {
     protected String description;
@@ -37,5 +41,9 @@ public abstract class Task {
         } else {
             FormattedPrinting.unmarkError();
         }
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 }

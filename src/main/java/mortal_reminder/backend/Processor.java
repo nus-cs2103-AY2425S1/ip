@@ -1,3 +1,14 @@
+package mortal_reminder.backend;
+
+import mortal_reminder.commands.Command;
+import mortal_reminder.commands.CommandTypes;
+import mortal_reminder.io.FormattedPrinting;
+import mortal_reminder.tasks.Deadline;
+import mortal_reminder.tasks.Events;
+import mortal_reminder.tasks.Task;
+import mortal_reminder.tasks.TimedTask;
+import mortal_reminder.tasks.ToDo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,7 +107,7 @@ public class Processor {
             if (Objects.equals(task.getType(), "D") ||
                     Objects.equals(task.getType(), "E")) {
                 TimedTask timedTask = (TimedTask) task;
-                if (LocalDateTime.now().isBefore(timedTask.getDueDate()) && !task.isDone) {
+                if (LocalDateTime.now().isBefore(timedTask.getDueDate()) && !task.getIsDone()) {
                     tasks.add(task);
                 }
             }
