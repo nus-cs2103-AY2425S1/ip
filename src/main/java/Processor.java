@@ -1,4 +1,8 @@
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class Processor {
 
@@ -33,6 +37,10 @@ public class Processor {
         case CLEAR_TASKS:
             taskList.clearList();
             Storage.clearListFile();
+            break;
+
+        case UPCOMING_TASKS:
+            upcomingTasks(taskList);
             break;
 
         case BYE:
@@ -76,7 +84,24 @@ public class Processor {
             taskList.addTask(newTask);
         } catch (ArrayIndexOutOfBoundsException e) {
             FormattedPrinting.invalidNumberOfDetails();
+        } catch (DateTimeParseException e) {
+            FormattedPrinting.invalidDate();
         }
+    }
+
+    public void upcomingTasks(TaskList taskList) {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            if (Objects.equals(task.getType(), "D") ||
+                    Objects.equals(task.getType(), "E")) {
+                TimedTask timedTask = (TimedTask) task;
+                if (LocalDateTime.now().isBefore(timedTask.getDueDate()) && !task.isDone) {
+                    tasks.add(task);
+                }
+            }
+        }
+        FormattedPrinting.upcomingDeadlinesEvents(tasks);
     }
 
 }
