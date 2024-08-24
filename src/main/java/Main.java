@@ -13,8 +13,14 @@ public class Main {
             if (userInput.equals("bye")) {
                 System.out.println(chatbot.exit());
                 break;
+            } 
+            if (userInput.equals("list")) {
+                System.out.println(chatbot.list());
+            } else {
+                System.out.println(chatbot.addTask(userInput));
             }
-            System.out.println(userInput);
+            
+            
         }
         scanner.close();  
     }
