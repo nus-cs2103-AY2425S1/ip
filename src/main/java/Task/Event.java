@@ -10,6 +10,25 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    protected String getTaskType() {
+        return "Event";
+    }
+
+    @Override
+    public String formatToCSV() {
+        String res = super.formatToCSV();
+        res += DELIMITER + wrapInQuotes(start);
+        res += DELIMITER + wrapInQuotes(end);
+        return res;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";

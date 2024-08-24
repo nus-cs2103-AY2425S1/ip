@@ -10,7 +10,7 @@ import Task.ToDo;
 import Exception.PurrfessorDipsyException;
 
 public class PurrfessorDipsy {
-    private static final ArrayList<Task> taskTable = new ArrayList<>();
+    private static ArrayList<Task> taskTable = new ArrayList<>();
     private static boolean isRunning = true; // to allow for a more graceful exit
 
     private static final Pattern MARK_PATTERN = Pattern.compile("(mark|unmark) (\\d+)");
@@ -25,6 +25,7 @@ public class PurrfessorDipsy {
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
+        taskTable = Storage.loadTasksFromFile();
         printWelcomeMessage();
         while (isRunning) {
             try {
@@ -85,9 +86,10 @@ public class PurrfessorDipsy {
     }
 
     private static void printWelcomeMessage() {
-        printWithTerminalLines("Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam " +
-                "and Purrtector of the Realm of Naps.\nHow can I purrvide assistance? " +
-                "Purrhaps I can lend a paw!");
+        String introduction = "Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam " +
+                              "and Purrtector of the Realm of Naps.\n" +
+                              "How can I purrvide assistance? Purrhaps I could lend a paw!";
+        printWithTerminalLines(introduction);
     }
 
     private static void printExitMessage() {
@@ -166,6 +168,7 @@ public class PurrfessorDipsy {
         taskTable.add(task);
         printWithTerminalLines("Got it! I've added this task:\n" + task +
                 "\nYou now have " + taskTable.size() + " tasks in your list.");
+        Storage.saveTasksToLocalDisk(taskTable);
     }
 
     private static void deleteFromMemory(String userInput) throws PurrfessorDipsyException {
@@ -176,6 +179,7 @@ public class PurrfessorDipsy {
                 Task removedTask = taskTable.remove(index);
                 printWithTerminalLines("Purrr, I've swatted this task away:\n" + removedTask +
                         "\nYou now have " + taskTable.size() + " tasks in your list.");
+                Storage.saveTasksToLocalDisk(taskTable);
             } else {
                 throw new PurrfessorDipsyException(PurrfessorDipsyException.ErrorType.INVALID_DELETE_INDEX);
             }
@@ -187,9 +191,9 @@ public class PurrfessorDipsy {
     private static void printMemory() {
         int taskTableSize = taskTable.size();
         if (taskTableSize == 0) {
-            printWithTerminalLines("You have no tasks in your list.");
+            printWithTerminalLines("Your task list is as empty as a well-sunned nap spot.");
         } else {
-            StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
+            StringBuilder result = new StringBuilder("Time to stretch those paws and tackle your tasks!\n");
             for (int i = 0; i < taskTableSize; i++) {
                 int printedIndex = i + 1; // table is 0-indexed, but we print starting from 1
                 result.append(printedIndex).append(".").append(taskTable.get(i));
@@ -205,16 +209,19 @@ public class PurrfessorDipsy {
         Task task = taskTable.get(index - 1);
         task.markAsDone();
         printWithTerminalLines("Meow! I’ve scratched this task off the list!\n" + task);
+        Storage.saveTasksToLocalDisk(taskTable);
     }
 
     private static void markTaskAsUndone(int index) {
         Task task = taskTable.get(index - 1);
         task.markAsUndone();
         printWithTerminalLines("Mrrreow! I’ve batted this task back onto the list.\n" + task);
+        Storage.saveTasksToLocalDisk(taskTable);
     }
 
     private static void exitProgram() {
         printExitMessage();
         isRunning = false; // Set the loop control flag to false to exit the loop gracefully.
     }
+
 }
