@@ -117,7 +117,8 @@ public class Megamind {
                 4. event <description> /from <start time> /to <end time> - Add an event task
                 5. mark <task number> - Mark a task as done
                 6. unmark <task number> - Mark a task as not done
-                7. bye - Exit the program""");
+                7. delete <task number> - Delete a task
+                8. bye - Exit the program""");
     }
 
     /**

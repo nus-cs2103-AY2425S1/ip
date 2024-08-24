@@ -9,10 +9,6 @@ Hello from
 
 What's good, I'm Megamind.
 What can I do for you?
-
 ____________________________________________________________
-> bye
-See you around!
-
+> See you around!
 ____________________________________________________________
-
