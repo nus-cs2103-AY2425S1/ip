@@ -43,6 +43,14 @@ public class Alisa {
                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(divider);
             }
+            else if (input.startsWith("deadline")) {
+                String[] inputArray = input.split(" /by  ");
+                Deadline newDeadline = new Deadline(inputArray[0], inputArray[1]);
+                taskList.add(newDeadline);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newDeadline);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+            }
             else if (input.equals("list")) {
                 if (taskList.isEmpty()) {
                     System.out.println("The list is empty, sorry :(");
@@ -54,10 +62,7 @@ public class Alisa {
                 }
             }
             else {
-                Task newTask = new Task(input);
-                taskList.add(newTask);
-                System.out.println("added: " + newTask);
-                System.out.println(divider);
+                System.out.println("Sorry, please type in a command that I understand :)");
             }
         }
 
