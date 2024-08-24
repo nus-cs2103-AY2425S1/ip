@@ -16,3 +16,4 @@ mark 0
 mark 7
 delete 7
 list
+bye

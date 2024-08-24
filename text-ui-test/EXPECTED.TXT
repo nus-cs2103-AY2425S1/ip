@@ -47,3 +47,4 @@ Invalid task number.
 3  [T][ ] read book
 4  [E][ ] teach tuition (from:  4am to:  7am)
 5  [D][X] learn cs2103 (by: tmr)
+Goodbye. Hope to see you again soon!
