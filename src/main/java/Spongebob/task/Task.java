@@ -2,6 +2,9 @@ package Spongebob.task;
 
 import Spongebob.exception.SpongebobException;
 
+/**
+ * basic task
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -32,7 +35,10 @@ public class Task {
     public String toString() {
         return this.getStatusIcon() + this.getDescription() + " ";
     }
-
+    /**
+     * converts task into a string that can be stored and read later
+     * @return String version of the task
+     */
     public String save() {
         return this.taskType + "|" + this.isDone + "|" + this.description;
     }

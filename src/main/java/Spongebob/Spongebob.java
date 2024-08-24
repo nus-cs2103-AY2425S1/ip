@@ -5,12 +5,18 @@ import Spongebob.exception.SpongebobException;
 import Spongebob.storage.Storage;
 import Spongebob.storage.TaskList;
 
+/**
+ * main class to run the bot
+ */
 public class Spongebob {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Takes in a filepath for loading the storage, creates the UI components and tasklist
+     */
     public Spongebob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +29,9 @@ public class Spongebob {
         }
     }
 
+    /**
+     * starts the bot
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

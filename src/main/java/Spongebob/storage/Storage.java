@@ -15,6 +15,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Main storage class to read and write data into a txtfile to save tasks,
+ * keeps a cache of tasklist for use by Spongebob
+ */
 public class Storage {
 
     private String filepath;
@@ -24,6 +28,11 @@ public class Storage {
         this.filepath = filepath;
     }
 
+    /**
+     * Reads the txt file and parse the information into a list of tasks for use
+     * @return list of tasks loaded from the text file
+     * @throws SpongebobException user input error
+     */
     public List<Task> load() throws SpongebobException {
         this.data = new ArrayList<>();
         List<Task> res = new ArrayList<>();
@@ -80,21 +89,38 @@ public class Storage {
         return res;
     }
 
+    /**
+     * adds task to tasklist
+     * @param task A task created by the user
+     */
     public void add(Task task) {
         this.data.add(task.save());
         this.write();
     }
 
+    /**
+     * delete task from tasklist
+     * @param task A task created by the user
+     */
     public void delete(Task task) {
         this.data.remove(task.save());
         this.write();
     }
 
+    /**
+     * updates task in tasklist
+     * @param index index of task in list
+     * @param task A task created by the user
+     * @throws IndexOutOfBoundsException occurs when index given is greater than size of tasklist or a negative number
+     */
     public void update(int index, Task task) throws IndexOutOfBoundsException{
         this.data.set(index, task.save());
         this.write();
     }
 
+    /**
+     * saves the contents of the tasklist into the textfile
+     */
     private void write() {
         try {
             FileWriter fw = new FileWriter(this.filepath);

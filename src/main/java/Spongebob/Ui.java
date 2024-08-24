@@ -4,6 +4,9 @@ import Spongebob.task.Task;
 
 import java.util.Scanner;
 
+/**
+ * UI Component for Spongebob
+ */
 public class Ui {
     final static String LINE = "____________________________________________________________\n";
     final static String GREETINGS = "Hey there! I’m SpongeBob SquarePants! \nWhat can I do for ya today?\n";

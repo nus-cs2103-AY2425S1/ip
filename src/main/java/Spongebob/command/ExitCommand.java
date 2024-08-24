@@ -4,8 +4,18 @@ import Spongebob.storage.Storage;
 import Spongebob.storage.TaskList;
 import Spongebob.Ui;
 
+/**
+ * Command used when exiting the bot
+ */
+
 public class ExitCommand extends Command {
 
+    /**
+     *  Executes the command, showing the goodbye message
+     * @param taskList  Tasklist of Spongebob
+     * @param ui    Ui containing all UI components
+     * @param storage   Storage to keep all entries to a .txt file
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.showGoodbye();
