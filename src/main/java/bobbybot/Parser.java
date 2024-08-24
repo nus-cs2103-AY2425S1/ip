@@ -9,6 +9,7 @@ import bobbybot.commands.CommandEvent;
 import bobbybot.commands.CommandDeadline;
 import bobbybot.commands.CommandMark;
 import bobbybot.commands.CommandUnmark;
+import bobbybot.commands.CommandFind;
 
 public class Parser {
     public static Command parse(String input) throws DukeException {
@@ -32,6 +33,8 @@ public class Parser {
             return new CommandDeadline(argument);
         case "event":
             return new CommandEvent(argument);
+        case "find":
+            return new CommandFind(argument);
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
