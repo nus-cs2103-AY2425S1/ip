@@ -1,5 +1,3 @@
-package jackson.exceptions;
-
 /**
  * Thrown when invalid index is given in input. Contains size of TaskList.
  */

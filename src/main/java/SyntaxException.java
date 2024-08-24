@@ -1,5 +1,3 @@
-package jackson.exceptions;
-
 /**
  * Thrown when invalid input format is used. Contains message denoting which command it failed at.
  */

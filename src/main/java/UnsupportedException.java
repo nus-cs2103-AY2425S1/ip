@@ -1,5 +1,3 @@
-package jackson.exceptions;
-
 /**
  * Thrown when unrecognised command and input is given.
  */

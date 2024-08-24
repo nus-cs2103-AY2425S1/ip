@@ -1,5 +1,3 @@
-package jackson.tasks;
-
 /**
  * Task class for task representation.
  */

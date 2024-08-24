@@ -1,5 +1,3 @@
-package jackson.tasks;
-
 /**
  * Todo class containing name
  */

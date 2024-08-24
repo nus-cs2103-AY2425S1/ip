@@ -1,10 +1,3 @@
-package jackson.utils;
-
-import jackson.tasks.Deadline;
-import jackson.tasks.Event;
-import jackson.tasks.Task;
-import jackson.tasks.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

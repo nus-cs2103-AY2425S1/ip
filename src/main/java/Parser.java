@@ -1,11 +1,5 @@
-package jackson.utils;
-
-import jackson.actions.Actions;
-import jackson.exceptions.JacksonException;
-import jackson.exceptions.SyntaxException;
-
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Parser class to handle regex checking and input parsing.
