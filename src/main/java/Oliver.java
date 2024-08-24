@@ -1,48 +1,39 @@
-import java.io.*;
-import java.nio.file.Files;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Oliver {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        Path dataPath = Paths.get("./data/oliver.txt");
-        boolean fileExists = Files.exists(dataPath);
-        // Create empty data file if it does not exist yet
-        if (!fileExists) {
-            Path directoryPath = Paths.get("data");
-            try {
-                Files.createDirectory(directoryPath);
-                Files.createFile(dataPath);
-            } catch (IOException e) {
-                System.out.println("\tError occurred when creating directory/file.");
-            }
+    public Oliver(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.storage.initialise();
+        try {
+            tasks = new TaskList(storage.loadData());
+        } catch (IOException e) {
+            System.out.println("\tError occurred when reading data into list.");
         }
-        // Read the saved tasks into the arraylist
-        loadData();
+    }
 
-        System.out.println("Hello! I'm Oliver.");
-        System.out.println("What can I do for you?");
-
+    public void run() {
+        ui.showWelcome();
         while (true) {
-            String input = sc.nextLine();
-            String command = input.split(" ")[0];
+            String input = ui.readInput();
+            String command = Parser.parseCommand(input);
 
             if (input.equalsIgnoreCase("bye")) {
-                writeToFile(tasks);
-                System.out.println("\tBye. Hope to see you again soon!");
+                storage.writeToFile(this.tasks);
+                ui.showBye();
+                ui.close();
                 break;
             } else if (input.equalsIgnoreCase("list")) {
-                handleList();
+                ui.showList(this.tasks);
             } else if (command.equalsIgnoreCase("mark")) {
                 handleMark(input);
             } else if (command.equalsIgnoreCase("unmark")) {
@@ -59,71 +50,53 @@ public class Oliver {
                 System.out.println("\tInvalid command. Command was not recognised.");
             }
         }
-        sc.close();
     }
 
-    public static void addSuccess(Task t) {
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t" + t);
-        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+    public static void main(String[] args) {
+        new Oliver("./data/oliver.txt").run();
     }
 
-    public static void handleList() {
-        if (tasks.isEmpty()) {
-            System.out.println("\tThere are no tasks in your list.");
-        } else {
-            System.out.println("\tHere are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("\t" + (i+1) + "." + tasks.get(i));
-            }
-        }
-    }
-
-    public static void handleMark(String input) {
+    public void handleMark(String input) {
         try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (index > tasks.size() - 1 || index < 0) {
-                System.out.println("\tNo such task exists. Task number out of range.");
+            int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
+            if (index > tasks.getSize() - 1 || index < 0) {
+                ui.showOutOfRangeError();
             } else {
-                tasks.get(index).markAsDone();
-                System.out.println("\tNice! I've marked this task as done:");
-                System.out.println("\t" + tasks.get(index));
+                ui.showMarked(tasks, index);
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tMissing arguments for this command.");
+            ui.showMissingArgsError();
         } catch (NumberFormatException e) {
-            System.out.println("\tInvalid arguments provided for this command.");
+            ui.showInvalidArgsError();
         }
     }
 
-    public static void handleUnmark(String input) {
+    public void handleUnmark(String input) {
         try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (index > tasks.size() - 1 || index < 0) {
-                System.out.println("\tNo such task exists. Task number out of range.");
+            int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
+            if (index > tasks.getSize() - 1 || index < 0) {
+                ui.showOutOfRangeError();
             } else {
-                tasks.get(index).markAsUndone();
-                System.out.println("\tOk, I've marked this task as not done yet:");
-                System.out.println("\t" + tasks.get(index));
+                ui.showUnmarked(tasks, index);
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tMissing arguments for this command.");
+            ui.showMissingArgsError();
         } catch (NumberFormatException e) {
-            System.out.println("\tInvalid arguments provided for this command.");
+            ui.showInvalidArgsError();
         }
     }
 
-    public static void handleTodo(String input) {
+    public void handleTodo(String input) {
         try {
-            ToDo t = new ToDo(input.split(" ", 2)[1]);
+            ToDo t = new ToDo(Parser.parseArgs(input));
             tasks.add(t);
-            addSuccess(t);
+            ui.showAdd(t, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tMissing arguments for this command.");
+            ui.showMissingArgsError();
         }
     }
 
-    public static void handleDeadline(String input) { // Date is required, time is optional
+    public void handleDeadline(String input) { // Date is required, time is optional
         try {
             String[] parts = input.split("/by ");
             String[] dateAndTime = parts[1].split(" ");
@@ -138,16 +111,16 @@ public class Oliver {
             String action = parts[0].trim();
             Deadline d = new Deadline(action.split(" ", 2)[1], dateTime);
             tasks.add(d);
-            addSuccess(d);
+            ui.showAdd(d, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tMissing arguments for this command.");
+            ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
             System.out.println("\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm");
             System.out.println("\tNote that date is required but time is optional.");
         }
     }
 
-    public static void handleEvent(String input) { // Both date and time are required
+    public void handleEvent(String input) { // Both date and time are required
         try {
             String[] parts = input.split("/from |/to ");
             String action = parts[0].trim();
@@ -160,70 +133,28 @@ public class Oliver {
 
             Event e = new Event(action.split(" ", 2)[1], start, end);
             tasks.add(e);
-            addSuccess(e);
+            ui.showAdd(e, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tMissing arguments for this command.");
+            ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
             System.out.println("\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm" + e);
         }
     }
 
-    public static void handleDelete(String input) {
+    public void handleDelete(String input) {
         try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            if (index > tasks.size() - 1 || index < 0) {
-                System.out.println("\tNo such task exists. Task number out of range.");
+            int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
+            if (index > tasks.getSize() - 1 || index < 0) {
+                ui.showOutOfRangeError();
             } else {
                 Task removedTask = tasks.get(index);
-                tasks.remove(index);
-                System.out.println("\tOk, I've removed this task:");
-                System.out.println("\t" + removedTask);
-                System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+                tasks.delete(index);
+                ui.showDelete(removedTask, tasks.getSize());
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tMissing arguments for this command.");
+            ui.showMissingArgsError();
         } catch (NumberFormatException e) {
-            System.out.println("\tInvalid arguments provided for this command.");
-        }
-    }
-
-    private static void loadData() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("./data/oliver.txt"));
-            while (true) {
-                String line = reader.readLine();
-                if (line == null) {
-                    break;
-                }
-                String[] data = line.split("\\|");
-                Task t;
-                if (data[0].equals("T")) {
-                    t = new ToDo(data[2]);
-                } else if (data[0].equals("D")) {
-                    t = new Deadline(data[2], LocalDateTime.parse(data[3]));
-                } else {
-                    t = new Event(data[2], LocalDateTime.parse(data[3]), LocalDateTime.parse(data[4]));
-                }
-                if (data[1].equals("X")) {
-                    t.markAsDone();
-                }
-                tasks.add(t);
-            }
-        } catch (IOException e) {
-            System.out.println("\tError occurred when reading data into list.");
-        }
-    }
-
-    private static void writeToFile(ArrayList<Task>taskList) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("./data/oliver.txt", false));
-            for (Task task : taskList) {
-                writer.write(task.getFormatted());
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("\tError occurred when writing to the data file.");
+            ui.showInvalidArgsError();
         }
     }
 }
