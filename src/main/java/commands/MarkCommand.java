@@ -6,6 +6,8 @@ import common.Ui;
 import storage.Task;
 import storage.TaskStorage;
 
+import java.io.IOException;
+
 public class MarkCommand extends Command {
     private String taskInput;
 
@@ -22,10 +24,13 @@ public class MarkCommand extends Command {
             } else {
                 Task task = storage.getTask(taskIndex);
                 task.markAsDone();
+                storage.saveTasks();
                 ui.printMessage("Nice! I've marked this task as done:\n  " + task);
             }
         } catch (NumberFormatException e) {
             throw new SkibidiException("Please enter a valid task number.");
+        } catch (IOException e) {
+            throw new SkibidiException("An error occurred while saving tasks.");
         }
         return true;
     }

@@ -38,6 +38,10 @@ public class TaskStorage {
         storageManager.saveTasks(tasks);
     }
 
+    public void saveTasks() throws IOException {
+        storageManager.saveTasks(tasks);
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }

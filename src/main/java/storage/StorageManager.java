@@ -55,11 +55,9 @@ public class StorageManager {
     }
 
     private Task parseTask(String line) {
-        // Logic to parse the task from file format
-        // Example: "T | 1 | read book" => Create a Todo task
         String[] parts = line.split(" \\| ");
         String type = parts[0];
-        boolean isDone = parts[1].equals("1");
+        boolean isDone = parts[1].trim().equals("1");
         String description = parts[2];
 
         switch (type) {
