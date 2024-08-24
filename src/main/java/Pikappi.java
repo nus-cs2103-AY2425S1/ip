@@ -1,72 +1,70 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Pikappi {
     static Scanner reader = new Scanner(System.in);
     static String command;
     static ArrayList<Task> tasks = new ArrayList<Task>();
+    enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
 
     public static void greet() {
         System.out.println("Pika! I'm Pikappi!\nWhat can I do for you?\n");
     }
 
     public static void goodbye() {
+        saveTasks("./data/pikappi.txt");
         System.out.println("Pi-kapi! See you again~\n");
     }
 
-    public static void addTodoTask(String command) throws PikappiException {
+    public static void addTask(String command, TaskType tasktype) throws PikappiException {
         String[] substrings = command.split(" ");
         if (substrings.length == 1) {
-            throw new PikappiException("Pi-ka..?? What do you want todo..?");
+            throw new PikappiException("Pi-ka..?? What is the task..?");
         }
         String task = substrings[1];
-        tasks.add(new TodoTask(task));
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
-    }
-
-    public static void addDeadlineTask(String command) throws PikappiException {
-        String[] substrings = command.split("/by");
-        if (command.split(" ").length == 1) {
-            throw new PikappiException("Pi-ka..?? What is the task..?");
-        }
-        String task = substrings[0].substring(9);
         if (task.isEmpty()) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
         }
-        String by = "";
-        try {
-            by = substrings[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new PikappiException("Pi-ka..?? When is the deadline..?");
+        switch (tasktype) {
+            case TODO:
+                tasks.add(new TodoTask(task));
+                System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
+                        "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            case DEADLINE:
+                String by = "";
+                try {
+                    by = substrings[3];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new PikappiException("Pi-ka..?? When is the deadline..?");
+                }
+                tasks.add(new DeadlineTask(task, by));
+                System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
+                        "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            case EVENT:
+                String from = "";
+                String to = "";
+                try {
+                    from = substrings[3];
+                    to = substrings[5];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new PikappiException("Pi-ka..?? When is the event starting and ending..?");
+                }
+                tasks.add(new EventTask(task, from, to));
+                System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
+                        "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
         }
-        tasks.add(new DeadlineTask(task, by));
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
-    }
-
-    public static void addEventTask(String command) throws PikappiException {
-        String[] substrings = command.split("/from");
-        if (command.split(" ").length == 1) {
-            throw new PikappiException("Pi-ka..?? What is the task..?");
-        }
-        String task = substrings[0].substring(6);
-        if (task.isEmpty()) {
-            throw new PikappiException("Pi-ka..?? What is the task..?");
-        }
-        String from = "";
-        String to = "";
-        try {
-            String[] fromTo = substrings[1].split("/to");
-            from = fromTo[0];
-            to = fromTo[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new PikappiException("Pi-ka..?? When is the event starting and ending..?");
-        }
-        tasks.add(new EventTask(task, from, to));
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + tasks.get(tasks.size() - 1) +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void deleteTask(String command) throws PikappiException {
@@ -83,7 +81,6 @@ public class Pikappi {
                 "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
-    
     public static void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println("Pika-ka! You have no tasks!");
@@ -109,7 +106,86 @@ public class Pikappi {
         System.out.println("Okie, I've unmarked this task as not done yet:\n" + tasks.get(taskNumber - 1));
     }
 
+    public static void loadTasks(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            try {
+                file.createNewFile();
+            } catch (Exception e) {
+                System.out.println("Error creating file!");
+            }
+        }
+
+        try {
+            Scanner fileReader = new Scanner(file);
+            while (fileReader.hasNextLine()) {
+                String currentTask = fileReader.nextLine();
+                ArrayList<String> task = new ArrayList<String>(List.of(currentTask.split(" \\| ")));
+                loadCurrentTask(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
+    }
+
+    public static void loadCurrentTask(ArrayList<String> task) {
+        String taskType = task.get(0);
+        boolean isDone = task.get(1).equals("1");
+        String taskDescription = task.get(2);
+        String taskTime = "";
+        String taskEndTime = "";
+        if (task.size() > 3) {
+            taskTime = task.get(3);
+        }
+        if (task.size() > 4) {
+            taskEndTime = task.get(4);
+        }
+        switch (taskType) {
+        case "T":
+            tasks.add(new TodoTask(taskDescription, isDone));
+            break;
+        case "D":
+            tasks.add(new DeadlineTask(taskDescription, taskTime, isDone));
+            break;
+        case "E":
+            tasks.add(new EventTask(taskDescription, taskTime, taskEndTime, isDone));
+            break;
+        }
+    }
+
+    public static void saveTasks(String path) {
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            for (Task task : tasks) {
+                String isDone = task.isDone() ? "1" : "0";
+                String description = task.getDescription();
+                String by = "";
+                String from = "";
+                String to = "";
+                if (task instanceof DeadlineTask) {
+                    by = ((DeadlineTask) task).getBy();
+                    fileWriter.write("D | " + isDone + " | " + description + " | " + by + "\n");
+                } else if (task instanceof EventTask) {
+                    from = ((EventTask) task).getFrom();
+                    to = ((EventTask) task).getTo();
+                    fileWriter.write("E | " + isDone + " | " + description + " | " + from + " | " + to + "\n");
+                } else if (task instanceof TodoTask) {
+                    fileWriter.write("T | " + isDone + " | " + description + "\n");
+                }
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file!");
+        }
+
+    }
+
     public static void main(String[] args) throws PikappiException {
+        loadTasks("./data/pikappi.txt");
+
         greet();
 
         while (true) {
@@ -126,19 +202,19 @@ public class Pikappi {
                 unmarkTask(Integer.parseInt(command.split(" ")[1]));
             } else if (command.startsWith("todo")) {
                 try {
-                    addTodoTask(command);
+                    addTask(command, TaskType.TODO);
                 } catch (PikappiException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (command.startsWith("deadline")) {
                 try {
-                    addDeadlineTask(command);
+                    addTask(command, TaskType.DEADLINE);
                 } catch (PikappiException e) {
                     System.out.println(e.getMessage());
                 }
             } else if (command.startsWith("event")) {
                 try {
-                    addEventTask(command);
+                    addTask(command, TaskType.EVENT);
                 } catch (PikappiException e) {
                     System.out.println(e.getMessage());
                 }

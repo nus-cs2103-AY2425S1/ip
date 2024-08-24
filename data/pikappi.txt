@@ -1,0 +1,4 @@
+T | 1 | testing hello
+D | 0 | deadline test | tmr
+E | 1 | event test | tday | tmr
+E | 0 | another event | 2pm | 4pm
