@@ -20,6 +20,12 @@ public class DeleteCommand extends Command {
         this.index = index - 1;
     }
 
+    /**
+     * Deletes task using the index in the todo list
+     * @param todoList the list of the tasks
+     * @param fileSaver filesaver object used to write data to txt
+     * @throws CowExceptions any exceptions that might arise from the implementation
+     */
     @Override
     public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {
         Task t = todoList.delete(this.index);
