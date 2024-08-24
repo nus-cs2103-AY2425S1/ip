@@ -2,13 +2,20 @@ blah
 todo
 list
 mark
+mark -1
 mark 1
 mark 1 2
 mark 1a
 unmark
+unmark -1
 unmark 1
 unmark 1 2
 unmark 1a
+delete
+delete -1
+delete 1
+delete 1 2
+delete 1a
 todo borrow book
 deadline return book/by Sunday
 deadline return book /by Sunday
@@ -16,13 +23,21 @@ event project meeting/from Mon 2pm/to 4pm
 event project meeting /from Mon 2pm /to 4pm
 list
 mark
+mark -1
 mark 1
 mark 1 2
 mark 1a
 list
 unmark
+unmark -1
 unmark 1
 unmark 1 2
 unmark 1a
+list
+delete
+delete -1
+delete 1
+delete 1 2
+delete 1a
 list
 bye

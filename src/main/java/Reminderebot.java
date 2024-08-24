@@ -1,12 +1,10 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
 public class Reminderebot {
     // note: needs support for handling multi-line inputs
-    private Task[] tasks = new Task[100];
-    enum commands {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT
-    }
+    private ArrayList<Task> tasks = new ArrayList<Task>();
     private static final String topBuffer = "____________________________________________________________\n";
     private static final String bottomBuffer = "____________________________________________________________";
     static int index = 0;
@@ -39,7 +37,7 @@ public class Reminderebot {
                 // executes command
                 reminderebot.checkInput(input);
                 System.out.println(topBuffer);
-                switch (commands.valueOf(command)) {
+                switch (Commands.valueOf(command)) {
                     case BYE:
                         reminderebot.goodbye();
                         break;
@@ -49,20 +47,27 @@ public class Reminderebot {
                     case MARK:
                         idx = scan2.nextInt();
                         reminderebot.markTask(idx);
-                        System.out.println("Nice! I've marked this task as done:\n" + reminderebot.tasks[idx - 1]);
+                        System.out.println("Nice! I've marked this task as done:\n" +
+                                reminderebot.tasks.get(idx - 1));
                         break;
                     case UNMARK:
-                        str = scan2.nextLine();
-                        idx = Integer.parseInt(str.split("")[1]);
+                        idx = scan2.nextInt();
                         reminderebot.unmarkTask(idx);
                         System.out.println("OK, I've marked this task as not done yet:\n" +
-                                reminderebot.tasks[idx - 1]);
+                                reminderebot.tasks.get(idx - 1));
+                        break;
+                    case DELETE:
+                        idx = scan2.nextInt();
+                        Task task = reminderebot.deleteTask(idx);
+                        System.out.println("OK, I've removed this task:\n" +
+                                task.toString() +
+                                "\nNow you have " + index + " tasks in the list.");
                         break;
                     case TODO:
                         str = scan2.nextLine();
                         ToDo todo = new ToDo(str);
-                        reminderebot.addToDo(todo);
-                        System.out.println("Got it. I've added this task: \n" +
+                        reminderebot.addTask(todo);
+                        System.out.println("Got it. I've added this task:\n" +
                                 todo.toString() +
                                 "\nNow you have " + index + " tasks in the list."
                         );
@@ -71,8 +76,8 @@ public class Reminderebot {
                         str = scan2.nextLine();
                         String[] dlInfo = str.split("/by ");
                         Deadline deadline = new Deadline(dlInfo[0], dlInfo[1]);
-                        reminderebot.addDeadline(deadline);
-                        System.out.println("Got it. I've added this task: \n" +
+                        reminderebot.addTask(deadline);
+                        System.out.println("Got it. I've added this task:\n" +
                                 deadline.toString() +
                                 "\nNow you have " + index + " tasks in the list."
                         );
@@ -82,14 +87,14 @@ public class Reminderebot {
                         String[] eventInfo = str.split("/from ");
                         String[] eventTiming = eventInfo[1].split("/to ");
                         Event event = new Event(eventInfo[0], eventTiming[0], eventTiming[1]);
-                        reminderebot.addEvent(event);
-                        System.out.println("Got it. I've added this task: \n" +
+                        reminderebot.addTask(event);
+                        System.out.println("Got it. I've added this task:\n" +
                                 event.toString() +
                                 "\nNow you have " + index + " tasks in the list."
                         );
                         break;
                 }
-                if (commands.valueOf(command).equals(commands.BYE)) {
+                if (Commands.valueOf(command).equals(Commands.BYE)) {
                     System.out.println(bottomBuffer);
                     break;
                 }
@@ -112,7 +117,6 @@ public class Reminderebot {
     /**
      * Prints goodbye message.
      */
-
     private void goodbye() {
         System.out.println(goodbyeText);
     }
@@ -124,38 +128,29 @@ public class Reminderebot {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:\n");
         for (int i=0; i<index; i++) {
-            output.append(i+1).append(".").append(tasks[i]).append("\n");
+            output.append(i+1).append(".").append(tasks.get(i)).append("\n");
         }
         String taskList = output.toString();
         System.out.println(taskList);
     }
 
     /**
-     * Add a to-do to the tasklist.
+     * Add a to-do, deadline or event to the tasklist.
      * @param task
      */
-    private void addToDo(ToDo task) {
-        tasks[index] = task;
+    private void addTask(Task task) {
+        tasks.add(task);
         index++;
     }
 
     /**
-     * Add a deadline to the tasklist.
-     * @param task
+     * Remove a to-do, deadline or event from the tasklist.
+     * @param idx
+     * @return removed Task
      */
-
-    private void addDeadline(Deadline task) {
-        tasks[index] = task;
-        index++;
-    }
-
-    /**
-     * Add an event to the tasklist.
-     * @param task
-     */
-    private void addEvent(Event task) {
-        tasks[index] = task;
-        index++;
+    private Task deleteTask(int idx) {
+        index--;
+        return tasks.remove(idx - 1);
     }
 
     /**
@@ -163,10 +158,8 @@ public class Reminderebot {
      * @param idx
      */
     private void markTask(int idx) {
-        if (idx > 0 && idx < index+1) {
-            Task task = tasks[idx-1];
-            task.markAsDone();
-        }
+        Task task = tasks.get(idx-1);
+        task.markAsDone();
     }
 
     /**
@@ -174,29 +167,24 @@ public class Reminderebot {
      * @param idx
      */
     private void unmarkTask(int idx) {
-        if (idx > 0 && idx <= index) {
-            Task task = tasks[idx - 1];
-            task.markAsUndone();
-        }
+        Task task = tasks.get(idx-1);
+        task.markAsUndone();
     }
 
     /**
      * Helper function to get all enum values as a HashSet of Strings
-     * @return
+     * @return a hashset of enum values
      */
     public static HashSet<String> getEnums() {
-
         HashSet<String> values = new HashSet<String>();
-
-        for (commands c : commands.values()) {
+        for (Commands c : Commands.values()) {
             values.add(c.name());
         }
-
         return values;
     }
 
     /**
-     * Checks if the input is exceptional.
+     * Checks if the input is valid.
      * @param input
      * @throws ReminderebotException
      */
@@ -204,11 +192,12 @@ public class Reminderebot {
         Scanner scan2 = new Scanner(input.trim());
         String command = scan2.next().toUpperCase();
         if (getEnums().contains(command)) { // if the input contains a command
-            switch (commands.valueOf(command)) {
+            switch (Commands.valueOf(command)) {
                 case MARK: // if the mark command lacks required arguments
                     String[] markInfo = input.split(" ");
                     if (scan2.hasNextInt() && markInfo.length==2) { // mark has necessary requirements
-                        if (scan2.nextInt() > index) { // however index is out of bounds
+                        int i = scan2.nextInt();
+                        if (i > index || i < 1) { // however index is out of bounds
                             throw new ReminderebotException("Item selected to be marked is not in list.\n" +
                                     "Syntax: mark <int>");
                         }
@@ -221,14 +210,29 @@ public class Reminderebot {
                 case UNMARK: // if the unmark command lacks required arguments
                     String[] unmarkInfo = input.split(" ");
                     if (scan2.hasNextInt() && unmarkInfo.length==2) { // mark has necessary requirements
-                        if (scan2.nextInt() > index) { // however index is out of bounds
+                        int i = scan2.nextInt();
+                        if (i > index || i < 1) { // however index is out of bounds
                             throw new ReminderebotException("Item selected to be marked is not in list.\n" +
-                                    "Syntax: mark <int>");
+                                    "Syntax: unmark <int>");
                         }
                         // else input is valid
                     } else {
                         throw new ReminderebotException("Unmark items by selecting their position.\n" +
                                 "Syntax: unmark <int>");
+                    }
+                    break;
+                case DELETE: // if the delete command lacks required arguments
+                    String[] deleteInfo = input.split(" ");
+                    if (scan2.hasNextInt() && deleteInfo.length==2) { // mark has necessary requirements
+                        int i = scan2.nextInt();
+                        if (i > index || i < 1) { // however index is out of bounds
+                            throw new ReminderebotException("Item selected to be deleted is not in list.\n" +
+                                    "Syntax: delete <int>");
+                        }
+                        // else input is valid
+                    } else {
+                        throw new ReminderebotException("Delete items by selecting their position.\n" +
+                                "Syntax: delete <int>");
                     }
                     break;
                 case TODO: // if the to-do command lacks required arguments
@@ -257,7 +261,7 @@ public class Reminderebot {
                     break;
             }
         } else { // exception: command not found
-            throw new ReminderebotException("I'm sorry, but I don't know what that means. :( \n" +
+            throw new ReminderebotException("I'm sorry, but I don't know what that means. :(\n" +
                     "Please enter a command below:\n" +
                     " bye\n list\n mark <int>\n unmark <int>\n todo <taskname>\n" +
                     " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>"

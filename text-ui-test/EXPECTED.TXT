@@ -48,6 +48,13 @@ ____________________________________________________________
 
 ____________________________________________________________
 
+ReminderebotException: Oops! Item selected to be marked is not in list.
+Syntax: mark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
 ReminderebotException: Oops! Mark items by selecting their position.
 Syntax: mark <int>
 ____________________________________________________________
@@ -70,7 +77,21 @@ ____________________________________________________________
 ____________________________________________________________
 
 ReminderebotException: Oops! Item selected to be marked is not in list.
-Syntax: mark <int>
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Item selected to be marked is not in list.
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Unmark items by selecting their position.
+Syntax: unmark <int>
 ____________________________________________________________
 
 
@@ -83,8 +104,36 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-ReminderebotException: Oops! Unmark items by selecting their position.
-Syntax: unmark <int>
+ReminderebotException: Oops! Delete items by selecting their position.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Item selected to be deleted is not in list.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Item selected to be deleted is not in list.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Delete items by selecting their position.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Delete items by selecting their position.
+Syntax: delete <int>
 ____________________________________________________________
 
 
@@ -149,6 +198,13 @@ ____________________________________________________________
 
 ____________________________________________________________
 
+ReminderebotException: Oops! Item selected to be marked is not in list.
+Syntax: mark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
 Nice! I've marked this task as done:
 [T][X] borrow book
 ____________________________________________________________
@@ -189,6 +245,13 @@ ____________________________________________________________
 
 ____________________________________________________________
 
+ReminderebotException: Oops! Item selected to be marked is not in list.
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
 OK, I've marked this task as not done yet:
 [T][ ] borrow book
 ____________________________________________________________
@@ -216,6 +279,53 @@ Here are the tasks in your list:
 3.[D][ ] return book (by: Sunday)
 4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Delete items by selecting their position.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Item selected to be deleted is not in list.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+OK, I've removed this task:
+[T][ ] borrow book
+Now you have 4 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Delete items by selecting their position.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Delete items by selecting their position.
+Syntax: delete <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+Here are the tasks in your list:
+1.[D][ ] return book (by: Sunday)
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 ____________________________________________________________
 
