@@ -92,6 +92,5 @@ public class Ui {
         System.out.println("Invalid task, "
                 + "please enter a valid task");
     }
-    
 
 }
