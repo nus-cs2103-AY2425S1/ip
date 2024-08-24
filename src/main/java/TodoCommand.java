@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class TodoCommand extends Command {
     private final Todo todo;
 
@@ -7,7 +9,7 @@ public class TodoCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        tasks.addTask(todo);
-        storage.saveTasks(tasks.getTasks());
+        ArrayList<Task> added = tasks.addTask(todo);
+        storage.saveTasks(added);
     }
 }

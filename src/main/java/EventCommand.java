@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class EventCommand extends Command {
     private final Event event;
 
@@ -7,7 +9,7 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        tasks.addTask(event);
-        storage.saveTasks(tasks.getTasks());
+        ArrayList<Task> added = tasks.addTask(event);
+        storage.saveTasks(added);
     }
 }

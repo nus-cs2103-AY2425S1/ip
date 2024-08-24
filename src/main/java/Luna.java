@@ -7,32 +7,44 @@ public class Luna {
 
     private Storage storage;
     private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        String greetings = "Hello! I'm Luna\n" +
-                "What can I do for you?";
-        System.out.println(greetings);
+    public Luna() {
+        this.storage = new Storage();
+        this.ui = new Ui();
 
-        Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage();
-        TaskList tasks = new TaskList(storage.loadTasks());
+        try {
+            this.tasks = new TaskList(storage.loadTasks());
+        } catch (LunaException e) {
+            ui.showError(e.getMessage());
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        System.out.println("Hello! I'm Luna\n" + "What can I do for you?");
+
         boolean isRunning = true;
 
         while (isRunning) {
-            String input = scanner.nextLine();
 
             try {
+                String input = ui.readCommand();
+                ui.showLine();
                 Command command = Parser.parse(input);
                 command.execute(tasks, storage);
                 if (command instanceof ExitCommand) {
                     isRunning = false;
                 }
             } catch (LunaException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             } finally {
-                storage.saveTasks(tasks.getTasks());
+                ui.showLine();
             }
         }
-        scanner.close();
+    }
+
+    public static void main(String[] args) {
+        new Luna().run();
     }
 }

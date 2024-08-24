@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class DeadlineCommand extends Command {
     private final Deadline deadline;
 
@@ -6,7 +8,7 @@ public class DeadlineCommand extends Command {
     }
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        tasks.addTask(deadline);
-        storage.saveTasks(tasks.getTasks());
+        ArrayList<Task> added = tasks.addTask(deadline);
+        storage.saveTasks(added);
     }
 }

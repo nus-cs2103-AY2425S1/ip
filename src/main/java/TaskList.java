@@ -11,14 +11,16 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    public ArrayList<Task> addTask(Task task) {
         tasks.add(task);
         String taskSize = String.format("Now you have %d tasks in the list.", tasks.size());
         System.out.println("Got it. I've added this task:\n" +
                 "  " + task + "\n" + taskSize);
+
+        return tasks;
     }
 
-    public void deleteTask(int task) throws LunaException {
+    public ArrayList<Task> deleteTask(int task) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
@@ -27,6 +29,8 @@ public class TaskList {
         System.out.println("Noted, I've removed this task:\n" +
                 "  " + removed.toString() + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
+
+        return tasks;
     }
 
     public void list() {
@@ -38,7 +42,7 @@ public class TaskList {
         }
     }
 
-    public void markTaskAsDone(int task) throws LunaException {
+    public ArrayList<Task> markTaskAsDone(int task) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
@@ -47,10 +51,12 @@ public class TaskList {
         taskToMark.markAsDone();
 
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + taskToMark.toString());
+        System.out.println("  " + taskToMark);
+
+        return tasks;
     }
 
-    public void unmarkTask(int task) throws LunaException {
+    public ArrayList<Task> unmarkTask(int task) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
@@ -59,14 +65,8 @@ public class TaskList {
         taskToUnmark.unmark();
 
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + taskToUnmark.toString());
-    }
+        System.out.println("  " + taskToUnmark);
 
-    public int size() {
-        return tasks.size();
-    }
-
-    public ArrayList<Task> getTasks() {
         return tasks;
     }
 }

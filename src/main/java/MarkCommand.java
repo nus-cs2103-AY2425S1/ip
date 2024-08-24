@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class MarkCommand extends Command {
     private final int taskToMark;
 
@@ -7,7 +9,8 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage) throws LunaException {
-        tasks.markTaskAsDone(taskToMark);
+        ArrayList<Task> marked = tasks.markTaskAsDone(taskToMark);
+        storage.saveTasks(marked);
     }
 }
 
