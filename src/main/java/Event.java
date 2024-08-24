@@ -6,6 +6,21 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+
+    public Event(Boolean isDone, String description, String from, String to) {
+        super(isDone, description);
+        this.from = from;
+        this.to = to;
+    }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public String getTo() {
+        return this.to;
+    }
+
     @Override
     public String markDone() {
         super.markDone();

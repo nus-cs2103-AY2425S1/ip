@@ -1,5 +1,10 @@
+import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 public class Cookie {
     enum Commands {
         list,
@@ -139,14 +144,99 @@ public class Cookie {
                 throw new CookieException("Cookie does not understand this command. I'm sorry!!");
         }
     }
+
+    public void fetchFile() {
+        File file = new File("./data/cookie.txt");
+        File directory = new File(file.getParent());
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                loadFile(file);
+            }
+        } catch (IOException | CookieException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void loadFile(File file) throws FileNotFoundException, CookieException {
+        Scanner fileScanner = new Scanner(file);
+
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();;
+            parseFileContent(line);
+        }
+    }
+
+    public void parseFileContent(String string) throws CookieException {
+        String[] parts = string.split(" \\| ");
+        System.out.println(Arrays.toString(parts));
+        String command = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String task = parts[2];
+        String details = parts.length > 3 ? parts[3] : "";
+
+        switch (command) {
+            case "T":
+                addTask(new ToDo(isDone, task));
+                break;
+            case "D":
+                addTask(new Deadline(isDone, task, details));
+                break;
+            case "E":
+                String[] eventDetails = details.split("-");
+                addTask(new Event(isDone, task, eventDetails[0], eventDetails[1]));
+                break;
+            default:
+                throw new CookieException("File contains unknown command");
+        }
+    }
+
+    public void saveFile() throws IOException {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/cookie.txt"))) {
+            for (Task task : taskArrayList) {
+                StringBuilder saveIntoFile = new StringBuilder();
+
+                if (task instanceof ToDo) {
+                    saveIntoFile.append("T | ");
+                } else if (task instanceof Deadline) {
+                    saveIntoFile.append("D | ");
+                } else if (task instanceof Event) {
+                    saveIntoFile.append("E | ");
+                }
+
+                saveIntoFile.append(task.getStatus().equals("[X]") ? "1 | " : "0 | ");
+                saveIntoFile.append(task.getDescription());
+
+                if (task instanceof Deadline) {
+                    saveIntoFile.append(" | ").append(((Deadline) task).getBy());
+                } else if (task instanceof Event) {
+                    saveIntoFile.append(" | ").append(((Event) task).getFrom())
+                            .append("-").append(((Event) task).getTo());
+                }
+
+                writer.write(saveIntoFile.toString());
+                writer.write(System.lineSeparator());
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         Cookie cookie = new Cookie();
+        cookie.fetchFile();
         System.out.println(cookie.printLogo() + cookie.printGreet());
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        while(!input.equals("bye")) {
+        while (!input.equals("bye")) {
             try {
                 cookie.handleInput(input);
             } catch (CookieException e) {
@@ -155,7 +245,13 @@ public class Cookie {
                 input = scanner.nextLine();
             }
         }
+
         scanner.close();
+        try {
+            cookie.saveFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println(cookie.printQuit());
 
     }

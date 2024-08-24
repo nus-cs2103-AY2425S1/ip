@@ -4,6 +4,13 @@ public class Deadline extends Task{
         super(description);
         this.by = by;
     }
+    public Deadline(boolean isDone, String description, String by) {
+        super(isDone, description);
+        this.by = by;
+    }
+    public String getBy() {
+        return by;
+    }
     @Override
     public String markDone() {
         super.markDone();

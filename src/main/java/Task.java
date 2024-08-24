@@ -5,6 +5,10 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+    public Task(boolean isDone, String description) {
+        this.description = description;
+        this.isDone = isDone;
+    }
     public String getStatus() {
         return isDone ? "X" : "";
     }
@@ -15,6 +19,9 @@ public abstract class Task {
     public String unmarkDone() {
         this.isDone = false;
         return this.toString();
+    }
+    public String getDescription() {
+        return this.description;
     }
     @Override
     public String toString() {
