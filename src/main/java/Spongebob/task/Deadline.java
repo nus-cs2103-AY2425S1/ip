@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
+    public String type;
     protected LocalDate by;
 
     public Deadline(String description, String by) throws SpongebobException {
@@ -29,8 +30,8 @@ public class Deadline extends Task {
 
         try {
             this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        } catch (DateTimeParseException e) {
-            System.out.println("Barnacles! Please enter date at dd/mm/yyyy!");
+        } catch (DateTimeParseException | NullPointerException e) {
+            throw new SpongebobException("Barnacles! Please enter date at dd/mm/yyyy!");
         }
 
     }
@@ -53,6 +54,7 @@ public class Deadline extends Task {
         return super.save()
                 + "|"
                 + this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
 
     }
 }

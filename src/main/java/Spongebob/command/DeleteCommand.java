@@ -7,7 +7,6 @@ import Spongebob.task.Task;
 
 public class DeleteCommand extends Command {
 
-
     private String[] arguments;
 
     public DeleteCommand(String[] arguments) {
@@ -31,5 +30,10 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String[] getArgs() {
+        return arguments;
     }
 }

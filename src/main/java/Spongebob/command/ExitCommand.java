@@ -15,4 +15,11 @@ public class ExitCommand extends Command {
     public boolean isExit() {
         return true;
     }
+
+    @Override
+    public String[] getArgs() {
+        return new String[]{"exit"};
+    }
+
+
 }

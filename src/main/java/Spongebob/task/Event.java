@@ -32,10 +32,11 @@ public class Event extends Task {
         }
 
         try {
+
             this.from = LocalDate.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             this.to = LocalDate.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        } catch (DateTimeParseException e) {
-            System.out.println("Barnacles! Please enter date at dd/mm/yyyy!");
+        } catch (DateTimeParseException | NullPointerException e) {
+            throw new SpongebobException("Barnacles! Please enter date at dd/mm/yyyy!");
         }
     }
 
@@ -53,9 +54,11 @@ public class Event extends Task {
     }
 
     @Override
-    public String save() {
+    public String save()  {
+
         return super.save() + "|"
                 + this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "|"
                 + this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
     }
 }
