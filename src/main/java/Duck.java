@@ -1,10 +1,21 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Duck {
-    static ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "data/duck.txt";
+
+    enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
     enum Instruction {
         LIST,
         MARK,
@@ -16,6 +27,21 @@ public class Duck {
         BYE
     }
     public static void main(String[] args) {
+
+        try {
+            System.out.println("Initializing Duck...");
+            File f = createFileIfDoesNotExist(FILE_PATH);
+            readFromFile(f);
+            System.out.println("Quack, Duck is up!");
+            sayHi();
+            getInputTillBye();
+            System.out.println("Bye. Hope to see you again soon!");
+        } catch (DuckException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void sayHi() {
         String logo = """
                         ,---,                                  ,-.
                       .'  .' `\\                            ,--/ /|
@@ -36,13 +62,8 @@ public class Duck {
         System.out.println("Hello from\n" + logo);
 
         System.out.println("Hello! I'm Duck");
-        System.out.println("What can I do for you?\n");
-
-        getInputTillBye();
-        System.out.println("Bye. Hope to see you again soon!");
-
+        System.out.println("What can I do for you, QUACK?\n");
     }
-
     // obtain user input till he inputs bye, ignoring case
     public static void getInputTillBye() {
         Scanner in = new Scanner(System.in);
@@ -85,7 +106,7 @@ public class Duck {
 
         } catch (IllegalArgumentException e) {
             System.out.println("Hey, that's not a valid instruction! I don't know how to respond to that.");
-        } catch (DukeException e) {
+        } catch (DuckException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -94,18 +115,18 @@ public class Duck {
         return message.split(" ")[0].toUpperCase();
     }
 
-    public static ToDo parseToDo(String input) throws DukeException {
+    public static ToDo parseToDo(String input) throws DuckException {
         // Normalize to lowercase and remove the todo keyword
         String description = input.replaceFirst("(?i)^todo\\s*", "").trim();
         if (description.isEmpty()) {
-            throw new DukeException("What are you trying \"to do\", mate? " +
+            throw new DuckException("What are you trying \"to do\", mate? " +
                     "Give me a valid description instead of an empty one.\n" +
                     "todo {description}");
         }
         return new ToDo(description);
     }
 
-    public static Deadline parseDeadline(String input) throws DukeException {
+    public static Deadline parseDeadline(String input) throws DuckException {
         // Regular expression to match the pattern for deadline
         Pattern pattern = Pattern.compile("(?i)^deadline\\s+(.+)\\s+/by\\s+(.+)$");
         Matcher matcher = pattern.matcher(input);
@@ -116,12 +137,12 @@ public class Duck {
             return new Deadline(description, deadline);
         }
         else {
-            throw new DukeException("Hey, a deadline instruction should be of the following format:\n"
+            throw new DuckException("Hey, a deadline instruction should be of the following format:\n"
                     + "deadline {description} /by {deadline}");
         }
     }
 
-    public static Event parseEvent(String input) throws DukeException {
+    public static Event parseEvent(String input) throws DuckException {
         // Regular expression to match the pattern for event
         Pattern pattern = Pattern.compile("(?i)^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$");
         Matcher matcher = pattern.matcher(input);
@@ -132,7 +153,7 @@ public class Duck {
             String to = matcher.group(3);
             return new Event(description, from, to);
         } else {
-            throw new DukeException("Give me a valid event format!\n"
+            throw new DuckException("Give me a valid event format!\n"
                     + "event {description} /from {start} /to {end}");
         }
 
@@ -147,17 +168,17 @@ public class Duck {
         System.out.println();
     }
 
-    public static void toDoInstruction(String message) throws DukeException{
+    public static void toDoInstruction(String message) throws DuckException {
         ToDo todo = parseToDo(message);
         addTask(todo);
     }
 
-    public static void deadlineInstruction(String message) throws DukeException{
+    public static void deadlineInstruction(String message) throws DuckException {
         Deadline deadline = parseDeadline(message);
         addTask(deadline);
     }
 
-    public static void eventInstruction(String message) throws DukeException{
+    public static void eventInstruction(String message) throws DuckException {
         Event event = parseEvent(message);
         addTask(event);
     }
@@ -165,6 +186,28 @@ public class Duck {
     public static boolean isCorrectUpdateFormat(String message) {
         String[] words = message.split(" ");
         return words.length == 2 && isInteger(words[1]);
+    }
+
+    private static boolean hasCorrectFileFormat(String[] words, TaskType type) {
+        switch (type) {
+        case TODO:
+            return words.length == 3
+                    && hasCorrectDoneFormat(words[1])
+                    && !words[2].isEmpty();
+        case DEADLINE:
+            return words.length == 4
+                    && hasCorrectDoneFormat(words[1])
+                    && !words[2].isEmpty()
+                    && !words[3].isEmpty();
+        case EVENT:
+            return words.length == 5
+                    && hasCorrectDoneFormat(words[1])
+                    && !words[2].isEmpty()
+                    && !words[3].isEmpty()
+                    && !words[4].isEmpty();
+        default:
+            return false;
+        }
     }
 
     public static boolean isInteger(String str) {
@@ -176,9 +219,9 @@ public class Duck {
         }
     }
 
-    public static void updateStatus(String message) throws DukeException {
+    public static void updateStatus(String message) throws DuckException {
         if (!isCorrectUpdateFormat(message)) {
-            throw new DukeException("Update tasks with correct format please >:(\n"
+            throw new DuckException("Update tasks with correct format please >:(\n"
                     + "mark/unmark {index of task to update}");
         }
 
@@ -189,37 +232,154 @@ public class Duck {
             } else {
                 tasks.get(Integer.parseInt(words[1]) - 1).markAsIncomplete();
             }
+            updateTaskInFile();
+
         } catch (NumberFormatException e) {
-            throw new DukeException("Oops! you have to indicate a valid task index!\n");
+            throw new DuckException("Oops! you have to indicate a valid task index!\n");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Oops! Index out of bound :( Input a valid task index.\n");
+            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
         }
     }
 
-    public static void deleteTask(String message) throws DukeException {
+    public static void deleteTask(String message) throws DuckException {
         if (!isCorrectUpdateFormat(message)) {
-            throw new DukeException("Delete tasks with correct format please >:(\n"
+            throw new DuckException("Delete tasks with correct format please >:(\n"
                     + "delete {index of task to delete}");
         }
 
         String[] words = message.split(" ");
 
         try {
+
             System.out.println("Noted. I've removed this task:\n"
                     + tasks.get(Integer.parseInt(words[1]) - 1));
             tasks.remove(Integer.parseInt(words[1]) - 1);
+            updateTaskInFile();
             System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+
+
         } catch (NumberFormatException e) {
-            throw new DukeException("Oops! you have to indicate a valid task index!\n");
+            throw new DuckException("Oops! you have to indicate a valid task index!\n");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Oops! Index out of bound :( Input a valid task index.\n");
+            throw new DuckException("Oops! Index out of bound :( Input a valid task index.\n");
         }
     }
-    public static void addTask(Task task) {
+    public static void addTask(Task task) throws DuckException {
         tasks.add(task);
+        appendTaskToFile(task);
         System.out.println("Got it. I've added this task:\n" + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
+
+    public static boolean hasCorrectDoneFormat(String isDone) {
+        return isDone.equals("0") || isDone.equals("1");
+    }
+    public static boolean getTaskDoneBoolean(String isDone) throws DuckException {
+        if (!hasCorrectDoneFormat(isDone)) {
+            throw new DuckException("Invalid task status in file: " + isDone);
+        }
+        return isDone.equals("1");
+    }
+    public static void readFromFile(File f) throws DuckException {
+        try {
+            Scanner sc = new Scanner(f);
+            int lineNumber = 0;
+            while (sc.hasNextLine()) {
+                lineNumber++;
+                String line = sc.nextLine();
+                String[] words = line.split(" \\| ");
+                Task task = null;
+                switch (words[0]) {
+                case "T":
+                    if (hasCorrectFileFormat(words, TaskType.TODO)) {
+                        task = new ToDo(
+                                getTaskDoneBoolean(words[1]),
+                                words[2]);
+                    }
+                    break;
+                case "D":
+                    if (hasCorrectFileFormat(words, TaskType.DEADLINE)) {
+                        task = new Deadline(
+                                getTaskDoneBoolean(words[1]),
+                                words[2],
+                                words[3]);
+                    }
+                    break;
+                case "E":
+                    if (hasCorrectFileFormat(words, TaskType.EVENT)) {
+                        task = new Event(
+                                getTaskDoneBoolean(words[1]),
+                                words[2],
+                                words[3],
+                                words[4]);
+                    }
+                    break;
+                default:
+                    continue;
+                }
+                if (task != null) {
+                    tasks.add(task);
+                } else {
+                    System.out.println("Warning: Skipping invalid line " + lineNumber + ": " + line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new DuckException("File not found: " + f.getPath());
+        }
+    }
+
+    public static File createFileIfDoesNotExist(String filePath) throws DuckException{
+        try {
+            File directory = getFileDirectory(filePath);
+            if (!directory.isDirectory()) {
+                directory.mkdir();
+            }
+
+            File f = new File(filePath);
+
+            if (f.createNewFile()) {
+                System.out.println("New file created under root path:\n"
+                        + "./" + filePath);
+            }
+
+            return f;
+        } catch (SecurityException e) {
+            System.out.println("Error creating directory due to security Exception:\n"
+                    + e.getMessage());
+
+        } catch (IOException e) {
+            throw new DuckException("Error creating file:\n"
+                    + e.getMessage());
+        }
+        return null;
+    }
+
+    public static File getFileDirectory(String filePath) {
+        return new File(filePath.substring(0, filePath.lastIndexOf('/')));
+    }
+
+    // make adding new task efficient by appending to file
+    public static void appendTaskToFile(Task task) throws DuckException {
+        try (FileWriter fw = new FileWriter(FILE_PATH, true)) {
+            fw.write(task.toFileFormat() + System.lineSeparator());
+        } catch (IOException e) {
+            throw new DuckException("Error writing to file:\n" + e.getMessage());
+        }
+    }
+
+    // update the file
+    public static void updateTaskInFile() throws DuckException {
+        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                fw.write(task.toFileFormat() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new DuckException("Error updating file:\n" + e.getMessage());
+        }
+    }
+
+
+
 
 
 }

@@ -7,12 +7,26 @@ public class Event extends Task{
         this.to = end;
     }
 
+    public Event(boolean isDone, String description, String start, String end) {
+        super(isDone, description);
+        this.from = start;
+        this.to = end;
+    }
+
+
+
+
     public String getStartTime() {
         return "from: " + this.from;
     }
 
     public String getEndTime() {
         return "to: " + this.to;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "E | " + super.toFileFormat() + " | " + from + " | " + to;
     }
     @Override
     public String toString() {

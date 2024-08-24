@@ -5,8 +5,18 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    public Deadline(boolean isDone, String description, String by) {
+        super(isDone, description);
+        this.by = by;
+    }
+
     public String getDeadline() {
         return "by: " + this.by;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + super.toFileFormat() + " | " + by;
     }
     @Override
     public String toString() {
