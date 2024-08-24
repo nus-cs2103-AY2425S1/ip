@@ -40,6 +40,9 @@ public class SumoDE {
         }
     }
 
+    /**
+     * Runs a task-management chatbot SumoDE
+     */
     public void run() {
 
         this.ui.greet();

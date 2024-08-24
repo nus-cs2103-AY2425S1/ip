@@ -38,6 +38,12 @@ public class Storage{
         }
     }
 
+    /**
+     * Save the tasks onto the file path provided on initialisation.
+     * <p>
+     * Takes o(number of tasks) time as each task is re-analysed and put into the file.
+     * @param tasks List of tasks to be save in file path.
+     */
     public void save(List<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath, false);
@@ -50,6 +56,13 @@ public class Storage{
         }
     }
 
+    /**
+     * Returns a String array based on what is saved in the file path during initialisation.
+     * <p>
+     * Each line in the file path is parsed into different slot in the array
+     * The array size will be equivalent to number of lines in the file.
+     * @return a String array of what each line is in the file.
+     */
     public String[] load() throws FileNotFoundException {
             Scanner s = new Scanner(f);
             s.useDelimiter("\\A");

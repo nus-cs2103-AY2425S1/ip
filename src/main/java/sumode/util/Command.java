@@ -16,6 +16,10 @@ public enum Command {
         return this.name().toLowerCase();
     }
 
+    /**
+     * Returns the expected format of input into chatbot SumoDE for various command.
+     * @return expected input format of each command
+     */
     public String expectedFormat() {
         return switch (this) {
             case MARK, UNMARK, DELETE -> this + " " + "<task index>";

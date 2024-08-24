@@ -39,6 +39,16 @@ public class SumoTaskList {
         this.ui = ui;
     }
 
+    /**
+     * Returns a boolean that indicates whether to terminate the programme after this command is finish.
+     *
+     * @param command Command given by user (first word in the input).
+     * @param item Everything after the first word.
+     * @return a boolean that indicates whether to terminate the programme after this command is finish.
+     * @throws NonExistentTaskException due to wrong index given to MARK/UNMARK/DELETE command
+     * @throws AlreadyUnmarkedException due to user trying to unmark an already unmarked task
+     * @throws AlreadyMarkedException due to user trying to mark an already marked task
+     */
     public boolean execute(Command command, String item)
             throws NonExistentTaskException, UnknownCommandException,
             WrongSyntaxForCommandException, AlreadyMarkedException,
