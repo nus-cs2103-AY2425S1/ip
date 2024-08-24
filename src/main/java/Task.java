@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone = false;
@@ -17,6 +19,16 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // if task is done, mark with X
     }
+
+    public void addTaskMessage(ArrayList<Task> tasks) {
+        tasks.add(this);
+        System.out.printf("\t%s%n", "------------------------------------------------------------------");
+        System.out.printf("\t%s%n", "Got it. I've added this task:");
+        System.out.printf("\t\t%s%n", this);
+        System.out.printf("\t%s%n", "Now you have " + tasks.size() + " tasks in the list.");
+        System.out.printf("\t%s%n", "------------------------------------------------------------------");
+    }
+
 
     @Override
     public String toString() {
