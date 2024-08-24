@@ -16,7 +16,7 @@ public class TaskList {
     }
 
     public TaskList markTaskAsDone(int taskIndex) {
-        return taskIndex <= taskList.size() && taskIndex >= 0
+        return taskIndex < taskList.size() && taskIndex >= 0
             ? new TaskList(taskList
                 .set(taskIndex, taskList
                     .get(taskIndex)
@@ -25,7 +25,7 @@ public class TaskList {
     }
 
     public TaskList markTaskAsUndone(int taskIndex) {
-        return taskIndex <= taskList.size() && taskIndex >= 0
+        return taskIndex < taskList.size() && taskIndex >= 0
             ? new TaskList(taskList
                 .set(taskIndex, taskList
                     .get(taskIndex)
@@ -34,7 +34,7 @@ public class TaskList {
     }
 
     public Task get(int taskIndex) {
-        return taskIndex <= taskList.size() && taskIndex >= 0
+        return taskIndex < taskList.size() && taskIndex >= 0
             ? taskList.get(taskIndex)
             : new Task("");
     }

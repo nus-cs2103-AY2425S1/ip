@@ -10,16 +10,17 @@ public class Elliot {
         introSay();
         while(running) {
             System.out.print("> ");
-            String userInput = captureUserInput(scanner);
+            String userInput = captureUserInput(scanner).strip();
+            String[] command = userInput.toLowerCase().split(" ", 2);
             say("");
-            switch(userInput.toLowerCase().split(" ")[0]) {
+            switch (command[0]) {
                 case "mark":
                 case "unmark":
                     int taskIndex;
                     try {
-                        taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                        taskIndex = Integer.parseInt(command[1]);
                         if (taskIndex <= taskList.size() && taskIndex > 0) {
-                            switch(userInput.toLowerCase().split(" ")[0]) {
+                            switch(command[0]) {
                                 case "mark":
                                     taskList = taskList.markTaskAsDone(taskIndex - 1);
                                     say("Nice! I've marked this task as done:\n"
@@ -46,9 +47,45 @@ public class Elliot {
                     byeSay();
                     running = false;
                     break;
+                case "todo":
+                case "deadline":
+                case "event":
                 default:
-                    taskList = taskList.addTask(new Task(userInput.strip()));
-                    say("added: " + userInput.strip() + "\n");
+                    String[] commandOptions;
+                    if (command.length < 2) {
+                        say("describe your task\n");
+                        break;
+                    }
+                    Task taskToAdd;
+                    switch (command[0]) {
+                        case "todo":
+                            taskToAdd = new TodoTask(userInput);
+                            break;
+                        case "deadline":
+                            commandOptions = command[1].split("/by");
+                            if(commandOptions.length < 2) {
+                                taskToAdd = new DeadlineTask(commandOptions[0]);
+                            } else {
+                                taskToAdd = new DeadlineTask(commandOptions[0], commandOptions[1]);
+                            }
+
+                            break;
+                        case "event":
+                            commandOptions = command[1].split("/from|/to");
+                            if (commandOptions.length < 3) {
+                                taskToAdd = new EventTask(commandOptions[0]);
+                            } else {
+                                taskToAdd = new EventTask(commandOptions[0], commandOptions[1], 
+                                        commandOptions[2]);
+                            }
+                            break;
+                        default:
+                            taskToAdd = new Task(userInput);
+                    }
+                    taskList = taskList.addTask(taskToAdd);
+                    say("Got it. I've added this task:\n"
+                            + taskToAdd.toString() + "\n"
+                            + "Now you have " + taskList.size() + " tasks in the list.\n");
             }
         }
     }
