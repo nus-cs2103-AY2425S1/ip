@@ -1,0 +1,6 @@
+todo apple
+deadline banana /by Wednesday
+event chiku /from 0800hrs /to 1000hrs
+unmark 1
+mark 1
+mark 1
