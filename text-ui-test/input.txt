@@ -28,4 +28,10 @@ mark attendance
 unmark attendance
 delete 1
 delete 1
+deadline watch him die /by 2024-08-24
+event kill people /from 2024-08-24 /to 2044-08-24
+mark 1
+list
+delete 1
+delete 1
 bye

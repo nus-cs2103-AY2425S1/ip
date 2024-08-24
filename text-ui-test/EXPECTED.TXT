@@ -189,6 +189,41 @@ There are now 0 task(s) in total!
 ------------------------------------
 Do you need anything else from SUMO?
 ------------------------------------
+Sumo has added this task for you.
+[D][ ]watch him die (by: Aug 24 2024)
+There are now 1 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo has added this task for you.
+[E][ ]kill people (from: Aug 24 2024 to: Aug 24 2044)
+There are now 2 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo has marked this task as done.
+[D][X]watch him die (by: Aug 24 2024)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Below is the list of tasks:
+1. [D][X]watch him die (by: Aug 24 2024)
+2. [E][ ]kill people (from: Aug 24 2024 to: Aug 24 2044)
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo removed this task for you.
+[D][X]watch him die (by: Aug 24 2024)
+There are now 1 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
+Sumo removed this task for you.
+[E][ ]kill people (from: Aug 24 2024 to: Aug 24 2044)
+There are now 0 task(s) in total!
+------------------------------------
+Do you need anything else from SUMO?
+------------------------------------
 ------------------------------------
 Goodbye! Sumo hope to see you again!
 ------------------------------------
