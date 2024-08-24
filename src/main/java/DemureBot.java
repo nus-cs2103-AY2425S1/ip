@@ -141,7 +141,7 @@ public class DemureBot {
         Scanner scanner = new Scanner(System.in);
 
         // check if user ended session
-        boolean finished = false;
+        boolean isFinished = false;
         // list of items to do
         ArrayList<Task> list = new ArrayList<>();
 
@@ -156,12 +156,12 @@ public class DemureBot {
         );
 
         // while user hasn't ended session
-        while (!finished) {
+        while (!isFinished) {
             String command = scanner.nextLine();
 
             if (command.equals("bye")) {
                 // end session
-                finished = true;
+                isFinished = true;
             } else if (command.equals("list")) {
                 // list all tasks
                 for (int i = 0; i < list.size(); i++) {
