@@ -1,19 +1,19 @@
-public class Event extends Task{
-    private String from;
-    private String to;
-    public Event(String description, String start, String end) {
+import java.time.LocalDateTime;
+
+public class Event extends Task implements Datable{
+    private LocalDateTime from;
+    private LocalDateTime to;
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.from = start;
         this.to = end;
     }
 
-    public Event(boolean isDone, String description, String start, String end) {
+    public Event(boolean isDone, String description, LocalDateTime start, LocalDateTime end) {
         super(isDone, description);
         this.from = start;
         this.to = end;
     }
-
-
 
 
     public String getStartTime() {
@@ -26,12 +26,14 @@ public class Event extends Task{
 
     @Override
     public String toFileFormat() {
-        return "E | " + super.toFileFormat() + " | " + from + " | " + to;
+        return "E | " + super.toFileFormat()
+                + " | " + getFileDateString(from)
+                + " | " + getFileDateString(to);
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "("
-                + this.getStartTime() + " "
-                + this.getEndTime() + ")";
+        return "[E]" + super.toString()
+                + "(from: " + getDisplayDateString(from) + " "
+                + "to: " + getDisplayDateString(to) + ")";
     }
 }

@@ -138,8 +138,8 @@ public class Duck {
         if (matcher.matches()) {
             String description = matcher.group(1);
             String deadlineStr = matcher.group(2);
-//            LocalDateTime deadline = convertToDateTime(deadlineStr);
-            return new Deadline(description, deadlineStr);
+            LocalDateTime deadline = convertToDateTime(deadlineStr);
+            return new Deadline(description, deadline);
         }
         else {
             throw new DuckException("Hey, a deadline instruction should be of the following format:\n"
@@ -154,8 +154,10 @@ public class Duck {
 
         if (matcher.matches()) {
             String description = matcher.group(1);
-            String from = matcher.group(2);
-            String to = matcher.group(3);
+            String fromStr = matcher.group(2);
+            String toStr = matcher.group(3);
+            LocalDateTime from = convertToDateTime(fromStr);
+            LocalDateTime to = convertToDateTime(toStr);
             return new Event(description, from, to);
         } else {
             throw new DuckException("Give me a valid event format!\n"
@@ -194,25 +196,31 @@ public class Duck {
     }
 
     private static boolean hasCorrectFileFormat(String[] words, TaskType type) {
-        switch (type) {
-        case TODO:
-            return words.length == 3
-                    && hasCorrectDoneFormat(words[1])
-                    && !words[2].isEmpty();
-        case DEADLINE:
-            return words.length == 4
-                    && hasCorrectDoneFormat(words[1])
-                    && !words[2].isEmpty()
-                    && !words[3].isEmpty();
-        case EVENT:
-            return words.length == 5
-                    && hasCorrectDoneFormat(words[1])
-                    && !words[2].isEmpty()
-                    && !words[3].isEmpty()
-                    && !words[4].isEmpty();
-        default:
+        try {
+            switch (type) {
+            case TODO:
+                return words.length == 3
+                        && hasCorrectDoneFormat(words[1])
+                        && !words[2].isEmpty();
+            case DEADLINE:
+                if (words.length == 4) {
+                    convertToDateTime(words[3]);
+                    return hasCorrectDoneFormat(words[1]) && !words[2].isEmpty();
+                }
+
+            case EVENT:
+                if (words.length == 5) {
+                    convertToDateTime(words[3]);
+                    convertToDateTime(words[4]);
+                    return hasCorrectDoneFormat(words[1]) && !words[2].isEmpty();
+                }
+            default:
+                return false;
+            }
+        } catch (DuckException e) {
             return false;
         }
+
     }
 
     public static boolean isInteger(String str) {
@@ -307,7 +315,7 @@ public class Duck {
                         task = new Deadline(
                                 getTaskDoneBoolean(words[1]),
                                 words[2],
-                                words[3]);
+                                convertToDateTime(words[3]));
                     }
                     break;
                 case "E":
@@ -315,8 +323,8 @@ public class Duck {
                         task = new Event(
                                 getTaskDoneBoolean(words[1]),
                                 words[2],
-                                words[3],
-                                words[4]);
+                                convertToDateTime(words[3]),
+                                convertToDateTime(words[4]));
                     }
                     break;
                 default:

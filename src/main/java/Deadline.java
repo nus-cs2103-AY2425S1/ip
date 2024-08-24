@@ -1,26 +1,25 @@
-public class Deadline extends Task{
-    private String by;
-    public Deadline(String description, String by) {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends Task implements Datable{
+    private LocalDateTime by;
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(boolean isDone, String description, String by) {
+    public Deadline(boolean isDone, String description, LocalDateTime by) {
         super(isDone, description);
         this.by = by;
     }
 
-    public String getDeadline() {
-        return "by: " + this.by;
-    }
-
     @Override
     public String toFileFormat() {
-        return "D | " + super.toFileFormat() + " | " + by;
+        return "D | " + super.toFileFormat() + " | " + getFileDateString(by);
     }
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + "(" + getDeadline() + ")";
+                + "(by: " + getDisplayDateString(by) + ")";
     }
 }
