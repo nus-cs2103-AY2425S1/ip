@@ -8,8 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class Duck {
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -28,6 +30,7 @@ public class Duck {
         TODO,
         DEADLINE,
         EVENT,
+        ON,
         BYE
     }
     public static void main(String[] args) {
@@ -104,6 +107,8 @@ public class Duck {
             case EVENT:
                 eventInstruction(message);
                 break;
+            case ON:
+                onInstruction(message);
             default:
                 break;
             }
@@ -158,7 +163,12 @@ public class Duck {
             String toStr = matcher.group(3);
             LocalDateTime from = convertToDateTime(fromStr);
             LocalDateTime to = convertToDateTime(toStr);
-            return new Event(description, from, to);
+            if (!to.isAfter(from)){
+                throw new DuckException("The end time of an event should be after the start time!");
+            } else {
+                return new Event(description, from, to);
+            }
+
         } else {
             throw new DuckException("Give me a valid event format!\n"
                     + "event {description} /from {start} /to {end}");
@@ -190,6 +200,35 @@ public class Duck {
         addTask(event);
     }
 
+    // checks that the instruction is of the format "on yyyy-MM-dd" and list deadline with by on that date and list event with to after that date
+    public static void onInstruction(String message) throws DuckException {
+        String[] words = message.split(" ");
+        if (words.length != 2) {
+            throw new DuckException("The format for 'On' instruction is:\n"
+                    + "on {yyyy-MM-dd}");
+        }
+        LocalDate date = LocalDate.parse(words[1]);
+        AtomicInteger idx = new AtomicInteger(1);
+
+        System.out.println("Here are the tasks due by " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        Stream<Deadline> deadlineStream = tasks.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline) task)
+                .filter(deadline -> deadline.isOn(date));
+        deadlineStream.forEach(deadline -> System.out.println(idx.getAndIncrement() + "." + deadline.toString()));
+
+        idx.set(1);
+        System.out.println();
+
+        System.out.println("Here are the events still happening on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        Stream<Event> eventStream = tasks.stream()
+                .filter(task -> task instanceof Event)
+                .map(task -> (Event) task)
+                .filter(event -> event.isEndingAfter(date));
+        eventStream.forEach(event -> System.out.println(idx.getAndIncrement() + "." + event.toString()));
+        System.out.println();
+    }
+
     public static boolean isCorrectUpdateFormat(String message) {
         String[] words = message.split(" ");
         return words.length == 2 && isInteger(words[1]);
@@ -210,9 +249,11 @@ public class Duck {
 
             case EVENT:
                 if (words.length == 5) {
-                    convertToDateTime(words[3]);
-                    convertToDateTime(words[4]);
-                    return hasCorrectDoneFormat(words[1]) && !words[2].isEmpty();
+                    ;
+                    return hasCorrectDoneFormat(words[1])
+                            && !words[2].isEmpty()
+                            && convertToDateTime(words[3])
+                                    .isBefore(convertToDateTime(words[4]));
                 }
             default:
                 return false;

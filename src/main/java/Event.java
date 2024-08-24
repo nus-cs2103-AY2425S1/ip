@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Event extends Task implements Datable{
@@ -15,13 +16,8 @@ public class Event extends Task implements Datable{
         this.to = end;
     }
 
-
-    public String getStartTime() {
-        return "from: " + this.from;
-    }
-
-    public String getEndTime() {
-        return "to: " + this.to;
+    public boolean isEndingAfter(LocalDate date) {
+        return !to.toLocalDate().isBefore(date);
     }
 
     @Override

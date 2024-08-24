@@ -1,5 +1,5 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task implements Datable{
     private LocalDateTime by;
@@ -11,6 +11,10 @@ public class Deadline extends Task implements Datable{
     public Deadline(boolean isDone, String description, LocalDateTime by) {
         super(isDone, description);
         this.by = by;
+    }
+
+    public boolean isOn(LocalDate date) {
+        return by.toLocalDate().equals(date);
     }
 
     @Override
