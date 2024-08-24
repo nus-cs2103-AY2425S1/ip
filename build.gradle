@@ -30,12 +30,15 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Spongebob.Spongebob")
 }
 
+mainClassName = 'Spongebob.Spongebob'
+
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "spongebob"
     archiveClassifier = null
+    archiveFileName = 'spongebob.jar'
 }
 
 run{
