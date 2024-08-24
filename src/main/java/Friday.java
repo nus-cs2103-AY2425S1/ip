@@ -41,6 +41,10 @@ public class Friday {
                     break;
                 case "List":
                 case "list":
+                    if (master.getSize() <= 0) {
+                        System.out.println("Friday > No tasks in here! Try adding something!\n");
+                        break;
+                    }
                     System.out.println("Friday > Here's everything!\n" + master);
                     break;
                 case "Remove":
@@ -50,14 +54,20 @@ public class Friday {
                         master.removeTask(index-1);
                         break;
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        System.out.println("Friday > Input the task number to remove the task\n");
+                        System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task\n");
                         break;
                     }
                 case "Add":
                 case "add":
-                    master.addTask(parsed[1]);
-                    printLine();
-                    break;
+                    try {
+                        master.addTask(parsed[1]);
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Friday > Try doing add <task name> \n");
+                        break;
+                    } finally {
+                        printLine();
+                    }
                 case "mark":
                 case "unmark":
                     try {
@@ -69,8 +79,24 @@ public class Friday {
                         System.out.println("Friday > Input the task number to mark/unmark the task\n");
                         break;
                     }
+                case "help":
+                case "Help":
+                    System.out.println("""
+                        Friday > Hello! I'm Friday! Your personal chatbot for ensuring you get things done by Friday ;)
+                        To create a new task, type "add <task name>" and follow the instructions.
+                        
+                        Other commands:
+                        help            displays this page
+                        list            lists all tasks available
+                        mark <index>    mark a task as completed
+                        unmark <index>  mark a task as incomplete
+                        remove <index>  remove task from list
+                        bye             exit program
+                        """);
+                    printLine();
+                    break;
                 default:
-                    System.out.println("Friday > Try add/remove <task>\n");
+                    System.out.println("Friday > Hmm...you can't do that. Try add/remove <task> or \"help\" for more options \n");
                     printLine();
                     break;
             }

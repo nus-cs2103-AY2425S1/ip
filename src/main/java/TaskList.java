@@ -19,8 +19,7 @@ public class TaskList {
                 2. Deadline - Has end date
                 3. Event - Has start and end date
                 """);
-        String type = sc.nextLine();
-        switch(type){
+        switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
             case "1":
                 this.parent.add(new Todo(task));
                 uncompleted++;
@@ -28,15 +27,15 @@ public class TaskList {
                 break;
             case "2":
                 System.out.println("What is the deadline?");
-                this.parent.add(new Deadline(task, sc.nextLine()));
+                this.parent.add(new Deadline(task, getInputFromUser(sc, "Deadline > ")));
                 uncompleted++;
                 System.out.println("Friday > Okay, I've added a deadline: " + task);
                 break;
             case "3":
                 System.out.println("What is the start date?");
-                String start = sc.nextLine();
+                String start = getInputFromUser(sc, "Start Date > ");
                 System.out.println("What is the end date?");
-                this.parent.add(new Event(task, start, sc.nextLine()));
+                this.parent.add(new Event(task, start, getInputFromUser(sc, "End Date > ")));
                 uncompleted++;
                 System.out.println("Friday > Okay, I've added an event: " + task);
                 break;
@@ -65,6 +64,10 @@ public class TaskList {
         return ans;
     }
 
+    public int getSize() {
+        return this.parent.size();
+    }
+
     public void doneTask(String action, int task) {
         if (action.equals("mark") || action.equals("Mark")) {
             this.parent.get(task).setDone();
@@ -76,6 +79,20 @@ public class TaskList {
             uncompleted++;
             completed--;
             System.out.println("Friday > Oh man! Marked as undone :(");
+        }
+    }
+
+    public String getInputFromUser(Scanner sc, String template) {
+        while (true) {
+            System.out.print(template);
+            String str = sc.nextLine();
+            if (str.length() <= 0) {
+                System.out.println("Friday > Invalid input! Did you make sure to type something?");
+
+                continue;
+            } else {
+                return str.trim();
+            }
         }
     }
 }
