@@ -6,8 +6,85 @@ ____________________________________________________________
 
 ____________________________________________________________
 
+ReminderebotException: Oops! I'm sorry, but I don't know what that means. :(
+Please enter a command below:
+ bye
+ list
+ mark <int>
+ unmark <int>
+ todo <taskname>
+ deadline <taskname> /by <duedate>
+ event <name> /from <datetime> /to <datetime>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! The description of a todo cannot be empty.
+Syntax: todo <taskname>
+____________________________________________________________
+
+
+____________________________________________________________
+
 Here are the tasks in your list:
 
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Mark items by selecting their position.
+Syntax: mark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Item selected to be marked is not in list.
+Syntax: mark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Mark items by selecting their position.
+Syntax: mark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Mark items by selecting their position.
+Syntax: mark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Unmark items by selecting their position.
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Item selected to be marked is not in list.
+Syntax: mark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Unmark items by selecting their position.
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Unmark items by selecting their position.
+Syntax: unmark <int>
 ____________________________________________________________
 
 
@@ -30,8 +107,24 @@ ____________________________________________________________
 ____________________________________________________________
 
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[D][ ] return book (by: Sunday)
 Now you have 3 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+
+Got it. I've added this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 4 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+
+Got it. I've added this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 5 tasks in the list.
 ____________________________________________________________
 
 
@@ -40,8 +133,17 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Mark items by selecting their position.
+Syntax: mark <int>
 ____________________________________________________________
 
 
@@ -54,39 +156,15 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+ReminderebotException: Oops! Mark items by selecting their position.
+Syntax: mark <int>
 ____________________________________________________________
 
 
 ____________________________________________________________
 
-Nice! I've marked this task as done:
-[E][X] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-
-
-____________________________________________________________
-
-Nice! I've marked this task as done:
-[E][X] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-
-
-____________________________________________________________
-
-Here are the tasks in your list:
-1.[T][X] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
-
-____________________________________________________________
-
-
-____________________________________________________________
-
-OK, I've marked this task as not done yet:
-[D][ ] return book (by: Sunday)
+ReminderebotException: Oops! Mark items by selecting their position.
+Syntax: mark <int>
 ____________________________________________________________
 
 
@@ -95,13 +173,54 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] borrow book
 2.[D][ ] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 ____________________________________________________________
 
-____________________________________________________________
 
 ____________________________________________________________
+
+ReminderebotException: Oops! Unmark items by selecting their position.
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Unmark items by selecting their position.
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+ReminderebotException: Oops! Unmark items by selecting their position.
+Syntax: unmark <int>
+____________________________________________________________
+
+
+____________________________________________________________
+
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+____________________________________________________________
+
+
+____________________________________________________________
+
  Bye. Hope to see you again soon!
-____________________________________________________________
 ____________________________________________________________

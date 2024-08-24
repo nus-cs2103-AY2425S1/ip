@@ -3,7 +3,7 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         this.isDone = false;
     }
 
@@ -21,6 +21,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
