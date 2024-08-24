@@ -8,6 +8,11 @@ public class Hamyo {
 
     private static boolean active = true;
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
 
     public static void main(String[] args) {
 
@@ -19,11 +24,11 @@ public class Hamyo {
             try {
                 String str = scanner.nextLine();
                 if (str.startsWith("todo")) {
-                    add("todo", str.substring(4));
+                    add(TaskType.TODO, str.substring(4));
                 } else if (str.startsWith("deadline")) {
-                    add("deadline", str.substring(8));
+                    add(TaskType.DEADLINE, str.substring(8));
                 } else if (str.startsWith("event")) {
-                    add("event", str.substring(5));
+                    add(TaskType.EVENT, str.substring(5));
                 } else if (str.equals("list")) {
                     listTasks();
                 } else if (str.startsWith("mark")) {
@@ -70,13 +75,13 @@ public class Hamyo {
         printLine();
     }
 
-    public static void add (String taskType, String task) throws HamyoException {
-        if (taskType.equals("todo")) {
+    public static void add (TaskType taskType, String task) throws HamyoException {
+        if (taskType.equals(TaskType.TODO)) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: todo [task description]");
             }
             tasks.add(new ToDo(new String[]{task.substring(1)}));
-        } else if (taskType.equals("deadline")) {
+        } else if (taskType.equals(TaskType.DEADLINE)) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: deadline [task description] /by [deadline]");
             }
@@ -85,7 +90,7 @@ public class Hamyo {
                 throw new HamyoException("Usage: deadline [task description] /by [deadline]");
             }
             tasks.add(new Deadline(split));
-        } else if (taskType.equals("event")) {
+        } else if (taskType.equals(TaskType.EVENT)) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: event [task description] /from [start timestamp] /to [end timestamp]");
             }
