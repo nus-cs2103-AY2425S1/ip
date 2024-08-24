@@ -55,17 +55,29 @@ public class Ponder_Pika {
                         break;
                     case "mark":
                         int markIndex = Integer.parseInt(commands[1]);
-                        myList.get(markIndex - 1).markDone();
-                        System.out.println("Your task has been marked as done.");
-                        System.out.println(myList.get(markIndex - 1).toString());
-                        printDivider();
+
+                        if (markIndex > 0 && markIndex <= myList.size()) {
+                            myList.get(markIndex - 1).markDone();
+                            System.out.println("Your task has been marked as done.");
+                            System.out.println(myList.get(markIndex - 1).toString());
+                            printDivider();
+                        } else {
+                            throw new PonderPikaException("No task available at given index!");
+                        }
+
                         break;
                     case "unmark":
                         int unMarkIndex = Integer.parseInt(commands[1]);
-                        myList.get(unMarkIndex - 1).markUndone();
-                        System.out.println("Your task has been undone.");
-                        System.out.println(myList.get(unMarkIndex - 1).toString());
-                        printDivider();
+
+                        if (unMarkIndex > 0 && unMarkIndex <= myList.size()) {
+                            myList.get(unMarkIndex - 1).markUndone();
+                            System.out.println("Your task has been undone.");
+                            System.out.println(myList.get(unMarkIndex - 1).toString());
+                            printDivider();
+                        } else {
+                            throw new PonderPikaException("No task available at given index!");
+                        }
+
                         break;
                     case "todo":
                         if (commands.length == 1) {
