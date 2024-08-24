@@ -12,7 +12,7 @@ public class Janet {
 
     Janet(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
-        this.taskIndex = 0;
+        this.taskIndex = listOfTasks.size() + 1;
     }
 
     /**
