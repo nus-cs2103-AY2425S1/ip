@@ -24,7 +24,7 @@ public class AddDeadlineCommand extends Command {
 
     @Override
     public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException, IOException {
-        Deadline deadline = new Deadline(description, this.deadline);
+        Deadline deadline = new Deadline(description, this.deadline, false);
         storage.addTask(deadline);
         ui.printMessage("Got it. I've added this task:\n  " + deadline);
         return true;

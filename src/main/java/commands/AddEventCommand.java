@@ -35,7 +35,7 @@ public class AddEventCommand extends Command {
     @Override
     public boolean execute(Ui ui, TaskStorage storage) {
         try {
-            Event event = new Event(description, startTime, endTime);
+            Event event = new Event(description, startTime, endTime, false);
             storage.addTask(event);
             ui.printMessage("Got it. I've added this task:\n  " + event);
         } catch (SkibidiException | IOException e) {

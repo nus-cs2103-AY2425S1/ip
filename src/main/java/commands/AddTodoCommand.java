@@ -21,7 +21,7 @@ public class AddTodoCommand extends Command {
     @Override
     public boolean execute(Ui ui, TaskStorage storage) {
         try {
-            Todo todo = new Todo(description);
+            Todo todo = new Todo(description, false);
             storage.addTask(todo);
             ui.printMessage("Got it. I've added this task:\n  " + todo);
         } catch (SkibidiException | IOException e) {
