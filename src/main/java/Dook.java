@@ -1,11 +1,16 @@
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Dook {
     private static Scanner scanner = new Scanner(System.in);
@@ -37,6 +42,9 @@ public class Dook {
 
     public static void list() throws FileNotFoundException {
         System.out.println(separator);
+        if (tasks.size() == 0) {
+            System.out.println("No tasks");
+        }
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(i + ". " + tasks.get(i - 1));
         }
@@ -81,13 +89,15 @@ public class Dook {
         System.out.println(separator);
     }
 
-    public static void createDeadline(String description, String by) throws DookException, IOException {
+    public static void createDeadline(String description, String by) throws DookException, IOException, DateTimeParseException {
         if (description.isEmpty()) {
             throw new DookException("Need a description for your deadline");
         } else if (by.isEmpty()) {
             throw new DookException("Need a due date for your deadline");
         }
-        Task deadline = new Deadline(description, by);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        Task deadline = new Deadline(description, LocalDateTime.parse(by, formatter));
         tasks.add(deadline);
         saveToFile();
         System.out.println(separator);
@@ -97,7 +107,7 @@ public class Dook {
         System.out.println(separator);
     }
 
-    public static void createEvent(String description, String start, String end) throws DookException, IOException {
+    public static void createEvent(String description, String start, String end) throws DookException, IOException, DateTimeParseException {
         if (description.isEmpty()) {
             throw new DookException("Need a description for your event");
         } else if (start.isEmpty() && end.isEmpty()) {
@@ -108,7 +118,8 @@ public class Dook {
             throw new DookException("Need an end time for your event");
         }
 
-        Task event = new Event(description, start, end);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        Task event = new Event(description, LocalDateTime.parse(start, formatter), LocalDateTime.parse(end, formatter));
         tasks.add(event);
         saveToFile();
         System.out.println(separator);
@@ -148,16 +159,17 @@ public class Dook {
             String taskType = components[0];
             boolean isDone = components[1].equals("1");
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             Task task;
             switch (taskType) {
             case "T":
                 task = new Todo(components[2]);
                 break;
             case "D" :
-                task = new Deadline(components[2], components[3]);
+                task = new Deadline(components[2], LocalDateTime.parse(components[3], formatter));
                 break;
             case "E" :
-                task = new Event(components[2], components[3], components[4]);
+                task = new Event(components[2], LocalDateTime.parse(components[3], formatter), LocalDateTime.parse(components[4], formatter));
                 break;
             default:
                 continue;
@@ -244,6 +256,11 @@ public class Dook {
             } catch (DookException e) {
                 System.out.println(separator);
                 System.out.println(e.getMessage());
+                System.out.println(separator);
+            } catch (DateTimeParseException e) {
+                System.out.println(separator);
+                System.out.println(e.getMessage());
+                System.out.println("Enter your date in yyyy-MM-dd HH:mm format");
                 System.out.println(separator);
             }
 
