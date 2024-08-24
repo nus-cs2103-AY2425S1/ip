@@ -1,20 +1,18 @@
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import static utility.Printer.printWithDivider;
 
 import commands.CommandType;
 import commands.InvalidCommandException;
+import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
-import tasks.Task;
+import tasks.TaskList;
 import tasks.Todo;
 
 public class Thanos {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
-
-    private static void printWithDivider(String s) {
-        System.out.print(s);
-        System.out.println("-".repeat(50));
-    }
+    private static final Storage storage = new Storage("data.txt");
+    private static final TaskList tasks = new TaskList(storage);
 
     private static String[] parseInput(String input) throws InvalidCommandException {
         if (input.trim().isEmpty()) {
@@ -32,13 +30,7 @@ public class Thanos {
     }
 
     private static void listTasks() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            sb.append(String.format("%d.%s\n", i + 1, task));
-        }
-        printWithDivider(sb.toString());
+        tasks.listTasks();
     }
 
     private static void markTask(String argument) throws InvalidCommandException {
@@ -56,9 +48,7 @@ public class Thanos {
 
         try {
             int index = Integer.parseInt(argument) - 1;
-            Task task = tasks.get(index);
-            task.setDone(true);
-            printWithDivider(String.format("Nice! I've marked this task as done:\n  %s\n", task));
+            tasks.mark(index);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
@@ -81,20 +71,12 @@ public class Thanos {
 
         try {
             int index = Integer.parseInt(argument) - 1;
-            Task task = tasks.get(index);
-            task.setDone(false);
-            printWithDivider(String.format("OK, I've marked this task as not done yet:\n  %s\n", task));
+            tasks.unmark(index);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is out of range.");
         }
-    }
-
-    private static void printTaskAdded(Task task) {
-        printWithDivider(String.format(
-                "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size()
-        ));
     }
 
     private static void addTodo(String argument) throws InvalidCommandException {
@@ -105,7 +87,6 @@ public class Thanos {
         }
         Todo todo = new Todo(argument);
         tasks.add(todo);
-        printTaskAdded(todo);
     }
 
     private static void addDeadline(String argument) throws InvalidCommandException {
@@ -117,7 +98,6 @@ public class Thanos {
         }
         Deadline deadline = new Deadline(detailsArr[0], detailsArr[1]);
         tasks.add(deadline);
-        printTaskAdded(deadline);
     }
 
     private static void addEvent(String argument) throws InvalidCommandException {
@@ -137,7 +117,6 @@ public class Thanos {
 
         Event event = new Event(description, fromToArr[0], fromToArr[1]);
         tasks.add(event);
-        printTaskAdded(event);
     }
 
     private static void deleteTask(String argument) throws InvalidCommandException {
@@ -155,10 +134,7 @@ public class Thanos {
 
         try {
             int index = Integer.parseInt(argument) - 1;
-            Task task = tasks.remove(index);
-            printWithDivider(String.format(
-                    "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n", task, tasks.size())
-            );
+            tasks.remove(index);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {

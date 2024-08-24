@@ -17,4 +17,9 @@ public class Task {
         String status = this.isDone ? "X" : " ";
         return String.format("[%s] %s", status, this.description);
     }
+
+    public String toFileString() {
+        String status = this.isDone ? "1" : "0";
+        return String.format("%s | %s", status, this.description);
+    }
 }

@@ -14,4 +14,10 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
     }
+
+    @Override
+    public String toFileString() {
+        String startEnd = this.start + '-' + this.end;
+        return String.format("E | %s | %s", super.toFileString(), startEnd);
+    }
 }
