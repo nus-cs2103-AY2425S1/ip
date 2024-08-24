@@ -2,6 +2,9 @@ import Exceptions.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Papadom {
     enum Command {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
@@ -61,6 +64,7 @@ public class Papadom {
             throw new NoTaskException();
         }
         tasks.add(task);
+        addTaskToDatabase(task);
         String response = " Got it. I've added this task:\n  " + task.toString() + "\n"
                 + " Now you have " + (Papadom.tasks.size()) + " tasks in the list.";
         return response;
@@ -181,9 +185,35 @@ public class Papadom {
             throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
         }
     }
+    private static void createFileIfNotPresent() {
+        String filePath = "src/main/java/Storage/tasks.txt";
+        File file = new File(filePath);
+        try {
+            // Check if the file exists
+            if (!file.exists()) {
+                // If the file doesn't exist, create it along with any necessary directories
+                file.getParentFile().mkdirs(); // Create directories if they don't exist
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while creating the file: " + e.getMessage());
+        }
+    }
+    private static void addTaskToDatabase(Task task) {
+        String filePath = "src/main/java/Storage/tasks.txt";
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(task.toString() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
     public static void main(String[] args) {
         Papadom.output(" Hello! I'm Papadom\n"
                 + " What can I do for you?");
+
+        createFileIfNotPresent();
 
         while (true) {
             try {
@@ -204,7 +234,8 @@ public class Papadom {
                     output(unmarkTask(text));
                     break;
                 case TODO:
-                    output(addToList(new Todo(text.substring(5))));
+                    Todo todoTask = new Todo(text.substring(5));
+                    output(addToList(todoTask));
                     break;
                 case DEADLINE:
                     output(addDeadline(text.substring(9)));
