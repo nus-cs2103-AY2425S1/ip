@@ -6,10 +6,27 @@ public class Rose {
     static final String name = "Rose";
     static ArrayList<Task> tasks = new ArrayList<Task>();
 
-    private static void addTask(String taskName) {
-        tasks.add(new Task(taskName));
-        System.out.println((horizontal + "\nadded: " + taskName +
-                "\n" + horizontal).indent(4));
+    private static void addTask(String taskType, String taskName) {
+        System.out.print(horizontal.indent(4));
+        System.out.print("Got it. I've added this task: ".indent(4));
+        Task newTask;
+
+        if (taskType.equals("event")) {
+            String[] partsA = taskName.split(" /from ");
+            String[] partsB = partsA[1].split(" /to ");
+            newTask = new Event(partsA[0], partsB[0], partsB[1]);
+        } else if (taskType.equals("deadline")) {
+            String[] parts = taskName.split(" /by ");
+            newTask = new Deadline(parts[0], parts[1]);
+        } else {
+            newTask = new Todo(taskName);
+        }
+
+        tasks.add(newTask);
+        System.out.print(newTask.toString().indent(6));
+        System.out.print(String.format("Now you have %d task in the list.", tasks.size()).indent(4));
+
+        System.out.print(horizontal.indent(4));
     }
 
     private static void showList() {
@@ -61,8 +78,10 @@ public class Rose {
                 markTask(Integer.valueOf(message));
             } else if (command.equals("unmark")) {
                 unmarkTask(Integer.valueOf(message));
+            } else if (command.equals("todo") || command.equals("event") || command.equals("deadline")) {
+                addTask(command, message);
             } else {
-                addTask(input);
+                System.out.println("Oops sry idk what command is that".indent(4));
             }
             input = scanner.nextLine();
         }
