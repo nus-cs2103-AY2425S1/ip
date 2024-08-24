@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,8 +13,11 @@ import java.util.regex.Pattern;
 public class Fret {
     private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+");
     private static final Pattern TODO_PATTERN = Pattern.compile("todo (.+)");
+    private static final Pattern TODO_PATTERN2 = Pattern.compile("\\[T\\] \\[( |X)\\] (.+)");
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.+?) /by (.+)");
+    private static final Pattern DEADLINE_PATTERN2 = Pattern.compile("\\[D\\] \\[( |X)\\] (.+) \\(by: (.+)\\)");
     private static final Pattern EVENT_PATTERN = Pattern.compile("event (.+?) /from (.+) /to (.+)");
+    private static final Pattern EVENT_PATTERN2 = Pattern.compile("\\[E\\] \\[( |X)\\] (.+) \\(from: (.+), to: (.+)\\)");
     private static final Random RNG = new Random();
 
     private static final String[] ADD_TASK_PREFIXES = new String[] {
@@ -104,10 +112,64 @@ public class Fret {
         System.out.println("\t-----------------------------------------");
     }
 
+    private static Task processTaskLine(String taskLine) {
+        Matcher todoMatcher = TODO_PATTERN2.matcher(taskLine);
+
+        if (todoMatcher.find()) {
+            Todo todo = new Todo(todoMatcher.group(2));
+            if (todoMatcher.group(1).equals("X")) {
+                todo.markAsCompleted();
+            }
+            return todo;
+        }
+
+        Matcher deadlineMatcher = DEADLINE_PATTERN2.matcher(taskLine);
+
+        if (deadlineMatcher.find()) {
+            Deadline deadline = new Deadline(deadlineMatcher.group(2), deadlineMatcher.group(3));
+            if (deadlineMatcher.group(1).equals("X")) {
+                deadline.markAsCompleted();
+            }
+            return deadline;
+        }
+
+        Matcher eventMatcher = EVENT_PATTERN2.matcher(taskLine);
+
+        if (eventMatcher.find()) {
+            Event event = new Event(eventMatcher.group(2), eventMatcher.group(3), eventMatcher.group(4));
+            if (eventMatcher.group(1).equals("X")) {
+                event.markAsCompleted();
+            }
+            return event;
+        }
+
+        return null;
+    }
+
+    private static boolean loadTasksFromMemory(File taskFile, ArrayList<Task> taskList) {
+        try {
+            Scanner taskFileReader = new Scanner(taskFile);
+            while (taskFileReader.hasNextLine()) {
+                String data = taskFileReader.nextLine();
+                taskList.add(processTaskLine(data));
+            }
+            taskFileReader.close();
+        } catch (FileNotFoundException e) {
+            try {
+                taskFile.createNewFile();
+            } catch (IOException f) {
+                f.printStackTrace();
+                System.out.println("Error with task file. Fret shutting down...");
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
     public static void main(String[] args) {
         // declare the list of tasks
         ArrayList<Task> tasks = new ArrayList<>();
-        int numTasks = 0;
 
         String logo = "________                ___ \n"
                 + "| _____|             ___| |___ \n"
@@ -122,6 +184,15 @@ public class Fret {
 
         Scanner input = new Scanner(System.in);
         String userInput;
+
+        // open task-list file and read tasks into list
+        File taskFile = new File("data/taskList.txt");
+        if (!loadTasksFromMemory(taskFile, tasks)) {
+            input.close();
+            return;
+        }
+
+        int numTasks = tasks.size();
 
         do {
             userInput = input.nextLine().toLowerCase(); // get user input and make it small letters
