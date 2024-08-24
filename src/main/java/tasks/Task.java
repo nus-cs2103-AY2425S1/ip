@@ -1,13 +1,14 @@
+package tasks;
+
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Create a new Todo object
-     * @param description The description of the Todo Object
+     * Create a new tasks.Todo object
+     * @param description The description of the tasks.Todo Object
      */
     public Task(String description) {
         this.description = description;
@@ -17,7 +18,7 @@ public class Task {
     /**
      * Alternate constructor for loading isDone directly
      * @param isDone 1 or 0 indicating if task is done
-     * @param description The Description of the Task
+     * @param description The Description of the Tasks.Task
      */
     public Task(String isDone, String description) {
         this.description = description;

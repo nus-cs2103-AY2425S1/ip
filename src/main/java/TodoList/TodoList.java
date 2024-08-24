@@ -1,5 +1,12 @@
+package TodoList;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import exceptions.CowExceptions;
+import message.Message;
+import message.Messages;
+import tasks.Task;
 
 public class TodoList {
     private ArrayList<Task> todoList = new ArrayList<>();
@@ -10,8 +17,8 @@ public class TodoList {
 
     /**
      * Adds a new item to the todo list.
-     * @param task A Task object to be added.
-     * @return The update list of Todo items.
+     * @param task A Tasks.Task object to be added.
+     * @return The update list of tasks.Todo items.
      */
     public ArrayList<Task> add(Task task) {
         todoList.add(task);
@@ -19,12 +26,34 @@ public class TodoList {
     }
 
     /**
-     * Get Task in TodoList
+     * Get Tasks.Task in TodoList.TodoList
      * @param i The Index you want to retrieve
-     * @return The Task at index i
+     * @return The Tasks.Task at index i
      */
     public Task get(int i) {
         return todoList.get(i);
+    }
+
+    public void markTask(int i) throws CowExceptions {
+        try {
+            Task t = todoList.get(i);
+            t.markAsDone();
+            Message.printMarked(t);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CowExceptions(Messages.INDEX_OUT_OF_RANGE);
+        }
+
+    }
+
+    public void unmarkTask(int i) throws CowExceptions {
+        try {
+            Task t = todoList.get(i);
+            t.unmarkAsDone();
+            Message.printUnmarked(t);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CowExceptions(Messages.INDEX_OUT_OF_RANGE);
+        }
+
     }
 
     /**
@@ -38,7 +67,7 @@ public class TodoList {
     /**
      * Removes the task at the index.
      * @param i index of task to remove.
-     * @return The removed Task.
+     * @return The removed Tasks.Task.
      */
     public Task delete(int i) {
         return todoList.remove(i);
@@ -53,9 +82,9 @@ public class TodoList {
     }
 
     /**
-     * Returns a filtered TodoList with elements with date equal to deadline
+     * Returns a filtered TodoList.TodoList with elements with date equal to deadline
      * @param date Targeted date
-     * @return A TodoList
+     * @return A TodoList.TodoList
      */
     public TodoList getDueAt (LocalDate date) {
         TodoList filteredTodo = new TodoList();

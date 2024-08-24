@@ -21,7 +21,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] return book (by: Dec 2 2019 1800)
 Now you have 2 tasks in the list.-Mooooo
 ____________________________________________________________
 
@@ -32,9 +32,19 @@ Now you have 3 tasks in the list.-Mooooo
 ____________________________________________________________
 
 ____________________________________________________________
+OK, I've marked this task as not done yet:
+  [T][ ] borrow book-Mooooo
+____________________________________________________________
+
+____________________________________________________________
 Here are the tasks in your list:
-1.[T][X] borrow book
-2.[D][ ] return book (by: Sunday)
+1.[D][ ] return book (by: Dec 2 2019 1800)-Mooooo
+____________________________________________________________
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Dec 2 2019 1800)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)-Mooooo
 ____________________________________________________________
 
