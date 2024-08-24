@@ -2,16 +2,33 @@ import java.util.ArrayList;
 
 class Ynch {
     String name;
-    ArrayList<String> todoList;
+    ArrayList<Task> todoList;
 
     Ynch() {
         this.name = "YNCH";
-        this.todoList = new ArrayList<String>();
+        this.todoList = new ArrayList<Task>();
     }
 
     String addTask(String task) {
-        this.todoList.add(task);
+        Task newTask = new Task(task);
+        this.todoList.add(newTask);
         return task;
+    }
+
+    String mark(int i) {
+        int index = i - 1;
+        Task taskToMark = this.todoList.get(index);
+        taskToMark.mark();
+        this.todoList.set(index, taskToMark);
+        return "Meow! I've marked this task as done: \n" + taskToMark;
+    }
+
+    String unmark(int i) {
+        int index = i - 1;
+        Task taskToMark = this.todoList.get(index);
+        taskToMark.unmark();
+        this.todoList.set(index, taskToMark);
+        return "Meow! I've marked this task as not done yet: \n" + taskToMark;
     }
 
     String list() {
