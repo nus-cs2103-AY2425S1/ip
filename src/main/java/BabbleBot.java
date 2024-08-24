@@ -1,10 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-
 public class BabbleBot {
     public static void main(String[] args) {
         Boolean notBye = true;
-        Task[] storedTasks = new Task[100];
-        int counter = 0;
+        ArrayList<Task> storedTasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         String separator = "------------------------------------------------------------------";
         System.out.println(separator);
@@ -19,18 +18,19 @@ public class BabbleBot {
                     notBye = false;
                 } else if (userInpSplit[0].equals("list")) {
                     System.out.println(separator);
-                    for (int i = 0; i < counter; i++) {
-                        System.out.println(i + 1 + ". " + storedTasks[i].toString());
+                    int tempCount = 1;
+                    for (Task t : storedTasks) {
+                        System.out.println(tempCount + ". " + t.toString());
+                        tempCount++;
                     }
                     System.out.println(separator);
                 } else if (userInpSplit[0].equals("todo")) {
                     try {
-                        storedTasks[counter] = new Todo(userInp.split("todo ")[1]); //i can try here
+                        storedTasks.add(new Todo(userInp.split("todo ")[1])); //i can try here
                         System.out.println(separator);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("   " + storedTasks[counter].toString());
-                        counter++;
-                        System.out.println("Now you have " + counter + " tasks in the list.");
+                        System.out.println("   " + storedTasks.get(storedTasks.size() - 1).toString());
+                        System.out.println("Now you have " + storedTasks.size() + " tasks in the list.");
                         System.out.println(separator);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(separator);
@@ -40,40 +40,46 @@ public class BabbleBot {
                 } else if (userInpSplit[0].equals("deadline")) {
                     String content = userInp.split("deadline ")[1].split(" /by")[0];
                     String by = userInp.split("/by ")[1];
-                    storedTasks[counter] = new Deadline(content, by);
+                    storedTasks.add(new Deadline(content, by));
                     System.out.println(separator);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("   " + storedTasks[counter].toString());
-                    counter++;
-                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    System.out.println("   " + storedTasks.get(storedTasks.size() - 1).toString());
+                    System.out.println("Now you have " + storedTasks.size() + " tasks in the list.");
                     System.out.println(separator);
                 } else if (userInpSplit[0].equals("event")) {
                     String content = userInp.split("event ")[1].split(" /from")[0];
                     String splitDates = userInp.split("/from ")[1];
                     String[] parsedDates = splitDates.split(" /to ");
-                    storedTasks[counter] = new Event(content, parsedDates[0], parsedDates[1]);
+                    storedTasks.add(new Event(content, parsedDates[0], parsedDates[1]));
                     System.out.println(separator);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("   " + storedTasks[counter].toString());
-                    counter++;
-                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    System.out.println("   " + storedTasks.get(storedTasks.size() - 1).toString());
+                    System.out.println("Now you have " + storedTasks.size() + " tasks in the list.");
+                    System.out.println(separator);
+                } else if (userInpSplit[0].equals("delete")) {
+                    int index = Integer.valueOf(userInpSplit[1]) - 1;
+                    System.out.println(separator);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("   " + storedTasks.get(index).toString());
+                    storedTasks.remove(index);
+                    System.out.println("Now you have " + storedTasks.size() + " tasks in the list.");
                     System.out.println(separator);
                 } else if (userInpSplit.length == 2) {
                     if (userInpSplit[0].equals("mark")) {
                         //mark code
                         int index = Integer.valueOf(userInpSplit[1]) - 1;
-                        storedTasks[index].markAsDone();
+                        storedTasks.get(index).markAsDone();
                         System.out.println(separator);
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("   " + storedTasks[index].toString());
+                        System.out.println("   " + storedTasks.get(index).toString());
                         System.out.println(separator);
                     } else if (userInpSplit[0].equals("unmark")) {
                         //unmark code
                         int index = Integer.valueOf(userInpSplit[1]) - 1;
-                        storedTasks[index].maskAsUndone();
+                        storedTasks.get(index).maskAsUndone();
                         System.out.println(separator);
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("   " + storedTasks[index].toString());
+                        System.out.println("   " + storedTasks.get(index).toString());
                         System.out.println(separator);
                     }
                 } else {
