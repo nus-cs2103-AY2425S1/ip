@@ -1,16 +1,17 @@
 package jackson.utils;
 
-import jackson.actions.Actions;
-import jackson.exceptions.SyntaxException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.regex.Matcher;
-
-import static org.junit.jupiter.api.Assertions.*;
+import jackson.actions.Actions;
+import jackson.exceptions.SyntaxException;
 
 public class ParserTest {
     @Test
-    public void parse_validInputs_correspondingResponseReturned(){
+    public void parse_validInputs_correspondingResponseReturned() {
         try {
             assertEquals(Actions.ActionType.BYE, Parser.parse("bye").getAction());
             assertEquals(Actions.ActionType.SECRET, Parser.parse("secret").getAction());
@@ -49,6 +50,12 @@ public class ParserTest {
     public void parse_invalidInputsBye_exceptionThrown() {
         SyntaxException exp = assertThrows(SyntaxException.class, () -> Parser.parse("bye bye"));
         assertEquals("bye", exp.getMessage());
+    }
+
+    @Test
+    public void parse_invalidInputsList_exceptionThrown() {
+        SyntaxException exp = assertThrows(SyntaxException.class, () -> Parser.parse("list now"));
+        assertEquals("list", exp.getMessage());
     }
 
     @Test
