@@ -2,6 +2,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,17 +17,17 @@ public class Tasks {
     }
     public void addTask(String description, TaskType type, String info) {
         switch (type) {
-            case TODO:
-                tasks.add(new Todo(description));
-                break;
-            case DEADLINE:
-                tasks.add(new Deadline(description, info));
-                break;
-            case EVENT:
-                String[] parts = info.split("->");
-                tasks.add(new Event(description, parts[0], parts[1]));
-                break;
+        case TODO:
+            tasks.add(new Todo(description));
+            break;
+        case EVENT:
+            String[] parts = info.split("->");
+            tasks.add(new Event(description, parts[0], parts[1]));
+            break;
         }
+    }
+    public void addDeadline(String description, LocalDate deadline) {
+        tasks.add(new Deadline(description, deadline));
     }
     public void writeToFile() {
         String lineToWrite = tasks.get(this.getNumTasks() - 1).getData() + "\n";
@@ -139,8 +141,8 @@ public class Tasks {
         }
     }
     private class Deadline extends Task {
-        String deadline;
-        Deadline(String description, String deadline) {
+        LocalDate deadline;
+        Deadline(String description, LocalDate deadline) {
             super(description, TaskType.DEADLINE);
             this.deadline = deadline;
         }
@@ -148,7 +150,7 @@ public class Tasks {
         @Override
         public void printTask() {
             super.printTask();
-            System.out.printf(" (by: %s)", this.deadline);
+            System.out.printf(" (by: %s)", this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
 
         @Override

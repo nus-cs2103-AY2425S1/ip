@@ -1,11 +1,22 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 import java.io.File;
 
 public class Echo {
     private Tasks tasks;
+    private static List<String> dateTimeFormats =
+            new ArrayList<>(
+                    Arrays.asList(
+                            "yyyy-M-d",
+                            "d/M/yyyy",
+                            "yyyy/M/d",
+                            "d-M-yyyy",
+                            "d MMM yyyy",
+                            "MMM d yyyy"));
     public Echo() {
         tasks = new Tasks();
     }
@@ -138,20 +149,41 @@ public class Echo {
         }
         args[0] = args[0].trim();
 
-        String deadline = "";
-        if (args.length < 2) { // Only task desription provided
-            while (deadline.isEmpty()) {
-                System.out.println("Deadline: ");
-                deadline = s.nextLine();
-            }
-        } else {
-            deadline = args[1];
+        LocalDate deadline = null;
+        String stringToParse = null;
+        if (args.length == 2) {
+            stringToParse = args[1];
         }
 
-        tasks.addTask(args[0], TaskType.DEADLINE, deadline);
+        while (deadline == null) {
+            if (stringToParse == null) {
+                System.out.println("Deadline:");
+                stringToParse = s.nextLine();
+            }
+            try {
+                deadline = parseString(stringToParse);
+            } catch (DateTimeParseException e) {
+                System.out.println("no matching formats");
+                stringToParse = null;
+            }
+        }
+
+        tasks.addDeadline(args[0], deadline);
         tasks.appendToFile();
         printSuccessMsg();
         return true;
+    }
+    private LocalDate parseString(String s) throws DateTimeParseException {
+        DateTimeFormatter formatter;
+        for (String pattern : dateTimeFormats) {
+            formatter = DateTimeFormatter.ofPattern(pattern);
+            try {
+                LocalDate ld = LocalDate.parse(s, formatter);
+                return ld;
+            } catch (DateTimeParseException e) {
+            }
+        }
+        throw new DateTimeParseException("Cannot parse string", s, 0);
     }
     private Boolean handleEvent(String arg, Scanner s) {
         String[] args = arg.split("/from ");
@@ -290,25 +322,7 @@ public class Echo {
 
         String nextLine;
         String[] splitLines;
-        if(fileScanner.hasNext()) {
-            nextLine = fileScanner.nextLine();
-            splitLines = nextLine.split("\\|");
-            switch(splitLines[0].trim()) {
-                case "T":
-                    e.tasks.addTask(splitLines[2].trim(), TaskType.TODO, "");
-                    break;
-                case "D":
-                    e.tasks.addTask(splitLines[2].trim(), TaskType.DEADLINE, splitLines[3].trim());
-                    break;
-                case "E":
-                    e.tasks.addTask(splitLines[2].trim(), TaskType.EVENT, splitLines[3].trim());
-                    break;
-            }
-            e.tasks.writeToFile();
-            if (Integer.valueOf(splitLines[1].trim()) == 1) {
-                e.tasks.markTask(e.tasks.getNumTasks());
-            }
-        }
+        Boolean isFirstLine = true;
         while (fileScanner.hasNext()) {
             nextLine = fileScanner.nextLine();
             splitLines = nextLine.split("\\|");
@@ -317,13 +331,17 @@ public class Echo {
                 e.tasks.addTask(splitLines[2].trim(), TaskType.TODO, "");
                 break;
             case "D":
-                e.tasks.addTask(splitLines[2].trim(), TaskType.DEADLINE, splitLines[3].trim());
+                e.tasks.addDeadline(splitLines[2].trim(), LocalDate.parse(splitLines[3].trim()));
                 break;
             case "E":
                 e.tasks.addTask(splitLines[2].trim(), TaskType.EVENT, splitLines[3].trim());
                 break;
             }
-            e.tasks.appendToFile();
+            if (isFirstLine) {
+                e.tasks.writeToFile();
+            } else {
+                e.tasks.appendToFile();
+            }
             if (Integer.valueOf(splitLines[1].trim()) == 1) {
                 e.tasks.markTask(e.tasks.getNumTasks());
             }
