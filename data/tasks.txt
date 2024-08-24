@@ -1,1 +1,2 @@
-E | 0 | project meeting (from: Mon 2pm to: 4pm)
+T | 1 | borrow book | 24/8/2024 | 0000 | 24/8/2024 | 0000
+E | 1 | event project meeting | 2/12/2019 | 1800 | 9/12/2019 | 2359

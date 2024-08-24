@@ -14,7 +14,8 @@ public class Gravitas {
         Task currentTask;
         for (int i = 0; i < tasks.size(); i++) {
             currentTask = tasks.get(i);
-            System.out.println((i + 1) + ". [" + currentTask.getEventType() + "][" + currentTask.getStatusIcon() + "] " + currentTask.description);
+            System.out.println((i + 1) + ". [" + currentTask.getEventType() +
+                    "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
         }
     }
 
@@ -22,7 +23,9 @@ public class Gravitas {
         int count = 0;
         Storage s = new Storage();
         String name = "Gravitas";
-        String greet = "____________________________________________________________\nHello! I'm " + name + "\nWhat can I do for you?\n____________________________________________________________\n";
+        String greet = "____________________________________________________________\n" +
+                        "Hello! I'm " + name +
+                        "\nWhat can I do for you?\n____________________________________________________________\n";
         String header = "____________________________________________________________";
         String footer = "____________________________________________________________\n";
         String bye = "Bye. Hope to see you again soon! \n____________________________________________________________";
@@ -81,9 +84,10 @@ public class Gravitas {
                     }
 
                     String[] deadline = msg.split("/by ", 2);
-                    String[] editedMsg = deadline[0].split(" ", 2);
-                    String formattedMsg = editedMsg[1] + "(by: " + deadline[1] + ")";
-                    Deadline d = new Deadline(formattedMsg);
+                    //description format: [deadline, description]
+                    String[] description = deadline[0].split(" ", 2);
+                    Deadline d = new Deadline(description[1], deadline[1]);
+
                     tasks.add(d);
                     Gravitas.numOfTask += 1;
                     System.out.println(added);
@@ -94,11 +98,8 @@ public class Gravitas {
                     }
 
                     String[] deadline = msg.split("/from ", 2);
-                    String[] editedMsg = deadline[0].split(" ", 2);
-                    String[] formattedDeadline = deadline[1].split("/to", 2);
-                    String formattedMsg = editedMsg[1] + "(from: " + formattedDeadline[0] + "to:" + formattedDeadline[1] + ")";
-
-                    Event e = new Event(formattedMsg);
+                    String[] formattedDeadline = deadline[1].split("/to ", 2);
+                    Event e = new Event(deadline[0], formattedDeadline[0], formattedDeadline[1]);
                     tasks.add(e);
                     Gravitas.numOfTask += 1;
 
