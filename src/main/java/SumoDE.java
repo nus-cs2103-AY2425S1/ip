@@ -32,9 +32,6 @@ public class SumoDE {
                 this.tasks = new SumoTaskList(); // we will use the version where we cannot save
             }
         }
-
-
-
     }
 
     public void run() {
@@ -48,20 +45,12 @@ public class SumoDE {
             String input = sc.nextLine();
 
             // Splitting command and action
-            int spaceLocation = input.indexOf(" ");
-            String commandString;
-            String item;
+            String[] splitString = Parser.splitCommandAndAction(input);
+            String commandString = splitString[0];
+            String item = splitString[1];
             Command command;
 
-            if (spaceLocation == -1) {
-                commandString = input;
-                item = "";
-            } else {
-                commandString = input.substring(0,spaceLocation);
-                item = input.substring(spaceLocation+1);
-            }
-
-
+            // find correct matching command
             try {
                 command = Command.valueOf(commandString.toUpperCase());
                 terminate = this.tasks.execute(command,item);
@@ -76,14 +65,12 @@ public class SumoDE {
                     ui.next();
                 }
             }
-
         }
 
         // loop ended, cleaning up
         ui.bye();
         sc.close();
     }
-
 
     public static void main(String[] args) {
         SumoDE sumoDE = new SumoDE("data\\taskSaved.txt");

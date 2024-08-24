@@ -34,32 +34,13 @@ public class Task {
                 return new Todo(item);
             case DEADLINE:
                 {
-                    int spaceLocation = item.indexOf(" /by ");
-                    if (spaceLocation  == -1) {
-                        throw new WrongSyntaxForCommandException(command);
-                    }
-                    String name = item.substring(0,spaceLocation);
-                    String due = item.substring(spaceLocation + 5);
-                    return new Deadline(name, due);
+                    String[] parsed = Parser.parseDeadline(item);
+                    return new Deadline(parsed[0], parsed[1]);
                 }
             case EVENT:
                 {
-                    int fromLocation = item.indexOf(" /from ");
-                    int toLocation = item.indexOf(" /to ");
-                    String name, start, end;
-                    if (fromLocation == -1 || toLocation == -1) {
-                        throw new WrongSyntaxForCommandException(command);
-                    }
-                    if (fromLocation < toLocation) {
-                        name = item.substring(0,fromLocation);
-                        start = item.substring(fromLocation + 7, toLocation);
-                        end = item.substring(toLocation + 5);
-                    } else {
-                        name = item.substring(0, toLocation);
-                        end = item.substring(toLocation + 5, fromLocation);
-                        start = item.substring(fromLocation + 7);
-                    }
-                    return new Event(name,start,end);
+                    String[] parsed = Parser.parseEvent(item);
+                    return new Event(parsed[0], parsed[1], parsed[2]);
                 }
             default:
                 throw new UnknownCommandException(command);  // shouldn't happen
