@@ -55,6 +55,6 @@ public class Event extends Task {
 
     @Override
     public String getFileString() {
-        return getTaskType() + " | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + start + " | " + end;
+        return getTaskType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + start + " | " + end;
     }
 }

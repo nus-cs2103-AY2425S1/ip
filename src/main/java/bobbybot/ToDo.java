@@ -27,6 +27,6 @@ public class ToDo extends Task {
 
     @Override
     public String getFileString() {
-        return getTaskType() + " | " + (getIsDone() ? "1" : "0") + " | " + getDescription();
+        return getTaskType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription();
     }
 }

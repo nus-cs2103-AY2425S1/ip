@@ -1,13 +1,17 @@
 package bobbybot.commands;
 
-import bobbybot.*;
+import bobbybot.BobbyBotException;
+import bobbybot.Storage;
+import bobbybot.TaskList;
+import bobbybot.Event;
+import bobbybot.Task;
 import bobbybot.ui.Ui;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandEvent extends Command{
+public class CommandEvent extends Command {
 
     private final String description;
     private final String from;
