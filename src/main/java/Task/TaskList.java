@@ -50,4 +50,24 @@ public class TaskList {
         tasks.add(newTask);
         ui.alterTask(tasks, newTask, true);
     }
+
+
+    /**
+     * Searches for tasks that contain the specified keyword and displays the matching tasks.
+     *
+     * @param tasks   The list of tasks to search through.
+     * @param keyword The keyword to search for in the task descriptions.
+     */
+    public void findTask(ArrayList<Task> tasks, String keyword){
+
+        ArrayList<String> foundTasks = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDesc().contains(keyword)) {
+                foundTasks.add((i + 1) + ". " + tasks.get(i));
+            }
+        }
+
+        ui.foundTask(foundTasks);
+    }
 }
