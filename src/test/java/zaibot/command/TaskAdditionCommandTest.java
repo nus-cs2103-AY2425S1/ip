@@ -12,7 +12,6 @@ import java.io.PrintStream;
 import java.util.HashMap;
 
 public class TaskAdditionCommandTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final TaskList tasks = new TaskList();
     private final Storage storage = new Storage(tasks);
