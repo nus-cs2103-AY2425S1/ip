@@ -3,21 +3,17 @@ package bobbybot;
 import bobbybot.commands.Command;
 import bobbybot.ui.Ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class BobbyBot {
     private TaskList tasks;
     private final Ui ui;
     private final Storage storage;
-    private static final String chatBotName = "bobbybot.BobbyBot";
+    private static final String chatBotName = "BobbyBot";
 
     BobbyBot() {
         ui = new Ui();
-        storage = new Storage("data/bobbybot.txt");
+        storage = new Storage("./data/bobbybot.txt");
         try {
             ArrayList<Task> taskArray = storage.getTasksFromFile();
             tasks = new TaskList(taskArray);

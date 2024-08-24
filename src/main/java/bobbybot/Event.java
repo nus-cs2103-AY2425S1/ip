@@ -19,6 +19,10 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new DukeException("Please enter a valid start and/or end date in the format yyyy-mm-dd.");
         }
+
+        if (this.start.isAfter(this.end)) {
+            throw new DukeException("Please enter an end date that is after the start date.");
+        }
     }
 
     @Override
