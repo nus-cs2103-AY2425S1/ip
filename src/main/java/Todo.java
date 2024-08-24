@@ -28,6 +28,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String saveAsString() {
+        return super.saveAsString();
+    }
+
+    @Override
     public String toString() {
         return super.toString();
     }

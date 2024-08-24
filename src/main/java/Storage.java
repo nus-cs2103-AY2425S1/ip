@@ -43,55 +43,48 @@ public class Storage {
      * Parses the task data string and creates a task object.
      *
      * @param taskData The task data string.
+     * @return task object.
      */
-    private void parseTask(String taskData) {
-        assert taskData != null : "Oops! Task data string cannot be null.";
+    private Task parseTask(String taskData) throws OllieException {
+        assert taskData != null : "Oops! Task data string cannot be empty.";
 
-        // Trim the taskData to remove leading/trailing spaces and split it by spaces
-        String[] parts = taskData.trim().split(" ", 3);
+        try {
+            // Split the taskData by " | "
+            String[] parts = taskData.trim().split(" \\| ");
 
-        // Extract the task status (done or not)
-        String status = parts[0];
-        boolean isDone = status.equals("[X]");
+            // Extract information: task type, status, description, by or from, and end
+            String taskType = parts[0].trim();
+            String status = parts[1].trim();
+            String description = parts[2].trim();
+            String date = parts.length > 3 ? parts[3].trim() : "";
+            String end = parts.length > 4 ? parts[4].trim() : "";
 
-        // Extract the task type (TODO, DEADLINE, EVENT)
-        String taskType = parts[1].substring(1, parts[1].length() - 1); // Removes the square brackets
+            boolean isDone = status.equals("[X]");
 
-        // The rest is the description or additional info
-        String description = parts[2];
-        Task task = null;
+            Task task = null;
 
-        switch (taskType) {
-            case "TODO":
-                task = new Todo(description);
-                break;
-            case "DEADLINE":
-                String[] deadlineParts = description.split(" \\(by: ");
-                String deadlineDescription = deadlineParts[0].trim();
-                String by = deadlineParts[1].replace(")", "").trim();
-                task = new Deadline(deadlineDescription, by);
-                break;
-            case "EVENT":
-                String[] eventParts = description.split(" \\(from: ");
-                String eventDescription = eventParts[0].trim();
-                String[] times = eventParts[1].replace(")", "").split(" to: ");
-                String from = times[0].trim();
-                String to = times[1].trim();
-                task = new Event(eventDescription, from, to);
-                break;
-            default:
-                System.out.println("Oops! Invalid task type detected.");
-                return;
-        }
-
-        // Mark the task as done if applicable
-        if (task != null) {
-            if (isDone) {
-                task.markAsDone(true);
+            switch (taskType) {
+                case "TODO":
+                    task = new Todo(description);
+                    break;
+                case "DEADLINE":
+                    task = new Deadline(description, date);
+                    break;
+                case "EVENT":
+                    task = new Event(description, date, end);
+                    break;
+                default:
+                    throw new OllieException("Oops! Invalid task type detected: " + taskType);
             }
-            this.taskList.addTask(task);
-        } else {
-            System.out.println("Oops! Failed to create the task from data: " + taskData);
+
+            if (task != null) {
+                task.markAsDone(isDone);
+                taskList.addTaskWihoutMessage(task);
+            }
+
+            return task;
+        } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+            throw new OllieException("Oops! Error parsing task data: " + e.getMessage());
         }
     }
 
@@ -101,7 +94,7 @@ public class Storage {
      * @param tasks The list of tasks.
      */
     public void saveTasks(ArrayList<Task> tasks) {
-        assert tasks != null : "Oops! Task list should not be empty.";
+        assert tasks != null : "Oops! Task list is empty.";
         try {
             File file = new File(this.filePath);
             assert file != null : "Oops! File object cannot be null.";
@@ -109,7 +102,7 @@ public class Storage {
 
             for (Task task : tasks) {
                 assert task != null : "Oops! Task object cannot be null.";
-                writer.write(task.toString() + System.lineSeparator());
+                writer.write(task.saveAsString() + System.lineSeparator());
             }
             writer.close();
         } catch (IOException e) {
@@ -123,7 +116,7 @@ public class Storage {
      *
      * @return The list of tasks.
      */
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws OllieException {
         try {
             File file = new File(filePath);
             assert file != null : "Oops! File cannot be null.";
