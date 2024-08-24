@@ -1,3 +1,5 @@
+package moimoi.exception;
+
 public class InvalidCommandException extends MoiMoiException {
 
     @Override
