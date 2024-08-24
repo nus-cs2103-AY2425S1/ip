@@ -20,7 +20,7 @@ public class ExitCommandTest {
     }
 
     @Test
-    public void testExitCommand() {
+    public void execute_success() {
         TaskList tasks = new TaskList();
         Storage storage = new Storage(tasks);
         ExitCommand exitCommand = new ExitCommand();

@@ -25,7 +25,7 @@ public class TaskListingCommandTest {
     }
 
     @Test
-    public void testEmptyTaskList() {
+    public void execute_noTask() {
         TaskListingCommand command = new TaskListingCommand();
         try {
             command.execute(tasks, storage);
@@ -38,7 +38,7 @@ public class TaskListingCommandTest {
     }
 
     @Test
-    public void testSingleTask() {
+    public void execute_oneTask() {
         tasks.addTask(new ToDoTask("one"));
         TaskListingCommand command = new TaskListingCommand();
         try {
@@ -53,7 +53,7 @@ public class TaskListingCommandTest {
     }
 
     @Test
-    public void testMultipleTasks() {
+    public void execute_multipleTasks() {
         tasks.addTask(new ToDoTask("one"));
         tasks.addTask(new ToDoTask("two"));
         tasks.addTask(new ToDoTask("three"));
