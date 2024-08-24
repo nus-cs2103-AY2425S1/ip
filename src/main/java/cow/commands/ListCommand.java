@@ -21,6 +21,6 @@ public class ListCommand extends Command{
      */
     @Override
     public void execute(TodoList todoList, FileSaver fileSaver) {
-        Message.print(todoList.toString());
+        Message.printList(todoList);
     }
 }

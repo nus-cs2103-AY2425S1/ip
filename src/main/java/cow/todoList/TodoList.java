@@ -25,6 +25,11 @@ public class TodoList {
         return todoList;
     }
 
+    /**
+     * Marks the task as index as done
+     * @param i index to mark
+     * @throws CowExceptions if index is invalid
+     */
     public void markTask(int i) throws CowExceptions {
         try {
             Task t = todoList.get(i);
@@ -36,6 +41,11 @@ public class TodoList {
 
     }
 
+    /**
+     * Unmarks the task as index as done
+     * @param i index to mark
+     * @throws CowExceptions if index is invalid
+     */
     public void unmarkTask(int i) throws CowExceptions {
         try {
             Task t = todoList.get(i);
@@ -73,7 +83,7 @@ public class TodoList {
     }
 
     /**
-     * Returns a filtered TodoList.TodoList with elements with date equal to deadline
+     * Returns a filtered TodoList with elements with date equal to deadline
      * @param date Targeted date
      * @return A TodoList.TodoList
      */
@@ -85,9 +95,23 @@ public class TodoList {
         return filteredTodo;
     }
 
+    /**
+     * Returns a filtered TodoList with elements with description
+     * containing substring
+     * @param substring substring to find
+     * @return a TodoList
+     */
+    public TodoList getFilteredByDesc(String substring) {
+        TodoList filteredTodo = new TodoList();
+        this.todoList.stream()
+                .filter(t -> t.getContainsSubString(substring))
+                .forEach(filteredTodo::add);
+        return filteredTodo;
+    }
+
     @Override
     public String toString() {
-        String string = "Here are the tasks in your list:\n";
+        String string = "";
         int size = this.todoList.size();
         for (int i = 0; i < size; i++) {
             string += String.format("%d.%s", i + 1, todoList.get(i));
