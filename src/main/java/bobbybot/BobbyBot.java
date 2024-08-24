@@ -5,13 +5,19 @@ import bobbybot.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ *  BobbyBot is a chatbot that helps you keep track of your tasks.
+ */
 public class BobbyBot {
     private TaskList tasks;
     private final Ui ui;
     private final Storage storage;
     private static final String chatBotName = "BobbyBot";
 
-    BobbyBot() {
+    /**
+     * Creates an instance of BobbyBot.
+     */
+    public BobbyBot() {
         ui = new Ui();
         storage = new Storage("./data/bobbybot.txt");
         try {
@@ -23,6 +29,9 @@ public class BobbyBot {
         }
     }
 
+    /**
+     * Main entry-point for the bobbybot.BobbyBot application.
+     */
     public static void main(String[] args) {
         BobbyBot bot = new BobbyBot();
         bot.runBot();
@@ -37,7 +46,7 @@ public class BobbyBot {
                 Command command = Parser.parse(input);
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
-            } catch (DukeException e) {
+            } catch (BobbyBotException e) {
                 ui.printError(e);
             }
         }

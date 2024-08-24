@@ -10,8 +10,19 @@ import bobbybot.commands.CommandDeadline;
 import bobbybot.commands.CommandMark;
 import bobbybot.commands.CommandUnmark;
 
+/**
+ * Represents a parser that parses user input, translating it to a Command.
+ */
 public class Parser {
-    public static Command parse(String input) throws DukeException {
+
+    /**
+     * Parses the user input and returns the corresponding Command.
+     *
+     * @param input User input.
+     * @return Command corresponding to the user input.
+     * @throws BobbyBotException If the user input is invalid.
+     */
+    public static Command parse(String input) throws BobbyBotException {
         String[] inputArray = input.split(" ", 2);
         String command = inputArray[0].trim();
         String argument = inputArray.length > 1 ? inputArray[1].trim() : "";
@@ -33,7 +44,7 @@ public class Parser {
         case "event":
             return new CommandEvent(argument);
         default:
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            throw new BobbyBotException("I'm sorry, but I don't know what that means :-(");
         }
     }
 }

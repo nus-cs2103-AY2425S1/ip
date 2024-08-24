@@ -1,7 +1,16 @@
 package bobbybot;
 
+/**
+ * Represents a to-do task.
+ * A to-do task has a description.
+ */
 public class ToDo extends Task {
 
+    /**
+     * Constructor for ToDo.
+     *
+     * @param description Description of the task.
+     */
     public ToDo(String description) {
         super(description);
     }

@@ -13,26 +13,26 @@ public class CommandDeadline extends Command{
     private final String by;
 
 
-    public CommandDeadline(String argument) throws DukeException{
+    public CommandDeadline(String argument) throws BobbyBotException {
         Pattern r = Pattern.compile("(.*) /by (.*)");
         Matcher m = r.matcher(argument);
         if (m.find()) {
             description = m.group(1).trim();
             by = m.group(2).trim();
         } else {
-            throw new DukeException("Please specify it in this format 'deadline <description> /by <by>'.");
+            throw new BobbyBotException("Please specify it in this format 'deadline <description> /by <by>'.");
         }
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws BobbyBotException {
         Task deadline = new Deadline(description, by);
         tasks.addTask(deadline);
         ui.printAddTask(tasks, deadline);
         try {
             storage.saveTasksToFile(tasks.toArray());
         } catch (IOException e) {
-            throw new DukeException("Error saving to file.");
+            throw new BobbyBotException("Error saving to file.");
         }
     }
 }
