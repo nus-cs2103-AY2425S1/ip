@@ -14,7 +14,7 @@ public class Parser {
     private static final Pattern UNMARK = Pattern.compile("^unmark ([0-9]+)$");
     private static final Pattern LIST = Pattern.compile("^list$");
     private static final Pattern DELETE = Pattern.compile("^delete ([0-9]+)$");
-    private static final Pattern SECRET = Pattern.compile("^national anthem$");
+    private static final Pattern SECRET = Pattern.compile("^secret$");
     private static final Pattern BYE = Pattern.compile("^bye$");
 
     /**

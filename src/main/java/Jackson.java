@@ -9,18 +9,23 @@ import java.util.Base64;
  */
 public class Jackson {
 
-    /* chatbot settings */
+    /* Chatbot name */
     public static String name = "Jackson";
+
+    /* Expected number of tasks to store */
     private static final int EXPECTED_SIZE = 100;
 
-    /* used for storing tasklist object and secret message */
-    private static final TaskList taskList = new TaskList(EXPECTED_SIZE);
+    /* Stores TaskList object */
+    private static TaskList taskList;
+
+    /* Stores secret text for greedy loading */
     private static String secret = "";
 
     /**
-     * Reads secret text from secret file and prints it
+     * Reads secret text from secret file and prints it.
+     * If secret file not found, handles exception and prints error message
      */
-    public static void read_secret() {
+    public static void readSecret() {
         // get string builder to read line by line
         StringBuilder output = new StringBuilder();
         String out;
@@ -39,6 +44,8 @@ public class Jackson {
                 byte[] decoded = Base64.getDecoder().decode(out);
                 out = new String(decoded);
 
+                // close scanner
+                sc.close();
             } catch (FileNotFoundException e) {
                 // if file path not found
                 System.out.println("Oops! Secret file not found...");
@@ -54,6 +61,10 @@ public class Jackson {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        // taskList
+        taskList = new TaskList(EXPECTED_SIZE);
+        taskList.load();
 
         System.out.printf("Oi! I'm %s!\nWhat you want me do today ah?\n> ", name);
         String input = sc.nextLine().strip();
@@ -75,27 +86,28 @@ public class Jackson {
 
                 // decide what action to take based on response object received from parser
                 if (a == Actions.ACTIONS.LIST) {
-                    taskList.show_list();
+                    taskList.showList();
                 } else if (a == Actions.ACTIONS.TODO) {
                     t = new Todo(m.group(1));
-                    taskList.add_list(t);
+                    taskList.addTask(t);
                 } else if (a == Actions.ACTIONS.DEADLINE) {
                     t = new Deadline(m.group(1), m.group(2));
-                    taskList.add_list(t);
+                    taskList.addTask(t);
                 } else if (a == Actions.ACTIONS.EVENT) {
                     t = new Event(m.group(1), m.group(2), m.group(3));
-                    taskList.add_list(t);
+                    taskList.addTask(t);
                 } else if (a == Actions.ACTIONS.MARK) {
                     taskList.mark(Integer.parseInt(m.group(1)) - 1);
                 } else if (a == Actions.ACTIONS.UNMARK) {
                     taskList.unmark(Integer.parseInt(m.group(1)) - 1);
                 } else if (a == Actions.ACTIONS.DELETE) {
-                    taskList.delete_list(Integer.parseInt(m.group(1)) - 1);
+                    taskList.deleteTask(Integer.parseInt(m.group(1)) - 1);
                 } else if (a == Actions.ACTIONS.BYE) {
+                    // break out of loop if bye
                     System.out.println("K k bye lah!");
                     return;
                 } else if (a == Actions.ACTIONS.SECRET) {
-                    read_secret();
+                    readSecret();
                 } else if (a == Actions.ACTIONS.INVALID){
                     // otherwise, throw error for unsupported command
                     throw new UnsupportedException(input);
