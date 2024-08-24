@@ -17,9 +17,10 @@ public class Oliver {
         this.storage = new Storage(filePath);
         this.storage.initialise();
         try {
-            tasks = new TaskList(storage.loadData());
+            this.tasks = new TaskList(storage.loadData());
         } catch (IOException e) {
             System.out.println("\tError occurred when reading data into list.");
+            this.tasks = new TaskList();
         }
     }
 
