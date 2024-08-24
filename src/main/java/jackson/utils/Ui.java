@@ -49,6 +49,9 @@ public class Ui {
     public void printFormatGuide(String category) {
         System.out.println("Wrong format leh...");
         System.out.println("Try formatting your command as such:");
+
+        // category is the type of command that the user incorrectly enters the format of
+        // print the correct command format based on the user input
         switch (category) {
         case "todo":
             System.out.println("todo [task-name]");
@@ -89,6 +92,8 @@ public class Ui {
     public void printIndexGuide(TaskList taskList) {
         int size = taskList.getSize();
         System.out.printf("Alamak, you got %d items on the list only leh...\n", size);
+
+        // different responses based on taskList size
         if (size == 0) {
             System.out.println("You've got no items in the list! Add some stuff first!");
         } else if (size == 1) {
