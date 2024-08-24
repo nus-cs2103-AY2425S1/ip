@@ -1,4 +1,4 @@
-package Spongebob.exception;
+package spongebob.exception;
 
 /**
  * Exception used when there is user input errors in Spongebob

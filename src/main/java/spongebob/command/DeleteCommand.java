@@ -1,9 +1,9 @@
-package Spongebob.command;
+package spongebob.command;
 
-import Spongebob.storage.Storage;
-import Spongebob.storage.TaskList;
-import Spongebob.Ui;
-import Spongebob.task.Task;
+import spongebob.storage.Storage;
+import spongebob.storage.TaskList;
+import spongebob.Ui;
+import spongebob.task.Task;
 
 /**
  * Command that performs a delete action to the tasklist and/or storage

@@ -1,9 +1,8 @@
-package Spongebob.command;
+package spongebob.command;
 
-import Spongebob.storage.Storage;
-import Spongebob.storage.TaskList;
-import Spongebob.Ui;
-import Spongebob.task.Task;
+import spongebob.storage.Storage;
+import spongebob.storage.TaskList;
+import spongebob.Ui;
 
 /**
  * Basic Command class for executing tasks

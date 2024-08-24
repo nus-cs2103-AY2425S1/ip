@@ -1,4 +1,4 @@
-package Spongebob.task;
+package spongebob.task;
 
 public enum TaskType {
     TODO,

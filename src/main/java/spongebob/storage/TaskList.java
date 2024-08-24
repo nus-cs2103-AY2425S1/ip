@@ -1,7 +1,7 @@
-package Spongebob.storage;
+package spongebob.storage;
 
-import Spongebob.exception.SpongebobException;
-import Spongebob.task.Task;
+import spongebob.exception.SpongebobException;
+import spongebob.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;

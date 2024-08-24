@@ -1,32 +1,35 @@
-package Spongebob.command;
+package spongebob.command;
 
-import Spongebob.storage.Storage;
-import Spongebob.storage.TaskList;
-import Spongebob.Ui;
+import spongebob.storage.Storage;
+import spongebob.storage.TaskList;
+import spongebob.Ui;
 
 /**
- * Command used when no suitable command is found
+ * Command used when exiting the bot
  */
-public class UnknownCommand extends Command {
+
+public class ExitCommand extends Command {
 
     /**
-     *  Executes the command, showing the unknown command message
+     *  Executes the command, showing the goodbye message
      * @param taskList  Tasklist of Spongebob
      * @param ui    Ui containing all UI components
      * @param storage   Storage to keep all entries to a .txt file
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.unknownCommand();
+        ui.showGoodbye();
     }
 
     @Override
     public boolean isExit() {
-        return false;
+        return true;
     }
 
     @Override
     public String[] getArgs() {
-        return new String[] {"unknown"};
+        return new String[]{"exit"};
     }
+
+
 }

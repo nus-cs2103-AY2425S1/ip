@@ -1,6 +1,6 @@
-package Spongebob.task;
+package spongebob.task;
 
-import Spongebob.exception.SpongebobException;
+import spongebob.exception.SpongebobException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,7 @@ public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
-
+    
     /**
      * constructor for an event task, checks if description, start and end dates to be in correct format
      * @param description description of task
@@ -22,6 +22,7 @@ public class Event extends Task {
      * @throws SpongebobException   user input error such as incorrect date format
      */
     public Event(String description, String from, String to) throws SpongebobException {
+
         super(description, TaskType.EVENT);
 
         // check for errors

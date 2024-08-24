@@ -1,6 +1,6 @@
-package Spongebob;
+package spongebob;
 
-import Spongebob.task.Task;
+import spongebob.task.Task;
 
 import java.util.Scanner;
 
@@ -8,11 +8,13 @@ import java.util.Scanner;
  * UI Component for Spongebob
  */
 public class Ui {
-    final static String LINE = "____________________________________________________________\n";
-    final static String GREETINGS = "Hey there! I’m SpongeBob SquarePants! \nWhat can I do for ya today?\n";
-    final static String GOODBYE = "Aye aye, pal! Bye-bye for now! Hope to catch you in Bikini Bottom again soon! \n";
+    final private static String LINE = "____________________________________________________________\n";
+    final private static String GREETINGS = "Hey there! I’m SpongeBob SquarePants! \n" +
+            "What can I do for ya today?\n";
+    final private static String GOODBYE = "Aye aye, pal! Bye-bye for now! " +
+            "Hope to catch you in Bikini Bottom again soon! \n";
 
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public void showLine() {
         System.out.println(LINE);
@@ -50,21 +52,25 @@ public class Ui {
     }
 
     public void showMarkedError() {
-        System.out.println("Oh, barnacles! You can't mark nothing! \nMake sure to fill it in before you add it.");
+        System.out.println("Oh, barnacles! You can't mark nothing! \n" +
+                "Make sure to fill it in before you add it.");
     }
 
     public void showUnmarked(Task task) {
-        System.out.println("Alrighty, I’ve put that task back to \"not done yet.\" Keep at it—you’ve got this!");
+        System.out.println("Alrighty, I’ve put that task back to " +
+                "\"not done yet.\" Keep at it—you’ve got this!");
         System.out.println(task);
     }
 
     public void showUnmarkedError() {
-        System.out.println("Oh, barnacles! You can't unmark nothing! \nMake sure to fill it in before you add it.");
+        System.out.println("Oh, barnacles! You can't unmark nothing! \n" +
+                "Make sure to fill it in before you add it.");
 
     }
 
     public void showTaskAdded(Task task, int size) {
-        System.out.println("Got it! I've added this task to your list — keep up the great work!");
+        System.out.println("Got it! I've added this task to your list — " +
+                "keep up the great work!");
         System.out.println(task);
         System.out.println("Now you have " + size + " in the list!");
     }
@@ -78,9 +84,11 @@ public class Ui {
 
     public void showException(Exception e) {
         if (e instanceof NumberFormatException) {
-            System.out.println("Oopsie-daisy! Looks like there’s a hiccup — index needs to be a whole number!");
+            System.out.println("Oopsie-daisy! Looks like there’s a hiccup — " +
+                    "index needs to be a whole number!");
         } else if (e instanceof IndexOutOfBoundsException ) {
-            System.out.println("Oh no, it’s out of bounds! That index is too far out — try a different number!");
+            System.out.println("Oh no, it’s out of bounds! That index is too far out — " +
+                    "try a different number!");
         } else {
             System.out.println(e.getMessage());
         }

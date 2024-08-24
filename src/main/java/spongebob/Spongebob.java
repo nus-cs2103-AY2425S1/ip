@@ -1,9 +1,9 @@
-package Spongebob;
+package spongebob;
 
-import Spongebob.command.Command;
-import Spongebob.exception.SpongebobException;
-import Spongebob.storage.Storage;
-import Spongebob.storage.TaskList;
+import spongebob.command.Command;
+import spongebob.exception.SpongebobException;
+import spongebob.storage.Storage;
+import spongebob.storage.TaskList;
 
 /**
  * main class to run the bot

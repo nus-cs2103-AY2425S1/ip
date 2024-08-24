@@ -1,6 +1,6 @@
-package Spongebob.task;
+package spongebob.task;
 
-import Spongebob.exception.SpongebobException;
+import spongebob.exception.SpongebobException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

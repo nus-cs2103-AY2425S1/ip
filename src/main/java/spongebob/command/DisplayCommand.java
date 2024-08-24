@@ -1,8 +1,8 @@
-package Spongebob.command;
+package spongebob.command;
 
-import Spongebob.storage.Storage;
-import Spongebob.storage.TaskList;
-import Spongebob.Ui;
+import spongebob.storage.Storage;
+import spongebob.storage.TaskList;
+import spongebob.Ui;
 
 /**
  * Command to display, used to show the list

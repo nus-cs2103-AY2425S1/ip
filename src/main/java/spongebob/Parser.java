@@ -1,13 +1,13 @@
-package Spongebob;
+package spongebob;
 
-import Spongebob.command.*;
+import spongebob.command.*;
 
 /**
  * object to parse user input into commands that can be executed by Spongebob
  */
 public class Parser {
 
-    String[] arguments;
+    private String[] arguments;
 
     /**
      * the command syntax is a array of size 4,
@@ -57,23 +57,23 @@ public class Parser {
         }
 
         switch (this.arguments[0]) {
-            case "list":
-                return new DisplayCommand();
+        case "list":
+            return new DisplayCommand();
 
-            case "mark": case "unmark":
-                return new MarkCommand(arguments);
+        case "mark": case "unmark":
+            return new MarkCommand(arguments);
 
-            case "todo": case "deadline": case "event":
-                return new AddCommand(arguments);
+        case "todo": case "deadline": case "event":
+            return new AddCommand(arguments);
 
-            case "delete":
-                return new DeleteCommand(arguments);
+        case "delete":
+            return new DeleteCommand(arguments);
 
-            case "bye":
-                return new ExitCommand();
+        case "bye":
+            return new ExitCommand();
 
-            default:
-                return new UnknownCommand();
+        default:
+            return new UnknownCommand();
 
         }
 

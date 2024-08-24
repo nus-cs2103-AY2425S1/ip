@@ -1,6 +1,6 @@
-package Spongebob.task;
+package spongebob.task;
 
-import Spongebob.exception.SpongebobException;
+import spongebob.exception.SpongebobException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -54,7 +54,8 @@ public class Deadline extends Task {
 
         return "[D]"
                 + super.toString()
-                + "(by: " + this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")"; // convert
+                + "(by: " + this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
+        // convert
     }
 
     /**
