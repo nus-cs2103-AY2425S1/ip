@@ -26,8 +26,16 @@ public class Task {
         return "\"" + str + "\"";
     }
 
+    protected String getTaskType() {
+        return "Task";
+    }
+
     public String formatToCSV() {
-        String[] arr = new String[]{wrapInQuotes(getStatusIcon()), wrapInQuotes("Task"), wrapInQuotes("description")};
+        String[] arr = new String[]{
+                wrapInQuotes(this.getStatusIcon()),
+                wrapInQuotes(this.getTaskType()),
+                wrapInQuotes(this.description)
+        };
         return String.join(DELIMITER, arr);
     }
 

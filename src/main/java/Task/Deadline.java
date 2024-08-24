@@ -9,6 +9,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    protected String getTaskType() {
+        return "Deadline";
+    }
+
+    @Override
     public String formatToCSV() {
         String res = super.formatToCSV();
         res += DELIMITER + wrapInQuotes(by);
