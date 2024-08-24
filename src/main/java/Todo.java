@@ -1,7 +1,7 @@
-public class ToDo extends Task {
+public class Todo extends Task {
     protected String by;
 
-    public ToDo(String description) {
+    public Todo(String description) {
         super(description);
     }
 
