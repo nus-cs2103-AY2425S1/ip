@@ -18,6 +18,7 @@ public abstract class Task {
     public void markAsUnDone() {
         this.isDone = false;
     }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

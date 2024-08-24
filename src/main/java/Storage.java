@@ -21,8 +21,7 @@ public class Storage {
         } else {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                String line =  scanner.nextLine();
-                System.out.println(line);
+                String line = scanner.nextLine();
                 String[] words = line.split(" \\| ");
                 switch (words[0]) {
                 case "T":
@@ -50,7 +49,7 @@ public class Storage {
                     break;
 
                 default:
-                    throw new LamaException("Invalid data format in file");
+                    throw new LamaException("Invalid data format");
                 }
             }
             scanner.close();
@@ -59,13 +58,19 @@ public class Storage {
         return list;
     }
 
-    public void saveTask(ArrayList<Task> tasks) throws IOException{
+    public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(PATH);
 
-        for (Task task: tasks) {
+        for (Task task : tasks) {
             fileWriter.write(task.toFile() + "\n");
         }
 
+        fileWriter.close();
+    }
+
+    public void addTask(Task task) throws IOException {
+        FileWriter fileWriter = new FileWriter(PATH, true);
+        fileWriter.write(task.toFile() + "\n");
         fileWriter.close();
     }
 }

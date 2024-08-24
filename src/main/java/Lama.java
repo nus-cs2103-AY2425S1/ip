@@ -60,7 +60,7 @@ public class Lama {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + list.get(n));
                     System.out.println(bar + "\n");
-                    storage.saveTask(list);
+                    storage.saveTasks(list);
                     break;
                 }
 
@@ -79,7 +79,7 @@ public class Lama {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + list.get(n));
                     System.out.println(bar + "\n");
-                    storage.saveTask(list);
+                    storage.saveTasks(list);
                     break;
                 }
 
@@ -87,13 +87,16 @@ public class Lama {
                     if (words.length < 2) {
                         throw new LamaException("Please specify the description of TODO!");
                     }
-                    list.add(new Todo(words[1]));
+
+                    Todo todo = new Todo((words[1]));
+                    list.add(todo);
+                    storage.addTask(todo);
+
                     System.out.println(bar);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + list.get(list.size() - 1));
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                     System.out.println(bar + "\n");
-                    storage.saveTask(list);
                     break;
 
                 case "deadline":
@@ -106,13 +109,16 @@ public class Lama {
                         throw new LamaException("Please specify the date of deadline in the format of:\n" +
                                 "deadline [description] /by [date]");
                     }
-                    list.add(new Deadline(half[0], half[1]));
+
+                    Deadline deadline = new Deadline(half[0], half[1]);
+                    list.add(deadline);
+                    storage.addTask(deadline);
+
                     System.out.println(bar);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + list.get(list.size() - 1));
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                     System.out.println(bar + "\n");
-                    storage.saveTask(list);
                     break;
 
                 case "event":
@@ -135,13 +141,15 @@ public class Lama {
                                 "event [description] /from [start time] /to [end time]");
                     }
 
-                    list.add(new Event(first[0], time[0], time[1]));
+                    Event event = new Event(first[0], time[0], time[1]);
+                    list.add(event);
+                    storage.addTask(event);
+
                     System.out.println(bar);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + list.get(list.size() - 1));
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                     System.out.println(bar + "\n");
-                    storage.saveTask(list);
                     break;
 
                 case "delete":
@@ -160,7 +168,7 @@ public class Lama {
                     System.out.println("  " + removed);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                     System.out.println(bar + "\n");
-                    storage.saveTask(list);
+                    storage.saveTasks(list);
                     break;
 
                 default:

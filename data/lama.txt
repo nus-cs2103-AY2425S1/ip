@@ -2,3 +2,4 @@ T | 1 | Sleep
 D | 0 | CS2103T | Friday
 D | 0 | CS2109S | Sat
 E | 0 | SplashDown | Wed 4am | Wed 9pm
+D | 0 | CS2101 | Sunday Night

@@ -15,6 +15,6 @@ public class Event extends Task {
 
     @Override
     public String toFile() {
-        return "E | " + (isDone? "1": "0") + " | " + description + " | " + from + " | " + to;
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 }
