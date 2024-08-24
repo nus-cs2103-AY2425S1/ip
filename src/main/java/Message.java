@@ -32,4 +32,9 @@ public class Message {
     public static void unmark(Task task) {
         System.out.println("No problem! I've marked this task as not done yet:\n" + task);
     }
+
+    public static void error(TalkaBotException e) {
+        System.out.println(e.getMessage());
+    }
+
 }

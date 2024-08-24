@@ -1,7 +1,7 @@
 public class Deadline extends Task{
     private String deadline;
 
-    public Deadline(String description) {
+    public Deadline(String description) throws UnknownTimeException {
         super(description.substring(0, description.indexOf("/by")));
         this.deadline = description.substring(description.indexOf("/by") + 4);
     }

@@ -2,7 +2,7 @@ public class Event extends Task {
     private String from;
     private String to;
 
-    public Event(String description) {
+    public Event(String description) throws UnknownTimeException {
         super(description.substring(0, description.indexOf("/from")));
         this.from = description.substring(description.indexOf("/from") + 6,
                 description.indexOf("/to"));
