@@ -4,10 +4,10 @@ import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
 
-    String command;
+    CommandEnum command;
     String arguments;
 
-    public AddCommand(String command, String arguments) {
+    public AddCommand(CommandEnum command, String arguments) {
         super(false);
         this.command = command;
         this.arguments = arguments;
@@ -19,11 +19,11 @@ public class AddCommand extends Command {
         Task task;
 
         switch (this.command) {
-        case "todo":
+        case TODO:
             task = new Todo(this.arguments);
             break;
 
-        case "deadline":
+        case DEADLINE:
             try {
                 String[] descBy = this.arguments.split(" /by ", 2);
                 String desc = descBy[0];
@@ -39,7 +39,7 @@ public class AddCommand extends Command {
             }
             break;
 
-        case "event":
+        case EVENT:
             try {
                 String[] descFromTo = this.arguments.split(" /from ", 2);
                 String desc = descFromTo[0];

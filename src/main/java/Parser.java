@@ -1,42 +1,47 @@
 public class Parser {
 
     public static Command parse(String input) throws MoiMoiException {
-        String[] commandArgs = input.split(" ", 2);
-        String commandString = commandArgs[0];
-        Command command;
 
         try {
-            switch (commandString) {
-            case "todo":
-            case "deadline":
-            case "event":
-                command = new AddCommand(commandString, Parser.extractArgs(commandArgs));
+            String[] commandArgs = input.split(" ", 2);
+            CommandEnum commandEnum = CommandEnum.valueOf(commandArgs[0].toUpperCase());
+            Command command;
+
+            switch (commandEnum) {
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                command = new AddCommand(commandEnum, Parser.extractArgs(commandArgs));
                 break;
-            case "delete":
+            case DELETE:
                 command = new DeleteCommand(Parser.extractArgs(commandArgs));
                 break;
-            case "mark":
+            case MARK:
                 command = new MarkCommand(Parser.extractArgs(commandArgs));
                 break;
-            case "unmark":
+            case UNMARK:
                 command = new UnmarkCommand(Parser.extractArgs(commandArgs));
                 break;
-            case "list":
+            case LIST:
                 command = new ListCommand();
                 break;
-            case "filter":
+            case FILTER:
                 command = new FilterCommand(Parser.extractArgs(commandArgs));
                 break;
-            case "bye":
+            case BYE:
                 command = new ExitCommand();
                 break;
             default:
                 throw new InvalidCommandException();
             }
+
+            return command;
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCommandException();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingArgumentException();
         }
-        return command;
+
     }
 
     private static String extractArgs(String[] commandArgs) {
