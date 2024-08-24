@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task {
     /**
      * Whether the task is completed.

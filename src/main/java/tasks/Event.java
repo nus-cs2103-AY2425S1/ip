@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task {
     /**
      * The date-time when the event starts.

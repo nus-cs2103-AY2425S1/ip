@@ -1,3 +1,5 @@
+package tasks;
+
 public class Deadline extends Task {
     /**
      * The deadline of the task.
