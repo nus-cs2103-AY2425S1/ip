@@ -14,12 +14,14 @@ public abstract class Task {
     public String getDescription() {
         return String.format(description);
     }
-    public void markAsDone() {
+    public String markAsDone() {
         done = true;
+        return "Nice! I've marked this task as done:\n";
     }
 
-    public void markAsUndone() {
+    public String markAsUndone() {
         done = false;
+        return "OK, I've marked this task as not done yet:\n";
     }
 
     public String getStatusIcon() {

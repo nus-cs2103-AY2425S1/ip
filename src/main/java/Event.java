@@ -9,18 +9,14 @@ public class Event extends Task{
     }
 
     @Override
-    public void markAsDone() {
-        super.markAsDone();
-        String response = String.format("Nice! I've marked this task as done:\n [E] [x] %s", this.getDescription());
-        ScoobyDoo.printFormattedResponse(response);
+    public String markAsDone() {
+        return super.markAsDone() + String.format(" [E] [x] %s", this.getDescription());
     }
 
     @Override
-    public void markAsUndone() {
-        super.markAsUndone();
-        String response = String.format("OK, I've marked this task as not done yet:\n [E] [ ] %s",
+    public String markAsUndone() {
+        return super.markAsUndone() + String.format("OK, I've marked this task as not done yet:\n [E] [ ] %s",
                 this.getDescription());
-        ScoobyDoo.printFormattedResponse(response);
     }
 
     private static String formatDescription(String input) {

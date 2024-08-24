@@ -19,34 +19,34 @@ public class ScoobyDoo {
             }
 
             if (input.equals("list")) {
-                taskList.printList();
+                printFormattedResponse(taskList.printList());
                 continue;
             }
 
-            if (ToDos.matchTodo(input)) {
-                taskList.addTask(new ToDos(input));
+            if (Todo.matchTodo(input)) {
+                printFormattedResponse(taskList.addTask(new Todo(input)));
                 continue;
             }
 
             if (Deadline.matchDeadline(input)) {
-                taskList.addTask(new Deadline(input));
+                printFormattedResponse(taskList.addTask(new Deadline(input)));
                 continue;
             }
 
             if (Event.matchEvent(input)) {
-                taskList.addTask(new Event(input));
+                printFormattedResponse(taskList.addTask(new Event(input)));
                 continue;
             }
 
             if (Task.matchesMark(input) != 0) {
                 int num = Task.matchesMark(input);
-                taskList.getTask(num - 1).markAsDone();
+                printFormattedResponse(taskList.getTask(num - 1).markAsDone());
                 continue;
             }
 
             if (Task.matchesUnmark(input) != 0) {
                 int num = Task.matchesUnmark(input);
-                taskList.getTask(num - 1).markAsUndone();
+                printFormattedResponse(taskList.getTask(num - 1).markAsUndone());
             }
         }
         scanIn.close();

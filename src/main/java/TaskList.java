@@ -7,13 +7,13 @@ public class TaskList {
         list = new Task[i];
     }
 
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         if (checkListSize()) {
             list[numOfTasks] = task;
             numOfTasks++;
-            ScoobyDoo.printFormattedResponse(String.format(
-                    "Got it. I've added this task:\n   %s\nNow you have %d %s in the list.",task.getTaskString(), numOfTasks, numOfTasks == 1? "task": "tasks"));
-        } else ScoobyDoo.printFormattedResponse("Too many tasks !!!");
+            return String.format(
+                    "Got it. I've added this task:\n   %s\nNow you have %d %s in the list.",task.getTaskString(), numOfTasks, numOfTasks == 1? "task": "tasks");
+        } else return "Too many tasks !!!";
     }
 
     private boolean checkListSize() {
@@ -24,12 +24,12 @@ public class TaskList {
         return list[i];
     }
 
-    public void printList() {
+    public String printList() {
         String listString = "Here are the task in your list:\n";
         for (int i = 0; i < numOfTasks; i++) {
             listString = listString.concat(i+1 + "." + this.getTask(i).getTaskString());
         }
-        ScoobyDoo.printFormattedResponse(listString);
+        return listString;
     }
 
 
