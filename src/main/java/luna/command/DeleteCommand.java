@@ -1,4 +1,12 @@
+package luna.command;
+
 import java.util.ArrayList;
+
+import luna.Storage;
+import luna.TaskList;
+
+import luna.LunaException;
+import luna.task.Task;
 
 public class DeleteCommand extends Command {
     private final int taskToDelete;

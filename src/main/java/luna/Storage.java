@@ -1,3 +1,5 @@
+package luna;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,6 +11,8 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import luna.task.*;
 
 public class Storage {
     public static final String FILEPATH = "./data/luna.txt";

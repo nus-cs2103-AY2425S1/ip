@@ -1,3 +1,5 @@
+package luna;
+
 import java.util.Scanner;
 
 public class Ui {
