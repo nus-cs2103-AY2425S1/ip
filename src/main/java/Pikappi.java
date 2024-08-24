@@ -106,7 +106,7 @@ public class Pikappi {
         System.out.println("Okie, I've unmarked this task as not done yet:\n" + tasks.get(taskNumber - 1));
     }
 
-    public static void loadTasks(String path) {
+    public static void loadTasks(String path) throws PikappiException {
         File file = new File(path);
         if (!file.exists()) {
             if (!file.getParentFile().exists()) {
@@ -131,7 +131,10 @@ public class Pikappi {
         }
     }
 
-    public static void loadCurrentTask(ArrayList<String> task) {
+    public static void loadCurrentTask(ArrayList<String> task) throws PikappiException {
+        if (task.size() < 3) {
+            throw new PikappiException("Error loading task!");
+        }
         String taskType = task.get(0);
         boolean isDone = task.get(1).equals("1");
         String taskDescription = task.get(2);
@@ -153,6 +156,8 @@ public class Pikappi {
         case "E":
             tasks.add(new EventTask(taskDescription, taskTime, taskEndTime, isDone));
             break;
+        default:
+            throw new PikappiException("Error loading task!");
         }
     }
 
@@ -162,15 +167,12 @@ public class Pikappi {
             for (Task task : tasks) {
                 String isDone = task.isDone() ? "1" : "0";
                 String description = task.getDescription();
-                String by = "";
-                String from = "";
-                String to = "";
                 if (task instanceof DeadlineTask) {
-                    by = ((DeadlineTask) task).getBy();
+                    String by = ((DeadlineTask) task).getBy();
                     fileWriter.write("D | " + isDone + " | " + description + " | " + by + "\n");
                 } else if (task instanceof EventTask) {
-                    from = ((EventTask) task).getFrom();
-                    to = ((EventTask) task).getTo();
+                    String from = ((EventTask) task).getFrom();
+                    String to = ((EventTask) task).getTo();
                     fileWriter.write("E | " + isDone + " | " + description + " | " + from + " | " + to + "\n");
                 } else if (task instanceof TodoTask) {
                     fileWriter.write("T | " + isDone + " | " + description + "\n");
