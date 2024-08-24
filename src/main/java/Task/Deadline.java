@@ -9,7 +9,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String formatForCSV() {
+    public String formatToCSV() {
         String res = super.formatToCSV();
         res += DELIMITER + wrapInQuotes(by);
         return res;

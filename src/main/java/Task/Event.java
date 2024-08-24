@@ -11,7 +11,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String formatForCSV() {
+    public String formatToCSV() {
         String res = super.formatToCSV();
         res += DELIMITER + wrapInQuotes(start);
         res += DELIMITER + wrapInQuotes(end);
