@@ -34,8 +34,14 @@ public class Duke {
                 markTask(tasks, input, true);
             } else if (input.startsWith("unmark ")) {
                 markTask(tasks, input, false);
+            } else if (input.startsWith("todo ")) {
+                addTodo(tasks, input);
+            } else if (input.startsWith("deadline ")) {
+                addDeadline(tasks, input);
+            } else if (input.startsWith("event ")) {
+                addEvent(tasks, input);
             } else {
-                addTask(tasks, input);
+                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
             System.out.println("____________________________________________________________");
@@ -76,9 +82,42 @@ public class Duke {
         }
     }
 
-    private static void addTask(ArrayList<Task> tasks, String input) {
-        Task newTask = new Task(input);
+    private static void addTodo(ArrayList<Task> tasks, String input) {
+        String description = input.substring(5).trim();
+        if (description.isEmpty()) {
+            System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
+            return;
+        }
+        Task newTask = new Todo(description);
         tasks.add(newTask);
-        System.out.println(" added: " + newTask);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + newTask);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void addDeadline(ArrayList<Task> tasks, String input) {
+        String[] parts = input.substring(9).split(" /by ");
+        if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+            System.out.println(" ☹ OOPS!!! The format for a deadline should be: deadline <description> /by <time>");
+            return;
+        }
+        Task newTask = new Deadline(parts[0].trim(), parts[1].trim());
+        tasks.add(newTask);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + newTask);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void addEvent(ArrayList<Task> tasks, String input) {
+        String[] parts = input.substring(6).split(" /from | /to ");
+        if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+            System.out.println(" ☹ OOPS!!! The format for an event should be: event <description> /from <start time> /to <end time>");
+            return;
+        }
+        Task newTask = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        tasks.add(newTask);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + newTask);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 }
