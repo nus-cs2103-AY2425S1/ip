@@ -3,6 +3,10 @@ package zaibot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents a task with the "Deadline" category.
+ * It has a deadline DateTime attribute to signify the /by.
+ */
 public class DeadlineTask extends Task {
 
     private LocalDateTime deadline;

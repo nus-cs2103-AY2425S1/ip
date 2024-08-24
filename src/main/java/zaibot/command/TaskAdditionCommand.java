@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+/**
+ * This class is used to represent the command for adding tasks into the task list.
+ */
 public class TaskAdditionCommand extends Command {
 
     public TaskAdditionCommand(String name, HashMap<String, String> optionMap) {

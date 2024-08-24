@@ -11,6 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
+/**
+ * This class is responsible for handling
+ * disk-related events, such as saving and reading from
+ * the file.
+ */
 public class Storage {
 
     private enum Status {

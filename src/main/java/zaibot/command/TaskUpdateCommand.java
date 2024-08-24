@@ -6,6 +6,9 @@ import zaibot.task.Task;
 
 import java.util.HashMap;
 
+/**
+ * This task represents the command used to update tasks in the list.
+ */
 public class TaskUpdateCommand extends Command {
 
     public TaskUpdateCommand(String name, HashMap<String, String> optionMap) {

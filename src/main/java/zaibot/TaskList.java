@@ -4,6 +4,10 @@ import zaibot.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for the
+ * collection of tasks, and all the required operations.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 

@@ -3,6 +3,10 @@ package zaibot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents a task with the "Event" category.
+ * It has a from and to DateTime attribute to signify the /from and /to.
+ */
 public class EventTask extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
