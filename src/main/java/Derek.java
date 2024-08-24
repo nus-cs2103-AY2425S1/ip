@@ -38,25 +38,39 @@ public class Derek implements Bot {
      */
     @Override
     public void introduction() {
-        System.out.println("Hello! I'm Derek! Can we be friends?\n" + logo);
-        String userInput =
-                "Your response (Y/N):";
-        System.out.println(userInput);
-        Scanner sc = new Scanner(System.in);
-        String response = sc.nextLine();
-        if (response.equalsIgnoreCase("Y")) {
-            System.out.println("Great! I have always wanted a friend!\n"
-                    + "What do I call you?");
-            Scanner name = new Scanner(System.in);
-            this.user = name.nextLine();
-            System.out.println("\n" + "Hi! " + this.user + "! So, I guess as a friend I become your little slave!\n"
-                    + "What do you want me to do?\n"
-                    + "----------------------------------------------------------------------\n");
-            acceptCommands();
-        } else if (response.equalsIgnoreCase("N")) {
-            System.out.println(leavingMessage);
+        try {
+            System.out.println("Hello! I'm Derek! Can we be friends?\n" + logo);
+            String userInput =
+                    "Your response (Y/N):";
+            System.out.println(userInput);
+            Scanner sc = new Scanner(System.in);
+            String response = sc.nextLine();
+            Command intro = new Command(response);
+            intro.isConsent();
+            if (response.equalsIgnoreCase("Y")) {
+                System.out.println("Great! I have always wanted a friend!\n"
+                        + "What do I call you?");
+                Scanner name = new Scanner(System.in);
+                this.user = name.nextLine();
+                System.out.println("\n" + "Hi! " + this.user + "! So, I guess as a friend I become your little slave!\n"
+                        + "What do you want me to do?\n"
+                        + "----------------------------------------------------------------------\n"
+                        + "Please enter your commands correctly for Derek (he's a little slow):\n"
+                        + "todo (task)\n"
+                        + "event (task) /from (start time) /to (end time)\n"
+                        + "deadline (task) /by (date)\n"
+                        + "mark (task number)\n"
+                        + "unmark (task number)\n"
+                        + "delete (task number)\n"
+                        + "bye");
+                acceptCommands();
+            } else if (response.equalsIgnoreCase("N")) {
+                System.out.println(leavingMessage);
+            }
+        } catch (IncorrectCommandException e) {
+            System.out.println(e.getMessage() + "\n");
+            this.introduction();
         }
-
 
     }
 
@@ -68,31 +82,96 @@ public class Derek implements Bot {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            String name = sc.nextLine();
-            Command command = new Command(name);
+            try {
+                String name = sc.nextLine();
+                Command command = new Command(name);
 
-            if (command.isLeavingCommand()) {
-                System.out.println(leavingMessage);
-                break;  // Exit the loop and end the program
-            } else if (command.isListCommand()) {
-                this.returnList();
-            } else {
-                this.addTask(name);
+                if (command.isLeavingCommand()) {
+                    System.out.println(leavingMessage);
+                    break;  // Exit the loop and end the program
+                } else if (command.isListCommand()) {
+                    this.returnList();
+                } else if (command.isCompletedCommand(this.taskList.size())) {
+                    String[] words = name.split("\\s+");
+                    this.markCompleted(Integer.valueOf(words[1]));
+                } else if (command.isIncompleteCommand(this.taskList.size())) {
+                    String[] words = name.split("\\s+");
+                    this.markIncomplete(Integer.valueOf(words[1]));
+                } else if (command.isDeleteCommand(this.taskList.size())) {
+                    String[] words = name.split("\\s+");
+                    this.deleteTask(Integer.valueOf(words[1]));
+                } else {
+                    this.addTask(command);
+                }
+
+                System.out.println("anything else?");
+
+            } catch (IncorrectCommandException e) {
+                System.out.println(e.getMessage() + "\n");
             }
-
         }
     }
 
 
     /**
-     * Adds a task to the task list based on the user's command.
-     * @param name the command containing task details
+     * Deletes a task from the task list.
+     * @param number the index of the task to delete
      */
-    public void addTask(String name) {
-        Task task = new Task(name);
-        taskList.add(task);
+    public void deleteTask(Integer number) {
+        Task task = taskList.get(number - 1);
+        taskList.remove(number - 1);
+        System.out.println( "phew! that list was looooonngggg... i was getting tired of remembering it!" + "\n" + task.toString());
+    }
+
+    /**
+     * Marks a task as completed.
+     * @param number the index of the task to mark as completed
+     */
+    public void markCompleted(Integer number) {
+        Task task = taskList.get(number - 1);
+        task.markCompleted();
         String celebration = generateRandomCelebration();
-        System.out.println(celebration + "\n" + task + "\n");
+        System.out.println(celebration + " you slayed that!" + "\n" + task.toString());
+    }
+
+
+    /**
+     * Marks a task as incomplete.
+     * @param number the index of the task to mark as incomplete
+     */
+    public void markIncomplete(Integer number) {
+        Task task = taskList.get(number - 1);
+        task.markIncomplete();
+        System.out.println("You'll get 'em next time!" + "\n" + task.toString());
+    }
+
+
+    /**
+     * Adds a task to the task list based on the user's command.
+     * @param command the command containing task details
+     */
+    public void addTask(Command command) {
+        try {
+            String name = command.getTask();
+            Task task;
+            if (command.isDeadlineTask()) {
+                String[] information = name.split("/");
+                task = Task.deadlineTask(information[0], information[1]);
+            } else if (command.isEventTask()) {
+                String[] information = name.split("/");
+                task = Task.eventTask(information[0], information[1], information[2]);
+            } else if (command.isToDoTask()) {
+                task = Task.toDoTask(name);
+            } else {
+                throw new IncorrectCommandException("Is it a todo, event, or deadline?\nPlease enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums");
+            }
+            taskList.add(task);
+            String celebration = generateRandomCelebration();
+            System.out.println(celebration + "\n" + task + "\n");
+
+        } catch (IncorrectCommandException e) {
+            System.out.println("C'mon, I can't understand what you're saying! Help me out here!\n" + sadLogo + "\n" + e.getMessage());
+        }
     }
 
     /**
