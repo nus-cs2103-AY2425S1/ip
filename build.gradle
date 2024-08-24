@@ -1,10 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-<<<<<<< HEAD
-=======
     id 'checkstyle'
->>>>>>> branch-A-Gradle
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
