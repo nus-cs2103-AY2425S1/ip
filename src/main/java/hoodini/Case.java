@@ -16,6 +16,11 @@ public enum Case {
     UNMARK,
     ERROR;
 
+    /**
+     * Method to get the case of the input
+     * @param input String of command
+     * @return Case type for case switch block
+     */
     public static Case getCase(String input) {
         try {
             return Case.valueOf(input.toUpperCase());
