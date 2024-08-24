@@ -16,10 +16,21 @@ public class Task {
     private boolean completed;
     private final String name;
 
+    /**
+     * Constructor for Task
+     *
+     * @param name Name of task.
+     */
     public Task(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns a task based on String in format which was saved in local drive.
+     *
+     * @param inputFromFile String in format which was saved in local drive.
+     * @return Task needed.
+     */
     public static Task createFromData(String inputFromFile) {
         String[] components = inputFromFile.split(" \\| ");
         Task returned = switch (components[0]) {
@@ -40,6 +51,13 @@ public class Task {
         return returned;
     }
 
+    /**
+     * Returns a task based on User input.
+     *
+     * @param command Type of task.
+     * @param item Details of task.
+     * @return Task needed.
+     */
     public static Task of(Command command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
         switch(command) {
         case TODO:
@@ -57,6 +75,9 @@ public class Task {
         }
     }
 
+    /**
+     * Mark the task.
+     */
     public void mark() throws AlreadyMarkedException {
         if (completed) {
             throw new AlreadyMarkedException(this);
@@ -65,6 +86,9 @@ public class Task {
         }
     }
 
+    /**
+     * Unmark the task.
+     */
     public void unmark() throws AlreadyUnmarkedException {
         if (!completed) {
             throw new AlreadyUnmarkedException(this);

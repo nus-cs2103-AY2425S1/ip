@@ -14,12 +14,19 @@ import sumode.util.Storage;
 import sumode.util.SumoTaskList;
 import sumode.util.Ui;
 
+/**
+ * Main class where user will run the Main from
+ */
 public class SumoDE {
 
     private Storage storage = null;
     private SumoTaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor for SumoDE
+     * @param filePath FilePath to save data.
+     */
     public SumoDE(String filePath) {
         //handle Ui
         this.ui = new Ui();
