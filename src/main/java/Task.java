@@ -1,12 +1,14 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Task {
     private String description;
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
     private int taskCount;
     private boolean isDone;
 
     public Task() {
-        this.tasks = new Task[100];
-        this.taskCount = 0;
+        this.tasks = new ArrayList<Task>();
     }
     public Task(String description) {
         this.description = description;
@@ -30,15 +32,20 @@ public class Task {
     }
 
     public void addTask(Task task) {
-        if(taskCount < tasks.length) {
-            tasks[taskCount] = task;
-            taskCount++;
+        tasks.add(task);
+    }
+
+    public void deleteTask(int taskNumber) {
+        if(taskNumber > 0 && taskNumber <= tasks.size()) {
+            Task removed = tasks.remove(taskNumber - 1);
+            System.out.println("Removed: " + removed);
+            showNumberOfTasks();
         } else {
-            System.out.println("Sorry, the task list is full.");
+            System.out.println("Task number is not in range. Enter a valid task number.\n");
         }
     }
 
-    public Task[] getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
@@ -47,7 +54,7 @@ public class Task {
     }
 
     public void showNumberOfTasks() {
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     @Override
