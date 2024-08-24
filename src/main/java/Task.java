@@ -7,6 +7,7 @@ import java.util.HashSet;
 public class Task {
     protected String description;
     protected  boolean isDone;
+    protected TaskType type;
     protected static HashSet<String> taskNames = new HashSet<>(Arrays.asList("todo", "deadline", "event"));
 
     public static Task createTask(String description)
@@ -20,9 +21,11 @@ public class Task {
             throw new NoTaskDescriptionException();
         }
 
-        if (strippedDescription.startsWith("todo")) {
+        TaskType taskType = determineTaskType(strippedDescription);
+
+        if (taskType == TaskType.TODO){
             return new Todo(description);
-        } else if(strippedDescription.startsWith("deadline")) {
+        } else if (taskType == TaskType.DEADLINE) {
             String[] splitStr = description.split("/");
             String des = splitStr[0].trim();
             String deadline = splitStr[1].split(" ")[1];
@@ -36,7 +39,18 @@ public class Task {
         }
     }
 
-    protected Task(String description) {
+    public static TaskType determineTaskType(String description) {
+        if (description.startsWith("todo")) {
+            return TaskType.TODO;
+        } else if (description.startsWith("deadline")) {
+            return TaskType.DEADLINE;
+        } else {
+            return TaskType.EVENT;
+        }
+    }
+
+    protected Task(TaskType type, String description) {
+        this.type = type;
         this.description = description;
         this.isDone = false;
     }
