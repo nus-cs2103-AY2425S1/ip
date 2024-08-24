@@ -3,6 +3,9 @@ import sumode.task.*;
 
 import java.util.List;
 
+/**
+ * Handles all statements to be printed in SumoDE.
+ */
 public class Ui {
     private static final String LOGO = """
                            ___

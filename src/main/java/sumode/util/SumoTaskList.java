@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Stores all tasks.
+ */
 public class SumoTaskList {
 
     private final List<Task> tasks;

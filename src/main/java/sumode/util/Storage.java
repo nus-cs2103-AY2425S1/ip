@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 
-
+/**
+ * In charge of saving/loading to the file path.
+ */
 public class Storage{
 
     private final String filePath;

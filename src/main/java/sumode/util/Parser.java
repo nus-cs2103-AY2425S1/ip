@@ -2,6 +2,11 @@ package sumode.util;
 
 import sumode.exception.WrongSyntaxForCommandException;
 
+/**
+ * In charge of parsing jobs in SumoDE.
+ * <p>
+ * All methods are static so no initialisation required.
+ */
 public class Parser {
 
     /**
