@@ -4,7 +4,7 @@ import java.util.Random;
 
 
 /**
- * Derek is a bot that interacts with the user, manages tasks, and provides various functionalities like
+ * Derek is a bot that interacts with the user, manages tasks, and provides functionalities like
  * adding tasks, marking them as complete or incomplete, deleting tasks, and more.
  */
 public class Derek implements Bot {
