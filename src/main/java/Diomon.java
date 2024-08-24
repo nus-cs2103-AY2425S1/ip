@@ -1,16 +1,12 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Diomon {
-    private static ArrayList<String> taskList = new ArrayList<String>();
     public static void greeting() {
         String greetingMessage = """
-                           ________________________________________________________________
                            Hello! I'm Diomon
                            What do you need recorded?
-                           ________________________________________________________________
                            """;
-        System.out.println(greetingMessage);
+        System.out.print(greetingMessage);
     }
     public static void bye() {
         String byeMessage = """
@@ -21,30 +17,44 @@ public class Diomon {
         System.out.println(byeMessage);
     }
     public static void echo() {
+        // Initialise instance
         Scanner scanner = new Scanner(System.in);
+        TaskList taskList = new TaskList();
 
+        greeting();
         while(true) {
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
+            String inputcheck =input.toLowerCase();
+            if (inputcheck.equals("bye")) {
+                bye();
                 break;
             }
-            taskList.add(input);
-            System.out.println("""
-                               ________________________________________________________________
-                              """);
-
-            for (int i = 0; i < taskList.size(); i++){
-                System.out.printf("%d-> %s\n", i + 1,taskList.get(i));
+            System.out.println("________________________________________________________________");
+            if (inputcheck.contains("mark")){
+                String[] temp = inputcheck.split(" ");
+                if (temp.length == 2 && temp[0].equals("mark")) {
+                    Integer i = Integer.parseInt(temp[1]);
+                    System.out.printf("Task %d: [%s] has been marked", i, taskList.get(i - 1));
+                    taskList.mark( i- 1);
+                } else if (temp.length == 2 && temp[0].equals("unmark")) {
+                    Integer i = Integer.parseInt(temp[1]);
+                    System.out.printf("Task %d: [%s] has been unmarked", i, taskList.get(i - 1));
+                    taskList.unmark( i- 1);
+                } else {
+                    taskList.add(new Task(input));
+                    System.out.printf("New Task: [%s] has been added.\n", input);
+                    System.out.print(taskList);
+                }
+            } else {
+                taskList.add(new Task(input));
+                System.out.printf("New Task: [%s] has been added.\n", input);
+                System.out.print(taskList);
             }
-            System.out.println("""
-                               ________________________________________________________________
-                               """);
+            System.out.println("________________________________________________________________");
         }
     }
 
     public static void main(String[] args) {
-        greeting();
         echo();
-        bye();
     }
 }
