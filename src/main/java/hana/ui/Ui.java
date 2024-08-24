@@ -1,3 +1,7 @@
+package hana.ui;
+
+import hana.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

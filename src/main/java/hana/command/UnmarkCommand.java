@@ -1,7 +1,14 @@
-public class DeleteCommand extends Command{
+package hana.command;
+
+import hana.HanaException;
+import hana.storage.Storage;
+import hana.tasklist.TaskList;
+import hana.ui.Ui;
+
+public class UnmarkCommand extends Command{
 	private int taskNumber;
 
-	public DeleteCommand(String input) throws HanaException {
+	public UnmarkCommand(String input) throws HanaException {
 		String[] parts = input.split(" ", 2);
 		if (parts.length < 2 || parts[1].trim().isEmpty()) {
 			throw new HanaException("Task number cannot be empty.");
@@ -14,12 +21,8 @@ public class DeleteCommand extends Command{
 		if (taskList.isEmpty()) {
 			throw new HanaException("No tasks added yet. Add a task first!");
 		}
-		if (taskNumber < 1 || taskNumber > taskList.getTasks().size()) {
-			throw new HanaException("Invalid task number! Task number must be between 1 and " + taskList.getTasks().size() + ".");
-		}
-		Task deletedTask = taskList.getTasks().get(taskNumber - 1);
-		taskList.deleteTask(taskNumber);
-		ui.printDeleted(deletedTask, taskList.getTasks().size());
+		taskList.markTask(taskNumber, false);
+		ui.printMarked(taskList.getTasks().get(taskNumber - 1),false);
 		storage.save();
 	}
 }
