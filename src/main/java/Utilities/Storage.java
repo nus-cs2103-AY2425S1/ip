@@ -9,10 +9,19 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+
+/**
+ * A class responsible for loading and saving tasks to and from a file.
+ */
 public class Storage {
 
     private static final String filePath = "./data/db.txt";
 
+    /**
+     * Loads tasks from the file into the provided task list.
+     *
+     * @param tasks The list of tasks to load data into.
+     */
     public void load(ArrayList<Task> tasks) {
 
         new FileChecker(filePath);
@@ -58,6 +67,9 @@ public class Storage {
         }
     }
 
+    /**
+     * @param tasks
+     */
     public void save(ArrayList<Task> tasks){
         try (FileWriter writer = new FileWriter(filePath, false)) {  // 'false' to overwrite the file
             for (Task task : tasks) {
@@ -69,6 +81,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the provided task list to the file.
+     *
+     * @param task The list of tasks to save.
+     */
     public String getString(Task task) {
         String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
         String status = task.getDone() ? "1" : "0";

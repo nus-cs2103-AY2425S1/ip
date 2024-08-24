@@ -10,8 +10,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+
+/**
+ * Parsing user commands and interacting with the task list.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input command and executes the appropriate action on the task list.
+     *
+     * @param tasks          The list of tasks to operate on.
+     * @param userInput      The command input by the user.
+     * @param taskList       The TaskList object to manage tasks.
+     * @param ui             The UI object for displaying messages.
+     * @param dateTimeParser The Parser object used to parse date and time strings.
+     * @return true if the command is 'bye', indicating the application should terminate; false otherwise.
+     */
     public Boolean parseCommand(ArrayList<Task> tasks, String userInput, TaskList taskList, Ui ui, Parser dateTimeParser){
 
         if (Objects.equals(userInput, "bye")) {
@@ -104,6 +118,13 @@ public class Parser {
         return false;
     }
 
+
+    /**
+     * Parses a date and time string into a LocalDateTime object.
+     *
+     * @param dateTimeStr The date and time string in the format 'd/M/yyyy HHmm'.
+     * @return The parsed LocalDateTime object, or null if the format is invalid.
+     */
     public LocalDateTime parseDateTime(String dateTimeStr) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

@@ -5,6 +5,10 @@ import Utilities.Ui;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+
+/**
+ * Manages the list of tasks, including adding, removing, marking, and unmarking tasks.
+ */
 public class TaskList {
 
     Ui ui;
@@ -13,6 +17,13 @@ public class TaskList {
         this.ui = new Ui();
     }
 
+
+    /**
+     * Marks a task as done.
+     *
+     * @param tasks The list of tasks.
+     * @param index The index of the task to mark as done.
+     */
     public void markTask(ArrayList<Task> tasks, int index) {
         if (index >= 1 && index <= tasks.size()) {
             tasks.get(index - 1).markDone();
@@ -22,6 +33,13 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Unmarks a task, indicating it is not done.
+     *
+     * @param tasks The list of tasks.
+     * @param index The index of the task to unmark.
+     */
     public void unmarkTask(ArrayList<Task> tasks, int index) {
         if (index >= 1 && index <= tasks.size()) {
             tasks.get(index - 1).markNotDone();
@@ -31,6 +49,13 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Deletes a task from the list.
+     *
+     * @param tasks The list of tasks.
+     * @param index The index of the task to delete.
+     */
     public void deleteTask(ArrayList<Task> tasks, int index) {
         if (index >= 1 && index <= tasks.size()) {
             Task removedTask = tasks.remove(index - 1);
@@ -41,6 +66,15 @@ public class TaskList {
 
     }
 
+
+    /**
+     * Adds a new task to the list.
+     *
+     * @param tasks The list of tasks.
+     * @param type  The type of the task (TODO, DEADLINE, EVENT).
+     * @param desc  The description of the task.
+     * @param args  Additional arguments for DEADLINE or EVENT tasks (e.g., due date, start and end times).
+     */
     public void addTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
         Task newTask = switch (type) {
             case TODO -> new ToDo(desc);

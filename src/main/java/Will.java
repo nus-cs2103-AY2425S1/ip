@@ -10,8 +10,10 @@ import java.util.Scanner;
 
 public class Will {
 
+    /**
+     * Task management chatbot.
+     */
     public static void main(String[] args) {
-
 
         ArrayList<Task> tasks = new ArrayList<>();
         Storage storage = new Storage();
