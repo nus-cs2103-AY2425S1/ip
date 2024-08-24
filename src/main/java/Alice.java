@@ -1,9 +1,29 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Alice {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
+        // load tasks before starting
+        File file = new File("data.txt");
+        try {
+            // create new file if it doesn't exist
+            // if file already exists, read its contents
+            if (!file.createNewFile()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    createTask(line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+
         System.out.println("Hello! I am Alice! \nWhat can I do for you?");
         System.out.println("------------------------------------------");
 
@@ -42,6 +62,17 @@ public class Alice {
         System.out.println("------------------------------------------");
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
+
+        // at the end of the program, save the tasks to the file
+        try {
+            FileWriter writer = new FileWriter(file);
+            for (Task task : tasks) {
+                writer.write(writeTask(task));
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // for marking tasks as done or undone: separate the string from the index
@@ -156,5 +187,53 @@ public class Alice {
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.printf("Now you have %d tasks in the list%n", tasks.size());
         System.out.println("------------------------------------------");
+    }
+
+    public static void createTask(String line) {
+        String[] info = line.split(",");
+        String taskType = info[0];
+        boolean isDone = Integer.parseInt(info[1]) == 1;
+        Task newTask;
+        switch (taskType) {
+            case "todo":
+                newTask = new Todo(info[2]);
+                break;
+            case "deadline":
+                newTask = new Deadline(info[2], info[3]);
+                break;
+            case "event":
+                newTask = new Event(info[2], info[3], info[4]);
+                break;
+            default:
+                newTask = new Task(info[2]);
+        }
+        if (isDone) {
+            newTask.markAsDone();
+        }
+        tasks.add(newTask);
+    }
+
+    public static String writeTask(Task t) {
+        StringBuilder s = new StringBuilder();
+        if (t instanceof Todo) {
+            s.append("todo").append(",")
+                    .append((t.isDone ? 1 : 0)).append(",")
+                    .append(t.description);
+        } else if (t instanceof Deadline) {
+            s.append("deadline").append(",")
+                    .append((t.isDone ? 1 : 0)).append(",")
+                    .append(t.description).append(",")
+                    .append(((Deadline) t).deadline);
+        } else if (t instanceof Event) {
+            s.append("event").append(",")
+                    .append((t.isDone ? 1 : 0)).append(",")
+                    .append(t.description).append(",")
+                    .append(((Event) t).from).append(",")
+                    .append(((Event) t).to);
+        } else {
+            s.append("task");
+        }
+        s.append("\n");
+        return s.toString();
     }
 }
