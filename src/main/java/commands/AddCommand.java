@@ -6,6 +6,8 @@ import common.Ui;
 import storage.Task;
 import storage.TaskStorage;
 
+import java.io.IOException;
+
 public class AddCommand extends Command {
     private Task task;
 
@@ -14,9 +16,13 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException {
-        storage.addTask(task);
-        ui.printMessage("added: " + task);
+    public boolean execute(Ui ui, TaskStorage storage) {
+        try {
+            storage.addTask(task);
+            ui.printMessage("added: " + task);
+        } catch (SkibidiException | IOException e) {
+            ui.printMessage(e.getMessage());
+        }
         return true;
     }
 }

@@ -6,6 +6,8 @@ import common.Ui;
 import storage.TaskStorage;
 import storage.Event;
 
+import java.io.IOException;
+
 public class AddEventCommand extends Command {
     private String description;
     private String startTime;
@@ -31,10 +33,14 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException {
-        Event event = new Event(description, startTime, endTime);
-        storage.addTask(event);
-        ui.printMessage("Got it. I've added this task:\n  " + event);
+    public boolean execute(Ui ui, TaskStorage storage) {
+        try {
+            Event event = new Event(description, startTime, endTime);
+            storage.addTask(event);
+            ui.printMessage("Got it. I've added this task:\n  " + event);
+        } catch (SkibidiException | IOException e) {
+            ui.printMessage(e.getMessage());
+        }
         return true;
     }
 }

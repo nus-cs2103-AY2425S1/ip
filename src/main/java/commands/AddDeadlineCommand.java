@@ -6,6 +6,8 @@ import common.Ui;
 import storage.TaskStorage;
 import storage.Deadline;
 
+import java.io.IOException;
+
 public class AddDeadlineCommand extends Command {
     private String description;
     private String deadline;
@@ -21,7 +23,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException {
+    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException, IOException {
         Deadline deadline = new Deadline(description, this.deadline);
         storage.addTask(deadline);
         ui.printMessage("Got it. I've added this task:\n  " + deadline);

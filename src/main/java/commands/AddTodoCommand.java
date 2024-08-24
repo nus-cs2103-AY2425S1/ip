@@ -6,6 +6,8 @@ import common.Ui;
 import storage.TaskStorage;
 import storage.Todo;
 
+import java.io.IOException;
+
 public class AddTodoCommand extends Command {
     private String description;
 
@@ -17,10 +19,14 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException {
-        Todo todo = new Todo(description);
-        storage.addTask(todo);
-        ui.printMessage("Got it. I've added this task:\n  " + todo);
+    public boolean execute(Ui ui, TaskStorage storage) {
+        try {
+            Todo todo = new Todo(description);
+            storage.addTask(todo);
+            ui.printMessage("Got it. I've added this task:\n  " + todo);
+        } catch (SkibidiException | IOException e) {
+            ui.printMessage(e.getMessage());
+        }
         return true;
     }
 }

@@ -6,6 +6,8 @@ import storage.Task;
 import storage.TaskStorage;
 import common.SkibidiException;
 
+import java.io.IOException;
+
 public class DeleteCommand extends Command {
     private int index;
 
@@ -25,7 +27,7 @@ public class DeleteCommand extends Command {
             storage.deleteTask(index);
             ui.printMessage("Noted. I've removed this task:\n  " + task +
                     "\nNow you have " + storage.getTaskCount() + " tasks in the list.");
-        } catch (SkibidiException e) {
+        } catch (SkibidiException | IOException e) {
             ui.printMessage(e.getMessage());
         }
         return true;
