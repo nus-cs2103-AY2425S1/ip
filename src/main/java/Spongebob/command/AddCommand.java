@@ -14,6 +14,8 @@ public class AddCommand extends Command {
     private String[] arguments;
 
     public AddCommand(String[] arguments) {
+
+
         this.arguments = arguments;
     }
 
@@ -47,5 +49,10 @@ public class AddCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String[] getArgs() {
+        return this.arguments;
     }
 }

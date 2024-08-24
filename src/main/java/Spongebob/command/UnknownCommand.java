@@ -14,4 +14,9 @@ public class UnknownCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public String[] getArgs() {
+        return new String[] {"unknown"};
+    }
 }
