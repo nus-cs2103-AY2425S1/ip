@@ -16,7 +16,7 @@ public class Jackson {
     private static final int EXPECTED_SIZE = 100;
 
     /* Stores TaskList object */
-    private static final TaskList taskList = new TaskList(EXPECTED_SIZE);
+    private static TaskList taskList;
 
     /* Stores secret text for greedy loading */
     private static String secret = "";
@@ -44,6 +44,8 @@ public class Jackson {
                 byte[] decoded = Base64.getDecoder().decode(out);
                 out = new String(decoded);
 
+                // close scanner
+                sc.close();
             } catch (FileNotFoundException e) {
                 // if file path not found
                 System.out.println("Oops! Secret file not found...");
@@ -59,6 +61,10 @@ public class Jackson {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        // taskList
+        taskList = new TaskList(EXPECTED_SIZE);
+        taskList.load();
 
         System.out.printf("Oi! I'm %s!\nWhat you want me do today ah?\n> ", name);
         String input = sc.nextLine().strip();
@@ -80,7 +86,7 @@ public class Jackson {
 
                 // decide what action to take based on response object received from parser
                 if (a == Actions.ACTIONS.LIST) {
-                    System.out.println(taskList);
+                    taskList.showList();
                 } else if (a == Actions.ACTIONS.TODO) {
                     t = new Todo(m.group(1));
                     taskList.addTask(t);
