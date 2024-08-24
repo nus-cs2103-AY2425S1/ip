@@ -1,3 +1,5 @@
+package moimoi;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,6 +9,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import moimoi.exception.MoiMoiException;
+import moimoi.exception.StorageCorruptedException;
+import moimoi.exception.StorageIOException;
+import moimoi.task.Deadline;
+import moimoi.task.Event;
+import moimoi.task.Task;
+import moimoi.task.TaskEnum;
+import moimoi.task.Todo;
 
 public class Storage {
 
@@ -47,15 +57,15 @@ public class Storage {
         try {
             Task task;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            switch (taskInfo[0]) {
-            case "T":
+            switch (TaskEnum.valueOf(taskInfo[0])) {
+            case T:
                 task = new Todo(taskInfo[2]);
                 break;
-            case "D":
+            case D:
                 LocalDateTime by = LocalDateTime.parse(taskInfo[3], formatter);
                 task = new Deadline(taskInfo[2], by);
                 break;
-            case "E":
+            case E:
                 LocalDateTime from = LocalDateTime.parse(taskInfo[3], formatter);
                 LocalDateTime to = LocalDateTime.parse(taskInfo[4], formatter);
                 task = new Event(taskInfo[2], from, to);
@@ -72,7 +82,8 @@ public class Storage {
             }
 
             return task;
-        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException
+                 | IllegalArgumentException e) {
             throw new StorageCorruptedException();
         }
     }
