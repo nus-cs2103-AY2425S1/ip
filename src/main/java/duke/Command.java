@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 /**
  * The duke.Command class represents a command issued by the user.
- * It handles the execution of various commands related to task management,
- * such as adding, marking, deleting tasks, and handling custom commands.
+ * It handles various commands such as adding, marking,
+ * deleting tasks, and handling custom commands.
  */
 public class Command {
     private String command;
@@ -23,12 +23,6 @@ public class Command {
         this.command = command;
         this.message = message;
     }
-
-    /**
-     * Constructs a duke.Command object without any initial command or message.
-     * This can be used when the command and message will be set later.
-     */
-    public Command() {}
 
     /**
      * Executes the command on the given duke.TaskList, using the provided duke.Ui and duke.Storage objects.
@@ -66,6 +60,14 @@ public class Command {
         }
     }
 
+    /**
+     * Marks the task either as done or not done. If its done, it is shown as "X".
+     *
+     * @param tasks    The duke.TaskList object that contains all the tasks.
+     * @param storage  The duke.Storage object for saving the task list to a file.
+     * @throws MentalHealthException If an error occurs while processing the command.
+     */
+
     private void handleMarkCommand(String[] parts, TaskList tasks, Storage storage)
             throws MentalHealthException {
         if (parts.length > 1) {
@@ -95,8 +97,14 @@ public class Command {
         storage.saveTasksToFile(tasks.getListTask());
     }
 
-    private void handleDeleteCommand(String[] parts, TaskList tasks, Storage storage)
-            throws MentalHealthException {
+    /**
+     * Delete the task from taskList.
+     *
+     * @param tasks    The duke.TaskList object that contains all the tasks.
+     * @param storage  The duke.Storage object for saving the task list to a file.
+     */
+
+    private void handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
         if (parts.length > 1 && parts[0].equals("delete")) {
             int number = Integer.parseInt(parts[parts.length - 1]);
             System.out.println("Extracted Task number: " + number);
@@ -112,6 +120,13 @@ public class Command {
         storage.saveTasksToFile(tasks.getListTask());
     }
 
+    /**
+     * Finds the task that contains the keyword.
+     *
+     * @param tasks The duke.TaskList object that contains all the tasks.
+     * @param parts The keyword that the user wants to find.
+     */
+
     private void handleFindCommand(String[] parts, TaskList tasks) {
         String keyWord = parts[parts.length - 1];
         ArrayList<IndividualTask> allTasks = tasks.getListTask();
@@ -125,7 +140,7 @@ public class Command {
         tasks.getTasks(matchingTasks);
     }
 
-    private void processCustomCommand(TaskList tasks, Storage storage) throws MentalHealthException {
+    private void processCustomCommand(TaskList tasks, Storage storage) {
         try {
             processMessage(this.message, tasks, storage);
         } catch (MentalHealthException e) {
@@ -137,7 +152,8 @@ public class Command {
 
     /**
      * Processes specific task-related commands such as "todo", "deadline", and "event".
-     * This method parses the message to extract task details and then creates and adds the appropriate task
+     * This method parses the message to extract task details
+     * and then creates and adds the appropriate task
      * to the duke.TaskList.
      *
      * @param msg      The message containing the command and task details.
@@ -167,6 +183,14 @@ public class Command {
         storage.saveTasksToFile(tasks.getListTask());
     }
 
+    /**
+     * Processes "todo" commands.
+     *
+     * @param message  The message containing the command and task details.
+     * @param tasks    The duke.TaskList object to which the new task will be added.
+     * @throws MentalHealthException If an error occurs while processing the task command.
+     */
+
     private void processTodoCommand(String[] message, TaskList tasks)
             throws MentalHealthException {
         if (message.length < 2 || message[1].trim().isEmpty()) {
@@ -181,6 +205,14 @@ public class Command {
                         this.formatMessage(newTodo, tasks.getListTask().size())
         );
     }
+
+    /**
+     * Processes "deadline" commands.
+     *
+     * @param message  The message containing the command and task details.
+     * @param tasks    The duke.TaskList object to which the new task will be added.
+     * @throws MentalHealthException If an error occurs while processing the task command.
+     */
 
     private void processDeadlineCommand(String[] message, TaskList tasks)
             throws MentalHealthException {
@@ -200,6 +232,13 @@ public class Command {
         }
     }
 
+    /**
+     * Processes "event" commands.
+     *
+     * @param message  The message containing the command and task details.
+     * @param tasks    The duke.TaskList object to which the new task will be added.
+     * @throws MentalHealthException If an error occurs while processing the task command.
+     */
     private void processEventCommand(String[] message, TaskList tasks)
             throws MentalHealthException {
         String[] parts = this.message.split(" /from ", 2);
@@ -243,8 +282,7 @@ public class Command {
      * @return The formatted task message.
      */
     public String formatMessage(IndividualTask task, int num) {
-        return  this.indent + this.separator + "\n" +
-                this.indent + task + "\n" +
+        return  this.indent + this.separator + "\n" + this.indent + task + "\n" +
                 this.indent + "Now you have " + num + " tasks in the list.\n" +
                 this.indent + this.separator;
     }
