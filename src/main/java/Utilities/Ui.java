@@ -5,11 +5,6 @@ import Task.Task;
 import java.util.ArrayList;
 
 public class Ui {
-    /**
-     * Prints all tasks in the task list.
-     *
-     * @param tasks The list of tasks to print.
-     */
     public void printTask(ArrayList<Task> tasks) {
         System.out.println("_____________________________________");
         System.out.println("Here are the tasks in your list:");
@@ -19,45 +14,28 @@ public class Ui {
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a message indicating that no tasks were found.
-     */
-    public void noTask() {
+    public void noTask(){
         System.out.println("_____________________________________");
         System.out.println("No Task.Task Found");
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a message indicating whether a task was marked as done or not done.
-     *
-     * @param tasks    The list of tasks.
-     * @param index    The index of the task to mark.
-     * @param isToMark true if marking as done, false if marking as not done.
-     */
-    public void markTask(ArrayList<Task> tasks, int index, Boolean isToMark) {
+    public void markTask(ArrayList<Task> tasks, int index, Boolean isToMark){
         System.out.println("_____________________________________");
-        if (isToMark) {
+        if (isToMark){
             System.out.println("Nice! I've marked this task as done:");
-        } else {
+        }else{
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println("  " + tasks.get(index - 1));
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a message indicating whether a task was added or removed.
-     *
-     * @param tasks The list of tasks.
-     * @param task  The task that was added or removed.
-     * @param isAdd true if the task was added, false if removed.
-     */
-    public void alterTask(ArrayList<Task> tasks, Task task, Boolean isAdd) {
+    public void alterTask(ArrayList<Task> tasks, Task task, Boolean isAdd){
         System.out.println("_____________________________________");
-        if (isAdd) {
+        if (isAdd){
             System.out.println("Got it. I've added this task:");
-        } else {
+        }else{
             System.out.println("Noted. I've removed this task:");
         }
         System.out.println("  " + task);
@@ -65,43 +43,27 @@ public class Ui {
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a default message when the user input is not recognized.
-     */
-    public void defaultMsg() {
+    public void defaultMsg(){
         System.out.println("_____________________________________");
         System.out.println("I'm sorry, but I don't know what that means");
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a farewell message when the user exits the application.
-     */
-    public void endMsg() {
+    public void endMsg(){
         System.out.println("_____________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a greeting message to the user.
-     *
-     * @param logo The name or logo of the application.
-     */
-    public void greetMsg(String logo) {
+    public void greetMsg(String logo){
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a message indicating that a required field is blank.
-     *
-     * @param type The type of the task (e.g., "todo", "number").
-     */
-    public void blankMsg(String type) {
+    public void blankMsg(String type){
         System.out.println("_____________________________________");
-        switch (type) {
+        switch (type){
         case "todo":
             System.out.println("The description of a " + type + " cannot be empty.");
             break;
@@ -115,10 +77,7 @@ public class Ui {
         System.out.println("_____________________________________");
     }
 
-    /**
-     * Displays a message indicating that the provided date and time format is invalid.
-     */
-    public void invalidDateMsg() {
+    public void invalidDateMsg(){
         System.out.println("_____________________________________");
         System.out.println("Invalid date and time format. Please use the format 'd/M/yyyy HHmm'.");
         System.out.println("_____________________________________");

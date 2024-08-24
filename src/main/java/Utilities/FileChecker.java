@@ -15,6 +15,7 @@ public class FileChecker {
      * @param filePath The path of the file to check and create if necessary.
      */
     public FileChecker(String filePath) {
+
         File file = new File(filePath);
         File directory = new File(file.getParent());
 
@@ -25,6 +26,7 @@ public class FileChecker {
                     System.out.println("Issue creating Directory");
                 }
             }
+
             if(!file.exists()){
                 if(!file.createNewFile()){
                     System.out.println("Issue creating File.");
