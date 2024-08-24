@@ -13,6 +13,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public boolean getIsDone () {
+        return isDone;
+    }
+
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + description;

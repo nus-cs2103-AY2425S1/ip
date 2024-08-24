@@ -5,7 +5,7 @@ import hana.storage.Storage;
 import hana.tasklist.TaskList;
 import hana.ui.Ui;
 
-public class helpCommand extends Command {
+public class HelpCommand extends Command {
 
 	@Override
 	public void execute(TaskList taskList, Ui ui, Storage storage) throws HanaException {

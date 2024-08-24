@@ -25,7 +25,7 @@ public class Parser {
 		} else if (input.startsWith("findByDate")) {
 			return new FindByDateCommand(input);
 		} else if (input.startsWith("help")) {
-			return new helpCommand();
+			return new HelpCommand();
 		} else {
 			throw new HanaException("Unknown command! Use help to see list of available commands");
 		}
