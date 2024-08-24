@@ -16,6 +16,9 @@ public class Slave {
 
     public static void main(String[] args) {
         welcome();
+        do {
+            getUserInput();
+        } while (hasMoreInputs);
         goodbye();
 
     }
