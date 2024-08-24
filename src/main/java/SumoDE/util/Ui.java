@@ -1,7 +1,10 @@
+package sumode.util;
+import sumode.task.*;
+
 import java.util.List;
 
 public class Ui {
-    private static String LOGO = """
+    private static final String LOGO = """
                            ___
                           |* *|
                           |\\_/|
@@ -17,7 +20,7 @@ public class Ui {
                   |_____/       \\_____|
                 """;
 
-    private static String GOODBYE = """
+    private static final String GOODBYE = """
                 ------------------------------------
                 Goodbye! Sumo hope to see you again!
                 ------------------------------------

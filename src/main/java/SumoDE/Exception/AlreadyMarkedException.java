@@ -1,3 +1,7 @@
+package sumode.exception;
+
+import sumode.task.Task;
+
 public class AlreadyMarkedException extends Exception {
     public AlreadyMarkedException(Task task) {
         super("Sumo confused. This task is marked as done in the first place!\n"

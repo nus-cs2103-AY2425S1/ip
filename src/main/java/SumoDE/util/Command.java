@@ -1,3 +1,5 @@
+package sumode.util;
+
 public enum Command {
     BYE,
     EXIT,

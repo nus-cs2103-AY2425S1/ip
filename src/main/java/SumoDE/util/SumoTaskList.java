@@ -1,15 +1,17 @@
-import java.io.File;
-import java.io.FileWriter;
+package sumode.util;
+
+import sumode.exception.*;
+import sumode.task.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class SumoTaskList {
 
     private final List<Task> tasks;
-    private Storage storage;
+    private final Storage storage;
     private Ui ui;
 
     public SumoTaskList(Storage storage, Ui ui) throws IOException {
@@ -31,9 +33,10 @@ public class SumoTaskList {
 
     }
 
-    public SumoTaskList() {
+    public SumoTaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.storage = null;
+        this.ui = ui;
     }
 
     public boolean execute(Command command, String item)
