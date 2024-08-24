@@ -1,3 +1,5 @@
+package moimoi.exception;
+
 public abstract class MoiMoiException extends Exception {
 
     @Override

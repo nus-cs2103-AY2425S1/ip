@@ -1,3 +1,5 @@
+package moimoi.exception;
+
 public class InvalidDateTimeException extends MoiMoiException {
 
     String type;

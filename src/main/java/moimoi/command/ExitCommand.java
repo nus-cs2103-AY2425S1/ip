@@ -1,3 +1,10 @@
+package moimoi.command;
+
+import moimoi.Storage;
+import moimoi.TaskList;
+import moimoi.Ui;
+import moimoi.exception.StorageIOException;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {

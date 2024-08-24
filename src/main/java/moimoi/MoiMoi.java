@@ -1,4 +1,9 @@
+package moimoi;
+
 import java.util.ArrayList;
+import moimoi.command.Command;
+import moimoi.exception.MoiMoiException;
+import moimoi.task.Task;
 
 public class MoiMoi {
 

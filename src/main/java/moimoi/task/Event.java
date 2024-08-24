@@ -1,6 +1,9 @@
+package moimoi.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import moimoi.exception.InvalidDateTimeRangeException;
 
 public class Event extends Task {
 
@@ -9,7 +12,7 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime from, LocalDateTime to)
             throws InvalidDateTimeRangeException {
-        super("E", description);
+        super(TaskEnum.E, description);
         if (from.isAfter(to)) {
             throw new InvalidDateTimeRangeException();
         } else {

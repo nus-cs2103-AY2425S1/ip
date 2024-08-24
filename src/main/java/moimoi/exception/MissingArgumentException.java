@@ -1,3 +1,5 @@
+package moimoi.exception;
+
 public class MissingArgumentException extends MoiMoiException {
 
     @Override

@@ -1,3 +1,5 @@
+package moimoi.exception;
+
 public class StorageCorruptedException extends MoiMoiException {
 
     @Override
