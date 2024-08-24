@@ -1,5 +1,11 @@
 package jackson;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Base64;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+
 import jackson.actions.Actions;
 import jackson.exceptions.OutOfListException;
 import jackson.exceptions.SyntaxException;
@@ -8,17 +14,11 @@ import jackson.tasks.Deadline;
 import jackson.tasks.Event;
 import jackson.tasks.Task;
 import jackson.tasks.Todo;
+import jackson.utils.Parser;
+import jackson.utils.Response;
 import jackson.utils.Storage;
 import jackson.utils.TaskList;
 import jackson.utils.Ui;
-import jackson.utils.Response;
-import jackson.utils.Parser;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Base64;
-import java.util.Scanner;
-import java.util.regex.Matcher;
 
 /**
  * Main class for the chatbot.
@@ -26,7 +26,7 @@ import java.util.regex.Matcher;
 public class Jackson {
 
     /* Chatbot name */
-    public static String name = "Jackson";
+    private static String name = "Jackson";
 
     /* Expected number of tasks to store */
     private static final int EXPECTED_SIZE = 100;
@@ -43,6 +43,11 @@ public class Jackson {
     private Storage storage;
     private Scanner sc;
 
+    /**
+     * Constructor class for Jackson
+     * @param expectedSize integer of how many tasks are expected to be stored
+     * @param path String path for save file
+     */
     public Jackson(int expectedSize, String path) {
         this.taskList = new TaskList(expectedSize);
         this.ui = new Ui();
@@ -95,7 +100,7 @@ public class Jackson {
         String input;
         Task task;
         Response response;
-        Actions.ACTIONS action;
+        Actions.ActionType action;
         Matcher matcher;
         int index;
 
@@ -163,6 +168,9 @@ public class Jackson {
                     break;
                 case INVALID:
                     throw new UnsupportedException(input);
+                default:
+                    System.out.println("Unknown error! Contact the developer...");
+                    break;
                 }
             } catch (UnsupportedException e) {
                 // if user input not recognised, print command list

@@ -1,10 +1,14 @@
 package jackson.actions;
 
+/**
+ * Enum class to hold Action types
+ */
 public class Actions {
+
     /**
-     * Class to hold Action enum types
+     * Available action types
      */
-    public enum ACTIONS {
+    public enum ActionType {
         LIST,
         TODO,
         DEADLINE,

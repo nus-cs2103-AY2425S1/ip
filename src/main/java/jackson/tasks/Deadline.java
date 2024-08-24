@@ -7,6 +7,11 @@ import jackson.utils.Temporal;
 public class Deadline extends Task {
     private Temporal deadline;
 
+    /**
+     * Constructor for Deadline Task class.
+     * @param name String name of the task
+     * @param deadline String deadline of the task
+     */
     public Deadline(String name, String deadline) {
         super(name);
         this.deadline = new Temporal(deadline);

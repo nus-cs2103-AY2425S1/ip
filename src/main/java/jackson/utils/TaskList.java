@@ -1,9 +1,9 @@
 package jackson.utils;
 
+import java.util.ArrayList;
+
 import jackson.exceptions.OutOfListException;
 import jackson.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * Class used to store tasks.
@@ -14,10 +14,10 @@ public class TaskList {
 
     /**
      * Constructor for task list.
-     * @param EXPECTED_SIZE expected number of tasks to store
+     * @param expectedSize expected number of tasks to store
      */
-    public TaskList(int EXPECTED_SIZE) {
-        this.tasks = new ArrayList<>(EXPECTED_SIZE);
+    public TaskList(int expectedSize) {
+        this.tasks = new ArrayList<>(expectedSize);
     }
 
     /**
@@ -48,8 +48,8 @@ public class TaskList {
     /**
      * Deletes Task from the list at specified index.
      * @param index Integer index to delete at
-     * @throws OutOfListException Thrown if invalid index is given, contains current task size
      * @return {@code Task} object that was deleted
+     * @throws OutOfListException Thrown if invalid index is given, contains current task size
      */
     public Task deleteTask(int index) throws OutOfListException {
         if (index < 0 || index >= this.tasks.size()) {
@@ -62,8 +62,8 @@ public class TaskList {
     /**
      * Marks task as completed at specified index.
      * @param index Integer index to mark task at
-     * @throws OutOfListException Thrown if invalid index is given, contains current task size
      * @return {@code Task} object that was marked
+     * @throws OutOfListException Thrown if invalid index is given, contains current task size
      */
     public Task mark(int index) throws OutOfListException {
         if (index < 0 || index >= this.tasks.size()) {
@@ -77,8 +77,8 @@ public class TaskList {
     /**
      * Unmarks task as completed at specified index.
      * @param index Integer index to unmark task at
-     * @throws OutOfListException Thrown if invalid index is given, contains current task size
      * @return {@code Task} object that was unmarked
+     * @throws OutOfListException Thrown if invalid index is given, contains current task size
      */
     public Task unmark(int index) throws OutOfListException {
         if (index < 0 || index >= this.tasks.size()) {

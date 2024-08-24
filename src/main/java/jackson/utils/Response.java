@@ -1,28 +1,33 @@
 package jackson.utils;
 
-import jackson.actions.Actions;
-
 import java.util.regex.Matcher;
+
+import jackson.actions.Actions;
 
 /**
  * Class to handle response.
  * Stores {@code Action.ACTIONS} and {@code Matcher} objects.
  */
 public class Response {
-    private Actions.ACTIONS a;
-    private Matcher m;
+    private Actions.ActionType action;
+    private Matcher matcher;
 
-    public Response(Actions.ACTIONS a, Matcher m) {
-        this.a = a;
-        this.m = m;
+    /**
+     * Constructor for Response class.
+     * @param action {@code Actions.ActionType} object containing what type of action to take
+     * @param matcher {@code Matcher} object containing regex matches
+     */
+    public Response(Actions.ActionType action, Matcher matcher) {
+        this.action = action;
+        this.matcher = matcher;
     }
 
     /**
      * Returns action stored inside.
      * @return {@code Actions.ACTIONS} enum type
      */
-    public Actions.ACTIONS getAction() {
-        return this.a;
+    public Actions.ActionType getAction() {
+        return this.action;
     }
 
     /**
@@ -30,6 +35,6 @@ public class Response {
      * @return {@code Matcher} enum type
      */
     public Matcher getMatcher() {
-        return this.m;
+        return this.matcher;
     }
 }

@@ -1,6 +1,10 @@
 plugins {
     id 'java'
     id 'application'
+<<<<<<< HEAD
+=======
+    id 'checkstyle'
+>>>>>>> branch-A-Gradle
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -28,6 +32,7 @@ test {
 }
 
 application {
+<<<<<<< HEAD
     mainClass.set("seedu.duke.Duke")
 }
 
@@ -37,5 +42,20 @@ shadowJar {
 }
 
 run{
+=======
+    mainClass.set("jackson.Jackson")
+}
+
+shadowJar {
+    archiveBaseName = "jackson"
+    archiveClassifier = null
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+run {
+>>>>>>> branch-A-Gradle
     standardInput = System.in
 }
