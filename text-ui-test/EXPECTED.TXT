@@ -1,7 +1,7 @@
 Beep bop! Hello I am Barcus, ready to be of assistance!
 Write 'bye' to leave!
 
-You: Barcus: hello
+You: Barcus: Uh oh, command not found D:
 You: Barcus: Added task: [T][ ] read book
 There are 1 task(s) in the list.
 You: Barcus: Added task: [D][ ] return book (by: June 6th)

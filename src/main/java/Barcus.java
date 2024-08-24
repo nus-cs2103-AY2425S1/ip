@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +16,8 @@ public class Barcus {
 
         // list to save info
 //        String[] tasks = new String[100];
-        Task[] tasks = new Task[100];
+//        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int curr = 0;
 
         // start
@@ -34,7 +36,7 @@ public class Barcus {
                 // for add list
                 talk("Okie, here are your tasks!");
                 for (int i = 0; i < curr; i++) {
-                    System.out.println(String.valueOf(i+1) + ". " + tasks[i].toString());
+                    System.out.println(String.valueOf(i+1) + ". " + tasks.get(i).toString());
                 }
             } else if (words[0].equals("unmark")) {
                 if (words.length != 2) {
@@ -42,8 +44,8 @@ public class Barcus {
                 } else {
                     int pos = Integer.parseInt(words[1]);
                     if (pos > 0 && pos <= curr) {
-                        tasks[pos - 1].unmarkDone();
-                        talk("No prob, have marked as undone: " + tasks[pos - 1]);
+                        tasks.get(pos - 1).unmarkDone();
+                        talk("No prob, have marked as undone: " + tasks.get(pos - 1));
                     } else {
                         talk("Uh oh, please choose a number between 1 and " + curr);
                     }
@@ -55,8 +57,8 @@ public class Barcus {
                 } else {
                     int pos = Integer.parseInt(words[1]);
                     if (pos > 0 && pos <= curr) {
-                        tasks[pos - 1].markDone();
-                        talk("Good job! Have marked as done: " + tasks[pos - 1]);
+                        tasks.get(pos - 1).markDone();
+                        talk("Good job! Have marked as done: " + tasks.get(pos - 1));
                     } else {
                         talk("Uh oh, please choose a number between 1 and " + curr);
                     }
@@ -66,9 +68,9 @@ public class Barcus {
                 if (words.length < 2) {
                     talk("Uh oh, please include a description of the todo");
                 } else {
-                    tasks[curr] = new Todo(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
+                    tasks.add(new Todo(String.join(" ", Arrays.copyOfRange(words, 1, words.length))));
                     curr++;
-                    talk("Added task: " + tasks[curr - 1] + "\nThere are " + curr + " task(s) in the list.");
+                    talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
                 }
 
             } else if (words[0].equals("deadline")) {
@@ -80,11 +82,11 @@ public class Barcus {
 //
 //                    String[] temp = reply.split(" /by ");
 //                    String by = temp[1];
-                    tasks[curr] = new Deadline(
+                    tasks.add(new Deadline(
                             String.join(" ", Arrays.copyOfRange(words, 1, byI)),
-                            String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length)));
+                            String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length))));
                     curr++;
-                    talk("Added task: " + tasks[curr - 1] + "\nThere are " + curr + " task(s) in the list.");
+                    talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
                 }
             } else if (words[0].equals("event")) {
                 List<String> wordsList = Arrays.asList(words);
@@ -93,13 +95,13 @@ public class Barcus {
                 } else {
                     int fromI = wordsList.indexOf("/from");
                     int toI = wordsList.indexOf("/to");
-                    tasks[curr] = new Event(
+                    tasks.add(new Event(
                             String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
                             String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
                             String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length))
-                    );
+                    ));
                     curr++;
-                    talk("Added task: " + tasks[curr - 1] + "\nThere are " + curr + " task(s) in the list.");
+                    talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
 
                 }
             } else {
@@ -112,7 +114,7 @@ public class Barcus {
 //                talk("Added task '" + reply + "'");
 
                 // unknown command
-                talk("Error, command not found D:");
+                talk("Uh oh, command not found D:");
             }
         }
 
