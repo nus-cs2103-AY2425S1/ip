@@ -72,6 +72,9 @@ public class Parser {
         case "bye":
             return new ExitCommand();
 
+        case "find":
+            return new FindCommand(arguments);
+
         default:
             return new UnknownCommand();
 

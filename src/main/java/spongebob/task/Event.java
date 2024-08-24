@@ -13,7 +13,7 @@ public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
-    
+
     /**
      * constructor for an event task, checks if description, start and end dates to be in correct format
      * @param description description of task

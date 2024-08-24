@@ -58,4 +58,14 @@ public class TaskList {
 
         return builder.toString();
     }
+
+    public List<Task> find(String keyword) {
+        List<Task> res = new ArrayList<>();
+        for (Task task : cache) {
+            if (task.contains(keyword)) {
+                res.add(task);
+            }
+        }
+        return res;
+    }
 }

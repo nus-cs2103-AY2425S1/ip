@@ -94,4 +94,9 @@ public class Ui {
         }
     }
 
+    public void showFindTask(String tasks) {
+        System.out.println("Okay-dokey! here are the matching tasks! \n");
+        System.out.println(tasks);
+    }
+
 }
