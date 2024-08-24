@@ -29,8 +29,7 @@ test {
 }
 
 application {
-<<<<<<< HEAD
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("jackson.Jackson")
 }
 
 shadowJar {
@@ -39,7 +38,6 @@ shadowJar {
 }
 
 run{
-=======
     mainClass.set("jackson.Jackson")
 }
 
@@ -53,6 +51,5 @@ checkstyle {
 }
 
 run {
->>>>>>> branch-A-Gradle
     standardInput = System.in
 }
