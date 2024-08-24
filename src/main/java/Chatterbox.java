@@ -304,9 +304,7 @@ ____________________________________________________________
         } catch (ChatterBoxError e){
             System.out.println(e.getMessage());
         } finally {
-            System.out.println(goodBye());
-
-
+            System.out.println(goodBye());		
             scanner.close();
         }
 
