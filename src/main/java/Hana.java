@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 
 import java.nio.file.Files;
@@ -144,6 +145,7 @@ public class Hana {
             System.out.println("    " + task);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
+            saveTask();
         } else {
             throw new HanaException("Task list is full!");
         }
@@ -173,6 +175,7 @@ public class Hana {
             }
             System.out.println("  " + task);
             System.out.println(LINE);
+            saveTask();
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
@@ -186,6 +189,7 @@ public class Hana {
             System.out.println("    " + removedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
+            saveTask();
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
@@ -234,6 +238,17 @@ public class Hana {
             }
         } catch (IOException e) {
             throw new HanaException("Failed to read saved tasks. File may be corrupted.");
+        }
+    }
+
+    private static void saveTask() throws HanaException {
+        try (BufferedWriter bw = Files.newBufferedWriter(FILE)) {
+            for (Task task : tasks) {
+                bw.write(task.fileString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            throw new HanaException("Failed to save tasks.");
         }
     }
 }
