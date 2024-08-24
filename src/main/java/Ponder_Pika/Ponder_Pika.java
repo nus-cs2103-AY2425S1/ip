@@ -91,9 +91,15 @@ public class Ponder_Pika {
                         break;
                     case "deadline":
                         String[] args = commands[1].split("/by ");
+
+                        if (args.length == 1) {
+                            throw new PonderPikaException("Missing Deadline time for Deadline Task!");
+                        }
+
                         if (args[0].trim().isEmpty()) {
                             throw new PonderPikaException("Missing Description for Deadline Task!");
                         }
+
                         Task deadline = new Deadline(args[0].trim(), args[1].trim());
                         myList.add(deadline);
                         System.out.println("        Pika! I have added a deadline: " + args[0].trim() + " by " + args[1].trim());
@@ -109,6 +115,15 @@ public class Ponder_Pika {
 
                         String detail = desc[1].trim();
                         String[] time = detail.split("/to");
+
+                        if (time[0].trim().isEmpty()) {
+                            throw new PonderPikaException("Missing \"From\" timeline for Event Task!");
+                        }
+
+                        if (time[1].trim().isEmpty()) {
+                            throw new PonderPikaException("Missing \"To\" timeline for Event Task!");
+                        }
+
                         Task event = new Event(desc[0].trim(), time[0].trim(), time[1].trim());
                         myList.add(event);
                         System.out.println("        Pika! I have added your event: " + desc[0].trim() + " from " + time[0].trim() + " to " + time[1].trim());
@@ -119,6 +134,7 @@ public class Ponder_Pika {
                 }
             } catch (PonderPikaException  e) {
                 System.out.println(e.toString());
+                printDivider();
             }
 
             if(userCommand.equals("bye")) {
