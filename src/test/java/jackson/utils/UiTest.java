@@ -37,6 +37,10 @@ public class UiTest {
         assertEquals(prefix + "list", stream.toString().strip());
         stream.reset();
 
+        ui.printFormatGuide("find");
+        assertEquals(prefix + "find [keywords]", stream.toString().strip());
+        stream.reset();
+
         ui.printFormatGuide("event");
         assertEquals(prefix + """
                 event [task-name] /from [start-date] /to [end-date]\r
@@ -76,6 +80,10 @@ public class UiTest {
         stream.reset();
 
         ui.printFormatGuide("todo event");
+        assertEquals(prefix + "Unknown error...", stream.toString().strip());
+        stream.reset();
+
+        ui.printFormatGuide("find keyword");
         assertEquals(prefix + "Unknown error...", stream.toString().strip());
         stream.reset();
 

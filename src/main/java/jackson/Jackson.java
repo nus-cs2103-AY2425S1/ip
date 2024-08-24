@@ -2,6 +2,7 @@ package jackson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -102,6 +103,7 @@ public class Jackson {
         Response response;
         Actions.ActionType action;
         Matcher matcher;
+        ArrayList<Task> tasks;
         int index;
 
         // determine whether to terminate loop
@@ -159,6 +161,10 @@ public class Jackson {
                     index = Integer.parseInt(matcher.group(1)) - 1;
                     task = this.taskList.deleteTask(index);
                     this.ui.printDeleteList(task, this.taskList);
+                    break;
+                case FIND:
+                    tasks = this.taskList.findTasks(matcher.group(1));
+                    this.ui.printFindList(tasks, matcher.group(1));
                     break;
                 case BYE:
                     isQuit = true;

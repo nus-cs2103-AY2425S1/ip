@@ -1,5 +1,7 @@
 package jackson.utils;
 
+import java.util.ArrayList;
+
 import jackson.tasks.Task;
 
 /**
@@ -39,7 +41,8 @@ public class Ui {
                         4. mark [index]
                         5. unmark [index]
                         6. list
-                        7. bye""");
+                        7. find
+                        8. bye""");
     }
 
     /**
@@ -72,6 +75,9 @@ public class Ui {
             break;
         case "delete":
             System.out.println("delete [index]");
+            break;
+        case "find":
+            System.out.println("find [keywords]");
             break;
         case "bye":
             System.out.println("bye");
@@ -127,6 +133,22 @@ public class Ui {
         System.out.println("Deleting now hor!");
         System.out.printf("\t%s\n", task);
         System.out.printf("You now got %s tasks in your list leh\n", taskList.getSize());
+    }
+
+    /**
+     * Prints chatbot response when finding tasks containing keyword.
+     * @param tasks {@code ArrayList} of tasks that contain keyword
+     * @param keyword String keyword
+     */
+    public void printFindList(ArrayList<Task> tasks, String keyword) {
+        System.out.println("Ok ok, find for you already...");
+        if (tasks.isEmpty()) {
+            System.out.printf("Don't have tasks that match '%s' leh....\n", keyword);
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.printf("%d. %s\n", i, tasks.get(i));
+            }
+        }
     }
 
     /**

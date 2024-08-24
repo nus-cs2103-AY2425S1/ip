@@ -18,10 +18,11 @@ public class Parser {
             + "(\\d{2}-\\d{2}-\\d{4}(?: \\d{2}:\\d{2})?)$");
     private static final Pattern EVENT = Pattern.compile("^event (.+) /from "
             + "(\\d{2}-\\d{2}-\\d{4}(?: \\d{2}:\\d{2})?) /to (\\d{2}-\\d{2}-\\d{4}(?: \\d{2}:\\d{2})?)$");
-    private static final Pattern MARK = Pattern.compile("^mark ([0-9]+)$");
-    private static final Pattern UNMARK = Pattern.compile("^unmark ([0-9]+)$");
+    private static final Pattern MARK = Pattern.compile("^mark (\\d+)$");
+    private static final Pattern UNMARK = Pattern.compile("^unmark (\\d+)$");
     private static final Pattern LIST = Pattern.compile("^list$");
-    private static final Pattern DELETE = Pattern.compile("^delete ([0-9]+)$");
+    private static final Pattern DELETE = Pattern.compile("^delete (\\d+)$");
+    private static final Pattern FIND = Pattern.compile("^find ([\\w\\d ]+)$");
     private static final Pattern SECRET = Pattern.compile("^secret$");
     private static final Pattern BYE = Pattern.compile("^bye$");
 
@@ -84,6 +85,12 @@ public class Parser {
                 throw new SyntaxException("delete");
             }
             a = Actions.ActionType.DELETE;
+        } else if (query.startsWith("find")) {
+            m = FIND.matcher(query);
+            if (!m.find()) {
+                throw new SyntaxException("find");
+            }
+            a = Actions.ActionType.FIND;
         } else if (query.startsWith("bye")) {
             m = BYE.matcher(query);
             if (!m.find()) {
