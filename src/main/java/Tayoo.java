@@ -92,9 +92,13 @@ public class Tayoo {
                         System.out.println("Hmm... my task list doesn't contain that number... try again");
                     }
                 }
-            } else if (input.startsWith("TODO ")){
-                addTask(new ToDo(command.substring(5).trim()));
-            } else if (input.startsWith("DEADLINE ")) {
+            } else if (input.startsWith("TODO")){
+                try {
+                    addTask(new ToDo(command.substring(5).trim()));
+                } catch (IndexOutOfBoundsException e) {
+                    printText("Add a description to your todo!");
+                }
+            } else if (input.startsWith("DEADLINE")) {
                 try {
                     int deadlineIndex = input.indexOf("/BY ");
 
@@ -113,7 +117,7 @@ public class Tayoo {
                 } catch (IndexOutOfBoundsException e) {
                     printText("You've made a fatal error! Report it to the developer or face eternal DOOM!!");
                 }
-            } else if (input.startsWith("EVENT ")) {
+            } else if (input.startsWith("EVENT")) {
                 try {
                     int startIndex = input.indexOf("/FROM ");
                     int endIndex = input.indexOf("/TO ");
@@ -157,7 +161,6 @@ public class Tayoo {
         }
 
         printText(toPrint.toString());
-        return;
     }
 
 }
