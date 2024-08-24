@@ -9,33 +9,27 @@ import java.util.Scanner;
 public class SumoTaskList {
 
     private final List<Task> tasks;
-    private String filePath;
+    private Storage storage;
 
-    public SumoTaskList(String filePath) throws IOException {
+    public SumoTaskList(Storage storage) throws IOException {
+        //initialising
         this.tasks = new ArrayList<>();
-        File f = new File(filePath);
+        this.storage = storage;
 
-        if (f.exists()) {
-            Scanner s = new Scanner(f);
-
-            int line = 0;
-            while (s.hasNext()) {
-                try {
-                    tasks.add(Task.createFromData(s.nextLine()));
-                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Your saved file at line " + line + " is corrupted. " +
-                            "Sumo cannot read so Sumo will skip that and continue with the rest!");
-                } finally {
-                    line++;
-                }
-            }
-        } else {
-            if(!f.createNewFile()) {
-                System.out.println("Welp! Sumo unable to save data due to unknown error!\n"
-                        + "Please exit and try again if u wanna save");
+        //adding tasks based on data
+        String[] datas = storage.load();
+        for (int i = 0; i < datas.length; i++) {
+            try {
+                tasks.add(Task.createFromData(datas[i]));
+            } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+                System.out.println(
+                        "Your saved file at line " + (i + 1) + " is corrupted. "
+                        + "Sumo cannot read so Sumo will skip that and continue with the rest!"
+                );
             }
         }
-        this.filePath = filePath;
+
+
     }
 
     public SumoTaskList() {
@@ -77,7 +71,7 @@ public class SumoTaskList {
                 }
                 tasks.get(index-1).mark();
             }
-            this.save();
+            storage.save(this.tasks);
             break;
             case UNMARK:
             {
@@ -93,7 +87,7 @@ public class SumoTaskList {
                 }
                 tasks.get(index - 1).unmark();
             }
-            this.save();
+            storage.save(this.tasks);
             break;
             case DELETE:
             {
@@ -116,7 +110,7 @@ public class SumoTaskList {
                 );
                 tasks.remove(index - 1);
             }
-            this.save();
+            storage.save(this.tasks);
             break;
             case TODO:
             case DEADLINE:
@@ -129,25 +123,11 @@ public class SumoTaskList {
                         + "There are now "
                         + (tasks.size())
                         + " task(s) in total!");
-                this.save();
+                storage.save(this.tasks);
                 break;
             default:
                 throw new UnknownCommandException(command);
         }
         return false;
     }
-
-    public void save() {
-        try {
-            FileWriter fw = new FileWriter(this.filePath, false);
-            for (Task task : tasks) {
-                fw.write(task.savedString() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Sumo cannot save latest change.");
-        }
-    }
-
-
 }
