@@ -2,10 +2,20 @@ package Spongebob;
 
 import Spongebob.command.*;
 
+/**
+ * object to parse user input into commands that can be executed by Spongebob
+ */
 public class Parser {
 
     String[] arguments;
 
+    /**
+     * the command syntax is a array of size 4,
+     * first string will be the command,
+     * second is description,
+     * third is from / by date,
+     * last is the to date
+     */
     public Parser() {
         this.arguments = new String[4];
 
@@ -14,6 +24,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses command into a Command object to be executed
+     * @param string User input for commands
+     * @return A executable command
+     */
     public Command parse(String string) {
 
         String[] command = string.split(" ", 2);

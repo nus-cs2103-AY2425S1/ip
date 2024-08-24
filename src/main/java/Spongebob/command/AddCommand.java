@@ -9,16 +9,25 @@ import Spongebob.task.Event;
 import Spongebob.task.Task;
 import Spongebob.task.Todo;
 
+/**
+ * Creates a command that add an entry to the storage and/or tasklist
+ */
+
 public class AddCommand extends Command {
 
     private String[] arguments;
 
     public AddCommand(String[] arguments) {
 
-
         this.arguments = arguments;
     }
 
+    /**
+     * Executes the command
+     * @param taskList The tasklist for Spongebob
+     * @param ui    The Ui class containing all ui components
+     * @param storage The storage for Spongebob to store entries
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task newTask = null;

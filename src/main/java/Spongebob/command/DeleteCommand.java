@@ -5,6 +5,9 @@ import Spongebob.storage.TaskList;
 import Spongebob.Ui;
 import Spongebob.task.Task;
 
+/**
+ * Command that performs a delete action to the tasklist and/or storage
+ */
 public class DeleteCommand extends Command {
 
     private String[] arguments;
@@ -13,6 +16,12 @@ public class DeleteCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Executes the command by finding the task to be deleted and removes it from storage and tasklist
+     * @param taskList  Tasklist of Spongebob
+     * @param ui    Ui containing all UI components
+     * @param storage   Storage to keep all entries to a .txt file
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task cur;

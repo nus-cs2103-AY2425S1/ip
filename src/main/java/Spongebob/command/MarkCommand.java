@@ -5,6 +5,9 @@ import Spongebob.storage.TaskList;
 import Spongebob.Ui;
 import Spongebob.task.Task;
 
+/**
+ * Command to mark or unmark a task
+ */
 public class MarkCommand extends Command {
 
     private String[] arguments;
@@ -14,6 +17,12 @@ public class MarkCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     *  Executes the command, checks the first argument and marks / unmarks the task accordingly
+     * @param taskList  Tasklist of Spongebob
+     * @param ui    Ui containing all UI components
+     * @param storage   Storage to keep all entries to a .txt file
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (arguments[1].equals(" ") || arguments[1].isEmpty()) {

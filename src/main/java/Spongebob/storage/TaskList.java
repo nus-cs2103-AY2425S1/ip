@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * Storage class to keep tasks for the user
+ */
 public class TaskList {
 
     private List<Task> cache;
@@ -39,6 +42,10 @@ public class TaskList {
         return this.cache.size();
     }
 
+    /**
+     * for displaying list in index order such as 1.[T][ ] return books
+     * @return String form of the list of tasks in index order
+     */
     @Override
     public String toString() {
         ListIterator<Task> iter = this.cache.listIterator();

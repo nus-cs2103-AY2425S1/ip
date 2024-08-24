@@ -6,11 +6,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * An Event task, contains a dateTime for start and enddate
+ */
 public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * constructor for an event task, checks if description, start and end dates to be in correct format
+     * @param description description of task
+     * @param from  start date
+     * @param to end date
+     * @throws SpongebobException   user input error such as incorrect date format
+     */
     public Event(String description, String from, String to) throws SpongebobException {
         super(description, TaskType.EVENT);
 
@@ -53,6 +63,10 @@ public class Event extends Task {
 
     }
 
+    /**
+     * converts task into a string that can be stored and read later
+     * @return String version of the task
+     */
     @Override
     public String save()  {
 
