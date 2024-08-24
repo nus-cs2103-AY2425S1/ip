@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.Scanner;
 import java.io.File;
@@ -131,37 +133,39 @@ public class Jackson {
                 System.out.println("Wrong format leh...");
                 System.out.println("Try formatting your command as such:");
                 switch (e.getMessage()) {
-                    case "todo":
-                        System.out.println("todo [task-name]");
-                        break;
-                    case "deadline":
-                        System.out.println("deadline [task-name] /by [due-date]");
-                        break;
-                    case "event":
-                        System.out.println("event [task-name] /from [start-date] /to [end-date]");
-                        break;
-                    case "list":
-                        System.out.println("list");
-                        break;
-                    case "mark":
-                        System.out.println("mark [index]");
-                        break;
-                    case "unmark":
-                        System.out.println("unmark [index]");
-                        break;
-                    case "delete":
-                        System.out.println("delete [index]");
-                    case "bye":
-                        System.out.println("bye");
-                        break;
-                    default:
-                        System.out.println("Unknown error...");
-                        break;
+                case "todo":
+                    System.out.println("todo [task-name]");
+                    break;
+                case "deadline":
+                    System.out.println("deadline [task-name] /by [due-date]");
+                    System.out.println("All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)");
+                    break;
+                case "event":
+                    System.out.println("event [task-name] /from [start-date] /to [end-date]");
+                    System.out.println("All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)");
+                    break;
+                case "list":
+                    System.out.println("list");
+                    break;
+                case "mark":
+                    System.out.println("mark [index]");
+                    break;
+                case "unmark":
+                    System.out.println("unmark [index]");
+                    break;
+                case "delete":
+                    System.out.println("delete [index]");
+                case "bye":
+                    System.out.println("bye");
+                    break;
+                default:
+                    System.out.println("Unknown error...");
+                    break;
                 }
 
             } catch (OutOfListException e) {
                 // if user inputs an invalid index for mark/unmark/delete
-                int size = Integer.parseInt(e.getMessage());
+                int size = Integer.parseInt(e.toString());
                 System.out.printf("Alamak, you got %d items on the list only leh...\n", size);
                 if (size == 0) {
                     System.out.println("You've got no items in the list! Add some stuff first!");
@@ -170,10 +174,11 @@ public class Jackson {
                 } else {
                     System.out.printf("Enter a number between 1 and %d when marking/unmarking/deleting tasks!\n", size);
                 }
+//            } catch ()
             } catch (Exception e) {
                 // some other error unaccounted for
                 System.out.println("Oops! Something went wrong!");
-                System.out.println(e.getMessage());
+                System.out.println(e.toString());
             }
 
             // get input again

@@ -8,8 +8,10 @@ public class Parser {
 
     /* Bunch of regex patterns for user input checking */
     private static final Pattern TODO = Pattern.compile("^todo (.+)$");
-    private static final Pattern DEADLINE = Pattern.compile("^deadline (.+) /by (.+)$");
-    private static final Pattern EVENT = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
+    private static final Pattern DEADLINE = Pattern.compile("^deadline (.+) /by " +
+            "(\\d{2}-\\d{2}-\\d{4}(?: \\d{2}:\\d{2})?)$");
+    private static final Pattern EVENT = Pattern.compile("^event (.+) /from " +
+            "(\\d{2}-\\d{2}-\\d{4}(?: \\d{2}:\\d{2})?) /to (\\d{2}-\\d{2}-\\d{4}(?: \\d{2}:\\d{2})?)$");
     private static final Pattern MARK = Pattern.compile("^mark ([0-9]+)$");
     private static final Pattern UNMARK = Pattern.compile("^unmark ([0-9]+)$");
     private static final Pattern LIST = Pattern.compile("^list$");
