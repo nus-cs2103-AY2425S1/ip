@@ -112,7 +112,7 @@ public class Winner {
                     }
                     System.out.println(" ".repeat(10) + "-".repeat(100) + "\n");
 
-                } else if (input.matches("(?i).*mark.*")) {
+                } else if (input.matches("(?i)mark.*")) {
                     int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
                     if (taskNumber < 1 || taskNumber > tasks.size()) {
                         throw new WinnerException("""
@@ -129,7 +129,7 @@ public class Winner {
                             task.markDoneToString() + "\n" +
                             "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i).*unmark.*")) {
+                } else if (input.matches("(?i)unmark.*")) {
                     int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
                     if (taskNumber < 1 || taskNumber > tasks.size()) {
                         throw new WinnerException("""
