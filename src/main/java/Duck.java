@@ -1,10 +1,15 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Duck {
-    static ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "data/duck.txt";
+
     enum Instruction {
         LIST,
         MARK,
@@ -37,10 +42,14 @@ public class Duck {
 
         System.out.println("Hello! I'm Duck");
         System.out.println("What can I do for you?\n");
-
-        getInputTillBye();
-        System.out.println("Bye. Hope to see you again soon!");
-
+        try {
+            File f = createFileIfDoesNotExist("data/duke.txt");
+            readFromFile(f);
+            getInputTillBye();
+            System.out.println("Bye. Hope to see you again soon!");
+        } catch (DuckException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // obtain user input till he inputs bye, ignoring case
@@ -221,5 +230,64 @@ public class Duck {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
+    public static void readFromFile(File f) throws DuckException {
+        try {
+            Scanner sc = new Scanner(f);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] words = line.split(" \\| ");
+                Task task;
+                switch (words[0]) {
+                case "T":
+                    task = new ToDo(words[2]);
+                    break;
+                case "D":
+                    task = new Deadline(words[2], words[3]);
+                    break;
+                case "E":
+                    task = new Event(words[2], words[3], words[4]);
+                    break;
+                default:
+                    continue;
+                }
+                if (words[1].equals("1")) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            throw new DuckException("File not found: " + f.getPath());
+        }
+    }
+
+    public static File createFileIfDoesNotExist(String filePath) throws DuckException{
+        try {
+            File directory = getFileDirectory(filePath);
+            if (!directory.isDirectory()) {
+                directory.mkdir();
+            }
+
+            File f = new File(filePath);
+
+            if (f.createNewFile()) {
+                System.out.println("New file created under root path:\n"
+                        + "./" + filePath);
+            }
+
+            return f;
+        } catch (SecurityException e) {
+            System.out.println("Error creating directory due to security Exception:\n"
+                    + e.getMessage());
+
+        } catch (IOException e) {
+            throw new DuckException("Error creating file:\n"
+                    + e.getMessage());
+        }
+        return null;
+    }
+
+    public static File getFileDirectory(String filePath) {
+        return new File(filePath.substring(0, filePath.lastIndexOf('/')));
+    }
 
 }

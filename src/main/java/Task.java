@@ -12,21 +12,24 @@ public abstract class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
         System.out.println("Nice! I've marked this task as done:\n" +
                 this.toString());
         System.out.println();
     }
 
     public void markAsIncomplete() {
-        this.isDone = false;
+        isDone = false;
         System.out.println("OK, I've marked this task as not done yet:\n" +
                 this.toString());
         System.out.println();
     }
+
+    public String toDataString() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
     @Override
     public String toString() {
-        String str = "[" + getStatusIcon() + "] " + this.description;
-        return str;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

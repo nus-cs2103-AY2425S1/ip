@@ -3,6 +3,10 @@ public class ToDo extends Task {
         super(description);
     }
 
+    @Override
+    public String toDataString() {
+        return "T | " + super.toDataString();
+    }
 
     @Override
     public String toString() {
