@@ -1,11 +1,13 @@
 import java.security.spec.ECField;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Collection;
 
 public class Hamyo {
 
     private static boolean active = true;
-    private static Task[] tasks = new Task[100];
-    private static int nTasks = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -28,6 +30,8 @@ public class Hamyo {
                     mark(str.substring(4));
                 } else if (str.startsWith("unmark")) {
                     unmark(str.substring(6));
+                } else if (str.startsWith("delete")) {
+                    delete(str.substring(6));
                 } else if (str.startsWith("bye")) {
                     terminate();
                 } else {
@@ -71,7 +75,7 @@ public class Hamyo {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: todo [task description]");
             }
-            tasks[nTasks++] = new ToDo(new String[]{task.substring(1)});
+            tasks.add(new ToDo(new String[]{task.substring(1)}));
         } else if (taskType.equals("deadline")) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: deadline [task description] /by [deadline]");
@@ -80,7 +84,7 @@ public class Hamyo {
             if (split.length != 2) {
                 throw new HamyoException("Usage: deadline [task description] /by [deadline]");
             }
-            tasks[nTasks++] = new Deadline(split);
+            tasks.add(new Deadline(split));
         } else if (taskType.equals("event")) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: event [task description] /from [start timestamp] /to [end timestamp]");
@@ -89,41 +93,68 @@ public class Hamyo {
             if (split.length != 3) {
                 throw new HamyoException("Usage: event [task description] /from [start timestamp] /to [end timestamp]");
             }
-            tasks[nTasks++] = new Event(split);
+            tasks.add(new Event(split));
         }
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[nTasks - 1].toString());
-        System.out.printf("There are %d tasks in the list now.\n", nTasks);
+        System.out.println(tasks.get(tasks.size() - 1).toString());
+        System.out.printf("There are %d tasks in the list now.\n", tasks.size());
         printLine();
     }
 
     public static void listTasks() {
         System.out.println("These are your tasks:");
-        for (int i = 0; i < nTasks; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
         printLine();
     }
 
     public static void mark(String str) throws HamyoException {
-        if (str.length() <= 1) {
+        try {
+            if (str.length() <= 1) {
+                throw new HamyoException("Usage: unmark [index]");
+            }
+            int index = Integer.parseInt(str.substring(1)) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new HamyoException("Usage: mark [index]");
+            }
+            tasks.get(index).mark();
+        } catch (NumberFormatException e) {
             throw new HamyoException("Usage: mark [index]");
         }
-        int index = Integer.parseInt(str.substring(1)) - 1;
-        if (index < 0 || index >= nTasks) {
-            throw new HamyoException("Usage: mark [index]");
-        }
-        tasks[index].mark();
     }
 
     public static void unmark(String str) throws HamyoException {
-        if (str.length() <= 1) {
+        try {
+            if (str.length() <= 1) {
+                throw new HamyoException("Usage: unmark [index]");
+            }
+            int index = Integer.parseInt(str.substring(1)) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new HamyoException("Usage: unmark [index]");
+            }
+            tasks.get(index).unmark();
+        } catch (NumberFormatException e) {
             throw new HamyoException("Usage: unmark [index]");
         }
-        int index = Integer.parseInt(str.substring(1)) - 1;
-        if (index < 0 || index >= nTasks) {
-            throw new HamyoException("Usage: unmark [index]");
+    }
+
+    public static void delete(String str) throws HamyoException {
+        try {
+            if (str.length() <= 1) {
+                throw new HamyoException("Usage: delete [index]");
+            }
+            int index = Integer.parseInt(str.substring(1)) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new HamyoException("Usage: delete [index]");
+            }
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(tasks.get(index).toString());
+            tasks.remove(index);
+            System.out.printf("There are %d tasks in the list now.\n", tasks.size());
+            printLine();
+        } catch (NumberFormatException e) {
+            throw new HamyoException("Usage: delete [index]");
         }
-        tasks[index].unmark();
     }
 }

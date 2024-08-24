@@ -21,3 +21,13 @@ list
 unmark 3
 list
 invalid command
+mark apple
+unmark apple
+delete apple
+delete 1
+list
+delete 1
+list
+delete 1
+list
+delete 1
