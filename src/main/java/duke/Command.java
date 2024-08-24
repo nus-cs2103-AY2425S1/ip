@@ -26,7 +26,8 @@ public class Command {
     }
 
     /**
-     * Executes the command on the given {@code TaskList}, using the provided {@code Ui} and {@code Storage} objects.
+     * Executes the command on the given {@code TaskList},
+     * using the provided {@code Ui} and {@code Storage} objects.
      * The command could be one of several options, such as listing tasks, marking tasks as done,
      * deleting tasks, or processing specific task commands like "todo", "deadline", or "event".
      *
