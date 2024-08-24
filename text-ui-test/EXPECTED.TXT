@@ -35,6 +35,14 @@ ____________________________________________________________
 Nice! I've marked this task as done:
   [D][X] return book (by: Sunday)
 ____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][X] go for a run
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+WHOOPS! I'm only a chatbot, so I don't know what that means...
+WHOOPS! You don't have a task of this number!
+WHOOPS! Your task number cannot be negative or 0!
 Bye. Hope to see you again soon!
 ____________________________________________________________
-
