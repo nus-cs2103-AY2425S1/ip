@@ -36,6 +36,7 @@ public class SumoTaskList {
     public SumoTaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.storage = null;
+        this.ui = ui;
     }
 
     public boolean execute(Command command, String item)
