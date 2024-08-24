@@ -23,6 +23,9 @@ public class Hoodini {
 
     }
 
+    /**
+     * Method to start chatbot
+     */
 
     private void start() {
         ui.showWelcome();
