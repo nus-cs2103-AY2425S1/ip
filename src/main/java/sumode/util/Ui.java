@@ -1,7 +1,8 @@
 package sumode.util;
-import sumode.task.*;
 
 import java.util.List;
+
+import sumode.task.Task;
 
 public class Ui {
     private static final String LOGO = """
@@ -38,11 +39,11 @@ public class Ui {
         );
     }
 
-    public void unknownCommand (String commandString) {
-        System.out.println("Sumo dunno your command \"" + commandString +"\" ! Check spelling of your first word.");
+    public void unknownCommand(String commandString) {
+        System.out.println("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
     }
 
-    public void handleError (Exception e) {
+    public void handleError(Exception e) {
         System.out.println(e.getMessage());
     }
 
@@ -79,7 +80,7 @@ public class Ui {
             if (task == null) {
                 break;
             }
-            System.out.println((i+1) + ". "+ task);
+            System.out.println((i + 1) + ". " + task);
         }
     }
 

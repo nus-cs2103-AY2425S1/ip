@@ -1,6 +1,6 @@
 package sumode.exception;
 
-import sumode.util.*;
+import sumode.util.Command;
 
 
 public class WrongSyntaxForCommandException extends Exception {
@@ -12,6 +12,6 @@ public class WrongSyntaxForCommandException extends Exception {
                 + "The correct syntax is "
                 + command.expectedFormat()
                 + '.'
-                );
+        );
     }
 }

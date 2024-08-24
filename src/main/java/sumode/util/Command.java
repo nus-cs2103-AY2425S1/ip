@@ -18,11 +18,11 @@ public enum Command {
 
     public String expectedFormat() {
         return switch (this) {
-            case MARK, UNMARK, DELETE -> this + " " + "<task index>";
-            case TODO -> this + " <task name>";
-            case DEADLINE -> this + " <task name> /by <date>";
-            case EVENT -> this + " <task name> /from <date> /to <date>";
-            default -> this.toString();
+        case MARK, UNMARK, DELETE -> this + " " + "<task index>";
+        case TODO -> this + " <task name>";
+        case DEADLINE -> this + " <task name> /by <date>";
+        case EVENT -> this + " <task name> /from <date> /to <date>";
+        default -> this.toString();
         };
     }
 }

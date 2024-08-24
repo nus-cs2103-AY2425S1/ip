@@ -1,11 +1,18 @@
 package sumode;
 
-import sumode.util.*;
-import sumode.exception.*;
 import java.io.IOException;
 import java.util.Scanner;
 
-
+import sumode.exception.AlreadyMarkedException;
+import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.NonExistentTaskException;
+import sumode.exception.UnknownCommandException;
+import sumode.exception.WrongSyntaxForCommandException;
+import sumode.util.Command;
+import sumode.util.Parser;
+import sumode.util.Storage;
+import sumode.util.SumoTaskList;
+import sumode.util.Ui;
 
 public class SumoDE {
 
@@ -13,7 +20,7 @@ public class SumoDE {
     private SumoTaskList tasks;
     private final Ui ui;
 
-    public SumoDE (String filePath) {
+    public SumoDE(String filePath) {
         //handle Ui
         this.ui = new Ui();
 
@@ -59,10 +66,10 @@ public class SumoDE {
             // find correct matching command
             try {
                 command = Command.valueOf(commandString.toUpperCase());
-                terminate = this.tasks.execute(command,item);
-            }catch (IllegalArgumentException e) {
+                terminate = this.tasks.execute(command, item);
+            } catch (IllegalArgumentException e) {
                 ui.unknownCommand(commandString);
-            }catch (WrongSyntaxForCommandException | UnknownCommandException
+            } catch (WrongSyntaxForCommandException | UnknownCommandException
                     | NonExistentTaskException | AlreadyUnmarkedException
                     | AlreadyMarkedException e) {
                 ui.handleError(e);

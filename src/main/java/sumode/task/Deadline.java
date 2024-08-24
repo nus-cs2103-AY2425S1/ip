@@ -24,7 +24,7 @@ public class Deadline extends Task {
         return "[D]"
                 + super.toString()
                 + " (by: "
-                + (dueDate == null ? this.due :this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + (dueDate == null ? this.due : this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
                 + ")";
     }
 

@@ -1,14 +1,17 @@
 package sumode.task;
 
-import sumode.exception.*;
+import sumode.exception.AlreadyMarkedException;
+import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.UnknownCommandException;
+import sumode.exception.WrongSyntaxForCommandException;
 import sumode.util.Command;
 import sumode.util.Parser;
 
 public class Task {
-    private boolean completed;
-    private final String name;
     private static final String done = "[X]";
     private static final String undone = "[ ]";
+    private boolean completed;
+    private final String name;
 
     public Task(String name) {
         this.name = name;
@@ -17,10 +20,10 @@ public class Task {
     public static Task createFromData(String inputFromFile) {
         String[] components = inputFromFile.split(" \\| ");
         Task returned = switch (components[0]) {
-            case "T" -> new Todo(components[2]);
-            case "E" -> new Event(components[2], components[3], components[4]);
-            case "D" -> new Deadline(components[2], components[3]);
-            default -> throw new IllegalArgumentException();
+        case "T" -> new Todo(components[2]);
+        case "E" -> new Event(components[2], components[3], components[4]);
+        case "D" -> new Deadline(components[2], components[3]);
+        default -> throw new IllegalArgumentException();
         };
 
         if (components[1].equals("1")) {
@@ -36,22 +39,19 @@ public class Task {
 
     public static Task of(Command command, String item) throws WrongSyntaxForCommandException, UnknownCommandException {
         switch(command) {
-            case TODO:
-                return new Todo(item);
-            case DEADLINE:
-                {
-                    String[] parsed = Parser.parseDeadline(item);
-                    return new Deadline(parsed[0], parsed[1]);
-                }
-            case EVENT:
-                {
-                    String[] parsed = Parser.parseEvent(item);
-                    return new Event(parsed[0], parsed[1], parsed[2]);
-                }
-            default:
-                throw new UnknownCommandException(command);  // shouldn't happen
+        case TODO:
+            return new Todo(item);
+        case DEADLINE: {
+            String[] parsed = Parser.parseDeadline(item);
+            return new Deadline(parsed[0], parsed[1]);
         }
-
+        case EVENT: {
+            String[] parsed = Parser.parseEvent(item);
+            return new Event(parsed[0], parsed[1], parsed[2]);
+        }
+        default:
+            throw new UnknownCommandException(command); // shouldn't happen
+        }
     }
 
     public void mark() throws AlreadyMarkedException {

@@ -1,6 +1,5 @@
 package sumode.util;
 
-import sumode.task.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,15 +7,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import sumode.task.Task;
 
 
-public class Storage{
+public class Storage {
 
     private final String filePath;
     private final File f;
     private final Ui ui;
 
-    public Storage (String filePath, Ui ui) throws IOException {
+    public Storage(String filePath, Ui ui) throws IOException {
         this.filePath = filePath;
         this.ui = ui;
         this.f = new File(filePath);
@@ -32,7 +32,7 @@ public class Storage{
 
         // Ensure the file itself exists
         if (!f.exists()) {
-            if(!f.createNewFile()) {
+            if (!f.createNewFile()) {
                 throw new IOException();
             }
         }
@@ -51,10 +51,10 @@ public class Storage{
     }
 
     public String[] load() throws FileNotFoundException {
-            Scanner s = new Scanner(f);
-            s.useDelimiter("\\A");
-            return s.hasNext()
-                    ? s.next().split("\n")
-                    : new String[0];
+        Scanner s = new Scanner(f);
+        s.useDelimiter("\\A");
+        return s.hasNext()
+                ? s.next().split("\n")
+                : new String[0];
     }
 }

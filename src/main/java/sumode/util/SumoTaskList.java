@@ -1,12 +1,15 @@
 package sumode.util;
 
-import sumode.exception.*;
-import sumode.task.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sumode.exception.AlreadyMarkedException;
+import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.NonExistentTaskException;
+import sumode.exception.UnknownCommandException;
+import sumode.exception.WrongSyntaxForCommandException;
+import sumode.task.Task;
 
 public class SumoTaskList {
 
@@ -26,7 +29,7 @@ public class SumoTaskList {
             try {
                 tasks.add(Task.createFromData(datas[i]));
             } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                ui.corruptedSaveFile(i+1);
+                ui.corruptedSaveFile(i + 1);
             }
         }
 
@@ -44,82 +47,79 @@ public class SumoTaskList {
             WrongSyntaxForCommandException, AlreadyMarkedException,
             AlreadyUnmarkedException {
         switch(command) {
-            case BYE:
-            case EXIT:  // added this to allow flexibility though not required by qn
-                return true;
-            case LIST:
-                this.ui.printTask(this.tasks);
-                break;
-            case MARK:
-            {
-                int index;
-                try {
-                    index = Integer.parseInt(item);
-                } catch (IllegalArgumentException e) {
-                    throw new WrongSyntaxForCommandException(command);
-                }
-
-                if (index > tasks.size() || index <= 0) {
-                    throw new NonExistentTaskException(index);
-                }
-                tasks.get(index - 1).mark();
-                ui.mark(tasks.get(index - 1));
-
+        case BYE:
+        case EXIT: // added this to allow flexibility though not required by qn
+            return true;
+        case LIST:
+            this.ui.printTask(this.tasks);
+            break;
+        case MARK: {
+            int index;
+            try {
+                index = Integer.parseInt(item);
+            } catch (IllegalArgumentException e) {
+                throw new WrongSyntaxForCommandException(command);
             }
+
+            if (index > tasks.size() || index <= 0) {
+                throw new NonExistentTaskException(index);
+            }
+            tasks.get(index - 1).mark();
+            ui.mark(tasks.get(index - 1));
+
+        }
             if (storage != null) {
                 storage.save(this.tasks);
             }
             break;
-            case UNMARK:
-            {
-                int index;
-                try {
-                    index = Integer.parseInt(item);
-                } catch (IllegalArgumentException e) {
-                    throw new WrongSyntaxForCommandException(command);
-                }
-
-                if (index > tasks.size() || index <= 0) {
-                    throw new NonExistentTaskException(index);
-                }
-                tasks.get(index - 1).unmark();
-                ui.unmark(tasks.get(index - 1));
+        case UNMARK: {
+            int index;
+            try {
+                index = Integer.parseInt(item);
+            } catch (IllegalArgumentException e) {
+                throw new WrongSyntaxForCommandException(command);
             }
+
+            if (index > tasks.size() || index <= 0) {
+                throw new NonExistentTaskException(index);
+            }
+            tasks.get(index - 1).unmark();
+            ui.unmark(tasks.get(index - 1));
+        }
             if (storage != null) {
                 storage.save(this.tasks);
             }
 
             break;
-            case DELETE:
-            {
-                int index;
-                try {
-                    index = Integer.parseInt(item);
-                } catch (IllegalArgumentException e) {
-                    throw new WrongSyntaxForCommandException(command);
-                }
-                if (index > tasks.size() || index <= 0) {
-                    throw new NonExistentTaskException(index);
-                }
-                ui.removeTask(tasks.get(index - 1), tasks.size() - 1);
-                tasks.remove(index - 1);
+        case DELETE: {
+            int index;
+            try {
+                index = Integer.parseInt(item);
+            } catch (IllegalArgumentException e) {
+                throw new WrongSyntaxForCommandException(command);
             }
+            if (index > tasks.size() || index <= 0) {
+                throw new NonExistentTaskException(index);
+            }
+            ui.removeTask(tasks.get(index - 1), tasks.size() - 1);
+            tasks.remove(index - 1);
+        }
             if (storage != null) {
                 storage.save(this.tasks);
             }
             break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                Task newlyAdded = Task.of(command, item);
-                tasks.add(newlyAdded);  // used factory method to be more neat and OOP
-                ui.addTask(newlyAdded, tasks.size());
-                if (storage != null) {
-                    storage.save(this.tasks);
-                }
-                break;
-            default:
-                throw new UnknownCommandException(command);
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            Task newlyAdded = Task.of(command, item);
+            tasks.add(newlyAdded); // used factory method to be more neat and OOP
+            ui.addTask(newlyAdded, tasks.size());
+            if (storage != null) {
+                storage.save(this.tasks);
+            }
+            break;
+        default:
+            throw new UnknownCommandException(command);
         }
         return false;
     }
