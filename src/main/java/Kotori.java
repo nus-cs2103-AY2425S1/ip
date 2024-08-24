@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class Kotori {
     public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
         printGreeting();
         File file = makeFile("data","Kotori.txt");
+        ArrayList<Task> list = readFile(file);
         Scanner s = new Scanner(System.in);
         while (s.hasNext()){
             String input = s.nextLine();
@@ -81,7 +81,7 @@ public class Kotori {
             FileWriter writer = new FileWriter(file);
             String content = "";
             for (Task task : list) {
-                content += task.toString() + "\n";
+                content += task.getStorageMessage() + "\n";
             }
             writer.write(content);
             writer.close();
@@ -109,6 +109,30 @@ public class Kotori {
             }
         }
         return file;
+    }
+
+    private static ArrayList<Task> readFile(File file) {
+        try {
+            ArrayList<Task> result = new ArrayList<>();
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String input = s.nextLine();
+                String[] elements = input.split(" \\| ");
+                if (elements.length < 1) {
+                    throw new CorruptedFileException("");
+                } else {
+                    result.add(Task.read(elements));
+                }
+            }
+            return result;
+        } catch (FileNotFoundException e) {
+            printMessage("There is no existing memory so I create a new one~ ^_^");
+            return new ArrayList<>();
+        } catch (CorruptedFileException e) {
+            printMessage("The memory file is corrupted so I create a new one~ ^_^");
+            return new ArrayList<>();
+        }
+
     }
 
     private static void printLine() {
