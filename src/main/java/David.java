@@ -76,7 +76,7 @@ public class David {
         }
     }
 
-    /*
+    /**
     Adds todo task to array list of tasks
      */
     public void addTodoTask(String s) throws DavidInvalidArgumentsException{
@@ -91,7 +91,7 @@ public class David {
                         "____________________________________________________________\n");
     }
 
-    /*
+    /**
     Adds event task to array list of tasks
      */
     public void addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException {
@@ -117,7 +117,7 @@ public class David {
                         "____________________________________________________________\n");
     }
 
-    /*
+    /**
     Adds deadline task to array list of tasks
      */
     public void addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException {
@@ -137,7 +137,7 @@ public class David {
                         "____________________________________________________________\n");
     }
 
-    /*
+    /**
     Deletes a task from the array list of tasks
      */
     public void deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException{
