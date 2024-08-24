@@ -6,6 +6,7 @@ public class Noisy {
     public static void main(String[] args) {
         Task[] taskList = new Task[100];
         int currentPointer = 0;
+        Task task;
         String welcomeMessage = "____________________________________________________________\n"
                 + " Hello! I'm Noisy\n"
                 + " What can I do for you?\n"
@@ -16,7 +17,6 @@ public class Noisy {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-            Task task = new Task(input);
             String goodbyeMessage = "____________________________________________________________\n"
                     + " Bye human :(\n"
                     + "____________________________________________________________";
@@ -26,7 +26,8 @@ public class Noisy {
                 break;
             }
             if (input.equals("list")) {
-                String echoMessage = "____________________________________________________________\n";
+                String echoMessage = "____________________________________________________________\n" +
+                                     "Here are the asks in your list\n";
                 for (int i = 0; i < currentPointer; i++) {
                     int taskIndex = i + 1;
                     echoMessage += taskIndex + ". " + taskList[i] + "\n";
@@ -45,8 +46,36 @@ public class Noisy {
                 System.out.println(markString);
                 continue;
             }
+
+            if (input.startsWith("todo ")) {
+                String[] string = input.split(" ", 2);
+            }
+
+            task = new Task(input);
+
+            switch (input.split(" ")[0]) {
+                case "todo":
+                    task = new Todo(input.split(" ", 2)[1]);
+
+                    break;
+                case "Deadline":
+                    String[] string = input.split(" ", 3);
+                    task = new Deadline(string[1], string[2]);
+                    break;
+                case "Event":
+                    String[] eventString = input.split(" ", 4);
+                    task = new Event(eventString[1], eventString[2], eventString[3]);
+                    break;
+            }
+
             taskList[currentPointer] = task;
             currentPointer++;
+            String taskAdd = "____________________________________________________________\n" +
+                             " Got it. I've added this task:\n" +
+                             task + "\n" +
+                             "Now you have " + currentPointer + " tasks in the list.\n" +
+                             "____________________________________________________________";
+            System.out.println(taskAdd);
         }
     }
 }
