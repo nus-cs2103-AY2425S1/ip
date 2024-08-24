@@ -25,15 +25,6 @@ public class TodoList {
         return todoList;
     }
 
-    /**
-     * Get Tasks.Task in TodoList.TodoList
-     * @param i The Index you want to retrieve
-     * @return The Tasks.Task at index i
-     */
-    public Task get(int i) {
-        return todoList.get(i);
-    }
-
     public void markTask(int i) throws CowExceptions {
         try {
             Task t = todoList.get(i);
@@ -106,5 +97,4 @@ public class TodoList {
         }
         return string;
     }
-
 }

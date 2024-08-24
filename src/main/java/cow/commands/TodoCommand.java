@@ -19,8 +19,11 @@ public class TodoCommand extends Command {
     private final String description;
 
     public TodoCommand(String description) {
-
         this.description = description.trim();
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override
@@ -29,5 +32,17 @@ public class TodoCommand extends Command {
         todoList.add(t);
         Message.printAddedTask(t, todoList);
         fileSaver.saveData(todoList);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        TodoCommand that = (TodoCommand) obj;
+        return description.equals(that.description);
     }
 }
