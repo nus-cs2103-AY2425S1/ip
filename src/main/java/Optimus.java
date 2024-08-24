@@ -12,6 +12,7 @@ public class Optimus {
         while (true) {
             String text = stringScanner.nextLine();
             if (text.equals("bye")){
+                System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
             if (text.equals("list")) {
@@ -26,6 +27,6 @@ public class Optimus {
                 i++;
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
+
     }
 }
