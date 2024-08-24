@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import luna.task.Task;
+
 public class MarkCommand extends Command {
     private final int taskToMark;
 

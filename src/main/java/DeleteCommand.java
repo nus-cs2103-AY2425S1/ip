@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import luna.task.Task;
+
 public class DeleteCommand extends Command {
     private final int taskToDelete;
 

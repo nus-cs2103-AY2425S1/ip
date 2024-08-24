@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+import luna.task.Event;
+import luna.task.Task;
+
 public class EventCommand extends Command {
     private final Event event;
 

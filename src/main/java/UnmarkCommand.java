@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import luna.task.Task;
+
 public class UnmarkCommand extends Command {
     private final int taskToUnmark;
 

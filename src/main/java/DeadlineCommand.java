@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import luna.task.Deadline;
+import luna.task.Task;
 
 public class DeadlineCommand extends Command {
     private final Deadline deadline;
