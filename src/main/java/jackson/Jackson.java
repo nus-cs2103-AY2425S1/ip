@@ -184,10 +184,6 @@ public class Jackson {
         this.sc.close();
     }
 
-    /**
-     * Main function
-     * @param args command line args
-     */
     public static void main(String[] args) {
         Jackson jackson = new Jackson(EXPECTED_SIZE, PATH);
         jackson.run();
