@@ -151,12 +151,12 @@ public class Alice {
                 if (result.length != 2) {
                     throw new MissingArgumentException("Deadline", new String[]{"description, by"});
                 }
-                String[] deadlineInfo = result[1].split("/by");
+                String[] deadlineInfo = result[1].split("/by ");
                 if (deadlineInfo.length != 2) {
                     throw new MissingArgumentException("Deadline", new String[]{"description, by"});
                 }
                 // deadlineInfo[0] = description, deadlineInfo[1] = deadline
-                Deadline deadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
+                Deadline deadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1].strip());
                 tasks.add(deadlineTask);
                 break;
             case EVENT:
@@ -164,15 +164,15 @@ public class Alice {
                 if (result.length != 2) {
                     throw new MissingArgumentException("Event", new String[]{"description, from, to"});
                 }
-                String[] eventInfo = result[1].split("/from");
+                String[] eventInfo = result[1].split("/from ");
                 if (eventInfo.length != 2) {
                     throw new MissingArgumentException("Event", new String[]{"description, from, to"});
                 }
-                String[] times = eventInfo[1].split("/to");
+                String[] times = eventInfo[1].split("/to ");
                 if (times.length != 2) {
                     throw new MissingArgumentException("Event", new String[]{"description, from, to"});
                 }
-                Event eventTask = new Event(eventInfo[0], times[0], times[1]);
+                Event eventTask = new Event(eventInfo[0], times[0].strip(), times[1].strip());
                 tasks.add(eventTask);
                 break;
             default:
