@@ -6,12 +6,6 @@ public class Barcus {
     public static void main(String[] args) {
         // fixed dialogue
         String intro =
-                "╭━━╮\n" +
-                "┃╭╮┃\n" +
-                "┃╰╯╰┳━━┳━┳━━┳╮╭┳━━╮\n" +
-                "┃╭━╮┃╭╮┃╭┫╭━┫┃┃┃━━┫\n" +
-                "┃╰━╯┃╭╮┃┃┃╰━┫╰╯┣━━┃\n" +
-                "╰━━━┻╯╰┻╯╰━━┻━━┻━━╯\n" +
                 "Beep bop! Hello I am Barcus, ready to be of assistance!\n" +
                 "Write 'bye' to leave!\n";
         String goodbye = "Alright, good talk!\n";
