@@ -127,4 +127,24 @@ public class Message {
                 + line
                 + "\n");
     }
+
+    /**
+     * Prints todo list in a nice format
+     * @param list TodoList to print
+     */
+    public static void printList(TodoList list) {
+        String content = "Here are the tasks in your list:\n"
+                + list;
+        printDialogBox(content);
+    }
+
+    /**
+     * Prints matched todo list in a nice format
+     * @param list TodoList to print
+     */
+    public static void printFindTask(TodoList list) {
+        String content = "Here are the matching tasks in your list:\n"
+                + list;
+        printDialogBox(content);
+    }
 }

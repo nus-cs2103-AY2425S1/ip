@@ -61,6 +61,14 @@ public class Task {
         return LocalDate.of(0, 1, 1);
     }
 
+    /**
+     * Check if description contains substring
+     * @return boolean
+     */
+    public boolean getContainsSubString(String subString) {
+        return this.description.contains(subString);
+    }
+
     public String getSaveData() {
         String result = "";
         if (this.isDone) {

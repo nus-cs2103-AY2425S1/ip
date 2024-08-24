@@ -53,6 +53,12 @@ public class Parser {
                 return new DeleteCommand(getMarkUnmarkInt(arguments));
             case DueCommand.COMMAND_WORD:
                 return prepDue(arguments);
+            case FindCommand.COMMAND_WORD:
+                if (arguments == null || arguments.isEmpty()) {
+                    return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT
+                            , FindCommand.MESSAGE_USAGE));
+                }
+                return new FindCommand(arguments);
             default:
                 return new HelpCommand();
         }
