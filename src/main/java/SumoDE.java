@@ -3,53 +3,40 @@ import java.util.Scanner;
 
 public class SumoDE {
 
+    private Storage storage;
+    private SumoTaskList tasks;
+    private final Ui ui;
 
-    public static void main(String[] args) {
+    public SumoDE (String filePath) {
+        //handle Ui
+        this.ui = new Ui();
 
-        // Initialisation
-        SumoTaskList tasks;
-
+        // handle Storage
         try {
-            tasks = new SumoTaskList("data\\taskSaved.txt");
+            this.storage = new Storage(filePath,ui);
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
-            tasks = new SumoTaskList();
-            System.out.println("Welp! Sumo unable to save data due to unknown error!\n"
-                    + "Please exit and try again if u wanna save");
+            ui.unknownSaveError();
         }
 
-        String logo = """
-                           ___
-                          |* *|
-                          |\\_/|
-                  ---------------------
-                  |                   |
-                -----     SUMO      -----
-                | | |               | | |
-                -----      DE       -----
-                  |                   |
-                  ---------------------
-                  |                   |
-                  |      /-----\\      |
-                  |_____/       \\_____|
-                """;
+        //handle SumoTaskList
+        if (storage == null) {
+            this.tasks = new SumoTaskList(); // we will use the version where we cannot save
+        } else {
+            try {
+                this.tasks = new SumoTaskList(this.storage, ui);
+            } catch (IOException e) {
+                //unlikely will happen since we already successfully initialise storage
+                ui.unknownSaveError();
+                this.tasks = new SumoTaskList(); // we will use the version where we cannot save
+            }
+        }
+    }
 
-        String goodbye = """
-                ------------------------------------
-                Goodbye! Sumo hope to see you again!
-                ------------------------------------
-                """;
+    public void run() {
 
-        //Actual programme
-
-        System.out.println("------------------------------------\n" +
-                "    Hello, I am Sumo-DE\n"
-                + logo
-                + '\n'
-                + " How can Sumo help you?\n"
-                + "------------------------------------"
-        );
+        this.ui.greet();
 
         Scanner sc = new Scanner(System.in);
         boolean terminate = false;
@@ -58,41 +45,35 @@ public class SumoDE {
             String input = sc.nextLine();
 
             // Splitting command and action
-            int spaceLocation = input.indexOf(" ");
-            String commandString;
-            String item;
+            String[] splitString = Parser.splitCommandAndAction(input);
+            String commandString = splitString[0];
+            String item = splitString[1];
             Command command;
 
-            if (spaceLocation == -1) {
-                commandString = input;
-                item = "";
-            } else {
-                commandString = input.substring(0,spaceLocation);
-                item = input.substring(spaceLocation+1);
-            }
-
-
+            // find correct matching command
             try {
                 command = Command.valueOf(commandString.toUpperCase());
-                terminate = tasks.execute(command,item);
+                terminate = this.tasks.execute(command,item);
             }catch (IllegalArgumentException e) {
-                System.out.println("Sumo dunno your command \"" + commandString +"\" ! Check spelling of your first word.");
-            }catch (WrongSyntaxForCommandException | UnknownCommandException | NonExistentTaskException e) {
-                System.out.println(e.getMessage());
+                ui.unknownCommand(commandString);
+            }catch (WrongSyntaxForCommandException | UnknownCommandException
+                    | NonExistentTaskException | AlreadyUnmarkedException
+                    | AlreadyMarkedException e) {
+                ui.handleError(e);
             } finally {
                 if (!terminate) {
-                    System.out.println("""
-                            ------------------------------------
-                            Do you need anything else from SUMO?
-                            ------------------------------------""");
+                    ui.next();
                 }
             }
-
         }
 
         // loop ended, cleaning up
-        System.out.println(goodbye);
+        ui.bye();
         sc.close();
+    }
 
+    public static void main(String[] args) {
+        SumoDE sumoDE = new SumoDE("data\\taskSaved.txt");
+        sumoDE.run();
     }
 }

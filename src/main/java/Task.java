@@ -18,9 +18,13 @@ public class Task {
         };
 
         if (components[1].equals("1")) {
-            returned.silentMark();
+            try {
+                returned.mark();
+            } catch (AlreadyMarkedException e) {
+                //do nothing as this won't happen as this is just read
+                //however I need to handle it
+            }
         }
-
         return returned;
     }
 
@@ -30,32 +34,13 @@ public class Task {
                 return new Todo(item);
             case DEADLINE:
                 {
-                    int spaceLocation = item.indexOf(" /by ");
-                    if (spaceLocation  == -1) {
-                        throw new WrongSyntaxForCommandException(command);
-                    }
-                    String name = item.substring(0,spaceLocation);
-                    String due = item.substring(spaceLocation + 5);
-                    return new Deadline(name, due);
+                    String[] parsed = Parser.parseDeadline(item);
+                    return new Deadline(parsed[0], parsed[1]);
                 }
             case EVENT:
                 {
-                    int fromLocation = item.indexOf(" /from ");
-                    int toLocation = item.indexOf(" /to ");
-                    String name, start, end;
-                    if (fromLocation == -1 || toLocation == -1) {
-                        throw new WrongSyntaxForCommandException(command);
-                    }
-                    if (fromLocation < toLocation) {
-                        name = item.substring(0,fromLocation);
-                        start = item.substring(fromLocation + 7, toLocation);
-                        end = item.substring(toLocation + 5);
-                    } else {
-                        name = item.substring(0, toLocation);
-                        end = item.substring(toLocation + 5, fromLocation);
-                        start = item.substring(fromLocation + 7);
-                    }
-                    return new Event(name,start,end);
+                    String[] parsed = Parser.parseEvent(item);
+                    return new Event(parsed[0], parsed[1], parsed[2]);
                 }
             default:
                 throw new UnknownCommandException(command);  // shouldn't happen
@@ -63,32 +48,20 @@ public class Task {
 
     }
 
-    public void mark() {
+    public void mark() throws AlreadyMarkedException{
         if (completed) {
-            System.out.println("Sumo confused. This task is marked as done in the first place!\n"
-                            + "But SUMO will mark it as done again!"
-                    );
+            throw new AlreadyMarkedException(this);
         } else {
-            System.out.println("Sumo has marked this task as done.");
             this.completed = true;
         }
-        System.out.println(this);
     }
 
-    public void silentMark() {
-        this.completed = true;
-    }
-
-    public void unmark() {
+    public void unmark() throws AlreadyUnmarkedException{
         if (!completed) {
-            System.out.println("Sumo confused. This task is not completed in the first place!\n"
-                            + "But SUMO will mark it as NOT done again!"
-                    );
+            throw new AlreadyUnmarkedException(this);
         } else {
-            System.out.println("Sumo has marked this task as NOT done.");
             this.completed = false;
         }
-        System.out.println(this);
     }
 
     public String savedString() {
