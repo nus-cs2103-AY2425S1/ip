@@ -1,9 +1,11 @@
-public class Task {
+public abstract class Task {
+    protected String type;
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, String type) {
         this.description = description;
+        this.type = type;
         this.isDone = false;
     }
 
