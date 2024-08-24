@@ -1,4 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Luna {
@@ -164,10 +168,24 @@ public class Luna {
 
                     if (!deadline[1].contains("by ") || deadline[1].trim().length() <= 2) {
                         throw new LunaException("Enter deadline for task " +
-                                "e.g. deadline [task] /by [deadline]");
+                                "e.g. deadline [task] /by [dd/MM/yyyy HH:mm]");
                     }
 
-                    Deadline deadlineTask = new Deadline(deadline[0], deadline[1].substring(3));
+                    LocalDateTime deadlineDateTime;
+
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                        deadlineDateTime = LocalDateTime.parse(deadline[1].substring(3), formatter);
+
+                        if (deadlineDateTime.isBefore(LocalDateTime.now())) {
+                            throw new LunaException("Invalid task: Deadline is before current time");
+                        }
+                    } catch (DateTimeParseException e) {
+                        throw new LunaException("Enter deadline using format: dd/MM/yyyy HH:mm. " +
+                                "eg. 14/02/2024 14:30");
+                    }
+
+                    Deadline deadlineTask = new Deadline(deadline[0], deadlineDateTime);
                     tasks.add(deadlineTask);
 
                     String deadlineString = String.format("Now you have %d tasks in the list.", tasks.size());
@@ -191,12 +209,30 @@ public class Luna {
                     if (!(event[1].contains("from ") && event[1].trim().length() > 5) ||
                             !(event[2].contains("to ") && event[2].trim().length() > 3)) {
                         throw new LunaException("Enter start and end time for event using the format: " +
-                                "event [task] /from [startTime] /to [endTime]");
+                                "event [task] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
                     }
 
-                    Event eventTask = new Event(event[0],
-                            event[1].substring(5),
-                            event[2].substring(3));
+                    LocalDateTime startTime;
+                    LocalDateTime endTime;
+
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                        startTime = LocalDateTime.parse(event[1].substring(5), formatter);
+                        endTime = LocalDateTime.parse(event[2].substring(3), formatter);
+
+                        if (startTime.isAfter(endTime)) {
+                            throw new LunaException("Invalid Event: Start is after End");
+                        }
+
+                        if (startTime.isBefore(LocalDateTime.now())) {
+                            throw new LunaException("Invalid Event: Start is before current time");
+                        }
+                    } catch (DateTimeParseException e) {
+                        throw new LunaException("Enter start and end time using format: dd/MM/yyyy HH:mm. " +
+                                "eg. 14/02/2024 14:30");
+                    }
+
+                    Event eventTask = new Event(event[0], startTime, endTime);
                     tasks.add(eventTask);
 
                     String eventString = String.format("Now you have %d tasks in the list.", tasks.size());

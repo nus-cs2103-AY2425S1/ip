@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,7 +36,7 @@ public class Storage {
                     break;
 
                 case "D":
-                    Deadline deadline = new Deadline(taskInfo[2], taskInfo[3]);
+                    Deadline deadline = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
                     if (taskStatus == 1) {
                         deadline.markAsDone();
                     }
@@ -43,7 +44,8 @@ public class Storage {
                     break;
 
                 case "E":
-                    Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                    Event event = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
+                            LocalDateTime.parse(taskInfo[4]));
                     if (taskStatus == 1) {
                         event.markAsDone();
                     }
