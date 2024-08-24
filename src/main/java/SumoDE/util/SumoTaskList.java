@@ -33,7 +33,7 @@ public class SumoTaskList {
 
     }
 
-    public SumoTaskList() {
+    public SumoTaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.storage = null;
     }
