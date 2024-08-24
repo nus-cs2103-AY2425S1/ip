@@ -12,4 +12,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("D | %s | %s", super.toFileString(), this.deadline);
+    }
 }
