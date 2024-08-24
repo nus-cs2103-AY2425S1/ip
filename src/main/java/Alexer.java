@@ -22,6 +22,13 @@ public class Alexer {
             System.out.println(BREAK);
         }
     }
+
+    public void greetUser() {
+        System.out.println(BREAK);
+        System.out.printf("Hello from %s, what can I do for you today?\n", NAME);
+        System.out.println(BREAK);
+    }
+
     public static void main(String[] args) {
         String logo = """
                      .     .                           \s
@@ -29,13 +36,12 @@ public class Alexer {
                    /  \\    |   .'   `  \\,'  .'   ` /   \\
                   /---'\\   |   |----'  /\\   |----' |   '
                 ,'      \\ /\\__ `.___, /  \\  `.___, /   \s""";
-
         System.out.println(BREAK);
         System.out.println(logo);
-        System.out.println(BREAK);
-        System.out.printf("Hello from %s, what can I do for you today?\n", NAME);
-        System.out.println(BREAK);
-        System.out.println(GOODBYE);
-        System.out.println(BREAK);
+
+        // create an instance of our bot
+        Alexer alexer = new Alexer();
+        alexer.greetUser();
+        alexer.promptLoop();
     }
 }
