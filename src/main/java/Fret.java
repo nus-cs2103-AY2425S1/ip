@@ -92,13 +92,18 @@ public class Fret {
             return "\tempty";
         }
 
-        String[] tempTasks = new String[numTasks];
+        try {
+            String[] tempTasks = new String[numTasks];
 
-        for (int i = 1; i <= numTasks; i++) {
-            tempTasks[i - 1] = "\t" + i + ". " + tasks.get(i - 1).toString();
+            for (int i = 1; i <= numTasks; i++) {
+                tempTasks[i - 1] = "\t" + i + ". " + tasks.get(i - 1).toString();
+            }
+
+            return String.join("\n", tempTasks);
+        } catch (NullPointerException e) {
+            System.out.println("Oops! It seems like there's an invalid task in your list!\nI can't display the list yet.");
+            return "";
         }
-
-        return String.join("\n", tempTasks);
     }
 
     /**
@@ -113,6 +118,7 @@ public class Fret {
     }
 
     private static Task processTaskLine(String taskLine) {
+        // try to match the task as a todo
         Matcher todoMatcher = TODO_PATTERN2.matcher(taskLine);
 
         if (todoMatcher.find()) {
@@ -123,6 +129,7 @@ public class Fret {
             return todo;
         }
 
+        // otherwise try to match task as a deadline
         Matcher deadlineMatcher = DEADLINE_PATTERN2.matcher(taskLine);
 
         if (deadlineMatcher.find()) {
@@ -133,6 +140,7 @@ public class Fret {
             return deadline;
         }
 
+        // finally try to match task as an event
         Matcher eventMatcher = EVENT_PATTERN2.matcher(taskLine);
 
         if (eventMatcher.find()) {
@@ -143,6 +151,7 @@ public class Fret {
             return event;
         }
 
+        // if all fails, return null and handle exception
         return null;
     }
 
@@ -186,7 +195,13 @@ public class Fret {
         String userInput;
 
         // open task-list file and read tasks into list
-        File taskFile = new File("data/taskList.txt");
+        String taskFilePath;
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            taskFilePath = "data\\taskList.txt";
+        } else {
+            taskFilePath = "data/taskList.txt";
+        }
+        File taskFile = new File(taskFilePath);
         if (!loadTasksFromMemory(taskFile, tasks)) {
             input.close();
             return;
