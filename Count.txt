@@ -1,2 +1,2 @@
-1.[T][ ] bread
-2.[E][ ] sleep (from: Tuesday 3pm to: Thursday)
+1.[T][X] bread
+2.[D][X] buy bread (by: March 20 2024)

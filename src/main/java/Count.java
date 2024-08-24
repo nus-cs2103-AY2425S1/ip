@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Count {
@@ -47,8 +48,8 @@ public class Count {
                 "\n\n2.'bye': Closes the program\n Usecase: bye" +
                 "\n\n3.'list': Lists all tasks added in the order that they were added in\n Usecase: list" +
                 "\n\n4.'todo': Adds a task with no date or time attached\n Usecase: todo bake bread" +
-                "\n\n5.'deadline': Adds a task with a date or time to complete by\n Usecase: deadline homework /by Monday" +
-                "\n\n6.'event': Adds a task with from a date or time to another date or time\n Usecase: event project meeting /from 3pm /to 6pm" +
+                "\n\n5.'deadline': Adds a task with a date or time to complete by\n Usecase: deadline homework /by 20/03/2024" +
+                "\n\n6.'event': Adds a task with from a date or time to another date or time\n Usecase: event project meeting /from 20/04/2025 /to 30/04/2025" +
                 "\n\n7.'mark': Marks specified task as complete\n Usecase: mark 2" +
                 "\n\n8.'unmark': Marks specified task as incomplete\n Usecase: unmark 1" +
                 "\n\n9.'delete': Deletes specified task number\n Usecase: delete 3");
@@ -159,7 +160,7 @@ public class Count {
             }
         } catch (NumberFormatException e) {
             reply("Use a number after mark/unmark/delete to specify the task targeted!\nType 'help' to see correct formatting examples");
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             reply("Invalid format for event or deadline!\nType 'help' to see correct formatting examples");
         }
     }
