@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class CommandDeadline extends Command{
 
     private final String description;

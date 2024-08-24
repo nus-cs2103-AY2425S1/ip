@@ -9,6 +9,9 @@ import bobbybot.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to add a todo task.
+ */
 public class CommandTodo extends Command{
 
     private final String description;

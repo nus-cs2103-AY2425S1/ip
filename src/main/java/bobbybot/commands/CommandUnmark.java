@@ -8,6 +8,9 @@ import bobbybot.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to mark a task as not done.
+ */
 public class CommandUnmark extends Command {
 
     private final int index;

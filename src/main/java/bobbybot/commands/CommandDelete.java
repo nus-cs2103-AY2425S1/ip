@@ -8,6 +8,9 @@ import bobbybot.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class CommandDelete extends Command {
     private final int index;
 

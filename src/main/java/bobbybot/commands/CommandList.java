@@ -4,6 +4,9 @@ import bobbybot.Storage;
 import bobbybot.TaskList;
 import bobbybot.ui.Ui;
 
+/**
+ * Represents a command to list all tasks.
+ */
 public class CommandList extends Command {
 
     public CommandList(String argument) {

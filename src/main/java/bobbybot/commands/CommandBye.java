@@ -4,6 +4,9 @@ import bobbybot.Storage;
 import bobbybot.TaskList;
 import bobbybot.ui.Ui;
 
+/**
+ * Represents a command to exit the program.
+ */
 public class CommandBye extends Command {
     public CommandBye(String argument) {
     }
