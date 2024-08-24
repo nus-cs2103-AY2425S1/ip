@@ -1,4 +1,4 @@
-public class LamaException extends Exception{
+public class LamaException extends Exception {
     public LamaException(String msg) {
         super(msg);
     }
