@@ -16,14 +16,15 @@ public class Task {
     }
 
     public void setNotDone() {
-        if (this.isDone = true) {
             this.isDone = false;
-        }
     }
 
     public String getDescription() {
         return description;
     }
 
-
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
 }
