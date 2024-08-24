@@ -1,4 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Luna {
@@ -164,10 +168,20 @@ public class Luna {
 
                     if (!deadline[1].contains("by ") || deadline[1].trim().length() <= 2) {
                         throw new LunaException("Enter deadline for task " +
-                                "e.g. deadline [task] /by [deadline]");
+                                "e.g. deadline [task] /by [dd/MM/yyyy HH:mm]");
                     }
 
-                    Deadline deadlineTask = new Deadline(deadline[0], deadline[1].substring(3));
+                    LocalDateTime dl;
+
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                        dl = LocalDateTime.parse(deadline[1].substring(3), formatter);
+                    } catch (DateTimeParseException e) {
+                        throw new LunaException("Enter deadline using format: dd/MM/yyyy HH:mm. " +
+                                "eg. 14/02/2024 14:30");
+                    }
+
+                    Deadline deadlineTask = new Deadline(deadline[0], dl);
                     tasks.add(deadlineTask);
 
                     String deadlineString = String.format("Now you have %d tasks in the list.", tasks.size());
