@@ -12,7 +12,7 @@ public class Nayana {
      * and continues to process user input until the user types "bye"
      * Commands include listing tasks or adding new tasks.
      * The tasks can be marked as done or not done
-     *
+     * tasks can be deleted
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
