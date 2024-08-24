@@ -114,6 +114,18 @@ public class Parser {
             return false;
         }
 
+
+        if (userInput.startsWith("find")) {
+            try{
+                String keyword = userInput.substring(5).trim();
+                taskList.findTask(tasks, keyword);
+            }catch(StringIndexOutOfBoundsException e){
+                ui.blankMsg("keyword");
+            }
+            return false;
+        }
+
+
         ui.defaultMsg();
         return false;
     }

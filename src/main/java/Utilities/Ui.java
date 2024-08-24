@@ -108,6 +108,9 @@ public class Ui {
         case "number":
             System.out.println("The task number cannot be empty.");
             break;
+        case "keyword":
+            System.out.println("The keyword to look for cannot be empty.");
+            break;
         default:
             System.out.println("The description and date of a " + type + " cannot be empty.");
             break;
@@ -121,6 +124,25 @@ public class Ui {
     public void invalidDateMsg() {
         System.out.println("_____________________________________");
         System.out.println("Invalid date and time format. Please use the format 'd/M/yyyy HHmm'.");
+        System.out.println("_____________________________________");
+    }
+
+    /**
+     * Displays the tasks that match the search keyword.
+     *
+     * @param foundTasks The list of tasks that match the search keyword.
+     */
+    public void foundTask(ArrayList<String> foundTasks){
+        System.out.println("_____________________________________");
+
+        if (foundTasks.isEmpty()){
+            System.out.println("No matching tasks found.");
+        }else{
+            System.out.println("Here are the matching tasks in your list:");
+            for (String foundTask : foundTasks) {
+                System.out.println(foundTask);
+            }
+        }
         System.out.println("_____________________________________");
     }
 }
