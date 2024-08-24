@@ -13,7 +13,6 @@ public class Hana {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static final String LINE = "___________________________________________";
-<<<<<<< HEAD
 	private static final String FILE_PATH = "./data/hana.txt";
     private static final Path FILE = Paths.get(FILE_PATH);
     private static final Path DIR = Paths.get("./data");
@@ -22,10 +21,6 @@ public class Hana {
     public static void main(String[] args) throws HanaException {
         load();
 
-=======
-
-	public static void main(String[] args) {
->>>>>>> master
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -150,10 +145,7 @@ public class Hana {
             System.out.println("    " + task);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
-<<<<<<< HEAD
             saveTask();
-=======
->>>>>>> master
         } else {
             throw new HanaException("Task list is full!");
         }
@@ -183,10 +175,7 @@ public class Hana {
             }
             System.out.println("  " + task);
             System.out.println(LINE);
-<<<<<<< HEAD
             saveTask();
-=======
->>>>>>> master
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
@@ -200,10 +189,7 @@ public class Hana {
             System.out.println("    " + removedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
-<<<<<<< HEAD
             saveTask();
-=======
->>>>>>> master
         } else {
             throw new HanaException("Invalid task number! Task number must be between 1 and " + tasks.size() + ".");
         }
