@@ -83,8 +83,18 @@ public class Kira {
                         Task task = new Event(input, start, end);
                         list.addTaskToList(task);
                     }
+                    case "delete" -> {
+                        if (strings.length < 2) {
+                            throw new EmptyException("delete");
+                        }
+                        String restOfWords = strings[1];
+                        int index = Integer.parseInt(restOfWords) - 1;
+                        list.deleteTask(index);
+                    }
+                    default -> {
+                        throw new UnreadableException();
+                    }
                 }
-                throw new UnreadableException();
             } catch (UnreadableException | EmptyException | InvalidTaskException e) {
                 System.out.println(e.getMessage());
             }

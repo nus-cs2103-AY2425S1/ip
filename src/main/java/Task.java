@@ -1,27 +1,16 @@
 public class Task {
 
     private String input;
-    private static int numOfTasks = 0;
-    private int index;
     private boolean done;
     String line = "____________________________________________________________\n";
 
     public Task(String input) {
         this.input = input;
-        numOfTasks++;
-        this.index = numOfTasks - 1;
         this.done = false;
     }
 
     public String addedString() {
-        //return line + "added: " + input + "\n" + line;
-        String str = "Got it. I've added this task:\n" + displayTask();
-        if (numOfTasks < 2) {
-            str += "Now you have " +numOfTasks + " task in the list.\n";
-        } else {
-            str += "Now you have " + numOfTasks + " tasks in the list.\n";
-        }
-        return line + str + line;
+        return "Got it. I've added this task:\n" + displayTask();
     }
 
     public String displayTask() {
@@ -30,10 +19,6 @@ public class Task {
         } else {
             return "[ ] " + this.input + "\n";
         }
-    }
-
-    public int getIndex() {
-        return this.index;
     }
 
     public String getInput() {
