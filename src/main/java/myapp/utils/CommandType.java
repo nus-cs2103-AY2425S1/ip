@@ -1,8 +1,21 @@
 package myapp.utils;
 
+/**
+ * The CommandType enum represents the different types of commands
+ * that the BingBong application can recognize and execute.
+ */
 public enum CommandType {
-    TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST_ON ,LIST, BYE, INVALID;
+    TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST_ON, LIST, BYE, INVALID;
 
+    /**
+     * Determines the CommandType based on the given command string.
+     * This method checks the command string against known command prefixes and returns
+     * the corresponding CommandType. If the command does not match any known
+     * type, it returns {@code INVALID}.
+     *
+     * @param command the command string to be evaluated.
+     * @return the CommandType that corresponds to the command string.
+     */
     public static CommandType fromString(String command) {
         if (command.startsWith("todo")) {
             return TODO;

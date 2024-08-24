@@ -6,8 +6,19 @@ import myapp.utils.CommandType;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Parser} class is responsible for parsing user input commands
+ * and converting them into {@link Command} objects that the BingBong application can execute.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input and returns the corresponding {@link Command} object.
+     *
+     * @param input the user's input string.
+     * @return the {@link Command} object that corresponds to the user's input.
+     * @throws BingBongException if the command is not recognized or if the input is malformed.
+     */
     public static Command parseCommand(String input) throws BingBongException {
         CommandType command = CommandType.fromString(input);
         String description;
@@ -55,6 +66,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the description part of the input for the specified {@link CommandType}.
+     *
+     * @param input the user's input string.
+     * @param type the type of command (TODO, DEADLINE, or EVENT).
+     * @return the description of the task.
+     * @throws BingBongException if the command type is invalid or the description cannot be parsed.
+     */
     public static String parseDescription(String input, CommandType type) throws BingBongException {
         switch (type) {
         case TODO:
@@ -68,6 +87,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the date and time from the user's input for a deadline task.
+     *
+     * @param input the user's input string.
+     * @return a {@link LocalDateTime} object representing the deadline.
+     * @throws BingBongException if the date/time format is incorrect or if the input is malformed.
+     */
     public static LocalDateTime parseDeadlineDateTime(String input) throws BingBongException {
         try {
             String by = input.substring(9).trim().split(" /by ")[1].trim();
@@ -77,6 +103,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the start and end date/time from the user's input for an event task.
+     *
+     * @param input the user's input string.
+     * @return an array of {@link LocalDateTime} objects where the first element is the start time and the second element is the end time.
+     * @throws BingBongException if the date/time format is incorrect, if the input is malformed, or if the required parts are missing.
+     */
     public static LocalDateTime[] parseEventDateTime(String input) throws BingBongException {
         try {
             String[] parts = input.substring(6).trim().split(" /from | /to ");

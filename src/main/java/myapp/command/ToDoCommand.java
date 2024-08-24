@@ -4,7 +4,7 @@ import myapp.core.BingBongUI;
 import myapp.core.Storage;
 import myapp.task.Task;
 import myapp.task.TaskList;
-import myapp.task.Todo;
+import myapp.task.ToDo;
 
 public class ToDoCommand extends AddCommand {
 
@@ -14,7 +14,7 @@ public class ToDoCommand extends AddCommand {
 
     @Override
     public void execute(TaskList tasks, BingBongUI ui, Storage storage) {
-        Task task = new Todo(description);
+        Task task = new ToDo(description);
         tasks.add(task);
         saveTasks(tasks, ui, storage);
         printAddMessage(ui, tasks, task);
