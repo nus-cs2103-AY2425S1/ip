@@ -3,8 +3,7 @@ import java.util.Scanner;
 public class Hamyo {
 
     private static boolean active = true;
-    private static String[] items = new String[100];
-    private static boolean[] mark = new boolean[100];
+    private static Task[] tasks = new Task[100];
     private static int nItems = 0;
 
     public static void main(String[] args) {
@@ -38,7 +37,8 @@ public class Hamyo {
             } else if (str.startsWith("bye")) {
                 terminate();
             } else {
-                echo(str);
+                System.out.println("Oh no! Invalid command.");
+                printLine();
             }
         }
     }
@@ -69,16 +69,16 @@ public class Hamyo {
         printLine();
     }
 
-    public static void add(String item) {
-        items[nItems++] = item;
-        System.out.println("added: " + item);
+    public static void add(String task) {
+        tasks[nItems++] = new Task(task);
+        System.out.println("added: " + task);
         printLine();
     }
 
     public static void listItems() {
-        System.out.printf("These are your tasks:\n");
+        System.out.println("These are your tasks:");
         for (int i = 0; i < nItems; i++) {
-            System.out.printf("%d.[%s] %s\n", i + 1, mark[i] ? "X" : " ", items[i]);
+            System.out.println(tasks[i].toString());
         }
         printLine();
     }
@@ -86,15 +86,7 @@ public class Hamyo {
     public static void mark(String str) {
         try {
             int index = Integer.parseInt(str) - 1;
-            if (!mark[index]) {
-                mark[index] = true;
-                System.out.println("Yay! This task has been marked as completed.");
-                System.out.printf("[X] %s\n", items[index]);
-                printLine();
-            } else {
-                System.out.println("Oh no! This task was already marked as completed!");
-                printLine();
-            }
+            tasks[index].mark();
         } catch (Exception e) {
             System.out.println("Oh no! Usage: mark [index]");
             printLine();
@@ -105,23 +97,10 @@ public class Hamyo {
     public static void unmark(String str) {
         try {
             int index = Integer.parseInt(str) - 1;
-            if (mark[index]) {
-                mark[index] = false;
-                System.out.println("Oki! This task has been marked as incomplete.");
-                System.out.printf("[ ] %s\n", items[index]);
-                printLine();
-            } else {
-                System.out.println("Oh no! This task was already marked as incomplete!");
-                printLine();
-            }
+            tasks[index].unmark();
         } catch (Exception e) {
             System.out.println("Oh no! Usage: unmark [index]");
             printLine();
         }
-    }
-
-    public static void echo(String str) {
-        System.out.println(str);
-        printLine();
     }
 }
