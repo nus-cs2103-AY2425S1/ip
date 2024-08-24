@@ -1,0 +1,31 @@
+list
+y
+my todo list
+todo Buy groceries
+Buy milk, eggs, and bread
+event Team meeting
+Discuss project milestones
+9:00 AM
+10:30 AM
+Conference Room 1
+deadline Submit assignment
+Complete the programming assignment
+2024-09-01
+exit
+list
+a
+my second list
+todo Write report
+Complete the project report
+exit
+list
+b
+my todo list
+2
+3
+-1
+list
+b
+my todo list
+-1
+bye
