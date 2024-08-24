@@ -41,8 +41,11 @@ public class Bob {
                 } else if (command.equalsIgnoreCase("deadline")) {
                     System.out.println(commandDeadline(taskDetails));
 
-                } else if (command.equalsIgnoreCase("event") ){
+                } else if (command.equalsIgnoreCase("event")) {
                     System.out.println(commandEvent(taskDetails));
+
+                } else if (command.equalsIgnoreCase("delete")) {
+                    System.out.println(commandDelete(taskDetails));
 
                 } else {
                     throw new BobException("Sorry, I do not understand. Please try something else.");
@@ -182,6 +185,26 @@ public class Bob {
                     + "\nTotal number of tasks in your list: " + numTasks;
         } catch (IndexOutOfBoundsException e) {
             throw new BobException("You may have missing details or wrong format!\n" + format);
+        }
+    }
+
+    static void delTask(int taskNum) {
+        taskList.remove(taskNum - 1);
+        numTasks--;
+    }
+
+    static String commandDelete(String taskDetails) throws BobException {
+        if (taskDetails.isEmpty()) {
+            throw new BobException("Please provide a task number.");
+        }
+        try {
+            int taskNum = Integer.parseInt(taskDetails);
+            Task currTask = getTask(taskNum);
+            delTask(taskNum);
+            return "Noted, removing this task:\n " + currTask
+                    + "\nTotal number of tasks in your list: " + numTasks ;
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new BobException("The task number provided is invalid.");
         }
     }
 }

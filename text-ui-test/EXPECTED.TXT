@@ -37,4 +37,17 @@ Add Deadline task in the following format:
 deadline <description> /by <due date>
 Sorry, I do not understand. Please try something else.
 You did not key in anything...
+Please provide a task number.
+Good Job! Marking this task as done:
+ [D][X] return book (by: Sunday)
+Your list of tasks:
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Noted, removing this task:
+ [D][X] return book (by: Sunday)
+Total number of tasks in your list: 2
+Your list of tasks:
+1. [T][ ] borrow book
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Bye! Hope to see you again :)

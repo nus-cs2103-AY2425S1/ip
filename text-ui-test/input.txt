@@ -14,4 +14,9 @@ deadline buy bread
 deadline buy bread /Sunday
 meet John /from Tue 1pm /to Tue 7pm
 
+mark
+mark 2
+list
+delete 2
+list
 bye
