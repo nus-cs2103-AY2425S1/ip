@@ -1,22 +1,27 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a, E dd MMM yyyy");
+        return "[E]" + super.toString() + " (Start: " + startTime.format(formatter) +
+                " ~ End: " + endTime.format(formatter) + ")";
     }
 
     @Override
     public String toFileFormat() {
         String status  = super.isDone ? "1|" : "0|";
-        return "E|" + status + super.description + "|" + from + "|" + to;
+        return "E|" + status + super.description + "|" + startTime + "|" + endTime;
     }
 }

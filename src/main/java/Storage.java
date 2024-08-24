@@ -44,7 +44,8 @@ public class Storage {
                     break;
 
                 case "E":
-                    Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                    Event event = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
+                            LocalDateTime.parse(taskInfo[4]));
                     if (taskStatus == 1) {
                         event.markAsDone();
                     }
