@@ -20,7 +20,7 @@ public class Agave {
                     isRunning = false;
                     ui.showBye();
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    ui.showTasks(taskManager.getTasks(), taskManager.getTaskCount());
+                    ui.showTasks(taskManager.getTasks());
                 } else if (userInput.startsWith("mark")) {
                     handleMark(userInput);
                 } else if (userInput.startsWith("unmark")) {
@@ -31,6 +31,8 @@ public class Agave {
                     handleDeadlineInput(userInput);
                 } else if (userInput.startsWith("event")) {
                     handleEventInput(userInput);
+                } else if (userInput.startsWith("delete")) {
+                    handleDelete(userInput);
                 } else {
                     throw new AgaveException("I'm sorry, but I don't understand the command: " + userInput);
                 }
@@ -44,8 +46,8 @@ public class Agave {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
-                taskManager.getTasks()[taskNumber - 1].markAsDone();
-                ui.showMarkedTask(taskManager.getTasks()[taskNumber - 1]);
+                taskManager.getTasks().get(taskNumber - 1).markAsDone();
+                ui.showMarkedTask(taskManager.getTasks().get(taskNumber - 1));
             } else {
                 throw new AgaveException("Task number is out of range. Please enter a valid task number.");
             }
@@ -58,8 +60,8 @@ public class Agave {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             if (taskNumber > 0 && taskNumber <= taskManager.getTaskCount()) {
-                taskManager.getTasks()[taskNumber - 1].unmarkAsDone();
-                ui.showUnmarkedTask(taskManager.getTasks()[taskNumber - 1]);
+                taskManager.getTasks().get(taskNumber - 1).unmarkAsDone();
+                ui.showUnmarkedTask(taskManager.getTasks().get(taskNumber - 1));
             } else {
                 throw new AgaveException("Task number is out of range. Please enter a valid task number.");
             }
@@ -111,6 +113,15 @@ public class Agave {
             taskManager.showNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <start time> /to <end time>'.");
+        }
+    }
+
+    private void handleDelete(String userInput) throws AgaveException {
+        try {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            taskManager.deleteTask(taskNumber);
+        } catch (NumberFormatException e) {
+            throw new AgaveException("Please enter a valid task number.");
         }
     }
 
