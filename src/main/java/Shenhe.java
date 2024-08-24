@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Shenhe {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello, Ying. I'm Shenhe. The assumption that every person has somewhere to call home is \n" +
-                "naive. I got used to living in the mountains alongside the birds and beasts a long time ago. \n" +
+        System.out.println("Hello, Ying. I'm Shenhe. The assumption that every person has somewhere to call home is\n" +
+                "naive. I got used to living in the mountains alongside the birds and beasts a long time ago.\n" +
                 "You, are not the only traveller, but the most interesting one.");
         System.out.println("What do you want today?");
         System.out.println("____________________________________________________________");
@@ -151,7 +151,7 @@ public class Shenhe {
         }
 
         System.out.println("____________________________________________________________");
-        System.out.println("Bye travaller. Hope to see you soon.");
+        System.out.println("Bye traveller. Hope to see you soon.");
         System.out.println("____________________________________________________________");
     }
 }
