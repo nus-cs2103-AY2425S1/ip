@@ -14,4 +14,10 @@ unmark 1
 unmark 2
 unmark 3
 list
+invalid
+deadline invalid
+event invalid
+list invalid
+mark invalid
+unmark invalid
 bye
