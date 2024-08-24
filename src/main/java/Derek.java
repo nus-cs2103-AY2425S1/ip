@@ -52,7 +52,7 @@ public class Derek implements Bot {
                         + "What do I call you?");
                 Scanner name = new Scanner(System.in);
                 this.user = name.nextLine();
-                System.out.println("\n" + "Hi! " + this.user + "! So, I guess as a friend I just become your little slave!\n"
+                System.out.println("\n" + "Hi! " + this.user + "! So, I guess as a friend I become your little slave!\n"
                         + "What do you want me to do?\n"
                         + "----------------------------------------------------------------------\n"
                         + "Please enter your commands correctly for Derek (he's a little slow):\n"
