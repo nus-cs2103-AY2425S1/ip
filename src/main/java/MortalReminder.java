@@ -2,9 +2,7 @@ import java.util.Scanner;
 
 public class MortalReminder {
 
-    private final Scanner inputScanner = new Scanner(System.in);
     private TaskList taskList = new TaskList();
-    private final Processor processor = new Processor();
 
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
@@ -14,12 +12,14 @@ public class MortalReminder {
     }
 
     private void ProcessInputs() {
+        Scanner inputScanner = new Scanner(System.in);
+        Processor processor = new Processor();
 
         boolean shouldContinue = true;
         while (shouldContinue) {
             String input = inputScanner.nextLine();
             Command command = Parser.parseInputFromUser(input);
-            shouldContinue = this.processor.HandleCommand(command, this.taskList, shouldContinue);
+            shouldContinue = processor.HandleCommand(command, this.taskList, shouldContinue);
         }
     }
 
