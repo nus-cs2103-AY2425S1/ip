@@ -49,8 +49,16 @@ public class Michael {
                 list = list.concat(elem);
             }
             printer(list.substring(0, list.length() - 1)); // substring to remove last line break
-        } else if (input.length() > 4 && input.substring(0, 4).equals("todo")) {
+        } else if (input.length() > 4 && input.substring(0, 4).equals("todo")) { // task of type todo to be added
             ToDo curr = new ToDo(input.substring(5));
+            tasks.add(curr);
+            String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
+                    + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
+            printer(message);
+        } else if (input.length() > 8 && input.substring(0, 8).equals("deadline")) {
+            String task = input.substring(9);
+            String[] parts = task.split("/");
+            Deadline curr = new Deadline(parts[0], parts[1].substring(3));
             tasks.add(curr);
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
