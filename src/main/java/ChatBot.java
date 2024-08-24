@@ -1,5 +1,6 @@
 import tasks.Task;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,9 +16,11 @@ public class ChatBot {
 
     /**
      * Constructor for a chatbot.
+     *
+     * @param path The path of the file to load saved tasks from.
      */
-    public ChatBot() {
-        this.tasks = new Tasks();
+    public ChatBot(String path) throws IOException {
+        this.tasks = new Tasks(path);
     }
 
     /**
@@ -79,6 +82,8 @@ public class ChatBot {
             }
         } catch (InvalidInputException e) {
             response = e.toString();
+        } catch (IOException e) {
+            response = "Oh no! Something wrong occurred while reading or saving your tasks.";
         }
 
         return this.formatMessage(response);
@@ -120,7 +125,7 @@ public class ChatBot {
      * @param input the to-do command.
      * @return The response message.
      */
-    public String todo(String input) {
+    public String todo(String input) throws IOException {
         String name = input.substring(5);
 
         Task task = this.tasks.todo(name);
@@ -134,7 +139,7 @@ public class ChatBot {
      * @return The response message.
      * @throws InvalidInputException If the deadline was not specified.
      */
-    public String deadline(String input) throws InvalidInputException {
+    public String deadline(String input) throws InvalidInputException, IOException {
         Matcher matcher = Pattern.compile("^deadline (.*) /by (.*)$").matcher(input);
         if (!matcher.find()) {
             throw new InvalidInputException("Please specify the deadline using \"/by\".");
@@ -154,7 +159,7 @@ public class ChatBot {
      * @return The response message.
      * @throws InvalidInputException If the start and/or end of the event was not specified.
      */
-    public String event(String input) throws InvalidInputException {
+    public String event(String input) throws InvalidInputException, IOException {
         Matcher matcher = Pattern.compile("^event (.*) /from (.*) /to (.*)$").matcher(input);
         if (!matcher.find()) {
             throw new InvalidInputException("Please specify the timing using \"/from\" and \"/to\".");
@@ -175,7 +180,7 @@ public class ChatBot {
      * @return The response message.
      * @throws InvalidInputException If no item number was specified or the task with the specified item number does not exist.
      */
-    public String delete(String input) throws InvalidInputException {
+    public String delete(String input) throws InvalidInputException, IOException {
         Matcher matcher = Pattern.compile("^delete (\\d*)$").matcher(input);
         if (matcher.find()) {
             throw new InvalidInputException("Please specify which task to delete.");
@@ -198,7 +203,7 @@ public class ChatBot {
      * @return The response message.
      * @throws InvalidInputException If no item number was specified or the task with the specified item number does not exist.
      */
-    public String mark(String input) throws InvalidInputException {
+    public String mark(String input) throws InvalidInputException, IOException {
         Matcher matcher = Pattern.compile("^mark (\\d*)$").matcher(input);
 
         if (!matcher.find()) {
@@ -218,7 +223,7 @@ public class ChatBot {
      * @return The response message.
      * @throws InvalidInputException If no item number was specified or the task with the specified item number does not exist.
      */
-    public String unmark(String input) throws InvalidInputException {
+    public String unmark(String input) throws InvalidInputException, IOException {
         Matcher matcher = Pattern.compile("^unmark (\\d*)$").matcher(input);
 
         if (!matcher.find()) {
