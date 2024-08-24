@@ -1,3 +1,5 @@
+package SumoDE;
+
 public class AlreadyMarkedException extends Exception {
     public AlreadyMarkedException(Task task) {
         super("Sumo confused. This task is marked as done in the first place!\n"

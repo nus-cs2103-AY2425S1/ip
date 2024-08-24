@@ -1,3 +1,7 @@
+import SumoDE.Exception.AlreadyUnmarkedException;
+import SumoDE.Exception.UnknownCommandException;
+import SumoDE.Exception.WrongSyntaxForCommandException;
+
 public class Task {
     private boolean completed;
     private final String name;
@@ -48,7 +52,7 @@ public class Task {
 
     }
 
-    public void mark() throws AlreadyMarkedException{
+    public void mark() throws AlreadyMarkedException {
         if (completed) {
             throw new AlreadyMarkedException(this);
         } else {
@@ -56,7 +60,7 @@ public class Task {
         }
     }
 
-    public void unmark() throws AlreadyUnmarkedException{
+    public void unmark() throws AlreadyUnmarkedException {
         if (!completed) {
             throw new AlreadyUnmarkedException(this);
         } else {

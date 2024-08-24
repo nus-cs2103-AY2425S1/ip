@@ -1,3 +1,5 @@
+import SumoDE.Exception.WrongSyntaxForCommandException;
+
 public class Parser {
 
     public static String[] splitCommandAndAction(String input) {
@@ -15,7 +17,7 @@ public class Parser {
         return new String[] {commandString, item};
     }
 
-    public static String[] parseDeadline(String item) throws WrongSyntaxForCommandException{
+    public static String[] parseDeadline(String item) throws WrongSyntaxForCommandException {
         int spaceLocation = item.indexOf(" /by ");
         if (spaceLocation  == -1) {
             throw new WrongSyntaxForCommandException(Command.DEADLINE);
