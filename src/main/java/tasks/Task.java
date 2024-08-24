@@ -10,6 +10,14 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
+     * Returns a string representation of the task in a format suitable for saving to the saved data file.
+     * The exact format will be defined by the specific task subclasses that implement this method.
+     *
+     * @return A string representing the task in the saved format.
+     */
+    abstract public String toSavedFormatting();
+
+    /**
      * Constructs a Task.Task with the specified description.
      *
      * @param description The description of the task.
@@ -57,6 +65,7 @@ public abstract class Task {
      *
      * @return A string representing the task.
      */
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }

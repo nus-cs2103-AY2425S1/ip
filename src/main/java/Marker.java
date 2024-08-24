@@ -1,9 +1,10 @@
 import tasks.ReginaException;
 import tasks.Task;
+import tasks.TaskList;
 
 /**
  * The Marker class provides methods to mark and unmark tasks in a task list.
- * It interacts with the TaskList to check off tasks as completed or not.
+ * It interacts with the tasks.TaskList to check off tasks as completed or not.
  */
 
 public class Marker {
@@ -13,7 +14,7 @@ public class Marker {
     /**
      * Constructs a Marker object with a specified task list.
      *
-     * @param listOfTasks The TaskList to be managed by this Marker instance.
+     * @param listOfTasks The tasks.TaskList to be managed by this Marker instance.
      */
     public Marker(TaskList listOfTasks) {
         this.listOfTasks = listOfTasks;

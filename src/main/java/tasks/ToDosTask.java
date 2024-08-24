@@ -16,6 +16,20 @@ public class ToDosTask extends Task {
         super(description);
     }
 
+
+    /**
+     * Returns a string representation of the event task in a format suitable for saving.
+     * The format includes the task type, completion status and description.
+     *
+     * @return A formatted string representing the event task for saving purposes.
+     */
+    @Override
+    public String toSavedFormatting() {
+        return String.format("T | %s | %s ",
+                this.isDone ? "X" : " ",
+                this.description);
+    }
+
     /**
      * Returns a string representation of the to-do task, including its
      * status (done or not) and description.

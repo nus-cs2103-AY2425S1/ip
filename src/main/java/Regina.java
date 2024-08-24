@@ -1,11 +1,8 @@
-import tasks.DeadlinesTask;
-import tasks.EventsTask;
-import tasks.ReginaException;
-import tasks.ToDosTask;
-import tasks.Task;
+import tasks.*;
 
 import file.FileSaver;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -18,10 +15,10 @@ public class Regina {
     private final static String INDENT = "    ";
     private final static String LINE = INDENT + "********************************************************************";
 
-    private final TaskList listOfTasks;
-    private final Marker marker;
-    private final Scanner scanner = new Scanner(System.in);
-    // private final FileSaver fileSaver = new FileSaver();
+    private final Marker MARKER;
+    private final Scanner SCANNER = new Scanner(System.in);
+
+    private TaskList listOfTasks;
 
     // Enum to represent task types
     public enum TaskType {
@@ -49,8 +46,14 @@ public class Regina {
      * Constructs a Regina instance containing an empty task list and initializes the marker.
      */
     public Regina() {
-        listOfTasks = new TaskList();
-        marker = new Marker(listOfTasks);
+        try {
+            listOfTasks = FileSaver.readSavedData();
+        } catch (FileNotFoundException e) {
+            System.out.println("Saved data file is missing....");
+        } catch (ReginaException e) {
+            System.out.println("Saved data file is corrupted.....");
+        }
+        MARKER = new Marker(listOfTasks);
     }
 
     /**
@@ -107,7 +110,7 @@ public class Regina {
      * @return The input string entered by the user.
      */
     public String readInput() {
-        return this.scanner.nextLine();
+        return this.SCANNER.nextLine();
     }
 
     /**
@@ -265,7 +268,7 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public void mark(int index) throws ReginaException {
-        this.marker.mark(index);
+        this.MARKER.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
         System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s\n%s\n",
@@ -279,18 +282,23 @@ public class Regina {
      * @throws ReginaException If the index is out of bounds.
      */
     public void unmark(int index) throws ReginaException {
-        this.marker.unmark(index);
+        this.MARKER.unmark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
         System.out.printf("%s\n%sHais! Need to do this task again!:\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
 
+    /**
+     * Saves the current list of tasks to a file.
+     * This method attempts to persist the task data by calling the FileSaver's saveData method.
+     * If an IOException occurs during this process, an error message will be displayed to inform the user.
+     */
     public void saveFile() {
         try {
             FileSaver.saveData(listOfTasks.toString());
         } catch (IOException e) {
-            System.out.println("Error in syncing data");
+            System.out.println("******Error in syncing data******");
         }
     }
 
@@ -300,7 +308,7 @@ public class Regina {
     public void exit() {
         System.out.println(LINE + "\n" + INDENT +
                 "Bye. Hope to see you again soon!\n" + LINE);
-        this.scanner.close();
+        this.SCANNER.close();
     }
 
     public static void main(String[] args) {

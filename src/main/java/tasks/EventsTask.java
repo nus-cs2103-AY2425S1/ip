@@ -23,6 +23,21 @@ public class EventsTask extends Task {
     }
 
     /**
+     * Returns a string representation of the event task in a format suitable for saving.
+     * The format includes the task type, completion status, description, start time, and end time.
+     *
+     * @return A formatted string representing the event task for saving purposes.
+     */
+    @Override
+    public String toSavedFormatting() {
+        return String.format("E | %s | %s | %s | %s",
+                this.isDone ? "X" : " ",
+                this.description,
+                this.startTime,
+                this.endTime);
+    }
+
+    /**
      * Returns a string representation of the event task, including its
      * status (done or not), description, start time, and end time.
      *

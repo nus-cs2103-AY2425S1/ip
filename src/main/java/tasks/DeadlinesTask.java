@@ -20,6 +20,20 @@ public class DeadlinesTask extends Task {
     }
 
     /**
+     * Returns a string representation of the event task in a format suitable for saving.
+     * The format includes the task type, completion status, description and deadline.
+     *
+     * @return A formatted string representing the event task for saving purposes.
+     */
+    @Override
+    public String toSavedFormatting() {
+        return String.format("D | %s | %s | %s",
+                this.isDone ? "X" : " ",
+                this.description,
+                this.deadline);
+    }
+
+    /**
      * Returns a string representation of the deadline task, including its
      * status (done or not), description, and deadline.
      *
