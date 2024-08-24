@@ -6,7 +6,7 @@ public class Alexer {
 
     public static final String NAME = "Alexer";
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void promptLoop() {
         String input = scanner.nextLine();
