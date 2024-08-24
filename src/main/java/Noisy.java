@@ -4,9 +4,8 @@ public class Noisy {
 
 
     public static void main(String[] args) {
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int currentPointer = 0;
-        String echoMessage = "____________________________________________________________\n";
         String welcomeMessage = "____________________________________________________________\n"
                 + " Hello! I'm Noisy\n"
                 + " What can I do for you?\n"
@@ -17,6 +16,7 @@ public class Noisy {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
+            Task task = new Task(input);
             String goodbyeMessage = "____________________________________________________________\n"
                     + " Bye human :(\n"
                     + "____________________________________________________________";
@@ -26,12 +26,27 @@ public class Noisy {
                 break;
             }
             if (input.equals("list")) {
+                String echoMessage = "____________________________________________________________\n";
+                for (int i = 0; i < currentPointer; i++) {
+                    int taskIndex = i + 1;
+                    echoMessage += taskIndex + ". " + taskList[i] + "\n";
+                }
                 System.out.println(echoMessage + "____________________________________________________________");
                 continue;
             }
-            taskList[currentPointer] = input;
+            if (input.startsWith("mark ")) {
+                String[] string = input.split(" ");
+                Integer index = Integer.parseInt(string[1]);
+                taskList[index - 1].markDone();
+                String markString = "____________________________________________________________\n" +
+                                    "Nice! I've marked this task as done:\n" +
+                                    taskList[index - 1] + "\n" +
+                                    "____________________________________________________________\n";
+                System.out.println(markString);
+                continue;
+            }
+            taskList[currentPointer] = task;
             currentPointer++;
-            echoMessage += currentPointer + ". " + input + "\n";
         }
     }
 }
