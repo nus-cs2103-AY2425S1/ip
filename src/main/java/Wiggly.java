@@ -23,7 +23,6 @@ public class Wiggly {
 	public Wiggly(String filePath) {
 		ui = new Ui();
 		storage = new Storage(filePath);
-		Storage saveStorage = new Storage(filePath);
 		try {
 			taskList = new TaskList(storage.load());
 		} catch (WigglyException | FileNotFoundException e) {
@@ -140,7 +139,7 @@ public class Wiggly {
 		}
 	}
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 		new Wiggly("./data/Wiggly.txt").run();
     }
 

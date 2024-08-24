@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-	private File file;
+	private final File file;
 
 
 	public Storage(String filePath) {
