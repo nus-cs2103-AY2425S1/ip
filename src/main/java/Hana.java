@@ -9,6 +9,11 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Hana {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -53,6 +58,8 @@ public class Hana {
                     handleEvent(input);
                 } else if (input.startsWith("delete")) {
                     handleDelete(input);
+                } else if (input.startsWith("findByDate")) {
+                    handleFindByDate(input);
                 } else {
                     throw new HanaException("""
                             I'm sorry, I don't recognize that command. Here are some examples of what you can do:
@@ -60,8 +67,8 @@ public class Hana {
                             2. Mark a task as done: mark [task number]
                             3. Unmark a task: unmark [task number]
                             4. Add a todo: todo [description]
-                            5. Add a deadline: deadline [description] /by [due date]
-                            6. Add an event: event [description] /from [start time] /to [end time]
+                            5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
+                            6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
                             7. Delete a task: delete [task number]""");
                 }
             } catch (HanaException e) {
@@ -110,19 +117,34 @@ public class Hana {
     }
 
     private static void handleDeadline(String input) throws HanaException {
-        String[] parts = input.substring(8).split(" /by ");
-        if (parts.length < 2) {
-            throw new HanaException("Deadline task must have a description and a due date.");
+        try {
+            String[] parts = input.substring(8).split(" /by ");
+            if (parts.length < 2) {
+                throw new HanaException("Deadline task must have a description and a due date.");
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(parts[1].trim(), formatter);
+            addTask(new Deadline(parts[0].trim(), deadline));
+        } catch (DateTimeParseException e) {
+            throw new HanaException("Please provide a valid deadline command in the format: " +
+                    "deadline [description] /by [d/M/yyyy HHmm]");
         }
-        addTask(new Deadline(parts[0].trim(), parts[1].trim()));
     }
 
     private static void handleEvent(String input) throws HanaException {
-        String[] parts = input.substring(5).split(" /from | /to ");
-        if (parts.length < 3) {
-            throw new HanaException("Event task must have a description, start time, and end time.");
+        try {
+            String[] parts = input.substring(5).split(" /from | /to ");
+            if (parts.length < 3) {
+                throw new HanaException("Event task must have a description, start time, and end time.");
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime from = LocalDateTime.parse(parts[1].trim(), formatter);
+            LocalDateTime to = LocalDateTime.parse(parts[2].trim(), formatter);
+            addTask(new Event(parts[0].trim(), from, to));
+        } catch (DateTimeParseException e) {
+            throw new HanaException("Please provide a valid deadline command in the format: " +
+                    "event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]");
         }
-        addTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
     }
 
     private static void handleDelete(String input) throws HanaException {
@@ -135,6 +157,42 @@ public class Hana {
         }
         int taskNumber = Integer.parseInt(parts[1].trim());
         deleteTask(taskNumber);
+    }
+
+    private static void handleFindByDate(String input) throws HanaException {
+        try {
+            String[] parts = input.split(" ", 2);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            LocalDate date = LocalDate.parse(parts[1].trim(), formatter);
+            System.out.println(LINE);
+            System.out.println("Tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            boolean found = false;
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    LocalDateTime taskDate = ((Deadline) task).getDeadline();
+                    if (taskDate.toLocalDate().equals(date)) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                } else if (task instanceof Event) {
+                    LocalDateTime taskDateFrom = ((Event) task).getFrom();
+                    LocalDateTime taskDateTo = ((Event) task).getTo();
+                    if ((taskDateFrom.toLocalDate().equals(date) || taskDateFrom.toLocalDate().isBefore(date)) &&
+                            (taskDateTo.toLocalDate().equals(date) || taskDateTo.toLocalDate().isAfter(date))) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                System.out.println("No tasks found for this date.");
+            }
+            System.out.println(LINE);
+        } catch (DateTimeParseException e) {
+            System.out.println(LINE);
+            System.out.println("Please enter the date in the correct format: [d/M/yyyy]");
+            System.out.println(LINE);
+        }
     }
 
     private static void addTask(Task task) throws HanaException {
@@ -216,16 +274,17 @@ public class Hana {
             String line = br.readLine();
             while (line != null) {
                 String[] parts = line.split(" \\| ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                 Task task;
                 switch (parts[0]) {
                 case "T":
                     task = new ToDo(parts[2]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], parts[3]);
+                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter));
                     break;
                 case "E":
-                    task = new Event(parts[2], parts[3], parts[4]);
+                    task = new Event(parts[2], LocalDateTime.parse(parts[3], formatter), LocalDateTime.parse(parts[3], formatter));
                     break;
                 default:
                     System.out.println("Failed to read saved task. File may be corrupted. Skipping line");
@@ -236,8 +295,8 @@ public class Hana {
                 tasks.add(task);
                 line = br.readLine();
             }
-        } catch (IOException e) {
-            throw new HanaException("Failed to read saved tasks. File may be corrupted.");
+        } catch (IOException | DateTimeParseException e) {
+            System.out.println("Failed to read saved tasks. File may be corrupted.");
         }
     }
 
