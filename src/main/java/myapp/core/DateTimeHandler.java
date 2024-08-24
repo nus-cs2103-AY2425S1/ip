@@ -8,7 +8,8 @@ import java.time.format.DateTimeParseException;
 public class DateTimeHandler {
 
     private static final DateTimeFormatter INPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter OUTPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a");
+    private static final DateTimeFormatter OUTPUT_DATETIME_FORMATTER = DateTimeFormatter
+                                                                        .ofPattern("d MMM yyyy, h:mm a");
     private static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
     private static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy");
 

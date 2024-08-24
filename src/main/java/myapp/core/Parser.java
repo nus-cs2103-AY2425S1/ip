@@ -16,7 +16,7 @@ public class Parser {
         case BYE:
             return new ExitCommand();
         case LIST_ON:
-            String date = input.substring(8).trim();  // Extract the date after "list on "
+            String date = input.substring(8).trim();
             return new ListOnCommand(date);
         case LIST:
             return new ListCommand();
@@ -73,7 +73,8 @@ public class Parser {
             String by = input.substring(9).trim().split(" /by ")[1].trim();
             return DateTimeHandler.parse(by);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            throw new BingBongException("The deadline format is incorrect. Use: deadline <task> /by <time>");
+            throw new BingBongException("The deadline format is incorrect. " +
+                    "Use: deadline <task> /by <time>");
         }
     }
 
@@ -81,7 +82,8 @@ public class Parser {
         try {
             String[] parts = input.substring(6).trim().split(" /from | /to ");
             if (parts.length < 3) {
-                throw new BingBongException("The event format is incorrect. Use: event <task> /from <start time> /to <end time>");
+                throw new BingBongException("The event format is incorrect. Use: event <task> " +
+                        "/from <start time> /to <end time>");
             }
             LocalDateTime fromDateTime = DateTimeHandler.parse(parts[1].trim());
             LocalDateTime toDateTime = DateTimeHandler.parse(parts[2].trim());

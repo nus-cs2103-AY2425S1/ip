@@ -39,6 +39,6 @@ public class TaskList implements Iterable<Task> {
 
     @Override
     public Iterator<Task> iterator() {
-        return taskList.iterator();  // Returns an iterator for the taskList
+        return taskList.iterator();
     }
 }
