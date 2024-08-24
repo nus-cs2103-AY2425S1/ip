@@ -38,6 +38,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String saveAsString() {
+        return String.format("%s | %s", super.saveAsString(), deadline);
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " (by: " + deadline + ")";
     }

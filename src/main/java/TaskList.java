@@ -23,7 +23,6 @@ public class TaskList {
      * @param storage The storage object for saving and loading tasks.
      */
     public TaskList(ArrayList<Task> tasks, Storage storage) {
-        assert tasks != null : "Oops! List of tasks should not be empty.";
         this.tasks = tasks;
         this.storage = storage;
         this.taskCount = tasks.size();
@@ -101,10 +100,21 @@ public class TaskList {
         taskCount = tasks.size();
         if (storage != null) {
             storage.saveTasks(tasks);
-        } else {
-            System.out.println("Oops! Storage is not initialized. Task not saved.");
         }
         printTaskAdded(task);
+    }
+
+    /**
+     * Adds a new task to the list without printing the formatted output.
+     *
+     * @param task The task to add.
+     */
+    public void addTaskWihoutMessage(Task task) {
+        tasks.add(task);
+        taskCount = tasks.size();
+        if (storage != null) {
+            storage.saveTasks(tasks);
+        }
     }
 
     /**

@@ -11,8 +11,12 @@ public class Ollie {
      * Constructs an Ollie instance with a new TaskList.
      */
     public Ollie() {
-        this.storage = new Storage("./data/ollie.txt");
-        this.taskList = new TaskList(storage.loadTasks(), storage);
+        try {
+            this.storage = new Storage("./data/ollie.txt");
+            this.taskList = new TaskList(storage.loadTasks(), storage);
+        } catch (OllieException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

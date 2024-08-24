@@ -44,6 +44,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String saveAsString() {
+        return String.format("%s | %s | %s", super.saveAsString(), start, end);
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " (from: " + start + " to: " + end + ")";
     }

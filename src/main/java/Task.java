@@ -44,6 +44,13 @@ public abstract class Task {
      */
     public abstract void validateDescription(String command) throws OllieException;
 
+    /**
+     * Saves the task as a string for storage.
+     * @return The task as a string.
+     */
+    public String saveAsString() {
+        return String.format("%s | %s | %s", taskType, getStatusIcon(), description);
+    }
 
     @Override
     public String toString() {

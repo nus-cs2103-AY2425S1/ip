@@ -1,2 +1,3 @@
-[X] [TODO] study
-[ ] [EVENT] socialise (from: today to: evening)
+TODO | X | study
+DEADLINE |   | assignment | sunday
+EVENT |   | meet parents | sat | evening
