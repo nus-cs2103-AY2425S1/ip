@@ -1,7 +1,39 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	_______________________________________
+Hello! I'm Tayoo
+What can I do for you?
+
+	_______________________________________
+
+
+	_______________________________________
+Got it. I've added this task:
+[T][ ] homework
+ Now you have 1 task in your list
+	_______________________________________
+
+
+	_______________________________________
+Got it. I've added this task:
+[D][ ] submit homework (by: Sunday)
+ Now you have 2 tasks in your list
+	_______________________________________
+
+
+	_______________________________________
+Got it. I've added this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm )
+ Now you have 3 tasks in your list
+	_______________________________________
+
+
+	_______________________________________
+I'm not sure what that means :(
+	_______________________________________
+
+
+	_______________________________________
+	Bye. Hope to see you again soon!
+
+	_______________________________________
+
 
