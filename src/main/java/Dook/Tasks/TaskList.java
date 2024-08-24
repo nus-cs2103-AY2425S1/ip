@@ -1,3 +1,7 @@
+package Dook.Tasks;
+
+import Dook.DookException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

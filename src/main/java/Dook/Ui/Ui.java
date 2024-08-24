@@ -1,9 +1,11 @@
+package Dook.Ui;
+
 import java.util.Scanner;
 
 public class Ui {
 
     private static final String separator = "____________________________________________________________";
-    private static final String greeting = "Hello! I'm Dook\nWhat can I do for you?\n" + separator;
+    private static final String greeting = "Hello! I'm Dook.Dook\nWhat can I do for you?\n" + separator;
     private static final String exit = "Bye. Hope to see you again soon!\n" + separator;
 
     private final Scanner scanner = new Scanner(System.in);

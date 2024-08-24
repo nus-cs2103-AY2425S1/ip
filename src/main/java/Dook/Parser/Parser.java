@@ -1,3 +1,8 @@
+package Dook.Parser;
+
+import Dook.Commands.*;
+import Dook.DookException;
+
 public class Parser {
     public Command parse(String input) throws DookException {
         try {
