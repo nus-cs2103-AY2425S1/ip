@@ -1,4 +1,9 @@
+import java.io.Serial;
+
 public class Todo extends Task{
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     /**
      * Constructor for the to do class.
      *

@@ -1,4 +1,8 @@
+import java.io.Serial;
+
 public class Event extends Task{
+    @Serial
+    private static final long serialVersionUID = 1L;
     private final String start;
     private final String end;
 
