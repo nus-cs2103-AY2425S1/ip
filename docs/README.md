@@ -30,3 +30,9 @@ Check out the ASCII art when you start Nimbus!
 ## Level 1
 
 Nimbus is mimicking you.
+
+## Level 2
+
+Nimbus can now add tasks into a list
+
+Nimbus can show you your list

@@ -20,19 +20,20 @@ public class Nimbus {
 
         welcomeMessage += "Hello from \n" + logo + horizontalLine + " \nHow can I help you today~ UwU" + horizontalLine;
         System.out.println(welcomeMessage);
-        /*
-        Need to find command that accepts input
-        If is bye, send endingmessage
-         */
+
 
         String userInput ="";
         Scanner scanner = new Scanner(System.in);
+        TaskList taskList = new TaskList();
+
         while (!userInput.equals("bye")) {
             userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
                 System.out.println("Nimbus: " + endingMessage);
+            } else if (userInput.equals("list")) {
+                taskList.toString();
             } else {
-                System.out.println("Nimbus: " + userInput + horizontalLine);
+                taskList.addTask(userInput);
             }
         }
         scanner.close();
