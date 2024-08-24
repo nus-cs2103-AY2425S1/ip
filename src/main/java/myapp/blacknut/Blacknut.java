@@ -2,12 +2,10 @@ package myapp.blacknut;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-//import BlacknutExceptions.*;
 import myapp.blacknut.BlacknutExceptions.InvalidCommandException;
 import myapp.blacknut.BlacknutExceptions.EmptyDescriptionException;
 import myapp.blacknut.BlacknutExceptions.InvalidTaskNumberException;
 import myapp.blacknut.BlacknutExceptions.IncorrectFormatException;
-
 
 public class Blacknut {
 
@@ -50,6 +48,8 @@ public class Blacknut {
                     addDeadline(tasks, input);
                 } else if (input.startsWith("event ")) {
                     addEvent(tasks, input);
+                } else if (input.startsWith("delete ")) {
+                    deleteTask(tasks, input);
                 } else {
                     throw new InvalidCommandException("I don't know what that means. Please enter a valid command.");
                 }
@@ -131,5 +131,24 @@ public class Blacknut {
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newTask);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    // Method to delete a task
+    private static void deleteTask(ArrayList<Task> tasks, String input) throws InvalidTaskNumberException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                Task removedTask = tasks.remove(index);
+                System.out.println(" Noted. I've removed this task:");
+                System.out.println("   " + removedTask);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                throw new InvalidTaskNumberException("Invalid task number. Please provide a valid number from the list.");
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException("Invalid command format. Please enter a valid number after 'delete'.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException("Task number out of range. Please provide a valid number from the list.");
+        }
     }
 }
