@@ -1,7 +1,37 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello I'm Jude
+What can I do for you, poyo?
+Poyo! added: read book
+Poyo! added: homework
+Poyo! added: meeting
+1. [T][ ] read book
+2. [D][ ] homework (by: today)
+3. [E][ ] meeting (from: 8 to: 9)
+Poyo! I've marked this task as done:
+[T][X] read book
+1. [T][X] read book
+2. [D][ ] homework (by: today)
+3. [E][ ] meeting (from: 8 to: 9)
+Poyo! I've unmarked this task as not done:
+[T][ ] read book
+1. [T][ ] read book
+2. [D][ ] homework (by: today)
+3. [E][ ] meeting (from: 8 to: 9)
+Poyo! I've marked this task as done:
+[T][X] read book
+Poyo! I've marked this task as done:
+[D][X] homework (by: today)
+Poyo! I've marked this task as done:
+[E][X] meeting (from: 8 to: 9)
+1. [T][X] read book
+2. [D][X] homework (by: today)
+3. [E][X] meeting (from: 8 to: 9)
+Poyo! I've unmarked this task as not done:
+[T][ ] read book
+Poyo! I've unmarked this task as not done:
+[D][ ] homework (by: today)
+Poyo! I've unmarked this task as not done:
+[E][ ] meeting (from: 8 to: 9)
+1. [T][ ] read book
+2. [D][ ] homework (by: today)
+3. [E][ ] meeting (from: 8 to: 9)
+Poyo. Hope to see you again soon!
