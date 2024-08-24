@@ -6,7 +6,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) throws LunaException {
         tasks.unmarkTask(taskToUnmark);
         storage.saveTasks(tasks.getTasks());
     }

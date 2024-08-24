@@ -6,7 +6,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) throws LunaException {
         tasks.deleteTask(taskToDelete);
         storage.saveTasks(tasks.getTasks());
     }

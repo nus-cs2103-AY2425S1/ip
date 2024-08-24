@@ -18,7 +18,11 @@ public class TaskList {
                 "  " + task + "\n" + taskSize);
     }
 
-    public void deleteTask(int task) {
+    public void deleteTask(int task) throws LunaException {
+        if (task >= tasks.size() || task < 0) {
+            throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
+        }
+
         Task removed = tasks.remove(task);
         System.out.println("Noted, I've removed this task:\n" +
                 "  " + removed.toString() + "\n" +
@@ -34,7 +38,11 @@ public class TaskList {
         }
     }
 
-    public void markTaskAsDone(int task) {
+    public void markTaskAsDone(int task) throws LunaException {
+        if (task >= tasks.size() || task < 0) {
+            throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
+        }
+
         Task taskToMark = tasks.get(task);
         taskToMark.markAsDone();
 
@@ -42,7 +50,11 @@ public class TaskList {
         System.out.println("  " + taskToMark.toString());
     }
 
-    public void unmarkTask(int task) {
+    public void unmarkTask(int task) throws LunaException {
+        if (task >= tasks.size() || task < 0) {
+            throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
+        }
+
         Task taskToUnmark = tasks.get(task);
         taskToUnmark.unmark();
 
