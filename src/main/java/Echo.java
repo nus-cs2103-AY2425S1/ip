@@ -36,11 +36,40 @@ public class Echo {
                         System.out.println("Please specify the task number to unmark.");
                     }
                     break;
+                case "todo":
+                    addTodo(tasks, input);
+                    break;
+                case "deadline":
+                    addDeadline(tasks, input);
+                    break;
+                case "event":
+                    addEvent(tasks, input);
                 default:
                     addTask(tasks, input);
                     break;
             }
         }
+    }
+
+    private static void addDeadline(List<Task> tasks, String input) {
+        String[] details = input.split(" /by ", 2);
+        if (details.length == 2) {
+            Deadline deadlineTask = new Deadline(details[0], details[1]);
+            tasks.add(deadlineTask);
+            System.out.println("added: " + deadlineTask);
+        }
+    }
+
+    private static void addEvent(List<Task> tasks, String input) {
+            String[] details = input.split(" /from ", 2);
+            if (details.length == 2) {
+                String[] times = details[1].split(" /to ", 2);
+                if (times.length == 2) {
+                    Events eventTask = new Events(details[0], times[0], times[1]);
+                    tasks.add(eventTask);
+                    System.out.println("added: " + eventTask);
+                }
+            }
     }
 
     private static void exitProgram() {
@@ -81,6 +110,12 @@ public class Echo {
         Task newTask = new Task(taskDescription);
         tasks.add(newTask);
         System.out.println("added: " + taskDescription);
+    }
+
+    private static void addTodo(List<Task> tasks, String taskDescription) {
+        Todo todo = new Todo(taskDescription);
+        tasks.add(todo);
+        System.out.println( "Got it. I've added this task:\n" + todo.toString() + "Now you have " + tasks.size() + " tasks in the list" );
     }
 }
 
