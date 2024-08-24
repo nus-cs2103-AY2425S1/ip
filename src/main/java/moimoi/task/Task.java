@@ -1,14 +1,15 @@
+package moimoi.task;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Task {
 
-    protected String typeIcon;
+    protected TaskEnum taskEnum;
     protected String description;
     protected boolean isDone;
 
-    public Task(String typeIcon, String description) {
-        this.typeIcon = typeIcon;
+    public Task(TaskEnum taskEnum, String description) {
+        this.taskEnum = taskEnum;
         this.description = description;
         this.isDone = false;
     }
@@ -30,11 +31,11 @@ public class Task {
     }
 
     public String stringUI() {
-        return "[" + this.typeIcon + "][" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.taskEnum.name() + "][" + this.getStatusIcon() + "] " + this.description;
     }
 
     public String stringStorage(){
-        return this.typeIcon + " | " + this.getStatusIcon() + " | " + this.description;
+        return this.taskEnum.name() + " | " + this.getStatusIcon() + " | " + this.description;
     }
 
 }

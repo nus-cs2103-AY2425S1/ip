@@ -1,3 +1,5 @@
+package moimoi.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +9,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
-        super("D", description);
+        super(TaskEnum.D, description);
         this.by = by;
     }
 
