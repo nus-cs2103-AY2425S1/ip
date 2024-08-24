@@ -13,10 +13,6 @@ import java.time.format.DateTimeParseException;
  * and timing respectively
  */
 public class Temporal {
-    /* Stores either LocalDate or LocalDateTime */
-    private LocalDate localDate;
-    private LocalDateTime localDateTime;
-
     // DateTimeFormatters for reading (first 2) from save file and user input
     // and writing (last 2) to save file
     private static final DateTimeFormatter dateOnly = new DateTimeFormatterBuilder()
@@ -30,6 +26,14 @@ public class Temporal {
     private static final DateTimeFormatter dateOnlyOutput = DateTimeFormatter.ofPattern("dd MMM yyyy");
     private static final DateTimeFormatter dateTimeOutput = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyyy");
 
+    /* Stores either LocalDate or LocalDateTime */
+    private LocalDate localDate;
+    private LocalDateTime localDateTime;
+
+    /**
+     * Constructor for Temporal class.
+     * @param dateTimeString String of dateTime to "parse"
+     */
     public Temporal(String dateTimeString) {
         try {
             this.localDateTime = LocalDateTime.parse(dateTimeString, dateTime);

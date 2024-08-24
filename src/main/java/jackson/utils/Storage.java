@@ -1,10 +1,5 @@
 package jackson.utils;
 
-import jackson.tasks.Deadline;
-import jackson.tasks.Event;
-import jackson.tasks.Task;
-import jackson.tasks.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,13 +7,18 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jackson.tasks.Deadline;
+import jackson.tasks.Event;
+import jackson.tasks.Task;
+import jackson.tasks.Todo;
+
 /**
  * Class to handle reading and writing to save file.
  */
 public class Storage {
     /* Regex to read tasks from text file */
-    private final Pattern TASK_FORMAT = Pattern.compile("\\[([TED])]\\[([X ])] " +
-            "([\\w ]+\\w)(?: \\((?:from|by): ([\\w\\d, :]+)\\)*)?(?: \\| to: ([\\w\\d, :]+)\\))?");
+    private static final Pattern TASK_FORMAT = Pattern.compile("\\[([TED])]\\[([X ])] "
+            + "([\\w ]+\\w)(?: \\((?:from|by): ([\\w\\d, :]+)\\)*)?(?: \\| to: ([\\w\\d, :]+)\\))?");
 
     /* String path to save file */
     private String path;
@@ -30,7 +30,7 @@ public class Storage {
     /**
      * Saves task list to specified save file.
      * if IOException raised, will print error statement.
-     * @param taskList{@code TaskList} object that the tasks are written from
+     * @param taskList {@code TaskList} object that the tasks are written from
      */
     public void save(TaskList taskList) {
         File f = new File(this.path);
@@ -84,6 +84,8 @@ public class Storage {
                             t.mark();
                         }
                         taskList.addTask(t);
+                        break;
+                    default:
                         break;
                     }
                 } else {
