@@ -11,12 +11,21 @@ import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
 import sumode.task.Task;
 
+/**
+ * Stores all tasks.
+ */
 public class SumoTaskList {
 
     private final List<Task> tasks;
     private final Storage storage;
     private final Ui ui;
 
+    /**
+     * Constructor for SumoTaskList
+     *
+     * @param storage Used to store data into local drive.
+     * @param ui UI for all output.
+     */
     public SumoTaskList(Storage storage, Ui ui) throws IOException {
         //initialising
         this.tasks = new ArrayList<>();
@@ -36,12 +45,29 @@ public class SumoTaskList {
 
     }
 
+    /**
+     * Constructor for SumoTaskList.
+     * <p>
+     * Should only be used when storage not available.
+     *
+     * @param ui UI for all output.
+     */
     public SumoTaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.storage = null;
         this.ui = ui;
     }
 
+    /**
+     * Returns a boolean that indicates whether to terminate the programme after this command is finish.
+     *
+     * @param command Command given by user (first word in the input).
+     * @param item Everything after the first word.
+     * @return a boolean that indicates whether to terminate the programme after this command is finish.
+     * @throws NonExistentTaskException due to wrong index given to MARK/UNMARK/DELETE command
+     * @throws AlreadyUnmarkedException due to user trying to unmark an already unmarked task
+     * @throws AlreadyMarkedException due to user trying to mark an already marked task
+     */
     public boolean execute(Command command, String item)
             throws NonExistentTaskException, UnknownCommandException,
             WrongSyntaxForCommandException, AlreadyMarkedException,

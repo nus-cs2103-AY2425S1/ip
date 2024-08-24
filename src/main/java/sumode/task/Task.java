@@ -7,6 +7,9 @@ import sumode.exception.WrongSyntaxForCommandException;
 import sumode.util.Command;
 import sumode.util.Parser;
 
+/**
+ * A class for various tasks.
+ */
 public class Task {
     private static final String done = "[X]";
     private static final String undone = "[ ]";
@@ -70,6 +73,10 @@ public class Task {
         }
     }
 
+    /**
+     * Returns a String in the format to be stored in data file.
+     * @return a String in the format to be stored in data file.
+     */
     public String savedString() {
         return (this.completed ? "1" : "0") + " | " + this.name;
     }
