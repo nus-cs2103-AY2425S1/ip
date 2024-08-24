@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
 
     private final String description;
@@ -17,12 +19,12 @@ public class Task {
             break;
         case "D":
             String by = arguments[3];
-            task = new Deadline(taskDescription, by);
+            task = new Deadline(taskDescription, LocalDate.parse(by));
             break;
         case "E":
             String from = arguments[3];
             String to = arguments[4];
-            task = new Event(taskDescription, from, to);
+            task = new Event(taskDescription, LocalDate.parse(from), LocalDate.parse(to));
             break;
         default:
             throw new IllegalArgumentException("Invalid task type found in save file");
@@ -50,7 +52,7 @@ public class Task {
     }
 
     public String toFileFormat() {
-        return String.valueOf(isDone) + "|" + this.description;
+        return isDone + "|" + this.description;
     }
 
     @Override

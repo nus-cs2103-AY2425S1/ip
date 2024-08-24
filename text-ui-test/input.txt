@@ -1,7 +1,7 @@
 list
 todo read another book
-deadline return another book /by June 6th
-event another project meeting /from Aug 8th 4pm /to 6pm
+deadline return another book /by 2024-06-06
+event another project meeting /from 2024-08-08 /to 2024-08-08
 todo join another sports club
 mark 3
 mark 4
@@ -9,7 +9,7 @@ todo borrow book
 list
 todo
 deadline
-event project meeting /from Sunday
+event project meeting /from 2024-07-08
 blah
 delete 3
 delete 7
