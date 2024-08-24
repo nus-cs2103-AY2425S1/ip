@@ -68,7 +68,7 @@ public class Ui {
      * Displays a goodbye message when the application is about to exit.
      */
     public String showGoodbye() {
-        return "Catch ya on the flip side, my dude! See ya soon!";
+        return "Catch ya on the flip side, my dude! See ya soon!\nClosing in 3 seconds...";
     }
 
     /**
