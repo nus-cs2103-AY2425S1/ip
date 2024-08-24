@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -6,6 +9,9 @@ import java.util.ArrayList;
 public class TaskList {
     /* ArrayList to store tasks */
     private ArrayList<Task> tasks;
+
+    /* Path to save list data */
+    private final String PATH = "src/main/java/data.txt";
 
     /**
      * Constructor for task list.
@@ -24,6 +30,7 @@ public class TaskList {
         this.tasks.add(task);
         System.out.printf("\t%s\n", task);
         System.out.printf("You now got %s tasks in your list leh\n", this.tasks.size());
+        save();
     }
 
     /**
@@ -37,6 +44,7 @@ public class TaskList {
         System.out.println("Deleting now hor!");
         System.out.printf("\t%s\n", task);
         System.out.printf("You now got %s tasks in your list leh\n", this.tasks.size());
+        save();
     }
 
     /**
@@ -50,6 +58,7 @@ public class TaskList {
         System.out.println("Solid lah, marked already");
         curr.mark();
         System.out.printf("\t%s\n", curr);
+        save();
     }
 
     /**
@@ -63,6 +72,19 @@ public class TaskList {
         System.out.println("Walao, ok la I unmark already...");
         curr.unmark();
         System.out.printf("\t%s\n", curr);
+        save();
+    }
+
+    public void save() {
+        File f = new File(PATH);
+        try {
+            f.createNewFile();
+            FileWriter fw = new FileWriter(f);
+            fw.write(this.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error! Please check your file permissions!");
+        }
     }
 
     /**
