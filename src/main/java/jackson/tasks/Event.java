@@ -1,3 +1,6 @@
+package jackson.tasks;
+
+import jackson.utils.Temporal;
 /**
  * Event class containing name, from date and to date.
  */

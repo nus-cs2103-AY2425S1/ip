@@ -1,8 +1,24 @@
-import java.io.FileNotFoundException;
-import java.util.regex.Matcher;
-import java.util.Scanner;
+package jackson;
+
+import jackson.actions.Actions;
+import jackson.exceptions.OutOfListException;
+import jackson.exceptions.SyntaxException;
+import jackson.exceptions.UnsupportedException;
+import jackson.tasks.Deadline;
+import jackson.tasks.Event;
+import jackson.tasks.Task;
+import jackson.tasks.Todo;
+import jackson.utils.Storage;
+import jackson.utils.TaskList;
+import jackson.utils.Ui;
+import jackson.utils.Response;
+import jackson.utils.Parser;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Base64;
+import java.util.Scanner;
+import java.util.regex.Matcher;
 
 /**
  * Main class for the chatbot.
