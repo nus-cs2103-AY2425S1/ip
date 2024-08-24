@@ -45,6 +45,14 @@ public class Janet {
         return taskIndex;
     }
 
+
+    /**
+     * @return the listOfTasks ArrayList
+     */
+    public ArrayList<Task> getListOfTasks() {
+        return this.listOfTasks;
+    }
+
     /**
      * Level 2 - Add, list
      * @param task a String representation of the task that is to be added into the listOfTasks.
