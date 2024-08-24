@@ -13,9 +13,9 @@ public class Ui {
             "     _.----._/ /\n" +
             "    /         /\n" +
             " __/ (  | (  |\n" +
-            "/__.-'|_|--|_|\n\n";
-    private static final String MOI_MOI_HEADER = "⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆";
-    private static final String USER_HEADER = "⋆⭒˚.⋆User⋆⭒˚.⋆\n";
+            "/__.-'|_|--|_|\n";
+    private static final String MOI_MOI_HEADER = "\n⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆";
+    private static final String USER_HEADER = "⋆⭒˚.⋆User⋆⭒˚.⋆";
     private Scanner sc;
 
     public Ui(){
