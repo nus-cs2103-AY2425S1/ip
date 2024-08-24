@@ -6,9 +6,12 @@ public class Rose {
     static final String name = "Rose";
     static ArrayList<Task> tasks = new ArrayList<Task>();
 
+    private static void printIndented(String line) {
+        System.out.println("    " + line);
+    }
     private static void addTask(String taskType, String taskName) {
-        System.out.print(horizontal.indent(4));
-        System.out.print("Got it. I've added this task: ".indent(4));
+        printIndented(horizontal);
+        printIndented("Got it. I've added this task: ");
         Task newTask;
 
         if (taskType.equals("event")) {
@@ -23,45 +26,45 @@ public class Rose {
         }
 
         tasks.add(newTask);
-        System.out.print(newTask.toString().indent(6));
-        System.out.print(String.format("Now you have %d task in the list.", tasks.size()).indent(4));
+        printIndented("  " + newTask.toString());
+        printIndented(String.format("Now you have %d task in the list.", tasks.size()));
 
-        System.out.print(horizontal.indent(4));
+        printIndented(horizontal);
     }
 
     private static void showList() {
-        System.out.println(horizontal.indent(4));
+        printIndented(horizontal);
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.print((i + ". " + tasks.get(i - 1).toString()).indent(4));
+            printIndented(i + ". " + tasks.get(i - 1).toString());
         }
-        System.out.println(horizontal.indent(4));
+        printIndented(horizontal);
     }
 
     private static void markTask(Integer idx) {
-        System.out.println(horizontal.indent(4));
+        printIndented(horizontal);
         tasks.get(idx - 1).mark();
         //Task updatedTask = tasks.get(idx - 1).mark();
         //tasks.set(idx - 1, updatedTask);
-        System.out.println("Marked as done : ".indent(4));
-        System.out.println(tasks.get(idx - 1).toString().indent(4));
-        System.out.println(horizontal.indent(4));
+        printIndented("Marked as done : ");
+        printIndented(tasks.get(idx - 1).toString());
+        printIndented(horizontal);
     }
 
     private static void unmarkTask(Integer idx) {
-        System.out.println(horizontal.indent(4));
+        printIndented(horizontal);
         tasks.get(idx - 1).unmark();
-        System.out.println("Marked as not done :".indent(4));
-        System.out.println(tasks.get(idx - 1).toString().indent(4));
-        System.out.println(horizontal.indent(4));
+        printIndented("Marked as not done :");
+        printIndented(tasks.get(idx - 1).toString());
+        printIndented(horizontal);
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String opening = horizontal + "\nHi gorgeous! I'm " + name + "~~\n"
-                + "How can I help you today?\n" + horizontal;
-        String closing = horizontal + "\nSee you~~ Don't forget to drink some water ^_^\n" + horizontal;
+        String opening = horizontal + "\n    Hi gorgeous! I'm " + name + "~~\n"
+                + "    How can I help you today?\n    " + horizontal;
+        String closing = horizontal + "\n    See you~~ Don't forget to drink some water ^_^\n    " + horizontal;
 
-        System.out.println(opening.indent(4));
+        printIndented(opening);
 
         String input = scanner.nextLine();
         String message = "";
@@ -81,11 +84,12 @@ public class Rose {
             } else if (command.equals("todo") || command.equals("event") || command.equals("deadline")) {
                 addTask(command, message);
             } else {
-                System.out.println("Oops sry idk what command is that".indent(4));
+                printIndented(horizontal);
+                printIndented("Oops sry idk what command is that");
             }
             input = scanner.nextLine();
         }
 
-        System.out.println(closing.indent(4));
+        printIndented(closing);
     }
 }
