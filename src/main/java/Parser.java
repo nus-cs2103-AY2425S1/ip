@@ -10,8 +10,9 @@ public class Parser {
 
         if (command.equals("bye") || command.equals("list")) {
             // no descriptions
-        } else if (command.equals("mark") || command.equals("unmark") || command.equals("todo")) {
-            descriptions = split[1].split(" "); // Create an array with 1 element
+        } else if (command.equals("mark") || command.equals("unmark") || command.equals("to-do")) {
+            descriptions = new String[1];
+            descriptions[0] = split[1]; // Create an array with 1 element
             if (descriptions.length != 1) {
                 this.isValid = false;
             }

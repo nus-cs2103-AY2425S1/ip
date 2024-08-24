@@ -34,6 +34,10 @@ public class Jude {
                 continue;
             }
 
+            if (userInput == null) {
+                System.out.println("Invalid command was provided. Please try again, poyo...");
+                continue;
+            }
             parser = new Parser(userInput);
             if (!parser.getIsValid()) {
                 System.out.println("Invalid command was provided. Please try again, poyo...");
@@ -105,7 +109,7 @@ public class Jude {
 
             // Add a task into the list
             Task task;
-            if (command.equals("todo")) {
+            if (command.equals("to-do")) {
                 task = new Todo(descriptions[0]);
             } else if (command.equals("deadline")) {
                 task = new Deadline(descriptions[0], descriptions[1]);
