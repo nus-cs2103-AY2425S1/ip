@@ -3,7 +3,7 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(String taskDescription) {
         super(taskDescription);
-        this.dueBy = "";
+        this.dueBy = "---";
     }
 
     public DeadlineTask(String taskDescription, String dueBy) {

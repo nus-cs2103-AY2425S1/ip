@@ -50,9 +50,8 @@ public class Elliot {
                 case "todo":
                 case "deadline":
                 case "event":
-                default:
                     String[] commandOptions;
-                    if (command.length < 2) {
+                    if (command.length == 1) {
                         say("describe your task\n");
                         break;
                     }
@@ -63,7 +62,8 @@ public class Elliot {
                             break;
                         case "deadline":
                             commandOptions = stripStrArray(command[1].split("/by"));
-                            if (commandOptions.length == 0) {
+                            if (commandOptions.length == 0 || commandOptions[0] == "") {
+                                say("describe your task\n");
                                 continue;
                             }
                             if (commandOptions.length < 2) {
@@ -74,7 +74,8 @@ public class Elliot {
                             break;
                         case "event":
                             commandOptions = stripStrArray(command[1].split("/from|/to"));
-                            if (commandOptions.length == 0) {
+                            if (commandOptions.length == 0 || commandOptions[0] == "") {
+                                say("describe your task\n");
                                 continue;
                             }
                             if (commandOptions.length < 3) {
@@ -91,6 +92,9 @@ public class Elliot {
                     say("Got it. I've added this task:\n"
                             + taskToAdd.toString() + "\n"
                             + "Now you have " + taskList.size() + " tasks in the list.\n");
+                    break;
+                default:
+                    say("no such commands found\n");
             }
         }
     }
