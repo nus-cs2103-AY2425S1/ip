@@ -53,11 +53,13 @@ public class TaskList {
             uncompleted--;
         }
         System.out.println("Friday > Successfully removed: " + temp.toString());
+        System.out.println("Friday > You now have " + getSize() + " total tasks left.");
     }
 
     @Override
     public String toString() {
         String ans = "";
+        ans += String.format("Completed: %d tasks | Incomplete: %d tasks | Total: %d tasks%n%n", completed, uncompleted, parent.size());
         for (int i = 1; i <= parent.size(); i++) {
             ans += String.format("%d: %s%n", i, parent.get(i-1).toString());
         }
@@ -69,15 +71,20 @@ public class TaskList {
     }
 
     public void doneTask(String action, int task) {
+        Task temp = parent.get(task);
         if (action.equals("mark") || action.equals("Mark")) {
-            this.parent.get(task).setDone();
-            completed++;
-            uncompleted--;
+            if (!temp.isDone()) {
+                temp.setDone();
+                completed++;
+                uncompleted--;
+            }
             System.out.println("Friday > Good job! Marked as done :)");
         } else {
-            this.parent.get(task).setUndone();
-            uncompleted++;
-            completed--;
+            if (temp.isDone()) {
+                this.parent.get(task).setUndone();
+                uncompleted++;
+                completed--;
+            }
             System.out.println("Friday > Oh man! Marked as undone :(");
         }
     }
@@ -88,8 +95,6 @@ public class TaskList {
             String str = sc.nextLine();
             if (str.length() <= 0) {
                 System.out.println("Friday > Invalid input! Did you make sure to type something?");
-
-                continue;
             } else {
                 return str.trim();
             }
