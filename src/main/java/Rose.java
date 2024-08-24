@@ -86,6 +86,22 @@ public class Rose {
         }
     }
 
+    private static void delete(Integer idx) {
+        try {
+            Task deleted = tasks.get(idx - 1);
+            tasks.remove(idx - 1);
+            printIndented(horizontal);
+            printIndented("Noted. I've removed this task:");
+            printIndented("  " + deleted.toString());
+            printIndented(String.format("Now you have %d task in the list.", tasks.size()));
+            printIndented(horizontal);
+        } catch (IndexOutOfBoundsException e) {
+            printIndented(horizontal);
+            printIndented("OOPS!!! Task index is out of bounds.");
+            printIndented(horizontal);
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -118,6 +134,8 @@ public class Rose {
                                 command));
                     }
                     addTask(command, message);
+                } else if (command.equals("delete")) {
+                    delete(Integer.valueOf(message));
                 } else {
                     throw new RoseException("I'm sorry, but I don't know that command :-(");
                 }
@@ -127,7 +145,7 @@ public class Rose {
                 printIndented(horizontal);
             } catch (NumberFormatException e) {
                 printIndented(horizontal);
-                printIndented("OOPS!!! You should provide a number for the task index.");
+                printIndented("OOPS!!! You should provide a number of the task index.");
                 printIndented(horizontal);
             }
             input = scanner.nextLine();
