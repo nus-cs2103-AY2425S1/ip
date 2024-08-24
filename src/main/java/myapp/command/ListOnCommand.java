@@ -22,20 +22,23 @@ public class ListOnCommand extends ListCommand{
 
         StringBuilder list = new StringBuilder("Tasks on " + DateTimeHandler.format(queryDate) + ":\n");
         boolean hasTasks = false;
+        int count = 1;
 
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getBy().toLocalDate().equals(queryDate)) {
-                    list.append(tasks.indexOf(task) + 1).append(". ").append(deadline).append("\n");
+                    list.append(count).append(". ").append(deadline).append("\n");
                     hasTasks = true;
+                    count++;
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 if (event.getFrom().toLocalDate().equals(queryDate) ||
                         event.getTo().toLocalDate().equals(queryDate)) {
-                    list.append(tasks.indexOf(task) + 1).append(". ").append(event).append("\n");
+                    list.append(count).append(". ").append(event).append("\n");
                     hasTasks = true;
+                    count++;
                 }
             }
         }

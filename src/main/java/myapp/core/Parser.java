@@ -20,6 +20,12 @@ public class Parser {
             return new ListOnCommand(date);
         case LIST:
             return new ListCommand();
+        case FIND:
+            String keyword = input.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new BingBongException("Please state the keyword clearly.");
+            }
+            return new FindCommand(keyword);
         case MARK:
             int markIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             return new MarkCommand(markIndex);
