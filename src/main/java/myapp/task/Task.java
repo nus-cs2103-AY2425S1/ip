@@ -20,6 +20,9 @@ abstract public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getDescription() {
+        return this.description;
+    }
     public void markAsDone() {
         this.isDone = true;
     }
