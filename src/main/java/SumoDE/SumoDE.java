@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class SumoDE {
 
-    private Storage storage;
+    private Storage storage = null;
     private SumoTaskList tasks;
     private final Ui ui;
 
@@ -19,7 +19,7 @@ public class SumoDE {
 
         // handle Storage
         try {
-            this.storage = new Storage(filePath,ui);
+            this.storage = new Storage(filePath, this.ui);
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
@@ -27,15 +27,15 @@ public class SumoDE {
         }
 
         //handle SumoTaskList
-        if (storage == null) {
-            this.tasks = new SumoTaskList(); // we will use the version where we cannot save
+        if (this.storage == null) {
+            this.tasks = new SumoTaskList(this.ui); // we will use the version where we cannot save
         } else {
             try {
-                this.tasks = new SumoTaskList(this.storage, ui);
+                this.tasks = new SumoTaskList(this.storage, this.ui);
             } catch (IOException e) {
                 //unlikely will happen since we already successfully initialise storage
                 ui.unknownSaveError();
-                this.tasks = new SumoTaskList(); // we will use the version where we cannot save
+                this.tasks = new SumoTaskList(this.ui); // we will use the version where we cannot save
             }
         }
     }
