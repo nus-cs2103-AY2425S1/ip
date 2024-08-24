@@ -1,0 +1,2 @@
+D|true|return book|2024-09-12T13:00
+E|false|project meeting |2024-09-12T16:00|2024-09-12T18:00

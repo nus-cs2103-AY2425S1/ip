@@ -5,7 +5,7 @@
    ______________________________________________________
    I do not recognise this command, please check again!
    Available commands are:
-   [list, mark, unmark, delete, todo, deadline, event, bye, clear_tasks, unknown]
+   [list, mark, unmark, delete, todo, deadline, event, clear_tasks, upcoming_tasks, bye, unknown]
    ______________________________________________________
    ______________________________________________________
    List has been cleared.
@@ -20,12 +20,12 @@
    ______________________________________________________
    ______________________________________________________
    Got it. I've added this task:
-   [D][ ] return book (by: Sunday)
+   [D][ ] return book (by: 12 Sep 2024 1:00 pm)
    Now you have 2 task(s) in the list.
    ______________________________________________________
    ______________________________________________________
    Got it. I've added this task:
-   [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   [E][ ] project meeting  (from: 12 Sep 2024 4:00 pm, to: 12 Sep 2024 6:00 pm)
    Now you have 3 task(s) in the list.
    ______________________________________________________
    ______________________________________________________
@@ -35,10 +35,7 @@
    Please give the correct amount of information for the command!
    ______________________________________________________
    ______________________________________________________
-   Here are the tasks in your list:
-   1.[T][ ] read book
-   2.[D][ ] return book (by: Sunday)
-   3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   This task has already been marked as not done.
    ______________________________________________________
    ______________________________________________________
    Nice!  I've marked this task as done:
@@ -52,27 +49,24 @@
    [T][ ] read book
    ______________________________________________________
    ______________________________________________________
-   This task has already been marked as not done.
-   ______________________________________________________
-   ______________________________________________________
    Nice!  I've marked this task as done:
-   [T][X] read book
+   [D][X] return book (by: 12 Sep 2024 1:00 pm)
    ______________________________________________________
    ______________________________________________________
    Here are the tasks in your list:
-   1.[T][X] read book
-   2.[D][ ] return book (by: Sunday)
-   3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   1.[T][ ] read book
+   2.[D][X] return book (by: 12 Sep 2024 1:00 pm)
+   3.[E][ ] project meeting  (from: 12 Sep 2024 4:00 pm, to: 12 Sep 2024 6:00 pm)
    ______________________________________________________
    ______________________________________________________
    Got it. I've deleted this task:
-   [T][X] read book
+   [T][ ] read book
    Now you have 2 task(s) in the list.
    ______________________________________________________
    ______________________________________________________
    Here are the tasks in your list:
-   1.[D][ ] return book (by: Sunday)
-   2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   1.[D][X] return book (by: 12 Sep 2024 1:00 pm)
+   2.[E][ ] project meeting  (from: 12 Sep 2024 4:00 pm, to: 12 Sep 2024 6:00 pm)
    ______________________________________________________
    ______________________________________________________
    Bye. Hope to see you again soon!
