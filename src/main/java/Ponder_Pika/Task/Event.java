@@ -1,4 +1,4 @@
-package Task;
+package Ponder_Pika.Task;
 
 public class Event extends Task{
     private final String from;

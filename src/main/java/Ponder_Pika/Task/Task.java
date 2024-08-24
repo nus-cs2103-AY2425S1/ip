@@ -1,10 +1,11 @@
-package Task;
+package Ponder_Pika.Task;
 
 public abstract class Task {
     private final String description;
     private boolean isDone;
 
     public Task(String description) {
+
         this.description = description;
         this.isDone = false;
     }
