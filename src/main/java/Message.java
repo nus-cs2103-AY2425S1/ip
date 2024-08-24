@@ -1,3 +1,10 @@
+import exceptions.MissingParametersException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Message {
     /**
      * Print a string in the dialog box.
@@ -37,6 +44,15 @@ public class Message {
         printDialogBox(content);
     }
 
+    public static void printDue(String date, TodoList todoList) throws MissingParametersException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        try {
+            LocalDate parsedDate = LocalDate.parse(date, formatter);
+            printDialogBox(todoList.getDueAt(parsedDate).toString());
+        } catch (DateTimeParseException e) {
+            throw new MissingParametersException("deadline", "deadline return book /by 2/12/2019 1800");
+        }
+    }
 
     /**
      * Print the message after unmarking a task.

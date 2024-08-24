@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TodoList {
@@ -49,6 +50,14 @@ public class TodoList {
             if (i != todoList.size() - 1) result.append("\n");
         }
         return result.toString();
+    }
+
+    public TodoList getDueAt (LocalDate date) {
+        TodoList filteredTodo = new TodoList();
+        this.todoList.stream()
+                .filter(t -> t.getDate().equals(date))
+                .forEach(filteredTodo::add);
+        return filteredTodo;
     }
 
     @Override

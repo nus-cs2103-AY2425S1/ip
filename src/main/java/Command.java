@@ -6,7 +6,7 @@ import exceptions.*;
 // solution below inspired by https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
 public class Command {
     private enum CommandsEnum {
-        LIST, BYE, TODO, MARK, UNMARK, DEADLINE, EVENT, DELETE, NULL
+        LIST, BYE, TODO, MARK, UNMARK, DEADLINE, EVENT, DELETE, NULL, DUE
     }
     private final CommandsEnum command;
     private String params;
@@ -50,6 +50,9 @@ public class Command {
             case "delete":
                 this.command = CommandsEnum.DELETE;
                 break;
+            case "due":
+                this.command = CommandsEnum.DUE;
+                break;
             default:
                 this.command = CommandsEnum.NULL;
                 break;
@@ -62,6 +65,14 @@ public class Command {
     public void action() throws UnknownCommandException, MissingParametersException, InvalidTaskException, IOException {
         Task task;
         switch (command) {
+            case DUE:
+                String command = "due";
+                String error = "due 2/12/2019";
+                if (params == null || params.isEmpty()) {
+                    throw new MissingParametersException(command, error);
+                }
+                Message.printDue(params, todoList);
+                break;
             case LIST:
                 Message.print(todoList.toString());
                 break;
@@ -123,7 +134,7 @@ public class Command {
      */
     private Deadlines getDeadlines() throws MissingParametersException {
         String command = "deadline";
-        String error = "deadline return book /by Sunday";
+        String error = "deadline return book /by 2/12/2019 1800";
         if (params == null || params.isEmpty()) {
             throw new MissingParametersException(command, error);
         }

@@ -22,7 +22,7 @@ public class Cow {
             fs.loadData();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (UnknownCommandException e) {
+        } catch (UnknownCommandException | MissingParametersException e) {
             Message.print(e.getMessage());
         }
 

@@ -40,7 +40,7 @@ public class FileSaver {
      * @throws FileNotFoundException if the file does not exist
      * @throws UnknownCommandException if the commands in the file are corrupted
      */
-    public void loadData() throws FileNotFoundException, UnknownCommandException {
+    public void loadData() throws FileNotFoundException, UnknownCommandException, MissingParametersException {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
@@ -67,7 +67,6 @@ public class FileSaver {
             } catch (ArrayIndexOutOfBoundsException e) {
                 Message.printCorruptionDetected();
             }
-
         }
     }
 

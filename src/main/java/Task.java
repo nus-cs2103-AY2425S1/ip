@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Task {
@@ -50,6 +51,15 @@ public class Task {
      * A string that matches the format for writing it to file
      * @return A string to be written to a txt file
      */
+
+    /**
+     * A default date used for filtering out Tasks with deadlines
+     * @return a LocalDate
+     */
+    public LocalDate getDate() {
+        return LocalDate.of(0, 1, 1);
+    }
+
     public String getSaveData() {
         String result = "";
         if (this.isDone) {
