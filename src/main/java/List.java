@@ -21,7 +21,10 @@ public class List {
         return line + list + line;
     }
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws InvalidTaskException {
+        if (tasks[index] == null) {
+            throw new InvalidTaskException(index);
+        }
         return tasks[index];
     }
 }
