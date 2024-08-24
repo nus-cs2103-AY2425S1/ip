@@ -3,23 +3,33 @@ Hello! I am Agave.
 What can I do for you?
 
 ____________________________________________________________
-hi
+Added todo:
+ [T][ ] meet jim
+Now you have 1 tasks in the list.
+Added deadline:
+  [D][ ] finish assignment (by: 22nd September)
+Now you have 2 tasks in the list.
+Added event:
+  [E][ ] 2101 meeting (from: 4pm to: 6pm)
+Now you have 3 tasks in the list.
 ____________________________________________________________
-hi
+I've marked this task as completed:
+[X] meet jim
 ____________________________________________________________
-list
 ____________________________________________________________
-list
+I've marked this task as completed:
+[X] 2101 meeting
 ____________________________________________________________
-yeet
 ____________________________________________________________
-yeet
+I've unmarked this task:
+[ ] meet jim
 ____________________________________________________________
-wow this is so advanced
 ____________________________________________________________
-wow this is so advanced
+Uhoh: I'm sorry, but I don't understand the command: bleh
 ____________________________________________________________
-bye
+____________________________________________________________
+Uhoh: The description of a todo cannot be empty.
+____________________________________________________________
 ____________________________________________________________
 Bye! Hope to see you again soon!
 

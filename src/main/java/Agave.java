@@ -74,7 +74,7 @@ public class Agave {
             throw new AgaveException("The description of a todo cannot be empty.");
         }
         taskManager.addTask(new ToDo(description));
-        System.out.println("Added todo: ");
+        System.out.println("Added todo:");
         System.out.println(" [T][ ] " + description);
         taskManager.showNumberOfTasks();
     }
@@ -88,7 +88,7 @@ public class Agave {
                 throw new AgaveException("The description and deadline of a task cannot be empty");
             }
             taskManager.addTask(new Deadline(description, by));
-            System.out.println("Added deadline: ");
+            System.out.println("Added deadline:");
             System.out.println("  [D][ ] " + description + " (by: " + by + ")");
             taskManager.showNumberOfTasks();
         } catch (ArrayIndexOutOfBoundsException e) {
