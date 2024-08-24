@@ -1,10 +1,12 @@
-import java.io.*;
-import java.util.Arrays;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 public class Cookie {
     enum Commands {
         list,
@@ -175,7 +177,6 @@ public class Cookie {
 
     public void parseFileContent(String string) throws CookieException {
         String[] parts = string.split(" \\| ");
-        System.out.println(Arrays.toString(parts));
         String command = parts[0];
         boolean isDone = parts[1].equals("1");
         String task = parts[2];
