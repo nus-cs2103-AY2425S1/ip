@@ -20,6 +20,15 @@ public class Event extends Task{
     @Override
     public String fileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " + from.format(formatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " + to.format(formatter);
+    }
+
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
     }
 }

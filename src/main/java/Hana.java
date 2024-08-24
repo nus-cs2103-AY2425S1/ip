@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -57,6 +58,8 @@ public class Hana {
                     handleEvent(input);
                 } else if (input.startsWith("delete")) {
                     handleDelete(input);
+                } else if (input.startsWith("findByDate")) {
+                    handleFindByDate(input);
                 } else {
                     throw new HanaException("""
                             I'm sorry, I don't recognize that command. Here are some examples of what you can do:
@@ -154,6 +157,42 @@ public class Hana {
         }
         int taskNumber = Integer.parseInt(parts[1].trim());
         deleteTask(taskNumber);
+    }
+
+    private static void handleFindByDate(String input) throws HanaException {
+        try {
+            String[] parts = input.split(" ", 2);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            LocalDate date = LocalDate.parse(parts[1].trim(), formatter);
+            System.out.println(LINE);
+            System.out.println("Tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            boolean found = false;
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    LocalDateTime taskDate = ((Deadline) task).getDeadline();
+                    if (taskDate.toLocalDate().equals(date)) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                } else if (task instanceof Event) {
+                    LocalDateTime taskDateFrom = ((Event) task).getFrom();
+                    LocalDateTime taskDateTo = ((Event) task).getTo();
+                    if ((taskDateFrom.toLocalDate().equals(date) || taskDateFrom.toLocalDate().isBefore(date)) &&
+                            (taskDateTo.toLocalDate().equals(date) || taskDateTo.toLocalDate().isAfter(date))) {
+                        System.out.println(task);
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                System.out.println("No tasks found for this date.");
+            }
+            System.out.println(LINE);
+        } catch (DateTimeParseException e) {
+            System.out.println(LINE);
+            System.out.println("Please enter the date in the correct format: [d/M/yyyy]");
+            System.out.println(LINE);
+        }
     }
 
     private static void addTask(Task task) throws HanaException {

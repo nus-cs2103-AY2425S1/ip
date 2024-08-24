@@ -20,4 +20,8 @@ public class Deadline extends Task{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(formatter);
     }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
 }
