@@ -62,7 +62,6 @@ public class Storage {
     public static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         if (!TASK_FILE.isFile()) {
-            System.out.println("Task file not found. Starting with an empty task list.");
             return tasks;
         }
 
