@@ -10,6 +10,11 @@ public class Janet {
         this.taskIndex = 0;
     }
 
+    Janet(ArrayList<Task> listOfTasks) {
+        this.listOfTasks = listOfTasks;
+        this.taskIndex = 0;
+    }
+
     /**
      * Level 0 - greets the user
      * @return a String message to greet the user.
