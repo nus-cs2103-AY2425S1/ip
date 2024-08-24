@@ -4,13 +4,14 @@ import java.util.Scanner;
 
 public class Astor {
     public static void main(String[] args) {
-        System.out.println("Hello, I'm Astor! \n" +
+
+        System.out.println("Hello, I'm Astor!\n" +
                 "What can I do for you?\n" +
                 "--------------------------------------");
 
         Scanner scanner = new Scanner(System.in);
         List<Task> list = new ArrayList<>();
-        while (true) {
+        while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again!");
@@ -119,5 +120,7 @@ public class Astor {
                 System.out.println("added: " + input + "\n--------------------------------------");
             }
         }
+        scanner.close();
+
     }
 }
