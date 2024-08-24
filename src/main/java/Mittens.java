@@ -78,7 +78,11 @@ public class Mittens {
     }
 
     public static void listTasks() {
-        System.out.println("\nHere are the tasks in your list :3");
+        if (tasks.size() == 0) {
+            System.out.println("\nMeow?! Your list is empty!\n");
+            return;
+        }
+        System.out.printf("\nYou have %d tasks in your list, here they are :3\n", tasks.size());
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.printf("%d. %s\n", i + 1, task.toString());
@@ -121,9 +125,32 @@ public class Mittens {
             } else if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
                 markTaskAsNotDone(index);
-            } else {
-                Task newTask = new Task(input);
-                addTask(newTask);
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5);
+
+                Todo newTodo = new Todo(description);
+                addTask(newTodo);
+            } else if (input.startsWith("deadline")) {
+                // Separate the inputs so that the first element contains the description while
+                // the rest contains flags.
+                String[] inputs = input.split(" /");
+                String description = inputs[0].substring(9);
+                // Assuming order of flags are: by
+                String by = inputs[1].substring(3);
+
+                Deadline newDeadline = new Deadline(description, by);
+                addTask(newDeadline);
+            } else if (input.startsWith("event")) {
+                // Separate the inputs so that the first element contains the description while
+                // the rest contains flags.
+                String[] inputs = input.split(" /");
+                String description = inputs[0].substring(6);
+                // Assuming order of flags are: from, to
+                String from = inputs[1].substring(5);
+                String to = inputs[2].substring(3);
+
+                Event newEvent = new Event(description, from, to);
+                addTask(newEvent);
             }
         }
 
