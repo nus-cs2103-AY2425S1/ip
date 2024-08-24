@@ -38,22 +38,34 @@ public class Alisa {
                 System.out.println(divider);
             } else if (input.startsWith("todo")) {
                 Todo newTodo = new Todo(input.substring(5));
+                taskList.add(newTodo);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newTodo);
                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(divider);
             }
             else if (input.startsWith("deadline")) {
-                String[] inputArray = input.split(" /by  ");
+                String[] inputArray = input.substring(9).split(" /by ");
                 Deadline newDeadline = new Deadline(inputArray[0], inputArray[1]);
                 taskList.add(newDeadline);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newDeadline);
                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println(divider);
+            } else if (input.startsWith("event")) {
+                String[] inputArray = input.substring(6).split(" /from ");
+                String[] fromToArray = inputArray[1].split(" /to ");
+                Event newEvent = new Event(inputArray[0], fromToArray[0], fromToArray[1]);
+                taskList.add(newEvent);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newEvent);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println(divider);
             }
             else if (input.equals("list")) {
                 if (taskList.isEmpty()) {
                     System.out.println("The list is empty, sorry :(");
+                    System.out.println(divider);
                 } else {
                     for (int i = 1; i <= taskList.size(); i++) {
                         System.out.println(i + "." + taskList.get(i-1));
@@ -63,6 +75,7 @@ public class Alisa {
             }
             else {
                 System.out.println("Sorry, please type in a command that I understand :)");
+                System.out.println(divider);
             }
         }
 
