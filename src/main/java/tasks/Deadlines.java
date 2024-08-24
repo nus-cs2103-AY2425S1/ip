@@ -1,3 +1,6 @@
+package tasks;
+
+import tasks.Task;
 import exceptions.MissingParametersException;
 
 import java.time.LocalDate;
@@ -5,16 +8,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     private LocalDateTime by;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * @param description The Description of the Deadline with /by to state the dateline
      */
-    public Deadlines(String description, String by) throws MissingParametersException {
+    public Deadlines(String description, LocalDateTime by) {
         super(description);
-        this.by = parseDateTime(by);
+        this.by = by;
 
     }
 
@@ -31,7 +34,7 @@ public class Deadlines extends Task{
 
     private LocalDateTime parseDateTime(String by) throws MissingParametersException {
         try {
-            return this.by = LocalDateTime.parse(by, formatter);
+            return this.by = LocalDateTime.parse(by, FORMAT);
         } catch (DateTimeParseException e) {
             throw new MissingParametersException("deadline", "deadline return book /by 2/12/2019 1800");
         }
@@ -59,6 +62,6 @@ public class Deadlines extends Task{
      */
     @Override
     public String getSaveData() {
-        return "D | " + super.getSaveData() + " | " + this.by.format(formatter);
+        return "D | " + super.getSaveData() + " | " + this.by.format(FORMAT);
     }
 }

@@ -1,3 +1,7 @@
+package tasks;
+
+import tasks.Task;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -6,7 +10,7 @@ public class Todo extends Task {
     /**
      * Alternate constructor for loading isDone directly
      * @param isDone 1 or 0 indicating if task is done
-     * @param description The Description of the Todo
+     * @param description The Description of the tasks.Todo
      */
     public Todo(String isDone, String description) {
         super(isDone, description);

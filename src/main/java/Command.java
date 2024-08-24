@@ -1,7 +1,13 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import FileSaver.FileSaver;
+import message.Message;
+import tasks.Deadlines;
+import tasks.Event;
+import tasks.Task;
+import TodoList.TodoList;
 import exceptions.*;
+import tasks.Todo;
 
 // solution below inspired by https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
 public class Command {
@@ -16,7 +22,7 @@ public class Command {
     /**
      * Creates a Command object with the given command and the target storage.
      * @param command The command string which determines the type of command
-     * @param todoList The TodoList object which the command will operate on.
+     * @param todoList The TodoList.TodoList object which the command will operate on.
      */
     public Command(String command, TodoList todoList, FileSaver fs) throws IOException {
         String[] tokens = command.split(" ", 2);
@@ -60,90 +66,90 @@ public class Command {
     }
 
     /**
-     * Executes the action based on the command and target TodoList
+     * Executes the action based on the command and target TodoList.TodoList
      */
-    public void action() throws UnknownCommandException, MissingParametersException, InvalidTaskException, IOException {
-        Task task;
-        switch (command) {
-            case DUE:
-                String command = "due";
-                String error = "due 2/12/2019";
-                if (params == null || params.isEmpty()) {
-                    throw new MissingParametersException(command, error);
-                }
-                Message.printDue(params, todoList);
-                break;
-            case LIST:
-                Message.print(todoList.toString());
-                break;
-            case BYE:
-                Message.print("Bye. Hope to see you again soon!");
-                System.exit(0);
-                break;
-            case TODO:
-                Todo todo = getTodo();
-                todoList.add(todo);
-                Message.printAddedTask(todo, todoList);
-                break;
-            case DEADLINE:
-                Deadlines deadlineTodo = getDeadlines();
-                todoList.add(deadlineTodo);
-                Message.printAddedTask(deadlineTodo, todoList);
-                break;
-            case EVENT:
-                Event eventTodo = getEvent();
-                todoList.add(eventTodo);
-                Message.printAddedTask(eventTodo, todoList);
-                break;
-            case MARK:
-                try {
-                    task = todoList.get(Integer.parseInt(params.trim()) - 1);
-                } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                    throw new InvalidTaskException();
-                }
-                task.markAsDone();
-                Message.printMarked(task);
-                break;
-            case UNMARK:
-                try {
-                    task = todoList.get(Integer.parseInt(params.trim()) - 1);
-                } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                    throw new InvalidTaskException();
-                }
-                task.unmarkAsDone();
-                Message.printUnmarked(task);
-                break;
-            case DELETE:
-                try {
-                    task = todoList.delete(Integer.parseInt(params) - 1);
-                } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                    throw new InvalidTaskException();
-                }
-                Message.printDeletedTask(task, todoList);
-                break;
-            default:
-                throw new UnknownCommandException();
-        }
-        this.fs.saveData();
-    }
+//    public void action() throws UnknownCommandException, MissingParametersException, InvalidTaskException, IOException {
+//        Task task;
+//        switch (command) {
+//            case DUE:
+//                String command = "due";
+//                String error = "due 2/12/2019";
+//                if (params == null || params.isEmpty()) {
+//                    throw new MissingParametersException(command, error);
+//                }
+//                Message.printDue(params, todoList);
+//                break;
+//            case LIST:
+//                Message.print(todoList.toString());
+//                break;
+//            case BYE:
+//                Message.print("Bye. Hope to see you again soon!");
+//                System.exit(0);
+//                break;
+//            case TODO:
+//                Todo todo = getTodo();
+//                todoList.add(todo);
+//                Message.printAddedTask(todo, todoList);
+//                break;
+//            case DEADLINE:
+//                Deadlines deadlineTodo = getDeadlines();
+//                todoList.add(deadlineTodo);
+//                Message.printAddedTask(deadlineTodo, todoList);
+//                break;
+//            case EVENT:
+//                Event eventTodo = getEvent();
+//                todoList.add(eventTodo);
+//                Message.printAddedTask(eventTodo, todoList);
+//                break;
+//            case MARK:
+//                try {
+//                    task = todoList.get(Integer.parseInt(params.trim()) - 1);
+//                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+//                    throw new InvalidTaskException();
+//                }
+//                task.markAsDone();
+//                Message.printMarked(task);
+//                break;
+//            case UNMARK:
+//                try {
+//                    task = todoList.get(Integer.parseInt(params.trim()) - 1);
+//                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+//                    throw new InvalidTaskException();
+//                }
+//                task.unmarkAsDone();
+//                Message.printUnmarked(task);
+//                break;
+//            case DELETE:
+//                try {
+//                    task = todoList.delete(Integer.parseInt(params) - 1);
+//                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+//                    throw new InvalidTaskException();
+//                }
+//                Message.printDeletedTask(task, todoList);
+//                break;
+//            default:
+//                throw new UnknownCommandException();
+//        }
+//        this.fs.saveData(todoList);
+//    }
 
     /**
      * Creates a deadline task from the command.
      * @return A deadline object.
      * @throws MissingParametersException Command is malformed
      */
-    private Deadlines getDeadlines() throws MissingParametersException {
-        String command = "deadline";
-        String error = "deadline return book /by 2/12/2019 1800";
-        if (params == null || params.isEmpty()) {
-            throw new MissingParametersException(command, error);
-        }
-        String[] deadlineParams = params.split("/by", 2);
-        if (deadlineParams.length < 2 || deadlineParams[0].trim().isEmpty() || deadlineParams[1].trim().isEmpty()) {
-            throw new MissingParametersException(command, error);
-        }
-        return new Deadlines(deadlineParams[0].trim(), deadlineParams[1].trim());
-    }
+//    private Deadlines getDeadlines() throws MissingParametersException {
+//        String command = "deadline";
+//        String error = "deadline return book /by 2/12/2019 1800";
+//        if (params == null || params.isEmpty()) {
+//            throw new MissingParametersException(command, error);
+//        }
+//        String[] deadlineParams = params.split("/by", 2);
+//        if (deadlineParams.length < 2 || deadlineParams[0].trim().isEmpty() || deadlineParams[1].trim().isEmpty()) {
+//            throw new MissingParametersException(command, error);
+//        }
+//        return new Deadlines(deadlineParams[0].trim(), deadlineParams[1].trim());
+//    }
 
     /**
      * Creates a todo task from the command.
