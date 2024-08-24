@@ -34,21 +34,23 @@ public class FlyChat {
                 storageList.announceItems();
                 System.out.println(lineBreak);
             //when user types "mark [num]", the task with index num is marked as done
-            } else if (inputString.matches("^mark [0-9]*")) {
+            } else if (inputString.startsWith("mark ")) {
                 System.out.println(lineBreak);
                 storageList.mark(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
                 System.out.println(lineBreak);
             //when user types "unmark [num]", the task with index num is marked as not done
-            } else if (inputString.matches("^unmark [0-9]*")) {
+            } else if (inputString.startsWith("unmark ")) {
                 System.out.println(lineBreak);
                 storageList.unmark(Integer.valueOf(inputString.replaceAll("[^0-9]", "")));
                 System.out.println(lineBreak);
-            //when user types non-keyword phrases, a new task is created with the phrase as text
+            //when user types todo/deadline/event at the start, a new corresponding task is created
+            } else if (inputString.startsWith("todo ") || inputString.startsWith("deadline ") || 
+                        inputString.startsWith("event ")) {
+                System.out.println(lineBreak);
+                storageList.addTask(inputString);
+                System.out.println(lineBreak);
             } else {
-                storageList.add(inputString);
-                System.out.println(lineBreak);
-                System.out.println("added: " + inputString);
-                System.out.println(lineBreak);
+                //TODO: throw new InvalidCommandException
             }
             inputString = userInput.nextLine();
         }
