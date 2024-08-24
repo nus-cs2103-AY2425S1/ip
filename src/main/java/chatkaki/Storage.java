@@ -1,3 +1,7 @@
+package chatkaki;
+
+import chatkaki.tasks.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

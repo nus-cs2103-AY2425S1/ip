@@ -1,3 +1,10 @@
+package chatkaki.commands;
+
+import chatkaki.Ui;
+import chatkaki.DateTimeHelper;
+import chatkaki.tasks.Deadline;
+import chatkaki.tasks.TaskList;
+
 import java.time.LocalDateTime;
 
 public class CommandDeadline extends Command {

@@ -1,7 +1,13 @@
-public class CommandUnmark extends Command {
+package chatkaki.commands;
+
+import chatkaki.Ui;
+import chatkaki.tasks.Task;
+import chatkaki.tasks.TaskList;
+
+public class CommandMark extends Command {
     private String[] inputs;
 
-    public CommandUnmark(String[] inputs) {
+    public CommandMark(String[] inputs) {
         this.inputs = inputs;
     }
 
@@ -13,6 +19,6 @@ public class CommandUnmark extends Command {
             return;
         }
         Task task = TaskList.getTask(index - 1);
-        task.markAsUndone();
+        task.markAsDone();
     }
 }
