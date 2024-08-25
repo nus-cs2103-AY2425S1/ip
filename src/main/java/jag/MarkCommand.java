@@ -1,3 +1,5 @@
+package jag;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {
@@ -9,30 +11,30 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (isMark) {
-            // Mark Command
+            // Mark jag.Command
             int index = ui.getMark();
             Task task = tasks.getTask(index-1);
             task.setStatus(true);
 
-            // Ui response
+            // jag.Ui response
             ui.markResponse(task);
 
-            // Storage
+            // jag.Storage
             try {
                 storage.write(tasks);
             } catch (IOException io) {
                 System.out.println("Error in writing history" + io.getMessage());
             }
         } else {
-            // Unmark Command
+            // Unmark jag.Command
             int index = ui.getMark();
             Task task = tasks.getTask(index-1);
             task.setStatus(false);
 
-            // Ui response
+            // jag.Ui response
             ui.unmarkResponse(task);
 
-            // Storage
+            // jag.Storage
             try {
                 storage.write(tasks);
             } catch (IOException io) {

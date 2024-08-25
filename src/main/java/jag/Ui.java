@@ -1,15 +1,12 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+package jag;
+
 import java.util.Scanner;
 
 public class Ui {
     String loadingError = "File not found :(";
     String dashed = "----------";
     Scanner scanner = new Scanner(System.in);
-    String greetings = this.dashed + "\nHello! I'm Jag What can I do for you?\n" + this.dashed;
+    String greetings = this.dashed + "\nHello! I'm jag.Jag What can I do for you?\n" + this.dashed;
     String bye = this.dashed + "\nBye. Hope to see you again soon!\n" + this.dashed;
 
     String command;
@@ -111,7 +108,7 @@ public class Ui {
             System.out.println(this.dashed);
             command = scanner.nextLine();
         } else if (type == 'D') {
-            // Response for Deadline
+            // Response for jag.Deadline
             System.out.println(this.dashed);
             System.out.println("Got it. I've added this task:");
             System.out.println(task.toString());

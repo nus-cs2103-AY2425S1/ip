@@ -1,3 +1,5 @@
+package jag;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +18,7 @@ public class AddCommand extends Command {
             Todo newTodo = new Todo(description);
             tasks.addTask(newTodo);
 
-            // Storage
+            // jag.Storage
             try {
                 storage.write(tasks);
             } catch (IOException io) {
@@ -35,14 +37,14 @@ public class AddCommand extends Command {
             Deadline newDeadline = new Deadline(description, d1);
             tasks.addTask(newDeadline);
 
-            // Storage
+            // jag.Storage
             try {
                 storage.write(tasks);
             } catch (IOException io) {
                 System.out.println("Error in writing history" + io.getMessage());
             }
 
-            // Ui response
+            // jag.Ui response
             ui.addedResponse(this.type, newDeadline, tasks);
 
         } else {
@@ -56,14 +58,14 @@ public class AddCommand extends Command {
             Event newEvent = new Event(description, d1, d2);
             tasks.addTask(newEvent);
 
-            // Storage
+            // jag.Storage
             try {
                 storage.write(tasks);
             } catch (IOException io) {
                 System.out.println("Error in writing history" + io.getMessage());
             }
 
-            //Ui response
+            //jag.Ui response
             ui.addedResponse(this.type, newEvent, tasks);
 
         }
