@@ -4,6 +4,7 @@ package sumode.util;
  * Enum of all valid command
  * @see Command#BYE
  * @see Command#EXIT
+ * @see Command#FIND
  * @see Command#LIST
  * @see Command#MARK
  * @see Command#UNMARK
@@ -25,6 +26,11 @@ public enum Command {
      * List all taskings.
      */
     LIST,
+    /**
+     * List tasks related to word input.
+     * Expected syntax: find {@code <}words{@code >}
+     */
+    FIND,
     /**
      * Mark the task.
      * Expected syntax: mark {@code <}task index{@code >}
@@ -68,6 +74,7 @@ public enum Command {
     public String expectedFormat() {
         return switch (this) {
         case MARK, UNMARK, DELETE -> this + " " + "<task index>";
+        case FIND -> this + " " + "<words>";
         case TODO -> this + " <task name>";
         case DEADLINE -> this + " <task name> /by <date>";
         case EVENT -> this + " <task name> /from <date> /to <date>";
