@@ -5,10 +5,14 @@ import java.util.Scanner;
 
 public class TaskIO {
 
+    enum fileStatus {
+        DIRECTORY_DOES_NOT_EXIST,
+        FILE_DOES_NOT_EXIST
+    }
+
     static final String TODO = "T";
     static final String EVENT = "E";
     static final String DEADLINE = "D";
-    static final String horizontalLine = "____________________________________________________________";
 
     private final File taskFile;
 
@@ -16,21 +20,102 @@ public class TaskIO {
         taskFile = new File(pathname);
     }
 
-    public void readTaskData(TaskList taskList) throws IOException, DenimException {
-        Scanner sc = new Scanner(this.taskFile);
-        while (sc.hasNext()) {
-            String task = sc.nextLine();
-            processTask(taskList, task);
+    private void createSavePoint(fileStatus status, Scanner sc) throws DenimException {
+        switch (status) {
+        case DIRECTORY_DOES_NOT_EXIST:
+            handleDirectoryNotFound(sc);
+            break;
+        case FILE_DOES_NOT_EXIST:
+            handleFileNotFound(sc);
+            break;
+        default:
+            throw new DenimException("An error has occurred during the creation of files. Terminating");
         }
     }
 
-    public void writeTaskData(String task, String filePath) throws IOException {
-        FileWriter taskWriter = new FileWriter(filePath, true);
-        taskWriter.write(task);
-        taskWriter.close();
+    private void handleDirectoryNotFound(Scanner sc) throws DenimException {
+        System.out.println("data directory and corresponding denim.txt not found. Create both? (y / n)\n");
+        String input = sc.nextLine();
+
+        switch (input) {
+        case "y":
+            File directory = new File("data");
+            directory.mkdir();
+            File dataFile = new File(directory,"denim.txt");
+
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                throw new DenimException("Unable to create denim.txt");
+            }
+
+            break;
+        case "n":
+        default:
+            throw new DenimException("Terminating Program. Have a nice day.");
+        }
     }
 
-    private static void processTask(TaskList taskList, String task) throws DenimException {
+    private void handleFileNotFound(Scanner sc) throws DenimException{
+        System.out.println("denim.txt not found in data directory. Create denim.txt? (y / n)\n");
+        String input = sc.nextLine();
+        switch (input) {
+        case "y":
+            File denimFile = new File("data", "denim.txt");
+
+            try {
+                denimFile.createNewFile();
+            } catch (IOException e) {
+                throw new DenimException("Unable to create denim.txt");
+            }
+            break;
+        case "n":
+        default:
+            throw new DenimException("Terminating Program. Have a nice day.");
+        }
+    }
+
+
+
+    public void readTaskData(TaskList taskList, Scanner sc) throws DenimException {
+
+        // Checks for Parent Directory ./data
+        File dataDirectory = this.taskFile.getParentFile();
+        if (dataDirectory == null || !dataDirectory.isDirectory()) {
+            createSavePoint(fileStatus.DIRECTORY_DOES_NOT_EXIST, sc);
+            return;
+        }
+
+        //Checks for denim.txt file
+        if (!this.taskFile.exists()) {
+            createSavePoint(fileStatus.FILE_DOES_NOT_EXIST, sc);
+            return;
+        }
+
+        // Both data directory and denim.txt exists. Proceed to read from denim.txt
+        try {
+            Scanner fileReader = new Scanner(this.taskFile);
+            while (fileReader.hasNext()) {
+                String taskDescription = fileReader.nextLine();
+                processTask(taskList, taskDescription);
+            }
+        } catch (IOException e) {
+            sc.close();
+            throw new DenimException("An error has occurred while trying to read denim.txt\n Terminating Program.");
+        }
+    }
+
+    public void writeTaskData(Task task) throws DenimException {
+        try {
+            FileWriter taskWriter = new FileWriter(this.taskFile, true);
+            taskWriter.write(task.toSimplifiedString());
+            taskWriter.close();
+        } catch (IOException e) {
+            throw new DenimException("Unable to write to denim.txt");
+        }
+    }
+
+    private void processTask(TaskList taskList, String task) throws DenimException {
         String[] taskComponents = task.split("\\|");
         String taskType = taskComponents[0].trim();
         boolean taskStatus = taskComponents[1].trim().equals("1");

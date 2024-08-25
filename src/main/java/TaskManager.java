@@ -9,7 +9,7 @@ public class TaskManager {
         DELETE
     }
 
-    public void processInput(TaskList taskList, String input) {
+    public void processInput(TaskList taskList, TaskIO taskIO, String input) {
         String[] inputComponents = input.split(" ", 2);
         String command = inputComponents[0];
         String argument = inputComponents.length > 1 ? inputComponents[1] : "";
@@ -37,14 +37,17 @@ public class TaskManager {
                 break;
             case TODO:
                 task = handleTodo(taskList, argument);
+                taskIO.writeTaskData(task);
                 Denim.displayTaskAdditionMessage(taskList, task);
                 break;
             case DEADLINE:
                 task = handleDeadline(taskList, argument);
+                taskIO.writeTaskData(task);
                 Denim.displayTaskAdditionMessage(taskList, task);
                 break;
             case EVENT:
                 task = handleEvent(taskList, argument);
+                taskIO.writeTaskData(task);
                 Denim.displayTaskAdditionMessage(taskList, task);
                 break;
             default:
@@ -76,7 +79,7 @@ public class TaskManager {
                 throw new DenimException("OOPS!!! The task number is out of range. >=C");
             }
 
-            taskList.getTask(index).setDone(true);
+            taskList.getTask(index).setIsDone(true);
             return index;
 
         } catch (NumberFormatException e) {
@@ -96,7 +99,7 @@ public class TaskManager {
                 throw new DenimException("OOPS!!! The task number is out of range. >=C");
             }
 
-            taskList.getTask(index).setDone(false);
+            taskList.getTask(index).setIsDone(false);
             return index;
 
         } catch (NumberFormatException e) {

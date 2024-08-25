@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Denim {
@@ -10,23 +9,20 @@ public class Denim {
     static final String chatBotName = "Denim";
 
     public static void main(String[] args) {
-        displayGreetingMessage();
+        Scanner sc = new Scanner(System.in);
 
         try {
-            TASK_IO.readTaskData(TASK_LIST);
-        } catch (IOException e) {
-            System.out.println("Unable to read denim.txt");
-            return;
+            TASK_IO.readTaskData(TASK_LIST, sc);
         } catch (DenimException e) {
             System.out.println(e.getMessage());
             return;
         }
 
+        displayGreetingMessage();
         // Scans User Input in the CLI
-        Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            TASK_MANAGER.processInput(TASK_LIST, input);
+            TASK_MANAGER.processInput(TASK_LIST, TASK_IO, input);
             input = sc.nextLine();
         }
         displayExitMessage();
