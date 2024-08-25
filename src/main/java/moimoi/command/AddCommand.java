@@ -6,26 +6,40 @@ import java.time.format.DateTimeParseException;
 import moimoi.Storage;
 import moimoi.TaskList;
 import moimoi.Ui;
-import moimoi.exception.InvalidCommandException;
-import moimoi.exception.InvalidDateTimeException;
-import moimoi.exception.MissingArgumentException;
-import moimoi.exception.MoiMoiException;
+import moimoi.exception.*;
 import moimoi.task.Deadline;
 import moimoi.task.Event;
 import moimoi.task.Task;
 import moimoi.task.Todo;
 
+/**
+ * Represents a command to add a specific task.
+ */
 public class AddCommand extends Command {
 
     CommandEnum command;
     String arguments;
 
+    /**
+     * Constructs a command to add a task of a specific type, with the specified information.
+     *
+     * @param command Task type.
+     * @param arguments Task information.
+     */
     public AddCommand(CommandEnum command, String arguments) {
         super(false);
         this.command = command;
         this.arguments = arguments;
     }
 
+    /**
+     * Executes task addition.
+     *
+     * @param storage MoiMoi's storage.
+     * @param tasks List of existing tasks.
+     * @param ui MoiMoi's user interface.
+     * @throws MoiMoiException If any part of the task information is missing or invalid.
+     */
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) throws MoiMoiException {
 

@@ -5,12 +5,20 @@ import moimoi.command.Command;
 import moimoi.exception.MoiMoiException;
 import moimoi.task.Task;
 
+/**
+ * Represents the chatbot program.
+ */
 public class MoiMoi {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes the chatbot program, with the specified storage path.
+     *
+     * @param path Path of the storage data file.
+     */
     public MoiMoi(String path) {
         try {
             this.storage = new Storage(path);
@@ -22,6 +30,9 @@ public class MoiMoi {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
 
         this.ui.showGreeting();
