@@ -161,13 +161,13 @@ public class Parser {
             case EVENT:
                 return handleEvent(input);
             case MARK:
-                return store.mark(input);
+                return handleMark(input);
             case UNMARK:
-                return store.unmark(input);
+                return handleUnmark(input);
             case DELETE:
-                return store.delete(input);
+                return handleDelete(input);
             case FIND:
-                return store.find(input);
+                return handleFind(input);
             case ERROR:
             default:
                 throw new InvalidInputException("Whoopsie! "
@@ -209,8 +209,7 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 return "Please enter deadline in the format "
                         + "deadline <task> /by <date>";
-            }
-            catch (java.time.format.DateTimeParseException e) {
+            } catch (java.time.format.DateTimeParseException e) {
                 return "Please enter the date "
                         + "in the format yyyy-mm-dd";
             }
@@ -228,6 +227,38 @@ public class Parser {
         } else {
             Event event = new Event(str);
             return store.store(event);
+        }
+    }
+
+    private String handleDelete(String str) throws InvalidTaskException {
+        if (str.trim().equalsIgnoreCase("delete")) {
+            throw new InvalidTaskException("Whoopsie! Please enter a task");
+        } else {
+            return store.delete(str);
+        }
+    }
+
+    private String handleMark(String str) throws InvalidTaskException {
+        if (str.trim().equalsIgnoreCase("mark")) {
+            throw new InvalidTaskException("Whoopsie! Please enter a number");
+        } else {
+            return store.mark(str);
+        }
+    }
+
+    private String handleUnmark(String str) throws InvalidTaskException {
+        if (str.trim().equalsIgnoreCase("unmark")) {
+            throw new InvalidTaskException("Whoopsie! Please enter a number");
+        } else {
+            return store.unmark(str);
+        }
+    }
+
+    private String handleFind(String str) throws InvalidTaskException {
+        if (str.trim().equalsIgnoreCase("find")) {
+            throw new InvalidTaskException("Whoopsie! Please enter a task");
+        } else {
+            return store.find(str);
         }
     }
 }

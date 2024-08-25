@@ -28,6 +28,9 @@ public class HoodiniMainWindow extends Stage {
     private Image hoodiniImage = new Image(this.getClass().getResourceAsStream("/images/Mochi.png"));
 
 
+    /**
+     * Initializes the main window
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

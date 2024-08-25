@@ -79,6 +79,10 @@ public class Ui {
                 + "please enter a valid task";
     }
 
+    /**
+     * Handles invalid date message
+     * @return String message
+     */
     public String invalidDate() {
         return "Please enter the date "
                 + "in the format yyyy-mm-dd";
