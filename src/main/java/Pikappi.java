@@ -2,63 +2,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Pikappi {
-    static Scanner reader = new Scanner(System.in);
     static Ui ui = new Ui();
-    static String command;
     static Storage storage = new Storage("data/pikappi.txt");
     static TaskList tasks = new TaskList();
-    enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
+    static Parser parser;
 
     public static void main(String[] args) throws PikappiException {
         tasks = storage.load();
         ui.greet();
+        boolean isExit = false;
+        parser = new Parser(storage, tasks, ui);
 
-        while (true) {
-            command = reader.nextLine();
+        while (!isExit) {
+            String command = ui.readCommand();
             ui.showLine();
-            if (command.equals("bye")) {
-                storage.save(tasks);
-                ui.goodbye();
-                return;
-            } else if (command.equals("list")) {
-                tasks.listTasks();
-            } else if (command.startsWith("mark")) {
-               tasks.markTask(Integer.parseInt(command.split(" ")[1]));
-            } else if (command.startsWith("unmark")) {
-                tasks.unmarkTask(Integer.parseInt(command.split(" ")[1]));
-            } else if (command.startsWith("todo")) {
-                try {
-                    tasks.addTask(command, TaskType.TODO);
-                } catch (PikappiException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (command.startsWith("deadline")) {
-                try {
-                    tasks.addTask(command, TaskType.DEADLINE);
-                } catch (PikappiException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (command.startsWith("event")) {
-                try {
-                    tasks.addTask(command, TaskType.EVENT);
-                } catch (PikappiException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (command.startsWith("delete")) {
-                try {
-                    tasks.deleteTask(command);
-                } catch (PikappiException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                try {
-                    throw new PikappiException("Pi-ka..?? I don't understand..");
-                } catch (PikappiException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+            parser.parse(command);
+            isExit = parser.isExit();
             ui.showLine();
         }
     }

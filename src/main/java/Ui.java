@@ -1,4 +1,8 @@
+import java.util.Scanner;
+
 public class Ui {
+    static Scanner reader = new Scanner(System.in);
+
     public Ui() {
     }
 
@@ -12,5 +16,9 @@ public class Ui {
 
     public void showLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public String readCommand() {
+        return reader.nextLine();
     }
 }

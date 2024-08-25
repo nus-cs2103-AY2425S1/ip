@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+    enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
@@ -35,7 +38,7 @@ public class TaskList {
         return tasks.isEmpty();
     }
 
-    public void addTask(String command, Pikappi.TaskType tasktype) throws PikappiException {
+    public void addTask(String command, TaskType tasktype) throws PikappiException {
         String[] substrings = command.split(" ");
         if (substrings.length == 1) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
