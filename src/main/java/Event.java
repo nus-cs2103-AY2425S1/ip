@@ -1,11 +1,16 @@
-public class Event extends Task {
-    private String start;
-    private String end;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String start, String end) {
+public class Event extends Task {
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
-        this.start = start;
-        this.end = end;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.start = LocalDateTime.parse(start, formatter);
+        this.end = LocalDateTime.parse(end, formatter);
     }
 
     public String getTaskType() {
@@ -14,9 +19,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String format = String.format("%s%s (from: %s to: %s)", this.getTaskType()
-                                    , super.toString(), this.start, this.end);
-        return format;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+        String startFormatted = this.start.format(formatter);
+        String endFormatted = this.end.format(formatter);
+        return String.format("%s%s (from: %s to: %s)", this.getTaskType(),
+                super.toString(), startFormatted, endFormatted);
     }
-
 }
