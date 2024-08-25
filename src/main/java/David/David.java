@@ -1,13 +1,14 @@
-import Data.Storage;
-import Exceptions.*;
-import Parser.DateParser;
-import Parser.StringParser;
-import Task.*;
-import UI.Ui;
+package David;
+
+import David.Data.Storage;
+import David.Exceptions.*;
+import David.Parser.DateParser;
+import David.Parser.StringParser;
+import David.Task.*;
+import David.UI.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
 public class David {
     TaskList tasks;
@@ -15,7 +16,7 @@ public class David {
     private String inputString = "";
     private Storage c;
 
-    //constructor for David
+    //constructor for David.David
     public David(String path) {
         this.ui = new Ui();
         this.c = new Storage(path);
@@ -197,6 +198,6 @@ public class David {
     }
 
     public static void main(String[] args) {
-        new David("./src/main/java/Data/database.txt").activateChatBot();
+        new David("./src/main/java/David/Data/database.txt").activateChatBot();
     }
 }

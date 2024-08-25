@@ -1,8 +1,8 @@
-package Data;
+package David.Data;
 
-import Exceptions.DavidCacheException;
-import Task.*;
-import Parser.DateParser;
+import David.Exceptions.DavidCacheException;
+import David.Task.*;
+import David.Parser.DateParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -86,11 +86,11 @@ public class Storage {
     }
 
     /**
-     * Creates a new cache inside the Data folder if it does not exist
+     * Creates a new cache inside Data folder if it does not exist
      */
     private void createNewCache() {
         try {
-        File newFile = new File("./src/main/java/Data/database.txt");
+        File newFile = new File("./src/main/java/David/Data/database.txt");
         newFile.createNewFile();
 
         } catch (IOException e) {

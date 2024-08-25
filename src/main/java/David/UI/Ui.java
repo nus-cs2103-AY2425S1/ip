@@ -1,6 +1,6 @@
-package UI;
+package David.UI;
 
-import Task.*;
+import David.Task.*;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ public class Ui {
     private Scanner sc;
     private final static String intro =
             "____________________________________________________________\n" +
-            " Hello! I'm David\n" +
+            " Hello! I'm David.\n" +
             " What can I do for you?\n" +
             "____________________________________________________________";
     private final static String outro =
@@ -74,7 +74,7 @@ public class Ui {
         System.out.println(s);
     }
 
-    public void listTasks(TaskList t) {
-        System.out.println(t.toString());
+    public void listTasks(TaskList tasks) {
+        System.out.println(tasks.toString());
     }
 }
