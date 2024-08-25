@@ -1,8 +1,7 @@
 package papadom.commands;
-import papadom.Deadline;
 import papadom.Exceptions.NoTaskException;
 import papadom.Storage.*;
-import papadom.Todo;
+import papadom.tasks.Todo;
 import papadom.Ui;
 public class AddTodoCommand extends Command {
     private String text;

@@ -3,6 +3,9 @@ package papadom;
 import papadom.Exceptions.IncorrectDeadlineDateFormatException;
 import papadom.Exceptions.NoDateException;
 import papadom.Exceptions.NoTaskException;
+import papadom.tasks.Deadline;
+import papadom.tasks.Event;
+import papadom.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -3,7 +3,7 @@ package papadom.Storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import papadom.Task;
+import papadom.tasks.Task;
 
 public class Storage {
     private final String filePath;

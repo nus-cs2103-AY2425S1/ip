@@ -1,12 +1,11 @@
 package papadom.commands;
 
-import papadom.Event;
+import papadom.tasks.Event;
 import papadom.Exceptions.NoDateException;
 import papadom.Exceptions.NoTaskException;
 import papadom.Parser;
 import papadom.Storage.Storage;
 import papadom.Storage.TaskList;
-import papadom.Todo;
 import papadom.Ui;
 
 public class AddEventCommand extends Command{

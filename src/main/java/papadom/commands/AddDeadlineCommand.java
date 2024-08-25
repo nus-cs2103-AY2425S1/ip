@@ -1,7 +1,6 @@
 package papadom.commands;
 
-import papadom.Deadline;
-import papadom.Event;
+import papadom.tasks.Deadline;
 import papadom.Exceptions.IncorrectDeadlineDateFormatException;
 import papadom.Exceptions.NoDateException;
 import papadom.Exceptions.NoTaskException;

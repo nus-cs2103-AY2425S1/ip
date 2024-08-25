@@ -1,4 +1,4 @@
-package papadom;
+package papadom.tasks;
 
 public class Event extends Task {
     protected String from;

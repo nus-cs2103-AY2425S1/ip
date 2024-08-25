@@ -3,7 +3,7 @@ package papadom.Storage;
 import papadom.Exceptions.NoTaskException;
 import papadom.Exceptions.NoTaskNumberException;
 import papadom.Exceptions.WrongTaskNumberException;
-import papadom.Task;
+import papadom.tasks.Task;
 
 import java.util.ArrayList;
 
