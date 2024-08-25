@@ -8,7 +8,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 /**
  * This class encapsulates a task helper chatbot.
@@ -18,13 +17,13 @@ public class Qwerty {
     /** True if the bot is currently chatting and accepting input */
     private boolean isChatting;
     /** List of tasks entered by the user */
-    private final ArrayList<Task> tasks;
+    private TaskList tasks;
     /** Filepath of the save file containing the list of tasks */
     private String savePath = "savefile.txt";
 
     public Qwerty() {
         this.isChatting = true;
-        this.tasks = new ArrayList<>();
+        this.tasks = new TaskList();
     }
 
     /**
@@ -72,131 +71,131 @@ public class Qwerty {
                 Bye. Hope to see you again soon!""");
     }
 
-    /**
-     * Adds a task to the task list.
-     *
-     * @param task The task to be added.
-     */
-    public void addTask(Task task) {
-        this.tasks.add(task);
-        System.out.println("\nGot it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
-                + "in the list.");
-        saveTasks();
-    }
+//    /**
+//     * Adds a task to the task list.
+//     *
+//     * @param task The task to be added.
+//     */
+//    public void addTask(Task task) {
+//        this.tasks.add(task);
+//        System.out.println("\nGot it. I've added this task:\n" + task
+//                + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
+//                + "in the list.");
+//        saveTasks();
+//    }
 
-    /**
-     * Deletes the task at the given index.
-     *
-     * @param index The index of the task to be deleted.
-     */
-    public void deleteTask(int index) {
-        try {
-            Task task = tasks.get(index - 1);
-            tasks.remove(index - 1);
-            System.out.println("\nNoted. I've removed this task:\n" + task
-                    + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
-                    + "in the list.");
-            saveTasks();
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("\nThat index is invalid.");
-        }
-    }
+//    /**
+//     * Deletes the task at the given index.
+//     *
+//     * @param index The index of the task to be deleted.
+//     */
+//    public void deleteTask(int index) {
+//        try {
+//            Task task = tasks.get(index - 1);
+//            tasks.remove(index - 1);
+//            System.out.println("\nNoted. I've removed this task:\n" + task
+//                    + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
+//                    + "in the list.");
+//            saveTasks();
+//        } catch (IndexOutOfBoundsException e) {
+//            System.out.println("\nThat index is invalid.");
+//        }
+//    }
 
-    /**
-     * Deletes the task at the given index.
-     *
-     * @param index String describing the index of the task to be deleted.
-     */
-    public void deleteTask(String index) {
-        try {
-            deleteTask(Integer.parseInt(index));
-        } catch (NumberFormatException e) {
-            System.out.println("\nPlease enter a number as the index.");
-        }
-    }
+//    /**
+//     * Deletes the task at the given index.
+//     *
+//     * @param index String describing the index of the task to be deleted.
+//     */
+//    public void deleteTask(String index) {
+//        try {
+//            deleteTask(Integer.parseInt(index));
+//        } catch (NumberFormatException e) {
+//            System.out.println("\nPlease enter a number as the index.");
+//        }
+//    }
 
-    /**
-     * Prints the list of tasks.
-     */
-    public void listTasks() {
-        System.out.println("\nHere are the tasks in your list:");
-        int taskNumber = 1;
-        for (Task task: tasks) {
-            System.out.println(taskNumber + "." + task);
-            taskNumber++;
-        }
-    }
+//    /**
+//     * Prints the list of tasks.
+//     */
+//    public void listTasks() {
+//        System.out.println("\nHere are the tasks in your list:");
+//        int taskNumber = 1;
+//        for (Task task: tasks) {
+//            System.out.println(taskNumber + "." + task);
+//            taskNumber++;
+//        }
+//    }
 
-    /**
-     * Marks a task as done.
-     *
-     * @param index The index of the task to be marked, starting from 1.
-     */
-    public void markTaskAsDone(int index) {
-        try {
-            Task task = tasks.get(index - 1);
-            task.markAsDone();
-            System.out.println("\nNice! I've marked this task as done:\n" + task);
-            saveTasks();
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("\nThat index is invalid.");
-        }
-    }
+//    /**
+//     * Marks a task as done.
+//     *
+//     * @param index The index of the task to be marked, starting from 1.
+//     */
+//    public void markTaskAsDone(int index) {
+//        try {
+//            Task task = tasks.get(index - 1);
+//            task.markAsDone();
+//            System.out.println("\nNice! I've marked this task as done:\n" + task);
+//            saveTasks();
+//        } catch (IndexOutOfBoundsException e) {
+//            System.out.println("\nThat index is invalid.");
+//        }
+//    }
+//
+//    /**
+//     * Marks a task as done.
+//     *
+//     * @param index String representing the index of the task to be marked.
+//     */
+//    public void markTaskAsDone(String index) {
+//        try {
+//            markTaskAsDone(Integer.parseInt(index));
+//        } catch (NumberFormatException e) {
+//            System.out.println("\nPlease enter a number as the index.");
+//        }
+//    }
+//
+//    /**
+//     * Marks a task as not done.
+//     *
+//     * @param index The index of the task to be marked, starting from 1.
+//     */
+//    public void markTaskAsNotDone(int index) {
+//        try {
+//            Task task = tasks.get(index - 1);
+//            task.markAsNotDone();
+//            System.out.println("\nOK, I've marked this task as not done yet:\n" + task);
+//            saveTasks();
+//        } catch (IndexOutOfBoundsException e) {
+//            System.out.println("\nThat index is invalid.");
+//        }
+//    }
+//
+//    /**
+//     * Marks a task as not done.
+//     *
+//     * @param index String representing the index of the task to be marked.
+//     */
+//    public void markTaskAsNotDone(String index) {
+//        try {
+//            markTaskAsNotDone(Integer.parseInt(index));
+//        } catch (NumberFormatException e) {
+//            System.out.println("\nPlease enter a number as the index.");
+//        }
+//    }
 
-    /**
-     * Marks a task as done.
-     *
-     * @param index String representing the index of the task to be marked.
-     */
-    public void markTaskAsDone(String index) {
-        try {
-            markTaskAsDone(Integer.parseInt(index));
-        } catch (NumberFormatException e) {
-            System.out.println("\nPlease enter a number as the index.");
-        }
-    }
-
-    /**
-     * Marks a task as not done.
-     *
-     * @param index The index of the task to be marked, starting from 1.
-     */
-    public void markTaskAsNotDone(int index) {
-        try {
-            Task task = tasks.get(index - 1);
-            task.markAsNotDone();
-            System.out.println("\nOK, I've marked this task as not done yet:\n" + task);
-            saveTasks();
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("\nThat index is invalid.");
-        }
-    }
-
-    /**
-     * Marks a task as not done.
-     *
-     * @param index String representing the index of the task to be marked.
-     */
-    public void markTaskAsNotDone(String index) {
-        try {
-            markTaskAsNotDone(Integer.parseInt(index));
-        } catch (NumberFormatException e) {
-            System.out.println("\nPlease enter a number as the index.");
-        }
-    }
-
-    /**
-     * Returns a string generated from the tasks currently in the task list.
-     *
-     * @return String containing task details.
-     */
-    public String generateSaveString() {
-        return tasks.stream()
-                .map(Task::getAllDetails)
-                .map(x -> String.join("|", x) + "\n")
-                .reduce("", (s1, s2) -> s1 + s2);
-    }
+//    /**
+//     * Returns a string generated from the tasks currently in the task list.
+//     *
+//     * @return String containing task details.
+//     */
+//    public String generateSaveString() {
+//        return tasks.stream()
+//                .map(Task::getAllDetails)
+//                .map(x -> String.join("|", x) + "\n")
+//                .reduce("", (s1, s2) -> s1 + s2);
+//    }
 
     /**
      * Saves the current list of tasks to the hard disk.
@@ -206,7 +205,7 @@ public class Qwerty {
         if (file.exists()) {
             try {
                 FileWriter writer = new FileWriter(savePath);
-                writer.write(generateSaveString());
+                writer.write(tasks.generateSaveString());
                 writer.close();
             } catch (IOException e) {
                 System.out.println("Could not write to save file: " + e.getMessage());
@@ -221,73 +220,73 @@ public class Qwerty {
         }
     }
 
-    /**
-     * Loads the task list from the file located at the specified savepath in
-     * the hard disk.
-     */
-    public void loadTasks() {
-        File file = new File(savePath);
-        if (file.exists()) {
-            try {
-                Scanner scanner = new Scanner(file);
-                int lineNumber = 0;
-                while (scanner.hasNextLine()) {
-                    lineNumber++;
-                    try {
-                        String[] args = scanner.nextLine().split("\\|");
-                        switch (args[0]) {
-                        case "":
-                            break; // skip empty lines
-                        case "T":
-                            if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Todo task");
-                            }
-                            Task todo = new Todo(args[2]);
-                            if (args[1].equals("X")) {
-                                todo.markAsDone();
-                            }
-                            tasks.add(todo);
-                            break;
-                        case "D":
-                            if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Deadline task");
-                            }
-                            Task deadline = new Deadline(
-                                    args[2],
-                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
-                            );
-                            if (args[1].equals("X")) {
-                                deadline.markAsDone();
-                            }
-                            tasks.add(deadline);
-                            break;
-                        case "E":
-                            if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Event task");
-                            }
-                            Task event = new Event(args[2],
-                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
-                                    LocalDateTime.parse(args[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
-                            );
-                            if (args[1].equals("X")) {
-                                event.markAsDone();
-                            }
-                            tasks.add(event);
-                            break;
-                        default:
-                            System.out.println("Unrecognised task identifier: " + args[0]);
-                            break;
-                        }
-                    } catch (QwertyException e) {
-                        System.out.println("Error while reading from line "
-                                + lineNumber + ": " + e.getMessage());
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                // this should not happen, already checked if file exists
-            }
-        }
-    }
+//    /**
+//     * Loads the task list from the file located at the specified savepath in
+//     * the hard disk.
+//     */
+//    public void loadTasks() {
+//        File file = new File(savePath);
+//        if (file.exists()) {
+//            try {
+//                Scanner scanner = new Scanner(file);
+//                int lineNumber = 0;
+//                while (scanner.hasNextLine()) {
+//                    lineNumber++;
+//                    try {
+//                        String[] args = scanner.nextLine().split("\\|");
+//                        switch (args[0]) {
+//                        case "":
+//                            break; // skip empty lines
+//                        case "T":
+//                            if (args.length < 3) {
+//                                throw new QwertyException("Missing arguments for Todo task");
+//                            }
+//                            Task todo = new Todo(args[2]);
+//                            if (args[1].equals("X")) {
+//                                todo.markAsDone();
+//                            }
+//                            tasks.add(todo);
+//                            break;
+//                        case "D":
+//                            if (args.length < 3) {
+//                                throw new QwertyException("Missing arguments for Deadline task");
+//                            }
+//                            Task deadline = new Deadline(
+//                                    args[2],
+//                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+//                            );
+//                            if (args[1].equals("X")) {
+//                                deadline.markAsDone();
+//                            }
+//                            tasks.add(deadline);
+//                            break;
+//                        case "E":
+//                            if (args.length < 3) {
+//                                throw new QwertyException("Missing arguments for Event task");
+//                            }
+//                            Task event = new Event(args[2],
+//                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+//                                    LocalDateTime.parse(args[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+//                            );
+//                            if (args[1].equals("X")) {
+//                                event.markAsDone();
+//                            }
+//                            tasks.add(event);
+//                            break;
+//                        default:
+//                            System.out.println("Unrecognised task identifier: " + args[0]);
+//                            break;
+//                        }
+//                    } catch (QwertyException e) {
+//                        System.out.println("Error while reading from line "
+//                                + lineNumber + ": " + e.getMessage());
+//                    }
+//                }
+//            } catch (FileNotFoundException e) {
+//                // this should not happen, already checked if file exists
+//            }
+//        }
+//    }
 
     /**
      * Starts the chatbot and run the main chat loop.
@@ -295,7 +294,7 @@ public class Qwerty {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         isChatting = true;
-        loadTasks();
+        //TODO loadTasks();
         greet();
 
         while (isChatting) {
@@ -328,7 +327,7 @@ public class Qwerty {
                     break;
 
                 case "list":
-                    listTasks();
+                    tasks.listTasks();
                     break;
 
                 case "mark":
@@ -336,7 +335,7 @@ public class Qwerty {
                         throw new QwertyException("""
                                 You forgot to give me a task number.""");
                     }
-                    markTaskAsDone(args);
+                    tasks.markTaskAsDone(args);
                     break;
 
                 case "unmark":
@@ -344,7 +343,7 @@ public class Qwerty {
                         throw new QwertyException("""
                                 You forgot to give me a task number.""");
                     }
-                    markTaskAsNotDone(args);
+                    tasks.markTaskAsNotDone(args);
                     break;
 
                 case "todo":
@@ -353,7 +352,7 @@ public class Qwerty {
                                 The description of a todo cannot be empty.""");
                     }
                     Task todoTask = new Todo(args);
-                    addTask(todoTask);
+                    tasks.addTask(todoTask);
                     break;
 
                 case "deadline":
@@ -371,7 +370,7 @@ public class Qwerty {
                                 args,
                                 LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                         );
-                        addTask(deadlineTask);
+                        tasks.addTask(deadlineTask);
                     } catch (DateTimeParseException e) {
                         throw new QwertyException("""
                                 Is that a proper date and time?
@@ -401,7 +400,7 @@ public class Qwerty {
                                 LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
                                 LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                         );
-                        addTask(eventTask);
+                        tasks.addTask(eventTask);
                     } catch (DateTimeParseException e) {
                         throw new QwertyException("""
                                 Is that a proper date and time?
@@ -415,7 +414,7 @@ public class Qwerty {
                         throw new QwertyException("""
                                 You forgot to give me a task number.""");
                     }
-                    deleteTask(args);
+                    tasks.deleteTask(args);
                     break;
 
                 default:
