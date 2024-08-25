@@ -1,6 +1,8 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 public class Optimus {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Optimus");
@@ -10,8 +12,7 @@ public class Optimus {
         int count = 0;
 
         while (true) {
-            String text = "";
-            text = stringScanner.nextLine();
+            String text = stringScanner.nextLine();
             if (text.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
@@ -25,8 +26,7 @@ public class Optimus {
                 try {
                     int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1;
                     if (taskNumber < 0 || taskNumber >= count) {
-                        throw new OptimusException("Invalid task number... " +
-                                "Please enter a number between 1 and " + count + ".");
+                        throw new OptimusException("Invalid task number. Please enter a number between 1 and " + count + ".");
                     }
                     if (text.startsWith("mark ")) {
                         record[taskNumber].setDone();
@@ -40,53 +40,70 @@ public class Optimus {
                     System.out.println(e.getMessage());
                 }
             } else if (text.startsWith("todo ")) {
-                if (count < 100) {
-                    String description = text.substring(5);
-                    record[count] = new ToDos(description);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + record[count].toString());
-                    count++;
-                    if (count == 1) {
-                        System.out.println("Now you have " + count + " task in the list.");
+                try {
+                    String description = text.substring(5).trim();
+                    if (description.isEmpty()) {
+                        throw new OptimusException("Oops! The description of a todo cannot be empty. Please provide a task description.");
                     }
-                    else if (count > 1){
-                        System.out.println("Now you have " + count + " tasks in the list.");
+                    if (count < 100) {
+                        record[count] = new ToDos(description);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + record[count].toString());
+                        count++;
+                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
                     }
+                } catch (OptimusException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (text.startsWith("deadline ")) {
-                if (count < 100) {
+                try {
                     String[] parts = text.split(" /by ");
-                    String description = parts[0].substring(9);
-                    String by = parts.length > 1 ? parts[1] : "";
-                    record[count] = new Deadlines(description, by);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + record[count].toString());
-                    count++;
-                    if (count == 1) {
-                        System.out.println("Now you have " + count + " task in the list.");
+                    String description = parts[0].substring(9).trim();
+                    if (description.isEmpty()) {
+                        throw new OptimusException("Oops! The description of a deadline cannot be empty. Please provide a task description.");
                     }
-                    else if (count > 1){
-                        System.out.println("Now you have " + count + " tasks in the list.");
+                    if (count < 100) {
+                        String by = parts.length > 1 ? parts[1] : "";
+                        record[count] = new Deadlines(description, by);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + record[count].toString());
+                        count++;
+                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
                     }
+                } catch (OptimusException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (text.startsWith("event ")) {
-                if (count < 100) {
+                try {
                     String[] parts = text.split(" /from | /to ");
-                    String description = parts[0].substring(6);
-                    String from = parts.length > 1 ? parts[1] : "";
-                    String to = parts.length > 2 ? parts[2] : "";
-                    record[count] = new Events(description, from, to);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + record[count].toString());
-                    count++;
-                    if (count == 1) {
-                        System.out.println("Now you have " + count + " task in the list.");
+                    String description = parts[0].substring(6).trim();
+                    if (description.isEmpty()) {
+                        throw new OptimusException("Oops! The description of an event cannot be empty. Please provide a task description.");
                     }
-                    else if (count > 1){
-                        System.out.println("Now you have " + count + " tasks in the list.");
+                    if (count < 100) {
+                        String from = parts.length > 1 ? parts[1] : "";
+                        String to = parts.length > 2 ? parts[2] : "";
+                        record[count] = new Events(description, from, to);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + record[count].toString());
+                        count++;
+                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
                     }
+                } catch (OptimusException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (text.startsWith("delete ")) {
+
+
+            } else {
+                try {
+                    throw new OptimusException("Sorry, I don't understand that command. " +
+                            "Please try again with a valid command (Eg. todo, deadline or event).");
+                } catch (OptimusException e) {
+                    System.out.println(e.getMessage());
                 }
             }
         }
     }
 }
+
