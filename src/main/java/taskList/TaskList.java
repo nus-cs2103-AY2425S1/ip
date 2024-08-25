@@ -1,4 +1,4 @@
-package taskManager;
+package taskList;
 
 import task.*;
 
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import orionExceptions.FileInitializationException;
 
-public class TaskManager {
+public class TaskList {
     private static final String DATA_FILE_PATH = "./data/tasks.csv";
 
-    public TaskManager() throws FileInitializationException {
+    public TaskList() throws FileInitializationException {
         File dataFile = new File(DATA_FILE_PATH);
         try {
             if (!dataFile.exists()) {

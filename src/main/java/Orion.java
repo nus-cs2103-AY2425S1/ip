@@ -3,21 +3,21 @@ import java.util.Scanner;
 import task.DeadlineDetails;
 import task.EventDetails;
 import task.Task;
-import taskManager.TaskManager;
+import taskList.TaskList;
 import validator.Validator;
 import orionExceptions.*;
 import commands.Command;
 
 public class Orion {
     public static Scanner scanner = new Scanner(System.in);
-    public static TaskManager manager;
+    public static TaskList manager;
 
     static {
         try {
-            manager = new TaskManager();
+            manager = new TaskList();
         } catch (FileInitializationException e) {
-            System.err.println("Failed to initialize TaskManager: " + e.getMessage());
-            System.exit(1);  // Exiting the application since TaskManager is essential
+            System.err.println("Failed to initialize TaskList: " + e.getMessage());
+            System.exit(1);  // Exiting the application since TaskList is essential
         }
     }
 

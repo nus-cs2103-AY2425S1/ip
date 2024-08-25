@@ -2,7 +2,7 @@ package validator;
 import orionExceptions.*;
 import task.DeadlineDetails;
 import task.EventDetails;
-import taskManager.TaskManager;
+import taskList.TaskList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,7 +34,7 @@ public class Validator {
     }
 
 
-    public int validateMarkAndUnMarkCommand(String[] parts, TaskManager manager) throws InvalidMarkException, InvalidIndexException {
+    public int validateMarkAndUnMarkCommand(String[] parts, TaskList manager) throws InvalidMarkException, InvalidIndexException {
         if (parts == null || parts.length < 2 || !(parts[0].equals("mark") || parts[0].equals("unmark"))) {
             throw new InvalidMarkException(parts == null ? "null" : String.join(" ", parts));
         }
@@ -111,7 +111,7 @@ public class Validator {
         return new DeadlineDetails(description, by);
     }
 
-    public int validateDeleteCommand(String[] parts, TaskManager manager) throws InvalidDeleteException, InvalidIndexException {
+    public int validateDeleteCommand(String[] parts, TaskList manager) throws InvalidDeleteException, InvalidIndexException {
         if (parts == null || parts.length < 2 || !parts[0].equals("delete")) {
             throw new InvalidDeleteException(parts == null ? "null" : String.join(" ", parts));
         }
