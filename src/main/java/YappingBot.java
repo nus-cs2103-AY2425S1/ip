@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 
 public class YappingBot {
     // Text strings
@@ -24,7 +23,20 @@ public class YappingBot {
     }
 
     public static void main(String[] args) {
+        // scanner for user input
+        Scanner userInputScanner = new Scanner(System.in);
+        // start
         System.out.println(quoteText(GREETING_TEXT));
+
+        while (true) {
+           String userInput = userInputScanner.nextLine();
+           if (userInput.equalsIgnoreCase("bye")) {
+               break; // exit
+           }
+           System.out.println(quoteText(userInput));
+        }
+
+        // exit
         System.out.println(quoteText(EXIT_TEXT));
     }
 }
