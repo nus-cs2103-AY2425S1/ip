@@ -9,10 +9,20 @@ import mortal_reminder.io.Parser;
 
 import java.util.Scanner;
 
+/**
+ * Main class of the MortalReminder App.
+ */
+
 public class MortalReminder {
 
     private TaskList taskList = new TaskList();
 
+    /**
+     * Starts the MortalReminder App.
+     * If the full app with its dependent classes is not available, the app will not start.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
         mortalReminder.welcome();
