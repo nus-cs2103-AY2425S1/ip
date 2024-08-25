@@ -67,7 +67,6 @@ public class Nerf {
         List<String> fileData = readFile();
         for (String taskLine: fileData){
             String[] task = taskLine.split("\\|");
-            System.out.println(task[0]);
             switch (task[0].trim()) {
             case "T" -> listings.add(new ToDos(task[2].trim(),task[1].trim().equals("1")));
             case "D" -> listings.add(new Deadlines(task[2].trim(),task[1].trim().equals("1"),task[3].trim()));
