@@ -13,7 +13,6 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-
     public void markDone(){
         this.isDone = true;
     }
