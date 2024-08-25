@@ -1,5 +1,6 @@
 package wiggly.task;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Task {
@@ -14,23 +15,27 @@ public class Task {
         boolean isDone = Boolean.parseBoolean(arguments[1]);
         String taskDescription = arguments[2];
 
-        switch (taskType) {
-        case "T":
-            task = new ToDo(taskDescription);
-            task.isDone = isDone;
-            break;
-        case "D":
-            String by = arguments[3];
-            task = new Deadline(taskDescription, LocalDate.parse(by));
-            break;
-        case "E":
-            String from = arguments[3];
-            String to = arguments[4];
-            task = new Event(taskDescription, LocalDate.parse(from), LocalDate.parse(to));
-            break;
-        default:
-            throw new IllegalArgumentException("Invalid task type found in save file");
+        try {
+            switch (taskType) {
+            case "T":
+                task = new ToDo(taskDescription);
+                task.isDone = isDone;
+                break;
+            case "D":
+                String by = arguments[3];
+                task = new Deadline(taskDescription, LocalDate.parse(by));
+                break;
+            case "E":
+                String from = arguments[3];
+                String to = arguments[4];
+                task = new Event(taskDescription, LocalDate.parse(from), LocalDate.parse(to));
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid task type found in save file");
 
+            }
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException("Invalid date format found in save file");
         }
 
 	    return task;
