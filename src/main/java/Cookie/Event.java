@@ -7,6 +7,14 @@ public class Event extends Task {
     private String to;
     private LocalDate fromDeadline;
     private LocalDate toDeadline;
+
+    /**
+     * Constructor for Event class.
+     *
+     * @param description Description of task.
+     * @param from Start time of event.
+     * @param to End time of event.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
@@ -15,6 +23,14 @@ public class Event extends Task {
         toDeadline = DateParser.convertStringToDate(this.to);
     }
 
+    /**
+     * Another constructor for Event class
+     *
+     * @param isDone Whether the task is done or not.
+     * @param description Description of task.
+     * @param from Start time of event.
+     * @param to End time of event.
+     */
     public Event(Boolean isDone, String description, String from, String to) {
         super(isDone, description);
         this.from = from;

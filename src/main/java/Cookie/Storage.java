@@ -7,6 +7,11 @@ import java.util.Scanner;
 
 public class Storage {
 
+    /**
+     * Returns a File containing the saved tasks.
+     * If the file and/or directory does not exist, the file and/or directory is created.
+     *
+     */
     public File fetchFile() {
         File file = new File("./data/cookie.txt");
         File directory = new File(file.getParent());
@@ -29,6 +34,15 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Takes in a file and converts into an ArrayList<Task>.
+     *
+     * @param file File to be loaded.
+     * @return Returns an ArrayList<Task>.
+     * @throws FileNotFoundException If file is not found.
+     * @throws CookieException If file contains commands or format that is not implemented.
+     */
+
     public ArrayList<Task> loadFile(File file) throws FileNotFoundException, CookieException {
         Scanner fileScanner = new Scanner(file);
         ArrayList<Task> taskArrayList = new ArrayList<>();
@@ -41,6 +55,13 @@ public class Storage {
         return taskArrayList;
     }
 
+    /**
+     * Handles the logic of parsing the contents of the file into Task.
+     *
+     * @param string String to be parsed.
+     * @return ToDo or Deadline or Event Class.
+     * @throws CookieException If file contains commands or format that is not implemented.
+     */
     public Task parseFileContent(String string) throws CookieException {
         String[] parts = string.split(" \\| ");
         String command = parts[0];
@@ -61,6 +82,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Handles the logic for saving tasks into a .txt file
+     *
+     * @param taskArrayList ArrayList<Task> to be saved.
+     * @throws IOException If the file does not exist.
+     */
     public void saveFile(ArrayList<Task> taskArrayList) throws IOException {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/cookie.txt"))) {

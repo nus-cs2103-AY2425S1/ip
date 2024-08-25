@@ -93,6 +93,9 @@ public class Cookie {
         ui.printNoTasksInList(this.taskList.getTaskArrayList());
     }
 
+    /**
+     * Boots up Cookie bot.
+     */
     public void run() {
         try {
             taskList = new TaskList(storage.loadFile(storage.fetchFile()));
