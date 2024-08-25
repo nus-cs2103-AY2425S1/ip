@@ -45,7 +45,7 @@ public class AddCommand extends Command {
 			ui.printWrappedString(taskList.addTask(task));
 			break;
 		case EVENT:
-			task = new Event(description, to, from);
+			task = new Event(description, from, to);
 			ui.printWrappedString(taskList.addTask(task));
 			break;
 		default:

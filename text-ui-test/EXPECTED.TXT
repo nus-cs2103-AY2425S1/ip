@@ -21,7 +21,7 @@ Now you have 5 tasks in the list!
 _______________________________________________________________________
 _______________________________________________________________________
 Got it. I've added this task:
-[E][ ] another project meeting (from: 8 Aug 2024 to 8 Aug 2024)
+[E][ ] another project meeting (from: 8 Aug 2024 to: 8 Aug 2024)
 Now you have 6 tasks in the list!
 _______________________________________________________________________
 _______________________________________________________________________
@@ -49,7 +49,7 @@ Here are the tasks in your list:
 3. [T][X] read another book
 4. [T][X] read another book
 5. [D][ ] return another book (by: 6 Jun 2024)
-6. [E][ ] another project meeting (from: 8 Aug 2024 to 8 Aug 2024)
+6. [E][ ] another project meeting (from: 8 Aug 2024 to: 8 Aug 2024)
 7. [T][ ] join another sports club
 8. [T][ ] borrow book
 
@@ -83,7 +83,7 @@ Now you have 5 tasks in the list!
 _______________________________________________________________________
 _______________________________________________________________________
 Noted. I've removed this task:
-[E][ ] another project meeting (from: 8 Aug 2024 to 8 Aug 2024)
+[E][ ] another project meeting (from: 8 Aug 2024 to: 8 Aug 2024)
 Now you have 4 tasks in the list!
 _______________________________________________________________________
 _______________________________________________________________________
