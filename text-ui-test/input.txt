@@ -1,0 +1,18 @@
+list
+todo return books
+todo buy groceries
+list
+deadline complete 2103T IP /by today 10pm
+list
+event family dinner /from 6pm /to 7pm
+event lesson /from Monday 10am /to Monday 12pm
+list
+mark 3
+list
+mark 2
+mark 1
+list
+unmark 1
+mark 4
+list
+bye
