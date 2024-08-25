@@ -1,5 +1,11 @@
 package hana.ui;
 
+<<<<<<< HEAD
+=======
+import hana.HanaException;
+import hana.task.Task;
+
+>>>>>>> branch-Level-9
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -102,6 +108,7 @@ public class Ui {
         printLine();
     }
 
+<<<<<<< HEAD
     /**
      * Print all tasks.
      */
@@ -140,3 +147,43 @@ public class Ui {
         System.out.println(message);
     }
 }
+=======
+	public void printCommands() {
+		printLine();
+		System.out.println("""
+							Here are some examples of what you can do:
+							1. List all tasks: list
+							2. Mark a task as done: mark [task number]
+							3. Unmark a task: unmark [task number]
+							4. Add a todo: todo [description]
+							5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
+							6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
+							7. Delete a task: delete [task number]
+							8. Find By Date: findByDate [d/M/yyyy]
+							9. Find By Keyword: findByKey [keyword]""");
+		printLine();
+	}
+
+	public void printMessage(String message) {
+		System.out.println(message);
+	}
+
+    /**
+     * Prints the tasks that match the search criteria.
+     *
+     * @param tasks The list of tasks to print.
+     */
+    public void printTasksFound(ArrayList<Task> tasks) throws HanaException {
+        printLine();
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found with the given keyword.");
+        } else {
+            System.out.println("Here are the tasks that match your search:");
+            for (Task task : tasks) {
+                System.out.println(task);
+            }
+        }
+        printLine();
+    }
+}
+>>>>>>> branch-Level-9
