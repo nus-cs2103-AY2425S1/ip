@@ -1,6 +1,6 @@
-deadline CS2103T Week 2 IP tasks /by Fri, Aug 23rd 1600
+deadline CS2103T Week 2 IP tasks /by 2024-08-24T23:59:00
 todo Setup a meeting with CS2103T Project team
-event Lunch with friends /from Sat, Aug 24th 1200 /to Sat, Aug 24th 1500
+event Lunch with friends /from 2024-08-26T12:00:00 /to 2024-08-26T14:00:00
 list
 mark 1
 mark 2
