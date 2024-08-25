@@ -1,3 +1,10 @@
+package lama.command;
+
+import lama.LamaException;
+import lama.Storage;
+import lama.TaskList;
+import lama.Ui;
+
 public class UnmarkCommand extends Command {
 
     private int indexOfUnmark;

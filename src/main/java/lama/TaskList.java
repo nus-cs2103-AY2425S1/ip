@@ -1,3 +1,7 @@
+package lama;
+
+import lama.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
