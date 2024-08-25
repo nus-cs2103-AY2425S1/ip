@@ -1,4 +1,4 @@
-package Exceptions;
+package papadom.Exceptions;
 
 public class UnknownCommandException extends Exception {
     public UnknownCommandException() {

@@ -1,3 +1,5 @@
+package papadom;
+
 public class Ui {
     private String openingLine = "____________________________________________________________\n";
     private String closingLine = "\n____________________________________________________________";

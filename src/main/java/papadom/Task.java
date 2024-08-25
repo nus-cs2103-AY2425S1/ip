@@ -1,3 +1,5 @@
+package papadom;
+
 /**
  * Represents a task with a description and a status indicating whether it is done or not.
  */
@@ -6,7 +8,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a Task with the specified description.
+     * Constructs a papadom.Task with the specified description.
      * The task is initially marked as not done.
      *
      * @param description The description of the task.
