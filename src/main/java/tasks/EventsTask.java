@@ -1,13 +1,15 @@
 package tasks;
 
+import dateAndTime.ReginaDateAndTime;
+
 /**
  * Represents an event task with a description, start time, and end time.
  * This class extends the Task.Task class and provides specific functionality
  * for event tasks.
  */
 public class EventsTask extends Task {
-    protected String startTime;
-    protected String endTime;
+    protected ReginaDateAndTime startTime;
+    protected ReginaDateAndTime endTime;
 
     /**
      * Constructs an tasks.EventsTask with the specified description, start time, and end time.
@@ -16,11 +18,30 @@ public class EventsTask extends Task {
      * @param startTime The starting time of the event.
      * @param endTime The ending time of the event.
      */
-    public EventsTask(String description, String startTime, String endTime) {
+    public EventsTask(String description, String startTime, String endTime) throws ReginaException {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = new ReginaDateAndTime(startTime);
+        this.endTime = new ReginaDateAndTime(endTime);
     }
+
+    /**
+     * Checks if the event is occurring at the specified date and time.
+     *
+     * This method determines if the provided date and time falls within the
+     * event's start and end time. The event is considered to be occurring
+     * if the specified date and time is at or after the start time and
+     * at or before the end time.
+     *
+     * @param dateAndTime The date and time to check against the event's start and end times.
+     * @return true if the event is occurring at the specified date and time,
+     *         false otherwise.
+     */
+    @Override
+    public boolean isOccurringOn(ReginaDateAndTime dateAndTime) {
+        return (this.startTime.isBefore(dateAndTime) || this.startTime.isEqual(dateAndTime))
+                && (this.endTime.isAfter(dateAndTime) || this.endTime.isEqual(dateAndTime));
+    }
+
 
     /**
      * Returns a string representation of the event task in a format suitable for saving.
@@ -33,8 +54,8 @@ public class EventsTask extends Task {
         return String.format("E | %s | %s | %s | %s",
                 this.isDone ? "X" : " ",
                 this.description,
-                this.startTime,
-                this.endTime);
+                this.startTime.toSavedFormatting(),
+                this.endTime.toSavedFormatting());
     }
 
     /**

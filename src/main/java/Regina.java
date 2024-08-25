@@ -1,9 +1,11 @@
 import tasks.*;
 
 import file.FileSaver;
+import dateAndTime.ReginaDateAndTime;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Ref;
 import java.util.Scanner;
 
 /**
@@ -66,9 +68,9 @@ public class Regina {
                 + INDENT + "1. To add a To-Do task: %s <task_description>\n"
                 + INDENT + "   Example: %s Finish homework\n"
                 + INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n"
-                + INDENT + "   Example: %s Submit report /by 2023-12-01\n"
+                + INDENT + "   Example: %s Submit report /by 2/12/2024 1800\n"
                 + INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n"
-                + INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n"
+                + INDENT + "   Example: %s Team meeting /from 2/12/2024 1600 /to 2/12/2024 1800\n"
                 + INDENT + "You can also:\n"
                 + INDENT + "1. Mark a task as done: mark <task_number>\n"
                 + INDENT + "   Example: mark 1\n"
@@ -77,7 +79,11 @@ public class Regina {
                 + INDENT + "3. Delete a task: delete <task_number>\n"
                 + INDENT + "   Example: delete 1\n"
                 + INDENT + "4. List tasks: type 'list' to see all your tasks\n"
-                + INDENT + "5. For help: type 'help'\n"
+                + INDENT + "5. Delete all current tasks: type 'clear'\n"
+                + INDENT + "6. Find out current date and time: type 'now'\n"
+                + INDENT + "7. List out all task occurring at a specified date and time: occurring <date_and_time>\n"
+                + INDENT + "   Example: occurring 2/12/2024 1800\n"
+                + INDENT + "8. For help: type 'help'\n"
                 + INDENT + "What can I do for you?\n" + LINE
                 + "\n", NAME, TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
@@ -87,20 +93,23 @@ public class Regina {
      */
     public void help() {
         System.out.printf(LINE + "\n" + INDENT + "Here are the commands you can use: \n"
-                + INDENT + "1. To add a To-Do task: %s <task_description>\n"
-                + INDENT + "   Example: %s Finish homework\n"
-                + INDENT + "2. To add a Deadline task: %s <task_description> /by <deadline>\n"
-                + INDENT + "   Example: %s Submit report /by 2023-12-01\n"
-                + INDENT + "3. To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n"
-                + INDENT + "   Example: %s Team meeting /from Mon 2pm /to 4pm\n"
-                + INDENT + "4. To mark a task as done: mark <task_number>\n"
-                + INDENT + "   Example: mark 1\n"
-                + INDENT + "5. To unmark a task: unmark <task_number>\n"
-                + INDENT + "   Example: unmark 1\n"
-                + INDENT + "6. To delete a task: delete <task_number>\n"
-                + INDENT + "   Example: delete 1\n"
-                + INDENT + "7. To view your tasks: list\n"
-                + INDENT + "8. For help: help\n"
+                + INDENT + "- To add a To-Do task: %s <task_description>\n"
+                + INDENT + "  Example: %s Finish homework\n"
+                + INDENT + "- To add a Deadline task: %s <task_description> /by <deadline>\n"
+                + INDENT + "  Example: %s Submit report /by 2023-12-01 1600\n"
+                + INDENT + "- To add an Event task: %s <task_description> /from <start_time> /to <end_time>\n"
+                + INDENT + "  Example: %s Team meeting /from 2/12/2024 1600 /to 2/12/2024 1800\n"
+                + INDENT + "- To mark a task as done: mark <task_number>\n"
+                + INDENT + "  Example: mark 1\n"
+                + INDENT + "- To unmark a task: unmark <task_number>\n"
+                + INDENT + "  Example: unmark 1\n"
+                + INDENT + "- To delete a task: delete <task_number>\n"
+                + INDENT + "  Example: delete 1\n"
+                + INDENT + "- To view your tasks: list\n"
+                + INDENT + "- To delete all current tasks: clear\n"
+                + INDENT + "- For current date and time: now\n"
+                + INDENT + "- To view tasks occurring on a specified date and time: occurring <date_and_time>\n"
+                + INDENT + "  Example: occurring 2/12/2024 1800\n"
                 + LINE + "\n", TODO_TYPE, TODO_TYPE, DEADLINE_TYPE, DEADLINE_TYPE, EVENT_TYPE, EVENT_TYPE);
     }
 
@@ -124,6 +133,19 @@ public class Regina {
     }
 
     /**
+     * Deletes all the tasks in the list
+     */
+    public void clearTaskList() {
+        if (this.listOfTasks.isEmpty()) {
+            System.out.println(LINE + "\n" + INDENT + "Nothing left to clear lah!\n" + LINE);
+        } else {
+            this.listOfTasks.clear();
+            saveFile();
+            System.out.println(LINE + "\n" + INDENT + "Cleared all tasks!\n" + LINE);
+        }
+    }
+
+    /**
      * Validates if the command for marking or unmarking contains a number.
      *
      * @param parts The parts of the input command split into an array.
@@ -142,6 +164,25 @@ public class Regina {
             return false;
         }
         return true;
+    }
+
+    public void occurringOn(String dateAndTime) throws ReginaException {
+        ReginaDateAndTime occurringInstance = new ReginaDateAndTime(dateAndTime);
+        TaskList tempList = this.listOfTasks.tasksOccurringOn(occurringInstance);
+        StringBuilder tempListString = new StringBuilder();
+        if (tempList.size() > 0) {
+            for (int i = 0; i < tempList.size(); i++) {
+                tempListString.append(INDENT)
+                        .append(i + 1)
+                        .append(".")
+                        .append(tempList.get(i).toString())
+                        .append("\n"); // get task
+            }
+        } else {
+            tempListString.append(INDENT).append("don't waste your time, nothing happening then.\n");
+        }
+
+        System.out.println(LINE + "\n" + tempListString + LINE);
     }
 
     /**
@@ -167,7 +208,9 @@ public class Regina {
             String[] deadlineParts = input.substring(9).trim().split(" /by ");
             // check if deadline was added for this task
             if (deadlineParts.length < 2) {
-                throw new ReginaException("So....when's the deadline for this task?");
+                throw new ReginaException("So....when's the deadline for this task?\n"
+                        + INDENT + "follow the this format for the date and time please\n"
+                        + INDENT + "(e.g. 01/10/2024 1700)");
             }
             String deadlineDescription = deadlineParts[0];
             String deadline = deadlineParts[1];
@@ -271,7 +314,7 @@ public class Regina {
         this.MARKER.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
-        System.out.printf("%s\n%sYAY! This task finish liao!:\n%s  %s\n%s\n",
+        System.out.printf("%s\n%sYAY! This task finish liao!\n%s  %s\n%s\n",
                 LINE, INDENT, INDENT, task.toString(), LINE);
     }
 
@@ -324,8 +367,14 @@ public class Regina {
                 }
                 if (userInput.equals("help")) {
                     REGINA.help();
+                } else if (userInput.equals("now")) {
+                    System.out.println(LINE + "\n" + INDENT + ReginaDateAndTime.now() + "\n" + LINE);
+                } else if (userInput.equals("clear")) {
+                    REGINA.clearTaskList();
                 } else if (userInput.equals("list")) {
                     REGINA.list(); // Print out the list
+                } else if (userInput.startsWith("occurring")) {
+                    REGINA.occurringOn(userInput.substring(10));
                 } else if (userInput.startsWith("mark")) {
                     String[] parts = userInput.split(" "); // Split input by spaces
                     if (REGINA.haveNumber(parts)) { // Ensure there's an index
