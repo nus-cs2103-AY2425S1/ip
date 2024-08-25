@@ -10,6 +10,6 @@ public class Ui {
     }
 
     public void showError(String errorMessage) {
-        output("ERROR: " + errorMessage);
+        output("Oh no! : " + errorMessage);
     }
 }
