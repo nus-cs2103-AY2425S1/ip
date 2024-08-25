@@ -129,6 +129,7 @@ public class Rex {
                     case RAWR:
                         System.out.println(separation);
                         System.out.println(rawr + "!");
+                        break;
                     // Exit program
                     case BYE:
                         // bye should be used alone
