@@ -70,6 +70,16 @@ public class EventTest {
     }
 
     @Test
+    public void hasKeyword() {
+        Todo todo = new Todo(this.description);
+        assertTrue(todo.hasKeyword("dum"));
+        assertTrue(todo.hasKeyword(""));
+        assertFalse(todo.hasKeyword("dummies"));
+        assertFalse(todo.hasKeyword("?"));
+        assertFalse(todo.hasKeyword("dummy "));
+    }
+
+    @Test
     public void testStringUI() {
         try {
             Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);

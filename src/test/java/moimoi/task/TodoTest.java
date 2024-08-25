@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TodoTest {
 
@@ -27,6 +28,16 @@ public class TodoTest {
     public void occurringOn_date_returnsFalse() {
         Todo todo = new Todo(this.description);
         assertFalse(todo.occurringOn(LocalDate.parse("2024-08-24")));
+    }
+
+    @Test
+    public void hasKeyword() {
+        Todo todo = new Todo(this.description);
+        assertTrue(todo.hasKeyword("dum"));
+        assertTrue(todo.hasKeyword(""));
+        assertFalse(todo.hasKeyword("dummies"));
+        assertFalse(todo.hasKeyword("?"));
+        assertFalse(todo.hasKeyword("dummy "));
     }
 
     @Test
