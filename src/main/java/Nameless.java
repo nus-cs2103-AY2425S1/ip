@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,7 +7,8 @@ public class Nameless {
     private static final String name = "Nameless";
     private static final String greetings = "Hello, I'm " + name + "\n" + "What can I do for you?";
     private static final String goodbye = "Bye. Hope to see you again!";
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static Storage storage;
     private static int splitGetNum(String input){
         String[] words = input.split(" ");
         return Integer.parseInt(words[1]) - 1;
@@ -16,7 +18,10 @@ public class Nameless {
         String[] words = input.split(" ", 2);
         return words.length > 1 ? words[1] : "";
     }
+
     public static void main(String[] args) throws DukeException {
+        storage = new Storage("data/tasks.txt");
+        tasks = storage.loadFile();
         System.out.println(line + "\n" + greetings + "\n" + line);
         String temp;
         Scanner sc = new Scanner(System.in);
@@ -25,13 +30,13 @@ public class Nameless {
             String input = sc.nextLine();
             try {
                 if (input.equals("bye")) {
+                    Storage.writeFile(tasks);
                     break;
                 } else if (input.equals("list")) {
                     //list tasking
                     System.out.println(line + "\n Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
-                        //print out all tasking
-                        System.out.println("    " + (i + 1) + "." + tasks.get(i).toString());
+                        System.out.println((i + 1) + ". " + tasks.get(i).toString());
                     }
                     System.out.println(line);
                 } else if (input.matches("mark \\d+")) {

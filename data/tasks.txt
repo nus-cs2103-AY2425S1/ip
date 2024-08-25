@@ -1,0 +1,3 @@
+T | 1 | egg
+T | 1 | nae
+D | 0 | read book | 5th june
