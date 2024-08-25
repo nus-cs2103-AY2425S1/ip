@@ -188,6 +188,7 @@ public class Rex {
     private static Deadline createDeadline(String argument) throws InvalidInputException {
         String[] descriptionBy = argument.split("/by", 2);
         if (descriptionBy.length < 2) {
+            System.out.println(separation);
             throw new InvalidInputException(errorPrefix + " /by not found in input!");
         }
 
@@ -197,6 +198,7 @@ public class Rex {
     private static Event createEvent(String argument) throws InvalidInputException {
         String[] tokens = argument.split("/from", 2);
         if (tokens.length < 2) {
+            System.out.println(separation);
             throw new InvalidInputException(errorPrefix + " /from not found in input!");
         }
 
@@ -204,6 +206,7 @@ public class Rex {
         String[] fromTo = tokens[1].split("/to", 2);
 
         if (fromTo.length < 2) {
+            System.out.println(separation);
             throw new InvalidInputException(errorPrefix + " /to not found in input!");
         }
 
