@@ -7,22 +7,17 @@ mark -1
 unmark -1
 mark 1.23
 unmark 1.23
-
 todo
 todo
 todo This is a to-do
 todo      trailing spaces
-
 list
-
 deadline
 deadline
 deadline many trailing spaces in previous task /by today
 deadline this has no by-date
 deadline wrong tag /from alskjdadkj /to ksasdklj
-
 list
-
 event
 event
 event many trailing spaces in previous task /from yesterday love was such an easy game to play /to never
@@ -30,9 +25,7 @@ event this has no tags
 event wrong tag /by asldkjdska
 event no from tag /to today
 event no to tag /from tomorrow
-
 list
-
 mark 1
 unmark 2
 unmark 1
@@ -40,5 +33,12 @@ mark -1
 unmark -1
 mark 1.23
 unmark 1.23
-
+delete 1.23
+delete -1
+delete 2
+list
+delete 1
+delete 1
+delete 1
+list
 bye

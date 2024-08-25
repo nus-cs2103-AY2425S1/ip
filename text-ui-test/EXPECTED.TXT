@@ -73,9 +73,6 @@
  |  where TASK_NUMBER is the task number in the task list
 
 
- |  Available commands: list, mark, unmark, todo, event, deadline.
-
-
  |  Here is the usage for the instruction 'todo':
  |
  |      todo TASK_NAME
@@ -98,15 +95,9 @@
  |  [T][ ] trailing spaces
  |  Now you have 2 tasks in the list.
 
- |  Available commands: list, mark, unmark, todo, event, deadline.
-
-
  |  Here are the tasks in your list:
  |   1.[T][ ] This is a to-do
  |   2.[T][ ] trailing spaces
-
-
- |  Available commands: list, mark, unmark, todo, event, deadline.
 
 
  |  Here is the usage for the instruction 'deadline':
@@ -145,16 +136,10 @@
  |        DEADLINE  is the deadline for this task
 
 
- |  Available commands: list, mark, unmark, todo, event, deadline.
-
-
  |  Here are the tasks in your list:
  |   1.[T][ ] This is a to-do
  |   2.[T][ ] trailing spaces
  |   3.[D][ ] many trailing spaces in previous task (by: today)
-
-
- |  Available commands: list, mark, unmark, todo, event, deadline.
 
 
  |  Here is the usage for the instruction 'event':
@@ -215,17 +200,11 @@
  |        END_DATE   is the end time/date for this event
 
 
- |  Available commands: list, mark, unmark, todo, event, deadline.
-
-
  |  Here are the tasks in your list:
  |   1.[T][ ] This is a to-do
  |   2.[T][ ] trailing spaces
  |   3.[D][ ] many trailing spaces in previous task (by: today)
  |   4.[E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
-
-
- |  Available commands: list, mark, unmark, todo, event, deadline.
 
 
  |  Nice! I've marked this task as done:
@@ -280,7 +259,49 @@
  |  where TASK_NUMBER is the task number in the task list
 
 
- |  Available commands: list, mark, unmark, todo, event, deadline.
+ |  I'm sorry, I do not understand which item '1.23' refers to!
+
+
+ |  Here is the usage for the instruction 'delete':
+ |
+ |      delete TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list to delete
+
+
+ |  I'm sorry, but task number -1 does not exist!
+
+
+ |  Here is the usage for the instruction 'delete':
+ |
+ |      delete TASK_NUMBER
+ |
+ |  where TASK_NUMBER is the task number in the task list to delete
+
+
+ |  Noted. I've deleted this task:
+ |  [T][ ] trailing spaces
+ |  Now you have 3 tasks in the list.
+
+ |  Here are the tasks in your list:
+ |   1.[T][ ] This is a to-do
+ |   2.[D][ ] many trailing spaces in previous task (by: today)
+ |   3.[E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
+
+
+ |  Noted. I've deleted this task:
+ |  [T][ ] This is a to-do
+ |  Now you have 2 tasks in the list.
+
+ |  Noted. I've deleted this task:
+ |  [D][ ] many trailing spaces in previous task (by: today)
+ |  Now you have 1 tasks in the list.
+
+ |  Noted. I've deleted this task:
+ |  [E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
+ |  Now you have 0 tasks in the list.
+
+ |  List is empty!
 
 
  |  Bye. Hope to see you again soon!
