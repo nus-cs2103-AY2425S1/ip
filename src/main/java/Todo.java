@@ -1,6 +1,7 @@
 public class Todo extends Task {
     public Todo(String taskName, boolean taskDone) {
         super(taskName, taskDone);
+        super.setTaskType(TaskTypes.TODO);
     }
 
     @Override

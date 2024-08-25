@@ -12,9 +12,12 @@ public class Deadline extends Task {
 
     public Deadline(String taskName, boolean taskDone) {
         super(taskName, taskDone);
+        super.setTaskType(TaskTypes.DEADLINE);
+        this.deadline = "None";
     }
     public Deadline(String taskName, boolean taskDone, String deadline) {
         super(taskName, taskDone);
+        super.setTaskType(TaskTypes.DEADLINE);
         this.deadline = deadline;
     }
 

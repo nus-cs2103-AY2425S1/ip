@@ -2,6 +2,16 @@ public abstract class Task {
     private String taskName;
     private boolean taskDone;
 
+    public TaskTypes getTaskType() {
+        return taskType;
+    }
+
+    protected void setTaskType(TaskTypes taskType) {
+        this.taskType = taskType;
+    }
+
+    private TaskTypes taskType;
+
     public Task(String taskName, boolean taskDone) {
         this.taskName = taskName;
         this.taskDone = taskDone;

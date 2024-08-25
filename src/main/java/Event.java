@@ -5,6 +5,15 @@ public class Event extends Task {
 
     public Event(String taskName, boolean taskDone) {
         super(taskName, taskDone);
+        super.setTaskType(TaskTypes.EVENT);
+        this.startTime = "None";
+        this.endTime = "None";
+    }
+    public Event(String taskName, boolean taskDone, String startTime, String endTime) {
+        super(taskName, taskDone);
+        super.setTaskType(TaskTypes.DEADLINE);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getStartTime() {
@@ -21,12 +30,6 @@ public class Event extends Task {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    public Event(String taskName, boolean taskDone, String startTime, String endTime) {
-        super(taskName, taskDone);
-        this.endTime = endTime;
-        this.startTime = startTime;
     }
 
     @Override
