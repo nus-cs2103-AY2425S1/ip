@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Ui class that handles User Interactions for HoSHI
+ */
 public class Ui {
 
     /**

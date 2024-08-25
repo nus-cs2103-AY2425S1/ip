@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Storage class that handles I/O related functions such as Loading and Savng for Hoshi
+ * Storage class that handles I/O related functions such as Loading and Saving for Hoshi
  */
 public class Storage {
 
