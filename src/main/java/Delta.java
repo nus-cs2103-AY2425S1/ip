@@ -359,6 +359,13 @@ public class Delta {
                         if (details.length == 2) {
                             String taskName = details[0].strip();
                             LocalDateTime by = formatDateTime(details[1].strip());
+                            if (by.isBefore(LocalDateTime.now())) {
+                                throw new DeltaException("""
+                                    OOPS!!! The date/time cannot be in the past!
+                                    \t Please set to a future date/time!
+                                    \t Follow the proper format:
+                                    \t * deadline [description] /by [date/time]""");
+                            }
                             output = addTask(new Deadline(taskName, by));
                         } else {
                             throw new DeltaException("""
@@ -383,6 +390,19 @@ public class Delta {
                             if (timings.length == 2) {
                                 LocalDateTime start = formatDateTime(timings[0].strip());
                                 LocalDateTime end = formatDateTime(timings[1].strip());
+                                if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
+                                    throw new DeltaException("""
+                                            OOPS!!! The date/time cannot be in the past!
+                                            \t Please set to a future date/time!
+                                            \t Follow the proper format:
+                                            \t * event [description] /from [start] /to [end]""");
+                                } else if (end.isBefore(start)) {
+                                    throw new DeltaException("""
+                                            OOPS!!! The end date cannot be before the start date!
+                                            \t Please set the correct date/time!
+                                            \t Follow the proper format:
+                                            \t * event [description] /from [start] /to [end]""");
+                                }
                                 output = addTask(new Event(taskName, start, end));
                             } else {
                                 throw new DeltaException("""
