@@ -1,8 +1,11 @@
 package Task;
 
+
+import CommandLine.Line;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Save.Save;
 
 import static java.lang.Integer.parseInt;
 
@@ -72,7 +75,7 @@ public class TaskList {
         Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
-        Task task = null;
+        Task task;
         list();
         switch (taskType) {
         case T:
@@ -82,14 +85,15 @@ public class TaskList {
             try {
                 task = Deadline.of(description + " /by " + parts[3], taskType);
             } catch (TaskCreationException e) {
-                System.out.println("Error occured while parsing task");
+                throw new IllegalArgumentException("Invalid task type: " + taskType);
             }
             break;
         case E:
             try {
                 task = Event.of(description + "/from " + parts[3] + " /to " + parts[4], taskType);
             } catch (TaskCreationException e) {
-                System.out.println("Error occured while parsing task");
+                System.out.println("Error occurred while parsing task");
+                throw new IllegalArgumentException("Invalid task type: " + taskType);
             }
             break;
         default:
@@ -97,7 +101,6 @@ public class TaskList {
         }
 
         if (isDone) {
-            assert task != null;
             task.markAsDone();
         }
         return task;
@@ -107,7 +110,7 @@ public class TaskList {
         try {
             Task newTask;
             switch (taskType) {
-                 case T:
+                case T:
                     newTask = ToDo.of(s, taskType);
                     break;
                 case D:
