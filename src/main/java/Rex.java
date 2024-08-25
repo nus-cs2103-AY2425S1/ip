@@ -1,12 +1,17 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Rex {
-    // File path of task list
-    private static String filepath = "./data/duke.txt";
+    // File path of task list and temp list
+    private static String filepath = "data/duke.txt";
+    private static String temppath = "data/tmp.txt";
 
     // Horizontal line separation
     private static String separation = "____________________________________________________________";
@@ -74,6 +79,7 @@ public class Rex {
                         // Create task and add to list
                         String argument = input[1];
                         Task newTask = createTask(list, command, argument);
+                        updateFile(list);
                         break;
                     // Display items added as a numbered list
                     case LIST:
@@ -108,6 +114,8 @@ public class Rex {
                             // Delete task from list
                             deleteTask(list, actionTask);
                         }
+
+                        updateFile(list);
                         break;
                     case RAWR:
                         System.out.println(separation);
@@ -137,11 +145,14 @@ public class Rex {
                 System.out.println("Usage: " + Command.usageMessage(command));
             } catch (InvalidTaskException e) {
                 System.out.println("Usage: " + Command.usageMessage(command));
+            } catch (IOException e) {
+                System.out.println("An error has occurred.");
             }
         }
     }
 
-    private static Task createTask(List<Task> list, Command command, String argument) throws InvalidTaskException {
+    private static Task createTask(List<Task> list, Command command, String argument)
+            throws InvalidTaskException, IOException {
         System.out.println(separation);
 
         Task newTask;
@@ -220,18 +231,43 @@ public class Rex {
     }
 
     private static File loadFile() throws IOException {
+        // Create new file and directory for filepath
         File f = new File(filepath);
-
         File dir = f.getParentFile();
 
+        // Create new directory if does not exist
         if (!dir.isDirectory()) {
             dir.mkdirs();
         }
 
+        // Create new file if does not exist
         if (!f.exists()) {
             f.createNewFile();
         }
 
         return f;
+    }
+
+    private static void updateFile(ArrayList<Task> list) throws IOException {
+        File f = new File(filepath);
+        File tmp = new File(temppath);
+
+        // Create temp file to copy taskList from
+        Files.deleteIfExists(Paths.get(temppath));
+        tmp.createNewFile();
+
+        FileWriter writer = new FileWriter(tmp, true);
+
+        // Create new file with updated list
+        for (int i = 1; i <= list.size(); i++) {
+            Task task = list.get(i - 1);
+            writer.write(task + System.lineSeparator());
+        }
+
+        writer.close();
+
+        // Copy to save file
+        Files.copy(Paths.get(temppath), Paths.get(filepath), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(Paths.get(temppath));
     }
 }
