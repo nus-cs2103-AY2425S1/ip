@@ -1,8 +1,13 @@
-public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    import java.time.LocalDateTime;
+    import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    private Event(String name, TaskType taskType, String startTime, String endTime) {
+public class Event extends Task {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private static Line line = new Line();
+
+    private Event(String name, TaskType taskType, LocalDateTime startTime, LocalDateTime endTime) {
         super(name, taskType);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -14,29 +19,34 @@ public class Event extends Task {
     }
 
     public String getStart() {
-        return this.startTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return this.startTime.format(formatter);
     }
 
     public String getEnd() {
-        return this.endTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return this.endTime.format(formatter);
     }
 
     @Override
     public String readTask() {
-        return super.readTask() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return super.readTask() + " (from: " + this.getStart() + " to: " + this.getEnd() + ")";
     }
 
     public static Event of(String name, TaskType taskType) throws TaskCreationException {
         try {
             String[] parts = name.split("/from", 2);
-            String taskName = parts[0];
-            String times = parts[1];
-            String[] timeParts = times.split("/to", 2);
-            String taskStart = timeParts[0].trim();
-            String taskEnd = timeParts[1].trim();
-            return new Event(taskName, taskType, taskStart, taskEnd);
+            String taskName = parts[0].trim();
+            String[] dateTimes = parts[1].trim().split(" /to ", 2);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
+            LocalDateTime start = LocalDateTime.parse(dateTimes[0].trim(), formatter);
+            LocalDateTime end = LocalDateTime.parse(dateTimes[1].trim(), formatter);
+            return new Event(taskName, taskType, start, end);
         }
-        catch (ArrayIndexOutOfBoundsException e) {
+        catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            line.drawLine();
+            System.out.println("      Invalid deadline format. Expected format: 'task description /by date/time' ");
+            line.drawLine();
             throw new TaskCreationException();
         }
     }
