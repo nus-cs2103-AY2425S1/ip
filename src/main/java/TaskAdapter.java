@@ -11,8 +11,8 @@ public class TaskAdapter extends TypeAdapter<Task> {
         String taskType = "";
         String description = "";
         boolean isDone = false;
-        String endTime = null;
-        String startTime = null;
+        String endTimeString = "";
+        String startTimeString = "";
 
         while (reader.hasNext()) {
             String name = reader.nextName();
@@ -26,11 +26,11 @@ public class TaskAdapter extends TypeAdapter<Task> {
                 case "isDone":
                     isDone = reader.nextBoolean();
                     break;
-                case "endTime":
-                    endTime = reader.nextString();
+                case "endTimeString":
+                    endTimeString = reader.nextString();
                     break;
-                case "startTime":
-                    startTime = reader.nextString();
+                case "startTimeString":
+                    startTimeString = reader.nextString();
                     break;
                 default:
                     reader.skipValue();
@@ -45,10 +45,18 @@ public class TaskAdapter extends TypeAdapter<Task> {
                 task = new Todo(description, taskType);
                 break;
             case "deadline":
-                task = new Deadline(description, endTime, taskType);
+                try {
+                    task = new Deadline(description, endTimeString, taskType);
+                } catch (TaskManagerException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "event":
-                task = new Event(description, startTime, endTime, taskType);
+                try {
+                    task = new Event(description, startTimeString, endTimeString, taskType);
+                } catch (TaskManagerException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
         }
 
@@ -66,11 +74,11 @@ public class TaskAdapter extends TypeAdapter<Task> {
             writer.name("taskType").value("todo");
         } else if (task instanceof Deadline) {
             writer.name("taskType").value("deadline");
-            writer.name("endTime").value(((Deadline) task).getEndTime());
+            writer.name("endTimeString").value(((Deadline) task).getEndTimeString());
         } else if (task instanceof Event) {
             writer.name("taskType").value("event");
-            writer.name("endTime").value(((Event) task).getEndTime());
-            writer.name("startTime").value(((Event) task).getStartTime());
+            writer.name("endTimeString").value(((Event) task).getEndTimeString());
+            writer.name("startTimeString").value(((Event) task).getStartTimeString());
         }
         writer.name("description").value(task.getDescription());
         writer.name("isDone").value(task.getIsDone());
