@@ -6,7 +6,8 @@
 |              | /
 |______________|/
 
-Hello! I'm Cookie 
+
+Hello! I'm Cookie
 How can I help you?
 Here are some commands you can use:
 todo, deadline, event, mark, unmark, delete, list

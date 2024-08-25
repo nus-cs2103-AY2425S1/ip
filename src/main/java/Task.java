@@ -12,13 +12,11 @@ public abstract class Task {
     public String getStatus() {
         return isDone ? "X" : "";
     }
-    public String markDone() {
+    public void markDone() {
         this.isDone = true;
-        return this.toString();
     }
-    public String unmarkDone() {
+    public void unmarkDone() {
         this.isDone = false;
-        return this.toString();
     }
     public String getDescription() {
         return this.description;

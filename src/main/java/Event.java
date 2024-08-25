@@ -30,16 +30,6 @@ public class Event extends Task {
     }
 
     @Override
-    public String markDone() {
-        super.markDone();
-        return this.toString();
-    }
-    @Override
-    public String unmarkDone() {
-        super.unmarkDone();
-        return this.toString();
-    }
-    @Override
     public String toString() {
         return "[E]" + super.toString()
                 + " (from: " + (fromDeadline != null ? DateParser.changePattern(fromDeadline) : this.from)
