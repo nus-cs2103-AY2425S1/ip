@@ -35,31 +35,32 @@ public class Bob {
     private static void handleInput(String phrase) throws ChatBotException {
         String[] tmp = phrase.split(" ");
         switch (tmp[0]) {
-            case "list":
-                Bob.listTasks();
-                break;
-            case "mark":
-                Bob.markTask(tmp);
-                break;
-            case "unmark":
-                Bob.unmarkTask(tmp);
-                break;
-            case "todo":
-                Bob.addToDo(phrase);
-                break;
-            case "deadline":
-                Bob.addDeadline(phrase);
-                break;
-            case "event":
-                Bob.addEvent(phrase);
-                break;
-            case "delete":
-                Bob.deleteTask(tmp);
-                break;
-            default:
-                throw new ChatBotException("I'm sorry, but I don't know what that means :-(");
+        case "list":
+            Bob.listTasks();
+            break;
+        case "mark":
+            Bob.markTask(tmp);
+            break;
+        case "unmark":
+            Bob.unmarkTask(tmp);
+            break;
+        case "todo":
+            Bob.addToDo(phrase);
+            break;
+        case "deadline":
+            Bob.addDeadline(phrase);
+            break;
+        case "event":
+            Bob.addEvent(phrase);
+            break;
+        case "delete":
+            Bob.deleteTask(tmp);
+            break;
+        default:
+            throw new ChatBotException("I'm sorry, but I don't know what that means :-(");
         }
     }
+
 
     private static void listTasks() {
         System.out.println("Here are the tasks in your list:");
