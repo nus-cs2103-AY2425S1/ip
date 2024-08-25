@@ -57,7 +57,7 @@ public class Henry {
     /**
      * Returns date in the form of MMM dd yyyy
      *
-     * @param date date in the form of YYYY-MM-DD
+     * @param dateTime date in the form of YYYY-MM-DD
      * @return date in the form of MMM dd yyyy
      */
     public static String convertDateTime(String dateTime) throws HenryException {
