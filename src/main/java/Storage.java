@@ -1,16 +1,15 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     protected String filePath;
-    protected ArrayList<Task> tasks;
+    protected TaskList tasks;
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.tasks = new ArrayList<>();
+        this.tasks = new TaskList();
     }
 
     public void loadTasks() {
@@ -30,12 +29,12 @@ public class Storage {
         }
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(TaskList tasks) {
         File file = new File(this.filePath);
         try {
             FileWriter writer = new FileWriter(file);
-            for (Task task : tasks) {
-                writer.write(writeTask(task));
+            for (int i = 0; i < tasks.getSize(); i++) {
+                writer.write(writeTask(tasks.getTask(i)));
             }
             writer.close();
         } catch (IOException e) {
@@ -43,7 +42,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> getTasks() {
+    public TaskList getTasks() {
         return this.tasks;
     }
 
@@ -68,7 +67,7 @@ public class Storage {
         if (isDone) {
             newTask.markAsDone();
         }
-        tasks.add(newTask);
+        tasks.addTask(newTask);
     }
 
     private String writeTask(Task t) {
