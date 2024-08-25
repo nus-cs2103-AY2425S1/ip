@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Rex {
     // File path of task list and temp list
-    private static String filepath = "./data/duke.txt";
+    private static String filepath = "./data/rex.txt";
     private static String temppath = "./data/tmp.txt";
 
     // Horizontal line separation
