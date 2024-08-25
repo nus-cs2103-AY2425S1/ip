@@ -1,3 +1,5 @@
+package echo;
+
 public enum Command {
     BYE,
     LIST,

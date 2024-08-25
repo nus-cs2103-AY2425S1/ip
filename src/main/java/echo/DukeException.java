@@ -1,3 +1,5 @@
+package echo;
+
 public class DukeException extends Exception {
     /**
      * Create a DukeException without specific message.
