@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * This class defines and prodides functionality for an event task.
  * <p>
@@ -6,9 +8,9 @@
 public class EventTask extends Task{
     
     /** The start date for the event */
-    private String startDate;
+    private LocalDate startDate;
     /** The end date for the event */
-    private String endDate;
+    private LocalDate endDate;
 
     /**
      * Creates an event task object based on its description, start date and end date.
@@ -16,7 +18,7 @@ public class EventTask extends Task{
      * @param startDate The starting period for the event
      * @param endDate The ending period for the event
      */
-    EventTask(String description, String startDate, String endDate) {
+    EventTask(String description, LocalDate startDate, LocalDate endDate) {
 
         super(description);
         this.startDate = startDate;
@@ -26,13 +28,13 @@ public class EventTask extends Task{
     @Override
     public String toCSVFormat(){
         
-        return "EVENT," + super.toCSVFormat() + "," + this.startDate + "," + this.endDate;
+        return "EVENT," + super.toCSVFormat() + "," + this.startDate.toString() + "," + this.endDate.toString();
     }
 
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + "(From: " + this.startDate + " To: " + this.endDate + ")";
+        return "[E]" + super.toString() + "(From: " + this.startDate.toString() + " To: " + this.endDate.toString() + ")";
     }
 }
 
