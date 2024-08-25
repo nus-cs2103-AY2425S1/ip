@@ -43,7 +43,7 @@ public class Storage {
                         break;
                 }
                 if (task != null && parts[1].equals("1")) {
-                    task.Done();
+                    task.markAsDone();
                 }
                 if (task != null) {
                     tasks.add(task);
