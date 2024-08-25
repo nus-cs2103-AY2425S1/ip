@@ -44,12 +44,57 @@ public class Ui {
 
     }
 
-    public void displayTaskAdded(String input) {
-        System.out.println("added: " + input);
-    }
-
     public void displayTaskDeleted(String description) {
         System.out.println("OK, Hoshi has removed ( " + description + " )! \n");
+    }
+
+    public void displayTaskMarked(Task task) {
+        System.out.println("Nice! I've marked this task as done: \n");
+        System.out.println(task.toString() + "\n");
+    }
+
+    public void displayTaskToMark() {
+        System.out.println("Please specify the task number to mark! \n");
+    }
+
+    public void displayTaskToDelete() {
+        System.out.println("Please specify the task number to delete! \n");
+    }
+
+    public void displayTaskDeleted(Task task) {
+        System.out.println("OK, Hoshi has removed ( " + task.getDesc() + " )! \n");
+    }
+
+    public void displayTaskAdd() {
+        System.out.println("Please specify the task to add! E.g. Add {task to be added} \n");
+    }
+
+    public void displayTodoTask() {
+        System.out.println("Understood! What is your ToDo? ");
+    }
+
+    public void displayDeadlineTask() {
+        System.out.println("Understood! What is your Deadline? ");
+    }
+
+    public void displayDeadlineDue() {
+        System.out.println("When would you like your Deadline to be due by? ");
+    }
+
+    public void displayEventTask() {
+        System.out.println("Understood! What is your Event? ");
+    }
+
+    public void displayEventStart() {
+        System.out.println("When would you like your Event to start? ");
+    }
+
+    public void displayEventEnd() {
+        System.out.println("When would you like your Event to end? ");
+    }
+
+    public void displayTaskAdded(String input) {
+        System.out.println("added: " + input);
     }
 
     public void displayError(String message) {
