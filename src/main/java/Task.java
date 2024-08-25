@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean completed;
 
@@ -11,10 +11,6 @@ public class Task {
         return completed ? "X" : " ";
     }
 
-    public String getTaskInfo() {
-        return description;
-    }
-
     public void markDone() {
         this.completed = true;
     }
@@ -22,6 +18,10 @@ public class Task {
     public void markUndone() {
         this.completed = false;
     }
+
+    public abstract String getTaskInfo();
+
+    public abstract String getTaskType();
 
 
 }
