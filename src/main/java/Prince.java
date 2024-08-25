@@ -33,8 +33,43 @@ public class Prince {
             }
 
         } else {
-            Task tsk = new Task(command);
-            return addTask(tsk);
+            // according to the first word, create a new specific task
+            // split into two, first word is type, and the second phrase is task
+
+            String[] split = command.split(" ", 2);
+            String type = split[0];
+            String stringTask = split[1];
+
+            if(type.equals("todo")) {
+                ToDoTask tsk = new ToDoTask(stringTask);
+                addTask(tsk);
+                return taskDescription(tsk);
+
+            } else if (type.equals("deadline")) {
+                // split again after by
+                String[] splitAgain = stringTask.split(" /by ", 2);
+                String taskDes = splitAgain[0];
+                String deadline = splitAgain[1];
+
+                DeadlinesTask tsk = new DeadlinesTask(taskDes, deadline);
+                addTask(tsk);
+                return taskDescription(tsk);
+
+            } else {
+                // split again after from
+                // split again after to
+                String[] firstSplit = stringTask.split(" /from ", 2);
+                String taskDes = firstSplit[0];
+                String second = firstSplit[1];
+
+                String[] secondSplit = second.split(" /to ", 2);
+                String from = secondSplit[0];
+                String to = secondSplit[1];
+
+                EventTask tsk = new EventTask(taskDes, from, to);
+                addTask(tsk);
+                return taskDescription(tsk);
+            }
         }
     }
 
@@ -47,14 +82,19 @@ public class Prince {
             sb.append(i + 1 + ". " + list.get(i).printTask()).append("\n");
         }
 
-        return sb.toString();
+        return "Here are the tasks in your list: \n" + sb.toString();
     }
 
-    public static String addTask(Task task){
+    public static void addTask(Task task){
         // add task to the List
         // return a string
         list.add(task);
-        return "added: " + task.getDescription();
+        //return "added: " + task.getDescription();
+    }
+
+    public static String taskDescription(Task task) {
+        return "Got it. I've added this task: \n" + "  " + task.printTask() + "\n" +
+                "Now you have " + list.size() + " tasks in the list";
     }
 
     public static void main(String[] args) {
