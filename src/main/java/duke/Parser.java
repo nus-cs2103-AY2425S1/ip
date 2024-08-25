@@ -11,6 +11,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.tasks.Deadline;
@@ -33,34 +34,23 @@ public class Parser {
      */
     public static Command parseInput(String input) throws BobException {
         if (Objects.equals(input, "")) {
-            return Command.noop;
+            return Command.NOOP;
         }
 
         String response;
         String command = input.split(" ")[0];
-        switch (command) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
-            return new ListCommand();
-        case "mark":
-            return mark(input);
-        case "unmark":
-            return unmark(input);
-        case "todo":
-            return todo(input);
-        case "deadline": {
-            return deadline(input);
-        }
-        case "event": {
-            return event(input);
-        }
-        case "delete": {
-            return delete(input);
-        }
-        default:
-            throw new BobException("I'm sorry, I did not understand your message.");
-        }
+        return switch (command) {
+        case "bye" -> new ExitCommand();
+        case "list" -> new ListCommand();
+        case "mark" -> mark(input);
+        case "unmark" -> unmark(input);
+        case "todo" -> todo(input);
+        case "deadline" -> deadline(input);
+        case "event" -> event(input);
+        case "delete" -> delete(input);
+        case "find" -> find(input);
+        default -> throw new BobException("I'm sorry, I did not understand your message.");
+        };
     }
 
     /**
@@ -107,8 +97,12 @@ public class Parser {
      * @param input The to-do message.
      * @return The add command corresponding to the to-do message.
      */
-    private static Command todo(String input) {
-        String name = input.substring(5);
+    private static Command todo(String input) throws BobException {
+        Matcher matcher = Pattern.compile("^todo (.*)$").matcher(input);
+        if (!matcher.find()) {
+            throw new BobException("Please specify the to do task name.");
+        }
+        String name = matcher.group(1);
 
         Task task = new ToDo(name);
 
@@ -185,6 +179,21 @@ public class Parser {
         int itemNum = Integer.parseInt(matcher.group(1));
 
         return new DeleteCommand(itemNum);
+    }
+
+    /**
+     * Parses a find message and returns the corresponding find command.
+     *
+     * @param input The find message.
+     * @return The find command corresponding to the find message.
+     */
+    private static Command find(String input) throws BobException {
+        Matcher matcher = Pattern.compile("^find (.*)$").matcher(input);
+        if (!matcher.find()) {
+            throw new BobException("Please specify the keyword to search for.");
+        }
+        String keyword = matcher.group(1);
+        return new FindCommand(keyword);
     }
 
     /**
