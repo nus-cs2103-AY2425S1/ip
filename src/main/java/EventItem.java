@@ -29,4 +29,10 @@ public class EventItem extends TodoItem {
 
     }
 
+    @Override
+    public String getSaveString() {
+        String baseString = super.getSaveString();
+        return String.format("%s | %s | %s", baseString.replaceFirst("T", "D"), this.from, this.to);
+    }
+
 }

@@ -23,4 +23,10 @@ public class DeadlineItem extends TodoItem{
 
     }
 
+    @Override
+    public String getSaveString() {
+        String baseString = super.getSaveString();
+        return String.format("%s | %s", baseString.replaceFirst("T", "D"), this.deadline);
+    }
+
 }
