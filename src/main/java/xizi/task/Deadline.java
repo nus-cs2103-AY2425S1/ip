@@ -1,9 +1,9 @@
-package xizi;
+package xizi.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDateTime ddl;
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -11,6 +11,10 @@ public class Deadline extends Task{
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.ddl = deadline;
+    }
+
+    public LocalDateTime getDdl(){
+        return this.ddl;
     }
 
     @Override

@@ -1,19 +1,19 @@
-package xizi;
+package xizi.task;
 
 import java.util.ArrayList;
 import java.util.List;
 // ArrayList implementation, auto-adjust the indexing after deletion
 public class TaskList {
 
-    private List<Task> items;
+    private final List<Task> items;
     private int size;
 
-    TaskList(){
+    public TaskList(){
         this.items = new ArrayList<>();
         this.size = 0;
     }
 
-    TaskList(List<Task> tasks){
+    public TaskList(List<Task> tasks){
         this.items = tasks;
         this.size = tasks.size();
     }

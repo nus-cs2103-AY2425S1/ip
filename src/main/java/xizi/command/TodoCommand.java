@@ -1,6 +1,9 @@
 package xizi.command;
 
 import xizi.*;
+import xizi.task.Task;
+import xizi.task.TaskList;
+import xizi.task.Todo;
 
 import java.io.IOException;
 import java.util.regex.Matcher;

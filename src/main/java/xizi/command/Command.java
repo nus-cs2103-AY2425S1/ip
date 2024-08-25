@@ -1,7 +1,7 @@
 package xizi.command;
 
 import xizi.Storage;
-import xizi.TaskList;
+import xizi.task.TaskList;
 import xizi.Ui;
 import xizi.XiziException;
 

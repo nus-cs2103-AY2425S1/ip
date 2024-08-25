@@ -1,4 +1,9 @@
 package xizi;// Do not use wildcard imports
+import xizi.task.Deadline;
+import xizi.task.Event;
+import xizi.task.Task;
+import xizi.task.Todo;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
