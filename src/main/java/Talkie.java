@@ -1,5 +1,8 @@
 import java.io.*;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -56,6 +59,7 @@ public class Talkie {
     private static void readEntry(String entry) throws TalkieNoTaskFoundException {
         String[] fields = entry.split(" \\| ");
         Task taskToBeAdded;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         switch(fields[0]) {
             case "T":
@@ -63,12 +67,14 @@ public class Talkie {
                 break;
 
             case "E":
-                System.out.println(fields[2] + " " + fields[3] + " " + fields[4]);
-                taskToBeAdded = new Event(fields[2], fields[3], fields[4]);
+                taskToBeAdded = new Event(fields[2],
+                        LocalDateTime.parse(fields[3], formatter),
+                        LocalDateTime.parse(fields[4], formatter));
                 break;
 
             case "D":
-                taskToBeAdded = new Deadline(fields[2], fields[3]);
+                taskToBeAdded = new Deadline(fields[2],
+                        LocalDateTime.parse(fields[3], formatter));
                 break;
 
             default:
@@ -114,43 +120,68 @@ public class Talkie {
     public static void createDeadline(String input) throws TalkieMissingArgumentException {
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
 
-        if (parts.length == 2) {
-            String details = parts[1]; // rest of the input (eg. from, to details)
-            String[] deadlineParts = details.split("/by ");
-            String description = deadlineParts[0].trim();
-            String by = deadlineParts[1].trim();
+        try {
+            if (parts.length == 2) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-            Task newDeadline = new Deadline(description, by);
-            taskList.add(newDeadline);
-            String message = Talkie.addMessage(newDeadline);
-            System.out.println(message);
-        } else {
-            throw new TalkieMissingArgumentException(parts[0],
-                    "The 'description' and 'by' of deadline cannot be empty.");
+                String details = parts[1]; // rest of the input (eg. from, to details)
+                String[] deadlineParts = details.split("/by ");
+                String description = deadlineParts[0].trim();
+                String by = deadlineParts[1].trim();
+
+                LocalDateTime time = LocalDateTime.parse(by, formatter);
+
+                Task newDeadline = new Deadline(description, time);
+                taskList.add(newDeadline);
+                String message = Talkie.addMessage(newDeadline);
+                System.out.println(message);
+            } else {
+                throw new TalkieMissingArgumentException(parts[0],
+                        "The 'description' and 'by' of deadline cannot be empty.");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println(MessageType.HORIZONTAL_LINE.message + "\n"
+                    + "Please enter the time in the format of <yyyy-MM-dd HHmm>!\n"
+                    + MessageType.HORIZONTAL_LINE.message + "\n");
         }
-
     }
 
     // Creates Event Task
     public static void createEvent(String input) throws TalkieMissingArgumentException {
         String[] parts = input.split(" ", 2); // Split into type and the rest of the input
 
-        if (parts.length == 2) {
-            String details = parts[1]; // rest of the input (eg. from, to details)
-            String[] eventParts = details.split("/from | /to ");
+        try {
+            if (parts.length == 2) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                String details = parts[1]; // rest of the input (eg. from, to details)
+                String[] eventParts = details.split("/from | /to ");
 
-            String description = eventParts[0].trim();
-            String from = eventParts[1].trim();
-            String to = eventParts[2].trim();
+                String description = eventParts[0].trim();
+                String from = eventParts[1].trim();
+                String to = eventParts[2].trim();
 
-            Task newEvent = new Event(description, from, to);
-            taskList.add(newEvent);
-            String message = Talkie.addMessage(newEvent);
-            System.out.println(message);
-        } else {
-            throw new TalkieMissingArgumentException(parts[0],
-                    "The 'description', 'from' and 'to' of event cannot be empty.");
+                LocalDateTime startTime = LocalDateTime.parse(from, formatter);
+                LocalDateTime endTime = LocalDateTime.parse(to, formatter);
+
+                if (startTime.isAfter(endTime)) {
+                    System.out.println("The end time must be after the start time!");
+                    return;
+                }
+
+                Task newEvent = new Event(description, startTime, endTime);
+                taskList.add(newEvent);
+                String message = Talkie.addMessage(newEvent);
+                System.out.println(message);
+            } else {
+                throw new TalkieMissingArgumentException(parts[0],
+                        "The 'description', 'from' and 'to' of event cannot be empty.");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println(MessageType.HORIZONTAL_LINE + "\n"
+                    + "Please enter the time in the format of <yyyy-MM-dd HHmm>!\n"
+                    + MessageType.HORIZONTAL_LINE.message + "\n");
         }
+
     }
 
     // Creates ToDo Task
