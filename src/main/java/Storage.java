@@ -17,7 +17,9 @@ public class Storage {
         this.PATH = path;
     }
 
-    public ArrayList<Task> loadTask() throws IOException, LamaException {
+    public ArrayList<Task> loadTask() throws LamaException {
+        try {
+
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(PATH);
         if (!file.exists()) {
@@ -73,21 +75,34 @@ public class Storage {
         }
 
         return list;
-    }
-
-    public void saveTasks(ArrayList<Task> tasks) throws IOException {
-        FileWriter fileWriter = new FileWriter(PATH);
-
-        for (Task task : tasks) {
-            fileWriter.write(task.toFile() + "\n");
+        } catch (IOException e) {
+            throw new LamaException("Error reading file: " + e.getMessage());
         }
-
-        fileWriter.close();
     }
 
-    public void addTask(Task task) throws IOException {
-        FileWriter fileWriter = new FileWriter(PATH, true);
-        fileWriter.write(task.toFile() + "\n");
-        fileWriter.close();
+    public void saveTasks(TaskList taskList) throws LamaException {
+
+        try {
+            FileWriter fileWriter = new FileWriter(PATH);
+
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                fileWriter.write(task.toFile() + "\n");
+            }
+
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new LamaException("Error writing file: " + e.getMessage());
+        }
+    }
+
+    public void addTask(Task task) throws LamaException {
+        try {
+            FileWriter fileWriter = new FileWriter(PATH, true);
+            fileWriter.write(task.toFile() + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new LamaException("Error writing file: " + e.getMessage());
+        }
     }
 }
