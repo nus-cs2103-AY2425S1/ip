@@ -9,6 +9,8 @@ public class YappingBot {
             BOT_NAME
     );
     private static final String LIST_TEXT = "Here are the tasks in your list:";
+    private static final String SELECT_TASK_NOT_INT_TEXT = "I'm sorry, I do not understand which item '%s' refers to!";
+    private static final String SELECT_TASK_MISSING_TEXT = "I'm sorry, but task number %d does not exist!";
     private static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
     // End of text strings
 
@@ -19,7 +21,7 @@ public class YappingBot {
 
     // class methods
     private static String quoteSinglelineText(String line) {
-       return String.format("\n |  %s", line);
+       return String.format("\n |  %s\n", line);
     }
     private static void quoteSinglelineText(String line, StringBuilder sb) {
         sb.append("\n |  ");
@@ -59,6 +61,26 @@ public class YappingBot {
         sb.append("\n");
         System.out.println(sb.toString());
     }
+    private static int parseTaskNumberSelected(String userInputSlice) {
+        int i = -1;
+        try {
+            i = Integer.parseInt(userInputSlice) - 1;
+        } catch (NumberFormatException ex) {
+            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_NOT_INT_TEXT, userInputSlice)));
+            return i;
+        }
+
+        // OOB
+        if (i < 0 || i >= userList.size()) {
+            System.out.println(quoteSinglelineText(String.format(SELECT_TASK_MISSING_TEXT, i+1)));
+            i = -1;
+        }
+
+        return i;
+    }
+    private static void changeTaskListStatus(int i, boolean isTaskDone) {
+        userList.get(i).setTaskDone(isTaskDone);
+    }
     // end of class methods
 
     public static void main(String[] args) {
@@ -73,7 +95,8 @@ public class YappingBot {
         while (true) {
            String userInput = userInputScanner.nextLine();
            String[] userInputSlices = userInput.split(" ");
-           switch (userInputSlices[0].toLowerCase()) {
+            int taskListIndexPtr = -1; // task list pointer
+            switch (userInputSlices[0].toLowerCase()) {
                case "bye":
                    break programmeLoop;
                case "":
@@ -82,8 +105,20 @@ public class YappingBot {
                    printUserList();
                    break;
                case "mark":
+                   taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
+                   if (taskListIndexPtr < 0) {
+                       // System.out.println(quoteSinglelineText(MARK_INSTRUCTION_USAGE));
+                   } else {
+                       changeTaskListStatus(taskListIndexPtr, true);
+                   }
                    break;
                case "unmark":
+                   taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1]);
+                   if (taskListIndexPtr < 0) {
+                       // System.out.println(quoteSinglelineText(UNMARK_INSTRUCTION_USAGE));
+                   } else {
+                       changeTaskListStatus(taskListIndexPtr, false);
+                   }
                    break;
                default:
                    userList.add(new Task(userInput, false));
