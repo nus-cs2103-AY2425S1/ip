@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidTodoException extends  OrionException{
     public InvalidTodoException(String message) {

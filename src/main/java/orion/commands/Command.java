@@ -1,4 +1,4 @@
-package commands;
+package orion.commands;
 
 public enum Command {
     LIST,

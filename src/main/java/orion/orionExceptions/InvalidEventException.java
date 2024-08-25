@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidEventException extends  OrionException{
     public InvalidEventException(String message) {

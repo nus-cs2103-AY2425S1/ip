@@ -1,8 +1,9 @@
-package parser;
-import orionExceptions.*;
-import task.DeadlineDetails;
-import task.EventDetails;
-import taskList.TaskList;
+package orion.parser;
+import orion.orionExceptions.*;
+import orion.orionExceptions.*;
+import orion.task.DeadlineDetails;
+import orion.task.EventDetails;
+import orion.taskList.TaskList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

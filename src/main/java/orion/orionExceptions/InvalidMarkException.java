@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidMarkException extends OrionException{
     public InvalidMarkException(String input) {

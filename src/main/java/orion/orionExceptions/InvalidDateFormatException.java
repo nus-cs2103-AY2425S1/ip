@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidDateFormatException extends OrionException {
     public InvalidDateFormatException(String message) {
