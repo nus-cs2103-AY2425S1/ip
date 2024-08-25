@@ -1,3 +1,5 @@
+package tasks;
+
 public abstract class Task {
     private boolean completed;
     private final String description;
@@ -44,7 +46,7 @@ public abstract class Task {
         return integer == 1;
     }
 
-    abstract String getSaveFormat();
+    public abstract String getSaveFormat();
 
     @Override
     public String toString() {

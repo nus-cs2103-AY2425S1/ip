@@ -1,11 +1,14 @@
-import java.text.ParseException;
+package utility;
+
+import exceptions.LukeException;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
     public Command command;
     public String description, by, from, to;
-    int index;
+    public int index;
 
     public Parser() {
 

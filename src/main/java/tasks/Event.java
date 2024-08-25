@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task {
     private final String from;
     private final String to;
@@ -15,7 +17,7 @@ public class Event extends Task {
     }
 
     @Override
-    String getSaveFormat() {
+    public String getSaveFormat() {
         return String.format("E | %d | %s | %s to %s", super.intComplete(), super.getDescription(), from, to);
     }
 

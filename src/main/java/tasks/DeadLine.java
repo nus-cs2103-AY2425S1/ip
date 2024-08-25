@@ -1,3 +1,5 @@
+package tasks;
+
 public class DeadLine extends Task {
     private final String byDate;
 
@@ -12,7 +14,7 @@ public class DeadLine extends Task {
     }
 
     @Override
-    String getSaveFormat() {
+    public String getSaveFormat() {
         return String.format("D | %d | %s | %s", super.intComplete(), super.getDescription(), byDate);
     }
 

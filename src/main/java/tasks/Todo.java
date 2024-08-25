@@ -1,3 +1,5 @@
+package tasks;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -8,7 +10,7 @@ public class Todo extends Task {
     }
 
     @Override
-    String getSaveFormat() {
+    public String getSaveFormat() {
         return String.format("T | %d | %s", super.intComplete(), super.getDescription());
     }
 

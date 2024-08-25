@@ -1,3 +1,5 @@
+package utility;
+
 public enum Command {
     list,
     mark,
