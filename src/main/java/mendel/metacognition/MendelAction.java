@@ -1,4 +1,5 @@
 package mendel.metacognition;
 
-public class MendelAction {
+public abstract class MendelAction {
+    public abstract void speak();
 }

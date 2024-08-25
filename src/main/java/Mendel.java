@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import mendel.preetyprint.FormatText;
+import mendel.metacognition.Welcome;
+import mendel.mendelexception.MendelException;
 
 public class Mendel {
     public static void main(String[] args) {
