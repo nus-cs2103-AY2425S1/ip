@@ -1,12 +1,14 @@
 package tasks;
 
+import dateAndTime.ReginaDateAndTime;
+
 /**
  * Represents a deadline task with a description and a specific deadline.
  * This class extends the Task.Task class and provides additional functionality
  * for deadline tasks.
  */
 public class DeadlinesTask extends Task {
-    protected String deadline;
+    protected ReginaDateAndTime deadline;
 
     /**
      * Constructs a tasks.DeadlinesTask with the specified description and deadline.
@@ -14,9 +16,9 @@ public class DeadlinesTask extends Task {
      * @param description The description of the deadline task.
      * @param deadline The deadline associated with the task.
      */
-    public DeadlinesTask(String description, String deadline) {
+    public DeadlinesTask(String description, String deadline) throws ReginaException {
         super(description);
-        this.deadline = deadline;
+        this.deadline = new ReginaDateAndTime(deadline);
     }
 
     /**
@@ -30,7 +32,7 @@ public class DeadlinesTask extends Task {
         return String.format("D | %s | %s | %s",
                 this.isDone ? "X" : " ",
                 this.description,
-                this.deadline);
+                this.deadline.toSavedFormatting());
     }
 
     /**
@@ -43,6 +45,6 @@ public class DeadlinesTask extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)",
                 super.toString(),
-                this.deadline);
+                this.deadline.toString());
     }
 }
