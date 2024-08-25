@@ -1,5 +1,7 @@
+import java.time.DateTimeException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Rizzler {
     public static void main(String[] args) {
@@ -141,14 +143,20 @@ public class Rizzler {
                     for (int i = indexOfBy + 2; i < parsedInput.length; i++) {
                         byTime += " " + parsedInput[i];
                     }
-                    Deadline newDeadline = new Deadline(deadline, byTime);
-                    taskList.add(newDeadline);
-                    System.out.println(separator
-                            + "Gotcha! I've added the new task for you:\n"
-                            + newDeadline + "\n"
-                            + "Now you have " + taskList.size() + " tasks in the list.\n"
-                            + separator);
-                    fileStorage.save(taskList);
+                    try {
+                        Deadline newDeadline = new Deadline(deadline, LocalDate.parse(byTime));
+                        taskList.add(newDeadline);
+                        System.out.println(separator
+                                + "Gotcha! I've added the new task for you:\n"
+                                + newDeadline + "\n"
+                                + "Now you have " + taskList.size() + " tasks in the list.\n"
+                                + separator);
+                        fileStorage.save(taskList);
+                    } catch (DateTimeException e) {
+                        System.out.println(separator
+                                + "Please put a valid date and time format (yyyy-MM-dd)\n"
+                                + separator);
+                    }
                     break;
                 case "event":
                     int indexOfFrom = 0;
@@ -193,14 +201,22 @@ public class Rizzler {
                     for (int i = indexOfTo + 2; i < parsedInput.length; i++) {
                         toTime += " " + parsedInput[i];
                     }
-                    Event newEvent = new Event(event, fromTime, toTime);
-                    taskList.add(newEvent);
-                    System.out.println(separator
-                            + "Gotcha! I've added the new task for you:\n"
-                            + newEvent + "\n"
-                            + "Now you have " + taskList.size() + " tasks in the list.\n"
-                            + separator);
-                    fileStorage.save(taskList);
+                    try {
+                        Event newEvent = new Event(event,
+                                LocalDate.parse(fromTime),
+                                LocalDate.parse(toTime));
+                        taskList.add(newEvent);
+                        System.out.println(separator
+                                + "Gotcha! I've added the new task for you:\n"
+                                + newEvent + "\n"
+                                + "Now you have " + taskList.size() + " tasks in the list.\n"
+                                + separator);
+                        fileStorage.save(taskList);
+                    } catch (DateTimeException e) {
+                        System.out.println(separator
+                                + "Please put a valid date and time format (yyyy-MM-dd)\n"
+                                + separator);
+                    }
                     break;
                 case "delete":
                     if (taskList.isEmpty()) {
