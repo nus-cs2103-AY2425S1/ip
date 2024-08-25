@@ -1,5 +1,7 @@
 package validator;
 import orionExceptions.*;
+import task.DeadlineDetails;
+import task.EventDetails;
 import taskManager.TaskManager;
 
 import java.time.LocalDate;
@@ -60,7 +62,7 @@ public class Validator {
         return parts[1];
     }
 
-    public String[] validateEventCommand(String[] parts) throws InvalidEventException, InvalidDateFormatException {
+    public EventDetails validateEventCommand(String[] parts) throws InvalidEventException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("event")) {
             throw new InvalidEventException(parts == null ? "null" : String.join(" ", parts));
         }
@@ -81,10 +83,10 @@ public class Validator {
         LocalDateTime from = parseDateTime(fromStr);
         LocalDateTime to = parseDateTime(toStr);
 
-        return new String[]{description, from.toString(), to.toString()};
+        return new EventDetails(description, from, to);
     }
 
-    public String[] validateDeadlineCommand(String[] parts) throws InvalidDeadlineException, InvalidDateFormatException {
+    public DeadlineDetails validateDeadlineCommand(String[] parts) throws InvalidDeadlineException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("deadline")) {
             throw new InvalidDeadlineException("Invalid deadline command format. Use: deadline <description> /by <due date>");
         }
@@ -105,7 +107,7 @@ public class Validator {
 
         LocalDateTime by = parseDateTime(byStr);
 
-        return new String[]{description, by.toString()};
+        return new DeadlineDetails(description, by);
     }
 
     public int validateDeleteCommand(String[] parts, TaskManager manager) throws InvalidDeleteException, InvalidIndexException {

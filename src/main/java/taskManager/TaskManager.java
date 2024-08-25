@@ -2,6 +2,9 @@ package taskManager;
 import task.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import orionExceptions.FileInitializationException;
@@ -15,7 +18,6 @@ public class TaskManager {
         File dataFile = new File(DATA_FILE_PATH);
         try {
             if (!dataFile.exists()) {
-                // Create the parent directories if they don't exist
                 if (dataFile.getParentFile() != null && !dataFile.getParentFile().exists()) {
                     boolean dirsCreated = dataFile.getParentFile().mkdirs();
                     if (!dirsCreated) {
@@ -23,18 +25,21 @@ public class TaskManager {
                     }
                 }
 
-                // Create the file if it doesn't exist
                 boolean fileCreated = dataFile.createNewFile();
                 if (!fileCreated) {
                     throw new FileInitializationException("Failed to create file: " + dataFile.getPath());
                 }
             }
+
+            loadTasksFromFile();
+
         } catch (IOException e) {
             throw new FileInitializationException("IOException occurred: " + e.getMessage());
+        } catch (DateTimeParseException | NumberFormatException e) {
+            throw new FileInitializationException("Unable to parse CSV file: " + e.getMessage());
         }
-
-
     }
+
     private int getNextTaskId(List<Task> tasks) {
         return tasks.stream()
                 .mapToInt(Task::getTaskID)
@@ -53,8 +58,9 @@ public class TaskManager {
 
 
     public List<Task> loadTasksFromFile() {
-        // I took AI help for this function as I didn't know Java file reading syntax
         List<Task> loadedTasks = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
         try (BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -70,13 +76,13 @@ public class TaskManager {
                         task = new Todo(taskId, description);
                         break;
                     case "DEADLINE":
-                        String by = parts[4];
+                        LocalDateTime by = LocalDateTime.parse(parts[4], formatter);
                         task = new Deadline(taskId, description, by);
                         break;
                     case "EVENT":
                         String[] eventTimes = parts[4].split("\\|");
-                        String from = eventTimes[0];
-                        String to = eventTimes[1];
+                        LocalDateTime from = LocalDateTime.parse(eventTimes[0]);
+                        LocalDateTime to = LocalDateTime.parse(eventTimes[1]);
                         task = new Event(taskId, description, from, to);
                         break;
                     default:
@@ -88,7 +94,7 @@ public class TaskManager {
             }
         } catch (IOException e) {
             System.err.println("Error reading from file: " + e.getMessage());
-        } catch (NumberFormatException e) {
+        } catch (DateTimeParseException | NumberFormatException e) {
             System.err.println("Error parsing task data: " + e.getMessage());
         }
 
@@ -153,19 +159,19 @@ public class TaskManager {
         return task;
     }
 
-    public Task addDeadline(String description, String by) {
+    public Task addDeadline(DeadlineDetails temp) {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
-        Task task = new Deadline(newTaskId, description, by);
+        Task task = new Deadline(newTaskId, temp.getDescription(), temp.getBy());
         tasks.add(task);
         saveTasksToFile(tasks);
         return task;
     }
 
-    public Task addEvent(String description, String from, String to) {
+    public Task addEvent(EventDetails temp) {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
-        Task task = new Event(newTaskId, description, from, to);
+        Task task = new Event(newTaskId, temp.getDescription(), temp.getFrom(), temp.getTo());
         tasks.add(task);
         saveTasksToFile(tasks);
         return task;

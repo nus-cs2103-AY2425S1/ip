@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import task.DeadlineDetails;
+import task.EventDetails;
 import task.Task;
 import taskManager.TaskManager;
 import validator.Validator;
@@ -82,8 +84,8 @@ public class Orion {
     private static void handleEvent(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                String[] details = validator.validateEventCommand(parts);
-                Task temp = manager.addEvent(details[0], details[1], details[2]);
+                EventDetails details = validator.validateEventCommand(parts);
+                Task temp = manager.addEvent(details);
                 int taskLen = manager.getSize();
                 System.out.println("     Got it. I've added this task:\n" + temp + "\n" + "Now you have " + taskLen + " tasks in the list");
             } catch (OrionException e) {
@@ -96,8 +98,8 @@ public class Orion {
     private static void handleDeadline(String[] parts) {
         executeWithFormatting(() -> {
             try {
-                String[] deadlineDetails = validator.validateDeadlineCommand(parts);
-                Task newDeadline = manager.addDeadline(deadlineDetails[0], deadlineDetails[1]);
+                DeadlineDetails deadlineDetails = validator.validateDeadlineCommand(parts);
+                Task newDeadline = manager.addDeadline(deadlineDetails);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + newDeadline);
                 System.out.println("Now you have " + manager.getSize() + " tasks in the list.");

@@ -1,33 +1,34 @@
 package task;
 
-public class Event extends Task {
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(int taskID, String description, String from, String to) {
-        super(taskID, description);
+public class Event extends Task {
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Event(int taskId, String description, LocalDateTime from, LocalDateTime to) {
+        super(taskId, description);
         this.from = from;
         this.to = to;
     }
 
-    public String getTo() {
-        return to;
+    public LocalDateTime getFrom() {
+        return from;
     }
 
-    public String getFrom(){
-        return from;
+    public LocalDateTime getTo() {
+        return to;
     }
 
     @Override
     public String getTypeIcon() {
-        return "[T]";
+        return "[E]";
     }
+
     @Override
     public String toString() {
-        return super.toString() + " (from: " + to + " to: " + from + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
-
-
-
-
 }
