@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -171,6 +173,8 @@ public class Joe {
         System.out.println("event <description> /from <start date/time> /to <end date/time>: Creates an Event task");
         System.out.println("list: Displays your current tasks");
         System.out.println("mark <idx>: Marks the task at your chosen index");
+        System.out.println("save : Saves all tasks in your current list to the database that will be automatically " +
+                "loaded during your next session");
         System.out.println("todo <description>: Creates a ToDo task");
         System.out.println("unmark <idx>: Unmarks the task at your chosen index");
         System.out.println(line);
@@ -227,6 +231,48 @@ public class Joe {
         }
     }
 
+    public static void save() {
+        int numOfTasks = userTasks.size();
+        System.out.println(line);
+        try {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < numOfTasks; i++) {
+                Task t = userTasks.get(i);
+                System.out.println(t + " (saved)");
+                if (t instanceof ToDo) {
+                    sb.append(String.format("T | %d | %s",
+                            t.isDone() ? 1 : 0,
+                            t.getDescription()));
+                } else if (t instanceof Deadline) {
+                    Deadline d = (Deadline) t;
+                    sb.append(String.format("D | %d | %s | %s",
+                            d.isDone() ? 1 : 0,
+                            d.getDescription(),
+                            d.getDue().replace(":", "")));
+                } else if (t instanceof Event) {
+                    Event e = (Event) t;
+                    sb.append(String.format("E | %d | %s | %s | %s",
+                            e.isDone() ? 1 : 0,
+                            e.getDescription(),
+                            e.getStart().replace(":", ""),
+                            e.getEnd().replace(":", "")));
+                } else {
+                    sb.append("<????????>");
+                }
+                sb.append(System.lineSeparator());
+            }
+
+            FileWriter fw = new FileWriter("src/main/data/joe.txt");
+            fw.write(sb.toString());
+            fw.close();
+            System.out.println("Your tasks have been successfully saved.");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println(line);
+        }
+        System.out.println(line);
+    }
+
     public static void main(String[] args) {
         System.out.printf("%s\nHello! I'm Joe\nWhat can I do for you?\n%s\n",
                 line, line);
@@ -247,6 +293,8 @@ public class Joe {
                 unmark(getDigits(userIn));
             } else if (userIn.toLowerCase().startsWith("delete")) {
                 delete(getDigits(userIn));
+            } else if (userIn.equals("save")) {
+                save();
             } else {
                 try {
                     add(userIn);
