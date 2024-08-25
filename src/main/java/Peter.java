@@ -1,28 +1,73 @@
+import java.util.ArrayList;
+
 import java.util.Scanner;
 
-public class Peter {
-    // Helper functions
-    static Task compressTaskArray(int startingIndex, int lastIndex, Task[] arr) {
-        Task t = arr[startingIndex];
-        arr[startingIndex] = null;
-        for (int i = startingIndex; i < lastIndex; i++) {
-            arr[i] = arr[i + 1];
-        }
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
-        return t;
-    }
+public class Peter {
+    static final String FILE_PATH = "tasks/data.txt";
 
     static void updateUser(String name, int lastIndex) {
         System.out.println("I've added: " + name);
         System.out.println(String.format("Now you have %d in the list!", lastIndex));
     }
 
+    static void writeTaskToFile(String details) {
+        try {
+            FileWriter fw = new FileWriter(FILE_PATH, true);
+            fw.write(details + "\n"); // for readibility
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Some error has occured, please try again.");
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm Peter!\nWhat can I do for you?\n");
 
         // Init Globals
-        Task[] tasks = new Task[100];
-        int lastIndex = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
+        File f = new File(FILE_PATH);
+        try {
+            Scanner fileScanner = new Scanner(f);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                // use "," as delimiters
+                String[] splits = line.split(",");
+                switch (splits[0]) {
+                case "T":
+                    tasks.add(new ToDos(splits[2]));
+                    break;
+                case "D":
+                    tasks.add(new Deadlines(splits[2], splits[3]));
+                    break;
+                case "E":
+                    tasks.add(new Event(splits[2], splits[3]));
+                    break;
+                }
+                if (splits[1].strip() == "0") {
+                    tasks.get(tasks.size() - 1).markAsNotDone();
+                } else {
+                    tasks.get(tasks.size() - 1).markAsNotDone();
+                }
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            // Admin Message
+            System.out.println("File has been generated.");
+            try {
+                f.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("Some error has occured, please try again.");
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        int lastIndex = tasks.size();
         Scanner scanner = new Scanner(System.in);
         String command = "";
 
@@ -32,20 +77,43 @@ public class Peter {
                 break;
             }
             try {
-
                 if (command.startsWith("list")) {
                     System.out.println("Here are the tasks in your list: ");
-                    for (int i = 0; i < lastIndex; i++) {
-                        Task t = tasks[i];
-                        System.out.println((i + 1) + String.format(".%s ", t.toString()));
+                    int count = 1;
+                    for (Task t : tasks) {
+                        System.out.println((count) + String.format(".%s ", t.toString()));
+                        count++;
                     }
                 } else if (command.startsWith("unmark")) {
                     // extract integer value
                     String intValue = command.replaceAll("[^0-9]", "");
                     int index = Integer.parseInt(intValue);
 
-                    Task t = tasks[index - 1];
+                    Task t = tasks.get(index - 1);
                     t.markAsNotDone();
+                    ArrayList<String> fileContents = new ArrayList<>();
+
+                    try {
+                        Scanner fileScanner = new Scanner(f);
+                        while (fileScanner.hasNextLine()) {
+                            fileContents.add(fileScanner.nextLine());
+                        }
+                        fileScanner.close();
+
+                        String s = fileContents.get(index - 1);
+                        fileContents.set(index - 1, s.replaceFirst("0|1", "0"));
+                        FileWriter fw = new FileWriter(f);
+                        for (String line : fileContents) {
+                            fw.write(line + "\n");
+                        }
+                        fw.close();
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Some error has occured, please try again.");
+                        System.out.println(e.getMessage());
+                    } catch (IOException ex) {
+                        System.out.println("Some error has occured, please try again.");
+                        System.out.println(ex.getMessage());
+                    }
 
                     System.out.println("OK! I've marked the task as not done yet: ");
                     System.out.println(t.toString());
@@ -54,8 +122,31 @@ public class Peter {
                     String intValue = command.replaceAll("[^0-9]", "");
                     int index = Integer.parseInt(intValue);
 
-                    Task t = tasks[index - 1];
+                    Task t = tasks.get(index - 1);
                     t.markAsDone();
+                    ArrayList<String> fileContents = new ArrayList<>();
+
+                    try {
+                        Scanner fileScanner = new Scanner(f);
+                        while (fileScanner.hasNextLine()) {
+                            fileContents.add(fileScanner.nextLine());
+                        }
+                        fileScanner.close();
+
+                        String s = fileContents.get(index - 1);
+                        fileContents.set(index - 1, s.replaceFirst("0|1", "1"));
+                        FileWriter fw = new FileWriter(f);
+                        for (String line : fileContents) {
+                            fw.write(line + "\n");
+                        }
+                        fw.close();
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Some error has occured, please try again.");
+                        System.out.println(e.getMessage());
+                    } catch (IOException ex) {
+                        System.out.println("Some error has occured, please try again.");
+                        System.out.println(ex.getMessage());
+                    }
 
                     System.out.println("Good job! I've marked this task as done: ");
                     System.out.println(t.toString());
@@ -64,8 +155,32 @@ public class Peter {
                     String intValue = command.replaceAll("[^0-9]", "");
                     int index = Integer.parseInt(intValue);
 
-                    Task t = compressTaskArray(index - 1, lastIndex, tasks);
+                    Task t = tasks.get(index - 1);
+                    tasks.remove(index - 1);
                     lastIndex--;
+                    ArrayList<String> fileContents = new ArrayList<>();
+
+                    try {
+                        Scanner fileScanner = new Scanner(f);
+                        while (fileScanner.hasNextLine()) {
+                            fileContents.add(fileScanner.nextLine());
+                        }
+                        fileScanner.close();
+
+                        fileContents.remove(index - 1);
+                        FileWriter fw = new FileWriter(f);
+                        for (String line : fileContents) {
+                            fw.write(line + "\n");
+                        }
+                        fw.close();
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Some error has occured, please try again.");
+                        System.out.println(e.getMessage());
+                    } catch (IOException ex) {
+                        System.out.println("Some error has occured, please try again.");
+                        System.out.println(ex.getMessage());
+                    }
+
                     System.out.println("Noted! I've removed this task:");
                     System.out.println(t.toString());
                 } else {
@@ -75,8 +190,10 @@ public class Peter {
                         if (name.isEmpty()) {
                             throw new BadDescriptionException(TaskTypes.TODO);
                         }
-                        tasks[lastIndex++] = new ToDos(name);
+                        tasks.add(new ToDos(name));
+                        lastIndex++;
                         updateUser(name, lastIndex);
+                        writeTaskToFile(String.format("T, %d, %s", 0, name));
                     } else if (command.startsWith("deadline")) {
                         String[] splits = command.split("/");
                         name = splits[0].substring(8).strip();
@@ -85,8 +202,10 @@ public class Peter {
                         }
                         // specific to deadlines
                         String details = splits[1].replace("by", "by:");
-                        tasks[lastIndex++] = new Deadlines(name, details);
+                        tasks.add(new Deadlines(name, details));
+                        lastIndex++;
                         updateUser(name, lastIndex);
+                        writeTaskToFile(String.format("D, %d, %s, %s", 0, name, details));
                     } else if (command.startsWith("event")) {
                         String[] splits = command.split("/");
                         name = splits[0].substring(5).strip();
@@ -95,8 +214,10 @@ public class Peter {
                         }
                         // specific to events
                         String details = splits[1].replace("from", "from:") + splits[2].replace("to", "to:");
-                        tasks[lastIndex++] = new Event(name, details);
+                        tasks.add(new Event(name, details));
+                        lastIndex++;
                         updateUser(name, lastIndex);
+                        writeTaskToFile(String.format("E, %d, %s, %s", 0, name, details));
                     } else {
                         throw new UnknownCommandException();
                     }
