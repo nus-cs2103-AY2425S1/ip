@@ -1,0 +1,9 @@
+todo something
+deadline finish some project /by tomorrow 12pm
+event badminton sparring /from 1pm /to 3pm
+list
+mark 2
+mark 1
+unmark 2
+list
+bye

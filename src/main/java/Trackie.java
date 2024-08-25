@@ -77,10 +77,10 @@ public class Trackie {
 
         Trackie bot = new Trackie();
         bot.greet();
+        Scanner sc = new Scanner(System.in);
         while (true) {
-            Scanner s = new Scanner(System.in);
             System.out.print("Type something: ");
-            String userInput = s.nextLine();
+            String userInput = sc.nextLine();
             String[] arguments = userInput.split(" ");
 
             if (userInput.equals("bye")) {
