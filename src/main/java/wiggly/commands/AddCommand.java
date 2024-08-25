@@ -1,4 +1,18 @@
+package wiggly.commands;
+
 import java.time.LocalDate;
+
+import wiggly.task.TaskList;
+import wiggly.task.TaskType;
+
+import wiggly.task.Task;
+import wiggly.task.ToDo;
+import wiggly.task.Deadline;
+import wiggly.task.Event;
+
+import wiggly.util.Storage;
+import wiggly.util.Ui;
+
 
 public class AddCommand extends Command {
 

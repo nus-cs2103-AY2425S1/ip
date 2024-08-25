@@ -1,4 +1,15 @@
+package wiggly;
+
 import java.io.FileNotFoundException;
+
+import wiggly.commands.Command;
+
+import wiggly.exception.WigglyException;
+
+import wiggly.parser.Parser;
+import wiggly.task.TaskList;
+import wiggly.util.Storage;
+import wiggly.util.Ui;
 
 public class Wiggly {
 

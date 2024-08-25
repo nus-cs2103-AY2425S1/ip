@@ -1,3 +1,12 @@
+package wiggly.commands;
+
+import wiggly.task.TaskList;
+
+import wiggly.util.Storage;
+import wiggly.util.Ui;
+
+import wiggly.exception.WigglyException;
+
 public class MarkCommand extends Command {
 
 	private final int taskNumber;
