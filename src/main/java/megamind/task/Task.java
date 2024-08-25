@@ -46,4 +46,11 @@ public class Task implements Serializable {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns the description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
 }
