@@ -14,8 +14,4 @@ public class AddTodoCommand extends Command {
         Todo todoTask = new Todo(this.text.substring(5));
         ui.output(taskList.addToList(todoTask));
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

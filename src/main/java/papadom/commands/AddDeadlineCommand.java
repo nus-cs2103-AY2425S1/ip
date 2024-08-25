@@ -21,8 +21,4 @@ public class AddDeadlineCommand extends Command {
         Deadline deadlineTask = parser.deadlineTaskCreator(text.substring(9));
         ui.output(taskList.addToList(deadlineTask));
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

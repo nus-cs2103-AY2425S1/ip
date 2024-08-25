@@ -41,7 +41,8 @@ public class Papadom {
                 Command command = Command.fromString(commandText);
                 switch (command) {
                 case LIST:
-                    ui.output(taskList.outputList());
+                    ListCommand listCommand = new ListCommand();
+                    listCommand.execute(taskList, ui, storage);
                     break;
                 case BYE:
                     ui.exitMessage();

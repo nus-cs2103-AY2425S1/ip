@@ -20,9 +20,4 @@ public class AddEventCommand extends Command{
         Event eventTask = parser.eventTaskCreator(text.substring(6));
         ui.output(taskList.addToList(eventTask));
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }
