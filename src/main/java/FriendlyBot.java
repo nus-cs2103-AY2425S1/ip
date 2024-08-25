@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.NumberFormatException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -13,7 +16,6 @@ public class FriendlyBot {
     private ArrayList<Task> tasks;
     private int numTasks;
     private static final String taskListFilePath = "./data/task_list.txt";
-//    private static final String taskListFilePath = "../../../../data/task_list.txt";
 
     public FriendlyBot() {
         this.tasks = new ArrayList<>();
@@ -148,7 +150,14 @@ public class FriendlyBot {
         try {
             String input = response.split("deadline ", 2)[1];
             String[] descriptions = input.split(" /by ");
-            Task newTask = new Deadline(descriptions[0], descriptions[1]);
+            LocalDate date;
+            try {
+                date = LocalDate.parse(descriptions[1]);
+            } catch (DateTimeParseException e) {
+                System.out.println("    Please enter a valid date! (YYYY-MM-DD)");
+                return;
+            }
+            Task newTask = new Deadline(descriptions[0], date);
             tasks.add(newTask);
             numTasks++;
             System.out.println("    Got it. I've added this task:");
@@ -159,7 +168,7 @@ public class FriendlyBot {
                 System.out.println("    Now you have " + numTasks + " tasks in the list.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("    Please follow this format: deadline {task_description} /by {date}");
+            System.out.println("    Please follow this format: deadline {task_description} /by {date (DDDD-MM-YY)}");
         }
     }
 
@@ -172,7 +181,16 @@ public class FriendlyBot {
         try {
             String input = response.split("event ", 2)[1];
             String[] descriptions = input.split(" /from | /to ");
-            Task newTask = new Event(descriptions[0], descriptions[1], descriptions[2]);
+            LocalDate from;
+            LocalDate to;
+            try {
+                from = LocalDate.parse(descriptions[1]);
+                to = LocalDate.parse(descriptions[2]);
+            } catch (DateTimeParseException e) {
+                System.out.println("    Please enter a valid date! (YYYY-MM-DD)");
+                return;
+            }
+            Task newTask = new Event(descriptions[0], from, to);
             tasks.add(newTask);
             numTasks++;
             System.out.println("    Got it. I've added this task:");
@@ -184,6 +202,27 @@ public class FriendlyBot {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("    Please follow this format: event {task_description} /from {date} /to {date}");
+        }
+    }
+
+    private void listEventsOnDate(String response) {
+        LocalDate date;
+        try {
+            date = LocalDate.parse(response.split("date ", 2)[1]);
+        } catch (DateTimeParseException e) {
+            System.out.println("    Please enter a valid date! (YYYY-MM-DD)");
+            return;
+        }
+        for (Task task : this.tasks) {
+            if (task instanceof Deadline d) {
+                if (d.by.equals(date)) {
+                    System.out.println("    " + task.toString());
+                }
+            } else if (task instanceof Event e) {
+                if (e.from.equals(date) || e.to.equals(date) || (e.from.isBefore(date) && e.to.isAfter(date))) {
+                    System.out.println("    " + task.toString());
+                }
+            }
         }
     }
 
@@ -204,6 +243,8 @@ public class FriendlyBot {
             this.createDeadline(command);
         } else if (command.startsWith("event")) {
             this.createEvent(command);
+        } else if (command.startsWith("date")) {
+            this.listEventsOnDate(command);
         } else {
             System.out.println("    OOPS!! I'm sorry, that's not a command :-(");
         }
@@ -229,8 +270,7 @@ public class FriendlyBot {
                 sb.append(task.description);
                 if (task instanceof Deadline) {
                     sb.append(" | ").append(((Deadline) task).by);
-                } else if (task instanceof Event) {
-                    Event e = (Event) task;
+                } else if (task instanceof Event e) {
                     sb.append(" | ").append(e.from).append(" | ").append(e.to);
                 }
                 sb.append("\n");
@@ -276,9 +316,9 @@ public class FriendlyBot {
         if (taskType.equals("T")) {
             newTask = new ToDo(taskDescription);
         } else if (taskType.equals("D")) {
-            newTask = new Deadline(taskDescription, taskItems[3]);
+            newTask = new Deadline(taskDescription, LocalDate.parse(taskItems[3]));
         } else {
-            newTask = new Event(taskDescription, taskItems[3], taskItems[4]);
+            newTask = new Event(taskDescription, LocalDate.parse(taskItems[3]), LocalDate.parse(taskItems[4]));
         }
         if (completed.equals("1")) {
             newTask.markAsDone();
