@@ -15,9 +15,10 @@ public class Susan {
 
         // Add, List
         while (!userInput.equalsIgnoreCase("bye")) {
+            System.out.println("~~~");
             // Print the list
             if (userInput.equalsIgnoreCase("list")) {
-                System.out.println("Babes. YOU NEED TO");
+                System.out.println("Babes. YOU NEED TO:");
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println((i + 1) + ". " + tasks.get(i));
                 }
@@ -27,14 +28,14 @@ public class Susan {
                 int n = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
                 tasks.get(n - 1).markAsDone();
                 System.out.println("Good job! This task has been conquered:");
-                System.out.println(tasks.get(n - 1));
+                System.out.println(" " + tasks.get(n - 1));
             }
             // Mark as Undone
             else if (userInput.startsWith("unmark")) {
                 int n = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
                 tasks.get(n - 1).undoMark();
                 System.out.println("OK. This task is not done yet:");
-                System.out.println(tasks.get(n - 1));
+                System.out.println(" " + tasks.get(n - 1));
             }
             // Delete
             else if (userInput.startsWith("delete")) {
@@ -85,6 +86,10 @@ public class Susan {
                     System.out.println("OK busy girl! added: " + newTask);
                     System.out.println("You have " + tasks.size() + " tasks in the list.");
                 }
+                // Update Completed
+                System.out.println("OK busy girl! added:");
+                System.out.println(" " + tasks.get(tasks.size() - 1));
+                System.out.println("You have " + tasks.size() + " task(s) in the list.");
             }
 
             // Read next input
