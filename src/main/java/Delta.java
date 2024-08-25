@@ -1,26 +1,51 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Delta is a chatbot to assist in task management.
+ * The permitted commands are:
+ *      * todo [description]
+ *      * deadline [description] /by [date/time]
+ *      * event [description] /from [start] /to [end]
+ *      * mark [index of task]
+ *      * unmark [index of task]
+ *      * delete [index of task]
+ */
 public class Delta {
+    /** List to store all tasks */
     private static ArrayList<Task> list = new ArrayList<>();
 
+    /**
+     * Returns hello message from Delta.
+     *
+     * @return String Hello message.
+     */
     public static String sayHello() {
         return """
                 \t____________________________________________________________
                 \t Hello! I'm Delta
                 \t What can I do for you?
-                \t____________________________________________________________
-                """;
+                \t____________________________________________________________""";
     }
 
+    /**
+     * Returns goodbye message from Delta.
+     *
+     * @return String Goodbye message.
+     */
     public static String sayBye() {
         return """
                 \t____________________________________________________________
                 \t Bye. Hope to see you again soon!
-                \t____________________________________________________________
-                """;
+                \t____________________________________________________________""";
     }
 
+    /**
+     * Adds task to list.
+     *
+     * @param task Task to be added to list.
+     * @return String Task added message.
+     */
     public static String addTask(Task task) {
         list.add(task);
         return "\t____________________________________________________________\n" +
@@ -30,11 +55,20 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    /**
+     * Marks task as done in list.
+     *
+     * @param i Index of task to be marked as done (one-based indexing).
+     * @return String Task marked as done message.
+     * @throws DeltaException If list is empty, task not found in list or task is already marked as done.
+     */
     public static String markTask(int i) throws DeltaException{
         if (list.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to mark.");
         } else if (i < 1 || i > list.size()) {
-            throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to mark.");
+            throw new DeltaException("""
+                    OOPS!!! Task not found in list.
+                    \t Please provide a valid Task to mark.""");
         }
         Task task = list.get(i - 1);
         if (task.getStatusIcon().equals("X")) {
@@ -48,11 +82,20 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    /**
+     * Marks task as not done yet in list.
+     *
+     * @param i Index of task to be marked as not done yet (one-based indexing).
+     * @return String Task marked as not done yet message.
+     * @throws DeltaException If list is empty, task not found in list or task is already marked as not done yet.
+     */
     public static String unmarkTask(int i) throws DeltaException {
         if (list.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to unmark.");
         } else if (i < 1 || i > list.size()) {
-            throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to unmark.");
+            throw new DeltaException("""
+                    OOPS!!! Task not found in list.
+                    \t Please provide a valid Task to unmark.""");
         }
         Task task = list.get(i - 1);
         if (task.getStatusIcon().equals(" ")) {
@@ -66,11 +109,20 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    /**
+     * Deletes task from list.
+     *
+     * @param i Index of task to be deleted (one-based indexing).
+     * @return String Task deleted message.
+     * @throws DeltaException If list is empty or task not found in list.
+     */
     public static String deleteTask(int i) throws DeltaException {
         if (list.isEmpty()) {
             throw new DeltaException("OOPS!!! List is empty, there is no task to delete.");
         } else if (i < 1 || i > list.size()) {
-            throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task to delete.");
+            throw new DeltaException("""
+                    OOPS!!! Task not found in list.
+                    \t Please provide a valid Task to delete.""");
         }
         Task task = list.get(i - 1);
         list.remove(i - 1);
@@ -81,6 +133,12 @@ public class Delta {
                 "\t____________________________________________________________";
     }
 
+    /**
+     * Prints all tasks in list.
+     *
+     * @return String List of all tasks currently in list.
+     * @throws DeltaException If list is empty.
+     */
     public static String printTasks() throws DeltaException {
         String output = "\t____________________________________________________________\n";
         if (list.isEmpty()) {
@@ -95,19 +153,39 @@ public class Delta {
         return output;
     }
 
+    /**
+     * Formats error message.
+     *
+     * @param message Message to be formatted.
+     * @return String Message after being properly formatted.
+     */
     public static String printError(String message) {
         return "\t____________________________________________________________\n" +
                 "\t " + message + "\n" +
                 "\t____________________________________________________________";
     }
 
+    /**
+     * Runs Delta Chatbot.
+     *
+     * @param args User input following formats:
+     *             * todo [description]
+     *             * deadline [description] /by [date/time]
+     *             * event [description] /from [start] /to [end]
+     *             * mark [index of task]
+     *             * unmark [index of task]
+     *             * delete [index of task]
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        // Hello
         System.out.println(sayHello());
 
         while (sc.hasNextLine()) {
-            String task = sc.nextLine();
+            String userInput = sc.nextLine();
+            String[] description = userInput.strip().split(" ", 2);
+            String task = description[0];
             String output = "";
 
             try {
@@ -120,95 +198,105 @@ public class Delta {
                 } else if (task.equalsIgnoreCase("list")) {
                     output = printTasks();
 
-                // Catch Invalid Mark
-                } else if (task.strip().equalsIgnoreCase("mark")) {
-                    throw new DeltaException("OOPS!!! Please indicate which task to be marked done.");
-
-                // Mark Task
-                } else if (task.length() >= 5 && task.substring(0, 5).equalsIgnoreCase("mark ")) {
-                    int taskIdx;
-                    try {
-                        taskIdx = Integer.parseInt(task.substring(5));
-                    }
-                    catch (NumberFormatException e) {
-                        throw new DeltaException("OOPS!!! Index of the task must be an integer.");
-                    }
-                    output = markTask(taskIdx);
-
-                // Catch Invalid Unmark
-                } else if (task.strip().equalsIgnoreCase("unmark")) {
-                    throw new DeltaException("OOPS!!! Please indicate which task to be marked as not done.");
-
-                // Unmark Task
-                } else if (task.length() >= 7 && task.substring(0, 7).equalsIgnoreCase("unmark ")) {
-                    int taskIdx;
-                    try {
-                        taskIdx = Integer.parseInt(task.substring(7));
-                    }
-                    catch (NumberFormatException e) {
-                        throw new DeltaException("OOPS!!! Index of the task must be an integer.");
-                    }
-                    output = unmarkTask(taskIdx);
-
-                // Catch Empty Todo
-                } else if (task.strip().equalsIgnoreCase("todo")) {
-                    throw new DeltaException("OOPS!!! The description of a todo cannot be empty.");
-
-                // Add Todo
-                } else if (task.length() >= 5 && task.substring(0, 5).equalsIgnoreCase("todo ")) {
-                    String description = task.substring(5);
-                    output = addTask(new Todo(description));
-
-                // Catch Empty Deadline
-                } else if (task.strip().equalsIgnoreCase("deadline")) {
-                    throw new DeltaException("OOPS!!! The description of a deadline cannot be empty.");
-
-                // Add Deadline
-                } else if (task.length() >= 9 && task.substring(0, 9).equalsIgnoreCase("deadline ")) {
-                    String[] details = task.substring(9).split(" /by ");
-                    if (details.length != 2) {
+                // Add Todo to list
+                } else if (task.equalsIgnoreCase("todo")) {
+                    if (description.length == 2) {
+                        String taskName = description[1].strip();
+                        output = addTask(new Todo(taskName));
+                    } else {
                         throw new DeltaException("""
-                                OOPS!!! The format for deadline is wrong!
+                                OOPS!!! Description of todo cannot be left blank!
                                 \t Please follow the proper format:
-                                \t * deadline [description] /by [date/time]
-                                """);
+                                \t * unmark [index of task]""");
                     }
-                    output = addTask(new Deadline(details[0], details[1]));
 
-                // Catch Empty Event
-                } else if (task.strip().equalsIgnoreCase("event")) {
-                    throw new DeltaException("OOPS!!! The description of a event cannot be empty.");
-
-                // Add Event
-                } else if (task.length() >= 6 && task.substring(0, 6).equalsIgnoreCase("event ")) {
-                    String[] details = task.substring(6).split(" /from ");
-                    String[] timings = new String[task.length() - 6];
-                    if (details.length > 1) {
-                        timings = details[1].split(" /to ");
-                    }
-                    if (details.length != 2 || timings.length != 2) {
+                // Add Deadline to list
+                } else if (task.equalsIgnoreCase("deadline")) {
+                    if (description.length == 2) {
+                        String[] details = description[1].strip().split(" /by ");
+                        if (details.length == 2) {
+                            String taskName = details[0].strip();
+                            String by = details[1].strip();
+                            output = addTask(new Deadline(taskName, by));
+                        } else {
+                            throw new DeltaException("""
+                                    OOPS!!! The format for deadline is wrong!
+                                    \t Please follow the proper format:
+                                    \t * deadline [description] /by [date/time]""");
+                        }
+                    } else {
                         throw new DeltaException("""
-                                OOPS!!! The format for event is wrong!
+                                OOPS!!! Description of deadline cannot be left blank!
                                 \t Please follow the proper format:
-                                \t * event [description] /from [start] /to [end]
-                                """);
+                                \t * deadline [description] /by [date/time]""");
                     }
-                    output = addTask(new Event(details[0], timings[0], timings[1]));
 
-                // Catch Invalid Delete
-                } else if (task.strip().equalsIgnoreCase("delete")) {
-                    throw new DeltaException("OOPS!!! Please indicate which task to delete.");
+                // Add Event to list
+                } else if (task.equalsIgnoreCase("event")) {
+                    if (description.length == 2) {
+                        String[] details = description[1].strip().split(" /from ");
+                        if (details.length == 2) {
+                            String taskName = details[0].strip();
+                            String[] timings = details[1].strip().split(" /to ");
+                            if (timings.length == 2) {
+                                String start = timings[0].strip();
+                                String end = timings[1].strip();
+                                output = addTask(new Event(taskName, start, end));
+                            } else {
+                                throw new DeltaException("""
+                                        OOPS!!! The format for event is wrong!
+                                        \t Please follow the proper format:
+                                        \t * event [description] /from [start] /to [end]""");
+                            }
+                        } else {
+                            throw new DeltaException("""
+                                    OOPS!!! The format for event is wrong!
+                                    \t Please follow the proper format:
+                                    \t * event [description] /from [start] /to [end]""");
+                        }
+                    } else {
+                        throw new DeltaException("""
+                                OOPS!!! Description of event cannot be left blank!
+                                \t Please follow the proper format:
+                                \t * event [description] /from [start] /to [end]""");
+                    }
 
-                // Delete Task
-                } else if (task.length() >= 7 && task.substring(0, 7).equalsIgnoreCase("delete ")) {
-                    int taskIdx;
-                    try {
-                        taskIdx = Integer.parseInt(task.substring(7));
+
+                // Mark Task as done
+                } else if (task.equalsIgnoreCase("mark")) {
+                    if (description.length == 2) {
+                        int taskIdx = Integer.parseInt(description[1].strip());
+                        output = markTask(taskIdx);
+                    } else {
+                        throw new DeltaException("""
+                                OOPS!!! The format to mark tasks is wrong!
+                                \t Please follow the proper format:
+                                \t * mark [index of task]""");
                     }
-                    catch (NumberFormatException e) {
-                        throw new DeltaException("OOPS!!! Index of the task must be an integer.");
+
+                // Mark Task as not done yet
+                } else if (task.equalsIgnoreCase("unmark")) {
+                    if (description.length == 2) {
+                        int taskIdx = Integer.parseInt(description[1].strip());
+                        output = unmarkTask(taskIdx);
+                    } else {
+                        throw new DeltaException("""
+                                OOPS!!! The format to unmark tasks is wrong!
+                                \t Please follow the proper format:
+                                \t * unmark [index of task]""");
                     }
-                    output = deleteTask(taskIdx);
+
+                // Delete Task from list
+                } else if (task.equalsIgnoreCase("delete")) {
+                    if (description.length == 2) {
+                        int taskIdx = Integer.parseInt(description[1].strip());
+                        output = deleteTask(taskIdx);
+                    } else {
+                        throw new DeltaException("""
+                                OOPS!!! The format to delete tasks is wrong!
+                                \t Please follow the proper format:
+                                \t * delete [index of task]""");
+                    }
 
                 // Unknown Action
                 } else {
@@ -218,11 +306,17 @@ public class Delta {
                             \t * todo [description]
                             \t * deadline [description] /by [date/time]
                             \t * event [description] /from [start] /to [end]
-                            """);
+                            \t * mark [index of task]
+                            \t * unmark [index of task]
+                            \t * delete [index of task]""");
                 }
             }
             catch (DeltaException e) {
                 System.out.println(printError(e.getMessage()));
+            }
+            // Catches error when mark, unmark or delete task methods do not receive an integer for index.
+            catch (NumberFormatException e) {
+                System.out.println(printError("OOPS!!! Index of task must be an integer!"));
             }
 
             System.out.println(output);
