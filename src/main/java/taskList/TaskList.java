@@ -8,34 +8,15 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import orionExceptions.FileInitializationException;
+import storage.Storage;
 
 public class TaskList {
     private static final String DATA_FILE_PATH = "./data/tasks.csv";
+    private Storage storage;
 
-    public TaskList() throws FileInitializationException {
-        File dataFile = new File(DATA_FILE_PATH);
-        try {
-            if (!dataFile.exists()) {
-                if (dataFile.getParentFile() != null && !dataFile.getParentFile().exists()) {
-                    boolean dirsCreated = dataFile.getParentFile().mkdirs();
-                    if (!dirsCreated) {
-                        throw new FileInitializationException("Failed to create directories: " + dataFile.getParentFile());
-                    }
-                }
-
-                boolean fileCreated = dataFile.createNewFile();
-                if (!fileCreated) {
-                    throw new FileInitializationException("Failed to create file: " + dataFile.getPath());
-                }
-            }
-
-            loadTasksFromFile();
-
-        } catch (IOException e) {
-            throw new FileInitializationException("IOException occurred: " + e.getMessage());
-        } catch (DateTimeParseException | NumberFormatException e) {
-            throw new FileInitializationException("Unable to parse CSV file: " + e.getMessage());
-        }
+    public TaskList(Storage storage) throws FileInitializationException {
+        this.storage = storage;
+        loadTasksFromFile();
     }
 
     private int getNextTaskId(List<Task> tasks) {
@@ -45,7 +26,7 @@ public class TaskList {
                 .orElse(0) + 1;
     }
 
-    public boolean isValidIndex(int listPosition) {
+    public boolean isValidIndex(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         if (tasks.isEmpty()) {
             return false;
@@ -53,50 +34,11 @@ public class TaskList {
         return listPosition > 0 && listPosition <= tasks.size();
     }
 
-    public List<Task> loadTasksFromFile() {
-        List<Task> loadedTasks = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                int taskId = Integer.parseInt(parts[0]);
-                String type = parts[1];
-                String description = parts[2];
-                boolean completed = Boolean.parseBoolean(parts[3]);
-
-                Task task = null;
-                switch (type) {
-                    case "TODO":
-                        task = new Todo(taskId, description);
-                        break;
-                    case "DEADLINE":
-                        LocalDateTime by = LocalDateTime.parse(parts[4]); // Default ISO-8601 format
-                        task = new Deadline(taskId, description, by);
-                        break;
-                    case "EVENT":
-                        String[] eventTimes = parts[4].split("\\|");
-                        LocalDateTime from = LocalDateTime.parse(eventTimes[0]);
-                        LocalDateTime to = LocalDateTime.parse(eventTimes[1]);
-                        task = new Event(taskId, description, from, to);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown task type: " + type);
-                }
-
-                task.setCompleted(completed);
-                loadedTasks.add(task);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading from file: " + e.getMessage());
-        } catch (DateTimeParseException | NumberFormatException e) {
-            System.err.println("Error parsing task data: " + e.getMessage());
-        }
-
-        return loadedTasks;
+    public List<Task> loadTasksFromFile() throws FileInitializationException {
+        return storage.read();
     }
 
-    public void printTasks() {
+    public void printTasks() throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         if (tasks.isEmpty()) {
             System.out.println("There are no tasks.");
@@ -144,7 +86,7 @@ public class TaskList {
         }
     }
 
-    public Task addTodo(String description) {
+    public Task addTodo(String description) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
         Task task = new Todo(newTaskId, description);
@@ -153,7 +95,7 @@ public class TaskList {
         return task;
     }
 
-    public Task addDeadline(DeadlineDetails temp) {
+    public Task addDeadline(DeadlineDetails temp) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
         Task task = new Deadline(newTaskId, temp.getDescription(), temp.getBy());
@@ -162,7 +104,7 @@ public class TaskList {
         return task;
     }
 
-    public Task addEvent(EventDetails temp) {
+    public Task addEvent(EventDetails temp) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
         Task task = new Event(newTaskId, temp.getDescription(), temp.getFrom(), temp.getTo());
@@ -171,12 +113,12 @@ public class TaskList {
         return task;
     }
 
-    public int getSize() {
+    public int getSize() throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         return tasks.size();
     }
 
-    public Task markAsDone(int listPosition) {
+    public Task markAsDone(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int index = listPosition - 1;
         if (index >= 0 && index < tasks.size()) {
@@ -188,7 +130,7 @@ public class TaskList {
         return null;
     }
 
-    public Task unmarkAsDone(int listPosition) {
+    public Task unmarkAsDone(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int index = listPosition - 1;
         if (index >= 0 && index < tasks.size()) {
@@ -200,7 +142,7 @@ public class TaskList {
         return null;
     }
 
-    public Task deleteTask(int listPosition) {
+    public Task deleteTask(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int index = listPosition - 1;
         if (index >= 0 && index < tasks.size()) {

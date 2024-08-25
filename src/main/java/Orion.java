@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import storage.Storage;
 import task.DeadlineDetails;
 import task.EventDetails;
 import task.Task;
@@ -11,10 +12,12 @@ import commands.Command;
 public class Orion {
     public static Scanner scanner = new Scanner(System.in);
     public static TaskList manager;
+    public static Storage storage;
 
     static {
         try {
-            manager = new TaskList();
+            storage = new Storage();
+            manager = new TaskList(storage);
         } catch (FileInitializationException e) {
             System.err.println("Failed to initialize TaskList: " + e.getMessage());
             System.exit(1);  // Exiting the application since TaskList is essential
