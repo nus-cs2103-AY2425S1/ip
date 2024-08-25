@@ -1,5 +1,6 @@
 package hana.ui;
 
+import hana.HanaException;
 import hana.task.Task;
 
 import java.util.ArrayList;
@@ -87,11 +88,30 @@ public class Ui {
 							5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
 							6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
 							7. Delete a task: delete [task number]
-							8. Find By Date: findByDate [d/M/yyyy]""");
+							8. Find By Date: findByDate [d/M/yyyy]
+							9. Find By Keyword: findByKey [keyword]""");
 		printLine();
 	}
 
 	public void printMessage(String message) {
 		System.out.println(message);
 	}
+
+    /**
+     * Prints the tasks that match the search criteria.
+     *
+     * @param tasks The list of tasks to print.
+     */
+    public void printTasksFound(ArrayList<Task> tasks) throws HanaException {
+        printLine();
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found with the given keyword.");
+        } else {
+            System.out.println("Here are the tasks that match your search:");
+            for (Task task : tasks) {
+                System.out.println(task);
+            }
+        }
+        printLine();
+    }
 }

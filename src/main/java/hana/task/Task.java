@@ -1,5 +1,7 @@
 package hana.task;
 
+import java.util.Collection;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -23,4 +25,8 @@ public abstract class Task {
     }
 
     public abstract String fileString();
+
+    public String getDescription() {
+        return this.description;
+    }
 }
