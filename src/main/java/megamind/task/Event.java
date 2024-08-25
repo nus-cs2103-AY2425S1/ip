@@ -1,3 +1,5 @@
+package megamind.task;
+
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

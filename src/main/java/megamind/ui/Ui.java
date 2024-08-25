@@ -1,3 +1,5 @@
+package megamind.ui;
+
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 

@@ -1,3 +1,16 @@
+package megamind.main;
+
+import megamind.storage.Storage;
+import megamind.task.Deadline;
+import megamind.task.Event;
+import megamind.task.List;
+import megamind.task.Todo;
+import megamind.ui.Ui;
+import megamind.parser.Parser;
+import megamind.exception.InvalidCommandException;
+import megamind.exception.TaskNotFoundException;
+import megamind.exception.MissingParameterException;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 

@@ -1,3 +1,8 @@
+package megamind.parser;
+
+import megamind.exception.InvalidCommandException;
+import megamind.exception.MissingParameterException;
+
 public class Parser {
     public String parseCommand(String command) {
         return command.split(" ")[0].toLowerCase();
