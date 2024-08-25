@@ -9,7 +9,6 @@ public abstract class Task {
         this.done = false;
     }
 
-
     public void markDone(){
         this.done = true;
     }
