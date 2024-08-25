@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Ontos {
     public static String hello = " Hello! I'm Ontos \n"
-                   + " What can I do for you?\n";
+            + " What can I do for you?\n";
     public static String line = "____________________________________________________________\n";
     public static String bye = " Bye. Hope to see you again soon!\n";
     public static String listPrompt = " Here are the tasks in your list:";
@@ -41,7 +41,9 @@ public class Ontos {
                 try {
                     index = Integer.parseInt(input.split(" ")[1]) - 1;
                 } catch (Exception e) {
-                    System.out.println(line + "The correct usage of 'mark' is: mark n, where n is a natural number (ℕ).\n" + line);
+                    System.out.println(line 
+                        + "The correct usage of 'mark' is: mark n, where n is a natural number (ℕ).\n" 
+                        + line);
                     continue;
                 }
 
@@ -57,7 +59,9 @@ public class Ontos {
                 try {
                     index = Integer.parseInt(input.split(" ")[1]) - 1;
                 } catch (Exception e) {
-                    System.out.println(line + "To use 'unmark' correctly, you should format it as: unmark n, where n belongs to the set of natural numbers (ℕ).\n" + line);
+                    System.out.println(line 
+                        + "The correct usage of 'unmark' is: unmark n, where n is a natural number (ℕ).\\n"
+                        + line);
                     continue;
                 }
 
@@ -77,10 +81,10 @@ public class Ontos {
                 }
 
                 System.out.println(line 
-                + taskAdded 
-                + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                + " Now you have " + tasks.size() + " tasks in the list.\n" 
-                + line);
+                        + taskAdded 
+                        + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
+                        + " Now you have " + tasks.size() + " tasks in the list.\n" 
+                        + line);
             } else if (input.startsWith("deadline")) {
                 try {
                     int startOfDesc = input.indexOf(" ");
@@ -96,10 +100,10 @@ public class Ontos {
                 }
 
                 System.out.println(line 
-                + taskAdded 
-                + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                + " Now you have " + tasks.size() + " tasks in the list.\n" 
-                + line);
+                        + taskAdded 
+                        + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
+                        + " Now you have " + tasks.size() + " tasks in the list.\n" 
+                        + line);
             } else if (input.startsWith("event")) {
                 try {
                     int startOfDesc = input.indexOf(" ");
@@ -117,16 +121,18 @@ public class Ontos {
                 }
 
                 System.out.println(line 
-                + taskAdded 
-                + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
-                + " Now you have " + tasks.size() + " tasks in the list.\n" 
-                + line);
+                        + taskAdded 
+                        + " " + tasks.get(tasks.size() - 1).toString() + "\n" 
+                        + " Now you have " + tasks.size() + " tasks in the list.\n" 
+                        + line);
             } else if (input.startsWith("delete")) {
                 int index = 0;
                 try {
                     index = Integer.parseInt(input.split(" ")[1]) - 1;
                 } catch (Exception e) {
-                    System.out.println(line + "To use 'delete' correctly, you should format it as: delete n, where n belongs to the set of natural numbers (ℕ).\n" + line);
+                    System.out.println(line 
+                            + "The correct usage of 'delete' is: delete n, where n is a natural number (ℕ).\\n" 
+                            + line);
                     continue;
                 }
                 
@@ -139,9 +145,9 @@ public class Ontos {
                     continue;
                 }
                 System.out.println(line 
-                + " Noted. I've removed this task:\n" 
-                + " " + task.toString() + "\n"
-                + line);
+                        + " Noted. I've removed this task:\n" 
+                        + " " + task.toString() + "\n"
+                        + line);
             } else {
                 System.out.println(line + " OOPS!!! I'm sorry, but I don't know what that means :-(" + line);
             }
