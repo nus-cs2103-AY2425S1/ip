@@ -29,7 +29,7 @@ public class Deadline extends Task {
      * @return true if the task occurs on the specified date; false otherwise.
      */
     @Override
-    public boolean occurringOn(LocalDate date) {
+    public boolean occursOn(LocalDate date) {
         if (this.by.toLocalDate().isEqual(date)) {
             return true;
         } else {

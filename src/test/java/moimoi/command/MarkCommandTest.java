@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class MarkCommandTest {
 
-    Command command;
     Storage storage;
     Task task = new Todo("dummy");
     TaskList tasks = new TaskList(new ArrayList<Task>());
@@ -24,16 +23,16 @@ public class MarkCommandTest {
     @Test
     public void testisExit() {
         this.tasks.add(this.task);
-        this.command = new MarkCommand("1");
-        assertFalse(this.command.isExit());
+        MarkCommand markCommand = new MarkCommand("1");
+        assertFalse(markCommand.isExit());
     }
 
     @Test
     public void execute_invalidIndex_invalidIndexExceptionThrown() {
 
         try {
-            this.command = new MarkCommand("1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            MarkCommand markCommand = new MarkCommand("1");
+            markCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
@@ -42,32 +41,32 @@ public class MarkCommandTest {
         this.tasks.add(this.task);
 
         try {
-            this.command = new MarkCommand("a");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            MarkCommand markCommand = new MarkCommand("a");
+            markCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new MarkCommand("10");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            MarkCommand markCommand = new MarkCommand("10");
+            markCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new MarkCommand("-1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            MarkCommand markCommand = new MarkCommand("-1");
+            markCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new MarkCommand("0");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            MarkCommand markCommand = new MarkCommand("0");
+            markCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
@@ -81,8 +80,8 @@ public class MarkCommandTest {
         this.tasks.add(this.task);
 
         try {
-            this.command = new MarkCommand("1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            MarkCommand markCommand = new MarkCommand("1");
+            markCommand.execute(this.storage, this.tasks, this.ui);
         } catch (MoiMoiException e) {
             fail();
         }

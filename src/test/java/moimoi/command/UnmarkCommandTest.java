@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class UnmarkCommandTest {
 
-    Command command;
     Storage storage;
     Task task = new Todo("dummy");
     TaskList tasks = new TaskList(new ArrayList<Task>());
@@ -24,16 +23,16 @@ public class UnmarkCommandTest {
     @Test
     public void testisExit() {
         this.tasks.add(this.task);
-        this.command = new UnmarkCommand("1");
-        assertFalse(this.command.isExit());
+        UnmarkCommand unmarkCommand = new UnmarkCommand("1");
+        assertFalse(unmarkCommand.isExit());
     }
 
     @Test
     public void execute_invalidIndex_invalidIndexExceptionThrown() {
 
         try {
-            this.command = new UnmarkCommand("1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            UnmarkCommand unmarkCommand = new UnmarkCommand("1");
+            unmarkCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
@@ -42,32 +41,32 @@ public class UnmarkCommandTest {
         this.tasks.add(this.task);
 
         try {
-            this.command = new UnmarkCommand("a");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            UnmarkCommand unmarkCommand = new UnmarkCommand("a");
+            unmarkCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new UnmarkCommand("10");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            UnmarkCommand unmarkCommand = new UnmarkCommand("10");
+            unmarkCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new UnmarkCommand("-1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            UnmarkCommand unmarkCommand = new UnmarkCommand("-1");
+            unmarkCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new UnmarkCommand("0");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            UnmarkCommand unmarkCommand = new UnmarkCommand("0");
+            unmarkCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
@@ -81,8 +80,8 @@ public class UnmarkCommandTest {
         this.tasks.add(this.task);
 
         try {
-            this.command = new UnmarkCommand("1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            UnmarkCommand unmarkCommand = new UnmarkCommand("1");
+            unmarkCommand.execute(this.storage, this.tasks, this.ui);
         } catch (MoiMoiException e) {
             fail();
         }

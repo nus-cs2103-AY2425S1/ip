@@ -58,6 +58,7 @@ public class AddCommand extends Command {
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime by = LocalDateTime.parse(byString, formatter);
+
                 task = new Deadline(desc, by);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingArgumentException();
@@ -77,6 +78,7 @@ public class AddCommand extends Command {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime from = LocalDateTime.parse(fromString, formatter);
                 LocalDateTime to = LocalDateTime.parse(toString, formatter);
+
                 task = new Event(desc, from, to);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingArgumentException();

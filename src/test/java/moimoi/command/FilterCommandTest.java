@@ -14,22 +14,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class FilterCommandTest {
 
-    Command command;
     Storage storage;
     TaskList tasks = new TaskList(new ArrayList<Task>());
     Ui ui = new Ui();
 
     @Test
     public void testisExit() {
-        this.command = new FilterCommand("2024-08-24");
-        assertFalse(this.command.isExit());
+        FilterCommand filterCommand = new FilterCommand("2024-08-24");
+        assertFalse(filterCommand.isExit());
     }
 
     @Test
     public void execute_invalidDate_invalidDateTimeExceptionThrown() {
         try {
-            this.command = new FilterCommand("2024/08/24");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            FilterCommand filterCommand = new FilterCommand("2024/08/24");
+            filterCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidDateTimeException("date").getMessage(), e.getMessage());
@@ -39,8 +38,8 @@ public class FilterCommandTest {
     @Test
     public void execute_validDate_success() {
         try {
-            this.command = new FilterCommand("2024-08-24");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            FilterCommand filterCommand = new FilterCommand("2024-08-24");
+            filterCommand.execute(this.storage, this.tasks, this.ui);
         } catch (MoiMoiException e) {
             fail();
         }

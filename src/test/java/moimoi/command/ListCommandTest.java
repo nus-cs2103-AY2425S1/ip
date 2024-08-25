@@ -5,12 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ListCommandTest {
 
-    Command command;
-
     @Test
     public void testisExit() {
-        this.command = new ListCommand();
-        assertFalse(this.command.isExit());
+        ListCommand listCommand = new ListCommand();
+        assertFalse(listCommand.isExit());
     }
 
 }

@@ -11,22 +11,28 @@ public class TodoTest {
 
     @Test
     public void testMarkUnmark() {
+
         Todo todo = new Todo(this.description);
         assertEquals(" ", todo.getStatusIcon());
+
         todo.mark();
         assertEquals("X", todo.getStatusIcon());
+
         todo.mark();
         assertEquals("X", todo.getStatusIcon());
+
         todo.unmark();
         assertEquals(" ", todo.getStatusIcon());
+
         todo.unmark();
         assertEquals(" ", todo.getStatusIcon());
+
     }
 
     @Test
     public void occurringOn_date_returnsFalse() {
         Todo todo = new Todo(this.description);
-        assertFalse(todo.occurringOn(LocalDate.parse("2024-08-24")));
+        assertFalse(todo.occursOn(LocalDate.parse("2024-08-24")));
     }
 
     @Test

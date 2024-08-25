@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeleteTest {
 
-    Command command;
     Storage storage;
     Task task = new Todo("dummy");
     TaskList tasks = new TaskList(new ArrayList<Task>());
@@ -24,16 +23,16 @@ public class DeleteTest {
     @Test
     public void testisExit() {
         this.tasks.add(this.task);
-        this.command = new DeleteCommand("1");
-        assertFalse(this.command.isExit());
+        DeleteCommand deleteCommand = new DeleteCommand("1");
+        assertFalse(deleteCommand.isExit());
     }
 
     @Test
     public void execute_invalidIndex_invalidIndexExceptionThrown() {
 
         try {
-            this.command = new DeleteCommand("1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            DeleteCommand deleteCommand = new DeleteCommand("1");
+            deleteCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
@@ -42,32 +41,32 @@ public class DeleteTest {
         this.tasks.add(this.task);
 
         try {
-            this.command = new DeleteCommand("a");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            DeleteCommand deleteCommand = new DeleteCommand("a");
+            deleteCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new DeleteCommand("10");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            DeleteCommand deleteCommand = new DeleteCommand("10");
+            deleteCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new DeleteCommand("-1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            DeleteCommand deleteCommand = new DeleteCommand("-1");
+            deleteCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
         }
 
         try {
-            this.command = new DeleteCommand("0");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            DeleteCommand deleteCommand = new DeleteCommand("0");
+            deleteCommand.execute(this.storage, this.tasks, this.ui);
             fail();
         } catch (MoiMoiException e) {
             assertEquals(new InvalidIndexException().getMessage(), e.getMessage());
@@ -81,8 +80,8 @@ public class DeleteTest {
         this.tasks.add(this.task);
 
         try {
-            this.command = new DeleteCommand("1");
-            this.command.execute(this.storage, this.tasks, this.ui);
+            DeleteCommand deleteCommand = new DeleteCommand("1");
+            deleteCommand.execute(this.storage, this.tasks, this.ui);
         } catch (MoiMoiException e) {
             fail();
         }

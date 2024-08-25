@@ -31,16 +31,22 @@ public class EventTest {
     @Test
     public void testMarkUnmark() {
         try {
+
             Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
             assertEquals(" ", event.getStatusIcon());
+
             event.mark();
             assertEquals("X", event.getStatusIcon());
+
             event.mark();
             assertEquals("X", event.getStatusIcon());
+
             event.unmark();
             assertEquals(" ", event.getStatusIcon());
+
             event.unmark();
             assertEquals(" ", event.getStatusIcon());
+
         } catch (InvalidDateTimeRangeException e) {
             fail();
         }
@@ -50,9 +56,9 @@ public class EventTest {
     public void occurringOn_occurringDate_returnsTrue() {
         try {
             Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
-            assertTrue(event.occurringOn(LocalDate.parse("2024-08-24")));
-            assertTrue(event.occurringOn(LocalDate.parse("2024-08-25")));
-            assertTrue(event.occurringOn(LocalDate.parse("2024-08-27")));
+            assertTrue(event.occursOn(LocalDate.parse("2024-08-24")));
+            assertTrue(event.occursOn(LocalDate.parse("2024-08-25")));
+            assertTrue(event.occursOn(LocalDate.parse("2024-08-27")));
         } catch (InvalidDateTimeRangeException e) {
             fail();
         }
@@ -62,8 +68,8 @@ public class EventTest {
     public void occurringOn_notOccurringDate_returnsFalse() {
         try {
             Event event = new Event(this.description, this.datetimeEarly, this.datetimeLate);
-            assertFalse(event.occurringOn(LocalDate.parse("2024-07-24")));
-            assertFalse(event.occurringOn(LocalDate.parse("2024-09-25")));
+            assertFalse(event.occursOn(LocalDate.parse("2024-07-24")));
+            assertFalse(event.occursOn(LocalDate.parse("2024-09-25")));
         } catch (InvalidDateTimeRangeException e) {
             fail();
         }

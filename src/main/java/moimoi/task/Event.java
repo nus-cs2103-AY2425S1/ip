@@ -40,7 +40,7 @@ public class Event extends Task {
      * @return true if the task occurs on the specified date; false otherwise.
      */
     @Override
-    public boolean occurringOn(LocalDate date) {
+    public boolean occursOn(LocalDate date) {
         if (!this.from.toLocalDate().isAfter(date) && !this.to.toLocalDate().isBefore(date)) {
             return true;
         } else {
@@ -68,7 +68,7 @@ public class Event extends Task {
     @Override
     public String stringStorage() {
         return super.stringStorage() + " | "
-                + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))+ " | "
+                + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | "
                 + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 

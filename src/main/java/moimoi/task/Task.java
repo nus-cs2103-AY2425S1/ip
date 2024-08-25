@@ -52,7 +52,7 @@ public class Task {
      * @param date Date to be checked against the task's scheduled date(s).
      * @return true if the task occurs on the specified date; false otherwise.
      */
-    public boolean occurringOn(LocalDate date) {
+    public boolean occursOn(LocalDate date) {
         return false;
     }
 
@@ -70,7 +70,7 @@ public class Task {
      *
      * @return String representation of the task for storage.
      */
-    public String stringStorage(){
+    public String stringStorage() {
         return this.taskEnum.name() + " | " + this.getStatusIcon() + " | " + this.description;
     }
 
