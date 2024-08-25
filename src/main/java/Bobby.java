@@ -10,8 +10,9 @@ public class Bobby {
     /*create an add_list function that takes in a
     String input to add it to the list of items.
      */
-    public static void add_list(String input) {
-        list[counter - 1] = counter + ". " +input;
+    public static void add_list(Task input) {
+        input.ranking = counter;
+        list[counter - 1] = counter + ". [" + input.getStatusIcon() + " ] " + input.description;
         counter++;
     }
 
@@ -29,21 +30,24 @@ public class Bobby {
      input from user. Chatbot will only return an
      exit signal when user reply bye.
      */
-    public static void checker(String input) {
-        if (input.equals("bye")) {
+    public static void checker(Task input) {
+        if (input.description.equals("bye")) {
             System.out.println(exit);
             return;
-        } if (input.equals("list")) {
+        } if (input.description.equals("list")) {
             print_list(list);
-            checker(scan.nextLine());
+            Task t = new Task(scan.nextLine());
+            checker(t);
         } else {
-            System.out.println("added: " + input);
+            System.out.println("added: " + input.description);
             add_list(input);
-            checker(scan.nextLine());
+            Task t = new Task(scan.nextLine());
+            checker(t);
         }
     }
     public static void main(String[] args) {
         System.out.println(greeting);
-        checker(scan.nextLine());
+        Task t = new Task(scan.nextLine());
+        checker(t);
     }
 }
