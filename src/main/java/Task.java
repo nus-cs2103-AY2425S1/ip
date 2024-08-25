@@ -1,6 +1,10 @@
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     private String name;
     private boolean isDone;
+
+    protected static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("eee, d MMM uuuu h:mma");
 
     public Task(String name) {
         this.name = name;
@@ -22,6 +26,8 @@ public class Task {
     public String getStatusIcon() {
         return this.isDone ? "X" : " ";
     }
+
+    public String getTime() { return ""; };
 
     @Override
     public String toString() {
