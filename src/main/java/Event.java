@@ -22,4 +22,6 @@ public class Event extends Task {
     public String toFileFormat() {
         return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0, this.name, this.from.format(OUTPUT_DATE_FORMAT), this.to.format(OUTPUT_DATE_FORMAT));
     }
+
+
 }
