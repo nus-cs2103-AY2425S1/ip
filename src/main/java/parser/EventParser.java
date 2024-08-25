@@ -10,54 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EventParser {
-    private static String parseDateTimeGeneral(String pattern, String target) throws ParseException {
-        Pattern byPattern = Pattern.compile(pattern);
-        Matcher byMatcher = byPattern.matcher(target);
-
-        if (byMatcher.find()) {
-            if (byMatcher.group(2) != null) {
-                return byMatcher.group(1) + "T" + byMatcher.group(2);
-            } else {
-                return byMatcher.group(1) + "T00:00";
-            }
-        } else {
-            throw new ParseException("Wrong format of dates");
-        }
-    }
-
-    public static String parseBy(String eventString) throws ParseException {
-        return parseDateTimeGeneral(
-                "/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
-    }
-
-    public static String parseFrom(String eventString) throws ParseException {
-        return parseDateTimeGeneral(
-                "/from\\s+([\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
-    }
-
-    public static String parseTo(String eventString) throws ParseException {
-        return parseDateTimeGeneral(
-                "/to\\s+([\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
-    }
-
-    public static String parseDate(String eventString) throws ParseException {
-        Pattern fromPattern = Pattern.compile("/from\\s+([\\w\\s]+)");
-        Pattern toPattern = Pattern.compile("/to\\s+([\\w\\s]+)");
-        Pattern byPattern = Pattern.compile("/by\\s+([\\w\\s]+)");
-
-        Matcher fromMatcher = fromPattern.matcher(eventString);
-        Matcher toMatcher = toPattern.matcher(eventString);
-        Matcher byMatcher = byPattern.matcher(eventString);
-
-        if (fromMatcher.find() && toMatcher.find()) {
-            return "from: " + fromMatcher.group(1) + " " + "to: " + toMatcher.group(1);
-        } else if (byMatcher.find()) {
-            return "by: " + byMatcher.group(1);
-        } else {
-            throw new ParseException("the description of event is incorrect");
-        }
-    }
-
     public static String parseName(String start, String stop, String input)  throws ParseException {
         Pattern pattern = Pattern.compile(start + "\\s+(.+)\\s*" + stop);
         Matcher matcher = pattern.matcher(input);
@@ -103,29 +55,33 @@ public class EventParser {
         Pattern p1 = Pattern.compile("\\]\\s(.+)\\s\\(");
         Matcher m1 = p1.matcher(record);
 
-        Pattern p2 = Pattern.compile("\\(by:\\s(.+)\\)");
+        Pattern p2 = Pattern.compile("by\\s(.+)\\)");
         Matcher m2 = p2.matcher(record);
         String taskDescription, date;
         if (m1.find() && m2.find()) {
             taskDescription = m1.group(1);
-            date = m2.group(1);
-            return new KorolevDeadline(taskDescription, "by: " + date);
+            date = DateParser.parseRecordedDate(m2.group(1));
+            return new KorolevDeadline(taskDescription, date);
         } else {
             throw new ParseException("Fail to parse record");
         }
     }
 
     private static KorolevEvent parseEventRecord(String record) throws ParseException {
-        Pattern p1 = Pattern.compile("\\]\\s(.+)\\s\\(");
-        Matcher m1 = p1.matcher(record);
+        Pattern name_pattern = Pattern.compile("\\]\\s(.+)\\s\\(");
+        Matcher m1 = name_pattern.matcher(record);
 
-        Pattern p2 = Pattern.compile("from:\\s(.+)\\s*to:\\s([^\\)]+)");
-        Matcher m2 = p2.matcher(record);
-        String taskDescription, date;
-        if (m1.find() && m2.find()) {
+        Pattern from_pattern = Pattern.compile("from:\\s(.+)\\s*to");
+        Matcher m2 = from_pattern.matcher(record);
+
+        Pattern to_pattern = Pattern.compile("to:\\s(.+)\\s*\\)");
+        Matcher m3 = to_pattern.matcher(record);
+        String taskDescription, from, to;
+        if (m1.find() && m2.find() && m3.find()) {
             taskDescription = m1.group(1);
-            date = m2.group();
-            return new KorolevEvent(taskDescription, date);
+            from = DateParser.parseRecordedDate(m2.group(1).strip());
+            to = DateParser.parseRecordedDate(m3.group(1).strip());
+            return new KorolevEvent(taskDescription, from, to);
         } else {
             throw new ParseException("Fail to parse record");
         }

@@ -4,7 +4,9 @@ import exception.DukeException;
 import exception.ParseException;
 import storage.KorolevStorage;
 import parser.EventParser;
+import parser.DateParser;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class KorolevList {
@@ -32,19 +34,19 @@ public class KorolevList {
 
     public void addEvent(String event) throws DukeException {
         KorolevTask e;
-        String name;
-        String date;
+        String name, date, from, to;
         String target = event.split("\\s")[0];
         switch (target) {
             case "event" -> {
                 try {
                     name = EventParser.parseName("event", "/from", event);
-                    date = EventParser.parseDate(event);
-                    e = new KorolevEvent(name, date);
+                    from = DateParser.parseFrom(event);
+                    to = DateParser.parseTo(event);
+                    e = new KorolevEvent(name, from, to);
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
-                } catch (ParseException exp) {
+                } catch (ParseException | DateTimeParseException exp) {
                     System.out.println(exp.getMessage());
                 }
             }
@@ -62,7 +64,7 @@ public class KorolevList {
             case "deadline" -> {
                 try {
                     name = EventParser.parseName("deadline", "/by", event);
-                    date = EventParser.parseBy(event);
+                    date = DateParser.parseBy(event);
                     e = new KorolevDeadline(name, date);
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
