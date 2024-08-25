@@ -8,13 +8,25 @@ import java.util.Scanner;
 
 public class Storage {
     protected String path;
+    protected TaskList tasks;
 
     public Storage(String path) {
         this.path = path;
+        this.tasks = new TaskList();
     }
 
-    public static void loadTasks(String path) throws PikappiException {
-        File file = new File(path);
+    public TaskList load() throws PikappiException {
+        this.loadTasks();
+        return this.tasks;
+    }
+
+    public void save(TaskList tasks) {
+        this.tasks = tasks;
+        this.saveTasks();
+    }
+
+    public void loadTasks() throws PikappiException {
+        File file = new File(this.path);
         if (!file.exists()) {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
@@ -38,7 +50,7 @@ public class Storage {
         }
     }
 
-    public static void loadCurrentTask(ArrayList<String> task) throws PikappiException {
+    public void loadCurrentTask(ArrayList<String> task) throws PikappiException {
         if (task.size() < 3) {
             throw new PikappiException("Error loading task!");
         }
@@ -55,23 +67,23 @@ public class Storage {
         }
         switch (taskType) {
         case "T":
-            Pikappi.tasks.add(new TodoTask(taskDescription, isDone));
+            this.tasks.add(new TodoTask(taskDescription, isDone));
             break;
         case "D":
-            Pikappi.tasks.add(new DeadlineTask(taskDescription, taskTime, isDone));
+            this.tasks.add(new DeadlineTask(taskDescription, taskTime, isDone));
             break;
         case "E":
-            Pikappi.tasks.add(new EventTask(taskDescription, taskTime, taskEndTime, isDone));
+            this.tasks.add(new EventTask(taskDescription, taskTime, taskEndTime, isDone));
             break;
         default:
             throw new PikappiException("Error loading task!");
         }
     }
 
-    public static void saveTasks(String path) {
+    public void saveTasks() {
         try {
-            FileWriter fileWriter = new FileWriter(path);
-            for (Task task : Pikappi.tasks) {
+            FileWriter fileWriter = new FileWriter(this.path);
+            for (Task task : tasks.getTasks()) {
                 String isDone = task.isDone() ? "1" : "0";
                 String description = task.getDescription();
                 if (task instanceof DeadlineTask) {

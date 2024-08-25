@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class Pikappi {
     static Scanner reader = new Scanner(System.in);
     static String command;
-    Storage storage = new Storage("./data/pikappi.txt");
-    static ArrayList<Task> tasks = new ArrayList<Task>();
+    static Storage storage = new Storage("data/pikappi.txt");
+    static TaskList tasks = new TaskList();
     enum TaskType {
         TODO, DEADLINE, EVENT
     }
@@ -15,7 +15,7 @@ public class Pikappi {
     }
 
     public static void goodbye() {
-        Storage.saveTasks("./data/pikappi.txt");
+        storage.save(tasks);
         System.out.println("Pi-kapi! See you again~\n");
     }
 
@@ -112,8 +112,7 @@ public class Pikappi {
     }
 
     public static void main(String[] args) throws PikappiException {
-        Storage.loadTasks("./data/pikappi.txt");
-
+        tasks = storage.load();
         greet();
 
         while (true) {

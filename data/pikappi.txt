@@ -1,6 +1,6 @@
 T | 1 | testing hello
 D | 0 | deadline test | tmr
 E | 1 | event test | tday | tmr
-E | 0 | another event | 2pm | 4pm
+E | 1 | another event | 2pm | 4pm
 E | 0 | task5 | Aug 24 2024 | Aug 30 2024
-D | 0 | now | May 5 2024 12:00AM
+D | 1 | now | May 5 2024 12:00AM
