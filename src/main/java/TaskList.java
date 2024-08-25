@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 /**
 * This class provides functionality to keep track of tasks.
@@ -53,16 +54,25 @@ public class TaskList {
      * @param taskType The type of the task.
      * @param startDate The start date of the task.
      * @param endDate The end date of the task.
+     * @throws InvalidIndexException If the date is in the past or start date >= end date.
      */
-    public void addTask(String taskName, String taskType, String startDate, String endDate) {
+    public void addTask(String taskName, String taskType, LocalDateTime startDate, LocalDateTime endDate) throws InvalidDateTimeException{
 
         // Create a new task object based on he task type
         Task newTask;
         if (taskType.equals("TODO")) {
             newTask = new ToDoTask(taskName);
         } else if (taskType.equals("DEADLINE")) {
+            if (endDate.isBefore(LocalDateTime.now())){
+                throw new InvalidDateTimeException("Oops I cannot add the task because the due date is in the past!");
+            }
             newTask = new DeadlineTask(taskName, endDate);
         } else {
+            if (startDate.isAfter(endDate)) {
+                throw new InvalidDateTimeException("Oops I cannot add the task because the end date entered comes before the start date!");
+            } else if (endDate.isBefore(LocalDateTime.now()) || startDate.isBefore(LocalDateTime.now())){
+                throw new InvalidDateTimeException("Oops I cannot add the task because the start/end date is in the past!");
+            }
             newTask = new EventTask(taskName, startDate, endDate);
         }
 
@@ -85,7 +95,7 @@ public class TaskList {
      * @param endDate The end date of the task.
      * @param isMarked Indicate weather the task is marked or not.
      */
-    public void addTask(String taskName, String taskType, String startDate, String endDate, boolean isMarked) {
+    public void addTask(String taskName, String taskType, LocalDateTime startDate, LocalDateTime endDate, boolean isMarked){
 
         // Create a new task object based on he task type
         Task newTask;

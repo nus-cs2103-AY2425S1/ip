@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  * This class defines and prodides functionality for a deadline task.
  * <p>
@@ -6,14 +8,14 @@
 public class DeadlineTask extends Task {
 
     /** When the deadline is due */
-    private String dueDate;
+    private LocalDateTime dueDate;
 
     /**
      * Creates an deadline task object based on its description and due date.
      * @param description The description of the deadline
      * @param dueDate When the deadline is due
      */
-    DeadlineTask(String description, String dueDate) {
+    DeadlineTask(String description, LocalDateTime dueDate) {
 
         super(description);
         this.dueDate = dueDate;
@@ -22,12 +24,12 @@ public class DeadlineTask extends Task {
     @Override
     public String toCSVFormat(){
         
-        return "DEADLINE," + super.toCSVFormat() + "," + this.dueDate;
+        return "DEADLINE," + super.toCSVFormat() + "," + this.dueDate.format(this.dateFormat);
     }
 
     @Override
     public String toString() {
 
-        return "[D]" + super.toString() + "(Due by: " + this.dueDate + ")";
+        return "[D]" + super.toString() + " (Due by: " + this.dueDate.format(this.dateFormat) + ")";
     }
 }

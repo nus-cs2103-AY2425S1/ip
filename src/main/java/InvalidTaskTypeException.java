@@ -5,7 +5,7 @@ public class InvalidTaskTypeException extends Exception{
 
     /**
      * Creates the InvalidTaskException exception object.
-     * @param message The error message to be displayed to the user
+     * @param message The error message to be displayed to the user.
      */
     InvalidTaskTypeException (String message) {
 

@@ -6,10 +6,10 @@ public class InvalidIndexException extends Exception{
 
     /**
      * Creates an InvalidIndexException exception object.
-     * @param message The error message to be displayed to the user
+     * @param message The index keyed in by the user.
      */
-    InvalidIndexException (int message) {
+    InvalidIndexException (int index) {
         
-        super("I cannot access the task at index " + (message + 1) + " is out of bounds!!");
+        super("I cannot access the task at index " + (index + 1) + " is out of bounds!!");
     }
 }

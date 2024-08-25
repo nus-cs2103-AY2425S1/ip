@@ -1,9 +1,12 @@
 import java.util.ArrayList;
-import java.io.BufferedReader;  
+import java.io.BufferedReader; 
 import java.io.File;
 import java.io.FileReader;  
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -13,7 +16,9 @@ import java.util.Scanner;
 public class Quack {
 
     /** String to print out the spacers between each command */
-    public String spacer = "-".repeat(50);
+    public String spacer = "-".repeat(70);
+    /** Date time format for printing LocalDateTime objects */
+    public DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     /** The name of the chatbot */
     private String botName = "Quack";
     /** The logo for the chatbot */
@@ -111,27 +116,43 @@ public class Quack {
         }
 
         // For event or deadline tasks, prompt the user for the start and end dates
-        String startDate = "";
-        String endDate = "";
+        LocalDateTime startDate = null;
+        LocalDateTime endDate = null;
 
         if (taskType.equals(TaskType.EVENT.name())) {
-            System.out.println("When does this event start?");
-            startDate = sc.nextLine();
-            if (startDate == "") {
-                throw new InvalidInputException("Start date cannot be empty");
+
+            System.out.println("When does this event start? (Format date as : DD/MM/YYYY HH:MM:SS)");
+            String startDateString = sc.nextLine();
+
+            try {
+                startDate = LocalDateTime.parse(startDateString, this.dateFormat);
+                System.out.println(this.spacer);
+            } catch (DateTimeParseException dateTimeError){
+                System.out.println("Im sorry but the date input is invalid try DD/MM/YYYY HH:MM:SS");
+                return;
             }
         }
 
         if (!taskType.equals(TaskType.TODO.name())) {
-            System.out.println("When is this task due?");
-            endDate = sc.nextLine();
-            if (endDate == "") {
-                throw new InvalidInputException("End date cannot be empty");
+            System.out.println("When is this task due? (Format date as : DD/MM/YYYY HH:MM:SS)");
+            String endDateString = sc.nextLine();
+
+            try {
+                endDate = LocalDateTime.parse(endDateString, this.dateFormat);
+                System.out.println(this.spacer);
+            } catch (DateTimeParseException dateTimeError){
+                System.out.println("Im sorry but the date input is invalid try DD/MM/YYYY HH:MM:SS");
+                return;
             }
         }
         
         // Add the task into the list
-        this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
+        try {
+            this.toDoList.addTask(taskDescription.toString(), taskType, startDate, endDate);
+        } catch (InvalidDateTimeException dateTimeError) {
+            System.out.println(dateTimeError.getMessage());
+        }
+        
     }
 
     /**
@@ -220,11 +241,11 @@ public class Quack {
                     break;
                 
                 case "DEADLINE":
-                    this.toDoList.addTask(data[1], data[0], null, data[3], Boolean.parseBoolean(data[2]));
+                    this.toDoList.addTask(data[1], data[0], null, LocalDateTime.parse(data[3], this.dateFormat), Boolean.parseBoolean(data[2]));
                     break;
                 
                 case "EVENT":
-                    this.toDoList.addTask(data[1], data[0], data[3], data[4], Boolean.parseBoolean(data[2]));
+                    this.toDoList.addTask(data[1], data[0], LocalDateTime.parse(data[3], this.dateFormat), LocalDateTime.parse(data[4], this.dateFormat), Boolean.parseBoolean(data[2]));
                     break;
 
                 default:
