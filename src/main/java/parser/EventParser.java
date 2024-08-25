@@ -10,8 +10,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EventParser {
-    public static String parseFrom(String eventString) {
-        return "";
+    public static String parseBy(String eventString) throws ParseException{
+        //YYYY-DD-MM HH:MM
+        Pattern byPattern = Pattern.compile("/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*");
+        Matcher byMatcher = byPattern.matcher(eventString);
+
+        if (byMatcher.find()) {
+            if (byMatcher.groupCount() == 2) {
+                return byMatcher.group(1) + "T" + byMatcher.group(2);
+            } else {
+                return byMatcher.group(1);
+            }
+        } else {
+            throw new ParseException("Wrong format of dates");
+        }
     }
 
     public static String parseDate(String eventString) throws ParseException {
