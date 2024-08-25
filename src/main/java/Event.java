@@ -18,6 +18,14 @@ public class Event extends Task {
         this.end = str.toString();
     }
 
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
     /**
      * Returns a formatted String that represents the Event object and its fields
      * @return a String representation of the Event object
