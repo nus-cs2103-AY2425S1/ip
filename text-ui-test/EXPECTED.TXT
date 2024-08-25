@@ -2,7 +2,7 @@ warning: data/task.txt (No such file or directory)
          No file with path data/task.txtfound.
          If this file exists, make sure to run the program where
          data/task.txt is accessible.
-         Initializing TaskList as an empty array of tasks.
+         Initializing an empty TaskList.
 --------------------------------------------------------------------------------
 Hello! I am YihuiBot!
 What can I do for you?
