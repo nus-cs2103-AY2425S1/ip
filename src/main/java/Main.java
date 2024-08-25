@@ -192,6 +192,12 @@ public class Main {
         return listOfTasks;
     }
 
+
+    /**
+     * @param line a line of text from the janet.txt file.
+     * @param isDone isDone = true if task has been marked else false.
+     * @return a new Deadline object created using the parameters.
+     */
     public static Deadline createDeadlineFromJanetTextFile(String line, boolean isDone) {
         // get description from text file
         String deadlineDescription = line.substring(8, line.indexOf("|", 8) - 1);
@@ -205,6 +211,7 @@ public class Main {
         deadline.setDone(isDone);
         return deadline;
     }
+
 
     public static void main(String[] args) throws IOException {
         Janet janet;
