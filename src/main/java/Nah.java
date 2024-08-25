@@ -10,12 +10,45 @@ public class Nah {
             + "____________________________________________________________\n";
     private static String byeLine = " Bye. Hope to see you again soon!\n";
 
+    private enum Command {BYE, TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, UNKNOWN};
     private LinkedList<Task> task = new LinkedList<Task>();
     private int taskCount = 0;
+
     private void greet() {
         System.out.println(greetLine);
     }
-
+    Command getCommand(String input) {
+        String[] command = input.split(" ", 2);
+        String cmd = command[0].toLowerCase();
+        switch (cmd) {
+            case "bye" : {
+                return Command.BYE;
+            }
+            case "todo" : {
+                return Command.TODO;
+            }
+            case "deadline" : {
+                return Command.DEADLINE;
+            }
+            case "event" : {
+                return Command.EVENT;
+            }
+            case "list" : {
+                return Command.LIST;
+            }
+            case "mark" : {
+                return Command.MARK;
+            }
+            case "unmark" : {
+                return Command.UNMARK;
+            }
+            case "delete" : {
+                return Command.DELETE;
+            }
+            default:
+                return Command.UNKNOWN;
+        }
+    }
     private void exit() {
         System.out.println(byeLine);
         System.out.println("____________________________________________________________\n");
@@ -94,41 +127,41 @@ public class Nah {
             input = scanner.nextLine();
             System.out.println("____________________________________________________________\n");
 
+            Command cmd = nah.getCommand(input);
             String[] command = input.split(" ", 2);
-            String cmd = command[0].toLowerCase();
             try {
                 switch (cmd) {
-                    case "bye": {
+                    case BYE: {
                         nah.exit();
                         return;
                     }
-                    case "list": {
+                    case LIST: {
                         nah.readTask();
                         break;
                     }
-                    case "mark": {
+                    case MARK: {
                         int i = parseInt(command[1]);
                         nah.mark(i);
                         break;
                     }
-                    case "unmark": {
+                    case UNMARK: {
                         int i = parseInt(command[1]);
                         nah.unMark(i);
                         break;
                     }
-                    case "delete": {
+                    case DELETE: {
                         int i = parseInt(command[1]);
                         nah.delete(i);
                         break;
                     }
-                    case "todo": {
+                    case TODO: {
                         if (command.length < 2 || command[1].trim().isEmpty()) {
                             throw new LackDescription("Nah!!! Todo needs description\n");
                         }
                         nah.add(new ToDos(command[1]));
                         break;
                     }
-                    case "deadline": {
+                    case DEADLINE: {
                         if (command.length < 2 || command[1].trim().isEmpty()) {
                             throw new LackDescription("Nahh!!! Deadline needs description\n");
                         }
@@ -139,7 +172,7 @@ public class Nah {
                         nah.add(new Deadlines(des[0], des[1]));
                         break;
                     }
-                    case "event": {
+                    case EVENT: {
                         if (command.length < 2 || command[1].trim().isEmpty()) {
                             throw new LackDescription("Nahh!!! Event needs description\n");
                         }
