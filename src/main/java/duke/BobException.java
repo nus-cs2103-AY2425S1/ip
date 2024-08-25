@@ -1,7 +1,9 @@
-public class InvalidInputException extends Exception {
+package duke;
+
+public class BobException extends Exception {
     private String error;
 
-    public InvalidInputException(String error) {
+    public BobException(String error) {
         this.error = error;
     }
 
