@@ -4,10 +4,23 @@ import megamind.exception.InvalidCommandException;
 import megamind.exception.MissingParameterException;
 
 public class Parser {
+    /**
+     * Parses the command and returns the action.
+     *
+     * @param command the command to be parsed
+     * @return the action of the command
+     */
     public String parseCommand(String command) {
         return command.split(" ")[0].toLowerCase();
     }
 
+    /**
+     * Parses the task index from the command.
+     *
+     * @param command the command to be parsed
+     * @return the index of the task
+     * @throws InvalidCommandException if the task number is missing or invalid
+     */
     public int parseTaskIndex(String command) throws InvalidCommandException {
         String[] words = command.split(" ");
         if (words.length < 2) {
@@ -23,6 +36,14 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Parses the description from the command.
+     *
+     * @param command the command to be parsed
+     * @param keyword the keyword to be removed
+     * @return the description of the task
+     * @throws InvalidCommandException if the description is empty
+     */
     public String parseDescription(String command, String keyword) throws InvalidCommandException {
         if (command.length() <= keyword.length() + 1) {
             throw new InvalidCommandException("The description cannot be empty.");
@@ -30,6 +51,14 @@ public class Parser {
         return command.substring(keyword.length() + 1);
     }
 
+    /**
+     * Parses the deadline (description, by) from the command.
+     *
+     * @param command the command to be parsed
+     * @return the description and deadline of the task
+     * @throws MissingParameterException if the deadline is missing
+     * @throws InvalidCommandException   if the description or deadline is empty
+     */
     public String[] parseDeadline(String command) throws MissingParameterException, InvalidCommandException {
         if (!command.contains(" /by ")) {
             throw new MissingParameterException("Please specify the deadline of the task.");
@@ -50,6 +79,14 @@ public class Parser {
         return words;
     }
 
+    /**
+     * Parses the event (description, start, end) from the command.
+     *
+     * @param command the command to be parsed
+     * @return the description, start time and end time of the event
+     * @throws MissingParameterException if the start or end time is missing
+     * @throws InvalidCommandException   if the description, start or end time is empty
+     */
     public String[] parseEvent(String command) throws MissingParameterException, InvalidCommandException {
         if (!command.contains(" /from ") || !command.contains(" /to ")) {
             throw new MissingParameterException("Please specify the start and end time of the event.");
