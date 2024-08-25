@@ -25,7 +25,6 @@ public abstract class Task {
     }
 
     /**
-<<<<<<< HEAD
      * Unmarks the task as not done.
      */
     public void unMark() {
@@ -44,11 +43,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns the file format string of the task for storage.
-     *
-     * @return A string suitable for storing in a file.
-     */
-=======
      * Gets the description of the task.
      *
      * @return The description of the task.
@@ -57,6 +51,10 @@ public abstract class Task {
         return description;
     }
 
->>>>>>> origin/branch-Level-9
+    /**
+     * Returns the file format string of the task for storage.
+     *
+     * @return A string suitable for storing in a file.
+     */
     public abstract String toFileFormat();
 }
