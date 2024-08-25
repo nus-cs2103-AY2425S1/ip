@@ -29,14 +29,19 @@ public class Duke {
 
     /**
      * The main method that starts the Duke application.
+     * Now accepts varargs for potential future extensibility.
      *
-     * @param args Command line arguments (not used)
+     * @param args Command line arguments (currently not used, but could be in the future)
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         Duke duke = new Duke();
         duke.ui.startup();
         duke.continueReading();
         duke.ui.shutdown();
+
+        // if (args.length > 0) {
+        //     System.out.println("Arguments provided: " + String.join(", ", args));
+        // }
     }
 
     /**
