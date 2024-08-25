@@ -47,21 +47,4 @@ public class DateParser {
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         return dateTime.toString();
     }
-    public static String parseDate(String eventString) throws ParseException {
-        Pattern fromPattern = Pattern.compile("/from\\s+([\\w\\s]+)");
-        Pattern toPattern = Pattern.compile("/to\\s+([\\w\\s]+)");
-        Pattern byPattern = Pattern.compile("/by\\s+([\\w\\s]+)");
-
-        Matcher fromMatcher = fromPattern.matcher(eventString);
-        Matcher toMatcher = toPattern.matcher(eventString);
-        Matcher byMatcher = byPattern.matcher(eventString);
-
-        if (fromMatcher.find() && toMatcher.find()) {
-            return "from: " + fromMatcher.group(1) + " " + "to: " + toMatcher.group(1);
-        } else if (byMatcher.find()) {
-            return "by: " + byMatcher.group(1);
-        } else {
-            throw new ParseException("the description of event is incorrect");
-        }
-    }
 }
