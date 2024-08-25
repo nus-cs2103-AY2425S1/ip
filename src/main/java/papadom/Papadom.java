@@ -45,7 +45,8 @@ public class Papadom {
                     listCommand.execute(taskList, ui, storage);
                     break;
                 case BYE:
-                    ui.exitMessage();
+                    ExitCommand exitCommand = new ExitCommand();
+                    exitCommand.execute(taskList, ui, storage);
                     return;
                 case MARK:
                     ui.output(taskList.markTask(text));
