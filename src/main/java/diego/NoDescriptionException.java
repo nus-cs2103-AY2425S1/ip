@@ -1,5 +1,13 @@
 package diego;
+
+/**
+ * Represents an exception thrown when a command is missing a description.
+ */
 public class NoDescriptionException extends DiegoException {
+
+    /**
+     * Constructs a new NoDescriptionException with a predefined error message.
+     */
     public NoDescriptionException() {
         super(
                 "I think you might have pressed Enter on accident.\n" +

@@ -1,4 +1,5 @@
 package diego;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a deadline task with a description and a deadline date/time.
+ */
 public class Deadline extends Task {
     protected LocalDateTime deadlineDateTime;
     protected LocalDate deadlineDate;
@@ -27,11 +31,22 @@ public class Deadline extends Task {
     protected static final DateTimeFormatter outputFormatterWithTime = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
     protected static final DateTimeFormatter outputFormatterWithoutTime = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Constructs a new Deadline task.
+     *
+     * @param description The description of the deadline task.
+     * @param deadline    The deadline date/time in string format.
+     */
     public Deadline(String description, String deadline) {
         super(description);
         parseDeadline(deadline.trim());
     }
 
+    /**
+     * Parses the deadline string and sets the appropriate date or date/time fields.
+     *
+     * @param deadline The deadline string to parse.
+     */
     private void parseDeadline(String deadline) {
         // Try parsing with time first
         for (DateTimeFormatter formatter : dateFormatsWithTime) {
@@ -57,6 +72,11 @@ public class Deadline extends Task {
         throw new DateTimeParseException("Invalid date/time format", deadline, 0);
     }
 
+    /**
+     * Returns a string representation of the deadline task.
+     *
+     * @return A string describing the deadline task.
+     */
     @Override
     public String toString() {
         if (hasTime) {
@@ -66,6 +86,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the file format string of the deadline task for storage.
+     *
+     * @return A string suitable for storing in a file.
+     */
     @Override
     public String toFileFormat() {
         if (hasTime) {

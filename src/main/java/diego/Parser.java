@@ -1,6 +1,17 @@
 package diego;
+
+/**
+ * Parses user input commands and returns the appropriate Command object.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input The user input string.
+     * @return The appropriate Command object based on the user input.
+     * @throws DiegoException If the input is invalid or unknown.
+     */
     public Command parseCommand(String input) throws DiegoException {
 
         if (input.equals("bye")) {
@@ -37,6 +48,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the index from the user input string.
+     *
+     * @param input The user input string containing the index.
+     * @return The parsed index as an integer.
+     * @throws DiegoException If the index is not valid.
+     */
     private int parseIndex(String input) throws DiegoException {
         try {
             return Integer.parseInt(input.split(" ")[1]) - 1;

@@ -1,6 +1,13 @@
 package diego;
+
+/**
+ * Handles user interface interactions for the Diego application.
+ */
 public class Ui {
 
+    /**
+     * Displays the welcome message to the user.
+     */
     public void showWelcomeMessage() {
         System.out.println("""
             ____________________________________________________________
@@ -10,6 +17,9 @@ public class Ui {
             """);
     }
 
+    /**
+     * Displays the goodbye message to the user.
+     */
     public void showGoodbyeMessage() {
         System.out.println("""
             ____________________________________________________________
@@ -18,6 +28,11 @@ public class Ui {
             """);
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param tasks The task list to be displayed.
+     */
     public void showTaskList(TaskList tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
@@ -27,6 +42,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays a message when a task is marked as done.
+     *
+     * @param task The task that has been marked as done.
+     */
     public void showTaskMarked(Task task) {
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
@@ -34,6 +54,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays a message when a task is unmarked as not done.
+     *
+     * @param task The task that has been unmarked.
+     */
     public void showTaskUnmarked(Task task) {
         System.out.println("____________________________________________________________");
         System.out.println("Ok! I've marked this task as not done:");
@@ -41,6 +66,12 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays a message when a task is added to the task list.
+     *
+     * @param task      The task that has been added.
+     * @param taskCount The current number of tasks in the task list.
+     */
     public void showTaskAdded(Task task, int taskCount) {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -49,6 +80,12 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays a message when a task is deleted from the task list.
+     *
+     * @param task      The task that has been deleted.
+     * @param taskCount The current number of tasks in the task list.
+     */
     public void showTaskDeleted(Task task, int taskCount) {
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
@@ -57,10 +94,18 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to be displayed.
+     */
     public void showError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays a loading error message when tasks cannot be loaded.
+     */
     public void showLoadingError() {
         System.out.println("Something went wrong while loading tasks.");
     }
