@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,10 +27,15 @@ public class Main {
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
         // get due date
-        String dueDate  = commandDetails[commandDetails.length - 1];    // yyyy-mm-dd
-        LocalDate date = LocalDate.parse(dueDate);
-        String dateInCorrectFormat = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return new String[]{description, dateInCorrectFormat};
+        String inputDate  = commandDetails[commandDetails.length - 2];    // yyyy-mm-dd
+        LocalDate date = LocalDate.parse(inputDate);
+        String outputDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        // get time
+        String inputTime = commandDetails[commandDetails.length - 1];
+        LocalTime time = LocalTime.parse(inputTime);
+        String outputTime = time.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        String dueDate = outputDate + " " + outputTime;
+        return new String[]{description, dueDate};
     }
 
     /**
