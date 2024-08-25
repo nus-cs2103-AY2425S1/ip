@@ -1,13 +1,15 @@
 import java.util.Scanner;
 
-import storage.Storage;
-import task.DeadlineDetails;
-import task.EventDetails;
-import task.Task;
-import taskList.TaskList;
-import parser.Parser;
-import orionExceptions.*;
-import commands.Command;
+import orion.orionExceptions.FileInitializationException;
+import orion.orionExceptions.OrionException;
+import orion.storage.Storage;
+import orion.task.DeadlineDetails;
+import orion.task.EventDetails;
+import orion.task.Task;
+import orion.taskList.TaskList;
+import orion.parser.Parser;
+import orion.orionExceptions.*;
+import orion.commands.Command;
 
 public class Orion {
     public static Scanner scanner = new Scanner(System.in);

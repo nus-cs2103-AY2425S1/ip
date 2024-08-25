@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidIndexException extends OrionException {
     public InvalidIndexException(int indexAccessed, int maxIndex) {

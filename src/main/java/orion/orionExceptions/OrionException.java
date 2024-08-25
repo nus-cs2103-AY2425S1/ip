@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class OrionException extends Exception{
     public OrionException(String message) {

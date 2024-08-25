@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidDeleteException extends OrionException {
     public InvalidDeleteException(String input) {

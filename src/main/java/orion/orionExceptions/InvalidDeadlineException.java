@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidDeadlineException extends OrionException {
     public InvalidDeadlineException(String input) {

@@ -1,6 +1,6 @@
-package ui;
+package orion.ui;
 
-import task.Task;
+import orion.task.Task;
 import java.util.List;
 import java.util.Scanner;
 

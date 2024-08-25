@@ -1,4 +1,4 @@
-package orionExceptions;
+package orion.orionExceptions;
 
 public class InvalidListException extends OrionException{
     public InvalidListException(String input) {

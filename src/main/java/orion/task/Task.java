@@ -1,4 +1,4 @@
-package task;
+package orion.task;
 
 public abstract class Task {
     private final int taskID;
