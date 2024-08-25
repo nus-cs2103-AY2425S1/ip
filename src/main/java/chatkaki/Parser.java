@@ -28,6 +28,8 @@ public class Parser {
                 return new CommandUnmark(inputs);
             case LIST:
                 return new CommandList(inputs);
+            case FIND:
+                return new CommandFind(inputs);
             default:
                 return new CommandUnknown(inputs);
         }
