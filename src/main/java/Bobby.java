@@ -2,6 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -128,10 +132,16 @@ public class Bobby {
             if (name.trim().isEmpty() || deadline.trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
-            Task newTask = new Deadline(name, deadline);
-            this.tasks.add(newTask);
-            this.writeToFile();
-            this.printAddSuccess(newTask);
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                Task newTask = new Deadline(name, LocalDateTime.parse(deadline, formatter));
+                this.tasks.add(newTask);
+                this.writeToFile();
+                this.printAddSuccess(newTask);
+            } catch (DateTimeParseException e) {
+                System.out.println(
+                        "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format");
+            }
         }
         case "event" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
@@ -157,10 +167,17 @@ public class Bobby {
             if (name.trim().isEmpty() || from.trim().isEmpty() || to.trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
-            Task newTask = new Event(name, from, to);
-            this.tasks.add(newTask);
-            this.writeToFile();
-            this.printAddSuccess(newTask);
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                Task newTask = new Event(name, LocalDateTime.parse(from, formatter),
+                        LocalDateTime.parse(to, formatter));
+                this.tasks.add(newTask);
+                this.writeToFile();
+                this.printAddSuccess(newTask);
+            } catch (DateTimeParseException e) {
+                System.out.println(
+                        "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format");
+            }
         }
         default -> throw new InvalidCommandException();
         }
@@ -204,8 +221,8 @@ public class Bobby {
         String title = tokens[2];
         return switch (tokens[0]) {
             case "T" -> new Todo(title, isDone);
-            case "D" -> new Deadline(title, tokens[3], isDone);
-            case "E" -> new Event(title, tokens[3], tokens[4], isDone);
+            case "D" -> new Deadline(title, LocalDateTime.parse(tokens[3]), isDone);
+            case "E" -> new Event(title, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]), isDone);
             default -> throw new IOException();
         };
     }
