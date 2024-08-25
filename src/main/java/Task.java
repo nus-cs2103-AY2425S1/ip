@@ -8,7 +8,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "1" : "0");
     }
 
     public void markAsDone() {
@@ -18,8 +18,6 @@ public abstract class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
-
-
 
     @Override
     public abstract String toString();

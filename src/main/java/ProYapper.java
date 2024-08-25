@@ -1,9 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 public class ProYapper {
+    private static final String FILE_PATH = "./data/ProYapper.txt";
+    List<Task> taskList = new ArrayList<>();
+
     public static void main(String[] args) {
+        ProYapper proYapper = new ProYapper();
+        proYapper.loadTasks();
+        proYapper.run();
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
 
         String greeting = "Hello! I am Pro Yapper!\nWhat can I do for you?\n";
@@ -16,9 +26,8 @@ public class ProYapper {
                 "deadline <task> /by <when>: add task that needs to be done before a specific date/time\n" +
                 "event <task> /from <when> /to <when>: add a task that starts at a specific date/time and ends at a specific date/time";
 
-        List<Task> taskList = new ArrayList<>();
-
         System.out.println(greeting);
+
         while (true) {
             String userInput = scanner.nextLine();
             // Bye command
@@ -51,6 +60,7 @@ public class ProYapper {
 
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(marked.toString());
+                            saveTasks();
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("THIS ONE NOT INTEGER!!!");
@@ -73,6 +83,7 @@ public class ProYapper {
 
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println(unmarked.toString());
+                            saveTasks();
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("THIS ONE NOT INTEGER!!!");
@@ -97,6 +108,7 @@ public class ProYapper {
                             System.out.println("Noted. I've removed this task:");
                             System.out.println("  " + deleted.toString());
                             System.out.println("Now you have " + numTasks + " tasks in the list");
+                            saveTasks();
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("THIS ONE NOT INTEGER!!!");
@@ -117,6 +129,7 @@ public class ProYapper {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask.toString());
                     System.out.println("Now you have " + numTasks + " tasks in the list");
+                    saveTasks();
                 }
 
                 // Deadline
@@ -137,6 +150,7 @@ public class ProYapper {
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + newTask.toString());
                         System.out.println("Now you have " + numTasks + " tasks in the list");
+                        saveTasks();
                     }
                 }
 
@@ -163,6 +177,7 @@ public class ProYapper {
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + newTask.toString());
                             System.out.println("Now you have " + numTasks + " tasks in the list");
+                            saveTasks();
                         }
                     }
                 }
@@ -172,6 +187,89 @@ public class ProYapper {
             }
         }
         scanner.close();
+    }
+    private void loadTasks() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return; 
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.trim().split("\\s*\\|\\s*");
+                if (parts.length < 3) {
+                    System.out.println("Skipping invalid line: " + line);
+                    continue;
+                }
+
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (taskType) {
+                    case "T":
+                        ToDo newToDo = new ToDo(description);
+                        if (isDone) {
+                            newToDo.markAsDone();
+                        }
+                        taskList.add(newToDo);
+                        break;
+                    case "D":
+                        if (parts.length < 4) {
+                            System.out.println("Skipping invalid Deadline line: " + line);
+                            continue;
+                        }
+                        Deadline newDeadline = new Deadline(description, parts[3]);
+                        if (isDone) {
+                            newDeadline.markAsDone();
+                        }
+                        taskList.add(newDeadline);
+                        break;
+                    case "E":
+                        if (parts.length < 4) {
+                            System.out.println("Skipping invalid Event line: " + line);
+                            continue;
+                        }
+
+                        String[] timeParts = parts[3].split(" to ");
+                        if (timeParts.length != 2) {
+                            System.out.println("Skipping invalid Event time format: " + line);
+                            continue;
+                        }
+                        String from = timeParts[0].trim();
+                        String to = timeParts[1].trim();
+                        Event newEvent = new Event(description, from, to);
+                        if (isDone) {
+                            newEvent.markAsDone();
+                        }
+                        taskList.add(newEvent);
+                        break;
+                    default:
+                        System.out.println("Unknown task type: " + taskType);
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
+
+
+
+
+    private void saveTasks() {
+        File file = new File(FILE_PATH);
+        file.getParentFile().mkdirs(); // Ensure the directory exists
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : taskList) {
+                bw.write(task.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
     }
 }
 

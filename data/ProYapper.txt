@@ -1,0 +1,6 @@
+T | 0 | sleep
+D | 1 | cs2103t | friday
+T | 0 | wtf?
+E | 0 | splashdown | 6pm to 9pm
+E | 0 | 2100 lecture | 4pm to 6pm
+T | 0 | knnnbcb
