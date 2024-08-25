@@ -1,35 +1,48 @@
-	------------------------------
+---------------------------------------------------
 	Hello! I'm Sora!
 	What can I do for you?
-	------------------------------
+---------------------------------------------------
+	Please Enter a Command
+---------------------------------------------------
+	Sora doesn't understand! Please Try Again!
+---------------------------------------------------
+	Seems like there are no tasks!
+---------------------------------------------------
 	Got it. Sora has added this task:
-	[T][ ] borrow book
+	[T][ ] TODO1
 	Now, you have 1 tasks in your list
-	------------------------------
+---------------------------------------------------
 	Got it. Sora has added this task:
-	[D][ ] return book (by: Sunday)
+	[D][ ] DEADLINE2 (by: 2pm)
 	Now, you have 2 tasks in your list
-	------------------------------
+---------------------------------------------------
 	Got it. Sora has added this task:
-	[E][ ] event (from: Mon 2pm to: 4pm)
+	[E][ ] EVENT3 (from: 3am to: 3pm)
 	Now, you have 3 tasks in your list
-	------------------------------
-	1.[T][ ] borrow book
-	2.[D][ ] return book (by: Sunday)
-	3.[E][ ] event (from: Mon 2pm to: 4pm)
-	------------------------------
+---------------------------------------------------
+	[T][ ] TODO1
+	[D][ ] DEADLINE2 (by: 2pm)
+	[E][ ] EVENT3 (from: 3am to: 3pm)
+---------------------------------------------------
 	Nice! Sora has marked this task as done:
-	[D][X] return book (by: Sunday)
-	------------------------------
+	[T][X] TODO1
+---------------------------------------------------
 	Ok, Sora has unmarked this task as not done:
-	[D][ ] return book (by: Sunday)
-	------------------------------
+	[T][ ] TODO1
+---------------------------------------------------
+	Please Enter Integer Value within List Size
+---------------------------------------------------
+	Please Enter - Mark (int)
+---------------------------------------------------
 	Noted. Sora has removed this task:
-	[D][ ] return book (by: Sunday)
-	------------------------------
-	1.[T][ ] borrow book
-	2.[E][ ] event (from: Mon 2pm to: 4pm)
-	------------------------------
-Error: Command cannot be understood.
+	[E][ ] EVENT3 (from: 3am to: 3pm)
+---------------------------------------------------
+	Please Enter Integer Value within List Size
+---------------------------------------------------
+	Please Enter - Delete (int)
+---------------------------------------------------
+	[T][ ] TODO1
+	[D][ ] DEADLINE2 (by: 2pm)
+---------------------------------------------------
 	Bye. Hope to see you again soon!
-	------------------------------
+---------------------------------------------------
