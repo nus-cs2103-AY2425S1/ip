@@ -13,12 +13,14 @@ public class Task {
 
     public void markAsDone() {
         isDone = true;
-        System.out.println("\tNice! I've marked this task as done:\n\t  " + this);
     }
 
     public void unmarkAsDone() {
         isDone = false;
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + this);
+    }
+
+    public String toFileFormat() {
+        return "| " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
