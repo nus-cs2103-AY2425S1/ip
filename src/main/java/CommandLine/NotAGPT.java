@@ -1,3 +1,7 @@
+package CommandLine;
+
+import Task.Task;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -18,7 +22,7 @@ public class NotAGPT {
 
         System.out.println("Hello from\n" + logo);
         line.drawLine();
-        System.out.println("    Hello! I'm NotAGPT");
+        System.out.println("    Hello! I'm CommandLine.NotAGPT");
         System.out.println("    What can I do for you?");
         line.drawLine();
         while (true) {
@@ -66,7 +70,7 @@ public class NotAGPT {
                 if (parts.length > 1) {
                     taskList.add(parts[1], Task.TaskType.T);
                 } else {
-                    responseHelper("Enter a name for the To Do Task");
+                    responseHelper("Enter a name for the To Do Task.Task");
                 }
                 break;
             case "deadline":

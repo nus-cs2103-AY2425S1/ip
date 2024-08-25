@@ -1,3 +1,5 @@
+package CommandLine;
+
 public class Line {
     private static final String LINE = "    ____________________________________________________________ \n";
 
