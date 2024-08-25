@@ -5,7 +5,7 @@ public class Noisy {
 
 
     public static void main(String[] args) {
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<Task>();
         int currentPointer = 0;
         Task task = null;
         String welcomeMessage = "____________________________________________________________\n"
@@ -28,10 +28,10 @@ public class Noisy {
             }
             if (input.equals("list")) {
                 String echoMessage = "____________________________________________________________\n" +
-                        "Here are the asks in your list\n";
+                        "Here are the tasks in your list\n";
                 for (int i = 0; i < currentPointer; i++) {
                     int taskIndex = i + 1;
-                    echoMessage += taskIndex + ". " + taskList[i] + "\n";
+                    echoMessage += taskIndex + ". " + taskList.get(i) + "\n";
                 }
                 System.out.println(echoMessage + "____________________________________________________________");
                 continue;
@@ -39,10 +39,10 @@ public class Noisy {
             if (input.startsWith("mark ")) {
                 String[] string = input.split(" ");
                 Integer index = Integer.parseInt(string[1]);
-                taskList[index - 1].markDone();
+                taskList.get(index - 1).markDone();
                 String markString = "____________________________________________________________\n" +
                         "Nice! I've marked this task as done:\n" +
-                        taskList[index - 1] + "\n" +
+                        taskList.get(index - 1) + "\n" +
                         "____________________________________________________________\n";
                 System.out.println(markString);
                 continue;
@@ -64,16 +64,30 @@ public class Noisy {
                     case "Event":
                         String[] eventString = input.split(" ", 4);
                         task = new Event(eventString[1], eventString[2], eventString[3]);
-                        break;
+                        continue;
+                    case "delete":
+                        String[] deleteString = input.split(" ");
+                        Integer index = Integer.parseInt(deleteString[1]);
+                        Task deletedTask = taskList.get(index - 1);
+                        taskList.remove(index - 1);
+                        currentPointer--;
+                        String deleteMessage = "____________________________________________________________\n" +
+                                               " Noted. I've removed this task:\n" +
+                                               deletedTask + "\n" +
+                                               "Now you have " + currentPointer + " tasks in the list\n" +
+                                               "____________________________________________________________\n";
+                        System.out.println(deleteMessage);
+                        continue;
                     default:
                         throw new NoisyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (NoisyException e) {
                 System.out.println(e);
+                continue;
             }
 
 
-            taskList[currentPointer] = task;
+            taskList.add(task);
             currentPointer++;
             String taskAdd = "____________________________________________________________\n" +
                     " Got it. I've added this task:\n" +
