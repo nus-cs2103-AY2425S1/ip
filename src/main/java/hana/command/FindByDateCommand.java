@@ -13,13 +13,30 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to find task by date
+ * When executed, this command will print tasks from date.
+ */
 public class FindByDateCommand extends Command{
 	private String input;
 
+	/**
+	 * Constructs a new EventCommand with input.
+	 *
+	 * @param input The input from user.
+	 */
 	public FindByDateCommand(String input) {
 		this.input = input;
 	}
 
+	/**
+	 * Executes the command to find task by date.
+	 *
+	 * @param taskList The list of tasks.
+	 * @param ui The UI object used to interact with the user.
+	 * @param storage The storage object to handle reading/writing of tasks.
+	 * @throws HanaException If an error occurs during command execution.
+	 */
 	@Override
 	public void execute(
 			TaskList taskList, Ui ui, Storage storage) throws HanaException {

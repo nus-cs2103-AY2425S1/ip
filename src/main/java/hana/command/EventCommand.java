@@ -11,12 +11,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add Event task.
+ * When executed, this command will add new Event task, print a message and save.
+ */
 public class EventCommand extends Command{
 	private String description;
 	private LocalDateTime from;
 	private LocalDateTime to;
 
-
+	/**
+	 * Constructs a new EventCommand with a description, start and end date.
+	 *
+	 * @param input The input from user.
+	 * @throws HanaException If an error occurs.
+	 */
 	public EventCommand(String input) throws HanaException {
 		try {
 			String[] parts = input.substring(5).split(" /from | /to ");
@@ -33,6 +42,14 @@ public class EventCommand extends Command{
 		}
 	}
 
+	/**
+	 * Executes the command to add Event task.
+	 *
+	 * @param taskList The list of tasks.
+	 * @param ui The UI object used to interact with the user.
+	 * @param storage The storage object to handle reading/writing of tasks.
+	 * @throws HanaException If an error occurs during command execution.
+	 */
 	@Override
 	public void execute(TaskList taskList, Ui ui, Storage storage) throws HanaException {
 		Task task = new Event(description, from, to);

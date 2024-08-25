@@ -3,8 +3,18 @@ package hana.parser;
 import hana.HanaException;
 import hana.command.*;
 
+/**
+ * Deals with making sense of the user command
+ */
 public class Parser {
 
+	/**
+	 * Use input and return the command to execute.
+	 *
+	 * @param input
+	 * @return Command to execute.
+	 * @throws HanaException If input is not one of the available commands.
+	 */
 	public static Command parse(String input) throws HanaException {
 		if (input.startsWith("mark")) {
 			return new MarkCommand(input);
