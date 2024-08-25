@@ -2,11 +2,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class ZBot {
-    private static ArrayList<Task> tasks = new ArrayList<>();
     private static final String SAVE_PATH = "../../../data/tasks.txt";
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static Storage storage = new Storage(SAVE_PATH);
 
     public static void main(String[] args) {
-        Storage storage = new Storage(SAVE_PATH);
         storage.createFileIfNotExists();
 
         greet();
@@ -18,6 +18,7 @@ public class ZBot {
             input = sc.nextLine();
         }
 
+        saveTasks();
         sc.close();
         exit();
     }
@@ -41,7 +42,7 @@ public class ZBot {
         } else if (input.startsWith("todo") ||
                 input.startsWith("deadline") ||
                 input.startsWith("event")) {
-            storeTask(input);
+            addTask(input);
         } else if (input.startsWith("delete")) {
             deleteTask(input);
         } else {
@@ -49,7 +50,7 @@ public class ZBot {
         }
     }
 
-    public static void storeTask(String input) {
+    public static void addTask(String input) {
         Task task;
         String[] inputParts = input.split(" ", 2);
 
@@ -117,5 +118,26 @@ public class ZBot {
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task number!\n");
         }
+    }
+
+    // Save tasks to file using "," as delimiter
+    public static void saveTasks() {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : tasks) {
+            // Append task type, status, and description, separated by ","
+            char taskType = task instanceof ToDo ? 'T' : task instanceof Deadline ? 'D' : 'E';
+            int taskStatus = task.getStatus() ? 1 : 0;
+            sb.append(taskType).append(",").append(taskStatus).append(",").append(task.description);
+
+            // Append task-specific details
+            if (taskType == 'D') {
+                sb.append(",").append(((Deadline) task).by);
+            } else if (taskType == 'E') {
+                sb.append(",").append(((Event) task).from).append(",").append(((Event) task).to);
+            }
+            sb.append("\n");
+        }
+
+        storage.writeToFile(sb.toString());
     }
 }

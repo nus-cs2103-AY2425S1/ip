@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
@@ -21,6 +22,17 @@ public class Storage {
                 System.out.println("I/O error occurred.");
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void writeToFile(String text) {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(text);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("I/O error occurred.");
+            e.printStackTrace();
         }
     }
 }
