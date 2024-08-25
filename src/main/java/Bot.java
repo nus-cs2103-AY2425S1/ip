@@ -120,7 +120,6 @@ public class Bot {
                         + DIVIDER);
             }
         }
-        acceptCommand();
     }
 
     public void showList() {
@@ -131,7 +130,6 @@ public class Bot {
             System.out.println((i+1) + ". " + task.taskDescription());
         }
         System.out.println(DIVIDER);
-        acceptCommand();
     }
 
     public void markTask(int taskToMark, String command) {
