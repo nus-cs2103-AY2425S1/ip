@@ -1,3 +1,5 @@
+package megamind.task;
+
 import java.time.format.DateTimeFormatter;
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,3 +1,5 @@
+package megamind.exception;
+
 public class TaskNotFoundException extends Exception {
     /**
      * Constructor for TaskNotFoundException

@@ -1,3 +1,5 @@
+package megamind.exception;
+
 public class MissingParameterException extends Exception {
     /**
      * Constructor for MissingParameterException

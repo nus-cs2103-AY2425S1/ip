@@ -1,5 +1,8 @@
+package megamind.storage;
+
 import java.io.*;
 import java.util.ArrayList;
+import megamind.task.Task;
 
 public class Storage {
     /**

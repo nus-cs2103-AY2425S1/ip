@@ -1,3 +1,5 @@
+package megamind.task;
+
 import java.io.Serial;
 
 public class Todo extends Task{
