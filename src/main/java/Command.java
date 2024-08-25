@@ -1,5 +1,5 @@
 public enum Command {
-    MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, INVALID;
+    MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, INVALID, LIST, BYE;
 
     public static Command stringToCommand(String s) {
         switch (s) {
@@ -15,6 +15,10 @@ public enum Command {
                 return DEADLINE;
             case "event":
                 return EVENT;
+            case "list":
+                return LIST;
+            case "bye":
+                return BYE;
             default:
                 return INVALID;
         }
