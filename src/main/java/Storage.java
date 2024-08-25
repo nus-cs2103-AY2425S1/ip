@@ -1,6 +1,9 @@
-import java.io.*;
-import java.nio.file.*;
-import java.time.LocalDate;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws DukeException {
 
         if (Files.exists(this.dirPath) && new File(this.filePath.toString()).isFile()) {
             try {
@@ -65,27 +68,26 @@ public class Storage {
                         if (frags[1].equals("1")) {
                             task.markTask();
                         }
-                        System.out.println(task.getDescription());
                         t.add(task);
                     }
                 }
 
                 return t;
             } catch(IOException e) {
-                e.printStackTrace();
+                throw new DukeException("Error in loading tasks!");
             }
         }
 
         return new ArrayList<>();
     }
 
-    public void saveTask(ArrayList<Task> t) {
+    public void saveTask(TaskList tasklist) throws DukeException {
 
         try {
             FileWriter fw = new FileWriter(this.filePath.toString());
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-            for (int i = 0; i < t.size(); i++) {
-                Task task = t.get(i);
+            for (int i = 0; i < tasklist.size(); i++) {
+                Task task = tasklist.getTask(i);
                 char eventType = task.eventType;
                 char isDone = task.isDone ? '1' : '0';
                 String desc = task.description;
@@ -100,7 +102,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DukeException("Error in saving tasks!");
         }
     }
 }

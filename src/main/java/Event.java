@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
@@ -10,6 +9,7 @@ public class Event extends Task {
     public String getDescription() {
         String formatStartDate = super.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String formatEndDate = super.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return super.description + " (From: " + formatStartDate + " To: " + formatEndDate + ")";
+        return super.description + " (From: " + formatStartDate + " " +
+                super.startTime + "hrs To: " + formatEndDate + " " + super.endTime + "hrs)";
     }
 }

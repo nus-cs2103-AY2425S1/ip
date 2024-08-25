@@ -9,6 +9,6 @@ public class Deadline extends Task {
 
     public String getDescription() {
         String formatEndDate = super.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return super.description + " (by: " + formatEndDate + " " + super.endTime + ")";
+        return super.description + " (by: " + formatEndDate + " " + super.endTime + "hrs)";
     }
 }
