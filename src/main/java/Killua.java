@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -83,6 +85,14 @@ public class Killua {
         printLine();
     }
 
+    private static void saveList(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("./data/tasklist.txt");
+        for (Task task : tasks) {
+            fw.write(task.toSave() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         showUserPage();
 
@@ -123,6 +133,7 @@ public class Killua {
                     } catch (IndexOutOfBoundsException e) {
                         throw new KilluaException("Task not found: Task " + argument);
                     }
+                    saveList(tasks);
                     break;
                 case TODO:
                     if (Objects.equals(argument, "")) {
@@ -132,6 +143,7 @@ public class Killua {
                     Task todo = new Todo(argument);
                     tasks.add(todo);
                     add(tasks, todo);
+                    saveList(tasks);
                     break;
                 case DEADLINE:
                     if (Objects.equals(argument, "")) {
@@ -147,6 +159,7 @@ public class Killua {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new KilluaException("Please use the correct format for deadlines: deadline <description> /by <date>");
                     }
+                    saveList(tasks);
                     break;
                 case EVENT:
                     if (Objects.equals(argument, "")) {
@@ -163,9 +176,10 @@ public class Killua {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new KilluaException("Please use the correct format for events: event <description> /from <start time> /to <end time>");
                     }
+                    saveList(tasks);
                     break;
                 }
-            } catch (KilluaException e) {
+            } catch (KilluaException | IOException e) {
                 printLine();
                 System.out.println(e.getMessage());
                 printLine();
