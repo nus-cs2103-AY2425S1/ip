@@ -1,5 +1,5 @@
 public class ToDoTask extends Task {
-    public ToDoTask(String description) {
+    public ToDoTask(String description) throws IllegalInputPotongException {
         super(description);
     }
 

@@ -15,11 +15,17 @@ public class InputData {
                 input, this.index);
     }
 
-    public String mark(int index) {
+    public String mark(int index) throws PotongException {
+        if (index - 1 >= this.index) {
+            throw new PotongException("We cannot mark a task thats not there!");
+        }
         return this.arr[index - 1].mark();
     }
 
-    public String unmark(int index) {
+    public String unmark(int index) throws PotongException {
+        if (index - 1 >= this.index) {
+            throw new PotongException("We cannot mark a task thats not there!");
+        }
         return this.arr[index - 1].unmark();
     }
 

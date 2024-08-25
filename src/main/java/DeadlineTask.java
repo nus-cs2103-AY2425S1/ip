@@ -2,8 +2,11 @@ public class DeadlineTask extends Task {
 
     private String deadline;
 
-    public DeadlineTask(String description, String deadline) {
+    public DeadlineTask(String description, String deadline) throws IllegalInputPotongException {
         super(description);
+        if (deadline.isEmpty()) {
+            throw new IllegalInputPotongException();
+        }
         this.deadline = deadline;
     }
 

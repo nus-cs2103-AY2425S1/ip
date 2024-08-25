@@ -2,8 +2,11 @@ public class EventTask extends Task {
 
     private String start;
     private String end;
-    public EventTask(String description, String start, String end) {
+    public EventTask(String description, String start, String end) throws IllegalInputPotongException {
         super(description);
+        if (start.isEmpty() || end.isEmpty()) {
+            throw new IllegalInputPotongException();
+        }
         this.start = start;
         this.end = end;
     }
