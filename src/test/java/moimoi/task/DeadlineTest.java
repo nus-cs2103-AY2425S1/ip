@@ -47,6 +47,16 @@ public class DeadlineTest {
     }
 
     @Test
+    public void hasKeyword() {
+        Todo todo = new Todo(this.description);
+        assertTrue(todo.hasKeyword("dum"));
+        assertTrue(todo.hasKeyword(""));
+        assertFalse(todo.hasKeyword("dummies"));
+        assertFalse(todo.hasKeyword("?"));
+        assertFalse(todo.hasKeyword("dummy "));
+    }
+
+    @Test
     public void testStringUI() {
         Deadline deadline = new Deadline(this.description, this.datetime);
         assertEquals("[D][ ] " + this.description + " (by: "

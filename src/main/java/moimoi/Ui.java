@@ -17,8 +17,8 @@ public class Ui {
             + "    /         /\n"
             + " __/ (  | (  |\n"
             + "/__.-'|_|--|_|\n";
-    private static final String HEADER_MOIMOI = "\n⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆";
-    private static final String HEADER_USER = "⋆⭒˚.⋆User⋆⭒˚.⋆";
+    private static final String HEADER_MOIMOI = "\n_._._MoiMoi_._._";
+    private static final String HEADER_USER = "_._._User_._._";
     private Scanner sc;
 
     /**
@@ -80,12 +80,22 @@ public class Ui {
      * @param tasks List of tasks to be displayed.
      */
     public void showList(TaskList tasks) {
+
+        boolean isEmpty = true;
+
         print("Here's your list of tasks!");
         for (int i = 1; i <= tasks.size(); i = i + 1) {
+            isEmpty = false;
             Task task = tasks.get(i);
             print(i + ". " + task.stringUI());
         }
+
+        if (isEmpty) {
+            print("(No tasks found...)");
+        }
+
         print("");
+
     }
 
     /**
@@ -95,6 +105,9 @@ public class Ui {
      * @param date Date to be checked against tasks' scheduled dates.
      */
     public void showList(TaskList tasks, LocalDate date) {
+
+        boolean isEmpty = true;
+
         print("Here's your list of tasks, occurring on "
                 + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "!");
         for (int i = 1; i <= tasks.size(); i = i + 1) {
@@ -103,7 +116,40 @@ public class Ui {
                 print(i + ". " + task.stringUI());
             }
         }
+
+        if (isEmpty) {
+            print("(No such tasks found...)");
+        }
+
         print("");
+
+    }
+
+    /**
+     * Displays all tasks containing the specified keyword in their descriptions, from the given task list.
+     *
+     * @param tasks List of tasks to be filtered.
+     * @param keyword Keyword to be checked within tasks' descriptions.
+     */
+    public void showList(TaskList tasks, String keyword) {
+
+        boolean isEmpty = true;
+
+        print("Here's your list of tasks, containing '" + keyword + "' in their descriptions!");
+        for (int i = 1; i <= tasks.size(); i = i + 1) {
+            Task task = tasks.get(i);
+            if (task.hasKeyword(keyword)) {
+                isEmpty = false;
+                print(i + ". " + task.stringUI());
+            }
+        }
+
+        if (isEmpty) {
+            print("(No such tasks found...)");
+        }
+
+        print("");
+
     }
 
     /**
