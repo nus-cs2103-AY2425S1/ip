@@ -17,11 +17,11 @@ public class Task {
         }
     }
 
-    public void Done() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
-    public void Undone() {
+    public void markAsUnmarkAsDone() {
         this.isDone = false;
     }
 
