@@ -19,7 +19,7 @@ public class CommandParser {
     private static final String TASK_DATETIME_FORMAT = "\\d\\d?/\\d\\d?/\\d{4} \\d{4}";
 
     public CommandParser() {
-        this.listPattern = Pattern.compile("^list(" + ANY_WORDS + ")?$");
+        this.listPattern = Pattern.compile("^list(\\s+" + ANY_WORDS + ")?$");
         this.markPattern = Pattern.compile("^mark(\\s+\\d+\\s*$)?");
         this.unmarkPattern = Pattern.compile("^unmark(\\s+\\d+\\s*$)?");
         this.todoPattern = Pattern.compile("^todo(\\s+"

@@ -1,60 +1,44 @@
 import command.*;
+import task.Storage;
 import task.TaskList;
-import task.TaskIOHandler;
 
 import java.util.Scanner;
 
 public class Terminator {
-    private static final String HLINE = "____________________________________________________________\n";
-    private static final String LOGO =
-                  """
-                                     <((((((\\\\\\
-                                     /      . }\\
-                                     ;--..--._|}
-                  (\\                 '--/\\--'  )
-                   \\\\                | '-'  :'|
-                    \\\\               . -==- .-|
-                     \\\\               \\.__.'   \\--._
-                     [\\\\          __.--|       //  _/'--.
-                     \\ \\\\       .'-._ ('-----'/ __/      \\
-                      \\ \\\\     /   __>|      | '--.       |
-                       \\ \\\\   |   \\   |     /    /       /
-                        \\ '\\ /     \\  |     |  _/       /
-                         \\  \\       \\ |     | /        /
-                          \\  \\      \\        /
-                  """;
 
     private final TaskList taskList;
+
     private final CommandParser parser;
 
-    private Terminator() {
+    private final Ui ui;
+
+    private final Storage storage;
+
+    public Terminator() {
         this.taskList = new TaskList();
         this.parser = new CommandParser();
+        this.ui = new Ui();
+        this.storage = new Storage();
     }
 
-    public static Terminator build() {
-        return new Terminator();
-    }
+    private void run() {
+        // Load data from storage
+        try {
+            this.storage.loadDataFromFile(this.taskList);
+        } catch (DukeException e) {
+            System.out.println("Invalid data format.");
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            this.ui.showErrorMsg();
+            return;
+        }
 
-    private static void printHorizontalLine() {
-        System.out.print(HLINE);
-    }
-
-    private void greet() {
-        String msg = HLINE + LOGO + "Device booted successfully. State your request.\n" + HLINE;
-        System.out.print(msg);
-    }
-
-    private void exit() {
-        String exitMsg = HLINE + "Connection terminated. I will be back...\n" + HLINE;
-        System.out.print(exitMsg);
-    }
-
-    private void mainEventLoop() throws DukeException {
+        // Start main event loop
+        this.ui.greet();
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            printHorizontalLine();
+            this.ui.printHorizontalLine();
             try {
                 Command command = this.parser.parse(input);
                 command.execute(this.taskList.getTaskList());
@@ -67,27 +51,23 @@ public class Terminator {
             } catch (DukeException de) {
                 System.out.println("Error detected: " + de.getMessage());
             }
-            printHorizontalLine();
+            this.ui.printHorizontalLine();
             input = sc.nextLine();
         }
         sc.close();
 
         // Save data before exit
-        taskList.writeToDisk();
+        try {
+            taskList.writeToDisk(this.storage);
+        } catch (DukeException de) {
+            System.out.println(de.getMessage());
+        }
+
+        this.ui.showExitMsg();
     }
 
     public static void main(String[] args) {
-        Terminator tChatbot = Terminator.build();
-        try {
-            boolean loadFileSuccess = TaskIOHandler.loadDataFromFile(tChatbot.taskList);
-            System.out.println("Load file success: " + loadFileSuccess);
-            if (loadFileSuccess) {
-                tChatbot.greet();
-                tChatbot.mainEventLoop();
-                tChatbot.exit();
-            }
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-        }
+        Terminator tChatbot = new Terminator();
+        tChatbot.run();
     }
 }

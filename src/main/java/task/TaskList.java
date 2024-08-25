@@ -24,8 +24,8 @@ public final class TaskList {
         return this._taskList;
     }
 
-    public void writeToDisk() throws DukeException {
-        TaskIOHandler.writeToDisk(this._taskList);
+    public void writeToDisk(Storage storage) throws DukeException {
+        storage.writeToDisk(this._taskList);
     }
 
     public void printTasksRemaining() {

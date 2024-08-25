@@ -19,37 +19,46 @@ import java.util.Scanner;
  * E 0 2024-09-01+00:00 2024-09-02+23:59 terminate aliens
  * </pre>
  */
-public final class TaskIOHandler {
+public final class Storage {
 
     private static final String DATA_FILE_DIR = "./data";
 
     private static final String DATA_FILE_PATH = "terminator.txt";
 
-    public static boolean loadDataFromFile(TaskList taskList) {
+    public Storage() {
+
+    }
+
+    public void loadDataFromFile(TaskList taskList) throws DukeException {
+        // Create directory if it does not exist
+        System.out.println("Checking if directory exists...");
         File baseDir = new File(DATA_FILE_DIR);
         if (!baseDir.exists()) {
-            boolean baseDirCreatedSuccessfully = baseDir.mkdir();
-            if (!baseDirCreatedSuccessfully) {
-                System.out.println("Error: Failed to create data directory");
-                return false;
-            }
+            baseDir.mkdir();
+            System.out.println("Directory created successfully.");
+        } else {
+            System.out.println("Directory already exists.");
         }
+
+        // Create file if it does not exist
+        System.out.println("Checking if data file exists...");
         File dataFile = new File(DATA_FILE_DIR + "/" + DATA_FILE_PATH);
         if (!dataFile.exists()) {
             try {
-                boolean createFileSuccess = dataFile.createNewFile();
-                return createFileSuccess;
+                dataFile.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error: failed to create data file.");
-                return false;
+                throw new DukeException("[Fatal] Failed to create data file");
             }
+        } else {
+            System.out.println("File already exists");
         }
-        return parseFileData(dataFile, taskList);
+
+        // Read file data into task list
+        parseFileData(dataFile, taskList);
     }
 
-    private static boolean parseFileData(File f, TaskList taskList) {
+    private void parseFileData(File f, TaskList taskList) {
         System.out.println("Parsing file data...");
-        boolean parseFileSuccess = true;
 
         // Create temporary list to store task objects
         ArrayList<Task> tempTaskList = new ArrayList<>();
@@ -72,15 +81,15 @@ public final class TaskIOHandler {
                 };
 
                 if (taskType == TaskType.UNKNOWN) {
-                    parseFileSuccess = false;
-                    break;
+                    System.out.println("Invalid data format encountered. Skipping to next line...");
+                    continue;
                 }
 
                 // Parse task completion status
                 int completionStatus = Integer.parseInt(String.valueOf(data.charAt(2)));
                 if (completionStatus != 0 && completionStatus != 1) {
-                    parseFileSuccess = false;
-                    break;
+                    System.out.println("Invalid data format encountered. Skipping to next line...");
+                    continue;
                 }
 
                 // Parse task description
@@ -90,13 +99,9 @@ public final class TaskIOHandler {
                         case TODO -> parseTodo(desc);
                         case EVENT -> parseEvent(desc);
                         case DEADLINE -> parseDeadline(desc);
+                        // We shouldn't reach this condition since we already checked the TaskType beforehand
                         default -> null;
                 };
-
-                if (task == null) {
-                    parseFileSuccess = false;
-                    break;
-                }
 
                 // Update task status
                 if (completionStatus == 0) {
@@ -109,17 +114,12 @@ public final class TaskIOHandler {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
-            parseFileSuccess = false;
         } catch (NumberFormatException nfe) {
             System.out.println("Error in parsing completion status: " + nfe.getMessage());
-            parseFileSuccess = false;
         }
 
         // Copy temporary list to TaskList
         taskList.addAll(tempTaskList);
-
-        System.out.println("Parse file success: " + parseFileSuccess);
-        return parseFileSuccess;
     }
 
     /**
@@ -135,7 +135,7 @@ public final class TaskIOHandler {
      * @param desc The description of the task.
      * @return An instance of TodoTask.
      */
-    private static Task parseTodo(String desc) {
+    private Task parseTodo(String desc) {
         return new TodoTask(desc);
     }
 
@@ -153,7 +153,7 @@ public final class TaskIOHandler {
      * @param desc The description of the task.
      * @return An instance of EventTask.
      */
-    private static Task parseEvent(String desc) {
+    private Task parseEvent(String desc) {
         String startDateTimeString = desc.substring(0, 16);
         String endDateTimeString = desc.substring(17, 33);
         String eventDesc = desc.substring(34);
@@ -180,7 +180,7 @@ public final class TaskIOHandler {
      * @param desc The description of the task.
      * @return An instance of DeadlineTask.
      */
-    private static Task parseDeadline(String desc) {
+    private Task parseDeadline(String desc) {
         String byDateString = desc.substring(0, 16);
         String deadlineDesc = desc.substring(17);
 
@@ -189,7 +189,7 @@ public final class TaskIOHandler {
         return new DeadlineTask(deadlineDesc, byDate);
     }
 
-    public static void writeToDisk(ArrayList<Task> taskList) throws DukeException {
+    public void writeToDisk(ArrayList<Task> taskList) throws DukeException {
         // Overwrite previous file if it exists
         try (BufferedWriter outputStream = new BufferedWriter(
                 new FileWriter(DATA_FILE_DIR + "/" + DATA_FILE_PATH, false))) {
