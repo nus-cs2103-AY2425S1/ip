@@ -21,23 +21,23 @@ public class Optimus {
                 for (int j = 0; j < count; j++) {
                     System.out.println((j + 1) + ". " + record[j].toString());
                 }
-            } else if (text.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1;
-                if (taskNumber >= 0 && taskNumber < count) {
-                    record[taskNumber].setDone();
-                    System.out.println("Nice! I've marked this task as done:");
+            } else if (text.startsWith("mark ") || text.startsWith("unmark ")) {
+                try {
+                    int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1;
+                    if (taskNumber < 0 || taskNumber >= count) {
+                        throw new OptimusException("Invalid task number... " +
+                                "Please enter a number between 1 and " + count + ".");
+                    }
+                    if (text.startsWith("mark ")) {
+                        record[taskNumber].setDone();
+                        System.out.println("Nice! I've marked this task as done:");
+                    } else if (text.startsWith("unmark ")) {
+                        record[taskNumber].setNotDone();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                    }
                     System.out.println("  " + record[taskNumber].toString());
-                } else {
-                    System.out.println("Invalid task number.");
-                }
-            } else if (text.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1;
-                if (taskNumber >= 0 && taskNumber < count) {
-                    record[taskNumber].setNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + record[taskNumber].toString());
-                } else {
-                    System.out.println("Invalid task number.");
+                } catch (OptimusException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (text.startsWith("todo ")) {
                 if (count < 100) {
