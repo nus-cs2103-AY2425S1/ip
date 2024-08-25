@@ -77,12 +77,13 @@ public class TaskList {
     /**
      * Creates a task object and adds it into the list.
      * <p>
-     * Based on the task type, it will create the corrosponding task object.
+     * This function creates tasks based on what is saved inside the csv save file.
      * 
      * @param taskName Description of the task.
      * @param taskType The type of the task.
      * @param startDate The start date of the task.
      * @param endDate The end date of the task.
+     * @param isMarked Indicate weather the task is marked or not.
      */
     public void addTask(String taskName, String taskType, String startDate, String endDate, boolean isMarked) {
 
@@ -127,7 +128,12 @@ public class TaskList {
                         + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
 
-    public ArrayList<String> convertToCSVFormat () {
+    /**
+     * Converts tasks to a csv format for saving.
+     * 
+     * @returns An array of tasks in their csv format.
+     */
+    public ArrayList<String> convertTasksToCSVFormat () {
 
         ArrayList<String> savedData = new ArrayList<String>();
 

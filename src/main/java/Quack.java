@@ -255,7 +255,7 @@ public class Quack {
         FileWriter fw = new FileWriter(dataFile);
 
         // Convert each task into a csv string format and write into the file
-        ArrayList<String> savedData = this.toDoList.convertToCSVFormat();
+        ArrayList<String> savedData = this.toDoList.convertTasksToCSVFormat();
         
         for (String s : savedData) {
             fw.write(s + "\n");

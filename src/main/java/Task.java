@@ -39,6 +39,7 @@ public abstract class Task {
 
     /**
      * Updates the task to be unmarked.
+     * <p>
      * The function checks if the task is already unmarked. If it is, 
      * it will print a message notifying the user that the task has already unmarked.
      */
@@ -57,6 +58,14 @@ public abstract class Task {
         System.out.println(this.toString());
     }
 
+    /**
+     * Converts a task into a csv format.
+     * <p>
+     * The task object will be converted into a string format where its information
+     * is seperated by a comma.
+     * 
+     * @return A string representation of the task to be saved into a csv file.
+     */
     public String toCSVFormat() {
         
         return this.description + "," + this.isChecked;
