@@ -201,11 +201,13 @@ public class Xizi {
                         if ((event.from.isBefore(dateTime) || event.from.equals(dateTime))&&
                                 (event.to.isAfter(dateTime) || event.to.equals(dateTime))) {
                             System.out.println(event);
+                            tasksFound = true;
                         }
                     } else if (task instanceof Deadline) {
                         Deadline deadline = (Deadline) task;
                         if (deadline.ddl.equals(dateTime)) {
                             System.out.println(deadline);
+                            tasksFound = true;
                         }
                     }
                 }
