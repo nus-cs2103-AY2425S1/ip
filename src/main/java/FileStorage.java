@@ -24,7 +24,7 @@ class FileStorage {
             try {
                 this.file.createNewFile();
             } catch (IOException e) {
-                System.out.println("An error has occurred");
+                new Ui().showLoadingError();
             }
         }
     }
