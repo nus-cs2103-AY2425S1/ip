@@ -1,6 +1,8 @@
-package David.UI;
+package david.UI;
 
-import David.Task.*;
+
+import david.Task.Task;
+import david.Task.TaskList;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package David.Exceptions;
+package david.Exceptions;
 
 public class DavidInvalidArgumentsException extends DavidException{
     public DavidInvalidArgumentsException() {}

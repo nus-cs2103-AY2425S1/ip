@@ -1,6 +1,6 @@
-package David.Task;
+package david.Task;
 
-import David.Parser.DateParser;
+import david.Parser.DateParser;
 
 import java.time.LocalDateTime;
 
@@ -25,6 +25,7 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         String isCompleted = super.isCompleted() ? "X" : " ";
-        return "[D]" + "[" + isCompleted + "] " + super.getTask() + "(by: " + DateParser.formatOutputDate(this.by) + ")";
+        return "[D]" + "[" + isCompleted + "] " + super.getTask() + "(by: "
+                + DateParser.formatOutputDate(this.by) + ")";
     }
 }

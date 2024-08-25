@@ -1,6 +1,6 @@
-package David.Task;
+package david.Task;
 
-import David.Parser.DateParser;
+import david.Parser.DateParser;
 
 import java.time.LocalDateTime;
 

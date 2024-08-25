@@ -1,4 +1,4 @@
-package David.Task;
+package david.Task;
 
 public class TodoTask extends Task {
 

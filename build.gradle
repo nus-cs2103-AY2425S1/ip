@@ -30,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("David.David")
+    mainClass.set("david.David")
 }
 
 shadowJar {
