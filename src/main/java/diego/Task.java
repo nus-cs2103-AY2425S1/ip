@@ -22,5 +22,14 @@ public abstract class Task {
         this.isDone = true;
     }
 
+    /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
     public abstract String toFileFormat();
 }
