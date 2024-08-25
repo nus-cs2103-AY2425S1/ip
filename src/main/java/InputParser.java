@@ -1,20 +1,36 @@
 public class InputParser {
-    public static ToDo parseInputAsToDo(String input) {
-        return new ToDo(input.replace("todo ", "").trim());
+    public static ToDo parseInputAsToDo(String input) throws InputException {
+        String taskName = input.replace("todo ", "").trim();
+        if (taskName.isBlank()) {
+            throw new InputException("The todo has no name!");
+        }
+        return new ToDo(taskName);
     }
-    public static Event parseInputAsEvent(String input) {
-        String[] parts = input.split(" /from ");
-        String[] times = parts[1].split(" /to ");
-        String description = parts[0].replace("event ", "").trim();
-        String startTime = times[0].trim();
-        String endTime = times[1].trim();
+    public static Event parseInputAsEvent(String input) throws InputException {
+        String[] parts, times;
+        String description, startTime, endTime;
+        try {
+            parts = input.split(" /from ");
+            times = parts[1].split(" /to ");
+            description = parts[0].replace("event ", "").trim();
+            startTime = times[0].trim();
+            endTime = times[1].trim();
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new EventException();
+        }
         return new Event(description, startTime, endTime);
     }
 
-    public static Deadline parseInputAsDeadline(String input) {
-        String[] parts = input.split(" /by ");
-        String description = parts[0].replace("deadline ", "").trim();
-        String deadline = parts[1].trim();
+    public static Deadline parseInputAsDeadline(String input) throws InputException {
+        String[] parts;
+        String description, deadline;
+        try {
+            parts = input.split(" /by ");
+            description = parts[0].replace("deadline ", "").trim();
+            deadline = parts[1].trim();
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new DeadlineException();
+        }
         return new Deadline(description, deadline);
     }
 }

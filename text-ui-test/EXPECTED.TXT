@@ -16,4 +16,14 @@ _____________________________________
 I've marked this task as not done:
 [T][ ] borrow book
 _____________________________________
+You did not provide a valid task index to mark!
+_____________________________________
+The deadline format is wrong!
+_____________________________________
+Incorrect usage of "event"
+Correct usage: event<event_name
+_____________________________________
+Incorrect usage of "event"
+Correct usage: event<event_name
+_____________________________________
 Bye! It was really nice talking to you, see you soon :)

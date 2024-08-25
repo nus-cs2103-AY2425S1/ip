@@ -23,66 +23,83 @@ public class Yap {
             String userInput = scanner.nextLine();
 
             // Bye functionality
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Bye! It was really nice talking to you, see you soon :)");
-                break;
-            }
-
-            // Mark functionality
-            if (userInput.startsWith("mark")) {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskIndex].markAsDone();
-                System.out.println("I've marked this task as done:");
-                System.out.println(tasks[taskIndex]);
-                System.out.println(separator);
-                continue;
-            }
-
-            // Unmark functionality
-            if (userInput.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                tasks[taskIndex].markAsUndone();
-                System.out.println("I've marked this task as not done:");
-                System.out.println(tasks[taskIndex]);
-                System.out.println(separator);
-                continue;
-            }
-
-            // If user adds a todo task
-            if (userInput.startsWith("todo")) {
-                tasks[taskCount] = InputParser.parseInputAsToDo(userInput);
-                System.out.println("Added: " + tasks[taskCount++]);
-                System.out.printf("You now have %d tasks in the list%n", taskCount);
-                System.out.println(separator);
-                continue;
-            }
-
-            // If user adds a deadline task
-            if (userInput.startsWith("deadline")) {
-                tasks[taskCount] = InputParser.parseInputAsDeadline(userInput);
-                System.out.println("Added: " + tasks[taskCount++]);
-                System.out.printf("You now have %d tasks in the list%n", taskCount);
-                System.out.println(separator);
-                continue;
-            }
-
-            // If user adds an event task
-            if (userInput.startsWith("event")) {
-                tasks[taskCount] = InputParser.parseInputAsEvent(userInput);
-                System.out.println("Added: " + tasks[taskCount++]);
-                System.out.printf("You now have %d tasks in the list%n", taskCount);
-                System.out.println(separator);
-                continue;
-            }
-
-            // List functionality
-            if (userInput.startsWith("list")) {
-                for (int input = 0; input < taskCount; ++input) {
-                    System.out.println((input + 1) + ". " + tasks[input].toString());
+            try {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    System.out.println("Bye! It was really nice talking to you, see you soon :)");
+                    break;
                 }
-            }
 
-            System.out.println(separator);
+                // Mark functionality
+                if (userInput.startsWith("mark")) {
+                    try {
+                        int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                        if (tasks[taskIndex] == null) {
+                            throw new ArrayIndexOutOfBoundsException();
+                        }
+                        tasks[taskIndex].markAsDone();
+                        System.out.println("I've marked this task as done:");
+                        System.out.println(tasks[taskIndex]);
+                        System.out.println(separator);
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        throw new InputException("You did not provide a valid task index to mark!");
+                    }
+                    continue;
+                }
+
+                // Unmark functionality
+                if (userInput.startsWith("unmark")) {
+                    try {
+                        int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                        tasks[taskIndex].markAsUndone();
+                        System.out.println("I've marked this task as not done:");
+                        System.out.println(tasks[taskIndex]);
+                        System.out.println(separator);
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        throw new InputException("You did not provide a valid task index to unmark!");
+                    }
+                    continue;
+                }
+
+                // If user adds a todo task
+                if (userInput.startsWith("todo")) {
+                    tasks[taskCount] = InputParser.parseInputAsToDo(userInput);
+                    System.out.println("Added: " + tasks[taskCount++]);
+                    System.out.printf("You now have %d tasks in the list%n", taskCount);
+                    System.out.println(separator);
+                    continue;
+                }
+
+                // If user adds a deadline task
+                if (userInput.startsWith("deadline")) {
+                    tasks[taskCount] = InputParser.parseInputAsDeadline(userInput);
+                    System.out.println("Added: " + tasks[taskCount++]);
+                    System.out.printf("You now have %d tasks in the list%n", taskCount);
+                    System.out.println(separator);
+                    continue;
+                }
+
+                // If user adds an event task
+                if (userInput.startsWith("event")) {
+                    tasks[taskCount] = InputParser.parseInputAsEvent(userInput);
+                    System.out.println("Added: " + tasks[taskCount++]);
+                    System.out.printf("You now have %d tasks in the list%n", taskCount);
+                    System.out.println(separator);
+                    continue;
+                }
+
+                // List functionality
+                if (userInput.startsWith("list")) {
+                    for (int input = 0; input < taskCount; ++input) {
+                        System.out.println((input + 1) + ". " + tasks[input].toString());
+                    }
+                    System.out.println(separator);
+                    continue;
+                }
+                throw new InputException();
+            } catch (InputException error) {
+                System.out.println(error.getMessage());
+                System.out.println(separator);
+            }
         }
     }
 }
