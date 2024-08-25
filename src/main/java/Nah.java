@@ -25,7 +25,7 @@ public class Nah {
         taskCount ++;
         System.out.println(" Got it. I've added this task:\n"
                         + "   " + newTask.toString() + "\n"
-                        + " Now you have " + taskCount + " tasks in the list.");
+                        + " Now you have " + taskCount + " tasks in the list.\n");
     }
 
     private void readTask() {
@@ -35,13 +35,25 @@ public class Nah {
         }
     }
 
-    private void mark(int i) {
+    private void mark(int i) throws InvalidTaskNumber{
+        if (taskCount == 0) {
+            throw new InvalidTaskNumber();
+        }
+        if (i <= 0 || i >= taskCount) {
+            throw new InvalidTaskNumber(i, taskCount);
+        }
         task[i - 1].mark();
         System.out.println(" Nice! I've marked this task as done:\n"
                         + "   " + task[i - 1].toString());
     }
 
-    private void unMark(int i) {
+    private void unMark(int i) throws InvalidTaskNumber{
+        if (taskCount == 0) {
+            throw new InvalidTaskNumber();
+        }
+        if (i <= 0 || i >= taskCount) {
+            throw new InvalidTaskNumber(i, taskCount);
+        }
         task[i - 1].unMark();
         System.out.println(" OK, I've marked this task as not done yet:\n"
                 + "   " + task[i - 1].toString());
@@ -68,45 +80,74 @@ public class Nah {
             System.out.println("____________________________________________________________\n");
 
             String[] command = input.split(" ", 2);
-            switch (command[0]) {
-                case "bye": {
-                    nah.exit();
-                    return;
-                }
-                case "list": {
-                    nah.readTask();
-                    break;
-                }
-                case "mark": {
-                    int i = parseInt(command[1]);
-                    nah.mark(i);
-                    break;
-                }
-                case "unmark": {
-                    int i = parseInt(command[1]);
-                    nah.unMark(i);
-                    break;
-                }
-                case "todo": {
-                    nah.add(new ToDos(command[1]));
-                    break;
-                }
-                case "deadline": {
-                    String[] description = command[1].split("/by", 2);
-                    nah.add(new Deadlines(description[0], description[1]));
-                    break;
-                }
-                case "event": {
-                    String[] start = command[1].split("/from", 2);
-                    String[] end = start[1].split("/to", 2);
-                    nah.add(new Events(start[0],end[0],end[1]));
-                    break;
-                }
-                default:
-                    nah.add(new Task(input));
-                    break;
+            String cmd = command[0].toLowerCase();
+            try {
+                switch (cmd) {
+                    case "bye": {
+                        nah.exit();
+                        return;
+                    }
+                    case "list": {
+                        nah.readTask();
+                        break;
+                    }
+                    case "mark": {
+                        int i = parseInt(command[1]);
+                        nah.mark(i);
+                        break;
+                    }
+                    case "unmark": {
+                        int i = parseInt(command[1]);
+                        nah.unMark(i);
+                        break;
+                    }
+                    case "todo": {
+                        if (command.length < 2 || command[1].trim().isEmpty()) {
+                            throw new LackDescription("Nah!!! Todo needs description\n");
+                        }
+                        nah.add(new ToDos(command[1]));
+                        break;
+                    }
+                    case "deadline": {
+                        if (command.length < 2 || command[1].trim().isEmpty()) {
+                            throw new LackDescription("Nahh!!! Deadline needs description\n");
+                        }
+                        String[] des = command[1].split("/by", 2);
+                        if (des.length < 2 || des[1].trim().isEmpty()) {
+                            throw new LackDescription(("Nah!!! We need deadline for Deadline\n"));
+                        }
+                        nah.add(new Deadlines(des[0], des[1]));
+                        break;
+                    }
+                    case "event": {
+                        if (command.length < 2 || command[1].trim().isEmpty()) {
+                            throw new LackDescription("Nahh!!! Event needs description\n");
+                        }
+                        String[] des = command[1].split("/from", 2);
+                        if (des.length < 2 || des[1].trim().isEmpty()) {
+                            throw new LackDescription(("Nah!!! We need starting time for an Event\n"));
+                        }
+                        String[] time = des[1].split("/to", 2);
+                        if (time.length < 2 || time[1].trim().isEmpty()) {
+                            throw new LackDescription(("Nah!!! We need ending time for an Event\n"));
+                        }
+                        nah.add(new Events(des[0],time[0],time[1]));
+                        break;
+                    }
+                    default:
+                        throw new UnknownCommand();
 
+                }
+            } catch (LackDescription e) {
+                System.out.println(e.getMessage());
+            } catch (UnknownCommand e) {
+                System.out.println(e.getMessage());
+            } catch (InvalidTaskNumber e) {
+                System.out.println(e.getMessage());
+            } catch (NumberFormatException e) {
+                System.out.println(" NAH!!! Please give me a valid ordinal number for the task\n");
             }
+
             System.out.println("____________________________________________________________\n");
         }
 
