@@ -91,6 +91,16 @@ public class TaskList {
         }
     }
 
+    public TaskList findTasks(String description) {
+        TaskList similarTasks = new TaskList();
+        for (Task task : this.taskList) {
+            if (task.getDescription().contains(description.trim())) {
+                similarTasks.loadTask(task);
+            }
+        }
+        return similarTasks;
+    }
+
     /**
      * Returns the number of tasks in the list.
      *
