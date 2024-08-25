@@ -193,6 +193,19 @@ public class Henry {
         }
     }
 
+    /**
+     * Writes text into file
+     *
+     * @param filePath path of the file where it is saved
+     * @param textToAdd text to be added in the file
+     * @param index number of tasks recorded
+     */
+    private static void writeToFile(String filePath, String textToAdd, int index) throws IOException {
+        FileWriter fw = new FileWriter(filePath, index != 0);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void main(String[] args) throws IOException {
         greetings();
 
@@ -216,19 +229,28 @@ public class Henry {
                     bye();
                     break;
                 } else if (input.equals("list")) {
-                        printList(tasks, index);
+                    printList(tasks, index);
                 } else {
                     String[] words = input.split(" ");
                     String command = words[0].toLowerCase();
                     if (command.equals("mark") || command.equals("unmark")) {
-                            changeTaskStatus(tasks, words, index);
+                        changeTaskStatus(tasks, words, index);
                     } else if (command.equals("delete")) {
-                            deleteTask(tasks, words[1], index);
-                            index--;
+                        deleteTask(tasks, words[1], index);
+                        index--;
                     } else {
-                            addTask(tasks, index, input);
-                            index++;
+                        addTask(tasks, index, input);
+                        index++;
                     }
+                }
+                //update the file
+                try {
+                    for (int i = 0; i < index; i++){
+                        writeToFile(pathName, tasks.get(i).summary()
+                                + System.lineSeparator(), i);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
                 }
             } catch (HenryException e) {
                 System.out.println("\nSorry! " + e.getMessage() + "\n");
