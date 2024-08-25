@@ -1,6 +1,10 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * This class encapsulates a task helper chatbot.
@@ -11,6 +15,8 @@ public class Qwerty {
     private boolean isChatting;
     /** List of tasks entered by the user */
     private final ArrayList<Task> tasks;
+    /** Filepath of the save file containing the list of tasks */
+    private String savePath = "savefile.txt";
 
     public Qwerty() {
         this.isChatting = true;
@@ -72,6 +78,7 @@ public class Qwerty {
         System.out.println("\nGot it. I've added this task:\n" + task
                 + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
                 + "in the list.");
+        saveTasks();
     }
 
     /**
@@ -86,6 +93,7 @@ public class Qwerty {
             System.out.println("\nNoted. I've removed this task:\n" + task
                     + "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ")
                     + "in the list.");
+            saveTasks();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\nThat index is invalid.");
         }
@@ -126,6 +134,7 @@ public class Qwerty {
             Task task = tasks.get(index - 1);
             task.markAsDone();
             System.out.println("\nNice! I've marked this task as done:\n" + task);
+            saveTasks();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\nThat index is invalid.");
         }
@@ -154,6 +163,7 @@ public class Qwerty {
             Task task = tasks.get(index - 1);
             task.markAsNotDone();
             System.out.println("\nOK, I've marked this task as not done yet:\n" + task);
+            saveTasks();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\nThat index is invalid.");
         }
@@ -172,12 +182,44 @@ public class Qwerty {
         }
     }
 
+    public String generateSaveString() {
+        return tasks.stream()
+                .map(Task::getAllDetails)
+                .map(x -> String.join("|", x) + "\n")
+                .reduce("", (s1, s2) -> s1 + s2);
+    }
+
+    public void saveTasks() {
+        File file = new File(savePath);
+        if (file.exists()) {
+            try {
+                FileWriter writer = new FileWriter(savePath);
+                writer.write(generateSaveString());
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Could not write to save file: " + e.getMessage());
+            }
+        } else {
+            try {
+                file.createNewFile();
+                saveTasks();
+            } catch (IOException e) {
+                System.out.println("Could not create save file: " + e.getMessage());
+            }
+        }
+    }
+
+    public void loadTasks() {
+        return; // TODO
+    }
+
     /**
      * Starts the chatbot and run the main chat loop.
      */
     public void start() {
         Scanner scanner = new Scanner(System.in);
         isChatting = true;
+        loadTasks();
         greet();
 
         while (isChatting) {
@@ -199,88 +241,90 @@ public class Qwerty {
             try {
                 switch (command) {
 
-                    case "":
+                case "":
+                    throw new QwertyException("""
+                        Wow. You hit enter without saying anything.
+                        Speak up or I can't help you.""");
+
+                case "bye":
+                    isChatting = false;
+                    sayGoodbye();
+                    break;
+
+                case "list":
+                    listTasks();
+                    break;
+
+                case "mark":
+                    if (args == null) {
                         throw new QwertyException("""
-                            Wow. You hit enter without saying anything.
-                            Speak up or I can't help you.""");
+                                You forgot to give me a task number.""");
+                    }
+                    markTaskAsDone(args);
+                    break;
 
-                    case "bye":
-                        isChatting = false;
-                        sayGoodbye();
-                        break;
+                case "unmark":
+                    if (args == null) {
+                        throw new QwertyException("""
+                                You forgot to give me a task number.""");
+                    }
+                    markTaskAsNotDone(args);
+                    break;
 
-                    case "list":
-                        listTasks();
-                        break;
+                case "todo":
+                    if (args == null) {
+                        throw new QwertyException("""
+                                The description of a todo cannot be empty.""");
+                    }
+                    Task todoTask = new Todo(args);
+                    addTask(todoTask);
+                    break;
 
-                    case "mark":
-                        if (args == null) {
-                            throw new QwertyException("""
-                                    You forgot to give me a task number.""");
-                        }
-                        markTaskAsDone(args);
-                        break;
+                case "deadline":
+                    String by = map.get("by");
+                    if (args == null) {
+                        throw new QwertyException("""
+                                The description of a deadline cannot be empty.""");
+                    }
+                    if (by == null) {
+                        throw new QwertyException("""
+                                When is your deadline? You didn't say.""");
+                    }
+                    Task deadlineTask = new Deadline(args, by);
+                    addTask(deadlineTask);
+                    break;
 
-                    case "unmark":
-                        if (args == null) {
-                            throw new QwertyException("""
-                                    You forgot to give me a task number.""");
-                        }
-                        markTaskAsNotDone(args);
-                        break;
+                case "event":
+                    String from = map.get("from");
+                    String to = map.get("to");
+                    if (args == null) {
+                        throw new QwertyException("""
+                                The description of an event cannot be empty.""");
+                    }
+                    if (from == null) {
+                        throw new QwertyException("""
+                                Your event starts from...? You didn't say.""");
+                    }
+                    if (to == null) {
+                        throw new QwertyException("""
+                                Your event ends at...? You didn't say.""");
+                    }
+                    Task eventTask = new Event(args, from, to);
+                    addTask(eventTask);
+                    break;
 
-                    case "todo":
-                        if (args == null) {
-                            throw new QwertyException("""
-                                    The description of a todo cannot be empty.""");
-                        }
-                        Task todoTask = new Todo(args);
-                        addTask(todoTask);
-                        break;
+                case "delete":
+                    if (args == null) {
+                        throw new QwertyException("""
+                                You forgot to give me a task number.""");
+                    }
+                    deleteTask(args);
+                    break;
 
-                    case "deadline":
-                        String by = map.get("by");
-                        if (args == null) {
-                            throw new QwertyException("""
-                                    The description of a deadline cannot be empty.""");
-                        }
-                        if (by == null) {
-                            throw new QwertyException("""
-                                    When is your deadline? You didn't say.""");
-                        }
-                        Task deadlineTask = new Deadline(args, by);
-                        addTask(deadlineTask);
-                        break;
+                default:
+                    System.out.println("\nThat word isn't in my dictionary. Try again.");
+                    break;
 
-                    case "event":
-                        String from = map.get("from");
-                        String to = map.get("to");
-                        if (args == null) {
-                            throw new QwertyException("""
-                                    The description of an event cannot be empty.""");
-                        }
-                        if (from == null) {
-                            throw new QwertyException("""
-                                    Your event starts from...? You didn't say.""");
-                        }
-                        if (to == null) {
-                            throw new QwertyException("""
-                                    Your event ends at...? You didn't say.""");
-                        }
-                        Task eventTask = new Event(args, from, to);
-                        addTask(eventTask);
-                        break;
-
-                    case "delete":
-                        if (args == null) {
-                            throw new QwertyException("""
-                                    You forgot to give me a task number.""");
-                        }
-                        deleteTask(args);
-                        break;
-
-                    default:
-                        System.out.println("\nThat word isn't in my dictionary. Try again.");
                 }
             } catch (QwertyException e) {
                 System.out.println("\n" + e.getMessage());
