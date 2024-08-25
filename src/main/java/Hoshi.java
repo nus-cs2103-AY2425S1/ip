@@ -1,32 +1,41 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Hoshi {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
-        String logo = "\n" +
-                " __    __    ______        _______. __    __   __  \n" +
-                "|  |  |  |  /  __  \\      /       ||  |  |  | |  | \n" +
-                "|  |__|  | |  |  |  |    |   (----`|  |__|  | |  | \n" +
-                "|   __   | |  |  |  |     \\   \\    |   __   | |  | \n" +
-                "|  |  |  | |  `--'  | .----)   |   |  |  |  | |  | \n" +
-                "|__|  |__|  \\______/  |_______/    |__|  |__| |__| \n" +
-                "                                                   \n";
+        String logo = """
+
+                 __    __    ______        _______. __    __   __ \s
+                |  |  |  |  /  __  \\      /       ||  |  |  | |  |\s
+                |  |__|  | |  |  |  |    |   (----`|  |__|  | |  |\s
+                |   __   | |  |  |  |     \\   \\    |   __   | |  |\s
+                |  |  |  | |  `--'  | .----)   |   |  |  |  | |  |\s
+                |__|  |__|  \\______/  |_______/    |__|  |__| |__|\s
+                                                                  \s
+                """;
 
         System.out.println(logo);
 
-        System.out.println("____________________________________________________________\n" +
-                "Hello! Im Hoshi!\n" +
-                "What can I do for you?\n" +
-                "____________________________________________________________\n");
+        ArrayList<Task> arrayList = new ArrayList<>();
 
-        ArrayList<Task> arrayList = new ArrayList<Task>();
+        getFileContents("./data/hoshi.txt", arrayList);
 
-        //Task[] array = new Task[100];
-        //int indexCounter = -1;
+        System.out.println("""
+                ____________________________________________________________
+                Hello! Im Hoshi!
+                What can I do for you?
+                ____________________________________________________________
+                """);
+
 
         while (true) {
 
@@ -169,7 +178,7 @@ public class Hoshi {
                         try {
 
                             if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi dosen't understand! Is input empty? \n");
+                                throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
                             }
 
                             Todo newToDo = new Todo(desc);
@@ -189,7 +198,7 @@ public class Hoshi {
                         try {
 
                             if (desc.isEmpty()) {
-                                throw new HoshiException("Hoshi dosen't understand! Is input empty? \n");
+                                throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
                             }
 
                             System.out.println("When would you like your Deadline to be due by? ");
@@ -257,19 +266,138 @@ public class Hoshi {
 
         }
 
+        writeToFile("./data/Hoshi.txt",arrayList);
         bye();
 
 
     }
 
+
+    /**
+     * Gets tasks from hoshi txt file if user is not new else greets the user.
+     *
+     * @param filePath String filepath that contains the path of the hoshi txt file.
+     * @param arrayList ArrayList of 3 types of tasks to be retrieved from hoshi txt file.
+     */
+    private static void getFileContents(String filePath, ArrayList<Task> arrayList) throws FileNotFoundException {
+
+        File file = new File(filePath);
+
+        try {
+            Scanner scanner = new Scanner(file);
+
+            //Deadline, D, deadline1, 1200
+
+            while (scanner.hasNext()) {
+
+                String line = scanner.nextLine();
+                String[] parts = line.split(", ");
+
+                String taskType = parts[0];
+                Boolean isDone = Boolean.FALSE;
+                if (Objects.equals(parts[1], "D")) {
+                    isDone = Boolean.TRUE;
+                }
+                String description = parts[2];
+
+                switch (taskType) {
+                case "Todo":
+
+                    Todo todo = new Todo(description, isDone);
+                    arrayList.add(todo);
+                    break;
+
+                case "Deadline":
+
+                    String deadlineEndTime = parts[3];
+                    Deadline deadline = new Deadline(description, isDone, deadlineEndTime);
+                    arrayList.add(deadline);
+                    break;
+
+                case "Event":
+
+                    String endTime = parts[3];
+                    String startTime = parts[4];
+                    Event event = new Event(description, isDone, endTime, startTime);
+                    arrayList.add(event);
+                    break;
+
+                default:
+
+                    System.out.println("Hoshi is not aware of this task type: " + taskType + "!");
+                    break;
+                }
+
+            }
+
+            scanner.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Hoshi has detected a new user! Welcome!");
+        }
+
+    }
+
+    /**
+     * Writes tasks added and retrieved during the program to hoshi txt file.
+     *
+     * @param filePath String filepath that contains the path of the hoshi txt file.
+     * @param arrayList ArrayList of 3 types of tasks to be written to hoshi txt file.
+     */
+    private static void writeToFile(String filePath, ArrayList<Task> arrayList) throws IOException {
+
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+
+            for (Task task : arrayList) {
+
+                // Deadline(TaskType), T(D = Done/ ND = Not Done), Description, endTime, startTime
+                String taskType = task.getClass().getName();
+                String isDone = task.getStatusIcon();
+                if (Objects.equals(isDone, " ")) {
+                    isDone = "ND";
+                } else {
+                    isDone = "D";
+                }
+                String description = task.getDesc();
+
+                String additionalFields = "";
+
+                if (taskType.equals("Deadline")) {
+
+                    Deadline deadline = ((Deadline) task);
+                    additionalFields = ", " + deadline.getEndTime();
+
+                } else if (taskType.equals("Event")) {
+
+                    Event event = ((Event) task);
+                    additionalFields = ", " + event.getEndTime() + ", " + event.getStartTime();
+
+                }
+
+                String textToAdd = taskType + ", " + isDone + ", " + description + additionalFields + System.lineSeparator();
+                fileWriter.write(textToAdd);
+            }
+            fileWriter.close();
+
+
+        } catch (IOException e) {
+            System.out.println("Hoshi has an error! " + e.getMessage());
+        }
+
+    }
+
     /**
      * Prints bye message when user terminates the program
+     *
      */
     static void bye() {
+
         System.out.println("""
                 Bye. Hope to see you again soon!\s
                 ____________________________________________________________
                 """);
     }
+
 
 }

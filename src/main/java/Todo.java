@@ -10,10 +10,20 @@ public class Todo extends Task{
     /**
      * Constructs a new instance of to do.
      *
-     * @param description String description of Task.
+     * @param description String description of to do.
      */
     public Todo(String description) {
         super(description);
+    }
+
+    /**
+     * Constructs a new instance of to do.
+     *
+     * @param description String description of to do.
+     * @param isDone Boolean indicating whether to do is done or not.
+     */
+    public Todo(String description, Boolean isDone) {
+        super(description, isDone);
     }
 
 

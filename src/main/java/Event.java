@@ -25,9 +25,40 @@ public class Event extends Task{
     }
 
     /**
-     * Returns a string representation of the to do.
+     * Constructs a new instance of Event.
      *
-     * <p>The string includes the E identifier  , status icon and the description of the to do.</p>
+     * @param description String description of Event.
+     * @param isDone Boolean indicating whether Event is done or not.
+     * @param startTime String start time of Event.
+     * @param endTime String end time of Event.
+     */
+    public Event(String description, Boolean isDone, String startTime, String endTime) {
+        super(description, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+    /**
+     * Gets start time of the Event.
+     *
+     * @return description startTime which indicates when the event is starting.
+     */
+    public String getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Gets end time of the Event.
+     *
+     * @return description endTime which indicates when the event is ending.
+     */
+    public String getEndTime() {
+        return endTime;
+    }
+
+    /**
+     * Returns a string representation of the Event.
+     *
+     * <p>The string includes the E identifier, status icon and the description of the Event.</p>
      *
      * @return A string in the format {" "[E]" + [statusIcon] description + " (from: " + startTime + " to: " + endTime + " ) "}.
      */
