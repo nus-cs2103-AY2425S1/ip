@@ -117,6 +117,25 @@ public class Validator {
         return index;
     }
 
+    private LocalDateTime parseDateTime(String dateTimeStr) throws InvalidDateFormatException {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
+        try {
+            // Try parsing with time
+            return LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            try {
+                // If time is not provided, parse date only and default to 00:00
+                LocalDate date = LocalDate.parse(dateTimeStr, dateFormatter);
+                return LocalDateTime.of(date, LocalTime.MIDNIGHT);
+            } catch (DateTimeParseException ex) {
+                throw new InvalidDateFormatException(dateTimeStr);
+            }
+        }
+    }
 
 
-}
+
+
+    }
