@@ -40,8 +40,16 @@ public class YappingBot {
     private static void printUserList() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < userList.size(); i++) {
-            // quoteSinglelineText(["1", "2"], sb);
+            quoteSinglelineText(
+                    new String[]{
+                            String.format("%2d. ", i+1), // item number (from 1)
+                            userList.get(i)             // item
+                    },
+                    sb
+            );
         }
+        sb.append("\n\n");
+        System.out.print(sb.toString());
     }
     // end of class methods
 
@@ -50,11 +58,10 @@ public class YappingBot {
         userInputScanner = new Scanner(System.in);
         userList = new ArrayList<>();
 
-
         // start
         System.out.println(quoteMultilineText(GREETING_TEXT));
 
-        programmeLoop:
+        programmeLoop: // to break out of loop
         while (true) {
            String userInput = userInputScanner.nextLine();
            switch (userInput.toLowerCase()) {
@@ -62,6 +69,7 @@ public class YappingBot {
                    break programmeLoop;
                case "list":
                    printUserList();
+                   break;
                default:
                    userList.add(userInput);
                    System.out.println(quoteMultilineText(String.format("added: %s", userInput)));
