@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -80,9 +81,9 @@ public class Friday {
         System.out.println("\tmark <integer> - Mark an entry in the list as a completed task.");
         System.out.println("\tunmark <integer> - Unmark an entry in the list as a completed task.");
         System.out.println("\ttodo <string> - Remember a TODO Task for you to revisit again.");
-        System.out.println("\tdeadline <string> /by <when> - Remember a Deadline Task for" +
+        System.out.println("\tdeadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline Task for" +
                 " you to complete by the deadline.");
-        System.out.println("\tevent <string> /from <string> /to <string> - Remember an Event Task" +
+        System.out.println("\tevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event Task" +
                 " from when it begins to when it ends.");
         System.out.println("\tdelete <integer> - Delete an entry from your current list.");
         System.out.println("\tbye - Exits this app and says Good Bye to Friday :)");
@@ -146,28 +147,38 @@ public class Friday {
                     case DEADLINE:
                         if (inputs.length == 1) {
                             throw new FridayException("Invalid input. 'deadline' command requires a" +
-                                    " description and a deadline.\n\tusage: deadline <string> /by <string>");
+                                    " description and a deadline.\n\tusage: deadline <string> /by <yyyy-MM-dd HHmm>");
                         }
                         String[] deadlineInputs = input.substring(9).split(" /by ");
                         if (deadlineInputs.length != 2) {
                             throw new FridayException("Invalid input. 'deadline' command requires a" +
-                                    " description and deadline\n\tusage: deadline <string> /by <string>.");
+                                    " description and deadline\n\tusage: deadline <string> /by <yyyy-MM-dd HHmm>.");
                         }
-                        currTask = new Deadline(deadlineInputs[0], deadlineInputs[1]);
-                        addTask(currTask);
+                        try {
+                            currTask = new Deadline(deadlineInputs[0], deadlineInputs[1]);
+                            addTask(currTask);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("\tInvalid date format. Please use the format: yyyy-MM-dd HHmm.");
+                        }
                         break;
                     case EVENT:
                         if (inputs.length == 1) {
                             throw new FridayException("Invalid input. 'event' command requires a description," +
-                                    " start, and end time.\n\tusage: event <string> /from <string> /to <string>");
+                                    " start, and end time.\n\tusage: event <string> /from <yyyy-MM-dd HHmm>" +
+                                    " /to <yyyy-MM-dd HHmm>");
                         }
                         String[] eventInputs = input.substring(6).split(" /from | /to ");
                         if (eventInputs.length != 3) {
                             throw new FridayException("Invalid input. 'event' command requires a description," +
-                                    " start, and end time.\n\tusage: event <string> /from <string> /to <string>.");
+                                    " start, and end time.\n\tusage: event <string> /from <yyyy-MM-dd HHmm>" +
+                                    " /to <yyyy-MM-dd HHmm>.");
                         }
-                        currTask = new Event(eventInputs[0], eventInputs[1], eventInputs[2]);
-                        addTask(currTask);
+                        try {
+                            currTask = new Event(eventInputs[0], eventInputs[1], eventInputs[2]);
+                            addTask(currTask);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("\tInvalid date format. Please use the format: yyyy-MM-dd HHmm.");
+                        }
                         break;
                     case DELETE:
                         if (inputs.length != 2) {
