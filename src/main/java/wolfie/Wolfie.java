@@ -1,18 +1,27 @@
 package wolfie;
-import wolfie.command.Command;
-import wolfie.exception.WolfieException;
-import wolfie.util.Parser;
-import wolfie.util.Storage;
-import wolfie.util.Ui;
-import wolfie.task.TaskList;
 
 import java.io.IOException;
 
+import wolfie.command.Command;
+import wolfie.exception.WolfieException;
+import wolfie.task.TaskList;
+import wolfie.util.Parser;
+import wolfie.util.Storage;
+import wolfie.util.Ui;
+
+/**
+ * Wolfie is a chat bot that helps you manage your tasks.
+ */
 public class Wolfie {
     private final Storage storage; // Add this line
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Wolfie object.
+     *
+     * @param filePath The file path to store the tasks.
+     */
     public Wolfie(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath); // If the file does not exist, it will be created
@@ -24,6 +33,9 @@ public class Wolfie {
         }
     }
 
+    /**
+     * Runs the Wolfie bot.
+     */
     public void run() {
         ui.showWelcome(); // Show welcome message
         boolean isExit = false; // Initialize exit status to false
