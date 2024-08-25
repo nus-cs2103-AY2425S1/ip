@@ -29,6 +29,10 @@ public class Task {
 
     public String getTime() { return ""; };
 
+    public String getDescription() { return this.name; }
+
+    public boolean isDone() { return isDone; }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + name;

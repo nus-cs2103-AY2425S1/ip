@@ -111,6 +111,31 @@ public class Neko {
         fw.close();
     }
 
+    private static void rewriteFile() throws IOException {
+        // Clear the file content before rewriting
+        FileWriter fw = new FileWriter(FILE_PATH, false);
+
+        for (Task task : taskList) {
+            String taskType = task.getClass().getSimpleName().charAt(0) + ""; // T for Todo, D for Deadline, E for Event
+            String status = task.isDone() ? "1" : "0";
+            String taskDetails = "";
+
+            if (task instanceof Todo) {
+                taskDetails = task.getDescription();
+            } else if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                taskDetails = task.getDescription() + " | " + deadlineTask.getTime();
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                taskDetails = task.getDescription() + " | " + eventTask.getTime();
+            }
+
+            fw.write(taskType + " | " + status + " | " + taskDetails + "\n");
+        }
+
+        fw.close();
+    }
+
     private static void handleInput(String input) throws NekoException {
         if (input.equals(LIST_COMMAND)) {
             listTask();
@@ -257,7 +282,13 @@ public class Neko {
         checkValidIndex(index);
         Task task = taskList.get(index);
         taskList.remove(index);
-        System.out.println("Noted meow. I've removed this task\n " + task +"\nNow you have " + taskList.size() + " tasks in the list.");
+        System.out.println("Noted meow. I've removed this task\n " + task +"\nNow you have "
+                + taskList.size() + " tasks in the list.");
+        try {
+            rewriteFile();
+        } catch (IOException e) {
+            System.out.println("Nyaa! There was an error updating your task list: " + e.getMessage());
+        }
     }
 
     private static void checkValidIndex(int index) throws NekoException {
