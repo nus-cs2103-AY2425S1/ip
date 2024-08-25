@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class DemureBot {
-    public static void check(String command, ArrayList<Task> list) throws DemureBotException {
+    private static void check(String command, ArrayList<Task> list) throws DemureBotException {
         if (command.startsWith("mark")) {
             String remainder = command.substring(4).trim();
             try {
@@ -76,7 +76,7 @@ public class DemureBot {
             if (description.isEmpty()) {
                 throw new DemureBotException("The description of a todo cannot be empty.\nAdd description after todo.\n");
             }
-            Todo todo = new Todo(description);
+            Todo todo = new Todo(description, false);
             list.add(todo);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
@@ -98,7 +98,7 @@ public class DemureBot {
             }
             String description = splitBy[0].trim();
             String by = splitBy[1].trim();
-            Deadline deadline = new Deadline(description, by);
+            Deadline deadline = new Deadline(description, by, false);
             list.add(deadline);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
@@ -126,7 +126,7 @@ public class DemureBot {
             }
             String from = splitTo[0].trim();
             String to = splitTo[1].trim();
-            Event event = new Event(description, from, to);
+            Event event = new Event(description, from, to, false);
             list.add(event);
             System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n  " +
@@ -141,7 +141,7 @@ public class DemureBot {
         }
     }
 
-    public static void checkFolder(String folderPath) {
+    private static void checkFolder(String folderPath) {
         File folder = new File(folderPath);
         if (!folder.exists()) {
             boolean isFolderCreated = folder.mkdirs();
@@ -151,7 +151,7 @@ public class DemureBot {
         }
     }
 
-    public static boolean checkFile(String filePath) {
+    private static boolean checkFile(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -167,7 +167,7 @@ public class DemureBot {
         return true;
     }
 
-    public static String formatTask(Task task) {
+    private static String formatTask(Task task) {
         String[] parts = task.toString().split("]", 3);
         String type = parts[0].substring(1, 2);
         String status = parts[1].charAt(1) == 'X' ? "1" : "0";
@@ -187,6 +187,41 @@ public class DemureBot {
             return type + " | " + status + " | " + description + " | " + from + " | " + to;
         } else {
             return type + " | " + status + " | " + description;
+        }
+    }
+
+    private static Task getTask(String line) throws DemureBotException {
+        String[] split = line.split(" \\| ");
+        validateTaskFormat(split, 3);
+        String type = split[0];
+        boolean isDone = split[1].equals("1");
+        String description = split[2];
+        Task task = null;
+        switch (type) {
+        case "T":
+            task = new Todo(description, isDone);
+            break;
+        case "D":
+            validateTaskFormat(split, 4);
+            String by = split[3];
+            task = new Deadline(description, by, isDone);
+            break;
+        case "E":
+            validateTaskFormat(split, 5);
+            String from = split[3];
+            String to = split[4];
+            task = new Event(description, from, to, isDone);
+            break;
+        }
+        if (task == null) {
+            throw new DemureBotException("Saved task has invalid format");
+        }
+        return task;
+    }
+
+    private static void validateTaskFormat(String[] split, int expectedLength) throws DemureBotException {
+        if (split.length < expectedLength) {
+            throw new DemureBotException("Saved task has invalid format");
         }
     }
 
@@ -215,6 +250,21 @@ public class DemureBot {
         // check if saved data exists if not create it
         String filePath = "./data/tasks.txt";
         boolean savedDataExists = checkFile(filePath);
+
+        // load saved data if exists
+        if (savedDataExists) {
+            try (Scanner fileScanner = new Scanner(new File(filePath))) {
+                while (fileScanner.hasNext()) {
+                    String line = fileScanner.nextLine();
+                    Task task = getTask(line);
+                    list.add(task);
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading file: " + e.getMessage());
+            } catch (DemureBotException e) {
+                System.out.println("Error loading task: " + e.getMessage());
+            }
+        }
 
         // while user hasn't ended session
         while (!isFinished) {
