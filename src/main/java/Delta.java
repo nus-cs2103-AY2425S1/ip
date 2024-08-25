@@ -252,9 +252,13 @@ public class Delta {
                     output = sayBye();
                     break;
 
-                // Print Entire List
+                // Print entire list
                 } else if (task.equalsIgnoreCase("list")) {
                     output = printTasks();
+
+                // Save Tasks to list
+                } else if (task.equalsIgnoreCase("save")) {
+                    saveTasks();
 
                 // Add Todo to list
                 } else if (task.equalsIgnoreCase("todo")) {
