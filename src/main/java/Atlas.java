@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Atlas {
     private static final String BOT_INDENT = "\t";
-    private static final String SEP = BOT_INDENT + "___________________________________________";
+    private static final String SEP = "___________________________________________";
     private static final String EXIT = "bye";
     private static final Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
@@ -52,6 +52,12 @@ public class Atlas {
                     taskMark(index, status);
                     taskMarkLog(index, status);
                     break;
+                case "delete":
+                    if (text.length < 2) {
+                        throwMissingTask();
+                    }
+                    deleteTask(text);
+                    break;
                 case "todo":
                 case "deadline":
                 case "event":
@@ -77,11 +83,23 @@ public class Atlas {
             }
         } catch(IllegalArgumentException e) {
             botMessage(e.getMessage());
-            separate();
+            botMessage(SEP);
         } catch (ArrayIndexOutOfBoundsException e) {
             botMessage(e.getMessage());
-            separate();
+            botMessage(SEP);
         }
+    }
+
+    private static void deleteTask(String[] text) throws ArrayIndexOutOfBoundsException {
+        int index = Integer.parseInt(text[1]) - 1;
+        if (index < 0 || index >= tasks.size()) {
+            throwIllegalIndex(index);
+        }
+        botMessage("Noted. I've removed this task:");
+        botMessage("  " + tasks.get(index));
+        tasks.remove(index);
+        botMessage("Now you have " + tasks.size() + " task(s) in the list.");
+        botMessage(SEP);
     }
 
     private static void addToDo(String[] text) throws IllegalArgumentException {
@@ -138,7 +156,7 @@ public class Atlas {
         botMessage("Got it. I've added this task:");
         botMessage("  " + tasks.get(tasks.size() - 1));
         botMessage("Now you have " + tasks.size() + " task(s) in the list.");
-        separate();
+        botMessage(SEP);
     }
 
     private static void taskMark(int index, boolean status) throws ArrayIndexOutOfBoundsException {
@@ -154,7 +172,7 @@ public class Atlas {
 
         botMessage(message);
         botMessage("  " + tasks.get(index));
-        separate();
+        botMessage(SEP);
     }
 
     private static void listShow() {
@@ -167,7 +185,7 @@ public class Atlas {
             botMessage("<EMPTY>");
             botMessage("\nThere is nothing for you to do! Yay!");
         }
-        separate();
+        botMessage(SEP);
     }
 
     private static void introduction() {
@@ -233,19 +251,19 @@ public class Atlas {
         botMessage("Hello! I'm Atlas.");
         botMessage("I am here to share your burdens of remembering tasks");
         botMessage("What can I do for you today?");
-        separate();
+        botMessage(SEP);
     }
 
     private static void exit() {
 
         botMessage("Goodbye! Have a great day ahead!");
-        separate();
+        botMessage(SEP);
     }
 
     private static String listen() {
         System.out.println("");
         String text = scanner.nextLine();  // Read user input
-        separate();
+        botMessage(SEP);
         return text;
     }
 
@@ -254,7 +272,7 @@ public class Atlas {
             return;
         }
         botMessage(input);
-        separate();
+        botMessage(SEP);
     }
 
     /* --------- HELPER FUNCTIONS --------- */
