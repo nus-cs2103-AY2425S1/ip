@@ -1,6 +1,6 @@
 public class Todo extends Task{
     public Todo(String description) {
-        super(formatDescription(description));
+        super(description);
     }
 
     @Override
@@ -19,8 +19,12 @@ public class Todo extends Task{
                 this.getDescription());
     }
 
-    private static String formatDescription(String input) {
-        return input.split(" ", 2)[1];
+    public static String checkTodoFormat(String input) throws InputFormatException{
+        String[] todoSplit = input.split(" ", 2);
+        if (todoSplit.length != 2) {
+            throw new InputFormatException("Oops!  I need a description to save your task");
+        }
+        return todoSplit[1];
     }
 
     public static boolean matchTodo(String s) {

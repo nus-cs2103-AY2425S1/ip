@@ -1,6 +1,6 @@
 public class Deadline extends Task{
     public Deadline(String description) {
-        super(formatDescription(description));
+        super(description);
     }
 
     @Override
@@ -19,15 +19,19 @@ public class Deadline extends Task{
                 this.getDescription());
     }
 
-    private static String formatDescription(String input) {
-        String str = input.split(" ", 2)[1];
-        String[] splitBySlash = str.split("/",2);
+    public static String checkDeadlineFormat(String input) throws InputFormatException{
+        String[] splitDeadline = input.split(" ", 2);
+        if (splitDeadline.length != 2) {
+            throw new InputFormatException("Oops! I need a description to save your task");
+        }
+        String[] splitBySlash = splitDeadline[1].split("/",2);
         if (splitBySlash.length != 2) {
-            return str;
+            throw new InputFormatException("Oops! I need a /by regex to save your deadline task");
         }
         String[] splitByColon = splitBySlash[1].split(" ",2);
         return splitBySlash[0] + String.format("(%s: %s)", splitByColon[0], splitByColon[1]);
     }
+
     public static boolean matchDeadline(String s) {
         return s.startsWith("deadline");
     }

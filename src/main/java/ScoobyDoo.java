@@ -24,17 +24,33 @@ public class ScoobyDoo {
             }
 
             if (Todo.matchTodo(input)) {
-                printFormattedResponse(taskList.addTask(new Todo(input)));
+                try {
+                    String formatInput = Todo.checkTodoFormat(input);
+                    printFormattedResponse(taskList.addTask(new Todo(formatInput)));
+                } catch (InputFormatException e) {
+                    printFormattedResponse(e.getMessage());
+                }
                 continue;
             }
 
             if (Deadline.matchDeadline(input)) {
-                printFormattedResponse(taskList.addTask(new Deadline(input)));
+                try {
+                    String formatInput = Deadline.checkDeadlineFormat(input);
+                    printFormattedResponse(taskList.addTask(new Deadline(formatInput)));
+                } catch (InputFormatException e) {
+                    printFormattedResponse(e.getMessage());
+                }
+
                 continue;
             }
 
             if (Event.matchEvent(input)) {
-                printFormattedResponse(taskList.addTask(new Event(input)));
+                try {
+                    String formatInput = Event.checkEventFormat(input);
+                    printFormattedResponse(taskList.addTask(new Event(formatInput)));
+                } catch (InputFormatException e) {
+                    printFormattedResponse(e.getMessage());
+                }
                 continue;
             }
 
@@ -47,6 +63,10 @@ public class ScoobyDoo {
             if (Task.matchesUnmark(input) != 0) {
                 int num = Task.matchesUnmark(input);
                 printFormattedResponse(taskList.getTask(num - 1).markAsUndone());
+            }
+
+            else {
+                printFormattedResponse("The available inputs are deadline, event, todo, mark, unmark, list and bye");
             }
         }
         scanIn.close();
