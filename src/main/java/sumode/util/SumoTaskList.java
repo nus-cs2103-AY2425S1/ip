@@ -48,13 +48,13 @@ public class SumoTaskList {
             case EXIT:  // added this to allow flexibility though not required by qn
                 return true;
             case LIST:
-                this.ui.printTask(this.tasks);
+                this.ui.printTask(this.tasks,false);
                 break;
             case FIND:
                 List<Task> filtered = this.tasks.stream()
                         .filter(task -> task.toString().contains(item))
                         .toList();
-                this.ui.printTask(filtered);
+                this.ui.printTask(filtered,true);
                 break;
             case MARK:
             {

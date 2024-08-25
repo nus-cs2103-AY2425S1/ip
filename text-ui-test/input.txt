@@ -18,6 +18,9 @@ event watch c-drama /from tonight
 event watch k-drama /to tomorrow
 this is a non-existent command
 list
+find drama
+find tomorrow
+find null
 mark 4
 unmark 69
 list
