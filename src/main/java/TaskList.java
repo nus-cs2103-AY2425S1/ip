@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class TaskList {
         return new Pair<>(formedSection, currIdx);
     }
 
-    public String add(String description, Command command) throws EmptyDescriptionException {
+    public String add(String description, Command command) throws EmptyDescriptionException, DateTimeParseException {
         String[] splitDescription = description.split(" ");
         String taskDescription;
         Task task;
