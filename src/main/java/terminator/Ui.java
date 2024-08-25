@@ -1,3 +1,5 @@
+package terminator;
+
 public class Ui {
 
     private static final String HLINE = "____________________________________________________________\n";

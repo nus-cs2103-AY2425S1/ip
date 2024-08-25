@@ -1,7 +1,7 @@
-package command;
+package terminator.command;
 
-import task.EventTask;
-import task.Task;
+import terminator.task.EventTask;
+import terminator.task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

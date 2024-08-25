@@ -1,6 +1,14 @@
-import command.*;
-import task.Storage;
-import task.TaskList;
+package terminator;
+
+import terminator.command.CommandParser;
+import terminator.command.Command;
+import terminator.command.DeadlineCommand;
+import terminator.command.DeleteCommand;
+import terminator.command.DukeException;
+import terminator.command.EventCommand;
+import terminator.command.TodoCommand;
+import terminator.task.Storage;
+import terminator.task.TaskList;
 
 import java.util.Scanner;
 

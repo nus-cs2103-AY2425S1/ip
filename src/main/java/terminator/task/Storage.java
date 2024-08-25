@@ -1,6 +1,6 @@
-package task;
+package terminator.task;
 
-import command.DukeException;
+import terminator.command.DukeException;
 
 import java.io.*;
 import java.time.LocalDateTime;

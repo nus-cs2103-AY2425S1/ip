@@ -1,6 +1,6 @@
-package command;
+package terminator.command;
 
-import task.Task;
+import terminator.task.Task;
 
 import java.util.ArrayList;
 

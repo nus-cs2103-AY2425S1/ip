@@ -1,4 +1,4 @@
-# Terminator project template
+# terminator.Terminator project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
@@ -13,4 +13,4 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Terminator.java` file, right-click it, and choose `Run Terminator.main()`
+3. After that, locate the `src/main/java/terminator.Terminator.java` file, right-click it, and choose `Run terminator.Terminator.main()`

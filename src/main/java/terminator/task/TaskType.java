@@ -1,4 +1,4 @@
-package task;
+package terminator.task;
 
 public enum TaskType {
     TODO {
