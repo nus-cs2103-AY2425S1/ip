@@ -4,6 +4,7 @@ public abstract class Task {
     protected String icon;
 
     public abstract String getDetails();
+    public abstract String toSaveFormat();
     public Task(String name) {
         this.name = name;
         this.isDone = false;

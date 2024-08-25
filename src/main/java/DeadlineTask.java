@@ -15,4 +15,9 @@ public class DeadlineTask extends Task {
     public String getDetails() {
         return " (by: " + by + ")";
     }
+
+    @Override
+    public String toSaveFormat() {
+        return "D | " + (isDone ? "1" : "0") + " | " + name + " | " + by;
+    }
 }

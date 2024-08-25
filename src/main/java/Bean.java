@@ -1,15 +1,22 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Bean {
     private static final String NAME = "Bean";
+    private static final String FILE_PATH = "./data/bean.txt";
     private Scanner scanner;
     private List<Task> tasks = new ArrayList<>();
     private int numOfTasks;
 
     public Bean() {
         this.scanner = new Scanner(System.in);
+        loadTasks();
     }
 
     public void startConversation() {
@@ -104,6 +111,7 @@ public class Bean {
         System.out.println(task);
         System.out.println("Now you have " + numOfTasks + " tasks in the list.");
         System.out.println("______________________________");
+        saveTasks();
     }
 
     private void printList() {
@@ -123,6 +131,7 @@ public class Bean {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks.get(taskIndex));
         System.out.println("______________________________");
+        saveTasks();
     }
 
     private void unmarkTask(int taskNumber) {
@@ -132,6 +141,7 @@ public class Bean {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks.get(taskIndex));
         System.out.println("______________________________");
+        saveTasks();
     }
 
     private void deleteTask(int taskNumber) {
@@ -143,7 +153,63 @@ public class Bean {
         System.out.println(removedTask);
         System.out.println("Now you have " + numOfTasks + " tasks in the list.");
         System.out.println("______________________________");
+        saveTasks();
     }
+
+    private void loadTasks() {
+        File file = new File(FILE_PATH);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create directory if it doesn't exist
+                file.createNewFile(); // Create file if it doesn't exist
+            }
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (taskType) {
+                    case "T":
+                        TodoTask todo = new TodoTask(description);
+                        if (isDone) todo.completeTask();
+                        tasks.add(todo);
+                        break;
+                    case "D":
+                        String by = parts[3];
+                        DeadlineTask deadline = new DeadlineTask(description, by);
+                        if (isDone) deadline.completeTask();
+                        tasks.add(deadline);
+                        break;
+                    case "E":
+                        String from = parts[3];
+                        String to = parts[4];
+                        EventTask event = new EventTask(description, from, to);
+                        if (isDone) event.completeTask();
+                        tasks.add(event);
+                        break;
+                }
+                numOfTasks++;
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
+
+    private void saveTasks() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.println(task.toSaveFormat());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+
 
     public static void main(String[] args) {
         Bean bean = new Bean();
