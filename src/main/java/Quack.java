@@ -1,9 +1,15 @@
+import java.util.ArrayList;
+import java.io.BufferedReader;  
+import java.io.File;
+import java.io.FileReader;  
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
-* The Quack chatbot program implements the functionality needed
-* to help users keep track of tasks for them.
-*/
+ * The Quack chatbot program implements the functionality needed
+ * to help users keep track of tasks for them.
+ */
 public class Quack {
 
     /** String to print out the spacers between each command */
@@ -32,7 +38,7 @@ public class Quack {
     }
     
     /**
-     * Constructor to create a Quack chatbot object.
+     * Creates a Quack chatbot object.
      */
     Quack() {
 
@@ -66,8 +72,10 @@ public class Quack {
     }
 
     /**
-     * Get task details from input.
-     * Create a task object and add it into the task list.
+     * Retrieves the task details from input.
+     * <p>
+     * After retrieveing the task details, create a object and add it into the task list.
+     * If the input is invalid an exception will be thrown
      * 
      * @param inputArr Processed input commands by the user.
      * @throws InvalidInputException If there is something wrong with the input provided by the user.
@@ -127,8 +135,11 @@ public class Quack {
     }
 
     /**
-     * Depending on the input given by the user, Quack will execute the command,
-     * given that the Quack supports the command
+     * Executes the command input by the user.
+     * <p>
+     * Depending on the input given by the user, Quack will execute the command.
+     * <p>
+     * If the command is not supported by Quack an invalid input exception will be thrown.
      * 
      * @param input The raw input from the user.
      * @throws InvalidInputException If there is something wrong with the input provided by the user.
@@ -191,10 +202,76 @@ public class Quack {
         System.out.println(spacer);
     }
 
+    private void loadData() {
+
+        // Load the datafile
+        File dataFile = new File("data/savedData.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(dataFile));
+
+            String line = br.readLine();
+
+            while (line != null) {
+                String[] data = line.split(",");
+
+                switch (data[0]) {
+                case "TODO":
+                    this.toDoList.addTask(data[1], data[0], null, null, Boolean.parseBoolean(data[2]));
+                    break;
+                
+                case "DEADLINE":
+                    this.toDoList.addTask(data[1], data[0], null, data[3], Boolean.parseBoolean(data[2]));
+                    break;
+                
+                case "EVENT":
+                    this.toDoList.addTask(data[1], data[0], data[3], data[4], Boolean.parseBoolean(data[2]));
+                    break;
+
+                default:
+                    break;
+                }
+
+                line = br.readLine();
+            }
+
+            br.close();
+
+        } catch (Exception err) {
+            // There is no data file to read from, then continue as per normal.   
+        }
+    }
+
     /**
-     * Function to run the chatbot and start taking inputs from the user.
+     * Saves the task list into a .csv folder.
+     * <p>
+     * All tasks inside the task list will be saved into a .csv folder once Quack stops running.
+     * 
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
+     */
+    private void saveData() throws IOException{
+
+        // Create a csv file to save the tasks
+        File dataFile = new File("data/savedData.csv");
+        FileWriter fw = new FileWriter(dataFile);
+
+        // Convert each task into a csv string format and write into the file
+        ArrayList<String> savedData = this.toDoList.convertToCSVFormat();
+        
+        for (String s : savedData) {
+            fw.write(s + "\n");
+        }
+
+        // Close the file writter
+        fw.close();
+    }
+
+    /**
+     * Runs the chatbot and start taking inputs from the user.
      */
     private void run() {
+
+        // Retrieved save data from a text file if it exists
+        this.loadData();
 
         // Chatbot is running for the first time, display the logo and greet the user
         this.printLogo();
@@ -211,6 +288,12 @@ public class Quack {
                 System.out.println(inputErr.getMessage());
                 System.out.println(spacer);
             }
+        }
+
+        try {
+            this.saveData();
+        } catch (IOException IOErr){
+            System.out.println("An error has occured " + IOErr.getMessage());
         }
 
         // Close the scanner

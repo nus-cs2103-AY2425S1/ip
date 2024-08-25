@@ -18,6 +18,12 @@ public class TaskList {
 
     /**
      * Updates the task staus by marking or unmarking tasks.
+     * <p>
+     * If the user inputs mark, then it will mark the task.
+     * <p>
+     * If the user inputs unmark, then it will unmark the task.
+     * <p>
+     * If the index input is out of bounds it will throw a invalid index exception.
      * 
      * @param idx Index of the task inside the task list.
      * @param command To state weather to mark or unmark the task.
@@ -40,6 +46,8 @@ public class TaskList {
     
     /**
      * Creates a task object and adds it into the list.
+     * <p>
+     * Based on the task type, it will create the corrosponding task object.
      * 
      * @param taskName Description of the task.
      * @param taskType The type of the task.
@@ -67,7 +75,39 @@ public class TaskList {
     }
 
     /**
+     * Creates a task object and adds it into the list.
+     * <p>
+     * Based on the task type, it will create the corrosponding task object.
+     * 
+     * @param taskName Description of the task.
+     * @param taskType The type of the task.
+     * @param startDate The start date of the task.
+     * @param endDate The end date of the task.
+     */
+    public void addTask(String taskName, String taskType, String startDate, String endDate, boolean isMarked) {
+
+        // Create a new task object based on he task type
+        Task newTask;
+        if (taskType.equals("TODO")) {
+            newTask = new ToDoTask(taskName);
+        } else if (taskType.equals("DEADLINE")) {
+            newTask = new DeadlineTask(taskName, endDate);
+        } else {
+            newTask = new EventTask(taskName, startDate, endDate);
+        }
+
+        if (isMarked) {
+            newTask.mark();
+        }
+
+        // Add the new task into the list
+        this.toDo.add(newTask);
+    }
+
+    /**
      * Deletes the task from the list.
+     * <p>
+     * If the index input is out of bounds it will throw a invalid index exception.
      * 
      * @param idx Index of the task inside the task list.
      * @throws InvalidIndexException If the index is < 0 or if it is >= the size of the task list.
@@ -86,6 +126,19 @@ public class TaskList {
         System.out.println("Alright I have removed this task into the list: \n" + removedTask.toString()
                         + "\nYou now have " + this.toDo.size() + " tasks in your list right now!");
     }
+
+    public ArrayList<String> convertToCSVFormat () {
+
+        ArrayList<String> savedData = new ArrayList<String>();
+
+        for (Task t : this.toDo) {
+            String taskInCSVFormat = t.toCSVFormat();
+            savedData.add(taskInCSVFormat);
+        }
+
+        return savedData;
+    }
+
 
     @Override
     public String toString() {
