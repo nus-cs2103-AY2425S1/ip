@@ -1,3 +1,8 @@
+## to run
+cd to java
+javac duke/Duke.java
+java duke/Duke
+
 ## to run test:
 cd text-ui-test
 bash runtest.sh

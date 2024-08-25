@@ -1,6 +1,7 @@
 package duke.task;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -69,5 +70,15 @@ public class TaskList {
             System.out.println(" No tasks found on this date.");
         }
         System.out.println("____________________________________________________________");
+    }
+
+        public List<Task> findTasksByKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }

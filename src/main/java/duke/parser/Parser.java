@@ -1,73 +1,67 @@
 package duke.parser;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ShowOnDateCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.UnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
-    
+
     public static Command parse(String input) throws EmptyDescriptionException, UnknownCommandException {
-        if (input.equals("bye")) {
-            return new ExitCommand();
-        } else if (input.equals("list")) {
-            return new ListCommand();
-        } else if (input.startsWith("mark ")) {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-            return new MarkCommand(taskNumber);
-        } else if (input.startsWith("unmark ")) {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-            return new UnmarkCommand(taskNumber);
-        } else if (input.startsWith("todo ")) {
-            String taskDescription = input.substring(5).trim();
-            if (taskDescription.isEmpty()) {
-                throw new EmptyDescriptionException("todo");
-            }
-            return new AddCommand(new ToDo(taskDescription));
-        } else if (input.startsWith("deadline ")) {
-            String[] parts = input.substring(9).split(" /by ");
-            if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                throw new EmptyDescriptionException("deadline");
-            }
-            String taskDescription = parts[0].trim();
-            String by = parts[1].trim();
-            try {
-                LocalDate byDate = LocalDate.parse(by);  // Assumes the date is provided in yyyy-MM-dd format
-                return new AddCommand(new Deadline(taskDescription, byDate));
-            } catch (DateTimeParseException e) {
-                throw new UnknownCommandException("The date format is incorrect. Please use yyyy-MM-dd format.");
-            }
-        } else if (input.startsWith("event ")) {
-            String[] parts = input.substring(6).split(" /from | /to ");
-            if (parts.length < 3 || parts[0].trim().isEmpty()) {
-                throw new EmptyDescriptionException("event");
-            }
-            String taskDescription = parts[0].trim();
-            String from = parts[1];
-            String to = parts[2];
-            return new AddCommand(new Event(taskDescription, from, to));
-        } else if (input.startsWith("show on ")) {
-            String dateStr = input.substring(8).trim();
-            try {
-                LocalDate date = LocalDate.parse(dateStr); // Accepting date in yyyy-MM-dd format
-                return new ShowOnDateCommand(date);
-            } catch (DateTimeParseException e) {
-                throw new UnknownCommandException("The date format is incorrect. Please use yyyy-MM-dd format.");
-            }
-        } else {
-            throw new UnknownCommandException(input);
+        String[] words = input.split(" ", 2);
+        String command = words[0];
+
+        switch (command) {
+            case "bye":
+                return new ExitCommand();
+            case "list":
+                return new ListCommand();
+            case "mark":
+                return new MarkCommand(Integer.parseInt(words[1]) - 1);
+            case "unmark":
+                return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
+            case "delete":
+                return new DeleteCommand(Integer.parseInt(words[1]) - 1);
+            case "todo":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("todo");
+                }
+                return new AddCommand(new ToDo(words[1].trim()));
+            case "deadline":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("deadline");
+                }
+                String[] deadlineParts = words[1].split(" /by ");
+                if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("deadline");
+                }
+                try {
+                    LocalDate byDate = LocalDate.parse(deadlineParts[1].trim());
+                    return new AddCommand(new Deadline(deadlineParts[0].trim(), byDate));
+                } catch (DateTimeParseException e) {
+                    throw new UnknownCommandException("The date format is incorrect. Please use yyyy-MM-dd format.");
+                }
+            case "event":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("event");
+                }
+                String[] eventParts = words[1].split(" /from | /to ");
+                if (eventParts.length < 3 || eventParts[0].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("event");
+                }
+                return new AddCommand(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
+            case "find":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new EmptyDescriptionException("find");
+                }
+                return new FindCommand(words[1].trim());
+            default:
+                throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
         }
     }
 }
