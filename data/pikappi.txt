@@ -1,8 +1,9 @@
 T | 0 | testing hello
-D | 1 | deadline test | tmr  
+D | 1 | deadline test | tmr   
 E | 1 | event test | tday | tmr
 E | 1 | another event | 2pm | 4pm
 E | 0 | task5 | Aug 24 2024 | Aug 30 2024
-D | 0 | now | May 5 2024 12:00AM 5 5
+D | 0 | now | May 5 2024 12:00AM 5 5 5
 T | 0 | now
 E | 0 | now | now | later
+T | 0 | hello
