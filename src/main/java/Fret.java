@@ -3,9 +3,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +22,7 @@ public class Fret {
     private static final Pattern DEADLINE_PATTERN2 = Pattern.compile("\\[D\\]\\[( |X)\\] (.+) \\(by: (.+)\\)");
     private static final Pattern EVENT_PATTERN = Pattern.compile("event (.+?) /from (.+) /to (.+)");
     private static final Pattern EVENT_PATTERN2 = Pattern.compile("\\[E\\]\\[( |X)\\] (.+) \\(from: (.+), to: (.+)\\)");
+    private static final Pattern DATETIME_PATTERN = Pattern.compile("(\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ tT]([\\d:]+) *(am|pm)");
     private static final Random RNG = new Random();
 
     private static final String[] ADD_TASK_PREFIXES = new String[] {
@@ -106,6 +111,10 @@ public class Fret {
         }
     }
 
+    private static String taskListToFile(ArrayList<Task> tasks) {
+        return tasks.stream().map(t -> t.toEasyString()).reduce("----TASKS----", (x, y) -> x + "\n" + y);
+    }
+
     /**
      * Prints chatbot output to console with surrounding lines
      * 
@@ -133,7 +142,10 @@ public class Fret {
         Matcher deadlineMatcher = DEADLINE_PATTERN2.matcher(taskLine);
 
         if (deadlineMatcher.find()) {
-            Deadline deadline = new Deadline(deadlineMatcher.group(2), deadlineMatcher.group(3));
+            Deadline deadline = new Deadline(
+                deadlineMatcher.group(2),
+                LocalDateTime.parse(deadlineMatcher.group(3))
+            );
             if (deadlineMatcher.group(1).equals("X")) {
                 deadline.markAsCompleted();
             }
@@ -144,7 +156,11 @@ public class Fret {
         Matcher eventMatcher = EVENT_PATTERN2.matcher(taskLine);
 
         if (eventMatcher.find()) {
-            Event event = new Event(eventMatcher.group(2), eventMatcher.group(3), eventMatcher.group(4));
+            Event event = new Event(
+                eventMatcher.group(2),
+                LocalDateTime.parse(eventMatcher.group(3)),
+                LocalDateTime.parse(eventMatcher.group(4))
+            );
             if (eventMatcher.group(1).equals("X")) {
                 event.markAsCompleted();
             }
@@ -160,7 +176,9 @@ public class Fret {
             Scanner taskFileReader = new Scanner(taskFile);
             while (taskFileReader.hasNextLine()) {
                 String data = taskFileReader.nextLine();
-                taskList.add(processTaskLine(data));
+                if (!data.equals("----TASKS----")) {
+                    taskList.add(processTaskLine(data));
+                }
             }
             taskFileReader.close();
         } catch (FileNotFoundException e) {
@@ -174,6 +192,40 @@ public class Fret {
         }
         
         return true;
+    }
+
+    private static LocalDateTime parseDateTime(String datetime) {
+        Matcher datetimeMatcher = DATETIME_PATTERN.matcher(datetime);
+
+        if (datetimeMatcher.find()) {
+            Integer year = Integer.parseInt(datetimeMatcher.group(3));
+            year = year > 999 ? year : year + 2000;
+
+            int hours = 0;
+            int minutes = 0;
+            String[] hoursMinutes = datetimeMatcher.group(4).split(":");
+            if (hoursMinutes.length > 1) {
+                minutes = Integer.parseInt(hoursMinutes[1]);
+            }
+            hours = Integer.parseInt(hoursMinutes[0]);
+            String timeOfDay = datetimeMatcher.group(5);
+            hours = timeOfDay.equalsIgnoreCase("am")
+                    ? (hours == 12 ? 0 : hours)
+                    : (hours == 12 ? 12 : hours + 12);
+
+            try {
+                return LocalDateTime.of(
+                    year,
+                    Integer.parseInt(datetimeMatcher.group(2)),
+                    Integer.parseInt(datetimeMatcher.group(1)),
+                    hours,
+                    minutes
+                );
+            } catch (DateTimeException e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
@@ -274,28 +326,42 @@ public class Fret {
                     Matcher taskMatcher = DEADLINE_PATTERN.matcher(userInput);
 
                     if (taskMatcher.find()) {
-                        Deadline task = new Deadline(taskMatcher.group(1), taskMatcher.group(2));
-                        tasks.add(task);
-                        numTasks++;
-                        printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + task.toString());
+                        LocalDateTime deadline = parseDateTime(taskMatcher.group(2));
+                        if (deadline != null) {
+                            Deadline task = new Deadline(
+                                taskMatcher.group(1),
+                                deadline
+                            );
+                            tasks.add(task);
+                            numTasks++;
+                            printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + task.toString());
+                        } else {
+                            printBotOutputString("\tHang on! You seem to have given me an invalid date and time!");
+                        }
                     } else {
-                        printBotOutputString("\tOops! You haven't given me any task and deadline to add!");
+                        printBotOutputString("\tOops! You haven't given me any task or deadline to add!");
                     }
                 } else if (userInput.startsWith("event")) {
                     // add user input as event task, after parsing out the dates and task
                     Matcher taskMatcher = EVENT_PATTERN.matcher(userInput);
 
                     if (taskMatcher.find()) {
-                        Event task = new Event(
-                            taskMatcher.group(1),
-                            taskMatcher.group(2),
-                            taskMatcher.group(3)
-                        );
-                        tasks.add(task);
-                        numTasks++;
-                        printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + task.toString());
+                        LocalDateTime startTime = parseDateTime(taskMatcher.group(2));
+                        LocalDateTime endTime = parseDateTime(taskMatcher.group(3));
+                        if (startTime != null && endTime != null) {
+                            Event task = new Event(
+                                taskMatcher.group(1),
+                                startTime,
+                                endTime
+                            );
+                            tasks.add(task);
+                            numTasks++;
+                            printBotOutputString(generateRandomPrefix(ADD_TASK_PREFIXES) + task.toString());
+                        } else {
+                            printBotOutputString("\tHang on! You seem to have given me an invalid date and time!");
+                        }
                     } else {
-                        printBotOutputString("\tHold on! You haven't given me any task and timings to add!");
+                        printBotOutputString("\tHold on! You haven't given me any task or timings to add!");
                     }
                 } else if (userInput.startsWith("delete")) {
                     // else if user input starts with "delete" then delete task X
@@ -331,7 +397,7 @@ public class Fret {
         // but first store the tasks back into the text file
         try {
             FileWriter taskFileWriter = new FileWriter(taskFile);
-            taskFileWriter.write(taskListToString(tasks, numTasks));
+            taskFileWriter.write(taskListToFile(tasks));
             taskFileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -342,6 +408,6 @@ public class Fret {
 
         input.close();
 
-        printBotOutputString("\tOh well, it was fun while it lasted. Goodbye!");
+        printBotOutputString("\tAlright, I've saved your tasks in data/taskList.txt! Goodbye!");
     }
 }

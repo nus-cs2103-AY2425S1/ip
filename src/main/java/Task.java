@@ -30,4 +30,8 @@ public class Task {
     public String toString() {
         return this.isCompleted ? "[X] " + this.taskName : "[ ] " + this.taskName;
     }
+
+    public String toEasyString() {
+        return this.toString();
+    }
 }
