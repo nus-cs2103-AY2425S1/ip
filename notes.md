@@ -23,3 +23,6 @@ unmark 3 -> unmarks task as undone
 deadline return book /by 2019-10-15
 deadline buy groceries /by 2019-10-15
 deadline cook lunch /by 2019-10-14
+
+## showing tasks on date
+show on 2019-10-15
