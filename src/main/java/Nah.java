@@ -156,35 +156,35 @@ public class Nah {
                     }
                     case TODO: {
                         if (command.length < 2 || command[1].trim().isEmpty()) {
-                            throw new LackDescription("Nah!!! Todo needs description\n");
+                            throw new LackDescription(" Nahhhh!!! Todo needs description\n");
                         }
-                        nah.add(new ToDos(command[1]));
+                        nah.add(new ToDos(command[1].trim()));
                         break;
                     }
                     case DEADLINE: {
                         if (command.length < 2 || command[1].trim().isEmpty()) {
-                            throw new LackDescription("Nahh!!! Deadline needs description\n");
+                            throw new LackDescription(" Nahhhh!!! Deadline needs description\n");
                         }
                         String[] des = command[1].split("/by", 2);
                         if (des.length < 2 || des[1].trim().isEmpty()) {
-                            throw new LackDescription(("Nah!!! We need deadline for Deadline\n"));
+                            throw new LackDescription((" Nahhhhhhh!!! We need deadline for Deadline\n"));
                         }
-                        nah.add(new Deadlines(des[0], des[1]));
+                        nah.add(new Deadlines(des[0].trim(), des[1].trim()));
                         break;
                     }
                     case EVENT: {
                         if (command.length < 2 || command[1].trim().isEmpty()) {
-                            throw new LackDescription("Nahh!!! Event needs description\n");
+                            throw new LackDescription(" Nahhhh!!! Event needs description\n");
                         }
                         String[] des = command[1].split("/from", 2);
                         if (des.length < 2 || des[1].trim().isEmpty()) {
-                            throw new LackDescription(("Nah!!! We need starting time for an Event\n"));
+                            throw new LackDescription((" Nahhhhhhh!!! We need starting time for an Event\n"));
                         }
                         String[] time = des[1].split("/to", 2);
                         if (time.length < 2 || time[1].trim().isEmpty()) {
-                            throw new LackDescription(("Nah!!! We need ending time for an Event\n"));
+                            throw new LackDescription((" Nahhhhhhhhhhhhhh!!! We need ending time for an Event\n"));
                         }
-                        nah.add(new Events(des[0],time[0],time[1]));
+                        nah.add(new Events(des[0].trim(),time[0].trim(),time[1].trim()));
                         break;
                     }
                     default:
@@ -198,7 +198,7 @@ public class Nah {
             } catch (InvalidTaskNumber e) {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
-                System.out.println(" NAH!!! Please give me a valid ordinal number for the task\n");
+                System.out.println(" Nah!!! Please give me a valid ordinal number for the task\n");
             }
 
             System.out.println("____________________________________________________________\n");
