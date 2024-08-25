@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.io.*;
 import java.util.NoSuchElementException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 
 public class Simon {
@@ -14,6 +14,10 @@ public class Simon {
     final String WLC_MSG = " Hello! I'm Simon \n" +
             " What can I do for you?\n";
     final String EXT_MSG = " Bye. Hope to see you again soon!";
+    private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+
     ArrayList<Task> taskList = new ArrayList<Task>(); // Create an ArrayList object
     String inputFile = "store.txt";
     int taskCount = 0;
@@ -49,8 +53,10 @@ public class Simon {
                         task = new ToDo(parts[2], taskCount);
                         break;
                     case "D":
-                        task = new Deadline(parts[2], taskCount, parts[3]);
-                        break;
+                            // Parse the deadline string into LocalDateTime
+                            LocalDateTime deadline = LocalDateTime.parse(parts[3], SAVE_FORMATTER);
+                            task = new Deadline(parts[2], taskCount, deadline);
+                            break;
                     case "E":
                         task = new Events(parts[2], taskCount, parts[3], parts[4]);
                         break;
@@ -109,10 +115,13 @@ public class Simon {
                     if (info.length < 2 || info[0].trim().isEmpty() || info[1].trim().isEmpty()) {
                         throw new IllegalArgumentException("The deadline command is missing description or date.");
                     }
-                    Deadline deadline = new Deadline(info[0].trim(), taskCount, info[1].trim());
-                    taskList.add(deadline);
+                    String name = info[0].trim();
+                    String deadlineString = info[1].trim();
+                    LocalDateTime deadline = LocalDateTime.parse(deadlineString, INPUT_FORMATTER);
+                    Deadline task = new Deadline(name, taskCount, deadline);
+                    taskList.add(task);
                     taskCount++;
-                    String prMsg = printMessage("Got it. I've added this task:\n" + "\t" + deadline.toString()) + "\tNow you have " + taskCount + " tasks in the list.";
+                    String prMsg = printMessage("Got it. I've added this task:\n" + "\t" + task.toString()) + "\tNow you have " + taskCount + " tasks in the list.";
                     System.out.println(prMsg);
                     saveToFile();
                     continue;

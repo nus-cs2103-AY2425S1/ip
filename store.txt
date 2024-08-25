@@ -1,4 +1,2 @@
 E | 0 | project meeting | Mon 2pm | 4pm
-E | 0 | project meeting | Mon 2pm | 4pm
-E | 0 | project meeting | Mon 2pm | 4pm
-E | 0 | project meeting | Mon 2pm | 4pm
+D | 0 | return book | 2019-12-02 1800
