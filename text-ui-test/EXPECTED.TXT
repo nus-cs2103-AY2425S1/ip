@@ -5,211 +5,211 @@
  __/ (  | (  |
 /__.-'|_|--|_|
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Hello, master! How may I help you today? ><
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
+Here's your list of tasks!
+(No tasks found...)
+
+_._._User_._._
+
+_._._MoiMoi_._._
 Aight! New task added: [T][ ] borrow book
 We have 1 tasks in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Aight! New task added: [D][ ] return book (by: 22-08-2024 17:00)
 We have 2 tasks in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Aight! New task added: [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 We have 3 tasks in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Here's your list of tasks!
 1. [T][ ] borrow book
 2. [D][ ] return book (by: 22-08-2024 17:00)
 3. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 YAY!! One down!!
 [T][X] borrow book
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 YAY!! One down!!
 [D][X] return book (by: 22-08-2024 17:00)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 YAY!! One down!!
 [T][X] borrow book
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Oof, it's OK! Let's get it done soon ;)
 [D][ ] return book (by: 22-08-2024 17:00)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Oof, it's OK! Let's get it done soon ;)
 [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( I couldn't understand that.. Try giving me a valid command!
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( I couldn't understand that.. Try giving me a valid command!
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( I couldn't understand that.. Try giving me a valid command!
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
 ** Pro-tip: double-check your slash command(s) ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
 ** Pro-tip: double-check your slash command(s) ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
 ** Pro-tip: double-check your slash command(s) ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( I need more information to help you out! Pass me some more arguments~
 ** Pro-tip: double-check your slash command(s) ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
 ** Pro-tip: pass me an integer in the range of existing task indices ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
 ** Pro-tip: pass me an integer in the range of existing task indices ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
 ** Pro-tip: pass me an integer in the range of existing task indices ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( This task index doesn't seem right to me.. Let's fix it, shall we?
 ** Pro-tip: pass me an integer in the range of existing task indices ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Here's your list of tasks!
 1. [T][X] borrow book
 2. [D][ ] return book (by: 22-08-2024 17:00)
 3. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Aju nice! I've got rid of this task: [D][ ] return book (by: 22-08-2024 17:00)
 We have 2 tasks left in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
-Uh-oh :'( The date-time format doesn't make sense to me.. This calls for a fix!
-** Pro-tip: pass me valid date-times in the format 'yyyy-MM-dd HH:mm' ;)
-
-⋆⭒˚.⋆User⋆⭒˚.⋆
-
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( Need some fixing on the date range here!
 ** Pro-tip: the starting time shouldn't be later than the ending time ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Aight! New task added: [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
 We have 3 tasks in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Aight! New task added: [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
 We have 4 tasks in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Aight! New task added: [D][ ] iP (by: 22-08-2024 17:17)
 We have 5 tasks in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Aight! New task added: [D][ ] tP (by: 23-08-2024 17:17)
 We have 6 tasks in the bag~
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Here's your list of tasks!
 1. [T][X] borrow book
 2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
@@ -218,23 +218,42 @@ Here's your list of tasks!
 5. [D][ ] iP (by: 22-08-2024 17:17)
 6. [D][ ] tP (by: 23-08-2024 17:17)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Uh-oh :'( The date format doesn't make sense to me.. This calls for a fix!
 ** Pro-tip: pass me valid dates in the format 'yyyy-MM-dd' ;)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 Here's your list of tasks, occurring on 22-08-2024!
 2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
 4. [E][ ] party (from: 21-08-2024 18:00 to: 23-08-2024 18:00)
 5. [D][ ] iP (by: 22-08-2024 17:17)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
+Here's your list of tasks, occurring on 22-08-2025!
+(No such tasks found...)
+
+_._._User_._._
+
+_._._MoiMoi_._._
+Here's your list of tasks, containing 'meeting' in their descriptions!
+2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
+3. [E][ ] meeting (from: 21-08-2024 18:00 to: 21-08-2024 18:00)
+
+_._._User_._._
+
+_._._MoiMoi_._._
+Here's your list of tasks, containing 'sleep' in their descriptions!
+(No such tasks found...)
+
+_._._User_._._
+
+_._._MoiMoi_._._
 Here's your list of tasks!
 1. [T][X] borrow book
 2. [E][ ] project meeting (from: 22-08-2024 18:00 to: 22-08-2024 18:30)
@@ -243,8 +262,8 @@ Here's your list of tasks!
 5. [D][ ] iP (by: 22-08-2024 17:17)
 6. [D][ ] tP (by: 23-08-2024 17:17)
 
-⋆⭒˚.⋆User⋆⭒˚.⋆
+_._._User_._._
 
-⋆⭒˚.⋆MoiMoi⋆⭒˚.⋆
+_._._MoiMoi_._._
 I'll always be here for you~ See ya, master! ^^
 

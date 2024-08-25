@@ -1,3 +1,4 @@
+list
 todo borrow book
 deadline return book /by 2024-08-22 17:00
 event project meeting /from 2024-08-22 18:00 /to 2024-08-22 18:30
@@ -23,7 +24,6 @@ delete 2
 deadline return book /by 2024-08-40 17:00
 event project meeting /from 2024-08-22 18:00 /to 2024-08-22 40:30
 deadline return book /by 2024-8-22 17:00
-event project meeting /from 2024-08-2 18:00 /to 2024-08-22 18:30
 deadline return book /by 2024-08-22 5:00
 event project meeting /from 2024/08/22 18:00 /to 2024/08/22 18:30
 event meeting /from 2024-08-22 18:00 /to 2024-08-22 17:00
@@ -34,5 +34,8 @@ deadline tP /by 2024-08-23 17:17
 list
 filter 22-08-2024
 filter 2024-08-22
+filter 2025-08-22
+find meeting
+find sleep
 list
 bye
