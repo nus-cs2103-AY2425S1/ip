@@ -174,11 +174,7 @@ public class Main {
                     }
                     case 'E' -> {
                         // event object
-                        String eventDescription = line.substring(8, line.indexOf("|", 8) - 1);
-                        String startDate = line.substring(line.indexOf("|", 8) + 2, line.indexOf("-", line.indexOf("|", 8)));
-                        String endDate = line.substring(line.indexOf("-", line.indexOf("|", 8)) + 1);
-                        task = new Event(eventDescription, "E", startDate, endDate);
-                        task.setDone(isDone);
+                        task = createEventFromJanetTextFile(line, isDone);
                     }
                 }
                 listOfTasks.add(task);
@@ -209,6 +205,25 @@ public class Main {
         Deadline deadline = new Deadline(deadlineDescription, "D", dueDate);
         deadline.setDone(isDone);
         return deadline;
+    }
+
+
+    public static Event createEventFromJanetTextFile(String line, boolean isDone) {
+        // get description from text file
+        String eventDescription = line.substring(8, line.indexOf("|", 8) - 1);
+
+        // get startDate and convert into LocalDateTime
+        String startDateAndTime = line.substring(line.indexOf("|", 8) + 2, line.indexOf("-", line.indexOf("|", 8)));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
+        LocalDateTime startDate = LocalDateTime.parse(startDateAndTime, formatter);
+
+        // get the endDate and convert into LocalDateTime
+        String endDateAndTime = line.substring(line.indexOf("-", line.indexOf("|", 8)) + 1);
+        LocalDateTime endDate = LocalDateTime.parse(endDateAndTime, formatter);
+
+        Event event = new Event(eventDescription, "E", startDate, endDate);
+        event.setDone(isDone);
+        return event;
     }
 
 
