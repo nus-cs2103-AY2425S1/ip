@@ -43,7 +43,7 @@ public class Michael {
             target.undoTask();
             printer("OK, I've marked this task as not done yet:\n" + "  " + target);
         } else if (input.equals("list")) { // list user inputs thus far
-            String list = "";
+            String list = "Here are the tasks in your list:\n";
             for (int i = 0; i < tasks.size(); i++) {
                 String elem = String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
                 list = list.concat(elem);
