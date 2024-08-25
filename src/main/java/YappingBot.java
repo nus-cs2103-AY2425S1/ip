@@ -28,12 +28,16 @@ public class YappingBot {
         // start
         System.out.println(quoteText(GREETING_TEXT));
 
+        programmeLoop:
         while (true) {
            String userInput = userInputScanner.nextLine();
-           if (userInput.equalsIgnoreCase("bye")) {
-               break; // exit
+           switch (userInput.toLowerCase()) {
+               case "bye":
+                   break programmeLoop;
+               default:
+                   System.out.println(quoteText(String.format("added: %s", userInput)));
+                   break; // sanity break
            }
-           System.out.println(quoteText(userInput));
         }
 
         // exit
