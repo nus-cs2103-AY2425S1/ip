@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * a Personal Assistant Chatbot that helps a person
@@ -190,8 +193,16 @@ public class Henry {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         greetings();
+
+        String pathName = "./data/Henry.txt";
+        File file = new File(pathName);
+        //if file does not exist, create new file and directory
+        if (!file.exists()) {
+            file.createNewFile();
+            file.mkdirs();
+        }
 
         ArrayList<Task> tasks = new ArrayList<Task>();
 
