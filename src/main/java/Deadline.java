@@ -13,6 +13,10 @@ public class Deadline extends Task {
         this.due = str.toString();
     }
 
+    public String getDue() {
+        return due;
+    }
+
     /**
      * Returns a formatted String that represents the Deadline object and its fields
      * @return a String representation of the Deadline object
