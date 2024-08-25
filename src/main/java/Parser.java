@@ -7,7 +7,7 @@ public class Parser {
     public static Command parse(String command) throws LamaException {
         String[] words = command.split(" ", 2);
 
-        switch (words[0]) {
+        switch (words[0].toLowerCase()) {
         case "bye":
             return new ExitCommand();
 
