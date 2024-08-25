@@ -13,8 +13,8 @@ public class Glados {
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
             + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
             + "\n";
-    private static ArrayList<Task> taskList = new ArrayList<>();  
-    private static int listIndex = 0;
+    private static TaskManager taskManager = new TaskManager();
+
     public static void main(String[] args) {
         greet();
 
@@ -27,33 +27,34 @@ public class Glados {
             } else {
                 try {
                     String query = input.split(" ")[0];
-                    if (query.equals("echo")) {
+                    switch (query) {
+                    case "echo":
                         echo(input.substring(4, input.length()));
-                    } else if (query.equals("todo")) {
-                        add(
-                            TaskType.TODO, 
-                            input.substring(4, input.length())
-                        );
-                    } else if (query.equals("deadline")) {
-                        add(
-                            TaskType.DEADLINE, 
-                            input.substring(8, input.length())
-                        );
-                    } else if (query.equals("event")) {
-                        add(
-                            TaskType.EVENT, 
-                            input.substring(5, input.length())
-                        );
-                    } else if (query.equals("list")) {
+                        break;
+                    case "todo":
+                        add(TaskType.TODO, input.substring(4, input.length()));
+                        break;
+                    case "deadline":
+                        add(TaskType.DEADLINE, input.substring(8, input.length()));
+                        break;
+                    case "event":
+                        add(TaskType.EVENT, input.substring(5, input.length()));
+                        break;
+                    case "list":
                         list();
-                    } else if (query.equals("mark")) {
+                        break;
+                    case "mark":
                         mark(Integer.valueOf(input.substring(5, input.length())));
-                    } else if (query.equals("unmark")) {
+                        break;
+                    case "unmark":
                         unmark(Integer.valueOf(input.substring(7, input.length())));
-                    } else if (query.equals("delete")) {
+                        break;
+                    case "delete":
                         delete(Integer.valueOf(input.substring(7, input.length())));
-                    } else {
+                        break;
+                    default:
                         throw new CommandNotFoundException();
+                    
                     }
                 } catch (GladosException e) {
                     error(e);
@@ -76,7 +77,7 @@ public class Glados {
     public static void echo(String input) {
         System.out.println(
             HORIZONTAL_LINE
-            + "\nGLaDOS: " + input + "\n"
+            + "\nGLaDOS: " + input.trim() + "\n"
             + HORIZONTAL_LINE
         );
     }
@@ -90,96 +91,54 @@ public class Glados {
     }
 
     public static void add(TaskType taskType, String input) throws GladosException {
-        switch (taskType) {
-        case TODO:
-            String todoDescription = input.trim();
-            checkDescription(todoDescription);
-            taskList.add(new Todo(todoDescription));
-            break;
-        case EVENT:
-            checkDescription(input.trim());
-            String[] eventInputs = input.split(" /from ");
-            String eventDescription = eventInputs[0].trim();
-            checkDescription(eventDescription);
-            if (eventInputs.length != 2) {
-                throw new DateRangeNotFoundException();
-            }
-            String[] dateRange = eventInputs[1].split(" /to ");
-            if (dateRange.length != 2 || dateRange[0].trim().equals("") || dateRange[1].trim().equals("")) {
-                throw new DateRangeNotFoundException();
-            }
-            taskList.add(new Event(eventInputs[0].trim(), dateRange[0].trim(), dateRange[1].trim()));
-            break;
-        case DEADLINE:
-            checkDescription(input.trim());
-            String[] deadlineInputs = input.split(" /by ");
-            String deadlineDescription = deadlineInputs[0].trim();
-            checkDescription(deadlineDescription);
-            if (deadlineInputs.length != 2 || deadlineInputs[1].trim().equals("")) {
-                throw new DateNotFoundException();
-            }
-            taskList.add(new Deadline(deadlineInputs[0].trim(), deadlineInputs[1].trim()));
-            break;
-        default:
-            break;
-        }
-        listIndex++;
+        String[] res = taskManager.add(taskType, input);
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I have added the following task to the list...\n"
-            + "\n" + taskList.get(listIndex - 1).toString() + "\n"
-            + "\nNow you have " + listIndex + (listIndex == 1 ? " task.\n" : " tasks.\n")
+            + "\n" + res[0] + "\n"
+            + "\nNow you have " + res[1] + (Integer.parseInt(res[1]) == 1 ? " task.\n" : " tasks.\n")
             + HORIZONTAL_LINE
         );
     }
 
     public static void delete(int index) throws TaskNotFoundException{
-        if (index - 1 < 0 || index - 1 >= listIndex) {
-            throw new TaskNotFoundException();
-        }
-        Task task = taskList.remove(index - 1);
-        listIndex--;
+        String[] res = taskManager.delete(index);
+
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I have removed the following task from the list...\n"
-            + "\n" + task.toString() + "\n"
-            + "\nNow you have " + listIndex + (listIndex == 1 ? " task.\n" : " tasks.\n")
+            + "\n" + res[0] + "\n"
+            + "\nNow you have " + res[1] + (Integer.parseInt(res[1]) == 1 ? " task.\n" : " tasks.\n")
             + HORIZONTAL_LINE
         );
     }
 
-    private static void checkDescription(String description) throws DescriptionNotFoundException {
-         if (description.equals("")) {
-            throw new DescriptionNotFoundException();
-         }
-    }
-
     public static void list() {
+        ArrayList<Task> res = taskManager.list();
         System.out.println(HORIZONTAL_LINE);
         System.out.println("GLaDOS: Here is the list...\n");
-        for (int i = 0; i < listIndex; i++) {
-            System.out.println(i + 1 + ". " + taskList.get(i).toString()); 
+        for (int i = 0; i < res.size(); i++) {
+            System.out.println(i + 1 + ". " + res.get(i).toString()); 
         }
         System.out.println(HORIZONTAL_LINE);
     }
 
     public static void mark(int index) {
-        Task task = taskList.get(index - 1);
-        task.mark();
+        String res = taskManager.mark(index);
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: I've marked this task as done...\n"
-            + "\n" + task.toString() + "\n"
+            + "\n" + res + "\n"
             + HORIZONTAL_LINE);
     }
 
     public static void unmark(int index) {
-        Task task = taskList.get(index - 1);
-        task.unmark();
+        String res = taskManager.unmark(index);
+
         System.out.println(
             HORIZONTAL_LINE
             + "\nGLaDOS: Oops, looks like this task is no longer done...\n"
-            + "\n" + task.toString() + "\n"
+            + "\n" + res + "\n"
             + HORIZONTAL_LINE);
     }
 
