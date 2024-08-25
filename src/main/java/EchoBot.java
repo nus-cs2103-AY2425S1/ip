@@ -8,7 +8,7 @@ public class EchoBot {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    private static ArrayList<Task> allTasks = Data.getData();
+    private static TaskList allTasks;
 
     public static void dashline() {
         System.out.println("____________________________________________________________");
@@ -32,15 +32,7 @@ public class EchoBot {
      */
     public static void listAllTask() {
         dashline();
-        String tasks = "";
-
-        // Get task from task list
-        for (int i = 0; i < allTasks.size(); i++) {
-            tasks += (i + 1) + ". " + allTasks.get(i).toString();
-            tasks += (i == allTasks.size() - 1) ? "" : "\n";
-        }
-
-        System.out.println(tasks);
+        EchoBot.allTasks.listAllTask();
         dashline();
     }
 
@@ -54,13 +46,7 @@ public class EchoBot {
      */
     public static void deleteTask(int deleteIdx) throws IllegalArgumentException {
         dashline();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(allTasks.get(deleteIdx));
-
-        // Remove the task from list and return the size of list
-        allTasks.remove(deleteIdx);
-        System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
-
+        EchoBot.allTasks.delete(deleteIdx);
         dashline();
     }
 
@@ -80,6 +66,7 @@ public class EchoBot {
 
         // Initialize data.txt
         Data.init();
+        EchoBot.allTasks = Data.getData();
 
         // Send greet message to user
         EchoBot.greet();
@@ -102,15 +89,13 @@ public class EchoBot {
                 case MARK:
                     dashline();
                     int markIdx = Integer.parseInt(cmdParts[1]) - 1;
-                    Task markTask = allTasks.get(markIdx);
-                    markTask.setMark();
+                    EchoBot.allTasks.markTask(markIdx);
                     dashline();
                     break;
                 case UNMARK:
                     dashline();
                     int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
-                    Task unmarkTask = allTasks.get(unmarkIdx);
-                    unmarkTask.setUnmark();
+                    EchoBot.allTasks.unmarkTask(unmarkIdx);
                     dashline();
                     break;
                 case DELETE:
@@ -120,9 +105,7 @@ public class EchoBot {
                 default:
                     dashline();
                     Task task = Task.creatTask(userInput);
-                    allTasks.add(task);
-                    System.out.println(task);
-                    System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
+                    EchoBot.allTasks.add(task);
                     dashline();
                 }
                 Data.setData(allTasks);
