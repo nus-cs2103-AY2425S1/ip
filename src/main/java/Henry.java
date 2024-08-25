@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -44,10 +48,28 @@ public class Henry {
         System.out.println("\nHere are the tasks in your list:");
         for (int i = 0; i < index; i++) {
             System.out.println(i + 1
-                    +"."
+                    + "."
                     + tasks.get(i).toString());
         }
         System.out.println();
+    }
+
+    /**
+     * Returns date in the form of MMM dd yyyy
+     *
+     * @param date date in the form of YYYY-MM-DD
+     * @return date in the form of MMM dd yyyy
+     */
+    public static String convertDateTime(String dateTime) throws HenryException {
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh.mm a");
+            return localDateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new HenryException("Please write the date and time in " +
+                    "the following format: YYYY-MM-DD HHmm");
+        }
     }
 
     /**
@@ -80,9 +102,10 @@ public class Henry {
                         "followed by the deadline. " +
                         "Example: deadline return book /by Sunday");
             }
-            String time = activityAndTimeList[1]
+            String dateTime = activityAndTimeList[1]
                     .replaceFirst("by ", "");
-            tasks.add(new Deadline(activity, time));
+            String convertedDateTime = convertDateTime(dateTime);
+            tasks.add(new Deadline(activity, convertedDateTime));
         } else if (task.equals("event")) {
             //check if event description is valid
             if (activityAndTimeList.length != 3 ) {
