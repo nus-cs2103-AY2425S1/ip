@@ -2,6 +2,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -24,9 +26,14 @@ public class Main {
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
         // get due date
-        String[] dueDateArray = Arrays.copyOfRange(commandDetails, indexOfBy + 1, commandDetails.length);
-        String dueDate = String.join(" ", dueDateArray);
-        return new String[]{description, dueDate};
+//        String[] dueDateArray = Arrays.copyOfRange(commandDetails, indexOfBy + 1, commandDetails.length);
+//        String dueDate = String.join(" ", dueDateArray);
+
+        // yyyy-mm-dd
+        String dueDate  = commandDetails[commandDetails.length - 1];
+        LocalDate date = LocalDate.parse(dueDate);
+        String dateInCorrectFormat = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return new String[]{description, dateInCorrectFormat};
     }
 
     /**
