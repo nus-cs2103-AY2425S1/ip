@@ -53,7 +53,7 @@ public class Ui {
      * Prints the latest task to be added to the list.
      */
     public void printLatestTask(Task task) {
-        System.out.println("Got it. Cookie has added this task:\n  "
+        System.out.println("Got it. Cookie has added this task:\n"
                 + task.toString());
     }
 
@@ -70,7 +70,7 @@ public class Ui {
      * Prints a message when a task is successfully marked as done.
      */
     public void printMarkTask(Task task) {
-        String mark = "Cookie has marked this as done! Good job! \n" +
+        String mark = "Cookie has marked this as done! Good job!\n" +
                 task.toString();
         System.out.println(mark);
     }
@@ -79,7 +79,7 @@ public class Ui {
      * Prints a message when a task is successfully marked as not done.
      */
     public void printUnmarkTask(Task task) {
-        String unmark = "Cookie has unmarked this task! \n" +
+        String unmark = "Cookie has unmarked this task!\n" +
                 task.toString();
         System.out.println(unmark);
     }

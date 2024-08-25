@@ -37,11 +37,11 @@ Now you have 5 tasks in the list.
 4: [T][] join some club
 5: [T][] read book
 
-Cookie has marked this as done! Good job! 
+Cookie has marked this as done! Good job!
 [T][X] borrow book
-Cookie has marked this as done! Good job! 
+Cookie has marked this as done! Good job!
 [E][X] project meeting (from: Aug 19 2pm to: 4pm )
-Cookie has unmarked this task! 
+Cookie has unmarked this task!
 [T][] borrow book
 1: [T][] borrow book
 2: [D][] return book (by: June 6th)
