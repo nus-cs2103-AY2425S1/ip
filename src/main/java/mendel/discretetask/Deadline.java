@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package mendel.discretetask;
+
+public class Deadline extends Task {
     public Deadline(String description) {
         super(description);
     }

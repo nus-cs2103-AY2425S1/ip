@@ -1,5 +1,11 @@
 import java.util.*;
+
 import mendel.preetyprint.FormatText;
+
+import mendel.discretetask.Task;
+import mendel.discretetask.Deadline;
+import mendel.discretetask.Todo;
+import mendel.discretetask.Event;
 
 public class TaskStorage extends MendelAction{
     private final List<Task> messages;
