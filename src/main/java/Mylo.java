@@ -1,4 +1,6 @@
-import java.util.Objects;
+import level2.TaskList;
+import level2.TaskModel;
+
 import java.util.Scanner;
 
 public class Mylo {
@@ -6,6 +8,8 @@ public class Mylo {
         System.out.println("--------------------------------");
     }
     public static void main(String[] args) {
+        TaskList list = new TaskList();
+
         String name = "Mylo";
         String greet = "Hello! Thanks for using " + name + ".";
         String opening_query = "What can I help you?";
@@ -15,17 +19,31 @@ public class Mylo {
         System.out.println(opening_query);
 
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.next();
+        String input = scanner.nextLine();
 
-        while(!Objects.equals(input, "bye")) {
-            separator();
-            System.out.println(input);
-            separator();
-            input = scanner.next();
+        while(!input.equals("bye")) {
+            switch(input) {
+                case "list":
+                    separator();
+                    System.out.println(list);
+                    separator();
+                    break;
+                case "who are you":
+                    separator();
+                    System.out.println("I'm " + name);
+                    separator();
+                    break;
+                default:
+                    separator();
+                    list.addTask(new TaskModel(input));
+                    separator();
+            }
+            input = scanner.nextLine();
         }
 
         separator();
         System.out.println(goodbye);
         separator();
+        scanner.close();
     }
 }
